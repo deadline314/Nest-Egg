@@ -24,7 +24,7 @@ static func texture(id: StringName) -> Texture2D:
 	if _cache.has(id):
 		return _cache[id]
 	var path := FOLDER + String(id) + ".png"
-	var loaded := RigLibrary.optional_texture(path)
+	var loaded := RigLibrary.optional_texture(path) if ResourceLoader.exists(path, "Texture2D") else null
 	if loaded == null:
 		push_error("[FixtureArt] 找不到固定物件貼圖，改用簡單畫法：%s" % path)
 	_cache[id] = loaded

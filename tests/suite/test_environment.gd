@@ -598,8 +598,9 @@ func _test_fixture_art() -> void:
 			and (ladder.region_rect.size * ladder.scale).is_equal_approx(Vector2(20.0, 152.0)), "a tiled fixture repeats at its native density")
 	FixtureArt.resize(ladder, Vector2(20.0, 40.0), true)
 	check((ladder.region_rect.size * ladder.scale).is_equal_approx(Vector2(20.0, 40.0)), "a tiled fixture can be resized")
+	RigLibrary.texture(FixtureArt.FOLDER + "test_missing_prop_fixture.png")
 	check(FixtureArt.attach(holder, &"test_missing_prop_fixture", Vector2.ZERO, Vector2(8.0, 8.0)) == null,
-			"a missing fixture texture returns null instead of breaking the level")
+			"a missing fixture texture returns null even when the shared cache has a placeholder")
 	holder.queue_free()
 	FixtureArt.clear_cache()
 

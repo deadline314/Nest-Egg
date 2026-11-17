@@ -1,0 +1,592 @@
+{
+  "archives": [
+    {
+      "file": "raw-001.zip",
+      "members": [
+        {
+          "path": "affected/raw.log",
+          "bytes": 1404,
+          "sha256": "d6c61a0715118778b420d4665866fc320031df5546129a4c57d448f32170b13d"
+        },
+        {
+          "path": "affected/result.json",
+          "bytes": 330,
+          "sha256": "47540b999c18291fb0ce71f7d24a6e8e4767d7f7164eea0ad4793815b5810510"
+        },
+        {
+          "path": "affected/shards/shard_0.log",
+          "bytes": 239310,
+          "sha256": "d5d7152ad0a39a5ad1547be580bbf22305796a62e5efcf5ce1e7fdd2411cbcdf"
+        },
+        {
+          "path": "affected/shards/shard_1.log",
+          "bytes": 251236,
+          "sha256": "df1856c85970e0f1ea75a974fe81fdefa0a9f1abe60fec396a3f34993b4df01b"
+        },
+        {
+          "path": "affected/source-after.json",
+          "bytes": 1267870,
+          "sha256": "d1bdd86dd320c80de82c1c8c0b7723bcaa7175ff9da6374e6e775d8b9b172f16"
+        },
+        {
+          "path": "affected/source-before.json",
+          "bytes": 1267870,
+          "sha256": "d1bdd86dd320c80de82c1c8c0b7723bcaa7175ff9da6374e6e775d8b9b172f16"
+        },
+        {
+          "path": "asset-audit/result.json",
+          "bytes": 2463,
+          "sha256": "01132c437feee3f688c4289dc22d8abac6d77e8d4c44b9e1d2b03c3656622e2c"
+        },
+        {
+          "path": "core-fixtures-v3/high/campaign-door.png",
+          "bytes": 518406,
+          "sha256": "32f38506fc33c763212b8676df07cb97cfa2e96869c4f562e8621a83c35bc63c"
+        },
+        {
+          "path": "core-fixtures-v3/high/campaign-gate-closed-lower.png",
+          "bytes": 288054,
+          "sha256": "2ae5a4b5195597aacbddbc208820f4e48df8c3f7ba5e716c57d5577f0cfb8c4e"
+        },
+        {
+          "path": "core-fixtures-v3/high/campaign-gate-open-upper.png",
+          "bytes": 169094,
+          "sha256": "b1b691505aedbdcbced43f7587414d334ec0cda76c2ac1de331a61633a6152ec"
+        },
+        {
+          "path": "core-fixtures-v3/high/campaign-hint-formal.png",
+          "bytes": 435419,
+          "sha256": "63dff1174f8c1de0143d0e5caf68d76a49708520d1699dc6c4b19ef79275305e"
+        },
+        {
+          "path": "core-fixtures-v3/high/campaign-hint-loader-refusal.png",
+          "bytes": 424579,
+          "sha256": "2570a3e0c22d80530075d7f1750163d48c6395938db344cd126c0787a4151391"
+        },
+        {
+          "path": "core-fixtures-v3/high/campaign-ladder.png",
+          "bytes": 581300,
+          "sha256": "0cf85420adb9b1fcd435710bda1d87387b417c73fa230b952901b98367ba547c"
+        },
+        {
+          "path": "core-fixtures-v3/high/campaign-switch-off.png",
+          "bytes": 340004,
+          "sha256": "dd259968e43a6cef5f267af1fc8a6857ac82f03bd6ed737f7e3fcde79a191e9e"
+        },
+        {
+          "path": "core-fixtures-v3/high/campaign-switch-on.png",
+          "bytes": 316569,
+          "sha256": "707aa4815478a4de9103e34a47c8215fbd726423d796a27c480fcb50c497cd6e"
+        },
+        {
+          "path": "core-fixtures-v3/high/campaign-wall-broken.png",
+          "bytes": 185162,
+          "sha256": "6a3a8676958bcf334851c3ee1cc1deea0deeb18010fd1afbbca0f435e37d9800"
+        },
+        {
+          "path": "core-fixtures-v3/high/campaign-wall-damaged.png",
+          "bytes": 156671,
+          "sha256": "47fbb7b7521344233b45fcfc9e005a437c0827960107c7fd33d00fb478015579"
+        },
+        {
+          "path": "core-fixtures-v3/high/campaign-wall-intact.png",
+          "bytes": 148759,
+          "sha256": "d283fb272096cbb6f30e337b10f0a069d650ced5bdb20da93b5821134be899ce"
+        },
+        {
+          "path": "core-fixtures-v3/high/raw.log",
+          "bytes": 3070,
+          "sha256": "fb9a11ad5041c43874f3af33d60a2b9cfd8ad5f603e0e474fc195450d42f934b"
+        },
+        {
+          "path": "core-fixtures-v3/high/receipt.json",
+          "bytes": 2577,
+          "sha256": "c09e1685d8e5f7f048b7d29f43ae3301a0c4750115a858837d503150423d2313"
+        },
+        {
+          "path": "core-fixtures-v3/low/campaign-door.png",
+          "bytes": 414749,
+          "sha256": "5307c63c344f9152c3619e75ac1fe0682e059b7a54fa2338f32f31d500148480"
+        },
+        {
+          "path": "core-fixtures-v3/low/campaign-gate-closed-lower.png",
+          "bytes": 274951,
+          "sha256": "cd46e324001ca452c284bfead85fc0725fc0ba97fb2181ad3c1bf8f294018037"
+        },
+        {
+          "path": "core-fixtures-v3/low/campaign-gate-open-upper.png",
+          "bytes": 147904,
+          "sha256": "afc2580248ca6ef053bf61d967fba52057c65380a3a202fe9354abbe93749201"
+        },
+        {
+          "path": "core-fixtures-v3/low/campaign-hint-formal.png",
+          "bytes": 371436,
+          "sha256": "3be45780f890201d50bde821594169fc1675c3abeefdeb79fd7e99b488a4b041"
+        },
+        {
+          "path": "core-fixtures-v3/low/campaign-hint-loader-refusal.png",
+          "bytes": 357166,
+          "sha256": "dec21d4338dadd2dddc54d0646c7d41616fda345ef117a6862bc4940afe2417a"
+        },
+        {
+          "path": "core-fixtures-v3/low/campaign-ladder.png",
+          "bytes": 483012,
+          "sha256": "e9a8dc97a19ea1a165929d422af2a3853f85789867f9ca2f7246a63d46e8a840"
+        },
+        {
+          "path": "core-fixtures-v3/low/campaign-switch-off.png",
+          "bytes": 304404,
+          "sha256": "e37d5258692f5aaeb3ca7a436938a93e6aee897512b7bebe9955e71b57a1efc3"
+        },
+        {
+          "path": "core-fixtures-v3/low/campaign-switch-on.png",
+          "bytes": 282449,
+          "sha256": "02b5d695ddd5661e645e261b1846b43af1124e04db43d73693118da5e4a02393"
+        },
+        {
+          "path": "core-fixtures-v3/low/campaign-wall-broken.png",
+          "bytes": 177769,
+          "sha256": "38fa449b1d36cc1de812129015645c8deb4b4dc9a4ca7b8e1b6981d3747d7f8d"
+        },
+        {
+          "path": "core-fixtures-v3/low/campaign-wall-damaged.png",
+          "bytes": 143132,
+          "sha256": "1537c60d040825d2990992fe93cc7e34579db7263545aa3facca13e12cad3fa7"
+        },
+        {
+          "path": "core-fixtures-v3/low/campaign-wall-intact.png",
+          "bytes": 136603,
+          "sha256": "b41551ad879a821bb7bb7e15ca997309c176b937f65313ead2cfa95c139b4d3f"
+        },
+        {
+          "path": "core-fixtures-v3/low/raw.log",
+          "bytes": 3059,
+          "sha256": "044e792deea34bca50a4582a972b74fb76e9dd1a83ae9a533972147a3631262c"
+        },
+        {
+          "path": "core-fixtures-v3/low/receipt.json",
+          "bytes": 2577,
+          "sha256": "dc3cb90012ad41695865764d5fe0bba7e994c603465326b6edf7205da4689b92"
+        },
+        {
+          "path": "core-fixtures-v3/runs.json",
+          "bytes": 1650,
+          "sha256": "2b24577a1262fe8afa9375c0f4197a9de263f4abd7890aa13077dfefc56559d3"
+        },
+        {
+          "path": "core-fixtures-v3/source-after.json",
+          "bytes": 1207273,
+          "sha256": "95ad5bbd812549032fedd7fe2a48cf0c181e898493516ff827a53012a0b200e0"
+        },
+        {
+          "path": "core-fixtures-v3/source-before.json",
+          "bytes": 1207273,
+          "sha256": "95ad5bbd812549032fedd7fe2a48cf0c181e898493516ff827a53012a0b200e0"
+        },
+        {
+          "path": "drivers/finish-bg21-native-20261117.py",
+          "bytes": 2676,
+          "sha256": "789207bcde1206716602e1092a3e3aa3f7d6654a6122495a589688528a68ab58"
+        },
+        {
+          "path": "drivers/run-bg21-affected-20261117.py",
+          "bytes": 1677,
+          "sha256": "c633be65b3f6ffd76fca7aece88a4dc9e6ed447f8dae289f93b40bd0089197ba"
+        },
+        {
+          "path": "drivers/run-bg21-core-fixtures-20261117.py",
+          "bytes": 9656,
+          "sha256": "9f32d40ebf4a5965d36f7b6d312aa509479446ff97b52e187513b4bc928dfce1"
+        },
+        {
+          "path": "drivers/run-bg21-core-fixtures-v2-20261117.py",
+          "bytes": 9744,
+          "sha256": "bbb60f1a737820fa31cd0bd985b9b23b2176c07e50c63109ec865ea17615d048"
+        },
+        {
+          "path": "drivers/run-bg21-core-fixtures-v3-20261117.py",
+          "bytes": 9973,
+          "sha256": "895bb0798ed0a2a7ad09925699a3d6655c0d7354f4e0ec454399fd6f0a5dd7f1"
+        },
+        {
+          "path": "drivers/run-bg21-native-20261117.py",
+          "bytes": 5033,
+          "sha256": "b3d80ed87cf8e9585700f732ada64369a89292d8379184772863f53deace1f31"
+        },
+        {
+          "path": "history/core-fixtures-v2/high/raw.log",
+          "bytes": 3252,
+          "sha256": "1ba2e66838036e0573f75b69676e7d397760705d8ef43b2349d67e28bc51323e"
+        },
+        {
+          "path": "history/core-fixtures-v2/low/raw.log",
+          "bytes": 3174,
+          "sha256": "4bec04ca5e4f4eac6a48770c14562a8dc22a221b0175f01c1a3543c552cce193"
+        },
+        {
+          "path": "history/core-fixtures-v2/runs.json",
+          "bytes": 1650,
+          "sha256": "6242104eebbd8910b87327f15040eb23e2faadec82a1bc07169ab82c75fdd20a"
+        },
+        {
+          "path": "history/core-fixtures/intentional-close.json",
+          "bytes": 37815,
+          "sha256": "c5f8f484d97becfd8f489f7c9fa5dd3bca7c04eb0a49b06757a521391b8de8a5"
+        },
+        {
+          "path": "history/core-fixtures/low/raw.log",
+          "bytes": 1644,
+          "sha256": "1be6df44e35ba8b1cfb691a80e865a6d51a262035243b2fe87eb8de0d82ddcb3"
+        },
+        {
+          "path": "history/core-fixtures/runs.json",
+          "bytes": 780,
+          "sha256": "4bf5e9579424207b451ed766f8a5eb4682d33022dd6aa45e1e957fca563d5189"
+        },
+        {
+          "path": "native/counter/raw.log",
+          "bytes": 1046,
+          "sha256": "2dca51b878cd3e77e5077c088919a4c9af822859abed20e5147b7cda1c16c7f7"
+        },
+        {
+          "path": "native/high-run.json",
+          "bytes": 805,
+          "sha256": "ac40629d6d9f414a5f36c5a1b1772acb94b02a64dd3f7ef1737bea770be5bef6"
+        },
+        {
+          "path": "native/high-source-after.json",
+          "bytes": 1207273,
+          "sha256": "95ad5bbd812549032fedd7fe2a48cf0c181e898493516ff827a53012a0b200e0"
+        },
+        {
+          "path": "native/high-source-before.json",
+          "bytes": 1207273,
+          "sha256": "95ad5bbd812549032fedd7fe2a48cf0c181e898493516ff827a53012a0b200e0"
+        },
+        {
+          "path": "native/high/barrel-broken.png",
+          "bytes": 78747,
+          "sha256": "d9240f79ace93043309aada3070539e152a41b37111817b1877b2cc426d7084b"
+        },
+        {
+          "path": "native/high/barrel-damaged.png",
+          "bytes": 99688,
+          "sha256": "725b0f29d6384864d9c266c1c754c689935951b881e42baf5ed6bc85aad41f0e"
+        },
+        {
+          "path": "native/high/barrel-intact.png",
+          "bytes": 96985,
+          "sha256": "df312b9351a2a7dcf8666ce392692b19cc6436eb59a8975d55e8937a04cc7268"
+        },
+        {
+          "path": "native/high/campaign-pawnshop-broken.png",
+          "bytes": 366147,
+          "sha256": "58a1a5f4c194277933fa933613bc4f7d7e14dcaec5504c189d0103856f2b5a1f"
+        },
+        {
+          "path": "native/high/campaign-pawnshop-damaged.png",
+          "bytes": 371953,
+          "sha256": "b785e79f71258954a28d650fbb7325fad6c35efce230e2599c107ef0c9b596fb"
+        },
+        {
+          "path": "native/high/campaign-pawnshop-intact.png",
+          "bytes": 401574,
+          "sha256": "a57e921af6d32957cba5f58a7abffa27c6f9d3a9420a50b2d0ecb5544e5e6649"
+        },
+        {
+          "path": "native/high/crate-broken.png",
+          "bytes": 134371,
+          "sha256": "8b63615af56b1c35d56c47743e1cf048403f6a3363e7006c180c4ecdfe57dd80"
+        },
+        {
+          "path": "native/high/crate-damaged.png",
+          "bytes": 139422,
+          "sha256": "e2b5d7cbc8d5afda3b5bd2d00bd8f79946c136476ecb1739012318eed1e5a2a9"
+        },
+        {
+          "path": "native/high/crate-intact.png",
+          "bytes": 117955,
+          "sha256": "714489077e3494f5183084cc3cc08b7786ab2e4592181e6e728d318dfc5fb0c9"
+        },
+        {
+          "path": "native/high/glass-broken.png",
+          "bytes": 97469,
+          "sha256": "6483422a8ea648dfcdaf81e9e42b3ce08bd19cff11a65f3da30d8a464a085a90"
+        },
+        {
+          "path": "native/high/glass-damaged.png",
+          "bytes": 119414,
+          "sha256": "468fa6d3dc95c9943423160113237ff2d2b45c2c65e7f7c7aa70d29fee5c5ca7"
+        },
+        {
+          "path": "native/high/glass-intact.png",
+          "bytes": 105242,
+          "sha256": "4c446e69c2d2e29e9ea132d7203fb78352b2f823f8dc6d702e35bb40e344d7ff"
+        },
+        {
+          "path": "native/high/lift-riding.png",
+          "bytes": 105226,
+          "sha256": "499346540b10b9961ec62282300e82f330182c224578b0e9171c3d437165ea87"
+        },
+        {
+          "path": "native/high/power-cut.png",
+          "bytes": 112589,
+          "sha256": "b85dfd6f857397dc14776a1e4fcc23e067c77822bded126aa5a28263a3f57702"
+        },
+        {
+          "path": "native/high/power-supplied.png",
+          "bytes": 137207,
+          "sha256": "2f99ac6f72e345d8d5f866b3a1cd78865fccae4b68ca5245ef712910a5cf8ddb"
+        },
+        {
+          "path": "native/high/raw.log",
+          "bytes": 2132,
+          "sha256": "d5bd8aaaedec526f868f582001b1c6b2f799e8f5b5aab9a79ab29797746b14a9"
+        },
+        {
+          "path": "native/high/receipt.json",
+          "bytes": 3959,
+          "sha256": "e50601cae68a5ceff83c3f455c1c0deb2349f59a13a421b86d83cf61405dcfdb"
+        },
+        {
+          "path": "native/high/throwable-fuse.png",
+          "bytes": 123000,
+          "sha256": "36e66bab24234ed9d9fa3f4db290130f98d1f3e18473ef2f9e00d4da6a1538d0"
+        },
+        {
+          "path": "native/high/throwable-reduced-flashes.png",
+          "bytes": 121948,
+          "sha256": "a1140693cf262524f0b61d61b63a60bf72309d97cdeaa1b55d8eb165d351c9a5"
+        },
+        {
+          "path": "native/low/barrel-broken.png",
+          "bytes": 63811,
+          "sha256": "2a303789840d825ceb6c28b2bfb67138e6e9776906bac38608d5d9490c046afb"
+        },
+        {
+          "path": "native/low/barrel-damaged.png",
+          "bytes": 85476,
+          "sha256": "bd263b3df78c497dfb723663776bcfab23bf26e3c80d8ca9278fb9cf38f06fe1"
+        },
+        {
+          "path": "native/low/barrel-intact.png",
+          "bytes": 78719,
+          "sha256": "efb7ecae384c91713b9f7d48df85bcd5761b1717f8af6a5d6ffab5775296aace"
+        },
+        {
+          "path": "native/low/campaign-pawnshop-broken.png",
+          "bytes": 325543,
+          "sha256": "f383b58efb1a5d3d446e5f4a605c119b46a41987baca0bc7675a06c656a390d9"
+        },
+        {
+          "path": "native/low/campaign-pawnshop-damaged.png",
+          "bytes": 325588,
+          "sha256": "8cae27311fe8051939f50b1f568a92741460902a3744a48029df068e32feaed4"
+        },
+        {
+          "path": "native/low/campaign-pawnshop-intact.png",
+          "bytes": 353379,
+          "sha256": "c8edcc0c11090f3d6e53a2cbc43fca3c3af02062084429b355d14cfc62f598c0"
+        },
+        {
+          "path": "native/low/crate-broken.png",
+          "bytes": 97091,
+          "sha256": "58f066d0a6da5ae6aa8a9ac50e5a0e2ccf3c66e17e6e891a1c02ed9570c2c5ab"
+        },
+        {
+          "path": "native/low/crate-damaged.png",
+          "bytes": 105543,
+          "sha256": "129fa423fcb0748499483064977e2004ded29067913fe083a823de10f6e30ada"
+        },
+        {
+          "path": "native/low/crate-intact.png",
+          "bytes": 82135,
+          "sha256": "bff63bc2a20c4207f61ae3b98f27d39bcecf62a9897f167702e775b3e070ecd2"
+        },
+        {
+          "path": "native/low/glass-broken.png",
+          "bytes": 78365,
+          "sha256": "e2c1d021e69b4860a917c7c94a2da6c2988a9b45bd90cb9aaea6e74402883c2e"
+        },
+        {
+          "path": "native/low/glass-damaged.png",
+          "bytes": 92390,
+          "sha256": "5f931447ca2aa285f12020c03d80812ceb8cc7db7e0c94faaf6dfeb7af6804d4"
+        },
+        {
+          "path": "native/low/glass-intact.png",
+          "bytes": 85577,
+          "sha256": "ded18e0db4e46e7b6be06f9095bd0cf5e79039036d5f4e553359b914f3856cc3"
+        },
+        {
+          "path": "native/low/lift-riding.png",
+          "bytes": 82967,
+          "sha256": "cbce4859bcbeab4021b44f84069b0b8c1bfcab6ac7f0f5280d175aed211e50cf"
+        },
+        {
+          "path": "native/low/power-cut.png",
+          "bytes": 92902,
+          "sha256": "b0ef82f8090d3f2eaa19ac776444823f0605f95fd86ce57d5c8663d75c888c94"
+        },
+        {
+          "path": "native/low/power-supplied.png",
+          "bytes": 112302,
+          "sha256": "d7be602aeb597063a01904a325315aa836f8a5b941994dc2143093b7871243c1"
+        },
+        {
+          "path": "native/low/raw.log",
+          "bytes": 2118,
+          "sha256": "233759e538bb24a24a8e361c473248a01cc869ff6d8290ef69d1e0d2ce46c6ca"
+        },
+        {
+          "path": "native/low/receipt.json",
+          "bytes": 3959,
+          "sha256": "642e16a4b5dc35cce3e3e0e53ca7c70cb6f7144e6f359c517bf8914e0f250d50"
+        },
+        {
+          "path": "native/low/throwable-fuse.png",
+          "bytes": 87041,
+          "sha256": "ff9354a268958db8c4ae65bec3ba3dbd7f158e78df268fb457d73a069053d54e"
+        },
+        {
+          "path": "native/low/throwable-reduced-flashes.png",
+          "bytes": 76285,
+          "sha256": "6715a5ebc24d04c6db7d7dbb1894f7dbaeb3b893e3b9fadad8f8f52ee77f23af"
+        },
+        {
+          "path": "native/runs.json",
+          "bytes": 1230,
+          "sha256": "975298c4236b64ab7606c5393fcd725507c343be7c5a5c63482661ed5f784818"
+        },
+        {
+          "path": "native/source-before.json",
+          "bytes": 1207273,
+          "sha256": "95ad5bbd812549032fedd7fe2a48cf0c181e898493516ff827a53012a0b200e0"
+        },
+        {
+          "path": "producer/bg21-core-fixtures-v2/probe.gd",
+          "bytes": 7333,
+          "sha256": "7cf1698327c006cdb5ee9d6db8749bded0e05070fe240f6e1866f1b41a535904"
+        },
+        {
+          "path": "producer/bg21-core-fixtures-v2/probe.tscn",
+          "bytes": 180,
+          "sha256": "31691bd94aa5109c72b194ca4e43f0580edd68ca6a76c01036a08b8f87e781ab"
+        },
+        {
+          "path": "producer/bg21-core-fixtures-v3/probe.gd",
+          "bytes": 7562,
+          "sha256": "c41ef5fa040a5f6e8c25c09bee6cb00bd91b8751915c5a43b9a51db174b0445b"
+        },
+        {
+          "path": "producer/bg21-core-fixtures-v3/probe.tscn",
+          "bytes": 180,
+          "sha256": "c229f8502d75179cee9ea112649dde9279cd1670858f3b4180b128ac7a3e3714"
+        },
+        {
+          "path": "producer/bg21-core-fixtures/probe.gd",
+          "bytes": 7280,
+          "sha256": "6f8fd8c1acaa38602120d03fae34e15eab40b063cf4e7a0669d27b7bc5720ee4"
+        },
+        {
+          "path": "producer/bg21-core-fixtures/probe.tscn",
+          "bytes": 177,
+          "sha256": "bf854a42c4906db964cb1cd660cd85fb155d96778cb97cd0c5d06abfed168d4b"
+        },
+        {
+          "path": "producer/bg21-current-native/before.gd",
+          "bytes": 4760,
+          "sha256": "f59fbb4eb0249b20f91538fd493c491c3c1dd47d1dd503ebc1d5e568076ef1c9"
+        },
+        {
+          "path": "producer/bg21-current-native/counter.gd",
+          "bytes": 997,
+          "sha256": "6f776e34c04e1127102c07a8f7e7593122ae226c55cdd12281446088660f2294"
+        },
+        {
+          "path": "producer/bg21-current-native/counter.tscn",
+          "bytes": 180,
+          "sha256": "cdb200282cc677854f417606183cd032629928ef87e295b6c5d6f194629e9a83"
+        },
+        {
+          "path": "producer/bg21-current-native/states.gd",
+          "bytes": 8721,
+          "sha256": "ef157d8e32933243a3d64a22746b253f9d1e4b64e01129fd28aa784e9f01cb8e"
+        },
+        {
+          "path": "producer/bg21-current-native/states.tscn",
+          "bytes": 179,
+          "sha256": "bac53a3e1f5b5765c0706beee12b11c3ae33a780833ae3c7c4e164c344e2338c"
+        },
+        {
+          "path": "review/inputs.json",
+          "bytes": 14645,
+          "sha256": "518ddfe101028dae104eb28e9d650f22e3341d8694d15e09818ddd575bee8630"
+        },
+        {
+          "path": "source/art/environment/fixtures/breakable_wall.png",
+          "bytes": 1282,
+          "sha256": "6eddb05fd848ba3dc3b58082753a2cf7be3f82367eabcb07496712d5428df394"
+        },
+        {
+          "path": "source/art/environment/fixtures/door_steel.png",
+          "bytes": 2010,
+          "sha256": "983037c67b266fb42c1adebde54b7e9d93320d5ed6a89d817f85ca4d3905a0b9"
+        },
+        {
+          "path": "source/art/environment/fixtures/gate_shutter.png",
+          "bytes": 627,
+          "sha256": "fc5db9c9f9071592b77316467b0f03018fcf1c6b135b590311c914f0420987c2"
+        },
+        {
+          "path": "source/art/environment/fixtures/hint_sign.png",
+          "bytes": 875,
+          "sha256": "85d6551a6128e3713a87b80b379d7ce5568e3ca32e3416a42cfd9c878be91a51"
+        },
+        {
+          "path": "source/art/environment/fixtures/ladder_segment.png",
+          "bytes": 642,
+          "sha256": "1514efe37c9e94803ebbdb9511cf6af3ddf388885cc5d5a45331721dc70d112f"
+        },
+        {
+          "path": "source/art/environment/fixtures/switch_box_off.png",
+          "bytes": 970,
+          "sha256": "2544be822df61571e3a248f5431c8d1c04ddc0b74a2adb488ae146eae659ef3b"
+        },
+        {
+          "path": "source/art/environment/fixtures/switch_box_on.png",
+          "bytes": 1031,
+          "sha256": "04e155260379d3d269e2fe1fe724b5891f99eb659e7765f35f7f45cca46110b4"
+        },
+        {
+          "path": "source/design/20-campaign-experience/FIXTURE_ASSETS.md",
+          "bytes": 4833,
+          "sha256": "fe9128dc0aaeb2683e799b1306fa0331990a2bf1d519b9968c156796f2fb3e90"
+        },
+        {
+          "path": "source/game/props/fixture_art.gd",
+          "bytes": 4836,
+          "sha256": "5c312979686d1a5a8e1ad6603246d8efbde52822570d0fc20fae0fffdb118fa0"
+        },
+        {
+          "path": "source/tests/suite/test_environment.gd",
+          "bytes": 100342,
+          "sha256": "0b3bfea85f31af7d80aec65051ac0e6883f3d60e9b1b930dc844fda64f9bd283"
+        },
+        {
+          "path": "source/tools/assets/cel_fixtures.py",
+          "bytes": 17034,
+          "sha256": "98cf0aa287e9b08d922526a0fc5a469c4e8ea92011e222c3f5aa1c3d2e8bf04f"
+        },
+        {
+          "path": "source/tools/fixture_states_probe.gd",
+          "bytes": 8452,
+          "sha256": "e4be15a7ea19b312d63f423804dc0507b5bcdad3a13e016230e20081846fc1df"
+        }
+      ],
+      "bytes": 14746850,
+      "sha256": "50ba24b11588b3cc4b2ae1f80e68283194354a64489232c5b5b9b4f1cd1f8659"
+    }
+  ],
+  "file_count": 116
+}
