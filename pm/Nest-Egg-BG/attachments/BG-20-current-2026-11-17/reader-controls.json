@@ -1,0 +1,17 @@
+{
+  "valid_members": 907,
+  "valid_images": 837,
+  "negative_cases": [
+    {
+      "name": "archive-byte-flip",
+      "exit": 1,
+      "specific_rejection": true
+    },
+    {
+      "name": "member-digest-mismatch",
+      "exit": 1,
+      "specific_rejection": true
+    }
+  ],
+  "failures": 0
+}

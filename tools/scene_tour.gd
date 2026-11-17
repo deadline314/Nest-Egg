@@ -12,6 +12,7 @@ extends Node
 ## --no-shadows：拿掉角色腳下的接觸陰影（量陰影成本時當對照）。索引會記錄每關的陰影數與每格實際花的時間
 ##   （關掉垂直同步後相鄰兩格的間隔，取中位數；引擎的處理時間監測值不是每格時間，不要用）。
 ## --flat 是盤點用的診斷畫面：環境光與背景調成全亮、關掉後製，只看擺放、支撐與圖層；不能拿來驗收光影。
+## 不顯示主角時也隱藏靠近主角的提示文字；--show-player／--player 保留提示，看板本體始終保留。
 ## 輸出 <關卡>/<標籤>-c<欄>-r<列>.png 與 <關卡>/<標籤>-index.json（每格實際拍到的世界範圍）。
 ## 敵人與主角停在原地不動；主角預設隱藏。拼圖用 tools/scene_tour_sheet.py。
 
@@ -203,6 +204,14 @@ func _tour(level_id: String) -> bool:
 	level.player.health.setup(999, 0.0)
 	level.player.process_mode = Node.PROCESS_MODE_DISABLED
 	level.player.visible = _show_player
+	var suppressed_prompts := 0
+	if not _show_player and not _walk_player:
+		for node: Node in level.find_children("*", "Node2D", true, false):
+			if node is WorldPrompt:
+				node.enabled = false
+				node.set_process(false)
+				node.hide()
+				suppressed_prompts += 1
 	for node: Node in get_tree().get_nodes_in_group(&"enemies"):
 		if _keep_enemies:
 			node.process_mode = Node.PROCESS_MODE_DISABLED
@@ -271,6 +280,7 @@ func _tour(level_id: String) -> bool:
 			shots.append(shot)
 	var index := {"level": level_id, "tag": _tag, "level_size": [size.x, size.y], "view": [view.x, view.y],
 		"columns": columns, "rows": rows, "tile": level._layout.tile_size, "shots": shots,
+		"suppressed_player_prompts": suppressed_prompts,
 		"contact_shadows": 0 if _no_shadows else shadows.size(),
 		"frame_ms_median": _median(frame_ms)}
 	var writer := FileAccess.open(folder.path_join(_tag + "-index.json"), FileAccess.WRITE)
