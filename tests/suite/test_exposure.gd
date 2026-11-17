@@ -74,6 +74,15 @@ func _test_contrast_geometry() -> void:
 	check(probe.contrast(box, 0) == 0.0, "a body with no surrounding ring cannot report contrast")
 
 
+	probe._scale = 1.0
+	probe._to_screen = Transform2D.IDENTITY
+	probe._image.fill(Color(0.1, 0.1, 0.1))
+	probe._image.fill_rect(Rect2i(8, 20, 48, 3), Color(0.4, 0.4, 0.4))
+	check(absf(probe.edge_contrast(Vector2(32, 20)) - 2.5) < 0.00001, "visible edge and below samples retain physical contrast 2.5")
+	check(probe.edge_contrast(Vector2(32, 60)) == 0.0, "an off-screen below sample cannot make a visible floor appear readable")
+	check(probe.edge_contrast(Vector2(32, -8)) == 0.0, "an off-screen edge cannot report contrast from its visible below sample")
+
+
 func _test_budget_model() -> void:
 	check(is_equal_approx(LightKit.player_light_for(0.05, 1.0), LightKit.PLAYER_LIGHT_BASE_ENERGY), "a dark scene keeps the full player light")
 	check(LightKit.player_light_for(0.9, 1.0) == LightKit.PLAYER_LIGHT_MIN_ENERGY, "a bright scene dims the player light to its minimum")
@@ -198,6 +207,7 @@ func _test_enemy_fill_is_separate() -> void:
 	# reduce both fills to 1 during the sample. Isolate only this fixture's weather;
 	# exercise the transient and recovery explicitly below without changing the source.
 	zone.profile = source.duplicate(true) as LightingProfile
+	zone.profile.enemy_fill_scale = 0.6
 	zone.profile.lightning_rate = 0.0
 	data.lighting_zones = [zone]
 	var level := await start_level(data)
@@ -206,7 +216,7 @@ func _test_enemy_fill_is_separate() -> void:
 	level._entities.add_child(enemy)
 	await physics_frames(150)
 	var profile := zone.profile as LightingProfile
-	check(profile.enemy_fill_scale < 1.0 and profile.validate().is_empty(), "the warehouse interior asks for dimmer enemies and is valid data")
+	check(profile.enemy_fill_scale < 1.0 and profile.validate().is_empty(), "the isolated dim-enemy fixture is valid lighting data")
 	if not (LightKit.character_fill > 1.0 and LightKit.enemy_fill < LightKit.character_fill and LightKit.enemy_fill >= 1.0):
 		print("EXPOSURE_SAMPLE %s" % JSON.stringify({"profile":profile.id, "ambient":LightKit.ambient_luma,
 			"flash":level._lighting.flash_level(), "character_fill":LightKit.character_fill,
@@ -229,10 +239,10 @@ func _test_enemy_fill_is_separate() -> void:
 			and LightKit.enemy_fill < LightKit.character_fill and LightKit.enemy_fill >= 1.0,
 			"after the flash the original dark-interior fill separation returns")
 	var cap_before := LightKit.enemy_light_cap
-	profile.enemy_fill_scale = 1.2
+	profile.enemy_fill_scale = LightingProfile.MAX_ENEMY_FILL_SCALE
 	level._lighting.snap()
 	await physics_frames(2)
-	check(is_equal_approx(LightKit.character_fill, baseline_fill) and is_equal_approx(LightKit.enemy_fill, baseline_fill * 1.2),
+	check(is_equal_approx(LightKit.character_fill, baseline_fill) and is_equal_approx(LightKit.enemy_fill, baseline_fill * LightingProfile.MAX_ENEMY_FILL_SCALE),
 			"dark armor can get extra fill without changing the player's exposure")
 	check(enemy.rig != null and is_equal_approx(enemy.rig._fill, LightKit.enemy_fill) and is_equal_approx(LightKit.enemy_light_cap, cap_before),
 			"extra enemy fill reaches the real rig while preserving its light cap")
@@ -244,8 +254,10 @@ func _test_enemy_fill_is_separate() -> void:
 	plain.enemy_fill_scale = 1.2
 	check(plain.validate().is_empty(), "a bounded boost for dark armor is valid lighting data")
 	plain.enemy_fill_scale = 1.5
-	check(plain.validate().is_empty(), "the maximum enemy fill remains valid")
-	plain.enemy_fill_scale = 1.51
+	check(plain.validate().is_empty(), "the previous enemy fill limit remains valid")
+	plain.enemy_fill_scale = 2.0
+	check(plain.validate().is_empty(), "the bounded warehouse armor boost is valid")
+	plain.enemy_fill_scale = 2.01
 	check(not plain.validate().is_empty(), "enemy fill above the bounded maximum is rejected")
 	plain.enemy_fill_scale = NAN
 	check(not plain.validate().is_empty(), "nonfinite enemy fill is rejected")

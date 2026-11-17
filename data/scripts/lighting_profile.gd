@@ -11,7 +11,7 @@ const BLENDED: Array[StringName] = [
 
 ## 角色最低可讀亮度（0~1）：環境光再暗，角色補光後至少要有這個亮度。
 const MIN_READABLE_CHARACTER_LUMA := 0.2
-const MAX_ENEMY_FILL_SCALE := 1.5
+const MAX_ENEMY_FILL_SCALE := 2.0
 ## 亮度分級（BG-33）：依環境光的亮度分成暗、一般、亮。暗的區域要靠槍燈與場景燈才看得清楚；亮的留給安全區與特殊場景。
 const TIER_DARK_BELOW := 0.2
 const TIER_BRIGHT_FROM := 0.35

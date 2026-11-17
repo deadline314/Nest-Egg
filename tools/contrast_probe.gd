@@ -78,6 +78,9 @@ func character_parts(feet: Vector2, full_height := false) -> Dictionary:
 func edge_contrast(feet: Vector2) -> float:
 	var edge_rect := Rect2(feet + Vector2(-24, 0), Vector2(48, 3))
 	var below_rect := Rect2(feet + Vector2(-24, 8), Vector2(48, 6))
+	# Missing pixels are not a black comparison surface.
+	if _pixel_count(edge_rect) == 0.0 or _pixel_count(below_rect) == 0.0:
+		return 0.0
 	var below := mean_luma(below_rect)
 	return (mean_luma(edge_rect) - below) / (below + 0.02)
 

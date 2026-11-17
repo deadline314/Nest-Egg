@@ -266,10 +266,22 @@ func _tour(level_id: String) -> bool:
 			camera.global_position = center
 			camera.reset_smoothing()
 			camera.force_update_scroll()
+			if not _flat:
+				# Empty camera cells still need their own authored lighting zone.
+				level._lighting._target = level.player if _walk_player and level.player.visible else camera
 			await _settle(SETTLE_FRAMES)
 			if _walk_player and level.player.visible:
 				_sync_player_light(level.player)
 				await _settle(4)
+			if not _flat:
+				for enemy: Node in level._entities.get_children():
+					if enemy is Enemy:
+						if enemy.rig != null:
+							enemy.rig._apply_fill(LightKit.enemy_fill)
+							enemy.rig._apply_light_cap(LightKit.enemy_light_cap)
+						if enemy.creature != null:
+							enemy.creature.set_lighting(LightKit.creature_fill, LightKit.creature_light_cap)
+				await _settle(1)
 			# The PNG contains viewport content, excluding the window's letterboxing.
 			var to_world := get_viewport().get_canvas_transform().affine_inverse()
 			var viewport := get_viewport().get_visible_rect()
@@ -287,6 +299,10 @@ func _tour(level_id: String) -> bool:
 				"world": [top_left.x, top_left.y, bottom_right.x - top_left.x, bottom_right.y - top_left.y]}
 			if _walk_player:
 				shot.merge(await _measure(level, Rect2(top_left, bottom_right - top_left)))
+			if not _flat:
+				var focus := level._lighting._target
+				shot["lighting_target"] = {"is_player": focus == level.player, "is_camera": focus == camera,
+					"position": [focus.global_position.x, focus.global_position.y], "zone": str(level._lighting.zone_id_at(focus.global_position.x))}
 			shots.append(shot)
 	var index := {"level": level_id, "tag": _tag, "level_size": [size.x, size.y], "view": [view.x, view.y],
 		"window_size": [get_window().size.x, get_window().size.y],

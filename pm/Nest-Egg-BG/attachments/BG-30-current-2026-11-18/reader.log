@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "source_count": 10095,
+  "original_grid_cells": 576,
+  "full_framed_extra_views": 14,
+  "logical_hdr": 2950,
+  "physical_collision_negative_rejected": true,
+  "campaign_original_points": 36,
+  "state_images": 40,
+  "minima": [
+    {
+      "minimum_player": 0.8190301867772941,
+      "minimum_edge": 1.120437902308922,
+      "minimum_full_humanoid": 0.5414810415169178,
+      "minimum_physical_creature": 0.6144022894899339
+    },
+    {
+      "minimum_player": 0.7930300066054246,
+      "minimum_edge": 1.2331517227250022,
+      "minimum_full_humanoid": 0.49942143826495505,
+      "minimum_physical_creature": 0.7110995633439564
+    }
+  ],
+  "legacy_nonhuman_below": 4,
+  "white_including_background": 6,
+  "scope": "held scripted lighting/geometry and actual state events, original human gates plus supplementary true nonhuman collision rectangles; old legacy values retained; no natural combat, FPS, VRAM, every possible player position, or historical full-checkout claim"
+}
