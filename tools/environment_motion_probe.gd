@@ -11,10 +11,14 @@ func _ready() -> void:
 			out_dir = arg.trim_prefix("--out=")
 		baseline = baseline or arg == "--baseline"
 		perf_only = perf_only or arg == "--perf-only"
-	DirAccess.make_dir_recursive_absolute(out_dir)
+	var error := DirAccess.make_dir_recursive_absolute(out_dir)
+	if error != OK:
+		push_error("[EnvironmentMotionProbe] Cannot create output %s: %s" % [out_dir, error_string(error)])
+		get_tree().quit(2)
+		return
 	await run()
 	await settle(3)
-	get_tree().quit()
+	get_tree().quit(1 if failures > 0 else 0)
 
 func open_chapter(id: String, tile: int) -> void:
 	level = Level.new()
@@ -34,6 +38,7 @@ func open_chapter(id: String, tile: int) -> void:
 	await wait(TITLE_CARD_TIME)
 
 func run() -> void:
+	add_child(LightKit.create_environment())
 	var quality_before := Settings.get_light_quality()
 	Story.auto_skip = true
 	seed(25025)
@@ -48,28 +53,30 @@ func run() -> void:
 	var flow: Node = prop.get_node_or_null("LocalWaterFlow")
 	assert(flow == null if baseline else flow != null)
 	print("BG25_SETUP baseline=%s local_flow_created=%s" % [baseline, flow != null])
+	focus_prop(prop)
+	await settle(3)
 	for tier in ([] if perf_only else [LightQuality.Tier.LOW, LightQuality.Tier.MEDIUM, LightQuality.Tier.HIGH]):
 		Settings.set_light_quality(tier)
 		await wait(0.3)
 		for tick in 3:
 			print("BG25_FRAME quality=%d index=%d clock=%f" % [tier, tick, 0.0 if baseline else flow.clock])
-			capture("BG-25-%s-q%d-t%d" % ["before" if baseline else "water", tier, tick])
+			await capture("BG-25-%s-q%d-t%d" % ["before" if baseline else "water", tier, tick])
 			await wait(0.5)
 	if not baseline and not perf_only:
 		var before: float = flow.clock
 		get_tree().paused = true
 		await wait(0.5)
-		capture("BG-25-paused")
+		await capture("BG-25-paused")
 		assert(is_equal_approx(before, flow.clock))
 		print("BG25_PAUSE clock_before=%f clock_after=%f" % [before, flow.clock])
 		get_tree().paused = false
 		await wait(0.5)
 		assert(flow.clock != before)
-		capture("BG-25-resumed")
+		await capture("BG-25-resumed")
 		Input.action_press(&"shoot")
 		await wait(0.25)
 		Input.action_release(&"shoot")
-		capture("BG-25-shooting")
+		await capture("BG-25-shooting")
 	var frames_us: Array[int] = []
 	for frame in 60:
 		var start := Time.get_ticks_usec()
@@ -92,7 +99,27 @@ func run() -> void:
 			assert(weak.get_ref() == null)
 			await open_chapter("ch1_street", 118)
 			if cycle == 0:
-				capture("BG-25-street-steam")
+				# The steam prop can be on another floor at the same column.
+				var steam := level.find_child("harbor_street__steam_manhole", true, false) as PropNode
+				assert(steam != null)
+				focus_prop(steam)
+				await settle(3)
+				await capture("BG-25-street-steam")
 			await finish()
 			print("BG25_SWITCH cycle=%d local_released=true static_memory=%d nodes=%d" % [cycle + 1, OS.get_static_memory_usage(), Performance.get_monitor(Performance.OBJECT_NODE_COUNT)])
 	Settings.set_light_quality(quality_before)
+
+
+func focus_prop(prop: PropNode) -> void:
+	var camera := get_viewport().get_camera_2d() as LevelCamera
+	camera.set_physics_process(false)
+	camera.offset = Vector2.ZERO
+	camera.global_position = prop.global_position + prop.data.size * 0.5
+	camera.reset_smoothing()
+	camera.force_update_scroll()
+	level._lighting._target = camera
+
+
+func capture(file_name: String) -> void:
+	await RenderingServer.frame_post_draw
+	super.capture(file_name)

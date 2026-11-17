@@ -93,6 +93,11 @@ func _open_level() -> Level:
 			child.queue_free()
 	level.player.process_mode = Node.PROCESS_MODE_DISABLED
 	level.player.visible = false
+	for node: Node in level.find_children("*", "", true, false):
+		if node is WorldPrompt:
+			node.enabled = false
+			node.set_process(false)
+			node.hide()
 	for node: Node in get_tree().get_nodes_in_group(&"enemies"):
 		node.process_mode = Node.PROCESS_MODE_DISABLED
 	level._lighting._lightning_gap = 1.0e9
@@ -136,6 +141,7 @@ func _stats() -> Dictionary:
 
 
 func _run() -> void:
+	add_child(LightKit.create_environment())
 	Story.auto_skip = true
 	for id: String in Story.scene_ids():
 		Story._seen[StringName(id)] = true
@@ -157,8 +163,10 @@ func _run() -> void:
 	var camera := get_viewport().get_camera_2d() as LevelCamera
 	camera.set_physics_process(false)
 	camera.offset = Vector2.ZERO
-	camera.zoom = Vector2.ONE * LevelCamera.base_zoom() * 2.0
+	var fit := get_viewport().get_visible_rect().size / (prop.data.size + Vector2(16.0, 16.0))
+	camera.zoom = Vector2.ONE * minf(LevelCamera.base_zoom() * 2.0, minf(fit.x, fit.y))
 	camera.global_position = prop.global_position + prop.data.size * 0.5
+	level._lighting._target = camera
 	camera.reset_smoothing()
 	camera.force_update_scroll()
 	await _settle(SETTLE_FRAMES)
@@ -174,7 +182,7 @@ func _run() -> void:
 			await get_tree().process_frame
 		await RenderingServer.frame_post_draw
 		var file := "%s-t%04d.png" % [_tag, int(round(at * 1000.0))]
-		Capture.image(get_viewport()).save_png(_out.path_join(file))
+		_check(Capture.image(get_viewport()).save_png(_out.path_join(file)) == OK, "save PNG: " + file)
 		shots.append({"file": file, "time": at, "clocks": _clocks(prop), "drip_stage": String(drip.stage()) if drip != null else ""})
 	report["shots"] = shots
 	# 每影格實際花的時間：關掉垂直同步，量相鄰兩格之間的間隔（開著的話只會量到螢幕更新率）。
