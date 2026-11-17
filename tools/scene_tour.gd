@@ -79,6 +79,9 @@ func _settle(frames: int) -> void:
 func _run() -> void:
 	if get_viewport().find_world_3d().environment == null:
 		add_child(LightKit.create_environment())
+	# Viewport enablers must not restart stationary enemies as the tour camera moves.
+	var culling_before := Enemy.activation_culling_enabled
+	Enemy.activation_culling_enabled = false
 	var failures := 0
 	var quality_before := Settings.get_light_quality()
 	if QUALITY.has(_quality):
@@ -98,6 +101,7 @@ func _run() -> void:
 		Settings.set_light_quality(quality_before)
 	if _brightness >= 0.0:
 		Settings.set_brightness(brightness_before)
+	Enemy.activation_culling_enabled = culling_before
 	await AudioRelease.settle(get_tree())
 	get_tree().quit(1 if failures > 0 else 0)
 

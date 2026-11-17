@@ -1,0 +1,75 @@
+{
+  "passed": true,
+  "logical_files": 1040,
+  "native_png": 622,
+  "tour_pairs": 42,
+  "individual_player_decreases": 7,
+  "fixture_raw_records": 1472,
+  "minima": [
+    {
+      "level": "ch2_loading",
+      "quality": "low",
+      "player_contrast": [
+        3.17283433862171,
+        3.18206066183627
+      ],
+      "edge_contrast": [
+        1.560547015083,
+        1.57939626383495
+      ]
+    },
+    {
+      "level": "ch2_loading",
+      "quality": "high",
+      "player_contrast": [
+        3.34166249303079,
+        3.35152904663115
+      ],
+      "edge_contrast": [
+        1.41198787325921,
+        1.42846309786326
+      ]
+    },
+    {
+      "level": "ch2_market",
+      "quality": "low",
+      "player_contrast": [
+        1.82503742234004,
+        2.55628842885366
+      ],
+      "edge_contrast": [
+        1.34480441691027,
+        1.34480441691027
+      ]
+    },
+    {
+      "level": "ch2_market",
+      "quality": "high",
+      "player_contrast": [
+        2.10909919388152,
+        2.77556667427855
+      ],
+      "edge_contrast": [
+        1.29093987789232,
+        1.29093987789232
+      ]
+    }
+  ],
+  "real_enemy_minima": [
+    {
+      "quality": "low",
+      "enemy": [
+        0.380227536104919,
+        0.968302285867162
+      ]
+    },
+    {
+      "quality": "high",
+      "enemy": [
+        0.446848522205574,
+        1.07210921448555
+      ]
+    }
+  ],
+  "changed_checks": 58083
+}

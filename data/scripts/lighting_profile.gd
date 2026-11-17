@@ -11,6 +11,7 @@ const BLENDED: Array[StringName] = [
 
 ## 角色最低可讀亮度（0~1）：環境光再暗，角色補光後至少要有這個亮度。
 const MIN_READABLE_CHARACTER_LUMA := 0.2
+const MAX_ENEMY_FILL_SCALE := 1.5
 ## 亮度分級（BG-33）：依環境光的亮度分成暗、一般、亮。暗的區域要靠槍燈與場景燈才看得清楚；亮的留給安全區與特殊場景。
 const TIER_DARK_BELOW := 0.2
 const TIER_BRIGHT_FROM := 0.35
@@ -44,9 +45,9 @@ const MAX_SPECIAL_GRAIN := 0.05
 ## 角色（主角與敵人）的最低可讀亮度：環境光比這個暗時，角色零件會被補亮到這個程度（0 = 不補）。
 ## 重度壓抑的畫面靠它維持公平：環境可以很暗，但角色永遠看得到。
 @export_range(0.0, 1.0, 0.01) var character_floor: float = 0.0
-## 敵人的補光占角色補光的比例（1 = 和主角一樣）。牆面是中間調的室內把它調低：敵人比牆暗、成為清楚的剪影，
-## 主角維持原本的亮度。背景很暗的場景不要調低，敵人會沉進背景裡。
-@export_range(0.5, 1.0, 0.01) var enemy_fill_scale: float = 1.0
+## 敵人相對主角的補光比例：1 為相同；明亮牆前可降低形成剪影，深色裝甲可提高至 1.5。
+## 不改主角亮度與既有單燈曝光上限；暗背景不要降低，以免敵人沉進背景。
+@export_range(0.5, MAX_ENEMY_FILL_SCALE, 0.01) var enemy_fill_scale: float = 1.0
 ## 零件式生物的可選最低亮度；0 完全保留原受光／材質，只有明確指定的區段啟用。
 @export_range(0.0, 1.0, 0.01) var creature_floor: float = 0.0
 @export_group("Rim")
@@ -112,8 +113,8 @@ func validate() -> PackedStringArray:
 		problems.append("%s 的燈供電必須在 0~1 之間" % id)
 	if character_floor < 0.0 or character_floor > 1.0:
 		problems.append("%s 的角色最低亮度必須在 0~1 之間" % id)
-	if enemy_fill_scale < 0.5 or enemy_fill_scale > 1.0:
-		problems.append("%s 的敵人補光比例必須在 0.5~1 之間" % id)
+	if not is_finite(enemy_fill_scale) or enemy_fill_scale < 0.5 or enemy_fill_scale > MAX_ENEMY_FILL_SCALE:
+		problems.append("%s 的敵人補光比例必須是 0.5~%s 的有限值" % [id, MAX_ENEMY_FILL_SCALE])
 	if not is_finite(creature_floor) or creature_floor < 0.0 or creature_floor > 1.0:
 		problems.append("%s 的零件式生物最低亮度必須是 0~1 的有限值" % id)
 	if character_luma() < MIN_READABLE_CHARACTER_LUMA:
