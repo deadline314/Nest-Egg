@@ -1,0 +1,60 @@
+{
+  "passed": true,
+  "members": 364,
+  "tour_png": 96,
+  "matched_visible_pairs": 14,
+  "raw_cycle_samples": 448,
+  "regional_minima": [
+    {
+      "quality": "low",
+      "player_contrast": [
+        1.14106468039149,
+        1.14106468039149
+      ],
+      "edge_contrast": [
+        7.63383728851663,
+        7.63383728851663
+      ],
+      "cycle_player_min": [
+        1.14106468039149,
+        1.14106468039149
+      ],
+      "cycle_edge_min": [
+        7.63383728851663,
+        7.63383728851663
+      ],
+      "enemy_contrast": [
+        0.552320536267791,
+        0.552320536267791
+      ]
+    },
+    {
+      "quality": "high",
+      "player_contrast": [
+        1.25751048008528,
+        1.25751048008528
+      ],
+      "edge_contrast": [
+        7.69048390944214,
+        7.69048390944214
+      ],
+      "cycle_player_min": [
+        1.25751048008528,
+        1.25751048008528
+      ],
+      "cycle_edge_min": [
+        7.69048390944214,
+        7.69048390944214
+      ],
+      "enemy_contrast": [
+        0.55752435476054,
+        0.55752435476054
+      ]
+    }
+  ],
+  "individual_player_decreases": 8,
+  "scene_maps": 32,
+  "test_groups": 53,
+  "checks": 58319,
+  "scope": "Original regional minima contract; individual decreases disclosed. Stationary real Janus, not combat-AI performance. Numeric cycle reports recounted; the tour PNG precedes later samples."
+}

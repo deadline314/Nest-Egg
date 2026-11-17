@@ -342,7 +342,7 @@ def build_gate_hall():
     a.prop('clinic__gatekeeper_desk', 30)
     a.prop('gate_hall__desk_stool', 32, dx=3)   # 守門人停機後坐的凳子（ST-21 C12）：坐姿的骨盆落在凳面上，不坐在空中
     a.stand(32, 'ⓙ')
-    a.prop('gate_hall__guard_booth', 51)
+    a.prop('gate_hall__guard_booth', 57)
     a.prop('gate_hall__waiting_bench', 61)
     # 柱後的短上臺：繞盾架的側路
     a.platform(40, 42, 17)
