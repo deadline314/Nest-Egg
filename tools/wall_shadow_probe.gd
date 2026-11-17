@@ -14,12 +14,15 @@ extends Node
 ## 沒有背牆、光影品質低（不投影）或找不到合適的燈時會寫在索引裡並以失敗結束。
 
 const Capture := preload("res://tools/viewport_capture.gd")
+const HeldLighting := preload("res://tools/held_lighting_state.gd")
 const SETTLE_FRAMES := 40
 const SIDE_OFFSET := 64.0
 ## 影子至少要讓這麼多比例的畫面變暗才算有影子（一個角色的影子大約是畫面的千分之五）。
 const MIN_SHADOW_SHARE := 0.001
 const ENEMY_PATH := "res://data/enemies/sweeper.tres"
 const PERF_ENEMIES := 12
+const PERF_STEP := 10.0
+const PERF_LIMIT := 1.08
 ## 耗時量測：影子開與關緊接著各量一小段算一組，取很多組的比值的中位數。機器的負載會隨時間飄，
 ## 一組裡的兩段相隔不到半秒，飄移互相抵銷；整段各量一次再相除的做法在有其他程式在跑時誤差會到一成以上。
 const PERF_FRAMES := 45
@@ -35,6 +38,7 @@ var _modes: PackedStringArray = ["lamp", "gun", "perf", "reenter"]
 var _failures := 0
 var _aim := Vector2.ZERO
 var _at := -1
+var _last_frame_samples := PackedFloat32Array()
 
 
 ## 滑鼠只要在視窗上動一下，瞄準就會改回跟滑鼠；量測期間每一格都把瞄準方向設回來。
@@ -76,6 +80,8 @@ func _settle(frames: int) -> void:
 
 
 func _run() -> void:
+	if get_viewport().find_world_3d().environment == null:
+		add_child(LightKit.create_environment())
 	var quality_before := Settings.get_light_quality()
 	if QUALITY.has(_quality):
 		Settings.set_light_quality(QUALITY[_quality])
@@ -110,6 +116,7 @@ func _run() -> void:
 			report["reenter"] = await _reenter(data)
 	if QUALITY.has(_quality):
 		Settings.set_light_quality(quality_before)
+	report["failures"] = _failures
 	var writer := FileAccess.open(_out.path_join(_tag + "-index.json"), FileAccess.WRITE)
 	if writer == null:
 		push_error("[WallShadowProbe] 無法寫入索引：%s" % _out)
@@ -136,12 +143,13 @@ func _open(data: LevelData) -> Level:
 			node.restore_state(true)
 	await _settle(SETTLE_FRAMES)
 	level.hud.visible = false
+	for node: Node in level.find_children("*", "", true, false):
+		if node is WorldPrompt:
+			node.enabled = false
+			node.set_process(false)
+			node.hide()
 	level.player.health.setup(999, 0.0)
 	level._lighting._lightning_gap = 1.0e9
-	# 雨絲每一格都不一樣，會蓋過「影子開」與「影子關」兩張的差別：量測時把雨藏起來。
-	for node: Node in level.find_children("*", "", true, false):
-		if node is RainLayer:
-			(node as CanvasItem).visible = false
 	for node: Node in get_tree().get_nodes_in_group(&"enemies"):
 		node.queue_free()
 	await _settle(4)
@@ -155,7 +163,8 @@ func _stand(level: Level, beside := 0.0) -> Vector2:
 	var row := 0
 	if _at >= 0:
 		x = float(_at) * layout.tile_size + 8.0
-		row = maxi(0, int(level.player.global_position.y / layout.tile_size) - 3)
+		# 指定欄位的高度不受上一組拍照的站位影響。
+		row = maxi(0, int(layout.player_start.y / layout.tile_size) - 3)
 	else:
 		var lamp := _pick_lamp(level)
 		if lamp == null:
@@ -232,6 +241,16 @@ func _lamp_shots(level: Level, shadows: WallShadows) -> Dictionary:
 	var result := {"light_tile": [int(at.x / 16.0), int(at.y / 16.0)], "height_px": snappedf(source["height"], 0.1), "shots": {}}
 	for side: Array in [["left", -SIDE_OFFSET], ["under", 0.0], ["right", SIDE_OFFSET]]:
 		await _place_player(level, Vector2(at.x + float(side[1]), source["floor_y"]), Vector2.RIGHT if float(side[1]) <= 0.0 else Vector2.LEFT)
+		# 瞄準鏡頭會看向燈，把背光側的影子推出畫面；三個站位共用光源置中的鏡頭。
+		var camera := get_viewport().get_camera_2d() as LevelCamera
+		if camera != null:
+			camera.set_physics_process(false)
+			camera.set_process(false)
+			camera.position_smoothing_enabled = false
+			camera.offset = Vector2.ZERO
+			camera.global_position = Vector2(at.x, float(source["floor_y"]) - 38.0)
+			camera.force_update_scroll()
+		await _settle(8)
 		result["shots"][side[0]] = await _pair(shadows, "lamp-" + str(side[0]))
 	return result
 
@@ -246,14 +265,22 @@ func _gun_shot(level: Level, shadows: WallShadows) -> Dictionary:
 	var layout := level._layout
 	await _place_player(level, feet, Vector2.RIGHT)
 	var foes := 0
+	var actors: Array[Enemy] = []
 	for step in 3:
 		var at := feet + Vector2(56.0 + 34.0 * float(step), 0.0)
 		if is_equal_approx(layout.floor_below(int(at.x / layout.tile_size), int(feet.y / layout.tile_size) - 3), feet.y):
-			_spawn_foe(level, at - Vector2(0.0, 2.0))
-			foes += 1
-	await _settle(50)
+			var enemy := _spawn_foe(level, at - Vector2(0.0, 2.0))
+			if enemy != null:
+				actors.append(enemy)
+				foes += 1
+	await _wait_for_ground(actors, 50)
+	var status := _actor_status(actors, 3)
+	if foes != 3 or not status["valid"]:
+		push_error("[WallShadowProbe] %s/gun 第 %d 欄需有 3 個站穩且完整入鏡的敵人，實際 %d，請用 --at 選平地" % [_level, int(feet.x / layout.tile_size), foes])
+		_failures += 1
 	var result := await _pair(shadows, "gun")
 	result["enemies"] = foes
+	result["actors"] = status
 	for node: Node in get_tree().get_nodes_in_group(&"enemies"):
 		node.queue_free()
 	await _settle(4)
@@ -262,22 +289,40 @@ func _gun_shot(level: Level, shadows: WallShadows) -> Dictionary:
 
 ## 同一個畫面拍「影子開」與「影子關」，回傳診斷數字。
 func _pair(shadows: WallShadows, name: String) -> Dictionary:
-	# 把整個場景停住再拍：呼吸、蒸汽、閃爍與提示牌的動畫都停下來，兩張的差別就只剩影子。影子自己繼續更新。
+	# SceneTree 暫停不會停住 shader TIME；相同狀態的 A/A 也要保持實際像素。
+	var level: Node = shadows
+	while not level is Level:
+		level = level.get_parent()
+	HeldLighting.preserve_physics_bodies(level)
+	var paused_before := get_tree().paused
+	var time_before := Engine.time_scale
 	var mode_before := shadows.process_mode
 	shadows.process_mode = Node.PROCESS_MODE_ALWAYS
 	get_tree().paused = true
+	Engine.time_scale = 0.0
 	shadows.suspended = false
+	HeldLighting.sync(level)
+	await _settle(8)
+	var same := Capture.image(get_viewport())
+	HeldLighting.sync(level)
 	await _settle(8)
 	var on := Capture.image(get_viewport())
-	var record := {"lights": shadows.active_lights(), "silhouette_share": _silhouette_share(shadows)}
-	on.save_png(_out.path_join("%s-%s-on.png" % [_tag, name]))
+	var record := {"lights": shadows.active_lights(), "silhouette_share": _silhouette_share(shadows),
+		"aa_identical": same.get_data() == on.get_data(), "size": [on.get_width(), on.get_height()]}
+	if not record["aa_identical"]:
+		push_error("[WallShadowProbe] %s/%s 的相同狀態 A/A 畫面未保持" % [_level, name])
+		_failures += 1
 	shadows.suspended = true
+	HeldLighting.sync(level)
 	await _settle(8)
 	var off := Capture.image(get_viewport())
-	off.save_png(_out.path_join("%s-%s-off.png" % [_tag, name]))
+	for pair: Array in [[same, "aa"], [on, "on"], [off, "off"]]:
+		if (pair[0] as Image).save_png(_out.path_join("%s-%s-%s.png" % [_tag, name, pair[1]])) != OK:
+			_failures += 1
 	shadows.suspended = false
-	get_tree().paused = false
 	shadows.process_mode = mode_before
+	Engine.time_scale = time_before
+	get_tree().paused = paused_before
 	record["shadowed_share"] = _shadowed_share(on, off)
 	if shadows.is_enabled() and (int(record["lights"]) == 0 or float(record["silhouette_share"]) <= 0.0 or float(record["shadowed_share"]) < MIN_SHADOW_SHARE):
 		push_error("[WallShadowProbe] %s 沒有影子（燈 %d 盞、輪廓 %.4f、變暗的畫面比例 %.4f）" % [name, record["lights"], record["silhouette_share"], record["shadowed_share"]])
@@ -320,6 +365,10 @@ func _shadowed_share(on: Image, off: Image) -> float:
 
 func _spawn_foe(level: Level, position: Vector2) -> Enemy:
 	var data := load(ENEMY_PATH) as EnemyData
+	if data == null:
+		push_error("[WallShadowProbe] 找不到測試敵人：%s" % ENEMY_PATH)
+		_failures += 1
+		return null
 	var enemy := level._create_enemy(data)
 	enemy.data = enemy.data.duplicate()
 	enemy.data.detect_range = 0.0
@@ -334,6 +383,7 @@ func _spawn_foe(level: Level, position: Vector2) -> Enemy:
 
 ## 12 個敵人：影子開與關交替量每影格耗時。
 func _perf(level: Level, shadows: WallShadows) -> Dictionary:
+	_pick_lamp(level)
 	var feet := _stand(level)
 	if feet == Vector2.INF:
 		push_error("[WallShadowProbe] perf：找不到站的地方（用 --at=<欄> 指定）")
@@ -343,44 +393,106 @@ func _perf(level: Level, shadows: WallShadows) -> Dictionary:
 	await _place_player(level, feet, Vector2.RIGHT)
 	var placed := 0
 	var column := 0
+	var actors: Array[Enemy] = []
 	while placed < PERF_ENEMIES and column < 60:
 		column += 1
-		var x := feet.x + (float(column) * 18.0 if column % 2 == 0 else -float(column) * 18.0)
+		var x := feet.x + (float(column) * PERF_STEP if column % 2 == 0 else -float(column) * PERF_STEP)
 		var floor_y := layout.floor_below(int(x / layout.tile_size), int(feet.y / layout.tile_size) - 3)
 		if floor_y != INF and absf(floor_y - feet.y) <= 48.0:
-			_spawn_foe(level, Vector2(x, floor_y - 2.0))
+			var enemy := _spawn_foe(level, Vector2(x, floor_y - 2.0))
+			if enemy == null:
+				break
+			actors.append(enemy)
 			placed += 1
-	await _settle(60)
+	await _wait_for_ground(actors, 60)
+	var camera := get_viewport().get_camera_2d() as LevelCamera
+	if camera == null:
+		push_error("[WallShadowProbe] %s/perf 沒有 LevelCamera" % _level)
+		_failures += 1
+		return {"enemies": placed, "valid": false, "note": "沒有 LevelCamera"}
+	camera.set_physics_process(false)
+	camera.set_process(false)
+	camera.position_smoothing_enabled = false
+	camera.offset = Vector2.ZERO
+	camera.global_position = feet + Vector2(0, -38)
+	camera.force_update_scroll()
+	await _settle(8)
+	var before := _actor_status(actors, PERF_ENEMIES)
+	if placed != PERF_ENEMIES or not before["valid"]:
+		push_error("[WallShadowProbe] %s/perf 第 %d 欄需有 %d 個站穩且完整入鏡的敵人，實際 %d" % [_level, int(feet.x / layout.tile_size), PERF_ENEMIES, placed])
+		_failures += 1
+		return {"enemies": placed, "actors_before": before, "valid": false}
+	if Capture.image(get_viewport()).save_png(_out.path_join(_tag + "-perf-context.png")) != OK:
+		_failures += 1
 	var vsync_before := DisplayServer.window_get_vsync_mode()
 	var fps_before := Engine.max_fps
 	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 	Engine.max_fps = 0
+	await _settle(120)
 	var on: Array[float] = []
 	var off: Array[float] = []
 	var ratios: Array[float] = []
+	var groups: Array[Dictionary] = []
 	for round_index in PERF_ROUNDS:
 		var pair := [0.0, 0.0]
 		for enabled: bool in ([true, false] if round_index % 2 == 0 else [false, true]):
 			shadows.suspended = not enabled
 			await _settle(6)
 			pair[int(enabled)] = await _frame_ms()
+			groups.append({"round": round_index, "enabled": enabled, "frames_ms": Array(_last_frame_samples)})
 		on.append(pair[1])
 		off.append(pair[0])
 		ratios.append(pair[1] / maxf(pair[0], 0.0001))
 	shadows.suspended = false
 	DisplayServer.window_set_vsync_mode(vsync_before)
 	Engine.max_fps = fps_before
+	var after := _actor_status(actors, PERF_ENEMIES)
 	on.sort()
 	off.sort()
 	ratios.sort()
+	var exact := (ratios[ratios.size() / 2 - 1] + ratios[ratios.size() / 2]) * 0.5
 	var record := {"enemies": placed, "lights": shadows.active_lights(), "frame_ms_on": snappedf(on[on.size() / 2], 0.001),
-		"frame_ms_off": snappedf(off[off.size() / 2], 0.001), "ratio": snappedf((ratios[ratios.size() / 2 - 1] + ratios[ratios.size() / 2]) * 0.5, 0.001),
-		"ratio_quartiles": [snappedf(ratios[ratios.size() / 4], 0.001), snappedf(ratios[ratios.size() * 3 / 4], 0.001)]}
+		"frame_ms_off": snappedf(off[off.size() / 2], 0.001), "ratio": snappedf(exact, 0.001), "ratio_exact": exact,
+		"ratio_quartiles": [snappedf(ratios[ratios.size() / 4], 0.001), snappedf(ratios[ratios.size() * 3 / 4], 0.001)],
+		"groups": groups, "actors_before": before, "actors_after": after, "valid": after["valid"],
+		"scope": "twelve arranged idle enemies, fixed native camera; paired shadow on/off"}
+	if not after["valid"] or not is_finite(exact) or exact > PERF_LIMIT:
+		push_error("[WallShadowProbe] %s/perf 未符合完整入鏡、支撐或 %.2f 耗時上限：%.6f" % [_level, PERF_LIMIT, exact])
+		_failures += 1
 	print("WALL_SHADOW_PERF:", JSON.stringify(record))
 	for node: Node in get_tree().get_nodes_in_group(&"enemies"):
 		node.queue_free()
 	await _settle(4)
 	return record
+
+
+func _wait_for_ground(actors: Array[Enemy], frames: int) -> void:
+	await _settle(frames)
+	var deadline := Time.get_ticks_msec() + 1500
+	while actors.any(func(enemy: Enemy) -> bool: return not enemy.is_on_floor()) and Time.get_ticks_msec() < deadline:
+		await get_tree().process_frame
+
+
+func _actor_status(actors: Array[Enemy], required: int) -> Dictionary:
+	var view := get_viewport()
+	var size := view.get_texture().get_image().get_size()
+	var transform := view.get_final_transform() * view.get_canvas_transform()
+	var valid := actors.size() == required
+	var records: Array[Dictionary] = []
+	for enemy in actors:
+		var bounds := enemy.global_transform * Rect2(Vector2(-enemy.data.body_size.x * 0.5, -enemy.data.body_size.y), enemy.data.body_size)
+		if enemy.rig != null:
+			bounds = bounds.merge(enemy.rig.visual_bounds())
+			var weapon := enemy.rig._weapon_sprite
+			if weapon != null and weapon.is_visible_in_tree() and weapon.texture != null:
+				bounds = bounds.merge(weapon.global_transform * weapon.get_rect())
+		var pixels := transform * bounds.grow(2.0)
+		var in_view := Rect2(Vector2.ZERO, Vector2(size)).encloses(pixels)
+		valid = valid and enemy.is_on_floor() and in_view and enemy.is_visible_in_tree()
+		records.append({"path": str(enemy.get_path()), "feet": [enemy.global_position.x, enemy.global_position.y],
+			"bounds": [pixels.position.x, pixels.position.y, pixels.size.x, pixels.size.y],
+			"on_floor": enemy.is_on_floor(), "in_view": in_view, "visible": enemy.is_visible_in_tree()})
+	return {"valid": valid, "size": [size.x, size.y], "records": records}
 
 
 ## 相鄰兩格間隔的中位數（毫秒）。
@@ -393,6 +505,7 @@ func _frame_ms() -> float:
 		var now := Time.get_ticks_usec()
 		samples[index] = float(now - last) / 1000.0
 		last = now
+	_last_frame_samples = samples.duplicate()
 	samples.sort()
 	return samples[PERF_FRAMES / 2]
 

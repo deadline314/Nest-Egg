@@ -39,6 +39,8 @@ const RESCAN := 0.25
 ## 輪廓圖每幾格重畫一次。把角色再畫一遍是這個功能最花時間的部分；影子是柔的，慢一格看不出來。
 ## 鏡頭在兩次重畫之間的移動由著色器補回來（shift）。
 const REDRAW_EVERY := 3
+## 超高 FPS 不重畫螢幕用不到的輪廓；一般幀率仍維持每三格一次。
+const MIN_REDRAW_USEC := 8333
 ## 不會投影的子節點：接觸陰影、光錐、火花與介面元件不是「身體」。
 const SKIPPED_GROUP := &"no_wall_shadow"
 
@@ -60,6 +62,7 @@ var _scores := PackedFloat32Array()
 var _since_scan := RESCAN
 var _count := -1
 var _frame := 0
+var _last_draw_usec := 0
 ## 輪廓圖上次重畫時鏡頭的位置與倍率。
 var _drawn_origin := Vector2.ZERO
 var _drawn_scale := Vector2.ZERO
@@ -160,11 +163,15 @@ func _process(delta: float) -> void:
 		_material.set_shader_parameter(&"aspect", screen.x / screen.y)
 		_material.set_shader_parameter(&"own_radius", OWN_RADIUS * to_screen.get_scale().y / screen.y)
 	_frame += 1
-	if _frame % REDRAW_EVERY == 0 or not to_screen.get_scale().is_equal_approx(_drawn_scale):
+	var now := Time.get_ticks_usec()
+	# delta 為零是保持畫面時的同步要求；相機縮放改變也必須立即重畫。
+	if (_frame % REDRAW_EVERY == 0 and (now - _last_draw_usec >= MIN_REDRAW_USEC or delta == 0.0)) \
+			or not to_screen.get_scale().is_equal_approx(_drawn_scale):
 		_viewport.canvas_transform = Transform2D(0.0, Vector2(RESOLUTION, RESOLUTION), 0.0, Vector2.ZERO) * to_screen
 		_viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
 		_drawn_origin = to_screen.origin
 		_drawn_scale = to_screen.get_scale()
+		_last_draw_usec = now
 	_material.set_shader_parameter(&"shift", (to_screen.origin - _drawn_origin) / screen)
 	_since_scan += delta
 	if _since_scan >= RESCAN:
@@ -262,7 +269,7 @@ func _flag_branch(item: CanvasItem) -> void:
 	item.visibility_layer |= CASTER_LAYER
 	for child: Node in item.get_children():
 		var branch := child as CanvasItem
-		if branch == null or branch is ContactShadow or branch is LightShaft or branch is Control or branch is GPUParticles2D \
+		if branch == null or branch is ContactShadow or branch is LightShaft or branch is WorldPrompt or branch is Control or branch is GPUParticles2D \
 				or branch is CPUParticles2D or branch.is_in_group(SKIPPED_GROUP):
 			continue
 		_flag_branch(branch)

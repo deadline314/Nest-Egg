@@ -1208,6 +1208,15 @@ func _test_wall_shadows() -> void:
 	check(flagged and (level.player.visibility_layer & WallShadows.CASTER_LAYER) != 0, "主角的零件（%d 個）會畫進輪廓圖" % parts.size())
 	var contact := level.player.find_child("ContactShadow", true, false) as CanvasItem
 	check(contact != null and (contact.visibility_layer & WallShadows.CASTER_LAYER) == 0, "腳下的接觸陰影不會被當成身體投到牆上")
+	var prompt := WorldPrompt.new()
+	prompt.text = "投影測試"
+	level.player.add_child(prompt)
+	shadows._flagged.erase(level.player.get_instance_id())
+	shadows._flag_casters()
+	check((prompt.visibility_layer & WallShadows.CASTER_LAYER) == 0
+			and (prompt._leader.visibility_layer & WallShadows.CASTER_LAYER) == 0,
+			"人物身上的互動提示與指示線不會被投到背牆")
+	prompt.queue_free()
 	var stray := 0
 	for node: Node in level.find_children("*", "Node2D", true, false):
 		if (node is Lamp or node is BackWall) and ((node as CanvasItem).visibility_layer & WallShadows.CASTER_LAYER) != 0:
@@ -1217,6 +1226,14 @@ func _test_wall_shadows() -> void:
 	var silhouette := shadows.silhouette()
 	check(silhouette != null and silhouette.get_size().x > 0.0 and silhouette.get_size().x <= runner.get_viewport().size.x * WallShadows.RESOLUTION + 1.0,
 			"輪廓圖是低解析度的")
+	var held_stamp := Time.get_ticks_usec() + 1000000
+	shadows._last_draw_usec = held_stamp
+	shadows._frame = WallShadows.REDRAW_EVERY - 1
+	shadows._process(0.001)
+	check(shadows._last_draw_usec == held_stamp, "極短影格不重畫同一張輪廓圖")
+	shadows._frame = WallShadows.REDRAW_EVERY - 1
+	shadows._process(0.0)
+	check(shadows._last_draw_usec != held_stamp, "保持時間的攝影同步仍會立即更新輪廓圖")
 	# 燈熄滅（停電）：熄滅的燈不再投影。
 	var lit_before := shadows.active_lights()
 	LightKit.lamp_power = 0.0
@@ -1234,6 +1251,17 @@ func _test_wall_shadows() -> void:
 	carried.global_position = level.player.global_position + Vector2(40.0, -30.0)
 	await frames(int(WallShadows.RESCAN * 60.0) + 30)
 	check(shadows._chosen.has(carried), "敵人或擺設身上的光也會讓角色在牆上投影")
+	var carried_index := shadows._chosen.find(carried)
+	if carried_index >= 0:
+		carried.position += Vector2(16.0, -8.0)
+		carried.energy = 0.6
+		shadows._since_scan = 0.0
+		shadows._process(0.0)
+		var viewport := runner.get_viewport()
+		var at := viewport.get_final_transform() * viewport.get_canvas_transform() * carried.global_position / Vector2(viewport.size)
+		var value: Vector4 = shadows._material.get_shader_parameter(WallShadows.LIGHT_PARAMS[carried_index])
+		check(Vector2(value.x, value.y).is_equal_approx(at) and is_equal_approx(value.w, 0.5),
+				"光源移動與明暗改變時，牆影參數不會留在上一格")
 	carried.enabled = false
 	await frames(int(WallShadows.RESCAN * 60.0) + 30)
 	check(not shadows._chosen.has(carried), "那盞光關掉之後不再投影")
