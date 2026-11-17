@@ -17,7 +17,7 @@ const BURST_INTERVAL := 0.1
 const BURST_COLUMNS := 10
 ## 連拍時每一格從畫面上裁下來的大小（像素）：燈在上方中央，下面是它的光池。
 const CROP := Vector2i(200, 250)
-const CROP_ABOVE := 40
+const CROP_ABOVE := 104
 ## 連拍從第一次明顯變化的前幾秒開始，這樣拍得到變化前、變化中與之後。
 const BURST_LEAD := 0.8
 
@@ -26,6 +26,9 @@ var _levels: PackedStringArray = []
 var _tag := "flicker"
 var _seconds := 10.0
 var _reduce := false
+var _capture_failures := 0
+var _captures: Array[Dictionary] = []
+var _focus: Node2D
 
 
 func _ready() -> void:
@@ -58,6 +61,8 @@ func _settle(frames: int) -> void:
 
 
 func _run() -> void:
+	if get_viewport().find_world_3d().environment == null:
+		add_child(LightKit.create_environment())
 	var reduce_before := Settings.get_reduce_flashes()
 	Settings.set_reduce_flashes(_reduce)
 	Story.auto_skip = true
@@ -81,6 +86,9 @@ func _run() -> void:
 		report["levels"][level_id] = result
 		failures += int(result["over_limit"])
 	Settings.set_reduce_flashes(reduce_before)
+	failures += _capture_failures
+	report["capture_failures"] = _capture_failures
+	report["captures"] = _captures
 	var writer := FileAccess.open(_out.path_join(_tag + "-index.json"), FileAccess.WRITE)
 	if writer == null:
 		push_error("[LampFlickerProbe] 無法寫入索引：%s" % _out)
@@ -104,6 +112,15 @@ func _measure_level(level_id: String, data: LevelData) -> Dictionary:
 			child.queue_free()
 	level.player.visible = false
 	level.player.process_mode = Node.PROCESS_MODE_DISABLED
+	for node: Node in level.find_children("*", "", true, false):
+		if node is WorldPrompt:
+			node.enabled = false
+			node.set_process(false)
+			node.hide()
+	_focus = Node2D.new()
+	level.add_child(_focus)
+	_focus.global_position = level.player.global_position
+	level._lighting._target = _focus
 	for node: Node in get_tree().get_nodes_in_group(&"enemies"):
 		(node as Node2D).visible = false
 		node.process_mode = Node.PROCESS_MODE_DISABLED
@@ -130,16 +147,20 @@ func _measure_level(level_id: String, data: LevelData) -> Dictionary:
 	var buzz := level.find_child("LampBuzz", true, false) as LampBuzz
 	for lamp in lamps:
 		if LampFlicker.buzz(lamp.flicker_state) > 0.0:
+			_focus.global_position = lamp.global_position
 			camera.global_position = lamp.global_position + Vector2(0, 40)
+			camera.force_update_scroll()
 			break
+	await _settle(6)
 	var trackers: Array[Dictionary] = []
 	for lamp in lamps:
 		trackers.append({"ref": _shown(lamp), "dir": 0, "events": [], "low": 9.0, "high": 0.0})
 	var elapsed := 0.0
+	var started := Time.get_ticks_usec()
 	var buzz_peak := 0.0
 	while elapsed < _seconds:
 		await get_tree().process_frame
-		elapsed += get_process_delta_time()
+		elapsed = float(Time.get_ticks_usec() - started) / 1000000.0
 		for index in lamps.size():
 			_track(trackers[index], _shown(lamps[index]), elapsed)
 		if buzz != null:
@@ -156,13 +177,32 @@ func _measure_level(level_id: String, data: LevelData) -> Dictionary:
 			push_error("[LampFlickerProbe] %s 第 %d 欄的燈一秒內亮度變化 %d 次，超過上限" % [level_id, int(lamp.position.x / 16.0), worst])
 		records.append({"tile": [int(lamp.position.x / 16.0), int(lamp.position.y / 16.0)], "fixture": String(lamp.fixture_id),
 			"state": String(lamp.flicker_state), "changes_total": (trackers[index]["events"] as Array).size(),
-			"worst_second": worst, "lowest": snappedf(trackers[index]["low"], 0.01), "highest": snappedf(trackers[index]["high"], 0.01)})
+			"events": trackers[index]["events"], "pattern": Array(lamp._pattern), "pattern_offset": lamp._pattern_offset,
+			"calm_phase": lamp._calm_phase, "worst_second": worst,
+			"lowest": snappedf(trackers[index]["low"], 0.01), "highest": snappedf(trackers[index]["high"], 0.01)})
 	print("LAMP_FLICKER:%s lamps %d states %s worst-second %d buzz %.2f%s" % [level_id, lamps.size(), JSON.stringify(by_state),
 		records.reduce(func(acc: int, r: Dictionary) -> int: return maxi(acc, int(r["worst_second"])), 0), buzz_peak,
 		" (reduce flashes)" if _reduce else ""])
+	var far_gain := 0.0
+	var far_sounding := false
+	var far_distance := 0.0
+	if buzz != null and not lamps.is_empty():
+		camera.global_position.x = lamps.back().global_position.x + LampBuzz.RANGE + 64.0
+		# Only the post-capture audio check leaves the map; keep the listener from being clamped back beside a lamp.
+		camera.limit_right = maxi(camera.limit_right, ceili(camera.global_position.x + get_viewport().get_visible_rect().size.x / camera.zoom.x))
+		_focus.global_position = camera.global_position
+		camera.force_update_scroll()
+		await get_tree().create_timer(0.5).timeout
+		far_distance = camera.get_screen_center_position().distance_to(lamps.back().global_position)
+		far_gain = buzz.gain()
+		far_sounding = buzz.is_sounding()
+	_focus = null
 	level.queue_free()
 	await _settle(4)
-	return {"lamps": records, "states": by_state, "bursts": bursts, "buzz_peak": snappedf(buzz_peak, 0.01), "over_limit": over}
+	return {"lamps": records, "states": by_state, "bursts": bursts, "buzz_peak": buzz_peak,
+		"buzz_far_gain": far_gain, "buzz_far_sounding": far_sounding, "buzz_far_distance": far_distance,
+		"observed_seconds": elapsed,
+		"scope": "all-lamp logical brightness; photographed frames listed separately", "over_limit": over}
 
 
 ## 燈現在的亮度比例（閃爍、脈動、供電都算在內）。
@@ -217,28 +257,63 @@ func _rewind_before_change(lamp: Lamp) -> void:
 
 ## 對準一盞燈連拍 3 秒，每 0.1 秒一格，裁出燈與它的光池排成一張。
 func _burst(level_id: String, lamp: Lamp, camera: LevelCamera) -> String:
+	_focus.global_position = lamp.global_position
 	camera.global_position = lamp.global_position + Vector2(0, 60)
 	camera.reset_smoothing()
+	camera.force_update_scroll()
 	await _settle(6)
 	var view := get_viewport()
-	var screen := view.get_final_transform() * view.get_canvas_transform() * lamp.global_position
+	var transform := view.get_final_transform() * view.get_canvas_transform()
+	var screen := transform * lamp.global_position
+	var origin := Vector2i(int(screen.x) - CROP.x / 2, int(screen.y) - CROP_ABOVE)
+	var source := Rect2i(origin, CROP)
+	var body := transform * (lamp.global_transform * Rect2(lamp._top_left(), lamp._prop.size)) if lamp._prop != null else Rect2(screen, Vector2.ONE)
+	if not Rect2(source).encloses(body):
+		push_error("[LampFlickerProbe] %s/%s 燈具超出連拍範圍" % [level_id, lamp.flicker_state])
+		_capture_failures += 1
+		return ""
 	_rewind_before_change(lamp)
 	var count := int(BURST_SECONDS / BURST_INTERVAL)
 	var rows := ceili(float(count) / float(BURST_COLUMNS))
 	var sheet := Image.create(CROP.x * BURST_COLUMNS, CROP.y * rows, false, Image.FORMAT_RGB8)
 	var elapsed := 0.0
+	var started := Time.get_ticks_usec()
 	var taken := 0
+	var samples: Array[Dictionary] = []
+	var context: Image
+	var context_at := 0
+	var brightest := -1.0
 	while taken < count:
 		await RenderingServer.frame_post_draw
-		elapsed += get_process_delta_time()
+		elapsed = float(Time.get_ticks_usec() - started) / 1000000.0
 		if elapsed < float(taken) * BURST_INTERVAL:
 			continue
-		var frame := Capture.image(view)
+		var raw := view.get_texture().get_image()
+		if raw == null or raw.is_empty() or not Rect2i(Vector2i.ZERO, raw.get_size()).encloses(source):
+			push_error("[LampFlickerProbe] %s/%s 無有效原生裁切範圍" % [level_id, lamp.flicker_state])
+			_capture_failures += 1
+			return ""
+		var shown := _shown(lamp)
+		if shown > brightest:
+			brightest = shown
+			context = raw
+			context_at = taken
+		var frame := Capture.encode(raw.get_region(source), view.use_hdr_2d)
 		frame.convert(Image.FORMAT_RGB8)
-		var origin := Vector2i(int(screen.x) - CROP.x / 2, int(screen.y) - CROP_ABOVE)
-		var source := Rect2i(origin, CROP).intersection(Rect2i(Vector2i.ZERO, frame.get_size()))
-		sheet.blit_rect(frame, source, Vector2i((taken % BURST_COLUMNS) * CROP.x, (taken / BURST_COLUMNS) * CROP.y) + source.position - origin)
+		sheet.blit_rect(frame, Rect2i(Vector2i.ZERO, CROP), Vector2i((taken % BURST_COLUMNS) * CROP.x, (taken / BURST_COLUMNS) * CROP.y))
+		samples.append({"time": elapsed, "clock": lamp._clock, "shown": shown, "fixture_level": lamp._shown_level,
+			"shaft": lamp._shaft.intensity if lamp._shaft != null else 0.0, "wants_shadow": lamp._casts_shadow,
+			"shadow_enabled": lamp._light.shadow_enabled, "light_visible": lamp._light.is_visible_in_tree(),
+			"glow_visible": lamp._glow != null and lamp._glow.is_visible_in_tree()})
 		taken += 1
 	var file := "%s-%s-%s.png" % [_tag, level_id, lamp.flicker_state]
-	sheet.save_png(_out.path_join(file))
+	var context_file := file.trim_suffix(".png") + "-context.png"
+	if sheet.save_png(_out.path_join(file)) != OK:
+		_capture_failures += 1
+	if Capture.encode(context, view.use_hdr_2d).save_png(_out.path_join(context_file)) != OK:
+		_capture_failures += 1
+	_captures.append({"level": level_id, "state": String(lamp.flicker_state), "file": file, "context": context_file,
+		"context_frame": context_at, "crop": [source.position.x, source.position.y, CROP.x, CROP.y],
+		"size": [context.get_width(), context.get_height()], "lamp": [lamp.global_position.x, lamp.global_position.y],
+		"focus": [_focus.global_position.x, _focus.global_position.y], "samples": samples})
 	return file
