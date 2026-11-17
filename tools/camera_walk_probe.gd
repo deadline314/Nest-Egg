@@ -59,6 +59,7 @@ func _run() -> void:
 	if file != null:
 		file.store_string(JSON.stringify({"profile": String(_profile), "levels": report}, "  "))
 	_release_aim()
+	await AudioRelease.settle(get_tree())
 	get_tree().quit(0)
 
 

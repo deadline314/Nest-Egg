@@ -1,0 +1,15 @@
+{
+  "scope": "An isolated copied packet with the first genuine archive truncated to1024 bytes must be rejected; real archives and their original manifest unchanged.",
+  "command": [
+    "D:/ComfyUI/.venv-rocm/Scripts/python.exe",
+    "-X",
+    "utf8",
+    "D:\\NestEggVerification\\ne256-reader-corruption-control-20261117\\verify_archives.py"
+  ],
+  "returncode": 1,
+  "stdout": "",
+  "stderr": "Traceback (most recent call last):\n  File \"D:\\NestEggVerification\\ne256-reader-corruption-control-20261117\\verify_archives.py\", line 89, in <module>\n    main()\n    ~~~~^^\n  File \"D:\\NestEggVerification\\ne256-reader-corruption-control-20261117\\verify_archives.py\", line 18, in main\n    assert path.stat().st_size == expected[\"bytes\"]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+  "truncated_archive": "raw-01.tar.gz",
+  "actual_bytes": 1024,
+  "expected_bytes": 39005866
+}

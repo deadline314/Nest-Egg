@@ -15,7 +15,7 @@ const FIELDS := {
 	"pan_max_speed": [300.0, 60.0, 4000.0],
 	"aim_look": [30.0, 0.0, 120.0],
 	"aim_look_speed": [5.0, 0.1, 30.0],
-	"vertical_offset": [-40.0, -120.0, 120.0],
+	"vertical_offset": [-43.0, -120.0, 120.0],
 	"deadzone_up": [26.0, 0.0, 200.0],
 	"deadzone_down": [16.0, 0.0, 200.0],
 	"fall_look_from": [200.0, 0.0, 2000.0],

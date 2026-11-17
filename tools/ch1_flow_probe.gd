@@ -225,7 +225,7 @@ func _run() -> void:
 		await get_tree().physics_frame
 	await _settle(30)
 	_capture("ST-9-death-sequence")
-	_check(screen != null and screen.sequence.get("steps", []).size() == 4 and GameState.has_flag(&"ch1_booth_restoration_done"), "an ordinary death shows the full death sequence and records the booth restoration")
+	_check(screen != null and GameState.deaths == 2 and screen.sequence == Story.death_sequence(_level.data.chapter, 2) and GameState.has_flag(&"ch1_booth_restoration_done"), "an ordinary death shows the full death sequence and records the booth restoration")
 	_check(GameState.has_flag(&"ch1_street_route_open") and GameState.has_flag(&"watchdog_defeated") and GameState.has_flag(&"ch1_flood_gate_open"), "world events write the route, watchdog and flood flags")
 	await _enter("vault")
 	_check(StoryItems.acquire(&"ch1_data_disk") and GameState.has_flag(&"ledger_disk_obtained") and StoryItems.holds(&"ch1_data_disk"), "taking the disk records history and custody")

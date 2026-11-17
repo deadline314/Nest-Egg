@@ -100,6 +100,8 @@ func _measure(level_id: String, column: int, row: int) -> void:
 	var layout: LevelLayout = level._layout
 	var player := level.player
 	player.health.setup(999, 0.0)
+	# Isolate camera movement from encounter hitstop, knockback and shake.
+	player.health.grant_invulnerability(100000.0)
 	if not layout.cell(column, row) in ["#", "="]:
 		printerr("[framing_probe] %s 第 %d 欄第 %d 列不是地面" % [level_id, column, row])
 		_failed = true

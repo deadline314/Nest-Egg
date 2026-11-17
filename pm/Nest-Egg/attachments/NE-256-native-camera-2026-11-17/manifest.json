@@ -1,0 +1,2169 @@
+{
+  "base": "d851153e281afe709a1cc19a3ca91f7813d82cd1",
+  "archives": {
+    "raw-01.tar.gz": {
+      "bytes": 39005866,
+      "sha256": "7be3d5cfbf090c2ed56897de7f72908efa9eda4995230a110a1f3ecbcb54e65e"
+    },
+    "raw-02.tar.gz": {
+      "bytes": 35450462,
+      "sha256": "3209ef56385385134500124b3de625742ee2683ed0b5a5b0c0da3f53c4e1f415"
+    }
+  },
+  "members": {
+    "private-source/drivers/run-ne256-audio-cleanup-walk-20261117.py": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 2379,
+      "sha256": "d25a837828a8fc823dff45e9ef9d4647e8295f4bd4a0b060d2d2e8a501888f05"
+    },
+    "private-source/drivers/run-ne256-camera-walk-20261117.py": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 2196,
+      "sha256": "2ac137048b85f21eadbe33d80cfdffec1c9ea4ba68181bcd0fcdc390bd0b3902"
+    },
+    "private-source/drivers/run-ne256-candidate-native-20261117.py": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 2942,
+      "sha256": "fb7748b99b1596b50c79a4fc37258ae08260649e11accdb7c8c1df57f2bc2a5e"
+    },
+    "private-source/drivers/run-ne256-candidate-walk-20261117.py": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 2200,
+      "sha256": "b98a188724ce5ae97d0e597deda39c033e51e708ef078ff6a5a0ed85b414950b"
+    },
+    "private-source/drivers/run-ne256-composition-20261117.py": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 3193,
+      "sha256": "3dc9584440496c5c5c7358bf884091c8e7a6ae0ee5445327529db72ffe60addd"
+    },
+    "private-source/drivers/run-ne256-composition-v2-20261117.py": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 3337,
+      "sha256": "429514e9929e5d5d18f1b2aaad859a4fe406e85c703878e4114ad2aeecdbd2a7"
+    },
+    "private-source/drivers/run-ne256-controls-20261117.py": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 3087,
+      "sha256": "8944940f41a0cf271b4249a04703034d46502ff90070801aef41c6f460661b33"
+    },
+    "private-source/drivers/run-ne256-corrected-story-route-20261117.py": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 3212,
+      "sha256": "91f9266a231668cb8799dbe5ba591a26a812f12421e7ff0f5979e4197a035435"
+    },
+    "private-source/drivers/run-ne256-existing-routes-20261117.py": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 3257,
+      "sha256": "fb3a7306f1f6dceec08191fea7bad3e5924c822bef01b0fca3e7a199c9b6bacd"
+    },
+    "private-source/drivers/run-ne256-final-walk-20261117.py": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 2347,
+      "sha256": "712f3b00303046b443f9880553665a167f4c76c9698ea2be1118de69e56f2acf"
+    },
+    "private-source/drivers/run-ne256-instrumented-20261117.py": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 2930,
+      "sha256": "fca5d6a7ad98bdd0cffe5d15aac37ec75fdc4cb70166675401342aa52c35b0f4"
+    },
+    "private-source/drivers/run-ne256-motion-20261117.py": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 2808,
+      "sha256": "85dec8579c787680d16bd40b538812452cdcfcc07e82626cb942db1555813305"
+    },
+    "private-source/drivers/run-ne256-motion-real-repros-20261117.py": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 2799,
+      "sha256": "5a6126b655a2a89c4f9a92a408e8fde4223a71ff18be07ba533014c5cd48ac8c"
+    },
+    "private-source/drivers/run-ne256-six-framing-20261117.py": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 2748,
+      "sha256": "760d7822beb254e4f137be6321a7436018a8dd6db84cca237f7d619ac19ce426"
+    },
+    "private-source/drivers/run-ne256-verbose-walk-20261117.py": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 2236,
+      "sha256": "9c4139a0e948241ffdab337bc7f4cb74a4719038db14760bde1a6e06ce95637b"
+    },
+    "private-source/ne256-audio-cleanup/camera_walk.gd": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 11488,
+      "sha256": "ea2fec1a2ae9796e4bbc09101d77550bc23401b39f2dc6c68564c62d716cd873"
+    },
+    "private-source/ne256-audio-cleanup/camera_walk.tscn": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 196,
+      "sha256": "ca7a2713a804540ad4afbd817c79ee7542e5cb86820616e1349568eaef77737d"
+    },
+    "private-source/ne256-composition-v2/base.gd": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 18151,
+      "sha256": "9a5eac8b5e95271be84fad1894583f1a625ed474d76d574770609f3fe8775f14"
+    },
+    "private-source/ne256-composition-v2/composition.gd": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 1557,
+      "sha256": "97a94318b2276038620445dd10333f0b46b438b33210e395fb6aa52a468f1509"
+    },
+    "private-source/ne256-composition-v2/composition.tscn": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 202,
+      "sha256": "ceea19080c19802523eca62aebf0f688b9a4547f2e11fbb93eb23c175be45740"
+    },
+    "private-source/ne256-composition/composition.gd": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 1553,
+      "sha256": "b5b04397bd6c27c9f0928459907de73bc5ac0a2062eba02607527e72b1578232"
+    },
+    "private-source/ne256-composition/composition.tscn": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 199,
+      "sha256": "2f6cd1d38feee6a1729eaea3b21f2f0f6c7396956f1a9d9a41d35336c62ec2a2"
+    },
+    "private-source/root-debug/framing_controlled.gd": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 20133,
+      "sha256": "349716e42a7b1573608a4419fa5ab46ed1e5c879670d5f79d4fddbdeefe87c30"
+    },
+    "private-source/root-debug/framing_controlled.tscn": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 216,
+      "sha256": "0f45107bd6c43822ede5dff16e6649612530afe7a3150cc8dd8dd7cf1ffe0f4d"
+    },
+    "private-source/root-debug/framing_instrumented.gd": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 19085,
+      "sha256": "0b140b94b5e3b7c0f1aaf3c0479c47ffdd38367840a3a3c752bb83fc1094c087"
+    },
+    "private-source/root-debug/framing_instrumented.tscn": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 218,
+      "sha256": "323dbfc98108e32d9a81a8f6b8f92385eb904cdce01f609740d8f52b57551931"
+    },
+    "private-source/root-debug/frozen-candidate/data/feel/camera.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 3280,
+      "sha256": "3e23f6a2cbc571e8818ef584b850f23a296a1f45faa6ead661a4df2c00601d16"
+    },
+    "private-source/root-debug/frozen-candidate/game/level/camera_tuning.gd": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 7596,
+      "sha256": "c2975c0d8fcb8d2556673b8c177536742d9b61fc4422713249d85ed13290e37c"
+    },
+    "private-source/root-debug/frozen-candidate/tools/framing_probe.gd": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 17921,
+      "sha256": "33827f73ecfa9fa4d7203daeda2d6f7c757bac7621b421856a921bf96b7714ed"
+    },
+    "private-source/root-debug/isolated-source-after.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 1012,
+      "sha256": "feaf294f64f2c9ff0cee35dc9886fee7f9465171a0863f8bf18f79688e67afa1"
+    },
+    "private-source/root-debug/isolated-source-before.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 893,
+      "sha256": "82660a5ffb1c55b67491193565f776fbdadb65f7fb97b86385da898c79540b06"
+    },
+    "private-source/root-debug/original-camera_walk.gd.txt": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 11449,
+      "sha256": "757c849ffc542808097326c57f4a59c3d3178884ae4b80e5fed70eb54918fcd0"
+    },
+    "private-source/root-debug/original-framing.gd.txt": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 17802,
+      "sha256": "8d4645067c52a77d13e2476205f29cf6acfe5fb3efa912453ba050910d8222f8"
+    },
+    "raw/additional-tools-selector.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 628,
+      "sha256": "c2534be213090086552d5f7fd25d13c76dc839af1cb7d81c9164192776eb7529"
+    },
+    "raw/camera-walk-candidate-current/current-camera-walk.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 17351,
+      "sha256": "5ddb16eec42eba9c15039cb335a2679c8b9ea526b476bb2dab6ba7988ad71704"
+    },
+    "raw/camera-walk-candidate-current/native.log": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 1743,
+      "sha256": "693b2d90dff30c61feda30b12b283e1c15616c06017ecdb78500e41a02bff1d3"
+    },
+    "raw/camera-walk-candidate-current/request.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 646,
+      "sha256": "d199d3082f4148e8d363b9437a6919cb303acc708e8030b0e03a591305c62a45"
+    },
+    "raw/camera-walk-candidate-current/result.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 86,
+      "sha256": "78a1c750385bec22398117af46db19c38b75a8f288bbc156128b89e3e9346e39"
+    },
+    "raw/camera-walk-candidate-current/source-after.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45384,
+      "sha256": "8a5db4bf798c3375dc78caf181d8b4b9d0e4626111027a9e6aa95c9985dfead6"
+    },
+    "raw/camera-walk-candidate-current/source-before.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45384,
+      "sha256": "8a5db4bf798c3375dc78caf181d8b4b9d0e4626111027a9e6aa95c9985dfead6"
+    },
+    "raw/camera-walk-candidate-verbose-current/current-camera-walk.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 17642,
+      "sha256": "18ed61d6fbf5738dee1c6121e5bcb19cfa49cb9a97dcde4e5d93d9b7a057bf34"
+    },
+    "raw/camera-walk-candidate-verbose-current/native.log": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 1835046,
+      "sha256": "ba8116a4782b6384e586962e3dbb406e870017825a787a8571ebc1d13184adb5"
+    },
+    "raw/camera-walk-candidate-verbose-current/request.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 671,
+      "sha256": "9e86a5247509206a5a8d33d2ee401b65a1e482d7f9cf6ce3fe947fe657b408d9"
+    },
+    "raw/camera-walk-candidate-verbose-current/result.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 86,
+      "sha256": "149443a59cf9a1e6b00a5ed4e0750986d746bdc56dcc1a60744575fe71b4004f"
+    },
+    "raw/camera-walk-candidate-verbose-current/source-after.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45384,
+      "sha256": "8a5db4bf798c3375dc78caf181d8b4b9d0e4626111027a9e6aa95c9985dfead6"
+    },
+    "raw/camera-walk-candidate-verbose-current/source-before.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45384,
+      "sha256": "8a5db4bf798c3375dc78caf181d8b4b9d0e4626111027a9e6aa95c9985dfead6"
+    },
+    "raw/camera-walk-current/current-camera-walk.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 17641,
+      "sha256": "0cd130c61b50e6790e74153cfbb54c5e45e609f0840846f1c2242e704f02df2f"
+    },
+    "raw/camera-walk-current/native.log": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 1492,
+      "sha256": "7d9299af7cc289dd3ad25119ea39cdb0b95242bc60cf5a45f745a709f23389b8"
+    },
+    "raw/camera-walk-current/request.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 630,
+      "sha256": "cbd3b4632cb500d7eff0c8aa6b7ad3890aa877c575db240768954cf12df6e03c"
+    },
+    "raw/camera-walk-current/result.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 86,
+      "sha256": "686a25d45f4534cba3b2c3caf5824fd591a9695589af5140487431d08c9bfe39"
+    },
+    "raw/camera-walk-current/source-after.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45384,
+      "sha256": "080dac1b96334a51dc461976222b087f120a58e864ec1a359aac7cfc058d1bf7"
+    },
+    "raw/camera-walk-current/source-before.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45384,
+      "sha256": "080dac1b96334a51dc461976222b087f120a58e864ec1a359aac7cfc058d1bf7"
+    },
+    "raw/camera-walk-final-audio-settle-current/current-camera-walk.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 17641,
+      "sha256": "c85e3ac750f38a65a824be37db21ade91f3013be52015f9fa6dcd88c3d7da53e"
+    },
+    "raw/camera-walk-final-audio-settle-current/native.log": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 1492,
+      "sha256": "7d9299af7cc289dd3ad25119ea39cdb0b95242bc60cf5a45f745a709f23389b8"
+    },
+    "raw/camera-walk-final-audio-settle-current/request.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 793,
+      "sha256": "00fd0aad3457d3446a0ef6d982a86ee52fb6179253a3a26ae1cbf34e306fd3a5"
+    },
+    "raw/camera-walk-final-audio-settle-current/result.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 85,
+      "sha256": "7bc357ef9105dac7a73d092f1e91d823947c1aa2bc0148a4d1d87bdafc96321a"
+    },
+    "raw/camera-walk-final-audio-settle-current/source-after.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45384,
+      "sha256": "433c076ebcdf5c267f6ed9475d2e3636c54e731438268090617861f18317c129"
+    },
+    "raw/camera-walk-final-audio-settle-current/source-before.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45384,
+      "sha256": "433c076ebcdf5c267f6ed9475d2e3636c54e731438268090617861f18317c129"
+    },
+    "raw/camera-walk-level_wide/level_wide-camera-walk.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 16320,
+      "sha256": "3e77779fdb23bd8d1cb7430ce1b68e0a555f7c88d5dbac4c3cac9c8b33ca8d80"
+    },
+    "raw/camera-walk-level_wide/native.log": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 1742,
+      "sha256": "b423f6014531316d2e8bde18080d1f80faed1e28b9506b5b28c50a1d5f8322f2"
+    },
+    "raw/camera-walk-level_wide/request.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 664,
+      "sha256": "e6adbb564632c1c0b4541d87023576f84bec2cff50b91d1d03ddff26de3362b2"
+    },
+    "raw/camera-walk-level_wide/result.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 86,
+      "sha256": "04074cc51fb68a497c8ea34489aa5c4a6b6dd8e6781d5f58157c69ea8478da94"
+    },
+    "raw/camera-walk-level_wide/source-after.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45384,
+      "sha256": "080dac1b96334a51dc461976222b087f120a58e864ec1a359aac7cfc058d1bf7"
+    },
+    "raw/camera-walk-level_wide/source-before.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45384,
+      "sha256": "080dac1b96334a51dc461976222b087f120a58e864ec1a359aac7cfc058d1bf7"
+    },
+    "raw/camera-walk-private-audio-settle-current/current-camera-walk.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 17641,
+      "sha256": "6936161be8f2cdded95e19dd57221fc8ac8d8ac5efe5a210a36165c5059d6e61"
+    },
+    "raw/camera-walk-private-audio-settle-current/native.log": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 1492,
+      "sha256": "7d9299af7cc289dd3ad25119ea39cdb0b95242bc60cf5a45f745a709f23389b8"
+    },
+    "raw/camera-walk-private-audio-settle-current/request.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 726,
+      "sha256": "31fd599d01f6cf18add018651334af9dc93660d79971f47bf44d630c5794dc35"
+    },
+    "raw/camera-walk-private-audio-settle-current/result.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 87,
+      "sha256": "2f923a9caa7221f3fdfe2e4687f1cd02dee5217e3d0cc6f5faf1d54dfd869627"
+    },
+    "raw/camera-walk-private-audio-settle-current/source-after.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45612,
+      "sha256": "3a02510e69eb4e66ac7ebc0cfaf626e369914a0e92aef05fbef199b2d8036f68"
+    },
+    "raw/camera-walk-private-audio-settle-current/source-before.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45612,
+      "sha256": "3a02510e69eb4e66ac7ebc0cfaf626e369914a0e92aef05fbef199b2d8036f68"
+    },
+    "raw/camera-walk-private-audio-settle-level_wide/level_wide-camera-walk.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 16320,
+      "sha256": "737301952acafa07b9062c4554615a2ecc7aa7225e437e36c8a276ada3b6defb"
+    },
+    "raw/camera-walk-private-audio-settle-level_wide/native.log": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 1492,
+      "sha256": "7d039e04ad14e26e20d6c1de5b63af42441904662d67c3e823560b7c0a30fedc"
+    },
+    "raw/camera-walk-private-audio-settle-level_wide/request.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 760,
+      "sha256": "2a19d9302fe98ce2fe26c6c569496de87ef6b617bf5482f67331c571c3eb905e"
+    },
+    "raw/camera-walk-private-audio-settle-level_wide/result.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 85,
+      "sha256": "e8bb468a74f714a9f8d5046ee7961be10c7f629f01cf6a6ad9ebc8af90710096"
+    },
+    "raw/camera-walk-private-audio-settle-level_wide/source-after.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45612,
+      "sha256": "3a02510e69eb4e66ac7ebc0cfaf626e369914a0e92aef05fbef199b2d8036f68"
+    },
+    "raw/camera-walk-private-audio-settle-level_wide/source-before.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45612,
+      "sha256": "3a02510e69eb4e66ac7ebc0cfaf626e369914a0e92aef05fbef199b2d8036f68"
+    },
+    "raw/candidate-framing-six-1280x720/framing-ch1_lounge-25-1280x720.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 680436,
+      "sha256": "78c29cd5fff3786b0a5f68533fe9ea6d54f7bee98d697ed5a29721ad1343f926"
+    },
+    "raw/candidate-framing-six-1280x720/framing-ch1_pawnshop-55-1280x720.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 563734,
+      "sha256": "8e20a8a1efda6c836e5de3b7cd53eda88d0a84fd155e8b7371309281cb406291"
+    },
+    "raw/candidate-framing-six-1280x720/framing-ch1_rooftop-42-1280x720.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 519760,
+      "sha256": "a60b2f5bcd8571df46ee73e7c7a46986f341e5d191892e7c00c1af78eb4cb1af"
+    },
+    "raw/candidate-framing-six-1280x720/framing-ch1_stall-25-1280x720.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 367392,
+      "sha256": "1e606708255330aaa2f7e00f6336122dfaae3afa5e58153dfeeee2267399b430"
+    },
+    "raw/candidate-framing-six-1280x720/framing-ch1_street-84-1280x720.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 375544,
+      "sha256": "3a4bc60379fadb50ee3af0939ee556f99cee0361f1bb4747bd01e292ddeb3d08"
+    },
+    "raw/candidate-framing-six-1280x720/framing-ch1_warehouse-52-1280x720.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 377194,
+      "sha256": "1a01ab3d3820e7b666703c305a6e84495ebbde917b753832c9a292fcd8d93f12"
+    },
+    "raw/candidate-framing-six-1280x720/framing-hud-ch1_lounge-25.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 680639,
+      "sha256": "6efecc2fa14d487caf84611a4f501dfb5c3f1c6c7d964a0340cfbb27ed15ffed"
+    },
+    "raw/candidate-framing-six-1280x720/framing-hud-ch1_pawnshop-55.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 563912,
+      "sha256": "4c30cf2ca92b499c7696472ddd792921cfda2162eadb0404a427b7175c9927f4"
+    },
+    "raw/candidate-framing-six-1280x720/framing-hud-ch1_rooftop-42.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 519859,
+      "sha256": "6b75a4184f3abb690168fbb8c93e6b6a76a0cb12366bbf17642da49f98e86095"
+    },
+    "raw/candidate-framing-six-1280x720/framing-hud-ch1_stall-25.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 367347,
+      "sha256": "ce179b07eead0d9b7dad6d69981093b0020c524d2e227cf262c53a7d0c210715"
+    },
+    "raw/candidate-framing-six-1280x720/framing-hud-ch1_street-84.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 375509,
+      "sha256": "5459f61ef77b3f78a4c03c97276485ad9da8ecc7a21f864b340cf70b220bf697"
+    },
+    "raw/candidate-framing-six-1280x720/framing-hud-ch1_warehouse-52.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 377271,
+      "sha256": "2ed8952000610f73b1db5876bb71309268db1978e4454bcaf338254a7fba930c"
+    },
+    "raw/candidate-framing-six-1280x720/native.log": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 702,
+      "sha256": "08462bd6ab4d47a2cca14eaeb9906c985f4b94b71f05675313241dce518c51df"
+    },
+    "raw/candidate-framing-six-1280x720/request.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 951,
+      "sha256": "cbec157911140314e27da2b23300e4fc2e2f34c7c07536e491c3651a97c70a98"
+    },
+    "raw/candidate-framing-six-1280x720/result.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 108,
+      "sha256": "133fdf9ee3d7a1b5ffd6e9ff888c75e480d605675f97572d838cd627a7e683db"
+    },
+    "raw/candidate-framing-six-1280x720/source-after.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45182,
+      "sha256": "9e84e3dcec8911e69ecbbda965ef6c2b9fc9154050fa4f8b5dedfebfeb612af9"
+    },
+    "raw/candidate-framing-six-1280x720/source-before.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45182,
+      "sha256": "9e84e3dcec8911e69ecbbda965ef6c2b9fc9154050fa4f8b5dedfebfeb612af9"
+    },
+    "raw/candidate-framing-six-1920x1080/framing-ch1_lounge-25-1920x1080.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 1239245,
+      "sha256": "079372c4674d9bf92f4302c382929abe88717895f083f9209bfd474cecf91bc0"
+    },
+    "raw/candidate-framing-six-1920x1080/framing-ch1_pawnshop-55-1920x1080.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 1015502,
+      "sha256": "1c5e27cc9fb41742fab7654a1ac5e9493230824b94cc792d0b2fced409fad8e6"
+    },
+    "raw/candidate-framing-six-1920x1080/framing-ch1_rooftop-42-1920x1080.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 961711,
+      "sha256": "2a839def5fca5749cf72f80e8e5903b669db294f010912e6394562feb602dd4a"
+    },
+    "raw/candidate-framing-six-1920x1080/framing-ch1_stall-25-1920x1080.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 656337,
+      "sha256": "b669403767670664d955199d64d11ddc663db111c874982e9772298b267dc002"
+    },
+    "raw/candidate-framing-six-1920x1080/framing-ch1_street-84-1920x1080.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 672057,
+      "sha256": "31b7e7a7f6327c45eebbbb9224beeb8d08faaead3aa6084ab43740cd3ef5f319"
+    },
+    "raw/candidate-framing-six-1920x1080/framing-ch1_warehouse-52-1920x1080.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 681894,
+      "sha256": "cc92c0fb40b4b8a88a01c07919563dd89ff9630fc4cd6b4969586e666232e704"
+    },
+    "raw/candidate-framing-six-1920x1080/framing-hud-ch1_lounge-25.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 1239410,
+      "sha256": "ab34bdfdfa2bec27ab90345bdee2ac405f625bf1257a00ea904c0aeb9825d4d8"
+    },
+    "raw/candidate-framing-six-1920x1080/framing-hud-ch1_pawnshop-55.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 1015656,
+      "sha256": "ac5a6b4030f0606ce89363e9c29ba6107ab64f0a9a4912e1bb02738817c5118d"
+    },
+    "raw/candidate-framing-six-1920x1080/framing-hud-ch1_rooftop-42.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 961821,
+      "sha256": "4d8367f151ee4d2972ec59a0398bf68c977d51ea57988492e7429f7cd64cd179"
+    },
+    "raw/candidate-framing-six-1920x1080/framing-hud-ch1_stall-25.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 656267,
+      "sha256": "7dd6d6051273935efb34afeee838d21052904ce0b913d16cb5b35d1b22d560dd"
+    },
+    "raw/candidate-framing-six-1920x1080/framing-hud-ch1_street-84.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 672047,
+      "sha256": "be4114f35d5905d0a5a77354aa890f92eb712dd03497aac0ef5ab9bb0676f3a1"
+    },
+    "raw/candidate-framing-six-1920x1080/framing-hud-ch1_warehouse-52.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 681943,
+      "sha256": "56bc4faa104deaf58f857a7dd087ea5496dd6aac3fc5c1ea4e6fb2ab7598fd5c"
+    },
+    "raw/candidate-framing-six-1920x1080/native.log": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 703,
+      "sha256": "8120d740f119291b0117377921945e381737b9561c88cce462d05845dfc644da"
+    },
+    "raw/candidate-framing-six-1920x1080/request.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 953,
+      "sha256": "d111d3c88d54e961fc92cab35f7412f2e5aa500d2588bafa85f4b5973900a2f9"
+    },
+    "raw/candidate-framing-six-1920x1080/result.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 108,
+      "sha256": "68feefe0b316dafef1fba89efc3144a88b3ea5ca678de4fae360b5b3bbdcbeb7"
+    },
+    "raw/candidate-framing-six-1920x1080/source-after.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45182,
+      "sha256": "9e84e3dcec8911e69ecbbda965ef6c2b9fc9154050fa4f8b5dedfebfeb612af9"
+    },
+    "raw/candidate-framing-six-1920x1080/source-before.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45182,
+      "sha256": "9e84e3dcec8911e69ecbbda965ef6c2b9fc9154050fa4f8b5dedfebfeb612af9"
+    },
+    "raw/candidate-motion-six-1280x720/native.log": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 50503,
+      "sha256": "fb021d9a8ca29c3237da200c5c0caa063a740b9b2193eaa5b4275b9811e04fa8"
+    },
+    "raw/candidate-motion-six-1280x720/request.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 968,
+      "sha256": "a392cd72c77070365dd606c747a1f23eb227344b35948278556ede3745ed47e5"
+    },
+    "raw/candidate-motion-six-1280x720/result.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 108,
+      "sha256": "4bdbcd9c232274ada783548b33d93df1e4e6ec06152a59306219f0d47e621dc0"
+    },
+    "raw/candidate-motion-six-1280x720/source-after.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45182,
+      "sha256": "9e84e3dcec8911e69ecbbda965ef6c2b9fc9154050fa4f8b5dedfebfeb612af9"
+    },
+    "raw/candidate-motion-six-1280x720/source-before.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45182,
+      "sha256": "9e84e3dcec8911e69ecbbda965ef6c2b9fc9154050fa4f8b5dedfebfeb612af9"
+    },
+    "raw/composition-ch1_c09_wake-current/composition-state.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 506,
+      "sha256": "ecb5863b1d1a984989f88a1b72ab861cdfcb0ec447eca5878a446e680a59a83c"
+    },
+    "raw/composition-ch1_c09_wake-current/cutscene-ch1_c09_wake-level.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 247189,
+      "sha256": "c39914725f205073383b43f108d77b7af64f9d2b28bf554eeb974dd2dffe08db"
+    },
+    "raw/composition-ch1_c09_wake-current/native.log": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 803,
+      "sha256": "ffd7c202da04c355fcc8a599877258f4ad8c76f645b3a342f4c997068d803d20"
+    },
+    "raw/composition-ch1_c09_wake-current/request.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 1012,
+      "sha256": "fa9fe9cbe95d2ea85e53e2378218a56f4932908cd0fd9a073278a9416a0c3cf6"
+    },
+    "raw/composition-ch1_c09_wake-current/result.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 108,
+      "sha256": "3f64f091ad4b9ae7e2c8c41b6ca2c6106a9421d3a24a2ade732c8b536ae7b68f"
+    },
+    "raw/composition-ch1_c09_wake-current/source-after.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45504,
+      "sha256": "c2f1913d5f76114fe153c846db91fd8e71bd7cacd211d02209d73a70dc4d10ff"
+    },
+    "raw/composition-ch1_c09_wake-current/source-before.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45504,
+      "sha256": "c2f1913d5f76114fe153c846db91fd8e71bd7cacd211d02209d73a70dc4d10ff"
+    },
+    "raw/composition-ch1_c09_wake-level_wide/composition-state.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 503,
+      "sha256": "723147e3aa05e738bf0a21621dbf58ab8291f7c8fc0483792af477515acd413c"
+    },
+    "raw/composition-ch1_c09_wake-level_wide/cutscene-ch1_c09_wake-level_wide.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 247189,
+      "sha256": "dc4a53833cf51184f98eceb8370fcfab534974f66403e2b828345118c450c600"
+    },
+    "raw/composition-ch1_c09_wake-level_wide/native.log": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 808,
+      "sha256": "e0355317aee416bb066cea9acd0c5eff62a010494e56584499e146c88bc514ac"
+    },
+    "raw/composition-ch1_c09_wake-level_wide/request.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 1043,
+      "sha256": "ea89c556c81535f6a6c17611cac755c457585a4d1e06896afa94181169c7d213"
+    },
+    "raw/composition-ch1_c09_wake-level_wide/result.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 109,
+      "sha256": "8c5830b978ac279462913bc3a1e69f10ec76b9699c0df1cf80e4ff31047fa64e"
+    },
+    "raw/composition-ch1_c09_wake-level_wide/source-after.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45504,
+      "sha256": "c2f1913d5f76114fe153c846db91fd8e71bd7cacd211d02209d73a70dc4d10ff"
+    },
+    "raw/composition-ch1_c09_wake-level_wide/source-before.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45504,
+      "sha256": "c2f1913d5f76114fe153c846db91fd8e71bd7cacd211d02209d73a70dc4d10ff"
+    },
+    "raw/composition-ch1_c14_home-current/composition-state.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 164,
+      "sha256": "24d6400d79f437f50f1e908c1f22f0b5f9b21586c61c97bb44da152aae8b18dc"
+    },
+    "raw/composition-ch1_c14_home-current/cutscene-ch1_c14_home-level.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 571094,
+      "sha256": "4dee7f4454d3200a290748ac892e73dc257433577644e0b573ac18a9f54bb73d"
+    },
+    "raw/composition-ch1_c14_home-current/native.log": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 607,
+      "sha256": "ba007ac4bfa31530f3cd10874dccc2b8667a6d22fb38b41791dd3b962fecbf9a"
+    },
+    "raw/composition-ch1_c14_home-current/request.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 1012,
+      "sha256": "2473cc78833978487de04172dcc76769abadafd4beea728f434cdc2daaf756ec"
+    },
+    "raw/composition-ch1_c14_home-current/result.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 108,
+      "sha256": "c02ef4b2e047713c40e2c38fb461532cda9d97b0532a4014ed3fd15cd0bb07a9"
+    },
+    "raw/composition-ch1_c14_home-current/source-after.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45504,
+      "sha256": "c2f1913d5f76114fe153c846db91fd8e71bd7cacd211d02209d73a70dc4d10ff"
+    },
+    "raw/composition-ch1_c14_home-current/source-before.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45504,
+      "sha256": "c2f1913d5f76114fe153c846db91fd8e71bd7cacd211d02209d73a70dc4d10ff"
+    },
+    "raw/composition-ch1_c14_home-level_wide/composition-state.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 161,
+      "sha256": "8b7c5df2ec1d66440818d66f35a35e0be692e555d2bdabdba64636d3df55a43d"
+    },
+    "raw/composition-ch1_c14_home-level_wide/cutscene-ch1_c14_home-level_wide.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 639100,
+      "sha256": "a4afcdb56f78773de624f9d60f16a3601adcb86c00460be42a3477a155dbf6c5"
+    },
+    "raw/composition-ch1_c14_home-level_wide/native.log": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 612,
+      "sha256": "a2bb8344cab96e4f6d34e8cc9234fa9e0fe4c6a50c0f2686447d9889623b9110"
+    },
+    "raw/composition-ch1_c14_home-level_wide/request.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 1043,
+      "sha256": "6279dea1ce3e2d5324119e714d91a8a0c022a4b4168f71c20a27d665e552d6fa"
+    },
+    "raw/composition-ch1_c14_home-level_wide/result.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 109,
+      "sha256": "11c14230f148981ecea9a1efc51403d2ef8b49fd764eab71809bd1ae9d5b05b5"
+    },
+    "raw/composition-ch1_c14_home-level_wide/source-after.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45504,
+      "sha256": "c2f1913d5f76114fe153c846db91fd8e71bd7cacd211d02209d73a70dc4d10ff"
+    },
+    "raw/composition-ch1_c14_home-level_wide/source-before.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45504,
+      "sha256": "c2f1913d5f76114fe153c846db91fd8e71bd7cacd211d02209d73a70dc4d10ff"
+    },
+    "raw/composition-ch1_p_k_wait-current/composition-state.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 450,
+      "sha256": "ddcb0927651d558676862286021311e7e586fb91aeed863c3949e1a6af36604a"
+    },
+    "raw/composition-ch1_p_k_wait-current/cutscene-ch1_p_k_wait-level.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 532152,
+      "sha256": "696032fede7207a366d85c6f220d66bbe3f151cd1a731643a177e154cab06260"
+    },
+    "raw/composition-ch1_p_k_wait-current/native.log": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 755,
+      "sha256": "fb14a52c1a1483bc073c92769edfd6fdf17939ed37cbbaf40b052642a3c7ed51"
+    },
+    "raw/composition-ch1_p_k_wait-current/request.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 1012,
+      "sha256": "4b7ca3b8f5d90ea958debed21d6bcac9f29842cdfab5711922a11ad13755fcc8"
+    },
+    "raw/composition-ch1_p_k_wait-current/result.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 109,
+      "sha256": "9f6f72d35fc5616298c3f8c9cfff8d7cb29f374294fda6412da110f964f29d6b"
+    },
+    "raw/composition-ch1_p_k_wait-current/source-after.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45504,
+      "sha256": "c2f1913d5f76114fe153c846db91fd8e71bd7cacd211d02209d73a70dc4d10ff"
+    },
+    "raw/composition-ch1_p_k_wait-current/source-before.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45504,
+      "sha256": "c2f1913d5f76114fe153c846db91fd8e71bd7cacd211d02209d73a70dc4d10ff"
+    },
+    "raw/composition-ch1_t_egret_1-current/composition-state.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 165,
+      "sha256": "93c46e24235b7abd53c4cdb2718cfb1435a1d5fe8cda372254c51a10e98b77a3"
+    },
+    "raw/composition-ch1_t_egret_1-current/cutscene-ch1_t_egret_1-level.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 570996,
+      "sha256": "998c32c3c326364fb6189517789e2579e9d96105bca9b3b061ce79c144479584"
+    },
+    "raw/composition-ch1_t_egret_1-current/native.log": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 610,
+      "sha256": "cf5c9a080b5385b043ef450bdefcbf0640db5287e6a11bb1c03dd536de405ef6"
+    },
+    "raw/composition-ch1_t_egret_1-current/request.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 1014,
+      "sha256": "7babe8e0e4b1641cf4a0f51fdec2ed4383a30789d0fad7f028e3eb9bddcd53e0"
+    },
+    "raw/composition-ch1_t_egret_1-current/result.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 109,
+      "sha256": "1cc6b044b805c8f0e47e15fe976225876b062eb2dd33445d9b15f05a96220b53"
+    },
+    "raw/composition-ch1_t_egret_1-current/source-after.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45504,
+      "sha256": "c2f1913d5f76114fe153c846db91fd8e71bd7cacd211d02209d73a70dc4d10ff"
+    },
+    "raw/composition-ch1_t_egret_1-current/source-before.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45504,
+      "sha256": "c2f1913d5f76114fe153c846db91fd8e71bd7cacd211d02209d73a70dc4d10ff"
+    },
+    "raw/composition-ch1_t_egret_1-level_wide/composition-state.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 162,
+      "sha256": "05ff351f22617f1fa9f10c58ea220cdc91f3736f658b174b44c9a086da5eb618"
+    },
+    "raw/composition-ch1_t_egret_1-level_wide/cutscene-ch1_t_egret_1-level_wide.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 639108,
+      "sha256": "86d27914be9d9a60babe2dd64455145310cce25ae6c04e35a4de61f549a16d71"
+    },
+    "raw/composition-ch1_t_egret_1-level_wide/native.log": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 615,
+      "sha256": "caa40f67f9cd8d6d457cede3e5aefde1d03a835147ed48f80f660d64af6e2c42"
+    },
+    "raw/composition-ch1_t_egret_1-level_wide/request.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 1045,
+      "sha256": "136249f46ae879e65706b8c7662a2074353d5f5450058d350d12f1c67fc03e9d"
+    },
+    "raw/composition-ch1_t_egret_1-level_wide/result.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 108,
+      "sha256": "4efbde3e85ca27221891868f818ba05e987d2e6ac13c20f464f279de2f0cf966"
+    },
+    "raw/composition-ch1_t_egret_1-level_wide/source-after.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45504,
+      "sha256": "c2f1913d5f76114fe153c846db91fd8e71bd7cacd211d02209d73a70dc4d10ff"
+    },
+    "raw/composition-ch1_t_egret_1-level_wide/source-before.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45504,
+      "sha256": "c2f1913d5f76114fe153c846db91fd8e71bd7cacd211d02209d73a70dc4d10ff"
+    },
+    "raw/composition-v2-ch1_c09_wake-current/composition-state.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 506,
+      "sha256": "ecb5863b1d1a984989f88a1b72ab861cdfcb0ec447eca5878a446e680a59a83c"
+    },
+    "raw/composition-v2-ch1_c09_wake-current/cutscene-ch1_c09_wake-level.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 247189,
+      "sha256": "dc4a53833cf51184f98eceb8370fcfab534974f66403e2b828345118c450c600"
+    },
+    "raw/composition-v2-ch1_c09_wake-current/native.log": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 806,
+      "sha256": "4ad23942f1a4d1ad3b5b5a0298b19bc78408f8a1f2e8b2d1c32e9513937e2502"
+    },
+    "raw/composition-v2-ch1_c09_wake-current/request.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 1114,
+      "sha256": "4bb209a40c7681a84a097e60553cf1c7bc4a03865085d46e4926c911efbeece2"
+    },
+    "raw/composition-v2-ch1_c09_wake-current/result.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 109,
+      "sha256": "83f6b7ee7bf1001b8f9803ac78181c9666969d2dda18669316584ecc64bdfa29"
+    },
+    "raw/composition-v2-ch1_c09_wake-current/source-after.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45617,
+      "sha256": "5cee0b755a3f880c2284f0c4b28aeb9bfc9ac98fe7e9c209ac22ff1adc4ba100"
+    },
+    "raw/composition-v2-ch1_c09_wake-current/source-before.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45617,
+      "sha256": "5cee0b755a3f880c2284f0c4b28aeb9bfc9ac98fe7e9c209ac22ff1adc4ba100"
+    },
+    "raw/composition-v2-ch1_c09_wake-level_wide/composition-state.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 503,
+      "sha256": "723147e3aa05e738bf0a21621dbf58ab8291f7c8fc0483792af477515acd413c"
+    },
+    "raw/composition-v2-ch1_c09_wake-level_wide/cutscene-ch1_c09_wake-level_wide.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 247175,
+      "sha256": "d7850a92499085ef1a1be152721b4377beda1fddc9b005405c7f7620335eb1dd"
+    },
+    "raw/composition-v2-ch1_c09_wake-level_wide/native.log": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 811,
+      "sha256": "7a86477bf9f21c8358ea7e86dc787bef11883dba4a691a902c62121f96b37b33"
+    },
+    "raw/composition-v2-ch1_c09_wake-level_wide/request.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 1145,
+      "sha256": "178871fdf6fa01e300bc0e258bae3b0895ee69529ff06b514258b76f48467561"
+    },
+    "raw/composition-v2-ch1_c09_wake-level_wide/result.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 108,
+      "sha256": "f036ad4ed2c94ac3f179faa024c8128c21e6a6a7d10acfeb83f316a0c30a2230"
+    },
+    "raw/composition-v2-ch1_c09_wake-level_wide/source-after.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45617,
+      "sha256": "5cee0b755a3f880c2284f0c4b28aeb9bfc9ac98fe7e9c209ac22ff1adc4ba100"
+    },
+    "raw/composition-v2-ch1_c09_wake-level_wide/source-before.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45617,
+      "sha256": "5cee0b755a3f880c2284f0c4b28aeb9bfc9ac98fe7e9c209ac22ff1adc4ba100"
+    },
+    "raw/composition-v2-ch1_c14_home-current/composition-state.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 503,
+      "sha256": "7af6cea616b99e23929a7615678c92e12e7ef9a220bf9af9956ff44405cf9f62"
+    },
+    "raw/composition-v2-ch1_c14_home-current/cutscene-ch1_c14_home-level.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 683129,
+      "sha256": "6ba57ad49f1b744b2543e212c0b5dcbbd71daf49cb0e4a44943dbd26fdbb7d30"
+    },
+    "raw/composition-v2-ch1_c14_home-current/native.log": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 862,
+      "sha256": "513d92f1b97f277a88912c578c0e97c20b54a9c04247db61d64502a58222d274"
+    },
+    "raw/composition-v2-ch1_c14_home-current/request.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 1114,
+      "sha256": "b6f86000c0faea5f00985f4478e419436e716282fcc5efdbeb3a621310bc2a3a"
+    },
+    "raw/composition-v2-ch1_c14_home-current/result.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 108,
+      "sha256": "420a883d32943047d2d7be135c2332eaeda2476694d3a3c8c5801d28d8e90a71"
+    },
+    "raw/composition-v2-ch1_c14_home-current/source-after.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45617,
+      "sha256": "5cee0b755a3f880c2284f0c4b28aeb9bfc9ac98fe7e9c209ac22ff1adc4ba100"
+    },
+    "raw/composition-v2-ch1_c14_home-current/source-before.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45617,
+      "sha256": "5cee0b755a3f880c2284f0c4b28aeb9bfc9ac98fe7e9c209ac22ff1adc4ba100"
+    },
+    "raw/composition-v2-ch1_c14_home-level_wide/composition-state.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 500,
+      "sha256": "b6f152c7d858ab5081fec49aa231652be24fc909b4afbe0ceca27b31abcfc84b"
+    },
+    "raw/composition-v2-ch1_c14_home-level_wide/cutscene-ch1_c14_home-level_wide.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 682900,
+      "sha256": "0f2b2e1cf856d3e92aeae9b8f60c8631c29d329d0601644ea6a6a99694c88567"
+    },
+    "raw/composition-v2-ch1_c14_home-level_wide/native.log": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 803,
+      "sha256": "7602969b567f1df94b037227654245de58b88a449d072858ff7155d85f5f1e2a"
+    },
+    "raw/composition-v2-ch1_c14_home-level_wide/request.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 1145,
+      "sha256": "4a847e40d0d1a3a2bd836a1dac545939e85dd5266595eb30d5a248dd13bf04fb"
+    },
+    "raw/composition-v2-ch1_c14_home-level_wide/result.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 109,
+      "sha256": "b97e1d9c135420e89991eb8312d653766121b4332009db8235a200dce1e1486f"
+    },
+    "raw/composition-v2-ch1_c14_home-level_wide/source-after.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45617,
+      "sha256": "5cee0b755a3f880c2284f0c4b28aeb9bfc9ac98fe7e9c209ac22ff1adc4ba100"
+    },
+    "raw/composition-v2-ch1_c14_home-level_wide/source-before.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45617,
+      "sha256": "5cee0b755a3f880c2284f0c4b28aeb9bfc9ac98fe7e9c209ac22ff1adc4ba100"
+    },
+    "raw/composition-v2-ch1_p_k_wait-current/composition-state.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 164,
+      "sha256": "8d9cf6fe93e9b8d2f396eb24a7c4f90a65913052b30d2eddd3b81a29b1892a00"
+    },
+    "raw/composition-v2-ch1_p_k_wait-current/native.log": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 437,
+      "sha256": "b647068cd563174c7e4abc3adba134f840879e113c9ecf605db782a43661dfc2"
+    },
+    "raw/composition-v2-ch1_p_k_wait-current/request.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 1114,
+      "sha256": "8e1b89496e2f80e4e038566038b39f8086b97401f57b6a1e0076d68a1bb9ac65"
+    },
+    "raw/composition-v2-ch1_p_k_wait-current/result.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 108,
+      "sha256": "9866b7f50994a5d3d829cc1a2e90922bdbc60e10a47ef0ec06e94d7427f2b5ec"
+    },
+    "raw/composition-v2-ch1_p_k_wait-current/source-after.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45617,
+      "sha256": "5cee0b755a3f880c2284f0c4b28aeb9bfc9ac98fe7e9c209ac22ff1adc4ba100"
+    },
+    "raw/composition-v2-ch1_p_k_wait-current/source-before.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45617,
+      "sha256": "5cee0b755a3f880c2284f0c4b28aeb9bfc9ac98fe7e9c209ac22ff1adc4ba100"
+    },
+    "raw/composition-v2-ch1_t_egret_1-current/composition-state.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 503,
+      "sha256": "0287c915bee4bb0218d978a54a9705fb9081f5337051b1d3a99b9f3e39737701"
+    },
+    "raw/composition-v2-ch1_t_egret_1-current/cutscene-ch1_t_egret_1-level.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 665435,
+      "sha256": "6fbb81b31ca9379642106e7fd8498d2dd3b1e9a0a2e037dddddf3528c7f1fe9e"
+    },
+    "raw/composition-v2-ch1_t_egret_1-current/native.log": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 864,
+      "sha256": "40805d2d3139c310baa4cb4957c277bd3c12b0de05d200d98cbd37106c5d0ec6"
+    },
+    "raw/composition-v2-ch1_t_egret_1-current/request.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 1116,
+      "sha256": "028906abda064b513bd532a080f754932e4a9c6b6a01b96ca790bf6158a78ea8"
+    },
+    "raw/composition-v2-ch1_t_egret_1-current/result.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 109,
+      "sha256": "a753378f1ec439289543b6d85fe518a61fcbc8ca522c74349851cfd50a5e7167"
+    },
+    "raw/composition-v2-ch1_t_egret_1-current/source-after.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45617,
+      "sha256": "5cee0b755a3f880c2284f0c4b28aeb9bfc9ac98fe7e9c209ac22ff1adc4ba100"
+    },
+    "raw/composition-v2-ch1_t_egret_1-current/source-before.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45617,
+      "sha256": "5cee0b755a3f880c2284f0c4b28aeb9bfc9ac98fe7e9c209ac22ff1adc4ba100"
+    },
+    "raw/composition-v2-ch1_t_egret_1-level_wide/composition-state.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 500,
+      "sha256": "b71d2cebaa1ad24d75d0169d95df80d55b82b39ce4fd849fb885166360e3e46e"
+    },
+    "raw/composition-v2-ch1_t_egret_1-level_wide/cutscene-ch1_t_egret_1-level_wide.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 665465,
+      "sha256": "6a1341b1574e30d0172f7bb14c0ec5b07edd6b00ea23e170e67b7c749902864e"
+    },
+    "raw/composition-v2-ch1_t_egret_1-level_wide/native.log": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 805,
+      "sha256": "71ee03bfbd8d7a6bb313d5c5709d84f3da2bdee876713104078c9fd3e1328c21"
+    },
+    "raw/composition-v2-ch1_t_egret_1-level_wide/request.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 1147,
+      "sha256": "e4e70af2e3923677283441123899d409fb8ced00a8691809e5408848c07e7275"
+    },
+    "raw/composition-v2-ch1_t_egret_1-level_wide/result.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 109,
+      "sha256": "148e3bee2c3f9aaaa9994e0d01cb19788fd15cd6debc59387b0d4df1a69670f6"
+    },
+    "raw/composition-v2-ch1_t_egret_1-level_wide/source-after.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45617,
+      "sha256": "5cee0b755a3f880c2284f0c4b28aeb9bfc9ac98fe7e9c209ac22ff1adc4ba100"
+    },
+    "raw/composition-v2-ch1_t_egret_1-level_wide/source-before.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45617,
+      "sha256": "5cee0b755a3f880c2284f0c4b28aeb9bfc9ac98fe7e9c209ac22ff1adc4ba100"
+    },
+    "raw/framing-current-720/framing-ch1_pawnshop-55-1280x720.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 538418,
+      "sha256": "fd151eaf069d0b03f19644e5a135193aecf1e06ffffc36d355c6657f67fa7c31"
+    },
+    "raw/framing-current-720/native.log": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 372,
+      "sha256": "db0feb1ee087c435d9568e9887705d2781e26a73e026ca53a462db55f4ab227e"
+    },
+    "raw/framing-current-720/profile/Godot/app_userdata/Nest Egg/logs/godot.log": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 366,
+      "sha256": "7e4e0dc26d36c1c16f4900fc55bafe83773e09779f59d27f730f49d47c08f6a5"
+    },
+    "raw/framing-current-720/profile/Godot/app_userdata/Nest Egg/shader_cache/CanvasShaderRD/5454ca85157b6953b76bf324ebe90594c466e36301bf1b3e6adcce117d705c79/191b69a2c4438e53853754a26a9463dd1cfade90.vulkan.cache": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 23196,
+      "sha256": "ba84563ddd0b43d87fbe0392c1b8fb02e916ac7686bd01b8e822a7d6991cb4f3"
+    },
+    "raw/framing-current-720/profile/Godot/app_userdata/Nest Egg/shader_cache/CanvasShaderRD/5454ca85157b6953b76bf324ebe90594c466e36301bf1b3e6adcce117d705c79/1aee6688c5c2603b060cfc817cf55b17ce3493e1.vulkan.cache": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 48512,
+      "sha256": "6aed8c981a7856621507f2e72a2b8d6eadef493c9feb4c87d6e3e16618ba959b"
+    },
+    "raw/framing-current-720/profile/Godot/app_userdata/Nest Egg/shader_cache/CanvasShaderRD/5454ca85157b6953b76bf324ebe90594c466e36301bf1b3e6adcce117d705c79/1ea7afb1e0cda189d48c9e2dde7afdcaed880af3.vulkan.cache": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 42772,
+      "sha256": "7469d692a15edf17849050ce21b331c41a02e8ee9170e93b31ebac191eb3eb0e"
+    },
+    "raw/framing-current-720/profile/Godot/app_userdata/Nest Egg/shader_cache/CanvasShaderRD/5454ca85157b6953b76bf324ebe90594c466e36301bf1b3e6adcce117d705c79/2358e18ff7b606bc5be9e18cc58523e7eacfc9ca.vulkan.cache": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 24792,
+      "sha256": "3f398dde8aedec6c9a68f4160939abb23a8e735d3144d937f76e9a3438394463"
+    },
+    "raw/framing-current-720/profile/Godot/app_userdata/Nest Egg/shader_cache/CanvasShaderRD/5454ca85157b6953b76bf324ebe90594c466e36301bf1b3e6adcce117d705c79/5148f21435eb8f0e8d04a130b75372ce8e69dfad.vulkan.cache": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 23380,
+      "sha256": "00539df9e2988e8f988f92dbd4ac82e66f095d05fd7eafca183b0aa5ae815142"
+    },
+    "raw/framing-current-720/profile/Godot/app_userdata/Nest Egg/shader_cache/CanvasShaderRD/5454ca85157b6953b76bf324ebe90594c466e36301bf1b3e6adcce117d705c79/631224d9051202620dac04fe025b557c97069e92.vulkan.cache": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 41032,
+      "sha256": "996c17fef47c35bc345d4a1fc71bdc9016cf21c7f172783274691573f1b343d4"
+    },
+    "raw/framing-current-720/profile/Godot/app_userdata/Nest Egg/shader_cache/CanvasShaderRD/5454ca85157b6953b76bf324ebe90594c466e36301bf1b3e6adcce117d705c79/7bb82408df84e2631b338fa798d1730f04e50cee.vulkan.cache": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 29308,
+      "sha256": "c5007c6d3db32834ceaf5071658d7f1acbbd88cf36dbcb2e866a5ddb61d0bec2"
+    },
+    "raw/framing-current-720/profile/Godot/app_userdata/Nest Egg/shader_cache/CanvasShaderRD/5454ca85157b6953b76bf324ebe90594c466e36301bf1b3e6adcce117d705c79/80f9aa7a58ea4910a399e875cc3c13369df814f6.vulkan.cache": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 34792,
+      "sha256": "fe36383dc7ac690bf3151ab7936a4da009ac79408b8a7acc1f2b995ad4f66003"
+    },
+    "raw/framing-current-720/profile/Godot/app_userdata/Nest Egg/shader_cache/CanvasShaderRD/5454ca85157b6953b76bf324ebe90594c466e36301bf1b3e6adcce117d705c79/945182c16bf707c232fef4e8c901bbdb5f1c9939.vulkan.cache": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 26216,
+      "sha256": "5ca3a1d28236c59d2bd75d0114b19cf59cc0facbdd8d46c5f9e0220459280b88"
+    },
+    "raw/framing-current-720/profile/Godot/app_userdata/Nest Egg/shader_cache/CanvasShaderRD/5454ca85157b6953b76bf324ebe90594c466e36301bf1b3e6adcce117d705c79/b37146ca4c086605f648fe1432573833f7d72e3f.vulkan.cache": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 44952,
+      "sha256": "0e253c9bb1cc1b1faf5934d65cae0f764c7d6d3d16c05dc8ce44b8321fe0f97c"
+    },
+    "raw/framing-current-720/profile/Godot/app_userdata/Nest Egg/shader_cache/CanvasShaderRD/5454ca85157b6953b76bf324ebe90594c466e36301bf1b3e6adcce117d705c79/ddf6e4b4e1f474998665422637f61397576ea80b.vulkan.cache": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 27064,
+      "sha256": "673e4f494c27050717dae92ac06ea1bc772e1391b9ad05e6a3814cf629665862"
+    },
+    "raw/framing-current-720/profile/Godot/app_userdata/Nest Egg/shader_cache/CanvasShaderRD/5454ca85157b6953b76bf324ebe90594c466e36301bf1b3e6adcce117d705c79/ef42a2d7eb32cab396c0502b3e0005a534305e70.vulkan.cache": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 25868,
+      "sha256": "776be424778ff37e5f3821a02dee66f798ab36833dfcfa6c65ddb077de20c37b"
+    },
+    "raw/framing-current-720/profile/Godot/app_userdata/Nest Egg/vulkan/pipelines.forward_plus.amd_radeon_rx_9070_xt.cache": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 1825508,
+      "sha256": "6dd61d8bf381fc7a8727295a84bec7ee21a2457f780a745749d0c3e97488a714"
+    },
+    "raw/framing-current-720/request.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 804,
+      "sha256": "dfb13abcb73fae425983a337677d6ae1b2916c5d1733dc10946f0db7709b9736"
+    },
+    "raw/framing-current-720/result.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 83,
+      "sha256": "5af8a438e844d97c83ef7c2813e6ded94a1f784117120e3e7de40c0bcee0e886"
+    },
+    "raw/framing-current-720/source-after.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 38039,
+      "sha256": "910450e5564709a80e7d4fab73fc52956ca060cc787c52b75e535f5ef8456283"
+    },
+    "raw/framing-current-720/source-before.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 38039,
+      "sha256": "910450e5564709a80e7d4fab73fc52956ca060cc787c52b75e535f5ef8456283"
+    },
+    "raw/framing-motion-six-current-1280x720/native.log": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 43002,
+      "sha256": "df6f5d16c4b958648a2bd6ed25e4416bdc290aafdc3b05eced197208a1cc8bf9"
+    },
+    "raw/framing-motion-six-current-1280x720/request.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 938,
+      "sha256": "4908b5b36af95cdaadc72cd622565d944354e9340c4f2df606ad222b0a137cde"
+    },
+    "raw/framing-motion-six-current-1280x720/result.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 108,
+      "sha256": "aec47a42ff4b7a5a2c58ac98fd21d3a85e417ed83563be2d1ce0f1192eb038f3"
+    },
+    "raw/framing-motion-six-current-1280x720/source-after.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45182,
+      "sha256": "182092c099bda8121d88c7986f2a006d6e6db3e72a43e4e693c3760d71be1ab5"
+    },
+    "raw/framing-motion-six-current-1280x720/source-before.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45182,
+      "sha256": "182092c099bda8121d88c7986f2a006d6e6db3e72a43e4e693c3760d71be1ab5"
+    },
+    "raw/framing-motion-six-level_wide-1280x720/native.log": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 11928,
+      "sha256": "d05afa7208ece06e154ebb705426818dbec2763d559cf3b6903a536ad998c775"
+    },
+    "raw/framing-motion-six-level_wide-1280x720/request.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 969,
+      "sha256": "56774b6227b2e6ce25e551b51a5eba7f7f03a0a317bf6c124214fc901917bc0b"
+    },
+    "raw/framing-motion-six-level_wide-1280x720/result.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 109,
+      "sha256": "716b2299ee75f811d3ccd792a27bca79ad9ed80d3aa146b808fdc0c60dee8938"
+    },
+    "raw/framing-motion-six-level_wide-1280x720/source-after.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45182,
+      "sha256": "182092c099bda8121d88c7986f2a006d6e6db3e72a43e4e693c3760d71be1ab5"
+    },
+    "raw/framing-motion-six-level_wide-1280x720/source-before.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45182,
+      "sha256": "182092c099bda8121d88c7986f2a006d6e6db3e72a43e4e693c3760d71be1ab5"
+    },
+    "raw/framing-six-current-1280x720/framing-ch1_lounge-25-1280x720.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 683737,
+      "sha256": "870904dd50148c3173fc4377fe01b16b205819440b64f3824307e60d22d43649"
+    },
+    "raw/framing-six-current-1280x720/framing-ch1_pawnshop-55-1280x720.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 555734,
+      "sha256": "7795140f2d6a43247e65ffaf231027b0603654595f3ca3b87f86a004d1db939b"
+    },
+    "raw/framing-six-current-1280x720/framing-ch1_rooftop-42-1280x720.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 521823,
+      "sha256": "5ee6d9864df74cf8547a47823000b0a28db38c428950b40a11916604134d45a8"
+    },
+    "raw/framing-six-current-1280x720/framing-ch1_stall-25-1280x720.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 367036,
+      "sha256": "50fc109815fd1dd2e0fa3ea93bba286a6cce6602d5bf0bb05e3203338b41eab3"
+    },
+    "raw/framing-six-current-1280x720/framing-ch1_street-84-1280x720.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 373174,
+      "sha256": "f4c6f31a3d66968b777fe97dacb6d6af13da04b4253de79ff80506deb9ffbcf5"
+    },
+    "raw/framing-six-current-1280x720/framing-ch1_warehouse-52-1280x720.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 371001,
+      "sha256": "4cbe1156c3631aabdcfc0c52e1c7ddfe66f42f51910a361e6c1c23a62c1bc653"
+    },
+    "raw/framing-six-current-1280x720/framing-hud-ch1_lounge-25.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 683939,
+      "sha256": "f781efb139621cbbe4fb047a06c21cd15e85f0f8f01a98c489fd5a77c59b0db7"
+    },
+    "raw/framing-six-current-1280x720/framing-hud-ch1_pawnshop-55.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 555876,
+      "sha256": "ef4ddc5a9d19c7ad3c26bb6717c463dd40d9dd011cea37dc8057118bce3fb8da"
+    },
+    "raw/framing-six-current-1280x720/framing-hud-ch1_rooftop-42.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 521933,
+      "sha256": "c6a39e93b97ad89ef286c33eba848f265a53b593a6b3f9025da925f611c14ba6"
+    },
+    "raw/framing-six-current-1280x720/framing-hud-ch1_stall-25.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 366990,
+      "sha256": "93cb40ebf822003567fc2dcb86fe7716b0f282f66b1416eee90e77c40d55cced"
+    },
+    "raw/framing-six-current-1280x720/framing-hud-ch1_street-84.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 373159,
+      "sha256": "55a685a86e752641154af10ec4b791811dba1eb7de8eaa854648c78c8e0d60a2"
+    },
+    "raw/framing-six-current-1280x720/framing-hud-ch1_warehouse-52.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 371126,
+      "sha256": "ed6c2ca3bff2cefcc25dbdac975fd9ecc71de577a38af94b3e870b802b129009"
+    },
+    "raw/framing-six-current-1280x720/native.log": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 702,
+      "sha256": "8d63ede67788c2e01b0493164c6929c5bc37ccecfdf0edec78300ae43743d3a0"
+    },
+    "raw/framing-six-current-1280x720/request.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 826,
+      "sha256": "86d22089752090c598d45582e6d161b6cbb3400dae525bbde42eb19df74ab40f"
+    },
+    "raw/framing-six-current-1280x720/result.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 108,
+      "sha256": "643b0a6bb9fda049876e37805871be35e70d984ce250878ab500cca08053a4c5"
+    },
+    "raw/framing-six-current-1280x720/source-after.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45182,
+      "sha256": "182092c099bda8121d88c7986f2a006d6e6db3e72a43e4e693c3760d71be1ab5"
+    },
+    "raw/framing-six-current-1280x720/source-before.json": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 45182,
+      "sha256": "182092c099bda8121d88c7986f2a006d6e6db3e72a43e4e693c3760d71be1ab5"
+    },
+    "raw/framing-six-current-1920x1080/framing-ch1_lounge-25-1920x1080.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 1244279,
+      "sha256": "517c724b222b651f889ee9e71dbf5212fc9fe49fe2193cc20be44f390cc4b92a"
+    },
+    "raw/framing-six-current-1920x1080/framing-ch1_pawnshop-55-1920x1080.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 1001502,
+      "sha256": "a7b0ca88f7d7a3cb57090d24d307b667afa6488427657ddd57f3feeed6d1a17f"
+    },
+    "raw/framing-six-current-1920x1080/framing-ch1_rooftop-42-1920x1080.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 963316,
+      "sha256": "3fea2d2ce4622799db5c067dd8ec3fc3ccaf34ca86150195505e126ec065b7e7"
+    },
+    "raw/framing-six-current-1920x1080/framing-ch1_stall-25-1920x1080.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 655665,
+      "sha256": "e9ce9fe97b2467435cadcc5da24eb52610657eeff1e005c868a9d96981e7d1e0"
+    },
+    "raw/framing-six-current-1920x1080/framing-ch1_street-84-1920x1080.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 653711,
+      "sha256": "60c60fa393850dc935cf5642bdc98f57c47d51f01d891bbd7d5ab7763f6d74ad"
+    },
+    "raw/framing-six-current-1920x1080/framing-ch1_warehouse-52-1920x1080.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 670149,
+      "sha256": "c1bd8980f02e09ab0ec2c864c590a4c51aaad3f00b235ead8a7a5778c411f062"
+    },
+    "raw/framing-six-current-1920x1080/framing-hud-ch1_lounge-25.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 1244469,
+      "sha256": "3008b9044d5acb426651c04e35f08d58f565317084b399ebb43544365c796dcf"
+    },
+    "raw/framing-six-current-1920x1080/framing-hud-ch1_pawnshop-55.png": {
+      "archive": "raw-01.tar.gz",
+      "bytes": 1001675,
+      "sha256": "af3fbd588cb740b9c8b38044038eb139dc83f7052b865653d14fcc2284660120"
+    },
+    "raw/framing-six-current-1920x1080/framing-hud-ch1_rooftop-42.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 963418,
+      "sha256": "950c2ddcb353a3467f76d19fa65825a96df2fab9af302c6f09e5bf2580312a54"
+    },
+    "raw/framing-six-current-1920x1080/framing-hud-ch1_stall-25.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 655586,
+      "sha256": "00273f8b34bcb742db427b8ce3c5b94a241234f8e67609ab38d069b4ae4a3866"
+    },
+    "raw/framing-six-current-1920x1080/framing-hud-ch1_street-84.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 653708,
+      "sha256": "8447363a352a05f05a19c7be93ce4297915b357fa212d34fe53db1e518ea78bf"
+    },
+    "raw/framing-six-current-1920x1080/framing-hud-ch1_warehouse-52.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 670222,
+      "sha256": "90f382972a3698f0626f0ce1ed2cae9eeb96e02745064b4a3a7fdfd7da410108"
+    },
+    "raw/framing-six-current-1920x1080/native.log": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 703,
+      "sha256": "be98294b7640b0bb043b3f6f501f6fc748d87ba573475417bcbdf24f638cf2dd"
+    },
+    "raw/framing-six-current-1920x1080/request.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 828,
+      "sha256": "148500816e069114383fc356a81990450cdab4750f9b09011ef3646f7609df6d"
+    },
+    "raw/framing-six-current-1920x1080/result.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 108,
+      "sha256": "90640702a962c0d98c64d21cbb18e453d212276e34e178cbfcb9d91b4039dffa"
+    },
+    "raw/framing-six-current-1920x1080/source-after.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 45182,
+      "sha256": "182092c099bda8121d88c7986f2a006d6e6db3e72a43e4e693c3760d71be1ab5"
+    },
+    "raw/framing-six-current-1920x1080/source-before.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 45182,
+      "sha256": "182092c099bda8121d88c7986f2a006d6e6db3e72a43e4e693c3760d71be1ab5"
+    },
+    "raw/framing-six-level_wide-1280x720/framing-ch1_lounge-25-1280x720.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 769737,
+      "sha256": "5f2afb87bb371b67b4ac74ceed25c057ae512de3340aca94533232bc377b1396"
+    },
+    "raw/framing-six-level_wide-1280x720/framing-ch1_pawnshop-55-1280x720.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 625049,
+      "sha256": "617f0d1b1e1ebcf6da4fb8a84ec57d539baa7817557d9347ee3f9c25cf875a6f"
+    },
+    "raw/framing-six-level_wide-1280x720/framing-ch1_rooftop-42-1280x720.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 488630,
+      "sha256": "fbb9ddd6daa829d7324a98e0d3919d2d43b7cc7e2c1862ddf19e84859d3e7e96"
+    },
+    "raw/framing-six-level_wide-1280x720/framing-ch1_stall-25-1280x720.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 384101,
+      "sha256": "2758be36be89f35cc8d151d4504caa337f70ac72e46e123b9514a108e480e6f9"
+    },
+    "raw/framing-six-level_wide-1280x720/framing-ch1_street-84-1280x720.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 361444,
+      "sha256": "d3f7451b28932c2b54d1967048005685d5586b2e55c46d343cef54e0958c0550"
+    },
+    "raw/framing-six-level_wide-1280x720/framing-ch1_warehouse-52-1280x720.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 360250,
+      "sha256": "879c06d6efc4eb75f95b2240622241b1c41fc74bb004e95eebce0f8f1a03502a"
+    },
+    "raw/framing-six-level_wide-1280x720/framing-hud-ch1_lounge-25.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 769851,
+      "sha256": "ce924d927011b3bf36f7c57c49f4870470e9f0240e5087cecccf527c9c0fcf7c"
+    },
+    "raw/framing-six-level_wide-1280x720/framing-hud-ch1_pawnshop-55.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 625217,
+      "sha256": "2eaab2a065d145f4bc7c31d9ee2946ae70110e7e17cf8008b187d280fdd22c9b"
+    },
+    "raw/framing-six-level_wide-1280x720/framing-hud-ch1_rooftop-42.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 488697,
+      "sha256": "e4a54d2650f773a987eebc2ba4deae1b7d276f9344db2e16b6de4f1bbad1f682"
+    },
+    "raw/framing-six-level_wide-1280x720/framing-hud-ch1_stall-25.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 384083,
+      "sha256": "620959fed77b5d023775d3bca854e23242b08f8ddeb6bbe9e7169e72b0e9e043"
+    },
+    "raw/framing-six-level_wide-1280x720/framing-hud-ch1_street-84.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 361455,
+      "sha256": "c9bd93f5d399814c94449e84fac7d97b51a3905b226af0ca7bbf7d3a66b49317"
+    },
+    "raw/framing-six-level_wide-1280x720/framing-hud-ch1_warehouse-52.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 360354,
+      "sha256": "cbd1868b0b23c9eb3cf820f4361b8f77a6e4da23424744eab4bf921120fc8409"
+    },
+    "raw/framing-six-level_wide-1280x720/native.log": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 978,
+      "sha256": "ebe67ecdba496d0b81d6c0b7b6a9443ada0c003b4277f3c6be5cc5f6f976fcba"
+    },
+    "raw/framing-six-level_wide-1280x720/request.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 857,
+      "sha256": "c07603812d75819033ae722b0e43d88bbec4d3f1299872ee894877cb4c2be3ca"
+    },
+    "raw/framing-six-level_wide-1280x720/result.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 109,
+      "sha256": "bfb254d9c19f4b79dc69a4ff7494acb1d45c56d93db120b7bb01db06d7a9acdb"
+    },
+    "raw/framing-six-level_wide-1280x720/source-after.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 45182,
+      "sha256": "182092c099bda8121d88c7986f2a006d6e6db3e72a43e4e693c3760d71be1ab5"
+    },
+    "raw/framing-six-level_wide-1280x720/source-before.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 45182,
+      "sha256": "182092c099bda8121d88c7986f2a006d6e6db3e72a43e4e693c3760d71be1ab5"
+    },
+    "raw/framing-six-level_wide-1920x1080/framing-ch1_lounge-25-1920x1080.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 1397551,
+      "sha256": "7d5ec3cee41d6f27c79ace7e8e684bdad84872a6d3eed1b478fe785ab15d7765"
+    },
+    "raw/framing-six-level_wide-1920x1080/framing-ch1_pawnshop-55-1920x1080.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 1123561,
+      "sha256": "e22005c8ffc3d6a6e5a7711720aad5df63f32fab03b228ccfbc649e33d8c44fb"
+    },
+    "raw/framing-six-level_wide-1920x1080/framing-ch1_rooftop-42-1920x1080.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 916210,
+      "sha256": "394116961b95b5cb2689ce4df788ba5241fa26a7e2f66c7e9852bbb520d7d9f0"
+    },
+    "raw/framing-six-level_wide-1920x1080/framing-ch1_stall-25-1920x1080.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 705918,
+      "sha256": "a40e023cd2d9e7b5b270ef6c0c194ec68d76dfb7a38336e4aa9e0d7efaaad343"
+    },
+    "raw/framing-six-level_wide-1920x1080/framing-ch1_street-84-1920x1080.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 658584,
+      "sha256": "b295858888509941ca54993df8fb15fbaddb4d2f0fdedf5c46861df95173ce8a"
+    },
+    "raw/framing-six-level_wide-1920x1080/framing-ch1_warehouse-52-1920x1080.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 649081,
+      "sha256": "bf3c9597ba35fff3791f2277866bb1944fe07030102c5d2a84978d2f74bcc484"
+    },
+    "raw/framing-six-level_wide-1920x1080/framing-hud-ch1_lounge-25.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 1397650,
+      "sha256": "e6f52ff971018d2db94af671c796e94003aaf44f088762e255567d89d079ef13"
+    },
+    "raw/framing-six-level_wide-1920x1080/framing-hud-ch1_pawnshop-55.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 1123694,
+      "sha256": "a759f0f7fa7574624306a09b132989a3a8c554607dd4d895d332b0303bf06854"
+    },
+    "raw/framing-six-level_wide-1920x1080/framing-hud-ch1_rooftop-42.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 916228,
+      "sha256": "907a7000bf25bccb889d86ec1920bf6279662878f4f27471a678a7029f424e57"
+    },
+    "raw/framing-six-level_wide-1920x1080/framing-hud-ch1_stall-25.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 705884,
+      "sha256": "1c5ee27896892e57844d415259223402dce57160a8370f0f823e231d484856e5"
+    },
+    "raw/framing-six-level_wide-1920x1080/framing-hud-ch1_street-84.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 658568,
+      "sha256": "21f1dd89422699e80d53408f2373d9a31557478ac4bf7e6542ab53bee5c43714"
+    },
+    "raw/framing-six-level_wide-1920x1080/framing-hud-ch1_warehouse-52.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 649172,
+      "sha256": "7a53d68392798ea555fa5991f7f87492ff6fd5af3369b035d0851b80968543f2"
+    },
+    "raw/framing-six-level_wide-1920x1080/native.log": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 979,
+      "sha256": "c6723c6756833e2a4f5f0670d287790cb1815423f6e7c2530ec962b0c434c347"
+    },
+    "raw/framing-six-level_wide-1920x1080/request.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 859,
+      "sha256": "9c24c7ca281ff497483a0c6d7121f22666940cb898baa3a523a9b210ecd6b17e"
+    },
+    "raw/framing-six-level_wide-1920x1080/result.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 109,
+      "sha256": "c49b3894ba7e23554be4e16612cd8e01201c2104ee55a5d070d458b490f3d0b0"
+    },
+    "raw/framing-six-level_wide-1920x1080/source-after.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 45182,
+      "sha256": "182092c099bda8121d88c7986f2a006d6e6db3e72a43e4e693c3760d71be1ab5"
+    },
+    "raw/framing-six-level_wide-1920x1080/source-before.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 45182,
+      "sha256": "182092c099bda8121d88c7986f2a006d6e6db3e72a43e4e693c3760d71be1ab5"
+    },
+    "raw/motion-control-stall-invulnerable/actual-near-head-ch1_stall.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 312209,
+      "sha256": "d1a5a4e2220869b6bca86df24cbd669642a88fce0cbe7331340b41cd0a2d207d"
+    },
+    "raw/motion-control-stall-invulnerable/native.log": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 4406,
+      "sha256": "2fba9298e3f1141a85f63317bb04801f68ed225414dbf27c5e3d586a2bd11303"
+    },
+    "raw/motion-control-stall-invulnerable/request.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 929,
+      "sha256": "abd8701c66661f74a6df3f28c37b32aee2f84fd75040da64727b82506af171e6"
+    },
+    "raw/motion-control-stall-invulnerable/result.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 109,
+      "sha256": "b5fa54c6c426a0abeeadb2199c5ad5235b6b0c1e0be5e02d62c5d95c4515b2e6"
+    },
+    "raw/motion-control-stall-invulnerable/source-after.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 45440,
+      "sha256": "262eac906e2eca3674865b692d2b7b4f6cc0eda2c01a4d35f5c18c6752bc66c5"
+    },
+    "raw/motion-control-stall-invulnerable/source-before.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 45440,
+      "sha256": "262eac906e2eca3674865b692d2b7b4f6cc0eda2c01a4d35f5c18c6752bc66c5"
+    },
+    "raw/motion-control-stall-offset-minus43/native.log": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 3013,
+      "sha256": "149ff41212e38c5fd6dd761fb0f93e9ff8d47b5eb48d0c00cc1f064ea5c6c1c7"
+    },
+    "raw/motion-control-stall-offset-minus43/request.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 956,
+      "sha256": "5f0f28aa5ef69103375c5b534e7c7392b80dfe62638760c8d3e20d2d47eeb036"
+    },
+    "raw/motion-control-stall-offset-minus43/result.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 109,
+      "sha256": "b2a719e93567a55cd5acc80d8674c60ea10f6b32b9b1460f35cee639844279c3"
+    },
+    "raw/motion-control-stall-offset-minus43/source-after.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 45440,
+      "sha256": "262eac906e2eca3674865b692d2b7b4f6cc0eda2c01a4d35f5c18c6752bc66c5"
+    },
+    "raw/motion-control-stall-offset-minus43/source-before.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 45440,
+      "sha256": "262eac906e2eca3674865b692d2b7b4f6cc0eda2c01a4d35f5c18c6752bc66c5"
+    },
+    "raw/motion-control-street-invulnerable/actual-near-head-ch1_street.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 459165,
+      "sha256": "af59b9dce302de1b2cfc7d8061414b3f64c473dec944faea855c13433f442428"
+    },
+    "raw/motion-control-street-invulnerable/native.log": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 15767,
+      "sha256": "856976d5f056034e55ba474a3eb563e838b1317a8d7cf9200104fee5c7eeca5e"
+    },
+    "raw/motion-control-street-invulnerable/request.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 931,
+      "sha256": "a4dd48736d6e681afc20f152b2e42b4384dd77b48738b24d1fe0e62e2bc2cb6d"
+    },
+    "raw/motion-control-street-invulnerable/result.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 109,
+      "sha256": "775ad7330ed22560a666a3659bec5101a4a09c0f670c0a93742602c3c67b885c"
+    },
+    "raw/motion-control-street-invulnerable/source-after.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 45440,
+      "sha256": "262eac906e2eca3674865b692d2b7b4f6cc0eda2c01a4d35f5c18c6752bc66c5"
+    },
+    "raw/motion-control-street-invulnerable/source-before.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 45440,
+      "sha256": "262eac906e2eca3674865b692d2b7b4f6cc0eda2c01a4d35f5c18c6752bc66c5"
+    },
+    "raw/motion-control-warehouse-offset-minus43/native.log": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 14683,
+      "sha256": "c2acaf0e05e2e8ca4e5296785168f4074abb93e5dafaccfec730fe887e8dbca7"
+    },
+    "raw/motion-control-warehouse-offset-minus43/request.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 964,
+      "sha256": "73b4edd969192a8f4bbe03c2a9a0e51d4439bba07b68053c68d78b1e40a5aad0"
+    },
+    "raw/motion-control-warehouse-offset-minus43/result.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 109,
+      "sha256": "728bcd38151e85305dc606bb5949a8eaa389525c4a45f2544c0a831db59442ca"
+    },
+    "raw/motion-control-warehouse-offset-minus43/source-after.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 45440,
+      "sha256": "262eac906e2eca3674865b692d2b7b4f6cc0eda2c01a4d35f5c18c6752bc66c5"
+    },
+    "raw/motion-control-warehouse-offset-minus43/source-before.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 45440,
+      "sha256": "262eac906e2eca3674865b692d2b7b4f6cc0eda2c01a4d35f5c18c6752bc66c5"
+    },
+    "raw/motion-instrumented-ch1_stall/native.log": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 1565,
+      "sha256": "7844988307dec429c33ccc0c23d5a0c76d5a0c0c9ac79c44f193854da62f1c27"
+    },
+    "raw/motion-instrumented-ch1_stall/request.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 912,
+      "sha256": "b852d4b90e899cc379b37d8fafde73d896ec96738890767390654eb73e628a7b"
+    },
+    "raw/motion-instrumented-ch1_stall/result.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 108,
+      "sha256": "6582a2f2e12e1a70eb6841c6bd498c64a1319fd124d94f3b7c62bb95e20079c7"
+    },
+    "raw/motion-instrumented-ch1_stall/source-after.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 45444,
+      "sha256": "313c28466ae7b436d379628576e34f3a5898a7b28a0d6308cfea42e63ad60fae"
+    },
+    "raw/motion-instrumented-ch1_stall/source-before.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 45444,
+      "sha256": "313c28466ae7b436d379628576e34f3a5898a7b28a0d6308cfea42e63ad60fae"
+    },
+    "raw/motion-instrumented-ch1_street/native.log": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 1491,
+      "sha256": "541bcbfc584ff568222ac963744ba98053212712a1c76695ca72272d841b24c5"
+    },
+    "raw/motion-instrumented-ch1_street/request.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 914,
+      "sha256": "f5ec8144c8d66c3dcdc85f6520e96e27f6addb406519d4a9a9930db4138dcaaa"
+    },
+    "raw/motion-instrumented-ch1_street/result.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 108,
+      "sha256": "ccc1fe107c6a2bc57d726e4bd19197c713457faf29ec91aa9a40bc67f6966514"
+    },
+    "raw/motion-instrumented-ch1_street/source-after.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 45444,
+      "sha256": "313c28466ae7b436d379628576e34f3a5898a7b28a0d6308cfea42e63ad60fae"
+    },
+    "raw/motion-instrumented-ch1_street/source-before.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 45444,
+      "sha256": "313c28466ae7b436d379628576e34f3a5898a7b28a0d6308cfea42e63ad60fae"
+    },
+    "raw/motion-real-native-ch1_stall/native.log": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 3056,
+      "sha256": "16a55c89491c96efe117c69016f2cde2a021e9444c2e931552b392707cb71964"
+    },
+    "raw/motion-real-native-ch1_stall/request.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 892,
+      "sha256": "866dbc89a93afb8f4659237a235f31e46a8db0f4d3945b2a2f6e4cda4d747e7c"
+    },
+    "raw/motion-real-native-ch1_stall/result.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 108,
+      "sha256": "4801613a5fd0bae686ef08c37cbdadc5176096bc47bc3f12ed30b1dcf861d63a"
+    },
+    "raw/motion-real-native-ch1_stall/source-after.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 45182,
+      "sha256": "182092c099bda8121d88c7986f2a006d6e6db3e72a43e4e693c3760d71be1ab5"
+    },
+    "raw/motion-real-native-ch1_stall/source-before.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 45182,
+      "sha256": "182092c099bda8121d88c7986f2a006d6e6db3e72a43e4e693c3760d71be1ab5"
+    },
+    "raw/motion-real-native-ch1_street/native.log": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 6590,
+      "sha256": "e62d010a74f09d3ec5dcfc64e7d6143331b4a067e9ac7d9c0dbc52d2158515cf"
+    },
+    "raw/motion-real-native-ch1_street/request.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 894,
+      "sha256": "ffce0efd22bfa2270f8bc15c01b1fc56c12a78158e314c5bcb3ecfe07d243b47"
+    },
+    "raw/motion-real-native-ch1_street/result.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 108,
+      "sha256": "9dcfc02b99601f1674230cfdbf831cb2beefa3895aec4cf84431fcf44f0d9d81"
+    },
+    "raw/motion-real-native-ch1_street/source-after.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 45182,
+      "sha256": "182092c099bda8121d88c7986f2a006d6e6db3e72a43e4e693c3760d71be1ab5"
+    },
+    "raw/motion-real-native-ch1_street/source-before.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 45182,
+      "sha256": "182092c099bda8121d88c7986f2a006d6e6db3e72a43e4e693c3760d71be1ab5"
+    },
+    "raw/motion-real-native-ch1_warehouse/native.log": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 14725,
+      "sha256": "81d0d6bca14d347674d33c0cf50191eb6ce9f9a1e6802881f5aa5797acfdf9f6"
+    },
+    "raw/motion-real-native-ch1_warehouse/request.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 900,
+      "sha256": "e80255626e92dfe9dd3097dc4c016de8c22f083d2a3d2dda7de42ba75a26f514"
+    },
+    "raw/motion-real-native-ch1_warehouse/result.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 109,
+      "sha256": "ee7ea6c4f3505f5696d3a4fc9a47af884f6a7bdaaa8e87cee6093f9fadd78adf"
+    },
+    "raw/motion-real-native-ch1_warehouse/source-after.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 45182,
+      "sha256": "182092c099bda8121d88c7986f2a006d6e6db3e72a43e4e693c3760d71be1ab5"
+    },
+    "raw/motion-real-native-ch1_warehouse/source-before.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 45182,
+      "sha256": "182092c099bda8121d88c7986f2a006d6e6db3e72a43e4e693c3760d71be1ab5"
+    },
+    "raw/official-d851/console.log": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 1162,
+      "sha256": "fa7680bc911a80a948814a6b02cf99bd3da12de88335ce9f72286642ef8f7979"
+    },
+    "raw/official-d851/exit.txt": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    "raw/official-d851/shard_0.log": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 91149,
+      "sha256": "dd9dc3fccd958167db13da5bd1971fb4da3bbb79e6683d4cd22fddfd2c04bdc1"
+    },
+    "raw/official-d851/shard_1.log": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 390512,
+      "sha256": "861cd976b0e8ba4f0f1986fcf9d76619eea7e9baacacbbaef3b6440b2f9d9076"
+    },
+    "raw/route-ch1_flow-current/ST-9-ali-order-menu.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 174115,
+      "sha256": "fba3aa3a22ca7ed59f6ae0155ae5c301a256f85e43fe887924f4162ad4a32aef"
+    },
+    "raw/route-ch1_flow-current/ST-9-ali-topics.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 155381,
+      "sha256": "2ff627bd632c1b810cc10ac1b4be240fcf38b4d1fe6f24d52229e19509aa6cb9"
+    },
+    "raw/route-ch1_flow-current/ST-9-clinic-tray.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 144303,
+      "sha256": "d637caffe6fc3953f9181bb924d4b59a2f21d806066e6468743cfd1ebb8b61d9"
+    },
+    "raw/route-ch1_flow-current/ST-9-death-sequence.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 266341,
+      "sha256": "fb9e37961ddd878eed8c6831381cdd0d91535a4c8365c4eb28a8ff3bcb0a6daa"
+    },
+    "raw/route-ch1_flow-current/ST-9-first-clinic.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 174739,
+      "sha256": "4d6af8d0df0d90977a22bdc13b5216a7314b06c67d0a17bda7eeb8cb47bfe629"
+    },
+    "raw/route-ch1_flow-current/ST-9-handoff-confirm.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 258983,
+      "sha256": "1f852f1ba79675d27991a971a80266168c7c57bab6aa06aceb9fcf6936369679"
+    },
+    "raw/route-ch1_flow-current/ST-9-handoff-summary.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 309207,
+      "sha256": "090dd3d226d0cb1e461ca6ba69f794b9aca57070b32ad65c1076fc2a7b6124c0"
+    },
+    "raw/route-ch1_flow-current/ST-9-home.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 588731,
+      "sha256": "3cf983361f8c515d547b10c68d640ee885e0d1794eead1a8017500e8478934d2"
+    },
+    "raw/route-ch1_flow-current/ST-9-label-watch.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 299104,
+      "sha256": "9174b7d0e5d25f0a93fc8777b7486e17dc797c2607382e3a2aa19351d3967ef4"
+    },
+    "raw/route-ch1_flow-current/ST-9-lounge-name.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 330713,
+      "sha256": "b76d8f3faad37f08ca8dd7b69939f8f4204c3e1446a5d901853ee58f8317ace8"
+    },
+    "raw/route-ch1_flow-current/ST-9-roof-brief.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 596361,
+      "sha256": "00d52c39f5edb42ad288600235eb773781a9808819832b7c483a1cfff15169bd"
+    },
+    "raw/route-ch1_flow-current/ST-9-stall-seated.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 566989,
+      "sha256": "39c4a3ca7f4dfacf6cd5764ff2943caee50da7eb787be1d85c6dc68a34167f49"
+    },
+    "raw/route-ch1_flow-current/ST-9-supper-address.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 567939,
+      "sha256": "faf38ecb61d6490480de3e2f19de978b38e4944ac9ccf5b0bfb65f9c400e704a"
+    },
+    "raw/route-ch1_flow-current/ST-9-supper-choice.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 315193,
+      "sha256": "baf17d9809756750c99cb407ac25995e1adde09cd6ce9b7aa95eb3d5ad69c044"
+    },
+    "raw/route-ch1_flow-current/ST-9-victory.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 51125,
+      "sha256": "720aafb25fa2fe1dd45834f616a6d02d3c034129720fd75b1b6df961165dc213"
+    },
+    "raw/route-ch1_flow-current/ST-9-voice-prompt.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 299829,
+      "sha256": "1b620ee69cafa25569fe43d254a8f2c54f1918b321f38adbf24cb1c7174cab16"
+    },
+    "raw/route-ch1_flow-current/native.log": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 6655,
+      "sha256": "c38a52bc34e1e9aa96635f6afca160fe3dd759c1bda57a9c5f1266528e7f6f29"
+    },
+    "raw/route-ch1_flow-current/request.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 1003,
+      "sha256": "3e76297614b376b746493fe95fdfd091ab50c0c91d9de993bf613605c6ace8f1"
+    },
+    "raw/route-ch1_flow-current/result.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 109,
+      "sha256": "daac8ea625a39c457fa7ee0b544858f52666b3550cea699cc3b5bd3cfc5720df"
+    },
+    "raw/route-ch1_flow-current/scene_order.txt": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 917,
+      "sha256": "edbc0310e564dd72da8c056d4e050fcbe08d8496fc72a65233711858c2d89944"
+    },
+    "raw/route-ch1_flow-current/source-after.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 46019,
+      "sha256": "84720ff2e5768e680bc0a2d02722ae8b341024fca990a2a85f665660d0050739"
+    },
+    "raw/route-ch1_flow-current/source-before.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 46019,
+      "sha256": "84720ff2e5768e680bc0a2d02722ae8b341024fca990a2a85f665660d0050739"
+    },
+    "raw/route-current-data-ch1_flow-current/ST-9-ali-order-menu.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 174010,
+      "sha256": "cf09e5a31a8c55258bd0a53cb091cffad2b6faa08cb78fb652fe5426e0123f26"
+    },
+    "raw/route-current-data-ch1_flow-current/ST-9-ali-topics.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 155381,
+      "sha256": "2ff627bd632c1b810cc10ac1b4be240fcf38b4d1fe6f24d52229e19509aa6cb9"
+    },
+    "raw/route-current-data-ch1_flow-current/ST-9-clinic-tray.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 144301,
+      "sha256": "d04c9917bc1f79ae9a5bb5c8d8e3be848a262015d41782c026b12f2e25278da4"
+    },
+    "raw/route-current-data-ch1_flow-current/ST-9-death-sequence.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 265858,
+      "sha256": "343e22a0dd2d32e5908c31df22fb06c8f5045cf1415aa832a50505b2c9abef13"
+    },
+    "raw/route-current-data-ch1_flow-current/ST-9-first-clinic.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 174809,
+      "sha256": "03454c754b3c03b0335b166401dd6bbf3adc6d846613b994ca3fbcf910203584"
+    },
+    "raw/route-current-data-ch1_flow-current/ST-9-handoff-confirm.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 262349,
+      "sha256": "cdda86c4b6003a8ba792210e8288b1eaa5d08e99f9805e251153e771202ac805"
+    },
+    "raw/route-current-data-ch1_flow-current/ST-9-handoff-summary.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 311081,
+      "sha256": "6e226ee7f96d7e3007cfdcbdc55eab4ba4bf52ccde74ed042f1f1bbfca9c708d"
+    },
+    "raw/route-current-data-ch1_flow-current/ST-9-home.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 584626,
+      "sha256": "b6d5c8d67f43057f3312f531cecd98d22a7603dd181e05188c3769467b91f414"
+    },
+    "raw/route-current-data-ch1_flow-current/ST-9-label-watch.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 427658,
+      "sha256": "b5910235718f14c98bb6c87229e15a38930589214e7042f4d36b94a5a26db5d5"
+    },
+    "raw/route-current-data-ch1_flow-current/ST-9-lounge-name.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 328649,
+      "sha256": "000d5eec0c16c3444c495bac71c5783f0180422346e75ac1e1bf7e735045619c"
+    },
+    "raw/route-current-data-ch1_flow-current/ST-9-roof-brief.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 596245,
+      "sha256": "71799341c9704a4b9c3fc04aa24e6c1959f253bf9cee20e862b25931e72135e0"
+    },
+    "raw/route-current-data-ch1_flow-current/ST-9-stall-seated.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 566953,
+      "sha256": "1b7b6355c11cbf2f24af0f465bdb63257b63e71cd8004bc2f40124ba3cd57d09"
+    },
+    "raw/route-current-data-ch1_flow-current/ST-9-supper-address.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 567939,
+      "sha256": "faf38ecb61d6490480de3e2f19de978b38e4944ac9ccf5b0bfb65f9c400e704a"
+    },
+    "raw/route-current-data-ch1_flow-current/ST-9-supper-choice.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 315278,
+      "sha256": "6b4a17d0ead8c683cf279f97a0155200d98ca139bf7ef6ea6ad251e35be08e52"
+    },
+    "raw/route-current-data-ch1_flow-current/ST-9-victory.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 51442,
+      "sha256": "b547d80b129a3fc5262701ca836e30e1f5d0bec0cafbb22fca0fbcb15a3f3203"
+    },
+    "raw/route-current-data-ch1_flow-current/ST-9-voice-prompt.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 312386,
+      "sha256": "1dcbbdb1567a2a1bf180e49a234d3d9c296a654ed0668d379d0fa9af2d664006"
+    },
+    "raw/route-current-data-ch1_flow-current/native.log": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 6863,
+      "sha256": "ab68534d97ee350894f7573d944c25c2e05992c37da97078317bf60ead511fad"
+    },
+    "raw/route-current-data-ch1_flow-current/request.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 986,
+      "sha256": "8c0c2bf62c33e0340db9df9ecf5897946641a4113393d1c8878fefcddbd210fa"
+    },
+    "raw/route-current-data-ch1_flow-current/result.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 108,
+      "sha256": "fe8cd43abad2b1330b83200dd158230005a290f5441226afe86e2a8f2812c95a"
+    },
+    "raw/route-current-data-ch1_flow-current/scene_order.txt": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 917,
+      "sha256": "edbc0310e564dd72da8c056d4e050fcbe08d8496fc72a65233711858c2d89944"
+    },
+    "raw/route-current-data-ch1_flow-current/source-after.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 46019,
+      "sha256": "e8579bcf211df3b0516d9d5a58d74bd79618da425ce85454cd67fdffbe9acdc4"
+    },
+    "raw/route-current-data-ch1_flow-current/source-before.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 46019,
+      "sha256": "e8579bcf211df3b0516d9d5a58d74bd79618da425ce85454cd67fdffbe9acdc4"
+    },
+    "raw/route-prologue_play-current/ST-16-p01-door.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 371389,
+      "sha256": "c7b2177aac1a06415483c3fc65598a02060c04b324371cc23ce995223f7f39f6"
+    },
+    "raw/route-prologue_play-current/ST-16-p02-jump-prompt.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 500191,
+      "sha256": "76ca6013955101ea6d3bafb5ac1df1e9c6cfadc9d1a7706ad487f936d5a337eb"
+    },
+    "raw/route-prologue_play-current/ST-16-p03-aim.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 566480,
+      "sha256": "07a6e92bd404bc524b19cda4e0adba4694c9f81c587a017b61fa655f3c7cd75f"
+    },
+    "raw/route-prologue_play-current/ST-16-p04-fall.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 439513,
+      "sha256": "531909362791cbf596f4868b2a6ee099156710ff94e60af5d533804703b50025"
+    },
+    "raw/route-prologue_play-current/ST-16-p04-trainer-warn.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 478059,
+      "sha256": "29f5700d511600d42bccd65fbd9ef2855baf6118576b34fb023f315537c07cef"
+    },
+    "raw/route-prologue_play-current/ST-16-p05-service.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 362881,
+      "sha256": "47015decf3be5bf473497c1f236b465363c3f0378a97bb298898818918f77d83"
+    },
+    "raw/route-prologue_play-current/ST-16-p06-call.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 350630,
+      "sha256": "045c83f49e376cfb0cbb882b5206ce65e7d38674fa94cf091d2d306a6983ed78"
+    },
+    "raw/route-prologue_play-current/ST-16-pawnshop-arrival.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 572066,
+      "sha256": "f7f44b8337c138d19ed43644e244f75e86b8624749e8a720e2b16b0e3c82715d"
+    },
+    "raw/route-prologue_play-current/ST-16-skip-confirm.png": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 149826,
+      "sha256": "60392caa508aab3202be345dc692910b0b98f694df9c0058c173bcf049a697e6"
+    },
+    "raw/route-prologue_play-current/native.log": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 2030,
+      "sha256": "4fa5a55fe67e4a63e407a4f8377f9fac10b423c19ec9f17c5358652218df5a6c"
+    },
+    "raw/route-prologue_play-current/request.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 1013,
+      "sha256": "5627b4825d4f35c3afa1a039fb34da5ef673f96a84ef431722668d1773f1380c"
+    },
+    "raw/route-prologue_play-current/result.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 107,
+      "sha256": "a6892e5d7b5f34262ff4394b28d175cce07afbd930cfacf694cc7e1378534038"
+    },
+    "raw/route-prologue_play-current/source-after.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 46019,
+      "sha256": "84720ff2e5768e680bc0a2d02722ae8b341024fca990a2a85f665660d0050739"
+    },
+    "raw/route-prologue_play-current/source-before.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 46019,
+      "sha256": "84720ff2e5768e680bc0a2d02722ae8b341024fca990a2a85f665660d0050739"
+    },
+    "raw/source-freeze/baseline/data/feel/camera.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 3280,
+      "sha256": "901eb453f440b828c5f7ee580c43bca038c7d1aca36a840b2ffc2b6c1b6f3ed0"
+    },
+    "raw/source-freeze/baseline/game/level/camera_tuning.gd": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 7596,
+      "sha256": "b247b15222cebc7fb5c74e04e48f56d81cebbf748a055f71eeccc5afda5e21a3"
+    },
+    "raw/source-freeze/baseline/tools/camera_walk_probe.gd": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 11449,
+      "sha256": "757c849ffc542808097326c57f4a59c3d3178884ae4b80e5fed70eb54918fcd0"
+    },
+    "raw/source-freeze/baseline/tools/ch1_flow_probe.gd": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 16027,
+      "sha256": "e243c51d992731fa85353ad6b2b7f3dc9e6dc30481aadfdaffe7dd49678d2a07"
+    },
+    "raw/source-freeze/baseline/tools/framing_probe.gd": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 17802,
+      "sha256": "8d4645067c52a77d13e2476205f29cf6acfe5fb3efa912453ba050910d8222f8"
+    },
+    "raw/source-freeze/candidate/data/feel/camera.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 3280,
+      "sha256": "3e23f6a2cbc571e8818ef584b850f23a296a1f45faa6ead661a4df2c00601d16"
+    },
+    "raw/source-freeze/candidate/game/level/camera_tuning.gd": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 7596,
+      "sha256": "c2975c0d8fcb8d2556673b8c177536742d9b61fc4422713249d85ed13290e37c"
+    },
+    "raw/source-freeze/candidate/tools/camera_walk_probe.gd": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 11488,
+      "sha256": "ea2fec1a2ae9796e4bbc09101d77550bc23401b39f2dc6c68564c62d716cd873"
+    },
+    "raw/source-freeze/candidate/tools/ch1_flow_probe.gd": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 16072,
+      "sha256": "fd1f76072bd6197d98467a3ffa788c01d8fb7498213e6a2151c674c923165604"
+    },
+    "raw/source-freeze/candidate/tools/framing_probe.gd": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 17921,
+      "sha256": "33827f73ecfa9fa4d7203daeda2d6f7c757bac7621b421856a921bf96b7714ed"
+    },
+    "raw/source-freeze/sources.json": {
+      "archive": "raw-02.tar.gz",
+      "bytes": 1756,
+      "sha256": "880bc393e8e2d41ce986121797971b25b7d6d8874b96b11216c260a9ccca241b"
+    }
+  },
+  "excluded": [
+    "All private-profile folders and nested official runner synthetic user-data fixtures; primary stdout/shard logs, raw screenshots, request/source/result receipts, and all failed diagnostic epochs are included."
+  ],
+  "scope": "NE256 headroom and probe corrections; natural full first-chapter combat criterion remains open."
+}
