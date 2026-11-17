@@ -1,0 +1,92 @@
+# 角色動畫系統：動畫器、專屬動作、NPC 動畫
+
+> 來源：2026-10-03 使用者要求替重畫後的敵人與 NPC 加入合適的動畫，並問「特殊角色可不可以用不同的骨架，有自己的攻擊方式與動畫」。零件圖與動畫是分開的：動畫只改骨頭角度，不管零件圖長什麼樣，所以零件有問題（NE-90）不會卡動畫。
+
+## 1. 三層
+
+| 層 | 內容 | 在哪裡 |
+|---|---|---|
+| 骨架 | 骨頭名稱、階層、靜止位置；每個角色自己的檔（長度由立繪量出） | `art/rigs/<id>.json` |
+| 動畫器 | 每影格算出各骨頭的目標角度，套用、FK、手臂 IK、彈簧骨 | `game/rig/humanoid_animator.gd`（戰鬥用）、`npc_animator.gd`（NPC 用） |
+| 動畫資料 | 姿勢、循環、專屬動作的角度與時間 | `art/rigs/npc_animations.json`、`art/rigs/action_poses.json` |
+
+選動畫器：`CharacterRig.setup(皮膚 id, 動畫器名稱)`；沒指定時看外觀定義（`character.json`）的 `animator`，再沒有就是人形。登記表是 `CharacterRig.ANIMATORS`（名稱 → 類別，類別要繼承 `HumanoidAnimator`）。特殊角色（專屬骨頭、專屬動作）在登記表加一行、寫一個子類別，不需要動其他角色。
+
+## 1b. 動作資料：每個角色自己一份，不共用
+
+動畫器引擎共用，但它不內建任何具體動作：待機呼吸、走跑的步幅與擺幅、抬膝、骨盆起伏、前傾、蹲、空中、衝刺、格擋、受擊、看向準星、死亡的倒法，全部來自這個角色自己的檔案 `art/motion/<角色>.json`（缺的欄位用 `HumanoidAnimator.DEFAULT_MOTION` 補，等於凜原本的手感）。敵人的招式動作在 `art/rigs/action_poses.json`，名稱是「敵人.動作」，每個敵人自己一份。NPC 的站姿微調與說話的速度、幅度倍率在同一個檔案的 `npc` 段。
+
+跑步與待機的進階欄位（NE-191，預設值＝不啟用，只有寫了數值的角色會改變，目前只有凜）：
+
+| 欄位 | 作用 |
+|---|---|
+| `move.duty`／`lift`／`reach` | 踩地比例（低於 0.55 在接近全速時才有騰空）、抬腳高度、站立腿長比例（小於 1＝著地時膝蓋微彎） |
+| `move.bounce`／`rise` | 踩地中段身體下沉、騰空時身體上升的像素（兩者為 0＝舊的固定下限） |
+| `foot` | 腳掌滾動：`heel` 著地腳尖翹、`toe_off` 蹬地腳尖壓、`droop` 抬腳時下垂 |
+| `torso` | 骨盆擺動 `hip_swing`、胸反向 `chest_counter`、胸的起伏 `chest_wobble`／`wobble_phase`、頭保持穩定 `head_hold`（直接加在骨頭角度上，不經過姿勢平滑） |
+| `inertia` | 慣性前傾：`gain`（滿加速度的角度，0＝關）、`ref_accel`、`stiffness`、`damping`、`max`（見 `InertiaLean`） |
+| `idle.pin_feet`／`pin_reach`／`counter` | 待機時腳固定在地上、骨盆左右微移讓膝蓋彎曲（重心轉移），`counter` 是胸的反向補償 |
+| `crouch.feet` | 可選的 `[前腳, 後腳]` 局部角度（弧度，−π～π）。人形戰鬥動畫器回到地面時，以水平腳掌銜接既有步態；專屬動作與死亡姿勢明確指定的腳部角度優先。省略或 `[]` 保持原行為；無效資料指出角色與欄位後退回 `[]`。 |
+
+空中、落地與衝刺的進階欄位（NE-192，同樣預設不啟用，目前只有凜）：
+
+| 欄位 | 作用 |
+|---|---|
+| `air.apex_speed`／`apex`／`takeoff` | 垂直速度絕對值低於 `apex_speed` 時，在「頂點」與「上升／下落」姿勢之間連續混合（0＝舊的二選一）；起跳後 `takeoff.time` 秒的蹬地伸展（不加起跳前預備，維持操作反應） |
+| `land` | 落地吸收：`gain`（衝擊 1 時彈簧初速，0＝關）、`stiffness`／`damping`（偏欠阻尼所以回彈有過衝）、`drop`（身體下沉像素）、`chest`（前傾）、`legs`（沒有用 IK 固定腳的角色用的屈膝腿姿） |
+| `dash.hip_drop` | 衝刺時身體壓低的像素 |
+| `impulse` | `jump`／`land`／`dash`／`hurt`：事件發生時對衣襬與頭髮彈簧注入的角速度（乘上各彈簧自己的 gain） |
+
+一次性事件由擁有者在 `RigInput` 的 `jumped`、`landed`（衝擊 0~1）、`dash_started` 設一格，動畫器讀完由擁有者清掉（`PlayerVisual` 已經接好）。預覽：`--seq=jump|land|dash`。
+
+動作資料合併時只收 `DEFAULT_MOTION` 裡有的欄位，所以新增欄位要先在那裡給「不啟用」的預設值，不然會被靜靜忽略。預覽：`rig_preview.tscn -- --chars=rin --gait --speed=150 --run-speed=150`（全速跑一個週期）、`--seq=start|stop|idle`（依時間取樣八格）。
+
+死亡的幾種倒法（用參數組合）：`rotation` 負＝向後倒、正＝向前倒；`fold` 先把腿折起來（0＝直接倒、1＝先跪下／癱坐）；`ease` 倒下的節奏。現有：保全向後倒、精銳保全僵直倒、狙擊手跪下向前趴、火焰兵癱坐、鎮暴員重重向後倒、重裝機槍手慢慢癱坐、監管者跪下向前、回收員快速向後甩倒、切割者向前撲倒、迷彩獵手癱坐。
+
+測試（`tests/suite/test_rig_actions.gd`）鎖定：每個角色都有自己的動作資料檔；任兩個角色至少 4 個數值不同（步幅、擺幅、抬膝、起伏、前傾、呼吸、死亡時間、倒下角度、折腿、受擊反應…）；同一個專屬動作只能被一個敵人使用且名稱以敵人 id 開頭。
+
+## 2. 人形動畫器（戰鬥）
+
+待機、跑、跳、落下、蹲、衝刺、格擋、硬直、倒下，雙手 IK 握武器並跟著瞄準方向，頭髮與衣襬用彈簧骨。輸入是 `RigInput`：`velocity`、`aim_dir`、`crouching`、`blocking`、`staggered`、`dead`、`recoil`（開槍後座力）、`hurt`、`action`／`action_t`（專屬動作）。次級動態參數放在骨架檔的 `springs`。
+
+## 3. 專屬動作（敵人的招式）
+
+敵人招式在某個狀態下播放一段骨頭動作，資料在 `art/rigs/action_poses.json`：
+
+```
+"slam": {"weapon_angle": 1.1, "duration": 0.35, "skip_ik": true, "blend": 30, "keys": [
+  {"t": 0.0, "bones": {"arm_front_upper": -2.9, ...}},
+  {"t": 0.5, "bones": {...}, "hip_y": 4}]}
+```
+
+- `keys`：依進度 t（0～1）排列；每個 key 只寫要動的骨頭，沒寫的沿用前後 key 的值，相鄰 key 之間緩動內插。
+- `skip_ik`：手臂完全依動作角度（不握武器，武器跟著前手；`weapon_angle` 可固定武器角度）。
+- `blend`：進出動作的淡入淡出速度。
+- 角度：弧度，面向右的骨架空間，骨頭靜止時朝下，負值＝往前／往上抬。
+
+敵人資料把狀態接到動作：`EnemyData.rig_actions = {"leap_windup": "windup_overhead", "leap": "slam"}`；進度 = 在該狀態停留的時間 / `duration`（到 1 之後停在最後一格）。敵人腳本不需要改，只在需要時覆寫 `_rig_aim()`（槍口方向）與 `_rig_state(input)`（蹲下、透明度等）。開槍的後座力：`Enemy._shoot` 已經設定 `recoil`；自己發射子彈的招式在發射時設 `_rig_input.recoil = 1.0`。
+
+目前登記的動作：`windup_overhead`（雙手高舉）、`slam`（砸下）、`windup_slash`（刀臂舉到身後）、`slash`（揮斬）、`launch`（發射後仰）、`brace`（蓄力沉腰）、`stagger_back`（受創後仰）、`vent`（散熱仰頭）。已接上的敵人：監管者、鎮暴員、重裝機槍手、火焰兵、切割者、回收員。
+
+預覽：`rig_preview.tscn -- --chars=<id> --action=<名稱> [--zoom=倍率]`（進度 0、20%…100% 並排）。
+
+## 4. NPC 動畫器
+
+沿用人形動畫器的骨架計算與彈簧骨，只換「目標角度怎麼算」。角色在走、跑、跳、蹲（人形的蹲）、格擋、倒下、持武器或瞄準時仍交給人形動畫器（過場裡的演員常常這樣用）。資料在 `art/rigs/npc_animations.json`：
+
+- `poses`：`stand`（雙手自然下垂）、`sit`、`lean`（靠牆）、`crouch`（蹲）。
+- `overlays`：`talk`（點頭與手勢）、`listen`（微微偏頭）、`wave`（揮手），開關時淡入淡出。
+- `loops`：每個角色專屬的工作循環，目前有 `stir` 攪鍋、`wipe_hands` 擦手、`hammer` 敲打、`tablet` 看平板、`sort_gear` 整理器材、`cough` 咳嗽、`pull_blanket` 拉被子、`typing` 打字、`yawn` 打哈欠、`read_note` 看紙條、`glance` 張望、`hold_child` 抱孩子。一條循環＝一組靜態骨頭角度加幾條正弦（`mean`、`amp`、`period`、`phase`），`gate` 讓它只在一個週期的某段時間發生（例如每 8 秒咳 1.6 秒），track 的 `gated`／`inv` 決定跟著 gate 出現或消失。
+
+用法：
+- 場景人物：NPC 資料（`data/npcs/*.tres`）的 `pose`（stand／sit／lean／squat）、`loop`、`loop_scale`；靠近時聆聽、對話時說話，程式自動處理。
+- 過場：actor 步驟的 `pose`、`loop`、`loop_scale`、`speaker`（劇本講話者 id；說這個人的台詞時，這個演員點頭比手勢，其他演員聆聽）。
+- 預覽：`rig_preview.tscn -- --chars=<id> --npc [--loop=名稱 --loop-pose=stand|sit|lean|squat]`。
+- 動作資料有錯（骨頭不存在、循環名稱不存在）時記錄具體位置並退回待機，不會崩潰；NPC 資料的循環名稱會被驗證。
+
+## 5. 新增特殊角色的步驟（NE-89 的目標）
+
+1. 規格（`specs/<id>_side.json` 的 `bones`）加專屬骨頭、零件掛上去。
+2. 寫一個繼承 `HumanoidAnimator` 的動畫器（或只覆寫 `_body_pose` 加幾根骨頭的角度），在 `CharacterRig.ANIMATORS` 登記名稱，外觀定義 `animator` 填這個名稱。
+3. 專屬招式：在 `action_poses.json` 加動作（可以用專屬骨頭），敵人資料的 `rig_actions` 接狀態。
+4. 測試：`tests/suite/test_rig_actions.gd` 會檢查動作資料引用的骨頭與敵人資料引用的動作、狀態都存在。

@@ -1,0 +1,71 @@
+{
+  "checks": 13,
+  "failures": 0,
+  "cases": [
+    {
+      "name": "valid",
+      "rejected": false,
+      "message": "actual member readback exact"
+    },
+    {
+      "name": "archive-hash",
+      "rejected": true,
+      "message": "archive bytes: raw-001.zip"
+    },
+    {
+      "name": "archive-size",
+      "rejected": true,
+      "message": "archive bytes: raw-001.zip"
+    },
+    {
+      "name": "member-hash",
+      "rejected": true,
+      "message": "member bytes: evidence/raw.log"
+    },
+    {
+      "name": "member-size",
+      "rejected": true,
+      "message": "member bytes: evidence/raw.log"
+    },
+    {
+      "name": "missing-member",
+      "rejected": true,
+      "message": "archive member count"
+    },
+    {
+      "name": "duplicate-member",
+      "rejected": true,
+      "message": "duplicate manifest member"
+    },
+    {
+      "name": "traversal",
+      "rejected": true,
+      "message": "unsafe member"
+    },
+    {
+      "name": "absolute",
+      "rejected": true,
+      "message": "unsafe member"
+    },
+    {
+      "name": "backslash",
+      "rejected": true,
+      "message": "duplicate or unexpected member"
+    },
+    {
+      "name": "drive",
+      "rejected": true,
+      "message": "unsafe member"
+    },
+    {
+      "name": "profile",
+      "rejected": true,
+      "message": "runtime profile included"
+    },
+    {
+      "name": "case-collision",
+      "rejected": true,
+      "message": "duplicate or unexpected member"
+    }
+  ]
+}

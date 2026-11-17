@@ -22,11 +22,11 @@
       "file": "parts/torso.png",
       "size": [
         372,
-        397
+        407
       ],
       "pivot": [
         179.0,
-        365.0
+        375.0
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
@@ -113,6 +113,18 @@
         49.95
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "hip_trim": {
+      "file": "parts/hip_trim.png",
+      "size": [
+        366,
+        168
+      ],
+      "pivot": [
+        185.0,
+        150.0
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     }
   },
   "parts": [
@@ -156,7 +168,11 @@
       "texture": "foot",
       "bone": "foot_back",
       "z": -5,
-      "tint": 0.8
+      "tint": 0.8,
+      "offset": [
+        0,
+        -0.10626
+      ]
     },
     {
       "name": "pelvis",
@@ -186,7 +202,17 @@
       "name": "foot_front",
       "texture": "foot",
       "bone": "foot_front",
-      "z": 3
+      "z": 3,
+      "offset": [
+        0,
+        -0.10626
+      ]
+    },
+    {
+      "name": "hip_trim",
+      "texture": "hip_trim",
+      "bone": "hip",
+      "z": 4
     },
     {
       "name": "head",

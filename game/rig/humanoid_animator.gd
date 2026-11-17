@@ -48,7 +48,7 @@ const DEFAULT_MOTION := {
 	"foot": {"droop": 0.25, "heel": 0.0, "toe_off": 0.0},
 	"torso": {"hip_swing": 0.0, "chest_counter": 0.0, "chest_wobble": 0.0, "wobble_phase": 0.0, "head_hold": 0.0},
 	"inertia": {"gain": 0.0, "ref_accel": 1600.0, "stiffness": 90.0, "damping": 11.0, "max": 0.3},
-	"crouch": {"hip_drop": 8.0, "chest": 0.18, "legs": [-1.25, 2.05, -0.55, 1.85], "kneel": {}},
+	"crouch": {"hip_drop": 8.0, "chest": 0.18, "legs": [-1.25, 2.05, -0.55, 1.85], "feet": [], "kneel": {}},
 	# 空手時手臂怎麼垂、怎麼擺：hang＝[前上臂, 前前臂, 後上臂, 後前臂]（弧度；負的往前）。前手垂在身側、後手略往前，
 	# 兩隻手臂的角度不能一樣，否則站著時會並排在同一側，看起來像一邊長了兩隻手。swing＝滿速時上臂前後擺的幅度，停下來就不擺。
 	"arms": {"hang": [0.02, -0.18, -0.2, -0.28], "swing": 0.38},
@@ -171,6 +171,8 @@ var _action_weapon_angle := NAN  # 動作指定的武器角度（NAN＝跟著手
 var _springs: Array[Dictionary] = []
 ## 這個角色自己的動作資料（預設值被 art/motion/<角色>.json 蓋過後的結果）。
 var _motion: Dictionary = {}
+## Optional local foot angles, validated once when this animator loads its motion.
+var _crouch_feet: Array = []
 var _spring_angle: Dictionary[StringName, float] = {}
 var _spring_velocity: Dictionary[StringName, float] = {}
 # FK 快取（骨架空間）
@@ -181,6 +183,7 @@ var _global_pos: Dictionary[StringName, Vector2] = {}
 func _init(rig: CharacterRig) -> void:
 	_rig = rig
 	_motion = _load_motion(rig.skin_id)
+	_crouch_feet = ((_motion["crouch"] as Dictionary)["feet"] as Array).duplicate()
 	for bone_name in rig.bone_order():
 		_angles[bone_name] = HAND_FOLLOWS_FOREARM if bone_name in [&"hand_front", &"hand_back"] else 0.0
 	_forward_kinematics()
@@ -211,7 +214,28 @@ static func _load_motion(skin_id: String) -> Dictionary:
 		return merged
 	var data := RigLibrary.load_json(path)
 	_merge_into(merged, data)
+	var crouch: Variant = data.get("crouch")
+	if typeof(crouch) == TYPE_DICTIONARY and (crouch as Dictionary).has("feet"):
+		var problem := crouch_feet_problem(crouch["feet"])
+		if not problem.is_empty():
+			RigLibrary.report_once("motion.crouch.feet:" + skin_id, "[HumanoidAnimator] %s: crouch.feet %s; using the legacy foot pose." % [path, problem])
+			merged["crouch"]["feet"] = []
 	return merged
+
+
+## Empty preserves the original pose; configured front/back angles are local radians.
+static func crouch_feet_problem(value: Variant) -> String:
+	if typeof(value) != TYPE_ARRAY:
+		return "expected [] or [front, back]"
+	var values := value as Array
+	if values.is_empty():
+		return ""
+	if values.size() != 2:
+		return "expected exactly two angles"
+	for i in 2:
+		if typeof(values[i]) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(values[i])) or absf(float(values[i])) > PI:
+			return "angle %d must be finite and within [-PI, PI]" % i
+	return ""
 
 
 static func _merge_into(base: Dictionary, over: Dictionary) -> void:
@@ -317,9 +341,23 @@ func update(delta: float, input: RigInput) -> void:
 var _feet_placed := false
 
 
-## 姿勢算完、骨頭套用並求出位置之後的修正（子類別覆寫；NPC 動畫器用它把腳放平在地上）。預設什麼都不做。
-func _post_pose(_delta: float, _input: RigInput) -> void:
-	pass
+## 姿勢算完後的貼地修正；NPC 子類別以自己的坐、蹲與站姿放腳。
+func _post_pose(_delta: float, input: RigInput) -> void:
+	if _crouch_feet.is_empty() or not bool(_motion["grounding"]) or not input.on_floor or input.crouching or input.dead or input.dashing:
+		return
+	# The base and gait must share a foot plane, including the first landing frame.
+	var changed := false
+	for chain in LEG_CHAINS:
+		if _action_w > 0.0 and _action_pose.has(chain[2]):
+			continue
+		var bone := _rig.bone(chain[2])
+		var angle := float(_global_angle.get(chain[2], 0.0))
+		if bone != null and not is_zero_approx(angle):
+			_angles[chain[2]] = float(_angles.get(chain[2], 0.0)) - angle
+			bone.rotation -= angle
+			changed = true
+	if changed:
+		_forward_kinematics()
 
 
 # ---------------------------------------------------------------------------
@@ -332,6 +370,12 @@ func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> 
 	var speed_ratio := clampf(absf(v.x) / maxf(1.0, input.run_speed), 0.0, 1.3)
 	var idle: Dictionary = m["idle"]
 	var move: Dictionary = m["move"]
+
+	# Configured feet return through the same pose blend on every exit, including
+	# death with stale crouch/action input. Authored action/death keys can still override.
+	if not _crouch_feet.is_empty():
+		pose[&"foot_front"] = float(_crouch_feet[0]) if input.crouching and not input.dead else 0.0
+		pose[&"foot_back"] = float(_crouch_feet[1]) if input.crouching and not input.dead else 0.0
 
 	if input.dead:
 		_death_pose(pose, m["death"])
@@ -587,6 +631,18 @@ func _step_legs() -> void:
 		reach = lerpf(float((_motion["idle"] as Dictionary)["pin_reach"]), reach, gait)
 		floor_sag *= gait
 	_place_feet(offsets, angles, planted, floor_sag, reach, false, _land_sag())
+	if not _crouch_feet.is_empty():
+		# Both ends of this blend use the same ground: the base pose is planted,
+		# while the gait keeps its authored airborne clearance. Angle blending
+		# can move the final ankles away from either endpoint; correct only the
+		# visual hip translation, preserving the solved leg angles and actor position.
+		var reference := _ground_y - minf(offsets[0].y, offsets[1].y) * planted
+		var shift := clampf(_ground_shift + reference - _lowest_foot_y(), -GROUND_MAX_SHIFT, GROUND_MAX_SHIFT)
+		var change := shift - _ground_shift
+		if not is_zero_approx(change):
+			_ground_shift = shift
+			_rig.bone(&"hip").position.y += change
+			_forward_kinematics()
 
 
 ## 待機時兩腳固定在地上：骨盆左右微移、身體隨之起伏，膝蓋自然彎曲（重心轉移），腳不滑。

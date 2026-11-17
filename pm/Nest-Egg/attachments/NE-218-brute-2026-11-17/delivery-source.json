@@ -1,0 +1,170 @@
+[
+  {
+    "path": "art/characters/collector_brute/character.json",
+    "tested_sha256": "47fbe98c893d8ca06d3186cfcc049cadfcfa3d427a7fd23765d43cd593d01ee9",
+    "canonical_sha256": "f1ff47646683090826e4353a123edf64db14e88c9b856289c9068e334115d97c",
+    "mapping": "CRLF to LF only"
+  },
+  {
+    "path": "art/characters/collector_brute/parts/head.png",
+    "tested_sha256": "f5693b48b9039b061c8d0d10b5a882006b0510c1b104007fa73b0d9977eda088",
+    "canonical_sha256": "f5693b48b9039b061c8d0d10b5a882006b0510c1b104007fa73b0d9977eda088",
+    "mapping": "exact bytes"
+  },
+  {
+    "path": "art/characters/collector_brute/parts/head_n.png",
+    "tested_sha256": "6d18cecbe3d7426aa99f1c19efe03410124d8e1700cae6ccdc5300fabcfbb05f",
+    "canonical_sha256": "6d18cecbe3d7426aa99f1c19efe03410124d8e1700cae6ccdc5300fabcfbb05f",
+    "mapping": "exact bytes"
+  },
+  {
+    "path": "art/characters/collector_brute/parts/hip_trim.png",
+    "tested_sha256": "8667415fa3aa0b9add1b5439b335c0b6fc8671e64978e4faaaca3ca84bb4583b",
+    "canonical_sha256": "8667415fa3aa0b9add1b5439b335c0b6fc8671e64978e4faaaca3ca84bb4583b",
+    "mapping": "exact bytes"
+  },
+  {
+    "path": "art/characters/collector_brute/parts/hip_trim.png.import",
+    "tested_sha256": "6395e38dd104e8d7173402fb8bc963348723681879060ad5ebfa2fc677a2e6de",
+    "canonical_sha256": "6395e38dd104e8d7173402fb8bc963348723681879060ad5ebfa2fc677a2e6de",
+    "mapping": "exact bytes"
+  },
+  {
+    "path": "art/characters/collector_brute/parts/hip_trim_n.png",
+    "tested_sha256": "032ccdeeb449d92ab645dfe71b58c6ced5b733167b2525e8a77312804e16195c",
+    "canonical_sha256": "032ccdeeb449d92ab645dfe71b58c6ced5b733167b2525e8a77312804e16195c",
+    "mapping": "exact bytes"
+  },
+  {
+    "path": "art/characters/collector_brute/parts/hip_trim_n.png.import",
+    "tested_sha256": "4108057eecf2512c6d32ba984f9b736191552d74f6422a633568d6c6547f9817",
+    "canonical_sha256": "4108057eecf2512c6d32ba984f9b736191552d74f6422a633568d6c6547f9817",
+    "mapping": "exact bytes"
+  },
+  {
+    "path": "art/characters/collector_brute/parts/leg_upper.png",
+    "tested_sha256": "7b37f023593832af5d626bd4cae4e8eb3555e4bb2899792ac7937b6470cd2ffe",
+    "canonical_sha256": "7b37f023593832af5d626bd4cae4e8eb3555e4bb2899792ac7937b6470cd2ffe",
+    "mapping": "exact bytes"
+  },
+  {
+    "path": "art/characters/collector_brute/parts/leg_upper_n.png",
+    "tested_sha256": "8263a6ef08147aeff492e4fd7f3ecd89ee0a5ebfd4a37bc11570b4875d94e1c2",
+    "canonical_sha256": "8263a6ef08147aeff492e4fd7f3ecd89ee0a5ebfd4a37bc11570b4875d94e1c2",
+    "mapping": "exact bytes"
+  },
+  {
+    "path": "art/characters/collector_brute/parts/pelvis.png",
+    "tested_sha256": "d66f1eebca135dcca8755ab4b88c5409493a799a82248b830881957f8f8eda4f",
+    "canonical_sha256": "d66f1eebca135dcca8755ab4b88c5409493a799a82248b830881957f8f8eda4f",
+    "mapping": "exact bytes"
+  },
+  {
+    "path": "art/characters/collector_brute/parts/pelvis_n.png",
+    "tested_sha256": "d08fbd968708c4bbdc187ea59c80627271483c206ca9740027fbf9ab403f9afe",
+    "canonical_sha256": "d08fbd968708c4bbdc187ea59c80627271483c206ca9740027fbf9ab403f9afe",
+    "mapping": "exact bytes"
+  },
+  {
+    "path": "art/characters/collector_brute/parts/torso.png",
+    "tested_sha256": "4523237bf29f1dba3450228918cfaebe8d7f64b76b49954c4de4a235adbd093d",
+    "canonical_sha256": "4523237bf29f1dba3450228918cfaebe8d7f64b76b49954c4de4a235adbd093d",
+    "mapping": "exact bytes"
+  },
+  {
+    "path": "art/characters/collector_brute/parts/torso_n.png",
+    "tested_sha256": "7c9dd21cab6604918c92786727b9c988f4368a88ddd77f16a1030607d53155d8",
+    "canonical_sha256": "7c9dd21cab6604918c92786727b9c988f4368a88ddd77f16a1030607d53155d8",
+    "mapping": "exact bytes"
+  },
+  {
+    "path": "art/motion/collector_brute.json",
+    "tested_sha256": "20b8dd7b0d65435db80a6be923d37855622537719f43c719222ba45d98a08fc8",
+    "canonical_sha256": "20b8dd7b0d65435db80a6be923d37855622537719f43c719222ba45d98a08fc8",
+    "mapping": "exact bytes"
+  },
+  {
+    "path": "art/rigs/collector_brute.json",
+    "tested_sha256": "6e40fa86aef4ebe951e0f5f7108a8c6403a8ccf2322034d8f7af08e6d11a3f28",
+    "canonical_sha256": "6fac8e5874a9e3acb64770fe7bc4bf1d64cd5815ab1577155c367f8b940c7072",
+    "mapping": "CRLF to LF only"
+  },
+  {
+    "path": "art_src/characters/collector_brute/07_refined/head.png",
+    "tested_sha256": "e2e10ecbc04f6f166aa78f79377f02b3e02183c42a9a24d62d54bf36ec73b5b4",
+    "canonical_sha256": "e2e10ecbc04f6f166aa78f79377f02b3e02183c42a9a24d62d54bf36ec73b5b4",
+    "mapping": "exact bytes"
+  },
+  {
+    "path": "art_src/characters/collector_brute/07_refined/hip_trim.png",
+    "tested_sha256": "5636f21433e5d19b44fec24b08a9befc85ce644c438dd37b8ab782c9dd4c052a",
+    "canonical_sha256": "5636f21433e5d19b44fec24b08a9befc85ce644c438dd37b8ab782c9dd4c052a",
+    "mapping": "exact bytes"
+  },
+  {
+    "path": "art_src/characters/collector_brute/07_refined/leg_upper.png",
+    "tested_sha256": "5f9b1db2197ca20357b3031b4679f382051d92e6060da518b6dd34120ab4964a",
+    "canonical_sha256": "5f9b1db2197ca20357b3031b4679f382051d92e6060da518b6dd34120ab4964a",
+    "mapping": "exact bytes"
+  },
+  {
+    "path": "art_src/characters/collector_brute/07_refined/ownership.png",
+    "tested_sha256": "43594e56b8e095aa0a7ff20c65a13fd1d4c2f40609c149944e00d99050d0d046",
+    "canonical_sha256": "43594e56b8e095aa0a7ff20c65a13fd1d4c2f40609c149944e00d99050d0d046",
+    "mapping": "exact bytes"
+  },
+  {
+    "path": "art_src/characters/collector_brute/07_refined/pelvis.png",
+    "tested_sha256": "26e1f048e0f3a5f27656d57d33e2db499b2dde9fbea5fd6b4880d1c65441c2b2",
+    "canonical_sha256": "26e1f048e0f3a5f27656d57d33e2db499b2dde9fbea5fd6b4880d1c65441c2b2",
+    "mapping": "exact bytes"
+  },
+  {
+    "path": "art_src/characters/collector_brute/07_refined/torso.png",
+    "tested_sha256": "2a7b8bbc9dcf5a03565e24a159435e6b814b33644f99a4663103966861296d7a",
+    "canonical_sha256": "2a7b8bbc9dcf5a03565e24a159435e6b814b33644f99a4663103966861296d7a",
+    "mapping": "exact bytes"
+  },
+  {
+    "path": "design/12-cast-redraw/ANIMATION.md",
+    "tested_sha256": "97cd9a25a1024e470c1a7f6348cd19866525beea0475cc65ecdcd1ba70f2dd51",
+    "canonical_sha256": "97cd9a25a1024e470c1a7f6348cd19866525beea0475cc65ecdcd1ba70f2dd51",
+    "mapping": "exact bytes"
+  },
+  {
+    "path": "game/rig/humanoid_animator.gd",
+    "tested_sha256": "7e91f17b62e97b80434393e7e7f699d0e16d33781b54e5dbddede5f125a63ae9",
+    "canonical_sha256": "7e91f17b62e97b80434393e7e7f699d0e16d33781b54e5dbddede5f125a63ae9",
+    "mapping": "exact bytes"
+  },
+  {
+    "path": "tests/helpers/crouch_feet_checks.gd",
+    "tested_sha256": "81194cd4567ebf8bf0bc89e4e067ae8cd96cd0166f940c5f03d418efc7b268c2",
+    "canonical_sha256": "81194cd4567ebf8bf0bc89e4e067ae8cd96cd0166f940c5f03d418efc7b268c2",
+    "mapping": "exact bytes"
+  },
+  {
+    "path": "tests/probes/rig_crouch_feet_invalid.gd",
+    "tested_sha256": "5e734c85e2eb52cb6c52bbf96157bcba6cd26910cf70aad4d0564b8e82c4cc14",
+    "canonical_sha256": "5e734c85e2eb52cb6c52bbf96157bcba6cd26910cf70aad4d0564b8e82c4cc14",
+    "mapping": "exact bytes"
+  },
+  {
+    "path": "tests/probes/rig_crouch_feet_invalid.tscn",
+    "tested_sha256": "bc65be377b03a0883a6b1bc07b31f5505770f3de7efee499d43d6456e9414029",
+    "canonical_sha256": "bc65be377b03a0883a6b1bc07b31f5505770f3de7efee499d43d6456e9414029",
+    "mapping": "exact bytes"
+  },
+  {
+    "path": "tests/suite/test_rig_actions.gd",
+    "tested_sha256": "77ca7e97ea3a392077511627f7fac32b68c2978820e0a9f92130faac57924cad",
+    "canonical_sha256": "77ca7e97ea3a392077511627f7fac32b68c2978820e0a9f92130faac57924cad",
+    "mapping": "exact bytes"
+  },
+  {
+    "path": "tools/comfyui/specs/collector_brute_side.json",
+    "tested_sha256": "efa1f26ac572c7d320ec2663d23a2aac684b87d0dd48fb8aaa0ed0f9b3bf1df0",
+    "canonical_sha256": "efa1f26ac572c7d320ec2663d23a2aac684b87d0dd48fb8aaa0ed0f9b3bf1df0",
+    "mapping": "exact bytes"
+  }
+]

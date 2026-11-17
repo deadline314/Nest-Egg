@@ -26,6 +26,7 @@
 | `torso` | 骨盆擺動 `hip_swing`、胸反向 `chest_counter`、胸的起伏 `chest_wobble`／`wobble_phase`、頭保持穩定 `head_hold`（直接加在骨頭角度上，不經過姿勢平滑） |
 | `inertia` | 慣性前傾：`gain`（滿加速度的角度，0＝關）、`ref_accel`、`stiffness`、`damping`、`max`（見 `InertiaLean`） |
 | `idle.pin_feet`／`pin_reach`／`counter` | 待機時腳固定在地上、骨盆左右微移讓膝蓋彎曲（重心轉移），`counter` 是胸的反向補償 |
+| `crouch.feet` | 可選的 `[前腳, 後腳]` 局部角度（弧度，−π～π）。人形戰鬥動畫器回到地面時，以水平腳掌銜接既有步態；專屬動作與死亡姿勢明確指定的腳部角度優先。省略或 `[]` 保持原行為；無效資料指出角色與欄位後退回 `[]`。 |
 
 空中、落地與衝刺的進階欄位（NE-192，同樣預設不啟用，目前只有凜）：
 
