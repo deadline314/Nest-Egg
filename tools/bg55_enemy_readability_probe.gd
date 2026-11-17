@@ -17,8 +17,8 @@ var _contact55: Dictionary = {}
 
 
 func _ready() -> void:
-	# SceneTour does not install Main's WorldEnvironment. This leaf must use
-	# the real game's HDR bloom owner, rather than merely an HDR viewport.
+	# Keep the real HDR bloom owner available for profile diagnostics;
+	# SceneTour reuses this existing environment.
 	_environment55 = LightKit.create_environment()
 	add_child(_environment55)
 	for arg in OS.get_cmdline_user_args():

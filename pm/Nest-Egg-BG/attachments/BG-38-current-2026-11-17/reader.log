@@ -1,0 +1,51 @@
+{
+  "members": 178,
+  "tour_png": 72,
+  "pack_png": 1,
+  "visible_pairs": 12,
+  "cycle_samples": 384,
+  "regional_minima": [
+    {
+      "quality": "low",
+      "player_contrast": [
+        1.6039019376651,
+        1.96112974068144
+      ],
+      "edge_contrast": [
+        7.52972294832537,
+        8.33623342139048
+      ],
+      "cycle_player_min": [
+        1.55331969550423,
+        1.91936922763971
+      ],
+      "cycle_edge_min": [
+        7.24509818111975,
+        8.09057818360932
+      ]
+    },
+    {
+      "quality": "high",
+      "player_contrast": [
+        1.5951899240399,
+        2.02767470304884
+      ],
+      "edge_contrast": [
+        7.95140294167456,
+        8.55000313493324
+      ],
+      "cycle_player_min": [
+        1.53001693385041,
+        2.02417003761848
+      ],
+      "cycle_edge_min": [
+        7.4776948083925,
+        8.40423442182912
+      ]
+    }
+  ],
+  "individual_player_decreases": 8,
+  "scene_maps": 32,
+  "chapter2_3_maps": 19,
+  "note": "Regional minimum is the original BG38 table contract; individual decreases remain visible. Numeric cycle statistics are recounted, not reconstructed from the earlier tour PNG."
+}

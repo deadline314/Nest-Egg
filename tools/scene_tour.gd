@@ -77,6 +77,8 @@ func _settle(frames: int) -> void:
 
 
 func _run() -> void:
+	if get_viewport().find_world_3d().environment == null:
+		add_child(LightKit.create_environment())
 	var failures := 0
 	var quality_before := Settings.get_light_quality()
 	if QUALITY.has(_quality):
