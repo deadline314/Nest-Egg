@@ -110,16 +110,22 @@ static func capture(owner: Node, level: Level, output: String, name: String, bla
 	var rect := mask.get_used_rect()
 	var opaque := 0
 	var white := 0
+	var white_head := 0
 	var peak := 0.0
 	if mask.get_format() in [Image.FORMAT_RGBAH, Image.FORMAT_RGBAF]:
 		for y in range(rect.position.y, rect.end.y):
 			for x in range(rect.position.x, rect.end.x):
-				opaque += int(mask.get_pixel(x, y).a >= 0.999)
+				var alpha := mask.get_pixel(x, y).a
+				opaque += int(alpha >= 0.999)
 				var pixel := main.get_pixel(x, y)
-				white += int(pixel.r > 0.92 and pixel.g > 0.92 and pixel.b > 0.92)
+				var is_white := pixel.r > 0.92 and pixel.g > 0.92 and pixel.b > 0.92
+				white += int(is_white)
+				white_head += int(is_white and alpha > 0.0)
 				peak = maxf(peak, maxf(pixel.r, maxf(pixel.g, pixel.b)))
 	var result := {"opaque_head_pixels": opaque, "white_rectangle_pixels": white, "bound_valid": held and opaque > 0 and geometry_fits,
 		"white_ratio_upper_bound": float(white) / opaque if opaque > 0 else null, "peak": peak,
+		# Nonzero alpha contains the full head silhouette; opaque alpha remains the area lower bound.
+		"white_head_pixels_upper_bound": white_head, "white_head_ratio_upper_bound": float(white_head) / opaque if opaque > 0 else null,
 		"sample_rect": [rect.position.x, rect.position.y, rect.size.x, rect.size.y], "source_held": held,
 		"expanded_geometry_fully_in_bounds": geometry_fits,
 		"muzzle_energy_at_raw_capture": muzzle_energy, "physics_frame_at_raw_capture": raw_physics_frame,

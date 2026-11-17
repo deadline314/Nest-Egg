@@ -6,8 +6,8 @@ extends ScenarioBase
 ##       [--perf] [--weapon=glaive] [--quality=low|medium|high]
 ## 在測試場地（預設套用倉庫的暗光影、槍燈本來就不會亮因為拿的是近戰武器）對五把近戰武器各拍：
 ##   拿在手上的待機一張、連段每一段出招那一刻各一張（真的按出連段，不是手動設定動作進度）。
-## 另外放一個敵人在刀刃夠得到的地方，量「揮動那一刻」與「沒拿近戰武器」時敵人身上的亮度，確認刃光真的照亮敵人；
-## 並量主角頭部的全白像素比例（白色頭髮不能因為刃光過曝）。「減少閃光」打開時再量一次揮動那一刻的刃光亮度。
+## 近身敵人固定且不可受傷，同姿勢切換刃光開／關／還原，以原始HDR量照明；非近戰基準另保留作診斷。
+## 頭部沿用真實透明遮罩的保守全白上界，原固定矩形讀值仍保留。「減少閃光」開啟後再量揮動亮度。
 ## 每把武器再拍蹲下、跳到空中與衝刺中各一張（武器要一直握在手上），最後把五把武器的掉落物排成一列拍一張，
 ## 並把背包卡片圖示與武器欄圖示存成圖（三處要看得出是同一把）。
 ## 輸出 <標籤>-<武器>-idle.png、<標籤>-<武器>-<第幾段>-<招式>.png、<標籤>-<武器>-crouch／air／dash.png、
@@ -27,6 +27,7 @@ var _failures := 0
 var _perf_only := false
 var _perf_weapon := "glaive"
 var _quality := ""
+var _framing: Array[Dictionary] = []
 
 const QUALITY := {"low": LightQuality.Tier.LOW, "medium": LightQuality.Tier.MEDIUM, "high": LightQuality.Tier.HIGH}
 const PERF_FRAMES := 45
@@ -71,10 +72,12 @@ func _run() -> void:
 		await _perf()
 		Settings.set_light_quality(quality_before)
 		await finish()
+		await AudioRelease.settle(get_tree())
 		get_tree().quit(1 if _failures > 0 else 0)
 		return
 	var camera := get_viewport().get_camera_2d()
 	camera.set_physics_process(false)
+	camera.position_smoothing_enabled = false
 	camera.zoom = Vector2.ONE * 3.4
 	AimInput.using_gamepad = true
 	AimInput._last_stick_dir = Vector2.RIGHT
@@ -89,6 +92,7 @@ func _run() -> void:
 		report["weapons"][weapon_id]["film_hands"] = await _film(weapon_id, camera)
 	Settings.set_reduce_flashes(reduce_before)
 	await _pickups_and_icons(camera)
+	report["framing"] = _framing
 	var writer := FileAccess.open(out_dir.path_join(_tag + "-index.json"), FileAccess.WRITE)
 	if writer != null:
 		writer.store_string(JSON.stringify(report, "\t"))
@@ -96,6 +100,7 @@ func _run() -> void:
 	print("MELEE_ART_PROBE failures ", _failures)
 	Settings.set_light_quality(quality_before)
 	await finish()
+	await AudioRelease.settle(get_tree())
 	get_tree().quit(1 if _failures > 0 else 0)
 
 
@@ -171,18 +176,11 @@ func _film(weapon_id: String, camera: Camera2D) -> Array:
 	if not player._try_melee():
 		camera.zoom = zoom_before
 		return hands
-	var rig := player._visual.rig
 	for shot in (WHIP_FILM_SHOTS if whip else FILM_SHOTS):
 		for i in (WHIP_FILM_EVERY if whip else FILM_EVERY):
 			await get_tree().physics_frame
 		await get_tree().process_frame
-		# 先記下手的位置、等這一格畫完再存圖：直接存會拿到上一格的畫面，位置對不上。
-		var to_screen := get_viewport().get_final_transform() * get_viewport().get_canvas_transform()
-		var front := to_screen * rig.bone(&"hand_front").global_position
-		var back := to_screen * rig.bone(&"hand_back").global_position
-		hands.append([front.x, front.y, back.x, back.y])
-		await RenderingServer.frame_post_draw
-		capture("%s-%s-film-%d" % [_tag, weapon_id, shot + 1])
+		hands.append(await _capture_pose("%s-%s-film-%d" % [_tag, weapon_id, shot + 1], camera))
 	player._interrupt_melee()
 	camera.zoom = zoom_before
 	await settle(20)
@@ -203,21 +201,26 @@ func _arm(weapon: WeaponData, camera: Camera2D) -> void:
 
 func _one_weapon(weapon_id: String, camera: Camera2D) -> Dictionary:
 	var weapon := load("res://data/weapons/melee/melee_%s.tres" % weapon_id) as WeaponData
-	var result := {"has_art": not MeleeArt.art(weapon).is_empty(), "moves": []}
+	var result := {"has_art": not MeleeArt.art(weapon).is_empty(), "moves": [], "head_exposure": []}
 	if not result["has_art"]:
 		push_error("[MeleeArtProbe] %s 沒有圖（退回線條）" % weapon.id)
 		_failures += 1
 	await clear_enemies()
 	await settle(4)
 	# 對照：手上不是近戰武器時，敵人身上有多亮（槍燈先關掉）。
-	var foe := spawn_enemy("res://data/enemies/sweeper.tres", 12.0 + maxf(1.6, weapon.melee_length * 0.75 / 16.0))
+	# Measure the nearby light pool, without retaliation or hit-white contaminating the sample.
+	var foe := spawn_enemy("res://data/enemies/sweeper.tres", 13.6)
 	foe.data = foe.data.duplicate()
 	foe.data.detect_range = 0.0
 	foe.data.attack_range = 0.0
 	foe.data.move_speed = 0.0
 	foe.health.setup(9999, 0.0)
+	foe.hurtbox.enabled = false
+	foe.set_physics_process(false)
 	var pistol := load("res://data/weapons/pistol.tres") as WeaponData
 	await _arm(pistol, camera)
+	foe.facing = 1
+	foe._drive_rig(0.0)
 	var gun_light := player.get("_weapon_light") as Object
 	if gun_light != null:
 		gun_light.set("suppressed", true)
@@ -226,10 +229,11 @@ func _one_weapon(weapon_id: String, camera: Camera2D) -> Dictionary:
 	# 待機：拿在手上。
 	await _arm(weapon, camera)
 	var blade := player.find_child("BladeLight", true, false) as BladeLight
-	capture("%s-%s-idle" % [_tag, weapon_id])
+	await _capture_pose("%s-%s-idle" % [_tag, weapon_id], camera)
 	result["idle_light"] = snappedf(blade.energy(), 0.001) if blade != null else 0.0
 	result["foe_luma_idle"] = _luma_at(foe)
 	result["head_white_idle"] = _head_white()
+	(result["head_exposure"] as Array).append(await _head_exposure(weapon_id + "-idle"))
 	if blade == null or blade.energy() <= 0.0:
 		push_error("[MeleeArtProbe] %s 拿在手上沒有刃光" % weapon.id)
 		_failures += 1
@@ -238,6 +242,7 @@ func _one_weapon(weapon_id: String, camera: Camera2D) -> Dictionary:
 	var swing_light := 0.0
 	var swing_luma := 0.0
 	var head_white := float(result["head_white_idle"])
+	var light_ratio := 0.0
 	while step < 8:
 		var started := player._try_melee() if step == 0 else player._start_melee_attack(true)
 		if not started:
@@ -256,11 +261,14 @@ func _one_weapon(weapon_id: String, camera: Camera2D) -> Dictionary:
 		player.set_physics_process(false)
 		await settle(3)
 		var name := str(player._melee_attack.get("id", player._melee_attack.get("pose", "move")))
-		capture("%s-%s-%d-%s" % [_tag, weapon_id, step, name])
+		await _capture_pose("%s-%s-%d-%s" % [_tag, weapon_id, step, name], camera)
 		swing_light = maxf(swing_light, blade.energy() if blade != null else 0.0)
 		swing_luma = maxf(swing_luma, _luma_at(foe))
 		head_white = maxf(head_white, _head_white())
-		(result["moves"] as Array).append({"step": step, "move": name, "light": snappedf(blade.energy(), 0.001) if blade != null else 0.0})
+		(result["head_exposure"] as Array).append(await _head_exposure("%s-%d" % [weapon_id, step]))
+		var pair := await _light_pair(foe, blade, "%s-%d" % [weapon_id, step])
+		light_ratio = maxf(light_ratio, float(pair["on"]) / maxf(float(pair["off"]), 0.0001))
+		(result["moves"] as Array).append({"step": step, "move": name, "light": snappedf(blade.energy(), 0.001) if blade != null else 0.0, "light_pair": pair})
 		player.set_physics_process(true)
 		# 等到可以接下一段（收招）。
 		limit = 240
@@ -273,14 +281,12 @@ func _one_weapon(weapon_id: String, camera: Camera2D) -> Dictionary:
 	result["swing_light"] = snappedf(swing_light, 0.001)
 	result["foe_luma_swing"] = snappedf(swing_luma, 0.0001)
 	result["head_white_max"] = snappedf(head_white, 0.0001)
+	result["paired_light_ratio"] = light_ratio
 	if swing_light <= float(result["idle_light"]) * 1.2:
 		push_error("[MeleeArtProbe] %s 揮動時刃光沒有變亮（%.3f → %.3f）" % [weapon.id, result["idle_light"], swing_light])
 		_failures += 1
-	if swing_luma <= float(result["foe_luma_without"]) * 1.15:
+	if light_ratio <= 1.15:
 		push_error("[MeleeArtProbe] %s 揮動時敵人沒有被照亮（%.4f → %.4f）" % [weapon.id, result["foe_luma_without"], swing_luma])
-		_failures += 1
-	if head_white > MAX_HEAD_WHITE:
-		push_error("[MeleeArtProbe] %s 的刃光讓主角的頭過曝（全白 %.3f）" % [weapon.id, head_white])
 		_failures += 1
 	# 減少閃光：揮動那一刻的刃光要比較暗。
 	Settings.set_reduce_flashes(true)
@@ -308,7 +314,7 @@ func _poses(weapon_id: String, camera: Camera2D) -> void:
 	await _arm(weapon, camera)
 	Input.action_press(&"move_down")
 	await settle(30)
-	capture("%s-%s-crouch" % [_tag, weapon_id])
+	await _capture_pose("%s-%s-crouch" % [_tag, weapon_id], camera)
 	Input.action_release(&"move_down")
 	await settle(20)
 	Input.action_press(&"jump")
@@ -317,7 +323,7 @@ func _poses(weapon_id: String, camera: Camera2D) -> void:
 	await settle(10)
 	camera.global_position = player.global_position + Vector2(34, -30)
 	await settle(2)
-	capture("%s-%s-air" % [_tag, weapon_id])
+	await _capture_pose("%s-%s-air" % [_tag, weapon_id], camera)
 	await settle(70)
 	Input.action_press(&"dash")
 	await settle(2)
@@ -325,7 +331,7 @@ func _poses(weapon_id: String, camera: Camera2D) -> void:
 	await settle(4)
 	camera.global_position = player.global_position + Vector2(34, -30)
 	await settle(1)
-	capture("%s-%s-dash" % [_tag, weapon_id])
+	await _capture_pose("%s-%s-dash" % [_tag, weapon_id], camera)
 	await settle(50)
 	# 朝左站著一張：握法、圖層與另一隻手左右對調後要一樣。
 	await _arm(weapon, camera)
@@ -334,11 +340,50 @@ func _poses(weapon_id: String, camera: Camera2D) -> void:
 	player.aim_dir = Vector2.LEFT
 	camera.global_position = player.global_position + Vector2(-34, -30)
 	await settle(40)
-	capture("%s-%s-left" % [_tag, weapon_id])
+	await _capture_pose("%s-%s-left" % [_tag, weapon_id], camera)
 	AimInput._last_stick_dir = Vector2.RIGHT
 	player.facing = 1
 	player.aim_dir = Vector2.RIGHT
 	await settle(10)
+
+
+## Frame the actual pose and whole weapon before sampling the same rendered hand positions.
+func _capture_pose(name: String, camera: Camera2D) -> Array:
+	var processing := player.is_physics_processing()
+	player.set_physics_process(false)
+	var at := player.global_transform
+	var rig := player._visual.rig
+	var held := player._visual.melee_held()
+	var bounds := rig.visual_bounds()
+	var art := MeleeArt.art(player.loadout.active_weapon())
+	if not art.is_empty():
+		bounds = bounds.merge(held.draw_transform() * MeleeArt.texture_rect(art))
+	if held._whip != null and held._whip.is_laid():
+		for index in SoftWhip.NODES:
+			bounds = bounds.expand(held._whip.node(index))
+	for foe in get_tree().get_nodes_in_group(&"enemies"):
+		if foe is Enemy and foe.rig != null:
+			bounds = bounds.merge(foe.rig.visual_bounds())
+	bounds = bounds.grow(24.0)
+	var view := get_viewport().get_visible_rect()
+	var zoom := minf(3.4, minf(view.size.x / bounds.size.x, view.size.y / bounds.size.y))
+	camera.zoom = Vector2.ONE * zoom
+	camera.global_position = bounds.get_center()
+	camera.offset = Vector2.ZERO
+	camera.reset_smoothing()
+	camera.force_update_scroll()
+	await RenderingServer.frame_post_draw
+	var to_screen := get_viewport().get_final_transform() * get_viewport().get_canvas_transform()
+	var framed := to_screen * bounds
+	if not view.grow(0.01).encloses(framed) or player.global_transform != at:
+		push_error("[MeleeArtProbe] cropped pose: " + name)
+		_failures += 1
+	_framing.append({"name": name, "world_bounds": [bounds.position.x, bounds.position.y, bounds.size.x, bounds.size.y], "screen_bounds": [framed.position.x, framed.position.y, framed.size.x, framed.size.y], "zoom": zoom, "player_held": player.global_transform == at, "world_to_image": [to_screen.x.x, to_screen.x.y, to_screen.y.x, to_screen.y.y, to_screen.origin.x, to_screen.origin.y]})
+	var front := to_screen * rig.bone(&"hand_front").global_position
+	var back := to_screen * rig.bone(&"hand_back").global_position
+	capture(name)
+	player.set_physics_process(processing)
+	return [front.x, front.y, back.x, back.y]
 
 
 ## 五把武器的掉落物排成一列，以及背包卡片與武器欄的圖示。
@@ -352,6 +397,10 @@ func _pickups_and_icons(camera: Camera2D) -> void:
 		pickup.weapon = load("res://data/weapons/melee/melee_%s.tres" % WEAPONS[index]) as WeaponData
 		pickup.position = player.global_position + Vector2(26.0 + 24.0 * float(index), -14.0)
 		level._entities.add_child(pickup)
+		for child in pickup.get_children():
+			if child is WorldPrompt:
+				child.enabled = false
+				child.hide()
 		pickups.append(pickup)
 	camera.global_position = player.global_position + Vector2(70, -30)
 	await settle(30)
@@ -385,9 +434,68 @@ func _head_white() -> float:
 	return _box_stat(Rect2(head - HEAD_BOX * 0.5, HEAD_BOX), true)
 
 
+func _head_exposure(name: String) -> Dictionary:
+	# The conservative head rectangle must not include the nearby recipient's bright armour.
+	var recipients: Array[CanvasItem] = []
+	for foe in get_tree().get_nodes_in_group(&"enemies"):
+		if foe is CanvasItem and foe.is_visible_in_tree():
+			recipients.append(foe)
+			foe.hide()
+	await RenderingServer.frame_post_draw
+	var result := await preload("res://tools/weapon_head_probe.gd").capture(self, level, out_dir, _tag + "-head-" + name)
+	for recipient in recipients:
+		recipient.show()
+	result["recipients_hidden"] = recipients.size()
+	var blade := player.find_child("BladeLight", true, false) as BladeLight
+	result["blade_energy"] = blade.energy() if blade != null else 0.0
+	if not result.get("bound_valid", false) or float(result.get("white_head_ratio_upper_bound") if result.get("white_head_ratio_upper_bound") != null else 1.0) > MAX_HEAD_WHITE:
+		push_error("[MeleeArtProbe] invalid or overexposed actual head: " + name)
+		_failures += 1
+	return result
+
+
+func _light_pair(foe: Enemy, blade: BladeLight, name: String) -> Dictionary:
+	if blade == null:
+		return {"on": 0.0, "off": 1.0, "held": false}
+	var mode := level.process_mode
+	level.process_mode = Node.PROCESS_MODE_DISABLED
+	var light := blade.light()
+	var enabled := light.enabled
+	var at := foe.global_transform
+	var result := {"files": {}, "enemy_feet": [foe.global_position.x, foe.global_position.y], "body_size": [foe.data.body_size.x, foe.data.body_size.y]}
+	for state: String in ["on", "off", "restore"]:
+		light.enabled = enabled and state != "off"
+		await get_tree().process_frame
+		await RenderingServer.frame_post_draw
+		var image := get_viewport().get_texture().get_image()
+		var file := "%s-light-%s-%s" % [_tag, name, state]
+		var writer := FileAccess.open(out_dir.path_join(file + ".bin"), FileAccess.WRITE)
+		if writer == null:
+			push_error("[MeleeArtProbe] cannot save " + file)
+			_failures += 1
+		else:
+			writer.store_buffer(image.get_data())
+			writer.close()
+		if preload("res://tools/viewport_capture.gd").encode(image, get_viewport().use_hdr_2d).save_png(out_dir.path_join(file + ".png")) != OK:
+			_failures += 1
+		result[state] = _luma_at(foe)
+		result["files"][state] = file
+		result["format"] = image.get_format()
+		result["size"] = [image.get_width(), image.get_height()]
+		var transform := get_viewport().get_final_transform() * get_viewport().get_canvas_transform()
+		result["world_to_image"] = [transform.x.x, transform.x.y, transform.y.x, transform.y.y, transform.origin.x, transform.origin.y]
+	light.enabled = enabled
+	level.process_mode = mode
+	result["held"] = foe.global_transform == at and foe.health.current == foe.health.max_health
+	if not result["held"] or absf(float(result["on"]) - float(result["restore"])) > 0.001:
+		push_error("[MeleeArtProbe] light pair did not hold/restore: " + name)
+		_failures += 1
+	return result
+
+
 func _box_stat(world: Rect2, white_share: bool) -> float:
 	var view := get_viewport()
-	var image := preload("res://tools/viewport_capture.gd").image(view)
+	var image := preload("res://tools/viewport_capture.gd").image(view) if white_share else view.get_texture().get_image()
 	var to_screen := view.get_final_transform() * view.get_canvas_transform()
 	var a := to_screen * world.position
 	var b := to_screen * world.end

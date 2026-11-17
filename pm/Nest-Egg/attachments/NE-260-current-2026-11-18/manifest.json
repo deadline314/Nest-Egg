@@ -1,0 +1,2675 @@
+{
+  "base": "f5199334b0d949315095122b878ed1924797e856",
+  "archive_sha256": "85c1e40271cc8bd8f5b04abde84f568ca29fb6a86d8645b806b6fa4ce8414393",
+  "parts": [
+    {
+      "file": "evidence-001.zip.part",
+      "bytes": 49283072,
+      "sha256": "26586d33a6b477d4aefced2adfaeb20635ddc4c06b653b09a93a53dff1440820"
+    },
+    {
+      "file": "evidence-002.zip.part",
+      "bytes": 44858789,
+      "sha256": "8563f892cf3e8b3aded0389df58d55654855b29217423c2eaa460a8b8c58f411"
+    }
+  ],
+  "readers": {
+    "verify.py": "ee7d1f9e39cf3edd393286c2b74bfada5f21fc1555a51949a125d77c3ed24f79",
+    "verify_ne260_current_20261118.py": "4a7c282a13a30b95139681a54ea86ee795209d40ff7cd76d21bd5ecd9cff7531",
+    "verify_bg49_held.py": "da98e8badf166c3b90d9704557489aa3f78ffba26462d9e0de0d0bde40184cfb"
+  },
+  "files": {
+    "final-low/command.json": {
+      "sha256": "839410ca72f807efca6bf804635bea4bd1de9485c6b86479c6050942ddf542f1",
+      "bytes": 602
+    },
+    "final-low/current-blade-1-thermal_blade_cut_1.png": {
+      "sha256": "d999a57947160e5f6d44cb4d84c8e6c4e2c0a1116017272648bf538ba6e85304",
+      "bytes": 70992
+    },
+    "final-low/current-blade-2-thermal_blade_cut_2.png": {
+      "sha256": "d27dd27bef5ff7de77fe45aa8570b7e3ec742b7ddfdf128ce5f59be0f8112432",
+      "bytes": 85198
+    },
+    "final-low/current-blade-3-thermal_blade_cut_3.png": {
+      "sha256": "cdb60c13213b69b2de93c93a4f7ada9b15f42b48b2a8b4cc6cd6a6becfcc266e",
+      "bytes": 63940
+    },
+    "final-low/current-blade-air.png": {
+      "sha256": "13aa13c6f2037c74297a75b314a494a1e4c217462b53dfd25acfdc446ddd7a2a",
+      "bytes": 53820
+    },
+    "final-low/current-blade-crouch.png": {
+      "sha256": "5d386895a236e1e926b27be354e061b979f1444a6045e3b99e4f91c5491787eb",
+      "bytes": 63800
+    },
+    "final-low/current-blade-dash.png": {
+      "sha256": "b1d89bde4e3cace62fbceb0e443e9d2ff345514b6047f57149c7294481e1686d",
+      "bytes": 69534
+    },
+    "final-low/current-blade-film-1.png": {
+      "sha256": "ff27ef1e560c0f85169157d555c4faf66d7c1e5698fa35789a81e3dabc48c2ae",
+      "bytes": 53493
+    },
+    "final-low/current-blade-film-2.png": {
+      "sha256": "82b685acbdf3e5392554223d8317e79db4e6758c020cfb773b36c6de3e8c286d",
+      "bytes": 57669
+    },
+    "final-low/current-blade-film-3.png": {
+      "sha256": "80937ce23d132ce7b760a47fb65be8ad2f9e54b3f63a7cb6ab0b2a1f2a11a24f",
+      "bytes": 67273
+    },
+    "final-low/current-blade-film-4.png": {
+      "sha256": "4174f1edad9d34c9392e760339a34e85a3a67314cad567e82271801a71634219",
+      "bytes": 70177
+    },
+    "final-low/current-blade-film-5.png": {
+      "sha256": "f54b06b10974e784e60debe9c7fc688ee649bb6c2ed2aec196a9b419f89036ec",
+      "bytes": 69163
+    },
+    "final-low/current-blade-film-6.png": {
+      "sha256": "988b874364c2de7a58078bab13df4e31cc690511e1314f070a61770c9aad13ba",
+      "bytes": 69006
+    },
+    "final-low/current-blade-film-7.png": {
+      "sha256": "a905dc94b9870a2d1fec40704d5a72c864e5177bb3bafc131c4c990c489ac3ad",
+      "bytes": 68672
+    },
+    "final-low/current-blade-film-8.png": {
+      "sha256": "5bb0b67ceef7a049873bc9c484ffd6d4c4f7b09b0c675cceaf443d237a4c113b",
+      "bytes": 66322
+    },
+    "final-low/current-blade-idle.png": {
+      "sha256": "e4aacafbb46976f0efb826bd1931a83d5087cb33a67b028eab48ddb48e5b25ae",
+      "bytes": 80482
+    },
+    "final-low/current-blade-left.png": {
+      "sha256": "c6919ad67de9d582c32ce60841dec6311155e528c0630cd19912847558ab0277",
+      "bytes": 62831
+    },
+    "final-low/current-dagger-1-mono_dagger_stab_1.png": {
+      "sha256": "15e0f4f2f490027d9b3e5f644196575670b8178b70b1f76e5107835bbaebcb37",
+      "bytes": 81797
+    },
+    "final-low/current-dagger-2-mono_dagger_stab_2.png": {
+      "sha256": "0774fe7c876c0795f996c193de1338149bf0153997f13be861e850cdad43d40d",
+      "bytes": 82512
+    },
+    "final-low/current-dagger-3-mono_dagger_flurry.png": {
+      "sha256": "00101e48e83ab8f6f9e90e3b76a764ece28be21755a22616813b268d3a443b7b",
+      "bytes": 83500
+    },
+    "final-low/current-dagger-air.png": {
+      "sha256": "922bee405af31dde4f4d9f86f5a36116ba09ea64042e0ba3e79adde81332e2ef",
+      "bytes": 58474
+    },
+    "final-low/current-dagger-crouch.png": {
+      "sha256": "d2dde7b76d05d9b5e92d0bfb3bf0eead31b7ef4aef000b5977be8644163b44ec",
+      "bytes": 63762
+    },
+    "final-low/current-dagger-dash.png": {
+      "sha256": "badcb4be25a8b5aaf9465d684da1931f58cb615bd75018f6398276a58feee2a0",
+      "bytes": 69535
+    },
+    "final-low/current-dagger-film-1.png": {
+      "sha256": "247a821390248188dd710d41b57d2087621caaa7788a12477af0dcd1464fc118",
+      "bytes": 60490
+    },
+    "final-low/current-dagger-film-2.png": {
+      "sha256": "e0281bd2b71889c958bd030740aec58fc70d8ae4e81088e8076c1d664ffe035e",
+      "bytes": 61780
+    },
+    "final-low/current-dagger-film-3.png": {
+      "sha256": "38cc994534e12dd7a33ce2bdd549520ed382c2c1986fcece3d88cabd72ed1987",
+      "bytes": 61213
+    },
+    "final-low/current-dagger-film-4.png": {
+      "sha256": "5b2fabf5fd51b1d548912bab8501f7eacd461a0fb33ad36aaec7f86f386565be",
+      "bytes": 61666
+    },
+    "final-low/current-dagger-film-5.png": {
+      "sha256": "478ca90ddccd78dffb74b79ef059d5c4e2a6034bc45c42ca5ec893f3ae808404",
+      "bytes": 60587
+    },
+    "final-low/current-dagger-film-6.png": {
+      "sha256": "a68f2e94f88545d3cc8e9c75aadd202bd41b183b0150b3cdd75e62e0b3befd27",
+      "bytes": 60581
+    },
+    "final-low/current-dagger-film-7.png": {
+      "sha256": "4eeb46377739a0c6c24fcfebd38c6fd065d3243890225162a048b3332dd2a49b",
+      "bytes": 60319
+    },
+    "final-low/current-dagger-film-8.png": {
+      "sha256": "94b19c3e3acef537ca99754b9a01bec35a4b37b61d7688076d299c971282b7da",
+      "bytes": 60034
+    },
+    "final-low/current-dagger-idle.png": {
+      "sha256": "136bbf714542d5d85f349325ca51b2ca8e2c92dd32851bb2f26808184a435a81",
+      "bytes": 80898
+    },
+    "final-low/current-dagger-left.png": {
+      "sha256": "61dc64d874e41c7e24c4e6ff8173ee3d4aef1d1568ef63d6d5f8ec3b8ba2ee48",
+      "bytes": 60497
+    },
+    "final-low/current-glaive-1-ion_glaive_thrust.png": {
+      "sha256": "87bab2f44a30384b1517f5d1643ecb6f93234845baaed3cb8666a2749f3e2365",
+      "bytes": 92603
+    },
+    "final-low/current-glaive-2-ion_glaive_sweep.png": {
+      "sha256": "c2977d2adc9e7f18f6983a75c93bce46c7d06e18b00ad66a369db6bc8e611f12",
+      "bytes": 63417
+    },
+    "final-low/current-glaive-air.png": {
+      "sha256": "e586fb58a15296ef8dc860a580eb4472a7aa9221c7c40aa725c947eb0469c289",
+      "bytes": 57248
+    },
+    "final-low/current-glaive-crouch.png": {
+      "sha256": "76079eb4c7d7410453d3f232f2c76b08305fce774df298eb9788149b6cd33d7e",
+      "bytes": 65815
+    },
+    "final-low/current-glaive-dash.png": {
+      "sha256": "e2a846acb81411ed4f9befbf756a231c8d53ba977afcff243cfb30438c95433d",
+      "bytes": 73775
+    },
+    "final-low/current-glaive-film-1.png": {
+      "sha256": "59a00ea70273d966c0b53f942ee543abc162ae023123fd91668e9fdd781713e6",
+      "bytes": 63127
+    },
+    "final-low/current-glaive-film-2.png": {
+      "sha256": "d6f473a4ae970a2a2cebad513d5ca2d1549537143434bc709e18f18603c6d64b",
+      "bytes": 76457
+    },
+    "final-low/current-glaive-film-3.png": {
+      "sha256": "d3627e068ac4150a0f3d36b2ec6d14658ca2ee32939c6715ba6b7704739335a0",
+      "bytes": 80213
+    },
+    "final-low/current-glaive-film-4.png": {
+      "sha256": "578b7c2d376c6a819683baf823c7a8a446db602942543d95019fd8a3e2bb9341",
+      "bytes": 80058
+    },
+    "final-low/current-glaive-film-5.png": {
+      "sha256": "955d248374932810688ab555b186be95b8a43183aaa0c114f7fdd3a799e84503",
+      "bytes": 81940
+    },
+    "final-low/current-glaive-film-6.png": {
+      "sha256": "cbc8bba85bca8d7c4259e887af3c470e1ca7c33987d16a3badc69cd2ec895849",
+      "bytes": 80816
+    },
+    "final-low/current-glaive-film-7.png": {
+      "sha256": "08691860d503d961523e080ee648f4b5a85435fe7f71875b1eff7967851d5ea7",
+      "bytes": 79074
+    },
+    "final-low/current-glaive-film-8.png": {
+      "sha256": "0e03db15acd3050fcd2b1a15b51222c0fd86b2e522b2648b684a1b40afc20252",
+      "bytes": 75619
+    },
+    "final-low/current-glaive-idle.png": {
+      "sha256": "98c4f0633241155f13b0d81f00e88fbae07b680e966dbcde807f1a1dff6264f0",
+      "bytes": 75270
+    },
+    "final-low/current-glaive-left.png": {
+      "sha256": "ffb95fa0416e479c96ab9559ab60f7f0fd6b02eaff662db0c21091b1e0cc1954",
+      "bytes": 66362
+    },
+    "final-low/current-head-blade-1-head-alpha.bin": {
+      "sha256": "f2f8cff7a41a0a2701fffbe3b20261dee50d77535a0b23e4ff705b4203505765",
+      "bytes": 1843200
+    },
+    "final-low/current-head-blade-1-head-alpha.png": {
+      "sha256": "fadfbc4d3a7f8951aa8c20cfab065f86f1098fffa7ff1b2d8b387c87642e8c13",
+      "bytes": 1340
+    },
+    "final-low/current-head-blade-1.bin": {
+      "sha256": "c8f897eb65471ed303918c535985695a8a736c8591783614288de983e22657e5",
+      "bytes": 1382400
+    },
+    "final-low/current-head-blade-1.png": {
+      "sha256": "842fa81f06a7983f0a8798d68e09978cc958eee3f32713225cfb37266c868dc8",
+      "bytes": 58510
+    },
+    "final-low/current-head-blade-2-head-alpha.bin": {
+      "sha256": "f805f41f4ca28d2af7515011e33bb78db7d3d765f304c9b389af97ca113a9bac",
+      "bytes": 1843200
+    },
+    "final-low/current-head-blade-2-head-alpha.png": {
+      "sha256": "e8a343bf3efd8719be54859ae23a24c1780de008cd89867811c3e77f10f9ed21",
+      "bytes": 1378
+    },
+    "final-low/current-head-blade-2.bin": {
+      "sha256": "dbc706068c04acea632387104cdb1d0a84dccd44c4705d3e6792ed378bf565e6",
+      "bytes": 1382400
+    },
+    "final-low/current-head-blade-2.png": {
+      "sha256": "65928443999546790c4c1e9e43cc99f4c14d91245473cfa63ec55ad2cf2f90c0",
+      "bytes": 71567
+    },
+    "final-low/current-head-blade-3-head-alpha.bin": {
+      "sha256": "4e1a00675751148ac254fb43475d003306b3a5f749108503e0900738eaedefba",
+      "bytes": 1843200
+    },
+    "final-low/current-head-blade-3-head-alpha.png": {
+      "sha256": "5b31e7a0d5571a59bf30ae1db5e490790657c9118d59ba4a49fd1ea55fb309b0",
+      "bytes": 1311
+    },
+    "final-low/current-head-blade-3.bin": {
+      "sha256": "63699ba0912544e5c209dbd368e35bf8291dba9c7960dbbfaed58b728010858d",
+      "bytes": 1382400
+    },
+    "final-low/current-head-blade-3.png": {
+      "sha256": "4f19dd7436b596fe6bb56e6253f52fcb633615c5066068c1cd49617584abe5f8",
+      "bytes": 54823
+    },
+    "final-low/current-head-blade-idle-head-alpha.bin": {
+      "sha256": "e0eb38cf078c67b2d3aa8ffff7ed669973d7ed29f79563444ce790ca20622bbf",
+      "bytes": 1843200
+    },
+    "final-low/current-head-blade-idle-head-alpha.png": {
+      "sha256": "f6dd315e7e53c29a53f4d903c3fb6f59bda39277819f1433d1070914ccb1c5eb",
+      "bytes": 1340
+    },
+    "final-low/current-head-blade-idle.bin": {
+      "sha256": "19affba3d18da23faa0f678584130b1ef0c2f58ac985b0401c51b603e351a427",
+      "bytes": 1382400
+    },
+    "final-low/current-head-blade-idle.png": {
+      "sha256": "340e75c19d9632b9f95911294074f914d06147601cec7668e82e019f97a2982f",
+      "bytes": 67030
+    },
+    "final-low/current-head-dagger-1-head-alpha.bin": {
+      "sha256": "3232609d6cbbaddac71c1bf9700e0d877b69fc09811b93ccb666771b8364446d",
+      "bytes": 1843200
+    },
+    "final-low/current-head-dagger-1-head-alpha.png": {
+      "sha256": "9107e6348dcd1038f8e96d3947a7012344344b98f66d68e5fca5518434badb6a",
+      "bytes": 1414
+    },
+    "final-low/current-head-dagger-1.bin": {
+      "sha256": "ac07a9457924f5cb34628548129357a96f378eb901bf20d54bb7a4fb34881e58",
+      "bytes": 1382400
+    },
+    "final-low/current-head-dagger-1.png": {
+      "sha256": "4668614aa111c3a7d3cc86ff8f4b20c7f79ce46132e60e5ee728d3fdf9dc07bf",
+      "bytes": 69912
+    },
+    "final-low/current-head-dagger-2-head-alpha.bin": {
+      "sha256": "d4a4c07b6e4ccba222ab4106ec250708b5d51d142aa3851be810b2709ce06ac4",
+      "bytes": 1843200
+    },
+    "final-low/current-head-dagger-2-head-alpha.png": {
+      "sha256": "84cf892b454a1ec105bcb180df0df0f9632ef7799c5fb912b2010a50483ace80",
+      "bytes": 1347
+    },
+    "final-low/current-head-dagger-2.bin": {
+      "sha256": "d370da1b566422376323cad7cdca98791ecf968cd1233a1e6f71d35c8c03bb18",
+      "bytes": 1382400
+    },
+    "final-low/current-head-dagger-2.png": {
+      "sha256": "a517828c05bd8a0d09f12dcf1b63753741c3a7241e7bdc77e19bd3ab567dc42f",
+      "bytes": 69664
+    },
+    "final-low/current-head-dagger-3-head-alpha.bin": {
+      "sha256": "14336c7e54553f256f2a7837baa53506c6c44c4bd41d67919be047e8c1846a1c",
+      "bytes": 1843200
+    },
+    "final-low/current-head-dagger-3-head-alpha.png": {
+      "sha256": "948d6b9c95dc49f87ac288db49eed22119c6fbc9c1e6e0ca21a4f9596c97cbd6",
+      "bytes": 1369
+    },
+    "final-low/current-head-dagger-3.bin": {
+      "sha256": "3e7ead29db4ab459ea7f6303af7c770316aaad740e117326e0ee6b1a06e83a67",
+      "bytes": 1382400
+    },
+    "final-low/current-head-dagger-3.png": {
+      "sha256": "b9e78622102dacea4e59744a18e5fe50c96d75c8bf4220d73bd59bde0c89484a",
+      "bytes": 69758
+    },
+    "final-low/current-head-dagger-idle-head-alpha.bin": {
+      "sha256": "6c7678b58a2f9caab21f23e26c092636ca2c87bcafeec38aa1e46d1360bc4d6f",
+      "bytes": 1843200
+    },
+    "final-low/current-head-dagger-idle-head-alpha.png": {
+      "sha256": "319e83c2a42aff2a39498996f259ab331f05e9436b22ad50c6a32bbc85b870d2",
+      "bytes": 1400
+    },
+    "final-low/current-head-dagger-idle.bin": {
+      "sha256": "0eb6fc43d9acd9dee4ff8f14b379265ebb4627aaf4608e0f024a182383bfaad9",
+      "bytes": 1382400
+    },
+    "final-low/current-head-dagger-idle.png": {
+      "sha256": "1f61e343ffa400f161ed35c6f246b71f6ff186368d96a1d8827d50258be1b782",
+      "bytes": 66620
+    },
+    "final-low/current-head-glaive-1-head-alpha.bin": {
+      "sha256": "1f656bf8a35303270912475118fbfd0821efc22a5a1e789a29e496ba7cc1d9ab",
+      "bytes": 1843200
+    },
+    "final-low/current-head-glaive-1-head-alpha.png": {
+      "sha256": "acd5ec1c37390cb75594c8d52c41cd05e377b89b6c57528063569bd4e5b2c26e",
+      "bytes": 1352
+    },
+    "final-low/current-head-glaive-1.bin": {
+      "sha256": "5a73c0b2e0b679ea0431a95d05f5994444412e8e00d11b7626de527eccd54330",
+      "bytes": 1382400
+    },
+    "final-low/current-head-glaive-1.png": {
+      "sha256": "05ff03ac80fa2d7772cc15550cf511fb850ab781be9d0b6b270bc096b1e687bf",
+      "bytes": 77297
+    },
+    "final-low/current-head-glaive-2-head-alpha.bin": {
+      "sha256": "9dfc58c3a8cbd9ada4e698caed5c97bb58b524b2837fe179077fd6383a149876",
+      "bytes": 1843200
+    },
+    "final-low/current-head-glaive-2-head-alpha.png": {
+      "sha256": "ef2558c4601dfc8cfeb46e6635964c8da733b7096df4acbf40982cfffd38b652",
+      "bytes": 1199
+    },
+    "final-low/current-head-glaive-2.bin": {
+      "sha256": "1a878a41c6d50f4b1e32bc91f494136f1b716172e7162784add877752e6f396c",
+      "bytes": 1382400
+    },
+    "final-low/current-head-glaive-2.png": {
+      "sha256": "100cc20c9e15af0f43572a47d714b0a6301b165018591cdc9764296a97d0e9fc",
+      "bytes": 55373
+    },
+    "final-low/current-head-glaive-idle-head-alpha.bin": {
+      "sha256": "c28d3c19702558a94d560406281e451540ddd5ab88f5534db6dc7f3bac704358",
+      "bytes": 1843200
+    },
+    "final-low/current-head-glaive-idle-head-alpha.png": {
+      "sha256": "453a483eed79462b933dd4afebbbb34915a0c67e428da8bf052b32cdb572a15e",
+      "bytes": 1371
+    },
+    "final-low/current-head-glaive-idle.bin": {
+      "sha256": "94d7e3dc42d1f333546a7ad7454cf5b000d8de43b6bdcac31032a87d94415caf",
+      "bytes": 1382400
+    },
+    "final-low/current-head-glaive-idle.png": {
+      "sha256": "6f1e16fc855e8c79ce18b33f0bf755f22fe788973b8980f6890185e318bb4c80",
+      "bytes": 63105
+    },
+    "final-low/current-head-maul-1-head-alpha.bin": {
+      "sha256": "d2634f627cb2d9d7072c63bd33c7cd6d245d7191c80220218cc402953358c956",
+      "bytes": 1843200
+    },
+    "final-low/current-head-maul-1-head-alpha.png": {
+      "sha256": "d0aff3b442459c4e5c4b80f4baf6ffa6e6b05a0476c849a1000f2db6c8d58385",
+      "bytes": 1396
+    },
+    "final-low/current-head-maul-1.bin": {
+      "sha256": "4e5500196e60f8d0aa5f00b36abec63352ce3c0ed7ae11ed9d2ff7101beedd22",
+      "bytes": 1382400
+    },
+    "final-low/current-head-maul-1.png": {
+      "sha256": "be569c06278baf3aba6a6266d17ecd92db13fd31e852e4f1fe37d42d1c536c1f",
+      "bytes": 73877
+    },
+    "final-low/current-head-maul-2-head-alpha.bin": {
+      "sha256": "46e29cb28e6be4e2eac0b2651b86a5dc815c0dab5c22c8cf9c80fe8b375640a2",
+      "bytes": 1843200
+    },
+    "final-low/current-head-maul-2-head-alpha.png": {
+      "sha256": "6ae14f29a9da47069519143ed9d5c025aa477704dd007df308a46da443766cb2",
+      "bytes": 1416
+    },
+    "final-low/current-head-maul-2.bin": {
+      "sha256": "7c8c7e7aff78b892b279d89501a8130a690a3cbf5acbeccdf8f128d0d0de7ea0",
+      "bytes": 1382400
+    },
+    "final-low/current-head-maul-2.png": {
+      "sha256": "325a04a72d59c3eb55481c6e1fd418f75d88e00c87a5acb166adc7b9b50dcb36",
+      "bytes": 78472
+    },
+    "final-low/current-head-maul-idle-head-alpha.bin": {
+      "sha256": "f014a50711feff909754236f9ba6757ea0c7bebfe69e7f977705b10f70e332b5",
+      "bytes": 1843200
+    },
+    "final-low/current-head-maul-idle-head-alpha.png": {
+      "sha256": "932457f7a780883f0ddca775e88c283769ae9295695d67df2608382726324be1",
+      "bytes": 1403
+    },
+    "final-low/current-head-maul-idle.bin": {
+      "sha256": "4996f2de1a3446de18bfb4f4cf1b409a296fd5628d4d2f20b96cde29170dd00b",
+      "bytes": 1382400
+    },
+    "final-low/current-head-maul-idle.png": {
+      "sha256": "e1e6a80303c1aeb643c62313c54f399c8dc98a0090d4b088dfd0b4136225b701",
+      "bytes": 66961
+    },
+    "final-low/current-head-whip-1-head-alpha.bin": {
+      "sha256": "4601eeea6e7a544052f086dfa74d35126c04dea46ff2bf5624267f4da8340a59",
+      "bytes": 1843200
+    },
+    "final-low/current-head-whip-1-head-alpha.png": {
+      "sha256": "0a03d95545f8242a8b9db5966290a2021e799ce7c441fdb680b5a0f45ced7d0e",
+      "bytes": 1363
+    },
+    "final-low/current-head-whip-1.bin": {
+      "sha256": "fbf0cc97f14e800166f846fb455618c172823828eac1761b5af2759695ac2bcd",
+      "bytes": 1382400
+    },
+    "final-low/current-head-whip-1.png": {
+      "sha256": "e6b845b1c9cbd7a210298b666c2edbfbe59740a29d5df6f00c0eee41775e73e8",
+      "bytes": 69662
+    },
+    "final-low/current-head-whip-idle-head-alpha.bin": {
+      "sha256": "a3578ea771a95c12e1b015550fb2d3d8913c8b0f866e217861057ad523922691",
+      "bytes": 1843200
+    },
+    "final-low/current-head-whip-idle-head-alpha.png": {
+      "sha256": "3c1f68377375241395ea4efc1864525cb4d19dd02f63498661193f3c0827b38d",
+      "bytes": 1318
+    },
+    "final-low/current-head-whip-idle.bin": {
+      "sha256": "fbe3c5d285aa9df97f0dd1fa3f9439027e183e46b2120be0510b857211356904",
+      "bytes": 1382400
+    },
+    "final-low/current-head-whip-idle.png": {
+      "sha256": "385c9f4ed4b10d7bb98106be8c480da479d248cb3226d402aa5b0bc4a6a84f3f",
+      "bytes": 61325
+    },
+    "final-low/current-icons.png": {
+      "sha256": "44b92dbb3a9f4f3724a680e3042d6b6920b9f1dc7911c2d900078df600ae3b0b",
+      "bytes": 11005
+    },
+    "final-low/current-index.json": {
+      "sha256": "4db5e0a86230a1f8dc6111865afaf4a8bc33ff0d8927a138afb4906fcf6a95cc",
+      "bytes": 80473
+    },
+    "final-low/current-light-blade-1-off.bin": {
+      "sha256": "01acee4befdbaffecab245ebcfa7a994a572e81f1e6e7010d36d7555b90764b9",
+      "bytes": 1382400
+    },
+    "final-low/current-light-blade-1-off.png": {
+      "sha256": "4d6775caad4075ed440a71a3f8d49ccfbc7b59d58b5f2a2429aaa6ca132cd472",
+      "bytes": 67709
+    },
+    "final-low/current-light-blade-1-on.bin": {
+      "sha256": "d3192dde1f21fb2e8f415dbc2f3bf5e46d0c78221ea1912ca28d4da80ac23bd5",
+      "bytes": 1382400
+    },
+    "final-low/current-light-blade-1-on.png": {
+      "sha256": "198cc0fca45db2ce9ca2c38a19155258b262297cd4eec36c88f989b2e2913ac9",
+      "bytes": 71016
+    },
+    "final-low/current-light-blade-1-restore.bin": {
+      "sha256": "d3192dde1f21fb2e8f415dbc2f3bf5e46d0c78221ea1912ca28d4da80ac23bd5",
+      "bytes": 1382400
+    },
+    "final-low/current-light-blade-1-restore.png": {
+      "sha256": "198cc0fca45db2ce9ca2c38a19155258b262297cd4eec36c88f989b2e2913ac9",
+      "bytes": 71016
+    },
+    "final-low/current-light-blade-2-off.bin": {
+      "sha256": "64226101f2c142f20d9e892347bcdb47188b233d84ed259d666ca56cf0fdb8ec",
+      "bytes": 1382400
+    },
+    "final-low/current-light-blade-2-off.png": {
+      "sha256": "b1eeb2d426ed1bb54bba892e30e4b9f2bd216a5113f9bde24ba064abac7cdfae",
+      "bytes": 77973
+    },
+    "final-low/current-light-blade-2-on.bin": {
+      "sha256": "05f1a9935fac3531744e0f0b325111a4fc841085fb46c4068b1bedb4046fc30c",
+      "bytes": 1382400
+    },
+    "final-low/current-light-blade-2-on.png": {
+      "sha256": "cadf0b7969a62e43cdcbd8936eb2b64bbf6182f81676c7b3cfea72b0edef53fa",
+      "bytes": 85079
+    },
+    "final-low/current-light-blade-2-restore.bin": {
+      "sha256": "05f1a9935fac3531744e0f0b325111a4fc841085fb46c4068b1bedb4046fc30c",
+      "bytes": 1382400
+    },
+    "final-low/current-light-blade-2-restore.png": {
+      "sha256": "cadf0b7969a62e43cdcbd8936eb2b64bbf6182f81676c7b3cfea72b0edef53fa",
+      "bytes": 85079
+    },
+    "final-low/current-light-blade-3-off.bin": {
+      "sha256": "f34c8698ca2ced1405c9310a25804409a4a1864414c99d15035238f5880fe6a6",
+      "bytes": 1382400
+    },
+    "final-low/current-light-blade-3-off.png": {
+      "sha256": "db354b30ba8b1f6d4566615a7d2d77e8f7e633bf0ba9dc6e6067eaf95fce5622",
+      "bytes": 60461
+    },
+    "final-low/current-light-blade-3-on.bin": {
+      "sha256": "9e59401fdb477cf1eb97ed1ac1d85551f413ddcbd12379c384fe31ec0def4dd5",
+      "bytes": 1382400
+    },
+    "final-low/current-light-blade-3-on.png": {
+      "sha256": "4935813fa993ecb9f04be52c6042c9b9b12160f996bd0262568b5b4afaa8d746",
+      "bytes": 63921
+    },
+    "final-low/current-light-blade-3-restore.bin": {
+      "sha256": "9e59401fdb477cf1eb97ed1ac1d85551f413ddcbd12379c384fe31ec0def4dd5",
+      "bytes": 1382400
+    },
+    "final-low/current-light-blade-3-restore.png": {
+      "sha256": "4935813fa993ecb9f04be52c6042c9b9b12160f996bd0262568b5b4afaa8d746",
+      "bytes": 63921
+    },
+    "final-low/current-light-dagger-1-off.bin": {
+      "sha256": "a1ce65c78237512822bf99d20f7abe9661885bc8b144cadeaab52e9d9635e35f",
+      "bytes": 1382400
+    },
+    "final-low/current-light-dagger-1-off.png": {
+      "sha256": "6e6c02becabb41ba26d1ddbf0afb78d685fdc89e8ca788de9287703e7017a712",
+      "bytes": 76624
+    },
+    "final-low/current-light-dagger-1-on.bin": {
+      "sha256": "ce885ba4ef1151b613f7a98b45742a68f6a467121099392bf1e45004aae57a42",
+      "bytes": 1382400
+    },
+    "final-low/current-light-dagger-1-on.png": {
+      "sha256": "108060ab1e434d0f9634c973298ea3d863a3197ecf0ce47016086ce03c66f9ae",
+      "bytes": 82748
+    },
+    "final-low/current-light-dagger-1-restore.bin": {
+      "sha256": "ce885ba4ef1151b613f7a98b45742a68f6a467121099392bf1e45004aae57a42",
+      "bytes": 1382400
+    },
+    "final-low/current-light-dagger-1-restore.png": {
+      "sha256": "108060ab1e434d0f9634c973298ea3d863a3197ecf0ce47016086ce03c66f9ae",
+      "bytes": 82748
+    },
+    "final-low/current-light-dagger-2-off.bin": {
+      "sha256": "d5c4b9ce0db70e421d281da416d0f57db3569deed122dfa0738bb4d4c7d29727",
+      "bytes": 1382400
+    },
+    "final-low/current-light-dagger-2-off.png": {
+      "sha256": "0dcf20ed7941780b5162e406761a5e24b2aa42a7376e74c148e3804419980534",
+      "bytes": 76838
+    },
+    "final-low/current-light-dagger-2-on.bin": {
+      "sha256": "26439335b1fd64e92d5627f6dccb880e50645342b8a4721862715942048ffe3a",
+      "bytes": 1382400
+    },
+    "final-low/current-light-dagger-2-on.png": {
+      "sha256": "652e223b16077d6dbf8c335d46441e5a5d8c9743170eccb943abd9df03bf26ff",
+      "bytes": 82886
+    },
+    "final-low/current-light-dagger-2-restore.bin": {
+      "sha256": "26439335b1fd64e92d5627f6dccb880e50645342b8a4721862715942048ffe3a",
+      "bytes": 1382400
+    },
+    "final-low/current-light-dagger-2-restore.png": {
+      "sha256": "652e223b16077d6dbf8c335d46441e5a5d8c9743170eccb943abd9df03bf26ff",
+      "bytes": 82886
+    },
+    "final-low/current-light-dagger-3-off.bin": {
+      "sha256": "45392ddce51aef2ffc1bda7f88f772a179f1646d95d2e9207c78ce242b6b6607",
+      "bytes": 1382400
+    },
+    "final-low/current-light-dagger-3-off.png": {
+      "sha256": "a280b798c3c3b36548e8fa1015ab4959284efd853b87f0eeaa362a88b85bde09",
+      "bytes": 75969
+    },
+    "final-low/current-light-dagger-3-on.bin": {
+      "sha256": "40fe50b2192cd3ded1166239a2a463321a8acbbad515f116df9302d8e9cf0819",
+      "bytes": 1382400
+    },
+    "final-low/current-light-dagger-3-on.png": {
+      "sha256": "163651e6be3894e229f14c768e57b5952648e356849b830b73304d89fbc69567",
+      "bytes": 82780
+    },
+    "final-low/current-light-dagger-3-restore.bin": {
+      "sha256": "40fe50b2192cd3ded1166239a2a463321a8acbbad515f116df9302d8e9cf0819",
+      "bytes": 1382400
+    },
+    "final-low/current-light-dagger-3-restore.png": {
+      "sha256": "163651e6be3894e229f14c768e57b5952648e356849b830b73304d89fbc69567",
+      "bytes": 82780
+    },
+    "final-low/current-light-glaive-1-off.bin": {
+      "sha256": "cab54ff1cfae88b7bfc9feb1871a5a674aab134f2007121c67a493d00b557f82",
+      "bytes": 1382400
+    },
+    "final-low/current-light-glaive-1-off.png": {
+      "sha256": "59924d340e073c575a8af8150297b0573c3d20566267a2df8c5038dcb993c4d9",
+      "bytes": 76285
+    },
+    "final-low/current-light-glaive-1-on.bin": {
+      "sha256": "800d411ef1a3b7a3b7ded85e487dcd03e280f84479a07be0e80f6b5d66baed78",
+      "bytes": 1382400
+    },
+    "final-low/current-light-glaive-1-on.png": {
+      "sha256": "dca2d90e133180a15a3ef8d18a3cfe5f7aca3335f7ab786a2f76dc309846b441",
+      "bytes": 90928
+    },
+    "final-low/current-light-glaive-1-restore.bin": {
+      "sha256": "800d411ef1a3b7a3b7ded85e487dcd03e280f84479a07be0e80f6b5d66baed78",
+      "bytes": 1382400
+    },
+    "final-low/current-light-glaive-1-restore.png": {
+      "sha256": "dca2d90e133180a15a3ef8d18a3cfe5f7aca3335f7ab786a2f76dc309846b441",
+      "bytes": 90928
+    },
+    "final-low/current-light-glaive-2-off.bin": {
+      "sha256": "18de404724cb3967f48ee2783fbffe577f1ebe97e8641389e6924a17f8ededd0",
+      "bytes": 1382400
+    },
+    "final-low/current-light-glaive-2-off.png": {
+      "sha256": "3e7c830e28e57ef40deffa0255b5e4097ebae679ca6c452a409bf6406053ca30",
+      "bytes": 55077
+    },
+    "final-low/current-light-glaive-2-on.bin": {
+      "sha256": "3c5824e5bdcb5fe9e44f0e1beddf8d083367d05f89a0c08c9468082c3a5f9b62",
+      "bytes": 1382400
+    },
+    "final-low/current-light-glaive-2-on.png": {
+      "sha256": "7035cfd49de76679c1eedec6ad1a7abeadd06debf707b2cad1d5a1c5b21ae205",
+      "bytes": 62848
+    },
+    "final-low/current-light-glaive-2-restore.bin": {
+      "sha256": "3c5824e5bdcb5fe9e44f0e1beddf8d083367d05f89a0c08c9468082c3a5f9b62",
+      "bytes": 1382400
+    },
+    "final-low/current-light-glaive-2-restore.png": {
+      "sha256": "7035cfd49de76679c1eedec6ad1a7abeadd06debf707b2cad1d5a1c5b21ae205",
+      "bytes": 62848
+    },
+    "final-low/current-light-maul-1-off.bin": {
+      "sha256": "138fa3861b2908806b597ef393daff4f00bcd9328c8a7efd323823618dd05c2d",
+      "bytes": 1382400
+    },
+    "final-low/current-light-maul-1-off.png": {
+      "sha256": "1ac929a14a9ea01e59f6abae5287e39b0ad11450424b84316d50e876d18a4ece",
+      "bytes": 77312
+    },
+    "final-low/current-light-maul-1-on.bin": {
+      "sha256": "4fd256dc7e9010fd5e65a46969e8b28ab0ae32ab4f8a418253754f06dc1daf97",
+      "bytes": 1382400
+    },
+    "final-low/current-light-maul-1-on.png": {
+      "sha256": "9dc4540bb78338fb2f7437098dd858cde6c4359e7f2e291978eb43383d8d80ab",
+      "bytes": 83345
+    },
+    "final-low/current-light-maul-1-restore.bin": {
+      "sha256": "4fd256dc7e9010fd5e65a46969e8b28ab0ae32ab4f8a418253754f06dc1daf97",
+      "bytes": 1382400
+    },
+    "final-low/current-light-maul-1-restore.png": {
+      "sha256": "9dc4540bb78338fb2f7437098dd858cde6c4359e7f2e291978eb43383d8d80ab",
+      "bytes": 83345
+    },
+    "final-low/current-light-maul-2-off.bin": {
+      "sha256": "36d740fd1ef856810677202506ad4cf0e05d27eb8fd6fbb9be599c8e83625fda",
+      "bytes": 1382400
+    },
+    "final-low/current-light-maul-2-off.png": {
+      "sha256": "956bdd70583a3fe2dec56174c2863427c05f8a37c2d5b7bfd0658517f7c0e070",
+      "bytes": 79681
+    },
+    "final-low/current-light-maul-2-on.bin": {
+      "sha256": "1f33dd9251e05bf473a712bf82302a3b183a4023ba2697031e724d739b335416",
+      "bytes": 1382400
+    },
+    "final-low/current-light-maul-2-on.png": {
+      "sha256": "9cf1b3f3a7bc97f7d91911423425bc2b4706cfb1d5358cd31380e2eea9f54243",
+      "bytes": 91640
+    },
+    "final-low/current-light-maul-2-restore.bin": {
+      "sha256": "1f33dd9251e05bf473a712bf82302a3b183a4023ba2697031e724d739b335416",
+      "bytes": 1382400
+    },
+    "final-low/current-light-maul-2-restore.png": {
+      "sha256": "9cf1b3f3a7bc97f7d91911423425bc2b4706cfb1d5358cd31380e2eea9f54243",
+      "bytes": 91640
+    },
+    "final-low/current-light-whip-1-off.bin": {
+      "sha256": "0809c7271d0f99e88232a8e5bea8ba77cd5a0785b3b3be0794cb2bfb875d3ee0",
+      "bytes": 1382400
+    },
+    "final-low/current-light-whip-1-off.png": {
+      "sha256": "2d7ace756cfcfdf7d49ae07c4368e8ebecc0067d3c1e11b36b2fb1edec859300",
+      "bytes": 73267
+    },
+    "final-low/current-light-whip-1-on.bin": {
+      "sha256": "e6760c10f1a5942002afd336d1400ca18d1ea70d3665965bbce25012753f4592",
+      "bytes": 1382400
+    },
+    "final-low/current-light-whip-1-on.png": {
+      "sha256": "40950c3209a4264d25c7c162516a9331311dd0deb7fd2cf4c373ca0fd6c899d8",
+      "bytes": 81657
+    },
+    "final-low/current-light-whip-1-restore.bin": {
+      "sha256": "e6760c10f1a5942002afd336d1400ca18d1ea70d3665965bbce25012753f4592",
+      "bytes": 1382400
+    },
+    "final-low/current-light-whip-1-restore.png": {
+      "sha256": "40950c3209a4264d25c7c162516a9331311dd0deb7fd2cf4c373ca0fd6c899d8",
+      "bytes": 81657
+    },
+    "final-low/current-maul-1-hydraulic_maul_smash.png": {
+      "sha256": "590b69d7f92fb79b4ed7dc2f3e9fa17b9c63b8c592b9bdceeb3ffb97aaefdd18",
+      "bytes": 82348
+    },
+    "final-low/current-maul-2-hydraulic_maul_slam.png": {
+      "sha256": "4d243ae3ab1d34cc9c2293128fb05e19ec85ae45d67cc7953ea2c3351c91cc04",
+      "bytes": 91610
+    },
+    "final-low/current-maul-air.png": {
+      "sha256": "e82c3bae10436e03a0afc782b67940b8c049fdac68bd15040f1dd6320225658d",
+      "bytes": 59284
+    },
+    "final-low/current-maul-crouch.png": {
+      "sha256": "a0c278e86a3acc519de1984e23669b04dfb5a1255e0042bbf12582867f492f05",
+      "bytes": 64999
+    },
+    "final-low/current-maul-dash.png": {
+      "sha256": "b292545027ab0a223eacb9b81a7dc29881887b081c74664e706bd82425758111",
+      "bytes": 73137
+    },
+    "final-low/current-maul-film-1.png": {
+      "sha256": "26e7aac738bad9cebdebcda5193a9a64436bf8542412ecc473aee3df902c552a",
+      "bytes": 69658
+    },
+    "final-low/current-maul-film-2.png": {
+      "sha256": "1c79ae36f80c3581465d83b7e6e656a289c932488c10c9e9b5200dacabcce3b8",
+      "bytes": 68202
+    },
+    "final-low/current-maul-film-3.png": {
+      "sha256": "edc1249a9adcd5068b1b83a85236cdb6c2d012c0dc2adc783528b66ef559a40f",
+      "bytes": 64001
+    },
+    "final-low/current-maul-film-4.png": {
+      "sha256": "516d2283a20bede95ea16710955ef4d7ab6cbc8e98b8f007311333310e856bd9",
+      "bytes": 61065
+    },
+    "final-low/current-maul-film-5.png": {
+      "sha256": "0cc76eef4a058a1d3eb9709e9a9a018f3b66d959839e360b382e60eec2c94785",
+      "bytes": 59085
+    },
+    "final-low/current-maul-film-6.png": {
+      "sha256": "746757e2824ee278b1eff324cb3b91057e7e5ca2a04bef8d146e470df859a702",
+      "bytes": 57673
+    },
+    "final-low/current-maul-film-7.png": {
+      "sha256": "eec9bddb6430c069e5b6e09067a123f897f90adadb01880da86d3ecf0be41c6a",
+      "bytes": 62239
+    },
+    "final-low/current-maul-film-8.png": {
+      "sha256": "3eeeccf93a46d0bd87b3f1fcd6e2650fe8ff79fe0c0a6cea27faaaa972774dd9",
+      "bytes": 76229
+    },
+    "final-low/current-maul-idle.png": {
+      "sha256": "31aa86fda9eb35da2e41326a6f38b5a98b33b23e6f7935f7fe7b29261ac61fba",
+      "bytes": 78238
+    },
+    "final-low/current-maul-left.png": {
+      "sha256": "a4afd7e7566e9f543cce081cc1ea6c348794e62f0540bcb6115f6cafcb459522",
+      "bytes": 68297
+    },
+    "final-low/current-pickups.png": {
+      "sha256": "923874561aeb25b9928efaac82c71971f9b344937d85dbb66d96b366d1f5ee19",
+      "bytes": 79139
+    },
+    "final-low/current-whip-1-mono_whip_lash.png": {
+      "sha256": "e7bfbac0273850dc320df2a7e18d10584532fa2c4f7f021625507c7f691f1c74",
+      "bytes": 84002
+    },
+    "final-low/current-whip-air.png": {
+      "sha256": "4f3451e12545edfee776e8af171a0be8fd8e63019f38666ae89394d6899449f1",
+      "bytes": 54448
+    },
+    "final-low/current-whip-crouch.png": {
+      "sha256": "325eef9a2e98731ad54a50f0b4ce167dea683626753a70ebf19809fa0aa6eb80",
+      "bytes": 60555
+    },
+    "final-low/current-whip-dash.png": {
+      "sha256": "b65cd0115e0692630b11e061a7890bad3d3c9b426c6db01f66dabeb967dfff6d",
+      "bytes": 68667
+    },
+    "final-low/current-whip-film-1.png": {
+      "sha256": "10128173e5c4040efedc8aced1e96dcd7765e1925c8c04747965b9e75501860f",
+      "bytes": 65288
+    },
+    "final-low/current-whip-film-10.png": {
+      "sha256": "0f70ed48b828d5edc125b65cf8d2043abf41ad7672db8d2c7bad67649d9df942",
+      "bytes": 69684
+    },
+    "final-low/current-whip-film-11.png": {
+      "sha256": "d8a1760cd05bf4a77e645bb729fd3953dcc4534be8a112f8a41bbd8e03803885",
+      "bytes": 70264
+    },
+    "final-low/current-whip-film-12.png": {
+      "sha256": "112dac436df193993822651c04a2855a214f04d33982debb8e7418f398ec8c73",
+      "bytes": 68398
+    },
+    "final-low/current-whip-film-13.png": {
+      "sha256": "57731bb895151bb070ea458993f6b4e83805811891bcf08310179bc1dfa678cc",
+      "bytes": 66994
+    },
+    "final-low/current-whip-film-14.png": {
+      "sha256": "8b65044c5ccf64c6dd448b00206e55f5e267d4a4dc42d9da22ca2fda355fe1c5",
+      "bytes": 65030
+    },
+    "final-low/current-whip-film-15.png": {
+      "sha256": "78aa72a6553e4485aef2d41f173b057b140a08f4cb0b5a8d566c4692c5cc3567",
+      "bytes": 64821
+    },
+    "final-low/current-whip-film-16.png": {
+      "sha256": "e397c489dcec6b843c4a71f0d73377d2e87b02f729be4eb6549ee6e04e1c36c9",
+      "bytes": 56860
+    },
+    "final-low/current-whip-film-17.png": {
+      "sha256": "fd552b521657d9410ae9fd78f5faa998cc563e6494f8841ba415fe11e5e5215f",
+      "bytes": 56879
+    },
+    "final-low/current-whip-film-18.png": {
+      "sha256": "3d3bbf3691a9d3eee843ad39eab91990c990e40c51fef63d6cc0ff227a8d9a75",
+      "bytes": 57818
+    },
+    "final-low/current-whip-film-19.png": {
+      "sha256": "e7d72dfa741e15d9964fac6faa5533b5d74318b1d89b16c830a3bfd162a34900",
+      "bytes": 60961
+    },
+    "final-low/current-whip-film-2.png": {
+      "sha256": "5499a8fae01ca1740af832198fa08765f002e5b4edefc7137bcdbddc1ce0043f",
+      "bytes": 65256
+    },
+    "final-low/current-whip-film-20.png": {
+      "sha256": "00beaa2fa3d39a8d84067eaf30fc070050127fa6a13372319008332ddc05b417",
+      "bytes": 62334
+    },
+    "final-low/current-whip-film-21.png": {
+      "sha256": "b73a36efa6398d63f20055e959e8978a4d6a46f2d990dc7f0fdca6ac48696047",
+      "bytes": 62391
+    },
+    "final-low/current-whip-film-22.png": {
+      "sha256": "9d20149612c258ff990153af2935be53707c2a25669e1f08a187f58c0ea734df",
+      "bytes": 62070
+    },
+    "final-low/current-whip-film-23.png": {
+      "sha256": "e35a751fa585ba4769b09cfca85be9dcf148d0b8e88d80a591688b4a90478cd5",
+      "bytes": 60464
+    },
+    "final-low/current-whip-film-24.png": {
+      "sha256": "363c87369e6eb3dd57c2a5b48b17119a0f1f603c9e0694603544d8e7b5a38c28",
+      "bytes": 60609
+    },
+    "final-low/current-whip-film-3.png": {
+      "sha256": "4ccaaa469ceb678e58e202e2e612731817d46661d41f724ec7c3abd63070480a",
+      "bytes": 61818
+    },
+    "final-low/current-whip-film-4.png": {
+      "sha256": "876b87a65c150b3d045f956b2cb7772e257a6d737a55cf5bf4a97901e9091d33",
+      "bytes": 52415
+    },
+    "final-low/current-whip-film-5.png": {
+      "sha256": "47b9b5adb5e5a5493147e04ab1044dba395d642082893660a3e7e069bc3d44da",
+      "bytes": 47310
+    },
+    "final-low/current-whip-film-6.png": {
+      "sha256": "95646bb12de35941136bbd970aca5971b1ec9785e2ef28d4e07f764962ae91d8",
+      "bytes": 52714
+    },
+    "final-low/current-whip-film-7.png": {
+      "sha256": "123615c3069a7d128ee18437e085e7944b92079580082493ca18f464b512568f",
+      "bytes": 64796
+    },
+    "final-low/current-whip-film-8.png": {
+      "sha256": "29eff7ceac83980f28c9227770063846b1d1850c8501b1557dfde87ffae900b1",
+      "bytes": 71132
+    },
+    "final-low/current-whip-film-9.png": {
+      "sha256": "18de06fc171f09ba4aae5afb5e5a99a5180ef40bd961a5d3a2dc6c6829b0b719",
+      "bytes": 71317
+    },
+    "final-low/current-whip-idle.png": {
+      "sha256": "d6be08c47fa4c464feba0269b1b19a9c590f6a69a7e23f02895694b3a25d3861",
+      "bytes": 75527
+    },
+    "final-low/current-whip-left.png": {
+      "sha256": "e2926608a0673edbc07b8d7a999f970766f23c9fdd8f3d941ce13da19b34ebbc",
+      "bytes": 60944
+    },
+    "final-low/independent.json": {
+      "sha256": "bc41aa55d1f446a225f0c236b21192b10e4bc751f3aded29f7add6febae82ead",
+      "bytes": 951
+    },
+    "final-low/raw.log": {
+      "sha256": "cb41f217af7292529a136c42a7db587f34defd60eabac2ae8a00fff2ee89a008",
+      "bytes": 34601
+    },
+    "final-low/result.json": {
+      "sha256": "98e3ec6599d6877abf49c81f9ad6186c8ed5faea850b4f3817d30a6285be8086",
+      "bytes": 109
+    },
+    "final-high/command.json": {
+      "sha256": "16ff794c0c1617c22d6c377f6434a2c9b8d8a244553928ccbe6ae61ada28d16a",
+      "bytes": 604
+    },
+    "final-high/current-blade-1-thermal_blade_cut_1.png": {
+      "sha256": "e2fede8303670213b7a4d1cab683394016b05806c3005b8f1afae2fc27bb6391",
+      "bytes": 94168
+    },
+    "final-high/current-blade-2-thermal_blade_cut_2.png": {
+      "sha256": "2c4dbba045e69b9e3ef62022168dc99cc03e21b7860fbbd39e85cb2f8fb0a138",
+      "bytes": 105484
+    },
+    "final-high/current-blade-3-thermal_blade_cut_3.png": {
+      "sha256": "d7eede29bdea88cb4195d969c75fbf7dea601531c1089d164b46e061e3406fa5",
+      "bytes": 81784
+    },
+    "final-high/current-blade-air.png": {
+      "sha256": "b22c1bfc362212c7e2367159c4e60dd7fc2ca25b7a18e4a7030a0e22185be100",
+      "bytes": 65089
+    },
+    "final-high/current-blade-crouch.png": {
+      "sha256": "f99bcef455069918f4794d04efe0060058074d3a0b44838b21933546b896afa1",
+      "bytes": 79938
+    },
+    "final-high/current-blade-dash.png": {
+      "sha256": "91c154efefb1db741dfd74aca522c7ea50a16287445aa64428c97d2c62a2df65",
+      "bytes": 88317
+    },
+    "final-high/current-blade-film-1.png": {
+      "sha256": "f6f2ee1e31b1c03d8efec8a715449ef6d000401433f9b079ed44e01aaf020fef",
+      "bytes": 70648
+    },
+    "final-high/current-blade-film-2.png": {
+      "sha256": "f4942b622f9a49254585181255f54c7189c135f5dd05d7e9206922f37f09a839",
+      "bytes": 72131
+    },
+    "final-high/current-blade-film-3.png": {
+      "sha256": "5e83948a8b41676763aef18682b44d0b1f95f9cf542baefabc981f278b163605",
+      "bytes": 81450
+    },
+    "final-high/current-blade-film-4.png": {
+      "sha256": "892e7b0a3cad7a357bf086df598cf7f07c2bb3ec3251b885e8636e3871ce0ad9",
+      "bytes": 85092
+    },
+    "final-high/current-blade-film-5.png": {
+      "sha256": "a202c58f061946945504df0bba08603662ee3d8fe0471edc86476bb4298dc423",
+      "bytes": 85521
+    },
+    "final-high/current-blade-film-6.png": {
+      "sha256": "b60afa6c9e859fd756d0b2cf59ac6a396815a42fc509ac1e25fc627485633a42",
+      "bytes": 84180
+    },
+    "final-high/current-blade-film-7.png": {
+      "sha256": "fb1ff4c260c51384c098fcb990b3b54a9354402683b3deb71181f571d463f143",
+      "bytes": 85023
+    },
+    "final-high/current-blade-film-8.png": {
+      "sha256": "6864826e908ab23440c28d3780d2d1e4a197ef402506959b36aac9ea5f30de93",
+      "bytes": 80528
+    },
+    "final-high/current-blade-idle.png": {
+      "sha256": "32229242e3212f836f8c9080934261a53c8dfdea295347a120cd0b358445bd22",
+      "bytes": 97132
+    },
+    "final-high/current-blade-left.png": {
+      "sha256": "16b48b348a28ff46160ac82934f2e34ba6b56e4f02e735715d2fdf8fcd1524bf",
+      "bytes": 75704
+    },
+    "final-high/current-dagger-1-mono_dagger_stab_1.png": {
+      "sha256": "78283aba053e1b89ea464108b9527921b30778183548947cfc3dde8998411a47",
+      "bytes": 103165
+    },
+    "final-high/current-dagger-2-mono_dagger_stab_2.png": {
+      "sha256": "63adae4a8179cc6dcc6a4eb9a0d1b4d5c70599bb732f79aa3e1b06bd2ecf928c",
+      "bytes": 108970
+    },
+    "final-high/current-dagger-3-mono_dagger_flurry.png": {
+      "sha256": "160e644079b3b873ba156e731d77ced3905238fd3a53c533102c6fabd7acc005",
+      "bytes": 104360
+    },
+    "final-high/current-dagger-air.png": {
+      "sha256": "d4c8dfd2bdf92cd4457107322ee064be5845575a8345c7580ec9f223afd6a666",
+      "bytes": 77453
+    },
+    "final-high/current-dagger-crouch.png": {
+      "sha256": "8ae5e272c0d4b3d7b1025ee60225aca587c93c91fd6c027470695da4830d306c",
+      "bytes": 85520
+    },
+    "final-high/current-dagger-dash.png": {
+      "sha256": "b24ca1feab43d7a8931563fa77c1b065b3c70cd5013fd76839a21411f0ed7099",
+      "bytes": 97326
+    },
+    "final-high/current-dagger-film-1.png": {
+      "sha256": "7f5420e3f0ce6fa610603968f0e1d6cc302c7da0485e9bf16944d79dda57e1bb",
+      "bytes": 82778
+    },
+    "final-high/current-dagger-film-2.png": {
+      "sha256": "222766181e5662a52bb3b0336772f35ff0d7970b25c95c65d4861a45678b4e3c",
+      "bytes": 83312
+    },
+    "final-high/current-dagger-film-3.png": {
+      "sha256": "d9d26bcf529c5d0a65ce9c56868a48b85bfe93d1b1ccce56687b53b91c15d7c2",
+      "bytes": 84069
+    },
+    "final-high/current-dagger-film-4.png": {
+      "sha256": "2ca94d66ae3ef8348a0e9b21796a852413e29ca863e730bb0d3f24ecd0d00ee0",
+      "bytes": 86994
+    },
+    "final-high/current-dagger-film-5.png": {
+      "sha256": "f716a2aa7af07a22555f72611bf89f0a46eca282e490e0a47093dfa96406f628",
+      "bytes": 84919
+    },
+    "final-high/current-dagger-film-6.png": {
+      "sha256": "19db0e684c39e669f04f824ba8f97bc69d9b46c529e7eb7f8798a78bdb0676ff",
+      "bytes": 83809
+    },
+    "final-high/current-dagger-film-7.png": {
+      "sha256": "47b39ca9b600e1864a62987b232cf37b344c9ef9547b03a02ffc7789b4b95ba2",
+      "bytes": 83862
+    },
+    "final-high/current-dagger-film-8.png": {
+      "sha256": "9a627c554dadd41eb6c930a116b87906c132b13e467d98f22606a9973541b1c3",
+      "bytes": 81909
+    },
+    "final-high/current-dagger-idle.png": {
+      "sha256": "f17f88693222ad2181057d4247be00427d28891f9644c5eb75330077d51c6e19",
+      "bytes": 107979
+    },
+    "final-high/current-dagger-left.png": {
+      "sha256": "4f4f51d135360a040ce37cb1f5b443fbd6a2a59cf247bdfc563b9a3242f9eda6",
+      "bytes": 81289
+    },
+    "final-high/current-glaive-1-ion_glaive_thrust.png": {
+      "sha256": "9a7955fc5ee4fc1298a2cc4b3d8c47ce7dc515c2a57285d8345f40d5f98f749e",
+      "bytes": 110486
+    },
+    "final-high/current-glaive-2-ion_glaive_sweep.png": {
+      "sha256": "25c3419ef2ba4094853e28dd0f65b5fcd956c6c80d1c91364080bbebf5098803",
+      "bytes": 80390
+    },
+    "final-high/current-glaive-air.png": {
+      "sha256": "c6c401c60dcb73bd35de05df9194fd43889536d53aab67ca8b48d5db632fdd5c",
+      "bytes": 71618
+    },
+    "final-high/current-glaive-crouch.png": {
+      "sha256": "44405f30c72e87a92803323a8fed2ba20669c377a4a6ee8d9ea4d6c7115b3155",
+      "bytes": 83663
+    },
+    "final-high/current-glaive-dash.png": {
+      "sha256": "b0860b3c765d053994b499dfbd2d4cbc6c090f681c7b296bbf3ca559cd00e281",
+      "bytes": 97703
+    },
+    "final-high/current-glaive-film-1.png": {
+      "sha256": "6f787f87615f4e804b34f0501082b2f9855f9c905f12d1fce7f1a82dba190f72",
+      "bytes": 83589
+    },
+    "final-high/current-glaive-film-2.png": {
+      "sha256": "dbf85a164b7105dab42d7f0456850da4815b45ec04fbb089fdaa63f809322b2f",
+      "bytes": 97648
+    },
+    "final-high/current-glaive-film-3.png": {
+      "sha256": "31c065748436b3a6e3c776470d333ffa61b3c1ae97d91636aaaf2c0f6d584ec4",
+      "bytes": 99599
+    },
+    "final-high/current-glaive-film-4.png": {
+      "sha256": "123ee4b50e70a6f0de693f3f751e1cdebfb548995727b44d7db67864431eae92",
+      "bytes": 96783
+    },
+    "final-high/current-glaive-film-5.png": {
+      "sha256": "fa004c96f9ad035053aa12e9d706e2fd7f9510f552fb8bf9c8bbe10fbd1e5c70",
+      "bytes": 100349
+    },
+    "final-high/current-glaive-film-6.png": {
+      "sha256": "adb9c754b1702a372c52d29c57a1244f3c0bd0d57b4efebdec6adff061034b89",
+      "bytes": 101705
+    },
+    "final-high/current-glaive-film-7.png": {
+      "sha256": "2c5e8934b5c4570c681f20d72bf2b86975e7d0276c93419c5d7b053b29b80613",
+      "bytes": 99434
+    },
+    "final-high/current-glaive-film-8.png": {
+      "sha256": "aff5c816cbd2ddeac5818e0e0bcdbc25dd47202a0b0e857086375c23bf5e9fdd",
+      "bytes": 94168
+    },
+    "final-high/current-glaive-idle.png": {
+      "sha256": "f0c106ebdcd04762cd24f6debb74649d9c798a68d6849e21e382ff044997b5df",
+      "bytes": 95904
+    },
+    "final-high/current-glaive-left.png": {
+      "sha256": "f949492128a3f850fa0bc8eca085f6946c615dd3af1cd6795cb59d2a42b9dfea",
+      "bytes": 85679
+    },
+    "final-high/current-head-blade-1-head-alpha.bin": {
+      "sha256": "f2f8cff7a41a0a2701fffbe3b20261dee50d77535a0b23e4ff705b4203505765",
+      "bytes": 1843200
+    },
+    "final-high/current-head-blade-1-head-alpha.png": {
+      "sha256": "fadfbc4d3a7f8951aa8c20cfab065f86f1098fffa7ff1b2d8b387c87642e8c13",
+      "bytes": 1340
+    },
+    "final-high/current-head-blade-1.bin": {
+      "sha256": "5c71493e7d0e12786b95c91b035d9eec4ce5b0b1cecf6b95eea33222a3186465",
+      "bytes": 1382400
+    },
+    "final-high/current-head-blade-1.png": {
+      "sha256": "81ed13bf7aea0101fa7bf25b5de2b9e0e301103db517e267515beaedc964304f",
+      "bytes": 79938
+    },
+    "final-high/current-head-blade-2-head-alpha.bin": {
+      "sha256": "f805f41f4ca28d2af7515011e33bb78db7d3d765f304c9b389af97ca113a9bac",
+      "bytes": 1843200
+    },
+    "final-high/current-head-blade-2-head-alpha.png": {
+      "sha256": "e8a343bf3efd8719be54859ae23a24c1780de008cd89867811c3e77f10f9ed21",
+      "bytes": 1378
+    },
+    "final-high/current-head-blade-2.bin": {
+      "sha256": "8a84b28eb505caf12284e56460612b1820026dc3fcb991c5c6f0b80b0694eab9",
+      "bytes": 1382400
+    },
+    "final-high/current-head-blade-2.png": {
+      "sha256": "941f5b76337ad587cd7122bbb0e3fc304495b2843a25fc23fb4c8d7861d67864",
+      "bytes": 92838
+    },
+    "final-high/current-head-blade-3-head-alpha.bin": {
+      "sha256": "4e1a00675751148ac254fb43475d003306b3a5f749108503e0900738eaedefba",
+      "bytes": 1843200
+    },
+    "final-high/current-head-blade-3-head-alpha.png": {
+      "sha256": "5b31e7a0d5571a59bf30ae1db5e490790657c9118d59ba4a49fd1ea55fb309b0",
+      "bytes": 1311
+    },
+    "final-high/current-head-blade-3.bin": {
+      "sha256": "473fe204b36bbe16643521298997167cded87689329e0bc4dd9a0da7a561936a",
+      "bytes": 1382400
+    },
+    "final-high/current-head-blade-3.png": {
+      "sha256": "3a4e5eb8ff0cffbc083bc941349d1d60d6f371727b021dc46422b9697fe98569",
+      "bytes": 74692
+    },
+    "final-high/current-head-blade-idle-head-alpha.bin": {
+      "sha256": "e0eb38cf078c67b2d3aa8ffff7ed669973d7ed29f79563444ce790ca20622bbf",
+      "bytes": 1843200
+    },
+    "final-high/current-head-blade-idle-head-alpha.png": {
+      "sha256": "f6dd315e7e53c29a53f4d903c3fb6f59bda39277819f1433d1070914ccb1c5eb",
+      "bytes": 1340
+    },
+    "final-high/current-head-blade-idle.bin": {
+      "sha256": "7a124d10e844cc267d0645d895c83f34d199ae4404b5500ebb9eb5d1f92858c1",
+      "bytes": 1382400
+    },
+    "final-high/current-head-blade-idle.png": {
+      "sha256": "41a002bb2326fcf693c8c05ac35a0212d28945377fc34dfcd1e487040f6c5c8a",
+      "bytes": 83357
+    },
+    "final-high/current-head-dagger-1-head-alpha.bin": {
+      "sha256": "3232609d6cbbaddac71c1bf9700e0d877b69fc09811b93ccb666771b8364446d",
+      "bytes": 1843200
+    },
+    "final-high/current-head-dagger-1-head-alpha.png": {
+      "sha256": "9107e6348dcd1038f8e96d3947a7012344344b98f66d68e5fca5518434badb6a",
+      "bytes": 1414
+    },
+    "final-high/current-head-dagger-1.bin": {
+      "sha256": "fb33f084347f41b30e3e8e32a36a384476a944c9dcfd9fb4ad769e47cdec4255",
+      "bytes": 1382400
+    },
+    "final-high/current-head-dagger-1.png": {
+      "sha256": "3460d4eaa3baba5c9a421dcc9addf3e365c0f090d32fdacbfeff737177abf7a0",
+      "bytes": 90794
+    },
+    "final-high/current-head-dagger-2-head-alpha.bin": {
+      "sha256": "d4a4c07b6e4ccba222ab4106ec250708b5d51d142aa3851be810b2709ce06ac4",
+      "bytes": 1843200
+    },
+    "final-high/current-head-dagger-2-head-alpha.png": {
+      "sha256": "84cf892b454a1ec105bcb180df0df0f9632ef7799c5fb912b2010a50483ace80",
+      "bytes": 1347
+    },
+    "final-high/current-head-dagger-2.bin": {
+      "sha256": "b6daa450419f359121556d805559a6c87bf3ba09d74aa078d926d7c92a2a8bdf",
+      "bytes": 1382400
+    },
+    "final-high/current-head-dagger-2.png": {
+      "sha256": "1704268665c8163779ff091c79bca6cf7a44c8f5c95adf8309713ca41b9c69fd",
+      "bytes": 92777
+    },
+    "final-high/current-head-dagger-3-head-alpha.bin": {
+      "sha256": "14336c7e54553f256f2a7837baa53506c6c44c4bd41d67919be047e8c1846a1c",
+      "bytes": 1843200
+    },
+    "final-high/current-head-dagger-3-head-alpha.png": {
+      "sha256": "948d6b9c95dc49f87ac288db49eed22119c6fbc9c1e6e0ca21a4f9596c97cbd6",
+      "bytes": 1369
+    },
+    "final-high/current-head-dagger-3.bin": {
+      "sha256": "8dfb9b5c557fea25131618e2dffec9fef84d38bbd2948f1fd43e145627a0584b",
+      "bytes": 1382400
+    },
+    "final-high/current-head-dagger-3.png": {
+      "sha256": "5aa4806d024897c66e21c62c10f72a109bdede91a04276b582aee53d4c6cc4e3",
+      "bytes": 91182
+    },
+    "final-high/current-head-dagger-idle-head-alpha.bin": {
+      "sha256": "6c7678b58a2f9caab21f23e26c092636ca2c87bcafeec38aa1e46d1360bc4d6f",
+      "bytes": 1843200
+    },
+    "final-high/current-head-dagger-idle-head-alpha.png": {
+      "sha256": "319e83c2a42aff2a39498996f259ab331f05e9436b22ad50c6a32bbc85b870d2",
+      "bytes": 1400
+    },
+    "final-high/current-head-dagger-idle.bin": {
+      "sha256": "dcc11824fe68388cf976f7326d053aa5f4d4e4ca752d7477be36b2e80325d40e",
+      "bytes": 1382400
+    },
+    "final-high/current-head-dagger-idle.png": {
+      "sha256": "d62b6178fb5ba2fd1f6728a8ef959ee1f5d514636c3170e013941fa638ef6cef",
+      "bytes": 92389
+    },
+    "final-high/current-head-glaive-1-head-alpha.bin": {
+      "sha256": "1f656bf8a35303270912475118fbfd0821efc22a5a1e789a29e496ba7cc1d9ab",
+      "bytes": 1843200
+    },
+    "final-high/current-head-glaive-1-head-alpha.png": {
+      "sha256": "acd5ec1c37390cb75594c8d52c41cd05e377b89b6c57528063569bd4e5b2c26e",
+      "bytes": 1352
+    },
+    "final-high/current-head-glaive-1.bin": {
+      "sha256": "c4263cfdc1ca6bf4443b09e6016f7bd45ec2ce69547db6c368ccf6880c1a35ee",
+      "bytes": 1382400
+    },
+    "final-high/current-head-glaive-1.png": {
+      "sha256": "09560174e5cef5ec1292b829811038d80490e131489f65267a225a3d7ca548a4",
+      "bytes": 96400
+    },
+    "final-high/current-head-glaive-2-head-alpha.bin": {
+      "sha256": "9dfc58c3a8cbd9ada4e698caed5c97bb58b524b2837fe179077fd6383a149876",
+      "bytes": 1843200
+    },
+    "final-high/current-head-glaive-2-head-alpha.png": {
+      "sha256": "ef2558c4601dfc8cfeb46e6635964c8da733b7096df4acbf40982cfffd38b652",
+      "bytes": 1199
+    },
+    "final-high/current-head-glaive-2.bin": {
+      "sha256": "31dad86a9d73290491166c7b9b37e3ffa549edfc33ef18883bb986d7b0af5af9",
+      "bytes": 1382400
+    },
+    "final-high/current-head-glaive-2.png": {
+      "sha256": "8a762ecd64a3edf63c5b05a24e1095d6ea9cb2f7bb0602ce09b190034934bb45",
+      "bytes": 72540
+    },
+    "final-high/current-head-glaive-idle-head-alpha.bin": {
+      "sha256": "c28d3c19702558a94d560406281e451540ddd5ab88f5534db6dc7f3bac704358",
+      "bytes": 1843200
+    },
+    "final-high/current-head-glaive-idle-head-alpha.png": {
+      "sha256": "453a483eed79462b933dd4afebbbb34915a0c67e428da8bf052b32cdb572a15e",
+      "bytes": 1371
+    },
+    "final-high/current-head-glaive-idle.bin": {
+      "sha256": "dfc51a957d1ddb07bc5c194c411f340ec88c88d533ccfc993cbd0c8aa134ca13",
+      "bytes": 1382400
+    },
+    "final-high/current-head-glaive-idle.png": {
+      "sha256": "0ee41c70965e607a9a51b72e660b76763eb853a62c1ed6cdfbbb5dfbaa8142da",
+      "bytes": 83426
+    },
+    "final-high/current-head-maul-1-head-alpha.bin": {
+      "sha256": "d2634f627cb2d9d7072c63bd33c7cd6d245d7191c80220218cc402953358c956",
+      "bytes": 1843200
+    },
+    "final-high/current-head-maul-1-head-alpha.png": {
+      "sha256": "d0aff3b442459c4e5c4b80f4baf6ffa6e6b05a0476c849a1000f2db6c8d58385",
+      "bytes": 1396
+    },
+    "final-high/current-head-maul-1.bin": {
+      "sha256": "9ff65ee25de3131873b5c899ab5b6d42948401c7cf1f09131ccfcbb18c8a8eee",
+      "bytes": 1382400
+    },
+    "final-high/current-head-maul-1.png": {
+      "sha256": "cf5ba6c19005ec41b479e977b3995b964359ee3796547a60edc68c964d9193db",
+      "bytes": 96797
+    },
+    "final-high/current-head-maul-2-head-alpha.bin": {
+      "sha256": "46e29cb28e6be4e2eac0b2651b86a5dc815c0dab5c22c8cf9c80fe8b375640a2",
+      "bytes": 1843200
+    },
+    "final-high/current-head-maul-2-head-alpha.png": {
+      "sha256": "6ae14f29a9da47069519143ed9d5c025aa477704dd007df308a46da443766cb2",
+      "bytes": 1416
+    },
+    "final-high/current-head-maul-2.bin": {
+      "sha256": "d3d1ed72dced19f1c00a9e71d1af78f02b50af3645c72146917b9119d8ca444e",
+      "bytes": 1382400
+    },
+    "final-high/current-head-maul-2.png": {
+      "sha256": "150dcd8cd13ac0db92da00deeff980f54fcd5d1e0c9b83aa9495a9b19eaf49cf",
+      "bytes": 101904
+    },
+    "final-high/current-head-maul-idle-head-alpha.bin": {
+      "sha256": "f014a50711feff909754236f9ba6757ea0c7bebfe69e7f977705b10f70e332b5",
+      "bytes": 1843200
+    },
+    "final-high/current-head-maul-idle-head-alpha.png": {
+      "sha256": "932457f7a780883f0ddca775e88c283769ae9295695d67df2608382726324be1",
+      "bytes": 1403
+    },
+    "final-high/current-head-maul-idle.bin": {
+      "sha256": "06da77b8950bcca5489c797405b081bdf9d377ddc28ec5245e0c0d39f8a31baf",
+      "bytes": 1382400
+    },
+    "final-high/current-head-maul-idle.png": {
+      "sha256": "a5750d52f74b5ca7e05568f62bbad4af57cd0dbe503dd7b14825bc8f2cd12688",
+      "bytes": 91319
+    },
+    "final-high/current-head-whip-1-head-alpha.bin": {
+      "sha256": "4601eeea6e7a544052f086dfa74d35126c04dea46ff2bf5624267f4da8340a59",
+      "bytes": 1843200
+    },
+    "final-high/current-head-whip-1-head-alpha.png": {
+      "sha256": "0a03d95545f8242a8b9db5966290a2021e799ce7c441fdb680b5a0f45ced7d0e",
+      "bytes": 1363
+    },
+    "final-high/current-head-whip-1.bin": {
+      "sha256": "49f357f857eaea9bdcf792d1249199fa41395cf1a8fc96821af75e9e73a215b9",
+      "bytes": 1382400
+    },
+    "final-high/current-head-whip-1.png": {
+      "sha256": "68eb690c2691dc57c0762733e80546159edccdee99cd1c0b5a9b0d1b410c8b13",
+      "bytes": 88438
+    },
+    "final-high/current-head-whip-idle-head-alpha.bin": {
+      "sha256": "a3578ea771a95c12e1b015550fb2d3d8913c8b0f866e217861057ad523922691",
+      "bytes": 1843200
+    },
+    "final-high/current-head-whip-idle-head-alpha.png": {
+      "sha256": "3c1f68377375241395ea4efc1864525cb4d19dd02f63498661193f3c0827b38d",
+      "bytes": 1318
+    },
+    "final-high/current-head-whip-idle.bin": {
+      "sha256": "816faed7b71965142670f7596abb7dd4a2244be65bef65ffa9e1e5b2bbb2690b",
+      "bytes": 1382400
+    },
+    "final-high/current-head-whip-idle.png": {
+      "sha256": "9200742fb371a9df147179a3ebd44ca8249189d5c7df16e9e0444352c023d7b7",
+      "bytes": 79264
+    },
+    "final-high/current-icons.png": {
+      "sha256": "44b92dbb3a9f4f3724a680e3042d6b6920b9f1dc7911c2d900078df600ae3b0b",
+      "bytes": 11005
+    },
+    "final-high/current-index.json": {
+      "sha256": "7e78014d093f3c57d67475e48d969c86d7be256ff6ebf15d2f56a385fd79c12e",
+      "bytes": 80465
+    },
+    "final-high/current-light-blade-1-off.bin": {
+      "sha256": "ea6be21bbc333fdb9fe63ebcc58100607ce1112be7523050b2a6224a4ae7ab9a",
+      "bytes": 1382400
+    },
+    "final-high/current-light-blade-1-off.png": {
+      "sha256": "bc7f936ea67915dada46615433f8e4cd707b63f51ffa57b34c398096e9bc617a",
+      "bytes": 88678
+    },
+    "final-high/current-light-blade-1-on.bin": {
+      "sha256": "da20e2f259f8f03797078679aeb42bcf588b75da3f5814ea1a89149badbb167f",
+      "bytes": 1382400
+    },
+    "final-high/current-light-blade-1-on.png": {
+      "sha256": "3649d2532245e3df28ed0bff186cf63fe0985ff0c04664e23cd7332c786ddd56",
+      "bytes": 92282
+    },
+    "final-high/current-light-blade-1-restore.bin": {
+      "sha256": "da20e2f259f8f03797078679aeb42bcf588b75da3f5814ea1a89149badbb167f",
+      "bytes": 1382400
+    },
+    "final-high/current-light-blade-1-restore.png": {
+      "sha256": "3649d2532245e3df28ed0bff186cf63fe0985ff0c04664e23cd7332c786ddd56",
+      "bytes": 92282
+    },
+    "final-high/current-light-blade-2-off.bin": {
+      "sha256": "76a3a419fdf18d76b803f14a5112992e305c521aab68c26d25e1567f4073ae40",
+      "bytes": 1382400
+    },
+    "final-high/current-light-blade-2-off.png": {
+      "sha256": "fb1cee5b388b0399383ffcac1c1de0857a25958e272dbe6a58403c6a7ffded1d",
+      "bytes": 98455
+    },
+    "final-high/current-light-blade-2-on.bin": {
+      "sha256": "14bd1c594e19bea658cbb1461729e4ed31534c02ffa3a0f53e28eaa2dc4917a5",
+      "bytes": 1382400
+    },
+    "final-high/current-light-blade-2-on.png": {
+      "sha256": "ea22f00e446106f8fda5e3fb8dadc2d1f5546ee66959d73876c93319665f9c07",
+      "bytes": 105617
+    },
+    "final-high/current-light-blade-2-restore.bin": {
+      "sha256": "14bd1c594e19bea658cbb1461729e4ed31534c02ffa3a0f53e28eaa2dc4917a5",
+      "bytes": 1382400
+    },
+    "final-high/current-light-blade-2-restore.png": {
+      "sha256": "ea22f00e446106f8fda5e3fb8dadc2d1f5546ee66959d73876c93319665f9c07",
+      "bytes": 105617
+    },
+    "final-high/current-light-blade-3-off.bin": {
+      "sha256": "fdc74fa5670bd8fcec2d19da461b8b8c98c837c29c86b12607e2329d640ef981",
+      "bytes": 1382400
+    },
+    "final-high/current-light-blade-3-off.png": {
+      "sha256": "61f8c3b078aa813e78fb78e5fed4cd0d498f69a3fccecb6394866891fef7837e",
+      "bytes": 80502
+    },
+    "final-high/current-light-blade-3-on.bin": {
+      "sha256": "f1a196559bda35c3245ebe9d0894f9115c737de1e44aa182b0ea6f23b4276019",
+      "bytes": 1382400
+    },
+    "final-high/current-light-blade-3-on.png": {
+      "sha256": "59c4ffc8a82f3033f8359e7152245ee71a6ae4ec1649349e0e8a45b81c9c4e9b",
+      "bytes": 83504
+    },
+    "final-high/current-light-blade-3-restore.bin": {
+      "sha256": "f1a196559bda35c3245ebe9d0894f9115c737de1e44aa182b0ea6f23b4276019",
+      "bytes": 1382400
+    },
+    "final-high/current-light-blade-3-restore.png": {
+      "sha256": "59c4ffc8a82f3033f8359e7152245ee71a6ae4ec1649349e0e8a45b81c9c4e9b",
+      "bytes": 83504
+    },
+    "final-high/current-light-dagger-1-off.bin": {
+      "sha256": "854cf40702fcedc002db1d1c5b4d5e43a4c64a1ad9bdacb3be69b057b5ec3cf4",
+      "bytes": 1382400
+    },
+    "final-high/current-light-dagger-1-off.png": {
+      "sha256": "600c94bfdfb41ab7e937ca529017ab6211a629422ac04ec310e93058b41bd64d",
+      "bytes": 101076
+    },
+    "final-high/current-light-dagger-1-on.bin": {
+      "sha256": "ec7be4f1d70c59016cc1d196114225e310e82848abbbb5b1e9aa29af251a0acd",
+      "bytes": 1382400
+    },
+    "final-high/current-light-dagger-1-on.png": {
+      "sha256": "b82dae794405203bf54b91775337dc5da34eb3a3d88daf1876140ee97bf1c60d",
+      "bytes": 104417
+    },
+    "final-high/current-light-dagger-1-restore.bin": {
+      "sha256": "ec7be4f1d70c59016cc1d196114225e310e82848abbbb5b1e9aa29af251a0acd",
+      "bytes": 1382400
+    },
+    "final-high/current-light-dagger-1-restore.png": {
+      "sha256": "b82dae794405203bf54b91775337dc5da34eb3a3d88daf1876140ee97bf1c60d",
+      "bytes": 104417
+    },
+    "final-high/current-light-dagger-2-off.bin": {
+      "sha256": "6ae4410b882983b0242d725d69e157ab2acabd5ed3730b4cb3aa12070eed1f6e",
+      "bytes": 1382400
+    },
+    "final-high/current-light-dagger-2-off.png": {
+      "sha256": "48333252ee8e3d251236b36ac8fe3a772633ebbe54bdf8b06e79dfbe0dc07d63",
+      "bytes": 102241
+    },
+    "final-high/current-light-dagger-2-on.bin": {
+      "sha256": "82333e2e49aa77c57f07848b81e3a92134eea225394997bb12ae1f7b01bf64a2",
+      "bytes": 1382400
+    },
+    "final-high/current-light-dagger-2-on.png": {
+      "sha256": "9532e780ae70ef95907be8928974412b54514b2d27d8c48053db55e29b474055",
+      "bytes": 105993
+    },
+    "final-high/current-light-dagger-2-restore.bin": {
+      "sha256": "82333e2e49aa77c57f07848b81e3a92134eea225394997bb12ae1f7b01bf64a2",
+      "bytes": 1382400
+    },
+    "final-high/current-light-dagger-2-restore.png": {
+      "sha256": "9532e780ae70ef95907be8928974412b54514b2d27d8c48053db55e29b474055",
+      "bytes": 105993
+    },
+    "final-high/current-light-dagger-3-off.bin": {
+      "sha256": "71c538caf013e062c620cd0ceb77e6b64b7c79c09c69221c0431590fb720d341",
+      "bytes": 1382400
+    },
+    "final-high/current-light-dagger-3-off.png": {
+      "sha256": "03304746ee0dd7f967940a2710c55edcbdd6ed7bd31f1e5e5976329cd27da2ba",
+      "bytes": 100252
+    },
+    "final-high/current-light-dagger-3-on.bin": {
+      "sha256": "903db2bbd7f619a306d380b7c4600c027d2274eca577bcf5d2b31a101edcc63f",
+      "bytes": 1382400
+    },
+    "final-high/current-light-dagger-3-on.png": {
+      "sha256": "6143cb1793105047d192413d59087c05aa9fb756099f15584596091510515705",
+      "bytes": 104052
+    },
+    "final-high/current-light-dagger-3-restore.bin": {
+      "sha256": "903db2bbd7f619a306d380b7c4600c027d2274eca577bcf5d2b31a101edcc63f",
+      "bytes": 1382400
+    },
+    "final-high/current-light-dagger-3-restore.png": {
+      "sha256": "6143cb1793105047d192413d59087c05aa9fb756099f15584596091510515705",
+      "bytes": 104052
+    },
+    "final-high/current-light-glaive-1-off.bin": {
+      "sha256": "d23f21171d98bc09860d6c5102f5522214c140bf4b8910793551b86b66e94e36",
+      "bytes": 1382400
+    },
+    "final-high/current-light-glaive-1-off.png": {
+      "sha256": "e40e2bc09e40dfb4197d4c5af1f757acaf4649c3699fffa0168b508c5e317a65",
+      "bytes": 99005
+    },
+    "final-high/current-light-glaive-1-on.bin": {
+      "sha256": "c24d23c431ffb354cef49450970b0df4b8a03c59987ca9c59b6e770686eb41c8",
+      "bytes": 1382400
+    },
+    "final-high/current-light-glaive-1-on.png": {
+      "sha256": "8639f36fae7cbe93480b6596ce862e3eef7f6f08d1ecca0a7706c3d5387bd1b5",
+      "bytes": 109448
+    },
+    "final-high/current-light-glaive-1-restore.bin": {
+      "sha256": "c24d23c431ffb354cef49450970b0df4b8a03c59987ca9c59b6e770686eb41c8",
+      "bytes": 1382400
+    },
+    "final-high/current-light-glaive-1-restore.png": {
+      "sha256": "8639f36fae7cbe93480b6596ce862e3eef7f6f08d1ecca0a7706c3d5387bd1b5",
+      "bytes": 109448
+    },
+    "final-high/current-light-glaive-2-off.bin": {
+      "sha256": "2744f8b92eed5fe48a3b2625c3c2ca0515da8c0729749f700b10b051a073f2df",
+      "bytes": 1382400
+    },
+    "final-high/current-light-glaive-2-off.png": {
+      "sha256": "0ce2d48a1abad48d5751eaf4ca2957d32bc43f93b81ee86d92bdab1eafb9f189",
+      "bytes": 71974
+    },
+    "final-high/current-light-glaive-2-on.bin": {
+      "sha256": "fced338dd5cfc06be58ff3d9fe60521a43c9ac73e160d209fd9e9c7e0bbeb2ad",
+      "bytes": 1382400
+    },
+    "final-high/current-light-glaive-2-on.png": {
+      "sha256": "bc70076bed182d7e44e3c7995641affa28f27f49bc3c74abd3328cc979f56db9",
+      "bytes": 79494
+    },
+    "final-high/current-light-glaive-2-restore.bin": {
+      "sha256": "fced338dd5cfc06be58ff3d9fe60521a43c9ac73e160d209fd9e9c7e0bbeb2ad",
+      "bytes": 1382400
+    },
+    "final-high/current-light-glaive-2-restore.png": {
+      "sha256": "bc70076bed182d7e44e3c7995641affa28f27f49bc3c74abd3328cc979f56db9",
+      "bytes": 79494
+    },
+    "final-high/current-light-maul-1-off.bin": {
+      "sha256": "18128a445eabc17d3c55064f4e5fe6eff8cfc181e4122cb6922ce4cd12dbb5a8",
+      "bytes": 1382400
+    },
+    "final-high/current-light-maul-1-off.png": {
+      "sha256": "1ebdf41b1406b3422a5a6009c3335131cc4fe7dd096dc8528c90851b8d3a5fc3",
+      "bytes": 102421
+    },
+    "final-high/current-light-maul-1-on.bin": {
+      "sha256": "138e4ef79720016532ec8964aa1fb14734966e8d788d18e8bb23ec02b52a6b2c",
+      "bytes": 1382400
+    },
+    "final-high/current-light-maul-1-on.png": {
+      "sha256": "78c9850c5897a62f1208cc3e070d861d00e37282f9c3bcb47920365139d0b970",
+      "bytes": 106333
+    },
+    "final-high/current-light-maul-1-restore.bin": {
+      "sha256": "138e4ef79720016532ec8964aa1fb14734966e8d788d18e8bb23ec02b52a6b2c",
+      "bytes": 1382400
+    },
+    "final-high/current-light-maul-1-restore.png": {
+      "sha256": "78c9850c5897a62f1208cc3e070d861d00e37282f9c3bcb47920365139d0b970",
+      "bytes": 106333
+    },
+    "final-high/current-light-maul-2-off.bin": {
+      "sha256": "e8e11d657a3bda8f014a8f37098793c8dfecc99fbfaadba83baaca04927279e0",
+      "bytes": 1382400
+    },
+    "final-high/current-light-maul-2-off.png": {
+      "sha256": "196efd3c43ed94d018c186d8cbe5e1aefa83b524ba369a19c69e788e6df2d2f4",
+      "bytes": 104977
+    },
+    "final-high/current-light-maul-2-on.bin": {
+      "sha256": "38c6a1bdec382f92181e12f64e63b8d8b5837db59a8c5055123cb8b31716ed8a",
+      "bytes": 1382400
+    },
+    "final-high/current-light-maul-2-on.png": {
+      "sha256": "4cf708bf13b1bb3a615cdb869470e41a5afce768cdb184afd5dacbc788853f7b",
+      "bytes": 114682
+    },
+    "final-high/current-light-maul-2-restore.bin": {
+      "sha256": "38c6a1bdec382f92181e12f64e63b8d8b5837db59a8c5055123cb8b31716ed8a",
+      "bytes": 1382400
+    },
+    "final-high/current-light-maul-2-restore.png": {
+      "sha256": "4cf708bf13b1bb3a615cdb869470e41a5afce768cdb184afd5dacbc788853f7b",
+      "bytes": 114682
+    },
+    "final-high/current-light-whip-1-off.bin": {
+      "sha256": "8e327722748ae6c747a7a6149753a88efde10e32b0c716f720633c13b25ec513",
+      "bytes": 1382400
+    },
+    "final-high/current-light-whip-1-off.png": {
+      "sha256": "07f0e7ecd528250784830cc661f12b3c167c20426307933b1089e65de61265db",
+      "bytes": 92537
+    },
+    "final-high/current-light-whip-1-on.bin": {
+      "sha256": "d0cee6d6e05227742cee52ea0b227866f8878b30bf0f3a369ae66d9f50fa4e51",
+      "bytes": 1382400
+    },
+    "final-high/current-light-whip-1-on.png": {
+      "sha256": "987ccddec0d812bcd0a19df6d3f557b09e5582a7e3cbe172d2533038abb7f84f",
+      "bytes": 99909
+    },
+    "final-high/current-light-whip-1-restore.bin": {
+      "sha256": "d0cee6d6e05227742cee52ea0b227866f8878b30bf0f3a369ae66d9f50fa4e51",
+      "bytes": 1382400
+    },
+    "final-high/current-light-whip-1-restore.png": {
+      "sha256": "987ccddec0d812bcd0a19df6d3f557b09e5582a7e3cbe172d2533038abb7f84f",
+      "bytes": 99909
+    },
+    "final-high/current-maul-1-hydraulic_maul_smash.png": {
+      "sha256": "1c88a3028fc9f03cfad5bcfb6194ac61e88917d72de3602071bcad32f4bb4236",
+      "bytes": 103717
+    },
+    "final-high/current-maul-2-hydraulic_maul_slam.png": {
+      "sha256": "304cf63437faa3a8208a774a29375c130aab878307ab0268d596e647c49833ac",
+      "bytes": 115995
+    },
+    "final-high/current-maul-air.png": {
+      "sha256": "5b99363889480189aac1f5bacaac0428598c4d01014e2016cc7a442aa976b028",
+      "bytes": 72873
+    },
+    "final-high/current-maul-crouch.png": {
+      "sha256": "02be4ecce19d95276acaa6b40bdd0ea8ecf8485961f13baf84a93d65edc948af",
+      "bytes": 80687
+    },
+    "final-high/current-maul-dash.png": {
+      "sha256": "28719a5c66d97450fbdf0df4c19348484bfc3c617effa1efea347be7c74bdc5a",
+      "bytes": 92177
+    },
+    "final-high/current-maul-film-1.png": {
+      "sha256": "fb0a609000edb98ba8b30f0306f99a93e41ec17aa102f4f5b4acf709ad5aad5d",
+      "bytes": 91009
+    },
+    "final-high/current-maul-film-2.png": {
+      "sha256": "5fbd7d9d510f3f6cf44ef37dd2c064d8bba9393a69f5721a44673d307e1ab7e6",
+      "bytes": 86009
+    },
+    "final-high/current-maul-film-3.png": {
+      "sha256": "ded684bc661ce046d020218588242aa8b07ea18c5d6af1ee75271630ab13c270",
+      "bytes": 79797
+    },
+    "final-high/current-maul-film-4.png": {
+      "sha256": "b7af97247cb8544903c3daa611096e6e9c67431ab97a26396cb46d88e30567db",
+      "bytes": 77098
+    },
+    "final-high/current-maul-film-5.png": {
+      "sha256": "6826bfc948bca12c8b9b3ea1c19e0a2a85e6c33070ebdba664a306020355cefa",
+      "bytes": 77405
+    },
+    "final-high/current-maul-film-6.png": {
+      "sha256": "738cb2b787bb4f2cb4832a7c470df520cadb0e77fc30abc8ae786a15e1ad1acd",
+      "bytes": 78389
+    },
+    "final-high/current-maul-film-7.png": {
+      "sha256": "c96d59394b93b7e2fee3dbabf57dfedb289394a1ced492cb334cbfa17654133e",
+      "bytes": 82292
+    },
+    "final-high/current-maul-film-8.png": {
+      "sha256": "e71eae8c6a943da5cf07d37fd2093617ee37156bad662885178b1e94536b63c5",
+      "bytes": 99201
+    },
+    "final-high/current-maul-idle.png": {
+      "sha256": "53875fc082abe64069553925a02ca4cbb84cd2a2af21298317a0c945fead04eb",
+      "bytes": 103340
+    },
+    "final-high/current-maul-left.png": {
+      "sha256": "704e8017662843d05c2a0a6818831b4082c368286f807fb4bb355d8e2390bb5c",
+      "bytes": 87965
+    },
+    "final-high/current-pickups.png": {
+      "sha256": "ce6fdde6bc67a4755dc47848bb50db6d2a07e42c733873cf06468a0928f61112",
+      "bytes": 84166
+    },
+    "final-high/current-whip-1-mono_whip_lash.png": {
+      "sha256": "ae5f0e1542332a18079c7a0d306019b60cb3d7e0578ebc04268e69ef35795673",
+      "bytes": 102819
+    },
+    "final-high/current-whip-air.png": {
+      "sha256": "9a1a676d0ea2b0780fe53e19ad0f3415837a42455c1b2869be03b7e69ad133e4",
+      "bytes": 70733
+    },
+    "final-high/current-whip-crouch.png": {
+      "sha256": "830f333181b728adf10ff94bf96085a961735340485322afc8588be7e8c07a3d",
+      "bytes": 78556
+    },
+    "final-high/current-whip-dash.png": {
+      "sha256": "83884303cb2012a9eb8f110cb24a02573b7bdad1d7db5c3c0aef011e58ce3cfc",
+      "bytes": 90996
+    },
+    "final-high/current-whip-film-1.png": {
+      "sha256": "14a854fb2a964e7a02d0f6c9cd0c7c133ba4544e4aaaba9db848ff23f322c066",
+      "bytes": 87631
+    },
+    "final-high/current-whip-film-10.png": {
+      "sha256": "09bfc6bb0cf2e2d4e212a38bd27527bc83f11d29b27b1adfa2ca14372e45d29d",
+      "bytes": 94994
+    },
+    "final-high/current-whip-film-11.png": {
+      "sha256": "a8aab54299337d9aed9f736f03b4154f653fe521691653056d5c3394a6457d6f",
+      "bytes": 98090
+    },
+    "final-high/current-whip-film-12.png": {
+      "sha256": "5265fbb05e7ebe950db651f704608decbacf6977e1f9c535c41712c2d6a56381",
+      "bytes": 94889
+    },
+    "final-high/current-whip-film-13.png": {
+      "sha256": "59cc83571853eb7993ac3b9177ab93b31b442878e897175426ba20eeb70b2c99",
+      "bytes": 91080
+    },
+    "final-high/current-whip-film-14.png": {
+      "sha256": "f99e6d35df140a03408a1ef1834451fec83b04a7e7dbd9446ddeeb9ba83e7302",
+      "bytes": 90162
+    },
+    "final-high/current-whip-film-15.png": {
+      "sha256": "60edf1bf1858e3a4a6ee2bf479ff6091f006cf8d358203aa51ad690b94c7f17c",
+      "bytes": 86862
+    },
+    "final-high/current-whip-film-16.png": {
+      "sha256": "0adcdfb2422369b550835c534564828f055d5cfeb5ca22ee8e6b4c507435c356",
+      "bytes": 72117
+    },
+    "final-high/current-whip-film-17.png": {
+      "sha256": "fd4e8449079865c02f7c22ea88fdc8735e0ac42bf87f05d91c9d723c66ae9428",
+      "bytes": 73563
+    },
+    "final-high/current-whip-film-18.png": {
+      "sha256": "53bb4bc35e79d68dff21c218fcf86a083d91a30e5ca0319cdd0d1af79a622112",
+      "bytes": 74959
+    },
+    "final-high/current-whip-film-19.png": {
+      "sha256": "d98b0777a079b2db3d4c700cb4551c569e4fb62b14e5ff3c4b468c6ea982df17",
+      "bytes": 85732
+    },
+    "final-high/current-whip-film-2.png": {
+      "sha256": "f40f6e5ea52c23f8d58ba5c9970d97b57a101f3e629c97604cff42ed4177d81d",
+      "bytes": 89511
+    },
+    "final-high/current-whip-film-20.png": {
+      "sha256": "3bf2c0f5f6b0ed59543c83b68e20860e754b042a444766f0943ece4fa394cbeb",
+      "bytes": 86535
+    },
+    "final-high/current-whip-film-21.png": {
+      "sha256": "4362f79321df2cc167099200eb66591b6dc24c0dee281d9d763d7307cf03d5d2",
+      "bytes": 84581
+    },
+    "final-high/current-whip-film-22.png": {
+      "sha256": "7b4793a88e1ef37634ddc1f6a284bbfa36dad4d52f3ba8e45e1dfc2c78a66907",
+      "bytes": 83653
+    },
+    "final-high/current-whip-film-23.png": {
+      "sha256": "d790dc8a0892efa8ed148cc837048f51172522e8129e277f9d09802e63e4daf7",
+      "bytes": 80806
+    },
+    "final-high/current-whip-film-24.png": {
+      "sha256": "71bb8857545ae71b7f4274e748c1a07a0e1a4553daea42e4fa8fdbdad7e7f52a",
+      "bytes": 80329
+    },
+    "final-high/current-whip-film-3.png": {
+      "sha256": "d17c4ad9098a83a554c092cd933111515f2d7bd2aae3cdae88e0577baf68d289",
+      "bytes": 80717
+    },
+    "final-high/current-whip-film-4.png": {
+      "sha256": "6b74d2dc346cd169f979c372c65a8668e7ef51f3cadb6a11cbfbbb88eee80f33",
+      "bytes": 69278
+    },
+    "final-high/current-whip-film-5.png": {
+      "sha256": "e4d045415ec7301f5682dfd861c2e564206298f2a186e78b9eb17311a297a591",
+      "bytes": 62758
+    },
+    "final-high/current-whip-film-6.png": {
+      "sha256": "e5ea4f351df904d090a2723093cebeb7ac46d41e685ac1e6d3a49efbe18be0d2",
+      "bytes": 69020
+    },
+    "final-high/current-whip-film-7.png": {
+      "sha256": "f25fd6e07d09b885550f19f108e5f963cb9e53f2dbea7a9675f27215301fbcf5",
+      "bytes": 82832
+    },
+    "final-high/current-whip-film-8.png": {
+      "sha256": "f0bd38f316ae1750d9cde7597051b963cb5927db76a685c57e6e177a5981e6e2",
+      "bytes": 95003
+    },
+    "final-high/current-whip-film-9.png": {
+      "sha256": "eacacbc6e65c9f5e4aec8f8e38f716b5e4ffff1ac07bf3b1b32d720595a2d36c",
+      "bytes": 96153
+    },
+    "final-high/current-whip-idle.png": {
+      "sha256": "b8db541ddf7ec45c4bdd436b37155f9109d8751482ed6c03d17fd7956ffd402f",
+      "bytes": 94984
+    },
+    "final-high/current-whip-left.png": {
+      "sha256": "4c1ff5d1c9b0ab6c20df527bc2121ac3e401b3d94069ad1fca48a381196e7c53",
+      "bytes": 83416
+    },
+    "final-high/independent.json": {
+      "sha256": "7897e17e1c1194eb75f8b88feead50931936abae5ba4764f7a66216f4763c894",
+      "bytes": 949
+    },
+    "final-high/raw.log": {
+      "sha256": "bf8836c9f11940d6ca89a3ef35ea997e27202970fa8c9a440a48b9f37d4250a0",
+      "bytes": 34686
+    },
+    "final-high/result.json": {
+      "sha256": "98e3ec6599d6877abf49c81f9ad6186c8ed5faea850b4f3817d30a6285be8086",
+      "bytes": 109
+    },
+    "changed-final/raw.log": {
+      "sha256": "cd0d830004b900fd80ee02e198866c2d06ba1c7e19a03c5dfed76e7528e41963",
+      "bytes": 88
+    },
+    "changed-final/result.json": {
+      "sha256": "b40e17d85e5fbc4b92341368cd9b74fe3c1d30b2f9237864249faf2dbd040f8a",
+      "bytes": 261
+    },
+    "checks-v1/result.json": {
+      "sha256": "5c857ef10b58a5e1f00c5a6a03ab618fd828e5ca326cf1b41528c6b3d8b02c5c",
+      "bytes": 721
+    },
+    "checks-v1/runs.json": {
+      "sha256": "8d2466eb8b6c21d8292c4cb24f6dedc3dd124baa5f62be7acdeb88ade50d343d",
+      "bytes": 616
+    },
+    "checks-v1/changed/raw.log": {
+      "sha256": "cd0d830004b900fd80ee02e198866c2d06ba1c7e19a03c5dfed76e7528e41963",
+      "bytes": 88
+    },
+    "checks-v1/melee-existing/raw.log": {
+      "sha256": "334748a6a67e6b240d3223f212140a36c699b1ec624206ea535739199f003d6b",
+      "bytes": 407
+    },
+    "checks-v1/melee-existing/shards/shard_0.log": {
+      "sha256": "8fcf46781c178ed27b6833a1f7e6e2bf36e6529694438241d05f15f9500110d1",
+      "bytes": 5606
+    },
+    "checks-v1/melee-existing/shards/shard_1.log": {
+      "sha256": "6c7ad4fab88b5dd3a094ec2d2c487cbdc4dda111a15f19572fecaecb563feb75",
+      "bytes": 52141
+    },
+    "checks-v1/melee-existing/shards/shard_2.log": {
+      "sha256": "b528b047bbac859e81981c316de2bf1c8fff92788cf472af86199d258a6e47a4",
+      "bytes": 1337
+    },
+    "checks-v1/melee-existing/shards/shard_3.log": {
+      "sha256": "220c31ffe6ce05936f8f6ee546cf8b62df77719df5435300de8852a76dc863b4",
+      "bytes": 1054
+    },
+    "checks-v1/melee-existing/shards/data_3/Godot/app_userdata/Nest Egg/logs/godot.log": {
+      "sha256": "369817f0e94d0970ecf9ef040b4f13147dc75d7cb534b6abd021f08b71787bc9",
+      "bytes": 1036
+    },
+    "checks-v1/melee-existing/shards/data_2/Godot/app_userdata/Nest Egg/logs/godot.log": {
+      "sha256": "da808cc12a6690be982cc2305e128ea00835837cf456d1a4d68d99e88b0f0919",
+      "bytes": 1314
+    },
+    "checks-v1/melee-existing/shards/data_1/Godot/app_userdata/Nest Egg/logs/godot.log": {
+      "sha256": "240d9c09c0429828ef28d7a2b5a57ecbaf7ffe92355a40a33133cb26e71440df",
+      "bytes": 51310
+    },
+    "checks-v1/melee-existing/shards/data_0/Godot/app_userdata/Nest Egg/logs/godot.log": {
+      "sha256": "8fe1780fa5bef8f52d36ec46d57509b643d117efa364c1580aec9e64f489eaf6",
+      "bytes": 5573
+    },
+    "diagnostics/original-high/command.json": {
+      "sha256": "8643de0b85e282f041d6f99f7b6b746861299f876deb1438f5457e1d1328aeed",
+      "bytes": 608
+    },
+    "diagnostics/original-high/original-blade-1-thermal_blade_cut_1.png": {
+      "sha256": "85c9f9ec7e6e850ae43cccad3397a24a1f9e05817262f19b705f9e93f6952ae9",
+      "bytes": 103375
+    },
+    "diagnostics/original-high/original-blade-2-thermal_blade_cut_2.png": {
+      "sha256": "c5024b5faa81a36e1930ea76bcd6f8f0ad77316c553e73d431a8d6fb2bd677d1",
+      "bytes": 113245
+    },
+    "diagnostics/original-high/original-blade-3-thermal_blade_cut_3.png": {
+      "sha256": "df99efd649c643afeddcd2191ed866a9e204d16a7901b03379df65d135b0dc49",
+      "bytes": 107770
+    },
+    "diagnostics/original-high/original-blade-air.png": {
+      "sha256": "f9ccc5bed7d6e8663be0b43c636c765189682f1e833299b7c6e5f33c6676f79e",
+      "bytes": 77490
+    },
+    "diagnostics/original-high/original-blade-crouch.png": {
+      "sha256": "c51f05c8f119eb0add34a9ee840a8ff60426f2cafdaf12244b0e05dc029c9fcf",
+      "bytes": 79032
+    },
+    "diagnostics/original-high/original-blade-dash.png": {
+      "sha256": "4e8866733410e986622eaf90d2bae14f5e8e3fd26117248637081880935da099",
+      "bytes": 72463
+    },
+    "diagnostics/original-high/original-blade-film-1.png": {
+      "sha256": "29de7ea67c97b42352886e6a7cc0b91199e200af3a57dc1b69fccddd6a398917",
+      "bytes": 82928
+    },
+    "diagnostics/original-high/original-blade-film-2.png": {
+      "sha256": "3b7da741a6c6b7fcc0cf763c43750e0fd3106261741799a186a5b019a74ebcd4",
+      "bytes": 83833
+    },
+    "diagnostics/original-high/original-blade-film-3.png": {
+      "sha256": "2ba218e99b7f513adb21ebfc8ab66632738ec4bc5e8ea01d95d4b4767e9ef7c3",
+      "bytes": 82771
+    },
+    "diagnostics/original-high/original-blade-film-4.png": {
+      "sha256": "c1597acbd5c9e70e70b5969f87cf5eea84b195127f13e464928a4f6252d0c885",
+      "bytes": 87982
+    },
+    "diagnostics/original-high/original-blade-film-5.png": {
+      "sha256": "4b97bfcdca143a5984be3a33dc4529ca4aa2d0c83681f214b5936025b14e16ff",
+      "bytes": 86985
+    },
+    "diagnostics/original-high/original-blade-film-6.png": {
+      "sha256": "5c8a3f802ddbe79f275bf912b7532d98707c630da59f09a61fc2d985fe354602",
+      "bytes": 87385
+    },
+    "diagnostics/original-high/original-blade-film-7.png": {
+      "sha256": "18dd1d776236e39f3a819430e343d87c54eed7fc52fc4c1851b365e719e366ed",
+      "bytes": 87379
+    },
+    "diagnostics/original-high/original-blade-film-8.png": {
+      "sha256": "a3a96ebace4ff518adfc3694d45a4fc59580f63ecd4391d2caa5b7702c543e55",
+      "bytes": 82984
+    },
+    "diagnostics/original-high/original-blade-idle.png": {
+      "sha256": "2aec4e08099d9448d618ee7bfb34f2d1986a99926b321fcd54b97944905774b4",
+      "bytes": 98984
+    },
+    "diagnostics/original-high/original-blade-left.png": {
+      "sha256": "0ad002ab8564f2b2a324e48a981ede15ce527589494a56d5cf4d9537e1cc6ee9",
+      "bytes": 75741
+    },
+    "diagnostics/original-high/original-dagger-1-mono_dagger_stab_1.png": {
+      "sha256": "0bd4643906ecb3f72f77b8e5343fb27e0b26c1ee8a8f048bae2980ca46d1206c",
+      "bytes": 107442
+    },
+    "diagnostics/original-high/original-dagger-2-mono_dagger_stab_2.png": {
+      "sha256": "29cb352b400da1271e26d251cedaf89bb6e99e3458c5c8bb36e37023229ee467",
+      "bytes": 111531
+    },
+    "diagnostics/original-high/original-dagger-3-mono_dagger_flurry.png": {
+      "sha256": "891a723ff58b2edcd5419afa5b64042c8913c4fd31198af4ef93e407cec9c1d1",
+      "bytes": 109326
+    },
+    "diagnostics/original-high/original-dagger-air.png": {
+      "sha256": "3d1635f1e4b23ce366b498b02895e35de52dce9498f32b194dac89494a97b07e",
+      "bytes": 90141
+    },
+    "diagnostics/original-high/original-dagger-crouch.png": {
+      "sha256": "d65c0cb3e40fed6615b59d1101e0deea77b575066e4d6bd70eb952717156f67b",
+      "bytes": 84903
+    },
+    "diagnostics/original-high/original-dagger-dash.png": {
+      "sha256": "4d8e6bd76263d869a8ef6d23948966d537729e4641cc8f971e44f224d4ec3059",
+      "bytes": 77526
+    },
+    "diagnostics/original-high/original-dagger-film-1.png": {
+      "sha256": "b4b4a67b0ca89cb69460d2b9c34687ce717a5dd06d1f08ea4be23110bf6928cf",
+      "bytes": 85628
+    },
+    "diagnostics/original-high/original-dagger-film-2.png": {
+      "sha256": "2bb8e85da092c8d0a922efa0faffbbc61b69fa443e4eaa7c646f4245cb3f11e4",
+      "bytes": 87996
+    },
+    "diagnostics/original-high/original-dagger-film-3.png": {
+      "sha256": "b11421f6eea1f0b8ce9eb3ab5410f28ac7458e23e35fff8f0ac118f191b33d09",
+      "bytes": 85259
+    },
+    "diagnostics/original-high/original-dagger-film-4.png": {
+      "sha256": "47e723d8dc09fa29efbb53704c322a17badd3e0bfda53586a7d8c428c213c411",
+      "bytes": 88021
+    },
+    "diagnostics/original-high/original-dagger-film-5.png": {
+      "sha256": "c0299791084c33e84c464c247b4810557c202080df590a25dcca79cbf9ed21c3",
+      "bytes": 89477
+    },
+    "diagnostics/original-high/original-dagger-film-6.png": {
+      "sha256": "3091367c7849ae037b7c15e9cddd679ead901a7e9a9ef127846ba6a610d253f4",
+      "bytes": 86611
+    },
+    "diagnostics/original-high/original-dagger-film-7.png": {
+      "sha256": "6a7d0b46fc8c2aae7f4021cad41b7c67ba05ff0f848fc7d94cd506536b5b0217",
+      "bytes": 86402
+    },
+    "diagnostics/original-high/original-dagger-film-8.png": {
+      "sha256": "c81aa65919eb84a1dd4c1cc9e7782bf26197e5fc51fd2e39545087cfc85ef2fd",
+      "bytes": 90547
+    },
+    "diagnostics/original-high/original-dagger-idle.png": {
+      "sha256": "b3fefca8c307e2f8c1490245a499a7ea2a1cac9b7613db5b92dc04d30631243b",
+      "bytes": 109511
+    },
+    "diagnostics/original-high/original-dagger-left.png": {
+      "sha256": "557c22bcd048c06cef7c642696bd0197ce5bb7e8be75d1dfaeb715008bd42722",
+      "bytes": 89043
+    },
+    "diagnostics/original-high/original-glaive-1-ion_glaive_thrust.png": {
+      "sha256": "f3e0b7352bc71a78370b8b557acc392e0ffa1f3edb1c8be81173e0191b49cca0",
+      "bytes": 112011
+    },
+    "diagnostics/original-high/original-glaive-2-ion_glaive_sweep.png": {
+      "sha256": "32195a7864f1ef59b9b0e71984e09d20d82037d2e5c40028b05411ff2c5bf149",
+      "bytes": 108687
+    },
+    "diagnostics/original-high/original-glaive-air.png": {
+      "sha256": "0e5911709471177e60c8ea6b192defc215ec1675161f847ee7120b2f4f860974",
+      "bytes": 80204
+    },
+    "diagnostics/original-high/original-glaive-crouch.png": {
+      "sha256": "8438059054dada6ed43598fdf222fd00ff73377ce81bcaf837e68aad31bac6ed",
+      "bytes": 83171
+    },
+    "diagnostics/original-high/original-glaive-dash.png": {
+      "sha256": "be5e1d88e86e540905dfbbf289c4381ef0efbee615736e836bc7895c9fef4ba3",
+      "bytes": 75109
+    },
+    "diagnostics/original-high/original-glaive-film-1.png": {
+      "sha256": "c6c917d17f91f9de0dd6b622955a1c2f7c7e68a42b99a1af91e34457baa42b36",
+      "bytes": 94659
+    },
+    "diagnostics/original-high/original-glaive-film-2.png": {
+      "sha256": "7ff97dc56b10ad1110832d2237ad53a4ab4d60210c849f866f2187d51069ad07",
+      "bytes": 94821
+    },
+    "diagnostics/original-high/original-glaive-film-3.png": {
+      "sha256": "e973dec5cdf21a22364d823ef2ab6bd00b7d14e5986d976f00e5ae5fa968b987",
+      "bytes": 96073
+    },
+    "diagnostics/original-high/original-glaive-film-4.png": {
+      "sha256": "1726153270b99774762919a5f612bd8236987b9e35c65f1bf52b4e48ada2656a",
+      "bytes": 99703
+    },
+    "diagnostics/original-high/original-glaive-film-5.png": {
+      "sha256": "080b90337d4bbc2d2e328b000bda3f801d363286d6bb2848cae1cf729b13c3a9",
+      "bytes": 100147
+    },
+    "diagnostics/original-high/original-glaive-film-6.png": {
+      "sha256": "9a3b1e04a2362505763d078807dceeb9564cc53bab5542e48c1cfaf626258256",
+      "bytes": 97902
+    },
+    "diagnostics/original-high/original-glaive-film-7.png": {
+      "sha256": "47463ae0e1b5b07bcfad592e126f51a2da47daf88c18dd8d5fc0f6b2d774912e",
+      "bytes": 97511
+    },
+    "diagnostics/original-high/original-glaive-film-8.png": {
+      "sha256": "1c9ca56e5cd2edbca54635894c551a0999bebb8dd88607baf50fe11c2080ba99",
+      "bytes": 95198
+    },
+    "diagnostics/original-high/original-glaive-idle.png": {
+      "sha256": "c307114b62a14441a16ed72d9ef10333c88722d7c03651f59ac74cefdb7e4c8c",
+      "bytes": 108874
+    },
+    "diagnostics/original-high/original-glaive-left.png": {
+      "sha256": "f1df8becca119c7bb18af472cfdfa9c2ea2d408cf44efb416badaadc807d48d1",
+      "bytes": 92663
+    },
+    "diagnostics/original-high/original-icons.png": {
+      "sha256": "44b92dbb3a9f4f3724a680e3042d6b6920b9f1dc7911c2d900078df600ae3b0b",
+      "bytes": 11005
+    },
+    "diagnostics/original-high/original-index.json": {
+      "sha256": "38344b15af076be6e7b213395333738fe9444e814ed5a73707b50e885c60e38b",
+      "bytes": 8337
+    },
+    "diagnostics/original-high/original-maul-1-hydraulic_maul_smash.png": {
+      "sha256": "de3ec453fac5852c8e2e7e908a5bd23c908dbb23eb775b06dbcc2f26c44a0acf",
+      "bytes": 105665
+    },
+    "diagnostics/original-high/original-maul-2-hydraulic_maul_slam.png": {
+      "sha256": "512469fb08b4ad0ea8b6ab722bc68c8e9bd2f64ad194a707113fc6b7bcb89be4",
+      "bytes": 112000
+    },
+    "diagnostics/original-high/original-maul-air.png": {
+      "sha256": "63ec56a73dbf8adc56d1f5368e6e2531c83fc9c5153478a9bb68bb3c9f5576a5",
+      "bytes": 83707
+    },
+    "diagnostics/original-high/original-maul-crouch.png": {
+      "sha256": "d83fca2a4bf22e94e2926db5841e84852d5a77ce63b7172def78ab0d4cf20f54",
+      "bytes": 82479
+    },
+    "diagnostics/original-high/original-maul-dash.png": {
+      "sha256": "5a714c940cafed22751e88b71804c6027ff759ba88e29b7bb4020599ab4c8307",
+      "bytes": 85020
+    },
+    "diagnostics/original-high/original-maul-film-1.png": {
+      "sha256": "fbad397e569791051964a7394500c3f997a38bf8c09a790ff8a5281ac42b0550",
+      "bytes": 88856
+    },
+    "diagnostics/original-high/original-maul-film-2.png": {
+      "sha256": "693473e8602e6c9d67680c1b161808b7f9735fa325c03f88778b675afd629620",
+      "bytes": 91199
+    },
+    "diagnostics/original-high/original-maul-film-3.png": {
+      "sha256": "7d414b2798f6c479298152c08cb2c6512e4825be785007dcb1e021b52322c8e1",
+      "bytes": 93684
+    },
+    "diagnostics/original-high/original-maul-film-4.png": {
+      "sha256": "ff61c88c1412c7f5420faa5d59154057dfc427907c63dae84116bad86f35426f",
+      "bytes": 93277
+    },
+    "diagnostics/original-high/original-maul-film-5.png": {
+      "sha256": "4f49565729164e86c51a79ba47dd68fe4d7adbf1c179204c8e5e1fe7ec6dcd1f",
+      "bytes": 90759
+    },
+    "diagnostics/original-high/original-maul-film-6.png": {
+      "sha256": "0667a7d19498b4e0c188daf240e0a0826b2138cbe9671bfaef5ebf8c05e0bb86",
+      "bytes": 89257
+    },
+    "diagnostics/original-high/original-maul-film-7.png": {
+      "sha256": "31903bd7778247dc47d2610c2e0cab7c9f1df4c342e5d5cfd8e2e61d8bee2a4d",
+      "bytes": 96345
+    },
+    "diagnostics/original-high/original-maul-film-8.png": {
+      "sha256": "1ff470b9aac1339da1f87a57f310df288d94e2c08f3bd73325fb6256085fb443",
+      "bytes": 98487
+    },
+    "diagnostics/original-high/original-maul-idle.png": {
+      "sha256": "5ff333e29f3d10782e0dccc6aaa7cf031cbbb64c0cd79ec0d9fa042a7bb6b7e7",
+      "bytes": 103985
+    },
+    "diagnostics/original-high/original-maul-left.png": {
+      "sha256": "43f820e74056b34dc06808225b06c7f80d1d99cf9218bd827201486ee5011910",
+      "bytes": 90689
+    },
+    "diagnostics/original-high/original-pickups.png": {
+      "sha256": "f86037d9d077b72b801e9afbd39b0630816aa9b9906deaa8951d78be9fdeece9",
+      "bytes": 132964
+    },
+    "diagnostics/original-high/original-whip-1-mono_whip_lash.png": {
+      "sha256": "ab7037978886124ed03d4a278c16b2a5f9c60c1022762d7771ca0824c425497f",
+      "bytes": 107485
+    },
+    "diagnostics/original-high/original-whip-air.png": {
+      "sha256": "cdcc980d41b045cfd25b2bf92bb41105b5807237f8278ecbd63785123cadc9b7",
+      "bytes": 77891
+    },
+    "diagnostics/original-high/original-whip-crouch.png": {
+      "sha256": "5b1b29259c88c964314daac090fc7fd0b49d606a732ff3f2b1133613f2f7e29e",
+      "bytes": 77538
+    },
+    "diagnostics/original-high/original-whip-dash.png": {
+      "sha256": "e689b75465b581d2477e33613040a2960c6865846ef9bd00ffac2e5b875cdc5a",
+      "bytes": 74756
+    },
+    "diagnostics/original-high/original-whip-film-1.png": {
+      "sha256": "c675314f319ee852bc5bc8d0765f18c5f0dbbc78288a0b460df8158fce13bc39",
+      "bytes": 60170
+    },
+    "diagnostics/original-high/original-whip-film-10.png": {
+      "sha256": "2a29d814f5e422200c0673d6972a3d89d490652515a4461f0397fdf5ed305500",
+      "bytes": 67215
+    },
+    "diagnostics/original-high/original-whip-film-11.png": {
+      "sha256": "70e67752946ffbac6d57f1dac6f3c7142ccd2c2448eb4473382b8ac3d2cfd62d",
+      "bytes": 68253
+    },
+    "diagnostics/original-high/original-whip-film-12.png": {
+      "sha256": "b5537595ae015e1705d4045fb9ebe326353c2a990b95b3fc89633588c9749d5c",
+      "bytes": 65147
+    },
+    "diagnostics/original-high/original-whip-film-13.png": {
+      "sha256": "f0b6516efeaa16d49fcf6cdf557b56b8373b494a7e85233fec6568df577fb859",
+      "bytes": 61246
+    },
+    "diagnostics/original-high/original-whip-film-14.png": {
+      "sha256": "67fef544c3a3030b6a2d556a57c00e94909e15b7465190c337a6ee735c77c523",
+      "bytes": 58294
+    },
+    "diagnostics/original-high/original-whip-film-15.png": {
+      "sha256": "0cebb3e76069510f17ba1a8a105d16c0c5ea0bcbb541444c5bebb872944f00d6",
+      "bytes": 57353
+    },
+    "diagnostics/original-high/original-whip-film-16.png": {
+      "sha256": "5a4d8f1b9f7a980daec113f5ce26a584683e66f1c895c90784a60bc5cab4afdf",
+      "bytes": 58692
+    },
+    "diagnostics/original-high/original-whip-film-17.png": {
+      "sha256": "99a146b835fcba9c530ba596f32b723c5a005068edaf4488a58448dfc05a14f3",
+      "bytes": 59111
+    },
+    "diagnostics/original-high/original-whip-film-18.png": {
+      "sha256": "5ef39c3b0b003ca13e7dfdce3ac25e2f509c48c88551ae83bf58415d249c351a",
+      "bytes": 59627
+    },
+    "diagnostics/original-high/original-whip-film-19.png": {
+      "sha256": "1d3d067bd36a8087d9206eaf534cd283063e0782c603bd93713624afece6bf85",
+      "bytes": 59947
+    },
+    "diagnostics/original-high/original-whip-film-2.png": {
+      "sha256": "72647c735716fabec9f7a0d0721202b2a69be43d22ee70983d013aeeeb8ebd75",
+      "bytes": 62808
+    },
+    "diagnostics/original-high/original-whip-film-20.png": {
+      "sha256": "3b3f82f0f596c241699e1508fdc5ef6b26e04a2bbd9fcd3b44af0bb48a51a668",
+      "bytes": 59690
+    },
+    "diagnostics/original-high/original-whip-film-21.png": {
+      "sha256": "e2598c8f5f0b7a5e86c90f54e544186ec77c3f6f5cc98dd8fa95c8887583b7e5",
+      "bytes": 59232
+    },
+    "diagnostics/original-high/original-whip-film-22.png": {
+      "sha256": "32a1befd725dd459fbfe66bea138ef00fca4f298eb90390c3a66bb11d141c411",
+      "bytes": 56851
+    },
+    "diagnostics/original-high/original-whip-film-23.png": {
+      "sha256": "1a751a60af77329c4c3ab56ef83a279a35cdf8d05b7986b8d3d1329f72fbc4dc",
+      "bytes": 55945
+    },
+    "diagnostics/original-high/original-whip-film-24.png": {
+      "sha256": "312e06faf7755e4b50635fdfb6fe315c9202d47337ea42bfbda104e008d3badb",
+      "bytes": 55603
+    },
+    "diagnostics/original-high/original-whip-film-3.png": {
+      "sha256": "519bc7ed858a3651fa6128a459082f45e7855e2962983c3d00e4d7e6b30c703b",
+      "bytes": 63709
+    },
+    "diagnostics/original-high/original-whip-film-4.png": {
+      "sha256": "796950ae5081704eabf92ef7634deacf8dd84a8212bab302d122eb87cf3605f4",
+      "bytes": 63328
+    },
+    "diagnostics/original-high/original-whip-film-5.png": {
+      "sha256": "80a6589deb39b6d49061702580ea9b49c892e9811462f82137883188e5ba4ae2",
+      "bytes": 66548
+    },
+    "diagnostics/original-high/original-whip-film-6.png": {
+      "sha256": "483f5e417005920c56e36e94176635906f1544983aa541e09e620255bc8d2263",
+      "bytes": 66970
+    },
+    "diagnostics/original-high/original-whip-film-7.png": {
+      "sha256": "2fab15d71395c11692ebcd4bb5420eec04fac0a4cb90b7a500fe8b49ac2bff44",
+      "bytes": 66568
+    },
+    "diagnostics/original-high/original-whip-film-8.png": {
+      "sha256": "89ef02db67c450e7e9807843d397e09ef47e2a15673c2c979c1a4b23f389857f",
+      "bytes": 66218
+    },
+    "diagnostics/original-high/original-whip-film-9.png": {
+      "sha256": "b17d62c3ae1b9e2c10bf4aba93710ebd70c0e663529e1bf36c502a0a0772a70a",
+      "bytes": 67170
+    },
+    "diagnostics/original-high/original-whip-idle.png": {
+      "sha256": "b05d2c87e58c49b29a7566d383220d4d4d000dae386403eb3a539f950b826d97",
+      "bytes": 91420
+    },
+    "diagnostics/original-high/original-whip-left.png": {
+      "sha256": "5e708b441a5d8f07e1c51a9d45b05f7e06fc0304c26d5f87e39e1e4d477377eb",
+      "bytes": 84535
+    },
+    "diagnostics/original-high/raw.log": {
+      "sha256": "a63048beedb2aff561f1fd86b940978d1d08090027948ca3365c6d8e40a38317",
+      "bytes": 12484
+    },
+    "diagnostics/original-high/result.json": {
+      "sha256": "3de5d4782fce803fa0ed4d642549988352fa775c9990c744cc202e2ae095b932",
+      "bytes": 300
+    },
+    "diagnostics/candidate-high-v1/command.json": {
+      "sha256": "db663fc311bfc5e2db87383e1837070bc7e42bb543c9a9a7f0f874698012e7b7",
+      "bytes": 611
+    },
+    "diagnostics/candidate-high-v1/current-index.json": {
+      "sha256": "38a60cf1a666f8e0d77e3eb4cb892dc233f1e5d86231ce318be94017767573e0",
+      "bytes": 36912
+    },
+    "diagnostics/candidate-high-v1/raw.log": {
+      "sha256": "1d73127fbf47aa5e18c8f37647fd000bb13b6e333bee85a098eb7f60a12c74c0",
+      "bytes": 33582
+    },
+    "diagnostics/candidate-high-v1/result.json": {
+      "sha256": "ed12f71135549f1079d63d2fdab122ba7fdf55f738dd1eae89385c2cfbe7e85c",
+      "bytes": 194
+    },
+    "diagnostics/audio-diagnostic/command.json": {
+      "sha256": "efeca3a3f595162c506f919f6b88328b1df178bc919670003d4330c5397b1a66",
+      "bytes": 622
+    },
+    "diagnostics/audio-diagnostic/raw.log": {
+      "sha256": "44af83f9f2d483655e6fb984eb584a16c55a003d5556025129926b0d97adb1e5",
+      "bytes": 584599
+    },
+    "diagnostics/audio-diagnostic/result.json": {
+      "sha256": "6b63f8362712fadc0381b770cf57022574464d48478fe827044e833b1a13acbc",
+      "bytes": 142
+    },
+    "diagnostics/audio-diagnostic-full/command.json": {
+      "sha256": "5e0eaa8fa76812f2221622bca1b1b0b9c42ef13a8168f345da4783f61e8e5a31",
+      "bytes": 631
+    },
+    "diagnostics/audio-diagnostic-full/current-index.json": {
+      "sha256": "3bc294cdb42f7d51762d3f53727ef064781b4dd70f1924f9a6b22b720a835980",
+      "bytes": 36911
+    },
+    "diagnostics/audio-diagnostic-full/raw.log": {
+      "sha256": "8273393d26d889c41521b9afc587a7378f476e9ed1acc6b8f3bc3d8944fa4de4",
+      "bytes": 619005
+    },
+    "diagnostics/audio-diagnostic-full/result.json": {
+      "sha256": "704502396a00a93750c3a54f2ce28753ec8ffb9aedbea8639de68613ee2c84ab",
+      "bytes": 192
+    },
+    "diagnostics/final-low-v2-art-clipped/command.json": {
+      "sha256": "839410ca72f807efca6bf804635bea4bd1de9485c6b86479c6050942ddf542f1",
+      "bytes": 602
+    },
+    "diagnostics/final-low-v2-art-clipped/current-index.json": {
+      "sha256": "9da1afee23a147f8c12caa72a52df51178416cd1cde3e8ba48675ede11651c01",
+      "bytes": 36941
+    },
+    "diagnostics/final-low-v2-art-clipped/independent.json": {
+      "sha256": "98ffe9abcdc125a88676dd33cce98d4dd013b3d0163329daaee4039b01a92c53",
+      "bytes": 1036
+    },
+    "diagnostics/final-low-v2-art-clipped/raw.log": {
+      "sha256": "f11a18c7b3fe03eb3c7477ce492e1ad82863ee7414ae340580be01499dcf6e09",
+      "bytes": 32617
+    },
+    "diagnostics/final-low-v2-art-clipped/result.json": {
+      "sha256": "98e3ec6599d6877abf49c81f9ad6186c8ed5faea850b4f3817d30a6285be8086",
+      "bytes": 109
+    },
+    "diagnostics/final-high-v2-art-clipped/command.json": {
+      "sha256": "16ff794c0c1617c22d6c377f6434a2c9b8d8a244553928ccbe6ae61ada28d16a",
+      "bytes": 604
+    },
+    "diagnostics/final-high-v2-art-clipped/current-index.json": {
+      "sha256": "a4d6adfdc6ff0d233d4ea3f4b1b711a93e4ade6eee3d614846c583e5f910d8c6",
+      "bytes": 36947
+    },
+    "diagnostics/final-high-v2-art-clipped/independent.json": {
+      "sha256": "e861914ac53e03be69c85dd23928e7efbcc4793919c2d1755407085d93d2d3bc",
+      "bytes": 1037
+    },
+    "diagnostics/final-high-v2-art-clipped/raw.log": {
+      "sha256": "34680533ff1c389aa44ac9d622d092499ad3dab2cf674abc4357836a0f952dfc",
+      "bytes": 32716
+    },
+    "diagnostics/final-high-v2-art-clipped/result.json": {
+      "sha256": "98e3ec6599d6877abf49c81f9ad6186c8ed5faea850b4f3817d30a6285be8086",
+      "bytes": 109
+    },
+    "diagnostics/final-low-v3-head-bound/command.json": {
+      "sha256": "839410ca72f807efca6bf804635bea4bd1de9485c6b86479c6050942ddf542f1",
+      "bytes": 602
+    },
+    "diagnostics/final-low-v3-head-bound/current-index.json": {
+      "sha256": "847e58c254a52c1ead47be34959520096e51a40049ac36f5064f87ddb909e78f",
+      "bytes": 78074
+    },
+    "diagnostics/final-low-v3-head-bound/raw.log": {
+      "sha256": "13f8dd89e3431f0ed2e9239f6e0e19cd7a17ce23cdeac932596b4e0e846dd36a",
+      "bytes": 32931
+    },
+    "diagnostics/final-low-v3-head-bound/result.json": {
+      "sha256": "15e33873ea4b0e22c8d879809fa4ddbe88daa819a79324f35ca013cc386b7623",
+      "bytes": 188
+    },
+    "diagnostics/final-low-v4-rectangle-bound/command.json": {
+      "sha256": "839410ca72f807efca6bf804635bea4bd1de9485c6b86479c6050942ddf542f1",
+      "bytes": 602
+    },
+    "diagnostics/final-low-v4-rectangle-bound/current-index.json": {
+      "sha256": "4596e4e7be96b9dfaf028bfec344435cef4d3c14eda8f7952baec7cdd6994c32",
+      "bytes": 79145
+    },
+    "diagnostics/final-low-v4-rectangle-bound/raw.log": {
+      "sha256": "7969a1461d17146bb61077446d21a175c8abd794402495c09c737f9a2d23361b",
+      "bytes": 33797
+    },
+    "diagnostics/final-low-v4-rectangle-bound/result.json": {
+      "sha256": "b331cc943ddac0495f866b2d1f6053fa0eaaf692fb179c1601af81b70657c337",
+      "bytes": 188
+    },
+    "source-base.json": {
+      "sha256": "918aaf9035accfb8b248c9a4e4959fbfc88c57e2ebdd15f9c210ec9332668cea",
+      "bytes": 1269082
+    },
+    "source-v1.json": {
+      "sha256": "2d791afe0c17d075d5003f905475a062a85baf678955e3a82379f3aee7e0e67e",
+      "bytes": 1269082
+    },
+    "source-v2.json": {
+      "sha256": "e8929ef49b1ab598e154b3a21a9930660d369f9e4099de1df0ff12776e86bdeb",
+      "bytes": 1269082
+    },
+    "source-v3.json": {
+      "sha256": "e5fac6d1f04fe286d4a3181736d43e81fb978877348d7c187f089e1c90b94ed9",
+      "bytes": 1269082
+    },
+    "source-v4.json": {
+      "sha256": "56a028818c2b7ae89bb84a0f91af140c734247ac77a01f3d321add50cdef0a92",
+      "bytes": 1269082
+    },
+    "source-v5.json": {
+      "sha256": "ae41cc94f95c6cf0f0ad3b5929340b71620e663e8c62df8b9929b00046375676",
+      "bytes": 1269082
+    },
+    "diagnostics/melee_art_probe-original.gd": {
+      "sha256": "e76a7e3d787110192f3db70095a229e7d6f7673f3032f8634ad2bf449e441bdb",
+      "bytes": 17691
+    },
+    "diagnostics/melee_art_probe-v1.gd": {
+      "sha256": "1cf09eb3f59e6ec7812443c19e0e141f44cd0f7a826fee6e4a9f273fc29852c3",
+      "bytes": 20439
+    },
+    "diagnostics/melee_art_probe-v2.gd": {
+      "sha256": "321a35df1cc624e149ef1a322abfc77111191acebbbc40909e06341c8b94b35e",
+      "bytes": 20598
+    },
+    "diagnostics/melee_art_probe-v3.gd": {
+      "sha256": "cabe87866cda87be5062e15d273a54290342c8d19aca08cc7821767b792b2422",
+      "bytes": 22465
+    },
+    "diagnostics/melee_art_probe-v4.gd": {
+      "sha256": "cdae7a70a9d93dfd7000d39372e2814ff8de861c614ecbe87deec84c9e726d22",
+      "bytes": 23020
+    },
+    "diagnostics/weapon_head_probe-original.gd": {
+      "sha256": "d5ee3884dc8c11a08ffec1eb99459fc78f392a5f852d8bf802964b718824cc05",
+      "bytes": 7617
+    },
+    "diagnostics/framing-v3-head-diagnostic.json": {
+      "sha256": "6a3464d76c0ebf58c7355af0695e89aa02df6db83355e76373a13f3a7d81b9f5",
+      "bytes": 456
+    },
+    "diagnostics/framing-v4-head-diagnostic.json": {
+      "sha256": "ef318ab2200734989cb57520576bee94dfe81dc8e02907d9599d4fb518a5de6f",
+      "bytes": 255
+    },
+    "diagnostics/final-low-v3-head-bound/current-head-dagger-3.bin": {
+      "sha256": "69b92fdcef7dc2ceaf77fcb7920a2b2fe9402f3745aa5319932f1a81ab6ceb85",
+      "bytes": 1382400
+    },
+    "diagnostics/final-low-v3-head-bound/current-head-dagger-3.png": {
+      "sha256": "8d15e871365219780d3b029e99c89cf4f5cbf2eadb32515bc9c9339878b29096",
+      "bytes": 82954
+    },
+    "diagnostics/final-low-v3-head-bound/current-head-dagger-3-head-alpha.bin": {
+      "sha256": "7f80a9dbeaaab8568edf6c606e9c947a1f231b344cd16c79c87f11a5d5585900",
+      "bytes": 1843200
+    },
+    "diagnostics/final-low-v3-head-bound/current-head-dagger-3-head-alpha.png": {
+      "sha256": "00ec77d0d5c529a2bcae1c33d8ec323492e094eef10ce1423b6a993c08fa8c3f",
+      "bytes": 1399
+    },
+    "diagnostics/final-low-v4-rectangle-bound/current-head-glaive-1.bin": {
+      "sha256": "9c867e8ccb319277ec17b6f075405416dff9ea4db9abf4be114b84055744f398",
+      "bytes": 1382400
+    },
+    "diagnostics/final-low-v4-rectangle-bound/current-head-glaive-1.png": {
+      "sha256": "3ef512e5f8c59831472827b49749480dbfd5388fcb7d623d83251753210a9fe1",
+      "bytes": 77389
+    },
+    "diagnostics/final-low-v4-rectangle-bound/current-head-glaive-1-head-alpha.bin": {
+      "sha256": "1f656bf8a35303270912475118fbfd0821efc22a5a1e789a29e496ba7cc1d9ab",
+      "bytes": 1843200
+    },
+    "diagnostics/final-low-v4-rectangle-bound/current-head-glaive-1-head-alpha.png": {
+      "sha256": "acd5ec1c37390cb75594c8d52c41cd05e377b89b6c57528063569bd4e5b2c26e",
+      "bytes": 1352
+    },
+    "source/tools/melee_art_probe.gd": {
+      "sha256": "5bdf27c1fff99d837a04e302aee5bb3f0077307f2031e21ed7e5e20715ffdef1",
+      "bytes": 23030
+    },
+    "source/tools/weapon_head_probe.gd": {
+      "sha256": "61f87a898ab3b4fbf809bb34af904ae0b1951bf1974e630009cf6f45823cc85c",
+      "bytes": 7965
+    },
+    "source/tools/viewport_capture.gd": {
+      "sha256": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd",
+      "bytes": 785
+    },
+    "source/tools/scenarios/scenario_base.gd": {
+      "sha256": "00a82575759e37e6154ce829bdbabe154c5dc14a65cae8d37abaab5171c66a80",
+      "bytes": 2661
+    },
+    "source/core/audio/audio_release.gd": {
+      "sha256": "e4e1d57a59903c24ec65f2b8eec81ff489b14ff9a9c3133fc31cb06126a09cd5",
+      "bytes": 1194
+    },
+    "source/core/melee_art.gd": {
+      "sha256": "2ad7354fba566e849357b55d65ff2dcce6dc9dd9522741d29c6651fec35773af",
+      "bytes": 14981
+    },
+    "source/game/player/blade_light.gd": {
+      "sha256": "7b95b310b85c0187c7b20636c0b6ef2f9ff2b1da7ea6f7917ae555710e93d720",
+      "bytes": 2907
+    },
+    "source/game/player/melee_held.gd": {
+      "sha256": "fabd32d2f0bbe0c654b05b25f2c5a50fa0e0fb078b412276a6c35eac6c56a75a",
+      "bytes": 15903
+    },
+    "source/data/weapon_art/melee.json": {
+      "sha256": "c863c74d3eb1b25f20d83ec5d4a72160c977a2b2cb2eb8abc6c6454fdad00f6c",
+      "bytes": 2879
+    },
+    "source/assets_src/pipeline/melee_weapons.json": {
+      "sha256": "14c36768db643a930864bf13caa7136622bf88a76514532e135867d20b1e80ac",
+      "bytes": 6472
+    },
+    "source/data/weapons/melee/melee_blade.tres": {
+      "sha256": "232b7574cb325c0421421dd6a381153b8a35b251911b49c97f0035471798896b",
+      "bytes": 726
+    },
+    "source/data/melee/thermal_blade.json": {
+      "sha256": "84619140858b23de8a1abc9b5c02e16ed3f30b02bf5bf1d31dfeac789a6dd96d",
+      "bytes": 8592
+    },
+    "source/art/weapons/melee/melee_blade.png": {
+      "sha256": "86b7c0e1825ed996308c0a0f60df0894cf89d582c7c60726db1506bf659ef88b",
+      "bytes": 6957
+    },
+    "source/art/weapons/melee/melee_blade_glow.png": {
+      "sha256": "b86da7278b1f4d222d56958087284975aea3a4833a20cb7a60223e52e566375a",
+      "bytes": 4424
+    },
+    "source/data/weapons/melee/melee_dagger.tres": {
+      "sha256": "9ab0593e4f8bca140f83d9e6c071c8b2f05ca367ade0e657d806fae5acffd03f",
+      "bytes": 701
+    },
+    "source/data/melee/mono_dagger.json": {
+      "sha256": "8adc7ee18ee5fd9ec08c44ef9daef5e871f1970364726f8d94ca6426556168da",
+      "bytes": 8752
+    },
+    "source/art/weapons/melee/melee_dagger.png": {
+      "sha256": "c160eca140adfcbb1b0d05bb7bd8229a4b870e64609735cac9c595861149bc75",
+      "bytes": 3821
+    },
+    "source/art/weapons/melee/melee_dagger_glow.png": {
+      "sha256": "a534a00f396e3bc78dc2e963eb52729ea3e75fe69742efbec1cae889477a23c3",
+      "bytes": 2042
+    },
+    "source/data/weapons/melee/melee_glaive.tres": {
+      "sha256": "13897a65bcc1cbd60d40fe2b72fe9604ea8e785927c750c9680b4d73d8ab403c",
+      "bytes": 715
+    },
+    "source/data/melee/ion_glaive.json": {
+      "sha256": "0d9956942bedb2e249309dcc384aa139fbf5ed9de626a2d19695786dc054ac6b",
+      "bytes": 7406
+    },
+    "source/art/weapons/melee/melee_glaive.png": {
+      "sha256": "1d843e4a97f9a4cb8073b6d89bc1e1f25a86c789bfc9d7b612861adbd8c5cf08",
+      "bytes": 16154
+    },
+    "source/art/weapons/melee/melee_glaive_glow.png": {
+      "sha256": "75595b0ddae010951f3c4c8a155f11994524f62d7f5cc1b3643a7be9ab03b473",
+      "bytes": 12370
+    },
+    "source/data/weapons/melee/melee_maul.tres": {
+      "sha256": "527b684292626c4678db47b95757bd7431a5daea907bf74918151c0520835876",
+      "bytes": 743
+    },
+    "source/data/melee/hydraulic_maul.json": {
+      "sha256": "4f67ae4545964af27dd727d132f7fabb81b1f3f97cda4e9529e2e66b7fe3e387",
+      "bytes": 7274
+    },
+    "source/art/weapons/melee/melee_maul.png": {
+      "sha256": "2b7dd8e3463ea9d102f86cabe9916c94d782e7dea6fdf878d7160ce5a8d7901e",
+      "bytes": 19959
+    },
+    "source/art/weapons/melee/melee_maul_glow.png": {
+      "sha256": "0b4d3f43346ad5cae5774c247791be6066f036220027548412f9309f378b1097",
+      "bytes": 10153
+    },
+    "source/data/weapons/melee/melee_whip.tres": {
+      "sha256": "acedbd9136b8812e5836eb7d5ac55f67056e0be4808124dfc2aa2af0b50b6c37",
+      "bytes": 707
+    },
+    "source/data/melee/mono_whip.json": {
+      "sha256": "0dfe61549422849c9a32cc0f15cb7ccc359d1b60f84ef0506497e68afec7963e",
+      "bytes": 5623
+    },
+    "source/art/weapons/melee/melee_whip.png": {
+      "sha256": "5d784edad0a94d9e1cd10112b80858e4fdac966ae6b113f13562abf5f7682964",
+      "bytes": 1942
+    },
+    "source/art/weapons/melee/melee_whip_glow.png": {
+      "sha256": "fd4503a6054c4c6c7acab3036b9b0de9e7ed689abb143d990f4bca76d755f0ae",
+      "bytes": 903
+    },
+    "drivers/run-ne260-original-20261118.py": {
+      "sha256": "8e1fff243bc848cd5fd30ba4c27bb256027348cf2c82e5984fbd008cd4697d57",
+      "bytes": 1750
+    },
+    "drivers/run-ne260-candidate-20261118.py": {
+      "sha256": "7989d8a309c2a13827e8be1be6240a3004e563168bbad694e1de15303fe31dc3",
+      "bytes": 1642
+    },
+    "drivers/run-ne260-audio-diagnostic-20261118.py": {
+      "sha256": "c5622b410af97319f9359e7974260e72ba8ace374750533a9fee067a7ecfc50c",
+      "bytes": 2051
+    },
+    "drivers/run-ne260-audio-full-20261118.py": {
+      "sha256": "0d1eafb9e184a297f7f8c2dae97a3a458dcc8087c01c8ea545097b4c23a02282",
+      "bytes": 1658
+    },
+    "drivers/run-ne260-checks-20261118.py": {
+      "sha256": "9fdbe4fb4a8444004d0178d9e3f9330fd480bd669fb3beda3ae337289b2d2453",
+      "bytes": 1726
+    },
+    "drivers/run-ne260-final-20261118.py": {
+      "sha256": "7323aaf0ec91449d3d8cc1daec97b8d7ac6f838ce13bdccb691997768548cbc8",
+      "bytes": 2741
+    },
+    "drivers/run-ne260-final-v3-20261118.py": {
+      "sha256": "7b808a94888d7e055ed4869882db3df678a8c1dacaf017e99b6a85d85b642bc1",
+      "bytes": 2762
+    },
+    "drivers/run-ne260-final-v4-20261118.py": {
+      "sha256": "3eac4965a648ce6288bbd77a8afe1ecc3731a499290752f3232eaf7b63121615",
+      "bytes": 2762
+    },
+    "drivers/run-ne260-final-v5-20261118.py": {
+      "sha256": "d2e6d47880431e9d3cb05a8cbb972d23851ee0725d269042c851145ee4c720cc",
+      "bytes": 2762
+    },
+    "drivers/review-ne260-20261118.py": {
+      "sha256": "3a77d92471c91e9333d8fd4a5ea12463d603c92931319011efd9177a94431079",
+      "bytes": 1192
+    },
+    "drivers/audio-diagnostic.gd": {
+      "sha256": "7809f5fc6bc8f8d8e228cacf29a00a9e1da3e82a7e1584d3f7057d2b8a521590",
+      "bytes": 453
+    },
+    "drivers/audio-diagnostic.tscn": {
+      "sha256": "81a071b1d1de0777e590183a27ddac0ae94b983dc5886195fe39b9f61818dcac",
+      "bytes": 188
+    }
+  }
+}

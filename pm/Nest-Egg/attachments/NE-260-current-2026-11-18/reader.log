@@ -1,0 +1,96 @@
+{
+  "passed": true,
+  "source_count": 10095,
+  "native": {
+    "low": {
+      "pixel_checks_passed": true,
+      "clean_native_required": true,
+      "rows": [
+        {
+          "weapon": "blade",
+          "head_bound": 0.0,
+          "paired_linear_ratio": 1.749496300476747,
+          "moves": 3,
+          "film_frames": 8
+        },
+        {
+          "weapon": "dagger",
+          "head_bound": 0.0,
+          "paired_linear_ratio": 1.9050134162879058,
+          "moves": 3,
+          "film_frames": 8
+        },
+        {
+          "weapon": "glaive",
+          "head_bound": 0.0,
+          "paired_linear_ratio": 1.3582236346585712,
+          "moves": 2,
+          "film_frames": 8
+        },
+        {
+          "weapon": "maul",
+          "head_bound": 0.0,
+          "paired_linear_ratio": 1.8525350758650285,
+          "moves": 2,
+          "film_frames": 8
+        },
+        {
+          "weapon": "whip",
+          "head_bound": 0.0,
+          "paired_linear_ratio": 1.2854632344621069,
+          "moves": 1,
+          "film_frames": 24
+        }
+      ],
+      "head_frames": 16,
+      "light_pairs": 11,
+      "images": 159
+    },
+    "high": {
+      "pixel_checks_passed": true,
+      "clean_native_required": true,
+      "rows": [
+        {
+          "weapon": "blade",
+          "head_bound": 0.0,
+          "paired_linear_ratio": 1.7365491198476828,
+          "moves": 3,
+          "film_frames": 8
+        },
+        {
+          "weapon": "dagger",
+          "head_bound": 0.0,
+          "paired_linear_ratio": 1.8490428521774676,
+          "moves": 3,
+          "film_frames": 8
+        },
+        {
+          "weapon": "glaive",
+          "head_bound": 0.0,
+          "paired_linear_ratio": 1.3518314678152,
+          "moves": 2,
+          "film_frames": 8
+        },
+        {
+          "weapon": "maul",
+          "head_bound": 0.0,
+          "paired_linear_ratio": 1.8301120240386972,
+          "moves": 2,
+          "film_frames": 8
+        },
+        {
+          "weapon": "whip",
+          "head_bound": 0.0,
+          "paired_linear_ratio": 1.2842011436088683,
+          "moves": 1,
+          "film_frames": 24
+        }
+      ],
+      "head_frames": 16,
+      "light_pairs": 11,
+      "images": 159
+    }
+  },
+  "actual_empty_alpha_rejected": true,
+  "scope": "arranged native art/light verification; old rectangle W/H retained plus tighter nonzero-head-alpha W / opaque H upper bound at same2% gate; unobstructed head captures hide only nearby receiver and keep blade light; visible receiver for on/off pairs; no natural combat, all optional moves/poses, FPS or VRAM claim"
+}
