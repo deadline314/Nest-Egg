@@ -47,6 +47,9 @@ static func build(station: Node2D, kind_name: String) -> TrainingArt:
 	if body == null:
 		push_error("[TrainingArt] %s 的器材圖 %s 不在 %s，改用簡單畫法" % [kind_name, entry.get("prop", ""), pack])
 		return null
+	if not ResourceLoader.exists(body.texture) or RigLibrary.optional_texture(body.texture) == null:
+		push_error("[TrainingArt] %s 讀不到 %s，改用簡單畫法" % [kind_name, body.texture])
+		return null
 	var art := TrainingArt.new()
 	art.name = "TrainingArt"
 	art.show_behind_parent = true
@@ -54,8 +57,9 @@ static func build(station: Node2D, kind_name: String) -> TrainingArt:
 	art._sway_max = deg_to_rad(float(entry.get("sway_deg", 0.0)))
 	art._add_prop(art, body, Vector2(-body.size.x * 0.5, -body.size.y), false)
 	var arm: Dictionary = entry.get("arm", {})
-	if not arm.is_empty():
-		art._add_arms(arm, pack, kind_name)
+	if not arm.is_empty() and not art._add_arms(arm, pack, kind_name):
+		art.free()
+		return null
 	station.add_child(art)
 	art.set_process(false)
 	return art
@@ -115,11 +119,14 @@ func _process(delta: float) -> void:
 		set_process(false)
 
 
-func _add_arms(arm: Dictionary, pack: String, kind_name: String) -> void:
+func _add_arms(arm: Dictionary, pack: String, kind_name: String) -> bool:
 	var data := PropLibrary.find(StringName(str(arm.get("prop", ""))), pack)
 	if data == null:
-		push_error("[TrainingArt] %s 的手臂圖 %s 不在 %s，只顯示機身" % [kind_name, arm.get("prop", ""), pack])
-		return
+		push_error("[TrainingArt] %s 的手臂圖 %s 不在 %s，改用簡單畫法" % [kind_name, arm.get("prop", ""), pack])
+		return false
+	if not ResourceLoader.exists(data.texture) or RigLibrary.optional_texture(data.texture) == null:
+		push_error("[TrainingArt] %s 讀不到手臂圖 %s，改用簡單畫法" % [kind_name, data.texture])
+		return false
 	var shoulder := _vector(arm.get("shoulder"), Vector2(0.0, -30.0))
 	var spread := float(arm.get("spread", 4.0))
 	_arm_rest = float(arm.get("rest_deg", 20.0))
@@ -136,6 +143,7 @@ func _add_arms(arm: Dictionary, pack: String, kind_name: String) -> void:
 		_add_prop(pivot, data, top_left, side < 0.0)
 		_arms.append(pivot)
 		_arm_targets.append(_arm_rest)
+	return true
 
 
 func _add_prop(parent: Node2D, data: PropData, top_left: Vector2, flip: bool) -> void:

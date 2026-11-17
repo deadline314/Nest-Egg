@@ -102,7 +102,7 @@ func _shoot(station: TrainingStation, camera: LevelCamera) -> Dictionary:
 		station._phase = &"idle"
 		station.queue_redraw()
 		await _settle(20)
-		var image := _capture("%s-%s" % [label, state])
+		var image := await _capture("%s-%s" % [label, state])
 		result["lamp_white_" + state] = snappedf(_lamp_white(station, image), 0.0001)
 		if state == "idle":
 			result["body_luma"] = snappedf(_body_luma(station, image), 0.0001)
@@ -113,14 +113,14 @@ func _shoot(station: TrainingStation, camera: LevelCamera) -> Dictionary:
 		station._art.hit(1.0)
 		for frame in 6:
 			await _wait(0.05)
-			_capture("%s-hit-%d" % [label, frame])
+			await _capture("%s-hit-%d" % [label, frame])
 		await _wait(1.2)
 	if station.data.kind == TrainingData.Kind.TRAINER:
 		station._phase = &"warn"
 		station._pose_arms(&"warn")
 		station.queue_redraw()
 		await _wait(TrainingStation.TRAINER_WARN)
-		var warn := _capture("%s-warn" % label)
+		var warn := await _capture("%s-warn" % label)
 		result["lamp_white_warn"] = snappedf(_lamp_white(station, warn), 0.0001)
 		station._phase = &"cooldown"
 		station._flash = 0.25
@@ -128,10 +128,10 @@ func _shoot(station: TrainingStation, camera: LevelCamera) -> Dictionary:
 		station._pose_arms(&"strike", -1)
 		station.queue_redraw()
 		await _wait(0.08)
-		_capture("%s-strike" % label)
+		await _capture("%s-strike" % label)
 		station._pose_arms(&"rest")
 		await _wait(1.0)
-		_capture("%s-rest" % label)
+		await _capture("%s-rest" % label)
 	for key: String in result.keys():
 		if key.begins_with("lamp_white_") and float(result[key]) > MAX_LAMP_WHITE:
 			_failures += 1
@@ -144,6 +144,8 @@ func _shoot(station: TrainingStation, camera: LevelCamera) -> Dictionary:
 
 
 func _capture(file_name: String) -> Image:
+	# A timer can resume before this frame's arm pose reaches the viewport.
+	await RenderingServer.frame_post_draw
 	var image := Capture.image(get_viewport())
 	var path := _out.path_join("%s-%s.png" % [_tag, file_name])
 	var err := image.save_png(path)
@@ -162,8 +164,13 @@ func _screen_rect(world: Rect2, image: Image) -> Rect2i:
 
 
 func _lamp_white(station: TrainingStation, image: Image) -> float:
-	var at := station.global_position + (station._art.lamp_at if station._art != null else Vector2(0.0, -station.data.height))
+	var lamp_at := station._art.lamp_at.rotated(station._art.rotation) if station._art != null else Vector2(0.0, -station.data.height)
+	var at := station.global_position + lamp_at
 	var rect := _screen_rect(Rect2(at - Vector2(8.0, 8.0), Vector2(16.0, 16.0)), image)
+	if not rect.has_area():
+		_failures += 1
+		push_error("[TrainingArtProbe] %s 的狀態燈不在截圖內" % station.data.id)
+		return 1.0
 	var white := 0
 	var total := 0
 	for y in range(rect.position.y, rect.end.y):

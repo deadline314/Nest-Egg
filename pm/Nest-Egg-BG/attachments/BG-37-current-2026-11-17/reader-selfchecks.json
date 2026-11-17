@@ -1,0 +1,14 @@
+{
+  "cases": [
+    {
+      "case": "archive-byte",
+      "exit": 1,
+      "specific_rejection": true
+    },
+    {
+      "case": "member-hash",
+      "exit": 1,
+      "specific_rejection": true
+    }
+  ]
+}

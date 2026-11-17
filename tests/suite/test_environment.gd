@@ -671,6 +671,16 @@ func _test_training_art() -> void:
 		check(not trainer.is_processing() and is_equal_approx(left.rotation, -rest), "the arms return to rest and stop updating")
 	check(TrainingArt.build(holder, "reach") == null and TrainingArt.build(holder, "test_missing_kind") == null,
 			"a kind without art returns null so the station keeps its simple drawing")
+	for id: StringName in [&"training_range__steel_target", &"training_range__striker_arm"]:
+		var prop := PropLibrary.find(id, TrainingArt.DEFAULT_PACK)
+		var original := prop.texture
+		var children := holder.get_child_count()
+		prop.texture = "res://art/environment/test_missing_prop_training.png"
+		RigLibrary.texture(prop.texture)
+		var missing := TrainingArt.build(holder, "target" if id == &"training_range__steel_target" else "trainer")
+		prop.texture = original
+		check(missing == null and holder.get_child_count() == children,
+				"missing body or arm texture keeps the original station drawing without partial nodes: " + String(id))
 	holder.queue_free()
 	TrainingArt.clear_cache()
 
