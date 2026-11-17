@@ -564,6 +564,25 @@ func _test_contact_shadow() -> void:
 	body.position = Vector2(600.0, 100.0)
 	await physics_frames(3)
 	check(not shadow.is_cast(), "no shadow over a pit")
+	body.position = Vector2(100.0, 100.0)
+	await physics_frames(3)
+	check(shadow.is_cast() and shadow.world_rect().is_equal_approx(grounded),
+			"returning from a pit reacquires the same support and footprint")
+	shadow.half_width = 24.0
+	await physics_frames(3)
+	check(shadow.world_rect().size.x > grounded.size.x * 1.9,
+			"a wider pose updates the existing support probes and footprint")
+	var light := LightKit.create_point_light(Color.WHITE, 100.0, 1.0)
+	light.position = body.position + Vector2(40.0, -20.0)
+	world.add_child(light)
+	ContactShadow._lights_frame = -1
+	shadow._light_timer = 0.0
+	await physics_frames(3)
+	check(shadow._shift < 0.0, "a nearby right-hand scene light shifts contact shadow left")
+	light.enabled = false
+	shadow._light_timer = 0.0
+	await physics_frames(3)
+	check(is_zero_approx(shadow._shift), "a disabled scene light no longer shifts the contact shadow")
 	upper.queue_free()
 	lower.queue_free()
 	world.queue_free()

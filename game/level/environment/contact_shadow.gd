@@ -121,6 +121,8 @@ func _physics_process(delta: float) -> void:
 		left = center - half
 		right = center + half
 		strength = pow(1.0 - height, 1.5)
+	else:
+		surface = 0.0
 	_light_timer -= delta
 	var shift := _shift
 	if _light_timer <= 0.0:
@@ -130,7 +132,7 @@ func _physics_process(delta: float) -> void:
 			or absf(strength - _strength) > 0.01 or absf(shift - _shift) > REDRAW_EPSILON:
 		_left = left
 		_right = right
-		_surface = surface if surface != INF else 0.0
+		_surface = surface
 		_strength = strength
 		_shift = shift
 		queue_redraw()
