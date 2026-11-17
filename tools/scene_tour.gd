@@ -248,6 +248,7 @@ func _tour(level_id: String) -> bool:
 	var columns := maxi(1, ceili((size.x - view.x) / step.x) + 1)
 	var rows := maxi(1, ceili((size.y - view.y) / step.y) + 1)
 	var shots: Array[Dictionary] = []
+	var capture_size := Vector2i.ZERO
 	for row in rows:
 		for column in columns:
 			if not _cells.is_empty() and not _cells.has("%d:%d" % [column, row]):
@@ -263,12 +264,15 @@ func _tour(level_id: String) -> bool:
 			if _walk_player and level.player.visible:
 				_sync_player_light(level.player)
 				await _settle(4)
-			var to_world := (get_viewport().get_final_transform() * get_viewport().get_canvas_transform()).affine_inverse()
-			var window := Vector2(get_viewport().get_window().size)
-			var top_left := to_world * Vector2.ZERO
-			var bottom_right := to_world * window
+			# The PNG contains viewport content, excluding the window's letterboxing.
+			var to_world := get_viewport().get_canvas_transform().affine_inverse()
+			var viewport := get_viewport().get_visible_rect()
+			var top_left := to_world * viewport.position
+			var bottom_right := to_world * viewport.end
 			var file := "%s-c%02d-r%02d.png" % [_tag, column, row]
-			if Capture.image(get_viewport()).save_png(folder.path_join(file)) != OK:
+			var image := Capture.image(get_viewport())
+			capture_size = image.get_size()
+			if image.save_png(folder.path_join(file)) != OK:
 				push_error("[SceneTour] 無法寫入：%s" % folder.path_join(file))
 				level.queue_free()
 				return false
@@ -279,6 +283,8 @@ func _tour(level_id: String) -> bool:
 				shot.merge(await _measure(level, Rect2(top_left, bottom_right - top_left)))
 			shots.append(shot)
 	var index := {"level": level_id, "tag": _tag, "level_size": [size.x, size.y], "view": [view.x, view.y],
+		"window_size": [get_window().size.x, get_window().size.y],
+		"capture_size": [capture_size.x, capture_size.y],
 		"columns": columns, "rows": rows, "tile": level._layout.tile_size, "shots": shots,
 		"suppressed_player_prompts": suppressed_prompts,
 		"contact_shadows": 0 if _no_shadows else shadows.size(),
