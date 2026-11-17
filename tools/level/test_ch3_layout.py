@@ -6,6 +6,7 @@ Grid checks only; real player input, lighting and old-save loading are covered b
 import contextlib
 import importlib
 import os
+import re
 import sys
 import unittest
 from unittest.mock import patch
@@ -92,6 +93,20 @@ class ChapterThreeLayoutTests(unittest.TestCase):
         for ident in ('pump', 'mezzanine'):
             area = self.build(ident)
             self.assertTrue(all(area.grid.at(x, 0) == '#' for x in range(area.w)), ident)
+
+    def test_showroom_window_props_cover_their_interaction_points(self):
+        area = self.build('showroom')
+        props = {p['id']: p for p in kit._map_extra(area)['props']}
+        for glyph, ident in [('Ⓐ', 'clearwater__sun_chart_notes'), ('Ⓑ', 'clearwater__white_curtains'), ('Ⓤ', 'clearwater__sill_with_coin')]:
+            with self.subTest(window=glyph):
+                x = next(x for row in area.grid.rows() for x, char in enumerate(row) if char == glyph)
+                entry = props[ident]
+                path = os.path.join(kit.ROOT, 'data/environment/scene_props/clearwater', ident + '.tres')
+                with open(path, encoding='utf-8') as resource:
+                    width = float(re.search(r'^size = Vector2\(([^,]+),', resource.read(), re.MULTILINE)[1])
+                left = entry['x'] * kit.TILE + entry.get('dx', 0)
+                self.assertLessEqual(left, (x + 0.5) * kit.TILE)
+                self.assertGreaterEqual(left + width, (x + 0.5) * kit.TILE)
 
     def test_quest_locations_point_at_real_content(self):
         sys.path.insert(0, os.path.join(kit.ROOT, 'tools', 'story'))

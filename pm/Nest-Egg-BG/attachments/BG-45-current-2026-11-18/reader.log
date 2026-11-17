@@ -1,0 +1,40 @@
+{
+  "passed": true,
+  "cases": 8,
+  "normal_cells": 108,
+  "standable": 72,
+  "enemy_observations": 0,
+  "normal_hdr": 972,
+  "flat_hdr": 324,
+  "state_png": 38,
+  "point_decreases": 15,
+  "sunlight": [
+    {
+      "passed": true,
+      "opaque_pixels": 1880,
+      "off_mean": 0.10399329011886044,
+      "on_mean": 0.14532725260906396,
+      "ratio": 1.397467590870145,
+      "stable_restorations": true,
+      "same_pose": true,
+      "other_lights_held": true,
+      "records": 5,
+      "scope": "Opaque CPU-drawable union, actual same-pose PointLight2D toggle; original glow art stays visible. No head-exposure or performance claim."
+    },
+    {
+      "passed": true,
+      "opaque_pixels": 1880,
+      "off_mean": 0.10376531458877503,
+      "on_mean": 0.144589669155637,
+      "ratio": 1.3934296805117403,
+      "stable_restorations": true,
+      "same_pose": true,
+      "other_lights_held": true,
+      "records": 5,
+      "scope": "Opaque CPU-drawable union, actual same-pose PointLight2D toggle; original glow art stays visible. No head-exposure or performance claim."
+    }
+  ],
+  "empty_alpha_rejected": true,
+  "changed_checks": 58567,
+  "logical_members": 1588
+}

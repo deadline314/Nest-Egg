@@ -395,7 +395,7 @@ def build_showroom():
     a.prop('clearwater__tall_floor_plant', 24)
     a.stand(32, 'Ⓐ')
     a.prop('clearwater__window_chair', 35)
-    a.prop('clearwater__sun_chart_notes', 30, y=13, support='wall')
+    a.prop('clearwater__sun_chart_notes', 32, y=13, support='wall')
     a.stand(46, 'Ⓑ')
     a.prop('clearwater__white_curtains', 45, y=12, support='wall')
     a.prop('clearwater__rain_sound_machine', 50)
@@ -405,7 +405,7 @@ def build_showroom():
     a.stand(76, 'ⅶ')
     for x in (12, 34, 47, 61, 72):
         a.lamp(x, 9)
-    a.zone(0, 'sunny_day')
+    a.zone(0, 'showroom_day')
     a.features = {'loop': '三間樣品房圍著接待桌（x=16～62）', 'landmark': '接待桌（x=18）', 'secret': '三扇窗的完整比較（可選）'}
     return a
 
@@ -432,7 +432,7 @@ def build_office_hall():
     a.stand(60, 'Ⅻ')
     for x in (10, 24, 40, 54):
         a.lamp(x, 9)
-    a.zone(0, 'tower_white')
+    a.zone(0, 'reception_white')
     a.features = {'landmark': '辦公內門與等候臺（x=28～36）'}
     return a
 
