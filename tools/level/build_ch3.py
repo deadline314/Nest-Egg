@@ -128,7 +128,7 @@ PORTALS = {
 THEMES = {
     # 區域 -> (地形材質, 立面清單, 室內牆面貼圖, 鏤空機率, 天空, 道具資料夾)
     'pawnshop': ('concrete', ['shopfront', 'brick_block'], 'brick', 0.0, 'sky_storm', ['pawnshop_front', 'pawnshop_kitchen', 'basement_door', 'harbor_street']),
-    'plaza': ('asphalt', ['shopfront', 'shutter_block', 'warehouse'], None, 0.22, 'sky_storm', ['harbor_plaza', 'sluice_hall', 'harbor_street']),
+    'plaza': ('plaza_asphalt', ['shopfront', 'shutter_block', 'warehouse'], None, 0.22, 'sky_storm', ['harbor_plaza', 'sluice_hall', 'harbor_street']),
     'pump': ('concrete', ['warehouse'], 'hangar_wall', 0.0, 'sky_storm', ['sluice_hall', 'control_room', 'mezzanine']),
     'mezzanine': ('steel_plate', ['facility_wall'], 'facility_panel', 0.0, 'sky_storm', ['mezzanine', 'anchor_phone_booth', 'clinic']),
     'clinic': ('facility_floor', ['facility_wall'], 'facility_panel', 0.0, 'sky_storm', ['clinic', 'nursing_ward', 'control_room']),
@@ -223,7 +223,7 @@ def _build_plaza_v1():
     a.stand(93, 'Ⅰ')
     for x in (12, 28, 66, 86):
         a.lamp(x, 12)  # 戶外街燈約 4 公尺高（BG-36）
-    a.zone(0, 'market')
+    a.zone(0, 'plaza')
     a.features = {'landmark': '貨梯纜輪與導軌（x=48）', 'reward': '高架維修盒（x=75，第 13 列）',
                   'shortcut': '外梯 SC5（x=60）接通後直達泵室上橋'}
     return a

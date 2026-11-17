@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://data/scripts/environment_theme.gd" id="1_environment_theme"]
 [ext_resource type="Script" path="res://data/scripts/env_zone.gd" id="2_env_zone"]
 [ext_resource type="Script" path="res://data/scripts/backdrop_layer.gd" id="3_backdrop_layer"]
-[ext_resource type="Resource" path="res://data/environment/materials/asphalt.tres" id="4_asphalt"]
+[ext_resource type="Resource" path="res://data/environment/materials/plaza_asphalt.tres" id="4_plaza_asphalt"]
 [ext_resource type="Resource" path="res://data/environment/facades/shopfront.tres" id="5_shopfront"]
 [ext_resource type="Resource" path="res://data/environment/facades/shutter_block.tres" id="6_shutter_block"]
 [ext_resource type="Resource" path="res://data/environment/facades/warehouse.tres" id="7_warehouse"]
@@ -12,7 +12,7 @@
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("2_env_zone")
 from_tile = 0
-material = ExtResource("4_asphalt")
+material = ExtResource("4_plaza_asphalt")
 facades = Array[ExtResource("8_facade_data")]([ExtResource("5_shopfront"), ExtResource("6_shutter_block"), ExtResource("7_warehouse")])
 hole_chance = 0.22
 label = "廣場貨梯"
