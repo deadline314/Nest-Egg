@@ -9,6 +9,39 @@ from PIL import Image
 
 
 class ImportPolicyTest(unittest.TestCase):
+    def test_stage_prop_states_keep_four_pixels_per_world_pixel_in_scoped_builds(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / 'art/items/world/paper.png'
+            source.parent.mkdir(parents=True)
+            Image.new('RGBA', (96, 96)).save(source)
+            output = root / 'art/environment/scene_props/contact'
+            output.mkdir(parents=True)
+            for name in ['paper_lay.png', 'paper_lay_n.png', 'paper_lay_glow.png']:
+                Image.new('RGBA', (96, 192)).save(output / name)
+            Image.new('RGBA', (32, 32)).save(output / 'unused.png')
+            backdrop = root / 'art/environment/backdrop/sky.webp'
+            backdrop.parent.mkdir(parents=True)
+            Image.new('RGBA', (2048, 512)).save(backdrop)
+            stage = root / 'data/cutscene/stages/contact.json'
+            stage.parent.mkdir(parents=True)
+            authored = {'layers': [{'kind': 'sprite', 'path': 'res://art/environment/backdrop/sky.webp',
+                                   'source_width': 2048, 'scale': .5},
+                                  {'kind': 'sprite', 'path': 'res://art/items/world/paper.png',
+                                   'source_width': 96, 'scale': 18.5 / 96,
+                                   'states': {'lay': {'path': 'res://art/environment/scene_props/contact/paper_lay.png'}}}]}
+            stage.write_text(json.dumps(authored))
+            with patch.multiple(texture_import, ROOT=root, ART=root / 'art/environment'):
+                texture_import.apply_policy()
+                for name in ['paper_lay.png', 'paper_lay_n.png', 'paper_lay_glow.png']:
+                    self.assertIn('process/size_limit=0', (output / (name + '.import')).read_text())
+                self.assertIn('process/size_limit=16', (output / 'unused.png.import').read_text())
+                self.assertIn('process/size_limit=1024', backdrop.with_name('sky.webp.import').read_text())
+                self.assertEqual(json.loads(stage.read_text()), authored)
+                self.assertEqual(texture_import.apply_policy(check=True), 0)
+            with patch.multiple(texture_import, ROOT=root, ART=output):
+                self.assertEqual(texture_import.apply_policy(check=True), 0)
+
     def test_authored_contact_canvas_survives_art_resize(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

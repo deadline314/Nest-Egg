@@ -132,13 +132,22 @@ func _check_level(path: String, spots: Array, enemy_path := "res://data/enemies/
 	level.hud.visible = false
 	for node in get_tree().get_nodes_in_group(&"enemies"):
 		node.queue_free()
+	# Other people can stand on a probe point and inflate the player's contrast.
+	for node in level.find_children("*", "Node2D", true, false):
+		if node is NpcActor and node.data != null and node.data.kind == NpcData.Kind.PERSON:
+			node.hide()
+			node.process_mode = Node.PROCESS_MODE_DISABLED
+			for child in node.find_children("*", "", true, false):
+				child.process_mode = Node.PROCESS_MODE_DISABLED
 	for id: String in Story.scene_ids():
 		if id.begins_with("radio_") or id.begins_with("c2_radio_"):
 			Story._seen[StringName(id)] = true
 	# Prompts are UI; their bright text must not inflate the body contrast.
 	for node in level.find_children("*", "", true, false):
 		if node is WorldPrompt:
-			node.visible = false
+			node.enabled = false
+			node.set_process(false)
+			node.hide()
 	var layout: LevelLayout = level._layout
 	print("== %s" % path.get_file())
 	print("%-8s  %-8s  %-8s  %-8s" % ["區段", "玩家對比", "邊緣對比", "敵人對比"])

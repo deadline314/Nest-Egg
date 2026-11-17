@@ -1,6 +1,6 @@
 """Apply built-in Godot environment import resolution settings (BG-17).
 
-Source pixels and world dimensions are retained. Explicitly sized props
+Source pixels and world dimensions are retained. Explicitly sized props and stage material states
 and scene-pack props import at half resolution; props keep at least four
 texture pixels per world pixel. Terrain, facade modules and foreground silhouettes retain their
 resolution. Parallax records source width to preserve world geometry.
@@ -43,16 +43,29 @@ def apply_policy(check: bool = False) -> int:
         count = 0
         if isinstance(value, dict):
             source = value.get("path", "")
-            if value.get("kind") == "sprite" and source.startswith("res://art/environment/"):
+            if value.get("kind") == "sprite" and source.startswith("res://art/"):
                 image_path = ROOT / source.removeprefix("res://")
                 if image_path.exists():
                     with Image.open(image_path) as image:
                         width = image.width
-                    if "source_width" not in value:
+                    if "source_width" not in value and source.startswith("res://art/environment/"):
                         value["source_width"] = width
                         count += 1
-                    elif type(value["source_width"]) not in (int, float) or not math.isfinite(value["source_width"]) or value["source_width"] <= 0:
+                    canvas_width = value.get("source_width", width)
+                    if type(canvas_width) not in (int, float) or not math.isfinite(canvas_width) or canvas_width <= 0:
                         raise ValueError("Invalid authored sprite source_width: " + source)
+                    world_width = float(canvas_width) * abs(float(value.get("scale", 1)))
+                    if not math.isfinite(world_width):
+                        raise ValueError("Invalid authored sprite scale: " + source)
+                    states = value.get("states", {})
+                    sources = [source] + ([state.get("path", "") for state in states.values() if isinstance(state, dict)] if isinstance(states, dict) else [])
+                    for texture in sources:
+                        if not texture.startswith(("res://art/environment/props/", "res://art/environment/scene_props/")) or not (ROOT / texture.removeprefix("res://")).is_file():
+                            continue
+                        with Image.open(ROOT / texture.removeprefix("res://")) as image:
+                            minimum = math.ceil(max(image.size) / image.width * world_width * policy["minimum_prop_pixels_per_world_pixel"])
+                        key = texture.removeprefix("res://")
+                        minimum_sizes[key] = max(minimum_sizes.get(key, 0), minimum)
             for child in value.values():
                 count += stage_sizes(child)
         elif isinstance(value, list):
@@ -98,7 +111,8 @@ def apply_policy(check: bool = False) -> int:
             f'[deps]\n\nsource_file="res://{image.relative_to(ROOT).as_posix()}"\n\n[params]\n'
         )
         params = dict(policy["params"])
-        scale = policy["resolution_scale_by_directory"].get(image.relative_to(ART).parts[0], 1.0)
+        # A scoped build must use the same category as a full pipeline run.
+        scale = policy["resolution_scale_by_directory"].get(image.relative_to(ROOT / "art/environment").parts[0], 1.0)
         if any(fnmatch.fnmatch(image.name, pattern) for pattern in policy.get("preserve_resolution_patterns", [])):
             scale = 1.0
         with Image.open(image) as source:

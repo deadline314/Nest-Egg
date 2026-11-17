@@ -2,8 +2,11 @@ extends Node
 ## Same script, renderer and machine for BG-17 comparisons. Capture only after timing.
 ## --level=level_01 --quality=low --frames=180 --out=<directory>
 ## --spots=30,115,200: columns to stand on (defaults: three per legacy level).
-## --no-characters: no enemies, player hidden and not processing. Isolates the cost of the environment itself.
+## --no-characters: no enemies or NPC updates; player hidden and stopped. Isolates the environment.
 ## --hide=LevelBackground,PropNode: DIAGNOSTIC ONLY. Hides and stops every node of those script classes to see what each part costs.
+
+var _exit_code := 0
+
 
 func _ready() -> void:
 	_run.call_deferred()
@@ -40,11 +43,28 @@ func _run() -> void:
 	GameState.start_new_run(GameState.difficulties[1])
 	var level := Level.new()
 	level.configure(load("res://data/levels/%s.tres" % level_id))
+	var migration_helper := load("res://core/navigation/map_layout_migration.gd") as Script if ResourceLoader.exists("res://core/navigation/map_layout_migration.gd") else null
+	var migration: Dictionary = migration_helper.read(level.data) if migration_helper != null else {"revision": 1}
+	if migration.has("error"):
+		push_error("[EnvironmentProbe] " + str(migration["error"]))
+		Settings.set_light_quality(previous)
+		level.free()
+		get_tree().quit(2)
+		return
 	add_child(level)
 	for i in 60: await get_tree().process_frame
 	level.hud.visible = false
-	level.player.health.setup(999, 0.0)
+	level.player.health.setup(999, 100000.0 if no_characters else 0.0)
 	for enemy in get_tree().get_nodes_in_group(&"enemies"): enemy.queue_free()
+	var excluded_npcs := 0
+	if no_characters:
+		for node: Node in level.find_children("*", "Node2D", true, false):
+			if node is NpcActor:
+				node.hide()
+				node.process_mode = Node.PROCESS_MODE_DISABLED
+				# Actor rigs and prompts can explicitly process ALWAYS beneath the NPC.
+				for child: Node in node.find_children("*", "", true, false): child.process_mode = Node.PROCESS_MODE_DISABLED
+				excluded_npcs += 1
 	if not hide_classes.is_empty():
 		var hidden := 0
 		for node: Node in level.find_children("*", "", true, false):
@@ -64,9 +84,30 @@ func _run() -> void:
 	var spots: Array = [30, 115, 200] if level_id == "level_01" else [30, 175, 350]
 	if not spot_columns.is_empty(): spots = spot_columns
 	for tile: int in spots:
-		var y: float = level._layout.floor_below(tile, 4) - 2.0
+		var query := Vector2(tile, 4) * level._layout.tile_size
+		if migration_helper != null:
+			query = migration_helper.position(query, migration)
+		var column := floori(query.x / level._layout.tile_size)
+		var y: float = level._layout.floor_below(column, floori(query.y / level._layout.tile_size)) - 2.0
+		var feet := Vector2((column + 0.5) * level._layout.tile_size, y)
+		var fits := false
+		if level._layout.has_method("fits_body"):
+			fits = bool(level._layout.call("fits_body", feet, Player.BODY_SIZE))
+		elif feet.is_finite():
+			# Historical comparison checkouts predate LevelLayout.fits_body.
+			var body := Rect2(feet - Vector2(Player.BODY_SIZE.x * 0.5, Player.BODY_SIZE.y), Player.BODY_SIZE)
+			fits = Rect2(Vector2.ZERO, level._layout.pixel_size()).encloses(body)
+			for solid: Rect2i in level._layout.solid_rects:
+				if body.intersects(level._layout.cells_to_pixels(solid)):
+					fits = false
+					break
+		if not fits:
+			push_error("[EnvironmentProbe] %s tile %d: invalid sample position %s" % [level_id, tile, feet])
+			_exit_code = 2
+			break
+		print("ENVIRONMENT_PLACEMENT ", JSON.stringify({"level": level_id, "tile": tile, "migration_revision": migration["revision"], "query_cell": [column, floori(query.y / level._layout.tile_size)], "feet": [feet.x, feet.y], "fits_body": true}))
 		level.player.process_mode = Node.PROCESS_MODE_INHERIT
-		level.player.global_position = Vector2(tile * 16.0 + 8.0, y)
+		level.player.global_position = feet
 		level.player.velocity = Vector2.ZERO
 		for enemy in get_tree().get_nodes_in_group(&"enemies"): enemy.queue_free()
 		for n in (0 if no_characters else 5):
@@ -93,6 +134,18 @@ func _run() -> void:
 					overridden += 1
 			print("DIAGNOSTIC tile=%d temporary_material_overrides=%d" % [tile, overridden])
 			for i in 60: await get_tree().process_frame
+		var active_npcs := 0
+		var active_rigs := 0
+		for node: Node in level.find_children("*", "Node2D", true, false):
+			if node.can_process():
+				if node is NpcActor: active_npcs += 1
+				if node is CutsceneActor: active_rigs += 1
+		var enemies := get_tree().get_nodes_in_group(&"enemies").size()
+		print("ENVIRONMENT_ACTORS ", JSON.stringify({"tile": tile, "no_characters": no_characters, "excluded_npcs": excluded_npcs, "active_npcs": active_npcs, "active_rigs": active_rigs, "enemies": enemies, "player_can_process": level.player.can_process()}))
+		if no_characters and (active_npcs > 0 or active_rigs > 0 or enemies > 0 or level.player.can_process()):
+			push_error("[EnvironmentProbe] %s tile %d: characters still update in environment-only mode" % [level_id, tile])
+			_exit_code = 2
+			break
 		var times: Array[float] = []
 		var draws := 0.0
 		var last := Time.get_ticks_usec()
@@ -104,6 +157,7 @@ func _run() -> void:
 			draws += RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TOTAL_DRAW_CALLS_IN_FRAME) / float(frames)
 		var total := 0.0
 		for t in times: total += t
+		print("ENVIRONMENT_SAMPLES ", JSON.stringify({"level": level_id, "tile": tile, "quality": quality, "no_characters": no_characters, "samples_ms": times}))
 		times.sort()
 		print("PROBE%s level=%s tile=%d quality=%s frames=%d mean_ms=%.3f median_ms=%.3f p95_ms=%.3f draws=%.1f renderer_texture_bytes=%d" % ["_NO_CHARACTERS" if no_characters else "", level_id, tile, quality, frames, total / frames, times[frames / 2], times[int(frames * 0.95)], draws, RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TEXTURE_MEM_USED)])
 		if not out.is_empty():
@@ -113,7 +167,11 @@ func _run() -> void:
 			if get_viewport().use_hdr_2d:
 				shot.convert(Image.FORMAT_RGBA8)
 				shot.linear_to_srgb()
-			shot.save_png(out.path_join("%s_%d_%s.png" % [level_id, tile, quality]))
+			var path := out.path_join("%s_%d_%s.png" % [level_id, tile, quality])
+			var error := shot.save_png(path)
+			if error != OK:
+				push_error("[EnvironmentProbe] %s: %s" % [path, error_string(error)])
+				_exit_code = 1
 	var bytes := 0
 	var count := 0
 	# 舊的版本沒有釋放機制；有的話先等它做完（換區域之後幾個影格才釋放）。
@@ -135,14 +193,17 @@ func _run() -> void:
 	# 預載（有上限的 LRU）手上另外拿著的環境貼圖：不在上面的清單裡的另外列出來，兩邊加起來才是全部。
 	var prefetch_bytes := 0
 	var prefetch_count := 0
-	for path: String in AssetPrefetch._cache:
+	var prefetch := load("res://core/asset_prefetch.gd") as Script if ResourceLoader.exists("res://core/asset_prefetch.gd") else null
+	var prefetch_value: Variant = prefetch.get("_cache") if prefetch != null else null
+	var prefetch_cache: Dictionary = prefetch_value if prefetch_value is Dictionary else {}
+	for path: String in prefetch_cache:
 		if not path.begins_with("res://art/environment/") or textures.has(path): continue
-		var extra := (AssetPrefetch._cache[path] as Texture2D).get_image()
+		var extra := (prefetch_cache[path] as Texture2D).get_image()
 		if extra == null: continue
 		prefetch_bytes += extra.get_data_size()
 		prefetch_count += 1
 		print("PREFETCH %s bytes=%d" % [path, extra.get_data_size()])
-	print("ENVIRONMENT_PREFETCH imported_payload_bytes=%d textures=%d (held only by the bounded prefetch cache)" % [prefetch_bytes, prefetch_count])
+	print("ENVIRONMENT_PREFETCH imported_payload_bytes=%d textures=%d (held only by the bounded prefetch cache) supported=%s" % [prefetch_bytes, prefetch_count, prefetch_value is Dictionary])
 	# 釋放之後又被載入的次數：大於 0 代表有東西每次都靠快取、自己不留著貼圖（會反覆重載）。舊版本沒有這個計數。
 	var library: Script = RigLibrary
 	if "reloads_after_release" in library:
@@ -154,4 +215,4 @@ func _run() -> void:
 	# Older checkouts used for comparison do not have the audio release helper.
 	if ResourceLoader.exists("res://core/audio/audio_release.gd"):
 		await load("res://core/audio/audio_release.gd").settle(get_tree())
-	get_tree().quit()
+	get_tree().quit(_exit_code)
