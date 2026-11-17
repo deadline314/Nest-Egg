@@ -1,0 +1,442 @@
+{
+	"death": {
+		"dark_after_seconds": 0.94,
+		"enemy": "watchdog",
+		"initial_light_valid": true,
+		"passed": true
+	},
+	"level": "ch1_warehouse",
+	"max_lights": 8,
+	"perf": {
+		"active_lights": 8,
+		"frame_ms_off": 2.094,
+		"frame_ms_on": 2.148,
+		"glowing_enemies": 6,
+		"max_lights": 8,
+		"pairs": [
+			{
+				"off_ms": 2.01699995994568,
+				"on_first": true,
+				"on_ms": 2.18300008773804,
+				"round": 0
+			},
+			{
+				"off_ms": 2.01300001144409,
+				"on_first": false,
+				"on_ms": 2.23900008201599,
+				"round": 1
+			},
+			{
+				"off_ms": 2.01500010490417,
+				"on_first": true,
+				"on_ms": 2.13599991798401,
+				"round": 2
+			},
+			{
+				"off_ms": 2.09899997711182,
+				"on_first": false,
+				"on_ms": 2.125,
+				"round": 3
+			},
+			{
+				"off_ms": 2.03699994087219,
+				"on_first": true,
+				"on_ms": 2.03299999237061,
+				"round": 4
+			},
+			{
+				"off_ms": 2.0789999961853,
+				"on_first": false,
+				"on_ms": 2.05200004577637,
+				"round": 5
+			},
+			{
+				"off_ms": 2.10899996757507,
+				"on_first": true,
+				"on_ms": 2.02999997138977,
+				"round": 6
+			},
+			{
+				"off_ms": 2.0699999332428,
+				"on_first": false,
+				"on_ms": 2.03600001335144,
+				"round": 7
+			},
+			{
+				"off_ms": 2.01500010490417,
+				"on_first": true,
+				"on_ms": 2.19600009918213,
+				"round": 8
+			},
+			{
+				"off_ms": 2.0220000743866,
+				"on_first": false,
+				"on_ms": 2.14800000190735,
+				"round": 9
+			},
+			{
+				"off_ms": 2.07999992370605,
+				"on_first": true,
+				"on_ms": 2.12199997901917,
+				"round": 10
+			},
+			{
+				"off_ms": 2.11500000953674,
+				"on_first": false,
+				"on_ms": 2.22499990463257,
+				"round": 11
+			},
+			{
+				"off_ms": 2.11800003051758,
+				"on_first": true,
+				"on_ms": 2.30299997329712,
+				"round": 12
+			},
+			{
+				"off_ms": 2.20900011062622,
+				"on_first": false,
+				"on_ms": 2.05200004577637,
+				"round": 13
+			},
+			{
+				"off_ms": 2.0220000743866,
+				"on_first": true,
+				"on_ms": 2.26799988746643,
+				"round": 14
+			},
+			{
+				"off_ms": 2.03800010681152,
+				"on_first": false,
+				"on_ms": 2.13100004196167,
+				"round": 15
+			},
+			{
+				"off_ms": 2.04699993133545,
+				"on_first": true,
+				"on_ms": 2.01900005340576,
+				"round": 16
+			},
+			{
+				"off_ms": 2.03099989891052,
+				"on_first": false,
+				"on_ms": 2.06399989128113,
+				"round": 17
+			},
+			{
+				"off_ms": 2.03600001335144,
+				"on_first": true,
+				"on_ms": 2.03999996185303,
+				"round": 18
+			},
+			{
+				"off_ms": 2.12599992752075,
+				"on_first": false,
+				"on_ms": 2.04500007629395,
+				"round": 19
+			},
+			{
+				"off_ms": 2.05200004577637,
+				"on_first": true,
+				"on_ms": 2.01300001144409,
+				"round": 20
+			},
+			{
+				"off_ms": 2.0090000629425,
+				"on_first": false,
+				"on_ms": 2.20900011062622,
+				"round": 21
+			},
+			{
+				"off_ms": 2.07100009918213,
+				"on_first": true,
+				"on_ms": 2.03500008583069,
+				"round": 22
+			},
+			{
+				"off_ms": 2.0789999961853,
+				"on_first": false,
+				"on_ms": 2.08699989318848,
+				"round": 23
+			},
+			{
+				"off_ms": 1.99699997901917,
+				"on_first": true,
+				"on_ms": 2.05200004577637,
+				"round": 24
+			},
+			{
+				"off_ms": 2.18199992179871,
+				"on_first": false,
+				"on_ms": 2.23900008201599,
+				"round": 25
+			},
+			{
+				"off_ms": 2.11999988555908,
+				"on_first": true,
+				"on_ms": 2.2409999370575,
+				"round": 26
+			},
+			{
+				"off_ms": 2.25500011444092,
+				"on_first": false,
+				"on_ms": 2.18600010871887,
+				"round": 27
+			},
+			{
+				"off_ms": 2.35700011253357,
+				"on_first": true,
+				"on_ms": 2.28800010681152,
+				"round": 28
+			},
+			{
+				"off_ms": 2.14599990844727,
+				"on_first": false,
+				"on_ms": 2.36199998855591,
+				"round": 29
+			},
+			{
+				"off_ms": 2.23900008201599,
+				"on_first": true,
+				"on_ms": 2.28099989891052,
+				"round": 30
+			},
+			{
+				"off_ms": 2.23399996757507,
+				"on_first": false,
+				"on_ms": 2.08599996566772,
+				"round": 31
+			},
+			{
+				"off_ms": 2.23600006103516,
+				"on_first": true,
+				"on_ms": 2.3289999961853,
+				"round": 32
+			},
+			{
+				"off_ms": 2.23900008201599,
+				"on_first": false,
+				"on_ms": 2.21799993515015,
+				"round": 33
+			},
+			{
+				"off_ms": 2.16000008583069,
+				"on_first": true,
+				"on_ms": 2.04800009727478,
+				"round": 34
+			},
+			{
+				"off_ms": 2.15799999237061,
+				"on_first": false,
+				"on_ms": 2.32100009918213,
+				"round": 35
+			},
+			{
+				"off_ms": 2.24699997901917,
+				"on_first": true,
+				"on_ms": 2.25200009346008,
+				"round": 36
+			},
+			{
+				"off_ms": 2.07200002670288,
+				"on_first": false,
+				"on_ms": 2.30900001525879,
+				"round": 37
+			},
+			{
+				"off_ms": 2.20799994468689,
+				"on_first": true,
+				"on_ms": 2.26099991798401,
+				"round": 38
+			},
+			{
+				"off_ms": 2.18300008773804,
+				"on_first": false,
+				"on_ms": 2.22499990463257,
+				"round": 39
+			},
+			{
+				"off_ms": 2.09400010108948,
+				"on_first": true,
+				"on_ms": 2.21300005912781,
+				"round": 40
+			},
+			{
+				"off_ms": 2.2409999370575,
+				"on_first": false,
+				"on_ms": 2.22199988365173,
+				"round": 41
+			},
+			{
+				"off_ms": 2.33200001716614,
+				"on_first": true,
+				"on_ms": 2.34200000762939,
+				"round": 42
+			},
+			{
+				"off_ms": 2.05999994277954,
+				"on_first": false,
+				"on_ms": 2.04900002479553,
+				"round": 43
+			},
+			{
+				"off_ms": 2.16400003433228,
+				"on_first": true,
+				"on_ms": 2.30399990081787,
+				"round": 44
+			},
+			{
+				"off_ms": 2.00600004196167,
+				"on_first": false,
+				"on_ms": 2.07200002670288,
+				"round": 45
+			},
+			{
+				"off_ms": 1.99399995803833,
+				"on_first": true,
+				"on_ms": 2.17400002479553,
+				"round": 46
+			},
+			{
+				"off_ms": 2.13599991798401,
+				"on_first": false,
+				"on_ms": 2.16599988937378,
+				"round": 47
+			},
+			{
+				"off_ms": 2.15100002288818,
+				"on_first": true,
+				"on_ms": 2.07999992370605,
+				"round": 48
+			},
+			{
+				"off_ms": 2.14199995994568,
+				"on_first": false,
+				"on_ms": 2.06699991226196,
+				"round": 49
+			},
+			{
+				"off_ms": 2.07299995422363,
+				"on_first": true,
+				"on_ms": 2.02999997138977,
+				"round": 50
+			},
+			{
+				"off_ms": 1.98599994182587,
+				"on_first": false,
+				"on_ms": 2.02500009536743,
+				"round": 51
+			},
+			{
+				"off_ms": 2.02500009536743,
+				"on_first": true,
+				"on_ms": 2.06800007820129,
+				"round": 52
+			},
+			{
+				"off_ms": 2.18899989128113,
+				"on_first": false,
+				"on_ms": 2.17600011825562,
+				"round": 53
+			},
+			{
+				"off_ms": 2.03600001335144,
+				"on_first": true,
+				"on_ms": 2.09299993515015,
+				"round": 54
+			},
+			{
+				"off_ms": 2.00600004196167,
+				"on_first": false,
+				"on_ms": 2.18499994277954,
+				"round": 55
+			},
+			{
+				"off_ms": 1.99899995326996,
+				"on_first": true,
+				"on_ms": 2.13199996948242,
+				"round": 56
+			},
+			{
+				"off_ms": 2.13199996948242,
+				"on_first": false,
+				"on_ms": 2.01900005340576,
+				"round": 57
+			},
+			{
+				"off_ms": 2.06800007820129,
+				"on_first": true,
+				"on_ms": 2.03200006484985,
+				"round": 58
+			},
+			{
+				"off_ms": 2.15000009536743,
+				"on_first": false,
+				"on_ms": 2.21799993515015,
+				"round": 59
+			}
+		],
+		"passed": true,
+		"ratio": 1.019,
+		"ratio_raw": 1.01899889285876
+	},
+	"quality": "low",
+	"states": {
+		"alert": {
+			"heavy_gunner": {
+				"body_luma": 0.5036,
+				"color": "ff5cd1",
+				"level": 1.69,
+				"state": "alert"
+			},
+			"sweeper（不帶燈）": {
+				"body_luma": 0.2971,
+				"glow": false
+			},
+			"watchdog": {
+				"body_luma": 0.5372,
+				"color": "8cebff",
+				"level": 1.69,
+				"state": "alert"
+			}
+		},
+		"calm": {
+			"heavy_gunner": {
+				"body_luma": 0.4801,
+				"color": "ff5cd1",
+				"level": 1.0,
+				"state": "calm"
+			},
+			"sweeper（不帶燈）": {
+				"body_luma": 0.2928,
+				"glow": false
+			},
+			"watchdog": {
+				"body_luma": 0.4633,
+				"color": "8cebff",
+				"level": 1.0,
+				"state": "calm"
+			}
+		},
+		"telegraph": {
+			"heavy_gunner": {
+				"body_luma": 0.5127,
+				"color": "ff5a50",
+				"level": 2.1,
+				"state": "telegraph"
+			},
+			"sweeper（不帶燈）": {
+				"body_luma": 0.2995,
+				"glow": false
+			},
+			"watchdog": {
+				"body_luma": 0.4945,
+				"color": "fe5b50",
+				"level": 2.1,
+				"state": "telegraph"
+			}
+		}
+	},
+	"tag": "low",
+	"tool_sha256": "0ab24f06587c576d10ae00b2041ffd795c1d9c5b0543c300f74dc91251c84b6c",
+	"user_data_dir": "D:/NestEggVerification/evidence-20261117/ne259/native-low-v1/profile/Godot/app_userdata/Nest Egg"
+}

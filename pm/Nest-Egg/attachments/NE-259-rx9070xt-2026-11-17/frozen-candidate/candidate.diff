@@ -1,0 +1,300 @@
+diff --git a/data/enemies/watchdog.tres b/data/enemies/watchdog.tres
+index 0609a6c8f..9e6abdd24 100644
+--- a/data/enemies/watchdog.tres
++++ b/data/enemies/watchdog.tres
+@@ -43,6 +43,6 @@ light_radius = 96.0
+ light_color = Color(0.55, 0.92, 1.0, 1)
+ light_energy = 0.8
+ light_part = &"head"
+-light_offset = Vector2(6, -4)
+-light_mark = Vector2(2.5, 1.5)
++light_offset = Vector2(9.72, -4.6)
++light_mark = Vector2(0.4, 0.4)
+ light_calm_states = PackedStringArray("dormant")
+diff --git a/design/08-lighting/LIGHT_SOURCES.md b/design/08-lighting/LIGHT_SOURCES.md
+index 0c9fe93a3..1282518d1 100644
+--- a/design/08-lighting/LIGHT_SOURCES.md
++++ b/design/08-lighting/LIGHT_SOURCES.md
+@@ -220,6 +220,12 @@
+ - 亮度：發現主角 1.7 倍、準備攻擊 2.1 倍並轉紅；死亡後約 1 秒熄滅。
+ - 驗證工具 `tools/enemy_glow_probe.tscn`：關掉槍燈拍三種狀態、擊殺連拍、6 個帶燈敵人的燈數與耗時。
+ 
++**目前零件外觀的掛點驗證（NE-259，2026-11-17）**
++
++- 零件式生物的光與發光標記必須跟隨指定零件的完整座標變換（轉頭、翻面及縮放），繪製順序在該零件之上。資料偏移使用關節座標中的遊戲像素；貼圖的 `texture_scale` 只在從來源圖量取偏移時換算一次，運行時不重複縮放。人形骨架敵人維持既有的跟隨方式。
++- 看門狗現在的來源眼點位於頭圖 `[158,118,163,123)`，中心 `(160.5,120.5)`，支點 `(39,178)`、貼圖縮放 `0.08`；對應偏移 `(9.72,-4.60)`、標記 `0.4×0.4` 遊戲像素。不得沿用舊外觀的額角偏移或把標記畫在不透明頭圖之下。
++- 保留原生三狀態、死亡及六燈量法；六個光源與完整 60 組交替 45 格都是必要前提，以未取整的成對比值中位數判斷原 105% 上限。死亡必須從實際亮著的光開始，裁切跟隨光的位置並另存真正熄滅的影格，不能把原八格連拍的最後一格當作已熄滅。
++
+ ### 7. 近戰武器
+ 
+ 現有五把（熱能長刀、單分子匕首、離子戰戟、液壓錘、單分子鞭）的招式、手感與數值是戰鬥組調過的，連段系統也已經有（三段、取消窗、延伸招），NE-237 正在擴充。問題出在外觀：手上的武器是程式畫的幾條線，沒有圖、不發光，揮起來的聲音五把共用一般的刀劍聲。所以這次換的是外觀、光與聲音，不重做招式：
+diff --git a/game/enemies/enemy_glow.gd b/game/enemies/enemy_glow.gd
+index 43ebf155d..cd37d5d17 100644
+--- a/game/enemies/enemy_glow.gd
++++ b/game/enemies/enemy_glow.gd
+@@ -113,13 +113,26 @@ func _place() -> void:
+ 	if not _searched:
+ 		_searched = true
+ 		_anchor = _find_anchor(data.light_part)
++		if _anchor != null and _enemy.creature != null:
++			# PartCreature 的關節使用相對 Z；換成與 EnemyGlow 相同父層的順序，標記才不會被頭圖蓋住。
++			var part := _anchor
++			var part_z := 1
++			while part != null and part != _enemy:
++				part_z += part.z_index
++				part = part.get_parent() as Node2D
++			z_index = clampi(part_z, RenderingServer.CANVAS_ITEM_Z_MIN, RenderingServer.CANVAS_ITEM_Z_MAX)
+ 		if _anchor == null and data.light_part != &"":
+ 			RigLibrary.report_once("enemy_glow:%s" % data.id, "[EnemyGlow] 敵人「%s」找不到光要跟著的零件「%s」，改用相對於腳底的位置" % [data.id, data.light_part])
+ 	var offset := Vector2(data.light_offset.x * float(_enemy.facing), data.light_offset.y)
+ 	if _anchor != null and is_instance_valid(_anchor):
+-		global_position = _anchor.global_position + offset
++		if _enemy.creature != null:
++			# 偏移已是關節中的遊戲像素；貼圖縮放只在來源量取時換算一次。
++			global_transform = _anchor.global_transform * Transform2D(0.0, data.light_offset)
++		else:
++			global_position = _anchor.global_position + offset
+ 	else:
+-		position = offset
++		transform = Transform2D(0.0, offset)
++		z_index = 1
+ 
+ 
+ func _find_anchor(part: StringName) -> Node2D:
+diff --git a/tests/suite/test_environment.gd b/tests/suite/test_environment.gd
+index 35ed9d67c..654193a25 100644
+--- a/tests/suite/test_environment.gd
++++ b/tests/suite/test_environment.gd
+@@ -1309,6 +1309,9 @@ func _test_enemy_glow() -> void:
+ 		if signf(side_after) != signf(side_before):
+ 			break
+ 	check(head != null and signf(side_before) != signf(side_after) and not is_zero_approx(side_before), "轉身後光跟著換到另一邊")
++	glow._place()
++	check(glow.global_position.is_equal_approx(head.global_position + Vector2(heavy.data.light_offset.x * float(heavy.facing), heavy.data.light_offset.y)),
++			"人形骨架光源維持既有世界像素偏移")
+ 	# 三種狀態：平常是自己的顏色；發現主角變亮；準備攻擊轉成紅色預兆、更亮。
+ 	heavy._alert_left = 0.0
+ 	heavy._telegraph_left = 0.0
+@@ -1360,9 +1363,51 @@ func _test_enemy_glow() -> void:
+ 	await frames(6)
+ 	level._light_budget.refresh()
+ 	check(level._light_budget.active_lights <= LightQuality.max_lights(), "6 個帶燈的敵人時，同時亮著的燈不超過上限（%d／%d）" % [level._light_budget.active_lights, LightQuality.max_lights()])
++	await _test_creature_glow_anchor(level, feet + Vector2(160.0, 0.0))
+ 	await end_level(level)
+ 
+ 
++## 來源眼點不是關節原點；真貼圖座標在翻面、轉頭和非單位縮放後仍須對齊。
++func _test_creature_glow_anchor(level: Level, feet: Vector2) -> void:
++	var enemy := _glow_enemy(level, "watchdog", feet)
++	await frames(3)
++	var glow := enemy.find_child("EnemyGlow", false, false) as EnemyGlow
++	var head := enemy.creature.joint_of("head") if enemy.creature != null else null
++	var sprite := head.get_child(0) as Sprite2D if head != null else null
++	check(glow != null and sprite != null, "看門狗光源掛在正式頭部零件")
++	if glow == null or sprite == null:
++		return
++	enemy.process_mode = Node.PROCESS_MODE_DISABLED
++	var body := head.get_parent() as Node2D
++	# PartCreature 關節是遊戲像素；只有 Sprite2D 自身有來源貼圖的 0.08 縮放。
++	check(sprite.scale.is_equal_approx(Vector2.ONE * 0.08), "眼點來源貼圖縮放只換算一次")
++	for face in [-1, 1]:
++		for angle in [-0.35, 0.0, 0.4]:
++			enemy.facing = face
++			enemy.creature.scale = Vector2(float(face) * 1.3, 0.8)
++			body.rotation = 0.17
++			body.scale = Vector2(0.9, 1.1)
++			body.z_index = 3
++			head.rotation = angle
++			head.scale = Vector2(1.2, 0.75)
++			head.z_index = 2
++			enemy.creature.z_index = -1
++			glow._searched = false
++			glow._place()
++			var eye := sprite.to_global(sprite.offset + Vector2(160.5, 120.5))
++			var corner := sprite.to_global(sprite.offset + Vector2(163.0, 123.0))
++			check(glow.global_position.distance_to(eye) < 0.001, "光源跟隨真眼點：face%d angle%.2f" % [face, angle])
++			check(glow.to_global(enemy.data.light_mark * 0.5).distance_to(corner) < 0.001,
++					"眼標記範圍隨零件旋轉與縮放，不蓋住整張臉：face%d angle%.2f" % [face, angle])
++			check(glow.z_index == 5, "眼標記高於整條父鏈的頭部繪製層：face%d angle%.2f" % [face, angle])
++
++	head.free()
++	glow._place()
++	var fallback := Vector2(enemy.data.light_offset.x * float(enemy.facing), enemy.data.light_offset.y)
++	check(glow.transform.is_equal_approx(Transform2D(0.0, fallback)) and glow.z_index == 1,
++			"零件已釋放時恢復腳底偏移與預設繪製層，不保留舊旋轉縮放")
++
++
+ func _glow_enemy(level: Level, id: String, feet: Vector2) -> Enemy:
+ 	var enemy_data := (load("res://data/enemies/%s.tres" % id) as EnemyData).duplicate() as EnemyData
+ 	enemy_data.detect_range = 0.0
+diff --git a/tools/enemy_glow_probe.gd b/tools/enemy_glow_probe.gd
+index b24629b5a..8177127b5 100644
+--- a/tools/enemy_glow_probe.gd
++++ b/tools/enemy_glow_probe.gd
+@@ -16,6 +16,7 @@ const STATES: Array[StringName] = [&"calm", &"alert", &"telegraph"]
+ const PERF_ENEMIES := 6
+ const PERF_FRAMES := 45
+ const PERF_ROUNDS := 60
++const MAX_PERF_RATIO := 1.05
+ const DEATH_SHOTS := 8
+ const DEATH_INTERVAL := 0.1
+ const DEATH_CROP := Vector2i(150, 190)
+@@ -86,7 +87,8 @@ func _run() -> void:
+ 	for id: String in Story.scene_ids():
+ 		Story._seen[StringName(id)] = true
+ 	Story._layer.visible = false
+-	var report := {"tag": _tag, "level": _level, "quality": _quality, "max_lights": LightQuality.max_lights()}
++	var report := {"tag": _tag, "level": _level, "quality": _quality, "max_lights": LightQuality.max_lights(),
++		"user_data_dir": OS.get_user_data_dir(), "tool_sha256": FileAccess.get_sha256(get_script().resource_path)}
+ 	var path := "res://data/levels/%s.tres" % _level
+ 	var data := load(path) as LevelData if ResourceLoader.exists(path) else null
+ 	if data == null:
+@@ -253,12 +255,18 @@ func _body_luma(image: Image, enemy: Enemy) -> float:
+ ## 擊殺第一個帶燈的敵人，每 0.1 秒拍一格，看光在死亡演出內熄滅。
+ func _death_shots(level: Level) -> Dictionary:
+ 	if _subjects.is_empty() or not is_instance_valid(_subjects[0]):
+-		return {"note": "沒有帶燈的敵人"}
++		_failures += 1
++		print("ENEMY_GLOW_DEATH_REJECT:no live glowing subject")
++		return {"passed": false, "note": "沒有帶燈的敵人"}
+ 	var enemy := _subjects[0]
+ 	var glow := enemy.find_child("EnemyGlow", false, false) as EnemyGlow
+ 	var light := glow.light() if glow != null else null
++	if not _initial_light_valid(light):
++		_failures += 1
++		print("ENEMY_GLOW_DEATH_REJECT:", enemy.data.id, ": initially missing or unlit light cannot prove extinction")
++		return {"passed": false, "enemy": String(enemy.data.id), "note": "死亡前沒有有效且亮著的光"}
+ 	var view := get_viewport()
+-	var screen := view.get_final_transform() * view.get_canvas_transform() * (enemy.global_position - Vector2(0.0, enemy.data.body_size.y * 0.5))
++	var screen := view.get_final_transform() * light.get_global_transform_with_canvas() * Vector2.ZERO
+ 	var sheet := Image.create(DEATH_CROP.x * DEATH_SHOTS, DEATH_CROP.y, false, Image.FORMAT_RGB8)
+ 	var info := DamageInfo.new()
+ 	info.amount = 99999
+@@ -267,11 +275,22 @@ func _death_shots(level: Level) -> Dictionary:
+ 	var elapsed := 0.0
+ 	var taken := 0
+ 	var dark_at := -1.0
++	var dark_source := {}
++	var dark_capture_error := ERR_UNAVAILABLE
+ 	while taken < DEATH_SHOTS or (dark_at < 0.0 and elapsed < 3.0):
+ 		await RenderingServer.frame_post_draw
+ 		elapsed += get_process_delta_time()
++		if is_instance_valid(light):
++			screen = view.get_final_transform() * light.get_global_transform_with_canvas() * Vector2.ZERO
+ 		if dark_at < 0.0 and (light == null or not is_instance_valid(light) or not light.enabled or light.energy <= 0.02):
+ 			dark_at = elapsed
++			dark_source = {"node_valid": is_instance_valid(light), "screen": [screen.x, screen.y],
++				"enabled": light.enabled if is_instance_valid(light) else false, "energy": light.energy if is_instance_valid(light) else 0.0}
++			# 原八格只有 0–0.7 秒；另存真正符合熄滅條件的全畫面，不把第八格當成已熄滅。
++			dark_capture_error = Capture.image(view).save_png(_out.path_join(_tag + "-death-dark.png"))
++			if dark_capture_error != OK:
++				_failures += 1
++				push_error("[EnemyGlowProbe] 無法儲存真正熄滅的影格：%s" % _out)
+ 		if taken < DEATH_SHOTS and elapsed >= float(taken) * DEATH_INTERVAL:
+ 			var frame := Capture.image(view)
+ 			frame.convert(Image.FORMAT_RGB8)
+@@ -284,7 +303,7 @@ func _death_shots(level: Level) -> Dictionary:
+ 		push_error("[EnemyGlowProbe] %s 死亡 3 秒後光還亮著" % enemy.data.id)
+ 		_failures += 1
+ 	print("ENEMY_GLOW_DEATH:", enemy.data.id, " dark after ", snappedf(dark_at, 0.01), " s")
+-	return {"enemy": String(enemy.data.id), "dark_after_seconds": snappedf(dark_at, 0.01)}
++	return {"enemy": String(enemy.data.id), "dark_after_seconds": snappedf(dark_at, 0.01), "initial_light_valid": true, "dark_source": dark_source, "dark_image_saved": dark_capture_error == OK, "passed": dark_at >= 0.0 and dark_capture_error == OK}
+ 
+ 
+ ## 6 個帶燈的敵人：同時亮著的燈數與「光開、光關」成對交替的耗時比。
+@@ -305,14 +324,16 @@ func _perf(level: Level, feet: Vector2) -> Dictionary:
+ 	var budget := level._light_budget
+ 	budget.refresh()
+ 	var active := budget.active_lights
+-	if active > LightQuality.max_lights():
+-		push_error("[EnemyGlowProbe] 同時亮著 %d 盞燈，超過上限 %d" % [active, LightQuality.max_lights()])
+-		_failures += 1
++	if glows.size() != PERF_ENEMIES or active > LightQuality.max_lights():
++		var invalid := {"glowing_enemies": glows.size(), "active_lights": active,
++			"max_lights": LightQuality.max_lights(), "pairs": []}
++		_accept_perf(invalid)
++		return invalid
+ 	var vsync_before := DisplayServer.window_get_vsync_mode()
+ 	var fps_before := Engine.max_fps
+ 	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
+ 	Engine.max_fps = 0
+-	var ratios: Array[float] = []
++	var pairs: Array[Dictionary] = []
+ 	var on_ms: Array[float] = []
+ 	var off_ms: Array[float] = []
+ 	for round_index in PERF_ROUNDS:
+@@ -326,23 +347,71 @@ func _perf(level: Level, feet: Vector2) -> Dictionary:
+ 			pair[int(enabled)] = await _frame_ms()
+ 		on_ms.append(pair[1])
+ 		off_ms.append(pair[0])
+-		ratios.append(pair[1] / maxf(pair[0], 0.0001))
++		pairs.append({"round": round_index, "on_first": round_index % 2 == 0, "on_ms": pair[1], "off_ms": pair[0]})
+ 	for glow in glows:
+ 		glow.visible = true
+ 		glow.set_process(true)
+ 		glow.light().visible = true
+ 	DisplayServer.window_set_vsync_mode(vsync_before)
+ 	Engine.max_fps = fps_before
+-	ratios.sort()
+ 	on_ms.sort()
+ 	off_ms.sort()
+ 	var record := {"glowing_enemies": glows.size(), "active_lights": active, "max_lights": LightQuality.max_lights(),
+ 		"frame_ms_on": snappedf(on_ms[on_ms.size() / 2], 0.001), "frame_ms_off": snappedf(off_ms[off_ms.size() / 2], 0.001),
+-		"ratio": snappedf((ratios[ratios.size() / 2 - 1] + ratios[ratios.size() / 2]) * 0.5, 0.001)}
++		"pairs": pairs}
++	_accept_perf(record)
+ 	print("ENEMY_GLOW_PERF:", JSON.stringify(record))
+ 	return record
+ 
+ 
++func _initial_light_valid(light: PointLight2D) -> bool:
++	return is_instance_valid(light) and not light.is_queued_for_deletion() and light.is_inside_tree() \
++		and light.is_visible_in_tree() and light.enabled and light.texture != null and light.energy > 0.02
++
++
++## 原60組交替45格的量法不變；未四捨五入的成對比值中位數才是105%門檻。
++func _accept_perf(record: Dictionary) -> bool:
++	var reasons: Array[String] = []
++	if int(record.get("glowing_enemies", 0)) != PERF_ENEMIES:
++		reasons.append("requires exactly %d glowing enemies, got %s" % [PERF_ENEMIES, record.get("glowing_enemies", 0)])
++	var active := int(record.get("active_lights", -1))
++	var limit := int(record.get("max_lights", 0))
++	if active < 0 or limit <= 0 or active > limit:
++		reasons.append("active lights %d exceed/invalid quality limit %d" % [active, limit])
++	var pairs: Variant = record.get("pairs", [])
++	var ratios: Array[float] = []
++	if not pairs is Array or pairs.size() != PERF_ROUNDS:
++		reasons.append("requires all %d timing pairs" % PERF_ROUNDS)
++	else:
++		for index in pairs.size():
++			var pair: Variant = pairs[index]
++			if not pair is Dictionary:
++				reasons.append("pair %d is not a timing record" % index)
++				continue
++			var on: Variant = pair.get("on_ms")
++			var off: Variant = pair.get("off_ms")
++			if typeof(on) not in [TYPE_INT, TYPE_FLOAT] or typeof(off) not in [TYPE_INT, TYPE_FLOAT] \
++					or not is_finite(float(on)) or not is_finite(float(off)) or float(on) <= 0.0 or float(off) <= 0.0:
++				reasons.append("pair %d has nonpositive/nonfinite timing" % index)
++				continue
++			ratios.append(float(on) / float(off))
++	if ratios.size() == PERF_ROUNDS:
++		ratios.sort()
++		var ratio := (ratios[PERF_ROUNDS / 2 - 1] + ratios[PERF_ROUNDS / 2]) * 0.5
++		record["ratio_raw"] = ratio
++		record["ratio"] = snappedf(ratio, 0.001)
++		if ratio > MAX_PERF_RATIO:
++			reasons.append("unrounded ratio %.9f exceeds %.2f" % [ratio, MAX_PERF_RATIO])
++	else:
++		record["ratio_raw"] = null
++		record["ratio"] = null
++	record["passed"] = reasons.is_empty()
++	if not reasons.is_empty():
++		_failures += 1
++		print("ENEMY_GLOW_PERF_REJECT:", JSON.stringify(reasons))
++	return reasons.is_empty()
++
++
+ func _frame_ms() -> float:
+ 	var samples := PackedFloat32Array()
+ 	samples.resize(PERF_FRAMES)

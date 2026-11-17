@@ -1,0 +1,37 @@
+[
+  {
+    "path": "tools/run_tests_changed.sh",
+    "sha256": "71bbbd76f1941fda43a4db6f061538a2ae37bcb77765674908a9957899b8f336",
+    "base_sha256": "71bbbd76f1941fda43a4db6f061538a2ae37bcb77765674908a9957899b8f336",
+    "byte_equal_to_baseline": true,
+    "timing": "post-run snapshot; base commit byte comparison"
+  },
+  {
+    "path": "tools/run_tests_parallel.sh",
+    "sha256": "0971fa76cae58c1e3758e38f3200d5fba0b252a81072f55177952232e333d8ba",
+    "base_sha256": "0971fa76cae58c1e3758e38f3200d5fba0b252a81072f55177952232e333d8ba",
+    "byte_equal_to_baseline": true,
+    "timing": "post-run snapshot; base commit byte comparison"
+  },
+  {
+    "path": "tools/select_tests.py",
+    "sha256": "07fe95c5c5f75f35e35ba70b9b3a4c801547f6c7213ae7a13de15ee3dc765c81",
+    "base_sha256": "07fe95c5c5f75f35e35ba70b9b3a4c801547f6c7213ae7a13de15ee3dc765c81",
+    "byte_equal_to_baseline": true,
+    "timing": "post-run snapshot; base commit byte comparison"
+  },
+  {
+    "path": "tools/test_filters.sh",
+    "sha256": "509706b8257b8e46f6e8c01ebeda0ecd976b6607975f66430bd6774461500c80",
+    "base_sha256": "509706b8257b8e46f6e8c01ebeda0ecd976b6607975f66430bd6774461500c80",
+    "byte_equal_to_baseline": true,
+    "timing": "post-run snapshot; base commit byte comparison"
+  },
+  {
+    "path": "tests/known_failures.txt",
+    "sha256": "b1c97717a1a97d015dabbcbc71953d4eec383cbabe13967ee2f313101a84a3bf",
+    "base_sha256": "b1c97717a1a97d015dabbcbc71953d4eec383cbabe13967ee2f313101a84a3bf",
+    "byte_equal_to_baseline": true,
+    "timing": "post-run snapshot; base commit byte comparison"
+  }
+]

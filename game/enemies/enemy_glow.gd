@@ -113,13 +113,26 @@ func _place() -> void:
 	if not _searched:
 		_searched = true
 		_anchor = _find_anchor(data.light_part)
+		if _anchor != null and _enemy.creature != null:
+			# PartCreature 的關節使用相對 Z；換成與 EnemyGlow 相同父層的順序，標記才不會被頭圖蓋住。
+			var part := _anchor
+			var part_z := 1
+			while part != null and part != _enemy:
+				part_z += part.z_index
+				part = part.get_parent() as Node2D
+			z_index = clampi(part_z, RenderingServer.CANVAS_ITEM_Z_MIN, RenderingServer.CANVAS_ITEM_Z_MAX)
 		if _anchor == null and data.light_part != &"":
 			RigLibrary.report_once("enemy_glow:%s" % data.id, "[EnemyGlow] 敵人「%s」找不到光要跟著的零件「%s」，改用相對於腳底的位置" % [data.id, data.light_part])
 	var offset := Vector2(data.light_offset.x * float(_enemy.facing), data.light_offset.y)
 	if _anchor != null and is_instance_valid(_anchor):
-		global_position = _anchor.global_position + offset
+		if _enemy.creature != null:
+			# 偏移已是關節中的遊戲像素；貼圖縮放只在來源量取時換算一次。
+			global_transform = _anchor.global_transform * Transform2D(0.0, data.light_offset)
+		else:
+			global_position = _anchor.global_position + offset
 	else:
-		position = offset
+		transform = Transform2D(0.0, offset)
+		z_index = 1
 
 
 func _find_anchor(part: StringName) -> Node2D:

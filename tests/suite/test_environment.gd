@@ -1309,6 +1309,9 @@ func _test_enemy_glow() -> void:
 		if signf(side_after) != signf(side_before):
 			break
 	check(head != null and signf(side_before) != signf(side_after) and not is_zero_approx(side_before), "轉身後光跟著換到另一邊")
+	glow._place()
+	check(glow.global_position.is_equal_approx(head.global_position + Vector2(heavy.data.light_offset.x * float(heavy.facing), heavy.data.light_offset.y)),
+			"人形骨架光源維持既有世界像素偏移")
 	# 三種狀態：平常是自己的顏色；發現主角變亮；準備攻擊轉成紅色預兆、更亮。
 	heavy._alert_left = 0.0
 	heavy._telegraph_left = 0.0
@@ -1360,7 +1363,49 @@ func _test_enemy_glow() -> void:
 	await frames(6)
 	level._light_budget.refresh()
 	check(level._light_budget.active_lights <= LightQuality.max_lights(), "6 個帶燈的敵人時，同時亮著的燈不超過上限（%d／%d）" % [level._light_budget.active_lights, LightQuality.max_lights()])
+	await _test_creature_glow_anchor(level, feet + Vector2(160.0, 0.0))
 	await end_level(level)
+
+
+## 來源眼點不是關節原點；真貼圖座標在翻面、轉頭和非單位縮放後仍須對齊。
+func _test_creature_glow_anchor(level: Level, feet: Vector2) -> void:
+	var enemy := _glow_enemy(level, "watchdog", feet)
+	await frames(3)
+	var glow := enemy.find_child("EnemyGlow", false, false) as EnemyGlow
+	var head := enemy.creature.joint_of("head") if enemy.creature != null else null
+	var sprite := head.get_child(0) as Sprite2D if head != null else null
+	check(glow != null and sprite != null, "看門狗光源掛在正式頭部零件")
+	if glow == null or sprite == null:
+		return
+	enemy.process_mode = Node.PROCESS_MODE_DISABLED
+	var body := head.get_parent() as Node2D
+	# PartCreature 關節是遊戲像素；只有 Sprite2D 自身有來源貼圖的 0.08 縮放。
+	check(sprite.scale.is_equal_approx(Vector2.ONE * 0.08), "眼點來源貼圖縮放只換算一次")
+	for face in [-1, 1]:
+		for angle in [-0.35, 0.0, 0.4]:
+			enemy.facing = face
+			enemy.creature.scale = Vector2(float(face) * 1.3, 0.8)
+			body.rotation = 0.17
+			body.scale = Vector2(0.9, 1.1)
+			body.z_index = 3
+			head.rotation = angle
+			head.scale = Vector2(1.2, 0.75)
+			head.z_index = 2
+			enemy.creature.z_index = -1
+			glow._searched = false
+			glow._place()
+			var eye := sprite.to_global(sprite.offset + Vector2(160.5, 120.5))
+			var corner := sprite.to_global(sprite.offset + Vector2(163.0, 123.0))
+			check(glow.global_position.distance_to(eye) < 0.001, "光源跟隨真眼點：face%d angle%.2f" % [face, angle])
+			check(glow.to_global(enemy.data.light_mark * 0.5).distance_to(corner) < 0.001,
+					"眼標記範圍隨零件旋轉與縮放，不蓋住整張臉：face%d angle%.2f" % [face, angle])
+			check(glow.z_index == 5, "眼標記高於整條父鏈的頭部繪製層：face%d angle%.2f" % [face, angle])
+
+	head.free()
+	glow._place()
+	var fallback := Vector2(enemy.data.light_offset.x * float(enemy.facing), enemy.data.light_offset.y)
+	check(glow.transform.is_equal_approx(Transform2D(0.0, fallback)) and glow.z_index == 1,
+			"零件已釋放時恢復腳底偏移與預設繪製層，不保留舊旋轉縮放")
 
 
 func _glow_enemy(level: Level, id: String, feet: Vector2) -> Enemy:

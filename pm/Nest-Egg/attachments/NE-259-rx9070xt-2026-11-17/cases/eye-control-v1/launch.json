@@ -1,0 +1,26 @@
+{
+  "argv": [
+    "python",
+    "C:\\NE\\bg32-20261117\\tools\\comfyui\\gpu_lock.py",
+    "--",
+    "C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe",
+    "--path",
+    "C:\\NE\\bg32-20261117",
+    "--rendering-driver",
+    "vulkan",
+    "--rendering-method",
+    "forward_plus",
+    "res://work/ne259-20261117/eye_control.tscn",
+    "--",
+    "--out=D:\\NestEggVerification\\evidence-20261117\\ne259\\eye-control-v1"
+  ],
+  "source_before": {
+    "tools/enemy_glow_probe.gd": "0ab24f06587c576d10ae00b2041ffd795c1d9c5b0543c300f74dc91251c84b6c",
+    "work/ne259-20261117/eye_control.gd": "5aa1c2e8298b33b1bca07f8fce017b750e115a274e889397a9bbc6895d639c5c",
+    "work/ne259-20261117/eye_control.tscn": "a1de60488b29bb47b7d5631487adec740f5128783777c845db7d1349cf6c4833",
+    "game/enemies/enemy_glow.gd": "b872d3d8a882111e1561cb1f70b72b29578a290cb147bcf03b1702782c9bfcfd",
+    "data/enemies/watchdog.tres": "b756ce82064d0373b5f50e585cb9dcc23527ded8294e8b4cc3c66ef18d7e57c5",
+    "art/creatures/watchdog.json": "0f083a4870eb0b3c04d5f3249da782ac7f857167f98024b110013651b272ce36",
+    "art/creatures/watchdog/head.png": "86e567fe528fca8abb7a65674f4aff3d920d8a60e0b5f323c24619be0c5f6108"
+  }
+}

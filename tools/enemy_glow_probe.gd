@@ -16,6 +16,7 @@ const STATES: Array[StringName] = [&"calm", &"alert", &"telegraph"]
 const PERF_ENEMIES := 6
 const PERF_FRAMES := 45
 const PERF_ROUNDS := 60
+const MAX_PERF_RATIO := 1.05
 const DEATH_SHOTS := 8
 const DEATH_INTERVAL := 0.1
 const DEATH_CROP := Vector2i(150, 190)
@@ -86,7 +87,8 @@ func _run() -> void:
 	for id: String in Story.scene_ids():
 		Story._seen[StringName(id)] = true
 	Story._layer.visible = false
-	var report := {"tag": _tag, "level": _level, "quality": _quality, "max_lights": LightQuality.max_lights()}
+	var report := {"tag": _tag, "level": _level, "quality": _quality, "max_lights": LightQuality.max_lights(),
+		"user_data_dir": OS.get_user_data_dir(), "tool_sha256": FileAccess.get_sha256(get_script().resource_path)}
 	var path := "res://data/levels/%s.tres" % _level
 	var data := load(path) as LevelData if ResourceLoader.exists(path) else null
 	if data == null:
@@ -253,12 +255,18 @@ func _body_luma(image: Image, enemy: Enemy) -> float:
 ## 擊殺第一個帶燈的敵人，每 0.1 秒拍一格，看光在死亡演出內熄滅。
 func _death_shots(level: Level) -> Dictionary:
 	if _subjects.is_empty() or not is_instance_valid(_subjects[0]):
-		return {"note": "沒有帶燈的敵人"}
+		_failures += 1
+		print("ENEMY_GLOW_DEATH_REJECT:no live glowing subject")
+		return {"passed": false, "note": "沒有帶燈的敵人"}
 	var enemy := _subjects[0]
 	var glow := enemy.find_child("EnemyGlow", false, false) as EnemyGlow
 	var light := glow.light() if glow != null else null
+	if not _initial_light_valid(light):
+		_failures += 1
+		print("ENEMY_GLOW_DEATH_REJECT:", enemy.data.id, ": initially missing or unlit light cannot prove extinction")
+		return {"passed": false, "enemy": String(enemy.data.id), "note": "死亡前沒有有效且亮著的光"}
 	var view := get_viewport()
-	var screen := view.get_final_transform() * view.get_canvas_transform() * (enemy.global_position - Vector2(0.0, enemy.data.body_size.y * 0.5))
+	var screen := view.get_final_transform() * light.get_global_transform_with_canvas() * Vector2.ZERO
 	var sheet := Image.create(DEATH_CROP.x * DEATH_SHOTS, DEATH_CROP.y, false, Image.FORMAT_RGB8)
 	var info := DamageInfo.new()
 	info.amount = 99999
@@ -267,11 +275,22 @@ func _death_shots(level: Level) -> Dictionary:
 	var elapsed := 0.0
 	var taken := 0
 	var dark_at := -1.0
+	var dark_source := {}
+	var dark_capture_error := ERR_UNAVAILABLE
 	while taken < DEATH_SHOTS or (dark_at < 0.0 and elapsed < 3.0):
 		await RenderingServer.frame_post_draw
 		elapsed += get_process_delta_time()
+		if is_instance_valid(light):
+			screen = view.get_final_transform() * light.get_global_transform_with_canvas() * Vector2.ZERO
 		if dark_at < 0.0 and (light == null or not is_instance_valid(light) or not light.enabled or light.energy <= 0.02):
 			dark_at = elapsed
+			dark_source = {"node_valid": is_instance_valid(light), "screen": [screen.x, screen.y],
+				"enabled": light.enabled if is_instance_valid(light) else false, "energy": light.energy if is_instance_valid(light) else 0.0}
+			# 原八格只有 0–0.7 秒；另存真正符合熄滅條件的全畫面，不把第八格當成已熄滅。
+			dark_capture_error = Capture.image(view).save_png(_out.path_join(_tag + "-death-dark.png"))
+			if dark_capture_error != OK:
+				_failures += 1
+				push_error("[EnemyGlowProbe] 無法儲存真正熄滅的影格：%s" % _out)
 		if taken < DEATH_SHOTS and elapsed >= float(taken) * DEATH_INTERVAL:
 			var frame := Capture.image(view)
 			frame.convert(Image.FORMAT_RGB8)
@@ -284,7 +303,7 @@ func _death_shots(level: Level) -> Dictionary:
 		push_error("[EnemyGlowProbe] %s 死亡 3 秒後光還亮著" % enemy.data.id)
 		_failures += 1
 	print("ENEMY_GLOW_DEATH:", enemy.data.id, " dark after ", snappedf(dark_at, 0.01), " s")
-	return {"enemy": String(enemy.data.id), "dark_after_seconds": snappedf(dark_at, 0.01)}
+	return {"enemy": String(enemy.data.id), "dark_after_seconds": snappedf(dark_at, 0.01), "initial_light_valid": true, "dark_source": dark_source, "dark_image_saved": dark_capture_error == OK, "passed": dark_at >= 0.0 and dark_capture_error == OK}
 
 
 ## 6 個帶燈的敵人：同時亮著的燈數與「光開、光關」成對交替的耗時比。
@@ -305,14 +324,16 @@ func _perf(level: Level, feet: Vector2) -> Dictionary:
 	var budget := level._light_budget
 	budget.refresh()
 	var active := budget.active_lights
-	if active > LightQuality.max_lights():
-		push_error("[EnemyGlowProbe] 同時亮著 %d 盞燈，超過上限 %d" % [active, LightQuality.max_lights()])
-		_failures += 1
+	if glows.size() != PERF_ENEMIES or active > LightQuality.max_lights():
+		var invalid := {"glowing_enemies": glows.size(), "active_lights": active,
+			"max_lights": LightQuality.max_lights(), "pairs": []}
+		_accept_perf(invalid)
+		return invalid
 	var vsync_before := DisplayServer.window_get_vsync_mode()
 	var fps_before := Engine.max_fps
 	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 	Engine.max_fps = 0
-	var ratios: Array[float] = []
+	var pairs: Array[Dictionary] = []
 	var on_ms: Array[float] = []
 	var off_ms: Array[float] = []
 	for round_index in PERF_ROUNDS:
@@ -326,21 +347,69 @@ func _perf(level: Level, feet: Vector2) -> Dictionary:
 			pair[int(enabled)] = await _frame_ms()
 		on_ms.append(pair[1])
 		off_ms.append(pair[0])
-		ratios.append(pair[1] / maxf(pair[0], 0.0001))
+		pairs.append({"round": round_index, "on_first": round_index % 2 == 0, "on_ms": pair[1], "off_ms": pair[0]})
 	for glow in glows:
 		glow.visible = true
 		glow.set_process(true)
 		glow.light().visible = true
 	DisplayServer.window_set_vsync_mode(vsync_before)
 	Engine.max_fps = fps_before
-	ratios.sort()
 	on_ms.sort()
 	off_ms.sort()
 	var record := {"glowing_enemies": glows.size(), "active_lights": active, "max_lights": LightQuality.max_lights(),
 		"frame_ms_on": snappedf(on_ms[on_ms.size() / 2], 0.001), "frame_ms_off": snappedf(off_ms[off_ms.size() / 2], 0.001),
-		"ratio": snappedf((ratios[ratios.size() / 2 - 1] + ratios[ratios.size() / 2]) * 0.5, 0.001)}
+		"pairs": pairs}
+	_accept_perf(record)
 	print("ENEMY_GLOW_PERF:", JSON.stringify(record))
 	return record
+
+
+func _initial_light_valid(light: PointLight2D) -> bool:
+	return is_instance_valid(light) and not light.is_queued_for_deletion() and light.is_inside_tree() \
+		and light.is_visible_in_tree() and light.enabled and light.texture != null and light.energy > 0.02
+
+
+## 原60組交替45格的量法不變；未四捨五入的成對比值中位數才是105%門檻。
+func _accept_perf(record: Dictionary) -> bool:
+	var reasons: Array[String] = []
+	if int(record.get("glowing_enemies", 0)) != PERF_ENEMIES:
+		reasons.append("requires exactly %d glowing enemies, got %s" % [PERF_ENEMIES, record.get("glowing_enemies", 0)])
+	var active := int(record.get("active_lights", -1))
+	var limit := int(record.get("max_lights", 0))
+	if active < 0 or limit <= 0 or active > limit:
+		reasons.append("active lights %d exceed/invalid quality limit %d" % [active, limit])
+	var pairs: Variant = record.get("pairs", [])
+	var ratios: Array[float] = []
+	if not pairs is Array or pairs.size() != PERF_ROUNDS:
+		reasons.append("requires all %d timing pairs" % PERF_ROUNDS)
+	else:
+		for index in pairs.size():
+			var pair: Variant = pairs[index]
+			if not pair is Dictionary:
+				reasons.append("pair %d is not a timing record" % index)
+				continue
+			var on: Variant = pair.get("on_ms")
+			var off: Variant = pair.get("off_ms")
+			if typeof(on) not in [TYPE_INT, TYPE_FLOAT] or typeof(off) not in [TYPE_INT, TYPE_FLOAT] \
+					or not is_finite(float(on)) or not is_finite(float(off)) or float(on) <= 0.0 or float(off) <= 0.0:
+				reasons.append("pair %d has nonpositive/nonfinite timing" % index)
+				continue
+			ratios.append(float(on) / float(off))
+	if ratios.size() == PERF_ROUNDS:
+		ratios.sort()
+		var ratio := (ratios[PERF_ROUNDS / 2 - 1] + ratios[PERF_ROUNDS / 2]) * 0.5
+		record["ratio_raw"] = ratio
+		record["ratio"] = snappedf(ratio, 0.001)
+		if ratio > MAX_PERF_RATIO:
+			reasons.append("unrounded ratio %.9f exceeds %.2f" % [ratio, MAX_PERF_RATIO])
+	else:
+		record["ratio_raw"] = null
+		record["ratio"] = null
+	record["passed"] = reasons.is_empty()
+	if not reasons.is_empty():
+		_failures += 1
+		print("ENEMY_GLOW_PERF_REJECT:", JSON.stringify(reasons))
+	return reasons.is_empty()
 
 
 func _frame_ms() -> float:

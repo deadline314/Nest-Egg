@@ -1,0 +1,26 @@
+{
+  "groups": 34,
+  "shards": 2,
+  "checks": 57208,
+  "new_failures": 0,
+  "known_failures": 0,
+  "wall_seconds": 745,
+  "shard_results": [
+    {
+      "file": "shard_0.log",
+      "checks": 15795,
+      "failures": 0,
+      "script_errors": 0,
+      "raw_engine_errors": 175,
+      "eof_diagnostics": []
+    },
+    {
+      "file": "shard_1.log",
+      "checks": 41413,
+      "failures": 0,
+      "script_errors": 0,
+      "raw_engine_errors": 30,
+      "eof_diagnostics": []
+    }
+  ]
+}

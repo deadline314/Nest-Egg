@@ -1,0 +1,52 @@
+{
+	"head_z": 2,
+	"kind": "final candidate with old placement/data restored only in this instance; fixed enemy pose",
+	"stages": [
+		{
+			"head_transform": "[X: (-0.069952, 0.038817), Y: (0.038817, 0.069952), O: (454.0, 731.8296)]",
+			"marker_transform": "[X: (1.0, 0.0), Y: (0.0, 1.0), O: (448.0, 727.8296)]",
+			"name": "receipt-original-restored",
+			"png_sha256": "2b2f01794f246ee12a2b0058b0cc789c245ae603102f5fafa2b5161e187b8b48",
+			"screen": [
+				209.960571289063,
+				309.4404296875
+			],
+			"source_pixel": [
+				80.31982421875,
+				97.888671875
+			],
+			"z": 1
+		},
+		{
+			"head_transform": "[X: (-0.069952, 0.038817), Y: (0.038817, 0.069952), O: (454.0, 731.8296)]",
+			"marker_transform": "[X: (1.0, 0.0), Y: (0.0, 1.0), O: (448.0, 727.8296)]",
+			"name": "receipt-z-only",
+			"png_sha256": "1e41c3c21cf0c89e31e3f9620f559ab7d3ffc2a3fddc665dd9d58b10fa6437ec",
+			"screen": [
+				209.937133789063,
+				309.43701171875
+			],
+			"source_pixel": [
+				80.31982421875,
+				97.888671875
+			],
+			"z": 3
+		},
+		{
+			"head_transform": "[X: (-0.069952, 0.038817), Y: (0.038817, 0.069952), O: (454.0, 731.8296)]",
+			"marker_transform": "[X: (1.0, 0.0), Y: (0.0, 1.0), O: (443.2689, 732.5236)]",
+			"name": "receipt-eye-position",
+			"png_sha256": "e69e0ac531b302c30d38ff5780331fb097893aefb6a2110b7ac530152e20b5d7",
+			"screen": [
+				191.759887695313,
+				327.460693359375
+			],
+			"source_pixel": [
+				160.5,
+				120.5
+			],
+			"z": 3
+		}
+	],
+	"user_data_dir": "D:/NestEggVerification/evidence-20261117/ne259/eye-receipts-final/profile/Godot/app_userdata/Nest Egg"
+}

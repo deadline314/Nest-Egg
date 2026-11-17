@@ -1,0 +1,54 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+NE259_ANCHOR:PASS:帶燈的敵人 heavy_gunner 的光資料有效，而且指定了跟著哪個零件
+NE259_ANCHOR:PASS:帶燈的敵人 watchdog 的光資料有效，而且指定了跟著哪個零件
+NE259_ANCHOR:PASS:看門狗與重裝兵自帶光源（帶燈的有：heavy_gunner, watchdog）
+NE259_ANCHOR:PASS:一般敵人 sweeper 不帶燈
+NE259_ANCHOR:PASS:一般敵人 collector_gunner 不帶燈
+NE259_ANCHOR:PASS:一般敵人 collector_brute 不帶燈
+NE259_ANCHOR:PASS:一般敵人 grunt 不帶燈
+NE259_ANCHOR:PASS:光的半徑是負的會被資料檢查抓到
+NE259_ANCHOR:PASS:重裝兵身上有光，清掃兵沒有
+NE259_ANCHOR:PASS:敵人的光登記在場景光源裡（由光源預算管理、也會讓角色在牆上投影）
+NE259_ANCHOR:PASS:光的位置跟著頭
+NE259_ANCHOR:PASS:轉身後光跟著換到另一邊
+NE259_ANCHOR:PASS:光的狀態跟著敵人：平常、發現主角、準備攻擊
+NE259_ANCHOR:PASS:發現主角時變亮，準備攻擊時更亮（1.00 → 1.70 → 2.10）
+NE259_ANCHOR:PASS:平常與發現主角是它自己的顏色，準備攻擊轉成紅色預兆
+NE259_ANCHOR:PASS:敵人死亡後光在 1.5 秒內熄滅
+ERROR: [EnemyGlow] 敵人「sweeper」找不到光要跟著的零件「test_missing_prop_bone」，改用相對於腳底的位置
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:187)
+       [1] report_once (res://game/rig/rig_library.gd:180)
+       [2] _place (res://game/enemies/enemy_glow.gd:117)
+       [3] _ready (res://game/enemies/enemy_glow.gd:51)
+       [4] attach (res://game/enemies/enemy_glow.gd:39)
+       [5] _build_components (res://game/enemies/enemy.gd:226)
+       [6] _ready (res://game/enemies/enemy.gd:145)
+       [7] _test_enemy_glow (res://tests/suite/test_environment.gd:1352)
+       [8] frames (res://tests/suite/test_suite.gd:23)
+       [9] _frames (res://work/ne259-20261117/anchor_test.gd:12)
+NE259_ANCHOR:PASS:只填資料就能讓敵人帶燈；找不到零件時用相對於腳底的位置
+NE259_ANCHOR:PASS:6 個帶燈的敵人時，同時亮著的燈不超過上限（10／24）
+NE259_ANCHOR:PASS:看門狗光源掛在正式頭部零件
+NE259_ANCHOR:PASS:眼點來源貼圖縮放只換算一次
+NE259_ANCHOR:FAIL:光源跟隨真眼點：face-1 angle-0.35
+NE259_ANCHOR:FAIL:眼標記範圍隨零件旋轉與縮放，不蓋住整張臉：face-1 angle-0.35
+NE259_ANCHOR:FAIL:眼標記高於整條父鏈的頭部繪製層：face-1 angle-0.35
+NE259_ANCHOR:FAIL:光源跟隨真眼點：face-1 angle0.00
+NE259_ANCHOR:FAIL:眼標記範圍隨零件旋轉與縮放，不蓋住整張臉：face-1 angle0.00
+NE259_ANCHOR:FAIL:眼標記高於整條父鏈的頭部繪製層：face-1 angle0.00
+NE259_ANCHOR:FAIL:光源跟隨真眼點：face-1 angle0.40
+NE259_ANCHOR:FAIL:眼標記範圍隨零件旋轉與縮放，不蓋住整張臉：face-1 angle0.40
+NE259_ANCHOR:FAIL:眼標記高於整條父鏈的頭部繪製層：face-1 angle0.40
+NE259_ANCHOR:FAIL:光源跟隨真眼點：face1 angle-0.35
+NE259_ANCHOR:FAIL:眼標記範圍隨零件旋轉與縮放，不蓋住整張臉：face1 angle-0.35
+NE259_ANCHOR:FAIL:眼標記高於整條父鏈的頭部繪製層：face1 angle-0.35
+NE259_ANCHOR:FAIL:光源跟隨真眼點：face1 angle0.00
+NE259_ANCHOR:FAIL:眼標記範圍隨零件旋轉與縮放，不蓋住整張臉：face1 angle0.00
+NE259_ANCHOR:FAIL:眼標記高於整條父鏈的頭部繪製層：face1 angle0.00
+NE259_ANCHOR:FAIL:光源跟隨真眼點：face1 angle0.40
+NE259_ANCHOR:FAIL:眼標記範圍隨零件旋轉與縮放，不蓋住整張臉：face1 angle0.40
+NE259_ANCHOR:FAIL:眼標記高於整條父鏈的頭部繪製層：face1 angle0.40
+NE259_ANCHOR_RESULT:38/18

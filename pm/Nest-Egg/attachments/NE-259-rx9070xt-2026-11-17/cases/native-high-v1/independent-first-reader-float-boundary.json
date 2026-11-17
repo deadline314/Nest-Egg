@@ -1,0 +1,144 @@
+{
+  "checks": [
+    {
+      "name": "exactly six enemy glows",
+      "passed": true
+    },
+    {
+      "name": "complete original sixty ordered alternating pairs",
+      "passed": true
+    },
+    {
+      "name": "stored raw ratio equals independent pair median",
+      "passed": true
+    },
+    {
+      "name": "unrounded original 105 percent gate",
+      "passed": true
+    },
+    {
+      "name": "quality cap",
+      "passed": true
+    },
+    {
+      "name": "watchdog exact calm",
+      "passed": true
+    },
+    {
+      "name": "watchdog light level calm",
+      "passed": true
+    },
+    {
+      "name": "heavy_gunner exact calm",
+      "passed": true
+    },
+    {
+      "name": "heavy_gunner light level calm",
+      "passed": true
+    },
+    {
+      "name": "plain sweeper has no glow calm",
+      "passed": true
+    },
+    {
+      "name": "native image calm",
+      "passed": true
+    },
+    {
+      "name": "watchdog exact alert",
+      "passed": true
+    },
+    {
+      "name": "watchdog light level alert",
+      "passed": false
+    },
+    {
+      "name": "heavy_gunner exact alert",
+      "passed": true
+    },
+    {
+      "name": "heavy_gunner light level alert",
+      "passed": false
+    },
+    {
+      "name": "plain sweeper has no glow alert",
+      "passed": true
+    },
+    {
+      "name": "native image alert",
+      "passed": true
+    },
+    {
+      "name": "watchdog exact telegraph",
+      "passed": true
+    },
+    {
+      "name": "watchdog light level telegraph",
+      "passed": true
+    },
+    {
+      "name": "heavy_gunner exact telegraph",
+      "passed": true
+    },
+    {
+      "name": "heavy_gunner light level telegraph",
+      "passed": true
+    },
+    {
+      "name": "plain sweeper has no glow telegraph",
+      "passed": true
+    },
+    {
+      "name": "native image telegraph",
+      "passed": true
+    },
+    {
+      "name": "watchdog own color retained at alert",
+      "passed": true
+    },
+    {
+      "name": "watchdog telegraph differs from own color",
+      "passed": true
+    },
+    {
+      "name": "heavy_gunner own color retained at alert",
+      "passed": true
+    },
+    {
+      "name": "heavy_gunner telegraph differs from own color",
+      "passed": true
+    },
+    {
+      "name": "initially lit and extinguishes during original three second limit",
+      "passed": true
+    },
+    {
+      "name": "death contact sheet present",
+      "passed": true
+    },
+    {
+      "name": "source_unchanged",
+      "passed": true
+    },
+    {
+      "name": "profile_under_redirected_dir",
+      "passed": true
+    },
+    {
+      "name": "tool_sha_matches",
+      "passed": true
+    },
+    {
+      "name": "natural EOF clean",
+      "passed": true
+    },
+    {
+      "name": "native Forward+ RX9070XT",
+      "passed": true
+    }
+  ],
+  "total": 34,
+  "failures": 2,
+  "independent_ratio_raw": 1.0136416940793496,
+  "input_sha256": "dd5dc7b1256fe69cded2015bec76f9477567a252b10f55661877e001e4be2830"
+}

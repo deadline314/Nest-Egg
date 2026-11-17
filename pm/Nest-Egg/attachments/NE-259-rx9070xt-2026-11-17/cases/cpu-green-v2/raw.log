@@ -1,0 +1,25 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ENEMY_GLOW_CPU:PASS:performance result has an enforceable acceptance gate
+ENEMY_GLOW_CPU:PASS:death evidence requires an initially valid lit source
+ENEMY_GLOW_CPU:PASS:valid six reaches actual failure counter
+ENEMY_GLOW_CPU:PASS:exact105% reaches actual failure counter
+ENEMY_GLOW_PERF_REJECT:["unrounded ratio 1.050001000 exceeds 1.05"]
+ENEMY_GLOW_CPU:PASS:unrounded overspeed reaches actual failure counter
+ENEMY_GLOW_PERF_REJECT:["requires exactly 6 glowing enemies, got 0"]
+ENEMY_GLOW_CPU:PASS:zero lights reaches actual failure counter
+ENEMY_GLOW_PERF_REJECT:["requires exactly 6 glowing enemies, got 5"]
+ENEMY_GLOW_CPU:PASS:five lights reaches actual failure counter
+ENEMY_GLOW_PERF_REJECT:["requires all 60 timing pairs"]
+ENEMY_GLOW_CPU:PASS:missing pairs reaches actual failure counter
+ENEMY_GLOW_PERF_REJECT:["pair 0 has nonpositive/nonfinite timing"]
+ENEMY_GLOW_CPU:PASS:zero baseline pair is rejected
+ENEMY_GLOW_PERF_REJECT:["pair 0 has nonpositive/nonfinite timing"]
+ENEMY_GLOW_CPU:PASS:non-finite timing is rejected
+ENEMY_GLOW_PERF_REJECT:["active lights 9 exceed/invalid quality limit 8"]
+ENEMY_GLOW_CPU:PASS:quality budget overflow is rejected
+ENEMY_GLOW_CPU:PASS:missing death light is rejected
+ENEMY_GLOW_CPU:PASS:initially lit real light node is accepted
+ENEMY_GLOW_CPU:PASS:initially disabled light cannot prove a fade
+ENEMY_GLOW_CPU:PASS:initially dark light cannot prove a fade
+ENEMY_GLOW_CPU_RESULT:15/0
