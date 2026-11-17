@@ -105,6 +105,7 @@ func _run() -> void:
 				"results": _results}, "  ") + "\n")
 			report.close()
 	Settings.set_light_quality(original_quality)
+	await AudioRelease.settle(get_tree())
 	get_tree().quit(1 if _failed else 0)
 
 

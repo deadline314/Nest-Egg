@@ -27,6 +27,7 @@ var _tag := "pools"
 var _quality := ""
 var _max := 8
 var _invalid_samples := 0
+var _capture_failures := 0
 
 
 func _ready() -> void:
@@ -59,6 +60,8 @@ func _settle(frames: int) -> void:
 
 
 func _run() -> void:
+	if get_viewport().find_world_3d().environment == null:
+		add_child(LightKit.create_environment())
 	var quality_before := Settings.get_light_quality()
 	if QUALITY.has(_quality):
 		Settings.set_light_quality(QUALITY[_quality])
@@ -80,6 +83,8 @@ func _run() -> void:
 		Settings.set_light_quality(quality_before)
 	failures += _invalid_samples
 	report["invalid_focus_samples"] = _invalid_samples
+	failures += _capture_failures
+	report["capture_failures"] = _capture_failures
 	var writer := FileAccess.open(_out.path_join(_tag + "-index.json"), FileAccess.WRITE)
 	if writer == null:
 		push_error("[LightPoolProbe] 無法寫入索引：%s" % _out)
@@ -103,6 +108,11 @@ func _measure_level(level_id: String, data: LevelData) -> Dictionary:
 			child.queue_free()
 	level.player.visible = false
 	level.player.process_mode = Node.PROCESS_MODE_DISABLED
+	for node: Node in level.find_children("*", "", true, false):
+		if node is WorldPrompt:
+			node.enabled = false
+			node.set_process(false)
+			node.hide()
 	# Retarget only the lighting observer. Moving the real disabled player can still
 	# enter collision-based story/portal triggers during subsequent physics frames.
 	var focus := Node2D.new()
@@ -142,7 +152,8 @@ func _measure_level(level_id: String, data: LevelData) -> Dictionary:
 		await _settle(SETTLE_FRAMES)
 		var image := Capture.image(get_viewport())
 		var file := "%s-%s-lamp%02d.png" % [_tag, level_id, index]
-		image.save_png(_out.path_join(file))
+		if image.save_png(_out.path_join(file)) != OK:
+			_capture_failures += 1
 		var record := _measure_lamp(image, lamp, level._scenery_walls)
 		var focus_x := focus.global_position.x
 		var expected_x := lamp.global_position.x

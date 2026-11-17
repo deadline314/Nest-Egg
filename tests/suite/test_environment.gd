@@ -961,12 +961,23 @@ func _test_lamp_fixtures() -> void:
 		var loose := PackedStringArray()
 		var tallest := 0.0
 		var soft := true
+		var closed_gate_occluders: Array[LightOccluder2D] = []
+		for node: Node in level.find_children("*", "Node2D", true, false):
+			if node is Gate and not node.is_open and node.is_visible_in_tree():
+				for child: Node in node.get_children():
+					if child is LightOccluder2D and child.occluder != null:
+						closed_gate_occluders.append(child)
+		var obscured := PackedStringArray()
 		for node: Node in level.find_children("*", "Node2D", true, false):
 			var lamp := node as Lamp
 			if lamp == null:
 				continue
 			lamps += 1
 			kinds[lamp.fixture_id] = true
+			if not lamp.dead:
+				for occluder in closed_gate_occluders:
+					if Geometry2D.is_point_in_polygon(occluder.to_local(lamp.global_position), occluder.occluder.polygon):
+						obscured.append("%s (%d, %d)" % [lamp.fixture_id, int(lamp.position.x / 16.0), int(lamp.position.y / 16.0)])
 			if lamp.fixture_id == &"" or not lamp.is_supported():
 				loose.append("(%d, %d)" % [int(lamp.position.x / 16.0), int(lamp.position.y / 16.0)])
 			# 桿子不能太高：約 4 公尺（主角身高的兩倍多），不是三倍高的電線桿。
@@ -978,6 +989,7 @@ func _test_lamp_fixtures() -> void:
 		check(lamps < 2 or kinds.size() >= 2, "%s 的燈至少兩款（%d 盞、%d 款）" % [file, lamps, kinds.size()])
 		check(tallest <= Level.LAMP_POLE_MAX, "%s 的燈桿不超過 %d 像素（最高 %d）" % [file, int(Level.LAMP_POLE_MAX), int(tallest)])
 		check(soft, "%s 場景燈的光錐是柔邊" % file)
+		check(obscured.is_empty(), "%s 的亮燈不在關閉閘門的遮光體內：%s" % [file, ", ".join(obscured)])
 		await end_level(level)
 
 
