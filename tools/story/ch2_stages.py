@@ -16,6 +16,7 @@ from pathlib import Path
 import towel_staging
 import rent_window_staging
 import medic_transport_staging
+import market_pass_staging
 from build_ch1_story import actor as stage_actor, stage as stage_scene
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -174,4 +175,13 @@ MEDIC_LEDGER = Stage(
     "ch2_medic_transport", floor=296, scale=1.9, shot=(370,256,1.1),
     layers=LEDGER.layers + medic_transport_staging.layers(), furniture=LEDGER.furniture)
 
-STAGES = (LEDGER, BOOTH, COLLECTION, PAWNSHOP, RENT_WINDOW, MEDIC_LEDGER)
+# S05 查核證在市集濕路面上出示；背景中間的公眾攤道保持可見。
+MARKET_PASS = Stage(
+    "ch2_market_pass", floor=market_pass_staging.FLOOR, scale=market_pass_staging.ACTOR_SCALE, shot=(337, 243, 1.14),
+    layers=({"kind": "gradient", "top": "#0a0614", "bottom": "#1a1024", "parallax": 0.0},
+            background("neon_market", modulate="#b8b0c3"),
+            {"kind": "glow", "pos": [325, 235], "radius": 160, "color": "#f9c28c", "intensity": 0.52,
+             "additive": True, "alpha": 0.28, "pulse": 0.04, "pulse_depth": 0.12},
+            market_pass_staging.layer(), {"kind": "rain", "depth": "front", "opacity": 0.28}))
+
+STAGES = (LEDGER, BOOTH, COLLECTION, PAWNSHOP, RENT_WINDOW, MEDIC_LEDGER, MARKET_PASS)

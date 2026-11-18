@@ -2877,27 +2877,197 @@
    }
   },
   "ch2_t_s05_gate": {
-   "mode": "dialogue",
-   "lines": [
+   "mode": "animated",
+   "steps": [
     {
+     "do": "scene",
+     "id": "ch2_market_pass",
+     "pos": [
+      337,
+      286.4
+     ],
+     "zoom": 1.14,
+     "fade": 0.8
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      304,
+      330.0
+     ],
+     "facing": 1,
+     "scale": 2.2,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "actor",
+     "id": "patroller",
+     "kind": "ch2_patroller",
+     "pos": [
+      350,
+      330.0
+     ],
+     "facing": -1,
+     "scale": 2.2,
+     "weapon": "",
+     "speaker": "ch2_patroller"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      138.5,
+      287.5
+     ],
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "angle": 0.0,
+     "time": 0.38,
+     "wait": true,
+     "space": "prop",
+     "prop": "public_aisle_pass"
+    },
+    {
+     "do": "prop_visible",
+     "id": "public_aisle_pass",
+     "visible": true
+    },
+    {
+     "do": "prop_hold",
+     "id": "public_aisle_pass",
+     "actor": "rin",
+     "hand": "front",
+     "point": [
+      138.5,
+      287.5
+     ],
+     "follow_rotation": false
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      322,
+      253
+     ],
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "angle": 0.0,
+     "time": 0.38,
+     "wait": true
+    },
+    {
+     "do": "reach",
+     "id": "patroller",
+     "hand": "front",
+     "to": [
+      246.5,
+      264.5
+     ],
+     "contact": [
+      72.5,
+      47.5
+     ],
+     "angle": 3.141592653589793,
+     "time": 0.38,
+     "wait": true,
+     "space": "prop",
+     "prop": "public_aisle_pass"
+    },
+    {
+     "do": "wait",
+     "time": 0.4
+    },
+    {
+     "do": "reach",
+     "id": "patroller",
+     "hand": "front",
+     "release": true,
+     "time": 0.3,
+     "wait": true
+    },
+    {
+     "do": "say",
      "speaker": "patroller",
      "text": "查核的人走雨棚下，貨道沒有放行。",
      "ja": "査察の者は雨よけの下を通れ。貨物通路は通行を許可していない。",
      "en": "Inspectors use the awning path. The cargo lane is not cleared for passage."
     },
     {
+     "do": "say",
      "speaker": "rin",
      "text": "我去代收處，你把入口留著。",
      "ja": "代収所に行ってくる。入口は押さえておいて。",
      "en": "I'm going to the collection desk. Keep the entrance covered for me."
     },
     {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      315,
+      253
+     ],
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "angle": 0.0,
+     "time": 0.38,
+     "wait": true
+    },
+    {
+     "do": "prop_visible",
+     "id": "public_aisle_pass",
+     "visible": false
+    },
+    {
+     "do": "prop_release",
+     "id": "public_aisle_pass"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "release": true,
+     "time": 0.3,
+     "wait": true
+    },
+    {
+     "do": "move",
+     "id": "patroller",
+     "to": [
+      424,
+      330.0
+     ],
+     "time": 1.55,
+     "pose": "walk",
+     "then": "idle",
+     "wait": true
+    },
+    {
+     "do": "face",
+     "id": "patroller",
+     "dir": -1
+    },
+    {
+     "do": "say",
      "speaker": "lamp",
      "text": "昨天封路，今天只開了攤道。別跟著貨車鑽進柵門。",
      "ja": "昨日は道が封鎖されてて、今日は屋台の通路しか開いてない。荷車について柵の門をくぐっちゃだめだよ。",
      "en": "The road was closed yesterday, and only the stall lane is open today. Don't follow the delivery trucks through the barrier gate."
     }
    ],
+   "pose_policy": "supported",
    "when": {
     "all": [
      {

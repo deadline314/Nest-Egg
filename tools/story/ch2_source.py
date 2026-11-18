@@ -21,7 +21,8 @@ import towel_staging  # noqa: E402
 import guest_ticket_staging  # noqa: E402
 import rent_window_staging  # noqa: E402
 import medic_transport_staging  # noqa: E402
-from ch2_stages import BOOTH, COLLECTION, LEDGER, PAWNSHOP, RENT_WINDOW, MEDIC_LEDGER, Cast, Stage  # noqa: E402
+import market_pass_staging  # noqa: E402
+from ch2_stages import BOOTH, COLLECTION, LEDGER, PAWNSHOP, RENT_WINDOW, MEDIC_LEDGER, MARKET_PASS, Cast, Stage  # noqa: E402
 
 # 舞台演出：屋頂的茶沿用第一章的屋頂舞台（地面線 262、凜縮放 2.2；鷺的骨架只比凜高 3%，同舞台用同一個縮放）。
 # 兩人站在茶座兩側、面向對方（0.40W 與 0.60W）；接續的段落沿用同一個舞台與站位，只用很短的淡入。
@@ -866,6 +867,8 @@ _COLLECTION_CAST = (Cast("rin", 230, 1), Cast("ali", 300, 1), Cast("vig", 430, -
 _LEDGER_CAST = (Cast("rin", 250, 1), Cast("yong", 440, -1), Cast("xiaowei", 490, -1))
 _TOWEL_RESTS = ((0, tuple(towel_staging.rest_steps())),)
 FORMAL_FRAMES = {
+    "ch2_t_s05_gate": Frame(MARKET_PASS, (Cast("rin", 304, 1), Cast("patroller", 350, -1, kind="ch2_patroller")), True,
+        ((0, market_pass_staging.inspect_steps()), (2, market_pass_staging.clear_steps()))),
     "ch2_t_s08_contract": Frame(RENT_WINDOW, (Cast("rin", 290, 1),), True,
         ((0, rent_window_staging.opening_steps()), (2, rent_window_staging.stamp_steps()))),
     "ch2_t_s08_contract_revisit": Frame(RENT_WINDOW, (Cast("rin", 290, 1),), True,

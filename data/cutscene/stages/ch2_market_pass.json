@@ -1,0 +1,65 @@
+{
+ "camera": {
+  "pos": [
+   337,
+   243
+  ],
+  "zoom": 1.14
+ },
+ "floor": 330.0,
+ "layers": [
+  {
+   "kind": "gradient",
+   "top": "#0a0614",
+   "bottom": "#1a1024",
+   "parallax": 0.0
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scenes/neon_market.webp",
+   "pos": [
+    -64,
+    -36.0
+   ],
+   "scale": 0.5,
+   "filter": "linear",
+   "source_width": 1536,
+   "modulate": "#b8b0c3"
+  },
+  {
+   "kind": "glow",
+   "pos": [
+    325,
+    235
+   ],
+   "radius": 160,
+   "color": "#f9c28c",
+   "intensity": 0.52,
+   "additive": true,
+   "alpha": 0.28,
+   "pulse": 0.04,
+   "pulse_depth": 0.12
+  },
+  {
+   "kind": "sprite",
+   "id": "public_aisle_pass",
+   "path": "res://art/items/icons/doc_stub_hd.png",
+   "source_width": 384,
+   "pos": [
+    312.0,
+    244.0
+   ],
+   "scale": 0.052,
+   "filter": "linear",
+   "depth": "front",
+   "glow": false,
+   "visible": false,
+   "support": "凜出示的查核證由手掌持握"
+  },
+  {
+   "kind": "rain",
+   "depth": "front",
+   "opacity": 0.28
+  }
+ ]
+}
