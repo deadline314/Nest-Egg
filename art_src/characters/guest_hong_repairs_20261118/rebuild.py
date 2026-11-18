@@ -1,4 +1,4 @@
-"""由固定原圖與袖料座標映射，重建洪先生頸部及上下袖口批准來源。"""
+"""由固定原圖與同部件座標映射，重建洪先生五片批准來源。"""
 from pathlib import Path
 import hashlib
 import json
@@ -31,18 +31,18 @@ def main():
     mask_path=HERE/'neck-mask.png'
     if sha(mask_path.read_bytes())!=record['neck_mask_sha256']:
         raise ValueError('洪先生頸部遮罩版本不同：neck-mask.png')
-    if record.get('schema_version')!=2 or set(record['approved_outputs'])!={'torso','arm_upper','arm_lower'}:
-        raise ValueError('洪先生來源契約版本不同：provenance.json，需要schema2與三片批准來源')
+    if record.get('schema_version')!=3 or set(record['approved_outputs'])!={'torso','arm_upper','arm_lower','leg_upper','pelvis'}:
+        raise ValueError('洪先生來源契約版本不同：provenance.json，需要 schema 3 與五片批准來源')
     configs=record['coordinate_claims']
-    if set(configs)!={'arm_upper','arm_lower'}:
-        raise ValueError('洪先生映射登記須包含arm_upper及arm_lower')
+    if set(configs)!=set(record['approved_outputs'])-{'torso'}:
+        raise ValueError('洪先生各映射分件須與批准內容吻合')
     claims_paths={}
     for part,config in configs.items():
         path=(HERE/config['file']).resolve()
         if not path.is_relative_to(HERE.resolve()) or not path.is_file():
-            raise ValueError(f'洪先生袖料映射來源位置不同：{part}/{config["file"]}')
+            raise ValueError(f'洪先生分件映射來源位置不同：{part}/{config["file"]}')
         if input_sha(path)!=config['canonical_sha256']:
-            raise ValueError(f'洪先生袖料座標映射版本不同：{part}/{config["file"]}')
+            raise ValueError(f'洪先生分件座標映射版本不同：{part}/{config["file"]}')
         claims_paths[part]=path
     work=ROOT/'art_src/characters/guest_hong'
     registered={work/f'overrides/refined/{part}.png' for part in record['approved_outputs']}
@@ -81,7 +81,7 @@ def main():
             if originals[part][sy,sx,3]<128 or base[sy,sx,3]<128:
                 raise ValueError(f'洪先生{part}映射第{index}項不屬於同部件既有材料')
             selected[y,x]=True
-            results[part][y,x]=base[sy,sx]
+            results[part][y,x]=originals[part][sy,sx]
         masks[part]=selected
     spec=json.loads((ROOT/'tools/comfyui/specs/guest_hong_side.json').read_text(encoding='utf-8'))
     scale=spec['tex_px_per_wp']/spec['illustration_px_per_wp']
@@ -108,7 +108,7 @@ def main():
             raise ValueError(f'洪先生已有不同的來源覆寫，保留並停止：{target}')
     for name,target in targets.items():
         write_registered_file(target,payloads[name])
-    print('洪先生來源：頸部256同座標原RGBA、上臂172及下臂35同件材料映射；批准PNG原bytes；畫布/支點/其他件保持；相同輸出不改寫')
+    print('洪先生五片來源已核對原圖、同件材料、批准 PNG 與位置。')
 
 if __name__=='__main__':
     main()

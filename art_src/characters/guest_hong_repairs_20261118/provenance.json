@@ -1,6 +1,6 @@
 {
-  "kind": "NE-267洪先生頸部與上下袖口局部來源修補；不是整角色驗收",
-  "schema_version": 2,
+  "kind": "NE-267 洪先生頸部、袖口、髖部與膝部的局部來源修補",
+  "schema_version": 3,
   "inputs": {
     "art_src/characters/guest_hong/base_rgba.png": "4261d3d92d389639f49cfc864cc46c7a9dec6418b66a3ca6d79b48ee6f3b25d5",
     "tools/comfyui/specs/guest_hong_side.json": "2c864078282080fd9fd225b0fd771b79ec74cca7fa89f2b5e2c9140e5b83dbd2",
@@ -35,32 +35,52 @@
       "file": "wrist-coordinate-claims.json",
       "canonical_sha256": "cdfa8bf1f745bb38fc144cecf4c5906d954a8bf1bfe0470680275c0c31a5fc38",
       "pixels": 35
+    },
+    "leg_upper": {
+      "file": "leg_upper-coordinate-claims.json",
+      "canonical_sha256": "3b68bef040e3042614e2b1ef027239090f06cf1d54446824eadba6f024239aef",
+      "pixels": 783
+    },
+    "pelvis": {
+      "file": "pelvis-coordinate-claims.json",
+      "canonical_sha256": "5d851ffa8da00f54765cd166452db86e7a580258b48712c631358d533da6d99d",
+      "pixels": 62
     }
   },
   "approved_outputs": {
     "torso": "approved_torso.png",
     "arm_upper": "approved_arm_upper.png",
-    "arm_lower": "approved_arm_lower.png"
+    "arm_lower": "approved_arm_lower.png",
+    "leg_upper": "approved_leg_upper.png",
+    "pelvis": "approved_pelvis.png"
   },
   "outputs": {
     "torso": "2aa535d34065311224fa84086c82ba7faeb2c9783c65653684df195c26b203f5",
     "arm_upper": "3fdde155238786a02311ec15af99bf29153f0fd1b5aa068044497f061b77823d",
-    "arm_lower": "e9c9f5bdc36eaeb0e83e4b942ca018f2f79bddd589854e7abeb59b94ce867497"
+    "arm_lower": "e9c9f5bdc36eaeb0e83e4b942ca018f2f79bddd589854e7abeb59b94ce867497",
+    "leg_upper": "530f3502fa366aa2dcc521938f7b0b8718f5af0e9c3f53b705e9ac2506f5e728",
+    "pelvis": "d6beaa221f01b8fd202e82c4fbb379b8dcff1a98019b0334fafc7cfd85a3edea"
   },
   "diffuse_rgba_sha256": {
     "torso": "7a23c4ce5c91e8a6d4a93ad66d2048f25b5e4100b04692d35f03dc08d8a3d606",
     "arm_upper": "f6d2f37ee84c4e65eebdc1fd21c6dbabda1ff20cad68ea17d4a145c6e7817e5d",
-    "arm_lower": "7c2678e94b2cc4cc152c1584d85e5d886a8618075b5b76e8a576cb6d2112b0f3"
+    "arm_lower": "7c2678e94b2cc4cc152c1584d85e5d886a8618075b5b76e8a576cb6d2112b0f3",
+    "leg_upper": "dc5da5dc4873963a5d1790e62bd69927fd415082b0b55bc1453d17fa39ec02a0",
+    "pelvis": "4a77db0f7df7f1d072f6cfdb9a6b6f1a5219ad1599c36b21af92c7689fc3bdae"
   },
   "diffuse_png_sha256": {
     "torso": "e107f0836e3bc6b56181250a96d0de629fb8f37ad7cd44fdfb7ee30293fd879b",
     "arm_upper": "10cbdfebb99722353edfab72e6174f6c2d0accc2a66901ebecfd20a624e8534c",
-    "arm_lower": "b81bda30b783bd9a946b14fb7974f6c957bcc395a9feb52bb74ac4dc315ea041"
+    "arm_lower": "b81bda30b783bd9a946b14fb7974f6c957bcc395a9feb52bb74ac4dc315ea041",
+    "leg_upper": "eb00c8546c7d10ec3876bf811e9faf3e85face15996f802202ad810e016c1021",
+    "pelvis": "1921ba0a6e93373886ef7de3bb945bba4400bcdc2bc72f1fb3baa2588303f420"
   },
   "normal_png_sha256": {
     "torso": "3da756a6d86ed2562a8440e7b561a4a5eaa218f617c74dbf48a4a472c95d8626",
     "arm_upper": "47d69de4003e2d28ebda144915e8c29ecc5e86b8456272d488212ce52949c124",
-    "arm_lower": "1aa0be065f200df85cc90c1eec2d1bd8b841b917e70ea9b6aedeb380be850ac7"
+    "arm_lower": "1aa0be065f200df85cc90c1eec2d1bd8b841b917e70ea9b6aedeb380be850ac7",
+    "leg_upper": "70f7400dff2896f0b07f1315a62ddee78c76d67239e1672532a314ad92028799",
+    "pelvis": "bac01c4011e02b13c3007f0d16744526a8dd3ef236c726c7e623999b2e656fa8"
   },
   "native_size": {
     "torso": [
@@ -74,20 +94,32 @@
     "arm_lower": [
       97,
       186
+    ],
+    "leg_upper": [
+      202,
+      343
+    ],
+    "pelvis": [
+      219,
+      189
     ]
   },
   "source_changed_pixels": {
     "torso": 256,
     "arm_upper": 172,
-    "arm_lower": 35
+    "arm_lower": 35,
+    "leg_upper": 783,
+    "pelvis": 62
   },
   "source_claim": {
     "torso": "256個原圖同座標頸部皮膚像素，排除髮緣；補頭部點頭所需重疊。",
     "arm_upper": "172個隱藏袖料補點：袖口123取同上臂(480,528)，肩端/內側49分別取同上臂(480,303)/(495,450)原RGBA；不取衣身、不冒稱同座標原圖材料。",
-    "arm_lower": "35個下袖口補點映射到同下臂既有袖料(480,540)，不取衣身；V5的773及V6腕部2修復都保持。"
+    "arm_lower": "35個下袖口補點映射到同下臂既有袖料(480,540)，不取衣身；V5的773及V6腕部2修復都保持。",
+    "leg_upper": "783 個補點取自同一褲料的原精修分件。膝側連續重疊與髖側修補保留既有不透明像素。",
+    "pelvis": "62 個補點使用同件髖部褲料，維持坐下時與大腿的連續接觸。"
   },
   "registration": "原opaque/遮罩外保持；沿原spec，canvas/pivot/affine/骨架/動作不變。",
-  "known_scope": "原main73920個14接點keys：811→32、779修復、32保留、0新增；32及骨盆13px不豁免。",
-  "publication": "先重建三片RGBA逐像素驗證批准PNG，再發布批准原始bytes；核對全部既有輸出後才寫入，重跑相同內容不改mtime。",
+  "known_scope": "14 接點、雙面向與雙倍率 73,920 筆檢查，累計 811→0 失敗。姿態與舞台條件各由原生檢視確認。",
+  "publication": "先逐像素核對所有批准來源，再發布原始 PNG bytes。全部既有輸出通過才開始寫入，重跑相同輸出保留 mtime。",
   "input_hash_policy": "只有.json/.py將CRLF正規化LF再計SHA；PNG原始bytes，其他內容變更拒收。"
 }

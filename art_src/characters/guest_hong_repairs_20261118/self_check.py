@@ -1,4 +1,4 @@
-"""只在專案外私有fixture驗證三片原bytes發布、來源拒收與mtime保持。"""
+"""只在專案外私有fixture驗證五片原bytes發布、來源拒收與mtime保持。"""
 from pathlib import Path
 import argparse
 import hashlib
@@ -67,7 +67,7 @@ def main():
             reject_change(path,path.read_bytes()+b'changed','approved output bytes changed')
             assert not any(p.exists() for p in targets.values()),'損毀批准PNG不應部分發布任何輸出'
         reject_change(callback/'neck-mask.png',(callback/'neck-mask.png').read_bytes()+b'changed','頸部遮罩版本不同')
-        for part,path in claims.items():reject_change(path,claims_bytes[part]+b' ','袖料座標映射版本不同')
+        for part,path in claims.items():reject_change(path,claims_bytes[part]+b' ','分件座標映射版本不同')
         assert not any(p.exists() for p in targets.values())
         with patch('PIL.Image.Image.save',side_effect=AssertionError('不可重編碼批准PNG')):
             spec_path.write_bytes(spec_bytes.replace(b'\r\n',b'\n'))
@@ -85,7 +85,7 @@ def main():
             for part,path in claims.items():path.write_bytes(claims_bytes[part])
             module.main()
         reject_change(source,source.read_bytes()+b'changed','洪先生來源版本不同')
-        for part,path in claims.items():reject_change(path,claims_bytes[part]+b' ','袖料座標映射版本不同')
+        for part,path in claims.items():reject_change(path,claims_bytes[part]+b' ','分件座標映射版本不同')
         assert b'"scale": 1.0' in spec_bytes
         reject_change(spec_path,spec_bytes.replace(b'"scale": 1.0',b'"scale": 1.1',1),'洪先生來源版本不同')
         assert all(p.read_bytes()==approved_bytes[name] and p.stat().st_mtime_ns==timestamps[name] for name,p in targets.items())
@@ -105,7 +105,7 @@ def main():
         else:raise AssertionError('不同既有輸出未被拒收')
         assert not first.exists() and not second.exists(),'最後一片錯誤不得先發布前兩片'
         assert wrong.read_bytes()==wrong_bytes and wrong.stat().st_mtime_ns==wrong_time
-    print('洪先生合併來源自檢通過：三片批准PNG原bytes/損毀拒收；LF/CRLF一致與內容拒收；mtime保持；最後一片錯誤不部分發布；fixture已清理')
+    print('洪先生合併來源自檢通過：五片批准PNG原bytes/損毀拒收；LF/CRLF一致與內容拒收；mtime保持；最後一片錯誤不部分發布；fixture已清理')
 
 if __name__=='__main__':
     main()
