@@ -14,6 +14,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 import towel_staging
+import rent_window_staging
 from build_ch1_story import actor as stage_actor, stage as stage_scene
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -161,4 +162,11 @@ def derived(ident: str, base: str, extra: tuple[dict, ...], scale: float, shot: 
 # --- 當舖櫃臺（S01）：沿用第一章的 ch1_pawnshop_front，櫃臺上多一條乾毛巾（tools/story/towel_staging.py） ---------
 PAWNSHOP = derived("ch2_pawnshop_counter", "ch1_pawnshop_front", tuple(towel_staging.layers()), scale=3.5, shot=(300, 290, 0.88))
 
-STAGES = (LEDGER, BOOTH, COLLECTION, PAWNSHOP)
+RENT_WINDOW = Stage(
+    "ch2_rent_window", floor=rent_window_staging.FLOOR, scale=rent_window_staging.ACTOR_SCALE,
+    shot=(350, 294, 1.15),
+    layers=({"kind": "gradient", "top": "#0a0614", "bottom": "#1a1024", "parallax": 0.0},
+            background("neon_market", modulate="#c8c0d0")) + rent_window_staging.layers(),
+    furniture=rent_window_staging.furniture())
+
+STAGES = (LEDGER, BOOTH, COLLECTION, PAWNSHOP, RENT_WINDOW)

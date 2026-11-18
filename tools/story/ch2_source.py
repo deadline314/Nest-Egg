@@ -19,7 +19,8 @@ from build_ch1_story import actor as stage_actor, stage as stage_scene  # noqa: 
 from chapter_compiler import route_back_to_choices  # noqa: E402
 import towel_staging  # noqa: E402
 import guest_ticket_staging  # noqa: E402
-from ch2_stages import BOOTH, COLLECTION, LEDGER, PAWNSHOP, Cast, Stage  # noqa: E402
+import rent_window_staging  # noqa: E402
+from ch2_stages import BOOTH, COLLECTION, LEDGER, PAWNSHOP, RENT_WINDOW, Cast, Stage  # noqa: E402
 
 # 舞台演出：屋頂的茶沿用第一章的屋頂舞台（地面線 262、凜縮放 2.2；鷺的骨架只比凜高 3%，同舞台用同一個縮放）。
 # 兩人站在茶座兩側、面向對方（0.40W 與 0.60W）；接續的段落沿用同一個舞台與站位，只用很短的淡入。
@@ -864,6 +865,10 @@ _COLLECTION_CAST = (Cast("rin", 230, 1), Cast("ali", 300, 1), Cast("vig", 430, -
 _LEDGER_CAST = (Cast("rin", 250, 1), Cast("yong", 440, -1), Cast("xiaowei", 490, -1))
 _TOWEL_RESTS = ((0, tuple(towel_staging.rest_steps())),)
 FORMAL_FRAMES = {
+    "ch2_t_s08_contract": Frame(RENT_WINDOW, (Cast("rin", 290, 1),), True,
+        ((0, rent_window_staging.opening_steps()), (2, rent_window_staging.stamp_steps()))),
+    "ch2_t_s08_contract_revisit": Frame(RENT_WINDOW, (Cast("rin", 290, 1),), True,
+        ((0, rent_window_staging.opening_steps(revisit=True)),)),
     # S01：老 K 把乾毛巾推過櫃臺，說「頭髮先擦乾」，凜拿起來按一下頭髮再回話。
     "ch2_t_s01_settle": Frame(PAWNSHOP, _PAWNSHOP_CAST, True, ((0, tuple(towel_staging.push_steps())), (1, tuple(towel_staging.wipe_steps())))),
     "ch2_t_s01_settled": Frame(PAWNSHOP, _PAWNSHOP_CAST, cues=_TOWEL_RESTS),

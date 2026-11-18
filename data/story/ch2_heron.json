@@ -4167,27 +4167,207 @@
    }
   },
   "ch2_t_s08_contract": {
-   "mode": "dialogue",
-   "lines": [
+   "mode": "animated",
+   "steps": [
     {
+     "do": "scene",
+     "id": "ch2_rent_window",
+     "pos": [
+      350,
+      296.8
+     ],
+     "zoom": 1.15,
+     "fade": 0.8
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      290,
+      340.0
+     ],
+     "facing": 1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "actor",
+     "id": "window_clerk",
+     "kind": "ch2_window_clerk",
+     "pos": [
+      399.0,
+      340.0
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "window_clerk",
+     "pose": "sit",
+     "pose_reason": "職員坐在租攤窗口內核對合約。",
+     "pose_support": "辦公椅座面 x=384～419、y=300.0；雙腳以地板 y=340 支撐。",
+     "seat_sag": 0.33
+    },
+    {
+     "do": "prop_visible",
+     "id": "rent_contract_copy",
+     "visible": true
+    },
+    {
+     "do": "prop_visible",
+     "id": "rent_contract_mark",
+     "visible": false
+    },
+    {
+     "do": "wait",
+     "time": 0.65
+    },
+    {
+     "do": "say",
      "speaker": "window_clerk",
      "text": "攤位押金本金二百，本期利息二十。申請沒有核准前，不收續租款。",
      "ja": "屋台の保証金は元金二百クレジット、今期の利息は二十クレジットです。申請が承認されるまで、継続賃料は徴収しません。",
      "en": "The stall deposit is 200 credits in principal, with 20 credits of interest this period. Until the application is approved, no renewal fee will be collected."
     },
     {
+     "do": "say",
      "speaker": "rin",
      "text": "這行要留副本，代收處給我的金額不一樣。",
      "ja": "ここは控えを残してほしい。代収所で聞いた金額と違うんだ。",
      "en": "I need a copy kept for this line. The amount doesn't match what the collection desk gave me."
     },
     {
+     "do": "reach",
+     "id": "window_clerk",
+     "hand": "front",
+     "time": 0.4,
+     "wait": true,
+     "to": [
+      367.5044155844156,
+      274.9194805194805
+     ],
+     "contact": [
+      68.5,
+      22.5
+     ],
+     "angle": 3.141592653589793
+    },
+    {
+     "do": "prop_hold",
+     "id": "rent_contract_stamp",
+     "actor": "window_clerk",
+     "hand": "front",
+     "point": [
+      23.5,
+      12.5
+     ],
+     "follow_rotation": false
+    },
+    {
+     "do": "reach",
+     "id": "window_clerk",
+     "hand": "front",
+     "time": 0.4,
+     "wait": true,
+     "to": [
+      378.8,
+      264.0069805194805
+     ],
+     "contact": [
+      68.5,
+      22.5
+     ],
+     "angle": 3.141592653589793
+    },
+    {
+     "do": "reach",
+     "id": "window_clerk",
+     "hand": "front",
+     "time": 0.4,
+     "wait": true,
+     "to": [
+      378.8,
+      273.0069805194805
+     ],
+     "contact": [
+      68.5,
+      22.5
+     ],
+     "angle": 3.141592653589793
+    },
+    {
+     "do": "sfx",
+     "id": "mat_wood",
+     "volume": -12.0,
+     "jitter": 0.0
+    },
+    {
+     "do": "prop_visible",
+     "id": "rent_contract_mark",
+     "visible": true
+    },
+    {
+     "do": "wait",
+     "time": 0.18
+    },
+    {
+     "do": "reach",
+     "id": "window_clerk",
+     "hand": "front",
+     "time": 0.4,
+     "wait": true,
+     "to": [
+      378.8,
+      264.0069805194805
+     ],
+     "contact": [
+      68.5,
+      22.5
+     ],
+     "angle": 3.141592653589793
+    },
+    {
+     "do": "reach",
+     "id": "window_clerk",
+     "hand": "front",
+     "time": 0.4,
+     "wait": true,
+     "to": [
+      367.5044155844156,
+      274.9194805194805
+     ],
+     "contact": [
+      68.5,
+      22.5
+     ],
+     "angle": 3.141592653589793
+    },
+    {
+     "do": "prop_release",
+     "id": "rent_contract_stamp"
+    },
+    {
+     "do": "reach",
+     "id": "window_clerk",
+     "hand": "front",
+     "time": 0.4,
+     "wait": true,
+     "release": true
+    },
+    {
+     "do": "wait",
+     "time": 0.2
+    },
+    {
+     "do": "say",
      "speaker": "window_clerk",
      "text": "副本給您，章蓋的是暫未核准。",
      "ja": "控えはお渡しします。押印は『未承認』となっています。",
      "en": "Here is the copy. The stamp reads 'not yet approved.'"
     }
    ],
+   "pose_policy": "supported",
    "when": {
     "not": {
      "flag": "ch2_evidence_contract",
@@ -4209,8 +4389,61 @@
   },
   "ch2_t_s08_contract_revisit": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch2_rent_window",
+     "pos": [
+      350,
+      296.8
+     ],
+     "zoom": 1.15,
+     "fade": 0.8
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      290,
+      340.0
+     ],
+     "facing": 1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "actor",
+     "id": "window_clerk",
+     "kind": "ch2_window_clerk",
+     "pos": [
+      399.0,
+      340.0
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "window_clerk",
+     "pose": "sit",
+     "pose_reason": "職員坐在租攤窗口內核對合約。",
+     "pose_support": "辦公椅座面 x=384～419、y=300.0；雙腳以地板 y=340 支撐。",
+     "seat_sag": 0.33
+    },
+    {
+     "do": "prop_visible",
+     "id": "rent_contract_copy",
+     "visible": false
+    },
+    {
+     "do": "prop_visible",
+     "id": "rent_contract_mark",
+     "visible": false
+    },
+    {
+     "do": "wait",
+     "time": 0.65
+    },
     {
      "do": "say",
      "speaker": "window_clerk",
@@ -4219,6 +4452,7 @@
      "en": "The contract copy has already been issued. Until the application is approved, we will not collect renewal fees."
     }
    ],
+   "pose_policy": "supported",
    "when": {
     "flag": "ch2_evidence_contract",
     "equals": true

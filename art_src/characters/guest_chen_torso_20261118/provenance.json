@@ -1,0 +1,53 @@
+{
+  "kind": "NE-267已核對軀幹原圖漏切補丁；不是整角色驗收",
+  "inputs": {
+    "art_src/characters/guest_chen/base_rgba.png": "d5db7c3a6a417c8bdd4f3aa53e81e65a2fd8f589029ccc3cf7f7f7bf925e96f2",
+    "tools/comfyui/specs/guest_chen_side.json": "59d2fc1f0d3cd39e0bc5b57fa055645060f8f68ea801f11d21b21ffad524b380",
+    "tools/comfyui/cut_layers.py": "dcc55a9e2c7f99530cb7b10b912c9eb4117af2ca8a0f834d08c1adf07cf2b0d0",
+    "tools/comfyui/crop_phase.py": "18e13fb981a487fd4ccf616910cf0392be0c15c07b237bb4a86a4976db3fade0",
+    "tools/comfyui/registered_layers.py": "88edd3c5d6a9652c7f9604d9d80ee734868f60574784e6288c760901b645799d",
+    "art_src/characters/guest_chen/07_refined/pelvis.png": "34602a2bc034b84746df7588317434109832a8e4e13d64a3f96eaaafd7b82b0c",
+    "art_src/characters/guest_chen/07_refined/torso.png": "52dc4fd683cf2ae10090c68f1ce7ed01caffae76e32f63b055a641e0a95893a4",
+    "art_src/characters/guest_chen/07_refined/head.png": "beccc8337e66ce257368f95b1ed28c8862d1628d556a9813a6cc0215deb04dae",
+    "art_src/characters/guest_chen/07_refined/leg_upper.png": "73648baca53c088c6d02b46a63e0cbe818f5e1ef53bdf624eb79ed8bc6d9a43b",
+    "art_src/characters/guest_chen/07_refined/leg_lower.png": "2f3af893db919f4154c04f1f8e86ab9a462cae2b26789977e280cc0edeada094",
+    "art_src/characters/guest_chen/07_refined/foot.png": "222a9d4afd2b5f6cb7ad0f14d49b56cd43813a2a60a7a2e6199df038b601f941",
+    "art_src/characters/guest_chen/07_refined/arm_upper.png": "96f28ee1ada02a2d4e6b9a9763c77ec7fdcda8a5b16596970dbd8e6f6ddeaa1c",
+    "art_src/characters/guest_chen/07_refined/arm_lower.png": "d28b614daf04502cb20cd6dbb2ba34e5f6a665df22f8c7678bde830b693f35f4",
+    "art_src/characters/guest_chen/07_refined/hand.png": "a5cb470989e919eac7a35294cabdf32a7c9e38cb859e617ffdb2dd5cabe0e9b0"
+  },
+  "source_generation_record": "art_src/characters/guest_chen/generation.json",
+  "source_provider": "image_gen.imagegen retained original",
+  "source_seed": null,
+  "source_size": [
+    1024,
+    1536
+  ],
+  "mask_sha256": "8cfd8b6e159462e14e6d48e7f589ecaecc0d61408b0075f88c0367265c49cb35",
+  "source_changed_pixels": 3009,
+  "source_changed_bbox": [
+    370,
+    397,
+    422,
+    533
+  ],
+  "source_override_sha256": "d1d69dac350bcd677e6d5a1299e43ba9d738f94e1be8e01132beb6ff61b48178",
+  "diffuse_rgba_sha256": "7c9004fde4750ca52a3e24089dfa314da4d2392120f10b76e5c5dc00522bd9ef",
+  "diffuse_png_sha256": "3ec9b72533d45b5390cb023f92e362a23a117c25add33e49de3b03caa8fccc26",
+  "normal_png_sha256": "83249579ad906c84995ab37345c08cadaa1dd3320e4f372d9f732b3e59138a32",
+  "native_size": [
+    233,
+    302
+  ],
+  "registration": "沿用既有spec，不改canvas/pivot/骨長/動作",
+  "known_scope": "28800筆六接點：2420修復、280保留、0新增；280沒有豁免",
+  "approved_outputs": {
+    "torso": "approved_torso.png"
+  },
+  "outputs": {
+    "torso": "d1d69dac350bcd677e6d5a1299e43ba9d738f94e1be8e01132beb6ff61b48178"
+  },
+  "publication": "RGBA重建逐像素比對批准PNG，再發布固定批准原始bytes；不重編碼批准來源。",
+  "input_hash_policy": "只有.json/.py先將CRLF正規化成LF再計SHA256；不接受其他內容變更；PNG與其他檔一律原始bytes。",
+  "source_claim": "原圖同列兩段既有軀幹材料間漏切槽；3009像素逐一取原始RGBA。原不透明像素、每列左右外側界限、其他件與取樣格不變。"
+}

@@ -1,0 +1,84 @@
+{
+  "baseline": "7258c940873ef4b63c4e3f565745070df0ceea97",
+  "archives": [
+    {
+      "name": "joints-seated-performance.zip",
+      "bytes": 75227294,
+      "sha256": "863106901379e587063a0ea64a97ddb57e116eb1e14da51c4d942217f71a16ca",
+      "files": 4823,
+      "all_members_reread_sha256": true
+    },
+    {
+      "name": "joints-transitions.zip",
+      "bytes": 30074058,
+      "sha256": "a926d20afd6800c39c72d35ef0324610672898a81487b680d8aa9a6eaa3f7cd8",
+      "files": 1943,
+      "all_members_reread_sha256": true
+    },
+    {
+      "name": "joints-lean.zip",
+      "bytes": 15372215,
+      "sha256": "a8ec14ea68c389cf7f5ce0aaa17d3447668a61ca81bab9d47b416a9571bf05f3",
+      "files": 983,
+      "all_members_reread_sha256": true
+    },
+    {
+      "name": "joints-crouch.zip",
+      "bytes": 15012275,
+      "sha256": "a4c637c970c94ec354a7985ed65ed6af53e3f31f669951cb23870bc22b871ba2",
+      "files": 983,
+      "all_members_reread_sha256": true
+    },
+    {
+      "name": "joints-hammer.zip",
+      "bytes": 15210951,
+      "sha256": "66b2539093d744344cf3ef90d2631b4eeda124a42f19305cc2f9497ac179759e",
+      "files": 983,
+      "all_members_reread_sha256": true
+    },
+    {
+      "name": "source-and-baseline.zip",
+      "bytes": 58762675,
+      "sha256": "cc2cd6d83346789c237ee900287abb21c49d4ec99882f0f0b3b48ab9fa72ae6d",
+      "files": 1405,
+      "all_members_reread_sha256": true
+    },
+    {
+      "name": "integrated-verification.zip",
+      "bytes": 12326610,
+      "sha256": "baa3899a58cb5130f03923c171b1019462a30a111360786c76a2723d8f6cfe0e",
+      "files": 430,
+      "all_members_reread_sha256": true
+    }
+  ],
+  "source_paths": {
+    "D:\\NestEggVerification\\evidence-20261117\\ne267-source-delivery-20261118\\extended-before\\seated-performance": "joints-seated-performance.zip/arms/before",
+    "D:\\NestEggVerification\\evidence-20261117\\ne267-transitions-20261118\\v17-torso\\native\\seated-performance": "joints-seated-performance.zip/arms/after",
+    "D:\\NestEggVerification\\evidence-20261117\\ne267-transitions-20261118\\v17-torso\\body-extra\\before\\seated-performance": "joints-seated-performance.zip/body/before",
+    "D:\\NestEggVerification\\evidence-20261117\\ne267-transitions-20261118\\v17-torso\\body-extra\\after\\seated-performance": "joints-seated-performance.zip/body/after",
+    "D:\\NestEggVerification\\evidence-20261117\\ne267-source-delivery-20261118\\extended-before\\transitions": "joints-transitions.zip/arms/before",
+    "D:\\NestEggVerification\\evidence-20261117\\ne267-transitions-20261118\\v17-torso\\native\\transitions": "joints-transitions.zip/arms/after",
+    "D:\\NestEggVerification\\evidence-20261117\\ne267-transitions-20261118\\v17-torso\\body-extra\\before\\transitions": "joints-transitions.zip/body/before",
+    "D:\\NestEggVerification\\evidence-20261117\\ne267-transitions-20261118\\v17-torso\\body-extra\\after\\transitions": "joints-transitions.zip/body/after",
+    "D:\\NestEggVerification\\evidence-20261117\\ne267-source-delivery-20261118\\extended-before\\lean": "joints-lean.zip/arms/before",
+    "D:\\NestEggVerification\\evidence-20261117\\ne267-transitions-20261118\\v17-torso\\native\\lean": "joints-lean.zip/arms/after",
+    "D:\\NestEggVerification\\evidence-20261117\\ne267-transitions-20261118\\v17-torso\\body-extra\\before\\lean": "joints-lean.zip/body/before",
+    "D:\\NestEggVerification\\evidence-20261117\\ne267-transitions-20261118\\v17-torso\\body-extra\\after\\lean": "joints-lean.zip/body/after",
+    "D:\\NestEggVerification\\evidence-20261117\\ne267-source-delivery-20261118\\extended-before\\crouch": "joints-crouch.zip/arms/before",
+    "D:\\NestEggVerification\\evidence-20261117\\ne267-transitions-20261118\\v17-torso\\native\\crouch": "joints-crouch.zip/arms/after",
+    "D:\\NestEggVerification\\evidence-20261117\\ne267-transitions-20261118\\v17-torso\\body-extra\\before\\crouch": "joints-crouch.zip/body/before",
+    "D:\\NestEggVerification\\evidence-20261117\\ne267-transitions-20261118\\v17-torso\\body-extra\\after\\crouch": "joints-crouch.zip/body/after",
+    "D:\\NestEggVerification\\evidence-20261117\\ne267-source-delivery-20261118\\extended-before\\hammer": "joints-hammer.zip/arms/before",
+    "D:\\NestEggVerification\\evidence-20261117\\ne267-transitions-20261118\\v17-torso\\native\\hammer": "joints-hammer.zip/arms/after",
+    "D:\\NestEggVerification\\evidence-20261117\\ne267-transitions-20261118\\v17-torso\\body-extra\\before\\hammer": "joints-hammer.zip/body/before",
+    "D:\\NestEggVerification\\evidence-20261117\\ne267-transitions-20261118\\v17-torso\\body-extra\\after\\hammer": "joints-hammer.zip/body/after"
+  },
+  "final_checks": {
+    "groups": 88,
+    "checks": 100915,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 577,
+    "source_held": true
+  }
+}

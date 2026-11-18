@@ -116,6 +116,13 @@
     "neon_market__debt_desk": {
       "kind": "table",
       "exempt": "照關卡同一張收款折疊桌的大小（桌面約 0.35H，比一般桌矮），舞台和地圖一致；放大會和地圖對不上"
+    },
+    "control_room__control_chair": {
+      "kind": "seat",
+      "body": [
+        0.4954545454545455,
+        1.0
+      ]
     }
   }
 }

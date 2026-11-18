@@ -142,6 +142,7 @@ jobs:
         if: steps.gate.outputs.skip != 'true'
         timeout-minutes: 35
         run: |
+          python3 tools/story/test_ch2_rent_window_staging.py
           python3 tools/run_ch2_evidence_completion.py --godot "$GODOT" --output "${{ runner.temp }}/ch2-evidence-completion"
 
       - name: Check original chapter-two reading and bridge completion

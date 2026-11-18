@@ -1,0 +1,200 @@
+{
+  "generation": "none；原圖分件、相鄰原像素底層與既有字型印記",
+  "sources": {
+    "art/environment/scene_props/neon_market/neon_market__rent_window.png": "4ce31f98278f0269f3fd16e008b8487e2ca5d56830b0238d865618fba55ac9a4",
+    "art/environment/scene_props/neon_market/neon_market__rent_window_n.png": "dc10eedda08df5e19a5b064156f897a1d098791e46f722258096bf5f88ffa68c",
+    "art/environment/scene_props/neon_market/neon_market__rent_window_glow.png": "a4c8426e4bff07e5daa627579c3a89448f57ab8d3c02a5bc9d40161fc752a0c0",
+    "art/environment/scene_props/guest_book_contacts/zheng_slip_lay_8.png": "01eee475e8b8a237cd09bc321e995ef11ee6e85b95d06cdb103c3ba19166c07a",
+    "art/fonts/NotoSansTC-Regular-subset.ttf": "93f5ef2809589884549ca6c76265e51849a09be4337b2599526a911808a1a21b"
+  },
+  "config": {
+    "description": "S08既有窗口/印章受限分件與文件印記；沒有模型生成或原圖修改。",
+    "sources": {
+      "art/environment/scene_props/neon_market/neon_market__rent_window.png": "4ce31f98278f0269f3fd16e008b8487e2ca5d56830b0238d865618fba55ac9a4",
+      "art/environment/scene_props/neon_market/neon_market__rent_window_n.png": "dc10eedda08df5e19a5b064156f897a1d098791e46f722258096bf5f88ffa68c",
+      "art/environment/scene_props/neon_market/neon_market__rent_window_glow.png": "a4c8426e4bff07e5daa627579c3a89448f57ab8d3c02a5bc9d40161fc752a0c0",
+      "art/environment/scene_props/guest_book_contacts/zheng_slip_lay_8.png": "01eee475e8b8a237cd09bc321e995ef11ee6e85b95d06cdb103c3ba19166c07a",
+      "art/fonts/NotoSansTC-Regular-subset.ttf": "93f5ef2809589884549ca6c76265e51849a09be4337b2599526a911808a1a21b"
+    },
+    "window": "art/environment/scene_props/neon_market/neon_market__rent_window.png",
+    "normal": "art/environment/scene_props/neon_market/neon_market__rent_window_n.png",
+    "glow": "art/environment/scene_props/neon_market/neon_market__rent_window_glow.png",
+    "paper": "art/environment/scene_props/guest_book_contacts/zheng_slip_lay_8.png",
+    "font": "art/fonts/NotoSansTC-Regular-subset.ttf",
+    "window_canvas": [
+      308,
+      504
+    ],
+    "stamp_crop": [
+      35,
+      274,
+      84,
+      327
+    ],
+    "stamp_polygon": [
+      [
+        49,
+        281
+      ],
+      [
+        66,
+        281
+      ],
+      [
+        69,
+        284
+      ],
+      [
+        69,
+        290
+      ],
+      [
+        66,
+        294
+      ],
+      [
+        62,
+        295
+      ],
+      [
+        62,
+        301
+      ],
+      [
+        65,
+        304
+      ],
+      [
+        75,
+        305
+      ],
+      [
+        77,
+        308
+      ],
+      [
+        76,
+        321
+      ],
+      [
+        73,
+        324
+      ],
+      [
+        43,
+        324
+      ],
+      [
+        40,
+        320
+      ],
+      [
+        40,
+        308
+      ],
+      [
+        43,
+        305
+      ],
+      [
+        53,
+        304
+      ],
+      [
+        55,
+        301
+      ],
+      [
+        55,
+        295
+      ],
+      [
+        50,
+        293
+      ],
+      [
+        48,
+        289
+      ],
+      [
+        48,
+        284
+      ]
+    ],
+    "clean_plate": {
+      "target": [
+        38,
+        276,
+        82,
+        327
+      ],
+      "source": [
+        121,
+        276,
+        165,
+        327
+      ]
+    },
+    "front_openings": [
+      [
+        89,
+        151,
+        226,
+        330
+      ],
+      [
+        35,
+        247,
+        250,
+        330
+      ]
+    ],
+    "mark": {
+      "text": "暫未核准",
+      "font_size": 12,
+      "position": [
+        22,
+        35
+      ],
+      "border": [
+        19,
+        36,
+        75,
+        50
+      ],
+      "color": [
+        154,
+        45,
+        43,
+        240
+      ]
+    },
+    "output": "art/environment/scene_props/rent_window_contacts"
+  },
+  "outputs": {
+    "window_clean.png": "383d99e0b263a83a471e2d44f0be2661fbc89f16995d8ffac03d19cffa0e97e1",
+    "window_clean_n.png": "a3ae1e3b89f739b31c0264aa198ae673a03e8ae53a4070a2c56f078d5b730bd5",
+    "window_front.png": "dfbb2857ba517b96d252cd256c1369860ae10a1487c0be01b7df5799cc1a92a9",
+    "window_front_n.png": "f5c673185aa79d06ad13f64497daa1f3f60cd17d5fd7f82e7fb191dc68a1ff26",
+    "window_front_glow.png": "e04622a0e860304bd46f0a0121c1770e853fe57382a58efbfbcb9e3d2c5820d2",
+    "stamp.png": "e41254ab5dbc3187800c21520b8e75429524d8a6a9ab4d1fe13290c5b3f70f8b",
+    "stamp_n.png": "45044e67aa8e118478103f32f2474378f7387f4d96b027d2e7fcd9af04e6fa49",
+    "contract_mark.png": "3846feb6cc68dccaa2efd5cadc5c08cefee17fd6021e76a306a2940a9e2e0eb8",
+    "contract_mark_n.png": "a5e7404ff501667872807c533cdc9abf044a9576d3329029c2db8a5ee33b40c8"
+  },
+  "outside_clean_plate_unchanged": true,
+  "stamp_crop": [
+    35,
+    274,
+    84,
+    327
+  ],
+  "stamp_grip": [
+    23,
+    12
+  ],
+  "stamp_base": [
+    23,
+    50
+  ]
+}

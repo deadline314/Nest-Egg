@@ -1,0 +1,142 @@
+{
+ "camera": {
+  "pos": [
+   350,
+   294
+  ],
+  "zoom": 1.15
+ },
+ "floor": 340.0,
+ "layers": [
+  {
+   "kind": "gradient",
+   "top": "#0a0614",
+   "bottom": "#1a1024",
+   "parallax": 0.0
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scenes/neon_market.webp",
+   "pos": [
+    -64,
+    -36.0
+   ],
+   "scale": 0.5,
+   "filter": "linear",
+   "source_width": 1536,
+   "modulate": "#c8c0d0"
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scene_props/rent_window_contacts/window_clean.png",
+   "pos": [
+    350.0,
+    189.19272727272727
+   ],
+   "scale": 0.2992207792207792,
+   "source_width": 308,
+   "filter": "linear",
+   "glow": false
+  },
+  {
+   "kind": "sprite",
+   "id": "rent_clerk_chair",
+   "path": "res://art/environment/scene_props/control_room/control_room__control_chair.png",
+   "pos": [
+    361.0,
+    260.8
+   ],
+   "scale": 0.24,
+   "source_width": 245,
+   "filter": "linear",
+   "glow": false
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scene_props/rent_window_contacts/window_front.png",
+   "pos": [
+    350.0,
+    189.19272727272727
+   ],
+   "scale": 0.2992207792207792,
+   "source_width": 308,
+   "filter": "linear",
+   "depth": "front"
+  },
+  {
+   "kind": "sprite",
+   "id": "rent_contract_copy",
+   "path": "res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_8.png",
+   "pos": [
+    368.0,
+    274.70237012987013
+   ],
+   "scale": 0.22499999999999998,
+   "source_width": 96,
+   "filter": "linear",
+   "visible": false,
+   "glow": false,
+   "depth": "front",
+   "lighting": "physical"
+  },
+  {
+   "kind": "sprite",
+   "id": "rent_contract_mark",
+   "path": "res://art/environment/scene_props/rent_window_contacts/contract_mark.png",
+   "pos": [
+    0,
+    0
+   ],
+   "scale": 0.22499999999999998,
+   "source_width": 96,
+   "filter": "linear",
+   "visible": false,
+   "glow": false,
+   "depth": "front",
+   "parent_prop": "rent_contract_copy",
+   "anchor": [
+    0,
+    0
+   ]
+  },
+  {
+   "kind": "sprite",
+   "id": "rent_contract_stamp",
+   "path": "res://art/environment/scene_props/rent_window_contacts/stamp.png",
+   "pos": [
+    360.4727272727273,
+    271.17922077922077
+   ],
+   "scale": 0.2992207792207792,
+   "source_width": 49,
+   "filter": "linear",
+   "glow": false,
+   "depth": "front",
+   "lighting": "physical"
+  }
+ ],
+ "furniture": [
+  {
+   "id": "rent_counter",
+   "kind": "table",
+   "rect": [
+    350.0,
+    286.2898701298701,
+    92.16,
+    53.71012987012989
+   ],
+   "plane": "back"
+  },
+  {
+   "id": "rent_clerk_seat",
+   "kind": "seat",
+   "rect": [
+    384.0,
+    300.04,
+    35,
+    39.95999999999998
+   ],
+   "plane": "actor"
+  }
+ ]
+}
