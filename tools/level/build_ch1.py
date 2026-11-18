@@ -26,8 +26,8 @@ TILE = 16
 # 資源登記：legend 字元 -> 資源路徑。字元在全章通用，同一字元在不同區域代表同一種東西。
 # ---------------------------------------------------------------------------
 RES = {
-    'ⓛ': 'res://data/npcs/ch1_ledger_box.tres',
-    'ⓟ': 'res://data/npcs/ch1_pump_service.tres',
+    '⒧': 'res://data/npcs/ch1_ledger_box.tres',
+    '⒫': 'res://data/npcs/ch1_pump_service.tres',
     # 敵人
     'g': 'res://data/enemies/sweeper.tres',
     'k': 'res://data/enemies/collector_gunner.tres',
@@ -635,7 +635,7 @@ def build_pawnshop():
     a.stand(45, 'ⓕ')
     a.stand(43, 'K')
     a.stand(56, 'V')
-    a.stand(53, 'ⓛ')
+    a.stand(53, '⒧')
     a.stand(71, 't')
     a.stand(67, 'c')
     a.stand(74, 'F')
@@ -902,7 +902,7 @@ def build_warehouse_full():
     a.trigger(135, 'ch1_g10_cross')
     a.prop('dock_warehouse__floor_switch_plate', 121, y=22, dx=-3)
     a.prop('dock_warehouse__water_pump', 86, react='pump_case_service')
-    a.stand(86, 'ⓟ')
+    a.stand(86, '⒫')
     a.prop('dock_warehouse__float_drum_crate', 106, y=10)
     a.encounter('坑對岸', 134, 140, [(137, 'g'), (140, 'g')])
     # 保險箱 x=142～166：鎖場，迷你頭目 B（督察），資料盤在裡面
