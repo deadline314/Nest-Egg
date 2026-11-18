@@ -98,5 +98,5 @@ show_chapter_card = false
 environment = ExtResource("13_ch2_loading")
 layout_path = "res://data/levels/ch2_loading_map.json"
 lighting_zones = Array[ExtResource("10_lighting_zone")]([SubResource("Resource_4"), SubResource("Resource_5")])
-story_triggers = PackedStringArray("ch2_s09_wire")
+story_triggers = PackedStringArray("ch2_s09_wire", "ch2_s09_hawker")
 death_credit_cap = 250

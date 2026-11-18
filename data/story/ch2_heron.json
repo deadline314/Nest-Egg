@@ -191,6 +191,13 @@
    "portrait": "res://art/portraits/guest_hong.png",
    "name_ja": "洪さん",
    "name_en": "Mr. Hong"
+  },
+  "hawker_far": {
+   "name": "遠處的小販",
+   "color": "#c8b090",
+   "portrait": "res://art/portraits/ch2_hawker.png",
+   "name_ja": "遠くの屋台の店主",
+   "name_en": "Distant vendor"
   }
  },
  "flag_defaults": {
@@ -5362,6 +5369,17 @@
      "text": "電已經斷了，可以從橋上過去。",
      "ja": "電気はもう切れてるから、橋の上を通って行けるよ。",
      "en": "The power's already off, so you can cross the bridge."
+    }
+   ]
+  },
+  "ch2_s09_hawker": {
+   "mode": "radio",
+   "lines": [
+    {
+     "speaker": "hawker_far",
+     "text": "有人說灰無常來了，我可沒敢上去看。",
+     "ja": "灰無常が来たって聞いたよ。怖くて上まで見に行けなかったけどね。",
+     "en": "They say the Grey Wraith came. I dared not go."
     }
    ]
   },

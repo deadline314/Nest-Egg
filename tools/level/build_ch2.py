@@ -351,6 +351,7 @@ def _build_loading_v1():
     a.stand(128, 'ⓓ')
     a.prop('dock_warehouse__drying_desk', 127, dx=1)             # 乾燥作業桌：線上晾著紙、上面一盞烘燈（BG-41）
     a.stand(134, 'c')
+    a.trigger(135, 'ch2_s09_hawker')
     a.stand(146, 'Ⅻ')
     # 雨棚上層的燈照棚頂，下層貨道另掛棚下燈（棚頂第 13 列擋住上方的光）。
     for x in (30, 70):

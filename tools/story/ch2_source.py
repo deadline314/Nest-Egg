@@ -489,6 +489,9 @@ def _ali_home(source: ProductionSource):
 
 def _loading(source: ProductionSource):
     source.add("ch2_s09_wire", "S09", (("rin", "這條電線被人剪斷了。"), ("lamp", "電已經斷了，可以從橋上過去。")), mode="bubbles")
+    source.speakers["hawker_far"] = dict(source.speakers["hawker"], name="遠處的小販",
+        name_ja="遠くの屋台の店主", name_en="Distant vendor")
+    source.add("ch2_s09_hawker", "S09", (("hawker_far", "有人說灰無常來了，我可沒敢上去看。"),), mode="radio")
     source.add("ch2_t_s09_guard", "S09", (
         ("rin", "守衛還有呼吸，誰先來過？"),
         ("lamp", "我只看見門沒鎖，查不到人。"),
