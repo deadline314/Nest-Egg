@@ -95,7 +95,7 @@ const STAGE_PROP_DATA_DIR := "res://data/environment/scene_props/"
 ## 同一個舞台上同一種角色的縮放最多差幾成（演員步驟的 scale）。
 const STAGE_SCALE_SPREAD := 0.1
 ## 腳底不貼地板線的姿勢（坐、蹲、倒、跪由姿勢自己決定高度）。
-const STAGE_FREE_POSES: Array[String] = ["sit", "squat", "kneel", "lie", "down", "crouch"]
+const STAGE_FREE_POSES: Array[String] = ["sit", "squat", "kneel", "lie", "down", "crouch", "dead"]
 
 
 ## 掃描所有動畫過場（mode == animated）：演員的腳底貼著舞台地板、同舞台同角色縮放一致。

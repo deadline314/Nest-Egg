@@ -79,6 +79,7 @@ var _skip_defaults_payload: Dictionary = {}
 func _init() -> void:
 	layer = LAYER
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	process_priority = 20 # Actor 0 → held prop 10 → 相依接觸 20，各階段只發布一次。
 	_handlers = {
 		"scene": _do_scene, "letterbox": _do_letterbox, "camera": _do_camera, "actor": _do_actor,
 		"pose": _do_pose, "move": _do_move, "face": _do_face, "remove": _do_remove, "say": _do_say,
@@ -385,6 +386,11 @@ func _shake_offset() -> Vector2:
 func _process(delta: float) -> void:
 	if not _running:
 		return
+	if not skipping:
+		for id: StringName in _actors:
+			var actor := _actors[id]
+			if is_instance_valid(actor) and actor.hand_targets_active():
+				actor.refresh_bound_contacts()
 	if _shake_time > 0.0:
 		_shake_time -= delta
 		if _shake_time <= 0.0:
@@ -500,11 +506,16 @@ func _do_prop_move(step: Dictionary) -> void:
 			await get_tree().process_frame  # 下一步收手前，讓演員看見控制桿的最後姿態。
 
 
-func _live_step_actor(reference: WeakRef, id: StringName) -> CutsceneActor:
+func _live_step_actor(reference: WeakRef, id: StringName, passive_pose := -1) -> CutsceneActor:
 	if not _running or skipping or not is_inside_tree():
 		return null
 	var actor := reference.get_ref() as CutsceneActor
-	if actor == null or actor.is_queued_for_deletion() or not actor.is_inside_tree() or not actor.can_process() or _actors.get(id) != actor or actor.pose == &"dead":
+	if actor == null or actor.is_queued_for_deletion() or not actor.is_inside_tree() or not actor.can_process() or _actors.get(id) != actor:
+		return null
+	if passive_pose >= 0:
+		if actor.pose != &"dead" or actor.pose_revision() != passive_pose:
+			return null
+	elif actor.pose == &"dead":
 		return null
 	return actor
 
@@ -520,16 +531,31 @@ func _do_reach(step: Dictionary) -> void:
 	var binding: StagePropBinding
 	if step.get("space", "stage") == "part" and not step.get("release", false):
 		var target := _actors.get(StringName(step["target_actor"])) as CutsceneActor
-		var part := target.rig.contact_part(StringName(step["part"])) if target != null and target.rig != null else null
-		var point := CharacterRig.part_source_point(part, _vec(step["to"], Vector2.INF))
+		var part := target.rig.contact_surface(StringName(step["part"])) if target != null and target.rig != null else null
+		var source := _vec(step["to"], Vector2.INF)
+		var offset := _vec(step.get("offset", [0, 0]), Vector2.INF)
+		var point := Vector2.INF
+		if part is RigPartMesh:
+			binding = StagePropBinding.mesh_part(part as RigPartMesh, source, offset)
+			point = binding.stage_point(actor.get_parent() as Node2D)
+		elif part is Sprite2D:
+			point = CharacterRig.part_source_point(part as Sprite2D, source)
+			binding = StagePropBinding.new(part, point, offset)
 		if not point.is_finite():
 			push_error("[Cutscene] %s: reach target actor/part or source point unavailable: %s/%s" % [_current_where, step["target_actor"], step["part"]])
 			return
-		binding = StagePropBinding.new(part, point, _vec(step.get("offset", [0, 0]), Vector2.INF))
+		issue = _stage.held_contact_problem(actor, StringName(step["hand"]), part) if _stage != null else ""
+		if not issue.is_empty():
+			push_error("[Cutscene] %s: %s" % [_current_where, issue])
+			return
 	if step.get("space", "stage") == "prop" and not step.get("release", false):
 		var node := _stage.prop_node(step["prop"]) if _stage != null else null
 		if node == null:
 			push_error("[Cutscene] %s: reach prop unavailable: %s" % [_current_where, step["prop"]])
+			return
+		issue = _stage.held_contact_problem(actor, StringName(step["hand"]), node)
+		if not issue.is_empty():
+			push_error("[Cutscene] %s: %s" % [_current_where, issue])
 			return
 		binding = StagePropBinding.new(node, _vec(step["to"], Vector2.INF))
 		var point := binding.stage_point(actor.get_parent() as Node2D)
@@ -691,8 +717,8 @@ func _do_remove(step: Dictionary) -> void:
 		actor.queue_free()
 
 
-func _live_move_actor(reference: WeakRef, id: StringName) -> CutsceneActor:
-	return _live_step_actor(reference, id)
+func _live_move_actor(reference: WeakRef, id: StringName, passive_pose := -1) -> CutsceneActor:
+	return _live_step_actor(reference, id, passive_pose)
 
 
 func _standing_ready(actor: CutsceneActor) -> bool:
@@ -717,12 +743,21 @@ func _do_move(step: Dictionary) -> void:
 
 
 func _move_job(reference: WeakRef, id: StringName, step: Dictionary) -> void:
-	var actor := _live_move_actor(reference, id)
+	var move_pose := StringName(str(step.get("pose", "walk")))
+	var then_pose := StringName(str(step.get("then", "idle")))
+	var passive_pose := -1
+	if move_pose == &"dead" and then_pose == &"dead":
+		var original := reference.get_ref() as CutsceneActor
+		if not is_instance_valid(original) or original.pose != &"dead":
+			if _running and not skipping and bool(step.get("wait", true)):
+				cancel()
+			return
+		passive_pose = original.pose_revision()
+	var actor := _live_move_actor(reference, id, passive_pose)
 	if actor == null:
 		if _running and not skipping and bool(step.get("wait", true)):
 			cancel()
 		return
-	var move_pose := StringName(str(step.get("pose", "walk")))
 	if move_pose in [&"walk", &"run"] and actor.pose not in [&"walk", &"run"] and not _standing_ready(actor):
 		if not actor.is_processing():
 			if bool(step.get("wait", true)):
@@ -746,16 +781,17 @@ func _move_job(reference: WeakRef, id: StringName, step: Dictionary) -> void:
 	if absf(target.x - actor.position.x) > .5:
 		actor.face(1 if target.x > actor.position.x else -1)
 	actor.set_pose(move_pose)
-	var physics_clock := actor.hand_targets_active()
+	if passive_pose >= 0:
+		passive_pose = actor.pose_revision()
+	var physics_clock := passive_pose >= 0 or actor.hand_targets_active()
 	var tween := _new_tween()
 	tween.bind_node(actor)
 	if physics_clock:
 		tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 		tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	var duration := maxf(.01, float(step.get("time", 1.0)))
-	var publication := preload("res://game/cutscene/cutscene_move_clock.gd").new(self, actor, target, duration, speed, physics_clock)
+	var publication := preload("res://game/cutscene/cutscene_move_clock.gd").new(self, actor, target, duration, speed, physics_clock, passive_pose)
 	tween.tween_method(publication.publish, 0.0, 1.0, duration)
-	var then_pose := StringName(str(step.get("then", "idle")))
 	tween.tween_callback(publication.complete.bind(then_pose))
 	while tween.is_valid() and publication.active():
 		await get_tree().process_frame

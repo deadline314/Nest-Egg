@@ -82,6 +82,30 @@
     "phone_booth": [
       1.25,
       1.45
+    ],
+    "s13_padlock": [
+      0.06,
+      0.1
+    ],
+    "s13_maintenance_key": [
+      0.04,
+      0.08
+    ],
+    "s13_restraint": [
+      0.18,
+      0.3
+    ],
+    "s13_equipment_bag": [
+      0.16,
+      0.26
+    ],
+    "s13_open_umbrella": [
+      0.6,
+      0.8
+    ],
+    "s13_flush_threshold": [
+      0.01,
+      0.03
     ]
   },
   "seat_kinds": [
@@ -123,6 +147,36 @@
         0.4954545454545455,
         1.0
       ]
+    },
+    "ch2_medic_transport__stretcher": {
+      "kind": "treatment_bed"
+    },
+    "ch2_medic_transport__pause_lock": {
+      "kind": "s13_padlock"
+    },
+    "ch2_medic_transport__maintenance_key": {
+      "kind": "s13_maintenance_key"
+    },
+    "ch2_medic_transport__restraint": {
+      "kind": "s13_restraint"
+    },
+    "ch2_medic_transport__equipment_bag": {
+      "kind": "s13_equipment_bag"
+    },
+    "ch2_medic_transport__broken_umbrella": {
+      "kind": "s13_open_umbrella"
+    },
+    "ch2_medic_transport__pause_box": {
+      "kind": "crate"
+    },
+    "ch2_medic_transport__exit_frame": {
+      "kind": "door"
+    },
+    "ch2_medic_transport__exit_panel": {
+      "kind": "door"
+    },
+    "ch2_medic_transport__exit_sill": {
+      "kind": "s13_flush_threshold"
     }
   }
 }

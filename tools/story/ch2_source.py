@@ -20,7 +20,8 @@ from chapter_compiler import route_back_to_choices  # noqa: E402
 import towel_staging  # noqa: E402
 import guest_ticket_staging  # noqa: E402
 import rent_window_staging  # noqa: E402
-from ch2_stages import BOOTH, COLLECTION, LEDGER, PAWNSHOP, RENT_WINDOW, Cast, Stage  # noqa: E402
+import medic_transport_staging  # noqa: E402
+from ch2_stages import BOOTH, COLLECTION, LEDGER, PAWNSHOP, RENT_WINDOW, MEDIC_LEDGER, Cast, Stage  # noqa: E402
 
 # 舞台演出：屋頂的茶沿用第一章的屋頂舞台（地面線 262、凜縮放 2.2；鷺的骨架只比凜高 3%，同舞台用同一個縮放）。
 # 兩人站在茶座兩側、面向對方（0.40W 與 0.60W）；接續的段落沿用同一個舞台與站位，只用很短的淡入。
@@ -588,19 +589,19 @@ def _ledger(source: ProductionSource):
     subdued = flag("ch2_yong_subdued")
     taken = flag("ch2_original_ledger_taken")
     source.add("ch2_t_s13_locked", "S13", (("label", "帳櫃鎖著，鑰匙掛在阿勇身上。"),), when=negate(subdued))
-    source.add("ch2_t_s13_cut", "S13", (
+    source.add("ch2_t_s13_cut", "S13", steps=tuple(beats(
         ("yong", "你永久拆了我和她的連結，還要我認你算的帳？"),
         ("rin", "你活著就能對，別拿她再付。"),
         ("xiaowei", "爸爸，我們回家嗎？"),
-        ("yong", "傘拿著，門外等我的人會送妳。")),
+        ("yong", "傘拿著，門外等我的人會送妳。"))) + medic_transport_staging.escort_steps("cut"),
         when=all_of(subdued, flag("yong_link_choice", "cut"), negate(taken)), mode="animated", next_scene="ch2_t_s13_cabinet",
         completion=(transaction("ch2.yong_subdued"),))
-    source.add("ch2_t_s13_keep", "S13", (
+    source.add("ch2_t_s13_keep", "S13", steps=tuple(beats(
         ("yong", "她連自己的傘都不記得，你們滿意了？"),
         ("rin", "是你把她接進來的，原帳也不能靠她付。"),
         ("medic", "連結暫停了，恢復得先讓你們知道代價，再由你們決定。今天不會再讀她。"),
         ("xiaowei", "爸爸，這把傘先讓你拿。我想自己走出去。"),
-        ("yong", "好，我走在妳後面。")),
+        ("yong", "好，我走在妳後面。"))) + medic_transport_staging.escort_steps("keep"),
         when=all_of(subdued, negate(flag("yong_link_choice", "cut")), negate(taken)), mode="animated", next_scene="ch2_t_s13_cabinet",
         completion=(transaction("ch2.yong_subdued"),))
     source.add("ch2_t_s13_cabinet", "S13", (
@@ -611,11 +612,11 @@ def _ledger(source: ProductionSource):
         when=all_of(subdued, negate(taken)), mode="animated",
         completion=(set_flag("ch2_original_ledger_taken"), grant("ch2_original_ledger"), grant("ch2_ali_page"), grant("ch2_clinic_index")),
         next_scene="ch2_t_s13_fall")
-    source.add("ch2_t_s13_fall", "S13", (
+    source.add("ch2_t_s13_fall", "S13", steps=tuple(beats(
         ("rin", "鷺姐，你先別起來，讓我看看傷在哪裡。"),
         ("egret", "這下茶又要重泡了。"),
         ("lamp", "她的復原點在市集亭子，先把門口清出來，有人來接。"),
-        ("rin", "她的傘也帶上，兩根骨都斷了。")),
+        ("rin", "她的傘也帶上，兩根骨都斷了。"))) + medic_transport_staging.transport_tail(),
         when=all_of(taken, negate(flag("ch2_egret_transport_done"))), mode="animated",
         completion=(set_flag("ch2_egret_transport_done"),))
     source.add("ch2_t_s13_revisit", "S13", (("label", "帳櫃空了，原帳的副本在筆記裡。到市集電話亭等鷺。"),), when=taken)
@@ -878,13 +879,14 @@ FORMAL_FRAMES = {
         "ch2_t_s06_open", "ch2_t_s06_pay_confirm", "ch2_t_s06_open_again", "ch2_t_s06_short", "ch2_t_s06_paid", "ch2_t_s06_ask",
         "ch2_t_s06_invite", "ch2_t_s06_invite_left", "ch2_t_s06_invite_stayed", "ch2_t_s06_close",
         "ch2_t_s06_ali_paid_revisit", "ch2_t_s06_ask_late", "ch2_t_s06_later")},
-    "ch2_t_s13_cut": Frame(LEDGER, _LEDGER_CAST, True),
-    "ch2_t_s13_keep": Frame(LEDGER, _LEDGER_CAST + (Cast("medic", 540, -1, kind="ch2_medic"),), True),
+    "ch2_t_s13_cut": Frame(MEDIC_LEDGER, _LEDGER_CAST, True, ((0, medic_transport_staging.medic_opening(keep=False)),)),
+    "ch2_t_s13_keep": Frame(MEDIC_LEDGER, _LEDGER_CAST, True, ((0, medic_transport_staging.medic_opening(keep=True)),)),
     "ch2_t_s13_cabinet": Frame(LEDGER, (Cast("rin", 280, 1), Cast("yong", 440, -1))),
-    # 鷺倒下：她跪在地上，凜蹲在旁邊看傷。
-    "ch2_t_s13_fall": Frame(LEDGER, (
-        Cast("rin", 240, 1, pose="crouch", pose_reason="蹲下看鷺傷在哪裡。", pose_support="雙腳踩在帳房地板 y=296。"),
-        Cast("egret", 300, -1, pose="crouch", pose_reason="鷺受傷倒下，撐著跪在地上。", pose_support="膝蓋與腳尖著地，帳房地板 y=296。"))),
+    # 鷺以原部件的場景臥姿倒地，兩名成年演員實際托上有輪擔架。
+    "ch2_t_s13_fall": Frame(MEDIC_LEDGER, (
+        Cast("rin", 190, 1, pose="crouch", pose_reason="蹲下看鷺傷在哪裡。", pose_support="雙腳踩在帳房地板 y=296。"),
+        Cast("egret", 280, 1, kind="egret/transport", floor=302.63)),
+        cues=((0, medic_transport_staging.fall_opening()),(3, medic_transport_staging.loading_steps()))),
     "ch2_t_s14_return": Frame(BOOTH, (Cast("egret", 240, 1), Cast("rin", 330, -1), Cast("banyan", 400, -1)), True),
     "ch2_t_s14_quiet": Frame(BOOTH, (Cast("egret", 240, 1), Cast("rin", 330, -1))),
 }

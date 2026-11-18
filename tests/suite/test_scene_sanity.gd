@@ -412,6 +412,16 @@ func _test_stages() -> void:
 	check(not str(issues).contains("far_roof"), "a declared backdrop figure on a far roof is neither floating nor off-scale")
 	var spread := issues.filter(func(i: Dictionary) -> bool: return i["code"] == "stage_scale")
 	check(spread.size() == 1 and str(spread[0]["where"]).contains("nurse"), "two nurses at scale 2.0 and 3.0 on one stage are reported")
+	var transport := {"supported_dead": {"mode":"animated","steps":[
+		{"do":"scene","id":"room"},
+		{"do":"actor","id":"patient","kind":"egret","pos":[100,240],"pose":"dead"},
+		{"do":"move","id":"patient","to":[150,230],"pose":"dead","then":"dead"},
+		{"do":"actor","id":"standing","kind":"rin","pos":[200,250],"pose":"idle"},
+		{"do":"move","id":"standing","to":[220,340],"pose":"walk","then":"idle"},
+	]}}
+	var transported := SceneAudit.audit_stages(transport,resolve)
+	var transported_feet := transported.filter(func(i:Dictionary)->bool:return i["code"]=="stage_feet")
+	check(transported_feet.size()==2 and not str(transported_feet).contains("patient"),"正式dead臥姿搬移不被當直立腳底，同場idle/walk離地仍維持原兩項錯誤")
 
 
 # ---------------------------------------------------------------------------

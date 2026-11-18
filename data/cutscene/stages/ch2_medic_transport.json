@@ -1,0 +1,261 @@
+{
+ "camera": {
+  "pos": [
+   370,
+   256
+  ],
+  "zoom": 1.1
+ },
+ "floor": 296,
+ "layers": [
+  {
+   "kind": "gradient",
+   "top": "#120808",
+   "bottom": "#2a1410",
+   "parallax": 0.0
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scenes/yong_hideout.webp",
+   "pos": [
+    -64,
+    -36.0
+   ],
+   "scale": 0.5,
+   "filter": "linear",
+   "source_width": 1536
+  },
+  {
+   "kind": "glow",
+   "pos": [
+    310,
+    160
+   ],
+   "radius": 150,
+   "color": "#ffd08a",
+   "intensity": 0.6,
+   "additive": true,
+   "alpha": 0.3,
+   "pulse": 0.05,
+   "pulse_depth": 0.2
+  },
+  {
+   "kind": "sprite",
+   "id": "medic_side_box",
+   "path": "res://art/environment/scene_props/ch2_medic_transport/ch2_medic_transport__pause_box.png",
+   "pos": [
+    508.0,
+    203.0
+   ],
+   "scale": 0.12083333333333333,
+   "source_width": 243,
+   "filter": "linear",
+   "glow": false,
+   "visible": true,
+   "depth": "back",
+   "lighting": "physical",
+   "support": "帳房右側實牆支架"
+  },
+  {
+   "kind": "sprite",
+   "id": "medic_pause_lock",
+   "path": "res://art/environment/scene_props/ch2_medic_transport/ch2_medic_transport__pause_lock.png",
+   "pos": [
+    527.01,
+    227.81
+   ],
+   "scale": 0.14,
+   "source_width": 56,
+   "filter": "linear",
+   "glow": false,
+   "visible": false,
+   "depth": "front",
+   "lighting": "physical",
+   "support": "牆上隔離箱暫停閂"
+  },
+  {
+   "kind": "sprite",
+   "id": "medic_maintenance_key",
+   "path": "res://art/environment/scene_props/ch2_medic_transport/ch2_medic_transport__maintenance_key.png",
+   "pos": [
+    531,
+    250
+   ],
+   "scale": 0.13,
+   "source_width": 36,
+   "filter": "linear",
+   "glow": false,
+   "visible": false,
+   "depth": "front",
+   "lighting": "physical",
+   "support": "醫護掌心/制服腰袋"
+  },
+  {
+   "kind": "sprite",
+   "id": "family_exit_frame",
+   "path": "res://art/environment/scene_props/ch2_medic_transport/ch2_medic_transport__exit_frame.png",
+   "pos": [
+    540.0,
+    151.0
+   ],
+   "scale": 0.31798245614035087,
+   "source_width": 271,
+   "filter": "linear",
+   "glow": false,
+   "visible": true,
+   "depth": "front",
+   "lighting": "physical"
+  },
+  {
+   "kind": "sprite",
+   "id": "family_exit_panel",
+   "path": "res://art/environment/scene_props/ch2_medic_transport/ch2_medic_transport__exit_panel.png",
+   "pos": [
+    550.1754385964912,
+    164.99122807017545
+   ],
+   "scale": 0.31798245614035087,
+   "source_width": 206,
+   "filter": "linear",
+   "glow": false,
+   "visible": true,
+   "depth": "back",
+   "lighting": "physical",
+   "support": "固定門框內滑門導軌"
+  },
+  {
+   "kind": "sprite",
+   "id": "family_exit_sill",
+   "path": "res://art/environment/scene_props/ch2_medic_transport/ch2_medic_transport__exit_sill.png",
+   "pos": [
+    540.0,
+    296.0
+   ],
+   "scale": 0.2866666666666667,
+   "source_width": 300,
+   "filter": "linear",
+   "glow": false,
+   "visible": true,
+   "depth": "front",
+   "lighting": "physical"
+  },
+  {
+   "kind": "sprite",
+   "id": "transport_stretcher",
+   "path": "res://art/environment/scene_props/ch2_medic_transport/ch2_medic_transport__stretcher.png",
+   "pos": [
+    510.0,
+    233.6605504587156
+   ],
+   "scale": 0.27522935779816515,
+   "source_width": 545,
+   "filter": "linear",
+   "glow": false,
+   "visible": false,
+   "depth": "back",
+   "lighting": "physical"
+  },
+  {
+   "kind": "sprite",
+   "id": "transport_strap_chest",
+   "path": "res://art/environment/scene_props/ch2_medic_transport/ch2_medic_transport__restraint.png",
+   "pos": [
+    0,
+    0
+   ],
+   "scale": 0.225,
+   "source_width": 14,
+   "filter": "linear",
+   "glow": false,
+   "visible": false,
+   "depth": "front",
+   "lighting": "physical",
+   "parent_prop": "transport_stretcher",
+   "anchor": [
+    170.0,
+    0.0
+   ],
+   "pivot": [
+    0,
+    12.232415902140675
+   ],
+   "support": "搬送床框的固定束帶"
+  },
+  {
+   "kind": "sprite",
+   "id": "transport_strap_hips",
+   "path": "res://art/environment/scene_props/ch2_medic_transport/ch2_medic_transport__restraint.png",
+   "pos": [
+    0,
+    0
+   ],
+   "scale": 0.225,
+   "source_width": 14,
+   "filter": "linear",
+   "glow": false,
+   "visible": false,
+   "depth": "front",
+   "lighting": "physical",
+   "parent_prop": "transport_stretcher",
+   "anchor": [
+    285.0,
+    0.0
+   ],
+   "pivot": [
+    0,
+    12.232415902140675
+   ],
+   "support": "搬送床框的固定束帶"
+  },
+  {
+   "kind": "sprite",
+   "id": "egret_equipment_bag",
+   "path": "res://art/environment/scene_props/ch2_medic_transport/ch2_medic_transport__equipment_bag.png",
+   "pos": [
+    0,
+    0
+   ],
+   "scale": 0.2,
+   "source_width": 76,
+   "filter": "linear",
+   "glow": false,
+   "visible": false,
+   "depth": "front",
+   "lighting": "physical",
+   "parent_prop": "transport_stretcher",
+   "anchor": [
+    390.0,
+    120.0
+   ],
+   "support": "搬送床側框"
+  },
+  {
+   "kind": "sprite",
+   "id": "egret_broken_umbrella",
+   "path": "res://art/environment/scene_props/ch2_medic_transport/ch2_medic_transport__broken_umbrella.png",
+   "pos": [
+    550,
+    221.20604395604397
+   ],
+   "scale": 0.3021978021978022,
+   "source_width": 364,
+   "filter": "linear",
+   "glow": false,
+   "visible": false,
+   "depth": "front",
+   "lighting": "physical"
+  }
+ ],
+ "furniture": [
+  {
+   "id": "ledger_desk",
+   "kind": "counter",
+   "rect": [
+    217,
+    215,
+    165,
+    69
+   ]
+  }
+ ]
+}

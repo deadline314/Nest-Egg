@@ -1,0 +1,114 @@
+{
+  "說明": "S13既有角色的巢狀場景資料變體；固定原PNG/rig/motion，無新人體圖。",
+  "hash_policy": "只對JSON文字正規化CRLF→LF；PNG一律原bytes，內容變更拒收。",
+  "sources": {
+    "art/characters/egret/character.json": "189f60232e29d360aef1e6161a8a026cfea4239082565bfd6f3bc2759a6358fb",
+    "art/characters/egret/parts/arm_lower.png": "655cf19f0b271d34ac81b96b1c65c7eaa54e92f2355240a408752856992e0c4c",
+    "art/characters/egret/parts/arm_lower_n.png": "105c034b0f8b568024f114aa74a56cf7208e496cd4cdd8328c64ad62834fdb34",
+    "art/characters/egret/parts/arm_upper.png": "a6442419f2a2a7bc194626e85500c70ace86a149c7dbc01a94ecd6291990c925",
+    "art/characters/egret/parts/arm_upper_n.png": "1631cdec2cb3d0ed6a3db9a87a800ad1c80ff433d304f128216cf485d9ac3662",
+    "art/characters/egret/parts/foot.png": "d55c2e872cf949f01e8e07a4ccbbff83b6caebc319261e48774db9fb81c07964",
+    "art/characters/egret/parts/foot_n.png": "c88841755b63217587550c79a5576d67600fc5ffdb07eb95309852d35f481562",
+    "art/characters/egret/parts/hand.png": "494c8b79956a999127cae33d100902e30615508c0e7de6962894a86ef9b2a614",
+    "art/characters/egret/parts/hand_n.png": "1737e2183dfcfc94e3c1a5bdf4506ce9d3a8316fd8af5190d589e5e88b6c9dc8",
+    "art/characters/egret/parts/head.png": "2d4ee7532839c0e53c9d8a3c7c3b9ec5fba9ead84dd20d976e0127b01b2e2781",
+    "art/characters/egret/parts/head_closed.png": "4483e8efd6f819ff59186a680bb16ed0093cbf8057b7ad25b40e560b1063590b",
+    "art/characters/egret/parts/head_closed_n.png": "3cef4b2934e1b7870ebc826a5950b6569f7c145c970204481587970d8476d557",
+    "art/characters/egret/parts/head_half.png": "ac33162c78f534292359662b8015191f093be437a724b58b32a4d04e78891a31",
+    "art/characters/egret/parts/head_half_n.png": "a13f0eb77b3a15f08c3882b31fdfec5e4a78ef0dd1da2211fabb7719109872ec",
+    "art/characters/egret/parts/head_n.png": "4bde31e9811e631eef35b8c52b8db23833eeec02f528eb20dbdd0d837891bf43",
+    "art/characters/egret/parts/leg_lower.png": "b2d0fb83f4eebcbf5469faab98d85c8bcf33293b6175bf371bec6747c9fcd55e",
+    "art/characters/egret/parts/leg_lower_n.png": "2eaecf9c48a416bd95463104fe0fcf492bbf46a3b078bf84bc7d5663aba83c86",
+    "art/characters/egret/parts/leg_upper.png": "c4c51e9c005518b27c88ac1c716416bf1d557d1bbf7abaf6cdbad903b4544b58",
+    "art/characters/egret/parts/leg_upper_n.png": "4377c0fe15fc01149f6f7d5e316198d8b63f869d6db04cb59f345a3a60293e2b",
+    "art/characters/egret/parts/pelvis.png": "0e27bcabd686f4281e95d1ed56e2de58b9187c8b4991cf6d3a441b0a801709ad",
+    "art/characters/egret/parts/pelvis_n.png": "ab73c3e934fd109bd12e14743c1a6ab2c6c93d3588168127d808da52b6a70bea",
+    "art/characters/egret/parts/torso.png": "54393bd338a777ff0a3c58605cb6becb24193551dfd207898326d6b2eff87f99",
+    "art/characters/egret/parts/torso_n.png": "11197c3888e27b6f8660641115f935cecef72b31281ca549d781a971c6955e67",
+    "art/rigs/egret.json": "e770e3a6cbd8dabe2fe07f25f646b4beba144201b215b5727793c34474073c83",
+    "art/motion/egret.json": "41708eaab0d4f62ef7435bd9a89c60039201f7f95ca563fcd522690d7cd1dbef",
+    "art/characters/ch2_greycoat/character.json": "2c21f339ab0fb48675faabc22d67e70f9f16c5726350beb1b7bfbc0753199f80",
+    "art/characters/ch2_greycoat/parts/arm_lower.png": "2469380001c3b4043cea6361e7760f705a9670d13b93e81d3cd91f52924c36f2",
+    "art/characters/ch2_greycoat/parts/arm_lower_n.png": "8292a75a1dc564347d1da94135d36578b3a1c6f51808b7e8beac0fa63ee33f96",
+    "art/characters/ch2_greycoat/parts/arm_upper.png": "132a57a7e6e1965f1fee3b3c198d666d45142212c15f246c3fe0b2a74e948f17",
+    "art/characters/ch2_greycoat/parts/arm_upper_n.png": "d5846b0c15ee3e8d34960a8b950a250c4471ffa4c9e108ba70fb6c6333e78a9b",
+    "art/characters/ch2_greycoat/parts/foot.png": "df6a2c38b261f21f0674a1baa3ee0a6f583700250aba5796d0a6d48e5cc3d8d8",
+    "art/characters/ch2_greycoat/parts/foot_n.png": "dfe321e069ff73a79c35eded39079d367d5a5591a69723c8c00d7c6b629f3f48",
+    "art/characters/ch2_greycoat/parts/hand.png": "dd5469255c0807b83d90620ac8f610c3cb24cea42ca64c7970f04aea43748d85",
+    "art/characters/ch2_greycoat/parts/hand_n.png": "cc6915c869a11aa23b13b495f87eb94dcc87daa270146dcab22c710a455757db",
+    "art/characters/ch2_greycoat/parts/head.png": "10e7bcfbb569b07eb0033eedbc496ae9d3d65ad0b823e383aab001f6c29e28c5",
+    "art/characters/ch2_greycoat/parts/head_n.png": "f98d88ac88414a1eb7adcecab7c66d07e35f51a78278541080b2d4c20e2cc120",
+    "art/characters/ch2_greycoat/parts/leg_lower.png": "6c08dbb19a0f825891164c8a20bcbdb2315aeecdbf16d6335273f2efb5cef74c",
+    "art/characters/ch2_greycoat/parts/leg_lower_n.png": "13a84843c667f9a04888f559e82fc6b83073ff521a9b299841a8e6fcb8384d4f",
+    "art/characters/ch2_greycoat/parts/leg_upper.png": "dfe9f7fec897dc6cb891a98fe8a9eaf9b93d526c6d242f300f316cf0e2da80b7",
+    "art/characters/ch2_greycoat/parts/leg_upper_n.png": "9e358428956574022d542fe1d4517127474836f879df79746abbdc55d17e8698",
+    "art/characters/ch2_greycoat/parts/pelvis.png": "da846615da44bee77eb1b1f981113d0ceb9555dc299ca522d14012da8b538a5e",
+    "art/characters/ch2_greycoat/parts/pelvis_n.png": "4cf6fb8bde527783d0410b1a86226892638da249552a725f0edc37a1f79cb3e6",
+    "art/characters/ch2_greycoat/parts/torso.png": "b1649f40b8ea396d7992b0c41f3b35d7e43ac4f078e9aeaf42e5535b13415610",
+    "art/characters/ch2_greycoat/parts/torso_n.png": "5bbfe33036f3c14c7ab0fd1e4e80630180162cff17149e9a6cc2e1cbeaedfc00",
+    "art/rigs/ch2_greycoat.json": "ce1331cfda1a8a323380031ba709907d894cd783962699cf00966dad4a1b472f",
+    "art/motion/ch2_greycoat.json": "2dfdeb043dc9a6554aec7b982bdd4065be5bbf6f93399bdea2edd914430547f1",
+    "art/characters/ch2_medic/character.json": "a8afcaa6b0e74418bede43a5c81edb8ae3e52a8434266a1a6f3ae3f553e7b6b7",
+    "art/characters/ch2_medic/parts/arm_lower.png": "6ecab667d016d5e3af1c0ce233d456ee97e79a61a7f4da3e7fb40aa8cad8376c",
+    "art/characters/ch2_medic/parts/arm_lower_n.png": "fb159793ec5f51da762ccbeb526853140ca782ca0ae696e5d4b9f8e3138e7508",
+    "art/characters/ch2_medic/parts/arm_upper.png": "4dcb5cf56a996c36600f852bcac724d0aa62643134d2134b6e343298595d9ba6",
+    "art/characters/ch2_medic/parts/arm_upper_n.png": "dd38d1215092c52c06a4433cee9acbfb50a87d362034cf00cae2d6f39c11bcf1",
+    "art/characters/ch2_medic/parts/foot.png": "4504562a2612409777c43aa9eb15afeebbeb6d3f841525d9f703e55cee580bde",
+    "art/characters/ch2_medic/parts/foot_n.png": "2d2fc6e097b12b046810ed9997efe0b19618fe9c5be137747e22530b8e0539c6",
+    "art/characters/ch2_medic/parts/hand.png": "9b4efbd9a4c0f21bdbb3bfdeea9641fe0a90609f1e4ba40d88b5f1f4c0e7309d",
+    "art/characters/ch2_medic/parts/hand_n.png": "1476bac26cb6b36874923ff40dc995acbdd0ad736ebd14983967430de915daf1",
+    "art/characters/ch2_medic/parts/head.png": "3e0ef1e648a1b94da2aa5ac5efdf8302ac58bf1d36ed819430f5c271a5b5585a",
+    "art/characters/ch2_medic/parts/head_n.png": "380fd489c20a1c0c4877e60aee305505e36165bae773092902f2b8fb553fc67e",
+    "art/characters/ch2_medic/parts/leg_lower.png": "b3d92efad5b42e80bdbdd47eae432b134f397e6c4949d8b124fb45cb58345cac",
+    "art/characters/ch2_medic/parts/leg_lower_n.png": "4fbe4a47465caa31e0a1d771c1d98510ab04aeae05041c289ffa9b4f2dfc3279",
+    "art/characters/ch2_medic/parts/leg_upper.png": "d4d0be0346ddfd223b65fe0fce6fcc432c71d01a0aeec339b4825ed2b8b40062",
+    "art/characters/ch2_medic/parts/leg_upper_n.png": "a7f71d83616266132de461e8a3a59c3b8e8bdabe7bb790f47c94a4fd2ce2e189",
+    "art/characters/ch2_medic/parts/pelvis.png": "0555a84ed17271e6f1a14c0424aa071dac8acef507167751c8fe6b0e3066a89e",
+    "art/characters/ch2_medic/parts/pelvis_n.png": "12a402616e349c132058a7bc343d09b58294c93c65d7c0bdf8bdc6d6b84c46d5",
+    "art/characters/ch2_medic/parts/torso.png": "d9d06bac32ff3c3c1cd5cf3b94f62c0b352fec17b4ad7e56017a1fde6c2d377b",
+    "art/characters/ch2_medic/parts/torso_n.png": "c6ec6dd606ba2ca6e54cae3685d69829f0ec384d2d44822ef12211f98beb2e15",
+    "art/rigs/ch2_medic.json": "f898b3b243392e727a519fb915e790a84162f338c416283581c9f8d90f678571",
+    "art/motion/ch2_medic.json": "0add0788eab5f734526f526483846965e478e9c6c070f1560920dd0119ae0563",
+    "art/motion/rin.json": "3de61049a5ddc0a13907f7c3ac03612311e4b52f0d9d099d1979a8ba40d6b852"
+  },
+  "kneel_source": "art/motion/rin.json",
+  "roles": [
+    {
+      "base": "egret",
+      "id": "egret/transport",
+      "death": {
+        "rotation": -1.5707963267948966,
+        "chest": 0.0,
+        "head": -0.68,
+        "legs": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "base": "ch2_greycoat",
+      "id": "ch2_greycoat/transport",
+      "crouch": {
+        "hip": 1.32,
+        "chest": 0.6,
+        "kneel": {
+          "knee_radius": 5.6
+        }
+      }
+    },
+    {
+      "base": "ch2_medic",
+      "id": "ch2_medic/transport",
+      "crouch": {
+        "hip": 1.1,
+        "chest": 0.6,
+        "kneel": {
+          "knee_radius": 1.5
+        }
+      }
+    }
+  ]
+}

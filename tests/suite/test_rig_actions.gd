@@ -12,6 +12,7 @@ func run() -> void:
 	await _test_playback()
 	await _test_death_overrides_enemy_actions()
 	preload("res://tests/helpers/crouch_feet_checks.gd").run(self)
+	preload("res://tests/helpers/crouch_hip_checks.gd").run(self)
 	await _test_unknown_action()
 	await _test_hands_follow_forearm()
 	await _test_enemy_data()

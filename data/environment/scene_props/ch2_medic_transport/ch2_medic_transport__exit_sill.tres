@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"ch2_medic_transport__exit_sill"
+display_name = "齊平安全出口門檻"
+texture = "res://art/environment/scene_props/ch2_medic_transport/ch2_medic_transport__exit_sill.png"
+size = Vector2(45.26315789473684, 1.3578947368421053)
+category = &"scene"

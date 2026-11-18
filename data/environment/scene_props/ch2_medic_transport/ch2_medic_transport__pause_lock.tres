@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"ch2_medic_transport__pause_lock"
+display_name = "暫停閂掛鎖"
+texture = "res://art/environment/scene_props/ch2_medic_transport/ch2_medic_transport__pause_lock.png"
+size = Vector2(4.126315789473685, 4.56842105263158)
+category = &"scene"

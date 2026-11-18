@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"ch2_medic_transport__restraint"
+display_name = "醫療固定束帶"
+texture = "res://art/environment/scene_props/ch2_medic_transport/ch2_medic_transport__restraint.png"
+size = Vector2(1.6578947368421053, 14.210526315789474)
+category = &"scene"

@@ -1,0 +1,113 @@
+{
+  "sources": {
+    "art/environment/scene_props/nursing_ward/nursing_ward__ward_bed.png": "067970f103a05552208472b7961c32b97882f3af2d13bdb726ac50a91e8c3656",
+    "art/environment/scene_props/rooftop/rooftop__torn_umbrella_tea.png": "817d8a5dd797bcaf8e0ebd51d1cfb074226104290c9da503ff73d9f7ed7b55a6",
+    "art/environment/scene_props/pawnshop_front/pawnshop_front__locked_ledger_box.png": "6e9310565f44214fad674d36670118d9712a21cafc9a884b3acb4aff193a04a5",
+    "art/environment/scene_props/yong_hideout/yong_hideout__isolation_box.png": "40b1ad539b19f091b22947e1c7541cac9975d3c5b65c3b8e66935cb04e1e1e71",
+    "art/environment/scene_props/neon_market/neon_market__cut_lock_gate.png": "2cac7f9083ed63fcac9796c7fa1b26789f91d37be46e4febd5f990b057847040",
+    "art/characters/ch2_medic/parts/pelvis.png": "0555a84ed17271e6f1a14c0424aa071dac8acef507167751c8fe6b0e3066a89e",
+    "art/environment/scene_props/nursing_ward/nursing_ward__ward_bed_n.png": "94096a27cbfcda03433310505e7ef4b2dc0d1422063be0a165b96e173325654b",
+    "art/environment/scene_props/rooftop/rooftop__torn_umbrella_tea_n.png": "2a31c9be1ac2a2ebc2013c954e9b1d262e66636e978813ead41b8405c1db13ea",
+    "art/environment/scene_props/pawnshop_front/pawnshop_front__locked_ledger_box_n.png": "906b35e981d95479b839029841a87ecb7d1ebbee9112b88208df260b92155c09",
+    "art/environment/scene_props/yong_hideout/yong_hideout__isolation_box_n.png": "f00956579bab8ea23a5867544d52962ed48d5ecca828dab7dbe6b1844bba4a59",
+    "art/environment/scene_props/neon_market/neon_market__cut_lock_gate_n.png": "4687e5a602abbc1b19d560eae71bb13533dc7505bf08aa56564997abc8dbb937",
+    "art/characters/ch2_medic/parts/pelvis_n.png": "12a402616e349c132058a7bc343d09b58294c93c65d7c0bdf8bdc6d6b84c46d5"
+  },
+  "hidden_mattress": {
+    "claim_pixels": 3403,
+    "restored_pixels": 1662,
+    "outside_claim_rgba_unchanged": true,
+    "normal_alpha_matches": true,
+    "rule": {
+      "pillow_polygon_mirrored": [
+        [
+          24,
+          62
+        ],
+        [
+          31,
+          52
+        ],
+        [
+          45,
+          43
+        ],
+        [
+          70,
+          38
+        ],
+        [
+          95,
+          39
+        ],
+        [
+          116,
+          45
+        ],
+        [
+          132,
+          51
+        ],
+        [
+          130,
+          58
+        ],
+        [
+          121,
+          66
+        ],
+        [
+          114,
+          73
+        ],
+        [
+          100,
+          76
+        ],
+        [
+          37,
+          76
+        ],
+        [
+          24,
+          69
+        ]
+      ],
+      "mattress_source_y": 59,
+      "donor_mirrored_x": 200,
+      "donor_target_x": 15,
+      "edge_dilation": 5,
+      "edge_above_y": 59,
+      "edge_min_x": 27,
+      "edge_min_channel": 130,
+      "說明": "只移除原高枕及兩像素內淺色邊緣；被枕遮住的床墊，diffuse/normal 同步引用同原圖中段同高度白色床材。claim外RGBA完全不變；不改原圖/床架/輪子。",
+      "原圖座標": "水平翻面 dest x 對原圖x=544-x；donor 原圖x=544-(200+dest_x-15)，y相同；normal R=255-R。"
+    }
+  },
+  "outputs": {
+    "ch2_medic_transport__stretcher.png": "15b60b80e1ce40f9166a2f3d0dbea7d2f9790b1c0e5eb04cac6d591baac96500",
+    "ch2_medic_transport__stretcher_n.png": "689d361aaec24a87bca698687bf1dbe5d2f755ad4fa877d64e85b31a556be4ae",
+    "ch2_medic_transport__pause_lock.png": "51db123ac9672cea7d9957ac58ef80933a05d3950e77a9d3f9707d45462967a8",
+    "ch2_medic_transport__pause_lock_n.png": "47756dcc520eec9db185610d94c0988d1db9b7c14d982865015737ca5563aaf3",
+    "ch2_medic_transport__maintenance_key.png": "46a00166b3b0ccfb56ac3407f927c5b0dde98ea116aa5c8309ef2982cc38bcf2",
+    "ch2_medic_transport__maintenance_key_n.png": "f2106bf5a5327ed9f0d92a66f02e4be602806bfd0dc5a8a1610027e4d2a34fba",
+    "ch2_medic_transport__restraint.png": "35261905735d6046de84758d399fb722278d85da768ba6f1755b72d4f88318de",
+    "ch2_medic_transport__restraint_n.png": "d23f4cab79a18cc08f6009acdefe93e39b07298dc285d3265b18f37a8d1140d6",
+    "ch2_medic_transport__equipment_bag.png": "6341e3e44a49a65ad203df5b8e581fe4823f6554c3e5b0ddbbc868b9c9f5ec89",
+    "ch2_medic_transport__equipment_bag_n.png": "2ef064e8e7eab0dc11f5f1ea43ca44f40496d3145ce8a63a7cc28baad1b380ab",
+    "ch2_medic_transport__broken_umbrella.png": "220fd305ac8d6fb26e865b32183878230433e49ae129c8059450e4f02f152c0c",
+    "ch2_medic_transport__broken_umbrella_n.png": "0efdbd2104ea3b155101c3d6ac38b3f069e26dc96dd98276cf55a489b2bcc632",
+    "ch2_medic_transport__pause_box.png": "973c359e889034f6cedf4c40a15f5abf5b3382a54db74ca62bf567cf847893fc",
+    "ch2_medic_transport__pause_box_n.png": "062f7792e7614cb8f98b34a631f9247a479b5586eaae823c062ab3067b3738e1",
+    "ch2_medic_transport__exit_frame.png": "087e261dbbe32105afc00f00d21c8f577808a2dd08638e9a8afb6a2b0a8c5e74",
+    "ch2_medic_transport__exit_frame_n.png": "74866001cd04bc28671f61c7760d4e8c746a24c2a46f97521956d26ab206bb0a",
+    "ch2_medic_transport__exit_panel.png": "e5567f98f12d525329f93ea4301fb43076937bf8544be9a0c83fa48163b7f98c",
+    "ch2_medic_transport__exit_panel_n.png": "2f30739097b5754f83ff2f841dc0ca71ce7be626c97f26a6efcb3a6b79a076c7",
+    "ch2_medic_transport__exit_sill.png": "2b2f571c575d8319e1a32d8ceba5fc86e14eca86fb90b9e6fedcfaee02c27448",
+    "ch2_medic_transport__exit_sill_n.png": "565cfab898ca3e3593881e7eb064caa2a5ae88b0bc1a72e6c0a50d5d7b0d53d5"
+  },
+  "generation": "none；既有原RGBA切件、水平翻面與金屬/布料幾何組合",
+  "normal_horizontal_mirror": "翻面法線R=255-R；像素來源不改",
+  "original_sources_unchanged": true,
+  "key_geometry": "36x56的環、柄與兩齒，鎖具原金屬色材質，平面法線"
+}

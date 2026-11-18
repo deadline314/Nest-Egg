@@ -338,6 +338,26 @@ class Stage:
 				return true
 		return false
 
+	## 限單階持物 DAG：主手 → 道具 → 空閒第二手。持有手先放下才能改綁持物，
+	## 不接受自持回授、互持循環或需要另行排序的多階持物依賴。
+	func held_contact_problem(actor: CutsceneActor, hand: StringName, target: Node2D) -> String:
+		var owns := false
+		for hold: StagePropHold in _held:
+			if hold.owns_hand(actor, hand):
+				owns = true
+				break
+		if not owns:
+			return ""
+		# 持有手不能再追受手臂IK驅動的手/臂，否則會把主手→道具的根重新接回依賴。
+		var bone := target.get_parent() as Bone2D if is_instance_valid(target) else null
+		if bone != null and (bone.name in HumanoidAnimator.ARM_CHAINS[0] or bone.name in HumanoidAnimator.ARM_CHAINS[1]):
+			return "holding hand cannot reach an IK-driven arm or hand part; release its prop first"
+		for hold: StagePropHold in _held:
+			var held := prop_node(hold.prop_id)
+			if held == target or (held != null and held.is_ancestor_of(target)):
+				return "holding hand must release its prop before reaching a held prop or its anchored child"
+		return ""
+
 	func resolve_prop_parents() -> void:
 		var count := 0
 		for id: String in _props:

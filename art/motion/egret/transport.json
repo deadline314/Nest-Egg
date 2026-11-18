@@ -1,0 +1,143 @@
+{
+  "description": "S13限定搬運資料；原角色檔案不變。",
+  "skin": "egret/transport",
+  "idle": {
+    "breath_speed": 1.45,
+    "breath_amp": 0.018,
+    "hip_bob": 0.24,
+    "chest": -0.02,
+    "legs": [
+      -0.16,
+      0.14,
+      0.22,
+      0.08
+    ]
+  },
+  "move": {
+    "stride": 58.0,
+    "swing": 0.56,
+    "knee_bend": 0.86,
+    "knee_base": 0.15,
+    "hip_bounce": 0.7,
+    "chest_lean": 0.11,
+    "threshold": 0.08
+  },
+  "crouch": {
+    "hip_drop": 8.0,
+    "chest": 0.18,
+    "legs": [
+      -1.25,
+      2.05,
+      -0.55,
+      1.85
+    ]
+  },
+  "air": {
+    "rise": {
+      "chest": 0.05,
+      "legs": [
+        -0.95,
+        1.4,
+        0.35,
+        0.7
+      ]
+    },
+    "fall": {
+      "chest": -0.05,
+      "legs": [
+        -0.35,
+        0.45,
+        0.45,
+        0.25
+      ]
+    }
+  },
+  "dash": {
+    "forward": {
+      "chest": 0.38,
+      "legs": [
+        -1.0,
+        0.6,
+        0.85,
+        1.0
+      ]
+    },
+    "back": {
+      "chest": -0.22,
+      "legs": [
+        0.5,
+        0.9,
+        -0.7,
+        0.4
+      ]
+    }
+  },
+  "block": {
+    "chest": 0.1,
+    "legs": [
+      -0.4,
+      0.5,
+      0.5,
+      0.2
+    ]
+  },
+  "hurt": {
+    "stagger_chest": -0.35,
+    "kick": 0.3
+  },
+  "look": {
+    "chest": 0.12,
+    "neck": 0.12,
+    "head": 0.3,
+    "head_min": -0.35,
+    "head_max": 0.3
+  },
+  "death": {
+    "duration": 0.45,
+    "rotation": -1.5707963267948966,
+    "drop": 21.0,
+    "hip_x": -6.0,
+    "chest": 0.0,
+    "head": -0.68,
+    "fold": 0.0,
+    "ease": "out_cubic",
+    "legs": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "fold_legs": [
+      -1.4,
+      2.0,
+      -1.2,
+      1.9
+    ]
+  },
+  "npc": {
+    "stand": {
+      "chest": 0.1,
+      "head": 0.1
+    },
+    "talk_speed": 0.896,
+    "talk_amp": 0.84,
+    "life": {
+      "tempo": 0.6,
+      "amount": 1.1,
+      "breath": {
+        "sigh_every": [
+          7.0,
+          13.0
+        ],
+        "sigh_amp": 2.6
+      },
+      "glance": {
+        "every": [
+          5.0,
+          11.0
+        ],
+        "head": 0.14
+      }
+    }
+  }
+}

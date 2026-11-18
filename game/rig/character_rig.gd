@@ -366,6 +366,17 @@ func contact_part(part_name: StringName) -> Sprite2D:
 	return selected
 
 
+## 接觸演出可用同一來源UV綁定動態網格；舊Sprite專用介面保持原型別與行為。
+func contact_surface(part_name: StringName) -> Node2D:
+	var selected: Node2D
+	for part: CanvasItem in _parts:
+		if part.name == part_name and (part is Sprite2D or part is RigPartMesh) and part.visible:
+			if selected != null:
+				return null
+			selected = part as Node2D
+	return selected
+
+
 static func part_source_point(part: Sprite2D, point: Vector2) -> Vector2:
 	if not is_instance_valid(part) or part.texture == null or not point.is_finite() or part.region_enabled or part.hframes != 1 or part.vframes != 1:
 		return Vector2.INF

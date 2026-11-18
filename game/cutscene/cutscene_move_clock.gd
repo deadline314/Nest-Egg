@@ -10,9 +10,10 @@ var _to: Vector2
 var _duration: float
 var _rate: float
 var _progress := 0.0
+var _passive_pose := -1
 
 
-func _init(owner: Node, actor: CutsceneActor, target: Vector2, duration: float, rate: float, physics_clock: bool) -> void:
+func _init(owner: Node, actor: CutsceneActor, target: Vector2, duration: float, rate: float, physics_clock: bool, passive_pose := -1) -> void:
 	_owner = weakref(owner)
 	_actor = weakref(actor)
 	_id = actor.actor_id
@@ -20,14 +21,15 @@ func _init(owner: Node, actor: CutsceneActor, target: Vector2, duration: float, 
 	_to = target
 	_duration = duration
 	_rate = rate # Same immutable configuration snapshot passed to this Tween's speed_scale.
-	token = actor.begin_stage_move(physics_clock)
+	_passive_pose = passive_pose
+	token = actor.begin_stage_move(physics_clock, passive_pose)
 
 
 func _current_actor() -> CutsceneActor:
 	var owner = _owner.get_ref()
 	if not is_instance_valid(owner):
 		return null
-	var actor: CutsceneActor = owner._live_step_actor(_actor, _id)
+	var actor: CutsceneActor = owner._live_step_actor(_actor, _id, _passive_pose)
 	return actor if actor != null and actor.is_processing() and actor.stage_move_current(token) else null
 
 

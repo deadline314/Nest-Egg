@@ -48,7 +48,7 @@ const DEFAULT_MOTION := {
 	"foot": {"droop": 0.25, "heel": 0.0, "toe_off": 0.0},
 	"torso": {"hip_swing": 0.0, "chest_counter": 0.0, "chest_wobble": 0.0, "wobble_phase": 0.0, "head_hold": 0.0},
 	"inertia": {"gain": 0.0, "ref_accel": 1600.0, "stiffness": 90.0, "damping": 11.0, "max": 0.3},
-	"crouch": {"hip_drop": 8.0, "chest": 0.18, "legs": [-1.25, 2.05, -0.55, 1.85], "feet": [], "kneel": {}},
+	"crouch": {"hip_drop": 8.0, "hip": 0.0, "chest": 0.18, "legs": [-1.25, 2.05, -0.55, 1.85], "feet": [], "kneel": {}},
 	# 空手時手臂怎麼垂、怎麼擺：hang＝[前上臂, 前前臂, 後上臂, 後前臂]（弧度；負的往前）。前手垂在身側、後手略往前，
 	# 兩隻手臂的角度不能一樣，否則站著時會並排在同一側，看起來像一邊長了兩隻手。swing＝滿速時上臂前後擺的幅度，停下來就不擺。
 	"arms": {"hang": [0.02, -0.18, -0.2, -0.28], "swing": 0.38},
@@ -220,7 +220,21 @@ static func _load_motion(skin_id: String) -> Dictionary:
 		if not problem.is_empty():
 			RigLibrary.report_once("motion.crouch.feet:" + skin_id, "[HumanoidAnimator] %s: crouch.feet %s; using the legacy foot pose." % [path, problem])
 			merged["crouch"]["feet"] = []
+	if typeof(crouch) == TYPE_DICTIONARY and (crouch as Dictionary).has("hip"):
+		var problem := crouch_hip_problem(crouch["hip"])
+		if problem.is_empty():
+			merged["crouch"]["hip"] = float(crouch["hip"])
+		else:
+			RigLibrary.report_once("motion.crouch.hip:" + skin_id, "[HumanoidAnimator] %s: crouch.hip %s；使用原本的零旋轉。" % [path, problem])
+			merged["crouch"]["hip"] = 0.0
 	return merged
+
+
+## 可選的蹲姿髖旋轉；省略時完全沿用原本的零旋轉，不改骨長或落腳 IK。
+static func crouch_hip_problem(value: Variant) -> String:
+	if typeof(value) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(value)) or absf(float(value)) > PI * 0.5:
+		return "必須是有限弧度，範圍 [-PI/2, PI/2]"
+	return ""
 
 
 ## Empty preserves the original pose; configured front/back angles are local radians.
@@ -385,6 +399,7 @@ func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> 
 	pose[&"_hip_y"] = 0.0
 	if input.crouching:
 		var crouch: Dictionary = m["crouch"]
+		pose[&"hip"] = float(crouch["hip"])
 		pose[&"_hip_y"] = float(crouch["hip_drop"])
 		pose[&"chest"] = float(crouch["chest"])
 		_set_legs_from(pose, crouch["legs"])

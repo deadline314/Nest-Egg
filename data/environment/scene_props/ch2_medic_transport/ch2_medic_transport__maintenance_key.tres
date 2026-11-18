@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"ch2_medic_transport__maintenance_key"
+display_name = "維修掛鎖鑰匙"
+texture = "res://art/environment/scene_props/ch2_medic_transport/ch2_medic_transport__maintenance_key.png"
+size = Vector2(2.463157894736842, 3.8315789473684214)
+category = &"scene"

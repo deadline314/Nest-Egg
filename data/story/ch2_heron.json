@@ -5859,124 +5859,12 @@
    "steps": [
     {
      "do": "scene",
-     "id": "ch2_ledger_office",
+     "id": "ch2_medic_transport",
      "pos": [
-      320,
-      254.6
+      370,
+      256
      ],
-     "zoom": 1.2,
-     "fade": 0.8
-    },
-    {
-     "do": "actor",
-     "id": "rin",
-     "kind": "rin",
-     "pos": [
-      250,
-      296
-     ],
-     "facing": 1,
-     "scale": 1.9,
-     "weapon": "",
-     "speaker": "rin"
-    },
-    {
-     "do": "actor",
-     "id": "yong",
-     "kind": "yong",
-     "pos": [
-      440,
-      296
-     ],
-     "facing": -1,
-     "scale": 1.9,
-     "weapon": "",
-     "speaker": "yong"
-    },
-    {
-     "do": "actor",
-     "id": "xiaowei",
-     "kind": "xiaowei",
-     "pos": [
-      490,
-      296
-     ],
-     "facing": -1,
-     "scale": 1.9,
-     "weapon": "",
-     "speaker": "xiaowei"
-    },
-    {
-     "do": "say",
-     "speaker": "yong",
-     "text": "你永久拆了我和她的連結，還要我認你算的帳？",
-     "ja": "俺と娘のつながりを永久に断っておいて、お前の計算を認めろってのか？",
-     "en": "You cut my link with her for good, and now you want me to accept your numbers?"
-    },
-    {
-     "do": "say",
-     "speaker": "rin",
-     "text": "你活著就能對，別拿她再付。",
-     "ja": "生きていれば清算はできる。もう彼女に払わせるな。",
-     "en": "As long as you're alive, you can settle it. Don't make her pay again."
-    },
-    {
-     "do": "say",
-     "speaker": "xiaowei",
-     "text": "爸爸，我們回家嗎？",
-     "ja": "パパ、うちに帰るの？",
-     "en": "Dad, are we going home?"
-    },
-    {
-     "do": "wait",
-     "time": 0.35
-    },
-    {
-     "do": "say",
-     "speaker": "yong",
-     "text": "傘拿著，門外等我的人會送妳。",
-     "ja": "傘を持っていけ。外で待ってる人が連れて行ってくれる。",
-     "en": "Take the umbrella. The people waiting for you outside will take you."
-    }
-   ],
-   "pose_policy": "supported",
-   "when": {
-    "all": [
-     {
-      "flag": "ch2_yong_subdued",
-      "equals": true
-     },
-     {
-      "flag": "yong_link_choice",
-      "equals": "cut"
-     },
-     {
-      "not": {
-       "flag": "ch2_original_ledger_taken",
-       "equals": true
-      }
-     }
-    ]
-   },
-   "results": [
-    {
-     "kind": "transaction",
-     "id": "ch2.yong_subdued"
-    }
-   ],
-   "then": "ch2_t_s13_cabinet"
-  },
-  "ch2_t_s13_keep": {
-   "mode": "animated",
-   "steps": [
-    {
-     "do": "scene",
-     "id": "ch2_ledger_office",
-     "pos": [
-      320,
-      254.6
-     ],
-     "zoom": 1.2,
+     "zoom": 1.1,
      "fade": 0.8
     },
     {
@@ -6023,13 +5911,422 @@
      "id": "medic",
      "kind": "ch2_medic",
      "pos": [
-      540,
+      522,
+      296.0
+     ],
+     "facing": -1,
+     "scale": 1.9,
+     "weapon": "",
+     "speaker": "medic"
+    },
+    {
+     "do": "say",
+     "speaker": "yong",
+     "text": "你永久拆了我和她的連結，還要我認你算的帳？",
+     "ja": "俺と娘のつながりを永久に断っておいて、お前の計算を認めろってのか？",
+     "en": "You cut my link with her for good, and now you want me to accept your numbers?"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "你活著就能對，別拿她再付。",
+     "ja": "生きていれば清算はできる。もう彼女に払わせるな。",
+     "en": "As long as you're alive, you can settle it. Don't make her pay again."
+    },
+    {
+     "do": "say",
+     "speaker": "xiaowei",
+     "text": "爸爸，我們回家嗎？",
+     "ja": "パパ、うちに帰るの？",
+     "en": "Dad, are we going home?"
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "yong",
+     "text": "傘拿著，門外等我的人會送妳。",
+     "ja": "傘を持っていけ。外で待ってる人が連れて行ってくれる。",
+     "en": "Take the umbrella. The people waiting for you outside will take you."
+    },
+    {
+     "do": "move",
+     "id": "medic",
+     "to": [
+      565,
+      296.0
+     ],
+     "time": 0.7,
+     "pose": "walk",
+     "then": "idle",
+     "wait": true
+    },
+    {
+     "do": "reach",
+     "id": "medic",
+     "hand": "front",
+     "time": 0.45,
+     "wait": true,
+     "contact": [
+      43.5,
+      47.5
+     ],
+     "angle": 0.0,
+     "to": [
+      104.5,
+      190.5
+     ],
+     "space": "prop",
+     "prop": "family_exit_panel"
+    },
+    {
+     "do": "prop_move",
+     "id": "family_exit_panel",
+     "to": [
+      480.1754385964912,
+      164.99122807017545
+     ],
+     "time": 0.65,
+     "wait": false
+    },
+    {
+     "do": "move",
+     "id": "medic",
+     "to": [
+      505,
+      296.0
+     ],
+     "time": 0.65,
+     "pose": "walk",
+     "then": "idle",
+     "wait": true
+    },
+    {
+     "do": "reach",
+     "id": "medic",
+     "hand": "front",
+     "time": 0.45,
+     "wait": true,
+     "release": true
+    },
+    {
+     "do": "move",
+     "id": "medic",
+     "to": [
+      670,
+      296.0
+     ],
+     "time": 2.6,
+     "pose": "walk",
+     "then": "idle",
+     "wait": false
+    },
+    {
+     "do": "move",
+     "id": "xiaowei",
+     "to": [
+      640,
+      296.0
+     ],
+     "time": 2.6,
+     "pose": "walk",
+     "then": "idle",
+     "wait": false
+    },
+    {
+     "do": "wait",
+     "time": 2.7
+    },
+    {
+     "do": "remove",
+     "id": "medic"
+    },
+    {
+     "do": "remove",
+     "id": "xiaowei"
+    }
+   ],
+   "pose_policy": "supported",
+   "when": {
+    "all": [
+     {
+      "flag": "ch2_yong_subdued",
+      "equals": true
+     },
+     {
+      "flag": "yong_link_choice",
+      "equals": "cut"
+     },
+     {
+      "not": {
+       "flag": "ch2_original_ledger_taken",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "transaction",
+     "id": "ch2.yong_subdued"
+    }
+   ],
+   "then": "ch2_t_s13_cabinet"
+  },
+  "ch2_t_s13_keep": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "scene",
+     "id": "ch2_medic_transport",
+     "pos": [
+      370,
+      256
+     ],
+     "zoom": 1.1,
+     "fade": 0.8
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      250,
+      296
+     ],
+     "facing": 1,
+     "scale": 1.9,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "actor",
+     "id": "yong",
+     "kind": "yong",
+     "pos": [
+      440,
       296
      ],
      "facing": -1,
      "scale": 1.9,
      "weapon": "",
-     "speaker": "ch2_medic"
+     "speaker": "yong"
+    },
+    {
+     "do": "actor",
+     "id": "xiaowei",
+     "kind": "xiaowei",
+     "pos": [
+      490,
+      296
+     ],
+     "facing": -1,
+     "scale": 1.9,
+     "weapon": "",
+     "speaker": "xiaowei"
+    },
+    {
+     "do": "actor",
+     "id": "medic",
+     "kind": "ch2_medic",
+     "pos": [
+      522,
+      296.0
+     ],
+     "facing": -1,
+     "scale": 1.9,
+     "weapon": "",
+     "speaker": "medic"
+    },
+    {
+     "do": "prop_move",
+     "id": "medic_pause_lock",
+     "to": [
+      518.01,
+      224.81
+     ],
+     "time": 0
+    },
+    {
+     "do": "prop_visible",
+     "id": "medic_pause_lock",
+     "visible": true
+    },
+    {
+     "do": "reach",
+     "id": "medic",
+     "hand": "front",
+     "time": 0.45,
+     "wait": true,
+     "contact": [
+      43.5,
+      47.5
+     ],
+     "angle": 0.0,
+     "to": [
+      28.5,
+      8.5
+     ],
+     "space": "prop",
+     "prop": "medic_pause_lock"
+    },
+    {
+     "do": "prop_hold",
+     "id": "medic_pause_lock",
+     "actor": "medic",
+     "hand": "front",
+     "point": [
+      28.5,
+      8.5
+     ],
+     "follow_rotation": false
+    },
+    {
+     "do": "reach",
+     "id": "medic",
+     "hand": "front",
+     "time": 0.45,
+     "wait": true,
+     "contact": [
+      43.5,
+      47.5
+     ],
+     "angle": 0.0,
+     "to": [
+      531.0,
+      229.0
+     ]
+    },
+    {
+     "do": "prop_release",
+     "id": "medic_pause_lock"
+    },
+    {
+     "do": "sfx",
+     "id": "mat_metal",
+     "volume": -14,
+     "jitter": 0
+    },
+    {
+     "do": "wait",
+     "time": 0.25
+    },
+    {
+     "do": "prop_move",
+     "id": "medic_maintenance_key",
+     "to": [
+      529.895,
+      227.375
+     ],
+     "time": 0
+    },
+    {
+     "do": "prop_visible",
+     "id": "medic_maintenance_key",
+     "visible": true
+    },
+    {
+     "do": "reach",
+     "id": "medic",
+     "hand": "front",
+     "time": 0.45,
+     "wait": true,
+     "contact": [
+      43.5,
+      47.5
+     ],
+     "angle": 0.0,
+     "to": [
+      8.5,
+      12.5
+     ],
+     "space": "prop",
+     "prop": "medic_maintenance_key"
+    },
+    {
+     "do": "prop_hold",
+     "id": "medic_maintenance_key",
+     "actor": "medic",
+     "hand": "front",
+     "point": [
+      8.5,
+      12.5
+     ],
+     "follow_rotation": true
+    },
+    {
+     "do": "reach",
+     "id": "medic",
+     "hand": "front",
+     "time": 0.3,
+     "wait": true,
+     "contact": [
+      43.5,
+      47.5
+     ],
+     "angle": 1.5707963267948966,
+     "to": [
+      531.0,
+      229.0
+     ]
+    },
+    {
+     "do": "wait",
+     "time": 0.2
+    },
+    {
+     "do": "reach",
+     "id": "medic",
+     "hand": "front",
+     "time": 0.3,
+     "wait": true,
+     "contact": [
+      43.5,
+      47.5
+     ],
+     "angle": 0,
+     "to": [
+      531.0,
+      229.0
+     ]
+    },
+    {
+     "do": "reach",
+     "id": "medic",
+     "hand": "front",
+     "time": 0.45,
+     "wait": true,
+     "contact": [
+      43.5,
+      47.5
+     ],
+     "angle": 0.0,
+     "to": [
+      150.5,
+      40.5
+     ],
+     "space": "part",
+     "target_actor": "medic",
+     "part": "pelvis"
+    },
+    {
+     "do": "prop_visible",
+     "id": "medic_maintenance_key",
+     "visible": false
+    },
+    {
+     "do": "prop_release",
+     "id": "medic_maintenance_key"
+    },
+    {
+     "do": "reach",
+     "id": "medic",
+     "hand": "front",
+     "time": 0.45,
+     "wait": true,
+     "release": true
     },
     {
      "do": "say",
@@ -6069,6 +6366,118 @@
      "text": "好，我走在妳後面。",
      "ja": "わかった。お前の後ろを歩く。",
      "en": "All right. I'll walk behind you."
+    },
+    {
+     "do": "move",
+     "id": "medic",
+     "to": [
+      565,
+      296.0
+     ],
+     "time": 0.7,
+     "pose": "walk",
+     "then": "idle",
+     "wait": true
+    },
+    {
+     "do": "reach",
+     "id": "medic",
+     "hand": "front",
+     "time": 0.45,
+     "wait": true,
+     "contact": [
+      43.5,
+      47.5
+     ],
+     "angle": 0.0,
+     "to": [
+      104.5,
+      190.5
+     ],
+     "space": "prop",
+     "prop": "family_exit_panel"
+    },
+    {
+     "do": "prop_move",
+     "id": "family_exit_panel",
+     "to": [
+      480.1754385964912,
+      164.99122807017545
+     ],
+     "time": 0.65,
+     "wait": false
+    },
+    {
+     "do": "move",
+     "id": "medic",
+     "to": [
+      505,
+      296.0
+     ],
+     "time": 0.65,
+     "pose": "walk",
+     "then": "idle",
+     "wait": true
+    },
+    {
+     "do": "reach",
+     "id": "medic",
+     "hand": "front",
+     "time": 0.45,
+     "wait": true,
+     "release": true
+    },
+    {
+     "do": "move",
+     "id": "medic",
+     "to": [
+      670,
+      296.0
+     ],
+     "time": 2.6,
+     "pose": "walk",
+     "then": "idle",
+     "wait": false
+    },
+    {
+     "do": "move",
+     "id": "xiaowei",
+     "to": [
+      640,
+      296.0
+     ],
+     "time": 2.6,
+     "pose": "walk",
+     "then": "idle",
+     "wait": false
+    },
+    {
+     "do": "move",
+     "id": "yong",
+     "to": [
+      600,
+      296.0
+     ],
+     "time": 2.6,
+     "pose": "walk",
+     "then": "idle",
+     "wait": false
+    },
+    {
+     "do": "wait",
+     "time": 2.7
+    },
+    {
+     "do": "remove",
+     "id": "medic"
+    },
+    {
+     "do": "remove",
+     "id": "xiaowei"
+    },
+    {
+     "do": "remove",
+     "id": "yong"
     }
    ],
    "pose_policy": "supported",
@@ -6213,12 +6622,12 @@
    "steps": [
     {
      "do": "scene",
-     "id": "ch2_ledger_office",
+     "id": "ch2_medic_transport",
      "pos": [
-      320,
-      254.6
+      370,
+      256
      ],
-     "zoom": 1.2,
+     "zoom": 1.1,
      "fade": 0.25
     },
     {
@@ -6226,7 +6635,7 @@
      "id": "rin",
      "kind": "rin",
      "pos": [
-      240,
+      190,
       296
      ],
      "facing": 1,
@@ -6240,18 +6649,26 @@
     {
      "do": "actor",
      "id": "egret",
-     "kind": "egret",
+     "kind": "egret/transport",
      "pos": [
-      300,
-      296
+      280,
+      302.63
      ],
-     "facing": -1,
+     "facing": 1,
      "scale": 1.9,
      "weapon": "",
-     "speaker": "egret",
-     "pose": "crouch",
-     "pose_reason": "鷺受傷倒下，撐著跪在地上。",
-     "pose_support": "膝蓋與腳尖著地，帳房地板 y=296。"
+     "speaker": "egret/transport"
+    },
+    {
+     "do": "pose",
+     "id": "egret",
+     "pose": "dead",
+     "pose_reason": "鷺在成人戰區受傷後倒在地上，與玩家HP/死亡UI無關。",
+     "pose_support": "完整臥姿的衣料/身體底面落於帳房地板y296。"
+    },
+    {
+     "do": "wait",
+     "time": 0.7
     },
     {
      "do": "say",
@@ -6279,11 +6696,861 @@
      "time": 0.35
     },
     {
+     "do": "prop_visible",
+     "id": "transport_stretcher",
+     "visible": true
+    },
+    {
+     "do": "actor",
+     "id": "porter_front",
+     "kind": "ch2_greycoat/transport",
+     "pos": [
+      500,
+      296.0
+     ],
+     "facing": -1,
+     "scale": 1.9,
+     "weapon": ""
+    },
+    {
+     "do": "actor",
+     "id": "porter_rear",
+     "kind": "ch2_medic/transport",
+     "pos": [
+      652,
+      296.0
+     ],
+     "facing": -1,
+     "scale": 1.8239999999999998,
+     "weapon": ""
+    },
+    {
+     "do": "reach",
+     "id": "porter_front",
+     "hand": "front",
+     "time": 0.45,
+     "wait": true,
+     "contact": [
+      75.5,
+      48.5
+     ],
+     "angle": 0.0,
+     "to": [
+      18.5,
+      8.5
+     ],
+     "space": "prop",
+     "prop": "transport_stretcher"
+    },
+    {
+     "do": "prop_hold",
+     "id": "transport_stretcher",
+     "actor": "porter_front",
+     "hand": "front",
+     "point": [
+      18.5,
+      8.5
+     ],
+     "follow_rotation": false
+    },
+    {
+     "do": "reach",
+     "id": "porter_rear",
+     "hand": "front",
+     "time": 0.45,
+     "wait": true,
+     "contact": [
+      43.5,
+      47.5
+     ],
+     "angle": 0.0,
+     "to": [
+      518.5,
+      28.5
+     ],
+     "space": "prop",
+     "prop": "transport_stretcher"
+    },
+    {
+     "do": "move",
+     "id": "porter_front",
+     "to": [
+      340,
+      296.0
+     ],
+     "time": 2.5,
+     "pose": "walk",
+     "then": "idle",
+     "wait": false
+    },
+    {
+     "do": "move",
+     "id": "porter_rear",
+     "to": [
+      492,
+      296.0
+     ],
+     "time": 2.5,
+     "pose": "walk",
+     "then": "idle",
+     "wait": true
+    },
+    {
+     "do": "prop_release",
+     "id": "transport_stretcher"
+    },
+    {
+     "do": "reach",
+     "id": "porter_front",
+     "hand": "front",
+     "time": 0.45,
+     "wait": false,
+     "release": true
+    },
+    {
+     "do": "reach",
+     "id": "porter_rear",
+     "hand": "front",
+     "time": 0.45,
+     "wait": true,
+     "release": true
+    },
+    {
+     "do": "move",
+     "id": "porter_front",
+     "to": [
+      255.5,
+      296.0
+     ],
+     "time": 1.2,
+     "pose": "walk",
+     "then": "idle",
+     "wait": false
+    },
+    {
+     "do": "move",
+     "id": "porter_rear",
+     "to": [
+      329,
+      296.0
+     ],
+     "time": 1.9,
+     "pose": "walk",
+     "then": "idle",
+     "wait": true
+    },
+    {
+     "do": "pose",
+     "id": "porter_front",
+     "pose": "crouch",
+     "pose_reason": "成年搬運者以既有單膝跪接口托住肩背，準備放上擔架。",
+     "pose_support": "後膝及前腳踩實帳房地板y296。"
+    },
+    {
+     "do": "pose",
+     "id": "porter_rear",
+     "pose": "crouch",
+     "pose_reason": "單膝跪下托住受傷成人雙腿，不把病患留在地上。",
+     "pose_support": "後膝及前腳踩實帳房地板y296。"
+    },
+    {
+     "do": "wait",
+     "time": 1.0
+    },
+    {
+     "do": "reach",
+     "id": "porter_front",
+     "hand": "front",
+     "time": 0.45,
+     "wait": true,
+     "contact": [
+      75.5,
+      48.5
+     ],
+     "angle": 0.0,
+     "to": [
+      90.5,
+      218.5
+     ],
+     "space": "part",
+     "target_actor": "egret",
+     "part": "torso"
+    },
+    {
+     "do": "reach",
+     "id": "porter_rear",
+     "hand": "front",
+     "time": 0.45,
+     "wait": true,
+     "contact": [
+      43.5,
+      47.5
+     ],
+     "angle": -1.5707963267948966,
+     "to": [
+      4.5,
+      95.5
+     ],
+     "space": "part",
+     "target_actor": "egret",
+     "part": "leg_front_lower"
+    },
+    {
+     "do": "move",
+     "id": "egret",
+     "to": [
+      280.0,
+      247.25
+     ],
+     "time": 1.0,
+     "pose": "dead",
+     "then": "dead",
+     "wait": true,
+     "pose_reason": "搬運中保持受傷成人的既有臥姿。",
+     "pose_support": "由兩名成年搬運者的掌心、擔架墊與綁帶承重；不把蹲姿當臥姿。"
+    },
+    {
+     "do": "pose",
+     "id": "porter_front",
+     "pose": "idle"
+    },
+    {
+     "do": "move",
+     "id": "porter_rear",
+     "to": [
+      308,
+      296.0
+     ],
+     "time": 0.25,
+     "pose": "walk",
+     "then": "idle",
+     "wait": true
+    },
+    {
+     "do": "wait",
+     "time": 0.4
+    },
+    {
+     "do": "move",
+     "id": "porter_front",
+     "to": [
+      415.5,
+      296.0
+     ],
+     "time": 3,
+     "pose": "walk",
+     "then": "idle",
+     "wait": false
+    },
+    {
+     "do": "move",
+     "id": "porter_rear",
+     "to": [
+      468,
+      296.0
+     ],
+     "time": 3,
+     "pose": "walk",
+     "then": "idle",
+     "wait": false
+    },
+    {
+     "do": "move",
+     "id": "egret",
+     "to": [
+      440.0,
+      247.25
+     ],
+     "time": 3,
+     "pose": "dead",
+     "then": "dead",
+     "wait": true,
+     "pose_reason": "搬運中保持受傷成人的既有臥姿。",
+     "pose_support": "由兩名成年搬運者的掌心、擔架墊與綁帶承重；不把蹲姿當臥姿。"
+    },
+    {
+     "do": "pose",
+     "id": "porter_front",
+     "pose": "squat",
+     "pose_reason": "兩人彎膝把鷺平放到擔架墊，保持背與腿的掌心承重。",
+     "pose_support": "雙腳仍貼地板y296，待床墊接觸後才收手。"
+    },
+    {
+     "do": "pose",
+     "id": "porter_rear",
+     "pose": "squat",
+     "pose_reason": "配合另一端降低搬運高度。",
+     "pose_support": "雙腳貼地板y296。"
+    },
+    {
+     "do": "wait",
+     "time": 0.5
+    },
+    {
+     "do": "move",
+     "id": "egret",
+     "to": [
+      440.0,
+      256.66669724770645
+     ],
+     "time": 0.7,
+     "pose": "dead",
+     "then": "dead",
+     "wait": true,
+     "pose_reason": "搬運中保持受傷成人的既有臥姿。",
+     "pose_support": "由兩名成年搬運者的掌心、擔架墊與綁帶承重；不把蹲姿當臥姿。"
+    },
+    {
+     "do": "reach",
+     "id": "porter_front",
+     "hand": "front",
+     "time": 0.45,
+     "wait": false,
+     "release": true
+    },
+    {
+     "do": "reach",
+     "id": "porter_rear",
+     "hand": "front",
+     "time": 0.45,
+     "wait": true,
+     "release": true
+    },
+    {
+     "do": "pose",
+     "id": "porter_front",
+     "pose": "idle"
+    },
+    {
+     "do": "pose",
+     "id": "porter_rear",
+     "pose": "idle"
+    },
+    {
+     "do": "wait",
+     "time": 0.6
+    },
+    {
+     "do": "move",
+     "id": "porter_front",
+     "to": [
+      405,
+      296.0
+     ],
+     "time": 0.5,
+     "pose": "walk",
+     "then": "idle",
+     "wait": true
+    },
+    {
+     "do": "reach",
+     "id": "porter_front",
+     "hand": "front",
+     "time": 0.45,
+     "wait": true,
+     "contact": [
+      75.5,
+      48.5
+     ],
+     "angle": 0.0,
+     "to": [
+      7.5,
+      15.5
+     ],
+     "space": "prop",
+     "prop": "transport_strap_chest"
+    },
+    {
+     "do": "prop_visible",
+     "id": "transport_strap_chest",
+     "visible": true
+    },
+    {
+     "do": "sfx",
+     "id": "mat_metal",
+     "volume": -18,
+     "jitter": 0
+    },
+    {
+     "do": "reach",
+     "id": "porter_front",
+     "hand": "front",
+     "time": 0.45,
+     "wait": true,
+     "release": true
+    },
+    {
+     "do": "move",
+     "id": "porter_front",
+     "to": [
+      430,
+      296.0
+     ],
+     "time": 0.5,
+     "pose": "walk",
+     "then": "idle",
+     "wait": true
+    },
+    {
+     "do": "reach",
+     "id": "porter_front",
+     "hand": "front",
+     "time": 0.45,
+     "wait": true,
+     "contact": [
+      75.5,
+      48.5
+     ],
+     "angle": 0.0,
+     "to": [
+      7.5,
+      15.5
+     ],
+     "space": "prop",
+     "prop": "transport_strap_hips"
+    },
+    {
+     "do": "prop_visible",
+     "id": "transport_strap_hips",
+     "visible": true
+    },
+    {
+     "do": "reach",
+     "id": "porter_front",
+     "hand": "front",
+     "time": 0.45,
+     "wait": true,
+     "release": true
+    },
+    {
+     "do": "move",
+     "id": "porter_front",
+     "to": [
+      440,
+      296.0
+     ],
+     "time": 0.8,
+     "pose": "walk",
+     "then": "idle",
+     "wait": true
+    },
+    {
+     "do": "pose",
+     "id": "porter_front",
+     "pose": "crouch",
+     "pose_reason": "低身檢查擔架側掛裝備袋。",
+     "pose_support": "後膝與前腳支撐於地板y296。"
+    },
+    {
+     "do": "wait",
+     "time": 1.0
+    },
+    {
+     "do": "prop_visible",
+     "id": "egret_equipment_bag",
+     "visible": true
+    },
+    {
+     "do": "reach",
+     "id": "porter_front",
+     "hand": "front",
+     "time": 0.45,
+     "wait": true,
+     "contact": [
+      75.5,
+      48.5
+     ],
+     "angle": 0.0,
+     "to": [
+      38.5,
+      10.5
+     ],
+     "space": "prop",
+     "prop": "egret_equipment_bag"
+    },
+    {
+     "do": "reach",
+     "id": "porter_front",
+     "hand": "front",
+     "time": 0.45,
+     "wait": true,
+     "release": true
+    },
+    {
+     "do": "pose",
+     "id": "porter_front",
+     "pose": "idle"
+    },
+    {
+     "do": "move",
+     "id": "rin",
+     "to": [
+      565,
+      296.0
+     ],
+     "time": 3.0,
+     "pose": "walk",
+     "then": "idle",
+     "wait": true
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "time": 0.45,
+     "wait": true,
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "angle": 0.0,
+     "to": [
+      104.5,
+      190.5
+     ],
+     "space": "prop",
+     "prop": "family_exit_panel"
+    },
+    {
+     "do": "prop_move",
+     "id": "family_exit_panel",
+     "to": [
+      480.1754385964912,
+      164.99122807017545
+     ],
+     "time": 0.65,
+     "wait": false
+    },
+    {
+     "do": "move",
+     "id": "rin",
+     "to": [
+      505,
+      296.0
+     ],
+     "time": 0.65,
+     "pose": "walk",
+     "then": "idle",
+     "wait": true
+    },
+    {
+     "do": "pose",
+     "id": "porter_front",
+     "pose": "listen"
+    },
+    {
      "do": "say",
      "speaker": "rin",
      "text": "她的傘也帶上，兩根骨都斷了。",
      "ja": "傘も持っていって。骨が二本とも折れてる。",
      "en": "Take her umbrella too. Both of its ribs are broken."
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "time": 0.45,
+     "wait": true,
+     "release": true
+    },
+    {
+     "do": "move",
+     "id": "rin",
+     "to": [
+      700,
+      296.0
+     ],
+     "time": 2.8,
+     "pose": "walk",
+     "then": "idle",
+     "wait": false
+    },
+    {
+     "do": "wait",
+     "time": 5.5
+    },
+    {
+     "do": "prop_visible",
+     "id": "egret_broken_umbrella",
+     "visible": true
+    },
+    {
+     "do": "move",
+     "id": "porter_rear",
+     "to": [
+      575,
+      296.0
+     ],
+     "time": 1.5,
+     "pose": "walk",
+     "then": "idle",
+     "wait": true
+    },
+    {
+     "do": "pose",
+     "id": "porter_rear",
+     "pose": "crouch",
+     "pose_reason": "取回靠在安全出口門框的破傘。",
+     "pose_support": "後膝與前腳固定於地板y296。"
+    },
+    {
+     "do": "wait",
+     "time": 1.0
+    },
+    {
+     "do": "reach",
+     "id": "porter_rear",
+     "hand": "back",
+     "time": 0.45,
+     "wait": true,
+     "contact": [
+      43.5,
+      47.5
+     ],
+     "angle": 0.0,
+     "to": [
+      177.5,
+      226.5
+     ],
+     "space": "prop",
+     "prop": "egret_broken_umbrella"
+    },
+    {
+     "do": "prop_hold",
+     "id": "egret_broken_umbrella",
+     "actor": "porter_rear",
+     "hand": "back",
+     "point": [
+      177.5,
+      226.5
+     ],
+     "follow_rotation": false
+    },
+    {
+     "do": "reach",
+     "id": "porter_rear",
+     "hand": "back",
+     "time": 0.45,
+     "wait": true,
+     "contact": [
+      43.5,
+      47.5
+     ],
+     "angle": 0.0,
+     "to": [
+      77.5,
+      122.5
+     ],
+     "space": "part",
+     "target_actor": "porter_rear",
+     "part": "head"
+    },
+    {
+     "do": "pose",
+     "id": "porter_rear",
+     "pose": "idle"
+    },
+    {
+     "do": "wait",
+     "time": 0.8
+    },
+    {
+     "do": "reach",
+     "id": "porter_rear",
+     "hand": "back",
+     "time": 0.45,
+     "wait": true,
+     "offset": [
+      0,
+      20
+     ],
+     "contact": [
+      43.5,
+      47.5
+     ],
+     "angle": 0.0,
+     "to": [
+      77.5,
+      122.5
+     ],
+     "space": "part",
+     "target_actor": "porter_rear",
+     "part": "head"
+    },
+    {
+     "do": "move",
+     "id": "porter_front",
+     "to": [
+      340,
+      296.0
+     ],
+     "time": 1.8,
+     "pose": "walk",
+     "then": "idle",
+     "wait": false
+    },
+    {
+     "do": "move",
+     "id": "porter_rear",
+     "to": [
+      492,
+      296.0
+     ],
+     "time": 1.8,
+     "pose": "walk",
+     "then": "idle",
+     "wait": true
+    },
+    {
+     "do": "pose",
+     "id": "porter_front",
+     "pose": "idle"
+    },
+    {
+     "do": "reach",
+     "id": "porter_front",
+     "hand": "front",
+     "time": 0.45,
+     "wait": true,
+     "contact": [
+      75.5,
+      48.5
+     ],
+     "angle": 0.0,
+     "to": [
+      18.5,
+      8.5
+     ],
+     "space": "prop",
+     "prop": "transport_stretcher"
+    },
+    {
+     "do": "prop_hold",
+     "id": "transport_stretcher",
+     "actor": "porter_front",
+     "hand": "front",
+     "point": [
+      18.5,
+      8.5
+     ],
+     "follow_rotation": false
+    },
+    {
+     "do": "reach",
+     "id": "porter_rear",
+     "hand": "front",
+     "time": 0.45,
+     "wait": true,
+     "contact": [
+      43.5,
+      47.5
+     ],
+     "angle": 0.0,
+     "to": [
+      518.5,
+      28.5
+     ],
+     "space": "prop",
+     "prop": "transport_stretcher"
+    },
+    {
+     "do": "move",
+     "id": "porter_front",
+     "to": [
+      665,
+      296.0
+     ],
+     "time": 5.0,
+     "pose": "walk",
+     "then": "idle",
+     "wait": false
+    },
+    {
+     "do": "move",
+     "id": "porter_rear",
+     "to": [
+      817,
+      296.0
+     ],
+     "time": 5.0,
+     "pose": "walk",
+     "then": "idle",
+     "wait": false
+    },
+    {
+     "do": "move",
+     "id": "egret",
+     "to": [
+      765.0,
+      256.66669724770645
+     ],
+     "time": 5.0,
+     "pose": "dead",
+     "then": "dead",
+     "wait": true,
+     "pose_reason": "搬運中保持受傷成人的既有臥姿。",
+     "pose_support": "由兩名成年搬運者的掌心、擔架墊與綁帶承重；不把蹲姿當臥姿。"
+    },
+    {
+     "do": "wait",
+     "time": 0.3
+    },
+    {
+     "do": "prop_release",
+     "id": "transport_stretcher"
+    },
+    {
+     "do": "prop_release",
+     "id": "egret_broken_umbrella"
+    },
+    {
+     "do": "remove",
+     "id": "egret"
+    },
+    {
+     "do": "remove",
+     "id": "porter_front"
+    },
+    {
+     "do": "remove",
+     "id": "porter_rear"
+    },
+    {
+     "do": "prop_visible",
+     "id": "transport_stretcher",
+     "visible": false
+    },
+    {
+     "do": "prop_visible",
+     "id": "transport_strap_chest",
+     "visible": false
+    },
+    {
+     "do": "prop_visible",
+     "id": "transport_strap_hips",
+     "visible": false
+    },
+    {
+     "do": "prop_visible",
+     "id": "egret_equipment_bag",
+     "visible": false
+    },
+    {
+     "do": "prop_visible",
+     "id": "egret_broken_umbrella",
+     "visible": false
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "time": 0.45,
+     "wait": true,
+     "release": true
+    },
+    {
+     "do": "wait",
+     "time": 0.3
     }
    ],
    "pose_policy": "supported",

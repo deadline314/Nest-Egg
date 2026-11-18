@@ -152,6 +152,13 @@ func apply(actor: CutsceneActor, delta: float) -> void:
 	_published = true
 
 
+## 舞台持物完成變換後只重新讀取依賴點；elapsed/weight 不前進。
+## place_hand 會沿既有 refresh_limbs 同步實際繪製網格，不只移動手骨。
+func refresh_binding(actor: CutsceneActor) -> void:
+	if _binding != null and active():
+		apply(actor, 0.0)
+
+
 func bind_to(binding: StagePropBinding, angle_offset: float, follow_rotation := false) -> void:
 	_binding = binding
 	_binding_angle = angle_offset

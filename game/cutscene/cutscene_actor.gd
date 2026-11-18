@@ -13,7 +13,11 @@ const BREATH_PERIOD := 3.2
 var actor_id: StringName = &""
 ## 劇本裡講話的人（章節 speakers 的 id）：說這個人的台詞時，這個演員會點頭比手勢。沒有指定就用 actor_id。
 var speaker_id: StringName = &""
-var pose: StringName = &"idle"
+var _pose_revision := 0
+var pose: StringName = &"idle":
+	set(value):
+		pose = value
+		_pose_revision += 1
 ## 舞台上這個演員用的圖層組（見 WorldLayers.stage_actor_z）。
 var layer_slot := 0
 ## 地面線（舞台座標的腳底 y；NAN＝沒有登記）：從坐姿站起來時，腳要落回這條線（坐在桌上、箱子上的演員不會站起來浮在半空）。
@@ -42,6 +46,7 @@ var _stage_move_reset_token := 0
 var _stage_move_active := false
 var _stage_move_physics := false
 var _stage_move_render_credit := 0.0
+var _stage_move_passive_pose := -1
 
 
 func _init() -> void:
@@ -97,6 +102,11 @@ func set_pose(new_pose: StringName) -> void:
 		_settle_from = position.y
 		_settle_synced = false
 		_settle_wait = 1
+
+
+## 被動搬移只持有開始前的臥姿代次；再次死亡/改姿勢會使舊搬移失效。
+func pose_revision() -> int:
+	return _pose_revision
 
 
 ## 專屬工作循環（art/rigs/npc_animations.json 的 loops，空字串＝沒有）；scale 放大縮小幅度。
@@ -237,6 +247,14 @@ func _advance_stage_actor(delta: float) -> void:
 	_position_known = true
 
 
+## 最後接觸階段不重播動畫；失效/停用演員也不能被最後階段重新啟動。
+func refresh_bound_contacts() -> void:
+	if not is_inside_tree() or is_queued_for_deletion() or not can_process() or not is_processing() or pose == &"dead" or rig == null:
+		return
+	for reach: CutsceneReach in _reaches:
+		reach.refresh_binding(self)
+
+
 ## 舞台上的接觸陰影（只有登記了地面線的舞台才畫）：落在演員正下方的地面線上，離地越高越小越淡；倒地時較寬。
 ## 關卡裡的人物不走這裡，由 ContactShadow 依實際地形處理。
 func _draw() -> void:
@@ -287,11 +305,12 @@ func _apply_pose(velocity: Vector2) -> void:
 			_input.velocity = Vector2(60.0 * facing, -120.0)
 
 
-func begin_stage_move(physics_clock: bool) -> int:
+func begin_stage_move(physics_clock: bool, passive_pose := -1) -> int:
 	_stage_move_token += 1
 	_stage_move_active = true
 	_stage_move_physics = physics_clock
 	_stage_move_render_credit = 0.0
+	_stage_move_passive_pose = passive_pose
 	_last_position = position
 	_position_known = true
 	return _stage_move_token
@@ -308,7 +327,12 @@ func stage_move_superseded(token: int) -> bool:
 func consume_stage_move(token: int, point: Vector2, delta: float) -> bool:
 	if not stage_move_current(token) or not point.is_finite() or not is_finite(delta) or delta <= 0.0:
 		return false
-	if not is_inside_tree() or is_queued_for_deletion() or not is_processing() or not can_process() or pose == &"dead":
+	if not is_inside_tree() or is_queued_for_deletion() or not is_processing() or not can_process():
+		return false
+	if _stage_move_passive_pose >= 0:
+		if pose != &"dead" or pose_revision() != _stage_move_passive_pose:
+			return false
+	elif pose == &"dead":
 		return false
 	position = point
 	_advance_stage_actor(delta)
@@ -321,6 +345,7 @@ func end_stage_move(token: int, completed := false) -> void:
 	if token != _stage_move_token:
 		return
 	_stage_move_active = false
+	_stage_move_passive_pose = -1
 	# Physics samples already consumed part/all of the next render callback's interval.
 	# Idle samples are published after that callback, so its next interval is wholly new.
 	if not completed or not _stage_move_physics:
@@ -334,6 +359,7 @@ func _reset_stage_move_clock() -> void:
 	_stage_move_reset_token = _stage_move_token
 	_stage_move_active = false
 	_stage_move_physics = false
+	_stage_move_passive_pose = -1
 	_stage_move_render_credit = 0.0
 	_position_known = false
 

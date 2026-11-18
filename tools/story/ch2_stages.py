@@ -15,6 +15,7 @@ from pathlib import Path
 
 import towel_staging
 import rent_window_staging
+import medic_transport_staging
 from build_ch1_story import actor as stage_actor, stage as stage_scene
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -169,4 +170,8 @@ RENT_WINDOW = Stage(
             background("neon_market", modulate="#c8c0d0")) + rent_window_staging.layers(),
     furniture=rent_window_staging.furniture())
 
-STAGES = (LEDGER, BOOTH, COLLECTION, PAWNSHOP, RENT_WINDOW)
+MEDIC_LEDGER = Stage(
+    "ch2_medic_transport", floor=296, scale=1.9, shot=(370,256,1.1),
+    layers=LEDGER.layers + medic_transport_staging.layers(), furniture=LEDGER.furniture)
+
+STAGES = (LEDGER, BOOTH, COLLECTION, PAWNSHOP, RENT_WINDOW, MEDIC_LEDGER)

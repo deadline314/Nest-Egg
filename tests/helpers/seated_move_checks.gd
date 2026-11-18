@@ -137,6 +137,7 @@ static func run(s: TestSuite, script: Script = preload("res://game/cutscene/cuts
 			await s.frames(1)
 
 static func dispatch(s: TestSuite, script: Script = preload("res://game/cutscene/cutscene_player.gd")) -> void:
+	await _passive_transport(s, script)
 	for phase: String in ["rise", "move"]:
 		for interruption: String in ["none", "skip", "cancel", "dead", "free", "replace", "exit"]:
 			var f := _fixture(s, script, phase == "rise")
@@ -162,3 +163,49 @@ static func dispatch(s: TestSuite, script: Script = preload("res://game/cutscene
 			s.check(completed[0] == (interruption in ["none", "skip"]), "%s/%s preserves existing complete-versus-skip-versus-cancel semantics" % [phase, interruption])
 			if is_instance_valid(p): p.free()
 			await s.frames(1)
+
+
+## 已臥倒的搬移與移動途中發生新死亡分開，原walk/run中斷矩陣繼續執行。
+static func _passive_transport(s: TestSuite, script: Script) -> void:
+	for interruption: String in ["none", "not_prior_dead", "new_dead", "pose_write", "free", "replace", "skip", "cancel", "exit", "mode"]:
+		var f := _fixture(s, script, false)
+		var p: CutscenePlayer = f.player
+		var a: CutsceneActor = f.actor
+		if interruption != "not_prior_dead": a.set_pose(&"dead")
+		for frame in 40: a._process(1.0 / 60.0)
+		var original_flags := GameState.world_flags.duplicate(true)
+		var tail: Array[bool] = [false]
+		var completed: Array[bool] = [false]
+		var arrival: Array[Dictionary] = []
+		p._steps = [{"do":"move", "id":"visitor", "to":[90,100], "time":.5, "pose":"dead", "then":"dead"}, {"do":"test_tail"}]
+		p._handlers["test_tail"] = func(_step: Dictionary) -> void:
+			tail[0] = true
+			arrival.append({"pose":a.pose,"position":a.position})
+			GameState.set_flag(&"test_passive_transport_tail", true)
+		p.finished.connect(func(_id: StringName) -> void: completed[0] = true)
+		p._run()
+		match interruption:
+			"new_dead": a.set_pose(&"dead")
+			"pose_write": a.pose = &"dead"
+			"free": a.queue_free()
+			"replace":
+				var replacement := CutsceneActor.new()
+				p.add_child(replacement)
+				p._actors[&"visitor"] = replacement
+			"skip": p.skip()
+			"cancel": p.cancel()
+			"exit": s.runner.remove_child(p)
+			"mode": a.process_mode = Node.PROCESS_MODE_DISABLED
+		for frame in 220:
+			if not is_instance_valid(p) or not p._running: break
+			await _step(s, p)
+		s.check(tail[0] == (interruption == "none"), "passive %s cannot fabricate the next result step" % interruption)
+		s.check(completed[0] == (interruption in ["none", "skip"]), "passive %s preserves ordinary skip versus cancellation" % interruption)
+		var expected_flags := original_flags.duplicate(true)
+		if interruption == "none": expected_flags[&"test_passive_transport_tail"] = true
+		s.check(GameState.world_flags == expected_flags, "passive %s cannot publish the result tail after lifecycle interruption" % interruption)
+		GameState.world_flags = original_flags
+		if interruption == "none":
+			s.check(arrival.size() == 1 and arrival[0].pose == &"dead" and (arrival[0].position as Vector2).is_equal_approx(Vector2(90,100)), "explicit prior-dead presentation can arrive without turning into a walking actor")
+		if is_instance_valid(p): p.free()
+		await s.frames(1)
