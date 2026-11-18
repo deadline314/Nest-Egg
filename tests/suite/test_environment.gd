@@ -35,6 +35,7 @@ func run() -> void:
 	await _test_melee_art()
 	await _test_melee_grip()
 	await _test_soft_whip()
+	preload("res://tests/helpers/soft_whip_native_checks.gd").run(self)
 	await _test_texture_release()
 	_test_import_policy("res://art/environment")
 

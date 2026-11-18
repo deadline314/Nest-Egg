@@ -167,3 +167,7 @@
 SoftWhip.length 是模擬的放線長度；有限次距離限制與端點保護之後，當格 19 段可見線的長度總和可能較短。原 chord／放線長度小於 0.99 只證明原量法，不保證 chord／實際折線長度也小於 0.99。此次雙向原生資料發現朝左 orbit 收招第 48 步（0 起算）分別為 0.965000060 與 0.990291092；保留為一個未通過的形狀樣本，不能以延長分母、放寬門檻或更名將其歸零。出招段 bow 的原 4% 門檻與所有時間、距離、傷害保持。
 
 這輪一手參考補充 [Jakobsen 原始論文鏡像](https://edelkas.github.io/n/files/bib/jakobsen.pdf) 的固定步進與反覆限制、[Box2D v2.4.1 繩子原碼](https://github.com/erincatto/box2d/blob/v2.4.1/src/rope/b2_rope.cpp) 的拉伸／彎曲限制分工，並重新核對原 MachineGames、mphe 與 Motion Twin 資料。這些來源提供判斷方法，不構成已修好形狀或效能的證據。完整 20 節點、階段、目標、真實取景、失敗樣本及獨立 reader 見 [本輪紀錄](../../pm/Nest-Egg/attachments/NE-276-current-2026-11-18/ROOT_REVIEW.md)。
+
+## 單分子鞭的回收與傳波（2026-11-19）
+
+收招的可見鞭身長度以實際各節距離加總。拉力存在時保留近端朝前、鞭梢仍拖在後方的傳波；放開後以既有 Verlet 前後位置加入三點彎曲阻尼，線長上限跟節距同次求解。武器資料、時間、傷害、策略與可見鞭身掃掠仍使用原入口。修前修後雙向連拍、逐格量測、正式回歸與兩種原生耗時見 [交付紀錄](../../pm/Nest-Egg/attachments/NE-276-soft-whip-2026-11-19/ROOT_REVIEW.md)。
