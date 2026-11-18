@@ -85,6 +85,14 @@ jobs:
           path: work/godot-audio-safe/dist
           key: ${{ steps.engine-cache.outputs.cache-primary-key }}
 
+      - name: Check adopted item icons
+        if: steps.gate.outputs.skip != 'true'
+        timeout-minutes: 5
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-pil
+          /usr/bin/python3 tools/art/test_item_icon_ownership.py
+
       # 匯入快取（貼圖、音訊）：內容沒變就沿用，省下幾分鐘。
       - name: Cache the import folder
         if: steps.gate.outputs.skip != 'true'
@@ -216,7 +224,6 @@ jobs:
         run: |
           python3 tools/story/test_completion_policies.py
           python3 tools/story/test_ch1_world_maintenance.py
-          python3 tools/art/test_item_icon_ownership.py
           python3 tools/run_prologue_completion.py --godot "$GODOT" --output "${{ runner.temp }}/prologue-completion"
 
       - name: Check actual training results, refused writes and cold reads
