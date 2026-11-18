@@ -6,6 +6,7 @@
 用法：python3 tools/art/build_item_icons.py [圖示名稱…]（不給名稱就全部重畫）
 """
 import math
+import json
 import os
 import sys
 from PIL import Image
@@ -250,10 +251,61 @@ def save_changed(image, path):
     image.save(path)
 
 
+def melee_icon_owners():
+    paths = [os.path.join(ROOT, 'assets_src', 'pipeline', 'melee_weapons.json'),
+             os.path.join(ROOT, 'data', 'weapon_art', 'melee.json')]
+    if not any(os.path.exists(path) for path in paths):
+        return {}
+    documents = []
+    for path in paths:
+        try:
+            with open(path, encoding='utf-8') as source:
+                documents.append(json.load(source))
+        except (OSError, ValueError) as error:
+            raise ValueError(f'{path}: cannot check icon ownership: {error}') from error
+    pipeline, runtime = documents
+    entries = pipeline.get('weapons') if isinstance(pipeline, dict) else None
+    adopted = runtime.get('weapons') if isinstance(runtime, dict) else None
+    if not isinstance(entries, list) or not isinstance(adopted, dict):
+        raise ValueError(f'{paths}: weapons must be a list in the pipeline and an object in the runtime catalog')
+    owners = {}
+    for index, entry in enumerate(entries):
+        if not isinstance(entry, dict) or not isinstance(entry.get('id'), str) or not isinstance(entry.get('profile', ''), str):
+            raise ValueError(f'{paths[0]}/weapons/{index}: expected weapon id and optional profile strings')
+        profile = entry.get('profile', '')
+        if profile and entry['id'] in adopted:
+            if profile in owners:
+                raise ValueError(f'{paths[0]}/weapons/{index}: duplicate icon profile {profile}')
+            sources = entry.get('icon_sources', {})
+            if not isinstance(sources, dict) or any(key not in SIZES or not isinstance(value, str) for key, value in sources.items()):
+                raise ValueError(f'{paths[0]}/weapons/{index}/icon_sources: expected icon size suffixes and source paths')
+            owners[profile] = entry
+    return owners
+
+
 def main(names):
+    owners = melee_icon_owners()
     os.makedirs(ICON_DIR, exist_ok=True)
     os.makedirs(WORLD_DIR, exist_ok=True)
     for name in names or ICONS:
+        if name in owners:
+            for suffix in SIZES:
+                path = os.path.join(ICON_DIR, f'{name}{suffix}.png')
+                if not os.path.isfile(path):
+                    source = owners[name].get('icon_sources', {}).get(suffix)
+                    if not source:
+                        raise FileNotFoundError(f'{path}: rebuild adopted weapon {owners[name]["id"]} with tools/assets/melee_art.py')
+                    if os.path.isabs(source) or os.path.splitdrive(source)[0]:
+                        raise ValueError(f'{source}: icon source must stay inside the project')
+                    source_path = os.path.realpath(os.path.join(ROOT, source))
+                    if os.path.commonpath([os.path.realpath(ROOT), source_path]) != os.path.realpath(ROOT):
+                        raise ValueError(f'{source}: icon source must stay inside the project')
+                    with Image.open(source_path) as image:
+                        if image.mode != 'RGBA' or image.size != (SIZES[suffix], SIZES[suffix]):
+                            raise ValueError(f'{source_path}: expected {SIZES[suffix]}x{SIZES[suffix]} RGBA icon master')
+                        save_changed(image, path)
+            print(f'preserved {name}: owned by tools/assets/melee_art.py ({owners[name]["id"]})')
+            continue
         fn, angle, world = ICONS[name]
         for suffix, size in SIZES.items():
             save_changed(render(name, size).result(), os.path.join(ICON_DIR, f'{name}{suffix}.png'))

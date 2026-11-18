@@ -216,6 +216,7 @@ jobs:
         run: |
           python3 tools/story/test_completion_policies.py
           python3 tools/story/test_ch1_world_maintenance.py
+          python3 tools/art/test_item_icon_ownership.py
           python3 tools/run_prologue_completion.py --godot "$GODOT" --output "${{ runner.temp }}/prologue-completion"
 
       - name: Check actual training results, refused writes and cold reads
