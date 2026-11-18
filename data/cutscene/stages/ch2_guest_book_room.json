@@ -66,6 +66,86 @@
    }
   },
   {
+   "kind": "sprite",
+   "id": "hong_pen",
+   "path": "res://art/environment/scene_props/guest_book_contacts/hong_stationery.png",
+   "source_width": 128,
+   "region": [
+    0,
+    0,
+    64,
+    36
+   ],
+   "pos": [
+    271.5,
+    171.875
+   ],
+   "scale": 0.25,
+   "filter": "linear",
+   "depth": "front",
+   "visible": false
+  },
+  {
+   "kind": "sprite",
+   "id": "hong_letter",
+   "path": "res://art/environment/scene_props/guest_book_contacts/hong_stationery.png",
+   "source_width": 128,
+   "region": [
+    64,
+    0,
+    64,
+    34
+   ],
+   "pos": [
+    353.0,
+    172.375
+   ],
+   "scale": 0.25,
+   "filter": "linear",
+   "depth": "front",
+   "visible": false
+  },
+  {
+   "kind": "sprite",
+   "id": "hong_envelope",
+   "path": "res://art/environment/scene_props/guest_book_contacts/hong_stationery.png",
+   "source_width": 128,
+   "region": [
+    0,
+    36,
+    80,
+    28
+   ],
+   "pos": [
+    270.5,
+    173.625
+   ],
+   "scale": 0.25,
+   "filter": "linear",
+   "depth": "front",
+   "visible": false
+  },
+  {
+   "kind": "sprite",
+   "id": "hong_letter_ink",
+   "path": "res://art/environment/scene_props/guest_book_contacts/hong_stationery.png",
+   "source_width": 128,
+   "region": [
+    88,
+    36,
+    40,
+    14
+   ],
+   "pos": [
+    358.0,
+    174.5
+   ],
+   "scale": 0.25,
+   "filter": "linear",
+   "depth": "front",
+   "visible": false
+  },
+  {
    "kind": "glow",
    "pos": [
     480,

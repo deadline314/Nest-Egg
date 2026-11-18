@@ -10038,7 +10038,18 @@
       206.3
      ],
      "zoom": 0.84,
-     "fade": 0.35
+     "fade": 0.35,
+     "props": {
+      "hong_letter": {
+       "visible": true
+      },
+      "hong_pen": {
+       "visible": false
+      },
+      "hong_envelope": {
+       "visible": false
+      }
+     }
     },
     {
      "do": "actor",
@@ -10070,7 +10081,7 @@
      "weapon": "",
      "speaker": "hong",
      "pose": "idle",
-     "seat_sag": 0.45
+     "seat_sag": 0.438
     },
     {
      "do": "wait",
@@ -10160,7 +10171,18 @@
       206.3
      ],
      "zoom": 0.84,
-     "fade": 0.35
+     "fade": 0.35,
+     "props": {
+      "hong_letter": {
+       "visible": true
+      },
+      "hong_pen": {
+       "visible": false
+      },
+      "hong_envelope": {
+       "visible": false
+      }
+     }
     },
     {
      "do": "actor",
@@ -10194,7 +10216,7 @@
      "pose": "sit",
      "pose_reason": "坐下把想寫給朋友的話說完。",
      "pose_support": "右椅座面 x=377.75～442.75、y=209；雙腳落在地板 y=265.5。",
-     "seat_sag": 0.45
+     "seat_sag": 0.438
     },
     {
      "do": "say",
@@ -10225,7 +10247,18 @@
       206.3
      ],
      "zoom": 0.84,
-     "fade": 0.35
+     "fade": 0.35,
+     "props": {
+      "hong_letter": {
+       "visible": true
+      },
+      "hong_pen": {
+       "visible": false
+      },
+      "hong_envelope": {
+       "visible": false
+      }
+     }
     },
     {
      "do": "actor",
@@ -10259,7 +10292,7 @@
      "pose": "sit",
      "pose_reason": "坐下把想寫給朋友的話說完。",
      "pose_support": "右椅座面 x=377.75～442.75、y=209；雙腳落在地板 y=265.5。",
-     "seat_sag": 0.45
+     "seat_sag": 0.438
     },
     {
      "do": "say",
@@ -10334,7 +10367,18 @@
       206.3
      ],
      "zoom": 0.84,
-     "fade": 0.35
+     "fade": 0.35,
+     "props": {
+      "hong_letter": {
+       "visible": true
+      },
+      "hong_pen": {
+       "visible": false
+      },
+      "hong_envelope": {
+       "visible": false
+      }
+     }
     },
     {
      "do": "actor",
@@ -10368,7 +10412,7 @@
      "pose": "sit",
      "pose_reason": "坐下把想寫給朋友的話說完。",
      "pose_support": "右椅座面 x=377.75～442.75、y=209；雙腳落在地板 y=265.5。",
-     "seat_sag": 0.45
+     "seat_sag": 0.438
     },
     {
      "do": "say",
@@ -10392,7 +10436,18 @@
       206.3
      ],
      "zoom": 0.84,
-     "fade": 0.35
+     "fade": 0.35,
+     "props": {
+      "hong_letter": {
+       "visible": true
+      },
+      "hong_pen": {
+       "visible": true
+      },
+      "hong_envelope": {
+       "visible": true
+      }
+     }
     },
     {
      "do": "actor",
@@ -10426,7 +10481,7 @@
      "pose": "sit",
      "pose_reason": "坐下把想寫給朋友的話說完。",
      "pose_support": "右椅座面 x=377.75～442.75、y=209；雙腳落在地板 y=265.5。",
-     "seat_sag": 0.45
+     "seat_sag": 0.438
     },
     {
      "do": "say",
@@ -10436,6 +10491,204 @@
      "en": "I heard you. You can write the things you never asked him into the letter."
     },
     {
+     "do": "camera",
+     "pos": [
+      320,
+      216
+     ],
+     "zoom": 1.02,
+     "time": 0.45,
+     "wait": true
+    },
+    {
+     "do": "reach",
+     "id": "ali",
+     "hand": "front",
+     "space": "prop",
+     "prop": "hong_pen",
+     "to": [
+      22.5,
+      23.5
+     ],
+     "contact": [
+      80.5,
+      24.5
+     ],
+     "angle": 0,
+     "time": 0.35,
+     "wait": true
+    },
+    {
+     "do": "prop_hold",
+     "id": "hong_pen",
+     "actor": "ali",
+     "hand": "front",
+     "point": [
+      22.5,
+      23.5
+     ],
+     "follow_rotation": false
+    },
+    {
+     "do": "reach",
+     "id": "ali",
+     "hand": "front",
+     "to": [
+      281.125,
+      177.75
+     ],
+     "contact": [
+      80.5,
+      24.5
+     ],
+     "angle": 0,
+     "time": 0.35,
+     "wait": true
+    },
+    {
+     "do": "prop_release",
+     "id": "hong_pen"
+    },
+    {
+     "do": "reach",
+     "id": "ali",
+     "hand": "front",
+     "release": true,
+     "time": 0.26,
+     "wait": false
+    },
+    {
+     "do": "prop_move",
+     "id": "hong_pen",
+     "to": [
+      360.0,
+      171.875
+     ],
+     "time": 0.45,
+     "wait": true
+    },
+    {
+     "do": "reach",
+     "id": "hong",
+     "hand": "front",
+     "space": "prop",
+     "prop": "hong_pen",
+     "to": [
+      22.5,
+      23.5
+     ],
+     "contact": [
+      96.5,
+      34.5
+     ],
+     "angle": 3.141592653589793,
+     "time": 0.35,
+     "wait": true
+    },
+    {
+     "do": "prop_hold",
+     "id": "hong_pen",
+     "actor": "hong",
+     "hand": "front",
+     "point": [
+      22.5,
+      23.5
+     ],
+     "follow_rotation": false
+    },
+    {
+     "do": "pose",
+     "id": "hong",
+     "pose": "sit",
+     "pose_reason": "坐著寫給朋友的信。",
+     "pose_support": "右椅座面 y=209，雙腳落在地板 y=265.5。",
+     "loop": "writing"
+    },
+    {
+     "do": "reach",
+     "id": "hong",
+     "hand": "front",
+     "to": [
+      362.25,
+      174.25
+     ],
+     "contact": [
+      96.5,
+      34.5
+     ],
+     "angle": 3.141592653589793,
+     "time": 0.3,
+     "wait": true
+    },
+    {
+     "do": "reach",
+     "id": "hong",
+     "hand": "front",
+     "to": [
+      369.25,
+      174.25
+     ],
+     "contact": [
+      96.5,
+      34.5
+     ],
+     "angle": 3.141592653589793,
+     "time": 0.55,
+     "wait": true
+    },
+    {
+     "do": "prop_visible",
+     "id": "hong_letter_ink",
+     "visible": true
+    },
+    {
+     "do": "reach",
+     "id": "hong",
+     "hand": "front",
+     "to": [
+      369.0,
+      177.75
+     ],
+     "contact": [
+      96.5,
+      34.5
+     ],
+     "angle": 3.141592653589793,
+     "time": 0.4,
+     "wait": true
+    },
+    {
+     "do": "prop_release",
+     "id": "hong_pen"
+    },
+    {
+     "do": "prop_move",
+     "id": "hong_pen",
+     "to": [
+      365.36062766080175,
+      171.43393492755743
+     ],
+     "angle": 0.49,
+     "time": 0.2,
+     "wait": true
+    },
+    {
+     "do": "reach",
+     "id": "hong",
+     "hand": "front",
+     "release": true,
+     "time": 0.32,
+     "wait": true
+    },
+    {
+     "do": "pose",
+     "id": "hong",
+     "pose": "sit",
+     "pose_reason": "坐著寫給朋友的信。",
+     "pose_support": "右椅座面 y=209，雙腳落在地板 y=265.5。",
+     "loop": ""
+    },
+    {
      "do": "say",
      "speaker": "hong",
      "text": "我自己寄，不能叫妳替我。",
@@ -10443,11 +10696,172 @@
      "en": "I'll send it myself. I can't have you do it for me."
     },
     {
+     "do": "reach",
+     "id": "ali",
+     "hand": "front",
+     "space": "prop",
+     "prop": "hong_envelope",
+     "to": [
+      15.5,
+      56.5
+     ],
+     "contact": [
+      80.5,
+      24.5
+     ],
+     "angle": 0,
+     "time": 0.35,
+     "wait": true
+    },
+    {
+     "do": "prop_move",
+     "id": "hong_envelope",
+     "to": [
+      275.0,
+      173.625
+     ],
+     "time": 0.35,
+     "wait": true
+    },
+    {
+     "do": "reach",
+     "id": "ali",
+     "hand": "front",
+     "release": true,
+     "time": 0.3,
+     "wait": false
+    },
+    {
+     "do": "prop_move",
+     "id": "hong_envelope",
+     "to": [
+      348.5,
+      173.625
+     ],
+     "time": 0.45,
+     "wait": true
+    },
+    {
+     "do": "camera",
+     "pos": [
+      320,
+      206.3
+     ],
+     "zoom": 0.84,
+     "time": 0.45,
+     "wait": true
+    },
+    {
      "do": "say",
      "speaker": "ali",
      "text": "信封給您，寄到哪裡也請您自己決定。",
      "ja": "封筒をどうぞ。どこへ送るかも、ご自身で決めてください。",
      "en": "Here's the envelope. Please decide for yourself where to send it."
+    },
+    {
+     "do": "reach",
+     "id": "hong",
+     "hand": "front",
+     "space": "prop",
+     "prop": "hong_letter",
+     "to": [
+      115.5,
+      22.5
+     ],
+     "contact": [
+      96.5,
+      34.5
+     ],
+     "angle": 3.141592653589793,
+     "time": 0.29,
+     "wait": true
+    },
+    {
+     "do": "prop_hold",
+     "id": "hong_letter",
+     "actor": "hong",
+     "hand": "front",
+     "point": [
+      115.5,
+      22.5
+     ],
+     "follow_rotation": false
+    },
+    {
+     "do": "prop_visible",
+     "id": "hong_letter_ink",
+     "visible": false
+    },
+    {
+     "do": "reach",
+     "id": "hong",
+     "hand": "front",
+     "to": [
+      364,
+      176.75
+     ],
+     "contact": [
+      96.5,
+      34.5
+     ],
+     "angle": 3.141592653589793,
+     "time": 0.35,
+     "wait": true
+    },
+    {
+     "do": "prop_visible",
+     "id": "hong_letter",
+     "visible": false
+    },
+    {
+     "do": "prop_release",
+     "id": "hong_letter"
+    },
+    {
+     "do": "reach",
+     "id": "hong",
+     "hand": "front",
+     "space": "prop",
+     "prop": "hong_envelope",
+     "to": [
+      67.5,
+      55.5
+     ],
+     "contact": [
+      96.5,
+      34.5
+     ],
+     "angle": 3.141592653589793,
+     "time": 0.2,
+     "wait": true
+    },
+    {
+     "do": "prop_hold",
+     "id": "hong_envelope",
+     "actor": "hong",
+     "hand": "front",
+     "point": [
+      67.5,
+      55.5
+     ],
+     "follow_rotation": false
+    },
+    {
+     "do": "reach",
+     "id": "hong",
+     "hand": "front",
+     "space": "actor",
+     "to": [
+      0,
+      -96
+     ],
+     "contact": [
+      96.5,
+      34.5
+     ],
+     "angle": 1.5707963267948966,
+     "time": 0.28,
+     "wait": true
     },
     {
      "do": "move",
