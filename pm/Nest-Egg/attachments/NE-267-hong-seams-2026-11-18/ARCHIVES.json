@@ -1,0 +1,99 @@
+{
+  "baseline": "6ddf32b5f5a188914cd008af9904286f29718067",
+  "archives": [
+    {
+      "name": "joints-performance-before.zip",
+      "bytes": 91272802,
+      "sha256": "4057ae759010bfe11cab5fdadc2ab0073d83b908470f269a4bd0443416f0250a",
+      "files": 1206,
+      "all_members_reread_sha256": true
+    },
+    {
+      "name": "joints-performance-after.zip",
+      "bytes": 91301293,
+      "sha256": "74844729942072afbbcb4b6cb05befa6d20f9521e3454b4d773a3a9791a9118f",
+      "files": 1206,
+      "all_members_reread_sha256": true
+    },
+    {
+      "name": "joints-transitions.zip",
+      "bytes": 73547078,
+      "sha256": "f1304903ed4778d868bb760496e529ed8a3737af93020fbef2cfd6d972853ff9",
+      "files": 972,
+      "all_members_reread_sha256": true
+    },
+    {
+      "name": "joints-lean.zip",
+      "bytes": 36901132,
+      "sha256": "598c239ccbf75283c119aba695e4c6d132e2879604dc2bfaa138710f24b451ff",
+      "files": 492,
+      "all_members_reread_sha256": true
+    },
+    {
+      "name": "joints-crouch.zip",
+      "bytes": 37733234,
+      "sha256": "9a71ce29402715b69e496da4c7b605765bd54bdb546a9abca4e749a17e95af75",
+      "files": 492,
+      "all_members_reread_sha256": true
+    },
+    {
+      "name": "joints-stir.zip",
+      "bytes": 36281655,
+      "sha256": "8eb02d9a0be29b79f41eee52bcd24a22fbd1d2d0dae0623ead851128c494ac3d",
+      "files": 492,
+      "all_members_reread_sha256": true
+    },
+    {
+      "name": "joints-hammer.zip",
+      "bytes": 36509517,
+      "sha256": "f5144b9a938db5ad04cca077123d8dc0e970c75bc14135f0bdb19f636004a4e3",
+      "files": 492,
+      "all_members_reread_sha256": true
+    },
+    {
+      "name": "source-and-native.zip",
+      "bytes": 32501189,
+      "sha256": "37d63596b717516c688d7dd7b79441382b32445563d383b4e922ba38b90680b1",
+      "files": 200,
+      "all_members_reread_sha256": true
+    },
+    {
+      "name": "integrated-verification.zip",
+      "bytes": 83389208,
+      "sha256": "83f0f3720329004a891e632b6e00587f2dbaa555e3bd69c5d29298f38c003448",
+      "files": 264,
+      "all_members_reread_sha256": true
+    }
+  ],
+  "source_paths": {
+    "D:\\NestEggVerification\\evidence-20261117\\ne267-hong-20261118\\before\\performance": "joints-performance-before.zip/before",
+    "D:\\NestEggVerification\\evidence-20261117\\ne267-hong-20261118\\v7-upper-underlap\\native\\performance": "joints-performance-after.zip/after",
+    "D:\\NestEggVerification\\evidence-20261117\\ne267-hong-20261118\\before\\transitions": "joints-transitions.zip/before",
+    "D:\\NestEggVerification\\evidence-20261117\\ne267-hong-20261118\\v7-upper-underlap\\native\\transitions": "joints-transitions.zip/after",
+    "D:\\NestEggVerification\\evidence-20261117\\ne267-hong-20261118\\before\\lean": "joints-lean.zip/before",
+    "D:\\NestEggVerification\\evidence-20261117\\ne267-hong-20261118\\v7-upper-underlap\\native\\lean": "joints-lean.zip/after",
+    "D:\\NestEggVerification\\evidence-20261117\\ne267-hong-20261118\\before\\crouch": "joints-crouch.zip/before",
+    "D:\\NestEggVerification\\evidence-20261117\\ne267-hong-20261118\\v7-upper-underlap\\native\\crouch": "joints-crouch.zip/after",
+    "D:\\NestEggVerification\\evidence-20261117\\ne267-hong-20261118\\before\\stir": "joints-stir.zip/before",
+    "D:\\NestEggVerification\\evidence-20261117\\ne267-hong-20261118\\v7-upper-underlap\\native\\stir": "joints-stir.zip/after",
+    "D:\\NestEggVerification\\evidence-20261117\\ne267-hong-20261118\\before\\hammer": "joints-hammer.zip/before",
+    "D:\\NestEggVerification\\evidence-20261117\\ne267-hong-20261118\\v7-upper-underlap\\native\\hammer": "joints-hammer.zip/after"
+  },
+  "final_checks": {
+    "groups": 88,
+    "checks": 100928,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 565,
+    "source_held": true
+  },
+  "native_s20": {
+    "exit": 1,
+    "script_errors": 0,
+    "engine_errors": 0,
+    "source_held": true,
+    "images_actually_viewed": 10,
+    "support_failures": 3,
+    "accepted": false
+  }
+}
