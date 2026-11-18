@@ -247,5 +247,25 @@
    "prop": "dawn_noodle_stall__noodle_table_world_empty",
    "pack": "res://data/environment/scene_props/dawn_noodle_stall"
   }
- }
+ },
+  "pump_case_service": {
+    "lamp": {
+      "at": [
+        0.693,
+        0.27
+      ],
+      "radius": 0.6,
+      "states": [
+        {
+          "color": "#26363b",
+          "pulse": 0
+        },
+        {
+          "flag": "ch1_pump_case_reset",
+          "color": "#52d98c",
+          "pulse": 0
+        }
+      ]
+    }
+  }
 }

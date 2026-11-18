@@ -217,6 +217,8 @@ def location(level, x, y):
 def _bindings(source):
     # These are honest authoring candidates, never proof of runtime reachability.
     entries = {
+        "ledger_box": ("object", "NE-240", "pawnshop locked ledger box", location("pawnshop", 53, 19), "inspect the lock without opening the ledger"),
+        "pump_service": ("object", "NE-240", "warehouse pump casing switch", location("warehouse", 86, 48), "optional casing service, independent of the flood gate"),
         "dinner": ("map_scene", "ST-9/ST-16/ST-22", "P06 safe exit -> ch1_pawnshop kitchen dinner", location("pawnshop", 82, 19), "real prologue safe exit and split bubble continuation"),
         "brief": ("npc", "ST-9/ST-22", "ch1_rooftop Egret talks", location("rooftop", 54, 49), "bind complete briefing"),
         "street_clear": ("mechanism", "level owner", "street arena_blockade/last required encounter", location("street", 167, 36), "map exact persistent clear producer"),
@@ -720,6 +722,23 @@ def _optional(source):
         ("lamp", "你要走就先穿好裝備，門口會有人指電話亭。")), binding="first_clinic", when=flag("ch1_first_clinic_active"))
 
 
+def _world_maintenance(source):
+    unchecked = negate(flag("ch1_ledger_checked"))
+    source.add("ch1_t_ledger_check", "O05", steps=[dict(do="world_action", id="ledger_lock_check"),
+        say("rin", "封條還完整，我只看看鎖，不拆別人的帳。")], binding="ledger_box", mode="animated",
+        when=unchecked, completion=(set_flag("ch1_ledger_checked"),))
+    source.add("ch1_t_ledger_revisit", "O05", (("rin", "鎖和封條都沒動過，箱子還留在原位。"),),
+        binding="ledger_box", when=flag("ch1_ledger_checked"))
+    needs_service = all_of(flag("watchdog_defeated"), negate(flag("ch1_pump_case_reset")))
+    source.add("ch1_t_pump_check", "O06", (("rin", "機殼的開關不動了，旁邊那盞指示燈沒亮。"),),
+        binding="pump_service", when=needs_service,
+        options=(Option("reset", "扶正機殼的開關。", "ch1_t_pump_reset", "只排機殼積水，不改變水坑與水閘。"),
+                 Option("later", "先保持原狀。", None, "不影響前往保險箱，回來還能修理。")))
+    source.add("ch1_t_pump_reset", "O06", steps=[dict(do="world_action", id="pump_case_reset"),
+        say("rin", "指示燈亮了，前面的水閘還得另外開。")], binding="pump_service", mode="animated",
+        when=needs_service, completion=(set_flag("ch1_pump_case_reset"),))
+
+
 def _quests(source):
     def step(title, complete_flag, binding):
         return QuestStep(title, complete_flag, binding)
@@ -774,6 +793,7 @@ def build_source() -> ProductionSource:
     _stay(source)
     _clinic_and_home(source)
     _optional(source)
+    _world_maintenance(source)
     _quests(source)
     return source
 

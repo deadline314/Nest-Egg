@@ -196,7 +196,12 @@ func _update_arrow() -> void:
 	var scale := minf(bounds.size.x * 0.5 / maxf(absf(direction.x), 0.001), bounds.size.y * 0.5 / maxf(absf(direction.y), 0.001))
 	var edge := center + direction * scale
 	var symbols := ["→", "↘", "↓", "↙", "←", "↖", "↑", "↗"]
-	_arrow.text = symbols[posmod(roundi(direction.angle() / (PI / 4)), 8)] + caption
+	var caption_text: String = symbols[posmod(roundi(direction.angle() / (PI / 4)), 8)] + caption
+	# A shifted caption yields at its last displayed position, too.
+	var previous_rect := (get_viewport().get_canvas_transform().affine_inverse() * _arrow.get_global_transform_with_canvas()) * Rect2(Vector2.ZERO, _arrow.size.max(_arrow.get_minimum_size()))
+	if _arrow.text == caption_text and PromptLayout.covers(previous_rect.grow(2.0)):
+		return
+	_arrow.text = caption_text
 	# 左下角是武器欄與彈藥，箭頭靠左時不往下壓到它們。
 	var bottom := 240.0 if edge.x < WEAPON_BAR_RIGHT else 322.0
 	_arrow.position = Vector2(clampf(edge.x - _arrow.get_minimum_size().x * 0.5, 12, 628 - _arrow.get_minimum_size().x), clampf(edge.y, 88, bottom))

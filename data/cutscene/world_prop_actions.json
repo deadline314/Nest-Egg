@@ -130,5 +130,59 @@
     "sweep": [100, 180],
     "strokes": 1,
     "stall": 0.4
+  },
+  "ledger_lock_check": {
+    "scene": "ch1_t_ledger_check",
+    "level": "res://data/levels/ch1_pawnshop.tres",
+    "source": "res://data/npcs/ch1_ledger_box.tres",
+    "prop": "pawnshop_front__locked_ledger_box",
+    "kind": "turn",
+    "station": [
+      -7.5,
+      33.5
+    ],
+    "facing": 1,
+    "crouch": true,
+    "hub": [
+      7.2,
+      9.7
+    ],
+    "radius": [
+      1.2,
+      0.25
+    ],
+    "sweep": [
+      60,
+      100
+    ],
+    "strokes": 1,
+    "stall": 0.35
+  },
+  "pump_case_reset": {
+    "scene": "ch1_t_pump_reset",
+    "level": "res://data/levels/ch1_warehouse.tres",
+    "source": "res://data/npcs/ch1_pump_service.tres",
+    "prop": "dock_warehouse__water_pump",
+    "kind": "turn",
+    "station": [
+      22,
+      36
+    ],
+    "facing": 1,
+    "crouch": true,
+    "hub": [
+      30.9,
+      9.6
+    ],
+    "radius": [
+      1.7,
+      0.3
+    ],
+    "sweep": [
+      180,
+      100
+    ],
+    "strokes": 1,
+    "stall": 1
   }
 }

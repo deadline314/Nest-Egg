@@ -26,6 +26,8 @@ TILE = 16
 # 資源登記：legend 字元 -> 資源路徑。字元在全章通用，同一字元在不同區域代表同一種東西。
 # ---------------------------------------------------------------------------
 RES = {
+    'ⓛ': 'res://data/npcs/ch1_ledger_box.tres',
+    'ⓟ': 'res://data/npcs/ch1_pump_service.tres',
     # 敵人
     'g': 'res://data/enemies/sweeper.tres',
     'k': 'res://data/enemies/collector_gunner.tres',
@@ -633,6 +635,7 @@ def build_pawnshop():
     a.stand(45, 'ⓕ')
     a.stand(43, 'K')
     a.stand(56, 'V')
+    a.stand(53, 'ⓛ')
     a.stand(71, 't')
     a.stand(67, 'c')
     a.stand(74, 'F')
@@ -898,7 +901,8 @@ def build_warehouse_full():
     a.stand(133, 's')
     a.trigger(135, 'ch1_g10_cross')
     a.prop('dock_warehouse__floor_switch_plate', 121, y=22, dx=-3)
-    a.prop('dock_warehouse__water_pump', 86)
+    a.prop('dock_warehouse__water_pump', 86, react='pump_case_service')
+    a.stand(86, 'ⓟ')
     a.prop('dock_warehouse__float_drum_crate', 106, y=10)
     a.encounter('坑對岸', 134, 140, [(137, 'g'), (140, 'g')])
     # 保險箱 x=142～166：鎖場，迷你頭目 B（督察），資料盤在裡面
@@ -1149,7 +1153,9 @@ NPC_DIR = os.path.join(ROOT, 'data', 'npcs')
 REACTIONS = {
     # 老 K：初見抬頭招呼；吃過晚飯後點個頭；回訪時揮手要她別杵著；凜死過之後揉後頸（擔心又說不出口）
     'ch1_old_k': [dict(gesture='greet', max_talks=0), dict(gesture='nod', requires_flag='ch1_dinner_done'),
-                  dict(gesture='dismiss', min_talks=1), dict(gesture='rub_neck', min_deaths=1)],
+                  dict(gesture='dismiss', min_talks=1),
+                  dict(gesture='dismiss', requires_flag='ch1_ledger_checked', once=True),
+                  dict(gesture='rub_neck', min_deaths=1)],
     # 鷺（靠牆、手抱胸）：初見只點頭；交代完差事後抬下巴示意「還不去」；回訪時揉眼（夜班累）
     'ch1_egret': [dict(gesture='nod', max_talks=0), dict(gesture='rub_eyes', min_talks=1),
                   dict(gesture='chin_up', requires_flag='ch1_heard_brief')],
@@ -1161,6 +1167,10 @@ REACTIONS = {
                       dict(gesture='self', min_deaths=1)],
 }
 NPCS = {
+    'ch1_ledger_box': dict(name='帳冊箱', speaker='label', rig='', loop='', facing=1, kind=1,
+                         prompt='{interact} 查看帳冊箱的鎖', talks=[('ch1_dispatch_ledger_box', 0)], spawn_unless_flag='ch1_supper_done'),
+    'ch1_pump_service': dict(name='抽水機外殼', speaker='label', rig='', loop='', facing=1, kind=1,
+                           prompt='{interact} 查看抽水機外殼', talks=[('ch1_dispatch_pump_service', 0)], spawn_requires_flag='watchdog_defeated', spawn_unless_flag='ch1_pump_case_reset'),
     'ch1_old_k': dict(name='老 K', speaker='old_k', rig='old_k', loop='wipe_hands', facing=-1, prompt='{interact} 和老 K 說話',
                       talks=[('ch1_t_oldk_1', 0), ('ch1_t_oldk_2', 1), ('ch1_t_oldk_d1', 1, 1), ('ch1_t_oldk_d4', 1, 4)]),
     'ch1_egret': dict(name='鷺', speaker='egret', rig='egret', pose='lean', loop='yawn', facing=-1, prompt='{interact} 聽鷺說差事',
@@ -1378,7 +1388,7 @@ THEMES = {
     'warehouse': ('concrete', ['warehouse'], 'hangar_wall', 0.0, 'sky_storm', ['dock_warehouse']),
     'vault': ('concrete', ['warehouse'], 'hangar_wall', 0.0, 'sky_storm', ['dock_warehouse']),
     'lounge': ('facility_floor', ['facility_wall'], 'facility_panel', 0.0, 'sky_storm', ['revival_lounge']),
-    'prologue': ('concrete', ['shopfront', 'brick_block'], 'brick', 0.0, 'sky_storm', ['pawnshop_front', 'pawnshop_kitchen', 'harbor_street']),
+    'prologue': ('prologue_concrete', ['shopfront', 'brick_block'], 'brick', 0.0, 'sky_storm', ['pawnshop_front', 'pawnshop_kitchen', 'harbor_street']),
     'handoff': ('asphalt', ['facility_wall', 'shutter_block'], None, 0.22, 'sky_storm', ['clinic', 'revival_lounge', 'harbor_street', 'handoff']),
     'stall': ('asphalt', ['shopfront', 'shutter_block'], None, 0.22, 'sky_dawn', ['dawn_noodle_stall']),
 }

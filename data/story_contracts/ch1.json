@@ -982,6 +982,92 @@
         "then": "",
         "repeatable": true
       }
+    },
+    {
+      "id": "ch1_t_ledger_check",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_ledger_box.tres",
+      "levels": [
+        "res://data/levels/ch1_pawnshop.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "not": {
+            "flag": "ch1_ledger_checked",
+            "equals": true
+          }
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch1_ledger_checked",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch1_t_pump_reset",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_pump_service.tres",
+      "levels": [
+        "res://data/levels/ch1_warehouse.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "flag": "watchdog_defeated",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch1_pump_case_reset",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch1_pump_case_reset",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch1_t_pump_check",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_pump_service.tres",
+      "levels": [
+        "res://data/levels/ch1_warehouse.tres"
+      ],
+      "role": "choice",
+      "rule": {
+        "default": "later",
+        "options": [
+          {
+            "id": "reset",
+            "target": "ch1_t_pump_reset",
+            "flags": {}
+          },
+          {
+            "id": "later",
+            "target": "",
+            "flags": {}
+          }
+        ]
+      }
     }
   ]
 }

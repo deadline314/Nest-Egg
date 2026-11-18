@@ -1,0 +1,22 @@
+{
+  "positive": {
+    "passed": true,
+    "native_samples": 322,
+    "images": 13,
+    "actions": {
+      "ledger_lock_check": {
+        "contact_frames": 30,
+        "worst": 6.82393801980652e-05
+      },
+      "pump_case_reset": {
+        "contact_frames": 33,
+        "worst": 0.000251654390012845
+      }
+    }
+  },
+  "negative_controls": {
+    "contact-record": true,
+    "native-image": true
+  },
+  "negative_scope": "edited private packet inputs; not a forged in-game failure"
+}

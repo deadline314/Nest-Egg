@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=22 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=23 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
@@ -10,12 +10,13 @@
 [ext_resource type="Resource" path="res://data/props/ch1_crate.tres" id="8_ch1_crate"]
 [ext_resource type="Resource" path="res://data/npcs/ch1_label_fare.tres" id="9_ch1_label_fare"]
 [ext_resource type="Resource" path="res://data/npcs/ch1_label_guitar.tres" id="10_ch1_label_guitar"]
-[ext_resource type="Resource" path="res://data/npcs/ch1_label_raincoat.tres" id="11_ch1_label_raincoat"]
-[ext_resource type="Resource" path="res://data/npcs/ch1_label_watch.tres" id="12_ch1_label_watch"]
-[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="13_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/rooftop.tres" id="14_rooftop"]
-[ext_resource type="Resource" path="res://data/lighting/pawnshop_warm.tres" id="15_pawnshop_warm"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch1_pawnshop.tres" id="16_ch1_pawnshop"]
+[ext_resource type="Resource" path="res://data/npcs/ch1_ledger_box.tres" id="11_ch1_ledger_box"]
+[ext_resource type="Resource" path="res://data/npcs/ch1_label_raincoat.tres" id="12_ch1_label_raincoat"]
+[ext_resource type="Resource" path="res://data/npcs/ch1_label_watch.tres" id="13_ch1_label_watch"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="14_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/rooftop.tres" id="15_rooftop"]
+[ext_resource type="Resource" path="res://data/lighting/pawnshop_warm.tres" id="16_pawnshop_warm"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch1_pawnshop.tres" id="17_ch1_pawnshop"]
 
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("2_portal_data")
@@ -49,16 +50,16 @@ height = 152
 style = "ladder"
 
 [sub_resource type="Resource" id="Resource_3"]
-script = ExtResource("13_lighting_zone")
+script = ExtResource("14_lighting_zone")
 start_tile = 0
 blend_tiles = 12
-profile = ExtResource("14_rooftop")
+profile = ExtResource("15_rooftop")
 
 [sub_resource type="Resource" id="Resource_4"]
-script = ExtResource("13_lighting_zone")
+script = ExtResource("14_lighting_zone")
 start_tile = 30
 blend_tiles = 6
-profile = ExtResource("15_pawnshop_warm")
+profile = ExtResource("16_pawnshop_warm")
 
 [resource]
 script = ExtResource("1_level_data")
@@ -78,15 +79,16 @@ legend = Dictionary[String, Resource]({
 "x": ExtResource("8_ch1_crate"),
 "ⓕ": ExtResource("9_ch1_label_fare"),
 "ⓖ": ExtResource("10_ch1_label_guitar"),
-"ⓡ": ExtResource("11_ch1_label_raincoat"),
-"ⓦ": ExtResource("12_ch1_label_watch")
+"ⓛ": ExtResource("11_ch1_ledger_box"),
+"ⓡ": ExtResource("12_ch1_label_raincoat"),
+"ⓦ": ExtResource("13_ch1_label_watch")
 })
 hints = PackedStringArray("按 {inventory} 打開背包，武器改裝、道具與文件都在裡面。", "換彈按 {reload}；從單向平台落下要按住 {move_down} 再按 {jump}。")
 chapter = &"ch1_kasa"
 persistent_world = true
 show_chapter_card = true
-environment = ExtResource("16_ch1_pawnshop")
+environment = ExtResource("17_ch1_pawnshop")
 layout_path = "res://data/levels/ch1_pawnshop_map.json"
-lighting_zones = Array[ExtResource("13_lighting_zone")]([SubResource("Resource_3"), SubResource("Resource_4")])
+lighting_zones = Array[ExtResource("14_lighting_zone")]([SubResource("Resource_3"), SubResource("Resource_4")])
 story_triggers = PackedStringArray("ch1_b_dinner")
 death_credit_cap = 250

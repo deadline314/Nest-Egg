@@ -40,6 +40,8 @@ EXTRA_VISIBLE = {"ch1_meet_egret": ["ch1_prologue_exit"]}
 
 # 人物／物件入口的階段順序：越前面越優先（劇本的主線節點先於回訪）。
 DISPATCH_PHASES = {
+    "ledger_box": ["ch1_t_ledger_check", "ch1_t_ledger_revisit"],
+    "pump_service": ["ch1_t_pump_check"],
     "cabinet": ["ch1_t_handoff_confirm", "ch1_t_handoff_receipt_prompt", "ch1_t_handoff_summary_prompt", "ch1_t_handoff_revisit"],
     "brief": ["ch1_t_egret_1", "ch1_t_egret_sunday", "ch1_t_egret_sunday_prompt", "ch1_t_egret_sunday_revisit"],
     "ali_lounge": ["ch1_t_ali_meet_booth", "ch1_t_ali_meet_clinic", "ch1_t_ali_meet_no_death", "ch1_t_ali_meet_unknown",
@@ -265,9 +267,9 @@ def _compile_segment(segment, source, inside_presentation, base_scene):
     return scene
 
 
-def _dispatchers(source, scenes):
+def _dispatchers(source, scenes, dispatch_phases):
     out = {}
-    for binding, phases in DISPATCH_PHASES.items():
+    for binding, phases in dispatch_phases.items():
         routes = []
         for name in phases:
             if name not in scenes:
@@ -292,7 +294,7 @@ def _as_presentation(scene, segment):
     scene.update(mode="animated", overlay=True, steps=steps, **keep)
 
 
-def _attach_topics(source, scenes):
+def _attach_topics(source, scenes, dispatch_phases):
     for binding, spec in OPTIONAL_TOPICS.items():
         hub_id = f"ch1_hub_{binding}"
         options = []
@@ -319,9 +321,9 @@ def _attach_topics(source, scenes):
         for dispatch_id, targets in spec.get("extra_dispatch", {}).items():
             scenes[dispatch_id] = {"mode": "dispatch", "routes": [
                 {"when": copy.deepcopy(scenes[t].get("when", {})), "target": t} for t in targets]}
-        phases = DISPATCH_PHASES[binding]
+        phases = dispatch_phases[binding]
         first = phases.index(spec["replace"][0])
-        DISPATCH_PHASES[binding] = phases[:first] + [hub_id] + [p for p in phases[first:] if p not in spec["replace"]]
+        dispatch_phases[binding] = phases[:first] + [hub_id] + [p for p in phases[first:] if p not in spec["replace"]]
 
 
 CLINIC_CONTINUATIONS = ("ch1_t_clinic_tray_prompt", "ch1_t_clinic_cloth_look", "ch1_t_clinic_cloth_decide", "ch1_t_clinic_cloth_take",
@@ -640,8 +642,9 @@ def compile_document():
     prologue_scenes, prologue_quests, prologue_defaults, prologue_derived = prologue_source.build()
     scenes.update(prologue_scenes)
     _first_clinic(scenes)
-    _attach_topics(source, scenes)
-    scenes.update(_dispatchers(source, scenes))
+    dispatch_phases = copy.deepcopy(DISPATCH_PHASES)
+    _attach_topics(source, scenes, dispatch_phases)
+    scenes.update(_dispatchers(source, scenes, dispatch_phases))
     _stage_talks(scenes)
     for order, (ident, title) in enumerate(REPLAY_TITLES.items()):
         if ident not in scenes:

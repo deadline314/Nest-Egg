@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://data/scripts/environment_theme.gd" id="1_environment_theme"]
 [ext_resource type="Script" path="res://data/scripts/env_zone.gd" id="2_env_zone"]
 [ext_resource type="Script" path="res://data/scripts/backdrop_layer.gd" id="3_backdrop_layer"]
-[ext_resource type="Resource" path="res://data/environment/materials/prologue_concrete.tres" id="4_concrete"]
+[ext_resource type="Resource" path="res://data/environment/materials/prologue_concrete.tres" id="4_prologue_concrete"]
 [ext_resource type="Resource" path="res://data/environment/facades/shopfront.tres" id="5_shopfront"]
 [ext_resource type="Resource" path="res://data/environment/facades/brick_block.tres" id="6_brick_block"]
 [ext_resource type="Script" path="res://data/scripts/facade_data.gd" id="7_facade_data"]
@@ -11,7 +11,7 @@
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("2_env_zone")
 from_tile = 0
-material = ExtResource("4_concrete")
+material = ExtResource("4_prologue_concrete")
 facades = Array[ExtResource("7_facade_data")]([ExtResource("5_shopfront"), ExtResource("6_brick_block")])
 interior = "res://art/environment/materials/brick_body.png"
 interior_scale = 4

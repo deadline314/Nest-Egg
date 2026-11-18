@@ -32,6 +32,8 @@ static func path_of(id: String) -> String:
 
 func run() -> void:
 	_load_all()
+	preload("res://tests/helpers/ch1_world_maintenance_checks.gd").run(self)
+	await preload("res://tests/helpers/ch1_world_maintenance_checks.gd").lifecycle(self)
 	_test_data()
 	_test_props()
 	_test_portals()

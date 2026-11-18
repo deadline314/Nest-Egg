@@ -215,6 +215,7 @@ jobs:
         timeout-minutes: 30
         run: |
           python3 tools/story/test_completion_policies.py
+          python3 tools/story/test_ch1_world_maintenance.py
           python3 tools/run_prologue_completion.py --godot "$GODOT" --output "${{ runner.temp }}/prologue-completion"
 
       - name: Check actual training results, refused writes and cold reads

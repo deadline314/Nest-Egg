@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="NpcData" load_steps=12 format=3]
+[gd_resource type="Resource" script_class="NpcData" load_steps=13 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/npc_data.gd" id="1_npc_data"]
 [ext_resource type="Script" path="res://data/scripts/npc_talk.gd" id="2_npc_talk"]
@@ -42,6 +42,12 @@ min_talks = 1
 
 [sub_resource type="Resource" id="Resource_7"]
 script = ExtResource("3_npc_reaction")
+gesture = &"dismiss"
+requires_flag = &"ch1_ledger_checked"
+once = true
+
+[sub_resource type="Resource" id="Resource_8"]
+script = ExtResource("3_npc_reaction")
 gesture = &"rub_neck"
 min_deaths = 1
 
@@ -55,4 +61,4 @@ loop = &"wipe_hands"
 facing = -1
 prompt = "{interact} 和老 K 說話"
 talks = Array[ExtResource("2_npc_talk")]([SubResource("Resource_0"), SubResource("Resource_1"), SubResource("Resource_2"), SubResource("Resource_3")])
-reactions = Array[ExtResource("3_npc_reaction")]([SubResource("Resource_4"), SubResource("Resource_5"), SubResource("Resource_6"), SubResource("Resource_7")])
+reactions = Array[ExtResource("3_npc_reaction")]([SubResource("Resource_4"), SubResource("Resource_5"), SubResource("Resource_6"), SubResource("Resource_7"), SubResource("Resource_8")])

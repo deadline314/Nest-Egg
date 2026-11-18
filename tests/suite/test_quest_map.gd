@@ -895,6 +895,8 @@ func _check_destination_reading_priority(level: Level) -> void:
 		PromptLayout.add_obstacle(surface, func() -> Rect2: return rect, true)
 		guidance._update_arrow()
 		check(not guidance._arrow.visible, "the destination caption yields when its own pixels are needed for world reading")
+		guidance._update_arrow()
+		check(not guidance._arrow.visible, "a shifted destination caption keeps yielding throughout world reading")
 		surface.free()
 		guidance._update_arrow()
 		check(guidance._arrow.visible, "the real destination caption returns after world reading releases its space")
