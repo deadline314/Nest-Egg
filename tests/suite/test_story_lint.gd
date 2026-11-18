@@ -98,6 +98,10 @@ func _test_locale_narration() -> void:
 	var subtitles := {"zh": "巢蛋當舖", "ja": "巣卵質店", "en": "Nest Egg Pawnshop"}
 	for language: String in ["ja", "en", "zh"]:
 		check(Story.set_language(language), "the prologue supports %s" % language)
+		var validation := Story.validate()
+		check(validation.is_empty(), "loaded story validates in %s: %s" % [language, validation])
+		var issues := Story.lint()
+		check(issues.is_empty(), "loaded story lints in %s: %s" % [language, issues])
 		var opening: Array = Story._scenes["ch1_p01_door"]["steps"]
 		check(opening[1]["lines"][0] == narration[language] and opening[2]["sub"] == subtitles[language], "real prologue narration and subtitle display %s" % language)
 		if language == "ja":
@@ -356,6 +360,20 @@ func _test_readability() -> void:
 	check(_has_rule(StoryLint.readability("地點，碼頭倉庫。", "fixture"), "名詞斷句", StoryLint.Level.WARNING), "noun-led briefing warns")
 	for good in ["好，我先去碼頭倉庫。", "一個灰衣人開貨車送你來，沒收錢就走了。", "記錄時間是 03:12，回收獎勵為 91,000 信用點。"]:
 		check(StoryLint.readability(good, "fixture").is_empty(), "complete prose and numeric punctuation pass: %s" % good)
+	for language: String in ["ja", "en"]:
+		var limit := 45 if language == "ja" else 90
+		var bark_limit := 24 if language == "ja" else 48
+		check(StoryLint.bubble_limit(false, language) == limit and StoryLint.bubble_limit(true, language) == bark_limit,
+			"%s bubble and bark limits use the existing translation factor" % language)
+		var lines := [{"speaker": "rin", "text": "瞄準線".repeat(limit), "mode": "dialogue"}]
+		check(StoryLint.check_unit("fixture", lines, SPEAKERS, language).is_empty(),
+			"%s prose avoids Chinese vocabulary and length rules" % language)
+		lines[0].mode = "bubbles"
+		lines[0].text = "a".repeat(limit)
+		check(StoryLint.check_unit("fixture", lines, SPEAKERS, language).is_empty(), "%s bubble fits at its limit" % language)
+		lines[0].text += "a"
+		check(_has_rule(StoryLint.check_unit("fixture", lines, SPEAKERS, language), "氣泡長度", StoryLint.Level.WARNING),
+			"%s still warns about oversized translated bubbles" % language)
 	check(StoryLint.readability("字".repeat(30), "fixture", "bubbles").is_empty(), "30 character bubble passes")
 	check(_has_rule(StoryLint.readability("字".repeat(31), "fixture", "bubbles"), "氣泡長度", StoryLint.Level.WARNING), "31 character bubble warns")
 	check(StoryLint.readability("字".repeat(16), "fixture", "bubbles", true).is_empty(), "16 character bark passes")

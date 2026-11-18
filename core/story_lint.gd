@@ -36,7 +36,7 @@ static var _dash: RegEx
 
 
 ## 檢查一個文本單元（一個場景或一份道具文字）。
-static func check_unit(unit_id: String, lines: Array, speakers: Dictionary) -> Array[Dictionary]:
+static func check_unit(unit_id: String, lines: Array, speakers: Dictionary, language := StoryLocale.SOURCE_LANGUAGE) -> Array[Dictionary]:
 	var issues: Array[Dictionary] = []
 	var dashes := 0
 	var ellipses := 0
@@ -50,10 +50,12 @@ static func check_unit(unit_id: String, lines: Array, speakers: Dictionary) -> A
 			continue
 		var speaker_id := str(entry.get("speaker", ""))
 		var text := str(entry.get("text", ""))
-		var formal := _is_formal(speakers, speaker_id)
 		var where := "%s 第 %d 句" % [unit_id, index + 1]
 		if str(entry.get("kind", "")) != "label":
-			issues.append_array(readability(text, where, str(entry.get("mode", "text")), bool(entry.get("bark", false))))
+			issues.append_array(readability(text, where, str(entry.get("mode", "text")), bool(entry.get("bark", false)), language))
+		if TRANSLATION_BUBBLE_FACTOR.has(language):
+			continue
+		var formal := _is_formal(speakers, speaker_id)
 		for word in TEACHING_WORDS:
 			if text.contains(word):
 				issues.append(_issue(Level.ERROR, "教學詞", where, "對白出現操作用語「%s」：「%s」" % [word, text]))
@@ -92,7 +94,7 @@ static func check_unit(unit_id: String, lines: Array, speakers: Dictionary) -> A
 
 
 ## 檢查一整章：每個單元各自的規則，加上章節合計的規則。units 為 [{ "id", "lines" }]。
-static func check_chapter(chapter_id: String, units: Array, speakers: Dictionary) -> Array[Dictionary]:
+static func check_chapter(chapter_id: String, units: Array, speakers: Dictionary, language := StoryLocale.SOURCE_LANGUAGE) -> Array[Dictionary]:
 	var issues: Array[Dictionary] = []
 	var grand := 0
 	var grand_places := PackedStringArray()
@@ -102,7 +104,9 @@ static func check_chapter(chapter_id: String, units: Array, speakers: Dictionary
 	for unit: Variant in units:
 		var unit_id := str((unit as Dictionary).get("id", "?"))
 		var lines: Array = (unit as Dictionary).get("lines", [])
-		issues.append_array(check_unit(unit_id, lines, speakers))
+		issues.append_array(check_unit(unit_id, lines, speakers, language))
+		if TRANSLATION_BUBBLE_FACTOR.has(language):
+			continue
 		for entry: Variant in lines:
 			if typeof(entry) != TYPE_DICTIONARY:
 				continue
@@ -219,14 +223,18 @@ static func _count_dashes(text: String) -> int:
 const TRANSLATION_BUBBLE_FACTOR := {"ja": 1.5, "en": 3.0}
 
 
+static func bubble_limit(bark: bool, language: String) -> int:
+	return int((16 if bark else 30) * float(TRANSLATION_BUBBLE_FACTOR.get(language, 1.0)))
+
+
 ## 完整句子規則供故事、提示、文件與 UI 共用；不把操作用語當成提示的錯誤。
 ## 名稱／數值標籤由呼叫端明確分類，不能用 formal 或講者 id 免除對白檢查。
 ## language：zh 用完整的中文規則；ja／en 見 TRANSLATION_BUBBLE_FACTOR。
-static func readability(text: String, where: String, mode := "text", bark := false, language := "zh") -> Array[Dictionary]:
+static func readability(text: String, where: String, mode := "text", bark := false, language := StoryLocale.SOURCE_LANGUAGE) -> Array[Dictionary]:
 	var issues: Array[Dictionary] = []
 	if TRANSLATION_BUBBLE_FACTOR.has(language):
 		if mode == "bubbles":
-			var limit := int((16 if bark else 30) * float(TRANSLATION_BUBBLE_FACTOR[language]))
+			var limit := bubble_limit(bark, language)
 			if text.length() > limit:
 				issues.append(_issue(Level.WARNING, "氣泡長度", where, "氣泡譯文 %d 字元，超過 %d：「%s」" % [text.length(), limit, text]))
 		return issues
@@ -268,7 +276,7 @@ static func readability(text: String, where: String, mode := "text", bark := fal
 		if text.begins_with(noun + "，") or text.begins_with(noun + ","):
 			issues.append(_issue(Level.WARNING, "名詞斷句", where, "請用完整句子交代地點或目標：「%s」" % text))
 	if mode == "bubbles":
-		var cap := 16 if bark else 30
+		var cap := bubble_limit(bark, language)
 		if text.length() > cap:
 			issues.append(_issue(Level.WARNING, "氣泡長度", where, "氣泡 %d 字，超過 %d 字：「%s」" % [text.length(), cap, text]))
 	return issues

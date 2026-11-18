@@ -52,9 +52,7 @@ const MAX_RADIO_LINES := 2
 const MAX_DIALOGUE_LINES := 8
 ## 氣泡守則（見 skill chapter-design）：一段 ≤ 4 句、每句 ≤ 30 字；戰鬥中的 bark ≤ 2 句、每句 ≤ 16 字。
 const MAX_BUBBLE_LINES := 4
-const MAX_BUBBLE_CHARS := 30
 const MAX_BARK_LINES := 2
-const MAX_BARK_CHARS := 16
 
 ## 測試用：過場立即結束（仍會發出開始／結束訊號）。
 var auto_skip := false
@@ -412,6 +410,7 @@ func resolve_dispatch(id: StringName) -> StringName:
 ## 檢查劇本是否符合守則，回傳問題清單（空代表沒問題）：講者存在且有頭像、過場／通訊的句數、每句有文字。
 func validate() -> PackedStringArray:
 	var problems := PackedStringArray()
+	var authored_chapters: Dictionary[String, Dictionary] = {}
 	for speaker_id: String in _speakers.keys():
 		var portrait := str((_speakers[speaker_id] as Dictionary).get("portrait", ""))
 		if portrait.is_empty() or not ResourceLoader.exists(portrait):
@@ -436,7 +435,7 @@ func validate() -> PackedStringArray:
 		if scene.has("transfer_items") and mode not in [String(MODE_CINEMATIC), String(MODE_ANIMATED), String(MODE_DIALOGUE)]:
 			problems.append("場景 %s（%s）不能交出原件：只有可取消回撤的過場與對話可以交付" % [scene_id, mode])
 		if mode == String(MODE_ANIMATED):
-			problems.append_array(CutsceneChecker.validate(scene_id, scene, _speakers))
+			problems.append_array(CutsceneChecker.validate(scene_id, _authored_scene(scene_id, scene, authored_chapters), _speakers))
 			continue
 		var lines: Array = scene.get("lines", [])
 		var limit := _line_limit(mode, scene)
@@ -454,7 +453,7 @@ func validate() -> PackedStringArray:
 			if str(entry.get("text", "")).is_empty():
 				problems.append("場景 %s 有一句沒有文字" % scene_id)
 			if mode == String(MODE_BUBBLES):
-				var cap := MAX_BARK_CHARS if bool(scene.get("bark", false)) else MAX_BUBBLE_CHARS
+				var cap := StoryLint.bubble_limit(bool(scene.get("bark", false)), language)
 				if str(entry.get("text", "")).length() > cap:
 					problems.append("場景 %s（氣泡%s）的句子超過 %d 字：%s" % [scene_id, "，戰鬥短句" if bool(scene.get("bark", false)) else "", cap, entry.get("text", "")])
 	for scene_id: String in _scenes.keys():
@@ -471,6 +470,21 @@ func validate() -> PackedStringArray:
 	for issue in StoryLint.errors_of(lint()):
 		problems.append(StoryLint.format(issue))
 	return problems
+
+
+## 動畫的台詞長度和節奏預算以作者的原文估算。只在這次驗證中保留章節快取。
+func _authored_scene(scene_id: String, scene: Dictionary, chapters: Dictionary[String, Dictionary]) -> Dictionary:
+	if language == StoryLocale.SOURCE_LANGUAGE:
+		return scene
+	var path := _scene_sources.get(scene_id, "") as String
+	if path.is_empty():
+		return scene
+	if not chapters.has(path):
+		var source := load(path) as JSON if ResourceLoader.exists(path) else null
+		var authored_scenes: Variant = source.data.get("scenes", {}) if source != null and source.data is Dictionary else {}
+		chapters[path] = authored_scenes if authored_scenes is Dictionary else {}
+	var original: Variant = chapters[path].get(scene_id)
+	return original if original is Dictionary else scene
 
 
 ## 分派路線、選項接續（target）與條件（when）都要指向存在的場景、格式正確。
@@ -548,7 +562,7 @@ static func _chain_family(mode: String) -> String:
 func lint() -> Array[Dictionary]:
 	var issues: Array[Dictionary] = []
 	for chapter_id in _chapters:
-		issues.append_array(StoryLint.check_chapter(String(chapter_id), text_units(chapter_id), _speakers))
+		issues.append_array(StoryLint.check_chapter(String(chapter_id), text_units(chapter_id), _speakers, language))
 	return issues
 
 
