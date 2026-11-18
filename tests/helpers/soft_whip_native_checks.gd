@@ -9,6 +9,7 @@ static func _vector(value: Array) -> Vector2:
 
 
 static func run(suite: TestSuite) -> void:
+	_check_idle(suite)
 	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(PATH))
 	var valid: bool = (parsed is Dictionary and parsed.get("version") == 1
 		and parsed.get("nodes") == SoftWhip.NODES and parsed.get("cases") is Array and parsed.cases.size() == 2)
@@ -109,3 +110,25 @@ static func _replay(suite: TestSuite, case: Dictionary) -> void:
 		suite.check(metric.tip_gap <= bounds.range * 0.15, move_label + " reaches its recorded target (%.6f)" % metric.tip_gap)
 		suite.check(metric.wave, move_label + " sends the curve forward while its tip still trails")
 	print("SOFT_WHIP_NATIVE ", label, " ", JSON.stringify(metrics), " observed_ratio=", observed_ratio)
+
+
+## 90 physics ticks of natural grip motion while equipping, then 20 more at rest.
+static func _check_idle(suite: TestSuite) -> void:
+	var path := "res://tests/fixtures/soft_whip_idle_inputs.json"
+	var data: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
+	var valid: bool = data is Dictionary and data.get("version") == 1 and data.get("grip_frames") is Array and data.grip_frames.size() == 110
+	suite.check(valid, "idle whip fixture contains the recorded grip motion: " + path)
+	if not valid:
+		return
+	var whip := SoftWhip.new()
+	whip.floor_y = float(data.floor_y)
+	var before := Vector2.ZERO
+	for i in data.grip_frames.size():
+		var frame: Array = data.grip_frames[i]
+		var root := Vector2(frame[0], frame[1])
+		var handle := Vector2(frame[2], frame[3])
+		whip.step(float(data.delta), root, handle, float(data.length), root, 0.0)
+		if i == 89:
+			before = whip.tip()
+	var distance := whip.tip().distance_to(before)
+	suite.check(distance < 1.5, "idle-whip recorded tip travel under 1.5 px in 20 ticks (%.5f)" % distance)

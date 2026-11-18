@@ -20,7 +20,7 @@ const SUBSTEPS := 2
 const GRAVITY := 460.0
 ## 每秒保留的速度比例（空氣阻力）：越小越快靜下來。被拉著甩的時候阻力小，放開之後阻力大（收招後不會甩著繞好幾圈）。
 const KEEP_PER_SECOND := 0.12
-const KEEP_PER_SECOND_FREE := 0.02
+const KEEP_PER_SECOND_FREE := 0.001
 ## 出線口那一小段順著握把方向的程度（0～1）。
 const HANDLE_STIFFNESS := 0.6
 ## 放線與收線的速度（像素／秒）。
