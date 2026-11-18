@@ -7,6 +7,7 @@ import struct
 import ch2_source
 import guest_ticket_staging
 import guest_letter_staging
+import guest_soup_staging
 from ch1_closure import ProductionSource
 
 
@@ -103,6 +104,18 @@ class GuestCastTests(unittest.TestCase):
                 hands = [(step["id"], step["actor"]) for step in scene.steps if step["do"] == "prop_hold"]
                 self.assertEqual(hands, [(staging.PEN, "ali"), (staging.PEN, "hong"),
                                          (staging.LETTER, "hong"), (staging.ENVELOPE, "hong")] if response else [])
+
+    def test_chen_gets_the_coat_and_soup_only_after_the_accepted_choice(self):
+        staging = guest_soup_staging
+        for scene in self.framed.segments.values():
+            if scene.section != "S19":
+                continue
+            with self.subTest(scene=scene.id):
+                response = scene.id == "ch2_t_s19_done"
+                stage = next(step for step in scene.steps if step["do"] == "scene")
+                self.assertEqual(stage.get("props", {}).get(staging.COAT, {}).get("visible", False), response)
+                holds = [(step["id"], step["actor"]) for step in scene.steps if step["do"] == "prop_hold"]
+                self.assertEqual(holds, [(staging.COAT, "ali"), (staging.BOWL, "ali")] if response else [])
 
 
 if __name__ == "__main__":

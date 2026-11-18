@@ -9620,7 +9620,7 @@
      "weapon": "",
      "speaker": "chen",
      "pose": "idle",
-     "seat_sag": 0.298
+     "seat_sag": 0.367
     },
     {
      "do": "wait",
@@ -9744,7 +9744,7 @@
      "pose": "sit",
      "pose_reason": "坐下和阿梨談今晚想要的那一碗湯。",
      "pose_support": "右椅座面 x=377.75～442.75、y=209；雙腳落在地板 y=265.5。",
-     "seat_sag": 0.298
+     "seat_sag": 0.367
     },
     {
      "do": "say",
@@ -9802,7 +9802,7 @@
      "pose": "sit",
      "pose_reason": "坐下和阿梨談今晚想要的那一碗湯。",
      "pose_support": "右椅座面 x=377.75～442.75、y=209；雙腳落在地板 y=265.5。",
-     "seat_sag": 0.298
+     "seat_sag": 0.367
     },
     {
      "do": "say",
@@ -9922,7 +9922,7 @@
      "pose": "sit",
      "pose_reason": "坐下和阿梨談今晚想要的那一碗湯。",
      "pose_support": "右椅座面 x=377.75～442.75、y=209；雙腳落在地板 y=265.5。",
-     "seat_sag": 0.298
+     "seat_sag": 0.367
     },
     {
      "do": "say",
@@ -9946,7 +9946,12 @@
       206.3
      ],
      "zoom": 0.84,
-     "fade": 0.35
+     "fade": 0.35,
+     "props": {
+      "chen_raincoat": {
+       "visible": true
+      }
+     }
     },
     {
      "do": "actor",
@@ -9980,7 +9985,205 @@
      "pose": "sit",
      "pose_reason": "坐下和阿梨談今晚想要的那一碗湯。",
      "pose_support": "右椅座面 x=377.75～442.75、y=209；雙腳落在地板 y=265.5。",
-     "seat_sag": 0.298
+     "seat_sag": 0.367
+    },
+    {
+     "do": "camera",
+     "pos": [
+      320,
+      216
+     ],
+     "zoom": 1.02,
+     "time": 0.45,
+     "wait": true
+    },
+    {
+     "do": "reach",
+     "id": "ali",
+     "hand": "front",
+     "space": "prop",
+     "prop": "chen_rainhood",
+     "to": [
+      96.5,
+      15.5
+     ],
+     "contact": [
+      80.5,
+      24.5
+     ],
+     "angle": 0,
+     "time": 0.33,
+     "wait": true
+    },
+    {
+     "do": "prop_move",
+     "id": "chen_rainhood",
+     "angle": 0.9,
+     "time": 0.52,
+     "wait": true
+    },
+    {
+     "do": "reach",
+     "id": "ali",
+     "hand": "front",
+     "release": true,
+     "time": 0.3,
+     "wait": true
+    },
+    {
+     "do": "reach",
+     "id": "ali",
+     "hand": "front",
+     "space": "prop",
+     "prop": "chen_raincoat",
+     "to": [
+      25.5,
+      33.5
+     ],
+     "contact": [
+      80.5,
+      24.5
+     ],
+     "angle": 0,
+     "time": 0.25,
+     "wait": true
+    },
+    {
+     "do": "prop_hold",
+     "id": "chen_raincoat",
+     "actor": "ali",
+     "hand": "front",
+     "point": [
+      25.5,
+      33.5
+     ],
+     "follow_rotation": false
+    },
+    {
+     "do": "reach",
+     "id": "ali",
+     "hand": "front",
+     "to": [
+      250.0,
+      191.0
+     ],
+     "contact": [
+      80.5,
+      24.5
+     ],
+     "angle": 0,
+     "time": 0.4,
+     "wait": true
+    },
+    {
+     "do": "prop_release",
+     "id": "chen_raincoat"
+    },
+    {
+     "do": "reach",
+     "id": "ali",
+     "hand": "front",
+     "release": true,
+     "time": 0.25,
+     "wait": true
+    },
+    {
+     "do": "reach",
+     "id": "ali",
+     "hand": "front",
+     "space": "prop",
+     "prop": "chen_pear_soup",
+     "to": [
+      34.5,
+      77.5
+     ],
+     "contact": [
+      80.5,
+      24.5
+     ],
+     "angle": 0,
+     "time": 0.35,
+     "wait": true
+    },
+    {
+     "do": "prop_visible",
+     "id": "chen_pear_soup",
+     "visible": true
+    },
+    {
+     "do": "prop_hold",
+     "id": "chen_pear_soup",
+     "actor": "ali",
+     "hand": "front",
+     "point": [
+      34.5,
+      77.5
+     ],
+     "follow_rotation": false
+    },
+    {
+     "do": "reach",
+     "id": "ali",
+     "hand": "front",
+     "to": [
+      280.0,
+      162.24
+     ],
+     "contact": [
+      80.5,
+      24.5
+     ],
+     "angle": 0,
+     "time": 0.33,
+     "wait": true
+    },
+    {
+     "do": "reach",
+     "id": "ali",
+     "hand": "front",
+     "to": [
+      280.0,
+      175.24
+     ],
+     "contact": [
+      80.5,
+      24.5
+     ],
+     "angle": 0,
+     "time": 0.35,
+     "wait": true
+    },
+    {
+     "do": "prop_release",
+     "id": "chen_pear_soup"
+    },
+    {
+     "do": "reach",
+     "id": "ali",
+     "hand": "front",
+     "release": true,
+     "time": 0.28,
+     "wait": false
+    },
+    {
+     "do": "prop_move",
+     "id": "chen_pear_soup",
+     "to": [
+      343.0,
+      165.21
+     ],
+     "time": 0.65,
+     "wait": true
+    },
+    {
+     "do": "camera",
+     "pos": [
+      320,
+      206.3
+     ],
+     "zoom": 0.84,
+     "time": 0.45,
+     "wait": true
     },
     {
      "do": "say",

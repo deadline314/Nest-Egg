@@ -20,6 +20,7 @@ from chapter_compiler import route_back_to_choices  # noqa: E402
 import towel_staging  # noqa: E402
 import guest_ticket_staging  # noqa: E402
 import guest_letter_staging  # noqa: E402
+import guest_soup_staging  # noqa: E402
 import rent_window_staging  # noqa: E402
 import medic_transport_staging  # noqa: E402
 import market_pass_staging  # noqa: E402
@@ -793,7 +794,7 @@ def _guest_book(source: ProductionSource):
 # 坐在右椅的客人（NE-267）：段落 -> (講者／演員 id, 外觀, 走進來坐下的第一段, 說完起身離開的最後一段, 坐著的理由, 坐深)。
 # 坐深依各自的腿長在正式舞台上量：臀底要落在右椅座面上，不浮空也不陷進去。
 _SEATED_GUESTS = {
-    "S19": ("chen", "guest_chen", "ch2_t_s19_band", "ch2_t_s19_done", "坐下和阿梨談今晚想要的那一碗湯。", 0.298),
+    "S19": ("chen", "guest_chen", "ch2_t_s19_band", "ch2_t_s19_done", "坐下和阿梨談今晚想要的那一碗湯。", 0.367),
     "S20": ("hong", "guest_hong", "ch2_t_s20_letter", "ch2_t_s20_done", "坐下把想寫給朋友的話說完。", 0.438),
 }
 
@@ -853,6 +854,9 @@ def _guest_book_frames(source: ProductionSource):
                 guest_end = ({"do": "move", "id": speaker, "to": [470, 265.5], "time": 1.5, "pose": "walk", "then": "idle", "wait": True},
                              {"do": "wait", "time": 1.3})
         dialogue = segment.steps
+        if ident == "ch2_t_s19_done":
+            cast[0]["props"] = guest_soup_staging.initial()
+            dialogue = _with_cues(dialogue, ((0, guest_soup_staging.fulfill()),), ident)
         if segment.section == "S20":
             response = ident == "ch2_t_s20_done"
             cast[0]["props"] = guest_letter_staging.initial(response=response)

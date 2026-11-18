@@ -146,6 +146,74 @@
    "visible": false
   },
   {
+   "kind": "sprite",
+   "id": "chen_raincoat",
+   "path": "res://art/environment/scene_props/guest_book_contacts/chen_soup_props.png",
+   "source_width": 128,
+   "region": [
+    0,
+    0,
+    82,
+    48
+   ],
+   "scale": 0.3,
+   "pos": [
+    270.0,
+    166.95
+   ],
+   "filter": "linear",
+   "depth": "front",
+   "visible": false
+  },
+  {
+   "kind": "sprite",
+   "id": "chen_rainhood",
+   "path": "res://art/environment/scene_props/guest_book_contacts/chen_soup_props.png",
+   "source_width": 128,
+   "region": [
+    84,
+    0,
+    44,
+    44
+   ],
+   "scale": 0.31,
+   "pos": [
+    0,
+    0
+   ],
+   "pivot": [
+    25,
+    34
+   ],
+   "parent_prop": "chen_raincoat",
+   "anchor": [
+    38,
+    25
+   ],
+   "filter": "linear",
+   "depth": "front"
+  },
+  {
+   "kind": "sprite",
+   "id": "chen_pear_soup",
+   "path": "res://art/environment/scene_props/guest_book_contacts/chen_soup_props.png",
+   "source_width": 128,
+   "region": [
+    0,
+    48,
+    84,
+    48
+   ],
+   "scale": 0.34,
+   "pos": [
+    267.0,
+    165.21
+   ],
+   "filter": "linear",
+   "depth": "front",
+   "visible": false
+  },
+  {
    "kind": "glow",
    "pos": [
     480,
