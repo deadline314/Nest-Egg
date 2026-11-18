@@ -2792,12 +2792,29 @@
      "speaker": "rin"
     },
     {
+     "do": "say",
+     "speaker": "rin",
+     "text": "對面那個人一直看這邊，他今天是不是先我們進市場？",
+     "ja": "向かいのあの男、ずっとこっちを見てる。今日は先に市場へ入ったのかな？",
+     "en": "That man across the way keeps looking over here. Did he get into the market ahead of us today?"
+    },
+    {
+     "do": "scene",
+     "id": "ch2_rooftop_watcher",
+     "pos": [
+      526,
+      152
+     ],
+     "zoom": 1.8,
+     "fade": 0.25
+    },
+    {
      "do": "actor",
      "id": "greycoat",
      "kind": "ch2_greycoat",
      "pos": [
-      440,
-      130
+      521.0,
+      140.0
      ],
      "facing": -1,
      "scale": 0.6,
@@ -2806,11 +2823,209 @@
      "backdrop": true
     },
     {
-     "do": "say",
-     "speaker": "rin",
-     "text": "對面那個人一直看這邊，他今天是不是先我們進市場？",
-     "ja": "向かいのあの男、ずっとこっちを見てる。今日は先に市場へ入ったのかな？",
-     "en": "That man across the way keeps looking over here. Did he get into the market ahead of us today?"
+     "do": "reach",
+     "id": "greycoat",
+     "hand": "front",
+     "space": "prop",
+     "prop": "watcher_black_umbrella",
+     "to": [
+      158.5,
+      171.5
+     ],
+     "contact": [
+      75.5,
+      48.5
+     ],
+     "angle": 1.5707963267948966,
+     "time": 0.25,
+     "wait": true
+    },
+    {
+     "do": "prop_visible",
+     "id": "watcher_black_umbrella",
+     "visible": true
+    },
+    {
+     "do": "prop_hold",
+     "id": "watcher_black_umbrella",
+     "actor": "greycoat",
+     "hand": "front",
+     "point": [
+      158.5,
+      171.5
+     ],
+     "follow_rotation": false
+    },
+    {
+     "do": "reach",
+     "id": "greycoat",
+     "hand": "front",
+     "space": "actor",
+     "to": [
+      0.0,
+      -22.0
+     ],
+     "contact": [
+      75.5,
+      48.5
+     ],
+     "angle": 1.5707963267948966,
+     "time": 0.2,
+     "wait": true
+    },
+    {
+     "do": "wait",
+     "time": 0.6
+    },
+    {
+     "do": "move",
+     "id": "greycoat",
+     "to": [
+      550.0,
+      140.0
+     ],
+     "time": 1.3,
+     "pose": "walk",
+     "then": "idle",
+     "wait": true
+    },
+    {
+     "do": "reach",
+     "id": "greycoat",
+     "hand": "front",
+     "space": "actor",
+     "to": [
+      0.0,
+      -20.0
+     ],
+     "contact": [
+      75.5,
+      48.5
+     ],
+     "angle": 1.5707963267948966,
+     "time": 0.25,
+     "wait": true
+    },
+    {
+     "do": "prop_visible",
+     "id": "watcher_black_umbrella",
+     "visible": false
+    },
+    {
+     "do": "prop_release",
+     "id": "watcher_black_umbrella"
+    },
+    {
+     "do": "reach",
+     "id": "greycoat",
+     "hand": "front",
+     "space": "prop",
+     "prop": "watcher_closed_umbrella",
+     "to": [
+      54.5,
+      53.5
+     ],
+     "contact": [
+      75.5,
+      48.5
+     ],
+     "angle": 1.5707963267948966,
+     "time": 0.12,
+     "wait": true
+    },
+    {
+     "do": "prop_visible",
+     "id": "watcher_closed_umbrella",
+     "visible": true
+    },
+    {
+     "do": "prop_hold",
+     "id": "watcher_closed_umbrella",
+     "actor": "greycoat",
+     "hand": "front",
+     "point": [
+      54.5,
+      53.5
+     ],
+     "follow_rotation": false
+    },
+    {
+     "do": "reach",
+     "id": "greycoat",
+     "hand": "front",
+     "space": "actor",
+     "to": [
+      0.0,
+      -20.0
+     ],
+     "contact": [
+      75.5,
+      48.5
+     ],
+     "angle": 1.5707963267948966,
+     "time": 0.1,
+     "wait": true
+    },
+    {
+     "do": "move",
+     "id": "greycoat",
+     "to": [
+      569.0,
+      140.0
+     ],
+     "time": 0.85,
+     "pose": "walk",
+     "then": "idle",
+     "wait": true
+    },
+    {
+     "do": "prop_visible",
+     "id": "watcher_closed_umbrella",
+     "visible": false
+    },
+    {
+     "do": "remove",
+     "id": "greycoat"
+    },
+    {
+     "do": "wait",
+     "time": 0.15
+    },
+    {
+     "do": "scene",
+     "id": "ch1_rooftop",
+     "pos": [
+      320,
+      212.3
+     ],
+     "zoom": 1.0,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "egret",
+     "kind": "egret",
+     "pos": [
+      372,
+      262
+     ],
+     "facing": -1,
+     "scale": 2.2,
+     "weapon": "",
+     "speaker": "egret"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      268,
+      262
+     ],
+     "facing": 1,
+     "scale": 2.2,
+     "weapon": "",
+     "speaker": "rin"
     },
     {
      "do": "say",
@@ -2827,8 +3042,14 @@
      "en": "The Harbor District routes are connected now, and the market's back gate leads back to the pawnshop corner. The upper route is still closed, so tomorrow we'll have to go through the plaza."
     },
     {
-     "do": "wait",
-     "time": 0.35
+     "do": "camera",
+     "pos": [
+      320,
+      220
+     ],
+     "zoom": 1.08,
+     "time": 0.55,
+     "wait": true
     },
     {
      "do": "say",

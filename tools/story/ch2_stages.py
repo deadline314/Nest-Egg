@@ -10,13 +10,14 @@ from __future__ import annotations
 import json
 import re
 import struct
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 
 import towel_staging
 import rent_window_staging
 import medic_transport_staging
 import market_pass_staging
+import roof_watcher_staging
 from build_ch1_story import actor as stage_actor, stage as stage_scene
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -184,4 +185,9 @@ MARKET_PASS = Stage(
              "additive": True, "alpha": 0.28, "pulse": 0.04, "pulse_depth": 0.12},
             market_pass_staging.layer(), {"kind": "rain", "depth": "front", "opacity": 0.28}))
 
-STAGES = (LEDGER, BOOTH, COLLECTION, PAWNSHOP, RENT_WINDOW, MEDIC_LEDGER, MARKET_PASS)
+# S22 沿用同一屋頂景色，換成遠樓的落腳高度。
+ROOF_WATCHER = replace(derived(
+    roof_watcher_staging.STAGE, "ch1_rooftop", roof_watcher_staging.layers(),
+    scale=roof_watcher_staging.SCALE, shot=roof_watcher_staging.SHOT), floor=roof_watcher_staging.FLOOR)
+
+STAGES = (LEDGER, BOOTH, COLLECTION, PAWNSHOP, RENT_WINDOW, MEDIC_LEDGER, MARKET_PASS, ROOF_WATCHER)
