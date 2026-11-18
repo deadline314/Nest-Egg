@@ -60,6 +60,9 @@ def main():
         assert not target.exists(), "錯誤來源不應發布輸出"
         reject_change(approved, approved_bytes + b"changed", "approved output bytes changed")
         assert not target.exists(), "損毀批准PNG不應發布輸出"
+        coordinates = callback / "shoulder-coordinate-claims.json"
+        reject_change(coordinates, coordinates.read_bytes() + b" ", "陳女士肩部座標版本不同")
+        assert not target.exists(), "錯誤肩部補點不應發布輸出"
         # 阻止PNG encoder，仍須能由RGBA驗證後發布批准原始bytes。
         with patch("PIL.Image.Image.save", side_effect=AssertionError("不可重編碼批准PNG")):
             spec_path.write_bytes(spec_bytes.replace(b"\r\n", b"\n"))
