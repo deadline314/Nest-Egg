@@ -377,12 +377,16 @@ func _test_data() -> void:
 		check(npc.pick_talk(0, Story.was_seen) >= 0, "npc has a first conversation: %s" % file)
 		for talk in npc.talks:
 			check(Story.has_scene(talk.scene), "npc talk scene exists: %s -> %s" % [file, talk.scene])
-			# 人物與物件的入口可以是分派：每條路線都必須是玩家主動、鎖操作的對話（對話或疊加動畫），不能是通訊或氣泡。
+			# 人物與有獎勵的互動維持鎖操作。可重播的無獎勵物件才可以播公告。
 			var scene: Dictionary = Story._scenes[String(talk.scene)]
 			var targets: Array = [talk.scene] if str(scene.get("mode")) != "dispatch" else scene.get("routes", []).map(func(route: Dictionary) -> String: return str(route.get("target", "")))
 			for target: Variant in targets:
-				var mode := str((Story._scenes.get(str(target), {}) as Dictionary).get("mode"))
-				check(mode == "dialogue" or mode == "animated", "npc talk is a dialogue scene: %s -> %s (%s)" % [talk.scene, target, mode])
+				var presentation: Dictionary = Story._scenes.get(str(target), {})
+				var mode := str(presentation.get("mode"))
+				var public_notice := npc.kind == NpcData.Kind.OBJECT and not talk.once and not talk.has_reward() \
+					and Story._can_dismiss_radio(presentation)
+				check(mode == "dialogue" or mode == "animated" or public_notice,
+					"npc interaction uses dialogue or a repeatable reward-free notice: %s -> %s (%s)" % [talk.scene, target, mode])
 			if talk.story_item != null:
 				check(talk.story_item.is_collectible(), "npc reward item is a collectible: %s" % talk.story_item.id)
 		if npc.kind == NpcData.Kind.PERSON:

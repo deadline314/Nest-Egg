@@ -425,7 +425,8 @@ def _collection_office(source: ProductionSource):
     source.add("ch2_t_s08_banyan_revisit", "S08", (("banyan", "喝茶賒帳我也記著，別裝沒聽見。"),), when=flag("ch2_banyan_heard"))
     source.add("ch2_t_s08_screen", "S08", (
         ("shen", "我們先確認一件事：每一份申請，都代表有人還想回家。天穹會繼續讓第二次成為可能。"),
-        ("label", "天穹週年演說，創辦人沈望。旁邊的氣象欄寫著：今晚降雨偏多，復原申請量預計增加。")))
+        ("label", "天穹週年演說，創辦人沈望。旁邊的氣象欄寫著：今晚降雨偏多，復原申請量預計增加。")),
+        mode="radio")
     source.add("ch2_t_s08_rumor", "S08", (
         ("hawker", "人家說付帳人遲早來收，你最好別只看今天的價。"),
         ("rin", "你見過他收什麼？"),

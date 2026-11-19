@@ -358,7 +358,8 @@ func _process(delta: float) -> void:
 	var level := get_parent() as Level
 	var dead := level != null and (level.died or (is_instance_valid(level.player) and level.player.is_dead()))
 	if _controls_card.modulate.a > 0.0:
-		_controls_card.visible = not _hint_expired and not dead and not get_tree().paused and not Story.is_cinematic_active() and not GameplayLock.is_locked() and not _controls_framed and Music.engaged_enemies() == 0 and not toast_banner.is_showing()
+		var notice_uses_pause := _hint_template.contains("{pause}") and DialogueLayer.radio_visible(true)
+		_controls_card.visible = not _hint_expired and not dead and not get_tree().paused and not Story.is_cinematic_active() and not GameplayLock.is_locked() and not _controls_framed and Music.engaged_enemies() == 0 and not toast_banner.is_showing() and not notice_uses_pause
 		if _controls_card.visible and not _controls_dismissing:
 			_controls_read_time -= delta
 			if _controls_read_time <= 0.0:

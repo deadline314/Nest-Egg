@@ -23,6 +23,17 @@ class ChapterPolicies(unittest.TestCase):
         source=spec(); source.completion_policies={'missing':'main_terminal_results_v1'}
         with self.assertRaisesRegex(CompileError,'missing'):compile_chapter(source)
 
+    def test_only_optional_notice_allows_dismissal(self):
+        source = spec()
+        scenes = compile_chapter(source)["scenes"]
+        self.assertEqual([key for key, scene in scenes.items() if scene.get("dismissible")], ["ch2_t_s08_screen"])
+        self.assertEqual(scenes["ch2_t_s08_screen"]["mode"], "radio")
+        for ident in ("ch2_b_booth_b3", "ch2_t_s08_contract", "missing"):
+            with self.subTest(scene=ident):
+                source.dismissible_radio = {ident}
+                with self.assertRaisesRegex(CompileError, ident):
+                    compile_chapter(source)
+
     def test_unknown_policy_is_rejected(self):
         for policy in ['atomic_v1',True,[],{}]:
             source=spec(); source.completion_policies={'ch2_t_s05_gate':policy}

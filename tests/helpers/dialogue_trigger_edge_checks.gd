@@ -25,6 +25,7 @@ static func run(s: TestSuite) -> void:
 	s.check(layer._cinematic_index == 1, "releasing then pressing advances dialogue exactly once")
 	layer.cancel_cinematic()
 	_axis(0.0)
+	_check_dismissible_radio(s, layer, lines)
 	layer.queue_free()
 	await _process_frames(s,1)
 
@@ -70,6 +71,41 @@ static func check_localized_presentation(s: TestSuite) -> void:
 				"each subtitle layer wraps with the selected language")
 	Story.language = original_language
 	dialogue.free()
+
+static func _check_dismissible_radio(s: TestSuite, layer: DialogueLayer, lines: Array[Dictionary]) -> void:
+	var finished: Array[StringName] = []
+	layer.radio_finished.connect(func(id: StringName) -> void: finished.append(id))
+	layer.enqueue_radio(&"notice", lines, false, true)
+	layer.enqueue_radio(&"other", lines)
+	s.check(not layer.is_radio_frozen() and layer._radio_continue.visible, "optional announcement has a skip prompt and leaves gameplay running")
+	_send_action(&"ui_cancel")
+	s.check(finished.is_empty(), "controller dodge binding stays available during notice playback")
+	_send_action(&"pause")
+	s.check(finished == [&"notice"] and layer._radio_queue.size() == lines.size()
+		and layer._radio_queue.front()["id"] == &"other", "skipping a notice finishes it once and preserves the next transmission")
+	_send_action(&"pause")
+	s.check(finished == [&"notice"] and layer._radio_active and not layer._radio_continue.visible, "ordinary transmissions ignore the notice shortcut")
+	layer.cancel_radio()
+	var safe := {"mode": "radio", "dismissible": true}
+	s.check(Story._can_dismiss_radio(safe) and not Story._can_dismiss_radio({"mode": "radio", "dismissible": "true"}),
+		"optional radio requires an actual boolean marker")
+	for key in ["freeze", "results", "set_flags", "transfer_items", "then", "completion_policy"]:
+		var blocked := safe.duplicate()
+		blocked[key] = true
+		s.check(not Story._can_dismiss_radio(blocked), "notice shortcut rejects protected scenes with " + key)
+
+
+static func _send_action(action: StringName) -> void:
+	var event := InputEventAction.new()
+	event.action = action
+	event.pressed = true
+	Input.parse_input_event(event)
+	Input.flush_buffered_events()
+	event = InputEventAction.new()
+	event.action = action
+	Input.parse_input_event(event)
+	Input.flush_buffered_events()
+
 
 static func _axis(value: float) -> void:
 	var event := InputEventJoypadMotion.new()

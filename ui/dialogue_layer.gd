@@ -41,7 +41,7 @@ var _radio_bar: ColorRect
 var _radio_slide: Tween
 var _radio_fade: Tween
 var _radio_text: Label
-var _radio_queue: Array[Dictionary] = []  # { id, line, last, freeze }
+var _radio_queue: Array[Dictionary] = []
 var _radio_continue: Label
 ## 重要通訊凍結世界用的鎖（0＝沒有凍結）；允許在上面開暫停選單。
 var _radio_lock := 0
@@ -79,11 +79,12 @@ func _ready() -> void:
 
 ## Presentation only: delay is not visible; a fade-out panel still owns reading space.
 ## No queue, clock, Story result, or completion is changed by this readonly query.
-static func radio_visible() -> bool:
+static func radio_visible(dismissible_only := false) -> bool:
 	for id: int in _radio_layers:
 		var owner: Variant = _radio_layers[id].get_ref()
 		if is_instance_valid(owner) and owner.is_inside_tree() and not owner.is_queued_for_deletion() \
-				and is_instance_valid(owner._radio_root) and owner._radio_root.is_visible_in_tree():
+				and is_instance_valid(owner._radio_root) and owner._radio_root.is_visible_in_tree() \
+				and (not dismissible_only or owner._front_dismissible()):
 			return true
 	return false
 
@@ -217,12 +218,13 @@ func _input(event: InputEvent) -> void:
 # ---------------------------------------------------------------------------
 
 ## freeze：重要通訊，顯示時凍結世界並等玩家確認（見檔頭）。
-func enqueue_radio(id: StringName, lines: Array[Dictionary], freeze := false) -> void:
+func enqueue_radio(id: StringName, lines: Array[Dictionary], freeze := false, dismissible := false) -> void:
 	if lines.is_empty():
 		radio_finished.emit(id)
 		return
 	for i in lines.size():
-		_radio_queue.append({"id": id, "line": lines[i], "last": i == lines.size() - 1, "freeze": freeze})
+		_radio_queue.append({"id": id, "line": lines[i], "last": i == lines.size() - 1,
+			"freeze": freeze, "dismissible": dismissible and not freeze})
 	if not _radio_active:
 		_next_radio()
 
@@ -245,7 +247,8 @@ func _next_radio() -> void:
 	_radio_bar.color = line["color"]
 	_radio_text.text = line["text"]
 	_radio_text.visible_ratio = 0.0
-	_radio_continue.visible = false
+	_radio_continue.text = _radio_hint()
+	_radio_continue.visible = _front_dismissible()
 	_radio_portrait.texture = _portrait_texture(line["portrait"])
 	_radio_portrait.visible = _radio_portrait.texture != null
 	_layout_radio()
@@ -300,10 +303,7 @@ func _process(delta: float) -> void:
 		return
 	_radio_hold -= delta
 	if _radio_hold <= 0.0:
-		var entry: Dictionary = _radio_queue.pop_front()
-		if entry["last"]:
-			radio_finished.emit(entry["id"])
-		_next_radio()
+		_finish_radio_entry()
 
 
 ## 通訊現在能不能顯示與接受確認：過場、轉場、暫停選單、背包都會讓它先收起來（時鐘不走）。
@@ -318,6 +318,14 @@ func _radio_available() -> bool:
 
 func _front_freezes() -> bool:
 	return not _radio_queue.is_empty() and bool(_radio_queue.front().get("freeze", false))
+
+
+func _front_dismissible() -> bool:
+	return not _radio_queue.is_empty() and _radio_queue.front()["dismissible"]
+
+
+func _radio_hint() -> String:
+	return UiKit.cinematic_skip_hint(Story.language, &"pause") if _front_dismissible() else InputBindings.format("{ui_accept} 繼續")
 
 
 func _ensure_radio_freeze() -> void:
@@ -338,7 +346,15 @@ func _release_radio_lock() -> void:
 
 ## 重要通訊的確認：確認鍵、互動鍵或滑鼠左鍵；按住不連發，一次只前進一句。
 func _radio_input(event: InputEvent) -> void:
-	if _radio_lock == 0 or not _radio_active or _radio_wait > 0.0 or not _radio_available():
+	if not _radio_active or _radio_wait > 0.0 or not _radio_available():
+		return
+	if _front_dismissible() and _radio_root.visible and event.is_action_pressed(&"pause"):
+		get_viewport().set_input_as_handled()
+		while not _radio_queue.front()["last"]:
+			_radio_queue.pop_front()
+		_finish_radio_entry()
+		return
+	if _radio_lock == 0:
 		return
 	var click: bool = event is InputEventMouseButton and event.pressed and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT
 	if not (click or event.is_action_pressed(&"ui_accept") or event.is_action_pressed(&"interact")):
@@ -354,6 +370,10 @@ func advance_radio() -> void:
 	if _radio_text.visible_ratio < 1.0:
 		_radio_text.visible_ratio = 1.0
 		return
+	_finish_radio_entry()
+
+
+func _finish_radio_entry() -> void:
 	var entry: Dictionary = _radio_queue.pop_front()
 	if _radio_queue.is_empty() or not _front_freezes():
 		_release_radio_lock()
@@ -539,7 +559,7 @@ func _refresh_skip_hint() -> void:
 	_skip.text = UiKit.cinematic_skip_hint(Story.language)
 	_continue.text = InputBindings.format("{ui_accept} 繼續")
 	if _radio_continue != null:
-		_radio_continue.text = InputBindings.format("{ui_accept} 繼續")
+		_radio_continue.text = _radio_hint()
 
 
 func _build_radio() -> void:

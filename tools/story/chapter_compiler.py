@@ -47,6 +47,7 @@ class ChapterSpec:
     death_sequences: list = field(default_factory=list)
     unpublished_quests: set[str] = field(default_factory=set)
     completion_policies: dict[str, str] = field(default_factory=dict)
+    dismissible_radio: set[str] = field(default_factory=set)
 
 
 def _choice_step(segment, spec: ChapterSpec) -> dict:
@@ -220,6 +221,13 @@ def compile_chapter(spec: ChapterSpec) -> dict:
             raise CompileError(f'{ident}: 終端保存政策不能包含選擇或分支')
         scene['completion_policy'] = policy
         validate_completion_policies({ident: scene})
+    for ident in spec.dismissible_radio:
+        scene = scenes.get(ident, {})
+        if scene.get("mode") != "radio" or any(
+            key in scene for key in ("freeze", "results", "set_flags", "transfer_items", "then", "completion_policy")
+        ):
+            raise CompileError(f"{ident}: 只有不凍結、無結果與後續場景的通訊可以關閉字幕")
+        scene["dismissible"] = True
     apply_npc_contracts(scenes, f"res://data/story/{spec.chapter['id']}.json", source, {binding:f"{spec.prefix}_dispatch_{binding}" for binding in spec.dispatch})
     _check_lines(scenes)
     chapter = dict(spec.chapter)

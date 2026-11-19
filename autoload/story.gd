@@ -418,6 +418,8 @@ func validate() -> PackedStringArray:
 	for scene_id: String in _scenes.keys():
 		var scene: Dictionary = _scenes[scene_id]
 		var mode := str(scene.get("mode", "radio"))
+		if scene.has("dismissible") and (typeof(scene["dismissible"]) != TYPE_BOOL or (scene["dismissible"] and not _can_dismiss_radio(scene))):
+			problems.append("場景 %s 的 dismissible 只支援不凍結、沒有結果與後續場景的通訊" % scene_id)
 		if scene.has("map_interaction"):
 			if typeof(scene["map_interaction"]) != TYPE_BOOL:
 				problems.append("場景 %s 的 map_interaction 必須是布林值" % scene_id)
@@ -1095,6 +1097,15 @@ func play(id: StringName, once := true, context: Dictionary = {}) -> bool:
 	return _enqueue_request(id, once, context) != 0
 
 
+func _can_dismiss_radio(scene: Dictionary) -> bool:
+	if scene.get("mode") != "radio" or typeof(scene.get("dismissible")) != TYPE_BOOL or not scene["dismissible"]:
+		return false
+	for key in ["freeze", "results", "set_flags", "transfer_items", "then", "completion_policy"]:
+		if scene.has(key):
+			return false
+	return true
+
+
 func _enqueue_request(id: StringName, once: bool, context: Dictionary, waiting := false, owns_context := false) -> int:
 	if result_publication_active():
 		return 0
@@ -1134,7 +1145,7 @@ func _enqueue_request(id: StringName, once: bool, context: Dictionary, waiting :
 		if mode != MODE_BUBBLES or not _play_bubbles(id, request):
 			scene_started.emit(id, MODE_RADIO)
 			# 重要通訊凍結世界等確認；自動略過（測試）時照一般通訊播，不卡住流程。
-			_layer.enqueue_radio(id, resolved_lines(id), mode == MODE_RADIO and bool(scene.get("freeze", false)) and not auto_skip)
+			_layer.enqueue_radio(id, resolved_lines(id), mode == MODE_RADIO and bool(scene.get("freeze", false)) and not auto_skip, _can_dismiss_radio(scene))
 	return request
 
 

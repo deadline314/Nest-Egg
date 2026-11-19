@@ -4911,24 +4911,22 @@
    }
   },
   "ch2_t_s08_screen": {
-   "mode": "animated",
-   "overlay": true,
-   "steps": [
+   "mode": "radio",
+   "lines": [
     {
-     "do": "say",
      "speaker": "shen",
      "text": "我們先確認一件事：每一份申請，都代表有人還想回家。天穹會繼續讓第二次成為可能。",
      "ja": "まず一つ確かめておきます。申請はひとつ残らず、まだ家に帰りたいと願う人のものです。天穹は、二度目の機会を与え続けます。",
      "en": "First, let's confirm one thing: every application means someone still wants to go home. Skydome will keep making a second chance possible."
     },
     {
-     "do": "say",
      "speaker": "label",
      "text": "天穹週年演說，創辦人沈望。旁邊的氣象欄寫著：今晚降雨偏多，復原申請量預計增加。",
      "ja": "天穹周年演説。創業者・沈望。横の気象欄には「今夜は雨が多く、復元申請の増加が見込まれます」とある。",
      "en": "Skydome anniversary speech, by founder Shen Wang. The weather panel beside it reads: heavy rain tonight; restoration applications expected to rise."
     }
-   ]
+   ],
+   "dismissible": true
   },
   "ch2_t_s08_rumor": {
    "mode": "dialogue",

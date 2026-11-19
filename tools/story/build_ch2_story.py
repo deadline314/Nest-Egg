@@ -31,6 +31,7 @@ def spec() -> ChapterSpec:
         chapter=dict(ch2_source.CHAPTER), source=source, prefix="ch2", dispatch=ch2_source.DISPATCH,
         quest_locations=ch2_source.QUEST_LOCATIONS,
         important_radio={"ch2_b_booth_b3", "ch2_s12_defeat_hint"},
+        dismissible_radio={"ch2_t_s08_screen"},
         flag_defaults=source.flag_defaults,
         completion_policies={
             "ch2_t_s05_gate": "main_terminal_results_v1",
