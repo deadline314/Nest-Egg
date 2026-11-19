@@ -12,6 +12,8 @@ const LOW_RATIO := 0.25
 const NAME_TIME := 1.1
 const EMPTY_TIME := 0.9
 const DONE_TIME := 0.22
+const RELOAD_TEXT_OFFSET := Vector2(-16, 25)
+const RELOAD_TEXT_SIZE := 8
 
 var presence := HudPresence.new()
 var weapon_name := ""
@@ -33,6 +35,9 @@ var _empty_left := 0.0
 var _reload_progress := 0.0
 var _reloading := false
 var _done_left := 0.0
+var _low_reload_hint := ""
+var _measured_label := ""
+var _measured_width := 0.0
 
 
 func _ready() -> void:
@@ -42,6 +47,9 @@ func _ready() -> void:
 	presence.idle_alpha = 1.0
 	EventBus.player_loadout_changed.connect(_on_loadout_changed)
 	EventBus.reload_completed.connect(func() -> void: _done_left = DONE_TIME)
+	InputBindings.bindings_changed.connect(_refresh_reload_hint)
+	_refresh_reload_hint()
+	PromptLayout.add_obstacle(self, _prompt_obstacle_rect)
 
 
 func is_showing_ammo() -> bool:
@@ -50,6 +58,32 @@ func is_showing_ammo() -> bool:
 
 func is_low() -> bool:
 	return _has_mag and float(ammo) / float(maxi(1, max_ammo)) <= LOW_RATIO
+
+
+func _refresh_reload_hint() -> void:
+	_low_reload_hint = "%s 換彈" % InputBindings.code_label(InputBindings.get_code(&"reload", 0))
+
+
+func _reload_label() -> String:
+	return "RECHARGE" if is_energy else "RELOAD"
+
+
+func _show_low_hint() -> bool:
+	return _done_left <= 0.0 and not _reloading and is_low() and ammo > 0 and reserve != 0
+
+
+func _prompt_obstacle_rect() -> Rect2:
+	if not is_visible_in_tree() or presence.alpha <= 0.01 or not _has_mag:
+		return Rect2()
+	var label := _reload_label() if _reloading else (_low_reload_hint if _show_low_hint() else "")
+	if label.is_empty():
+		return Rect2()
+	if label != _measured_label:
+		_measured_label = label
+		_measured_width = UiKit.font().get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, RELOAD_TEXT_SIZE).x
+	var box := Rect2(_point + Vector2(RELOAD_TEXT_OFFSET.x - 2, -16),
+			Vector2(maxf(36.0, _measured_width + 4.0), RELOAD_TEXT_OFFSET.y + 18.0))
+	return get_viewport().get_canvas_transform().affine_inverse() * box
 
 
 func _process(delta: float) -> void:
@@ -100,17 +134,17 @@ func _draw() -> void:
 	if alpha <= 0.01:
 		return
 	var p := _point
-	var font := UiKit.font()
 	if _has_mag and _reloading:
 		_draw_reload_arc(p, alpha)
-		var label := "RECHARGE" if is_energy else "RELOAD"
-		_shadowed(p + Vector2(-16, 25), label, 8, Color(LightKit.glow(Palette.WHITE, 1.5), (0.7 + 0.3 * sin(_time * 12.0)) * alpha))
+		_shadowed(p + RELOAD_TEXT_OFFSET, _reload_label(), RELOAD_TEXT_SIZE,
+				Color(LightKit.glow(Palette.WHITE, 1.5), (0.7 + 0.3 * sin(_time * 12.0)) * alpha))
 	if _done_left > 0.0:
 		# 換彈完成：整圈亮一下。
 		var kd := _done_left / DONE_TIME
 		draw_arc(p, RADIUS + 1.0 * (1.0 - kd), 0.0, TAU, 32, Color(LightKit.glow(weapon_color, 2.2), kd * alpha), ARC_WIDTH)
-	elif _has_mag and not _reloading and is_low() and ammo > 0 and reserve != 0:
-		_shadowed(p + Vector2(-16, 25), "%s 換彈" % InputBindings.code_label(InputBindings.get_code(&"reload", 0)), 8, Color(LightKit.glow(Palette.WARNING, 1.6), 0.8 * alpha))
+	elif _show_low_hint():
+		_shadowed(p + RELOAD_TEXT_OFFSET, _low_reload_hint, RELOAD_TEXT_SIZE,
+				Color(LightKit.glow(Palette.WARNING, 1.6), 0.8 * alpha))
 	if _name_left > 0.0:
 		var k := minf(1.0, _name_left / 0.3)
 		_shadowed(p + Vector2(RADIUS + 5.0, -10.0 + 3.0 * (1.0 - k)), weapon_name, 8, Color(LightKit.glow(weapon_color, 1.4), k * alpha))

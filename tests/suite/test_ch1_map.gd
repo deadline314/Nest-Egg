@@ -41,6 +41,7 @@ func run() -> void:
 	_test_entry_distance_contract()
 	_test_encounters()
 	_test_teaching_curve()
+	_test_street_landing_hint()
 	_test_narrative()
 	_test_items()
 	_test_entry_point()
@@ -69,6 +70,13 @@ func _load_all() -> void:
 			continue
 		_datas[id] = data
 		_layouts[id] = LevelBuilder.parse(data)
+
+
+func _test_street_landing_hint() -> void:
+	var street: LevelLayout = _layouts["street"]
+	check(street.hints.any(func(hint: Dictionary) -> bool:
+		return hint["position"] == Vector2(1912, 512) and hint["text"] == "往斜下方瞄準，先看清落點。"),
+			"the street teaches how to see the landing before the first large terrace drop")
 
 
 # ---------------------------------------------------------------------------

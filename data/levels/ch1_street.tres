@@ -135,7 +135,7 @@ legend = Dictionary[String, Resource]({
 "↟": SubResource("Resource_4"),
 "↠": SubResource("Resource_5")
 })
-hints = PackedStringArray("街上有人發傳單、有人聊天，不是每個人都想打你。", "街角的巷子裡有電話亭，先去備份，死了才有地方醒來。", "前面有清掃兵，靠著箱子瞄準射擊，打完再縮回去。", "子彈到的瞬間才舉盾 {block}，就能把子彈反彈回去。", "敵人頭上出現青色菱形時，按 {melee} 終結他並補回彈藥。", "前面是碼頭倉庫，看門狗睡在大廳深處，走進去再決定要不要叫醒牠。")
+hints = PackedStringArray("街上有人發傳單、有人聊天，不是每個人都想打你。", "街角的巷子裡有電話亭，先去備份，死了才有地方醒來。", "前面有清掃兵，靠著箱子瞄準射擊，打完再縮回去。", "子彈到的瞬間才舉盾 {block}，就能把子彈反彈回去。", "敵人頭上出現青色菱形時，按 {melee} 終結他並補回彈藥。", "前面是碼頭倉庫，看門狗睡在大廳深處，走進去再決定要不要叫醒牠。", "往斜下方瞄準，先看清落點。")
 chapter = &"ch1_kasa"
 persistent_world = true
 show_chapter_card = false

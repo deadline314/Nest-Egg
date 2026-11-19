@@ -9,6 +9,7 @@ func run() -> void:
 	await _test_credits_tag()
 	await _test_banner_kinds()
 	await _test_tooltips()
+	await _test_reload_prompt_clearance()
 	await _test_localized_hud_help()
 	await preload("res://tests/helpers/hud_background_hover_checks.gd").run(self)
 	await _test_radio_panel()
@@ -17,6 +18,31 @@ func run() -> void:
 	await _test_radio_tall_clearance(false)
 	await _test_radio_tall_clearance(true)
 	await _test_radio_crowded_gutter()
+
+
+func _test_reload_prompt_clearance() -> void:
+	var level := await start_level(PropsSuite.level_data())
+	var ring := level.hud.ammo_ring
+	var loadout := level.player.loadout
+	var slot := loadout.active_slot
+	loadout.set_ammo(slot, 2, -1)
+	await frames(15)
+	var bounds_for_ring: Callable = PromptLayout._obstacles.get(ring, Callable())
+	var reserved: Rect2 = bounds_for_ring.call() if bounds_for_ring.is_valid() else Rect2()
+	var to_world := level.get_viewport().get_canvas_transform().affine_inverse()
+	check(reserved.has_point(to_world * ring._point) and reserved.has_point(to_world * (ring._point + Vector2(-15, 24))),
+			"world prompts leave the low-ammo hint and reticle readable together")
+	if bounds_for_ring.is_valid():
+		check(loadout.start_reload(), "the equipped magazine starts a reload")
+		await frames(2)
+		reserved = bounds_for_ring.call()
+		check(reserved.has_point(to_world * (ring._point + Vector2(-15, 24))),
+				"active reload feedback reserves the same label position")
+		loadout.set_ammo(slot, loadout.active_weapon().magazine_size, -1)
+		await frames(2)
+		reserved = bounds_for_ring.call()
+		check(not reserved.has_area(), "a full magazine does not reserve space around the crosshair")
+	await end_level(level)
 
 
 func _test_boss_bar() -> void:
