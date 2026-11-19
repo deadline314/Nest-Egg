@@ -64,12 +64,14 @@ func _build() -> void:
 	_name = UiKit.label("", UiKit.FS_BODY, Palette.CYAN)
 	column.add_child(_name)
 	_text = UiKit.label("", UiKit.FS_BODY, Palette.UI_TEXT)
-	_text.autowrap_mode = TextServer.AUTOWRAP_ARBITRARY
+	_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_text.visible_characters_behavior = TextServer.VC_CHARS_AFTER_SHAPING
 	_text.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	column.add_child(_text)
 	# 色散用的兩份文字（只在 noise 風格顯示）。
 	_ghost_a = _make_ghost(Color(Palette.CYAN, 0.55))
 	_ghost_b = _make_ghost(Color(Palette.MAGENTA, 0.55))
+	_text.resized.connect(_sync_ghost_width)
 
 	_frame = Control.new()
 	_frame.position = Vector2(BOX_RECT.position.x + 6.0, BOX_RECT.position.y - 8.0)
@@ -99,9 +101,10 @@ func _build() -> void:
 
 func _make_ghost(color: Color) -> Label:
 	var l := UiKit.label("", UiKit.FS_BODY, color)
-	l.autowrap_mode = TextServer.AUTOWRAP_ARBITRARY
+	l.autowrap_mode = _text.autowrap_mode
+	l.visible_characters_behavior = _text.visible_characters_behavior
 	l.visible = false
-	l.size = Vector2(BOX_RECT.size.x - PORTRAIT_SIZE - 40.0, 40)
+	l.size = Vector2(_text.size.x, 40)
 	add_child(l)
 	return l
 
@@ -117,9 +120,11 @@ func show_line(speaker: Dictionary, text: String, style := "normal") -> void:
 	_name.add_theme_color_override(&"font_color", Color(str(speaker.get("color", "#35e0ff"))))
 	_portrait.texture = RigLibrary.optional_texture(str(speaker.get("portrait", "")))
 	_frame.visible = _portrait.texture != null
+	_text.language = Story.language
 	_text.text = text
 	_text.add_theme_color_override(&"font_color", _text_color())
 	for ghost in [_ghost_a, _ghost_b]:
+		ghost.language = _text.language
 		ghost.text = text
 		ghost.visible = _style == "noise"
 	_total = text.length()
@@ -238,9 +243,12 @@ func layout_safe_rect(rect: Rect2) -> void:
 		_frame.modulate.a = 1.0
 	_layout_portrait()
 	_continue.position = _box_rect.end - Vector2(28, 18)
-	for ghost in [_ghost_a, _ghost_b]:
-		ghost.size.x = maxf(0, _box_rect.size.x - PORTRAIT_SIZE - 40)
 	_apply_style_motion()
+
+
+func _sync_ghost_width() -> void:
+	_ghost_a.size.x = _text.size.x
+	_ghost_b.size.x = _text.size.x
 
 
 func _layout_portrait() -> void:

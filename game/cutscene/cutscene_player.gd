@@ -305,7 +305,8 @@ func _build_ui() -> void:
 	_center_text.set_anchors_preset(Control.PRESET_FULL_RECT)
 	_center_text.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	_center_text.offset_top = -12
-	_center_text.autowrap_mode = TextServer.AUTOWRAP_ARBITRARY
+	_center_text.language = Story.language
+	_center_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_center_text.modulate.a = 0.0
 	_root.add_child(_center_text)
 	_center_sub = UiKit.label("", UiKit.FS_BODY, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_CENTER)
@@ -316,7 +317,7 @@ func _build_ui() -> void:
 	_root.add_child(_center_sub)
 	_dialogue = CutsceneDialogue.new()
 	_root.add_child(_dialogue)
-	_skip_hint = UiKit.label(InputBindings.format("{ui_cancel} 跳過"), UiKit.FS_BODY, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_RIGHT)
+	_skip_hint = UiKit.label(UiKit.cinematic_skip_hint(Story.language), UiKit.FS_BODY, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_RIGHT)
 	_skip_hint.set_anchors_preset(Control.PRESET_TOP_RIGHT)
 	_skip_hint.offset_left = -110
 	_skip_hint.offset_right = -10
@@ -1085,4 +1086,4 @@ func _layout_safe_rect(rect: Rect2) -> void:
 
 func _refresh_skip_hint() -> void:
 	if is_instance_valid(_skip_hint):
-		_skip_hint.text = InputBindings.format("{ui_cancel} 跳過")
+		_skip_hint.text = UiKit.cinematic_skip_hint(Story.language)

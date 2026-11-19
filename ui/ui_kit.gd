@@ -148,6 +148,11 @@ static func tab_style(selected: bool) -> StyleBox:
 	return UiTheme.tab_box(selected)
 
 
+static func cinematic_skip_hint(language: String) -> String:
+	var copy := {"ja": "{ui_cancel} スキップ", "en": "{ui_cancel} Skip"}
+	return InputBindings.format(copy.get(language, "{ui_cancel} 跳過"))
+
+
 static func label(text: String, size := BASE_FONT_SIZE, color := Palette.UI_TEXT,
 		align := HORIZONTAL_ALIGNMENT_LEFT) -> Label:
 	var l := Label.new()

@@ -1,6 +1,7 @@
 extends RefCounted
 ## Real dialogue owners, public analog events; not physical-controller acceptance.
 static func run(s: TestSuite) -> void:
+	check_localized_presentation(s)
 	var layer := DialogueLayer.new()
 	s.runner.add_child(layer)
 	await _process_frames(s,1)
@@ -53,6 +54,22 @@ static func run(s: TestSuite) -> void:
 		player.cancel()
 	await _process_frames(s,2)
 	InputBindings.clear_held_inputs()
+
+
+static func check_localized_presentation(s: TestSuite) -> void:
+	var original_language := Story.language
+	var dialogue := CutsceneDialogue.new()
+	s.runner.add_child(dialogue)
+	for row: Array in [["zh", "跳過"], ["ja", "スキップ"], ["en", "Skip"]]:
+		Story.language = row[0]
+		dialogue.show_line({"name": "Speaker"}, "Skydome keeps its name together.", "noise")
+		s.check(UiKit.cinematic_skip_hint(Story.language).ends_with(row[1]), "cutscene skip hint follows %s" % Story.language)
+		for label: Label in [dialogue._text, dialogue._ghost_a, dialogue._ghost_b]:
+			s.check(label.autowrap_mode == TextServer.AUTOWRAP_WORD_SMART and label.language == Story.language
+				and label.visible_characters_behavior == TextServer.VC_CHARS_AFTER_SHAPING,
+				"each subtitle layer wraps with the selected language")
+	Story.language = original_language
+	dialogue.free()
 
 static func _axis(value: float) -> void:
 	var event := InputEventJoypadMotion.new()

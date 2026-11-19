@@ -127,6 +127,7 @@ func start_cinematic(id: StringName, lines: Array[Dictionary]) -> void:
 	Fx.reset_time()
 	_cinematic_root.visible = true
 	_radio_root.visible = false
+	_refresh_skip_hint()
 	_show_line()
 
 
@@ -383,7 +384,7 @@ func _build_cinematic() -> void:
 	_dialogue_panel.add_theme_stylebox_override(&"panel", DialogueMaterial.panel("dialogue"))
 	_dialogue_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_cinematic_root.add_child(_dialogue_panel)
-	_skip = UiKit.label(InputBindings.format("{ui_cancel} 跳過"), UiKit.FS_BODY, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_RIGHT)
+	_skip = UiKit.label(UiKit.cinematic_skip_hint(Story.language), UiKit.FS_BODY, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_RIGHT)
 	_cinematic_root.add_child(_skip)
 	_name_plate = Panel.new()
 	_name_plate.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -535,7 +536,7 @@ func _display_changed() -> void:
 
 
 func _refresh_skip_hint() -> void:
-	_skip.text = InputBindings.format("{ui_cancel} 跳過")
+	_skip.text = UiKit.cinematic_skip_hint(Story.language)
 	_continue.text = InputBindings.format("{ui_accept} 繼續")
 	if _radio_continue != null:
 		_radio_continue.text = InputBindings.format("{ui_accept} 繼續")
