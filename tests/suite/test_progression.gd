@@ -485,9 +485,16 @@ func _test_loadout_tuning() -> void:
 	var snapshot := loadout.snapshot()
 	check((snapshot["weapons"] as Array).has(RIFLE_PATH), "snapshot stores the base weapon path")
 	var restored := Loadout.new()
-	restored.restore(snapshot, load(PISTOL_PATH) as WeaponData)
-	check(restored.weapon_in(restored.find_slot(rifle.id)).magazine_size == tuned_size, "restored loadout re-applies upgrades")
-	check(WeaponTuning.base_of(restored.weapon_in(restored.find_slot(rifle.id))) == rifle, "restored loadout still knows the base weapon")
+	var pistol := load(PISTOL_PATH) as WeaponData
+	restored.restore(snapshot, pistol)
+	var restored_slot := restored.find_slot(rifle.id)
+	check(restored.weapon_in(restored_slot).magazine_size == tuned_size, "restored loadout re-applies upgrades")
+	check(WeaponTuning.base_of(restored.weapon_in(restored_slot)) == rifle, "restored loadout still knows the base weapon")
+	for saved_rounds: int in [tuned_size, tuned_size - 2, tuned_size + 25, 3, -5]:
+		snapshot["mag"][slot] = saved_rounds
+		restored.restore(snapshot, pistol)
+		check(restored.mag_in(restored_slot) == clampi(saved_rounds, 0, tuned_size),
+				"magazine round trip uses the tuned capacity (saved %d, restored %d)" % [saved_rounds, restored.mag_in(restored_slot)])
 	# 撿到同款武器（補彈）不會丟掉改裝。
 	loadout.equip(rifle)
 	check(loadout.weapon_in(loadout.find_slot(rifle.id)).magazine_size == tuned_size, "picking up the same weapon keeps the upgrade")

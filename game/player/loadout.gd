@@ -268,7 +268,7 @@ func restore(data: Dictionary, default_primary: WeaponData) -> void:
 			_apply_legacy_ammo(slot, int(legacy[i]))
 		else:
 			if i < mags.size():
-				_mag[slot] = clampi(int(mags[i]), 0, weapon.magazine_size)
+				_mag[slot] = clampi(int(mags[i]), 0, _weapons[slot].magazine_size)
 			if i < reserves.size():
 				_reserve[slot] = -1 if weapon.has_infinite_reserve() else clampi(int(reserves[i]), 0, weapon.max_reserve)
 	if _weapons.is_empty() or (default_primary != null and _bases[0] != default_primary and find_slot(default_primary.id) < 0):
