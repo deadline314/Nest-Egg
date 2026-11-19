@@ -45,6 +45,7 @@ RES = {
     'ⓖ': 'res://data/npcs/ch1_label_guitar.tres',
     'ⓡ': 'res://data/npcs/ch1_label_raincoat.tres',
     'ⓕ': 'res://data/npcs/ch1_label_fare.tres',
+    '⒰': 'res://data/npcs/ch1_umbrella_stand.tres',
     'ⓥ': 'res://data/npcs/ch1_lamp_voice.tres',
     # 序章（ST-16）：試貨區的老 K、住宅目錄與復原服務單；訓練站見 TRAINING
     'ⓚ': 'res://data/npcs/ch1_old_k_prologue.tres',
@@ -602,7 +603,7 @@ def pawnshop_shell(a):
     a.prop('pawnshop_front__pawn_sign', 64, y=11)
     a.prop('pawnshop_front__leak_bucket', 69)
     a.prop('pawnshop_front__crate_pile', 72)
-    a.prop('harbor_street__umbrella_stand', 76)
+    a.prop('harbor_street__umbrella_stand', 79)
     for x in (36, 46, 56, 66, 74):
         a.lamp(x, 11)
     a.platform(12, 17, 16)
@@ -639,6 +640,7 @@ def build_pawnshop():
     a.stand(71, 't')
     a.stand(67, 'c')
     a.stand(74, 'F')
+    a.stand(79, '⒰')
     # 後空地（教學）x=1～30
     # BG-22：移動、跳、射擊、近戰、格擋、衝刺都在序章練過；後空地只留序章沒教的換彈與落下平台。
     a.hint(28, '換彈按 {reload}；從單向平台落下要按住 {move_down} 再按 {jump}。')
@@ -1192,6 +1194,8 @@ NPCS = {
                                talks=[('ch1_dispatch_label_raincoat', 0)]),
     'ch1_label_fare': dict(name='船錢罐的標籤', speaker='label', rig='', loop='', facing=1, kind=1, prompt='{interact} 讀船錢罐的標籤',
                            talks=[('ch1_dispatch_label_fare', 0)]),
+    'ch1_umbrella_stand': dict(name='傘桶', speaker='label', rig='', loop='', facing=1, kind=1, prompt='{interact} 看傘桶',
+                               talks=[('ch1_t_umbrella_stand', 0), ('ch1_t_umbrella_stand_revisit', 1)]),
     # 序章：老 K 在店後的櫃台邊等你試完；住宅目錄與服務單是自願閱讀的紙本。
     'ch1_old_k_prologue': dict(name='老 K', speaker='old_k', rig='old_k', loop='wipe_hands', facing=1, prompt='{interact} 和老 K 說話',
                                talks=[('ch1_dispatch_prologue_old_k', 0)], spawn_unless_flag='ch1_prologue_jump_done'),

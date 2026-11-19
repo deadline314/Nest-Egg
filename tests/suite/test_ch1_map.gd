@@ -37,6 +37,7 @@ func run() -> void:
 	_test_data()
 	_test_props()
 	_test_portals()
+	_test_pawnshop_umbrella_stand()
 	_test_roster()
 	_test_entry_distance_contract()
 	_test_encounters()
@@ -77,6 +78,28 @@ func _test_street_landing_hint() -> void:
 	check(street.hints.any(func(hint: Dictionary) -> bool:
 		return hint["position"] == Vector2(1912, 512) and hint["text"] == "往斜下方瞄準，先看清落點。"),
 			"the street teaches how to see the landing before the first large terrace drop")
+
+
+func _test_pawnshop_umbrella_stand() -> void:
+	var objects := _layouts["pawnshop"].spawns.filter(func(spawn: Dictionary) -> bool:
+			return spawn["resource"] is NpcData and spawn["resource"].id == &"ch1_umbrella_stand")
+	check(objects.size() == 1, "the real pawnshop has one inspectable umbrella stand")
+	if objects.size() != 1:
+		return
+	var stand: Dictionary = objects[0]
+	var stand_cell: Vector2i = stand["cell"]
+	var fixture: NpcData = stand["resource"]
+	var front := _portals_of("pawnshop").filter(func(spawn: Dictionary) -> bool: return spawn["resource"].id == &"pawn_front").front() as Dictionary
+	var door: PortalData = front["resource"]
+	var door_cell: Vector2i = front["cell"]
+	var door_half_reach := (door.width + Player.BODY_SIZE.x) * 0.5
+	check(absf(stand_cell.x - door_cell.x) * TILE > NpcActor.INTERACT_RANGE + door_half_reach,
+			"reading the umbrella stand and using the front door have separate interaction ranges")
+	check(_datas["pawnshop"].load_props().any(func(prop: Dictionary) -> bool:
+			return prop["id"] == "harbor_street__umbrella_stand" and int(prop["x"]) == stand_cell.x),
+			"the interaction marker is attached to the existing umbrella stand art")
+	check(fixture.kind == NpcData.Kind.OBJECT and fixture.talks.size() == 2 and fixture.talks[1].min_talks == 1,
+			"the umbrella stand offers the authored introduction then a short revisit")
 
 
 # ---------------------------------------------------------------------------

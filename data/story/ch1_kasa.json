@@ -7134,6 +7134,36 @@
     "equals": true
    }
   },
+  "ch1_t_umbrella_stand": {
+   "mode": "radio",
+   "lines": [
+    {
+     "speaker": "old_k",
+     "text": "禾住過這裡，這桶傘是她留的。她用老港話叫傘 kasa。",
+     "ja": "昔ここに住んでいた禾が残した傘立てだよ。禾は傘を「かさ」と呼んでた。港の古い言葉だ。",
+     "en": "Rye lived here and left this stand. She called umbrellas kasa, the old harbor word."
+    },
+    {
+     "speaker": "rin",
+     "text": "我用不到傘，先放在這裡。",
+     "ja": "傘はいらない。ここに置いておこう。",
+     "en": "I don't need an umbrella. I'll leave it here."
+    }
+   ],
+   "dismissible": true
+  },
+  "ch1_t_umbrella_stand_revisit": {
+   "mode": "radio",
+   "lines": [
+    {
+     "speaker": "rin",
+     "text": "我用不到傘，先放在這裡。",
+     "ja": "傘はいらない。ここに置いておこう。",
+     "en": "I don't need an umbrella. I'll leave it here."
+    }
+   ],
+   "dismissible": true
+  },
   "ch1_t_lamp_voice_prompt": {
    "mode": "animated",
    "overlay": true,

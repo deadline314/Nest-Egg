@@ -23,6 +23,7 @@ func run() -> void:
 	_test_placement()
 	await _test_conversation()
 	await _test_interaction_input()
+	await _test_pawnshop_door_and_label()
 	await _test_rewards_once()
 	await _test_checkpoint_consistency()
 	await _test_real_npcs()
@@ -558,6 +559,41 @@ func _test_interaction_input() -> void:
 	await frames(3)
 	check(npc.talk_count == count_before, "a dead player cannot start a conversation")
 	await end_level(level)
+
+
+func _test_pawnshop_door_and_label() -> void:
+	Story.auto_skip = false
+	var level := await start_level(load("res://data/levels/ch1_pawnshop.tres") as LevelData)
+	var door := level._portals.get(&"pawn_basement") as Portal
+	var label := _find_npc(level, 45)
+	var messages: Array[String] = []
+	var capture := func(message: String) -> void:
+		if message == door.data.locked_text:
+			messages.append(message)
+	EventBus.toast_requested.connect(capture)
+	level.player.global_position = door.global_position
+	await frames(6)
+	check(door.interaction_available() and label.interaction_available(), "basement and fare label overlap at the original door")
+	Input.action_press(&"interact")
+	await frames(3)
+	Input.action_release(&"interact")
+	check(messages.size() == 1 and not Story.is_cinematic_active() and not GameplayLock.is_locked(),
+			"a press at the basement shows only its locked reason")
+	Story.reset_active_presentation()
+	await frames(85)
+	messages.clear()
+	level.player.global_position = door.global_position + Vector2(19, 0)
+	await frames(6)
+	check(door.interaction_available() and label.interaction_available(), "the nearest label is still inside the door's reach")
+	Input.action_press(&"interact")
+	await frames(3)
+	Input.action_release(&"interact")
+	check(messages.is_empty() and Story.is_cinematic_active() and Story.current_presentation_context().get("source_id", "").contains("ch1_label_fare"),
+			"a press nearer the fare label starts only its conversation")
+	EventBus.toast_requested.disconnect(capture)
+	Story.reset_active_presentation()
+	await end_level(level)
+	Story.auto_skip = true
 
 
 # ---------------------------------------------------------------------------

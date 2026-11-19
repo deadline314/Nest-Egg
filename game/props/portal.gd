@@ -61,7 +61,7 @@ func _ready() -> void:
 	_prompt = WorldPrompt.new()
 	_prompt.text = data.default_prompt()
 	_prompt.radius = maxf(PROMPT_LOCKED_RADIUS, data.width * 0.5 + 24.0)
-	_prompt.reach_check = func() -> bool: return _player_in_range and _armed and data.mode == PortalData.Mode.INTERACT
+	_prompt.reach_check = func() -> bool: return interaction_available() and Story.framing.is_interaction_prompt_target(self)
 	_prompt.offset = Vector2(0, -data.height - 10.0)
 	add_child(_prompt)
 	if data.cinematic_preview_scene != &"":
@@ -73,13 +73,14 @@ func _ready() -> void:
 		if not _preview_valid:
 			push_error("[Portal] %s 的電影預告 %s 必須對應目標區域的正式intro：%s" % [data.id, data.cinematic_preview_scene, data.target_level])
 		else:
-			Story.framing.register_target(self)
 			_cinematic_notice = WorldPrompt.new()
 			_cinematic_notice.text = "前方將播放劇情。"
 			_cinematic_notice.offset = Vector2(-20, -data.height - 10)
 			_cinematic_notice.reach_check = func() -> bool:
 				return preview_available() and not _player_in_range and Story.framing.selected_target() == self
 			add_child(_cinematic_notice)
+	if data.mode == PortalData.Mode.INTERACT or _preview_valid:
+		Story.framing.register_target(self)
 	var frame_top_left := Vector2(-data.width * 0.5, -float(data.height))
 	if data.style == "ladder":
 		_art = FixtureArt.attach(self, &"ladder_segment", frame_top_left, Vector2(data.width, data.height), true)
@@ -145,9 +146,9 @@ func _physics_process(delta: float) -> void:
 	_time += delta
 	_toast_left = maxf(0.0, _toast_left - delta)
 	_rattle_left = maxf(0.0, _rattle_left - delta)
-	if _player_in_range and _armed and data.mode == PortalData.Mode.INTERACT \
+	if interaction_available() \
 			and Input.is_action_just_pressed(&"interact") and not get_tree().paused \
-			and (not _preview_valid or Story.framing.is_interaction_target(self)):
+			and Story.framing.is_interaction_target(self):
 		var player := get_tree().get_first_node_in_group(&"player") as Player
 		if player != null and not player.is_dead():
 			try_use()

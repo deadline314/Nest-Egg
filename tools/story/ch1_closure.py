@@ -218,6 +218,7 @@ def _bindings(source):
     # These are honest authoring candidates, never proof of runtime reachability.
     entries = {
         "ledger_box": ("object", "NE-240", "pawnshop locked ledger box", location("pawnshop", 53, 19), "inspect the lock without opening the ledger"),
+        "umbrella_stand": ("object", "NE-178", "pawnshop umbrella stand", location("pawnshop", 79, 19), "optional look and short revisit"),
         "pump_service": ("object", "NE-240", "warehouse pump casing switch", location("warehouse", 86, 48), "optional casing service, independent of the flood gate"),
         "dinner": ("map_scene", "ST-9/ST-16/ST-22", "P06 safe exit -> ch1_pawnshop kitchen dinner", location("pawnshop", 82, 19), "real prologue safe exit and split bubble continuation"),
         "brief": ("npc", "ST-9/ST-22", "ch1_rooftop Egret talks", location("rooftop", 54, 49), "bind complete briefing"),
@@ -676,6 +677,11 @@ def _optional(source):
     label_flags = tuple(flag(f"ch1_label_{name}_seen") for name in labels)
     source.derived_flags["ch1_labels_started"] = any_of(*label_flags)
     source.derived_flags["sq8_first_labels_done"] = all_of(*label_flags)
+    source.add("ch1_t_umbrella_stand", "O02", (
+        ("old_k", "禾住過這裡，這桶傘是她留的。她用老港話叫傘 kasa。"),
+        ("rin", "我用不到傘，先放在這裡。")), binding="umbrella_stand", mode="radio")
+    source.add("ch1_t_umbrella_stand_revisit", "O02", (("rin", "我用不到傘，先放在這裡。"),),
+               binding="umbrella_stand", mode="radio")
     source.add("ch1_t_lamp_voice_prompt", "O03", (("lamp", "耳機我還接著，你想問什麼？"),),
         binding="voice", when=all_of(flag("ch1_recording_heard"), negate(flag("ch1_lamp_voice_asked"))),
         options=(Option("ask", "問燈為什麼像錄音", "ch1_t_lamp_voice_first", "記錄相似，不替錄音者填姓名。", intent=(set_flag("ch1_voice_accepted"),)),

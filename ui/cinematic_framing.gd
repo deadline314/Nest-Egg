@@ -27,6 +27,8 @@ var _consumed_targets: Dictionary[int, bool] = {}
 var _selected: Node2D
 var _prompt_target: Node2D
 var _prompt_frame := -1
+var _interaction_target: Node2D
+var _interaction_frame := -1
 var _player: Player
 var _check_left := 0.0
 var _goal := 0.0
@@ -146,9 +148,15 @@ func interaction_started(target: Node2D) -> void:
 	_consumed_targets[target.get_instance_id()] = true
 
 
-## 只在確認輸入時選擇互動來源；戰鬥抑制預告不會取消既有交談能力。
+## 一次物理影格的互動鍵只選一次；開始交談後的可用性變化不會把同一鍵交給別人。
 func is_interaction_target(target: Node2D) -> bool:
-	return _nearest_interaction() == target
+	if not Engine.is_in_physics_frame() or not Input.is_action_just_pressed(&"interact"):
+		return _nearest_interaction() == target
+	var frame := Engine.get_physics_frames()
+	if _interaction_frame != frame:
+		_interaction_frame = frame
+		_interaction_target = _nearest_interaction()
+	return _interaction_target == target
 
 
 ## The prompts in one rendered frame share a lookup. An input press uses live availability.
@@ -165,12 +173,12 @@ func _nearest_interaction() -> Node2D:
 	if player == null:
 		return null
 	var closest: Node2D
-	var distance := NpcActor.INTERACT_RANGE + 0.01
+	var distance := INF
 	for candidate in _targets:
 		if not is_instance_valid(candidate) or not bool(candidate.call("interaction_available")):
 			continue
 		var offset := candidate.global_position - player.global_position
-		if absf(offset.y) <= VERTICAL_RANGE and absf(offset.x) < distance:
+		if (candidate is Portal or absf(offset.y) <= VERTICAL_RANGE) and absf(offset.x) < distance:
 			closest = candidate
 			distance = absf(offset.x)
 	return closest
