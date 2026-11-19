@@ -38,9 +38,11 @@ var _queue: Array[Dictionary] = []
 var _active: Array[Dictionary] = []
 var _batch_serial := 0
 var _absent_batches: Dictionary = {}
+var crosshair: Crosshair
 var _layout_frame := -1
 var _layout_entries: Array[Dictionary] = []
 var _layout_rects: Array[Rect2] = []
+var _aim_clearance_rects: Array[Rect2] = []
 var _layout_obstacles: Array[Rect2] = []
 
 
@@ -313,10 +315,32 @@ func _layout_boxes() -> void:
 		_layout_entries.append(bubble)
 		_layout_rects.append(box)
 		stack_offset[key] = lift + size.y + STACK_GAP + TAIL
+	if _layout_rects.is_empty():
+		return
 	PromptLayout.collect_obstacles_except(self, _layout_obstacles)
-	var nudges := PromptLayout.solve(_layout_rects, _layout_obstacles, STACK_GAP, camera_rect.grow(-4.0))
+	var bounds := camera_rect.grow(-4.0)
+	var nudges := PromptLayout.solve(_layout_rects, _layout_obstacles, STACK_GAP, bounds)
 	for i in _layout_entries.size():
 		_layout_entries[i]["rect"] = Rect2(_layout_rects[i].position + nudges[i], _layout_rects[i].size) if PromptLayout._fits[i] != 0 else Rect2()
+	if PromptLayout._fits.has(0) or not is_instance_valid(crosshair):
+		return
+	var aim_bounds := crosshair.prompt_obstacle_rect()
+	if not aim_bounds.has_area():
+		return
+	var overlaps := false
+	_aim_clearance_rects.clear()
+	for bubble in _layout_entries:
+		var rect: Rect2 = bubble["rect"]
+		_aim_clearance_rects.append(rect)
+		overlaps = overlaps or rect.intersects(aim_bounds)
+	if not overlaps:
+		return
+	# Use the reading rows already placed around actors, leaving the original layout when no row fits.
+	_layout_obstacles.append(aim_bounds)
+	nudges = PromptLayout.solve(_aim_clearance_rects, _layout_obstacles, STACK_GAP, bounds, true)
+	if not PromptLayout._fits.has(0):
+		for i in _layout_entries.size():
+			_layout_entries[i]["rect"] = Rect2(_aim_clearance_rects[i].position + nudges[i], _aim_clearance_rects[i].size)
 
 
 func _draw() -> void:

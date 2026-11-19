@@ -319,6 +319,7 @@ func _ready() -> void:
 
 	_bubbles = MapBubbles.new()
 	_bubbles.anchor_resolver = _bubble_anchor
+	_bubbles.crosshair = hud.crosshair
 	add_child(_bubbles)
 	Story.set_bubble_host(_bubbles)
 

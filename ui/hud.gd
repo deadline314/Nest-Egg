@@ -22,6 +22,7 @@ const HOLD_RULES: Array[String] = [
 ]
 
 var vitals_tag: VitalsTag
+var crosshair: Crosshair
 var ammo_ring: AmmoRing
 var ammo_tray: AmmoTray
 var _gauges: _Gauges
@@ -93,7 +94,8 @@ func _ready() -> void:
 	pickup_feed.size = Vector2(300, 72)
 	root.add_child(pickup_feed)
 
-	add_child(Crosshair.new())
+	crosshair = Crosshair.new()
+	add_child(crosshair)
 	ammo_ring = AmmoRing.new()
 	add_child(ammo_ring)
 	ammo_tray = AmmoTray.new()

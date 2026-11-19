@@ -10,6 +10,8 @@ const TICK_LENGTH := 5.0
 const HIT_TIME := 0.12
 const KILL_TIME := 0.28
 const DRY_TIME := 0.18
+const WEAK_MARK_END := 11.0
+const BLOCK_MARK_END := 7.0
 
 var _bound_player: WeakRef
 var _hit_left := 0.0
@@ -100,13 +102,34 @@ func _on_hit_confirmed(_world_position: Vector2, killed: bool) -> void:
 		_kill_left = KILL_TIME
 
 
+func prompt_obstacle_rect() -> Rect2:
+	if not is_visible_in_tree():
+		return Rect2()
+	var gap := _tick_gap()
+	var radius := gap + TICK_LENGTH + 1.5
+	if _weak_left > 0.0:
+		radius = maxf(radius, (gap + WEAK_MARK_END) * sqrt(0.5) + 1.0)
+	if _blocked_left > 0.0:
+		radius = maxf(radius, gap + BLOCK_MARK_END + 0.75)
+	var box := Rect2(_draw_center() - Vector2.ONE * radius, Vector2.ONE * radius * 2.0)
+	var world_box := get_viewport().get_canvas_transform().affine_inverse() * box
+	return world_box if world_box.position.is_finite() and world_box.size.is_finite() else Rect2()
+
+
+func _draw_center() -> Vector2:
+	return _screen_point + Vector2(sin(_dry_left * 80.0) * 3.0 * (_dry_left / DRY_TIME), 0.0)
+
+
+func _tick_gap() -> float:
+	return BASE_GAP + _bloom * BLOOM_GAP + 3.0 * (_kill_left / KILL_TIME)
+
+
 func _draw() -> void:
-	var p := _screen_point + Vector2(sin(_dry_left * 80.0) * 3.0 * (_dry_left / DRY_TIME), 0.0)
-	var gap := BASE_GAP + _bloom * BLOOM_GAP
+	var p := _draw_center()
+	var gap := _tick_gap()
 	var color := LightKit.glow(Palette.CYAN, 1.6)
 	if _kill_left > 0.0:
 		color = LightKit.glow(Palette.DANGER, 2.2)
-		gap += 3.0 * (_kill_left / KILL_TIME)
 	for dir: Vector2 in [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]:
 		draw_line(p + dir * gap, p + dir * (gap + TICK_LENGTH), Color(0, 0, 0, 0.6), 3.0)
 		draw_line(p + dir * gap, p + dir * (gap + TICK_LENGTH), color, 1.5)
@@ -123,9 +146,9 @@ func _draw() -> void:
 		var weak_color := Color(LightKit.glow(Palette.WARNING, 2.4), tw)
 		for dir: Vector2 in [Vector2(1, 1), Vector2(-1, 1), Vector2(1, -1), Vector2(-1, -1)]:
 			var n := dir.normalized()
-			draw_line(p + n * (gap + 1.0), p + n * (gap + 11.0), weak_color, 2.0)
+			draw_line(p + n * (gap + 1.0), p + n * (gap + WEAK_MARK_END), weak_color, 2.0)
 	if _blocked_left > 0.0:
 		var tb := _blocked_left / (HIT_TIME * 1.6)
 		var block_color := Color(0.7, 0.75, 0.82, tb)
 		for sy: float in [-1.0, 1.0]:
-			draw_line(p + Vector2(-(gap + 7.0), sy * 3.0), p + Vector2(gap + 7.0, sy * 3.0), block_color, 1.5)
+			draw_line(p + Vector2(-(gap + BLOCK_MARK_END), sy * 3.0), p + Vector2(gap + BLOCK_MARK_END, sy * 3.0), block_color, 1.5)

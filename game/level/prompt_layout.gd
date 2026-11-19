@@ -133,7 +133,7 @@ static func _insert_sorted(prompt: WorldPrompt) -> void:
 ## 純運算：rects 是各提示在原位置的矩形（已由左到右排好），obstacles 是不能蓋住的矩形。
 ## 每個提示從「原位」開始，找移動代價最小的空位：往上疊一格的代價與橫向移動同單位，
 ## 所以一般是上下錯開，遇到人物擋在上方時改成往旁邊讓開。結果是每個提示的位移（x 橫向、y 往上為負），放在 _nudges 並回傳。
-static func solve(rects: Array[Rect2], obstacles: Array[Rect2], gap := GAP, bounds := Rect2()) -> PackedVector2Array:
+static func solve(rects: Array[Rect2], obstacles: Array[Rect2], gap := GAP, bounds := Rect2(), stay_on_row := false) -> PackedVector2Array:
 	_nudges.resize(rects.size())
 	_fits.resize(rects.size())
 	_fits.fill(0)
@@ -142,7 +142,8 @@ static func solve(rects: Array[Rect2], obstacles: Array[Rect2], gap := GAP, boun
 		var rect := rects[i]
 		var best := Vector2.ZERO if bounds.has_area() else Vector2(0.0, -MAX_STACK * (rect.size.y + gap))
 		var best_cost := INF
-		for step in (MAX_STACK * 2 + 1 if bounds.has_area() else MAX_STACK + 1):
+		var rows := MAX_STACK * 2 + 1 if bounds.has_area() else MAX_STACK + 1
+		for step in (1 if stay_on_row else rows):
 			var row := int((step + 1) / 2) if bounds.has_area() else step
 			var dy := row * (rect.size.y + gap) * (1.0 if bounds.has_area() and step > 0 and step % 2 == 0 else -1.0)
 			if absf(dy) >= best_cost:

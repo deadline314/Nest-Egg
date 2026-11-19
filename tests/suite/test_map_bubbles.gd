@@ -142,6 +142,27 @@ func _test_in_level() -> void:
 	GameplayLock.release(modal_lock)
 	host._process(0.0)
 	check(host.visible and float(host._active[0]["age"]) == age, "releasing modal resumes the same bubble with its original reading time")
+	var crosshair := level.hud.crosshair
+	var aim := level.player.aim_point
+	level.player.aim_point = level.player.global_position
+	crosshair._process(0.0)
+	host._layout_boxes()
+	var reading: Rect2 = host._active[0]["rect"]
+	level.player.aim_point = reading.get_center()
+	crosshair._process(0.0)
+	host._process(0.0)
+	host._layout_boxes()
+	var moved: Rect2 = host._active[0]["rect"]
+	var mark := crosshair.prompt_obstacle_rect()
+	check(reading.has_area() and mark.has_area() and reading.intersects(mark), "aim is on the original ambient text")
+	check(moved.has_area() and not moved.intersects(mark) and is_equal_approx(moved.position.y, reading.position.y) and float(host._active[0]["age"]) == age, "ambient text clears the real reticle on the same row without spending reading time")
+	level.player.aim_point = level.player.global_position
+	crosshair._process(0.0)
+	host._process(0.0)
+	host._layout_boxes()
+	var returned: Rect2 = host._active[0]["rect"]
+	check(returned.is_equal_approx(reading), "aiming away restores the same reading position")
+	level.player.aim_point = aim
 	var guard := 0
 	while not finished.has(&"test_bubble_a") and guard < 900:
 		await frames(1)
