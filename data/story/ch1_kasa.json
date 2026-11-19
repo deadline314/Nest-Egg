@@ -565,19 +565,6 @@
    "complete_flag": "ledger_disk_obtained",
    "steps": [
     {
-     "title": "清開街道前往碼頭的路障",
-     "complete_flag": "ch1_street_route_open",
-     "location": {
-      "level": "res://data/levels/ch1_street.tres",
-      "cell": [
-       167,
-       36
-      ]
-     },
-     "title_ja": "埠頭へ続く道の障害物を排除する",
-     "title_en": "Clear the roadblocks on the way to the docks"
-    },
-    {
      "title": "擊倒看門狗，打開倉庫隔牆",
      "complete_flag": "watchdog_defeated",
      "location": {

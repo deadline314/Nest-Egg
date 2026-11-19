@@ -824,16 +824,24 @@ func _test_required_route_steps() -> void:
 	catalog.load_story_sources()
 	var quest := catalog.find("ch1_take_disk")
 	check(quest.get("completion_requires_steps", false) == true, "formal disk quest explicitly requires its route steps")
+	var bypass := {"ch1_prologue_exit": true, "ch1_dinner_done": true, "ch1_heard_brief": true, "ch1_street_route_open": false}
+	var next := QuestCatalog.current_step(quest, bypass)
+	check(next.get("complete_flag") == "watchdog_defeated" and next.get("location", {}).get("level") == "res://data/levels/ch1_warehouse.tres",
+		"bypassing the optional street fight guides the player to the real warehouse objective")
+	var at_vault := bypass.merged({"watchdog_defeated": true, "ch1_flood_gate_open": true})
+	check(QuestCatalog.status(quest, at_vault) == "active" and QuestCatalog.current_step(quest, at_vault).get("complete_flag") == "ledger_disk_obtained",
+		"bypassing the street still requires the real disk pickup")
 	var route := ["ch1_street_route_open", "watchdog_defeated", "ch1_flood_gate_open"]
 	for mask in 8:
 		var flags := {"ch1_prologue_exit": true, "ch1_dinner_done": true, "ch1_heard_brief": true, "ledger_disk_obtained": true}
 		for i in route.size():
 			flags[route[i]] = bool(mask & (1 << i))
-		var expected := "completed" if mask == 7 else "active"
+		var required_done := (mask & 6) == 6
+		var expected := "completed" if required_done else "active"
 		check(QuestCatalog.status(quest, flags) == expected, "disk possession cannot hide unfinished route mask=%d" % mask)
 		var restored: Dictionary = JSON.parse_string(JSON.stringify(flags))
 		check(QuestCatalog.status(quest, restored) == expected, "serialized flags retain exact route status mask=%d" % mask)
-		if mask != 7:
+		if not required_done:
 			var step := QuestCatalog.current_step(quest, flags)
 			check(not step.is_empty() and not QuestCatalog.flag_set(flags, step.get("complete_flag", "")), "current step remains an actual unfinished route objective mask=%d" % mask)
 			check(QuestMapState.new().target(catalog, "ch1_kasa", flags).get("id") == "ch1_take_disk", "default tracking retains the unfinished route before handoff mask=%d" % mask)
