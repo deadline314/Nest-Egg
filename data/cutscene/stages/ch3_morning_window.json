@@ -1,0 +1,37 @@
+{
+ "camera": {
+  "pos": [
+   485,
+   268
+  ],
+  "zoom": 1.15
+ },
+ "floor": 305,
+ "furniture": [
+  {
+   "id": "window_chair",
+   "kind": "seat",
+   "rect": [
+    511,
+    262,
+    48,
+    43
+   ],
+   "plane": "actor"
+  }
+ ],
+ "layers": [
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scenes/clearwater.webp",
+   "pos": [
+    0,
+    0
+   ],
+   "scale": 0.5,
+   "filter": "linear",
+   "source_width": 1536,
+   "modulate": "#ced2d4"
+  }
+ ]
+}

@@ -3932,6 +3932,40 @@
    "mode": "animated",
    "steps": [
     {
+     "do": "scene",
+     "id": "ch3_morning_window",
+     "pos": [
+      485,
+      268
+     ],
+     "zoom": 1.15,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "lin",
+     "kind": "lin",
+     "pos": [
+      412,
+      305
+     ],
+     "facing": 1,
+     "scale": 2.26,
+     "weapon": ""
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      492,
+      305
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": ""
+    },
+    {
      "do": "say",
      "speaker": "rin",
      "text": "早上先照到椅背，老 K 起來時就能看見。",
@@ -3951,9 +3985,45 @@
      "text": "這間偏晨光，上午八到十點最亮，下午有遮陰。您先試坐，不用只看我那張圖。",
      "ja": "この部屋は朝日寄りで、午前8時から10時が一番明るく、午後は日陰になります。まず座ってみてください。私の図面だけで決める必要はありません。",
      "en": "This one gets morning light, brightest from 8 to 10 a.m., with shade in the afternoon. Try sitting first, and you do not have to decide from my drawing alone."
+    },
+    {
+     "do": "move",
+     "id": "rin",
+     "to": [
+      538,
+      305
+     ],
+     "time": 0.85,
+     "then": "sit",
+     "wait": true,
+     "pose_reason": "凜試坐晨窗的椅子",
+     "pose_support": "window_chair"
+    },
+    {
+     "do": "face",
+     "id": "rin",
+     "dir": -1
+    },
+    {
+     "do": "wait",
+     "time": 1.0
+    },
+    {
+     "do": "move",
+     "id": "rin",
+     "to": [
+      508,
+      305
+     ],
+     "time": 0.55,
+     "wait": true
+    },
+    {
+     "do": "wait",
+     "time": 0.3
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "all": [
      {

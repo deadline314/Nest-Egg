@@ -580,6 +580,38 @@ ROOMS = (
      "C 晚窗量過了：這間下午最亮，夏天要用遮陽板。"),
 )
 
+MORNING_STAGE = "ch3_morning_window"
+MORNING_FLOOR = 305
+MORNING_SHOT = (485, 268, 1.15)
+
+
+def morning_window_stage() -> dict:
+    """Tie the chair and floor to the morning showroom painting at half scale."""
+    return {
+        "camera": {"pos": list(MORNING_SHOT[:2]), "zoom": MORNING_SHOT[2]},
+        "floor": MORNING_FLOOR,
+        "furniture": [{"id": "window_chair", "kind": "seat", "rect": [511, 262, 48, 43], "plane": "actor"}],
+        "layers": [
+            {"kind": "sprite", "path": "res://art/environment/scenes/clearwater.webp",
+             "pos": [0, 0], "scale": 0.5, "filter": "linear", "source_width": 1536, "modulate": "#ced2d4"},
+        ],
+    }
+
+
+def _morning_window(lines) -> list[dict]:
+    return [
+        stage_scene(MORNING_STAGE, *MORNING_SHOT, fade_in=0.25, feet=MORNING_FLOOR),
+        stage_actor("lin", "lin", 412, MORNING_FLOOR, facing=1, scale=2.26),
+        stage_actor("rin", "rin", 492, MORNING_FLOOR, facing=-1, scale=2.4),
+        *beats(*lines),
+        stage_move("rin", 538, MORNING_FLOOR, t=0.85, then="sit",
+                   pose_reason="凜試坐晨窗的椅子", pose_support="window_chair"),
+        stage_face("rin", -1),
+        stage_wait(1.0),
+        stage_move("rin", 508, MORNING_FLOOR, t=0.55),
+        stage_wait(0.3),
+    ]
+
 
 def _showroom(source: ProductionSource):
     started = flag("ch3_clearwater_tour_started")
@@ -610,7 +642,8 @@ def _showroom(source: ProductionSource):
                    _opt("leave", "先去看窗。", None, "三扇窗可以照任意順序量。")))
     source.add("ch3_t_c16_locked", "C16", (("label", "林小姐先請您到接待桌登記看房。"),), when=negate(started))
     for room, name, lines, note in ROOMS:
-        source.add(f"ch3_t_c16_{room}", "C16", lines, when=all_of(started, negate(measured[room])), mode="animated",
+        steps = _morning_window(lines) if room == "morning" else beats(*lines)
+        source.add(f"ch3_t_c16_{room}", "C16", steps=steps, when=all_of(started, negate(measured[room])), mode="animated",
                    completion=(set_flag(f"room_{room}_measured"),))
         source.add(f"ch3_t_c16_{room}_revisit", "C16", (("label", note),), when=measured[room])
     choices = tuple(
