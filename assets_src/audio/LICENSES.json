@@ -764,10 +764,11 @@
  },
  "oga_100-cc0-sfx": {
   "title": "100 CC0 SFX",
-  "author": "?",
+  "author": "rubberduck",
   "license": "CC0-1.0",
   "page": "https://opengameart.org/content/100-cc0-sfx",
   "files_used": [
+   "dishes_02.ogg",
    "glass_01.ogg",
    "glass_02.ogg",
    "glass_03.ogg",
@@ -775,6 +776,7 @@
    "glass_05.ogg"
   ],
   "outputs": [
+   "res://audio/sfx/ch2_roof_cup_01.ogg",
    "res://audio/sfx/mat_glass_01.ogg",
    "res://audio/sfx/mat_glass_02.ogg",
    "res://audio/sfx/mat_glass_03.ogg",

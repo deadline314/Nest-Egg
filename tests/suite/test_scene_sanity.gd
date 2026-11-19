@@ -524,6 +524,15 @@ func _test_real_stages() -> void:
 			(layer["pos"] as Array)[1] = float(layer["pos"][1]) - 40.0
 	var lifted_issues := SceneAudit.stage_prop_issues("ch1_dawn_noodle_stall", lifted, 1.7)
 	check(lifted_issues.size() == 1 and lifted_issues[0]["code"] == "stage_prop_floating", "a table hovering above the stage floor is reported: %s" % [lifted_issues])
+	var roof := StageLibrary.definition(&"ch2_rooftop_tea")
+	check(SceneAudit.stage_prop_issues("ch2_rooftop_tea", roof, 2.2).is_empty(),
+			"the cropped tea set uses the five measured rooftop furnishings")
+	var missing_support := roof.duplicate(true)
+	for layer: Dictionary in missing_support["layers"]:
+		if layer.get("id") == "rin_roof_cup":
+			layer["furniture_ref"] = "missing"
+	check(_codes(SceneAudit.stage_prop_issues("ch2_rooftop_tea", missing_support, 2.2)).has("stage_furniture_reference"),
+			"a cropped cup with an unknown furniture reference is still audited")
 	for issue in issues:
 		check(false, "stage sanity: %s" % SceneAudit.describe(issue))
 	check(issues.is_empty(), "every animated scene keeps actors on the stage floor and the same size")

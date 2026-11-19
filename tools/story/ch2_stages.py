@@ -19,6 +19,7 @@ import medic_transport_staging
 import booth_return_staging
 import market_pass_staging
 import roof_watcher_staging
+import roof_tea_staging
 from build_ch1_story import actor as stage_actor, stage as stage_scene
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -194,4 +195,7 @@ ROOF_WATCHER = replace(derived(
     roof_watcher_staging.STAGE, "ch1_rooftop", roof_watcher_staging.layers(),
     scale=roof_watcher_staging.SCALE, shot=roof_watcher_staging.SHOT), floor=roof_watcher_staging.FLOOR)
 
-STAGES = (LEDGER, BOOTH, COLLECTION, PAWNSHOP, RENT_WINDOW, MEDIC_LEDGER, MARKET_PASS, ROOF_WATCHER)
+ROOF_TEA = replace(derived(roof_tea_staging.STAGE, "ch1_rooftop", roof_tea_staging.layers(), scale=2.2, shot=(320, 200, 1.0)),
+                   furniture=roof_tea_staging.furniture())
+
+STAGES = (LEDGER, BOOTH, COLLECTION, PAWNSHOP, RENT_WINDOW, MEDIC_LEDGER, MARKET_PASS, ROOF_WATCHER, ROOF_TEA)

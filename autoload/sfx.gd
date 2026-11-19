@@ -333,6 +333,7 @@ var enabled := true
 ## 每個 id 的預設串流：音效庫第一個可用的檔案，沒有就是合成音。
 var _streams: Dictionary[StringName, AudioStream] = {}
 var _bank := SoundBank.new()
+var _bank_initialized := false
 ## 實驗室試聽用：音效 id → 暫時取代它的串流或一組串流（只在記憶體，不寫檔）；一組時每次播放輪流用，不連續重複。
 var _preview_streams: Dictionary[StringName, Variant] = {}
 var _players: Array[AudioStreamPlayer] = []
@@ -363,7 +364,7 @@ var dropped_count := 0
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_rng.seed = 7
-	_bank.load_bank()
+	bank()
 	for i in VOICES:
 		var player := AudioStreamPlayer.new()
 		player.bus = BUS
@@ -381,6 +382,7 @@ func _ready() -> void:
 ## 重新讀取音效庫並重建串流（啟動時與實驗室寫回資料後呼叫）。
 func reload_bank(fresh := false) -> void:
 	_bank.load_bank(SoundBank.PATH, fresh)
+	_bank_initialized = true
 	_build_streams()
 
 
@@ -396,6 +398,10 @@ func _build_streams() -> void:
 
 ## 音效庫（唯讀）：實驗室與診斷用。
 func bank() -> SoundBank:
+	# Story validates cues before this autoload is ready.
+	if not _bank_initialized:
+		_bank.load_bank()
+		_bank_initialized = true
 	return _bank
 
 
@@ -481,7 +487,7 @@ func _exit_tree() -> void:
 
 ## 是否有這個音效（資料檔引用音效時檢查用）。
 func has_sound(id: StringName) -> bool:
-	return SOUNDS.has(id) or _bank.has_files(id)
+	return SOUNDS.has(id) or bank().has_files(id)
 
 
 ## speed：射速倍率（目前射擊間隔相對基準；超頻時大於 1）。有加速變體的音效（音高不變）會依倍率選最接近的一級，沒有就用原速。

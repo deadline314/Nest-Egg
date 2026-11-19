@@ -2337,6 +2337,22 @@
     }
    ],
    "volume_db": -4.0
+  },
+  "ch2_roof_cup": {
+   "category": "foley",
+   "volume_db": -5.0,
+   "variants": [
+    {
+     "pack": "oga_100-cc0-sfx",
+     "file": "dishes_02.ogg",
+     "start": 0.045,
+     "end": 0.212,
+     "max_len": 0.167,
+     "target_db": -23.0,
+     "lowpass": 6500,
+     "fade_out_ms": 22.0
+    }
+   ]
   }
  },
  "music": {

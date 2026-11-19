@@ -176,6 +176,15 @@ static func stage_prop_issues(stage_id: String, def: Dictionary, actor_scale: fl
 		var path := str(layer.get("path", ""))
 		if not path.contains(STAGE_PROP_ART_DIR) or not ResourceLoader.exists(path):
 			continue
+		if layer.has("furniture_ref"):
+			var reference: Variant = layer["furniture_ref"]
+			var furniture: Variant = def.get("furniture", [])
+			var measured: bool = furniture is Array and furniture.any(func(entry: Variant) -> bool:
+				return entry is Dictionary and entry.get("id") == reference and StageFitAudit.furniture_rect(entry) != Rect2())
+			# Fragments of composite art are measured by the assembled furniture.
+			if reference is String and not reference.is_empty() and layer.has("region") and measured:
+				continue
+			_add(issues, WARN, "stage_furniture_reference", stage_id, "裁切擺設 %s 找不到已量測的家具 %s" % [path, reference])
 		var data_path := path.replace(STAGE_PROP_ART_DIR, STAGE_PROP_DATA_DIR).get_basename() + ".tres"
 		var prop := load(data_path) as PropData if ResourceLoader.exists(data_path) else null
 		var texture := load(path) as Texture2D

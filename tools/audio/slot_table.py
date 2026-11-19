@@ -134,6 +134,7 @@ SFX = [
     ("jump", "MOV", "跳躍", "玩家起跳", "MOV", [], {"hint": ["cloth_movement"]}),
     ("dash", "MOV", "衝刺", "玩家衝刺；切割者與回收員的突進", "MLE", ["MOV"], {"hint": ["dash_slide"]}),
     # ---- 機關與場景 ENV
+    ("ch2_roof_cup", "ENV", "屋頂茶杯落桌", "第二章結尾凜喝完把杯子放回茶箱時", "ITM", [], {"dur": [0.1, 0.9], "kw": ["dishes", "cup", "ceramic"]}),
     ("switch", "ENV", "開關", "撥動機關開關、電源開關", "MEC", [], {"hint": ["switch_lever_button"]}),
     ("gate", "ENV", "閘門", "閘門與升降梯移動", "MEC", [], {"hint": ["gate_shutter"]}),
     ("power_down", "ENV", "斷電", "區域停電、探照無人機被打下", "ELC", [], {"hint": ["emp_power_down_up"]}),

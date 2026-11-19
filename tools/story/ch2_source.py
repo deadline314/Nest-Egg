@@ -26,17 +26,18 @@ import medic_transport_staging  # noqa: E402
 import booth_return_staging  # noqa: E402
 import market_pass_staging  # noqa: E402
 import roof_watcher_staging  # noqa: E402
+import roof_tea_staging  # noqa: E402
 from ch2_stages import BOOTH, COLLECTION, LEDGER, PAWNSHOP, RENT_WINDOW, MEDIC_LEDGER, MARKET_PASS, Cast, Stage  # noqa: E402
 
-# 舞台演出：屋頂的茶沿用第一章的屋頂舞台（地面線 262、凜縮放 2.2；鷺的骨架只比凜高 3%，同舞台用同一個縮放）。
+# 屋頂使用原場景與原茶座。早晚共用同樣的站位與比例。
 # 兩人站在茶座兩側、面向對方（0.40W 與 0.60W）；接續的段落沿用同一個舞台與站位，只用很短的淡入。
-ROOF_STAGE = "ch1_rooftop"
+ROOF_STAGE = roof_tea_staging.STAGE
 ROOF_FLOOR = 262
 ROOF_SCALE = 2.2
 
 
 def _roof_cast(fade: float = 1.0) -> list[dict]:
-    return [stage_scene(ROOF_STAGE, x=320, y=200, zoom=1.0, fade_in=fade),
+    return [stage_scene(ROOF_STAGE, x=320, y=212, zoom=1.0, fade_in=fade),
             stage_actor("egret", "egret", 372, ROOF_FLOOR, facing=-1, scale=ROOF_SCALE, speaker="egret"),
             stage_actor("rin", "rin", 268, ROOF_FLOOR, facing=1, scale=ROOF_SCALE, speaker="rin")]
 
@@ -323,7 +324,7 @@ def _rooftop(source: ProductionSource):
     reframe = dict(do="camera", pos=[320, 220], zoom=1.08, time=0.55, wait=True)
     source.add("ch2_t_s22_greycoat", "S22", steps=(
         _roof_cast(0.25) + watcher_lines[:1] + roof_watcher_staging.reveal_and_retreat()
-        + _roof_cast(0.25) + watcher_lines[1:] + [reframe] + closing_lines),
+        + _roof_cast(0.25) + watcher_lines[1:] + [reframe] + closing_lines + roof_tea_staging.drink_and_set_down()),
         mode="animated", completion=(set_flag("ch2_heron_closed"), set_flag("harbor_walk_ready")))
     source.add("ch2_t_s22_revisit", "S22", (("egret", "明天別算我，週日我不接案。"),), when=flag("ch2_heron_closed"))
 

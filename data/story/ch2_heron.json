@@ -1891,10 +1891,10 @@
    "steps": [
     {
      "do": "scene",
-     "id": "ch1_rooftop",
+     "id": "ch2_rooftop_tea",
      "pos": [
       320,
-      212.3
+      212
      ],
      "zoom": 1.0,
      "fade": 1.0
@@ -1986,10 +1986,10 @@
    "steps": [
     {
      "do": "scene",
-     "id": "ch1_rooftop",
+     "id": "ch2_rooftop_tea",
      "pos": [
       320,
-      212.3
+      212
      ],
      "zoom": 1.0,
      "fade": 0.25
@@ -2081,10 +2081,10 @@
    "steps": [
     {
      "do": "scene",
-     "id": "ch1_rooftop",
+     "id": "ch2_rooftop_tea",
      "pos": [
       320,
-      212.3
+      212
      ],
      "zoom": 1.0,
      "fade": 0.25
@@ -2430,10 +2430,10 @@
    "steps": [
     {
      "do": "scene",
-     "id": "ch1_rooftop",
+     "id": "ch2_rooftop_tea",
      "pos": [
       320,
-      212.3
+      212
      ],
      "zoom": 1.0,
      "fade": 1.0
@@ -2561,10 +2561,10 @@
    "steps": [
     {
      "do": "scene",
-     "id": "ch1_rooftop",
+     "id": "ch2_rooftop_tea",
      "pos": [
       320,
-      212.3
+      212
      ],
      "zoom": 1.0,
      "fade": 0.25
@@ -2640,10 +2640,10 @@
    "steps": [
     {
      "do": "scene",
-     "id": "ch1_rooftop",
+     "id": "ch2_rooftop_tea",
      "pos": [
       320,
-      212.3
+      212
      ],
      "zoom": 1.0,
      "fade": 0.25
@@ -2701,10 +2701,10 @@
    "steps": [
     {
      "do": "scene",
-     "id": "ch1_rooftop",
+     "id": "ch2_rooftop_tea",
      "pos": [
       320,
-      212.3
+      212
      ],
      "zoom": 1.0,
      "fade": 0.25
@@ -2764,10 +2764,10 @@
    "steps": [
     {
      "do": "scene",
-     "id": "ch1_rooftop",
+     "id": "ch2_rooftop_tea",
      "pos": [
       320,
-      212.3
+      212
      ],
      "zoom": 1.0,
      "fade": 0.25
@@ -3000,10 +3000,10 @@
     },
     {
      "do": "scene",
-     "id": "ch1_rooftop",
+     "id": "ch2_rooftop_tea",
      "pos": [
       320,
-      212.3
+      212
      ],
      "zoom": 1.0,
      "fade": 0.25
@@ -3071,6 +3071,160 @@
      "text": "喝完再走，這次我真不追妳。",
      "ja": "飲み終えてから行きな。今回は本当に引き止めないからさ。",
      "en": "Finish your tea before you go. This time I really won't try to hold you back."
+    },
+    {
+     "do": "pose",
+     "id": "rin",
+     "pose": "crouch",
+     "pose_reason": "彎膝拿放在茶箱上的杯子。",
+     "pose_support": "雙腳踩在屋頂地面。"
+    },
+    {
+     "do": "wait",
+     "time": 0.44
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "time": 0.32,
+     "wait": true,
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "angle": 0.7853981633974483,
+     "to": [
+      126,
+      234
+     ],
+     "space": "prop",
+     "prop": "rin_roof_cup"
+    },
+    {
+     "do": "prop_hold",
+     "id": "rin_roof_cup",
+     "actor": "rin",
+     "hand": "front",
+     "point": [
+      126,
+      234
+     ],
+     "follow_rotation": false
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "time": 0.32,
+     "wait": true,
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "angle": 0.7853981633974483,
+     "to": [
+      280.0,
+      184.0
+     ]
+    },
+    {
+     "do": "pose",
+     "id": "rin",
+     "pose": "idle"
+    },
+    {
+     "do": "wait",
+     "time": 0.44
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "time": 0.42,
+     "wait": true,
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "angle": 0.7853981633974483,
+     "to": [
+      273.0,
+      154.0
+     ]
+    },
+    {
+     "do": "wait",
+     "time": 0.44
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "time": 0.32,
+     "wait": true,
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "angle": 0.7853981633974483,
+     "to": [
+      280.0,
+      184.0
+     ]
+    },
+    {
+     "do": "pose",
+     "id": "rin",
+     "pose": "crouch",
+     "pose_reason": "彎膝拿放在茶箱上的杯子。",
+     "pose_support": "雙腳踩在屋頂地面。"
+    },
+    {
+     "do": "wait",
+     "time": 0.44
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "time": 0.38,
+     "wait": true,
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "angle": 0.7853981633974483,
+     "to": [
+      292.56,
+      204.18
+     ]
+    },
+    {
+     "do": "prop_release",
+     "id": "rin_roof_cup"
+    },
+    {
+     "do": "sfx",
+     "id": "ch2_roof_cup",
+     "volume": -2.0
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "time": 0.3,
+     "wait": true,
+     "release": true
+    },
+    {
+     "do": "pose",
+     "id": "rin",
+     "pose": "idle"
+    },
+    {
+     "do": "wait",
+     "time": 0.44
     }
    ],
    "pose_policy": "supported",
