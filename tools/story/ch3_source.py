@@ -659,6 +659,7 @@ def _showroom(source: ProductionSource):
 # 5. 最後停在凜身上收尾。
 
 OFFICE_STAGE = "ch3_office_hall"
+OFFICE_HAND_STAGE = "ch3_ye_hand_detail"
 # 舞台座標量自 art/environment/scenes/tianqiong_corridor.webp（1536×864 縮 0.5 鋪滿，-64..704 × -36..396）：
 # 走廊地面從 y≈296 開始，凜站在 300；玻璃會議室的底框在 285～294，室內的人站在 285（底框剛好碰到鞋底）。
 # 側門在 x 521～651，門縫在左緣；玻璃牆的直框在 187、307.5、419.5，玻璃在 514 結束。
@@ -724,6 +725,17 @@ def office_stage() -> dict:
     # floors：玻璃牆後的會議室地面（舞台檢查據此判斷室內的人站在地上，不是浮空）。
     return {"camera": {"pos": list(OFFICE_SHOTS["wide"][:2]), "zoom": OFFICE_SHOTS["wide"][2]}, "floor": OFFICE_FLOOR,
             "floors": [OFFICE_INSIDE], "layers": layers}
+
+
+def office_hand_stage() -> dict:
+    """選擇看清名字時，插入從等候臺讀見的手背細節。"""
+    return {"camera": {"pos": [320, 180], "zoom": 1.0}, "layers": [
+        {"kind": "gradient", "top": "#19232b", "bottom": "#313a3e", "parallax": 0.0},
+        {"kind": "sprite", "path": "res://art/environment/scenes/tianqiong_corridor.webp",
+         "pos": [-64, -36.0], "scale": 0.5, "filter": "linear", "source_width": 1536, "modulate": "#55646f"},
+        {"kind": "sprite", "path": "res://art/environment/stages/ch3_ye_handwriting.png", "pos": [360, 143],
+         "scale": 2 / 3, "filter": "linear", "source_width": 900, "centered": True},
+    ]}
 
 
 def _cut(shot: str, fade: float = 0.0) -> dict:
@@ -808,7 +820,7 @@ def _office(source: ProductionSource):
                    _opt("leave", "先退回樣品房。", None, "之後可以再來。")))
 
     def read_name(last_line):
-        return [*_shot("ye", "old_k", "ye", "rin", fade=0.25, rin_pose="listen", ye_loop="read_note"),
+        return [stage_scene(OFFICE_HAND_STAGE, fade_in=0.25),
                 *say_(("label", "葉的手背上寫著一行字：「他叫阿翰。你愛他。」")),
                 *_shot("rin", "old_k", "ye", "rin", rin_pose="listen"),
                 *say_(("rin", "她把一個名字寫在身上，像怕它不見。"), ("rin", last_line))]

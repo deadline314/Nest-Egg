@@ -4990,54 +4990,13 @@
    "steps": [
     {
      "do": "scene",
-     "id": "ch3_office_hall",
+     "id": "ch3_ye_hand_detail",
      "pos": [
-      300,
-      250
+      320,
+      180
      ],
-     "zoom": 1.2,
+     "zoom": 1.0,
      "fade": 0.25
-    },
-    {
-     "do": "actor",
-     "id": "old_k",
-     "kind": "old_k",
-     "pos": [
-      245,
-      285
-     ],
-     "facing": 1,
-     "scale": 2.4,
-     "weapon": "",
-     "speaker": "old_k"
-    },
-    {
-     "do": "actor",
-     "id": "ye",
-     "kind": "ye",
-     "pos": [
-      360,
-      285
-     ],
-     "facing": -1,
-     "scale": 2.4,
-     "weapon": "",
-     "speaker": "ye",
-     "loop": "read_note"
-    },
-    {
-     "do": "actor",
-     "id": "rin",
-     "kind": "rin",
-     "pos": [
-      595,
-      300
-     ],
-     "facing": -1,
-     "scale": 2.95,
-     "weapon": "",
-     "speaker": "rin",
-     "pose": "listen"
     },
     {
      "do": "say",
@@ -5144,54 +5103,13 @@
    "steps": [
     {
      "do": "scene",
-     "id": "ch3_office_hall",
+     "id": "ch3_ye_hand_detail",
      "pos": [
-      300,
-      250
+      320,
+      180
      ],
-     "zoom": 1.2,
+     "zoom": 1.0,
      "fade": 0.25
-    },
-    {
-     "do": "actor",
-     "id": "old_k",
-     "kind": "old_k",
-     "pos": [
-      245,
-      285
-     ],
-     "facing": 1,
-     "scale": 2.4,
-     "weapon": "",
-     "speaker": "old_k"
-    },
-    {
-     "do": "actor",
-     "id": "ye",
-     "kind": "ye",
-     "pos": [
-      360,
-      285
-     ],
-     "facing": -1,
-     "scale": 2.4,
-     "weapon": "",
-     "speaker": "ye",
-     "loop": "read_note"
-    },
-    {
-     "do": "actor",
-     "id": "rin",
-     "kind": "rin",
-     "pos": [
-      595,
-      300
-     ],
-     "facing": -1,
-     "scale": 2.95,
-     "weapon": "",
-     "speaker": "rin",
-     "pose": "listen"
     },
     {
      "do": "say",

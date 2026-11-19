@@ -36,8 +36,12 @@ def spec() -> ChapterSpec:
 
 
 def write_stages():
-    """本章自己的過場舞台（辦公接待廊、診所公開櫃檯）。格式同第一章的 write_stage：縮排 1、結尾換行。"""
-    for stage_id, stage in ((ch3_source.OFFICE_STAGE, ch3_source.office_stage()), (ch3_source.CLINIC_STAGE, ch3_source.clinic_stage())):
+    """本章自己的過場舞台（辦公接待廊、葉的手背、診所公開櫃檯）。格式同第一章的 write_stage：縮排 1、結尾換行。"""
+    for stage_id, stage in (
+        (ch3_source.OFFICE_STAGE, ch3_source.office_stage()),
+        (ch3_source.OFFICE_HAND_STAGE, ch3_source.office_hand_stage()),
+        (ch3_source.CLINIC_STAGE, ch3_source.clinic_stage()),
+    ):
         path = STAGE_DIR / f"{stage_id}.json"
         path.write_text(json.dumps(stage, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
 

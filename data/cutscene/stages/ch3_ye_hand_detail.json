@@ -1,0 +1,41 @@
+{
+ "camera": {
+  "pos": [
+   320,
+   180
+  ],
+  "zoom": 1.0
+ },
+ "layers": [
+  {
+   "kind": "gradient",
+   "top": "#19232b",
+   "bottom": "#313a3e",
+   "parallax": 0.0
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scenes/tianqiong_corridor.webp",
+   "pos": [
+    -64,
+    -36.0
+   ],
+   "scale": 0.5,
+   "filter": "linear",
+   "source_width": 1536,
+   "modulate": "#55646f"
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/stages/ch3_ye_handwriting.png",
+   "pos": [
+    360,
+    143
+   ],
+   "scale": 0.6666666666666666,
+   "filter": "linear",
+   "source_width": 900,
+   "centered": true
+  }
+ ]
+}
