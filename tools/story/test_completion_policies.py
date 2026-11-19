@@ -26,8 +26,16 @@ class CompletionPolicies(unittest.TestCase):
                     with self.subTest(resource=resource.name, scene=ident):
                         self.assertIs(scene.get("map_interaction"), True)
                     found.add(ident)
-        self.assertTrue({"ch1_p02_talk", "ch1_p04_fall", "ch1_p04_dash"}.issubset(found))
+        self.assertTrue({"ch1_p02_talk", "ch1_p04_fall"}.issubset(found))
         self.assertFalse(self.scenes["ch1_p01_door"].get("map_interaction", False))
+
+    def test_dash_wrap_up_plays_on_the_way_back_to_the_counter(self):
+        scene = self.scenes["ch1_p04_dash"]
+        self.assertEqual(scene["mode"], "radio")
+        self.assertEqual([line["speaker"] for line in scene["lines"]], ["rin", "old_k"])
+        for field in ("freeze", "map_interaction", "results", "set_flags", "completion_policy", "then"):
+            with self.subTest(field=field):
+                self.assertNotIn(field, scene)
 
     def test_map_interaction_requires_a_boolean(self):
         for value in [1, "true", None, [], {}]:

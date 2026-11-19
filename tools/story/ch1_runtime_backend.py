@@ -580,7 +580,7 @@ def _stage_talks(scenes):
 
 # 重要通訊（NE-246）：教學、頭目、謎題提示與劇情通訊顯示時凍結世界、等玩家確認。
 # 只有這些一句話的隨口回應維持不暫停（死後回來的反應、清場後的一句）。
-AMBIENT_RADIO = {"ch1_g06_clear", "ch1_d_back_a", "ch1_d_back_b", "ch1_d_back_c"}
+AMBIENT_RADIO = {"ch1_p04_dash", "ch1_g06_clear", "ch1_d_back_a", "ch1_d_back_b", "ch1_d_back_c"}
 REPEATABLE_NOTICES = {"ch1_t_umbrella_stand", "ch1_t_umbrella_stand_revisit"}
 
 
