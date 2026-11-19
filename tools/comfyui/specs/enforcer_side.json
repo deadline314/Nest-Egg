@@ -395,13 +395,21 @@
           "bone": "leg_back_lower",
           "z": -4,
           "tint": 0.62,
-          "armor_order": 3
+          "armor_order": 3,
+          "offset": [
+            -1.6,
+            0.0
+          ]
         },
         {
           "name": "armor_knee",
           "bone": "leg_front_lower",
           "z": 4,
-          "armor_order": 3
+          "armor_order": 3,
+          "offset": [
+            -1.6,
+            0.0
+          ]
         }
       ]
     }
