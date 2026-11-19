@@ -15,13 +15,14 @@ const KEEP := "keep"
 const PARLEY_SPEED := 140.0
 const PARLEY_MAX_TIME := 3.5
 const DOWNED_TIME := 1.4
-## 鐵棍的畫法（暫代，角色組交付武器圖後拿掉）：從前手沿前臂方向的長度。
 const BATON_LENGTH := 24.0
+const BATON_HEIGHT := 5.0
 
 var _hooks: Dictionary = {}
 var _box: BossHoldPoint
 var _pull: BossHoldPoint
 var _lock_hits := 0
+var _baton_texture: Texture2D
 var _disarmed := false
 var _exhaust_hinted := false
 var _busy := false
@@ -37,6 +38,11 @@ func _setup_states() -> void:
 		# 已經制伏過（重新進關卡）：不再出現。
 		queue_free()
 		return
+	var baton_art: Variant = _hook("baton_art")
+	if baton_art is String and baton_art.begins_with("res://"):
+		_baton_texture = RigLibrary.optional_texture(baton_art)
+	if baton_art != "" and _baton_texture == null:
+		push_warning("[YongBoss] data/bosses/yong.json hooks.baton_art 讀不到貼圖 %s，使用線段備援。" % str(baton_art))
 	fsm.add(&"parley", _parley_tick, _parley_enter)
 	fsm.add(&"downed", _downed_tick, _downed_enter)
 	fsm.add(&"subdued", _subdued_tick, _subdued_enter)
@@ -459,7 +465,7 @@ func _lock_point() -> Vector2:
 	return hand.global_position if hand != null else global_position + Vector2(facing * 8.0, -data.body_size.y * 0.55)
 
 
-## 暫代的鐵棍：從前手沿前臂方向畫一根短棍；蓄力時棍頭發紅（紅＝要打到你）。棍子掉了就不畫。
+## 鐵棍沿前臂方向握在前手，棍頭會提示重擊蓄力。
 func _draw_overlay() -> void:
 	super._draw_overlay()
 	if _disarmed or stage == "done" or fsm.is_in(&"downed"):
@@ -471,7 +477,12 @@ func _draw_overlay() -> void:
 	var dir := (hand.global_position - forearm.global_position).normalized() if hand.global_position.distance_to(forearm.global_position) > 0.1 else Vector2(facing, 0)
 	var from := to_local(hand.global_position)
 	var to := from + dir * BATON_LENGTH
-	draw_line(from, to, Color(0.12, 0.12, 0.14), 3.0)
-	draw_line(from, to, Color(0.5, 0.52, 0.56), 1.0)
+	if _baton_texture != null:
+		draw_set_transform(from, dir.angle())
+		draw_texture_rect(_baton_texture, Rect2(0.0, -BATON_HEIGHT * 0.5, BATON_LENGTH, BATON_HEIGHT), false)
+		draw_set_transform(Vector2.ZERO)
+	else:
+		draw_line(from, to, Color(0.12, 0.12, 0.14), 3.0)
+		draw_line(from, to, Color(0.5, 0.52, 0.56), 1.0)
 	if fsm.is_in(&"windup") and StringName(_move().get("kind", &"")) == &"slam":
 		draw_circle(to, 2.5, LightKit.glow(Palette.DANGER, 2.4))

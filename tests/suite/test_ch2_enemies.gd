@@ -38,6 +38,8 @@ func _test_data() -> void:
 	BossPattern.clear_cache()
 	var pattern := BossPattern.load_for(&"yong")
 	check(pattern.errors.is_empty(), "yong's boss data loads without errors: %s" % [pattern.errors])
+	var baton := RigLibrary.optional_texture(str(pattern.hooks.get("baton_art", "")))
+	check(baton != null and baton.get_size() == Vector2(96, 20), "the configured baton texture matches the authored grip canvas")
 	for set_name in ["subdue", "subdue_revived", "disarmed", "disarmed_revived", "revived"]:
 		check(pattern.phase_sets.has(set_name), "yong has the %s phase set" % set_name)
 	check(str(pattern.phases[1]["event"]) == "choice" and is_equal_approx(float(pattern.phases[0]["until"]), 0.25), "yong's fight pauses for the choice at 25%")
@@ -73,6 +75,7 @@ func _force_move(boss: PatternBoss, id: StringName) -> void:
 func _test_slam() -> void:
 	await open_level(YONG_TILE - 3.0)
 	var yong := await _spawn_yong()
+	check(yong.get("_baton_texture") is Texture2D, "the real boss loads the configured baton texture")
 	yong.mark.stop()
 	yong.global_position.x = YONG_TILE * 16.0
 	place_player(YONG_TILE - 3.0)
