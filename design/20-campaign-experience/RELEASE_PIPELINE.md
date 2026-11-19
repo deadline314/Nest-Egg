@@ -146,3 +146,10 @@ JANUS保留原全部行為，僅移除其Enemy衍生類別的static設定欄位�
 Windows GUI release stdout可能空白，原生log核對應讀該次隔離使用者目錄的godot.log或明確指定log-file；仍保留stdout與原退出收據，不能由空stdout推定渲染器或零錯誤。桌面工具SendInput的邏輯keycode與physical_keycode須分別實測；本次P／Escape的physical都變成4194313，故只計已實際成功的選單動作，不調整遊戲的實體鍵綁定來過測。
 
 [三候選的完整證據與可重驗原件](../../pm/Nest-Egg/attachments/NE-232/candidates-2026-11-12/README.md)。
+
+
+## 2026-11-19：獨立候選包的跨章接續
+
+同一固定來源的三個 Windows 版驗證了第一章至第二章、第二章至第三章的跨版接續。每個版本在只有該 EXE 的目錄啟動。兩條路都保留舊槽，寫入新版自己的槽，恢復信用點和難度。冷開新版直接從自己的槽接續。舊版在只有新版存檔時提示用新版，退出後沒有寫入。章末測試資料的建立及自然全章通關各自留存證據。
+
+[原生跨版畫面與紀錄](../../pm/Nest-Egg/attachments/NE-232/cross-edition-2026-11-19/README.md)。
