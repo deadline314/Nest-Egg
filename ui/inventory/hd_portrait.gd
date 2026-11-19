@@ -45,6 +45,7 @@ func _ready() -> void:
 	_holder = Node2D.new()
 	_viewport.add_child(_holder)
 	_rig = CharacterRig.new()
+	_rig.use_level_lighting = false
 	_holder.add_child(_rig)
 	if not _rig.setup(character, "npc"):
 		push_error("[HdPortrait] 找不到角色骨架「%s」，立繪不顯示。" % character)

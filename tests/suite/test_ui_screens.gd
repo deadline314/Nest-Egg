@@ -436,6 +436,12 @@ func _test_hd_portrait() -> void:
 	check(viewport.canvas_item_default_texture_filter == Viewport.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_LINEAR_WITH_MIPMAPS, "the portrait is drawn with smooth filtering, not pixel-scaled")
 	var rigs := portrait.find_children("*", "CharacterRig", true, false)
 	check(rigs.size() == 1 and (rigs[0] as CharacterRig).is_valid(), "the portrait is the real character rig (the same textures as in the game)")
+	var scene_fill := LightKit.character_fill
+	LightKit.character_fill = 1.75
+	await frames(2)
+	check(not portrait._rig.use_level_lighting and is_equal_approx(portrait._rig._fill, 1.0),
+		"the isolated portrait does not inherit dark-level character fill")
+	LightKit.character_fill = scene_fill
 	portrait.size = Vector2(96, 128)
 	await frames(2)
 	check(viewport.size == Vector2i(192, 256), "resizing the portrait resizes the render target")
