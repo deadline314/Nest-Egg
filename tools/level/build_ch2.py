@@ -51,7 +51,9 @@ NPCS = {
     'ch2_hawker': dict(name='小販', speaker='hawker', rig='ch2_hawker', loop='sort_gear', facing=-1, prompt='{interact} 和小販說話',
                        talks=[('ch2_dispatch_hawker', 0)]),
     'ch2_ali_home': dict(name='阿梨', speaker='ali', rig='ali', loop='stir', facing=-1, prompt='{interact} 敲門找阿梨',
-                         talks=[('ch2_dispatch_ali_home', 0)]),
+                         talks=[('ch2_dispatch_ali_home', 0), ('ch2_t_s07_resume_wash', 0, 0, {
+                             'requires_flag': 'ch2_ali_home_visit', 'unless_flag': 'sq1_soup_practice_done',
+                         })]),
     'ch2_collection_book': dict(name='代收簿', speaker='label', kind=O, prompt='{interact} 翻裝卸間的代收簿', talks=[('ch2_dispatch_collection_book', 0)]),
     'ch2_guard': dict(name='倚著牆的守衛', speaker='label', kind=O, prompt='{interact} 查看倚著牆的守衛', talks=[('ch2_dispatch_guard', 0)]),
     'ch2_sc1_lever': dict(name='橋梯拉桿', speaker='label', kind=O, prompt='{interact} 放下通往代收處的橋梯', talks=[('ch2_dispatch_sc1', 0)]),

@@ -35,6 +35,7 @@ def spec() -> ChapterSpec:
         flag_defaults=source.flag_defaults,
         completion_policies={
             "ch2_t_s05_gate": "main_terminal_results_v1",
+            "ch2_t_s07_resume_soup": "main_terminal_results_v1",
             "ch2_t_s08_contract": "main_terminal_results_v1",
             "ch2_t_s08_collection": "main_terminal_results_v1",
             "ch2_t_s08_banyan": "main_terminal_results_v1",

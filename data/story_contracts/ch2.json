@@ -205,6 +205,69 @@
           }
         ]
       }
+    },
+    {
+      "id": "ch2_t_s07_resume_wash",
+      "source": "res://data/story/ch2_heron.json",
+      "npc": "res://data/npcs/ch2_ali_home.tres",
+      "levels": [
+        "res://data/levels/ch2_ali_home.tres"
+      ],
+      "role": "choice",
+      "rule": {
+        "default": "stop",
+        "options": [
+          {
+            "id": "left",
+            "target": "ch2_t_s07_resume_soup",
+            "flags": {}
+          },
+          {
+            "id": "stop",
+            "target": "",
+            "flags": {}
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch2_t_s07_resume_soup",
+      "source": "res://data/story/ch2_heron.json",
+      "npc": "res://data/npcs/ch2_ali_home.tres",
+      "levels": [
+        "res://data/levels/ch2_ali_home.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "flag": "ch2_ali_home_visit",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "sq1_soup_practice_done",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "sq1_soup_practice_done",
+            "value": true
+          },
+          {
+            "kind": "transaction",
+            "id": "ch2.sq1_soup"
+          }
+        ]
+      }
     }
   ]
 }

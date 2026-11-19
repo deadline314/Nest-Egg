@@ -19,6 +19,7 @@ func run() -> void:
 	Checks.check_entries(self, "chapter 2", _datas, 20)
 	Checks.check_quest_markers(self, "chapter 2", "ch2", "res://data/story/ch2_heron.json", _datas, 18)
 	_test_story_gates()
+	_test_ali_kitchen_revisit()
 	_test_ledger_install()
 	_test_street_line()
 	_test_guest_book_stage()
@@ -54,6 +55,22 @@ func _test_story_gates() -> void:
 	check(cabinet != null and cabinet.prompt_text() == "{interact} 查看帳櫃", "the cabinet prompt offers inspection even while the lock is active")
 	check(Story.validate().is_empty(), "the merged story passes validation")
 	GameState.start_new_run(GameState.difficulties[1])
+
+
+func _test_ali_kitchen_revisit() -> void:
+	var ali := load("res://data/npcs/ch2_ali_home.tres") as NpcData
+	var catalog := QuestCatalog.new()
+	catalog.load_story_sources(["res://data/story/ch2_heron.json"])
+	var quest: Dictionary = catalog.quests.filter(func(row: Dictionary) -> bool: return row["id"] == "sq1_ali_soup")[0]
+	var flags := {"ch2_market_contact_done": true, "ch2_ali_home_visit": false, "sq1_soup_practice_done": false}
+	var has_flag := func(flag: StringName) -> bool: return flags.get(String(flag), false)
+	check(ali.pick_talk(0, Story.was_seen, 0, has_flag) == 0, "Ali uses her original first visit")
+	flags["ch2_ali_home_visit"] = true
+	check(ali.pick_talk(1, Story.was_seen, 0, has_flag) == 1 and QuestCatalog.status(quest, flags) == "active",
+			"recording only the address preserves the washing interaction and active quest")
+	flags["sq1_soup_practice_done"] = true
+	check(ali.pick_talk(2, Story.was_seen, 0, has_flag) == 0 and QuestCatalog.status(quest, flags) == "completed",
+			"tasting ends the quest and leaves the original revisit")
 
 
 ## 第二章的交易收據存進存檔後讀得回來（存檔驗證認得之後章節的交易，不只第一章的七筆）；不認識的收據照樣拒絕。

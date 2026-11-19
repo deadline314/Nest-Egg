@@ -449,6 +449,7 @@ def _collection_office(source: ProductionSource):
 def _ali_home(source: ProductionSource):
     visited = flag("ch2_ali_home_visit")
     knows = flag("knows_ali_address")
+    resume_soup = all_of(visited, negate(flag("sq1_soup_practice_done")))
     source.add("ch2_t_s07_door", "S07", (
         ("ali", "你找到了，門口那把補過的傘就是我的。先把鞋底的水擦一下，好嗎？"),),
         when=negate(visited), next_scene="ch2_dispatch_s07_address", mode="animated")
@@ -473,15 +474,23 @@ def _ali_home(source: ProductionSource):
     # 洗碗是凜自己的動作（WorldPropAction 的 place）：在水龍頭下沖一隻碗，放到碗架上；放錯是放到碗架右邊還在滴水的那一頭。
     source.add("ch2_t_s07_wash_wrong", "S07", steps=[dict(do="world_action", id="ali_bowl_wet_end"), *beats(
         ("ali", "那邊還滴水，換到左邊就好。"))], mode="animated", next_scene="ch2_t_s07_wash")
-    source.add("ch2_t_s07_soup", "S07", steps=[dict(do="world_action", id="ali_bowl_rack"), *beats(
+    soup_steps = [dict(do="world_action", id="ali_bowl_rack"), *beats(
         ("rin", "這鍋放的梨比昨晚多。"),
         ("ali", "我在試能煮一整晚的湯，梨嬸以前就是這樣教我的。她在梨攤邊撿到我，所以我叫阿梨。"),
         ("rin", "攤子準備叫什麼？"),
         ("ali", "名字還沒想好，我先想每天要給人吃什麼。"),
         ("rin", "我可以把攤租先付了。"),
         ("ali", "你先替我把錯的帳找出來。要不要租，我會自己簽，不用你替我答應。"),
-        ("rin", "那你簽，我記要用的東西。"))],
-        mode="animated", completion=(set_flag("ch2_ali_home_visit"), set_flag("sq1_soup_practice_done"), transaction("ch2.sq1_soup")))
+        ("rin", "那你簽，我記要用的東西。"))]
+    soup_reward = (set_flag("sq1_soup_practice_done"), transaction("ch2.sq1_soup"))
+    source.add("ch2_t_s07_soup", "S07", steps=soup_steps, mode="animated",
+               completion=(set_flag("ch2_ali_home_visit"), *soup_reward))
+    source.add("ch2_t_s07_resume_wash", "S07", (("ali", "湯還熱著。沖過的碗放到左邊乾架，再來試湯。"),),
+               when=resume_soup, options=(
+                   _opt("left", "放到左邊的乾燥架。", "ch2_t_s07_resume_soup", "左邊是乾的。"),
+                   _opt("stop", "先不洗了，下次再來。", None, "地址記下了，試湯留到下次。")))
+    source.add("ch2_t_s07_resume_soup", "S07", steps=soup_steps, when=resume_soup,
+               mode="animated", completion=soup_reward)
     source.add("ch2_t_s07_revisit", "S07", (("ali", "碗放左邊就好，今天我先試湯，不收新的攤租。"),), when=visited)
 
 
@@ -1014,8 +1023,8 @@ def _quests(source: ProductionSource):
         visible_flags=("ch2_egret_returned",)))
     q.append(Quest("sq1_ali_need", "side", "問出阿梨的需要", "阿梨在代收處被催帳，付錢之前可以先問她。", "二十信用點。", "ch2_ali_need_asked", (
         QuestStep("問阿梨現在需要什麼。", "ch2_ali_need_asked", "ali_market"),), visible_flags=("ch2_market_contact_done",)))
-    q.append(Quest("sq1_ali_soup", "side", "到阿梨家試湯", "阿梨邀你去後樓三樓的小廚房。", "四十信用點與一碗熱湯。", "ch2_ali_home_visit", (
-        QuestStep("走後樓外梯，敲阿梨的門。", "ch2_ali_home_visit", "ali_home"),), visible_flags=("ch2_market_contact_done",)))
+    q.append(Quest("sq1_ali_soup", "side", "到阿梨家試湯", "阿梨邀你去後樓三樓的小廚房。", "四十信用點與一碗熱湯。", "sq1_soup_practice_done", (
+        QuestStep("到阿梨家洗碗、試湯。", "sq1_soup_practice_done", "ali_home"),), visible_flags=("ch2_market_contact_done",)))
     q.append(Quest("sq1_ali_ledger", "side", "把錯帳交她決定", "帳櫃裡有阿梨那一頁，錯加的六十要由她自己決定怎麼處理。", "四十信用點。", "sq1_ledger_delivered", (
         QuestStep("把阿梨的帳頁交給她。", "sq1_ledger_delivered", "ali_lounge"),), visible_flags=("ch2_audit_submitted",)))
     q.append(Quest("sq1_guest_book", "side", "看阿梨的客人簿", "阿梨今晚有三位客人，你可以看她怎麼工作。", "每位客人二十信用點，收本再四十。", "guest_book_completed", (

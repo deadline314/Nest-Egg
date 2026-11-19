@@ -16,7 +16,7 @@ class StoryContracts(unittest.TestCase):
         self.chapter = compile_chapter(spec())
 
     def test_original_contracts_are_complete_and_generated_unchanged(self):
-        self.assertEqual(len(self.records),51)
+        self.assertEqual(len(self.records),53)
         contracts.validate_generated(self.chapter["scenes"],"res://data/story/ch2_heron.json",self.records)
 
     def test_map_hand_presentation_keeps_sealed_radio_effects(self):

@@ -1229,6 +1229,10 @@ def write_npc_files():
                 body.append(f'min_talks = {min_talks}')
             if min_deaths:
                 body.append(f'min_deaths = {min_deaths}')
+            if len(talk) > 3:
+                for key in ('requires_flag', 'unless_flag'):
+                    if key in talk[3]:
+                        body.append(f'{key} = &"{talk[3][key]}"')
             subs.append(w.sub(body))
         reaction_subs = []
         reaction_script = w.ext('res://data/scripts/npc_reaction.gd', 'Script') if REACTIONS.get(ident) else None

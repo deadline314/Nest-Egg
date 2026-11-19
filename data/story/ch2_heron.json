@@ -557,11 +557,11 @@
    "title": "到阿梨家試湯",
    "background": "阿梨邀你去後樓三樓的小廚房。",
    "reward": "四十信用點與一碗熱湯。",
-   "complete_flag": "ch2_ali_home_visit",
+   "complete_flag": "sq1_soup_practice_done",
    "steps": [
     {
-     "title": "走後樓外梯，敲阿梨的門。",
-     "complete_flag": "ch2_ali_home_visit",
+     "title": "到阿梨家洗碗、試湯。",
+     "complete_flag": "sq1_soup_practice_done",
      "location": {
       "level": "res://data/levels/ch2_ali_home.tres",
       "cell": [
@@ -569,8 +569,8 @@
        19
       ]
      },
-     "title_ja": "後棟の外階段を上り、梨の部屋のドアをノックする。",
-     "title_en": "Take the back building's outside stairs and knock on Pear's door."
+     "title_ja": "アリの家で皿を洗い、スープを味見する。",
+     "title_en": "Wash the bowls at Ali's place and taste the soup."
     }
    ],
    "visible_flags": [
@@ -5335,6 +5335,154 @@
      "id": "ch2.sq1_soup"
     }
    ]
+  },
+  "ch2_t_s07_resume_wash": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "湯還熱著。沖過的碗放到左邊乾架，再來試湯。",
+     "ja": "まだスープは温かいよ。すすいだお椀を左の乾いた棚に置いたら、味見してみて。",
+     "en": "The soup's still hot. Put the rinsed bowl on the dry rack to the left, then have a taste."
+    },
+    {
+     "do": "choice",
+     "text": "湯還熱著。沖過的碗放到左邊乾架，再來試湯。",
+     "default": "stop",
+     "options": [
+      {
+       "id": "left",
+       "text": "放到左邊的乾燥架。",
+       "explanation": "左邊是乾的。",
+       "target": "ch2_t_s07_resume_soup",
+       "ja": "左の乾燥棚に置く。",
+       "en": "Put it on the drying rack on the left.",
+       "explanation_ja": "左側は乾いている。",
+       "explanation_en": "The left rack is dry."
+      },
+      {
+       "id": "stop",
+       "text": "先不洗了，下次再來。",
+       "explanation": "地址記下了，試湯留到下次。",
+       "ja": "今は洗わず、また後で来る。",
+       "en": "Skip the washing for now and come back later.",
+       "explanation_ja": "住所はメモした。スープの試食は次回に持ち越し。",
+       "explanation_en": "The address is noted. The soup tasting waits until next time."
+      }
+     ],
+     "ja": "まだスープは温かいよ。すすいだお椀を左の乾いた棚に置いたら、味見してみて。",
+     "en": "The soup's still hot. Put the rinsed bowl on the dry rack to the left, then have a taste."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch2_ali_home_visit",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "sq1_soup_practice_done",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch2_t_s07_resume_soup": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "world_action",
+     "id": "ali_bowl_rack"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "這鍋放的梨比昨晚多。",
+     "ja": "この鍋、昨日の夜より梨が多いな。",
+     "en": "This pot has more pears in it than last night."
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "我在試能煮一整晚的湯，梨嬸以前就是這樣教我的。她在梨攤邊撿到我，所以我叫阿梨。",
+     "ja": "一晩中煮込めるスープを試してるの。梨のおばさんが、そう教えてくれたの。梨の屋台の横で拾われたから、私は梨って呼ばれてる。",
+     "en": "I'm testing a soup that can simmer all night. Auntie Pear-Stall taught me that. She found me by the pear stall, so my name is Pear."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "攤子準備叫什麼？",
+     "ja": "屋台は何て名前にするんだ？",
+     "en": "What's the stall going to be called?"
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "名字還沒想好，我先想每天要給人吃什麼。",
+     "ja": "名前はまだ決めてないの。まずは毎日、人に何を食べさせるかを考えてる。",
+     "en": "I haven't picked a name yet. First I'm working out what to feed people every day."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我可以把攤租先付了。",
+     "ja": "屋台代、先に払っておこうか。",
+     "en": "I could pay the stall rent up front."
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "你先替我把錯的帳找出來。要不要租，我會自己簽，不用你替我答應。",
+     "ja": "まず、間違ってる帳簿を探してくれない？ 借りるかどうかは、私が自分でサインする。あなたが代わりに返事しなくていいからね。",
+     "en": "First, find the wrong entries for me. Whether I rent it or not, I'll sign for it myself. You don't have to agree on my behalf."
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "那你簽，我記要用的東西。",
+     "ja": "じゃあ君がサインして。必要なものは私がメモしておく。",
+     "en": "Then you sign. I'll note what you need."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch2_ali_home_visit",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "sq1_soup_practice_done",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "sq1_soup_practice_done",
+     "value": true
+    },
+    {
+     "kind": "transaction",
+     "id": "ch2.sq1_soup"
+    }
+   ],
+   "completion_policy": "main_terminal_results_v1"
   },
   "ch2_t_s07_revisit": {
    "mode": "animated",

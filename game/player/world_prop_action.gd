@@ -34,6 +34,7 @@ var _player: WeakRef
 var _prop: WeakRef
 var _reaction: WeakRef
 var _request := 0
+var _scene: StringName
 var _spec: Dictionary
 var _sequence: Array[Dictionary] = []
 var _index := 0
@@ -71,7 +72,8 @@ static func problem(id: Variant, scene: String, overlay: Variant) -> String:
 	if not id is String or not id.is_valid_identifier() or overlay != true:
 		return "world_action requires a named action in an overlay scene"
 	var spec := definition(id)
-	if spec.is_empty() or spec.get("scene") != scene or spec.get("kind") not in ["insert", "take_paper", "turn", "support", "place"]:
+	if spec.is_empty() or (spec.get("scene") != scene and spec.get("also_scene") != scene) \
+			or spec.get("kind") not in ["insert", "take_paper", "turn", "support", "place"]:
 		return "world_action is missing or belongs to another scene"
 	var required: Array[String] = ["level", "source", "prop", "reaction"]
 	if spec["kind"] == "support":
@@ -150,6 +152,7 @@ func start(id: String, player: Player, scene: String) -> bool:
 		return _fail("world action data or player is unavailable: " + error)
 	_spec = definition(id)
 	_request = Story.current_presentation_request()
+	_scene = StringName(scene)
 	if not player.interaction.active or Story._current_cinematic != StringName(scene) or _request == 0 \
 			or player.is_dead() or player.is_on_phone() or not player.is_on_floor() or absf(player.velocity.y) > 0.1 \
 			or (player.carry != null and player.carry.is_holding()):
@@ -275,7 +278,7 @@ func before_frame(input: RigInput, delta: float) -> void:
 	var reaction := _live_reaction()
 	var source := _source.get_ref() as NpcActor if _source != null else null
 	if player == null or (reaction == null and not _without_reaction()) or not is_instance_valid(source) or not source.is_inside_tree() or source.is_queued_for_deletion() \
-			or not source._talking or not player.interaction.active or Story.current_presentation_request() != _request or Story._current_cinematic != StringName(_spec["scene"]):
+			or not source._talking or not player.interaction.active or Story.current_presentation_request() != _request or Story._current_cinematic != _scene:
 		_fail("world action owner/request retired")
 		close()
 		return
