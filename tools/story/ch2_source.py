@@ -674,13 +674,13 @@ def _return_and_audit(source: ProductionSource):
                when=all_of(negate(submitted), negate(flag("ch2_original_ledger_taken"))))
     source.add("ch2_t_s15_wait_egret", "S15", (("lamp", "先到市集電話亭等鷺，她醒了我們再一起上傳。"),),
                when=all_of(negate(submitted), flag("ch2_original_ledger_taken"), negate(returned)))
-    source.add("ch2_t_s15_upload", "S15", (
+    source.add("ch2_t_s15_upload", "S15", steps=[dict(do="world_action", id="audit_terminal_submit"), *beats(
         ("ye", "我是天穹的葉，負責這次帳務抽查。你提出的同批號副本已核對，這一期附加的二十不成立。"),
         ("rin", "另一張診所月報決定他收多少，我要看原來的。"),
         ("ye", "索引可以給你。夾層診所儲存原始月報，現場申請閱覽，這裡不能替它答。"),
         ("egret", "我們對的是市場代收，阿梨自己的舊債由她簽。這筆先結，別混成一本。"),
         ("rin", "私人那頁我留副本，不幫她銷掉。"),
-        ("terminal", "市場查核報酬二百五十信用點，第一次結算。夾層是港區與日照區之間的工作層，診所從廣場貨梯過去。")),
+        ("terminal", "市場查核報酬二百五十信用點，第一次結算。夾層是港區與日照區之間的工作層，診所從廣場貨梯過去。"))],
         when=all_of(ready, negate(submitted)), mode="animated",
         completion=(set_flag("ch2_audit_submitted"), transaction("ch2.audit_settled")))
     source.add("ch2_t_s15_revisit", "S15", (("terminal", "查核已結案。索引保存在你的筆記裡。"),), when=submitted)

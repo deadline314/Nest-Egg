@@ -10,6 +10,7 @@ extends RefCounted
 ## pose 是扶完之後人物的姿勢（例如 sit）。人物換姿勢時手跟著那根骨頭下來；演出只換姿勢與面向，旗標仍由保存成功後的結果寫入。
 ## place（拿起、沖洗、放好，ST-19）：手到擺設的 pick 點拿起一件只用來呈現的東西（texture／width／grip，例如一只碗），
 ## 繞著 pick 點做 scrub_loops 圈小動作（scrub 是橢圓半徑，往上繞；0 圈就是直接拿起），再放到 drop 點、放手。不需要擺設的反應物件，也不動任何物品。
+## press：掌心按下擺設的 button 點再收手，只呈現已啟動的互動。
 ## hand_angle（選填，度）：手掌朝向，0＝朝前平舉、正的往下彎（例如在水槽邊向下沖碗）；沒寫就是 0。
 
 const TABLE := "res://data/cutscene/world_prop_actions.json"
@@ -68,17 +69,21 @@ static func definition(id: String) -> Dictionary:
 	return value if value is Dictionary else {}
 
 
+static func is_presentation_only(id: String) -> bool:
+	return definition(id).get("kind") == "press"
+
+
 static func problem(id: Variant, scene: String, overlay: Variant) -> String:
 	if not id is String or not id.is_valid_identifier() or overlay != true:
 		return "world_action requires a named action in an overlay scene"
 	var spec := definition(id)
 	if spec.is_empty() or (spec.get("scene") != scene and spec.get("also_scene") != scene) \
-			or spec.get("kind") not in ["insert", "take_paper", "turn", "support", "place"]:
+			or spec.get("kind") not in ["insert", "take_paper", "turn", "support", "place", "press"]:
 		return "world_action is missing or belongs to another scene"
 	var required: Array[String] = ["level", "source", "prop", "reaction"]
 	if spec["kind"] == "support":
 		required = ["level", "source", "bone", "pose"]
-	elif spec["kind"] in ["place", "turn"]:
+	elif spec["kind"] in ["place", "turn", "press"]:
 		required = ["level", "source", "prop"]
 		if spec["kind"] == "turn" and spec.has("reaction"):
 			required.append("reaction")
@@ -94,6 +99,8 @@ static func problem(id: Variant, scene: String, overlay: Variant) -> String:
 	if typeof(spec.get("crouch", false)) != TYPE_BOOL:
 		return "world_action crouch must be a boolean"
 	var points: Array[String] = ["station"]
+	if spec["kind"] == "press":
+		points.append("button")
 	if spec["kind"] == "insert":
 		points.append_array(["grip", "tip"])
 		if not spec.get("texture") is String or not spec["texture"].begins_with("res://art/items/world/") or not ResourceLoader.exists(spec["texture"]):
@@ -184,6 +191,8 @@ func start(id: String, player: Player, scene: String) -> bool:
 		return _fail("world action prop is unavailable or mirrored")
 	if _spec["kind"] == "place":
 		return _start_place(player, prop)
+	if _spec["kind"] == "press" and not Rect2(Vector2.ZERO, prop.data.size).has_point(Vector2(_spec["button"][0], _spec["button"][1])):
+		return _fail("world action button is outside the authored terminal")
 	var reaction: PropReaction
 	for child in prop.get_children():
 		if child is PropReaction and String(child.reaction_id) == _spec.get("reaction", ""):
@@ -223,6 +232,8 @@ func start(id: String, player: Player, scene: String) -> bool:
 			{"id":"contact", "time":0.6}, {"id":"insert", "time":0.6}, {"id":"release", "time":0.35}]
 	elif _spec["kind"] == "turn":
 		_sequence = turn_sequence(int(_spec.get("strokes", 1)), float(_spec.get("stall", 1.0)))
+	elif _spec["kind"] == "press":
+		_sequence = [{"id": "approach"}, {"id": "press", "time": 0.42}, {"id": "release", "time": 0.32}]
 	else:
 		if not reaction._paper_shown:
 			return _fail("world action has no receipt at the outlet")
@@ -378,7 +389,7 @@ func after_frame(rig: CharacterRig) -> void:
 		_update_held(reaction, 0.0)
 	elif phase == "stow" and is_instance_valid(_paper):
 		_paper.hide()
-	elif phase == "turn":
+	elif phase in ["turn", "press"]:
 		contacts_completed += 1
 		Sfx.play(&"switch", -12.0)
 	elif phase == "recoil":
@@ -422,6 +433,7 @@ func _goal(player: Player, reaction: PropReaction) -> Vector2:
 		"insert": return reaction.contact_global(StringName(_spec["anchor"])) - Vector2(0.3, 0.0)
 		"take": return reaction.paper_tip_global()
 		"steady", "lower": return support_global()
+		"press": return _prop_point("button")
 		"pick", "lift": return _prop_point("pick")
 		"scrub": return _prop_point("pick") + _scrub_offset(clampf(_elapsed / _duration, 0.0, 1.0))
 		"place": return _prop_point("drop")
@@ -566,7 +578,7 @@ func support_global() -> Vector2:
 
 
 func _without_reaction() -> bool:
-	return _spec.get("kind") in ["support", "place"] or (_spec.get("kind") == "turn" and not _spec.has("reaction"))
+	return _spec.get("kind") in ["support", "place", "press"] or (_spec.get("kind") == "turn" and not _spec.has("reaction"))
 
 
 ## place：走到擺設前、伸手到 pick 點、拿起要呈現的東西、繞小圈、放到 drop 點、放手。

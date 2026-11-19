@@ -24,6 +24,7 @@ func run() -> void:
 	Checks.check_entries(self, "chapter 2", _datas, 20)
 	Checks.check_quest_markers(self, "chapter 2", "ch2", "res://data/story/ch2_heron.json", _datas, 18)
 	_test_story_gates()
+	_test_audit_terminal_contact()
 	_test_rooftop_check_card()
 	_test_ali_kitchen_revisit()
 	_test_ali_soup_healing()
@@ -63,6 +64,21 @@ func _test_story_gates() -> void:
 	check(cabinet != null and cabinet.prompt_text() == "{interact} 查看帳櫃", "the cabinet prompt offers inspection even while the lock is active")
 	check(Story.validate().is_empty(), "the merged story passes validation")
 	GameState.start_new_run(GameState.difficulties[1])
+
+
+func _test_audit_terminal_contact() -> void:
+	var steps: Array = Story._scenes["ch2_t_s15_upload"].get("steps", [])
+	var first: Dictionary = {} if steps.is_empty() else steps.front()
+	var action := "audit_terminal_submit"
+	var spec := WorldPropAction.definition(action)
+	var button: Array = spec.get("button", [])
+	check(first.get("id") == action and WorldPropAction.is_presentation_only(action),
+		"the original audit upload opens with an optional physical confirmation")
+	check(WorldPropAction.problem(action, "ch2_t_s15_upload", true).is_empty()
+		and not WorldPropAction.problem(action, "ch2_t_s15_revisit", true).is_empty(), "the terminal press belongs only to the first audit")
+	var terminal := load("res://data/environment/scene_props/revival_lounge/revival_lounge__commission_terminal.tres") as PropData
+	check(terminal != null and button.size() == 2 and Rect2(Vector2.ZERO, terminal.size).has_point(Vector2(button[0], button[1])),
+		"the contact lies on the real terminal image")
 
 
 func _test_rooftop_check_card() -> void:

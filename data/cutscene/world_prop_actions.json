@@ -159,6 +159,17 @@
     "strokes": 1,
     "stall": 0.35
   },
+  "audit_terminal_submit": {
+    "scene": "ch2_t_s15_upload",
+    "level": "res://data/levels/ch2_lounge_front.tres",
+    "source": "res://data/npcs/ch2_terminal.tres",
+    "prop": "revival_lounge__commission_terminal",
+    "kind": "press",
+    "station": [-5.5, 48],
+    "facing": 1,
+    "crouch": true,
+    "button": [10.2, 23.35]
+  },
   "pump_case_reset": {
     "scene": "ch1_t_pump_reset",
     "level": "res://data/levels/ch1_warehouse.tres",

@@ -102,13 +102,14 @@ func _do_world_action(step: Dictionary) -> void:
 	var player := get_tree().get_first_node_in_group(&"player") as Player
 	var action := WorldPropAction.new()
 	var id: Variant = step.get("id")
+	var presentation_only: bool = id is String and WorldPropAction.is_presentation_only(id)
 	var valid := _overlay_mode and id is String and player != null and player.interaction != null and player.interaction.active
 	if valid:
 		player._visual.clear_interaction_action()
 		valid = action.start(id, player, String(scene_id))
 	if not valid:
 		action.close()
-		_world_action_failed(action.error, action.failure_hint)
+		_world_action_failed(action.error, action.failure_hint, presentation_only)
 		return
 	player._visual.interaction_action = action
 	while _running and not skipping and not action.done and is_inside_tree():
@@ -116,10 +117,15 @@ func _do_world_action(step: Dictionary) -> void:
 	if not _running or skipping:
 		action.close()
 	elif action.failed:
-		_world_action_failed(action.error, action.failure_hint)
+		if presentation_only and is_instance_valid(player):
+			player._visual.clear_interaction_action()
+		_world_action_failed(action.error, action.failure_hint, presentation_only)
 
 
-func _world_action_failed(reason: String, hint: StringName) -> void:
+func _world_action_failed(reason: String, hint: StringName, presentation_only: bool) -> void:
+	if presentation_only:
+		push_warning("[Cutscene] %s optional world action unavailable: %s" % [_current_where, reason])
+		return
 	push_warning("[Cutscene] %s world action cancelled: %s" % [_current_where, reason])
 	Story.reset_active_presentation(&"world_action_unavailable")
 	if _running:
