@@ -87,7 +87,7 @@ func _arm_preview(part: ArmShieldPartData, owned: bool) -> PackedStringArray:
 			lines.append(_diff("擋得住的角度", "%d°" % roundi(before.block_arc_degrees()), "%d°" % roundi(after.block_arc_degrees()), owned))
 		ArmShieldPartData.Effect.CUSHION:
 			lines.append(_diff("防禦量上限", "%d" % roundi(before.guard_max()), "%d" % roundi(after.guard_max()), owned))
-			lines.append(_diff("被打穿的硬直", "%.2f 秒" % before.guard_break_stun(), "%.2f 秒" % after.guard_break_stun(), owned))
+			lines.append(_diff("破盾硬直", "%.2f\u00a0秒" % before.guard_break_stun(), "%.2f\u00a0秒" % after.guard_break_stun(), owned))
 		ArmShieldPartData.Effect.HEAT_SINK:
 			lines.append(_diff("開始回復", "%.2f 秒後" % before.guard_regen_delay(), "%.2f 秒後" % after.guard_regen_delay(), owned))
 			lines.append(_diff("回復速度", "每秒 %d" % roundi(before.guard_regen_per_second()), "每秒 %d" % roundi(after.guard_regen_per_second()), owned))
