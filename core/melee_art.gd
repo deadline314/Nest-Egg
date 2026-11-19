@@ -103,12 +103,11 @@ static func texture_rect(entry: Dictionary) -> Rect2:
 
 ## 畫在 CanvasItem 上：from 是握把位置、direction 是刃尖朝向（單位向量）；glow 是發光亮度（>1 會帶泛光，呼叫端自己限制上限）。
 ## 朝左時把圖上下對調，刃口才不會翻到上面。
-## reach 大於 0 時，鞭子的細線只畫到這個長度（垂下來不穿過地面）。
+## reach 大於 0 時裁短線段；等於 0 時只畫貼圖，由軟鞭另外繪製繩身。
 ## shade 是本體的明暗（0～1）；受光由呼叫 CanvasItem 的材質決定。
 ## 圖示可混畫，世界握持物則將 REFLECTIVE 與 EMISSION 送往各自材質。
 static func draw(item: CanvasItem, from: Vector2, direction: Vector2, weapon: WeaponData, glow := 1.4, shade := 1.0, reach := -1.0, layers := ALL_LAYERS) -> void:
 	var entry := art(weapon)
-	var xf := draw_transform(from, direction, false)
 	if not entry.is_empty():
 		var rect := texture_rect(entry)
 		var art_xf := draw_transform(from, direction)
@@ -125,6 +124,9 @@ static func draw(item: CanvasItem, from: Vector2, direction: Vector2, weapon: We
 			item.draw_polygon(_quad, _quad_color, _quad_uv, entry["glow"])
 		if weapon.melee_shape != "whip":
 			return
+	if reach == 0.0:
+		return
+	var xf := draw_transform(from, direction, false)
 	for seg in segments(weapon):
 		if (layers & (EMISSION if bool(seg["glow"]) else REFLECTIVE)) == 0:
 			continue

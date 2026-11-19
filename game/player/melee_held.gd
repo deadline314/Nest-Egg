@@ -333,7 +333,7 @@ func _draw() -> void:
 	var inverse := global_transform.affine_inverse()
 	if _weapon.melee_shape == "whip" and _whip != null and _whip.is_laid():
 		# 握把是圖；鞭身不再是一條直線，由軟鞭自己畫。
-		MeleeArt.draw(self, inverse * _origin, inverse.basis_xform(_direction).normalized(), _weapon, glow, 1.0, 0.01, MeleeArt.EMISSION)
+		MeleeArt.draw(self, inverse * _origin, inverse.basis_xform(_direction).normalized(), _weapon, glow, 1.0, 0.0, MeleeArt.EMISSION)
 		_whip.draw(self, inverse, _weapon.color, minf(glow, WHIP_GLOW_MAX))
 		return
 	MeleeArt.draw(self, inverse * _origin, inverse.basis_xform(_direction).normalized(), _weapon, glow, 1.0, _reach, MeleeArt.EMISSION)
