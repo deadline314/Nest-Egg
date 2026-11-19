@@ -85,13 +85,24 @@ jobs:
           path: work/godot-audio-safe/dist
           key: ${{ steps.engine-cache.outputs.cache-primary-key }}
 
+      - name: Set up Python for the item icon check
+        id: icon-python
+        if: steps.gate.outputs.skip != 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          update-environment: false
+
       - name: Check adopted item icons
         if: steps.gate.outputs.skip != 'true'
         timeout-minutes: 5
+        env:
+          ICON_PYTHON: ${{ steps.icon-python.outputs.python-path }}
         run: |
-          sudo apt-get update
-          sudo apt-get install -y python3-pil
-          /usr/bin/python3 tools/art/test_item_icon_ownership.py
+          "$ICON_PYTHON" -m venv "$RUNNER_TEMP/item-icon-check"
+          icon_python="$RUNNER_TEMP/item-icon-check/bin/python"
+          "$icon_python" -m pip install --only-binary=:all: "Pillow==12.2.0"
+          "$icon_python" tools/art/test_item_icon_ownership.py
 
       # 匯入快取（貼圖、音訊）：內容沒變就沿用，省下幾分鐘。
       - name: Cache the import folder
