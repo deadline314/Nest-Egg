@@ -400,7 +400,7 @@ def build_showroom():
     a.prop('clearwater__white_curtains', 45, y=12, support='wall')
     a.prop('clearwater__rain_sound_machine', 50)
     a.stand(60, 'Ⓤ')
-    a.prop('clearwater__sill_with_coin', 60)
+    a.prop('clearwater__sill_with_coin', 60, react='showroom_late_shade')
     a.prop('clearwater__plain_wall_clock', 57, y=12, support='wall')
     a.stand(76, 'ⅶ')
     for x in (12, 34, 47, 61, 72):
