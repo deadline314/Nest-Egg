@@ -364,6 +364,9 @@ func _test_loadout_switch_signal() -> void:
 
 ## 槍械與近戰（NE-157）：每把武器的射擊聲是錄音素材、有變體、彼此不共用檔案；換彈與空槍依武器類型不同；近戰出手與命中是錄音素材。
 func _test_gun_sounds() -> void:
+	for kind: StringName in [&"reload_start", &"reload_mid", &"reload_done", &"empty"]:
+		var id := WeaponSounds.name_for(&"test_weapon_without_a_profile", kind)
+		check(id == kind and Sfx.source_of(id) == &"file", "unprofiled weapons have a recorded default for %s" % kind)
 	var owners: Dictionary = {}
 	var reload_ids: Dictionary = {}
 	for file in DirAccess.get_files_at("res://data/weapons"):
