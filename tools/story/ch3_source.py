@@ -692,8 +692,13 @@ def office_stage() -> dict:
         {"kind": "gradient", "top": "#141c26", "bottom": "#222c38", "parallax": 0.0},
         # 立繪下緣在 396；全景鏡頭的下緣多露出幾個像素，用同色的地板補上。
         {"kind": "rect", "rect": [-200, 392, 1040, 160], "color": _toned((238, 238, 238))},
-        {"kind": "sprite", "path": "res://art/environment/scenes/tianqiong_corridor.webp", "pos": [-64, -36.0], "scale": 0.5,
+        {"kind": "sprite", "id": "office_desk_background",
+         "path": "res://art/environment/scenes/tianqiong_corridor.webp", "pos": [-64, -36.0], "scale": 0.5,
          "filter": "linear", "source_width": 1536, "modulate": _toned((255, 255, 255))},
+        # 支點取自立繪的桌沿，透明傘與桌沿在換鏡頭時一起移動。
+        {"kind": "sprite", "path": "res://art/environment/stages/ch3_ye_clear_umbrella.png",
+         "pos": [332, 242], "scale": 0.25, "filter": "linear", "source_width": 80,
+         "id": "ye_clear_umbrella", "parent_prop": "office_desk_background", "anchor": [792, 556], "pivot": [44, 8]},
         # 會議室裡的午後陽光；走廊這一側壓暗，偷聽的人站在暗處。
         {"kind": "glow", "pos": [250, 150], "radius": 260, "color": "#ffe6bf", "intensity": 0.7, "additive": True, "alpha": 0.2,
          "pulse": 0.05, "pulse_depth": 0.15},
@@ -763,8 +768,10 @@ def _office(source: ProductionSource):
     listened = flag("ch3_trade_listened")
     say_ = beats
     # C18：全景交代位置。凜在門外拿回執，老 K 從會議室另一頭走進來；鏡頭再推到凜身上。
+    arrival = _shot("wide", "rin", "ye", fade=1.0)
+    arrival[0]["props"] = {"ye_clear_umbrella": {"visible": False}}
     source.add("ch3_t_c18_box", "C18", steps=[
-        *_shot("wide", "rin", "ye", fade=1.0),
+        *arrival,
         stage_sfx("pickup", -10),
         *say_(("label", "取件格的回執寫著：風控接待收件，月報17查核件。")),
         stage_actor("old_k", "old_k", -60, OFFICE_INSIDE, facing=1, scale=OFFICE_CAST["old_k"][2], speaker="old_k", weapon=""),

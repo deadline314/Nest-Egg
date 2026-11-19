@@ -29,6 +29,7 @@
   },
   {
    "kind": "sprite",
+   "id": "office_desk_background",
    "path": "res://art/environment/scenes/tianqiong_corridor.webp",
    "pos": [
     -64,
@@ -38,6 +39,27 @@
    "filter": "linear",
    "source_width": 1536,
    "modulate": "#c4ccd6"
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/stages/ch3_ye_clear_umbrella.png",
+   "pos": [
+    332,
+    242
+   ],
+   "scale": 0.25,
+   "filter": "linear",
+   "source_width": 80,
+   "id": "ye_clear_umbrella",
+   "parent_prop": "office_desk_background",
+   "anchor": [
+    792,
+    556
+   ],
+   "pivot": [
+    44,
+    8
+   ]
   },
   {
    "kind": "glow",

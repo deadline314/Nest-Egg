@@ -4528,7 +4528,12 @@
       243.5
      ],
      "zoom": 0.88,
-     "fade": 1.0
+     "fade": 1.0,
+     "props": {
+      "ye_clear_umbrella": {
+       "visible": false
+      }
+     }
     },
     {
      "do": "actor",
