@@ -1,0 +1,236 @@
+{
+  "inputs": {
+    "tools/comfyui/specs/guest_chen_side.json": "59d2fc1f0d3cd39e0bc5b57fa055645060f8f68ea801f11d21b21ffad524b380",
+    "tools/comfyui/cut_layers.py": "dcc55a9e2c7f99530cb7b10b912c9eb4117af2ca8a0f834d08c1adf07cf2b0d0",
+    "tools/comfyui/registered_layers.py": "88edd3c5d6a9652c7f9604d9d80ee734868f60574784e6288c760901b645799d",
+    "tools/comfyui/crop_phase.py": "18e13fb981a487fd4ccf616910cf0392be0c15c07b237bb4a86a4976db3fade0",
+    "art_src/characters/guest_chen/base_rgba.png": "d5db7c3a6a417c8bdd4f3aa53e81e65a2fd8f589029ccc3cf7f7f7bf925e96f2",
+    "art_src/characters/guest_chen/07_refined/head.png": "beccc8337e66ce257368f95b1ed28c8862d1628d556a9813a6cc0215deb04dae"
+  },
+  "kind": "Retained portrait chin-to-collar overlap for Chen",
+  "source_generation": "art_src/characters/guest_chen/generation.json",
+  "approved_outputs": {
+    "head": "approved_head.png"
+  },
+  "native_size": [
+    174,
+    169
+  ],
+  "pivot": [
+    84.58,
+    175.6
+  ],
+  "source_changed_pixels": 2830,
+  "neck_polygon": [
+    [
+      447,
+      201
+    ],
+    [
+      463,
+      190
+    ],
+    [
+      499,
+      189
+    ],
+    [
+      542,
+      194
+    ],
+    [
+      575,
+      200
+    ],
+    [
+      573,
+      220
+    ],
+    [
+      550,
+      232
+    ],
+    [
+      538,
+      244
+    ],
+    [
+      532,
+      257
+    ],
+    [
+      514,
+      258
+    ],
+    [
+      500,
+      243
+    ],
+    [
+      486,
+      230
+    ],
+    [
+      470,
+      224
+    ],
+    [
+      451,
+      215
+    ]
+  ],
+  "fade_end_y": 257,
+  "fade_rows": 6,
+  "underlap_columns": [
+    526,
+    575
+  ],
+  "underlap_rows": [
+    [
+      219,
+      2,
+      0
+    ],
+    [
+      220,
+      5,
+      3
+    ],
+    [
+      221,
+      7,
+      3
+    ],
+    [
+      222,
+      9,
+      4
+    ],
+    [
+      223,
+      11,
+      8
+    ],
+    [
+      224,
+      14,
+      35
+    ],
+    [
+      225,
+      16,
+      23
+    ],
+    [
+      226,
+      16,
+      31
+    ],
+    [
+      227,
+      16,
+      28
+    ],
+    [
+      228,
+      16,
+      31
+    ],
+    [
+      229,
+      16,
+      33
+    ],
+    [
+      230,
+      16,
+      32
+    ],
+    [
+      231,
+      16,
+      32
+    ],
+    [
+      232,
+      16,
+      32
+    ],
+    [
+      233,
+      16,
+      33
+    ],
+    [
+      234,
+      16,
+      32
+    ],
+    [
+      235,
+      16,
+      32
+    ],
+    [
+      236,
+      16,
+      31
+    ],
+    [
+      237,
+      15,
+      30
+    ],
+    [
+      238,
+      13,
+      29
+    ],
+    [
+      239,
+      12,
+      28
+    ],
+    [
+      240,
+      10,
+      24
+    ],
+    [
+      241,
+      9,
+      21
+    ],
+    [
+      242,
+      7,
+      19
+    ],
+    [
+      243,
+      6,
+      17
+    ],
+    [
+      244,
+      4,
+      13
+    ],
+    [
+      245,
+      3,
+      11
+    ],
+    [
+      246,
+      1,
+      4
+    ]
+  ],
+  "native_png_sha256": "0fb08992bd731715e783d45e62c59c597a2adc9a07e9597cb8ee5ddcedebf763",
+  "normal_png_sha256": "05508b38174198969b6da938c8790293d9ccdafe4fd8ad391b5d2eafff6113b5",
+  "native_rgba_sha256": "1e3176d1427a242da5c2eae9d590f6b65e2380006921d2a6016469dcff7531cd",
+  "outputs": {
+    "head": "d18e854f826d092a98a6ce84446a406b4e3d0c0d658a20ba7032a3c9e29c526d"
+  }
+}
