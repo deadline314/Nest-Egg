@@ -7,7 +7,7 @@
   "description": "S13後側搬運者的灰外套；沿用原骨架、輪廓及其餘零件。",
   "textures": {
     "pelvis": {
-      "file": "../parts/pelvis.png",
+      "file": "parts/pelvis.png",
       "size": [
         239,
         210
@@ -43,7 +43,7 @@
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "leg_upper": {
-      "file": "../parts/leg_upper.png",
+      "file": "parts/leg_upper.png",
       "size": [
         211,
         366
@@ -103,7 +103,7 @@
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "hand": {
-      "file": "../parts/hand.png",
+      "file": "parts/hand.png",
       "size": [
         121,
         81

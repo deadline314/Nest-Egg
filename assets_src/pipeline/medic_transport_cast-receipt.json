@@ -75,17 +75,23 @@
     "art/motion/egret/transport.json": "a4f09a0e633fd50b1567062f1caef22343ab5235747c4db6d00e6a4bc60bd12c",
     "art/characters/ch2_greycoat/transport/character.json": "2032f60dae2691932349b3236ca0b3308c5cfca1fd810a832451e1a8c4e57c5e",
     "art/motion/ch2_greycoat/transport.json": "701cd649081c7a71071df4c8d24bf79db064f8a25dba35c28f366054f3a2f243",
-    "art/characters/ch2_medic/transport/character.json": "51b68c9e3494c2688051d9c08226235a2aeb26285f3931245f776dae15d987f6",
+    "art/characters/ch2_medic/transport/character.json": "01afcca7a18e5353d5430ebffd347416ec7b1e977cc9b71bd19b47a0f9f79963",
     "art/motion/ch2_medic/transport.json": "7b17aee8277fbd455c75b0e251484b6548b624743a500ea1382aa95a61c8b2a5"
   },
   "textures_sha256": {
     "art/characters/ch2_medic/transport/parts/torso.png": "75719dcedc3e17ddbd5c0d30d1ffe6e57af71c47e1eace8fa68547c1cd389a75",
     "art/characters/ch2_medic/transport/parts/torso_n.png": "c6ec6dd606ba2ca6e54cae3685d69829f0ec384d2d44822ef12211f98beb2e15",
+    "art/characters/ch2_medic/transport/parts/pelvis.png": "19d6ff04626c29baeaf92e69fe5be0cbdc8d41d1804fcd5f332844fb309e36b1",
+    "art/characters/ch2_medic/transport/parts/pelvis_n.png": "12a402616e349c132058a7bc343d09b58294c93c65d7c0bdf8bdc6d6b84c46d5",
+    "art/characters/ch2_medic/transport/parts/leg_upper.png": "75942a98c69e3f25adf7ac0ff70750479777acb8515b4abc676a1fb664d56b5b",
+    "art/characters/ch2_medic/transport/parts/leg_upper_n.png": "a7f71d83616266132de461e8a3a59c3b8e8bdabe7bb790f47c94a4fd2ce2e189",
     "art/characters/ch2_medic/transport/parts/arm_upper.png": "872cc286803d24f6ecfd7427a437ece52086596683f81369d8c772c07e1a2c7a",
     "art/characters/ch2_medic/transport/parts/arm_upper_n.png": "23f9a4ca059dface1aa20a3093a8384c5d316dd03221ad391d71503c2f0c20ad",
     "art/characters/ch2_medic/transport/parts/arm_lower.png": "197f0ccaa79cc482df716072c6b60bd6280bdbe84dda599898b28f2a4d472428",
-    "art/characters/ch2_medic/transport/parts/arm_lower_n.png": "fb159793ec5f51da762ccbeb526853140ca782ca0ae696e5d4b9f8e3138e7508"
+    "art/characters/ch2_medic/transport/parts/arm_lower_n.png": "fb159793ec5f51da762ccbeb526853140ca782ca0ae696e5d4b9f8e3138e7508",
+    "art/characters/ch2_medic/transport/parts/hand.png": "d35e5f84955f08282d1f099fcf0d07bf172be4d593c59657acaebd715e43bca8",
+    "art/characters/ch2_medic/transport/parts/hand_n.png": "1476bac26cb6b36874923ff40dc995acbdd0ad736ebd14983967430de915daf1"
   },
-  "human_pixels": "後側搬運者三個外套零件保留原輪廓，手、臉及其他角色沿用原零件。",
+  "human_pixels": "後側搬運者的上身、袖子、袖口與外套下襬保留原輪廓。膚色、臉及其他角色沿用原素材。",
   "kneel_source": "art/motion/rin.json"
 }

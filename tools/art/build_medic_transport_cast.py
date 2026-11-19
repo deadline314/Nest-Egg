@@ -8,7 +8,7 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[2]
 CONFIG = 'assets_src/pipeline/medic_transport_cast.json'
-COAT_PARTS = ('torso', 'arm_upper', 'arm_lower')
+COAT_PARTS = ('torso', 'pelvis', 'leg_upper', 'arm_upper', 'arm_lower', 'hand')
 
 
 def digest(payload):
@@ -122,7 +122,7 @@ def main():
         'sources': config['sources'], 'hash_policy': config['hash_policy'],
         'outputs_sha256_lf': {name: digest(payload) for name, payload in outputs.items() if name.endswith('.json')},
         'textures_sha256': {name: digest(payload) for name, payload in outputs.items() if name.endswith('.png')},
-        'human_pixels': '後側搬運者三個外套零件保留原輪廓，手、臉及其他角色沿用原零件。',
+        'human_pixels': '後側搬運者的上身、袖子、袖口與外套下襬保留原輪廓。膚色、臉及其他角色沿用原素材。',
         'kneel_source': config['kneel_source'],
     }
     path = ROOT / 'assets_src/pipeline/medic_transport_cast-receipt.json'
