@@ -37,6 +37,8 @@ var enabled := true
 ## 提示出現的條件。物件有自己的「按互動鍵有效」判斷時指定它（看到提示就一定按得動）；
 ## 沒指定就用「玩家在 radius 內」。
 var reach_check: Callable
+## 同一個互動鍵的提示只能由目前選到的物件顯示。
+var interaction_owner: Node2D
 var _alpha := 0.0
 var _font: Font
 var _player_ref: WeakRef
@@ -161,7 +163,8 @@ func is_showing() -> bool:
 
 ## Hidden for lack of space is still eligible for the next layout pass.
 func layout_requested() -> bool:
-	return enabled and visible and not _presentation_blocked() and (_alpha > 0.0 or _player_near()) and not _display_text.is_empty()
+	return enabled and visible and not _presentation_blocked() and not _display_text.is_empty() \
+			and ((_alpha > 0.0 and not _interaction_superseded()) or _player_near())
 
 
 ## 沒被推開時文字框在世界座標的矩形。
@@ -196,7 +199,7 @@ func _process(delta: float) -> void:
 	var target := 1.0 if near and _layout_allowed else 0.0
 	var previous := _alpha
 	var previous_nudge := _nudge
-	_alpha = move_toward(_alpha, target, FADE_SPEED * delta)
+	_alpha = 0.0 if not near and previous > 0.0 and _interaction_superseded() else move_toward(_alpha, target, FADE_SPEED * delta)
 	if _nudge != _nudge_target:
 		if previous <= 0.0 or Settings.get_reduce_ui_motion() or not PromptLayout.can_slide(self, _nudge_target):
 			# Pick a safe reading position before fading in; never sweep text through actors.
@@ -225,11 +228,16 @@ func _player_near() -> bool:
 	# 倒下之後死亡畫面接手；不要再對倒地的主角邀請移動、跳躍或互動。
 	if player != null and player.has_method(&"is_dead") and player.call(&"is_dead"):
 		return false
-	if reach_check.is_valid():
-		return reach_check.call()
-	if player == null:
+	var in_reach: bool = reach_check.call() if reach_check.is_valid() \
+			else player != null and player.global_position.distance_to(global_position - offset) <= radius
+	return in_reach and (not is_instance_valid(interaction_owner) or Story.framing.is_interaction_prompt_target(interaction_owner))
+
+
+func _interaction_superseded() -> bool:
+	if not is_instance_valid(interaction_owner):
 		return false
-	return player.global_position.distance_to(global_position - offset) <= radius
+	var selected := Story.framing.interaction_prompt_target()
+	return is_instance_valid(selected) and selected != interaction_owner
 
 
 func _draw() -> void:

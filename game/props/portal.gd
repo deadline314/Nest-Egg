@@ -61,7 +61,8 @@ func _ready() -> void:
 	_prompt = WorldPrompt.new()
 	_prompt.text = data.default_prompt()
 	_prompt.radius = maxf(PROMPT_LOCKED_RADIUS, data.width * 0.5 + 24.0)
-	_prompt.reach_check = func() -> bool: return interaction_available() and Story.framing.is_interaction_prompt_target(self)
+	_prompt.reach_check = interaction_available
+	_prompt.interaction_owner = self
 	_prompt.offset = Vector2(0, -data.height - 10.0)
 	add_child(_prompt)
 	if data.cinematic_preview_scene != &"":

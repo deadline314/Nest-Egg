@@ -27,6 +27,7 @@ func _ready() -> void:
 	_prompt.radius = NpcActor.INTERACT_RANGE
 	_prompt.offset = Vector2(0, -42)
 	_prompt.reach_check = interaction_available
+	_prompt.interaction_owner = self
 	add_child(_prompt)
 	Story.framing.register_target(self)
 	EventBus.player_spawned.connect(_player_spawned)

@@ -68,7 +68,8 @@ func _ready() -> void:
 	_prompt = WorldPrompt.new()
 	_prompt.text = PROMPT_FIRST
 	_prompt.radius = REACH.x * 0.5 + 6.0
-	_prompt.reach_check = can_dial
+	_prompt.reach_check = interaction_available
+	_prompt.interaction_owner = self
 	_prompt.offset = Vector2(0, -HEIGHT - 8.0)
 	add_child(_prompt)
 	Story.framing.register_target(self)

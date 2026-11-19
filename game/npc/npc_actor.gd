@@ -88,7 +88,8 @@ func _ready() -> void:
 	_prompt.text = data.prompt_text()
 	_prompt.radius = PROMPT_RADIUS
 	_prompt.offset = PROMPT_OFFSET
-	_prompt.reach_check = func() -> bool: return _prompt_available() and Story.framing.is_interaction_prompt_target(self)
+	_prompt.reach_check = _prompt_available
+	_prompt.interaction_owner = self
 	add_child(_prompt)
 	PromptLayout.add_obstacle(self, prompt_obstacle_rect)
 	var light := LightKit.create_point_light(Palette.NEON_YELLOW if data.kind == NpcData.Kind.PERSON else Palette.CYAN, 56.0, 0.35, false)

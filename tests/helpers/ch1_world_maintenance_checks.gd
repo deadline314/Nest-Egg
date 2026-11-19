@@ -139,11 +139,15 @@ static func _switch_and_pump_select_one_target(s: TestSuite) -> void:
 	Story.auto_skip = false
 	s.check(gate_switch._player_in_range and pump.interaction_available(), "the actual switch and pump interaction ranges overlap")
 	s.check(gate_switch._prompt._player_near() and not pump._prompt._player_near(), "only the gate advertises the shared key in the overlap")
+	await s.runner.get_tree().create_timer(0.2).timeout
+	s.check(gate_switch._prompt._alpha > 0.9, "the original gate prompt has faded in before the player moves")
 	await s.runner._press_action(&"interact")
 	s.check(gate_switch.active and not Story.is_cinematic_active() and not pump._talking, "one press at the switch opens the gate without starting optional maintenance")
 	Story.reset_active_presentation(&"maintenance_switch_checked")
 	level.player.global_position = pump.global_position
-	await s.physics_frames(8)
+	await s.physics_frames(3)
+	s.check(gate_switch._prompt._alpha == 0.0 and not gate_switch._prompt.layout_requested(),
+		"the old gate prompt is gone as soon as the pump owns the shared key")
 	s.check(pump._prompt._player_near() and not gate_switch._prompt._player_near(), "the pump advertises the shared key from its own position")
 	await s.runner._press_action(&"interact")
 	s.check(gate_switch.active and pump._talking and not GameState.has_flag(&"ch1_pump_case_reset"), "one press at the pump offers maintenance without changing the gate or repairing it")

@@ -161,11 +161,15 @@ func is_interaction_target(target: Node2D) -> bool:
 
 ## The prompts in one rendered frame share a lookup. An input press uses live availability.
 func is_interaction_prompt_target(target: Node2D) -> bool:
+	return interaction_prompt_target() == target
+
+
+func interaction_prompt_target() -> Node2D:
 	var frame := Engine.get_process_frames()
 	if frame != _prompt_frame:
 		_prompt_frame = frame
 		_prompt_target = _nearest_interaction()
-	return _prompt_target == target
+	return _prompt_target
 
 
 func _nearest_interaction() -> Node2D:
