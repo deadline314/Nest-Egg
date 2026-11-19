@@ -2,7 +2,7 @@ class_name CampaignLedger
 extends RefCounted
 ## 跨章經濟對帳（NE-231）：每章的主路收入、支線與探索收入、補給、死亡、典當與成長價格，全部由正式資料推算，改資料報表自動跟著變。
 ## 路線：章節入口 → 主線任務每個步驟標示的地點 → 章末，沿真實出入口找最短路（鎖住的門也算，因為主線會解開它）；
-## 路線經過的區域是「主路」，章節其他區域是「探索」。共用同一張地圖的區域（例如天亮的當舖）只算一次。
+## 路線經過的區域是「主路」，其他區域與地圖標為能力回訪目標的信用點是「探索」。同一張地圖只算一次。
 ## 「不刷錢」計畫：每個區域的敵人、地上與箱子只拿一次，只領主線任務報酬，所有付款都照最壞情況付，
 ## 每章扣掉打頭目前的必要補給與預估的死亡扣款，剩下的錢就是玩家自己選成長的預算。
 
@@ -80,6 +80,7 @@ static func chapter(id: String, paths: Array, story: Dictionary, first_level: St
 	var explore := _empty_income()
 	var areas: Array[Dictionary] = []
 	var counted := {}
+	var exploration_piles := 0
 	for path: String in paths:
 		var node: String = alias.get(path, path)
 		if counted.has(node):
@@ -89,10 +90,16 @@ static func chapter(id: String, paths: Array, story: Dictionary, first_level: St
 		if area.is_empty():
 			issues.append("讀不到區域：%s" % node)
 			continue
-		var income := EconomyReport.area_income(area["layout"])
+		var layout: LevelLayout = area["layout"]
+		var income := EconomyReport.area_income(layout)
 		var on_route := route.has(node)
 		_add_income(main if on_route else explore, income)
+		if on_route:
+			exploration_piles += _capability_credit_piles(area["data"], layout, issues)
 		areas.append({"path": node, "route": on_route, "income": income})
+	for category: String in ["piles", "total"]:
+		main[category] -= exploration_piles
+		explore[category] += exploration_piles
 	var quests := _quest_money(story, issues)
 	return {
 		"id": id, "title": str(story.get("chapter", {}).get("title", id)), "entry": entry, "terminal": terminal,
@@ -199,9 +206,9 @@ static func report(ledger: Dictionary) -> String:
 	for c: Dictionary in ledger["chapters"]:
 		var main: Dictionary = c["map_main"]
 		var explore: Dictionary = c["map_explore"]
-		lines.append("%s｜主路 %d 區：地圖 ¥%d（地上 %d、箱子 %d、敵人 %d、增援 %d）＋主線 ¥%d；探索 %d 區 ¥%d＋支線 ¥%d；付款 ¥%d；必要補給 ¥%d" % [
+		lines.append("%s｜主路 %d 區：地圖 ¥%d（地上 %d、箱子 %d、敵人 %d、增援 %d）＋主線 ¥%d；探索 ¥%d（含區內可選拾取）＋支線 ¥%d；付款 ¥%d；必要補給 ¥%d" % [
 				c["title"], c["route"].size(), main["total"], main["piles"], main["crates"], main["enemies"], main["reinforcements"],
-				c["quest_main"], c["areas"].size() - c["route"].size(), explore["total"], c["quest_side"], c["payments"], c["supplies"]])
+				c["quest_main"], explore["total"], c["quest_side"], c["payments"], c["supplies"]])
 		lines.append("    路線：%s" % " → ".join(c["route"].map(_short)))
 	lines.append("不刷錢計畫（只走主路、只領主線、付款照最壞、每章死 %d 次）：" % EXPECTED_DEATHS)
 	for p: Dictionary in ledger["plan"]:
@@ -239,6 +246,30 @@ static func _add_income(into: Dictionary, income: Dictionary) -> void:
 
 static func _short(path: String) -> String:
 	return path.get_file().get_basename()
+
+
+static func _capability_credit_piles(data: LevelData, layout: LevelLayout, issues: PackedStringArray) -> int:
+	var targets: Variant = _read_json(data.layout_path, issues).get("capability_targets", {})
+	if not targets is Dictionary:
+		issues.append("%s.capability_targets：必須是物件。" % data.layout_path)
+		return 0
+	if targets.is_empty():
+		return 0
+	var total := 0
+	for spawn: Dictionary in layout.spawns:
+		var pile := spawn["resource"] as CreditPileData
+		if pile == null:
+			continue
+		var cell: Vector2i = spawn["cell"]
+		var key := "%d,%d" % [cell.x, cell.y]
+		if not targets.has(key):
+			continue
+		var target: Variant = targets[key]
+		if not target is Dictionary or not target.get("ability") is String or target["ability"].strip_edges().is_empty():
+			issues.append("%s.capability_targets[%s]：缺少能力名稱。" % [data.layout_path, key])
+			continue
+		total += pile.value
+	return total
 
 
 static func _read_json(path: String, issues: PackedStringArray) -> Dictionary:

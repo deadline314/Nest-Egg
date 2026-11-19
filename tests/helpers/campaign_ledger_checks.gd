@@ -8,6 +8,7 @@ static func run(suite: TestSuite) -> void:
 	_test_mapping_rules(suite)
 	var ledger := CampaignLedger.build()
 	_test_routes(suite, ledger)
+	_test_capability_credits(suite, ledger)
 	_test_rewards_match_text(suite, ledger)
 	_test_no_grind_plan(suite, ledger)
 	_test_growth_catalog(suite, ledger)
@@ -63,6 +64,28 @@ static func _test_routes(s: TestSuite, ledger: Dictionary) -> void:
 			areas += 1
 			s.check(int(area["income"]["total"]) >= 0, "%s: %s pays a non-negative amount" % [c["id"], area["path"]])
 		s.check(route.size() <= areas, "%s: the route only uses the chapter's own areas" % c["id"])
+
+
+static func _test_capability_credits(s: TestSuite, ledger: Dictionary) -> void:
+	for i in ledger["chapters"].size():
+		var chapter: Dictionary = ledger["chapters"][i]
+		if chapter["id"] != "ch3_clearwater":
+			continue
+		var plan: Dictionary = ledger["plan"][i]
+		var route_piles := 0
+		var route_income := 0
+		for area: Dictionary in chapter["areas"]:
+			if area["route"]:
+				route_piles += int(area["income"]["piles"])
+				route_income += int(area["income"]["total"])
+		var reward := load("res://data/props/credits_small.tres") as CreditPileData
+		var gated := reward.value * 3
+		s.check(chapter["map_main"]["piles"] == route_piles - gated and chapter["map_explore"]["piles"] >= gated,
+				"plaza, pump and mezzanine high exploration credits are counted once even on the main route")
+		s.check(plan["income"] == route_income + chapter["quest_main"] - gated,
+				"the no-grind plan excludes all three optional pickups before buying supplies")
+		return
+	s.check(false, "chapter 3 exists for checking the air-jump rewards")
 
 
 static func _test_rewards_match_text(s: TestSuite, ledger: Dictionary) -> void:
