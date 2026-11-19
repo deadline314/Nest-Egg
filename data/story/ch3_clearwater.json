@@ -3935,11 +3935,106 @@
      "do": "scene",
      "id": "ch3_morning_window",
      "pos": [
+      510,
+      265.2
+     ],
+     "zoom": 1.25,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      574,
+      305
+     ],
+     "facing": 1,
+     "scale": 2.4,
+     "weapon": ""
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "早上先照到椅背，老 K 起來時就能看見。",
+     "ja": "朝日はまず椅子の背に当たる。老Kが起きたらすぐ見える。",
+     "en": "Morning light hits the chair back first. Old K will see it when he gets up."
+    },
+    {
+     "do": "pose",
+     "id": "rin",
+     "pose": "squat",
+     "pose_reason": "凜蹲低量窗臺",
+     "pose_support": "雙腳踩在展示房的地面"
+    },
+    {
+     "do": "wait",
+     "time": 0.5
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "space": "prop",
+     "prop": "morning_paper_ruler",
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "angle": 0.8,
+     "time": 0.38,
+     "wait": true,
+     "to": [
+      584,
+      247
+     ]
+    },
+    {
+     "do": "wait",
+     "time": 0.16
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "space": "prop",
+     "prop": "morning_paper_ruler",
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "angle": 0.8,
+     "time": 0.38,
+     "wait": true,
+     "to": [
+      600,
+      247
+     ]
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "窗臺也放得下一個碗。",
+     "ja": "窓台には茶碗も一つ置ける。",
+     "en": "The sill can hold a bowl, too."
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "release": true,
+     "time": 0.3,
+     "wait": true
+    },
+    {
+     "do": "scene",
+     "id": "ch3_morning_window",
+     "pos": [
       485,
       268
      ],
      "zoom": 1.15,
-     "fade": 0.25
+     "fade": 0.0
     },
     {
      "do": "actor",
@@ -3964,20 +4059,6 @@
      "facing": -1,
      "scale": 2.4,
      "weapon": ""
-    },
-    {
-     "do": "say",
-     "speaker": "rin",
-     "text": "早上先照到椅背，老 K 起來時就能看見。",
-     "ja": "朝日はまず椅子の背に当たる。老Kが起きたらすぐ見える。",
-     "en": "Morning light hits the chair back first. Old K will see it when he gets up."
-    },
-    {
-     "do": "say",
-     "speaker": "rin",
-     "text": "窗臺也放得下一個碗。",
-     "ja": "窓台には茶碗も一つ置ける。",
-     "en": "The sill can hold a bowl, too."
     },
     {
      "do": "say",

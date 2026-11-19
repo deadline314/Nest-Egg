@@ -583,6 +583,8 @@ ROOMS = (
 MORNING_STAGE = "ch3_morning_window"
 MORNING_FLOOR = 305
 MORNING_SHOT = (485, 268, 1.15)
+MORNING_RULER_SHOT = (510, 264, 1.25)
+MORNING_RULER = "morning_paper_ruler"
 
 
 def morning_window_stage() -> dict:
@@ -594,16 +596,32 @@ def morning_window_stage() -> dict:
         "layers": [
             {"kind": "sprite", "path": "res://art/environment/scenes/clearwater.webp",
              "pos": [0, 0], "scale": 0.5, "filter": "linear", "source_width": 1536, "modulate": "#ced2d4"},
+            {"kind": "rect", "rect": [579, 250, 36, 1], "color": "#77756a"},
+            {"kind": "rect", "id": MORNING_RULER, "rect": [579, 246, 36, 4], "color": "#e9d49c"},
+            *({"kind": "rect", "rect": [581 + tick * 4, 250 - height, 1, height], "color": "#776149"}
+              for tick, height in enumerate((2, 1) * 4 + (2,))),
         ],
     }
 
 
 def _morning_window(lines) -> list[dict]:
+    ruler_touch = dict(do="reach", id="rin", hand="front", space="prop", prop=MORNING_RULER,
+                       contact=[96.5, 37.5], angle=0.8, time=0.38, wait=True)
     return [
-        stage_scene(MORNING_STAGE, *MORNING_SHOT, fade_in=0.25, feet=MORNING_FLOOR),
+        stage_scene(MORNING_STAGE, *MORNING_RULER_SHOT, fade_in=0.25, feet=MORNING_FLOOR),
+        stage_actor("rin", "rin", 574, MORNING_FLOOR, facing=1, scale=2.4),
+        *beats(lines[0]),
+        stage_pose("rin", "squat", pose_reason="凜蹲低量窗臺", pose_support="雙腳踩在展示房的地面"),
+        stage_wait(0.5),
+        dict(ruler_touch, to=[584, 247]),
+        stage_wait(0.16),
+        dict(ruler_touch, to=[600, 247]),
+        *beats(lines[1]),
+        dict(do="reach", id="rin", hand="front", release=True, time=0.3, wait=True),
+        stage_scene(MORNING_STAGE, *MORNING_SHOT, fade_in=0.0, feet=MORNING_FLOOR),
         stage_actor("lin", "lin", 412, MORNING_FLOOR, facing=1, scale=2.26),
         stage_actor("rin", "rin", 492, MORNING_FLOOR, facing=-1, scale=2.4),
-        *beats(*lines),
+        *beats(*lines[2:]),
         stage_move("rin", 538, MORNING_FLOOR, t=0.85, then="sit",
                    pose_reason="凜試坐晨窗的椅子", pose_support="window_chair"),
         stage_face("rin", -1),

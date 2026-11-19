@@ -16,6 +16,7 @@ func run() -> void:
 	Checks.check_entries(self, "chapter 3", _datas, 24)
 	Checks.check_quest_markers(self, "chapter 3", "ch3", "res://data/story/ch3_clearwater.json", _datas, 20)
 	_test_story_gates()
+	_test_morning_window_measurement()
 	_test_office_continuation_sources()
 	_test_office_movement()
 	_test_level_hooks()
@@ -49,6 +50,29 @@ func _test_story_gates() -> void:
 	check(Story.resolve_dispatch(&"ch3_dispatch_call") == &"ch3_t_c23_quiet_day", "Egret does not call before supper")
 	check(Story.validate().is_empty(), "the merged story passes validation")
 	GameState.start_new_run(GameState.difficulties[1])
+
+
+func _test_morning_window_measurement() -> void:
+	var scene: Dictionary = Story._scenes["ch3_t_c16_morning"]
+	var stage := StageLibrary.definition(&"ch3_morning_window")
+	var ruler: Rect2
+	for layer: Dictionary in stage.get("layers", []):
+		if layer.get("id") == "morning_paper_ruler":
+			var bounds: Array = layer["rect"]
+			ruler = Rect2(bounds[0], bounds[1], bounds[2], bounds[3])
+	var contacts: Array[Vector2] = []
+	var invitation_seat := false
+	for step: Dictionary in scene["steps"]:
+		if step.get("do") == "reach" and step.get("prop") == "morning_paper_ruler":
+			var point := StageLayers.vec2_of(step["to"])
+			check(ruler.has_point(point) and step.get("space") == "prop" and step.get("id") == "rin",
+					"Rin's hand follows the visible ruler on the sill")
+			contacts.append(point)
+		elif step.get("do") == "move" and step.get("pose_support") == "window_chair":
+			invitation_seat = contacts.size() == 2
+	check(contacts.size() == 2 and contacts[0].x < contacts[1].x,
+			"Rin measures along the morning ruler before the chair trial")
+	check(invitation_seat, "the morning ruler keeps the invitation chair trial")
 
 
 func _test_office_continuation_sources() -> void:
