@@ -2,6 +2,8 @@ class_name RigInput
 extends RefCounted
 ## 每影格餵給角色動畫器的狀態（由擁有者重複使用同一個實例，不會每影格配置記憶體）。
 
+const DEATH_FORCE_RANGE := 6.0
+
 var velocity := Vector2.ZERO
 var on_floor := true
 ## 世界座標的瞄準方向（單位向量）。
@@ -65,4 +67,20 @@ var dash_started := false
 ## 專屬動作（art/rigs/action_poses.json 的 actions）名稱與播放進度 0~1；空字串＝沒有。敵人資料的 rig_actions 依狀態填入。
 var action: StringName = &""
 var action_t := 0.0
+
+
+## 衝擊力從 1（輕擊）到 7（重擊）映射為倒地動畫的 0～1。
+func set_death_hit(info: DamageInfo, target_x: float, target_facing: int) -> void:
+	death_dir = 1.0 if hit_from_front(info, target_x, target_facing) else -1.0
+	var impact := info.get_impact() if info != null else 0.0
+	death_force = clampf((impact - 1.0) / DEATH_FORCE_RANGE, 0.0, 1.0) if is_finite(impact) else 0.0
+
+
+static func hit_from_front(info: DamageInfo, target_x: float, target_facing: int) -> bool:
+	if info == null:
+		return true
+	var push := info.knockback.x
+	if not is_finite(push) or is_zero_approx(push):
+		push = target_x - info.origin.x if info.origin.is_finite() and info.origin != Vector2.ZERO else 0.0
+	return not is_finite(push) or is_zero_approx(push) or push * target_facing < 0.0
 

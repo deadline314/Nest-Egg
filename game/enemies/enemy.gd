@@ -24,8 +24,7 @@ const POISE_RECOVER := 2.0
 const STAGGER_RATIO := 1.5
 const BREAK_RATIO := 2.5
 const REACTION_GRACE := 0.5
-## 衝擊力 1（輕擊）到 1 + DEATH_FORCE_RANGE 之間算死亡力道 0～1；重擊致死時往上彈起的速度。
-const DEATH_FORCE_RANGE := 6.0
+## 重擊致死時往上彈起的速度。
 const DEATH_HOP := 90.0
 ## 同時倒在場上的屍體上限，超過時最舊的快速淡出。
 const MAX_CORPSES := 8
@@ -753,12 +752,7 @@ func _weak_point_feedback(info: DamageInfo) -> void:
 
 ## 這一擊是不是從正面來（受力方向與面向相反）；沒有方向資訊時當作正面。
 func _hit_from_front(info: DamageInfo) -> bool:
-	if info == null:
-		return true
-	var push := info.knockback.x
-	if is_zero_approx(push) and info.origin != Vector2.ZERO:
-		push = global_position.x - info.origin.x
-	return is_zero_approx(push) or push * facing < 0.0
+	return RigInput.hit_from_front(info, global_position.x, facing)
 
 
 ## 出招中（資料的 armor_states）：輕擊與累積都打不斷。
@@ -835,9 +829,8 @@ func _on_died(info: DamageInfo) -> void:
 	hurtbox.enabled = false
 	if contact != null:
 		contact.active = false
-	var force := clampf((info.get_impact() - 1.0) / DEATH_FORCE_RANGE, 0.0, 1.0) if info != null else 0.0
-	_rig_input.death_dir = 1.0 if _hit_from_front(info) else -1.0
-	_rig_input.death_force = force
+	_rig_input.set_death_hit(info, global_position.x, facing)
+	var force := _rig_input.death_force
 	# 倒下時順著最後一擊的方向被推走，越重推得越遠（頭目不被推）。
 	velocity = Vector2.ZERO
 	if rig != null and info != null and data.knockback_scale > 0.0:

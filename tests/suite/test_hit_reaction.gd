@@ -25,6 +25,7 @@ func run() -> void:
 	await _test_local_freeze()
 	await _test_hurt_direction()
 	await _test_death_direction_and_force()
+	await _test_player_death_direction_and_force()
 	await _test_corpse_cap()
 	await _test_debris_pool()
 	await _test_armor_still_flies_off()
@@ -322,6 +323,38 @@ func _test_armor_still_flies_off() -> void:
 
 
 const HEAD_ENEMIES := ["grunt", "elite_grunt", "sniper", "stalker", "slasher", "flamer", "shield_rusher", "heavy_gunner"]
+
+
+func _test_player_death_direction_and_force() -> void:
+	for facing: int in [1, -1]:
+		for from_front: bool in [true, false]:
+			for heavy: bool in [true, false]:
+				await open_level(28.0)
+				var player := level.player
+				player.facing = facing
+				var info := DamageInfo.create(9999, Combat.Team.ENEMY, &"death_pose_test")
+				info.impact = 7.0 if heavy else 1.0
+				info.ignore_invulnerability = true
+				# Strong hits use horizontal knockback even when their origin is misleading.
+				var side := facing if from_front else -facing
+				info.origin = player.global_position + Vector2(side * (-30.0 if heavy else 30.0), 0.0)
+				if heavy:
+					info.knockback = Vector2(-side * 140.0, 0.0)
+				check(player.health.take_damage(info) and player.is_dead(), "the final hit kills through player health")
+				await physics_frames(4)
+				var animator := player._visual.rig.animator as HumanoidAnimator
+				check(animator._death_time > 0.0 and animator._death_dir == (1.0 if from_front else -1.0),
+						"the active player animator uses the final hit direction on either facing")
+				check(animator._death_force == (1.0 if heavy else 0.0), "the final hit impact reaches the player animator")
+				await end_level(level)
+	await open_level(28.0)
+	var player := level.player
+	player.health.kill(null)
+	await physics_frames(4)
+	var animator := player._visual.rig.animator as HumanoidAnimator
+	check(player.is_dead() and animator._death_dir == 1.0 and animator._death_force == 0.0,
+			"a scripted death without a hit keeps the original unforced supine pose")
+	await end_level(level)
 
 
 func _test_player_clothing_does_not_fly_off() -> void:

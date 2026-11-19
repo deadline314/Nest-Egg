@@ -1257,7 +1257,7 @@ func _on_died(info: DamageInfo) -> void:
 	# 倒地後身體橫躺：陰影放寬成身長的一半。
 	_contact_shadow.half_width = BODY_SIZE.y * 0.5
 	if is_instance_valid(_visual):
-		_visual.clear_dash_silhouettes()
+		_visual.notify_death(info)
 	hurtbox.enabled = false
 	is_crouching = false
 	Fx.burst(global_position + Vector2(0, -24), Palette.CYAN, 24, 200.0, 0.6)

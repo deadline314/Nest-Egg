@@ -412,6 +412,11 @@ func notify_hurt() -> void:
 		rig.flash()
 
 
+func notify_death(info: DamageInfo) -> void:
+	clear_dash_silhouettes()
+	_input.set_death_hit(info, player.global_position.x, player.facing)
+
+
 func _physics_process(delta: float) -> void:
 	if player == null or rig == null:
 		return
