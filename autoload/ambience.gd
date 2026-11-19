@@ -17,6 +17,8 @@ var _profiles: Dictionary = {}
 var _default: Array = []
 var _fade := 2.0
 var _zone: StringName = &""
+var _only_sound: StringName = &""
+var _mix_owner: Node
 
 
 func _ready() -> void:
@@ -44,21 +46,50 @@ func load_data(fresh := false) -> void:
 func set_zone(zone_id: StringName) -> void:
 	if not AudioRelease.allows_playback(): return
 	_zone = zone_id
-	if not enabled:
+	_apply_zone()
+
+
+## 保留本區域的指定環境音。忽略遺失的音源，維持原本的環境音。
+func restrict_layers(owner: Node, sound: StringName) -> void:
+	if not Sfx.bank().has_files(sound):
+		AudioData.report("ambience:" + String(sound), "[%s] 過場指定的環境音「%s」缺少音檔" % [TAG, sound])
 		return
-	var wanted := layers_for(zone_id) if zone_id != &"" else []
+	_mix_owner = owner
+	_only_sound = sound
+	_apply_zone()
+
+
+func release_layers(owner: Node) -> void:
+	if _mix_owner != owner:
+		return
+	_mix_owner = null
+	_only_sound = &""
+	# 連續過場可先接手同一層，避免切段時重啟市集音軌。
+	_apply_zone.call_deferred()
+
+
+func _apply_zone() -> void:
+	if not enabled or not AudioRelease.allows_playback():
+		return
+	var wanted := layers_for(_zone) if _zone != &"" else []
+	var fade_out := 0.0 if _only_sound != &"" else _fade
 	for i in _layers.size():
 		var layer := _layers[i]
 		if i >= wanted.size():
-			layer.stop(_fade)
+			layer.stop(fade_out)
 			continue
 		var entry: Dictionary = wanted[i]
 		var sound := StringName(str(entry.get("sound", "")))
+		if _only_sound != &"" and sound != _only_sound:
+			layer.stop(0.0)
+			continue
 		var stream := _stream_for(sound)
 		if stream == null:
-			layer.stop(_fade)
+			layer.stop(fade_out)
 			continue
-		layer.play(stream, float(entry.get("volume_db", 0.0)) + Sfx.bank().volume_db(sound), _fade, _fade, true)
+		layer.play(stream, float(entry.get("volume_db", 0.0)) + Sfx.bank().volume_db(sound), _fade, fade_out, true)
+		if _only_sound != &"":
+			layer.stop_retiring_voices()
 		layer_started.emit(sound)
 
 

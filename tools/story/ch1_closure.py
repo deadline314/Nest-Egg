@@ -137,6 +137,7 @@ class Segment:
     # Returning from a confirmation is not a successful completed scene.
     on_cancel: str = "return_without_completion"
     silence_music: bool = False
+    ambience_only: str = ""
     skip_then: bool = False
 
 

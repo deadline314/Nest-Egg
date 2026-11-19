@@ -32,6 +32,7 @@ func run() -> void:
 	await _test_zone_signal_and_terrain_surface()
 	_test_crossfade_player()
 	await _test_ambience()
+	await _test_cutscene_ambience()
 	_test_ambience_bus()
 	_test_numbering_and_catalog()
 	_test_placement_doc()
@@ -643,6 +644,31 @@ func _test_ambience() -> void:
 	for i in Ambience.MAX_LAYERS:
 		Ambience.layer_player(i)._process(10.0)
 	check(Ambience.playing_layers() == 0, "leaving a level fades the ambience out and stops it")
+	Ambience.stop_all(0.0)
+
+
+func _test_cutscene_ambience() -> void:
+	Ambience.set_zone(&"market_gate")
+	await frames(2)
+	var rain := Ambience.layer_player(0).current_stream()
+	check(rain != null and Ambience.playing_layers() == 2, "the market starts with rain and the city bed")
+	var first := Node.new()
+	var next := Node.new()
+	Ambience.restrict_layers(first, &"amb_rain")
+	check(Ambience.playing_layers() == 1 and Ambience.layer_player(1).voices_playing() == 0,
+			"the booth keeps rain and immediately retires both city voices")
+	Ambience.restrict_layers(next, &"amb_rain")
+	Ambience.release_layers(first)
+	Ambience.set_zone(&"rooftop")
+	check(Ambience.current_zone() == &"rooftop" and Ambience.playing_layers() == 1 and Ambience.layer_player(0).current_stream() == rain,
+			"the current owner survives a stale release and zone changes without restarting rain")
+	Ambience.release_layers(next)
+	await frames(3)
+	check(Ambience.playing_layers() == 2 and Ambience.layer_player(0).current_stream() == rain,
+			"leaving the booth restores the latest zone without restarting rain")
+	first.free()
+	next.free()
+	Ambience.set_zone(&"")
 	Ambience.stop_all(0.0)
 
 

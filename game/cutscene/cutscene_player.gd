@@ -145,6 +145,9 @@ func play(id: StringName, scene: Dictionary) -> void:
 	var silence: Variant = scene.get("silence_music", false)
 	if silence is bool and silence:
 		add_to_group(Music.SILENCE_GROUP)
+	var ambience: Variant = scene.get("ambience_only", "")
+	if ambience is String and not ambience.is_empty():
+		Ambience.restrict_layers(self, StringName(ambience))
 	_build_ui()
 	if not _overlay_mode:
 		_framing_token = Story.framing.acquire(self)
@@ -213,6 +216,7 @@ func _finish() -> void:
 			tween.kill()
 	_running = false
 	_root.visible = false
+	Ambience.release_layers(self)
 	if is_in_group(Music.SILENCE_GROUP):
 		remove_from_group(Music.SILENCE_GROUP)
 	Transition.abort_owned(self)
@@ -227,6 +231,7 @@ func _finish() -> void:
 func _exit_tree() -> void:
 	# 過場結束：舞台的整張背景圖沒有人在用了，放掉（BG-32）。
 	TextureRelease.request()
+	Ambience.release_layers(self)
 	_running = false
 	skipping = true
 	Transition.abort_owned(self)
@@ -242,6 +247,7 @@ func cancel() -> void:
 	_running = false
 	skipping = true
 	_advance_requested = true
+	Ambience.release_layers(self)
 	if is_in_group(Music.SILENCE_GROUP):
 		remove_from_group(Music.SILENCE_GROUP)
 	Transition.abort_owned(self)

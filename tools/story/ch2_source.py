@@ -656,12 +656,12 @@ def _return_and_audit(source: ProductionSource):
         ("banyan", "喝茶賒帳我也記著，別裝沒聽見。"),
         ("rin", "兩根傘骨還沒長回來，復原只管你自己？"),
         ("egret", "傘要是也收費，我早就用手接雨了。")),
-        when=negate(returned), next_scene="ch2_t_s14_quiet", mode="animated", silence_music=True, skip_then=True)
+        when=negate(returned), next_scene="ch2_t_s14_quiet", mode="animated", silence_music=True, ambience_only="amb_rain", skip_then=True)
     source.add("ch2_t_s14_quiet", "S14", (
         ("rin", "你不會怕醒不過來？"),
         ("egret", "我先把今天過完，不然明天的茶誰喝？"),
         ("lamp", "門口清了，帳目可以上傳了。查完再回屋頂，別漏掉委託結算。")),
-        when=negate(returned), mode="animated", silence_music=True,
+        when=negate(returned), mode="animated", silence_music=True, ambience_only="amb_rain",
         completion=(set_flag("ch2_egret_returned"), set_flag("egret_restoration_count", 214)))
     source.add("ch2_t_s14_revisit", "S14", (("egret", "我人回來了，傘沒修，這次紀錄別多算。"),), when=returned)
 

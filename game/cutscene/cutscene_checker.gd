@@ -66,6 +66,10 @@ static func validate(scene_id: String, scene: Dictionary, speakers: Dictionary) 
 	var problems := PackedStringArray()
 	if scene.has("silence_music") and not scene["silence_music"] is bool:
 		problems.append("動畫場景 %s 的 silence_music 必須是布林值" % scene_id)
+	if scene.has("ambience_only"):
+		var ambience: Variant = scene["ambience_only"]
+		if not ambience is String or not ambience.begins_with("amb_") or (Sfx.is_node_ready() and not Sfx.bank().has_files(StringName(ambience))):
+			problems.append("動畫場景 %s 的 ambience_only 必須是有音檔的環境音 id" % scene_id)
 	var steps: Variant = scene.get("steps", [])
 	if typeof(steps) != TYPE_ARRAY or (steps as Array).is_empty():
 		problems.append("動畫場景 %s 沒有任何步驟" % scene_id)

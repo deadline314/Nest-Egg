@@ -111,6 +111,10 @@ def _compile_segment(segment, spec: ChapterSpec, inside_presentation: bool) -> d
         if scene["mode"] != "animated":
             raise CompileError(f"{segment.id}: 靜音只能用在動畫過場")
         scene["silence_music"] = True
+    if segment.ambience_only:
+        if scene["mode"] != "animated" or not isinstance(segment.ambience_only, str) or not segment.ambience_only.startswith("amb_"):
+            raise CompileError(f"{segment.id}: ambience_only 需要動畫過場與環境音 id")
+        scene["ambience_only"] = segment.ambience_only
     if segment.when:
         scene["when"] = copy.deepcopy(segment.when)
     if results:

@@ -75,6 +75,14 @@ func _release_players() -> void:
 		player.stream = null
 
 
+## 過場必須立即切掉上一個環境音，同時保留現在的迴圈位置。
+func stop_retiring_voices() -> void:
+	for index in _players.size():
+		if index != _active:
+			_players[index].stop()
+			_players[index].stream = null
+
+
 func _exit_tree() -> void:
 	_release_players()
 

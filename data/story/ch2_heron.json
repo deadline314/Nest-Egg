@@ -8597,6 +8597,7 @@
    ],
    "pose_policy": "supported",
    "silence_music": true,
+   "ambience_only": "amb_rain",
    "when": {
     "not": {
      "flag": "ch2_egret_returned",
@@ -8781,6 +8782,7 @@
    ],
    "pose_policy": "supported",
    "silence_music": true,
+   "ambience_only": "amb_rain",
    "when": {
     "not": {
      "flag": "ch2_egret_returned",
