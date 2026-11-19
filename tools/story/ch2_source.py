@@ -68,7 +68,7 @@ SPEAKERS = {
     "medic": {"name": "救護員", "color": "#a8d0c8", "portrait": "res://art/portraits/ch2_medic.png"},
     "broadcast": {"name": "陌生廣播", "color": "#c8c0e8", "portrait": "res://art/portraits/system.png", "formal": True},
     "weather": {"name": "氣象臺", "color": "#9ad7ff", "portrait": "res://art/portraits/system.png", "formal": True},
-    "shen": {"name": "沈望", "color": "#e8e0d0", "portrait": "res://art/portraits/system.png", "formal": True},
+    "shen": {"name": "沈望", "color": "#e8e0d0", "portrait": "res://art/portraits/ch2_shen.png", "formal": True},
     "terminal": {"name": "委託終端", "color": "#9ad7ff", "portrait": "res://art/portraits/system.png", "formal": True},
     "label": {"name": "說明", "color": "#ded5b0", "portrait": "res://art/portraits/system.png", "formal": True},
     "voice": {"name": "錄音", "color": "#c8c0e8", "portrait": "res://art/portraits/system.png", "formal": True},
