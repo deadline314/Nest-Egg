@@ -930,5 +930,25 @@ func _test_arm_shield_purchase_and_save() -> void:
 	damaged["arm_shield"] = "extension_plate"
 	Progression.restore(damaged)
 	check(not Progression.has_arm_shield_part(part.id), "a damaged arm_shield field falls back to no parts")
+	var inventory := level._inventory
+	inventory.open()
+	var index := inventory.page_index(StatusPage)
+	inventory.select_tab(index)
+	var status := inventory._pages[index] as StatusPage
+	player.guard = player.guard_max()
+	status.refresh()
+	check(status._values[&"guard"].text == "100%", "the base guard reads as full before installing a part")
+	var cushion := Progression.find_arm_shield_part(&"cushion_pad")
+	Progression.add_credits(cushion.cost)
+	var before := player.guard
+	check(Progression.buy_arm_shield_part(cushion) and player.guard == before, "installing the part increases capacity without filling free guard")
+	status.refresh()
+	check(status._values[&"guard"].text == "77%" and status._guard_bar._filled == 8,
+		"the status number and segments reflect the increased guard capacity")
+	player.guard = player.guard_max() * 0.5
+	status.refresh()
+	check(status._values[&"guard"].text == "50%" and status._guard_bar._filled == 5,
+		"half of the upgraded guard shows half a meter")
+	inventory.close()
 	await end_level(level)
 

@@ -125,7 +125,7 @@ func _update(from_zero: bool) -> void:
 	var health := player.health.current
 	_health_bar.setup(max_health, health, Palette.DANGER if health * 3 <= max_health else Palette.CYAN)
 	_values[&"health"].count_to(health, func(v: float) -> String: return "%d / %d" % [roundi(v), max_health], from_zero)
-	var guard_ratio := clampf(player.guard / maxf(1.0, player.tuning.guard_max), 0.0, 1.0)
+	var guard_ratio := clampf(player.guard / maxf(1.0, player.guard_max()), 0.0, 1.0)
 	_guard_bar.setup(10, roundi(guard_ratio * 10.0), Palette.WARNING if player.is_guard_broken() else Palette.CYAN)
 	_values[&"guard"].count_to(guard_ratio * 100.0, func(v: float) -> String:
 		return "破防" if player.is_guard_broken() else "%d%%" % roundi(v), from_zero)
