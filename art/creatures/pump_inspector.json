@@ -1,0 +1,129 @@
+{
+ "dir": "res://art/creatures/pump_inspector/",
+ "texture_scale": 0.25,
+ "parts": [
+  {
+   "name": "body",
+   "file": "body.png",
+   "pivot": [
+    53,
+    53
+   ],
+   "pos": [
+    0,
+    -4.5
+   ],
+   "z": 1
+  },
+  {
+   "name": "track",
+   "file": "track.png",
+   "pivot": [
+    49,
+    24
+   ],
+   "pos": [
+    0,
+    0
+   ],
+   "z": 0
+  }
+ ],
+ "gait": {
+  "full_speed": 38
+ },
+ "states": {
+  "patrol": {
+   "channels": [
+    {
+     "part": "body",
+     "prop": "y",
+     "base": 0.0,
+     "amp": 0.16,
+     "freq": 2.0,
+     "vfreq": 4.0
+    }
+   ]
+  },
+  "windup": {
+   "channels": [
+    {
+     "part": "body",
+     "prop": "rot",
+     "base": 0.04,
+     "amp": 0.012,
+     "freq": 11.0,
+     "vfreq": 0.0
+    },
+    {
+     "part": "body",
+     "prop": "y",
+     "base": 0.45,
+     "amp": 0.0,
+     "freq": 1.0,
+     "vfreq": 0.0
+    }
+   ]
+  },
+  "ram": {
+   "channels": [
+    {
+     "part": "body",
+     "prop": "x",
+     "base": 0.45,
+     "amp": 0.13,
+     "freq": 17.0,
+     "vfreq": 0.0
+    },
+    {
+     "part": "body",
+     "prop": "rot",
+     "base": 0.065,
+     "amp": 0.0,
+     "freq": 1.0,
+     "vfreq": 0.0
+    }
+   ]
+  },
+  "recover": {
+   "channels": [
+    {
+     "part": "body",
+     "prop": "rot",
+     "base": -0.045,
+     "amp": 0.0,
+     "freq": 1.0,
+     "vfreq": 0.0
+    },
+    {
+     "part": "body",
+     "prop": "y",
+     "base": 0.55,
+     "amp": 0.0,
+     "freq": 1.0,
+     "vfreq": 0.0
+    }
+   ]
+  },
+  "dead": {
+   "channels": [
+    {
+     "part": "body",
+     "prop": "rot",
+     "base": -0.09,
+     "amp": 0.0,
+     "freq": 1.0,
+     "vfreq": 0.0
+    },
+    {
+     "part": "body",
+     "prop": "y",
+     "base": 0.9,
+     "amp": 0.0,
+     "freq": 1.0,
+     "vfreq": 0.0
+    }
+   ]
+  }
+ }
+}

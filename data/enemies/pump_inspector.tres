@@ -8,14 +8,7 @@ script = ExtResource("1_script")
 id = &"pump_inspector"
 behavior = ExtResource("2_behavior")
 display_name = "抽水巡檢器"
-creature_skin = "bomber"
-creature_scale = 1.6
-creature_states = {
-"patrol": "chase",
-"windup": "fuse",
-"ram": "chase",
-"recover": "idle"
-}
+creature_skin = "pump_inspector"
 attack_category = &"melee"
 hit_material = &"metal"
 body_size = Vector2(26, 20)

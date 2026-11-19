@@ -1,0 +1,76 @@
+{
+ "dir": "res://art/creatures/insulation_inspector/",
+ "texture_scale": 0.25,
+ "parts": [
+  {
+   "name": "carriage",
+   "file": "carriage.png",
+   "pivot": [
+    32,
+    104
+   ],
+   "pos": [
+    0,
+    0
+   ],
+   "z": 0
+  },
+  {
+   "name": "probe",
+   "file": "probe.png",
+   "pivot": [
+    20,
+    13
+   ],
+   "pos": [
+    0,
+    6
+   ],
+   "z": 1
+  }
+ ],
+ "gait": {
+  "full_speed": 70
+ },
+ "states": {
+  "idle": {
+   "channels": []
+  },
+  "charge": {
+   "channels": [
+    {
+     "part": "carriage",
+     "prop": "x",
+     "base": 0.0,
+     "amp": 0.14,
+     "freq": 14.0,
+     "vfreq": 0.0
+    }
+   ]
+  },
+  "recover": {
+   "channels": [
+    {
+     "part": "carriage",
+     "prop": "x",
+     "base": 0.0,
+     "amp": 0.1,
+     "freq": 6.0,
+     "vfreq": 0.0
+    }
+   ]
+  },
+  "dead": {
+   "channels": [
+    {
+     "part": "carriage",
+     "prop": "rot",
+     "base": -0.09,
+     "amp": 0.0,
+     "freq": 1.0,
+     "vfreq": 0.0
+    }
+   ]
+  }
+ }
+}

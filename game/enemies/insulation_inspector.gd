@@ -8,7 +8,7 @@ extends Enemy
 ## 探頭是看得到的部位，打得到（較痛）；充電時把牠打出硬直會取消這次脈衝。
 ## 數值：detect_range＝發現距離、telegraph_time＝充電秒數、ability_radius＝吊軌半長、ability_time＝收探頭秒數、
 ##       projectile＝脈衝；探頭最低降到離地 PROBE_FLOOR_GAP 像素。
-## 外觀：目前是程式繪製的吊軌滑車、絕緣子與探頭（角色美術交付前的暫代，NE-272）；資料指定 creature_skin 後改用零件式外觀。
+## 外觀：滑座和探頭各用一個零件，探頭貼圖跟判定同步。零件遺失時沿用程式繪製。
 
 const PULSE_LOCK := 0.3
 const RAIL_ACCEL := 260.0
@@ -21,6 +21,7 @@ const LINE_LENGTH := 360.0
 ## 玩家要在吊軌下方（腳比吊軌低這麼多）才會出招：站上吊軌上方的步道就安全。
 const BELOW_RAIL := 24.0
 const RAIL_HEIGHT := 4.0
+const PROBE_ART_TOP := 3.25
 
 var _cooldown := 0.6
 var _rail_min := 0.0
@@ -30,6 +31,8 @@ var _probe_drop := PROBE_REST
 var _probe_goal := PROBE_REST
 var _floor_y := INF
 var _ray := PhysicsRayQueryParameters2D.new()
+var _carriage_art: Node2D
+var _probe_art: Node2D
 
 
 func _setup_states() -> void:
@@ -45,6 +48,26 @@ func _ready() -> void:
 	super._ready()
 	if data != null:
 		_add_probe_part()
+
+
+func _build_creature() -> void:
+	super._build_creature()
+	if creature == null:
+		return
+	_carriage_art = creature.joint_of("carriage")
+	_probe_art = creature.joint_of("probe")
+	if _carriage_art == null or _probe_art == null:
+		push_error("[InsulationInspector] %s 缺少滑座或探頭零件，改用程式繪製。" % data.creature_skin)
+		creature.queue_free()
+		creature = null
+		_carriage_art = null
+		_probe_art = null
+
+
+func _drive_creature(delta: float) -> void:
+	super._drive_creature(delta)
+	if _probe_art != null:
+		_probe_art.global_position = _probe_point()
 
 
 ## 探頭的受擊部位跟著探頭上下（看得到的地方就打得到）。
@@ -195,7 +218,13 @@ func _draw_overlay() -> void:
 	draw_arc(_probe_local(), 4.0 + 2.0 * t, 0.0, TAU, 12, coil, 1.0)
 
 
-## 程式繪製的外觀（暫代）：吊軌滑車、三片絕緣子、往下垂的探頭線與探頭。
+func _draw_creature_extras() -> void:
+	var probe := _probe_local()
+	draw_line(to_local(_carriage_art.global_position), probe - Vector2(0, PROBE_ART_TOP), Color(0.2, 0.22, 0.26), 1.0)
+	_draw_probe_light(probe)
+
+
+## 貼圖無法載入時，仍保留探頭、電線和攻擊可讀性。
 func _draw_body(color: Color) -> void:
 	var w := data.body_size.x
 	var h := data.body_size.y
@@ -210,5 +239,9 @@ func _draw_body(color: Color) -> void:
 	var probe := _probe_local()
 	draw_line(Vector2(0, 0), probe, Color(0.2, 0.22, 0.26), 1.0)
 	draw_rect(Rect2(probe + Vector2(-4, -3), Vector2(8, 6)), color.lightened(0.15))
+	_draw_probe_light(probe)
+
+
+func _draw_probe_light(probe: Vector2) -> void:
 	var eye := LightKit.glow(Palette.CYAN, 3.0 if is_telegraphing() else 1.2)
 	draw_circle(probe + Vector2(facing * 3.0, 0), 1.3, eye)

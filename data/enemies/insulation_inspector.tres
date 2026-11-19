@@ -9,6 +9,7 @@ script = ExtResource("1_script")
 id = &"insulation_inspector"
 behavior = ExtResource("2_behavior")
 display_name = "絕緣巡檢器"
+creature_skin = "insulation_inspector"
 projectile = ExtResource("3_proj")
 attack_category = &"ranged"
 hit_material = &"metal"

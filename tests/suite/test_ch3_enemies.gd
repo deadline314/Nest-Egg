@@ -50,6 +50,7 @@ func _test_data() -> void:
 		var data := load(path) as EnemyData
 		check(ResourceLoader.exists(EnemyVfx.PATH % String(data.id)), "%s has its own effects file" % data.id)
 		check(not data.is_boss and not data.persists_damage, "%s is an ordinary enemy" % data.id)
+		check(data.creature_skin == String(data.id), "%s uses its own creature part source" % data.id)
 
 
 ## 抽水巡檢器：同一層、在攻擊距離內就預兆（地上亮線），路線停在牆前；衝撞不超過亮線的終點。
@@ -57,6 +58,8 @@ func _test_pump_telegraph_and_path() -> void:
 	await open_level(26.0)
 	var pump := spawn(PUMP_PATH, 20.0) as PumpInspector
 	await physics_frames(2)
+	check(pump.creature != null and pump.creature.part_names() == PackedStringArray(["body", "track"]),
+		"the pump loads both dedicated parts")
 	check(await wait_state(pump, &"windup", 120), "the pump inspector starts its telegraph when the player is close on the same floor")
 	var end_x: float = pump.get("_ram_end_x")
 	var wall_x := 30.0 * 16.0
@@ -120,6 +123,9 @@ func _test_insulation_crouch_and_stand() -> void:
 	check(await wait_state(inspector, &"charge", 180), "the insulation inspector charges when the player stands below its rail")
 	while inspector.fsm.is_in(&"charge") and not inspector.is_locked():
 		await physics_frames(1)
+	var probe := inspector.creature.joint_of("probe") if inspector.creature != null else null
+	check(probe != null and probe.global_position.distance_to(inspector._probe_point()) < 0.05,
+		"the lowered probe artwork follows the live hit and pulse origin")
 	var height := inspector.probe_height_above_floor()
 	check(height > Player.CROUCH_HEIGHT + 2.0 and height < Player.BODY_SIZE.y - 2.0,
 			"the locked pulse is above a crouching player and inside a standing one (%.1f px above the floor)" % height)
