@@ -5,6 +5,7 @@ extends Resource
 @export var id: StringName = &"credits_small"
 @export var value: int = 10
 @export var color: Color = Color(1.0, 0.82, 0.25, 1.0)
+@export var requires_flag: StringName = &""
 
 
 func validate() -> PackedStringArray:

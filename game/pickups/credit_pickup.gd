@@ -9,6 +9,7 @@ var color := Color(1.0, 0.82, 0.25)
 var cell := Vector2i(-1, -1)
 var collected := false
 var _elevated := false
+var _requires_flag: StringName
 
 
 func configure_pile(pile: CreditPileData, p_cell: Vector2i, elevated := false) -> void:
@@ -16,6 +17,7 @@ func configure_pile(pile: CreditPileData, p_cell: Vector2i, elevated := false) -
 	color = pile.color
 	cell = p_cell
 	_elevated = elevated
+	_requires_flag = pile.requires_flag
 
 
 func hint_text() -> String:
@@ -29,6 +31,8 @@ func _ready() -> void:
 
 
 func _apply(player: Player) -> bool:
+	if _requires_flag != &"" and not GameState.has_flag(_requires_flag):
+		return false
 	# 身體從下方碰到圖示時，凜還沒有躍到高臺的高度。
 	if _elevated and player.global_position.y > global_position.y + 2.0:
 		return false

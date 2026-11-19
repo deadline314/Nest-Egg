@@ -24,6 +24,32 @@ func run() -> void:
 	await preload("res://tests/helpers/market_document_notice_checks.gd").run(self)
 	await preload("res://tests/helpers/story_item_full_text_checks.gd").run(self)
 	await _test_elevated_credit()
+	await _test_drain_credit("plaza", "credits_small@75,29")
+	await _test_drain_credit("pump", "credits_small@74,35")
+
+
+func _test_drain_credit(area: String, key: String) -> void:
+	var data := load("res://data/levels/ch3_%s.tres" % area) as LevelData
+	var level := await start_level(data)
+	var pile := level._tracked.get(key) as CreditPickup
+	check(pile != null and pile.value == 10, "%s keeps the original maintenance credit value and save key" % area)
+	if pile == null:
+		await end_level(level)
+		return
+	level.player.global_position = pile.global_position
+	await physics_frames(40)
+	check(not pile.collected and Progression.credits == 0, "%s maintenance supplies wait for the low water flag" % area)
+	GameState.set_flag(&"ch3_pump_low")
+	await physics_frames(40)
+	check(pile.collected and Progression.credits == 10, "%s awards the original amount after draining without more input" % area)
+	level.run_snapshot()
+	await end_level(level)
+	level = await spawn_level(data)
+	pile = level._tracked.get(key) as CreditPickup
+	check(pile != null and pile.collected and not pile.visible and Progression.credits == 10,
+		"%s restores the same collected pile without paying again" % area)
+	await end_level(level)
+	GameState.start_new_run(GameState.difficulties[1])
 
 
 func _test_elevated_credit() -> void:

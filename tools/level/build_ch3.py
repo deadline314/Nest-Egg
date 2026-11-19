@@ -18,6 +18,7 @@ kit.CHAPTER = 'ch3_clearwater'
 AREA = kit.AREA
 H = kit.H
 Area = kit.Area
+MAINTENANCE_CREDIT = '¢'
 
 # ---------------------------------------------------------------------------
 # 人物與可調查物件：字元 -> 資料檔（台詞由劇本的分派場景依進度挑選，見 tools/story/ch3_source.py）
@@ -218,7 +219,8 @@ def _build_plaza_v1():
     # 高架維修盒：從右邊的貨架一路跳上去（看得到，要繞一下才拿得到）。
     a.platform(68, 71, 17)
     a.platform(73, 77, 14)
-    a.stand(75, 'c', row=13)
+    a.hint(74, '維修盒：水位降到低線後再領。', row=13)
+    a.stand(75, MAINTENANCE_CREDIT, row=13)
     a.prop('harbor_plaza__queue_barriers', 82)
     a.stand(93, 'Ⅰ')
     for x in (12, 28, 66, 86):
@@ -246,7 +248,9 @@ def _build_pump_v1():
     a.stand(64, 'Ⓚ')
     a.prop('sluice_hall__branch_panel_closed', 63, y=17, dx=13, support='wall', react='pump_branch_panel')   # 配電盤掛牆，關支路後換成打開的樣子（BG-44）
     a.prop('control_room__cable_bundle_floor', 60)
-    a.stand(74, 'c')
+    a.hint(73, '維修備料：水位降到低線後再領。')
+    a.stand(74, MAINTENANCE_CREDIT)
+    a.prop('sluice_hall__maintenance_locker', 74, y=19, dx=-9)
     a.prop('mezzanine__drip_basin', 70)
     a.stand(76, 'Ⅵ', row=12)
     for x in (14, 34, 54, 70):
@@ -499,6 +503,8 @@ def configure():
     clash = sorted(c for c in NPC_CHARS if c in kit.RES or c in PORTALS or c in kit.TRAINING)
     clash += sorted(c for c in PORTALS if c in kit.RES)
     clash += sorted(c for c in ENEMY_CHARS if c in kit.RES or c in NPC_CHARS or c in PORTALS)
+    if MAINTENANCE_CREDIT in kit.RES:
+        clash.append(MAINTENANCE_CREDIT)
     if clash:
         raise SystemExit(f'第三章的字元和既有資源衝突：{clash}')
     for char, ident in NPC_CHARS.items():
@@ -506,6 +512,8 @@ def configure():
     for char, ident in ENEMY_CHARS.items():
         kit.RES[char] = f'res://data/enemies/{ident}.tres'
         kit.ENEMY_NAMES[char] = ENEMY_DISPLAY[char]
+    # Keep the original credits_small ID so the old coordinates still restore collected piles.
+    kit.RES[MAINTENANCE_CREDIT] = 'res://data/props/credits_maintenance.tres'
     kit.PORTALS = PORTALS
     kit.NPCS = {ident: {**{'rig': '', 'loop': '', 'facing': 1}, **spec} for ident, spec in NPCS.items()}
     kit.THEMES = THEMES
