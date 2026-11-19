@@ -63,13 +63,12 @@ func _counter_tail() -> void:
 	if actor == null:
 		await _finish_probe()
 		return
-	await _walk_to(actor.global_position.x+14.0)
-	await _press(&"interact")
+	await _interact_with_counter(actor)
 	await _finish_story()
 	if mode == "call":
 		_check(GameState.has_flag(&"ch1_prologue_service_heard") and actor.talk_count > 0,"genuine original service dialogue completes before the wrap-up call")
 		await _frames(70)
-		await _press(&"interact")
+		await _interact_with_counter(actor)
 		await _finish_story()
 	await _frames(5)
 	_check(faulted,"same real counter dispatch reaches the exact intended original result")

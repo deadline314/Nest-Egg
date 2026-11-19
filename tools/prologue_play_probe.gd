@@ -128,6 +128,13 @@ func _station(id: StringName) -> TrainingStation:
 	return null
 
 
+func _interact_with_counter(actor: NpcActor) -> void:
+	# The locked exit is close enough to win interaction after walking past Old K.
+	await _walk_to(actor.global_position.x, 2.0)
+	await _frames(10)
+	await _press(&"interact")
+
+
 func _npc(id: StringName) -> NpcActor:
 	for node in get_tree().get_nodes_in_group(NpcActor.GROUP):
 		if (node as NpcActor).data.id == id:
@@ -312,12 +319,11 @@ func _run() -> void:
 	# P05→P06：回櫃台和老 K 說話兩次，從旁邊的門回店裡。
 	var old_k := _npc(&"ch1_old_k_counter")
 	_check(old_k.is_present() and not _npc(&"ch1_old_k_backyard").is_present(), "Old K is back at the counter after the dash")
-	await _walk_to(old_k.global_position.x + 14.0)
-	await _press(&"interact")
+	await _interact_with_counter(old_k)
 	await _finish_story("ST-16-p05-service")
 	_check(GameState.has_flag(&"ch1_prologue_service_heard"), "Old K explains the recovery service")
 	await _frames(70)
-	await _press(&"interact")
+	await _interact_with_counter(old_k)
 	await _finish_story("ST-16-p06-call")
 	_check(GameState.has_flag(&"ch1_prologue_exit"), "the wrap-up call hands over the exit")
 	if _stop_if(&"ch1_prologue_exit"):

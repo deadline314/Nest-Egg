@@ -324,6 +324,9 @@ jobs:
             ${{ runner.temp }}/supper-completion/**/*.json
             ${{ runner.temp }}/supper-repeat/**/*.log
             ${{ runner.temp }}/supper-repeat/**/*.json
+            ${{ runner.temp }}/prologue-completion/**/*.log
+            ${{ runner.temp }}/prologue-completion/receipt.json
+            ${{ runner.temp }}/prologue-completion/**/result.json
             ${{ runner.temp }}/training-completion/**/*.log
             ${{ runner.temp }}/training-completion/**/*.json
             ${{ runner.temp }}/skip-completion/**/*.log
