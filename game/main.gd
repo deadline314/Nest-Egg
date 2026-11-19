@@ -547,8 +547,24 @@ func _remember_world_radio(id: StringName, request := 0) -> void:
 func _on_scene_finished(id: StringName) -> void:
 	var request := Story.finished_presentation_request()
 	if _cinematic == String(id) and (request == 0 or request == _cinematic_request):
+		var entry := _cinematic_entry
 		_clear_cinematic()
+		if request != 0 and is_instance_valid(_screen) and _screen is Level:
+			_apply_legacy_story_health_reward(_screen, entry)
 	_queue_save()
+
+
+func _apply_legacy_story_health_reward(level: Level, entry: Dictionary) -> void:
+	if not level.is_initialized() or level.data.story_health_rewards.is_empty() or not is_instance_valid(level.player):
+		return
+	var ledger: Variant = entry.get("progression", {}).get("story_transactions")
+	if not ledger is Dictionary or not ledger.get("receipts") is Dictionary:
+		return
+	var amount := 0
+	for transaction: StringName in level.data.story_health_rewards:
+		if not ledger["receipts"].has(String(transaction)) and Progression.story_receipt_status(transaction)["status"] == "recorded":
+			amount += level.data.story_health_reward(transaction)
+	level.player.health.heal(amount)
 
 
 ## An accepted choice is a durable continuation, not a completed NPC reading.

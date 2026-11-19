@@ -51,5 +51,6 @@ show_chapter_card = false
 environment = ExtResource("6_ch2_ali_home")
 layout_path = "res://data/levels/ch2_ali_home_map.json"
 lighting_zones = Array[ExtResource("4_lighting_zone")]([SubResource("Resource_2")])
+story_health_rewards = Dictionary[StringName, int]({&"ch2.sq1_soup": 2})
 story_triggers = PackedStringArray()
 death_credit_cap = 250

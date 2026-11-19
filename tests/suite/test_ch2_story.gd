@@ -20,6 +20,7 @@ func run() -> void:
 	Checks.check_quest_markers(self, "chapter 2", "ch2", "res://data/story/ch2_heron.json", _datas, 18)
 	_test_story_gates()
 	_test_ali_kitchen_revisit()
+	_test_ali_soup_healing()
 	_test_ledger_install()
 	_test_street_line()
 	_test_guest_book_stage()
@@ -55,6 +56,20 @@ func _test_story_gates() -> void:
 	check(cabinet != null and cabinet.prompt_text() == "{interact} 查看帳櫃", "the cabinet prompt offers inspection even while the lock is active")
 	check(Story.validate().is_empty(), "the merged story passes validation")
 	GameState.start_new_run(GameState.difficulties[1])
+
+
+func _test_ali_soup_healing() -> void:
+	var amount := (_datas["ali_home"] as LevelData).story_health_reward(&"ch2.sq1_soup")
+	check(amount == 2 and (_datas["market"] as LevelData).story_health_reward(&"ch2.sq1_soup") == 0,
+			"only the real kitchen adds a two-point reward to the soup receipt")
+	var health := HealthComponent.new()
+	health.setup(6, 0.0)
+	health.current = 5
+	check(health.preview_heal(amount) == 1 and health.current == 5, "planning the capped gain never changes live health")
+	check(health.heal(amount) == 1 and health.current == 6, "the live health path uses the same capped gain")
+	health.is_dead = true
+	check(health.preview_heal(amount) == 0, "a story reward cannot resurrect the player")
+	health.free()
 
 
 func _test_ali_kitchen_revisit() -> void:

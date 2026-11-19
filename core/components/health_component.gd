@@ -78,6 +78,10 @@ func kill(info: DamageInfo) -> void:
 	died.emit(info)
 
 
+func preview_heal(amount: int) -> int:
+	return clampi(amount, 0, maxi(0, max_health - current)) if not is_dead else 0
+
+
 ## 回傳實際回復量。
 func heal(amount: int) -> int:
 	if is_dead or amount <= 0:
@@ -85,10 +89,15 @@ func heal(amount: int) -> int:
 	var before := current
 	current = mini(max_health, current + amount)
 	var gained := current - before
+	publish_heal(gained)
+	return gained
+
+
+## 正式寫入批次可先安裝生命值，再與其他同步結果一起通知。
+func publish_heal(gained: int) -> void:
 	if gained > 0:
 		healed.emit(gained)
 		health_changed.emit(current, max_health)
-	return gained
 
 
 func is_full() -> bool:

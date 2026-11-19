@@ -463,7 +463,7 @@ def _ali_home(source: ProductionSource):
         when=knows, mode="animated", next_scene="ch2_t_s07_bowls")
     source.add("ch2_t_s07_bowls", "S07", (("ali", "你想喝湯的話，先替我洗這三隻，好嗎？我剛試的都用完了。"),),
                when=negate(visited), options=(
-                   _opt("wash", "洗碗試湯。", "ch2_t_s07_wash", "替她洗三隻碗，再試湯。"),
+                   _opt("wash", "洗碗試湯。", "ch2_t_s07_wash", "試湯可回復 2 點生命。"),
                    _opt("address", "只記地址，先走。", "ch2_t_s07_leave", "地址記下了，下次再來。")))
     source.add("ch2_t_s07_leave", "S07", (("ali", "下次再來，門口會留一盞燈。"),), mode="animated",
                completion=(set_flag("ch2_ali_home_visit"),))
@@ -487,7 +487,7 @@ def _ali_home(source: ProductionSource):
                completion=(set_flag("ch2_ali_home_visit"), *soup_reward))
     source.add("ch2_t_s07_resume_wash", "S07", (("ali", "湯還熱著。沖過的碗放到左邊乾架，再來試湯。"),),
                when=resume_soup, options=(
-                   _opt("left", "放到左邊的乾燥架。", "ch2_t_s07_resume_soup", "左邊是乾的。"),
+                   _opt("left", "放到左邊的乾燥架。", "ch2_t_s07_resume_soup", "試湯可回復 2 點生命。"),
                    _opt("stop", "先不洗了，下次再來。", None, "地址記下了，試湯留到下次。")))
     source.add("ch2_t_s07_resume_soup", "S07", steps=soup_steps, when=resume_soup,
                mode="animated", completion=soup_reward)

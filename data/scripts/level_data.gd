@@ -62,6 +62,8 @@ const MAX_CHANNEL_RESULT_FLAGS := 64
 @export var skip_note: String = ""
 ## 地圖上 & 字元由左至右對應的劇情場景 id。
 @export var story_triggers: PackedStringArray = PackedStringArray()
+## 本區域剛成立的劇情交易收據可附帶一次回復。讀檔及已存在的收據不再回復。
+@export var story_health_rewards: Dictionary[StringName, int] = {}
 ## 玩家確認才開始的電影入口，與 & 強制事件分開宣告，不改既有觸發語義。
 @export var cinematic_entries: Array[CinematicEntryData] = []
 @export_group("Area")
@@ -105,6 +107,14 @@ const MAX_CHANNEL_RESULT_FLAGS := 64
 @export var hints: PackedStringArray = PackedStringArray()
 ## 地圖 JSON 路徑，格式：{ "segments": [ ["列0", "列1", ...], [...] ] }，分段由左至右串接。
 @export_file("*.json") var layout_path: String = ""
+
+
+func story_health_reward(transaction: StringName) -> int:
+	var amount: int = story_health_rewards.get(transaction, 0)
+	if amount < 0 or amount > 1000:
+		push_warning("[LevelData] %s/story_health_rewards/%s: invalid heal amount %s" % [resource_path, transaction, amount])
+		return 0
+	return amount
 
 
 ## 讀取地圖 JSON 的 props 清單：{ "id": 道具 id, "x": 欄, "y": 底邊所在列, "flip": 是否左右翻轉, "ground": true 時 y 取該欄地表 }。

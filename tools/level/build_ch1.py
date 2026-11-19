@@ -1510,6 +1510,9 @@ def write_level(area, theme_key=None, level_id=None, map_name=None, persist=True
            f'layout_path = "res://data/levels/{PREFIX}_{map_name}_map.json"',
            'lighting_zones = Array[ExtResource("%s")]([%s])' % (zone_script, ', '.join(f'SubResource("{z}")' for z in zone_ids))]
     story = STORY.get(level_id, {})
+    if story.get('health_rewards'):
+        rewards = ', '.join(f'&{json.dumps(key)}: {amount}' for key, amount in story['health_rewards'].items())
+        res.append('story_health_rewards = Dictionary[StringName, int]({' + rewards + '})')
     if story.get('durable', False):
         res.append('durable_channel_results = true')
     if story.get('intro'):

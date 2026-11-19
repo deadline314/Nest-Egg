@@ -140,6 +140,7 @@ THEMES = {
 # 劇情接點：進場劇情與機關頻道。
 STORY = {
     'pawnshop': dict(intro='ch2_s01_morning'),
+    'ali_home': dict(health_rewards={'ch2.sq1_soup': 2}),
     # 阿勇頭目戰（NE-265）制伏時啟動這個頻道，關卡寫入制伏旗標；帳櫃與小薇的劇情讀這個旗標。
     'ledger_office': dict(durable=True, done={'ch2_yong_down': 'ch2_yong_subdued', 'ch2_yong_isolation': 'yong_link_isolated'},
                           done_extra={'ch2_yong_isolation': ['yong_link_revoked']}),

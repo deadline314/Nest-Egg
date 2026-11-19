@@ -21,6 +21,8 @@ var _prompt: Control
 var _events: Array = []
 var _changed: Array[String] = []
 var _delta := 0
+var _recovered_health: HealthComponent
+var _health_gain := 0
 var _publishing := false
 var _user_skipped := false
 var _recovery := false
@@ -189,6 +191,8 @@ func complete(id: StringName, request: int) -> Dictionary:
 	_events = result["events"]
 	_changed.assign(result["changed"])
 	_delta = result["delta"]
+	_recovered_health = result["recovered_health"]
+	_health_gain = result["health_gain"]
 	_continuation_target = continuation
 	_continuation_context = Story.current_presentation_context() if continuation != &"" else {}
 	_publishing = true
@@ -274,6 +278,20 @@ func _prepare_and_commit(scene: Dictionary, continuation: StringName = &"", choi
 	candidate["progression"]["story_transactions"] = next["ledger"]
 	var expected_state: Dictionary = original["data"]["state"].duplicate(true)
 	var expected_runtime: Dictionary = original["data"]["runtime"].duplicate(true)
+	var health: HealthComponent
+	var health_before := 0
+	var health_gain := 0
+	if not level.data.story_health_rewards.is_empty() and is_instance_valid(level.player):
+		var amount := 0
+		for event: Dictionary in planned["events"]:
+			if event["kind"] == "transaction_committed":
+				amount += level.data.story_health_reward(StringName(event["id"]))
+		health = level.player.health
+		health_before = health.current
+		health_gain = health.preview_heal(amount)
+		if health_gain > 0:
+			candidate["runtime"]["health"] = health_before + health_gain
+			expected_runtime["health"] = health_before + health_gain
 	if not npc.is_empty() and continuation == &"":
 		var key: String = npc["key"]
 		var area: String = String(level.data.id)
@@ -313,13 +331,19 @@ func _prepare_and_commit(scene: Dictionary, continuation: StringName = &"", choi
 			changed.append(flag)
 	if Bundle._capture_source().get("data") != source["data"] or not _source_unchanged(level,npc,death):
 		return {"error": "live source changed before durable terminal write"}
+	if health_gain > 0 and (not is_instance_valid(health) or health.current != health_before or health.preview_heal(health_gain) != health_gain):
+		return {"error": "live player health changed before durable terminal write"}
 	var delta: int = next["credits"] - Progression.credits
 	var outcome := store.commit_existing_write(write)
 	if not outcome.committed:
 		return {"error": "; ".join(outcome.issues), "reload_original": outcome.requires_recovery}
 	if outcome.requires_recovery or Bundle._capture_source().get("data") != source["data"] or not _source_unchanged(level,npc,death):
 		return {"committed": true, "recovery": true}
+	if health_gain > 0 and (not is_instance_valid(health) or health.current != health_before or health.preview_heal(health_gain) != health_gain):
+		return {"committed": true, "recovery": true}
 	# No callbacks, loading, validation, saves or world replacement in this section.
+	if health_gain > 0:
+		health.current = health_before + health_gain
 	Progression._install_prepared(money["data"])
 	StoryItems._install_prepared(items["data"])
 	GameState._install_prepared_flags(game["data"])
@@ -327,7 +351,8 @@ func _prepare_and_commit(scene: Dictionary, continuation: StringName = &"", choi
 	if not npc.is_empty() and continuation == &"":
 		(npc["actor"] as NpcActor).install_story_completion(npc["prepared"])
 		level._area["world"][npc["key"]] = npc["prepared"]["after"].duplicate(true)
-	return {"committed": true, "events": planned["events"], "changed": changed, "delta": delta}
+	return {"committed": true, "events": planned["events"], "changed": changed, "delta": delta,
+		"recovered_health": health, "health_gain": health_gain}
 
 
 func _source_unchanged(level: Level, npc: Dictionary, death: Dictionary) -> bool:
@@ -485,6 +510,8 @@ func _plan(scene: Dictionary, candidate: Dictionary, continuation: StringName = 
 
 ## Called after the real presentation handle retires, before any completion observer.
 func publish() -> void:
+	if _health_gain > 0 and is_instance_valid(_recovered_health):
+		_recovered_health.publish_heal(_health_gain)
 	if _delta != 0:
 		Progression.credits_changed.emit(Progression.credits, _delta)
 	for event: Dictionary in _events:
@@ -565,6 +592,8 @@ func _clear() -> void:
 	_continuation_context.clear()
 	_events.clear()
 	_changed.clear()
+	_recovered_health = null
+	_health_gain = 0
 	if is_instance_valid(_prompt):
 		_prompt.hide()
 		_prompt.get_parent().queue_free()
