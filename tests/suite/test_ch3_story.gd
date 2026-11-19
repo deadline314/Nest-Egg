@@ -17,6 +17,7 @@ func run() -> void:
 	Checks.check_quest_markers(self, "chapter 3", "ch3", "res://data/story/ch3_clearwater.json", _datas, 20)
 	_test_story_gates()
 	_test_office_continuation_sources()
+	_test_office_movement()
 	_test_level_hooks()
 	Checks.check_staging(self, "chapter 3", "ch3", 9)
 	await _test_chapter_end()
@@ -68,6 +69,24 @@ func _test_office_continuation_sources() -> void:
 	check(not Story.is_npc_presentation(bench, 0, &"ch3_t_c21_route"), "a completed continuation cannot settle its original bench a second time")
 	Story.restore_progress(original)
 	GameState.start_new_run(GameState.difficulties[1])
+
+
+func _test_office_movement() -> void:
+	var old_k_walks := 0
+	for scene_id in ["ch3_t_c18_box", "ch3_t_c20_rest"]:
+		var steps: Array = Story._scenes[scene_id]["steps"]
+		for step: Dictionary in steps:
+			match String(step.get("do", "")):
+				"actor":
+					var floor_y := 300.0 if step["id"] == "rin" else 285.0
+					check(step["pos"][1] == floor_y and step.get("ground") == floor_y,
+							"%s starts %s on the correct standing surface" % [scene_id, step["id"]])
+				"move":
+					if step["id"] == "old_k":
+						old_k_walks += 1
+						check(step["to"][1] == 285 and step.get("wait", true) == false,
+								"%s lets the indoor walk overlap the next action" % scene_id)
+	check(old_k_walks == 3, "the office keeps Old K's entrance and both return walks")
 
 
 ## 關卡接點：守門人停機的頻道、要扶他坐好才開的電梯、傍晚換到廚房的老 K、診所門要核對完成。

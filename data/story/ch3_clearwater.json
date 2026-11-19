@@ -4616,7 +4616,8 @@
      "facing": -1,
      "scale": 2.95,
      "weapon": "",
-     "speaker": "rin"
+     "speaker": "rin",
+     "ground": 300
     },
     {
      "do": "actor",
@@ -4629,7 +4630,8 @@
      "facing": -1,
      "scale": 2.4,
      "weapon": "",
-     "speaker": "ye"
+     "speaker": "ye",
+     "ground": 285
     },
     {
      "do": "sfx",
@@ -4654,7 +4656,8 @@
      "facing": 1,
      "scale": 2.4,
      "weapon": "",
-     "speaker": "old_k"
+     "speaker": "old_k",
+     "ground": 285
     },
     {
      "do": "move",
@@ -4663,7 +4666,8 @@
       245,
       285
      ],
-     "time": 3.2
+     "time": 3.2,
+     "wait": false
     },
     {
      "do": "say",
@@ -4788,7 +4792,8 @@
      "facing": 1,
      "scale": 2.4,
      "weapon": "",
-     "speaker": "old_k"
+     "speaker": "old_k",
+     "ground": 285
     },
     {
      "do": "actor",
@@ -4802,7 +4807,8 @@
      "scale": 2.4,
      "weapon": "",
      "speaker": "ye",
-     "loop": "read_note"
+     "loop": "read_note",
+     "ground": 285
     },
     {
      "do": "actor",
@@ -4816,7 +4822,8 @@
      "scale": 2.95,
      "weapon": "",
      "speaker": "rin",
-     "pose": "listen"
+     "pose": "listen",
+     "ground": 300
     },
     {
      "do": "camera",
@@ -4865,7 +4872,8 @@
      "facing": 1,
      "scale": 2.4,
      "weapon": "",
-     "speaker": "old_k"
+     "speaker": "old_k",
+     "ground": 285
     },
     {
      "do": "actor",
@@ -4878,7 +4886,8 @@
      "facing": -1,
      "scale": 2.4,
      "weapon": "",
-     "speaker": "ye"
+     "speaker": "ye",
+     "ground": 285
     },
     {
      "do": "actor",
@@ -4892,7 +4901,8 @@
      "scale": 2.95,
      "weapon": "",
      "speaker": "rin",
-     "pose": "listen"
+     "pose": "listen",
+     "ground": 300
     },
     {
      "do": "say",
@@ -4958,7 +4968,8 @@
      "facing": 1,
      "scale": 2.4,
      "weapon": "",
-     "speaker": "old_k"
+     "speaker": "old_k",
+     "ground": 285
     },
     {
      "do": "actor",
@@ -4971,7 +4982,8 @@
      "facing": -1,
      "scale": 2.4,
      "weapon": "",
-     "speaker": "ye"
+     "speaker": "ye",
+     "ground": 285
     },
     {
      "do": "actor",
@@ -4985,7 +4997,8 @@
      "scale": 2.95,
      "weapon": "",
      "speaker": "rin",
-     "pose": "listen"
+     "pose": "listen",
+     "ground": 300
     },
     {
      "do": "say",
@@ -5096,7 +5109,8 @@
      "facing": 1,
      "scale": 2.4,
      "weapon": "",
-     "speaker": "old_k"
+     "speaker": "old_k",
+     "ground": 285
     },
     {
      "do": "actor",
@@ -5109,7 +5123,8 @@
      "facing": -1,
      "scale": 2.4,
      "weapon": "",
-     "speaker": "ye"
+     "speaker": "ye",
+     "ground": 285
     },
     {
      "do": "actor",
@@ -5123,7 +5138,8 @@
      "scale": 2.95,
      "weapon": "",
      "speaker": "rin",
-     "pose": "listen"
+     "pose": "listen",
+     "ground": 300
     },
     {
      "do": "say",
@@ -5209,7 +5225,8 @@
      "facing": 1,
      "scale": 2.4,
      "weapon": "",
-     "speaker": "old_k"
+     "speaker": "old_k",
+     "ground": 285
     },
     {
      "do": "actor",
@@ -5222,7 +5239,8 @@
      "facing": -1,
      "scale": 2.4,
      "weapon": "",
-     "speaker": "ye"
+     "speaker": "ye",
+     "ground": 285
     },
     {
      "do": "actor",
@@ -5236,7 +5254,8 @@
      "scale": 2.95,
      "weapon": "",
      "speaker": "rin",
-     "pose": "listen"
+     "pose": "listen",
+     "ground": 300
     },
     {
      "do": "say",
@@ -5307,7 +5326,8 @@
      "facing": 1,
      "scale": 2.4,
      "weapon": "",
-     "speaker": "old_k"
+     "speaker": "old_k",
+     "ground": 285
     },
     {
      "do": "actor",
@@ -5320,7 +5340,8 @@
      "facing": -1,
      "scale": 2.4,
      "weapon": "",
-     "speaker": "ye"
+     "speaker": "ye",
+     "ground": 285
     },
     {
      "do": "actor",
@@ -5334,7 +5355,8 @@
      "scale": 2.95,
      "weapon": "",
      "speaker": "rin",
-     "pose": "listen"
+     "pose": "listen",
+     "ground": 300
     },
     {
      "do": "say",
@@ -5373,7 +5395,8 @@
      "facing": 1,
      "scale": 2.4,
      "weapon": "",
-     "speaker": "old_k"
+     "speaker": "old_k",
+     "ground": 285
     },
     {
      "do": "actor",
@@ -5386,7 +5409,8 @@
      "facing": -1,
      "scale": 2.4,
      "weapon": "",
-     "speaker": "ye"
+     "speaker": "ye",
+     "ground": 285
     },
     {
      "do": "actor",
@@ -5400,7 +5424,8 @@
      "scale": 2.95,
      "weapon": "",
      "speaker": "rin",
-     "pose": "listen"
+     "pose": "listen",
+     "ground": 300
     },
     {
      "do": "wait",
@@ -5427,7 +5452,8 @@
      "facing": 1,
      "scale": 2.4,
      "weapon": "",
-     "speaker": "old_k"
+     "speaker": "old_k",
+     "ground": 285
     },
     {
      "do": "actor",
@@ -5440,7 +5466,8 @@
      "facing": -1,
      "scale": 2.4,
      "weapon": "",
-     "speaker": "ye"
+     "speaker": "ye",
+     "ground": 285
     },
     {
      "do": "actor",
@@ -5454,7 +5481,8 @@
      "scale": 2.95,
      "weapon": "",
      "speaker": "rin",
-     "pose": "listen"
+     "pose": "listen",
+     "ground": 300
     },
     {
      "do": "say",
@@ -5514,7 +5542,8 @@
      "facing": 1,
      "scale": 2.4,
      "weapon": "",
-     "speaker": "old_k"
+     "speaker": "old_k",
+     "ground": 285
     },
     {
      "do": "actor",
@@ -5527,7 +5556,8 @@
      "facing": -1,
      "scale": 2.4,
      "weapon": "",
-     "speaker": "ye"
+     "speaker": "ye",
+     "ground": 285
     },
     {
      "do": "actor",
@@ -5540,7 +5570,8 @@
      "facing": -1,
      "scale": 2.95,
      "weapon": "",
-     "speaker": "rin"
+     "speaker": "rin",
+     "ground": 300
     },
     {
      "do": "wait",
@@ -5595,7 +5626,8 @@
      "facing": 1,
      "scale": 2.4,
      "weapon": "",
-     "speaker": "old_k"
+     "speaker": "old_k",
+     "ground": 285
     },
     {
      "do": "actor",
@@ -5608,7 +5640,8 @@
      "facing": -1,
      "scale": 2.4,
      "weapon": "",
-     "speaker": "ye"
+     "speaker": "ye",
+     "ground": 285
     },
     {
      "do": "actor",
@@ -5621,7 +5654,8 @@
      "facing": -1,
      "scale": 2.95,
      "weapon": "",
-     "speaker": "rin"
+     "speaker": "rin",
+     "ground": 300
     },
     {
      "do": "say",
@@ -5709,7 +5743,8 @@
      "facing": 1,
      "scale": 2.4,
      "weapon": "",
-     "speaker": "old_k"
+     "speaker": "old_k",
+     "ground": 285
     },
     {
      "do": "actor",
@@ -5722,7 +5757,8 @@
      "facing": -1,
      "scale": 2.4,
      "weapon": "",
-     "speaker": "ye"
+     "speaker": "ye",
+     "ground": 285
     },
     {
      "do": "actor",
@@ -5735,7 +5771,8 @@
      "facing": -1,
      "scale": 2.95,
      "weapon": "",
-     "speaker": "rin"
+     "speaker": "rin",
+     "ground": 300
     },
     {
      "do": "move",
@@ -5809,7 +5846,8 @@
      "facing": 1,
      "scale": 2.4,
      "weapon": "",
-     "speaker": "old_k"
+     "speaker": "old_k",
+     "ground": 285
     },
     {
      "do": "actor",
@@ -5822,7 +5860,8 @@
      "facing": -1,
      "scale": 2.4,
      "weapon": "",
-     "speaker": "ye"
+     "speaker": "ye",
+     "ground": 285
     },
     {
      "do": "actor",
@@ -5836,7 +5875,8 @@
      "scale": 2.95,
      "weapon": "",
      "speaker": "rin",
-     "pose": "listen"
+     "pose": "listen",
+     "ground": 300
     },
     {
      "do": "say",
@@ -5875,7 +5915,8 @@
      "facing": 1,
      "scale": 2.4,
      "weapon": "",
-     "speaker": "old_k"
+     "speaker": "old_k",
+     "ground": 285
     },
     {
      "do": "actor",
@@ -5888,7 +5929,8 @@
      "facing": -1,
      "scale": 2.4,
      "weapon": "",
-     "speaker": "ye"
+     "speaker": "ye",
+     "ground": 285
     },
     {
      "do": "actor",
@@ -5902,7 +5944,8 @@
      "scale": 2.95,
      "weapon": "",
      "speaker": "rin",
-     "pose": "listen"
+     "pose": "listen",
+     "ground": 300
     },
     {
      "do": "wait",
@@ -5943,7 +5986,8 @@
      "facing": 1,
      "scale": 2.4,
      "weapon": "",
-     "speaker": "old_k"
+     "speaker": "old_k",
+     "ground": 285
     },
     {
      "do": "actor",
@@ -5956,7 +6000,8 @@
      "facing": -1,
      "scale": 2.4,
      "weapon": "",
-     "speaker": "ye"
+     "speaker": "ye",
+     "ground": 285
     },
     {
      "do": "actor",
@@ -5970,7 +6015,8 @@
      "scale": 2.95,
      "weapon": "",
      "speaker": "rin",
-     "pose": "listen"
+     "pose": "listen",
+     "ground": 300
     },
     {
      "do": "say",
@@ -6030,7 +6076,8 @@
      "facing": 1,
      "scale": 2.4,
      "weapon": "",
-     "speaker": "old_k"
+     "speaker": "old_k",
+     "ground": 285
     },
     {
      "do": "actor",
@@ -6043,7 +6090,8 @@
      "facing": -1,
      "scale": 2.4,
      "weapon": "",
-     "speaker": "ye"
+     "speaker": "ye",
+     "ground": 285
     },
     {
      "do": "actor",
@@ -6057,7 +6105,8 @@
      "scale": 2.95,
      "weapon": "",
      "speaker": "rin",
-     "pose": "listen"
+     "pose": "listen",
+     "ground": 300
     },
     {
      "do": "wait",
@@ -6078,7 +6127,8 @@
       420,
       285
      ],
-     "time": 1.6
+     "time": 1.6,
+     "wait": false
     },
     {
      "do": "move",
@@ -6110,7 +6160,8 @@
       -60,
       285
      ],
-     "time": 3.0
+     "time": 3.0,
+     "wait": false
     },
     {
      "do": "wait",
@@ -6165,7 +6216,8 @@
      "facing": -1,
      "scale": 2.4,
      "weapon": "",
-     "speaker": "ye"
+     "speaker": "ye",
+     "ground": 285
     },
     {
      "do": "actor",
@@ -6178,7 +6230,8 @@
      "facing": -1,
      "scale": 2.95,
      "weapon": "",
-     "speaker": "rin"
+     "speaker": "rin",
+     "ground": 300
     },
     {
      "do": "say",
@@ -6270,7 +6323,8 @@
      "facing": -1,
      "scale": 2.4,
      "weapon": "",
-     "speaker": "ye"
+     "speaker": "ye",
+     "ground": 285
     },
     {
      "do": "actor",
@@ -6283,7 +6337,8 @@
      "facing": -1,
      "scale": 2.95,
      "weapon": "",
-     "speaker": "rin"
+     "speaker": "rin",
+     "ground": 300
     },
     {
      "do": "say",
@@ -6346,7 +6401,8 @@
      "facing": -1,
      "scale": 2.4,
      "weapon": "",
-     "speaker": "ye"
+     "speaker": "ye",
+     "ground": 285
     },
     {
      "do": "actor",
@@ -6359,7 +6415,8 @@
      "facing": -1,
      "scale": 2.95,
      "weapon": "",
-     "speaker": "rin"
+     "speaker": "rin",
+     "ground": 300
     },
     {
      "do": "say",

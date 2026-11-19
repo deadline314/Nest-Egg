@@ -790,8 +790,9 @@ def _cast(*who: str, rin_x: float | None = None, rin_pose: str | None = None, ye
         x, y, scale = OFFICE_CAST[ident]
         if ident == "rin" and rin_x is not None:
             x = rin_x
-        steps.append(stage_actor(ident, ident, x, y, facing=facing[ident], scale=scale, speaker=ident, weapon="",
-                                 pose=rin_pose if ident == "rin" else None, loop=ye_loop if ident == "ye" else None))
+        steps.append(dict(stage_actor(ident, ident, x, y, facing=facing[ident], scale=scale, speaker=ident, weapon="",
+                                      pose=rin_pose if ident == "rin" else None, loop=ye_loop if ident == "ye" else None),
+                          ground=y))
     return steps
 
 
@@ -819,8 +820,9 @@ def _office(source: ProductionSource):
         *arrival,
         stage_sfx("pickup", -10),
         *say_(("label", "取件格的回執寫著：風控接待收件，月報17查核件。")),
-        stage_actor("old_k", "old_k", -60, OFFICE_INSIDE, facing=1, scale=OFFICE_CAST["old_k"][2], speaker="old_k", weapon=""),
-        stage_move("old_k", OFFICE_CAST["old_k"][0], OFFICE_INSIDE, t=3.2, wait_for=False),
+        dict(stage_actor("old_k", "old_k", -60, OFFICE_INSIDE, facing=1, scale=OFFICE_CAST["old_k"][2], speaker="old_k", weapon=""),
+             ground=OFFICE_INSIDE),
+        dict(stage_move("old_k", OFFICE_CAST["old_k"][0], OFFICE_INSIDE, t=3.2), wait=False),
         *say_(("label", "側門開了一道縫，老 K 收起來客卡，走到葉的桌前。")),
         _pan("rin", t=1.6),
         *say_(("rin", "他叫我別上來，自己卻在這裡。")),
@@ -914,11 +916,11 @@ def _office(source: ProductionSource):
         *_shot("rin", "old_k", "ye", "rin", rin_pose="listen"),
         stage_wait(0.7),
         _hear("old_k", "這張你回你的，我回去跟她說。"),
-        stage_move("old_k", 420, OFFICE_INSIDE, t=1.6, wait_for=False),
+        dict(stage_move("old_k", 420, OFFICE_INSIDE, t=1.6), wait=False),
         stage_move("rin", 640, OFFICE_FLOOR, t=0.8),
         _hear("ye", "回覆只能走收件人，不替你撤。"),
         stage_face("old_k", -1),
-        stage_move("old_k", -60, OFFICE_INSIDE, t=3.0, wait_for=False),
+        dict(stage_move("old_k", -60, OFFICE_INSIDE, t=3.0), wait=False),
         stage_wait(1.4)],
         when=all_of(half, negate(listened)), mode="animated", completion=(set_flag("ch3_trade_listened"),), next_scene="ch3_t_c20_react")
     source.add("ch3_t_c20_react", "C20", steps=[
