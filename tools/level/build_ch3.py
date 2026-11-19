@@ -406,6 +406,8 @@ def build_showroom():
     for x in (12, 34, 47, 61, 72):
         a.lamp(x, 9)
     a.zone(0, 'showroom_day')
+    a.zone(42, 'showroom_quiet', blend=6)
+    a.zone(55, 'showroom_day', blend=6)
     a.features = {'loop': '三間樣品房圍著接待桌（x=16～62）', 'landmark': '接待桌（x=18）', 'secret': '三扇窗的完整比較（可選）'}
     return a
 

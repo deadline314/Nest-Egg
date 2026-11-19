@@ -881,6 +881,16 @@
    },
    "tip": "站在通風（診所）的區段，環境音層淡入"
   },
+  "amb_showroom_quiet": {
+   "name": "環境音：晴岸靜窗",
+   "group": "環境",
+   "action": "zone",
+   "params": {
+    "zone": "showroom_quiet",
+    "seconds": 3
+   },
+   "tip": "聽靜窗旁的低聲通風"
+  },
   "amb_factory_rust": {
    "name": "環境音：發電機與通風（工廠）",
    "group": "環境",
@@ -1325,7 +1335,8 @@
    "amb_hangar"
   ],
   "P-AMB-006": [
-   "amb_clinic_ward"
+   "amb_clinic_ward",
+   "amb_showroom_quiet"
   ],
   "P-AMB-007": [
    "amb_factory_rust"
