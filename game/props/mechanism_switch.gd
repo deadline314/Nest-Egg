@@ -52,16 +52,27 @@ func _ready() -> void:
 		_prompt = WorldPrompt.new()
 		_prompt.text = data.hint
 		_prompt.radius = PROMPT_RADIUS
-		_prompt.reach_check = func() -> bool: return _player_in_range
+		_prompt.reach_check = func() -> bool: return _player_in_range and Story.framing.is_interaction_prompt_target(self)
 		_prompt.offset = Vector2(0, -REACH.y - 8.0)
 		add_child(_prompt)
 	add_to_group(WorldState.GROUP)
+	Story.framing.register_target(self)
+
+
+func preview_available() -> bool:
+	return false
+
+
+func interaction_available() -> bool:
+	# Keep the switch selected through cooldown so one press cannot also reach a nearby actor.
+	return _player_in_range
 
 
 func _physics_process(delta: float) -> void:
 	_time += delta
 	_cooldown = maxf(0.0, _cooldown - delta)
-	if _player_in_range and _cooldown <= 0.0 and Input.is_action_just_pressed(&"interact"):
+	if _player_in_range and _cooldown <= 0.0 and Input.is_action_just_pressed(&"interact") \
+			and Story.framing.is_interaction_target(self):
 		toggle()
 	queue_redraw()
 

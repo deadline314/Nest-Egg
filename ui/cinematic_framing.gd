@@ -25,6 +25,8 @@ var _next_token := 0
 var _targets: Array[Node2D] = []
 var _consumed_targets: Dictionary[int, bool] = {}
 var _selected: Node2D
+var _prompt_target: Node2D
+var _prompt_frame := -1
 var _player: Player
 var _check_left := 0.0
 var _goal := 0.0
@@ -146,9 +148,22 @@ func interaction_started(target: Node2D) -> void:
 
 ## 只在確認輸入時選擇互動來源；戰鬥抑制預告不會取消既有交談能力。
 func is_interaction_target(target: Node2D) -> bool:
+	return _nearest_interaction() == target
+
+
+## The prompts in one rendered frame share a lookup. An input press uses live availability.
+func is_interaction_prompt_target(target: Node2D) -> bool:
+	var frame := Engine.get_process_frames()
+	if frame != _prompt_frame:
+		_prompt_frame = frame
+		_prompt_target = _nearest_interaction()
+	return _prompt_target == target
+
+
+func _nearest_interaction() -> Node2D:
 	var player := get_tree().get_first_node_in_group(&"player") as Node2D
 	if player == null:
-		return false
+		return null
 	var closest: Node2D
 	var distance := NpcActor.INTERACT_RANGE + 0.01
 	for candidate in _targets:
@@ -158,7 +173,7 @@ func is_interaction_target(target: Node2D) -> bool:
 		if absf(offset.y) <= VERTICAL_RANGE and absf(offset.x) < distance:
 			closest = candidate
 			distance = absf(offset.x)
-	return closest == target
+	return closest
 
 
 func _player_spawned(player: Node2D) -> void:

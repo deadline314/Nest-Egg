@@ -43,6 +43,7 @@ static func lifecycle(s: TestSuite) -> void:
 	var auto := Story.auto_skip
 	var previous: Node = Story.result_completion
 	Story.auto_skip = false
+	await _switch_and_pump_select_one_target(s)
 	for id: String in ACTIONS:
 		var spec := WorldPropAction.definition(id)
 		var flag := &"ch1_ledger_checked" if id == "ledger_lock_check" else &"ch1_pump_case_reset"
@@ -113,6 +114,41 @@ static func lifecycle(s: TestSuite) -> void:
 			Story.result_completion = previous if is_instance_valid(previous) else null
 			await s.end_level(level)
 	Story.auto_skip = auto
+
+static func _switch_and_pump_select_one_target(s: TestSuite) -> void:
+	var level := await s.start_level(load("res://data/levels/ch1_warehouse.tres"))
+	Story.reset_active_presentation(&"maintenance_setup")
+	GameState.story_autosave = false
+	GameState.set_flag(&"watchdog_defeated")
+	var gate_switch: ChannelSwitch
+	var pump: NpcActor
+	for node in level._entities.get_children():
+		if node is ChannelSwitch and node.data.id == &"ch1_switch_a":
+			gate_switch = node
+		elif node is NpcActor and node.data.id == &"ch1_pump_service":
+			pump = node
+	s.check(gate_switch != null and pump != null, "warehouse has the authored switch and optional pump")
+	if gate_switch == null or pump == null:
+		await s.end_level(level)
+		return
+	# The fixture starts behind the completed watchdog approach, before either item is used.
+	Story.auto_skip = true
+	level.player.global_position = gate_switch.global_position + Vector2(1.0, 0.0)
+	await s.physics_frames(8)
+	Story.reset_active_presentation(&"maintenance_overlap_ready")
+	Story.auto_skip = false
+	s.check(gate_switch._player_in_range and pump.interaction_available(), "the actual switch and pump interaction ranges overlap")
+	s.check(gate_switch._prompt._player_near() and not pump._prompt._player_near(), "only the gate advertises the shared key in the overlap")
+	await s.runner._press_action(&"interact")
+	s.check(gate_switch.active and not Story.is_cinematic_active() and not pump._talking, "one press at the switch opens the gate without starting optional maintenance")
+	Story.reset_active_presentation(&"maintenance_switch_checked")
+	level.player.global_position = pump.global_position
+	await s.physics_frames(8)
+	s.check(pump._prompt._player_near() and not gate_switch._prompt._player_near(), "the pump advertises the shared key from its own position")
+	await s.runner._press_action(&"interact")
+	s.check(gate_switch.active and pump._talking and not GameState.has_flag(&"ch1_pump_case_reset"), "one press at the pump offers maintenance without changing the gate or repairing it")
+	Story.reset_active_presentation(&"maintenance_teardown")
+	await s.end_level(level)
 
 static func _drive(s: TestSuite, finished: Callable) -> bool:
 	for frame in 1000:
