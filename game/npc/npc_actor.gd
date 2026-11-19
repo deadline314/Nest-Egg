@@ -270,7 +270,11 @@ func _talk() -> bool:
 	var index := current_talk_index()
 	if index < 0:
 		return false
-	return await _present_talk(index, data.talks[index].scene, data.talks[index].once)
+	var talk := data.talks[index]
+	if talk.resume_scene != &"" and Story.cancels_on_skip(talk.resume_scene) and Story.scene_available(talk.resume_scene) \
+			and can_resume_presentation(talk.resume_scene, index):
+		return await _present_talk(index, talk.resume_scene, false)
+	return await _present_talk(index, talk.scene, talk.once)
 
 
 func _present_talk(index: int, scene: StringName, once: bool) -> bool:

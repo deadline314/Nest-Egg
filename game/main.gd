@@ -645,6 +645,8 @@ func _on_presentation_cancelled(id: StringName, _context: Dictionary, reason: St
 		_bind_navigation()
 		RunSnapshot.publish_restored()
 		_publishing_restore = false
+	if rolled_back or reason == &"skip":
+		# Explicitly leaving an optional scene also clears the saved playback checkpoint.
 		_queue_save()
 
 

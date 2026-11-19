@@ -330,7 +330,8 @@ func _build_ui() -> void:
 	_root.add_child(_center_sub)
 	_dialogue = CutsceneDialogue.new()
 	_root.add_child(_dialogue)
-	_skip_hint = UiKit.label(UiKit.cinematic_skip_hint(Story.language), UiKit.FS_BODY, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_RIGHT)
+	_skip_hint = UiKit.label("", UiKit.FS_BODY, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_RIGHT)
+	_refresh_skip_hint()
 	_skip_hint.set_anchors_preset(Control.PRESET_TOP_RIGHT)
 	_skip_hint.offset_left = -110
 	_skip_hint.offset_right = -10
@@ -1099,4 +1100,4 @@ func _layout_safe_rect(rect: Rect2) -> void:
 
 func _refresh_skip_hint() -> void:
 	if is_instance_valid(_skip_hint):
-		_skip_hint.text = UiKit.cinematic_skip_hint(Story.language)
+		_skip_hint.text = UiKit.cinematic_skip_hint(Story.language, &"ui_cancel", Story.cancels_on_skip(scene_id))

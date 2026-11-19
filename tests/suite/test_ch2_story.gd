@@ -10,6 +10,11 @@ const LEVEL := "res://data/levels/ch2_%s.tres"
 
 const Checks := preload("res://tests/helpers/chapter_story_checks.gd")
 
+class ClosingMain extends "res://game/main.gd":
+	func _ready() -> void:
+		Story.scene_started.connect(_on_scene_started)
+		Story.presentation_cancelled.connect(_on_presentation_cancelled)
+
 var _datas: Dictionary = {}
 
 
@@ -25,6 +30,7 @@ func run() -> void:
 	_test_ledger_install()
 	_test_street_line()
 	_test_guest_book_stage()
+	await _test_guest_book_closing()
 	await _test_market_tea_stall()
 	preload("res://tests/helpers/radio_tune_checks.gd").run(self)
 	await preload("res://tests/helpers/radio_tune_lifecycle_checks.gd").run(self)
@@ -88,6 +94,52 @@ func _test_ali_soup_healing() -> void:
 	health.is_dead = true
 	check(health.preview_heal(amount) == 0, "a story reward cannot resurrect the player")
 	health.free()
+
+
+func _test_guest_book_closing() -> void:
+	const CLOSE := &"ch2_t_s21_close"
+	const RECEIPT := &"ch2.guest_book"
+	var level := await start_level(_datas["lounge_front"])
+	var main := ClosingMain.new()
+	main._active_run = true
+	main._screen = level
+	main._level_path = level.data.resource_path
+	main._run_store = RunSaveStore.new("user://test-ch2-guest-closing-%s.json" % OS.get_process_id())
+	runner.get_tree().root.add_child(main)
+	var entry := load("res://data/npcs/ch2_guest_entry.tres") as NpcData
+	check(entry != null and entry.talks[0].resume_scene == CLOSE and Story.cancels_on_skip(CLOSE),
+			"the original guest book can resume a skippable closing without changing its story entry")
+	check(not Story.scene_available(CLOSE), "the closing cannot start before all three guests finish")
+	for id: StringName in [&"ch2_audit_submitted", &"guest_ticket_answered", &"guest_band_answered", &"guest_letter_answered"]:
+		GameState.set_flag(id)
+	check(Story.scene_available(CLOSE) and Story.is_npc_presentation(entry, 0, CLOSE),
+			"all three answers make the original closing reachable from the real guest book")
+	var auto := Story.auto_skip
+	Story.auto_skip = false
+	var credits := Progression.credits
+	check(Story.play(CLOSE, false), "the unfinished closing begins")
+	await frames(8)
+	check(main._run_store.read().get("cinematic") == String(CLOSE), "the run saves the active closing until the player decides")
+	Story.skip_cinematic()
+	await frames(8)
+	check(not Story.is_cinematic_active() and not Story.was_seen(CLOSE) and not GameState.has_flag(&"guest_book_completed")
+			and Progression.credits == credits and Progression.story_receipt_status(RECEIPT)["status"] == "missing",
+			"leaving the closing keeps the ending, payment and watching record pending")
+	var after_leave := main._run_store.read()
+	check(after_leave.get("cinematic") == "" and after_leave.get("progression", {}).get("credits") == credits,
+			"explicitly leaving clears the saved playback without changing prior guest payments")
+	Story.auto_skip = true
+	check(await Story.play_and_wait(CLOSE, false) and GameState.has_flag(&"guest_book_completed")
+			and Progression.credits == credits + 40 and Progression.story_receipt_status(RECEIPT)["status"] == "recorded",
+			"the original closing pays forty once and makes the resume unavailable")
+	check(not Story.scene_available(CLOSE), "the completed book returns to the existing revisit")
+	DirAccess.remove_absolute(main._run_store.path)
+	DirAccess.remove_absolute(main._run_store.path + ".bak")
+	main._screen = null
+	main.queue_free()
+	await end_level(level)
+	Story.auto_skip = auto
+	GameState.start_new_run(GameState.difficulties[1])
 
 
 func _test_ali_kitchen_revisit() -> void:

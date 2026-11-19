@@ -564,7 +564,7 @@ static func _effects(raw: Variant) -> Variant:
 		elif key in CONTAINERS:
 			var children: Variant = _effects(raw[key])
 			if not (children is Array and children.is_empty()): out[key] = children
-		elif key == "lines" or key in StoryLocale.VISIBLE_FIELDS or key in ["ja","en","pose_policy","overlay","budget","gallery_order","silence_music","ambience_only","skip_then"]:
+		elif key == "lines" or key in StoryLocale.VISIBLE_FIELDS or key in ["ja","en","pose_policy","overlay","budget","gallery_order","silence_music","ambience_only","skip_then","cancel_on_skip"]:
 			continue
 		else:
 			var translated := false

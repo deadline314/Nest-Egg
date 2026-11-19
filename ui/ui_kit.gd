@@ -148,9 +148,9 @@ static func tab_style(selected: bool) -> StyleBox:
 	return UiTheme.tab_box(selected)
 
 
-static func cinematic_skip_hint(language: String, action: StringName = &"ui_cancel") -> String:
-	var copy := {"ja": "スキップ", "en": "Skip"}
-	return InputBindings.format("{%s} %s" % [action, copy.get(language, "跳過")])
+static func cinematic_skip_hint(language: String, action: StringName = &"ui_cancel", exits := false) -> String:
+	var copy := {"zh": "離開", "ja": "終了", "en": "Leave"} if exits else {"zh": "跳過", "ja": "スキップ", "en": "Skip"}
+	return InputBindings.format("{%s} %s" % [action, copy.get(language, copy["zh"])])
 
 
 static func label(text: String, size := BASE_FONT_SIZE, color := Palette.UI_TEXT,

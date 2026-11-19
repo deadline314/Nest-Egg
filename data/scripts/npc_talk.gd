@@ -5,6 +5,8 @@ extends Resource
 
 ## 台詞所在的劇情場景（data/story/*.json，mode 為 dialogue）。
 @export var scene: StringName = &""
+## 原對話可到達、尚未結算且可中止的收尾段落。符合條件時從這一段繼續。
+@export var resume_scene: StringName = &""
 ## 至少已經談過幾次才會用這一段（0 = 任何時候；1 = 之後再來）。
 @export var min_talks: int = 0
 ## 本輪累計死亡至少幾次才會用這一段（0 = 不限）：人物對死亡的反應。

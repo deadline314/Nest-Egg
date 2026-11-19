@@ -12149,7 +12149,8 @@
      "kind": "transaction",
      "id": "ch2.guest_book"
     }
-   ]
+   ],
+   "cancel_on_skip": true
   },
   "ch2_t_s17_revisit": {
    "mode": "animated",

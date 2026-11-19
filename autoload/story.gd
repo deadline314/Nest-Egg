@@ -520,6 +520,8 @@ func _validate_targets(scene_id: String, scene: Dictionary) -> PackedStringArray
 ## 接續場景（then）：只能接在過場／動畫過場之後，目標必須存在，且不能形成迴圈。
 func _validate_chain(scene_id: String, scene: Variant) -> PackedStringArray:
 	var problems := PackedStringArray()
+	if scene is Dictionary and scene.has("cancel_on_skip") and not _can_cancel_on_skip(scene):
+		problems.append("場景 %s 的 cancel_on_skip 需要沒有接續或選擇的動畫收尾" % scene_id)
 	if scene is Dictionary and scene.has("skip_then"):
 		var skip_config: Variant = scene["skip_then"]
 		if not skip_config is bool or (skip_config and not _can_finish_skipped_tail(scene_id, scene)):
@@ -1236,6 +1238,16 @@ func skip_cinematic() -> void:
 		_layer.finish_cinematic()
 
 
+func cancels_on_skip(id: StringName) -> bool:
+	return _can_cancel_on_skip(_scenes.get(String(id), {}))
+
+
+func _can_cancel_on_skip(scene: Dictionary) -> bool:
+	var policy: Variant = scene.get("cancel_on_skip", false)
+	return policy is bool and policy and scene.get("mode") == String(MODE_ANIMATED) \
+			and not scene.has("then") and not offers_choice(scene)
+
+
 func _start_cinematic(id: StringName, context: Dictionary = {}, request := 0, skip_tail := false) -> void:
 	_presentation_generation += 1
 	_current_cinematic = id
@@ -1250,7 +1262,7 @@ func _start_cinematic(id: StringName, context: Dictionary = {}, request := 0, sk
 		_context_request = request
 	scene_started.emit(id, MODE_ANIMATED if animated else MODE_CINEMATIC)
 	# 「略過過場動畫」只略過看的部分：要玩家做決定的場景照常播，不然預設選項會讓出門、交付這類決定永遠選不到。
-	if skip_tail or auto_skip or (Settings.get_skip_cutscenes() and not offers_choice(scene)):
+	if skip_tail or auto_skip or (Settings.get_skip_cutscenes() and not _can_cancel_on_skip(scene) and not offers_choice(scene)):
 		_retry_auto_skip_choices(id, request, _presentation_generation)
 		return
 	if not animated and uses_cinematic_framing(id, _presentation_context):
@@ -1281,6 +1293,9 @@ func _retry_auto_skip_choices(id: StringName, request: int, generation: int) -> 
 
 func _on_cinematic_finished(id: StringName, expected_request := 0) -> void:
 	if _current_cinematic != id or (expected_request != 0 and expected_request != _current_request):
+		return
+	if is_instance_valid(_player) and _player.scene_id == id and _player.user_skipped and cancels_on_skip(id):
+		_cancel_skipped_cinematic(id)
 		return
 	var guarded: Dictionary = result_completion.complete(id, _current_request) if is_instance_valid(result_completion) else {}
 	if not guarded.get("handled", false):
@@ -1316,7 +1331,27 @@ func _on_cinematic_finished(id: StringName, expected_request := 0) -> void:
 		_complete_request(completed_request, true)
 	if guarded.get("terminal_batch", false):
 		result_completion.finish()
-	if not _cinematic_queue.is_empty():
+	_start_queued_cinematic()
+
+
+func _cancel_skipped_cinematic(id: StringName) -> void:
+	var request := _current_request
+	presentation_cancelled.emit(id, current_presentation_context(), &"skip", request)
+	_current_cinematic = &""
+	_current_request = 0
+	_presentation_context = {}
+	framing.release(_framing_token)
+	_framing_token = 0
+	_pending_transfers.erase(id)
+	_pending_next.erase(id)
+	if not _completed.has(id):
+		_seen.erase(id)
+	_complete_request(request, false)
+	_start_queued_cinematic()
+
+
+func _start_queued_cinematic() -> void:
+	if _current_cinematic == &"" and not _cinematic_queue.is_empty():
 		var queued: Dictionary = _cinematic_queue.pop_front()
 		_start_cinematic(queued.id, queued.context, queued.request, queued.get("skip_tail", false))
 
@@ -1339,7 +1374,7 @@ func _can_finish_skipped_tail(id: String, scene: Dictionary) -> bool:
 	var tail: Dictionary = _scenes.get(next, {})
 	if scene.get("mode") != String(MODE_ANIMATED) or offers_choice(scene) or tail.get("mode") != String(MODE_ANIMATED) \
 			or _scene_sources.get(next) != _scene_sources.get(id) or tail.has("then") or tail.has("transfer_items") \
-			or tail.has("on_failure") or offers_choice(tail):
+			or tail.has("on_failure") or _can_cancel_on_skip(tail) or offers_choice(tail):
 		return false
 	var results := StoryOutcomes.operations(tail)
 	return not results.is_empty() and results.all(func(op: Dictionary) -> bool: return op.get("kind") == "flag")

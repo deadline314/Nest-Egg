@@ -802,7 +802,7 @@ def _guest_book(source: ProductionSource):
         ("label", "阿梨把一顆梨放進鍋裡。"),
         ("ali", "梨嬸教我，湯裡放一顆梨，煮到最後也不容易澀。她在梨攤邊把我抱回去，我能留下的做法就這幾樣。"),
         ("ali", "我沒有錨人，真倒下就沒有下一次。有人能把今天說完，我就先讓他說完。")),
-        when=all_of(all_guests, negate(flag("guest_book_completed"))), mode="animated",
+        when=all_of(all_guests, negate(flag("guest_book_completed"))), mode="animated", cancel_on_skip=True,
         completion=(set_flag("guest_book_completed"), transaction("ch2.guest_book")))
     source.add("ch2_t_s17_revisit", "S17", (("ali", "客人簿收好了，今晚的三頁都寫清楚了。"),), when=flag("guest_book_completed"))
 

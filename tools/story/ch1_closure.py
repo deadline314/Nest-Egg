@@ -139,6 +139,7 @@ class Segment:
     silence_music: bool = False
     ambience_only: str = ""
     skip_then: bool = False
+    cancel_on_skip: bool = False
 
 
 @dataclass(frozen=True)
