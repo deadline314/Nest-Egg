@@ -49,6 +49,8 @@ func _test_story_gates() -> void:
 	GameState.set_flag(&"knows_ali_address")
 	check(Story.resolve_dispatch(&"ch2_dispatch_s01_reaction") == &"ch2_t_s01_reaction", "after staying for noodles Old K mentions the noodles")
 	check(Story.resolve_dispatch(&"ch2_dispatch_cabinet") == &"ch2_t_s13_locked", "the ledger cabinet stays locked before Yong is subdued")
+	var cabinet := load("res://data/npcs/ch2_ledger_cabinet.tres") as NpcData
+	check(cabinet != null and cabinet.prompt_text() == "{interact} 查看帳櫃", "the cabinet prompt offers inspection even while the lock is active")
 	check(Story.validate().is_empty(), "the merged story passes validation")
 	GameState.start_new_run(GameState.difficulties[1])
 

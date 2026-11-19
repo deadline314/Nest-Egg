@@ -58,7 +58,7 @@ NPCS = {
     'ch2_drying_desk': dict(name='乾燥作業桌', speaker='label', kind=O, prompt='{interact} 在作業桌上對帳', talks=[('ch2_dispatch_reconcile', 0)]),
     'ch2_isolation_diagram': dict(name='隔離箱示意圖', speaker='label', kind=O, prompt='{interact} 看隔離箱示意圖', talks=[('ch2_dispatch_diagram', 0)]),
     'ch2_ledger_door': dict(name='帳房的門', speaker='label', kind=O, prompt='{interact} 進帳房找阿勇', talks=[('ch2_dispatch_ledger_door', 0)]),
-    'ch2_ledger_cabinet': dict(name='帳櫃', speaker='label', kind=O, prompt='{interact} 打開帳櫃', talks=[('ch2_dispatch_cabinet', 0)]),
+    'ch2_ledger_cabinet': dict(name='帳櫃', speaker='label', kind=O, prompt='{interact} 查看帳櫃', talks=[('ch2_dispatch_cabinet', 0)]),
     'ch2_xiaowei': dict(name='小薇', speaker='xiaowei', rig='xiaowei', pose='sit', loop='glance', facing=1, prompt='{interact} 和小薇說話',
                         talks=[('ch2_dispatch_xiaowei', 0)], spawn_unless_flag='ch2_yong_subdued'),
     'ch2_terminal': dict(name='公用委託終端', speaker='terminal', kind=O, prompt='{interact} 在委託終端上傳證據', talks=[('ch2_dispatch_terminal', 0)]),
