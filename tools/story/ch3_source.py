@@ -243,6 +243,8 @@ def _freight(source: ProductionSource):
     powered = flag("ch3_lift_powered")
     ready = flag("ch3_freight_ready")
     ladder = flag("ch3_outer_ladder_down")
+    source.add("ch3_b_c02_upper_route", "C02", (("rin", "我可以從矮臺跳上乾燥的上橋，避開巡檢器。"),),
+               when=negate(low), mode="bubbles")
     source.add("ch3_t_c01_box", "C01", (
         ("panel", "集水槽水位過高，貨梯安全聯鎖未解除。沿右側上橋去排水泵室。"),
         ("rin", "梯子沒壞，是下面還泡著水。"),

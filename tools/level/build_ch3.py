@@ -451,6 +451,7 @@ def build_plaza():
 
 def build_pump():
     a = kit._v2_area(_build_pump_v1())
+    a.trigger(7, "ch3_b_c02_upper_route")
     a.features.update(vertical='下槽、乾燥上橋與天花板上的管線廊三層', reward='管線廊上方第 7 列信用點：空中再躍',
                       shortcut='管線廊左端的維修豎井 ↔ 夾層（貨梯接通後）')
     return a

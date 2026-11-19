@@ -1003,6 +1003,23 @@
     "equals": true
    }
   },
+  "ch3_b_c02_upper_route": {
+   "mode": "bubbles",
+   "lines": [
+    {
+     "speaker": "rin",
+     "text": "我可以從矮臺跳上乾燥的上橋，避開巡檢器。",
+     "ja": "低い足場から乾いた橋に跳び移れば、巡回機を避けられる。",
+     "en": "I can jump from this ledge to the dry bridge and avoid the patrol."
+    }
+   ],
+   "when": {
+    "not": {
+     "flag": "ch3_pump_low",
+     "equals": true
+    }
+   }
+  },
   "ch3_t_c01_box": {
    "mode": "animated",
    "steps": [

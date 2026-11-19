@@ -8,7 +8,7 @@
 [ext_resource type="Resource" path="res://data/npcs/ch3_drain_wheel.tres" id="6_ch3_drain_wheel"]
 [ext_resource type="Resource" path="res://data/npcs/ch3_branch_panel.tres" id="7_ch3_branch_panel"]
 [ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="8_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/pump_room.tres" id="9_power_room"]
+[ext_resource type="Resource" path="res://data/lighting/pump_room.tres" id="9_pump_room"]
 [ext_resource type="Resource" path="res://data/environment/themes/ch3_pump.tres" id="10_ch3_pump"]
 
 [sub_resource type="Resource" id="Resource_0"]
@@ -47,7 +47,7 @@ style = "door"
 script = ExtResource("8_lighting_zone")
 start_tile = 0
 blend_tiles = 12
-profile = ExtResource("9_power_room")
+profile = ExtResource("9_pump_room")
 
 [resource]
 script = ExtResource("1_level_data")
@@ -72,5 +72,5 @@ show_chapter_card = false
 environment = ExtResource("10_ch3_pump")
 layout_path = "res://data/levels/ch3_pump_map.json"
 lighting_zones = Array[ExtResource("8_lighting_zone")]([SubResource("Resource_3")])
-story_triggers = PackedStringArray()
+story_triggers = PackedStringArray("ch3_b_c02_upper_route")
 death_credit_cap = 250
