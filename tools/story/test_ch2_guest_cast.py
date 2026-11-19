@@ -8,6 +8,7 @@ import ch2_source
 import guest_ticket_staging
 import guest_letter_staging
 import guest_soup_staging
+import guest_closing_staging
 from ch1_closure import ProductionSource
 
 
@@ -116,6 +117,22 @@ class GuestCastTests(unittest.TestCase):
                 self.assertEqual(stage.get("props", {}).get(staging.COAT, {}).get("visible", False), response)
                 holds = [(step["id"], step["actor"]) for step in scene.steps if step["do"] == "prop_hold"]
                 self.assertEqual(holds, [(staging.COAT, "ali"), (staging.BOWL, "ali")] if response else [])
+
+    def test_only_the_closing_shows_the_stove_and_releases_the_pear_into_it(self):
+        staging = guest_closing_staging
+        for scene in self.framed.segments.values():
+            if scene.section not in {"S17", "S18", "S19", "S20", "S21"}:
+                continue
+            closing = scene.id == "ch2_t_s21_close"
+            stove_visible = any(step.get("props", {}).get(staging.STOVE, {}).get("visible", False)
+                                for step in scene.steps if step["do"] == "scene")
+            self.assertEqual(stove_visible, closing, scene.id)
+            actions = [step["do"] for step in scene.steps if step.get("id") == staging.PEAR]
+            self.assertEqual(actions, ["prop_hold", "prop_visible", "prop_release", "prop_move",
+                                       "prop_visible"] if closing else [], scene.id)
+        prop, stove = staging.layers()
+        self.assertFalse(prop["visible"] or stove["visible"])
+        self.assertEqual(stove["pos"][1] + 287 * stove["scale"], staging.FLOOR)
 
 
 if __name__ == "__main__":

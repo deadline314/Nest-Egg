@@ -12063,14 +12063,19 @@
       206.3
      ],
      "zoom": 0.84,
-     "fade": 0.35
+     "fade": 0.35,
+     "props": {
+      "ali_closing_stove": {
+       "visible": true
+      }
+     }
     },
     {
      "do": "actor",
      "id": "ali",
      "kind": "ali",
      "pos": [
-      150,
+      128,
       265.5
      ],
      "facing": 1,
@@ -12085,6 +12090,113 @@
      "text": "鄭先生不想聽爸爸，陳女士不要蔥，洪先生不想別人替他說沒關係。今天三頁都寫清楚了。",
      "ja": "鄭さんは「お父さん」と呼ばれたくない。陳さんはネギ抜き。洪さんは、ほかの人に「大丈夫」と代わりに言われたくない。今日の三ページは、どれもはっきり書けた。",
      "en": "Mr. Zheng doesn't want to be called “Dad.” Ms. Chen wants no scallions. Mr. Hong doesn't want anyone saying “it's okay” on his behalf. All three pages for today are written clearly."
+    },
+    {
+     "do": "camera",
+     "pos": [
+      247,
+      207
+     ],
+     "zoom": 0.86,
+     "time": 0.39,
+     "wait": true
+    },
+    {
+     "do": "reach",
+     "id": "ali",
+     "hand": "front",
+     "space": "prop",
+     "prop": "ali_closing_pear",
+     "to": [
+      14.5,
+      50.5
+     ],
+     "contact": [
+      80.5,
+      24.5
+     ],
+     "angle": 0,
+     "time": 0.29,
+     "wait": true
+    },
+    {
+     "do": "prop_hold",
+     "id": "ali_closing_pear",
+     "actor": "ali",
+     "hand": "front",
+     "point": [
+      14.5,
+      50.5
+     ],
+     "follow_rotation": false
+    },
+    {
+     "do": "prop_visible",
+     "id": "ali_closing_pear",
+     "visible": true
+    },
+    {
+     "do": "reach",
+     "id": "ali",
+     "hand": "front",
+     "to": [
+      176.7278745644599,
+      117.39477351916375
+     ],
+     "contact": [
+      80.5,
+      24.5
+     ],
+     "angle": 0,
+     "time": 0.42,
+     "wait": true
+    },
+    {
+     "do": "wait",
+     "time": 0.22
+    },
+    {
+     "do": "reach",
+     "id": "ali",
+     "hand": "front",
+     "to": [
+      176.7278745644599,
+      125.89477351916375
+     ],
+     "contact": [
+      80.5,
+      24.5
+     ],
+     "angle": 0.15,
+     "time": 0.27,
+     "wait": true
+    },
+    {
+     "do": "prop_release",
+     "id": "ali_closing_pear"
+    },
+    {
+     "do": "prop_move",
+     "id": "ali_closing_pear",
+     "to": [
+      176.7278745644599,
+      142.89477351916375
+     ],
+     "time": 0.2,
+     "wait": true
+    },
+    {
+     "do": "prop_visible",
+     "id": "ali_closing_pear",
+     "visible": false
+    },
+    {
+     "do": "reach",
+     "id": "ali",
+     "hand": "front",
+     "release": true,
+     "time": 0.3,
+     "wait": true
     },
     {
      "do": "say",

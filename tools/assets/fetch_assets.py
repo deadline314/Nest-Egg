@@ -121,7 +121,28 @@ def fetch_kenney(entry: dict, out: Path) -> dict:
             'license_evidence_sha256': hashlib.sha256(evidence.read_bytes()).hexdigest()}
 
 
-FETCHERS = {"kenney": fetch_kenney, "polyhaven": fetch_polyhaven, "ambientcg": fetch_ambientcg}
+def fetch_innerscene(entry: dict, out: Path) -> dict:
+    asset, revision, digest = entry["asset"], entry["file_revision"], entry["sha256"]
+    if not asset.isascii() or not all(part.isalnum() for part in asset.split("-")):
+        raise ValueError(f"invalid Innerscene asset id: {asset}")
+    if len(revision) != 20 or len(digest) != 64 or any(c not in "0123456789abcdef" for c in revision + digest):
+        raise ValueError(f"Innerscene model needs a pinned file revision and SHA-256: {asset}")
+    name = asset.rsplit("-", 1)[0]
+    page = f"https://www.innerscene.com/tools/library/3d-parts/{asset}"
+    with urllib.request.urlopen(urllib.request.Request(page, headers=UA), timeout=60) as response:
+        evidence = response.read(1_048_576).decode("utf-8")
+    notice = "Public domain (CC0)"
+    license_url = "https://creativecommons.org/publicdomain/zero/1.0/"
+    if any(text not in evidence for text in (notice, "Innerscene - original model", license_url)):
+        raise ValueError(f"cannot verify original Innerscene CC0 release: {page}")
+    url = f"https://files.innerscene.com/library/{asset}/{revision}/{name}.glb"
+    download(url, out / f"{name}.glb", sha256=digest)
+    return {"author": "Innerscene", "license": "CC0-1.0", "page": page,
+            "name": name, "license_statement": notice, "license_evidence": page, "file_url": url}
+
+
+FETCHERS = {"kenney": fetch_kenney, "polyhaven": fetch_polyhaven, "ambientcg": fetch_ambientcg,
+            "innerscene": fetch_innerscene}
 
 
 def main() -> int:

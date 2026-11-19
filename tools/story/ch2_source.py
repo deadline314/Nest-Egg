@@ -21,6 +21,7 @@ import towel_staging  # noqa: E402
 import guest_ticket_staging  # noqa: E402
 import guest_letter_staging  # noqa: E402
 import guest_soup_staging  # noqa: E402
+import guest_closing_staging  # noqa: E402
 import rent_window_staging  # noqa: E402
 import medic_transport_staging  # noqa: E402
 import booth_return_staging  # noqa: E402
@@ -879,6 +880,10 @@ def _guest_book_frames(source: ProductionSource):
             if response:
                 dialogue = _with_cues(dialogue, ((1, guest_letter_staging.exchange()), (2, guest_letter_staging.offer_envelope())), ident)
                 guest_end = guest_letter_staging.collect_letter() + guest_end
+        if ident == "ch2_t_s21_close":
+            actor["pos"][0] = guest_closing_staging.ALI_X
+            cast[0]["props"] = {guest_closing_staging.STOVE: {"visible": True}}
+            dialogue = _with_cues(dialogue, ((1, guest_closing_staging.add_pear()),), ident)
         source.segments[ident] = replace(segment, mode="animated", steps=tuple(cast) + guest_start + dialogue + guest_end)
 
 

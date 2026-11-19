@@ -214,6 +214,44 @@
    "visible": false
   },
   {
+   "kind": "sprite",
+   "id": "ali_closing_pear",
+   "path": "res://art/environment/scene_props/guest_book_contacts/ali_closing_pear.png",
+   "source_width": 60,
+   "scale": 0.14,
+   "pos": [
+    149,
+    148
+   ],
+   "pivot": [
+    14.5,
+    50.5
+   ],
+   "filter": "linear",
+   "depth": "front",
+   "visible": false
+  },
+  {
+   "kind": "sprite",
+   "id": "ali_closing_stove",
+   "path": "res://art/environment/scene_props/ali_kitchen/ali_kitchen__soup_stove.png",
+   "source_width": 181,
+   "scale": 0.489198606271777,
+   "pos": [
+    135.0,
+    125.1
+   ],
+   "modulate": [
+    0.83,
+    0.74,
+    0.68,
+    1.0
+   ],
+   "filter": "linear",
+   "depth": "front",
+   "visible": false
+  },
+  {
    "kind": "glow",
    "pos": [
     480,
