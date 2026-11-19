@@ -16,6 +16,9 @@ static func run(s: TestSuite) -> void:
 	var ch1 := dev.describe("through-ch1_kasa")
 	var ch2 := dev.describe("through-ch2_heron")
 	s.check(ch1 != null and not ch1.development and ch1.title() == "序章至第一章" and ch1.slot_path() == "user://runs/through-ch1_kasa/slot-1.json", "release edition has its own title and slot directory")
+	s.check(ch1.title("ja") == "序章～第1章" and ch2.title("en") == "Prologue–Chapter 2",
+		"edition display titles match the chosen language and chapter range")
+	s.check(ch1.title("unsupported") == ch1.title(), "unsupported display language retains the canonical title")
 	s.check(ch1.includes_chapter(&"prologue") and ch1.includes_chapter(&"ch1_kasa") and not ch1.includes_chapter(&"ch2_heron") and not ch1.includes_chapter(&"chapter_02") and not ch1.includes_chapter(&""), "release edition excludes later and legacy chapters")
 	s.check(ch2.can_continue_from(ch1) and not ch1.can_continue_from(ch2) and ch1.can_continue_from(ch1) and dev.can_continue_from(ch2), "older editions continue forward, never backward")
 	for bad: Variant in ["through-chapter_9", "../runs", "", null, 3, "through-" + "x".repeat(80)]:
@@ -108,6 +111,7 @@ static func run(s: TestSuite) -> void:
 ## 每個累積版本收錄的區域與章末，與 campaign.json 的章節順序一致（NE-232 發行檢查與乾淨目錄啟動用同一份報告）。
 static func _test_scope(s: TestSuite, dev: CampaignEdition, ch1: CampaignEdition, ch2: CampaignEdition) -> void:
 	var one := ch1.scope_report()
+	s.check(one["title"] == ch1.title(), "the release report retains the canonical edition title")
 	s.check(one["included_levels"].keys().all(func(c: String) -> bool: return c in ["prologue", "ch1_kasa"]) and int(one["included_levels"].get("ch1_kasa", 0)) > 0, "序章至第一章 only contains prologue and chapter-one areas: %s" % [one["included_levels"]])
 	s.check(int(one["excluded_levels"].get("ch2_heron", 0)) > 0 and one["first_level_included"], "later chapters stay out and the new-game area is inside: %s" % [one["excluded_levels"]])
 	s.check(one["endings"] == ["res://data/levels/ch1_pawnshop_dawn.tres"], "chapter one ends where its next area belongs to chapter two: %s" % [one["endings"]])

@@ -20,6 +20,7 @@ var through: StringName = &""
 var development := true
 var order: Array[StringName] = []
 var titles: Dictionary = {}
+var _localized_titles: Dictionary = {}
 var development_id := FALLBACK_DEVELOPMENT_ID
 ## 新遊戲的第一個區域；所有累積版本相同。
 var first_level := DEFAULT_FIRST_LEVEL
@@ -58,6 +59,12 @@ static func load_from(campaign_path: String, edition_path: String, report := tru
 		edition.order.append(StringName(chapter_id))
 		var title: Variant = entry.get("title", chapter_id)
 		edition.titles[StringName(chapter_id)] = title if title is String and not title.is_empty() else String(chapter_id)
+		var localized := {}
+		for language in ["ja", "en"]:
+			var translated: Variant = entry.get(StoryLocale.field_key("title", language))
+			if translated is String and not translated.strip_edges().is_empty():
+				localized[language] = translated
+		edition._localized_titles[StringName(chapter_id)] = localized
 	var dev_id: Variant = campaign.get("development_id", FALLBACK_DEVELOPMENT_ID)
 	if _valid_id(dev_id) and not String(dev_id).begins_with(RELEASE_PREFIX):
 		edition.development_id = dev_id
@@ -95,6 +102,7 @@ func describe(release: Variant) -> CampaignEdition:
 	var other := CampaignEdition.new()
 	other.order = order
 	other.titles = titles
+	other._localized_titles = _localized_titles
 	other.development_id = development_id
 	other.first_level = first_level
 	if release == development_id:
@@ -131,12 +139,13 @@ func is_last_chapter(chapter: StringName) -> bool:
 	return not development and chapter == through
 
 
-func title() -> String:
+func title(language := StoryLocale.SOURCE_LANGUAGE) -> String:
 	if development:
-		return "開發版"
-	var first: String = titles.get(order[0], String(order[0])) if not order.is_empty() else ""
-	var last: String = titles.get(through, String(through))
-	return last if first == last else "%s至%s" % [first, last]
+		return "開発版" if language == "ja" else ("Development build" if language == "en" else "開發版")
+	var first := chapter_title(order[0], language) if not order.is_empty() else ""
+	var last := chapter_title(through, language)
+	var separator := "～" if language == "ja" else ("–" if language == "en" else "至")
+	return last if first == last else first + separator + last
 
 
 ## 這份程式實際收錄的範圍（發行檢查與乾淨目錄啟動用）：哪些章節與區域收錄、哪些區域是章末（下一區不在本版本，停在完成卡）、
@@ -168,8 +177,11 @@ func scope_report(level_dir := "res://data/levels") -> Dictionary:
 			"first_level": first_level, "first_level_included": includes_level(first), "slot": slot_path(), "issues": issues}
 
 
-func chapter_title(chapter: StringName) -> String:
-	return titles.get(chapter, String(chapter))
+func chapter_title(chapter: StringName, language := StoryLocale.SOURCE_LANGUAGE) -> String:
+	var original: String = titles.get(chapter, String(chapter))
+	var localized: Dictionary = _localized_titles.get(chapter, {})
+	var fallback: String = localized.get(StoryLocale.FALLBACK, original) if language == "ja" else original
+	return localized.get(language, fallback)
 
 
 func slot_path() -> String:

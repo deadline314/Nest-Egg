@@ -126,7 +126,16 @@ func _build_main_page() -> void:
 	_main_page.add_child(list)
 	var entries: Array[Button] = []
 	if continue_available:
-		_continue_button = _menu_button("繼續遊戲", continue_requested.emit, "恢復上次保存的整輪進度")
+		var resume_label := "繼續遊戲"
+		var resume_hint := "恢復上次保存的整輪進度"
+		match Story.language:
+			"ja":
+				resume_label = "続きから"
+				resume_hint = "最後に保存した進行状況を再開"
+			"en":
+				resume_label = "Continue"
+				resume_hint = "Restore your last campaign save"
+		_continue_button = _menu_button(resume_label, continue_requested.emit, resume_hint)
 		entries.append(_continue_button)
 	_start_button = _menu_button("開始任務", _open_difficulty, "選擇難度，從序章開始")
 	entries.append(_start_button)
@@ -153,7 +162,7 @@ func _build_main_page() -> void:
 	_add_legend(_main_page)
 	# 發行版標出收錄範圍，玩家一眼知道這份程式玩到哪一章；存檔也依此分開保存。
 	var edition := CampaignEdition.current()
-	var version_text := VERSION_TEXT if edition.development else "%s　%s" % [edition.version if not edition.version.is_empty() else VERSION_TEXT, edition.title()]
+	var version_text := VERSION_TEXT if edition.development else "%s　%s" % [edition.version if not edition.version.is_empty() else VERSION_TEXT, edition.title(Story.language)]
 	var version := UiKit.label(version_text, UiKit.FS_BODY, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_RIGHT)
 	_main_page.add_child(version)
 	version.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)

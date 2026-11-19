@@ -164,9 +164,9 @@ func _save_notice(lineage: Dictionary) -> String:
 		var detail := _run_store.player_issue()
 		return detail if detail.contains("版本") else "存檔版本較新，請更新遊戲或明確覆寫。"
 	if not _import_path.is_empty():
-		return "可接續「%s」的進度，原存檔不會被修改。" % (lineage["edition"] as CampaignEdition).title()
+		return _edition_save_notice(lineage["edition"], true)
 	if lineage.has("newer"):
-		return "找到「%s」的存檔，請用該版本繼續；那份存檔不受影響。" % (lineage["newer"] as CampaignEdition).title()
+		return _edition_save_notice(lineage["newer"], false)
 	if not _run_store.issues.is_empty():
 		if _continue_data.is_empty():
 			return "存檔讀取失敗（%s），原檔已保留；可開始新遊戲。" % _run_store.player_issue()
@@ -176,6 +176,19 @@ func _save_notice(lineage: Dictionary) -> String:
 	if _continue_data.is_empty() and FileAccess.file_exists(GameState.STORY_SAVE_PATH):
 		return "舊版只保存故事，無法繼續整輪；可開始新遊戲，原故事檔會保留。"
 	return ""
+
+
+static func _edition_save_notice(edition: CampaignEdition, can_resume: bool) -> String:
+	var title := edition.title(Story.language)
+	match Story.language:
+		"ja":
+			return ("「%s」から再開できます。元のセーブは保持されます。" if can_resume else
+					"再開するには「%s」を開いてください。セーブは保持されます。") % title
+		"en":
+			return ("Continue from %s. Your original save stays intact." if can_resume else
+					"Open %s to continue. That save stays intact.") % title
+	return ("可接續「%s」的進度，原存檔不會被修改。" if can_resume else
+			"找到「%s」的存檔，請用該版本繼續；那份存檔不受影響。") % title
 
 
 func _on_start_requested(difficulty: DifficultyData) -> void:

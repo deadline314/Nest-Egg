@@ -4,9 +4,9 @@
   "development_id": "demo-0.1",
   "first_level": "res://data/levels/ch1_prologue.tres",
   "chapters": [
-    {"id": "prologue", "title": "序章"},
-    {"id": "ch1_kasa", "title": "第一章"},
-    {"id": "ch2_heron", "title": "第二章"},
-    {"id": "ch3_clearwater", "title": "第三章"}
+    {"id": "prologue", "title": "序章", "title_ja": "序章", "title_en": "Prologue"},
+    {"id": "ch1_kasa", "title": "第一章", "title_ja": "第1章", "title_en": "Chapter 1"},
+    {"id": "ch2_heron", "title": "第二章", "title_ja": "第2章", "title_en": "Chapter 2"},
+    {"id": "ch3_clearwater", "title": "第三章", "title_ja": "第3章", "title_en": "Chapter 3"}
   ]
 }
