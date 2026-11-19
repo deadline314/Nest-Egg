@@ -22,6 +22,8 @@ enum Kind { PERSON, OBJECT }
 ## 專屬工作循環（art/rigs/npc_animations.json 的 loops，例如 stir、hammer、tablet；空白＝只有待機呼吸）與幅度倍率。
 @export var loop: StringName = &""
 @export var loop_scale: float = 1.0
+## 固定工位的工作循環在招呼玩家或轉頭回應聲音時暫停。
+@export var pause_work_near_player := false
 ## 原本面向（-1 左、1 右）；玩家靠近時會轉向玩家。
 @export var facing: int = -1
 ## 互動提示（一句重點，可用 {interact}）；空白時用「{interact} 和<名字>說話」。

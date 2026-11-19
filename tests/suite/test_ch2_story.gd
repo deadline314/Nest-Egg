@@ -22,6 +22,7 @@ func run() -> void:
 	_test_ledger_install()
 	_test_street_line()
 	_test_guest_book_stage()
+	await _test_market_tea_stall()
 	preload("res://tests/helpers/radio_tune_checks.gd").run(self)
 	await preload("res://tests/helpers/radio_tune_lifecycle_checks.gd").run(self)
 	Checks.check_staging(self, "chapter 2", "ch2", 26)
@@ -84,6 +85,30 @@ func _test_street_line() -> void:
 	# NE-299 加高 16 格：地面第 36 列、雨棚第 29 列。
 	check(is_equal_approx(layout.ground_y, 36.0 * layout.tile_size), "the street line ignores the wide canopy (%.0f)" % layout.ground_y)
 	check(is_equal_approx(layout.surface_heights[40], 29.0 * layout.tile_size), "the canopy is still the top surface of its columns")
+
+
+func _test_market_tea_stall() -> void:
+	var level := await start_level(_datas["market"] as LevelData)
+	var vendors := level.get_tree().get_nodes_in_group(NpcActor.GROUP).filter(
+		func(node: NpcActor) -> bool: return node.data.id == &"ch2_banyan")
+	var tea_urns := level.get_tree().get_nodes_in_group(PropNode.GROUP).filter(
+		func(node: PropNode) -> bool: return node.data.id == &"neon_market__tea_urn")
+	var banyan := (vendors[0] as NpcActor) if not vendors.is_empty() else null
+	var urn := (tea_urns[0] as PropNode) if not tea_urns.is_empty() else null
+	if banyan != null and banyan._actor != null and urn != null:
+		var lid := urn.steam_world_position() - banyan.global_position
+		check(lid.x > 6.0 and lid.x < 16.0 and lid.y < -30.0 and lid.y > -42.0,
+			"the lid is in reach in front of Banyan")
+		check(is_equal_approx(urn.global_position.y + urn.data.size.y, banyan.global_position.y), "the tea stand still rests on the market floor")
+		level.player.global_position = banyan.global_position - Vector2(12, 0)
+		await physics_frames(8)
+		check(banyan._actor.facing == -1 and banyan._actor._input.npc_loop == &"", "Banyan pauses work and faces the approaching player")
+		level.player.global_position = banyan.global_position - Vector2(96, 0)
+		await physics_frames(8)
+		check(banyan._actor.facing == 1 and banyan._actor._input.npc_loop == &"stir", "Banyan returns to the tea stand when the player leaves")
+	else:
+		check(false, "the market contains the original tea stand and Banyan rig")
+	await end_level(level)
 
 
 ## 夜班的開本、三客（含錯誤重試）與收本都留在同一個房間；回到凜才結束舞台。

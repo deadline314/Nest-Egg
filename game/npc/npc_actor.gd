@@ -207,6 +207,11 @@ func _physics_process(delta: float) -> void:
 		if awareness.step(delta, global_position, player.global_position if player != null else Vector2.INF, _talking):
 			awareness.react(_reaction_context())
 		var look := awareness.look_direction()
+		if data.pause_work_near_player:
+			var working := not _player_in_range and not _talking and look == 0 and not awareness.is_cowering()
+			_actor.set_loop(data.loop if working else &"", data.loop_scale)
+			if working and _actor.facing != data.facing:
+				_actor.face(data.facing)
 		if look != 0 and not _talking:
 			_actor.face(look)
 		elif _looking and not _player_in_range:

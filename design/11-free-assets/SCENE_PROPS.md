@@ -288,7 +288,7 @@
 | `neon_market__tv_stack_stall` | 舊電視攤 | 疊成一面牆的舊電視，其中一台在放雜訊畫面。 | 1.8 m | 完成 |
 | `neon_market__cut_lock_gate` | 鎖被剪斷的鐵門 | 鐵柵門的鏈條被乾淨地剪斷，鎖掉在地上；有人先走過這條路。 | 1.9 m | 完成 |
 | `neon_market__dripping_tarp` | 滴水的帆布雨棚 | 塑膠帆布雨棚積著水，邊緣不斷滴落水串。 | 1.6 m | 完成 |
-| `neon_market__tea_urn` | 熱水大茶桶 | 攤位旁的大鋁茶桶與塑膠凳，白煙裊裊。 | 0.9 m | 完成 |
+| `neon_market__tea_urn` | 熱水大茶桶 | 榕伯手邊的大鋁茶桶與支架，蒸汽從桶蓋冒出。 | 1.4 m | 完成 |
 | `neon_market__permit_board` | 攤位許可公告板 | 公告欄上貼著蓋章的攤位許可申請單；阿梨要的是一個攤位與一張許可。 | 1.4 m | 完成 |
 
 ## 阿勇的據點（`yong_hideout`）

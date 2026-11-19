@@ -45,7 +45,7 @@ NPCS = {
     'ch2_ali_market': dict(name='阿梨', speaker='ali', rig='ali', loop='read_note', facing=1, prompt='{interact} 和阿梨說話',
                            talks=[('ch2_dispatch_ali_market', 0)], spawn_unless_flag='ch2_audit_submitted'),
     'ch2_rent_window': dict(name='租攤視窗', speaker='window_clerk', kind=O, prompt='{interact} 到租攤視窗查合約', talks=[('ch2_dispatch_rent_window', 0)]),
-    'ch2_banyan': dict(name='榕伯', speaker='banyan', rig='banyan', loop='stir', facing=1, prompt='{interact} 和榕伯說話',
+    'ch2_banyan': dict(name='榕伯', speaker='banyan', rig='banyan', loop='stir', facing=1, pause_work_near_player=True, prompt='{interact} 和榕伯說話',
                        talks=[('ch2_dispatch_banyan', 0)]),
     'ch2_notice_screen': dict(name='公告屏', speaker='label', kind=O, prompt='{interact} 看公告屏', talks=[('ch2_dispatch_notice', 0)]),
     'ch2_hawker': dict(name='小販', speaker='hawker', rig='ch2_hawker', loop='sort_gear', facing=-1, prompt='{interact} 和小販說話',
@@ -274,7 +274,7 @@ def _build_market_v1():
     a.stand(53, 'Ⓦ')
     a.prop('accounting_lobby__contract_stand', 56)
     # 榕伯的涼茶攤
-    a.prop('neon_market__tea_urn', 70)
+    a.prop('neon_market__tea_urn', 73, dx=-4)
     a.stand(72, 'Ⓑ')
     a.prop('harbor_street__umbrella_stand', 75)
     # 公告屏與小販
