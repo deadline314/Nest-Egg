@@ -366,6 +366,9 @@ func _test_escort_dash() -> void:
 func _test_thrower_fan_and_bypass() -> void:
 	await open_level(14.0)
 	var thrower := spawn(THROWER_PATH, 26.0)
+	check(thrower.rig != null and thrower.rig.skin_id == "ch2_bill_thrower", "the bill thrower loads its own market rig")
+	var paper := thrower.get("_paper_texture") as Texture2D
+	check(paper != null and paper.get_size() == Vector2(24, 20), "the bill thrower equips the paper bundle at the authored scale")
 	await wait_state(thrower, &"windup", 300)
 	check(thrower.fsm.is_in(&"windup"), "the bill thrower winds up a fan when the player is in range")
 	await wait_state(thrower, &"recover", 120)

@@ -2699,6 +2699,48 @@
         }
       ]
     },
+    "ch2_bill_thrower.windup": {
+      "duration": 0.8,
+      "skip_ik": true,
+      "blend": 16,
+      "keys": [
+        {
+          "t": 0.0,
+          "bones": { "arm_front_upper": 0.12, "arm_front_lower": -0.08, "chest": 0.0 }
+        },
+        {
+          "t": 0.43,
+          "bones": { "arm_front_upper": -1.22, "arm_front_lower": -1.23, "arm_back_upper": 0.28, "arm_back_lower": -0.24, "chest": -0.12, "head": -0.05 }
+        },
+        {
+          "t": 0.75,
+          "bones": { "arm_front_upper": -1.42, "arm_front_lower": -1.15, "arm_back_upper": 0.34, "arm_back_lower": -0.28, "chest": -0.13, "head": -0.08 }
+        },
+        {
+          "t": 1.0,
+          "bones": { "arm_front_upper": -0.69, "arm_front_lower": 0.02, "arm_back_upper": 0.3, "arm_back_lower": -0.25, "chest": 0.18, "head": 0.08 }
+        }
+      ]
+    },
+    "ch2_bill_thrower.recover": {
+      "duration": 0.55,
+      "skip_ik": true,
+      "blend": 23,
+      "keys": [
+        {
+          "t": 0.0,
+          "bones": { "arm_front_upper": -0.69, "arm_front_lower": 0.02, "arm_back_upper": 0.3, "arm_back_lower": -0.25, "chest": 0.18, "head": 0.08 }
+        },
+        {
+          "t": 0.35,
+          "bones": { "arm_front_upper": -0.73, "arm_front_lower": 0.28, "arm_back_upper": 0.18, "arm_back_lower": -0.18, "chest": 0.13, "head": 0.06 }
+        },
+        {
+          "t": 1.0,
+          "bones": { "arm_front_upper": 0.1, "arm_front_lower": -0.15, "arm_back_upper": 0.08, "arm_back_lower": -0.06, "chest": 0.0, "head": 0.0 }
+        }
+      ]
+    },
     "yong.windup_overhead": {
       "weapon_angle": 1.1,
       "duration": 0.6,

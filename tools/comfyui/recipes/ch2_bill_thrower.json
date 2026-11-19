@@ -1,0 +1,16 @@
+{
+  "description": "收帳人·票據投手（ch2_bill_thrower）的建置配方。功能姿勢文生圖，seed 64119；原始來源與提示保持，分件及後續步驟另驗。",
+  "id": "ch2_bill_thrower",
+  "name": "收帳人·票據投手",
+  "spec": "tools/comfyui/specs/ch2_bill_thrower_side.json",
+  "rig": "art/rigs/ch2_bill_thrower.json",
+  "work": "art_src/characters/ch2_bill_thrower",
+  "design": {
+    "size": [
+      832,
+      1216
+    ],
+    "prompt": "An original adult human character model sheet for a gritty dockside action game. Full body in a strict side view facing right, entire head and both soles in frame with a little breathing room. Flat muted colors, uneven bold dark ink, hard-edged two-tone cel shadows, simple worn shapes, no bright bloom or decorative light. Functional port workwear with subtly asymmetric wrinkles and frayed cloth edges. Upright work stance with the chest quiet, spine vertical, head upright, hips level and weight evenly distributed. The near arm hangs straight with one clearly readable empty hand against the thigh, far arm occluded behind the torso. Feet are a small step apart with the far foot half a step ahead, showing just the far shin and boot. No text, labels, separate props, or logos, no ground shadow, even overcast light. Adult ledger runner, a tall slender man around 33 in the harbor collections office, wavy dark hair, narrow spectacles, strongly different narrow silhouette. Worn charcoal high-waisted trousers, dark wine short swing jacket over dry cream shirt, unbuttoned collar, thin matte ledger board rides diagonally high on the back and a compact rectangular paper-ticket box is attached outside the belt, neither covers the wrists or legs. Scuffed practical leather work shoes. Both hands empty; a small packet of bills will be a separate rig prop.",
+    "pick": 64119
+  }
+}

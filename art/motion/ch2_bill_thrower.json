@@ -1,0 +1,29 @@
+{
+  "skin": "ch2_bill_thrower",
+  "description": "票據投手以短步移動，出手前將票據抬起，遇到近身攻擊時仍沿用調整站位的行為。",
+  "idle": {
+    "breath_speed": 2.67,
+    "breath_amp": 0.018,
+    "hip_bob": 0.28,
+    "legs": [-0.17, 0.18, 0.24, 0.14]
+  },
+  "move": {
+    "stride": 28.5,
+    "swing": 0.42,
+    "knee_bend": 0.52,
+    "hip_bounce": 1.42,
+    "chest_lean": 0.14
+  },
+  "look": {
+    "chest": 0.08,
+    "neck": 0.09,
+    "head": 0.18
+  },
+  "death": {
+    "duration": 0.55,
+    "rotation": -1.52,
+    "drop": 20.0,
+    "hip_x": -4.0,
+    "ease": "in_cubic"
+  }
+}

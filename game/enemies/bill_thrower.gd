@@ -5,18 +5,27 @@ extends Enemy
 ## 應對：紙頁很慢，從縫裡跳過或蹲過，趁他收招靠近；他不擅長近身，貼上去他只會後退。
 ## 參數在 EnemyData：projectile（紙頁）、telegraph_time、ability_time（收招）、attack_cooldown、attack_range（開始丟的距離）、
 ## behavior_params 的 count（一次幾張）、spread（扇形角度）、lock（最後幾秒鎖定）、keep_away（太近時往後退的距離）。
-## 外觀：暫用收帳人槍手的骨架，紙疊用程式畫；角色組交付專屬外觀後只改資料。
+## 紙疊貼圖由 behavior_params.paper_art 指定，缺失時仍用紙形備援。
 
 const DEFAULTS := {"count": 5, "spread": 46.0, "lock": 0.25, "keep_away": 56.0}
 const BACKSTEP_SPEED := 70.0
+const PAPER_RECT := Rect2(-3.0, -4.0, 6.0, 5.0)
+const RESTOCK_TIME := 0.3
 ## 看得到多高的玩家：上層的繞道（高五格）在視線外，照劇本可以繞過。
 const SIGHT_HEIGHT := 60.0
 
 var _cooldown := 0.6
 var _aim := Vector2.RIGHT
+var _paper_texture: Texture2D
 
 
 func _setup_states() -> void:
+	var paper_art: Variant = data.behavior_params.get("paper_art", "")
+	if paper_art is String and paper_art.begins_with("res://"):
+		_paper_texture = RigLibrary.optional_texture(paper_art)
+	if _paper_texture == null and (not paper_art is String or not paper_art.is_empty()):
+		RigLibrary.report_once("bill-thrower-paper:%s" % data.id,
+				"[BillThrower] %s behavior_params.paper_art 讀不到貼圖 %s，使用紙形備援。" % [data.resource_path, str(paper_art)])
 	fsm.add(&"patrol", _patrol_tick)
 	fsm.add(&"aim", _aim_tick)
 	fsm.add(&"windup", _windup_tick, _windup_enter)
@@ -97,9 +106,15 @@ func _rig_aim() -> Vector2:
 
 ## 預兆：舉起的紙疊與扇形兩條邊線（鎖定後變亮）。
 func _draw_overlay() -> void:
-	var hand := _hand_local()
-	draw_rect(Rect2(hand + Vector2(-3, -4), Vector2(6, 5)), Color(0.93, 0.9, 0.8))
-	draw_rect(Rect2(hand + Vector2(-3, -4), Vector2(6, 5)), Color(0.3, 0.28, 0.25), false, 1.0)
+	if _dying:
+		return
+	if not fsm.is_in(&"recover") or fsm.time_in_state >= RESTOCK_TIME:
+		var paper := Rect2(_hand_local() + PAPER_RECT.position, PAPER_RECT.size)
+		if _paper_texture != null:
+			draw_texture_rect(_paper_texture, paper, false)
+		else:
+			draw_rect(paper, Color(0.93, 0.9, 0.8))
+			draw_rect(paper, Color(0.3, 0.28, 0.25), false, 1.0)
 	if not fsm.is_in(&"windup"):
 		return
 	var t := clampf(fsm.time_in_state / maxf(0.01, data.telegraph_time), 0.0, 1.0)
