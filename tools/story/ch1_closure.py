@@ -663,20 +663,20 @@ def _optional(source):
         binding="brief", when=flag("asked_egret_sunday"))
     labels = {
         "watch": ("送貨員押來的懷錶。他說遲到二十分鐘會被罵，三年沒有贖回。", (
-            ("rin", "錶都不走了，你還留二十分鐘？"), ("old_k", "他說明天來，我就留到明天喔。櫃子裡多一格，又不會趕人走。"))),
+            ("rin", "錶都不走了，你還留二十分鐘？"), ("old_k", "他說明天來，我就留到明天喔。櫃子裡多一格，又不會趕人走。")), "懷錶還在這格，送貨員回來我就拿給他喔。"),
         "guitar": ("押來時已經沒有弦。主人說，彈的人不在了。", (
-            ("rin", "沒有弦，也算一件樂器？"), ("old_k", "以前彈的人很大聲啦。我聽過，就不用再寫價錢告訴自己。"))),
+            ("rin", "沒有弦，也算一件樂器？"), ("old_k", "以前彈的人很大聲啦。我聽過，就不用再寫價錢告訴自己。")), "那把吉他沒弦也得收好，木頭磕壞就難補了喔。"),
         "raincoat": ("碼頭舊雨衣。主人說，這件曾替另一個人擋過水。", (
-            ("rin", "這個袖口破了，水還是會進去。"), ("old_k", "那就先替它折好，別讓人穿上才發現。我沒說穿著就不會死喔。"))),
+            ("rin", "這個袖口破了，水還是會進去。"), ("old_k", "那就先替它折好，別讓人穿上才發現。我沒說穿著就不會死喔。")), "袖口還破著，等雨衣的主人回來再問怎麼補。"),
         "fare": ("船錢，留給回不來的人渡河用的。", (
-            ("rin", "這罐也算在可賣的貨裡？"), ("old_k", "這個不賣。有人回不來，還是要留一筆給他走完路。"))),
+            ("rin", "這罐也算在可賣的貨裡？"), ("old_k", "這個不賣。有人回不來，還是要留一筆給他走完路。")), "罐裡的船錢我另外留著，別把它算進今天的帳。"),
     }
-    for name, (label, dialogue) in labels.items():
+    for name, (label, dialogue, revisit) in labels.items():
         seen = f"ch1_label_{name}_seen"
         source.add(f"ch1_t_label_{name}", "O02", (("label", label),) + dialogue,
             binding=f"label_{name}", when=negate(flag(seen)), completion=(set_flag(seen),),
             staging="玩家主動讀此真物獨立標籤；腳在地、物不離架。標籤全文留日誌，不發物或硬幣。")
-        source.add(f"ch1_t_label_{name}_revisit", "O02", (("label", label), ("old_k", "這件我留著，主人來了才好找。")),
+        source.add(f"ch1_t_label_{name}_revisit", "O02", (("label", label), ("old_k", revisit)),
             binding=f"label_{name}", when=flag(seen))
     label_flags = tuple(flag(f"ch1_label_{name}_seen") for name in labels)
     source.derived_flags["ch1_labels_started"] = any_of(*label_flags)
