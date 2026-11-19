@@ -422,6 +422,8 @@ func _test_release_victory_layout() -> void:
 
 ## 角色高解析立繪（NE-215）：用骨架在子視窗以 2 倍解析度繪製、平滑濾鏡、只在可見時更新；找不到角色時不崩潰。
 func _test_hd_portrait() -> void:
+	var previous_motion := Settings.get_reduce_ui_motion()
+	Settings.set_reduce_ui_motion(false)
 	var portrait := HdPortrait.new()
 	portrait.size = Vector2(192, 256)
 	runner.get_tree().root.add_child(portrait)
@@ -453,6 +455,28 @@ func _test_hd_portrait() -> void:
 	var stretched := Vector2i((portrait.size * stretch_scale).ceil())
 	check(viewport.size.x >= stretched.x and viewport.size.y >= stretched.y, "window content scaling also preserves native portrait pixels")
 	window.content_scale_factor = old_factor
+	Settings.set_reduce_ui_motion(true)
+	await frames(2)
+	var chest := portrait._rig.bone(&"chest")
+	var still := chest.transform
+	await frames(12)
+	check(chest.transform == still and viewport.render_target_update_mode != SubViewport.UPDATE_WHEN_VISIBLE,
+		"reduce motion freezes the visible portrait and stops repeated viewport rendering")
+	portrait.size = Vector2(120, 144)
+	await frames(2)
+	check(viewport.size == Vector2i(240, 288) and chest.transform == still, "the static portrait supports resizing")
+	var value := CountUpLabel.new()
+	portrait.add_child(value)
+	var formatter := func(number: float) -> String: return "%d / 100" % roundi(number)
+	value.count_to(78.0, formatter)
+	check(value.text == "78 / 100", "reduce motion shows the final status count immediately")
+	Settings.set_reduce_ui_motion(false)
+	value.count_to(90.0, formatter)
+	check(value.text == "0 / 100", "normal motion retains the status count animation")
+	await frames(12)
+	check(chest.transform != still and viewport.render_target_update_mode == SubViewport.UPDATE_WHEN_VISIBLE,
+		"normal motion resumes the portrait animation")
+	Settings.set_reduce_ui_motion(previous_motion)
 	portrait.queue_free()
 	var missing := HdPortrait.new()
 	missing.character = "test_no_such_character"

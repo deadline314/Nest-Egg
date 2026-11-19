@@ -13,7 +13,7 @@ func count_to(target: float, format: Callable, from_zero := true) -> void:
 	_format = format
 	if _tween != null and _tween.is_valid():
 		_tween.kill()
-	if not from_zero or is_equal_approx(_value, target):
+	if Settings.get_reduce_ui_motion() or not from_zero or is_equal_approx(_value, target):
 		_set_value(target)
 		return
 	_set_value(0.0)

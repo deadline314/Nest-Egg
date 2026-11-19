@@ -19,6 +19,7 @@ var _viewport: SubViewport
 var _holder: Node2D
 var _rig: CharacterRig
 var _input := RigInput.new()
+var _static_pose_ready := false
 
 
 func _ready() -> void:
@@ -70,10 +71,22 @@ func _layout() -> void:
 	var unit := float(_viewport.size.y) * FILL / RIG_HEIGHT
 	_holder.scale = Vector2.ONE * unit
 	_holder.position = Vector2(float(_viewport.size.x) * 0.5, float(_viewport.size.y) * (1.0 + FILL) * 0.5)
+	if _static_pose_ready:
+		_viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
 
 
 func _process(delta: float) -> void:
-	if _rig != null and is_visible_in_tree():
-		# 視窗 stretch 與父節點縮放未必觸發 Control.resized；尺寸相同不重配 render target。
-		_layout()
-		_rig.animate(delta, _input)
+	if _rig == null or not is_visible_in_tree():
+		return
+	# 視窗 stretch 與父節點縮放未必觸發 Control.resized；尺寸相同不重配 render target。
+	_layout()
+	if Settings.get_reduce_ui_motion():
+		if not _static_pose_ready:
+			_rig.animate(0.0, _input)
+			_viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
+			_static_pose_ready = true
+		return
+	if _static_pose_ready:
+		_static_pose_ready = false
+		_viewport.render_target_update_mode = SubViewport.UPDATE_WHEN_VISIBLE
+	_rig.animate(delta, _input)
