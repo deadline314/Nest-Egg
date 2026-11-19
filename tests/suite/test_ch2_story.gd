@@ -19,6 +19,7 @@ func run() -> void:
 	Checks.check_entries(self, "chapter 2", _datas, 20)
 	Checks.check_quest_markers(self, "chapter 2", "ch2", "res://data/story/ch2_heron.json", _datas, 18)
 	_test_story_gates()
+	_test_rooftop_check_card()
 	_test_ali_kitchen_revisit()
 	_test_ali_soup_healing()
 	_test_ledger_install()
@@ -56,6 +57,23 @@ func _test_story_gates() -> void:
 	check(cabinet != null and cabinet.prompt_text() == "{interact} 查看帳櫃", "the cabinet prompt offers inspection even while the lock is active")
 	check(Story.validate().is_empty(), "the merged story passes validation")
 	GameState.start_new_run(GameState.difficulties[1])
+
+
+func _test_rooftop_check_card() -> void:
+	var card_layer := func(layer: Dictionary) -> bool: return layer.get("id") == "public_aisle_pass"
+	var roof: Array = StageLibrary.definition(&"ch2_rooftop_tea").get("layers", []).filter(card_layer)
+	var market: Array = StageLibrary.definition(&"ch2_market_pass").get("layers", []).filter(card_layer)
+	check(roof.size() == 1 and market.size() == 1 and roof[0].get("path") == market[0].get("path")
+			and not roof[0].get("visible", true), "only the briefing reveals the same card that Rin shows at the market")
+	var brief: Dictionary = Story._scenes["ch2_t_s03_brief"]
+	var holders: Array[String] = []
+	for step: Dictionary in brief["steps"]:
+		if step.get("do") == "prop_hold" and step.get("id") == "public_aisle_pass":
+			holders.append(step["actor"])
+	check(holders == ["egret", "rin"], "the actual visual card passes from Egret to Rin once")
+	var terminal: Dictionary = Story._scenes["ch2_t_s03_rain"]
+	check(not brief.has("results") and terminal.get("results", []).has({"kind": "item_acquire", "id": "ch2_check_card"}),
+			"the physical card cannot grant inventory until the original briefing completes")
 
 
 func _test_ali_soup_healing() -> void:

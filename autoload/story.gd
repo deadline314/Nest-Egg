@@ -1357,14 +1357,31 @@ func _queue_chained_scene(id: StringName, request: int) -> bool:
 	if skipped and (not finish_tail is bool or not finish_tail or not _can_finish_skipped_tail(String(id), scene)):
 		return false
 	# 接到分派時依當下進度挑段落（和選項接續一樣，可以回到看過的中樞，例如客人名單）。
-	if str((_scenes[String(next)] as Dictionary).get("mode", "")) == String(MODE_DISPATCH):
+	var target: Dictionary = _scenes[String(next)]
+	if target.get("mode") == String(MODE_DISPATCH):
 		return _queue_dynamic_scene(next, request)
-	if _seen.has(next) or not scene_available(next):
+	if (_seen.has(next) and (skipped or not _can_replay_chain_middle(scene, target))) or not scene_available(next):
 		return false
 	_seen[next] = true
 	_cinematic_queue.push_front({"id": next, "context": _presentation_context.duplicate(true),
 			"request": request, "skip_tail": skipped})
 	return true
+
+
+## 三段共用尚未完成的條件時，允許重看無結果的中段，讓舊存檔也能接到原本的收尾。
+func _can_replay_chain_middle(origin: Dictionary, middle: Dictionary) -> bool:
+	var condition: Variant = middle.get("when", {})
+	if middle.get("mode") != String(MODE_ANIMATED) or not condition is Dictionary or condition.is_empty() or origin.get("when") != condition:
+		return false
+	var pending: Variant = condition.get("not", {})
+	if not pending is Dictionary or not pending.has("flag") or pending.get("equals", true) != true:
+		return false
+	var tail: Dictionary = _scenes.get(str(middle.get("then", "")), {})
+	return tail.get("mode") == String(MODE_ANIMATED) and tail.get("when") == condition and not tail.has("then") \
+			and not offers_choice(middle) and not middle.has("results") and not middle.has("set_flags") \
+			and not middle.has("transfer_items") and not middle.has("completion_policy") and not middle.has("on_failure") \
+			and not middle.has("context_facts") and StoryOutcomes.operations(tail).any(func(op: Dictionary) -> bool:
+				return op.get("kind") == "flag" and op.get("id") == pending["flag"] and op.get("value", true) == true)
 
 
 ## 把台詞的講者 id 換成顯示資料（名字、顏色、頭像），填入 {death_time}，帶上顯示前的沉默秒數 delay。

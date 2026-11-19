@@ -22,6 +22,7 @@ func run() -> void:
 	_test_skip_tail_policy()
 	await _test_chain_playback()
 	await _test_user_skip_drops_chain()
+	await _test_user_skip_can_retry_unfinished_chain()
 
 
 func _scene(id: StringName) -> Dictionary:
@@ -164,4 +165,37 @@ func _test_user_skip_drops_chain() -> void:
 	Story.scene_started.disconnect(on_started)
 	for id in ["test_skip_one", "test_skip_two"]:
 		Story._scenes.erase(id)
+	Story.auto_skip = previous_auto
+
+
+func _test_user_skip_can_retry_unfinished_chain() -> void:
+	var previous_auto := Story.auto_skip
+	var previous_progress := Story.progress_snapshot().filter(Story.has_scene)
+	var condition := {"not": {"flag": "test_retry_chain_done", "equals": true}}
+	var entry := &"test_retry_chain_open"
+	var middle := &"test_retry_chain_middle"
+	var tail := &"test_retry_chain_end"
+	GameState.flag_defaults["test_retry_chain_done"] = false
+	Story._scenes[String(entry)] = {"mode": "animated", "when": condition, "then": String(middle), "steps": [{"do": "end"}]}
+	Story._scenes[String(middle)] = {"mode": "animated", "when": condition, "then": String(tail), "steps": [{"do": "wait", "time": 30.0}]}
+	Story._scenes[String(tail)] = {"mode": "animated", "when": condition, "steps": [{"do": "end"}],
+		"results": [{"kind": "flag", "id": "test_retry_chain_done", "value": true}]}
+	Story.auto_skip = false
+	Story.play(entry, false)
+	await frames(6)
+	check(Story._current_cinematic == middle, "the original entry reaches the intermediate scene")
+	Story.skip_cinematic()
+	await frames(6)
+	check(Story.was_seen(middle) and not Story.is_cinematic_active() and not GameState.has_flag(&"test_retry_chain_done"),
+			"skipping an intermediate scene leaves the terminal outcome pending")
+	Story.restore_progress(Story.progress_snapshot())
+	Story.auto_skip = true
+	check(await Story.play_and_wait(entry, false) and GameState.has_flag(&"test_retry_chain_done"),
+			"a reloaded unfinished chain can replay its intermediate scene and complete")
+	check(not Story.play(entry, false), "the authored gate prevents awarding the terminal outcome again")
+	Story.restore_progress(previous_progress)
+	GameState.clear_flag(&"test_retry_chain_done")
+	GameState.flag_defaults.erase("test_retry_chain_done")
+	for id: StringName in [entry, middle, tail]:
+		Story._scenes.erase(String(id))
 	Story.auto_skip = previous_auto

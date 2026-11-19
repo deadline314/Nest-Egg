@@ -247,13 +247,14 @@ def _rooftop(source: ProductionSource):
         ("rin", "我記著這杯茶，傘不用算。"),
         ("egret", "你還要替雨開一個帳啊？先喝，茶不會等你算完。")), opening=True),
         when=negate(brief), next_scene="ch2_t_s03_brief", mode="animated")
-    source.add("ch2_t_s03_brief", "S03", steps=_on_roof((
+    source.add("ch2_t_s03_brief", "S03", steps=_roof_cast(0.25) + roof_tea_staging.show_check_card() + beats(
         ("egret", "市場查核證只讓你進公眾攤道，後面的帳房還是阿勇管。阿勇是這一帶收帳人的頭。"),
         ("egret", "昨晚盤裡那筆代收款有批號，收據卻不在。去代收處找當天的租攤合約和收款存根。"),
         ("rin", "我先看原本，再聽他們怎麼算。"),
-        ("egret", "天穹要找誰多收了錢，我只要他們別拿攤商的錢墊掉。你看見不對的地方就寫，不用替誰挑好看的。"),
+        ("egret", "天穹要找誰多收了錢，我只要他們別拿攤商的錢墊掉。你看見不對的地方就寫，不用替誰挑好看的。"))
+        + roof_tea_staging.pass_check_card() + beats(
         ("rin", "查完這筆就能結案？"),
-        ("egret", "附件對得上才算，光把收帳的人打趴不會長出收據。")), opening=False),
+        ("egret", "附件對得上才算，光把收帳的人打趴不會長出收據。")),
         when=negate(brief), next_scene="ch2_t_s03_rain", mode="animated")
     source.add("ch2_t_s03_rain", "S03", steps=_on_roof((
         ("egret", "你看雨別只看腳下。屋頂先響、雨棚再響，你就知道市場哪條路積水了。"),

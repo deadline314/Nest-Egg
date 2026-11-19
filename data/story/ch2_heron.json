@@ -2021,6 +2021,64 @@
      "speaker": "rin"
     },
     {
+     "do": "move",
+     "id": "egret",
+     "to": [
+      349,
+      262.0
+     ],
+     "time": 0.48,
+     "pose": "walk",
+     "then": "idle",
+     "wait": false
+    },
+    {
+     "do": "move",
+     "id": "rin",
+     "to": [
+      302,
+      262.0
+     ],
+     "time": 0.48,
+     "pose": "walk",
+     "then": "idle",
+     "wait": true
+    },
+    {
+     "do": "reach",
+     "id": "egret",
+     "hand": "front",
+     "to": [
+      246.5,
+      264.5
+     ],
+     "contact": [
+      75.5,
+      36.5
+     ],
+     "angle": 3.141592653589793,
+     "time": 0.42,
+     "wait": true,
+     "space": "prop",
+     "prop": "public_aisle_pass"
+    },
+    {
+     "do": "prop_visible",
+     "id": "public_aisle_pass",
+     "visible": true
+    },
+    {
+     "do": "prop_hold",
+     "id": "public_aisle_pass",
+     "actor": "egret",
+     "hand": "front",
+     "point": [
+      246.5,
+      264.5
+     ],
+     "follow_rotation": false
+    },
+    {
      "do": "say",
      "speaker": "egret",
      "text": "市場查核證只讓你進公眾攤道，後面的帳房還是阿勇管。阿勇是這一帶收帳人的頭。",
@@ -2051,6 +2109,120 @@
      "text": "天穹要找誰多收了錢，我只要他們別拿攤商的錢墊掉。你看見不對的地方就寫，不用替誰挑好看的。",
      "ja": "天穹は誰が余計に取ったかを探してる。あたしが欲しいのは、屋台の金で穴埋めさせないことだけ。おかしいところは書きな。誰かに都合のいいものを選ぶ必要はない。",
      "en": "Skydome wants to know who overcharged. What I want is for nobody to plug the gap with the stallholders' money. Write down whatever looks wrong, and don't pick out only the flattering bits."
+    },
+    {
+     "do": "reach",
+     "id": "egret",
+     "hand": "front",
+     "to": [
+      324.0,
+      176.0
+     ],
+     "contact": [
+      75.5,
+      36.5
+     ],
+     "angle": 3.141592653589793,
+     "time": 0.42,
+     "wait": true
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      138.5,
+      287.5
+     ],
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "angle": 0.0,
+     "time": 0.42,
+     "wait": true,
+     "space": "prop",
+     "prop": "public_aisle_pass"
+    },
+    {
+     "do": "prop_release",
+     "id": "public_aisle_pass"
+    },
+    {
+     "do": "prop_hold",
+     "id": "public_aisle_pass",
+     "actor": "rin",
+     "hand": "front",
+     "point": [
+      138.5,
+      287.5
+     ],
+     "follow_rotation": false
+    },
+    {
+     "do": "reach",
+     "id": "egret",
+     "hand": "front",
+     "time": 0.3,
+     "wait": false,
+     "release": true
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      310.0,
+      181.0
+     ],
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "angle": 0.0,
+     "time": 0.42,
+     "wait": true
+    },
+    {
+     "do": "prop_visible",
+     "id": "public_aisle_pass",
+     "visible": false
+    },
+    {
+     "do": "prop_release",
+     "id": "public_aisle_pass"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "time": 0.3,
+     "wait": true,
+     "release": true
+    },
+    {
+     "do": "move",
+     "id": "egret",
+     "to": [
+      372,
+      262.0
+     ],
+     "time": 0.48,
+     "pose": "walk",
+     "then": "idle",
+     "wait": false
+    },
+    {
+     "do": "move",
+     "id": "rin",
+     "to": [
+      268,
+      262.0
+     ],
+     "time": 0.48,
+     "pose": "walk",
+     "then": "idle",
+     "wait": true
     },
     {
      "do": "say",
