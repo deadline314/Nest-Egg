@@ -38,6 +38,7 @@
     "comm": {"open": "always", "closed": "armor"},
     "shield": {"open": "always", "closed": "armor"}
   },
+  "hooks": {"work_frame_art": "res://art/weapons/janus_work_frame.png"},
   "gatekeeper": {
     "wake_flag": "ch3_janus_intro_seen",
     "disabled_flag": "ch3_janus_disabled",

@@ -41,7 +41,7 @@ func _setup_states() -> void:
 	var baton_art: Variant = _hook("baton_art")
 	if baton_art is String and baton_art.begins_with("res://"):
 		_baton_texture = RigLibrary.optional_texture(baton_art)
-	if baton_art != "" and _baton_texture == null:
+	if _baton_texture == null and (not baton_art is String or not baton_art.is_empty()):
 		push_warning("[YongBoss] data/bosses/yong.json hooks.baton_art 讀不到貼圖 %s，使用線段備援。" % str(baton_art))
 	fsm.add(&"parley", _parley_tick, _parley_enter)
 	fsm.add(&"downed", _downed_tick, _downed_enter)

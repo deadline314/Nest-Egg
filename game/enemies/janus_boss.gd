@@ -12,7 +12,7 @@ extends PatternBoss
 ##   call_backup  背上的通訊器閃 0.8 秒後叫來一台巡檢器（最多 max_backup 台、含頭目同屏最多 max_alive 個）；打壞通訊器就不再增援
 ## 工作架很重，轉身要 turn_delay 秒：撲空或被打斷後繞到背後，就是打通訊器與臂鎖的空檔。
 ## 盾裂、通訊器壞、剩餘穩定度存在故事旗標（重試、死亡與續玩都保留，不重抽已破的部件）；持久世界的損血不另外套用。
-## 外觀：人物用既有的守門人骨架（art/characters/janus）；外接工作架目前是程式繪製的暫代（角色美術交付後換成零件圖，只改資料）。
+## 守門人的人物骨架與外接工作架各自繪製。工作架貼圖由頭目資料指定。
 
 const CONFIG_KEY := JanusConfig.CONFIG_KEY
 const SHIELD := &"shield"
@@ -23,6 +23,14 @@ const COMM := &"comm"
 const PIN_REACH := Vector2(30.0, 40.0)
 const FADE_TIME := 1.2
 const QUESTION_TIME := 1.6
+const FRAME_ATLAS_SIZE := Vector2(256, 272)
+const FRAME_SUPPORT := Rect2(4, 4, 100, 260)
+const FRAME_SHIELD := Rect2(112, 4, 32, 136)
+const FRAME_SHIELD_CRACKED := Rect2(152, 4, 32, 136)
+const FRAME_COMM := Rect2(192, 4, 40, 96)
+const FRAME_COMM_BROKEN := Rect2(192, 108, 40, 96)
+const FRAME_SCANNER := Rect2(112, 150, 112, 32)
+const FRAME_PIN := Rect2(112, 194, 16, 24)
 
 ## 純資料類別保留相同 defaults；不讓 Enemy 衍生腳本持有 static 快取。
 const DEFAULTS := JanusConfig.DEFAULTS
@@ -33,6 +41,7 @@ var shield_cracked := false
 var comm_broken := false
 var halted := false
 var pin_pulled := false
+var _frame_texture: Texture2D
 
 var _rng := RandomNumberGenerator.new()
 var _replay_pending := false
@@ -67,6 +76,13 @@ func _setup_states() -> void:
 	config = _load_config(data.id)
 	_rng.seed = int(config["seed"])
 	super._setup_states()
+	var artwork: Variant = pattern.hooks.get("work_frame_art", "")
+	if artwork is String and artwork.begins_with("res://"):
+		_frame_texture = RigLibrary.optional_texture(artwork)
+		if _frame_texture != null and _frame_texture.get_size() != FRAME_ATLAS_SIZE:
+			_frame_texture = null
+	if _frame_texture == null and (not artwork is String or not artwork.is_empty()):
+		push_warning("[JanusBoss] data/bosses/janus.json hooks.work_frame_art 貼圖遺失或尺寸錯誤 %s，使用線稿備援。" % str(artwork))
 	fsm.add(&"halted", _halted_tick)
 	_strike = BossStrikeArea.new()
 	_strike.name = "Strike"
@@ -547,7 +563,7 @@ func pull_pin() -> void:
 
 
 # ---------------------------------------------------------------------------
-# 畫面：外接工作架（暫代）與預兆
+# 畫面：外接工作架與預兆
 # ---------------------------------------------------------------------------
 
 func _draw_custom() -> void:
@@ -556,42 +572,65 @@ func _draw_custom() -> void:
 	var dark := Color(0.13, 0.14, 0.17)
 	var power := 0.0 if halted else 1.0
 	# 支撐架：背後一根立柱與兩道箍帶（人物在裡面）。
-	draw_line(Vector2(-f * 13.0, 0), Vector2(-f * 13.0, -62), dark, 3.0)
-	draw_line(Vector2(-f * 13.0, -62), Vector2(f * 4.0, -62), dark, 2.0)
-	for y: float in [-44.0, -24.0]:
-		draw_line(Vector2(-f * 13.0, y), Vector2(f * 8.0, y), Color(steel, 0.85), 1.5)
+	if _frame_texture != null:
+		_draw_frame_piece(FRAME_SUPPORT, Vector2.ZERO, Vector2(-16.0, -64.0))
+	else:
+		draw_line(Vector2(-f * 13.0, 0), Vector2(-f * 13.0, -62), dark, 3.0)
+		draw_line(Vector2(-f * 13.0, -62), Vector2(f * 4.0, -62), dark, 2.0)
+		for y: float in [-44.0, -24.0]:
+			draw_line(Vector2(-f * 13.0, y), Vector2(f * 8.0, y), Color(steel, 0.85), 1.5)
 	# 通訊器（背後）：箱子、天線與狀態燈；呼叫預兆時閃橙色，壞了就黑掉冒火花。
 	var comm := _part_offset(COMM)
-	if comm_broken:
+	if _frame_texture != null:
+		_draw_frame_piece(FRAME_COMM_BROKEN if comm_broken else FRAME_COMM, comm, Vector2(-5.0, -17.0))
+	elif comm_broken:
 		draw_rect(Rect2(comm + Vector2(-5, -7), Vector2(10, 14)), dark)
 		draw_line(comm + Vector2(0, -7), comm + Vector2(-f * 5.0, -13), dark, 1.0)
 	else:
 		draw_rect(Rect2(comm + Vector2(-5, -7), Vector2(10, 14)), steel.darkened(0.2))
 		draw_line(comm + Vector2(0, -7), comm + Vector2(0, -16), steel, 1.0)
+	if not comm_broken:
 		var calling := fsm.is_in(&"windup") and StringName(_move().get("kind", &"")) == &"call_backup"
 		var blink := calling and int(_anim_time * 10.0) % 2 == 0
 		var lamp := LightKit.glow(Palette.WARNING, 1.8) if blink else LightKit.glow(Palette.CYAN, 1.2 * power)
 		draw_circle(comm + Vector2(0, -16), 1.6, lamp)
 	# 維修插銷：停住後亮起提示色。
 	var pin := _pin_local()
-	draw_rect(Rect2(pin + Vector2(-2, -3), Vector2(4, 6)), LightKit.glow(Palette.CYAN, 2.0) if halted and not pin_pulled else steel)
+	if halted and not pin_pulled:
+		draw_rect(Rect2(pin + Vector2(-2, -3), Vector2(4, 6)), LightKit.glow(Palette.CYAN, 2.0))
+	elif _frame_texture != null:
+		_draw_frame_piece(FRAME_PIN, pin, Vector2(-2.0, -3.0))
+	else:
+		draw_rect(Rect2(pin + Vector2(-2, -3), Vector2(4, 6)), steel)
 	# 掃描臂：肩上往前伸的臂與發射頭；臂鎖在肩上。
 	var arm := _part_offset(ARM_LOCK)
-	var tip := arm + Vector2(f * 22.0, -2.0)
-	draw_line(arm, tip, steel, 3.0)
-	draw_rect(Rect2(tip + Vector2(-3, -3), Vector2(6, 6)), steel.lightened(0.15))
+	if _frame_texture != null:
+		_draw_frame_piece(FRAME_SCANNER, arm, Vector2(-2.0, -5.0))
+	else:
+		var tip := arm + Vector2(f * 22.0, -2.0)
+		draw_line(arm, tip, steel, 3.0)
+		draw_rect(Rect2(tip + Vector2(-3, -3), Vector2(6, 6)), steel.lightened(0.15))
 	draw_rect(Rect2(arm + Vector2(-4, -3), Vector2(8, 6)), _part_color(ARM_LOCK, dark))
 	# 盾架（前方）：完整時是鋼板加警示邊，裂開後有裂痕、顏色變暗。
 	var shield := _part_offset(SHIELD)
-	var plate := Rect2(shield + Vector2(-4, -17), Vector2(8, 34))
-	draw_rect(plate, steel.darkened(0.35) if shield_cracked else steel)
-	draw_rect(plate, Color(0.9, 0.7, 0.2, 0.9), false, 1.0)
-	if shield_cracked:
-		draw_polyline(PackedVector2Array([shield + Vector2(-3, -14), shield + Vector2(1, -6), shield + Vector2(-2, 2), shield + Vector2(3, 12)]), dark, 1.0)
+	if _frame_texture != null:
+		_draw_frame_piece(FRAME_SHIELD_CRACKED if shield_cracked else FRAME_SHIELD, shield, Vector2(-4.0, -17.0))
+	else:
+		var plate := Rect2(shield + Vector2(-4, -17), Vector2(8, 34))
+		draw_rect(plate, steel.darkened(0.35) if shield_cracked else steel)
+		draw_rect(plate, Color(0.9, 0.7, 0.2, 0.9), false, 1.0)
+		if shield_cracked:
+			draw_polyline(PackedVector2Array([shield + Vector2(-3, -14), shield + Vector2(1, -6), shield + Vector2(-2, 2), shield + Vector2(3, 12)]), dark, 1.0)
 	draw_rect(Rect2(_part_offset(SHIELD_LOCK) + Vector2(-3, -3), Vector2(6, 6)), _part_color(SHIELD_LOCK, dark))
 	_draw_telegraphs()
 	if _question_left > 0.0 or (_replaying and (fsm.is_in(&"windup") or fsm.is_in(&"act"))):
 		_draw_replay_mark()
+
+
+func _draw_frame_piece(region: Rect2, anchor: Vector2, offset: Vector2) -> void:
+	draw_set_transform(anchor, 0.0, Vector2(float(facing), 1.0))
+	draw_texture_rect_region(_frame_texture, Rect2(offset, region.size * 0.25), region)
+	draw_set_transform(Vector2.ZERO)
 
 
 ## 打得到的部件：部件本身變亮加一圈細的脈動外框，不畫發光圓點（肩上的臂鎖就在臉旁邊，泛光下圓點會把臉蓋白）。

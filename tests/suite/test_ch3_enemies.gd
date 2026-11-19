@@ -218,6 +218,9 @@ func _janus_hit(janus: JanusBoss, part: StringName, from_x: float, projectile :=
 func _test_janus_data() -> void:
 	var pattern := BossPattern.parse(JSON.parse_string(FileAccess.get_file_as_string("res://data/bosses/janus.json")), "janus.json", true)
 	check(pattern.errors.is_empty(), "the gatekeeper's boss data reads cleanly: %s" % [pattern.errors])
+	var frame_art := RigLibrary.optional_texture(str(pattern.hooks.get("work_frame_art", "")))
+	check(frame_art != null and frame_art.get_size() == JanusBoss.FRAME_ATLAS_SIZE,
+		"the gatekeeper's work frame art matches the authored atlas")
 	check(pattern.bar_name == "門禁裝置穩定度", "the boss bar is the device's stability, not the man's life")
 	check(pattern.gate_channel == &"ch3_janus_down", "shutting him down opens the ch3_janus_down channel")
 	check(float(pattern.moves[&"shield_bash"]["telegraph"]) >= 1.0, "the shield bash is raised for about a second")
@@ -238,6 +241,7 @@ func _test_janus_data() -> void:
 ## 登場劇情看過、玩家走近才醒；血條名稱是門禁裝置穩定度。
 func _test_janus_wakes_after_intro() -> void:
 	var janus := await _spawn_janus(JANUS_TILE - 8.0, false)
+	check(janus._frame_texture != null and janus.rig != null, "the work frame and person load as independent artwork")
 	await physics_frames(20)
 	check(janus.fsm.is_in(&"dormant"), "before the C10 intro the gatekeeper does not fight")
 	var names: Array[String] = []
