@@ -8012,27 +8012,36 @@
       248.8
      ],
      "zoom": 1.15,
-     "fade": 0.8
+     "fade": 0.8,
+     "props": {
+      "egret_broken_umbrella": {
+       "angle": -1.03
+      }
+     }
     },
     {
      "do": "actor",
      "id": "egret",
      "kind": "egret",
      "pos": [
-      240,
+      235,
       292
      ],
      "facing": 1,
      "scale": 2.0,
      "weapon": "",
-     "speaker": "egret"
+     "speaker": "egret",
+     "pose": "sit",
+     "pose_reason": "鷺復原後先在亭邊坐穩。",
+     "pose_support": "骨盆落在候位椅座面，雙腳踩地。",
+     "seat_sag": 0.57
     },
     {
      "do": "actor",
      "id": "rin",
      "kind": "rin",
      "pos": [
-      330,
+      309,
       292
      ],
      "facing": -1,
@@ -8054,6 +8063,53 @@
      "speaker": "banyan"
     },
     {
+     "do": "actor",
+     "id": "resident_side",
+     "kind": "resident",
+     "pos": [
+      457,
+      292
+     ],
+     "facing": -1,
+     "scale": 2.0,
+     "weapon": ""
+    },
+    {
+     "do": "actor",
+     "id": "worker_side",
+     "kind": "night_worker",
+     "pos": [
+      499,
+      292
+     ],
+     "facing": -1,
+     "scale": 2.0,
+     "weapon": "",
+     "layer": 3
+    },
+    {
+     "do": "sfx",
+     "id": "beep",
+     "volume": -13,
+     "jitter": 0
+    },
+    {
+     "do": "reach",
+     "id": "egret",
+     "hand": "back",
+     "to": [
+      224,
+      248
+     ],
+     "time": 0.32,
+     "wait": true,
+     "contact": [
+      75.5,
+      36.5
+     ],
+     "angle": 0
+    },
+    {
      "do": "say",
      "speaker": "voice",
      "text": "歡迎回來。",
@@ -8066,6 +8122,38 @@
      "text": "鷺姐，這次是第二百一十四次了。",
      "ja": "鷺さん、これで二百十四回目ですよ。",
      "en": "Egret, that makes 214 times now."
+    },
+    {
+     "do": "wait",
+     "time": 0.2
+    },
+    {
+     "do": "reach",
+     "id": "egret",
+     "hand": "back",
+     "release": true,
+     "time": 0.35,
+     "wait": true
+    },
+    {
+     "do": "pose",
+     "id": "egret",
+     "pose": "idle"
+    },
+    {
+     "do": "wait",
+     "time": 0.86
+    },
+    {
+     "do": "move",
+     "id": "egret",
+     "to": [
+      270,
+      292
+     ],
+     "time": 0.85,
+     "pose": "walk",
+     "then": "idle"
     },
     {
      "do": "say",
@@ -8086,6 +8174,249 @@
      "en": "I've written down the tea on credit too, so don't pretend you didn't hear."
     },
     {
+     "do": "pose",
+     "id": "rin",
+     "pose": "idle",
+     "loop": "booth_laugh"
+    },
+    {
+     "do": "pose",
+     "id": "resident_side",
+     "pose": "idle",
+     "loop": "booth_laugh"
+    },
+    {
+     "do": "pose",
+     "id": "worker_side",
+     "pose": "idle",
+     "loop": "booth_laugh"
+    },
+    {
+     "do": "wait",
+     "time": 0.83
+    },
+    {
+     "do": "pose",
+     "id": "rin",
+     "pose": "idle",
+     "loop": ""
+    },
+    {
+     "do": "pose",
+     "id": "resident_side",
+     "pose": "idle",
+     "loop": ""
+    },
+    {
+     "do": "pose",
+     "id": "worker_side",
+     "pose": "idle",
+     "loop": ""
+    },
+    {
+     "do": "pose",
+     "id": "rin",
+     "pose": "crouch",
+     "pose_reason": "彎膝從候位椅拿隨身物件。",
+     "pose_support": "雙腳踩在亭邊地面。"
+    },
+    {
+     "do": "wait",
+     "time": 0.45
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "time": 0.45,
+     "wait": true,
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "angle": 3.141592653589793,
+     "to": [
+      177.5,
+      226.5
+     ],
+     "space": "prop",
+     "prop": "egret_broken_umbrella"
+    },
+    {
+     "do": "prop_hold",
+     "id": "egret_broken_umbrella",
+     "actor": "rin",
+     "hand": "front",
+     "point": [
+      177.5,
+      226.5
+     ],
+     "follow_rotation": false
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "time": 0.45,
+     "wait": true,
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "angle": 3.141592653589793,
+     "to": [
+      300,
+      226
+     ]
+    },
+    {
+     "do": "pose",
+     "id": "rin",
+     "pose": "idle"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "time": 0.4,
+     "wait": true,
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "angle": 3.141592653589793,
+     "to": [
+      295,
+      216
+     ]
+    },
+    {
+     "do": "reach",
+     "id": "egret",
+     "hand": "front",
+     "to": [
+      177.5,
+      240.5
+     ],
+     "time": 0.45,
+     "wait": true,
+     "contact": [
+      75.5,
+      36.5
+     ],
+     "angle": 0,
+     "space": "prop",
+     "prop": "egret_broken_umbrella"
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "prop_release",
+     "id": "egret_broken_umbrella"
+    },
+    {
+     "do": "prop_hold",
+     "id": "egret_broken_umbrella",
+     "actor": "egret",
+     "hand": "front",
+     "point": [
+      177.5,
+      240.5
+     ],
+     "follow_rotation": false
+    },
+    {
+     "do": "reach",
+     "id": "egret",
+     "hand": "front",
+     "to": [
+      285,
+      220
+     ],
+     "time": 0.45,
+     "wait": true,
+     "contact": [
+      75.5,
+      36.5
+     ],
+     "angle": 0
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "release": true,
+     "time": 0.35,
+     "wait": true
+    },
+    {
+     "do": "pose",
+     "id": "egret",
+     "pose": "squat",
+     "pose_reason": "彎膝從候位椅拿隨身物件。",
+     "pose_support": "雙腳踩在亭邊地面。"
+    },
+    {
+     "do": "wait",
+     "time": 0.66
+    },
+    {
+     "do": "reach",
+     "id": "egret",
+     "hand": "back",
+     "to": [
+      38.5,
+      10.5
+     ],
+     "time": 0.45,
+     "wait": true,
+     "contact": [
+      75.5,
+      36.5
+     ],
+     "angle": 0,
+     "space": "prop",
+     "prop": "egret_equipment_bag"
+    },
+    {
+     "do": "prop_hold",
+     "id": "egret_equipment_bag",
+     "actor": "egret",
+     "hand": "back",
+     "point": [
+      38.5,
+      10.5
+     ],
+     "follow_rotation": false
+    },
+    {
+     "do": "reach",
+     "id": "egret",
+     "hand": "back",
+     "to": [
+      258,
+      224
+     ],
+     "time": 0.45,
+     "wait": true,
+     "contact": [
+      75.5,
+      36.5
+     ],
+     "angle": 0
+    },
+    {
+     "do": "pose",
+     "id": "egret",
+     "pose": "idle"
+    },
+    {
+     "do": "wait",
+     "time": 0.9
+    },
+    {
      "do": "say",
      "speaker": "rin",
      "text": "兩根傘骨還沒長回來，復原只管你自己？",
@@ -8098,16 +8429,34 @@
      "text": "傘要是也收費，我早就用手接雨了。",
      "ja": "傘まで有料なら、とっくに手で雨を受けてるわ。",
      "en": "If the umbrella cost money too, I'd have been catching rain in my hands by now."
+    },
+    {
+     "do": "pose",
+     "id": "egret",
+     "pose": "idle",
+     "loop": "booth_laugh"
+    },
+    {
+     "do": "wait",
+     "time": 1.06
+    },
+    {
+     "do": "pose",
+     "id": "egret",
+     "pose": "idle",
+     "loop": ""
     }
    ],
    "pose_policy": "supported",
+   "silence_music": true,
    "when": {
     "not": {
      "flag": "ch2_egret_returned",
      "equals": true
     }
    },
-   "then": "ch2_t_s14_quiet"
+   "then": "ch2_t_s14_quiet",
+   "skip_then": true
   },
   "ch2_t_s14_quiet": {
    "mode": "animated",
@@ -8120,33 +8469,145 @@
       248.8
      ],
      "zoom": 1.15,
-     "fade": 0.25
+     "fade": 0.25,
+     "props": {
+      "egret_broken_umbrella": {
+       "angle": -1.03,
+       "pos": [
+        285,
+        220
+       ]
+      },
+      "egret_equipment_bag": {
+       "pos": [
+        249.89473684210526,
+        221.78947368421052
+       ]
+      }
+     }
     },
     {
      "do": "actor",
      "id": "egret",
      "kind": "egret",
      "pos": [
-      240,
+      270,
       292
      ],
      "facing": 1,
      "scale": 2.0,
      "weapon": "",
-     "speaker": "egret"
+     "speaker": "egret",
+     "pose": "idle"
     },
     {
      "do": "actor",
      "id": "rin",
      "kind": "rin",
      "pos": [
-      330,
+      309,
       292
      ],
      "facing": -1,
      "scale": 2.0,
      "weapon": "",
      "speaker": "rin"
+    },
+    {
+     "do": "actor",
+     "id": "banyan",
+     "kind": "banyan",
+     "pos": [
+      400,
+      292
+     ],
+     "facing": -1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "banyan"
+    },
+    {
+     "do": "actor",
+     "id": "resident_side",
+     "kind": "resident",
+     "pos": [
+      457,
+      292
+     ],
+     "facing": -1,
+     "scale": 2.0,
+     "weapon": ""
+    },
+    {
+     "do": "actor",
+     "id": "worker_side",
+     "kind": "night_worker",
+     "pos": [
+      499,
+      292
+     ],
+     "facing": -1,
+     "scale": 2.0,
+     "weapon": "",
+     "layer": 3
+    },
+    {
+     "do": "reach",
+     "id": "egret",
+     "hand": "front",
+     "to": [
+      177.5,
+      240.5
+     ],
+     "time": 0.1,
+     "wait": true,
+     "contact": [
+      75.5,
+      36.5
+     ],
+     "angle": 0,
+     "space": "prop",
+     "prop": "egret_broken_umbrella"
+    },
+    {
+     "do": "prop_hold",
+     "id": "egret_broken_umbrella",
+     "actor": "egret",
+     "hand": "front",
+     "point": [
+      177.5,
+      240.5
+     ],
+     "follow_rotation": false
+    },
+    {
+     "do": "reach",
+     "id": "egret",
+     "hand": "back",
+     "to": [
+      38.5,
+      10.5
+     ],
+     "time": 0.1,
+     "wait": true,
+     "contact": [
+      75.5,
+      36.5
+     ],
+     "angle": 0,
+     "space": "prop",
+     "prop": "egret_equipment_bag"
+    },
+    {
+     "do": "prop_hold",
+     "id": "egret_equipment_bag",
+     "actor": "egret",
+     "hand": "back",
+     "point": [
+      38.5,
+      10.5
+     ],
+     "follow_rotation": false
     },
     {
      "do": "say",
@@ -8171,6 +8632,7 @@
     }
    ],
    "pose_policy": "supported",
+   "silence_music": true,
    "when": {
     "not": {
      "flag": "ch2_egret_returned",

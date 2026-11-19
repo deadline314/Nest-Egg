@@ -299,7 +299,7 @@ def effect_projection(raw):
             children = effect_projection(value)
             if children:
                 out[key] = children
-        elif key == "lines" or key in DISPLAY_FIELDS or key in {"ja", "en", "pose_policy", "overlay", "budget", "gallery_order", "silence_music"} or any(key == field + "_" + lang for field in DISPLAY_FIELDS for lang in ("ja", "en")):
+        elif key == "lines" or key in DISPLAY_FIELDS or key in {"ja", "en", "pose_policy", "overlay", "budget", "gallery_order", "silence_music", "skip_then"} or any(key == field + "_" + lang for field in DISPLAY_FIELDS for lang in ("ja", "en")):
             continue
         else:
             out[key] = copy.deepcopy(value)

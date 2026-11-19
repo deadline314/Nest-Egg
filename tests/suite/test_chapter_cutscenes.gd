@@ -19,6 +19,7 @@ func run() -> void:
 	_test_script_consistency()
 	_test_level_bindings()
 	_test_chain_rules()
+	_test_skip_tail_policy()
 	await _test_chain_playback()
 	await _test_user_skip_drops_chain()
 
@@ -101,6 +102,17 @@ func _test_chain_rules() -> void:
 	check(problems.contains("test_chain_to_radio 的接續場景「radio_start」"), "接續到通訊會被指出")
 	for id in ["test_chain_a", "test_chain_b", "test_chain_radio", "test_chain_missing", "test_chain_to_radio"]:
 		Story._scenes.erase(id)
+
+
+func _test_skip_tail_policy() -> void:
+	var id := "ch2_t_s14_return"
+	var scene := _scene(StringName(id))
+	check(scene.get("skip_then") == true and Story._validate_chain(id, scene).is_empty(), "shipped Egret return can skip to its flag-only ending")
+	var invalid := scene.duplicate()
+	invalid["then"] = "ch2_t_s13_cabinet"
+	check(not Story._validate_chain(id, invalid).is_empty(), "a skip tail with item grants or another continuation is rejected")
+	invalid["skip_then"] = "true"
+	check(not Story._validate_chain(id, invalid).is_empty(), "malformed skip policy is rejected")
 
 
 func _test_chain_playback() -> void:

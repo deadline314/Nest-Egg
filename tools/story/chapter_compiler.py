@@ -121,6 +121,8 @@ def _compile_segment(segment, spec: ChapterSpec, inside_presentation: bool) -> d
             scene["on_failure"] = dict(failure)
     if segment.next_scene:
         scene["then"] = segment.next_scene
+    if segment.skip_then:
+        scene["skip_then"] = segment.skip_then
     return scene
 
 
@@ -232,6 +234,16 @@ def compile_chapter(spec: ChapterSpec) -> dict:
         ):
             raise CompileError(f"{ident}: 只有不凍結、無結果與後續場景的通訊可以關閉字幕")
         scene["dismissible"] = True
+    for ident, scene in scenes.items():
+        if "skip_then" not in scene:
+            continue
+        tail = scenes.get(scene.get("then"), {})
+        results = tail.get("results", [])
+        if (scene["skip_then"] is not True or scene["mode"] != "animated" or tail.get("mode") != "animated"
+            or any(key in tail for key in ("then", "transfer_items", "on_failure"))
+            or not results or any(op.get("kind") != "flag" for op in results)
+            or any(step.get("do") == "choice" for segment in (scene, tail) for step in _walk(segment.get("steps", [])))):
+            raise CompileError(f"{ident}: skip_then 需要沒有選擇、只有旗標結果的最後一段")
     apply_npc_contracts(scenes, f"res://data/story/{spec.chapter['id']}.json", source, {binding:f"{spec.prefix}_dispatch_{binding}" for binding in spec.dispatch})
     _check_lines(scenes)
     chapter = dict(spec.chapter)

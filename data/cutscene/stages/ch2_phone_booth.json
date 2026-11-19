@@ -56,6 +56,68 @@
    "kind": "rain",
    "depth": "front",
    "opacity": 0.3
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scene_props/night_harbor/night_harbor__harbor_bench_wet.png",
+   "pos": [
+    205,
+    238.0
+   ],
+   "scale": 0.2496,
+   "filter": "linear",
+   "source_width": 367
+  },
+  {
+   "kind": "sprite",
+   "id": "egret_equipment_bag",
+   "path": "res://art/environment/scene_props/ch2_medic_transport/ch2_medic_transport__equipment_bag.png",
+   "pos": [
+    261,
+    243.5
+   ],
+   "scale": 0.2105263157894737,
+   "source_width": 76,
+   "filter": "linear",
+   "glow": false,
+   "visible": true,
+   "depth": "front",
+   "lighting": "physical",
+   "support": "市集亭候位椅"
+  },
+  {
+   "kind": "sprite",
+   "id": "egret_broken_umbrella",
+   "path": "res://art/environment/scene_props/ch2_medic_transport/ch2_medic_transport__broken_umbrella.png",
+   "pos": [
+    293,
+    265
+   ],
+   "scale": 0.31810294968189706,
+   "source_width": 364,
+   "filter": "linear",
+   "glow": false,
+   "visible": true,
+   "depth": "back",
+   "lighting": "physical",
+   "pivot": [
+    177.5,
+    240.5
+   ],
+   "support": "破傘斜靠候位椅的右緣"
+  }
+ ],
+ "furniture": [
+  {
+   "id": "booth_bench_seat",
+   "kind": "seat",
+   "rect": [
+    218,
+    265,
+    76,
+    27
+   ],
+   "plane": "back"
   }
  ]
 }

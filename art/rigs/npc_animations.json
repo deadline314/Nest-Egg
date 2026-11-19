@@ -24,6 +24,11 @@
     ]}
   },
   "loops": {
+    "booth_laugh": {"bones": {"chest": -0.06, "head": -0.05}, "tracks": [
+      {"bone": "chest", "amp": 0.083, "period": 0.27},
+      {"bone": "head", "amp": 0.046, "period": 0.27, "phase": 0.78},
+      {"bone": "_hip_y", "amp": 0.42, "period": 0.27, "phase": 1.25}
+    ]},
     "stir": {"bones": {"chest": 0.1, "head": 0.12, "arm_back_upper": -0.2}, "period": 0.85, "vary": 0.1, "tracks": [
       {"bone": "arm_front_upper", "mean": -0.6, "keys": [[0.0, 0.15], [0.25, 0.0], [0.5, -0.15], [0.75, 0.0]]},
       {"bone": "arm_front_lower", "mean": -0.9, "offset": -0.2, "keys": [[0.0, 0.25], [0.25, 0.0], [0.5, -0.25], [0.75, 0.0]]},

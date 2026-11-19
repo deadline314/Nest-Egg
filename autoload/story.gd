@@ -520,6 +520,10 @@ func _validate_targets(scene_id: String, scene: Dictionary) -> PackedStringArray
 ## 接續場景（then）：只能接在過場／動畫過場之後，目標必須存在，且不能形成迴圈。
 func _validate_chain(scene_id: String, scene: Variant) -> PackedStringArray:
 	var problems := PackedStringArray()
+	if scene is Dictionary and scene.has("skip_then"):
+		var skip_config: Variant = scene["skip_then"]
+		if not skip_config is bool or (skip_config and not _can_finish_skipped_tail(scene_id, scene)):
+			problems.append("場景 %s 的 skip_then 需要同一劇本內沒有選擇、只有旗標結果的最後一段" % scene_id)
 	if typeof(scene) != TYPE_DICTIONARY or not (scene as Dictionary).has("then"):
 		return problems
 	var mode := str((scene as Dictionary).get("mode", "radio"))
@@ -1232,7 +1236,7 @@ func skip_cinematic() -> void:
 		_layer.finish_cinematic()
 
 
-func _start_cinematic(id: StringName, context: Dictionary = {}, request := 0) -> void:
+func _start_cinematic(id: StringName, context: Dictionary = {}, request := 0, skip_tail := false) -> void:
 	_presentation_generation += 1
 	_current_cinematic = id
 	_current_request = request
@@ -1246,7 +1250,7 @@ func _start_cinematic(id: StringName, context: Dictionary = {}, request := 0) ->
 		_context_request = request
 	scene_started.emit(id, MODE_ANIMATED if animated else MODE_CINEMATIC)
 	# 「略過過場動畫」只略過看的部分：要玩家做決定的場景照常播，不然預設選項會讓出門、交付這類決定永遠選不到。
-	if auto_skip or (Settings.get_skip_cutscenes() and not offers_choice(scene)):
+	if skip_tail or auto_skip or (Settings.get_skip_cutscenes() and not offers_choice(scene)):
 		_retry_auto_skip_choices(id, request, _presentation_generation)
 		return
 	if not animated and uses_cinematic_framing(id, _presentation_context):
@@ -1314,7 +1318,7 @@ func _on_cinematic_finished(id: StringName, expected_request := 0) -> void:
 		result_completion.finish()
 	if not _cinematic_queue.is_empty():
 		var queued: Dictionary = _cinematic_queue.pop_front()
-		_start_cinematic(queued.id, queued.context, queued.request)
+		_start_cinematic(queued.id, queued.context, queued.request, queued.get("skip_tail", false))
 
 
 ## 選項或交易失敗指定的接續場景：不論是否看過都接著播（可回到上一個選擇），條件不成立時不接。
@@ -1329,13 +1333,28 @@ func _queue_dynamic_scene(next: StringName, request: int) -> bool:
 	return true
 
 
-## 場景設定了 then 時，結束後立刻接著播（排在佇列最前面）；玩家按 Esc 略過時整串都略過，已看過的場景不重播。
+## 明示可略過的收尾沿正常結束流程提交。
+func _can_finish_skipped_tail(id: String, scene: Dictionary) -> bool:
+	var next := str(scene.get("then", ""))
+	var tail: Dictionary = _scenes.get(next, {})
+	if scene.get("mode") != String(MODE_ANIMATED) or offers_choice(scene) or tail.get("mode") != String(MODE_ANIMATED) \
+			or _scene_sources.get(next) != _scene_sources.get(id) or tail.has("then") or tail.has("transfer_items") \
+			or tail.has("on_failure") or offers_choice(tail):
+		return false
+	var results := StoryOutcomes.operations(tail)
+	return not results.is_empty() and results.all(func(op: Dictionary) -> bool: return op.get("kind") == "flag")
+
+
+## 結束後接著播 then。Esc 略過後，只完成明示的旗標收尾。
 ## then 是分派時改依當下進度挑段落。
 func _queue_chained_scene(id: StringName, request: int) -> bool:
-	var next := StringName(str((_scenes.get(String(id), {}) as Dictionary).get("then", "")))
+	var scene: Dictionary = _scenes.get(String(id), {})
+	var next := StringName(str(scene.get("then", "")))
 	if next == &"" or not has_scene(next):
 		return false
-	if is_instance_valid(_player) and _player.user_skipped:
+	var skipped := is_instance_valid(_player) and _player.user_skipped
+	var finish_tail: Variant = scene.get("skip_then", false)
+	if skipped and (not finish_tail is bool or not finish_tail or not _can_finish_skipped_tail(String(id), scene)):
 		return false
 	# 接到分派時依當下進度挑段落（和選項接續一樣，可以回到看過的中樞，例如客人名單）。
 	if str((_scenes[String(next)] as Dictionary).get("mode", "")) == String(MODE_DISPATCH):
@@ -1343,7 +1362,8 @@ func _queue_chained_scene(id: StringName, request: int) -> bool:
 	if _seen.has(next) or not scene_available(next):
 		return false
 	_seen[next] = true
-	_cinematic_queue.push_front({"id": next, "context": _presentation_context.duplicate(true), "request": request})
+	_cinematic_queue.push_front({"id": next, "context": _presentation_context.duplicate(true),
+			"request": request, "skip_tail": skipped})
 	return true
 
 

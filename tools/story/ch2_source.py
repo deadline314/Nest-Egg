@@ -23,6 +23,7 @@ import guest_letter_staging  # noqa: E402
 import guest_soup_staging  # noqa: E402
 import rent_window_staging  # noqa: E402
 import medic_transport_staging  # noqa: E402
+import booth_return_staging  # noqa: E402
 import market_pass_staging  # noqa: E402
 import roof_watcher_staging  # noqa: E402
 from ch2_stages import BOOTH, COLLECTION, LEDGER, PAWNSHOP, RENT_WINDOW, MEDIC_LEDGER, MARKET_PASS, Cast, Stage  # noqa: E402
@@ -646,12 +647,12 @@ def _return_and_audit(source: ProductionSource):
         ("banyan", "喝茶賒帳我也記著，別裝沒聽見。"),
         ("rin", "兩根傘骨還沒長回來，復原只管你自己？"),
         ("egret", "傘要是也收費，我早就用手接雨了。")),
-        when=negate(returned), next_scene="ch2_t_s14_quiet", mode="animated")
+        when=negate(returned), next_scene="ch2_t_s14_quiet", mode="animated", silence_music=True, skip_then=True)
     source.add("ch2_t_s14_quiet", "S14", (
         ("rin", "你不會怕醒不過來？"),
         ("egret", "我先把今天過完，不然明天的茶誰喝？"),
         ("lamp", "門口清了，帳目可以上傳了。查完再回屋頂，別漏掉委託結算。")),
-        when=negate(returned), mode="animated",
+        when=negate(returned), mode="animated", silence_music=True,
         completion=(set_flag("ch2_egret_returned"), set_flag("egret_restoration_count", 214)))
     source.add("ch2_t_s14_revisit", "S14", (("egret", "我人回來了，傘沒修，這次紀錄別多算。"),), when=returned)
 
@@ -910,8 +911,6 @@ FORMAL_FRAMES = {
         Cast("rin", 190, 1, pose="crouch", pose_reason="蹲下看鷺傷在哪裡。", pose_support="雙腳踩在帳房地板 y=296。"),
         Cast("egret", 280, 1, kind="egret/transport", floor=302.63)),
         cues=((0, medic_transport_staging.fall_opening()),(3, medic_transport_staging.loading_steps()))),
-    "ch2_t_s14_return": Frame(BOOTH, (Cast("egret", 240, 1), Cast("rin", 330, -1), Cast("banyan", 400, -1)), True),
-    "ch2_t_s14_quiet": Frame(BOOTH, (Cast("egret", 240, 1), Cast("rin", 330, -1))),
 }
 
 
@@ -937,6 +936,23 @@ def _formal_frames(source: ProductionSource):
             raise KeyError(f"FORMAL_FRAMES 指到不存在的段落 {ident}")
         steps = tuple(frame.stage.frame(frame.cast, frame.opening)) + _with_cues(segment.steps, frame.cues, ident)
         source.segments[ident] = replace(segment, mode="animated", steps=steps)
+
+def _booth_return_frames(source: ProductionSource):
+    for ident, opening in (("ch2_t_s14_return", True), ("ch2_t_s14_quiet", False)):
+        segment = source.segments[ident]
+        stage = BOOTH.frame((), opening)[0]
+        stage["props"] = booth_return_staging.initial(opening=opening)
+        steps = (stage, *booth_return_staging.cast(opening=opening))
+        if opening:
+            cues = ((0, booth_return_staging.opening()), (2, booth_return_staging.rise()),
+                    (4, booth_return_staging.laugh("rin", "resident_side", "worker_side", duration=0.83)
+                     + booth_return_staging.return_equipment()))
+            steps += _with_cues(segment.steps, cues, ident)
+            steps += booth_return_staging.laugh("egret", duration=1.06)
+        else:
+            steps += booth_return_staging.resume_equipment() + segment.steps
+        source.segments[ident] = replace(segment, steps=steps)
+
 
 DISPATCH = {
     "old_k": ["ch2_t_s01_settle", "ch2_t_s01_revisit"],
@@ -1028,6 +1044,7 @@ def build_source() -> ProductionSource:
     _guest_book(source)
     _guest_book_frames(source)
     _formal_frames(source)
+    _booth_return_frames(source)
     _quests(source)
     route_back_to_choices(source, DISPATCH, "ch2")
     return source

@@ -16,6 +16,7 @@ from pathlib import Path
 import towel_staging
 import rent_window_staging
 import medic_transport_staging
+import booth_return_staging
 import market_pass_staging
 import roof_watcher_staging
 from build_ch1_story import actor as stage_actor, stage as stage_scene
@@ -131,15 +132,18 @@ LEDGER = Stage(
 
 # --- 市集電話亭（S14）：art/environment/scenes/anchor_phone_booth.webp，疊上關卡裡同一座電話亭 --------------
 # 量自立繪：人行道從牆腳 y≈249 到路緣 y≈304，演員與電話亭都站在 292。捲門高約 180（1.5 身高，車庫門），縮放 2.0。
-BOOTH_FLOOR = 292
+BOOTH_FLOOR = booth_return_staging.FLOOR
 BOOTH = Stage(
-    "ch2_phone_booth", floor=BOOTH_FLOOR, scale=2.0, shot=(300, 196, 1.15),
+    "ch2_phone_booth", floor=BOOTH_FLOOR, scale=booth_return_staging.SCALE, shot=(300, 196, 1.15),
     layers=({"kind": "gradient", "top": "#05080c", "bottom": "#0c141a", "parallax": 0.0},
             background("anchor_phone_booth", modulate="#c8d2dc"),
             prop_layer("anchor_phone_booth", "anchor_phone_booth__phone_booth", 150, BOOTH_FLOOR, 2.0, glow=True),
             {"kind": "glow", "pos": [174, 190], "radius": 140, "color": "#7fe0c8", "intensity": 0.8, "additive": True, "alpha": 0.35,
              "pulse": 0.08, "pulse_depth": 0.25},
-            {"kind": "rain", "depth": "front", "opacity": 0.3}))
+            {"kind": "rain", "depth": "front", "opacity": 0.3},
+            prop_layer("night_harbor", "night_harbor__harbor_bench_wet", 205, BOOTH_FLOOR, booth_return_staging.SCALE))
+           + booth_return_staging.layers(),
+    furniture=(booth_return_staging.SEAT,))
 
 # --- 代收處（S06）：art/environment/scenes/neon_market.webp，疊上關卡裡同一張收款桌 -------------------------
 # 量自立繪：攤位在水面倒影後方，前景濕路面 y≈304～354；演員站在 330，利息站在收款桌後一點（322），桌子畫在他前面。
