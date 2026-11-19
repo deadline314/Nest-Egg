@@ -14,6 +14,7 @@ display_name = "小薇"
 speaker = "xiaowei"
 rig_id = "xiaowei"
 spawn_unless_flag = &"ch2_yong_subdued"
+pose = &"sit"
 loop = &"glance"
 facing = 1
 prompt = "{interact} 和小薇說話"

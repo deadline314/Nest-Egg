@@ -389,13 +389,14 @@ func _test_office_glass() -> void:
 	_reset_flags()
 	var office := await start_level(load(OFFICE_PATH) as LevelData)
 	await physics_frames(5)
-	var xiaowei: Node2D = null
+	var xiaowei: NpcActor = null
 	for node in office.find_children("*", "NpcActor", true, false):
 		var actor := node as NpcActor
 		if actor.data != null and actor.data.resource_path.get_file().get_basename() == "ch2_xiaowei":
 			xiaowei = actor
 	check(xiaowei != null, "xiaowei is placed in the ledger office")
 	if xiaowei != null:
+		check(xiaowei.data.current_pose(GameState.has_flag) == &"sit", "xiaowei sits in her safety alcove")
 		# 從戰區各處（地面、兩層平台、高處）朝她的頭與身體開槍：都在碰到她之前被玻璃或高臺擋下。
 		var space := office.get_world_2d().direct_space_state
 		var blocked := 0
@@ -415,6 +416,16 @@ func _test_office_glass() -> void:
 		if node is PatternBoss and (node as PatternBoss).data.id == &"yong":
 			yong_found = true
 	check(yong_found, "yong is placed in the ledger office")
+	var umbrella: PropReaction
+	for node in office.find_children("*", "PropReaction", true, false):
+		var reaction := node as PropReaction
+		if reaction.reaction_id == &"xiaowei_umbrella":
+			umbrella = reaction
+	check(umbrella != null and not umbrella.is_swapped(), "the folded umbrella waits by the chair before the fight ends")
+	if umbrella != null:
+		GameState.set_flag(&"ch2_yong_subdued", true, false)
+		check(umbrella.is_swapped() and xiaowei != null and not xiaowei.is_present(), "the chair stays behind when xiaowei leaves with her umbrella")
+		_reset_flags()
 	await end_level(office)
 
 
