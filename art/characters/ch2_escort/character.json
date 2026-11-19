@@ -1,0 +1,216 @@
+{
+  "id": "ch2_escort",
+  "display_name": "收帳人·押運手",
+  "rig": "res://art/rigs/ch2_escort.json",
+  "texture_scale": 0.03935,
+  "scale": 1.0,
+  "description": "外觀（skin）定義：textures 是零件圖片的尺寸與支點；parts 是把圖片掛到骨頭上的方式。由 tools/comfyui/cut_layers.py 依分件圖層切出。",
+  "textures": {
+    "pelvis": {
+      "file": "parts/pelvis.png",
+      "size": [
+        253,
+        211
+      ],
+      "pivot": [
+        132.0,
+        129.0
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "torso": {
+      "file": "parts/torso.png",
+      "size": [
+        256,
+        374
+      ],
+      "pivot": [
+        135.0,
+        342.0
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "head": {
+      "file": "parts/head.png",
+      "size": [
+        153,
+        165
+      ],
+      "pivot": [
+        47.0,
+        192.0
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "leg_upper": {
+      "file": "parts/leg_upper.png",
+      "size": [
+        196,
+        352
+      ],
+      "pivot": [
+        96.49,
+        87.98
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "leg_lower": {
+      "file": "parts/leg_lower.png",
+      "size": [
+        149,
+        327
+      ],
+      "pivot": [
+        85.28,
+        12.0
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "foot": {
+      "file": "parts/foot.png",
+      "size": [
+        200,
+        168
+      ],
+      "pivot": [
+        66.0,
+        80.0
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "arm_upper": {
+      "file": "parts/arm_upper.png",
+      "size": [
+        143,
+        240
+      ],
+      "pivot": [
+        69.04,
+        54.06
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "arm_lower": {
+      "file": "parts/arm_lower.png",
+      "size": [
+        101,
+        189
+      ],
+      "pivot": [
+        48.34,
+        12.05
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "hand": {
+      "file": "parts/hand.png",
+      "size": [
+        143,
+        102
+      ],
+      "pivot": [
+        23.06,
+        57.77
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    }
+  },
+  "parts": [
+    {
+      "name": "arm_back_upper",
+      "texture": "arm_upper",
+      "bone": "arm_back_upper",
+      "z": -7,
+      "tint": 0.78
+    },
+    {
+      "name": "arm_back_lower",
+      "texture": "arm_lower",
+      "bone": "arm_back_lower",
+      "z": -7,
+      "tint": 0.78
+    },
+    {
+      "name": "hand_back",
+      "texture": "hand",
+      "bone": "hand_back",
+      "z": -6,
+      "tint": 0.78
+    },
+    {
+      "name": "leg_back_upper",
+      "texture": "leg_upper",
+      "bone": "leg_back_upper",
+      "z": -5,
+      "tint": 0.78
+    },
+    {
+      "name": "leg_back_lower",
+      "texture": "leg_lower",
+      "bone": "leg_back_lower",
+      "z": -5,
+      "tint": 0.78
+    },
+    {
+      "name": "foot_back",
+      "texture": "foot",
+      "bone": "foot_back",
+      "z": -5,
+      "tint": 0.78
+    },
+    {
+      "name": "pelvis",
+      "texture": "pelvis",
+      "bone": "hip",
+      "z": 0
+    },
+    {
+      "name": "torso",
+      "texture": "torso",
+      "bone": "chest",
+      "z": 1
+    },
+    {
+      "name": "leg_front_upper",
+      "texture": "leg_upper",
+      "bone": "leg_front_upper",
+      "z": 3
+    },
+    {
+      "name": "leg_front_lower",
+      "texture": "leg_lower",
+      "bone": "leg_front_lower",
+      "z": 3
+    },
+    {
+      "name": "foot_front",
+      "texture": "foot",
+      "bone": "foot_front",
+      "z": 3
+    },
+    {
+      "name": "head",
+      "texture": "head",
+      "bone": "head",
+      "z": 5
+    },
+    {
+      "name": "arm_front_upper",
+      "texture": "arm_upper",
+      "bone": "arm_front_upper",
+      "z": 8
+    },
+    {
+      "name": "arm_front_lower",
+      "texture": "arm_lower",
+      "bone": "arm_front_lower",
+      "z": 8
+    },
+    {
+      "name": "hand_front",
+      "texture": "hand",
+      "bone": "hand_front",
+      "z": 10
+    }
+  ]
+}

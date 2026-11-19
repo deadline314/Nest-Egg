@@ -1,0 +1,31 @@
+[
+  {
+    "step": "parts",
+    "seconds": 78.7,
+    "outputs": [
+      "art_src\\characters\\ch2_escort\\06_parts",
+      "art_src\\characters\\ch2_escort\\06_parts\\ownership.png"
+    ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.9,
+    "outputs": [
+      "art_src\\characters\\ch2_escort\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 1.8,
+    "outputs": [
+      "art\\characters\\ch2_escort\\character.json",
+      "art\\rigs\\ch2_escort.json",
+      "art\\characters\\ch2_escort\\parts"
+    ]
+  }
+]

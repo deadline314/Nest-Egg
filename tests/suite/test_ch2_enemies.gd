@@ -351,6 +351,9 @@ func _test_retry_stages() -> void:
 func _test_escort_dash() -> void:
 	await open_level(20.0)
 	var escort := spawn(ESCORT_PATH, 27.0)
+	check(escort.rig != null and escort.rig.skin_id == "ch2_escort", "the escort loads its own market rig")
+	var baton := escort.get("_baton_texture") as Texture2D
+	check(baton != null and baton.get_size() == Vector2(72, 16), "the escort equips the short baton at the authored grip scale")
 	await wait_state(escort, &"windup", 240)
 	check(escort.fsm.is_in(&"windup"), "the escort winds up when the player is in range")
 	var start := escort.global_position.x

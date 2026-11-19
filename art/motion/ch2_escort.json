@@ -1,0 +1,35 @@
+{
+  "skin": "ch2_escort",
+  "description": "押運手站穩後壓低肩膀起跑，短棍的蓄力、突進、收招另由專屬招式姿勢控制。",
+  "idle": {
+    "breath_speed": 2.26,
+    "breath_amp": 0.027,
+    "hip_bob": 0.4,
+    "legs": [-0.23, 0.25, 0.31, 0.19]
+  },
+  "move": {
+    "stride": 31.6,
+    "swing": 0.49,
+    "knee_bend": 0.58,
+    "hip_bounce": 1.85,
+    "chest_lean": 0.28
+  },
+  "crouch": {
+    "hip_drop": 8.0,
+    "chest": 0.18,
+    "legs": [-1.25, 2.05, -0.55, 1.85],
+    "feet": [-0.8, -1.3]
+  },
+  "look": {
+    "chest": 0.12,
+    "neck": 0.08,
+    "head": 0.13
+  },
+  "death": {
+    "duration": 0.48,
+    "rotation": -1.56,
+    "drop": 21.0,
+    "hip_x": -4.5,
+    "ease": "in_cubic"
+  }
+}

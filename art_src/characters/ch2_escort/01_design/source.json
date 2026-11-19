@@ -1,0 +1,21 @@
+{
+  "actor": "ch2_escort",
+  "seed": 64113,
+  "models": [
+    "qwen-image-2.1-UC-int8_convrot.safetensors",
+    "qwen3vl_8b_int8_convrot.safetensors",
+    "qwen_image_2.1_vae_bf16.safetensors"
+  ],
+  "mode": "RGBA",
+  "size": [
+    832,
+    1216
+  ],
+  "alpha_bbox": [
+    0,
+    0,
+    832,
+    1216
+  ],
+  "sha256": "88366aee0e3914ca7b39ed619ca43ff26265a91e6640c1cdb9bb6d8051ad7b14"
+}
