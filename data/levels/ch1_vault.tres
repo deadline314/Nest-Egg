@@ -77,7 +77,7 @@ legend = Dictionary[String, Resource]({
 "η": ExtResource("13_ch1_enc_warehouse_walkway"),
 "↞": SubResource("Resource_2")
 })
-hints = PackedStringArray("保險箱裡有一片資料盤，拿到後就能從上層通道離開。", "取得資料盤後，在空中再按 {jump} 跳上高台；失手會落回這個平台，可再試一次。")
+hints = PackedStringArray("保險箱裡有一片資料盤，拿到後就能從上層通道離開。", "朝左上瞄準，看清踏板再跳。", "取得資料盤後，在空中再按 {jump} 跳上高台；失手會落回這個平台，可再試一次。")
 chapter = &"ch1_kasa"
 persistent_world = true
 show_chapter_card = false

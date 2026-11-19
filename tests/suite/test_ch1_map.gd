@@ -84,6 +84,9 @@ func _test_traversal_hints() -> void:
 	check(_layouts["warehouse"].hints.any(func(hint: Dictionary) -> bool:
 		return hint["position"] == Vector2(2328, 656) and hint["text"] == "水梯要折返，先瞄向下一塊踏板。"),
 			"the stair sign is on the first right-hand shelf")
+	check(_layouts["vault"].hints.any(func(hint: Dictionary) -> bool:
+		return hint["position"] == Vector2(264, 656) and hint["text"] == "朝左上瞄準，看清踏板再跳。"),
+			"the vault sign is on the right-hand shelf before the first backward jump")
 
 
 func _test_pawnshop_umbrella_stand() -> void:
