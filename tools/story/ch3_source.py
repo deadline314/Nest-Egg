@@ -15,6 +15,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from ch1_closure import (Option, ProductionSource, Quest, QuestStep, all_of, any_of, flag, grant, item,  # noqa: E402
                          negate, set_flag, transaction)
+import showroom_stamp_staging
+
 from build_ch1_story import (actor as stage_actor, cam as stage_cam, face as stage_face, move as stage_move,  # noqa: E402
                              pose as stage_pose, say as stage_say, sfx as stage_sfx, stage as stage_scene, wait as stage_wait)
 from chapter_compiler import route_back_to_choices  # noqa: E402
@@ -674,12 +676,12 @@ def _showroom(source: ProductionSource):
         when=negate(started), options=(
             _opt("post", "把異議回執放進公文格投遞。", "ch3_t_c15_posted", "林小姐蓋收件章，看房不用先交訂金。"),
             _opt("later", "先不投遞。", None, "之後可以再來。")))
-    source.add("ch3_t_c15_posted", "C15", (
+    source.add("ch3_t_c15_posted", "C15", steps=[*showroom_stamp_staging.steps(), *beats(
         ("lin", "公開查核件下午轉風控接待，不用跟房間綁在一起。看房也不需要先交訂金。"),
         ("rin", "三間都寫四十八萬，差的是窗？"),
         ("lin", "三間總價都是四十八萬，差朝向、光照時間和安靜程度。入住要本人看過，我今天不請您簽。"),
         ("lin", "您可以量窗臺、試坐，記下想帶誰再來。也可以今天先不選。"),
-        ("rin", "我替老 K 先算算，他老嫌店裡光太少。")),
+        ("rin", "我替老 K 先算算，他老嫌店裡光太少。"))],
         mode="animated", completion=(set_flag("ch3_clearwater_tour_started"), grant("ch3_tour_card")))
     source.add("ch3_t_c15_hub", "C15", (("lin", "三間都看完了嗎？想記提案、問別的，或先離開都可以。"),),
                when=all_of(started, negate(done)), options=(

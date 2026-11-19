@@ -1,0 +1,139 @@
+{
+ "camera": {
+  "pos": [
+   325,
+   247
+  ],
+  "zoom": 1.25
+ },
+ "floor": 285,
+ "layers": [
+  {
+   "kind": "gradient",
+   "top": "#254564",
+   "bottom": "#385674"
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/materials/glass_curtain_body.png",
+   "pos": [
+    0,
+    -3
+   ],
+   "scale": 0.8,
+   "source_width": 384,
+   "filter": "linear",
+   "modulate": "#b3b7c0",
+   "glow": false
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/materials/glass_curtain_body.png",
+   "pos": [
+    307.2,
+    -3
+   ],
+   "scale": 0.8,
+   "source_width": 384,
+   "filter": "linear",
+   "modulate": "#b3b7c0",
+   "glow": false
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/materials/glass_curtain_body.png",
+   "pos": [
+    614.4,
+    -3
+   ],
+   "scale": 0.8,
+   "source_width": 384,
+   "filter": "linear",
+   "modulate": "#b3b7c0",
+   "glow": false
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    0,
+    285,
+    940,
+    180
+   ],
+   "color": "#465b71"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    0,
+    285,
+    940,
+    3
+   ],
+   "color": "#688293"
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scene_props/clearwater/clearwater__reception_desk.png",
+   "pos": [
+    300,
+    209.445
+   ],
+   "scale": 0.27375,
+   "source_width": 320,
+   "filter": "linear",
+   "depth": "front",
+   "glow": false,
+   "modulate": "#c8c4ba"
+  },
+  {
+   "kind": "sprite",
+   "id": "showroom_posted_notice",
+   "path": "res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_8.png",
+   "pos": [
+    329,
+    223.09125
+   ],
+   "scale": 0.24,
+   "source_width": 96,
+   "filter": "linear",
+   "depth": "front",
+   "glow": false,
+   "lighting": "physical"
+  },
+  {
+   "kind": "sprite",
+   "id": "showroom_receipt_mark",
+   "path": "res://art/environment/scene_props/rent_window_contacts/contract_mark.png",
+   "pos": [
+    0,
+    0
+   ],
+   "scale": 0.24,
+   "source_width": 96,
+   "filter": "linear",
+   "depth": "front",
+   "parent_prop": "showroom_posted_notice",
+   "anchor": [
+    0,
+    0
+   ],
+   "visible": false
+  },
+  {
+   "kind": "sprite",
+   "id": "showroom_receipt_stamp",
+   "path": "res://art/environment/scene_props/rent_window_contacts/stamp.png",
+   "pos": [
+    343.07,
+    216.26125
+   ],
+   "scale": 0.38,
+   "source_width": 49,
+   "filter": "linear",
+   "depth": "front",
+   "glow": false,
+   "lighting": "physical"
+  }
+ ]
+}

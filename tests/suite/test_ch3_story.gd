@@ -17,6 +17,7 @@ func run() -> void:
 	Checks.check_quest_markers(self, "chapter 3", "ch3", "res://data/story/ch3_clearwater.json", _datas, 20)
 	_test_story_gates()
 	_test_clinic_review_handoff()
+	_test_showroom_receipt_stamp()
 	_test_morning_window_measurement()
 	_test_office_continuation_sources()
 	_test_office_movement()
@@ -62,6 +63,20 @@ func _test_clinic_review_handoff() -> void:
 	check(holders == ["zhi", "rin"], "Zhi puts the review slip in Rin's hand at the public counter")
 	check(scene["results"].count({"kind": "item_acquire", "id": "ch3_review_slip"}) == 1,
 			"the original clinic result awards one review slip")
+
+
+func _test_showroom_receipt_stamp() -> void:
+	var scene: Dictionary = Story._scenes["ch3_t_c15_posted"]
+	var held_stamp := false
+	var showed_ink := false
+	for step: Dictionary in scene["steps"]:
+		if step.get("do") == "prop_hold" and step.get("id") == "showroom_receipt_stamp":
+			held_stamp = step.get("actor") == "lin"
+		elif step.get("do") == "prop_visible" and step.get("id") == "showroom_receipt_mark":
+			showed_ink = held_stamp and step.get("visible", false)
+	check(showed_ink, "Lin holds the reception stamp before marking the posted receipt")
+	check(scene["results"].count({"kind": "item_acquire", "id": "ch3_tour_card"}) == 1,
+			"the original posting result issues one tour card")
 
 
 func _test_morning_window_measurement() -> void:
