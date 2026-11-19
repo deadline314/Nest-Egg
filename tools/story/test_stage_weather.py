@@ -6,8 +6,10 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 import build_ch1_story as story
+import ch1_runtime_backend
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -21,8 +23,20 @@ INDOOR_STAGES = {
 OUTDOOR_RAIN_STAGES = {"ch1_rooftop", "ch1_dawn_noodle_stall"}
 
 
+WEATHER_STAGES = OUTDOOR_RAIN_STAGES | {
+    "rainy_harbor", "ch2_phone_booth", "ch2_market_pass", "ch2_rooftop_watcher",
+}
+
+
 def rain_layers(stage: dict) -> list[dict]:
     return [layer for layer in stage["layers"] if layer.get("kind") == "rain"]
+
+
+def weather_layers(stage_id: str, stage: dict) -> list[dict]:
+    return [
+        layer for layer in rain_layers(stage)
+        if not (stage_id == "ch1_pawnshop_kitchen" and layer.get("id") == "tap_water")
+    ]
 
 
 class StageWeatherRegression(unittest.TestCase):
@@ -30,24 +44,37 @@ class StageWeatherRegression(unittest.TestCase):
         rainy = set()
         for path in FORMAL_STAGE_DIR.glob("*.json"):
             stage = json.loads(path.read_text(encoding="utf-8"))
-            if rain_layers(stage):
+            if weather_layers(path.stem, stage):
                 rainy.add(path.stem)
-        self.assertEqual(rainy, OUTDOOR_RAIN_STAGES | {"rainy_harbor"})
+        self.assertEqual(rainy, WEATHER_STAGES)
         shaft = json.loads((FORMAL_STAGE_DIR / "shaft_descent.json").read_text(encoding="utf-8"))
         self.assertEqual(shaft["camera"], {"pos": [320, -80], "zoom": 1.0})
         self.assertTrue(any(layer.get("kind") == "sprite" for layer in shaft["layers"]))
 
     def test_chapter_story_output_remains_unchanged(self) -> None:
-        story.build()
-        generated = {
-            "chapter": story.CHAPTER,
-            "speakers": story.SPEAKERS,
-            "respawn_scenes": story.RESPAWN,
-            "death_scenes": story.DEATH_SCENES,
-            "scenes": story.SCENES,
-        }
+        with tempfile.TemporaryDirectory(prefix="ne-stage-story-") as temp_dir:
+            generated_path = Path(temp_dir) / "ch1_kasa.json"
+            with patch.object(ch1_runtime_backend, "OUT", generated_path), patch.object(story, "STAGE_DIR", temp_dir):
+                self.assertEqual(ch1_runtime_backend.main(), 0)
+            generated = json.loads(generated_path.read_text(encoding="utf-8"))
         formal = json.loads((ROOT / "data" / "story" / "ch1_kasa.json").read_text(encoding="utf-8"))
         self.assertEqual(generated, formal)
+
+    def test_kitchen_faucet_stays_local_and_off_until_used(self) -> None:
+        kitchen = json.loads((FORMAL_STAGE_DIR / "ch1_pawnshop_kitchen.json").read_text(encoding="utf-8"))
+        layers = rain_layers(kitchen)
+        self.assertEqual([layer.get("id") for layer in layers], ["tap_water"])
+        self.assertIs(layers[0].get("visible"), False)
+        x, y, width, height = layers[0]["area"]
+        self.assertGreater(x, 0)
+        self.assertGreater(y, 0)
+        self.assertTrue(0 < width <= 2 and 0 < height <= 8)
+
+        chapter = json.loads((ROOT / "data" / "story" / "ch1_kasa.json").read_text(encoding="utf-8"))
+        steps = chapter["scenes"]["ch1_c14_home"]["steps"]
+        visible = [step.get("visible") for step in steps
+                   if step.get("do") == "prop_visible" and step.get("id") == "tap_water"]
+        self.assertEqual(visible, [True, False])
 
     def test_generator_outputs_match_formal_chapter_one_stages(self) -> None:
         self.assertEqual(set(story.STAGES), INDOOR_STAGES | OUTDOOR_RAIN_STAGES)
@@ -66,7 +93,7 @@ class StageWeatherRegression(unittest.TestCase):
                         )
                         self.assertEqual(generated, formal)
                         if stage_id in INDOOR_STAGES:
-                            self.assertEqual(rain_layers(generated), [])
+                            self.assertEqual(weather_layers(stage_id, generated), [])
                         else:
                             self.assertEqual(len(rain_layers(generated)), 1)
             finally:

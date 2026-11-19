@@ -124,7 +124,8 @@ def stall_layers(scale):
     floor = FLOOR['ch1_dawn_noodle_stall']
 
     def sprite(name, x, w, h, lift=0.0):
-        tex_w = Image.open(disk % name).size[0]
+        with Image.open(disk % name) as texture:
+            tex_w = texture.width
         layer = {"kind": "sprite", "path": d % name, "pos": [round(x, 1), round(floor - (h + lift) * scale, 1)],
                  "scale": round(scale * w / tex_w, 4), "filter": "linear", "glow": True, "source_width": tex_w}
         if lift > 0.0:
