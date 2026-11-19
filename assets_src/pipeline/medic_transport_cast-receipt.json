@@ -75,9 +75,17 @@
     "art/motion/egret/transport.json": "a4f09a0e633fd50b1567062f1caef22343ab5235747c4db6d00e6a4bc60bd12c",
     "art/characters/ch2_greycoat/transport/character.json": "2032f60dae2691932349b3236ca0b3308c5cfca1fd810a832451e1a8c4e57c5e",
     "art/motion/ch2_greycoat/transport.json": "701cd649081c7a71071df4c8d24bf79db064f8a25dba35c28f366054f3a2f243",
-    "art/characters/ch2_medic/transport/character.json": "5802313b6b754ff158a1a6be7aa0952194b7740c82fd0271d698d57467a89c2b",
+    "art/characters/ch2_medic/transport/character.json": "51b68c9e3494c2688051d9c08226235a2aeb26285f3931245f776dae15d987f6",
     "art/motion/ch2_medic/transport.json": "7b17aee8277fbd455c75b0e251484b6548b624743a500ea1382aa95a61c8b2a5"
   },
-  "human_pixels": "引用全部原parts，不複製、不改寫；既有character_dir相對路徑解析。",
+  "textures_sha256": {
+    "art/characters/ch2_medic/transport/parts/torso.png": "75719dcedc3e17ddbd5c0d30d1ffe6e57af71c47e1eace8fa68547c1cd389a75",
+    "art/characters/ch2_medic/transport/parts/torso_n.png": "c6ec6dd606ba2ca6e54cae3685d69829f0ec384d2d44822ef12211f98beb2e15",
+    "art/characters/ch2_medic/transport/parts/arm_upper.png": "872cc286803d24f6ecfd7427a437ece52086596683f81369d8c772c07e1a2c7a",
+    "art/characters/ch2_medic/transport/parts/arm_upper_n.png": "23f9a4ca059dface1aa20a3093a8384c5d316dd03221ad391d71503c2f0c20ad",
+    "art/characters/ch2_medic/transport/parts/arm_lower.png": "197f0ccaa79cc482df716072c6b60bd6280bdbe84dda599898b28f2a4d472428",
+    "art/characters/ch2_medic/transport/parts/arm_lower_n.png": "fb159793ec5f51da762ccbeb526853140ca782ca0ae696e5d4b9f8e3138e7508"
+  },
+  "human_pixels": "後側搬運者三個外套零件保留原輪廓，手、臉及其他角色沿用原零件。",
   "kneel_source": "art/motion/rin.json"
 }

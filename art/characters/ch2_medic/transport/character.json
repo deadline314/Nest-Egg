@@ -1,10 +1,10 @@
 {
   "id": "ch2_medic/transport",
-  "display_name": "救護員（S13搬送資料）",
+  "display_name": "後側搬運者",
   "rig": "res://art/rigs/ch2_medic.json",
   "texture_scale": 0.05,
   "scale": 1.0,
-  "description": "S13限定資料變體；引用ch2_medic全部原parts與同一rig，沒有新人物圖或骨長修改。",
+  "description": "S13後側搬運者的灰外套；沿用原骨架、輪廓及其餘零件。",
   "textures": {
     "pelvis": {
       "file": "../parts/pelvis.png",
@@ -19,7 +19,7 @@
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "torso": {
-      "file": "../parts/torso.png",
+      "file": "parts/torso.png",
       "size": [
         232,
         346
@@ -79,7 +79,7 @@
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "arm_upper": {
-      "file": "../parts/arm_upper.png",
+      "file": "parts/arm_upper.png",
       "size": [
         123,
         226
@@ -91,7 +91,7 @@
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "arm_lower": {
-      "file": "../parts/arm_lower.png",
+      "file": "parts/arm_lower.png",
       "size": [
         111,
         189
