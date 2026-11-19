@@ -121,3 +121,9 @@ RX9070XT／Godot4.7.2原生六點、720p與1080p：站立佔比32.0%～32.2%、�
 量法依據：[SceneTree.physics_frame在各Node物理回呼之前發出](https://docs.godotengine.org/en/stable/classes/class_scenetree.html#signals)、[Camera2D實際畫面中心與node global_position可因平滑／界限而不同](https://docs.godotengine.org/en/stable/classes/class_camera2d.html)。原生實際畫面、相機node與投影分開記錄，不能以一個數字冒充另一個。
 
 本次三場獨立過場在真Level上以既有無進度回看介面做控制：底層倍率1.5／1.92不同，實際CutscenePlayer位置、倍率、holder變換與layer58逐值一致，follow_viewport=false；不以先決旗標不足而未播出的舊圖充作舞台證據。原Main序章操作0失誤；原第一章故事探針修正過期的第二死4步斷言後0失誤，但有擺位／機關銜接，不等於整章戰鬥通關。地圖工具只補既有AudioRelease.settle收尾，原current／wide私有單因子及最終公開current均EOF乾淨。正式27群組48,991checks／新失敗0，原始負測試與結尾資源診斷及全部歷史保存在[本次證據](../../pm/Nest-Egg/attachments/NE-256-native-camera-2026-11-17/README.md)。自然各區通行與畫外受擊比較保持待驗，不為了消除深井格網數字加全域鏡頭分支。
+
+### 第一章原生路線對照（2026-11-19）
+
+十對實機路段以同樣的正式起始存檔比較兩組鏡頭，序章分別從新遊戲開始。落點取實際站上地面時的座標，用離地前最後一格的畫布變換投影。敵人蓄力取同一敵人第一次開始蓄力時的畫面，實際受擊只統計可找回的攻擊者。部分子彈的受擊資料沒有射手參照。較寬的鏡頭有四段測試操作中止，各段的遭遇不同，因此不能由受擊或死亡宗數反推哪一組比較安全。
+
+1.92 倍的屋頂折返和水梯，先朝目的地瞄準並讓鏡頭轉到新方向，再執行跳躍。水坑上方先斜向下瞄才往下走。重走屋頂所在續段的 6 次落腳、水梯段的 13 次落腳，出發前全部在畫面內。其餘實測落點與兩組鏡頭差異見 [NE-256 Commit-5](../../pm/Nest-Egg/%5BNE-256%5D%E6%8B%89%E8%BF%91%E9%97%9C%E5%8D%A1%E9%8F%A1%E9%A0%AD%E8%AE%93%E4%B8%BB%E8%A7%92%E4%BD%94%E7%95%AB%E9%9D%A2%E4%B8%89%E5%88%86%E4%B9%8B%E4%B8%80.md#commit-5序章到第一章章末的路線與鏡頭對照)。
