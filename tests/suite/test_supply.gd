@@ -204,6 +204,16 @@ func _test_shop() -> void:
 	check(runner.get_tree().paused, "the game pauses while shopping")
 	var page: ShopPage = station._screen._pages[0]
 	check(station._screen._pages.size() == 1 and not station._screen._tabs.visible, "the shop shows a single page without tabs")
+	var keyboard := InputEventKey.new()
+	keyboard.pressed = true
+	InputBindings.observe_device(keyboard)
+	check(not station._screen._legend_label.text.contains("分頁"), "a single shelf omits the keyboard tab hint")
+	var gamepad := InputEventJoypadButton.new()
+	gamepad.pressed = true
+	InputBindings.observe_device(gamepad)
+	check(InputBindings.using_gamepad and not station._screen._legend_label.text.contains("分頁"),
+		"a single shelf omits the gamepad tab hint after a live device change")
+	InputBindings.observe_device(keyboard)
 	var messages: Array[String] = []
 	var warnings := [0]
 	station._screen._context.message.connect(func(text: String, is_warning: bool) -> void:
@@ -280,6 +290,23 @@ func _test_shop_invalid_stock() -> void:
 	check(page._entries.is_empty() and Progression.credits == credits, "entirely invalid stock leaves an empty usable page")
 	screen.close()
 	check(not runner.get_tree().paused, "closing the empty shop resumes play")
+	var empty_data := ShopData.new()
+	check(not empty_data.validate().is_empty() and empty_data.prompt_text() == "{interact} 補給點",
+		"a damaged shop keeps its diagnostic and a readable entrance prompt")
+	var empty := ShopScreen.new()
+	empty.configure_shop(level.player, empty_data)
+	level.add_child(empty)
+	empty.open()
+	check(empty.is_open() and empty._pages.size() == 1 and not empty._tabs.visible,
+		"a shop without configured functions still opens an empty shelf")
+	if empty._pages.size() == 1:
+		var empty_shelf := empty._pages[0] as ShopPage
+		check(empty_shelf != null and empty_shelf._detail._empty.visible
+			and empty_shelf._detail._empty.text == "這個補給點沒有商品。", "the open shelf explains that it has no stock")
+		await runner._press_action(&"ui_accept")
+		check(Progression.credits == credits, "confirm on the empty shelf does not charge anything")
+	await runner._press_action(&"ui_cancel")
+	check(not empty.is_open() and not runner.get_tree().paused, "cancel from an empty shelf resumes play")
 	await end_level(level)
 	_fresh()
 

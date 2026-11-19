@@ -1,6 +1,6 @@
 class_name ShopScreen
 extends InventoryScreen
-## 補給點畫面：沿用背包的版面與操作，只有一個分頁（貨架）。由補給點開啟，不響應背包鍵。
+## 補給點畫面沿用背包的版面與操作，依櫃台功能切換分頁。由補給點開啟。
 ## 關卡在死亡或過關時透過群組 OVERLAY_GROUP 一併關閉（見 Level._close_menus）。
 
 const OVERLAY_GROUP := &"overlay_menu"
@@ -27,15 +27,16 @@ func _opens_with_key() -> bool:
 
 
 func _legend_template() -> String:
+	var tabs_hint := "　{inventory_prev_tab}/{inventory_next_tab} 分頁" if _pages.size() > 1 else ""
 	if InputBindings.using_gamepad:
-		return "{ui_cancel} 返回　{inventory_prev_tab}/{inventory_next_tab} 分頁　{ui_accept} 確認"
-	return "{ui_cancel} 離開　{inventory_prev_tab}/{inventory_next_tab} 分頁　↑↓ 選擇　{ui_accept} 確認"
+		return "{ui_cancel} 返回%s　{ui_accept} 確認" % tabs_hint
+	return "{ui_cancel} 離開%s　↑↓ 選擇　{ui_accept} 確認" % tabs_hint
 
 
-## 分頁依貨架的功能決定：有商品就有貨架、收購就有典當、工作檯就有改裝。
+## 空櫃台沿用空貨架畫面，玩家仍可離開。
 func _build_pages() -> Array[InventoryPage]:
 	var pages: Array[InventoryPage] = []
-	if shop == null or not shop.stock.is_empty():
+	if shop == null or not shop.stock.is_empty() or not (shop.pawn or shop.workbench):
 		var page := ShopPage.new()
 		page.shop = shop
 		pages.append(page)

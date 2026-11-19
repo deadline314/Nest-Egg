@@ -41,4 +41,6 @@ func prompt_text() -> String:
 		parts.append("典當")
 	if workbench:
 		parts.append("改裝武器")
+	if parts.is_empty():
+		return "{interact} %s" % display_name
 	return "{interact} %s：%s" % [display_name, "、".join(parts)]

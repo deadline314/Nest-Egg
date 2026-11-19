@@ -198,6 +198,12 @@ func _test_counter_and_pages() -> void:
 	runner.get_tree().root.add_child(screen)
 	await frames(3)
 	check(screen._pages.size() == 3 and screen._pages[0] is ShopPage and screen._pages[1] is PawnPage and screen._pages[2] is UpgradesPage, "the counter has shelf, pawn and workbench tabs")
+	screen.open()
+	check(screen._tabs.visible and screen._legend_label.text.contains("分頁"),
+		"a multi-function counter advertises tab navigation")
+	await runner._press_action(&"inventory_next_tab")
+	check(screen._current == 1, "the advertised tab action opens the pawn page")
+	screen.close()
 	var pawn_page: PawnPage = screen._pages[1]
 	var med := _med()
 	var bag := player.consumables
