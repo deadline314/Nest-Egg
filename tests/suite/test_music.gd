@@ -18,6 +18,7 @@ func run() -> void:
 	await _test_level_flow()
 	await _test_death_and_screens()
 	await _test_pause_and_cinematic()
+	await _test_cinematic_silence()
 	_test_music_bus()
 	_restore()
 
@@ -216,6 +217,38 @@ func _test_pause_and_cinematic() -> void:
 	check(float(state["cutoff_hz"]) >= Music.OPEN_CUTOFF_HZ - 1.0 and float(state["duck_db"]) >= -0.01, "resuming restores the music (%s)" % [state])
 	Music._update_filters(0.0)
 	check(is_equal_approx(float(Music.filter_state()["cutoff_hz"]), Music.OPEN_CUTOFF_HZ), "no time passing changes nothing")
+
+
+func _test_cinematic_silence() -> void:
+	var original: Dictionary = Story._scenes.get("ch2_t_s13_fall", {})
+	check(original.get("silence_music") == true, "Egret's fall opts into silence in the shipped scene")
+	var music_gain := Music._filters[&"Music"][1] as AudioEffectAmplify
+	var ambience_gain := Music._filters[&"Ambience"][1] as AudioEffectAmplify
+	var settings_volume := Settings.get_volume(&"Music")
+	var movie := CutscenePlayer.new()
+	var second := CutscenePlayer.new()
+	runner.add_child(movie)
+	runner.add_child(second)
+	var quiet := {"overlay": true, "silence_music": true, "steps": [{"do": "wait", "time": 5.0}]}
+	movie.play(&"test_quiet_movie", quiet)
+	second.play(&"test_second_quiet_movie", quiet)
+	Music._update_filters(1.0)
+	check(music_gain.volume_linear == 0.0 and ambience_gain.volume_linear > 0.0, "cinematic silence cuts Music while Ambience continues")
+	check(Settings.get_volume(&"Music") == settings_volume, "cinematic silence keeps the player volume")
+	movie.cancel()
+	Music._update_filters(1.0)
+	check(music_gain.volume_linear == 0.0, "cancelling one quiet movie leaves the other in control")
+	second.skip()
+	await frames(3)
+	Music._update_filters(1.0)
+	check(music_gain.volume_linear > 0.0, "skipping the last quiet movie restores Music")
+	movie = CutscenePlayer.new()
+	runner.add_child(movie)
+	movie.play(&"test_freed_quiet_movie", quiet)
+	movie.queue_free()
+	await frames(2)
+	Music._update_filters(1.0)
+	check(music_gain.volume_linear > 0.0, "discarding a quiet movie restores Music")
 
 
 func _test_music_bus() -> void:

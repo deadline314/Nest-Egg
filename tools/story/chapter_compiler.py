@@ -107,6 +107,10 @@ def _compile_segment(segment, spec: ChapterSpec, inside_presentation: bool) -> d
         scene.update(mode="animated", overlay=True, steps=[copy.deepcopy(s) for s in segment.steps])
     if staged and scene.get("mode") == "animated":
         scene["pose_policy"] = "supported"
+    if segment.silence_music:
+        if scene["mode"] != "animated":
+            raise CompileError(f"{segment.id}: 靜音只能用在動畫過場")
+        scene["silence_music"] = True
     if segment.when:
         scene["when"] = copy.deepcopy(segment.when)
     if results:

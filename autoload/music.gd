@@ -27,6 +27,7 @@ const CINEMATIC_DUCK_DB := -8.0
 const FILTER_RATE_HZ := 40000.0
 const DUCK_RATE_DB := 24.0
 const FILTERED_BUSES: Array[StringName] = [&"Music", &"Ambience"]
+const SILENCE_GROUP := &"cutscene_music_silence"
 
 enum Context { NONE, MENU, LEVEL, VICTORY, DEATH }
 
@@ -381,16 +382,22 @@ func _setup_pause_filters() -> void:
 		_filters[bus_name] = [low, amp]
 
 
-## 暫停時低通加降音量、過場動畫時只降音量；都是平滑漸變。
+## 臨時靜音沿用音樂增益效果，保留曲目進度與玩家設定。
 func _update_filters(delta: float) -> void:
 	var paused := get_tree().paused
 	var cutoff_goal := PAUSE_CUTOFF_HZ if paused else OPEN_CUTOFF_HZ
 	var duck_goal := (PAUSE_DUCK_DB if paused else 0.0) + (CINEMATIC_DUCK_DB if Story.is_cinematic_active() else 0.0)
 	_cutoff = move_toward(_cutoff, cutoff_goal, FILTER_RATE_HZ * delta)
 	_duck_db = move_toward(_duck_db, duck_goal, DUCK_RATE_DB * delta)
-	for pair: Array in _filters.values():
+	var silence := get_tree().has_group(SILENCE_GROUP)
+	for bus: StringName in _filters:
+		var pair: Array = _filters[bus]
 		(pair[0] as AudioEffectLowPassFilter).cutoff_hz = _cutoff
-		(pair[1] as AudioEffectAmplify).volume_db = _duck_db
+		var gain := pair[1] as AudioEffectAmplify
+		if silence and bus == BUS:
+			gain.volume_linear = 0.0
+		else:
+			gain.volume_db = _duck_db
 
 
 func filter_state() -> Dictionary:

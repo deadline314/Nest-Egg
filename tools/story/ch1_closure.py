@@ -136,6 +136,7 @@ class Segment:
     staging: str = ""
     # Returning from a confirmation is not a successful completed scene.
     on_cancel: str = "return_without_completion"
+    silence_music: bool = False
 
 
 @dataclass(frozen=True)

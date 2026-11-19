@@ -142,6 +142,9 @@ func play(id: StringName, scene: Dictionary) -> void:
 	var raw: Variant = scene.get("steps", [])
 	_steps = raw.duplicate(true) if typeof(raw) == TYPE_ARRAY else []
 	_overlay_mode = bool(scene.get("overlay", false))
+	var silence: Variant = scene.get("silence_music", false)
+	if silence is bool and silence:
+		add_to_group(Music.SILENCE_GROUP)
 	_build_ui()
 	if not _overlay_mode:
 		_framing_token = Story.framing.acquire(self)
@@ -210,6 +213,8 @@ func _finish() -> void:
 			tween.kill()
 	_running = false
 	_root.visible = false
+	if is_in_group(Music.SILENCE_GROUP):
+		remove_from_group(Music.SILENCE_GROUP)
 	Transition.abort_owned(self)
 	GameplayLock.release(_lock_token)
 	_lock_token = 0
@@ -237,6 +242,8 @@ func cancel() -> void:
 	_running = false
 	skipping = true
 	_advance_requested = true
+	if is_in_group(Music.SILENCE_GROUP):
+		remove_from_group(Music.SILENCE_GROUP)
 	Transition.abort_owned(self)
 	for tween in _tweens:
 		if tween != null and tween.is_valid():

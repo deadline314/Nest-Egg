@@ -628,7 +628,7 @@ def _ledger(source: ProductionSource):
         ("egret", "這下茶又要重泡了。"),
         ("lamp", "她的復原點在市集亭子，先把門口清出來，有人來接。"),
         ("rin", "她的傘也帶上，兩根骨都斷了。"))) + medic_transport_staging.transport_tail(),
-        when=all_of(taken, negate(flag("ch2_egret_transport_done"))), mode="animated",
+        when=all_of(taken, negate(flag("ch2_egret_transport_done"))), mode="animated", silence_music=True,
         completion=(set_flag("ch2_egret_transport_done"),))
     source.add("ch2_t_s13_revisit", "S13", (("label", "帳櫃空了，原帳的副本在筆記裡。到市集電話亭等鷺。"),), when=taken)
 

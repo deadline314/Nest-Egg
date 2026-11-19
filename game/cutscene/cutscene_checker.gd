@@ -64,6 +64,8 @@ const NEEDS_STAGE: PackedStringArray = ["camera", "actor", "pose", "move", "face
 ## 檢查一份動畫場景。speakers 是講者表（Story 的合併結果）。
 static func validate(scene_id: String, scene: Dictionary, speakers: Dictionary) -> PackedStringArray:
 	var problems := PackedStringArray()
+	if scene.has("silence_music") and not scene["silence_music"] is bool:
+		problems.append("動畫場景 %s 的 silence_music 必須是布林值" % scene_id)
 	var steps: Variant = scene.get("steps", [])
 	if typeof(steps) != TYPE_ARRAY or (steps as Array).is_empty():
 		problems.append("動畫場景 %s 沒有任何步驟" % scene_id)
