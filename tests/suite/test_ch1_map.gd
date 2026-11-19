@@ -42,7 +42,7 @@ func run() -> void:
 	_test_entry_distance_contract()
 	_test_encounters()
 	_test_teaching_curve()
-	_test_street_landing_hint()
+	_test_traversal_hints()
 	_test_narrative()
 	_test_items()
 	_test_entry_point()
@@ -73,11 +73,17 @@ func _load_all() -> void:
 		_layouts[id] = LevelBuilder.parse(data)
 
 
-func _test_street_landing_hint() -> void:
+func _test_traversal_hints() -> void:
 	var street: LevelLayout = _layouts["street"]
 	check(street.hints.any(func(hint: Dictionary) -> bool:
 		return hint["position"] == Vector2(1912, 512) and hint["text"] == "往斜下方瞄準，先看清落點。"),
 			"the street teaches how to see the landing before the first large terrace drop")
+	check(_layouts["rooftop"].hints.any(func(hint: Dictionary) -> bool:
+		return hint["position"] == Vector2(520, 800) and hint["text"] == "朝左看見對面的屋頂，再跳回去。"),
+			"the roof return sign is at the right-hand approach")
+	check(_layouts["warehouse"].hints.any(func(hint: Dictionary) -> bool:
+		return hint["position"] == Vector2(2328, 656) and hint["text"] == "水梯要折返，先瞄向下一塊踏板。"),
+			"the stair sign is on the first right-hand shelf")
 
 
 func _test_pawnshop_umbrella_stand() -> void:

@@ -82,7 +82,7 @@ legend = Dictionary[String, Resource]({
 "w": ExtResource("21_watchdog"),
 "ⓟ": ExtResource("22_ch1_pump_service")
 })
-hints = PackedStringArray("留意大廳深處的看門狗，死亡後牠仍會保留部分傷勢。", "打倒看門狗，前方的隔牆才會升起。", "先在電話亭 B2 備份，再往倉庫裡走。", "按 {interact} 操作開關，控制同一頻道的閘門。", "留意牆上的水位刻度，前方水坑會漲水。", "進入前方的倉庫深處，保險箱旁有守衛。")
+hints = PackedStringArray("留意大廳深處的看門狗，死亡後牠仍會保留部分傷勢。", "打倒看門狗，前方的隔牆才會升起。", "先在電話亭 B2 備份，再往倉庫裡走。", "按 {interact} 操作開關，控制同一頻道的閘門。", "留意牆上的水位刻度，前方水坑會漲水。", "進入前方的倉庫深處，保險箱旁有守衛。", "水梯要折返，先瞄向下一塊踏板。")
 chapter = &"ch1_kasa"
 persistent_world = true
 show_chapter_card = false
