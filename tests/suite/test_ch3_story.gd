@@ -16,6 +16,7 @@ func run() -> void:
 	Checks.check_entries(self, "chapter 3", _datas, 24)
 	Checks.check_quest_markers(self, "chapter 3", "ch3", "res://data/story/ch3_clearwater.json", _datas, 20)
 	_test_story_gates()
+	_test_office_continuation_sources()
 	_test_level_hooks()
 	Checks.check_staging(self, "chapter 3", "ch3", 9)
 	await _test_chapter_end()
@@ -46,6 +47,26 @@ func _test_story_gates() -> void:
 	check(Story.resolve_dispatch(&"ch3_dispatch_control_box") == &"ch3_t_c02_call", "all three water and power steps let the lift come down")
 	check(Story.resolve_dispatch(&"ch3_dispatch_call") == &"ch3_t_c23_quiet_day", "Egret does not call before supper")
 	check(Story.validate().is_empty(), "the merged story passes validation")
+	GameState.start_new_run(GameState.difficulties[1])
+
+
+func _test_office_continuation_sources() -> void:
+	var original := Story.progress_snapshot()
+	var box := load("res://data/npcs/ch3_petition_box.tres") as NpcData
+	var bench := load("res://data/npcs/ch3_waiting_bench.tres") as NpcData
+	Story.restore_progress([])
+	GameState.set_flag(&"ch3_petition_receipt_taken", true, false)
+	check(not Story.is_npc_presentation(box, 0, &"ch3_t_c19_watch"), "a receipt flag without the completed take segment cannot claim the office follow-up")
+	Story.restore_progress([&"ch3_t_c18_box"])
+	check(Story.is_npc_presentation(box, 0, &"ch3_t_c19_watch"), "the original take segment admits its unread follow-up after the receipt changes the dispatcher")
+	check(not Story.is_npc_presentation(box, 0, &"ch3_t_c16_proposed"), "the petition box cannot claim an unrelated room proposal")
+	GameState.set_flag(&"ch3_trade_overheard", true, false)
+	check(not Story.is_npc_presentation(bench, 0, &"ch3_t_c21_route"), "the waiting bench needs the completed record segment before it can continue")
+	Story.restore_progress([&"ch3_t_c18_box", &"ch3_t_c20_recorded"])
+	check(Story.is_npc_presentation(bench, 0, &"ch3_t_c21_route"), "the original bench admits the unread walking directions after the record changes the dispatcher")
+	Story.restore_progress([&"ch3_t_c18_box", &"ch3_t_c20_recorded", &"ch3_t_c21_route"])
+	check(not Story.is_npc_presentation(bench, 0, &"ch3_t_c21_route"), "a completed continuation cannot settle its original bench a second time")
+	Story.restore_progress(original)
 	GameState.start_new_run(GameState.difficulties[1])
 
 

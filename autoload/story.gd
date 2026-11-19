@@ -46,6 +46,10 @@ const MODE_DIALOGUE := &"dialogue"
 const MODE_BUBBLES := &"bubbles"
 ## 分派：依 routes 的條件挑第一個成立的場景播放（人物或物件的入口），本身沒有台詞、不記觀看。
 const MODE_DISPATCH := &"dispatch"
+const OFFICE_CHAIN_ORIGINS := {
+	"res://data/npcs/ch3_petition_box.tres": [&"ch3_dispatch_petition", &"ch3_t_c18_box"],
+	"res://data/npcs/ch3_waiting_bench.tres": [&"ch3_dispatch_bench", &"ch3_t_c20_recorded"],
+}
 ## 對話長度守則（見 design/04-story/STORY.md）：過場每段至多 6 句，通訊每段 1～2 句。
 const MAX_CINEMATIC_LINES := 6
 const MAX_RADIO_LINES := 2
@@ -855,15 +859,23 @@ func finished_presentation_request() -> int:
 
 ## 續玩只接受原 talk 可到達的 then／選項目標；分派仍依還原後的事實選取。
 ## 不讀取結果、不重新套用選項，且限制探索大小，避免循環或損壞資料無限展開。
-## Shared live/cold NPC admission. Only registered durable, result-free
-## goodbyes may outlive their producer's dispatcher phase.
+## 取件與記錄會切換分派。當次後續仍需對上已完成的原段落和實際物件。
 func is_npc_presentation(data: NpcData, index: int, segment: StringName) -> bool:
 	if data == null or index < 0 or index >= data.talks.size():
 		return false
 	var entry := data.talks[index].scene
 	if is_chained_scene(resolve_dispatch(entry), segment):
 		return true
-	return scene_available(segment) and preload("res://game/story_result_sources.gd").pending_terminal(data.resource_path, entry, String(segment), _scenes, _scene_sources, _completed)
+	if _completed.has(segment) or not scene_available(segment):
+		return false
+	if preload("res://game/story_result_sources.gd").pending_terminal(data.resource_path, entry, String(segment), _scenes, _scene_sources, _completed):
+		return true
+	var origin: Array = OFFICE_CHAIN_ORIGINS.get(data.resource_path, [])
+	if origin.is_empty() or origin[0] != entry or not _completed.has(origin[1]):
+		return false
+	var office_story := "res://data/story/ch3_clearwater.json"
+	return _scene_sources.get(String(origin[1])) == office_story and _scene_sources.get(String(segment)) == office_story \
+			and is_chained_scene(origin[1], segment)
 
 
 func is_chained_scene(origin: StringName, segment: StringName) -> bool:
