@@ -16,6 +16,7 @@ func run() -> void:
 	Checks.check_entries(self, "chapter 3", _datas, 24)
 	Checks.check_quest_markers(self, "chapter 3", "ch3", "res://data/story/ch3_clearwater.json", _datas, 20)
 	_test_story_gates()
+	_test_clinic_review_handoff()
 	_test_morning_window_measurement()
 	_test_office_continuation_sources()
 	_test_office_movement()
@@ -50,6 +51,17 @@ func _test_story_gates() -> void:
 	check(Story.resolve_dispatch(&"ch3_dispatch_call") == &"ch3_t_c23_quiet_day", "Egret does not call before supper")
 	check(Story.validate().is_empty(), "the merged story passes validation")
 	GameState.start_new_run(GameState.difficulties[1])
+
+
+func _test_clinic_review_handoff() -> void:
+	var scene: Dictionary = Story._scenes["ch3_t_c04_counter"]
+	var holders: Array[String] = []
+	for step: Dictionary in scene["steps"]:
+		if step.get("do") == "prop_hold" and step.get("id") == "clinic_review_slip":
+			holders.append(step["actor"])
+	check(holders == ["zhi", "rin"], "Zhi puts the review slip in Rin's hand at the public counter")
+	check(scene["results"].count({"kind": "item_acquire", "id": "ch3_review_slip"}) == 1,
+			"the original clinic result awards one review slip")
 
 
 func _test_morning_window_measurement() -> void:

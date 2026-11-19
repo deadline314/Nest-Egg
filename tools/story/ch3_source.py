@@ -157,23 +157,28 @@ CLINIC_FLOOR = 302
 CLINIC_BEHIND = 276
 CLINIC_CAST = (("rin", "rin", 392, CLINIC_FLOOR, 1, 2.14), ("zhi", "zhi", 584, CLINIC_BEHIND, -1, 2.0))
 CLINIC_SHOT = (440, 196, 1.25)  # 鏡頭右緣停在立繪右緣（704）以內
-# 櫃檯正面在原圖的範圍（原圖像素）：x 1048～1536、y 494～760（頂面的前緣到右端落地）。
-CLINIC_COUNTER_REGION = [1048, 494, 488, 266]
+# 櫃檯左端檯面低於右側。分兩塊，讓移到遞單位置的芷姐被檯面遮住腰部。
+CLINIC_COUNTER_REGIONS = ([1048, 507, 164, 253], [1212, 494, 324, 266])
+CLINIC_SLIP = "clinic_review_slip"
+CLINIC_SLIP_ZHI = [73, 45]
+CLINIC_SLIP_RIN = [19, 45]
 
 
 def clinic_stage() -> dict:
     """診所公開櫃檯的舞台（data/cutscene/stages/ch3_clinic_counter.json 由 build_ch3_story.py 寫出）。"""
     background = {"kind": "sprite", "path": "res://art/environment/scenes/clinic.webp", "pos": [-64, -36.0], "scale": 0.5,
                   "filter": "linear", "source_width": 1536, "modulate": "#d2d8dc"}
-    region = CLINIC_COUNTER_REGION
-    counter_front = dict(background, pos=[-64 + region[0] * 0.5, -36.0 + region[1] * 0.5], region=region, depth="front")
+    counter_front = [dict(background, pos=[-64 + region[0] * 0.5, -36.0 + region[1] * 0.5],
+                          region=region, depth="front") for region in CLINIC_COUNTER_REGIONS]
     layers = [
         {"kind": "gradient", "top": "#1a2026", "bottom": "#2a3238", "parallax": 0.0},
         {"kind": "rect", "rect": [-200, 392, 1040, 160], "color": "#9aa0a6"},
         background,
         # 白色診間壓暗一點，凜的白髮與芷姐的淺色制服才不會糊進牆面（同 NE-251）。
         {"kind": "glow", "pos": [470, 120], "radius": 300, "color": "#0c1218", "intensity": 1.0, "alpha": 0.25},
-        counter_front,
+        *counter_front,
+        dict(kind="sprite", id=CLINIC_SLIP, path="res://art/items/world/document.png", source_width=96,
+             pos=[480, 190], scale=0.14, depth="front", filter="linear", visible=False, glow=False),
     ]
     furniture = [{"id": "clinic_counter", "kind": "counter", "rect": [460, 213, 244, 77]}]
     return {"camera": {"pos": list(CLINIC_SHOT[:2]), "zoom": CLINIC_SHOT[2]}, "floor": CLINIC_FLOOR,
@@ -184,8 +189,31 @@ def _clinic_staged(lines: tuple, opening: bool = False) -> list[dict]:
     x, y, zoom = CLINIC_SHOT
     steps = [stage_scene(CLINIC_STAGE, x=x, y=y, zoom=zoom, fade_in=0.8 if opening else 0.25, feet=CLINIC_FLOOR)]
     for ident, kind, ax, ay, facing, scale in CLINIC_CAST:
-        steps.append(stage_actor(ident, kind, ax, ay, facing=facing, scale=scale, speaker=kind, weapon=""))
+        steps.append(dict(stage_actor(ident, kind, ax, ay, facing=facing, scale=scale, speaker=kind, weapon=""), ground=ay))
     return steps + beats(*lines)
+
+
+def _clinic_review_handoff() -> list[dict]:
+    zhi = dict(do="reach", id="zhi", hand="front", contact=[99.5, 16.5], angle=2.34, wait=True)
+    rin = dict(do="reach", id="rin", hand="front", contact=[96.5, 37.5], angle=0.0, wait=True)
+    return [
+        dict(stage_move("rin", 435, CLINIC_FLOOR, t=0.65), wait=False),
+        stage_move("zhi", 495, CLINIC_BEHIND, t=0.95),
+        dict(zhi, space="prop", prop=CLINIC_SLIP, to=CLINIC_SLIP_ZHI, time=0.28),
+        dict(do="prop_visible", id=CLINIC_SLIP, visible=True),
+        dict(do="prop_hold", id=CLINIC_SLIP, actor="zhi", hand="front", point=CLINIC_SLIP_ZHI),
+        dict(zhi, to=[472.2, 205], time=0.36),
+        dict(rin, space="prop", prop=CLINIC_SLIP, to=CLINIC_SLIP_RIN, time=0.35),
+        stage_wait(0.2),
+        dict(do="prop_release", id=CLINIC_SLIP),
+        dict(do="prop_hold", id=CLINIC_SLIP, actor="rin", hand="front", point=CLINIC_SLIP_RIN),
+        dict(do="reach", id="zhi", hand="front", release=True, time=0.28, wait=False),
+        dict(rin, to=[449, 215], time=0.4),
+        stage_wait(0.18),
+        dict(do="prop_visible", id=CLINIC_SLIP, visible=False),
+        dict(do="prop_release", id=CLINIC_SLIP),
+        dict(do="reach", id="rin", hand="front", release=True, time=0.3, wait=True),
+    ]
 
 
 def _documents_and_transactions(source: ProductionSource):
@@ -330,13 +358,14 @@ def _clinic(source: ProductionSource):
     register = flag("ch3_followup_register_taken")
     reconciled = flag("ch3_report_reconciled")
     # 第一次見芷姐是正式過場（ST-21）：診所公開櫃檯的舞台，凜在櫃檯前、芷姐在櫃檯後；接著的追問留在同一個畫面上。
-    source.add("ch3_t_c04_counter", "C04", steps=_clinic_staged((
+    source.add("ch3_t_c04_counter", "C04", steps=[*_clinic_staged((
         ("rin", "代收說費用照月報十七，我來看原始公開表。"),
         ("zhi", "我是這班的護士芷姐。十七是月份批號，不是你的診斷號。"),
         ("zhi", "市場錯收已結案，查核權還在。你能看的是去掉姓名的統計，不是每個人的病歷。"),
-        ("rin", "我先對同一批人，有名字也不替他們作答。"),
-        ("zhi", "公開報表在桌上，輪班表在工作廊，追蹤名冊在門邊的閱覽櫃。三份都用編號，日期要一起看。"),
-        ("label", "核閱異議處理報酬一百八十信用點，由診所公開查核帳支付，三份證據確認後結算。")), opening=True),
+        ("rin", "我先對同一批人，有名字也不替他們作答。")), opening=True),
+        *_clinic_review_handoff(),
+        *beats(("zhi", "公開報表在桌上，輪班表在工作廊，追蹤名冊在門邊的閱覽櫃。三份都用編號，日期要一起看。"),
+               ("label", "核閱異議處理報酬一百八十信用點，由診所公開查核帳支付，三份證據確認後結算。"))],
         when=all_of(negate(access), item("ch2_clinic_index")), mode="animated",
         completion=(set_flag("ch3_clinic_access"), grant("ch3_review_slip")), next_scene="ch3_t_c04_after")
     source.add("ch3_t_c04_after", "C04", steps=_clinic_staged((("zhi", "有問題拿編號來問，我能解釋轉介欄。有人正在休息，裡面的門今天不開。"),)),

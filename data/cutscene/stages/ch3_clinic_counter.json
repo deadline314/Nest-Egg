@@ -67,7 +67,7 @@
    "path": "res://art/environment/scenes/clinic.webp",
    "pos": [
     460.0,
-    211.0
+    217.5
    ],
    "scale": 0.5,
    "filter": "linear",
@@ -75,11 +75,45 @@
    "modulate": "#d2d8dc",
    "region": [
     1048,
+    507,
+    164,
+    253
+   ],
+   "depth": "front"
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scenes/clinic.webp",
+   "pos": [
+    542.0,
+    211.0
+   ],
+   "scale": 0.5,
+   "filter": "linear",
+   "source_width": 1536,
+   "modulate": "#d2d8dc",
+   "region": [
+    1212,
     494,
-    488,
+    324,
     266
    ],
    "depth": "front"
+  },
+  {
+   "kind": "sprite",
+   "id": "clinic_review_slip",
+   "path": "res://art/items/world/document.png",
+   "source_width": 96,
+   "pos": [
+    480,
+    190
+   ],
+   "scale": 0.14,
+   "depth": "front",
+   "filter": "linear",
+   "visible": false,
+   "glow": false
   }
  ]
 }

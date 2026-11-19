@@ -1717,7 +1717,8 @@
      "facing": 1,
      "scale": 2.14,
      "weapon": "",
-     "speaker": "rin"
+     "speaker": "rin",
+     "ground": 302
     },
     {
      "do": "actor",
@@ -1730,7 +1731,8 @@
      "facing": -1,
      "scale": 2.0,
      "weapon": "",
-     "speaker": "zhi"
+     "speaker": "zhi",
+     "ground": 276
     },
     {
      "do": "say",
@@ -1763,6 +1765,156 @@
      "text": "我先對同一批人，有名字也不替他們作答。",
      "ja": "まず同じ一群を照合する。名前があっても、本人の代わりには答えない。",
      "en": "I'll check the same group first. I won't answer for them by name."
+    },
+    {
+     "do": "move",
+     "id": "rin",
+     "to": [
+      435,
+      302
+     ],
+     "time": 0.65,
+     "wait": false
+    },
+    {
+     "do": "move",
+     "id": "zhi",
+     "to": [
+      495,
+      276
+     ],
+     "time": 0.95,
+     "wait": true
+    },
+    {
+     "do": "reach",
+     "id": "zhi",
+     "hand": "front",
+     "contact": [
+      99.5,
+      16.5
+     ],
+     "angle": 2.34,
+     "wait": true,
+     "space": "prop",
+     "prop": "clinic_review_slip",
+     "to": [
+      73,
+      45
+     ],
+     "time": 0.28
+    },
+    {
+     "do": "prop_visible",
+     "id": "clinic_review_slip",
+     "visible": true
+    },
+    {
+     "do": "prop_hold",
+     "id": "clinic_review_slip",
+     "actor": "zhi",
+     "hand": "front",
+     "point": [
+      73,
+      45
+     ]
+    },
+    {
+     "do": "reach",
+     "id": "zhi",
+     "hand": "front",
+     "contact": [
+      99.5,
+      16.5
+     ],
+     "angle": 2.34,
+     "wait": true,
+     "to": [
+      472.2,
+      205
+     ],
+     "time": 0.36
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "angle": 0.0,
+     "wait": true,
+     "space": "prop",
+     "prop": "clinic_review_slip",
+     "to": [
+      19,
+      45
+     ],
+     "time": 0.35
+    },
+    {
+     "do": "wait",
+     "time": 0.2
+    },
+    {
+     "do": "prop_release",
+     "id": "clinic_review_slip"
+    },
+    {
+     "do": "prop_hold",
+     "id": "clinic_review_slip",
+     "actor": "rin",
+     "hand": "front",
+     "point": [
+      19,
+      45
+     ]
+    },
+    {
+     "do": "reach",
+     "id": "zhi",
+     "hand": "front",
+     "release": true,
+     "time": 0.28,
+     "wait": false
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "angle": 0.0,
+     "wait": true,
+     "to": [
+      449,
+      215
+     ],
+     "time": 0.4
+    },
+    {
+     "do": "wait",
+     "time": 0.18
+    },
+    {
+     "do": "prop_visible",
+     "id": "clinic_review_slip",
+     "visible": false
+    },
+    {
+     "do": "prop_release",
+     "id": "clinic_review_slip"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "release": true,
+     "time": 0.3,
+     "wait": true
     },
     {
      "do": "say",
@@ -1830,7 +1982,8 @@
      "facing": 1,
      "scale": 2.14,
      "weapon": "",
-     "speaker": "rin"
+     "speaker": "rin",
+     "ground": 302
     },
     {
      "do": "actor",
@@ -1843,7 +1996,8 @@
      "facing": -1,
      "scale": 2.0,
      "weapon": "",
-     "speaker": "zhi"
+     "speaker": "zhi",
+     "ground": 276
     },
     {
      "do": "say",
@@ -1907,7 +2061,8 @@
      "facing": 1,
      "scale": 2.14,
      "weapon": "",
-     "speaker": "rin"
+     "speaker": "rin",
+     "ground": 302
     },
     {
      "do": "actor",
@@ -1920,7 +2075,8 @@
      "facing": -1,
      "scale": 2.0,
      "weapon": "",
-     "speaker": "zhi"
+     "speaker": "zhi",
+     "ground": 276
     },
     {
      "do": "say",
