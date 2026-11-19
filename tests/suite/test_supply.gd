@@ -17,6 +17,7 @@ func run() -> void:
 	await _test_emp()
 	await _test_overclock()
 	await _test_shop()
+	await _test_shop_invalid_stock()
 	await _test_cyber_page_and_checkpoint()
 
 
@@ -238,6 +239,48 @@ func _test_shop() -> void:
 	var screen := station._screen
 	await end_level(level)
 	check(not is_instance_valid(screen) or screen.is_queued_for_deletion(), "the shop screen is cleaned up with the level")
+	_fresh()
+
+
+func _test_shop_invalid_stock() -> void:
+	_fresh()
+	var level := await _open_arena()
+	var shop := ShopData.new()
+	var med := ConsumableBag.find(MED_ID)
+	var shield := ConsumableBag.find(&"shield_cell")
+	var invalid := med.duplicate() as ConsumableData
+	invalid.id = &"missing_price"
+	invalid.price = 0
+	shop.stock.assign([null, med, invalid, shield])
+	var screen := ShopScreen.new()
+	screen.configure_shop(level.player, shop)
+	level.add_child(screen)
+	screen.open()
+	await frames(3)
+	var page := screen._pages[0] as ShopPage
+	check(page._entries.map(func(entry: InventoryEntry) -> StringName: return entry.id) == [med.id, shield.id],
+		"invalid stock leaves both valid items in order")
+	var bag := level.player.consumables
+	var med_count := bag.count(med.id)
+	var shield_count := bag.count(shield.id)
+	Progression.add_credits(1000)
+	page.refresh()
+	page.activate()
+	check(bag.count(med.id) == med_count + 1 and Progression.credits == 1000 - med.price,
+		"confirm charges the first visible item's exact price after a missing entry")
+	page.navigate(Vector2i.DOWN)
+	page.activate()
+	check(bag.count(shield.id) == shield_count + 1 and Progression.credits == 1000 - med.price - shield.price,
+		"confirm charges the second visible item's exact price after invalid entries")
+	check(bag.count(invalid.id) == 0, "a missing price never grants a consumable")
+	shop.stock.assign([null, invalid])
+	page.refresh()
+	var credits := Progression.credits
+	page.activate()
+	check(page._entries.is_empty() and Progression.credits == credits, "entirely invalid stock leaves an empty usable page")
+	screen.close()
+	check(not runner.get_tree().paused, "closing the empty shop resumes play")
+	await end_level(level)
 	_fresh()
 
 

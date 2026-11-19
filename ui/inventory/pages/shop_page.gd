@@ -3,6 +3,7 @@ extends CardListPage
 ## 補給點的貨架：用信用點購買消耗品，受攜帶上限限制。商品是資料（ShopData.stock），價格取自 ConsumableData.price。
 
 var shop: ShopData
+var _stock_targets: Array[ConsumableData] = []
 
 
 func tab_title() -> String:
@@ -21,10 +22,12 @@ func _empty_text() -> String:
 
 func _build_entries() -> Array[InventoryEntry]:
 	var entries: Array[InventoryEntry] = []
+	_stock_targets.clear()
 	if shop == null or context == null or not context.is_valid():
 		return entries
 	for item in shop.stock:
-		if item != null:
+		if item != null and item.price > 0:
+			_stock_targets.append(item)
 			entries.append(_entry_for(item))
 	return entries
 
@@ -62,9 +65,9 @@ func _block_reason(item: ConsumableData) -> String:
 
 
 func _activate_entry(index: int) -> bool:
-	if shop == null or not context.is_valid() or index < 0 or index >= shop.stock.size():
+	if shop == null or context == null or not context.is_valid() or index < 0 or index >= _stock_targets.size():
 		return false
-	var item := shop.stock[index]
+	var item := _stock_targets[index]
 	var reason := _block_reason(item)
 	if not reason.is_empty():
 		context.say(reason, true)
