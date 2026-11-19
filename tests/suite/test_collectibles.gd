@@ -23,6 +23,35 @@ func run() -> void:
 	await _test_item_translations()
 	await preload("res://tests/helpers/market_document_notice_checks.gd").run(self)
 	await preload("res://tests/helpers/story_item_full_text_checks.gd").run(self)
+	await _test_elevated_credit()
+
+
+func _test_elevated_credit() -> void:
+	var level := await start_level(load("res://data/levels/ch3_pump.tres") as LevelData)
+	var pile := level._tracked.get("credits_small@41,7") as CreditPickup
+	check(pile != null, "the original pump gallery credit exists")
+	if pile == null:
+		await end_level(level)
+		return
+	level.player.global_position = pile.global_position + Vector2(0, 128)
+	await physics_frames(6)
+	var before := Progression.credits
+	Input.action_press(&"jump")
+	await physics_frames(70)
+	Input.action_release(&"jump")
+	await physics_frames(4)
+	check(Progression.credits == before and not pile.collected, "ordinary jumping beneath the ledge does not take its credit")
+	GameState.set_flag(&"ledger_disk_obtained")
+	Input.action_press(&"jump")
+	await physics_frames(28)
+	Input.action_release(&"jump")
+	await physics_frames(2)
+	Input.action_press(&"jump")
+	await physics_frames(85)
+	Input.action_release(&"jump")
+	check(Progression.credits == before + pile.value and pile.collected, "a real air jump onto the pump ledge grants its credit once")
+	await end_level(level)
+	GameState.start_new_run(GameState.difficulties[1])
 
 
 func _test_item_custody() -> void:

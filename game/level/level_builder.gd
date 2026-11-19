@@ -25,12 +25,15 @@ static func parse(data: LevelData) -> LevelLayout:
 		return layout
 	layout.tile_size = maxi(4, data.tile_size)
 	layout.height = maxi(1, data.height)
-	layout.rows = _compose_rows(data, layout)
+	var document := data.load_layout_document()
+	var segments: Array[PackedStringArray] = data.load_segments(document) if document != null else []
+	layout.rows = _compose_rows(segments, layout)
 	layout.width = layout.rows[0].length() if not layout.rows.is_empty() else 0
 	if layout.width == 0:
 		layout.warnings.append("地圖是空的")
 		return layout
 	_scan_cells(data, layout)
+	_mark_elevated_credits(layout, document.data.get("capability_targets", {}))
 	layout.solid_rects = _merge_cells(layout, SOLID, true, true)
 	layout.platform_rects = _merge_cells(layout, PLATFORM, true, false)
 	layout.spike_rects = _merge_cells(layout, SPIKES, true, false)
@@ -46,11 +49,10 @@ static func parse(data: LevelData) -> LevelLayout:
 
 
 ## 把各分段左右串接；列數不足或寬度不一致時補空氣並警告。
-static func _compose_rows(data: LevelData, layout: LevelLayout) -> PackedStringArray:
+static func _compose_rows(segments: Array[PackedStringArray], layout: LevelLayout) -> PackedStringArray:
 	var rows := PackedStringArray()
 	rows.resize(layout.height)
 	rows.fill("")
-	var segments := data.load_segments()
 	for index in segments.size():
 		var lines := segments[index]
 		if lines.size() != layout.height:
@@ -65,6 +67,26 @@ static func _compose_rows(data: LevelData, layout: LevelLayout) -> PackedStringA
 				line = line.rpad(segment_width, EMPTY)
 			rows[y] += line
 	return rows
+
+
+static func _mark_elevated_credits(layout: LevelLayout, targets: Variant) -> void:
+	if not targets is Dictionary or targets.size() > 32:
+		layout.warnings.append("capability_targets 必須是最多 32 個格位的物件")
+		return
+	if targets.is_empty():
+		return
+	for spawn: Dictionary in layout.spawns:
+		if not spawn["resource"] is CreditPileData:
+			continue
+		var cell: Vector2i = spawn["cell"]
+		var key := "%d,%d" % [cell.x, cell.y]
+		if not targets.has(key):
+			continue
+		var target: Variant = targets[key]
+		if not target is Dictionary or target.get("ability") != "air_jump" or not target.get("flag") is String or target["flag"].is_empty():
+			layout.warnings.append("capability_targets[%s] 的能力或旗標無效" % key)
+			continue
+		spawn["elevated_credit"] = true
 
 
 static func _scan_cells(data: LevelData, layout: LevelLayout) -> void:

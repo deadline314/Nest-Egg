@@ -183,17 +183,25 @@ func profile_at_tile(tile: int) -> LightingProfile:
 	return result
 
 
-## 讀取地圖分段。失敗時回傳空陣列並輸出錯誤，不會讓遊戲崩潰。
-func load_segments() -> Array[PackedStringArray]:
-	var result: Array[PackedStringArray] = []
+func load_layout_document() -> JSON:
 	if layout_path.is_empty() or not ResourceLoader.exists(layout_path):
 		push_error("[LevelData] %s 找不到地圖檔：%s" % [id, layout_path])
-		return result
-	var json := load(layout_path) as JSON
-	if json == null or typeof(json.data) != TYPE_DICTIONARY:
+		return null
+	var document := load(layout_path) as JSON
+	if document == null or not document.data is Dictionary:
 		push_error("[LevelData] %s 地圖檔格式錯誤：%s" % [id, layout_path])
+		return null
+	return document
+
+
+## 讀取地圖分段。共用同一份文件時不必再次讀檔。
+func load_segments(document: JSON = null) -> Array[PackedStringArray]:
+	var result: Array[PackedStringArray] = []
+	if document == null:
+		document = load_layout_document()
+	if document == null or not document.data is Dictionary:
 		return result
-	var raw_segments: Variant = (json.data as Dictionary).get("segments", [])
+	var raw_segments: Variant = (document.data as Dictionary).get("segments", [])
 	if typeof(raw_segments) != TYPE_ARRAY:
 		push_error("[LevelData] %s 的 segments 必須是陣列" % id)
 		return result

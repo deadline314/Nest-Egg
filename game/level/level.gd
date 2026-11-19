@@ -825,7 +825,7 @@ func _create_prop(spawn: Dictionary) -> Node2D:
 		for problem in pile.validate():
 			push_error("[Level] %s" % problem)
 		var credits := CreditPickup.new()
-		credits.configure_pile(pile, cell)
+		credits.configure_pile(pile, cell, spawn.get("elevated_credit", false))
 		return credits
 	if resource is MechanismData:
 		var mechanism := resource as MechanismData

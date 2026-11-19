@@ -8,12 +8,14 @@ var color := Color(1.0, 0.82, 0.25)
 ## 地圖上的所在格；Vector2i(-1, -1) 代表不是地圖放置的（掉落物），不存進檢查點。
 var cell := Vector2i(-1, -1)
 var collected := false
+var _elevated := false
 
 
-func configure_pile(pile: CreditPileData, p_cell: Vector2i) -> void:
+func configure_pile(pile: CreditPileData, p_cell: Vector2i, elevated := false) -> void:
 	value = pile.value
 	color = pile.color
 	cell = p_cell
+	_elevated = elevated
 
 
 func hint_text() -> String:
@@ -26,7 +28,10 @@ func _ready() -> void:
 		add_to_group(WorldState.GROUP)
 
 
-func _apply(_player: Player) -> bool:
+func _apply(player: Player) -> bool:
+	# 身體從下方碰到圖示時，凜還沒有躍到高臺的高度。
+	if _elevated and player.global_position.y > global_position.y + 2.0:
+		return false
 	Progression.add_credits(value)
 	collected = true
 	return true
