@@ -14,6 +14,15 @@ static func run(suite: TestSuite) -> void:
 	var spot := target.get_global_rect().get_center()
 	suite.check(hud.hover_guard != null and not hud.hover_guard.blocked, "一般遊玩時背景說明可以使用")
 
+	# 有殘機的難度才顯示此狀態。使用真的指標事件驗證說明能被叫出。
+	hud._on_lives_changed(3)
+	_park(vp)
+	await suite.frames(2)
+	_move(vp, hud._lives_label.get_global_rect().get_center())
+	suite.check(await _wait_tooltip(suite, hud._lives_label, true), "殘機提示真的能用滑鼠叫出")
+	_park(vp)
+	hud._on_lives_changed(GameState.lives_left)
+
 	# 1. 已顯示的說明：開暫停頁時當下收起，選單焦點不受影響。
 	_park(vp)
 	await suite.frames(2)

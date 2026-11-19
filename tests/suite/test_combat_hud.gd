@@ -9,6 +9,7 @@ func run() -> void:
 	await _test_credits_tag()
 	await _test_banner_kinds()
 	await _test_tooltips()
+	await _test_localized_hud_help()
 	await preload("res://tests/helpers/hud_background_hover_checks.gd").run(self)
 	await _test_radio_panel()
 	await _test_radio_card()
@@ -117,6 +118,21 @@ func _test_tooltips() -> void:
 	for slot in hud.weapon_bar.row_count():
 		check(hud.weapon_bar.get_child(slot).tooltip_text != "", "武器欄第 %d 列有說明" % (slot + 1))
 	await end_level(level)
+
+
+func _test_localized_hud_help() -> void:
+	var original := Story.language
+	var locales := {"zh": ["開啟操作說明", "殘機 ×3"], "ja": ["操作ガイド", "残機 ×3"], "en": ["Controls", "Lives ×3"]}
+	for language: String in locales:
+		Story.set_language(language)
+		var level := await start_level(PropsSuite.level_data(), 2)
+		var hud := level.hud
+		check(hud._controls.text == locales[language][0] and hud._lives_label.text == locales[language][1],
+				"%s HUD presents the opening help and remaining lives in the selected language" % language)
+		var cap := hud._hint_caps[0].get_child(0) as Label
+		check(cap.text == InputBindings.primary_label(&"pause"), "%s HUD still shows the active pause binding" % language)
+		await end_level(level)
+	Story.set_language(original)
 
 
 func _test_radio_panel() -> void:

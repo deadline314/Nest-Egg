@@ -6,6 +6,11 @@ extends CanvasLayer
 
 const TOAST_TIME := 2.2
 const CONTROLS_HINT_TIME := 5.0
+const HUD_TEXT := {
+	"zh": {"quick_controls": "{pause} 開啟操作說明", "lives": "殘機 ×%d", "lives_help": "殘機用完會從關卡開頭重來"},
+	"ja": {"quick_controls": "{pause} 操作ガイド", "lives": "残機 ×%d", "lives_help": "残機がなくなると、エリアの入口からやり直します。"},
+	"en": {"quick_controls": "{pause} Controls", "lives": "Lives ×%d", "lives_help": "When lives run out, restart the area."},
+}
 ## {動作} 會換成玩家目前設定的按鍵（見 InputBindings.format）。
 const CONTROLS_TEMPLATE := "移動 {move_left}/{move_right}　跳 {jump}　射擊 {shoot}　格擋 {block}　衝刺 {dash}　近戰／終結 {melee}　換彈 {reload}　換武器 {weapon_next}／1～4　搭乘 {interact}　背包 {inventory}　暫停 {pause}"
 ## 按住與連按的規則（NE-229），一行一件事；設定的「按鍵」「手把」分頁顯示，按鍵名稱跟著目前裝置與改鍵。
@@ -38,7 +43,7 @@ var _controls_dismissing := false
 var _controls_framed := false
 var _framing_edge_root: Control
 var _items_template := ""
-var _hint_template := "{pause} 開啟操作說明"
+var _hint_template := ""
 var _hint_owner: WeakRef
 var _hint_cleanup: Callable
 var _hint_token := 0
@@ -67,6 +72,7 @@ func _ready() -> void:
 
 	_lives_label = UiKit.label("", 10, Palette.UI_MUTED)
 	_lives_label.position = Vector2(12, 6)
+	_lives_label.mouse_filter = Control.MOUSE_FILTER_PASS
 	root.add_child(_lives_label)
 
 	weapon_bar = WeaponBar.new()
@@ -129,6 +135,7 @@ func _ready() -> void:
 	var hint_box := ChamferBox.make(UiTheme.PANEL_BODY, UiTheme.PANEL_EDGE, 3)
 	hint_box.margins(8, 4, 8, 4)
 	_controls_card.add_theme_stylebox_override(&"panel", hint_box)
+	_hint_template = _hud_text("quick_controls")
 	_controls = UiKit.label(quick_controls_hint(), UiKit.FS_BODY, Palette.UI_TEXT)
 	_controls.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_controls.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -237,7 +244,11 @@ static func hold_rules() -> String:
 
 ## 完整清單在暫停頁；預設只提示如何重看，不推定玩家完成了教學。
 static func quick_controls_hint() -> String:
-	return InputBindings.format("{pause} 開啟操作說明")
+	return InputBindings.format(_hud_text("quick_controls"))
+
+
+static func _hud_text(key: String) -> String:
+	return HUD_TEXT.get(Story.language, HUD_TEXT[StoryLocale.SOURCE_LANGUAGE])[key]
 
 
 ## Runtime-only：真機關判定適用情境後呼叫。HUD 不判定成功、不保存教學進度。
@@ -395,8 +406,8 @@ func _on_cyber_changed(charge: float, ready: bool, ability_name: String, progres
 
 func _on_lives_changed(lives: int) -> void:
 	_lives_label.visible = lives > 0
-	_lives_label.text = "殘機 ×%d" % lives
-	_lives_label.tooltip_text = "用完會從關卡開頭重來"
+	_lives_label.text = _hud_text("lives") % lives
+	_lives_label.tooltip_text = _hud_text("lives_help")
 
 
 func _on_loadout_changed(loadout: Loadout) -> void:
