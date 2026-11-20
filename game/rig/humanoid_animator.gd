@@ -10,6 +10,8 @@ extends RefCounted
 ## 所有角度在「骨架空間」（面向右、未翻轉）計算；骨頭靜止時沿 +Y 延伸。
 
 const POSE_SHARPNESS := 18.0
+## Follow the original pose blend through its first four time constants after the dash.
+const DASH_FLOOR_RECOVERY := 4.0 / POSE_SHARPNESS
 const MAX_AIM_ANGLE := deg_to_rad(105.0)
 const SPRING_STIFFNESS := 140.0
 const SPRING_DAMPING := 11.0
@@ -173,6 +175,9 @@ var _action_weapon_angle := NAN  # 動作指定的武器角度（NAN＝跟著手
 var _springs: Array[Dictionary] = []
 ## 這個角色自己的動作資料（預設值被 art/motion/<角色>.json 蓋過後的結果）。
 var _motion: Dictionary = {}
+var _dash_sole := PackedVector2Array()
+var _dash_floor := 0.0
+var _dash_floor_left := 0.0
 ## Optional local foot angles, validated once when this animator loads its motion.
 var _crouch_feet: Array = []
 var _spring_angle: Dictionary[StringName, float] = {}
@@ -190,6 +195,12 @@ func _init(rig: CharacterRig) -> void:
 		_angles[bone_name] = HAND_FOLLOWS_FOREARM if bone_name in [&"hand_front", &"hand_back"] else 0.0
 	_forward_kinematics()
 	_ground_y = _lowest_foot_y()
+	_dash_sole = _motion["dash"].get("sole", PackedVector2Array())
+	var sole_bottom := -INF
+	for point in _dash_sole:
+		sole_bottom = maxf(sole_bottom, point.y)
+	if not _dash_sole.is_empty():
+		_dash_floor = _ground_y + sole_bottom
 	if _global_pos.has(&"leg_front_upper"):
 		_leg_length = maxf(8.0, _ground_y - _global_pos[&"leg_front_upper"].y)
 	for entry in (rig.springs() if not rig.springs().is_empty() else DEFAULT_SPRINGS):
@@ -229,7 +240,30 @@ static func _load_motion(skin_id: String) -> Dictionary:
 		else:
 			RigLibrary.report_once("motion.crouch.hip:" + skin_id, "[HumanoidAnimator] %s: crouch.hip %s；使用原本的零旋轉。" % [path, problem])
 			merged["crouch"]["hip"] = 0.0
+	var dash: Variant = data.get("dash")
+	if dash is Dictionary and dash.has("sole"):
+		var sole := _dash_sole_points(dash["sole"])
+		if sole.is_empty():
+			RigLibrary.report_once("motion.dash.sole:" + skin_id, "[HumanoidAnimator] %s: dash.sole requires 3–24 finite [x, y] points within ±64." % path)
+		else:
+			merged["dash"]["sole"] = sole
 	return merged
+
+
+## 鞋輪廓取腳骨的區域座標，供地面衝刺以原站姿鞋底高度為界。
+static func _dash_sole_points(value: Variant) -> PackedVector2Array:
+	var points := PackedVector2Array()
+	if not value is Array or value.size() < 3 or value.size() > 24:
+		return points
+	for raw: Variant in value:
+		if not raw is Array or raw.size() != 2 or typeof(raw[0]) not in [TYPE_INT, TYPE_FLOAT] \
+				or typeof(raw[1]) not in [TYPE_INT, TYPE_FLOAT]:
+			return PackedVector2Array()
+		var point := RigLibrary.vec2(raw)
+		if not point.is_finite() or maxf(absf(point.x), absf(point.y)) > 64.0:
+			return PackedVector2Array()
+		points.append(point)
+	return points
 
 
 ## 可選的蹲姿髖旋轉；省略時完全沿用原本的零旋轉，不改骨長或落腳 IK。
@@ -342,6 +376,8 @@ func update(delta: float, input: RigInput) -> void:
 				_pin_feet()
 	if input.dead:
 		_rest_corpse()
+	if not _dash_sole.is_empty():
+		_support_dash_feet(delta, input)
 	_drape_hems()
 	if not input.dead:
 		_solve_arms(input, aim_angle)
@@ -353,6 +389,34 @@ func update(delta: float, input: RigInput) -> void:
 
 ## 這一格姿勢有沒有已經把腳放到地上（子類別的 _post_pose 設定）；為真時跳過「腳踩實地」的補償。
 var _feet_placed := false
+
+
+func _support_dash_feet(delta: float, input: RigInput) -> void:
+	if not input.on_floor or input.dead or input.crouching:
+		_dash_floor_left = 0.0
+		return
+	_dash_floor_left = DASH_FLOOR_RECOVERY if input.dashing else maxf(0.0, _dash_floor_left - delta)
+	if _dash_floor_left == 0.0:
+		return
+	var corrected := false
+	for chain: Array in LEG_CHAINS:
+		var foot: StringName = chain[2]
+		if not (_global_pos.has(chain[0]) and _rig.has_bone(chain[1]) and _global_pos.has(foot)):
+			continue
+		var angle: float = _global_angle[foot]
+		var down := Vector2(sin(angle), cos(angle))
+		var depth := -INF
+		for point in _dash_sole:
+			depth = maxf(depth, point.dot(down))
+		var ankle: Vector2 = _global_pos[foot]
+		var excess := ankle.y + depth - _dash_floor
+		if excess > 0.001:
+			# Keep the hip and muzzle on their authored path.
+			ankle.y -= excess
+			_reach_leg(chain[0], chain[1], foot, ankle, angle)
+			corrected = true
+	if corrected:
+		_forward_kinematics()
 
 
 ## 姿勢算完後的貼地修正；NPC 子類別以自己的坐、蹲與站姿放腳。

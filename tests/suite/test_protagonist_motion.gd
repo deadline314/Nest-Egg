@@ -26,6 +26,7 @@ func run() -> void:
 	await _test_air_pose_is_continuous()
 	await _test_takeoff_stretch()
 	await _test_landing_absorbs_and_recovers()
+	await _test_back_dash_keeps_ankles_near_floor()
 	await _test_spring_impulses()
 	await _test_secondary_motion_lifecycle()
 	_test_node_squash_is_soft()
@@ -55,6 +56,26 @@ func _run(rig: CharacterRig, input: RigInput, frames_count: int) -> void:
 ## 兩腳離地的高度中較低的那一隻（骨架空間，往上為正）：全速奔跑騰空時會大於 0。
 func _lowest_foot_height(animator: HumanoidAnimator) -> float:
 	return animator.ground_level() - animator._lowest_foot_y()
+
+
+func _test_back_dash_keeps_ankles_near_floor() -> void:
+	var input := RigInput.new()
+	var rig := _make("rin", input)
+	for facing: int in [-1, 1]:
+		input.facing = facing
+		input.aim_dir = Vector2(facing, 0)
+		input.velocity = Vector2.ZERO
+		_run(rig, input, 36)
+		input.velocity.x = -facing * 360.0
+		input.dashing = true
+		_run(rig, input, 11)
+		check(_lowest_foot_height(rig.animator) > -0.75, "back dash leaves space for the boots (facing %d)" % facing)
+		input.dashing = false
+		input.velocity.x *= 0.5
+		_run(rig, input, 1)
+		check(_lowest_foot_height(rig.animator) > -0.75, "dash recovery leaves space for the boots (facing %d)" % facing)
+	rig.get_parent().queue_free()
+	await frames(1)
 
 
 func _test_defaults_are_inert() -> void:
