@@ -13,6 +13,7 @@ const SCREEN := Vector2(640, 360)
 const CENTER := Vector2(320, 180)
 const NOISE_SHADER := "res://ui/transition/transition.gdshader"
 const TITLE_FADE := 0.5
+const DocumentReader := preload("res://ui/inventory/document_reader.gd")
 ## 效果層（色調、閃光、雜訊、淡入淡出、黑邊、字幕、對話）的 z_index 起點，需高於任何角色零件。
 const EFFECT_Z := 200
 
@@ -63,6 +64,7 @@ var _overlay_mode := false
 var _current_where := ""
 var _next_is_say := false
 var _choice: VBoxContainer
+var _choice_reader: DocumentReader
 # HDR背景通知不能透進選項與後果說明，底板保持不透明。
 const CHOICE_BACKING := Color(0.02, 0.04, 0.07, 1.0)
 var _choice_options: Array[Dictionary] = []
@@ -277,6 +279,14 @@ func _input(event: InputEvent) -> void:
 	AimInput.observe(event)
 	var shoot_pressed := _shoot_press.is_action_pressed(event, &"shoot")
 	if not _running:
+		return
+	if is_instance_valid(_choice_reader):
+		if event.is_action_pressed(&"ui_cancel") or event.is_action_pressed(&"pause"):
+			_choice_reader.dismissed.emit()
+			get_viewport().set_input_as_handled()
+		elif event.is_action_pressed(&"ui_up", true) or event.is_action_pressed(&"ui_down", true):
+			_choice_reader.scroll(1 if event.is_action_pressed(&"ui_down", true) else -1)
+			get_viewport().set_input_as_handled()
 		return
 	if choice_active():
 		if event.is_action_pressed(&"ui_cancel") or event.is_action_pressed(&"pause"):
@@ -1061,6 +1071,7 @@ func _do_choice(step: Dictionary) -> void:
 		button.mouse_entered.connect(func() -> void: explain.text = note)
 		_choice.add_child(button)
 	_choice.add_child(explain)
+	_add_choice_references(step, explain)
 	_isolate_ui_lighting(_choice)
 	_layout_safe_rect(Story.framing.safe_rect())
 	(_choice.get_child(1) as Button).grab_focus()
@@ -1077,9 +1088,78 @@ func _do_choice(step: Dictionary) -> void:
 			return
 	if option.get("steps") is Array:
 		_pending_steps = option.steps.duplicate(true)
+	if is_instance_valid(_choice_reader):
+		_choice_reader.queue_free()
+		_choice_reader = null
 	_choice.queue_free()
 	_choice_step = {}
 	Input.mouse_mode = mouse_mode
+
+
+func _add_choice_references(step: Dictionary, explain: Label) -> void:
+	var ids: Variant = step.get("reference_items", [])
+	if not ids is Array or ids.size() > 3:
+		push_warning("[Cutscene] %s 的選擇證據必須是物品 id 清單（最多三份）" % _current_where)
+		return
+	var references: Array[StoryItemData] = []
+	for id: Variant in ids:
+		if not (id is String or id is StringName):
+			push_warning("[Cutscene] %s 有無效的證據 id：%s" % [_current_where, str(id)])
+			continue
+		var item := StoryItems.find(StringName(id))
+		if item == null or item.body_text().is_empty():
+			push_warning("[Cutscene] %s 找不到證據「%s」的全文" % [_current_where, str(id)])
+			continue
+		if StoryItems.owns(item.id) and not references.has(item):
+			references.append(item)
+	if references.is_empty():
+		return
+	_choice.add_theme_constant_override(&"separation", 5)
+	for child in _choice.get_children():
+		if child is Button:
+			child.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	var title := "查看證據"
+	match Story.language:
+		"ja": title = "証拠を確認"
+		"en": title = "Review evidence"
+	_choice.add_child(UiKit.label(title, UiKit.FS_CAPTION, Palette.CYAN))
+	for item: StoryItemData in references:
+		var note := item.description_text()
+		var button := UiKit.button(item.title_text(), Callable(), note)
+		button.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		button.custom_minimum_size.y = 26
+		button.focus_entered.connect(func() -> void: explain.text = note)
+		button.mouse_entered.connect(func() -> void: explain.text = note)
+		button.pressed.connect(_open_choice_reference.bind(item, button))
+		_choice.add_child(button)
+
+
+func _open_choice_reference(item: StoryItemData, anchor: Button) -> void:
+	if not choice_active() or is_instance_valid(_choice_reader):
+		return
+	_choice.hide()
+	_skip_hint.hide()
+	var reader := DocumentReader.new()
+	_choice_reader = reader
+	reader.z_index = EFFECT_Z + 21
+	reader.return_label = "返回對帳"
+	match Story.language:
+		"ja": reader.return_label = "照合に戻る"
+		"en": reader.return_label = "Back to reconciliation"
+	_root.add_child(reader)
+	reader.dismissed.connect(func() -> void:
+		if _choice_reader != reader:
+			return
+		reader.queue_free()
+		_choice_reader = null
+		_skip_hint.show()
+		if is_instance_valid(_choice):
+			_choice.show()
+			if is_instance_valid(anchor):
+				anchor.grab_focus())
+	_isolate_ui_lighting(reader)
+	_layout_safe_rect(Story.framing.safe_rect())
+	reader.show_document(item.title_text(), item.body_text(), item.color)
 
 
 func _do_branch(step: Dictionary) -> void:
@@ -1099,11 +1179,20 @@ func _layout_safe_rect(rect: Rect2) -> void:
 	_skip_hint.size = Vector2(110, 18)
 	if is_instance_valid(_choice):
 		var width := minf(448.0, maxf(0, rect.size.x - 48))
-		_choice.position = Vector2((rect.size.x - width) * 0.5, rect.position.y + 24)
+		var top := 24.0
+		if _choice_step.has("reference_items"):
+			# Leave the skip hint above the choice's backing at larger text scales.
+			top = maxf(top, _skip_hint.size.y + 21.0)
+		_choice.position = Vector2((rect.size.x - width) * 0.5, rect.position.y + top)
 		_choice.custom_minimum_size.x = width
 		_choice.size.x = width
 		for control in _choice.get_children():
 			(control as Control).custom_minimum_size.x = width
+	if is_instance_valid(_choice_reader):
+		_choice_reader.offset_left = rect.position.x + 24
+		_choice_reader.offset_top = rect.position.y + 16
+		_choice_reader.offset_right = rect.end.x - _root.size.x - 24
+		_choice_reader.offset_bottom = rect.end.y - _root.size.y - 16
 
 
 func _refresh_skip_hint() -> void:

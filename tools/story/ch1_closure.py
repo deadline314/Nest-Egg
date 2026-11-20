@@ -140,6 +140,7 @@ class Segment:
     ambience_only: str = ""
     skip_then: bool = False
     cancel_on_skip: bool = False
+    reference_items: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -172,6 +173,15 @@ class Binding:
     source: str
     location_candidate: dict | None = None
     pending: str = ""
+
+
+def choice_reference_fields(segment: Segment, documents: dict) -> dict:
+    ids = segment.reference_items
+    if not ids:
+        return {}
+    if len(ids) > 3 or len(set(ids)) != len(ids) or any(item not in documents for item in ids):
+        raise ValueError(f"{segment.id}: invalid choice document references {ids!r}")
+    return {"reference_items": list(ids)}
 
 
 @dataclass

@@ -6212,6 +6212,11 @@
        "explanation_en": "The 120 paid still includes interest."
       }
      ],
+     "reference_items": [
+      "ch2_evidence_contract",
+      "ch2_evidence_receipt",
+      "ch2_evidence_collection"
+     ],
      "ja": "紙が三枚、机の上に広げてある。まず元本があといくら残っているかを探せ。",
      "en": "Three slips lie on the table. First, find out how much principal is still left."
     }
@@ -6301,6 +6306,11 @@
        "explanation_en": "The 20 on the contract is this period's interest due, not the duplicate charge."
       }
      ],
+     "reference_items": [
+      "ch2_evidence_contract",
+      "ch2_evidence_receipt",
+      "ch2_evidence_collection"
+     ],
      "ja": "次に、払い済みの利息をもう一度計上している欄を見つけよ。",
      "en": "Next, find which column counts the interest already paid a second time."
     }
@@ -6363,6 +6373,11 @@
        "explanation_ja": "屋台の貸出窓口は契約書しか扱わない。帳簿はそこへ送られない。",
        "explanation_en": "The stall rental window only handles contracts. The account isn't sent there."
       }
+     ],
+     "reference_items": [
+      "ch2_evidence_contract",
+      "ch2_evidence_receipt",
+      "ch2_evidence_collection"
      ],
      "ja": "最後に、この帳簿がどこへ送られるかを確かめる。",
      "en": "Finally, confirm where this account is sent."

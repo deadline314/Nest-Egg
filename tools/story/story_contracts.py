@@ -299,6 +299,8 @@ def effect_projection(raw):
             children = effect_projection(value)
             if children:
                 out[key] = children
+        elif key == "reference_items" and raw.get("do") == "choice":
+            continue
         elif key == "lines" or key in DISPLAY_FIELDS or key in {"ja", "en", "pose_policy", "overlay", "budget", "gallery_order", "silence_music", "ambience_only", "skip_then", "cancel_on_skip"} or any(key == field + "_" + lang for field in DISPLAY_FIELDS for lang in ("ja", "en")):
             continue
         else:

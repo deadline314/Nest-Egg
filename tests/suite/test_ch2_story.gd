@@ -24,6 +24,7 @@ func run() -> void:
 	Checks.check_entries(self, "chapter 2", _datas, 20)
 	Checks.check_quest_markers(self, "chapter 2", "ch2", "res://data/story/ch2_heron.json", _datas, 18)
 	_test_story_gates()
+	await _test_reconcile_documents()
 	_test_audit_terminal_contact()
 	_test_rooftop_props()
 	await _test_rooftop_combo_station()
@@ -65,6 +66,50 @@ func _test_story_gates() -> void:
 	var cabinet := load("res://data/npcs/ch2_ledger_cabinet.tres") as NpcData
 	check(cabinet != null and cabinet.prompt_text() == "{interact} 查看帳櫃", "the cabinet prompt offers inspection even while the lock is active")
 	check(Story.validate().is_empty(), "the merged story passes validation")
+	GameState.start_new_run(GameState.difficulties[1])
+
+
+func _test_reconcile_documents() -> void:
+	const SCENE := &"ch2_t_s10_principal"
+	const IDS := [&"ch2_evidence_contract", &"ch2_evidence_receipt", &"ch2_evidence_collection"]
+	var steps: Array = Story._scenes[SCENE].get("steps", [])
+	var step: Dictionary = steps.back()
+	check(step.get("reference_items", []) == Array(IDS).map(func(id: StringName) -> String: return str(id)),
+		"the actual reconciliation choice references the three acquired records in author order")
+	for id: StringName in IDS:
+		check(StoryItems.acquire(id, false), "test fixture owns the real reconciliation record %s" % id)
+	var stored := StoryItems.snapshot()
+	var cutscene := CutscenePlayer.new()
+	runner.get_tree().root.add_child(cutscene)
+	cutscene.play(SCENE, {"mode": "animated", "overlay": true, "steps": [step]})
+	for _frame in 12:
+		if cutscene.choice_active():
+			break
+		await frames(1)
+	check(cutscene.choice_active(), "the actual choice shows the reconciliation actions")
+	if cutscene.choice_active():
+		var receipt := StoryItems.find(IDS[1])
+		var anchor: Button
+		for child in cutscene._choice.get_children():
+			if child is Button and child.text == receipt.title_text():
+				anchor = child
+				break
+		check(anchor != null and anchor.tooltip_text == receipt.description_text(), "the receipt uses the registered title and short guidance")
+		if anchor != null:
+			anchor.pressed.emit()
+			check(is_instance_valid(cutscene._choice_reader) and cutscene._choice_reader._text.text == receipt.body_text(),
+				"reviewing the receipt opens the full existing document reader")
+			check(not cutscene.choose(0), "decision controls are inactive while reading")
+			var back := InputEventAction.new()
+			back.action = &"ui_cancel"
+			back.pressed = true
+			cutscene._input(back)
+			check(cutscene.choice_active() and anchor.has_focus() and cutscene._chosen == -1,
+				"Back from the document restores focus to the receipt without making a choice")
+	check(StoryItems.snapshot() == stored and not GameState.has_flag(&"ch2_market_reconciled"),
+		"reviewing evidence never consumes a document or commits the reconciliation")
+	cutscene.cancel()
+	await frames(1)
 	GameState.start_new_run(GameState.difficulties[1])
 
 

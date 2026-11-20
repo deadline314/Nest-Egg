@@ -2,6 +2,7 @@ extends UiPanel
 ## Read-only text inside the paused inventory; only the text region scrolls.
 signal dismissed
 
+var return_label := ""
 var _heading: Label
 var _text: Label
 var _scroll: ScrollContainer
@@ -58,7 +59,7 @@ func scroll(direction: int) -> void:
 
 
 func _refresh_copy() -> void:
-	_back.text = _copy("返回物品", "アイテムへ戻る", "Back to items")
+	_back.text = return_label if not return_label.is_empty() else _copy("返回物品", "アイテムへ戻る", "Back to items")
 	_legend.text = InputBindings.format(_copy("↑↓／滾輪 捲動　{ui_cancel} 返回", "↑↓／ホイール スクロール　{ui_cancel} 戻る", "↑↓ / wheel Scroll　{ui_cancel} Back"))
 
 

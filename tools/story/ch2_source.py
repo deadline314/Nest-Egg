@@ -520,6 +520,7 @@ def _loading(source: ProductionSource):
     source.add("ch2_t_s09_lever_revisit", "S09", (("label", "橋梯已經放下，通到代收處。"),), when=flag("ch2_sc1_open"))
 
     have_all = all_of(flag("ch2_evidence_contract"), flag("ch2_evidence_receipt"), flag("ch2_evidence_collection"))
+    evidence = ("ch2_evidence_contract", "ch2_evidence_receipt", "ch2_evidence_collection")
     done = flag("ch2_market_reconciled")
     source.add("ch2_t_s10_missing_receipt", "S10", (("label", "先找代收處要已付收據，不能只用對方的帳證明對方。"),),
                when=all_of(negate(done), negate(flag("ch2_evidence_receipt"))))
@@ -530,7 +531,7 @@ def _loading(source: ProductionSource):
     source.add("ch2_t_s10_principal", "S10", (
         ("egret", "拿本金的欄對本金，別拿還款總額整筆減掉。裡面有已付利息。"),
         ("label", "三張紙攤在桌上。先找出本金還剩多少。")),
-        when=all_of(have_all, negate(done)), options=(
+        when=all_of(have_all, negate(done)), reference_items=evidence, options=(
             _opt("principal", "選收據的本金欄：本金還剩一百。", "ch2_t_s10_interest", "收據寫本金兩百、已付的一百二裡有一百是本金。"),
             _opt("total", "把已付的一百二整筆當本金減掉。", "ch2_t_s10_principal_wrong", "已付的一百二裡還有利息。")))
     source.add("ch2_t_s10_principal_wrong", "S10", (("label", "收據的一百二包含一百本金與二十利息，請分別比較。"),),
@@ -538,7 +539,7 @@ def _loading(source: ProductionSource):
     source.add("ch2_t_s10_interest", "S10", (
         ("rin", "本金還剩一百，二十的利息已經付過。"),
         ("label", "再找出哪一欄把已付的利息又算了一次。")),
-        options=(
+        reference_items=evidence, options=(
             _opt("collection", "選代收簿的待收欄：一百二十。", "ch2_t_s10_batch", "合約與收據都說利息付過了。"),
             _opt("contract", "選合約的利息欄：二十。", "ch2_t_s10_interest_wrong", "合約上的二十是本期該付的利息，不是重複的那筆。")))
     source.add("ch2_t_s10_interest_wrong", "S10", (("label", "合約的二十是本期利息，收據寫著已經付過。請找把它又算一次的那一欄。"),),
@@ -546,7 +547,7 @@ def _loading(source: ProductionSource):
     source.add("ch2_t_s10_batch", "S10", (
         ("rin", "代收簿還寫一百二十，他把已付的二十再收一次。"),
         ("label", "最後確認這筆帳送到哪裡。")),
-        options=(
+        reference_items=evidence, options=(
             _opt("north", "選代收簿的批號：轉送北棟二樓。", "ch2_t_s10_done", "三張都有同一批號。"),
             _opt("window", "選租攤視窗的地址。", "ch2_t_s10_batch_wrong", "租攤視窗只開合約，帳不是送到那裡。")))
     source.add("ch2_t_s10_batch_wrong", "S10", (("label", "租攤視窗只開合約。代收簿的批號旁寫著帳送去的地方。"),),
