@@ -1,4 +1,4 @@
-"""Rebuild Ali's approved raised collar and seated shoulder overlap."""
+"""Rebuild Ali's raised collar and the seated and walking shoulder overlaps."""
 
 from hashlib import sha256
 from io import BytesIO
@@ -23,6 +23,7 @@ COLLAR_REGIONS = (
     (434, 437, 198, 201), (436, 439, 196, 199), (444, 447, 195, 198),
 )
 SEATED_CONTACT = ((434.1, 194.0, 1.55),)
+WALKING_CONTACT = ((359.45, 411.2, 1.65), (359.60, 417.5, 1.65))
 
 
 def build(work: Path) -> bytes:
@@ -40,7 +41,7 @@ def build(work: Path) -> bytes:
         raise ValueError(f"{source}: reconstructed raised sleeve differs from the approved pixels")
     del distances, source_y, source_x
     with BytesIO() as out:
-        extend_pixels(collar, SEATED_CONTACT).save(out, format="PNG")
+        extend_pixels(collar, SEATED_CONTACT + WALKING_CONTACT).save(out, format="PNG")
         return out.getvalue()
 
 
