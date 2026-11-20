@@ -1926,6 +1926,98 @@
      "speaker": "rin"
     },
     {
+     "do": "move",
+     "id": "egret",
+     "to": [
+      330,
+      262.0
+     ],
+     "time": 0.52,
+     "pose": "walk",
+     "then": "squat",
+     "wait": true,
+     "pose_reason": "屈膝夠到矮茶箱上的杯子。",
+     "pose_support": "雙腳留在屋頂地面。"
+    },
+    {
+     "do": "wait",
+     "time": 0.55
+    },
+    {
+     "do": "reach",
+     "id": "egret",
+     "hand": "front",
+     "to": [
+      126,
+      234
+     ],
+     "contact": [
+      75.5,
+      36.5
+     ],
+     "angle": 3.141592653589793,
+     "time": 0.42,
+     "wait": true,
+     "space": "prop",
+     "prop": "rin_roof_cup"
+    },
+    {
+     "do": "prop_hold",
+     "id": "rin_roof_cup",
+     "actor": "egret",
+     "hand": "front",
+     "point": [
+      126,
+      234
+     ],
+     "follow_rotation": false
+    },
+    {
+     "do": "reach",
+     "id": "egret",
+     "hand": "front",
+     "to": [
+      300.4,
+      204.18
+     ],
+     "contact": [
+      75.5,
+      36.5
+     ],
+     "angle": 3.141592653589793,
+     "time": 0.42,
+     "wait": true
+    },
+    {
+     "do": "prop_release",
+     "id": "rin_roof_cup"
+    },
+    {
+     "do": "reach",
+     "id": "egret",
+     "hand": "front",
+     "time": 0.3,
+     "wait": true,
+     "release": true
+    },
+    {
+     "do": "move",
+     "id": "egret",
+     "to": [
+      372,
+      262.0
+     ],
+     "time": 0.52,
+     "pose": "walk",
+     "then": "idle",
+     "wait": true
+    },
+    {
+     "do": "face",
+     "id": "egret",
+     "dir": -1
+    },
+    {
      "do": "say",
      "speaker": "egret",
      "text": "小鬼，坐到裡面來，那塊板凳今天還沒有泡水。",
@@ -1992,7 +2084,15 @@
       212
      ],
      "zoom": 1.0,
-     "fade": 0.25
+     "fade": 0.25,
+     "props": {
+      "rin_roof_cup": {
+       "pos": [
+        298.93,
+        188.99
+       ]
+      }
+     }
     },
     {
      "do": "actor",
@@ -2259,7 +2359,15 @@
       212
      ],
      "zoom": 1.0,
-     "fade": 0.25
+     "fade": 0.25,
+     "props": {
+      "rin_roof_cup": {
+       "pos": [
+        298.93,
+        188.99
+       ]
+      }
+     }
     },
     {
      "do": "actor",

@@ -37,8 +37,11 @@ ROOF_FLOOR = 262
 ROOF_SCALE = 2.2
 
 
-def _roof_cast(fade: float = 1.0) -> list[dict]:
-    return [stage_scene(ROOF_STAGE, x=320, y=212, zoom=1.0, fade_in=fade),
+def _roof_cast(fade: float = 1.0, *, cup_shifted: bool = False) -> list[dict]:
+    stage = stage_scene(ROOF_STAGE, x=320, y=212, zoom=1.0, fade_in=fade)
+    if cup_shifted:
+        stage["props"] = roof_tea_staging.briefing_props()
+    return [stage,
             stage_actor("egret", "egret", 372, ROOF_FLOOR, facing=-1, scale=ROOF_SCALE, speaker="egret"),
             stage_actor("rin", "rin", 268, ROOF_FLOOR, facing=1, scale=ROOF_SCALE, speaker="rin")]
 
@@ -240,15 +243,15 @@ def _morning(source: ProductionSource):
 
 def _rooftop(source: ProductionSource):
     brief = flag("ch2_brief_done")
-    source.add("ch2_t_s03_tea", "S03", steps=_on_roof((
+    source.add("ch2_t_s03_tea", "S03", steps=_roof_cast() + roof_tea_staging.slide_cup() + beats(
         ("egret", "小鬼，坐到裡面來，那塊板凳今天還沒有泡水。"),
         ("rin", "你每次都說今天，這木頭已經腫了。"),
         ("rin", "傘骨斷了，你那邊在漏。"),
         ("egret", "我這件外套本來就濕，兩邊一起濕才不會歪。"),
         ("rin", "我記著這杯茶，傘不用算。"),
-        ("egret", "你還要替雨開一個帳啊？先喝，茶不會等你算完。")), opening=True),
+        ("egret", "你還要替雨開一個帳啊？先喝，茶不會等你算完。")),
         when=negate(brief), next_scene="ch2_t_s03_brief", mode="animated")
-    source.add("ch2_t_s03_brief", "S03", steps=_roof_cast(0.25) + roof_tea_staging.show_check_card() + beats(
+    source.add("ch2_t_s03_brief", "S03", steps=_roof_cast(0.25, cup_shifted=True) + roof_tea_staging.show_check_card() + beats(
         ("egret", "市場查核證只讓你進公眾攤道，後面的帳房還是阿勇管。阿勇是這一帶收帳人的頭。"),
         ("egret", "昨晚盤裡那筆代收款有批號，收據卻不在。去代收處找當天的租攤合約和收款存根。"),
         ("rin", "我先看原本，再聽他們怎麼算。"),
@@ -257,10 +260,10 @@ def _rooftop(source: ProductionSource):
         ("rin", "查完這筆就能結案？"),
         ("egret", "附件對得上才算，光把收帳的人打趴不會長出收據。")),
         when=negate(brief), next_scene="ch2_t_s03_rain", mode="animated")
-    source.add("ch2_t_s03_rain", "S03", steps=_on_roof((
+    source.add("ch2_t_s03_rain", "S03", steps=_roof_cast(0.25, cup_shifted=True) + beats(
         ("egret", "你看雨別只看腳下。屋頂先響、雨棚再響，你就知道市場哪條路積水了。"),
         ("rin", "所以你喝茶也在看路。"),
-        ("egret", "至少我這杯不用你付保費。")), opening=False),
+        ("egret", "至少我這杯不用你付保費。")),
         when=negate(brief), completion=(set_flag("ch2_brief_done"), grant("ch2_check_card")), mode="animated")
     # 簡報後的話題：週日（SQ2）、重擊的練法、再聽一次查帳的重點。
     sunday_asked_ch1 = flag("asked_egret_sunday")

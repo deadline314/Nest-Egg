@@ -25,7 +25,7 @@ func run() -> void:
 	Checks.check_quest_markers(self, "chapter 2", "ch2", "res://data/story/ch2_heron.json", _datas, 18)
 	_test_story_gates()
 	_test_audit_terminal_contact()
-	_test_rooftop_check_card()
+	_test_rooftop_props()
 	_test_ali_kitchen_revisit()
 	_test_ali_soup_healing()
 	_test_ledger_install()
@@ -81,9 +81,11 @@ func _test_audit_terminal_contact() -> void:
 		"the contact lies on the real terminal image")
 
 
-func _test_rooftop_check_card() -> void:
+func _test_rooftop_props() -> void:
+	const CUP := "rin_roof_cup"
 	var card_layer := func(layer: Dictionary) -> bool: return layer.get("id") == "public_aisle_pass"
-	var roof: Array = StageLibrary.definition(&"ch2_rooftop_tea").get("layers", []).filter(card_layer)
+	var roof_layers: Array = StageLibrary.definition(&"ch2_rooftop_tea").get("layers", [])
+	var roof := roof_layers.filter(card_layer)
 	var market: Array = StageLibrary.definition(&"ch2_market_pass").get("layers", []).filter(card_layer)
 	check(roof.size() == 1 and market.size() == 1 and roof[0].get("path") == market[0].get("path")
 			and not roof[0].get("visible", true), "only the briefing reveals the same card that Rin shows at the market")
@@ -96,6 +98,14 @@ func _test_rooftop_check_card() -> void:
 	var terminal: Dictionary = Story._scenes["ch2_t_s03_rain"]
 	check(not brief.has("results") and terminal.get("results", []).has({"kind": "item_acquire", "id": "ch2_check_card"}),
 			"the physical card cannot grant inventory until the original briefing completes")
+	var cup_layers := roof_layers.filter(func(layer: Dictionary) -> bool: return layer.get("id") == CUP)
+	var start: Array = cup_layers[0].get("pos", []) if cup_layers.size() == 1 else []
+	var shifted: Array = brief["steps"][0].get("props", {}).get(CUP, {}).get("pos", [])
+	check(start.size() == 2 and shifted.size() == 2 and shifted[0] > start[0] and shifted[1] == start[1]
+			and terminal["steps"][0].get("props", {}).get(CUP, {}).get("pos", []) == shifted,
+			"the next two briefing shots retain the shifted cup at tabletop height")
+	var evening: Dictionary = Story._scenes["ch2_t_s22_tea"]
+	check(not evening["steps"][0].get("props", {}).has(CUP), "the evening cup starts at its own original placement")
 
 
 func _test_ali_soup_healing() -> void:

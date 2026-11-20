@@ -14,6 +14,7 @@ TOP = FLOOR - 352.0 * SCALE
 CUP = "rin_roof_cup"
 CUP_REGION = (123, 203, 35, 47)
 CUP_GRIP = [126, 234]
+CUP_SLIDE = 16
 SIP = [273.0, 154.0]
 CARRY = [280.0, 184.0]
 CARD = market_pass_staging.PASS
@@ -73,12 +74,34 @@ def drink_and_set_down() -> list[dict]:
             reach("rin", "rin", release=True, time=0.3), stand, pause]
 
 
-def _card_reach(actor: str, point: list[float], *, on_card: bool = False) -> dict:
+def briefing_props() -> dict:
+    x, y = CUP_REGION[:2]
+    return {CUP: {"pos": stage_point(x + CUP_SLIDE, y)}}
+
+
+def slide_cup() -> list[dict]:
+    # The cup stays on the tabletop and clears the umbrella pole at its new position.
+    grip_end = stage_point(CUP_GRIP[0] + CUP_SLIDE, CUP_GRIP[1])
+    return [
+        dict(do="move", id="egret", to=[330, FLOOR], time=0.52, pose="walk", then="squat", wait=True,
+             pose_reason="屈膝夠到矮茶箱上的杯子。", pose_support="雙腳留在屋頂地面。"),
+        dict(do="wait", time=0.55),
+        _roof_reach("egret", CUP_GRIP, prop=CUP),
+        dict(do="prop_hold", id=CUP, actor="egret", hand="front", point=CUP_GRIP, follow_rotation=False),
+        _roof_reach("egret", grip_end),
+        dict(do="prop_release", id=CUP),
+        reach("egret", "egret", release=True, time=0.3),
+        dict(do="move", id="egret", to=[372, FLOOR], time=0.52, pose="walk", then="idle", wait=True),
+        dict(do="face", id="egret", dir=-1),
+    ]
+
+
+def _roof_reach(actor: str, point: list[float], *, prop: str | None = None) -> dict:
     contact = EGRET_PALM if actor == "egret" else market_pass_staging.RIN_HAND
     step = dict(do="reach", id=actor, hand="front", to=point, contact=contact,
                 angle=pi if actor == "egret" else 0.0, time=0.42, wait=True)
-    if on_card:
-        step.update(space="prop", prop=CARD)
+    if prop is not None:
+        step.update(space="prop", prop=prop)
     return step
 
 
@@ -86,7 +109,7 @@ def show_check_card() -> list[dict]:
     return [
         dict(do="move", id="egret", to=[349, FLOOR], time=0.48, pose="walk", then="idle", wait=False),
         dict(do="move", id="rin", to=[302, FLOOR], time=0.48, pose="walk", then="idle", wait=True),
-        _card_reach("egret", EGRET_EDGE, on_card=True),
+        _roof_reach("egret", EGRET_EDGE, prop=CARD),
         dict(do="prop_visible", id=CARD, visible=True),
         dict(do="prop_hold", id=CARD, actor="egret", hand="front", point=EGRET_EDGE, follow_rotation=False),
     ]
@@ -95,12 +118,12 @@ def show_check_card() -> list[dict]:
 def pass_check_card() -> list[dict]:
     # Both palms touch opposite edges before ownership transfers.
     return [
-        _card_reach("egret", [324.0, 176.0]),
-        _card_reach("rin", RIN_EDGE, on_card=True),
+        _roof_reach("egret", [324.0, 176.0]),
+        _roof_reach("rin", RIN_EDGE, prop=CARD),
         dict(do="prop_release", id=CARD),
         dict(do="prop_hold", id=CARD, actor="rin", hand="front", point=RIN_EDGE, follow_rotation=False),
         reach("egret", "egret", release=True, time=0.3, wait=False),
-        _card_reach("rin", [310.0, 181.0]),
+        _roof_reach("rin", [310.0, 181.0]),
         dict(do="prop_visible", id=CARD, visible=False),
         dict(do="prop_release", id=CARD),
         reach("rin", "rin", release=True, time=0.3),
