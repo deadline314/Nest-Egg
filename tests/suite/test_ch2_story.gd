@@ -26,6 +26,7 @@ func run() -> void:
 	_test_story_gates()
 	_test_audit_terminal_contact()
 	_test_rooftop_props()
+	await _test_rooftop_combo_station()
 	_test_ali_kitchen_revisit()
 	_test_ali_soup_healing()
 	_test_ledger_install()
@@ -106,6 +107,45 @@ func _test_rooftop_props() -> void:
 			"the next two briefing shots retain the shifted cup at tabletop height")
 	var evening: Dictionary = Story._scenes["ch2_t_s22_tea"]
 	check(not evening["steps"][0].get("props", {}).has(CUP), "the evening cup starts at its own original placement")
+
+
+func _test_rooftop_combo_station() -> void:
+	var level := await start_level(_datas["rooftop"] as LevelData)
+	var station := level._training_stations.front() as TrainingStation if level._training_stations.size() == 1 else null
+	check(station != null and station.data.id == &"ch2_roof_combo_target", "the actual rooftop spawns one practice target")
+	if station == null:
+		await end_level(level)
+		return
+	var info := DamageInfo.create(1, Combat.Team.PLAYER, &"melee")
+	info.attacker = weakref(level.player)
+	info.stagger = 3
+	level.player.melee.index = 2
+	station._hurtbox.receive(info)
+	check(not station.is_active() and not station.is_done(), "heavy practice waits for the rooftop briefing")
+	GameState.set_flag(&"ch2_brief_done")
+	station._refresh()
+	check(station.is_active() and station.data.done_scene == &"", "roof practice is optional and never starts a cutscene")
+	info.is_projectile = true
+	station._hurtbox.receive(info)
+	check(not station.is_done(), "a projectile cannot finish combo practice")
+	info.is_projectile = false
+	info.stagger = 2
+	station._hurtbox.receive(info)
+	check(not station.is_done(), "the light follow-up cannot finish combo practice")
+	info.stagger = 3
+	level.player.melee.index = 0
+	station._hurtbox.receive(info)
+	check(not station.is_done(), "a heavy opener cannot finish combo practice")
+	level.player.melee.index = 2
+	station._hurtbox.receive(info)
+	check(station.is_done() and GameState.has_flag(&"ch2_roof_combo_practiced") and not station._prompt.enabled,
+		"a heavy follow-through completes once and hides the prompt")
+	await end_level(level)
+	var reopened := await spawn_level(_datas["rooftop"] as LevelData)
+	check(reopened._training_stations.size() == 1 and reopened._training_stations.front().is_done(),
+		"returning to the roof restores the completed target")
+	await end_level(reopened)
+	GameState.start_new_run(GameState.difficulties[1])
 
 
 func _test_ali_soup_healing() -> void:

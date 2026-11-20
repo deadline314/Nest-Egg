@@ -53,7 +53,7 @@ func complete(station: TrainingStation, success: bool) -> bool:
 
 func _signature(data: TrainingData) -> PackedByteArray:
 	return var_to_bytes([data.resource_path, data.id, data.kind, data.requires_flag,
-		data.done_flag, data.done_scene, data.fail_flag, data.fail_scene]) if data != null else PackedByteArray()
+		data.done_flag, data.done_scene, data.fail_flag, data.fail_scene, data.minimum_combo_stagger]) if data != null else PackedByteArray()
 
 func _source() -> Level:
 	var level := main.get("_screen") as Level

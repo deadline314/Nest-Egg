@@ -211,6 +211,7 @@
   "yong_link_revoked": false,
   "yong_link_restoration_agreed": false,
   "ch2_yong_subdued": false,
+  "ch2_roof_combo_practiced": false,
   "ch2_morning_settled": false,
   "ch2_radio_repaired": false,
   "sq4_broadcast_heard": false,
@@ -2470,12 +2471,12 @@
       {
        "id": "heavy",
        "text": "問重擊怎麼接。",
-       "explanation": "鷺會說一句練法，不影響主線。",
+       "explanation": "鷺會告訴你在哪裡試重擊。",
        "target": "ch2_t_s03_heavy",
        "ja": "重い一撃のつなぎ方を聞く。",
        "en": "Ask how to chain a heavy strike.",
-       "explanation_ja": "鷺が練習法を一言教えてくれます。本筋には影響しません。",
-       "explanation_en": "Egret gives a one-line training tip. It does not affect the main story."
+       "explanation_ja": "鷺が強打を試せる場所を教えてくれます。",
+       "explanation_en": "Egret points you to a place to practice heavy hits."
       },
       {
        "id": "brief",
@@ -2523,9 +2524,9 @@
     {
      "do": "say",
      "speaker": "egret",
-     "text": "把重擊接在收招後，你要的是空檔，不是揮得久。",
-     "ja": "重い一撃は技を収めた直後につなげな。欲しいのは隙であって、長く振り回すことじゃない。",
-     "en": "Chain the heavy strike right after your recovery. You want the opening, not a longer swing."
+     "text": "樓梯旁有靶。連按近戰，讓重擊接在收招後。",
+     "ja": "階段脇に的がある。近接攻撃を続けて押して、振り終わりに強打をつなげな。",
+     "en": "There’s a dummy by the stairs. Tap melee repeatedly to follow through with a heavy hit."
     }
    ],
    "overlay": true,

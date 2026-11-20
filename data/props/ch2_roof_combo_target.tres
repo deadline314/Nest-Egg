@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="TrainingData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/training_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"ch2_roof_combo_target"
+kind = 2
+prompt = "連按 {melee} 接重擊"
+prompt_translations = Dictionary[String, String]({
+"en": "Repeat {melee} for a heavy hit",
+"ja": "{melee} を連打して強打"
+})
+requires_flag = &"ch2_brief_done"
+done_flag = &"ch2_roof_combo_practiced"
+reach = Vector2(26, 56)
+height = 52.0
+minimum_combo_stagger = 3

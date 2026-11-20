@@ -18,6 +18,7 @@ kit.CHAPTER = 'ch2_heron'
 AREA = kit.AREA
 H = kit.H
 Area = kit.Area
+ROOF_PRACTICE = '⑨'
 
 # ---------------------------------------------------------------------------
 # 人物與可調查物件：字元 -> 資料檔（台詞由劇本的分派場景依進度挑選，見 tools/story/ch2_source.py）
@@ -195,6 +196,7 @@ def build_rooftop():
     kit.rooftop_shell(a)
     a.stand(3, 'T')
     a.stand(5, 'P')
+    a.stand(12, ROOF_PRACTICE)
     a.stand(40, 'ⓔ')
     a.features = {'landmark': '破傘下的茶座（x=38）：雨量屏在遠處亮著'}
     return a
@@ -517,6 +519,8 @@ def configure():
     clash = sorted(c for c in NPC_CHARS if c in kit.RES or c in PORTALS or c in kit.TRAINING)
     clash += sorted(c for c in PORTALS if c in kit.RES)
     clash += sorted(c for c in ENEMIES if c in kit.RES or c in NPC_CHARS or c in PORTALS)
+    if any(ROOF_PRACTICE in entries for entries in (kit.RES, kit.TRAINING, NPC_CHARS, PORTALS, ENEMIES)):
+        clash.append(ROOF_PRACTICE)
     if clash:
         raise SystemExit(f'第二章的字元和既有資源衝突：{clash}')
     for char, ident in NPC_CHARS.items():
@@ -524,6 +528,7 @@ def configure():
     for char, (path, name) in ENEMIES.items():
         kit.RES[char] = path
         kit.ENEMY_NAMES[char] = name
+    kit.RES[ROOF_PRACTICE] = 'res://data/props/ch2_roof_combo_target.tres'
     kit.PORTALS = PORTALS
     kit.NPCS = {ident: {**{'rig': '', 'loop': '', 'facing': 1}, **spec} for ident, spec in NPCS.items()}
     kit.THEMES = THEMES

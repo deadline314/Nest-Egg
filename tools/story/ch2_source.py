@@ -270,10 +270,10 @@ def _rooftop(source: ProductionSource):
     source.add("ch2_t_egret_hub", "S03", (("egret", "茶還熱，要問什麼就趁現在。"),),
                when=all_of(brief, negate(flag("ch2_audit_submitted"))), options=(
                    _opt("sunday", "問鷺週日的安排。", "ch2_dispatch_sunday", "可選的追問，不影響主線。", when=negate(flag("sq2_sunday_heard"))),
-                   _opt("heavy", "問重擊怎麼接。", "ch2_t_s03_heavy", "鷺會說一句練法，不影響主線。"),
+                   _opt("heavy", "問重擊怎麼接。", "ch2_t_s03_heavy", "鷺會告訴你在哪裡試重擊。"),
                    _opt("brief", "再確認一次查帳的重點。", "ch2_t_s03_brief_again", "重聽代收處要找的東西。"),
                    _opt("leave", "先這樣，我去市集。", None, "結束對話，之後可以再來。")))
-    source.add("ch2_t_s03_heavy", "S03", (("egret", "把重擊接在收招後，你要的是空檔，不是揮得久。"),), mode="animated", next_scene="ch2_t_egret_hub")
+    source.add("ch2_t_s03_heavy", "S03", (("egret", "樓梯旁有靶。連按近戰，讓重擊接在收招後。"),), mode="animated", next_scene="ch2_t_egret_hub")
     source.add("ch2_t_s03_brief_again", "S03", (
         ("egret", "代收處有收據，租攤視窗有合約，後面裝卸間有代收簿。三張對得上，才找得到原帳。"),),
         mode="animated", next_scene="ch2_t_egret_hub")
@@ -1050,7 +1050,8 @@ def build_source() -> ProductionSource:
     source.speakers = dict(SPEAKERS)
     source.flag_defaults = {"yong_link_choice": "unset", "ali_ledger_action": "unset", "ali_advance_40": 0, "xiaowei_read_count": 0,
                             "xiaowei_yellow_umbrella_recognized": True, "yong_alive": True, "egret_restoration_count": 213,
-                            "yong_link_revoked": False, "yong_link_restoration_agreed": False, "ch2_yong_subdued": False}
+                            "yong_link_revoked": False, "yong_link_restoration_agreed": False, "ch2_yong_subdued": False,
+                            "ch2_roof_combo_practiced": False}
     _documents_and_transactions(source)
     _morning(source)
     _rooftop(source)

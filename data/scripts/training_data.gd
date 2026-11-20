@@ -1,6 +1,6 @@
 class_name TrainingData
 extends Resource
-## 序章的訓練站（ST-16）：玩家真的做到一個動作才算完成，完成時寫旗標並播放一段劇情。
+## 訓練站記錄玩家完成的動作，可選擇播放一段說明劇情。
 ## 新增一個練習只需要一份 .tres 與一個地圖字元；判定種類由 kind 決定，沒有額外程式。
 ## 訓練站不會讓玩家死亡、不扣錢、不計死亡次數；訓練器打中玩家只會停機並把生命補回。
 
@@ -21,6 +21,8 @@ enum Kind {
 @export var kind: Kind = Kind.REACH
 ## 出現在站上方的提示（一句講重點，可用 {shoot}、{melee}、{block}、{dash}、{jump}、{interact}）。
 @export var prompt: String = ""
+## 可選的在地化提示，缺字時採用英文或原文。
+@export var prompt_translations: Dictionary[String, String] = {}
 ## 這個旗標成立才開始判定（空白＝一開始就可以）；未開始時只畫暗色的器材。
 @export var requires_flag: StringName = &""
 ## 完成時寫入的旗標（必填）。
@@ -36,6 +38,18 @@ enum Kind {
 @export var reach: Vector2 = Vector2(40, 64)
 ## 畫在地圖上的高度（像素）。
 @export var height: float = 48.0
+## 大於零時，近戰靶只接受連段中達到此破防值的後續命中。
+@export var minimum_combo_stagger: int = 0
+
+
+func prompt_text(language: String) -> String:
+	if language == StoryLocale.SOURCE_LANGUAGE or prompt_translations.is_empty():
+		return prompt
+	var localized: String = prompt_translations.get(language, "")
+	if not localized.is_empty():
+		return localized
+	var fallback: String = prompt_translations.get(StoryLocale.FALLBACK, "")
+	return fallback if not fallback.is_empty() else prompt
 
 
 func validate() -> PackedStringArray:
@@ -48,4 +62,6 @@ func validate() -> PackedStringArray:
 		problems.append("訓練站 %s 的 reach 必須大於 0" % id)
 	if kind == Kind.TRAINER and (fail_flag == &"" or fail_repeat_text.is_empty()):
 		problems.append("訓練器 %s 需要 fail_flag 與 fail_repeat_text" % id)
+	if minimum_combo_stagger < 0 or (minimum_combo_stagger > 0 and kind != Kind.DUMMY):
+		problems.append("訓練站 %s 的 minimum_combo_stagger 必須為非負值，僅近戰靶可指定門檻" % id)
 	return problems

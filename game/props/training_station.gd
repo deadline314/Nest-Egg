@@ -1,6 +1,6 @@
 class_name TrainingStation
 extends Node2D
-## 序章訓練站（見 TrainingData）：判定玩家真的完成一個動作，寫旗標、播劇情。
+## 訓練站（見 TrainingData）：判定玩家是否完成動作，寫入旗標。
 ## 訓練器的出手只對玩家的受擊框送一次低傷害攻擊：擋下算完成；打中就停機、補回生命，不會致死、不計死亡。
 
 const TRAINER_WARN := 0.9
@@ -74,7 +74,7 @@ func _ready() -> void:
 	_prompt = WorldPrompt.new()
 	# 練習站要教「按哪個鍵」：佔位符畫成按鍵帽，鍵鼠與手把各自顯示目前的綁定。
 	_prompt.keycaps = true
-	_prompt.text = data.prompt
+	_prompt.text = data.prompt_text(Story.language)
 	_prompt.radius = maxf(96.0, data.reach.x * 2.0)
 	_prompt.offset = Vector2(0, -data.height - 14.0)
 	add_child(_prompt)
@@ -92,6 +92,10 @@ func is_done() -> bool:
 func _refresh() -> void:
 	_done = GameState.has_flag(data.done_flag)
 	_active = not _done and (data.requires_flag == &"" or GameState.has_flag(data.requires_flag))
+	if not data.prompt_translations.is_empty():
+		var prompt := data.prompt_text(Story.language)
+		if prompt != _prompt.text:
+			_prompt.text = prompt
 	_prompt.enabled = _active
 	if _hurtbox != null:
 		_hurtbox.enabled = _active
@@ -204,8 +208,15 @@ func _on_hit(info: DamageInfo) -> void:
 		_art.hit(info.knockback.x if info.knockback.x != 0.0 else global_position.x - info.origin.x)
 	queue_redraw()
 	var wanted_projectile := data.kind == TrainingData.Kind.TARGET
-	if info.is_projectile == wanted_projectile:
-		_complete()
+	if info.is_projectile != wanted_projectile:
+		return
+	if data.minimum_combo_stagger > 0:
+		if info.source_id != &"melee" or info.stagger < data.minimum_combo_stagger:
+			return
+		var player := info.get_attacker() as Player
+		if player == null or player.melee.index <= 0:
+			return
+	_complete()
 
 
 func _complete() -> void:
