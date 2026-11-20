@@ -25,3 +25,12 @@ func _creature_aim() -> float:
 		return 0.0
 	var to_target := _target_point() - turret.global_position
 	return clampf(atan2(to_target.y, absf(to_target.x)), TURRET_UP, TURRET_DOWN)
+
+
+func _phase_flash_energy() -> float:
+	return 0.18 * Settings.flash_scale()
+
+
+## 露出的部位保留橙色輪廓，中央的裝甲與命中回饋仍看得見。
+func _draw_open_part_marker(at: Vector2, pulse: float) -> void:
+	draw_arc(at, 8.0 + pulse * 2.0, 0.0, TAU, 20, LightKit.glow(Palette.WARNING, 1.26), 1.5)

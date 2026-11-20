@@ -736,7 +736,11 @@ func _phase_shift_enter() -> void:
 	velocity.x = 0.0
 	_start_telegraph(PHASE_SHIFT_TIME)
 	Feel.play(&"boss_phase_shift")
-	Fx.flash_light(_center(), Palette.DANGER, 160.0, 2.0, 0.6)
+	Fx.flash_light(_center(), Palette.DANGER, 160.0, _phase_flash_energy(), 0.6)
+
+
+func _phase_flash_energy() -> float:
+	return 2.0
 
 
 func _phase_shift_tick(_delta: float) -> void:
@@ -1113,8 +1117,12 @@ func _draw_open_parts() -> void:
 		var at := box.shape_offset()
 		if str(pattern.parts_open.get(id, "always")) == "always":
 			continue
-		draw_circle(at, 5.0 + pulse * 2.0, Color(LightKit.glow(Palette.WARNING, 2.6), 0.45))
-		draw_arc(at, 8.0 + pulse * 2.0, 0.0, TAU, 20, LightKit.glow(Palette.WARNING, 3.0), 1.5)
+		_draw_open_part_marker(at, pulse)
+
+
+func _draw_open_part_marker(at: Vector2, pulse: float) -> void:
+	draw_circle(at, 5.0 + pulse * 2.0, Color(LightKit.glow(Palette.WARNING, 2.6), 0.45))
+	draw_arc(at, 8.0 + pulse * 2.0, 0.0, TAU, 20, LightKit.glow(Palette.WARNING, 3.0), 1.5)
 
 
 ## 骨架載入失敗時的程式繪製：一塊機甲身體與發光的眼睛。
