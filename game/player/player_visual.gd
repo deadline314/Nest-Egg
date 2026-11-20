@@ -409,8 +409,9 @@ func _update_carry_pose() -> bool:
 	return true
 
 
-func notify_hurt() -> void:
+func notify_hurt(info: DamageInfo) -> void:
 	_input.hurt = true
+	_input.hurt_dir = 1.0 if RigInput.hit_from_front(info, player.global_position.x, player.facing) else -1.0
 	if rig != null:
 		rig.flash()
 

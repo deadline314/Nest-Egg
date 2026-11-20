@@ -1294,7 +1294,7 @@ func _on_damaged(info: DamageInfo) -> void:
 	Feel.play(&"player_hurt", {"dir": Vector2(side, 0.0), "origin": info.origin if info.origin != Vector2.ZERO else Vector2.INF})
 	Fx.flash_light(global_position + Vector2(0, -24), Palette.DANGER, 70.0, 1.5, 0.2)
 	CharacterSounds.play(PLAYER_SOUND_ID, &"hurt", -2.0)
-	_visual.notify_hurt()
+	_visual.notify_hurt(info)
 	InputBindings.vibrate(0.15, 0.65, 0.15)
 
 

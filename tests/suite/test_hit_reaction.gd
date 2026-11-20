@@ -24,6 +24,7 @@ func run() -> void:
 	await _test_boss_is_hard_to_move()
 	await _test_local_freeze()
 	await _test_hurt_direction()
+	await _test_player_hurt_direction()
 	await _test_death_direction_and_force()
 	await _test_player_death_direction_and_force()
 	await _test_player_death_on_ledge()
@@ -214,6 +215,28 @@ func _test_hurt_direction() -> void:
 	var chest_front := front.rig.bone(&"chest").rotation
 	var chest_back := back.rig.bone(&"chest").rotation
 	check(chest_front < chest_back - 0.03, "hit from the front leans the chest back, from behind leans it forward (%.2f vs %.2f)" % [chest_front, chest_back])
+	await end_level(level)
+
+
+func _test_player_hurt_direction() -> void:
+	await open_level(10.0)
+	var player := level.player
+	AimInput.set_virtual_gamepad(player, true)
+	for facing: int in [-1, 1]:
+		AimInput.restore_direction(Vector2(facing, 0.0))
+		await physics_frames(2)
+		for side: int in [1, -1]:
+			player.health.setup(6, 0.0)
+			var incoming := facing * side
+			var info := DamageInfo.create(1, Combat.Team.ENEMY, &"hurt_direction", Vector2(-40.0 * incoming, 0.0))
+			info.origin = player.global_position + Vector2(24.0 * incoming, -22.0)
+			player.hurtbox.receive(info)
+			var context := "player facing %d hit from relative side %d" % [facing, side]
+			check(player.facing == facing and player.health.current == 5 and player._visual._input.hurt_dir == float(side), context)
+			await physics_frames(8)
+			check(player._visual.rig.animator._hurt_dir == float(side), context + " reaches the animator")
+	AimInput.set_virtual_gamepad(player, false)
+	AimInput.restore_direction(Vector2.RIGHT)
 	await end_level(level)
 
 
