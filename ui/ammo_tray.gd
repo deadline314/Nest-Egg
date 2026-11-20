@@ -39,6 +39,8 @@ var is_energy := false
 var _player_ref := PlayerRef.new()
 var _icon_id: StringName = &""
 var _has_mag := false
+var _reduce_motion := false
+var _reduce_effects := false
 ## 一顆圖示代表幾發（容量不超過 MAX_ICONS 時是 1，更大時是容量 / MAX_ICONS，可以不是整數）。
 var _per_icon := 1.0
 ## 補位滑動的剩餘距離（像素，往遠離主角的方向為正）。
@@ -85,12 +87,25 @@ func _ready() -> void:
 	_eject_spin.resize(EJECT_SLOTS)
 	_eject_age.fill(EJECT_TIME)
 	_refresh_hint()
-	Settings.display_changed.connect(_refresh_obstacle_text_metrics)
+	_sync_display()
+	Settings.display_changed.connect(_sync_display)
 	PromptLayout.add_obstacle(self, prompt_obstacle_rect)
 	InputBindings.bindings_changed.connect(_refresh_hint)
 	EventBus.player_loadout_changed.connect(_on_loadout_changed)
 	EventBus.player_spawned.connect(func(_p: Node2D) -> void:
 		_has_pos = false)
+
+
+func _sync_display() -> void:
+	_reduce_motion = Settings.get_reduce_ui_motion()
+	_reduce_effects = _reduce_motion or Settings.get_reduce_flashes()
+	if _reduce_motion:
+		_slide = 0.0
+		_flip_left = 0.0
+		_pop_left = 0.0
+		_eject_age.fill(INF)
+	_refresh_obstacle_text_metrics()
+	queue_redraw()
 
 
 func is_showing() -> bool:
@@ -131,13 +146,15 @@ func _on_loadout_changed(loadout: Loadout) -> void:
 	var new_ammo := loadout.mag_in(slot) if weapon != null else 0
 	var switched := new_icon != _icon_id or (weapon != null and weapon.magazine_size != max_ammo)
 	if switched and _icon_id != &"":
-		_flip_left = FLIP_TIME
+		if not _reduce_motion:
+			_flip_left = FLIP_TIME
 	elif new_ammo < ammo and not _reloading and _per_icon > 0.0:
 		# 每一發離主角最近的那一顆彈出；打掉整顆圖示時，剩下的往主角方向補位。
 		for i in mini(ammo - new_ammo, EJECT_SLOTS):
 			_eject()
-		var lost := maxi(0, _icons_for(ammo) - _icons_for(new_ammo))
-		_slide = minf(_slide + float(lost) * STEP.x, SLIDE_MAX_STEPS * STEP.x)
+		if not _reduce_motion:
+			var lost := maxi(0, _icons_for(ammo) - _icons_for(new_ammo))
+			_slide = minf(_slide + float(lost) * STEP.x, SLIDE_MAX_STEPS * STEP.x)
 	_has_mag = weapon != null and weapon.has_magazine()
 	_icon_id = new_icon
 	ammo = new_ammo
@@ -281,8 +298,9 @@ func _track_reload(player: Player) -> void:
 		var filled := int(_refill)
 		if filled > _blip_at:
 			_blip_at = filled
-			_pop_slot = filled - 1
-			_pop_left = 0.14
+			if not _reduce_motion:
+				_pop_slot = filled - 1
+				_pop_left = 0.14
 			Sfx.play(&"ui_move", BLIP_VOLUME, 0.0)
 	else:
 		_refill = float(_icons_for(ammo))
@@ -292,12 +310,17 @@ func _track_reload(player: Player) -> void:
 func _eject() -> void:
 	if is_energy:
 		return
+	# 彈量事件在散佈取樣之前發出，顯示設定不能改變共用亂數序列。
+	var velocity := Vector2(_side * randf_range(30.0, 70.0), randf_range(-70.0, -35.0))
+	var spin := randf_range(-9.0, 9.0)
+	if _reduce_motion:
+		return
 	var slot := _eject_next
 	_eject_next = (_eject_next + 1) % EJECT_SLOTS
 	_eject_pos[slot] = _slot_position(0)
-	_eject_vel[slot] = Vector2(_side * randf_range(30.0, 70.0), randf_range(-70.0, -35.0))
+	_eject_vel[slot] = velocity
 	_eject_age[slot] = 0.0
-	_eject_spin[slot] = randf_range(-9.0, 9.0)
+	_eject_spin[slot] = spin
 
 
 func _tick_ejects(delta: float) -> void:
@@ -327,12 +350,15 @@ func _draw() -> void:
 		flip = absf(1.0 - 2.0 * (_flip_left / FLIP_TIME))
 	var pulse := 1.0
 	var state_low := is_low() and ammo > 0
-	if state_low:
+	if state_low and not _reduce_effects:
 		pulse = 0.65 + 0.35 * absf(sin(_time * 8.0))
 	if is_energy:
 		_draw_battery(alpha, pulse, state_low, flip)
 	else:
 		_draw_icons(alpha, pulse, state_low, flip)
+	if ammo == 0 and not _reloading:
+		var hint_alpha := 1.0 if _reduce_effects else 0.6 + 0.4 * sin(_time * 6.0)
+		_text(_pos + Vector2(-16 if _draw_side < 0.0 else 0.0, 7.0), _hint, LightKit.glow(Palette.NEON_YELLOW, 1.3), alpha * hint_alpha, 9)
 	_draw_ejects(alpha)
 	_draw_reserve(alpha)
 
@@ -351,8 +377,6 @@ func _draw_icons(alpha: float, pulse: float, state_low: bool, flip: float) -> vo
 			draw_texture_rect(empty_tex, rect, false, Color(1, 1, 1, alpha * 0.8))
 	if _per_icon >= 2.0:
 		_text(_slot_position(count - 1) + Vector2(0, -3), "×%d" % roundi(_per_icon), Palette.UI_MUTED, alpha, 9)
-	if ammo == 0 and not _reloading:
-		_text(_pos + Vector2(-16 if _draw_side < 0.0 else 0.0, 7.0), _hint, LightKit.glow(Palette.NEON_YELLOW, 1.3), alpha * (0.6 + 0.4 * sin(_time * 6.0)), 9)
 
 
 ## Pure geometry shared by drawing and prompt obstruction; preserves current slide/pop/flip animation.
@@ -381,8 +405,6 @@ func _draw_battery(alpha: float, pulse: float, state_low: bool, flip: float) -> 
 			draw_rect(rect, color)
 		else:
 			draw_rect(rect, Color(0.5, 0.62, 0.75, alpha * 0.3), false, 1.0)
-	if ammo == 0 and not _reloading:
-		_text(_pos + Vector2(-16 if _draw_side < 0.0 else 0.0, 7.0), _hint, LightKit.glow(Palette.NEON_YELLOW, 1.3), alpha * (0.6 + 0.4 * sin(_time * 6.0)), 9)
 
 
 ## 電池圖示與第 i 格電池的位置：和子彈一樣以中心沿連續方向排列，轉身時平滑收攏再展開。
@@ -419,7 +441,7 @@ func prompt_obstacle_rect() -> Rect2:
 			bounds = _merge_prompt_rect(bounds, _baseline_rect(_slot_position(count - 1) + Vector2(0, -3), _obstacle_icon_label_width, false))
 	if ammo == 0 and not _reloading:
 		var hint_anchor := _pos + Vector2(-16.0 if _draw_side < 0.0 else 0.0, 7.0)
-		# Both draw paths call _text without right_aligned, so the hint begins at this anchor.
+		# The hint begins at this anchor.
 		bounds = _merge_prompt_rect(bounds, _baseline_rect(hint_anchor, _obstacle_hint_width, false))
 	# _draw_ejects checks only icon identity; pooled shells remain drawable after energy switch.
 	if _icon_id != &"":

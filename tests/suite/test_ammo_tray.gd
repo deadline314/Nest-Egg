@@ -13,6 +13,7 @@ func run() -> void:
 	await _test_tray_follows_loadout()
 	await _test_side_and_fade()
 	await _test_firing_and_reload()
+	await _test_reduced_display()
 	await _test_energy_weapon()
 	await _test_screen_edge()
 
@@ -116,6 +117,53 @@ func _test_firing_and_reload() -> void:
 	check(seen_partial, "換彈時圖示依序填回（中途有部分填滿）")
 	await frames(3)
 	check(player.loadout.mag_in(0) == 12 and is_equal_approx(tray._refill, 10.0), "換彈完成後整排都是滿的")
+	await end_level(level)
+
+
+func _test_reduced_display() -> void:
+	var motion_before := Settings.get_reduce_ui_motion()
+	var flashes_before := Settings.get_reduce_flashes()
+	Settings.set_reduce_ui_motion(false)
+	Settings.set_reduce_flashes(false)
+	var level := await start_level(PropsSuite.level_data())
+	var tray := level.hud.ammo_tray
+	var loadout := level.player.loadout
+	await frames(5)
+	for i in 3:
+		loadout.consume_ammo()
+	seed(22850)
+	loadout.consume_ammo()
+	var next_spread_roll := randf()
+	check(tray.ammo == 8 and tray.slide() > 0.0 and tray._eject_next == 4, "預設模式顯示射擊彈殼與補位")
+	Settings.set_reduce_flashes(true)
+	check(tray._reduce_effects and tray.slide() > 0.0 and tray._eject_age[0] < AmmoTray.EJECT_TIME, "減少閃光保留補位與彈殼動態")
+	Settings.set_reduce_ui_motion(true)
+	check(tray.slide() == 0.0 and tray._eject_age[0] >= AmmoTray.EJECT_TIME, "減少動態立即收起補位與已彈出的彈殼")
+	seed(22850)
+	loadout.consume_ammo()
+	check(randf() == next_spread_roll, "切換動態設定不改變隨後的槍彈散佈亂數")
+	check(tray.ammo == 7 and tray.slide() == 0.0 and tray._eject_next == 4, "減少動態時彈量立即更新且不再發出彈殼")
+	var started := loadout.start_reload()
+	var partial := false
+	var popped := false
+	for i in 120:
+		await frames(1)
+		partial = partial or (tray._reloading and tray._refill > tray._refill_from and tray._refill < tray.icon_count())
+		popped = popped or tray._pop_left > 0.0
+		if not loadout.is_reloading():
+			break
+	check(started and partial and not popped, "減少動態保留換彈進度並取消補彈圖示跳動")
+	await frames(3)
+	check(tray.ammo == 12 and is_equal_approx(tray._refill, 10.0), "減少動態的換彈仍補滿彈匣")
+	loadout.equip(load("res://data/weapons/laser.tres") as WeaponData)
+	check(tray.is_energy and tray._flip_left == 0.0, "減少動態切換能量武器立即顯示電池格")
+	Settings.set_reduce_ui_motion(false)
+	Settings.set_reduce_flashes(false)
+	check(not tray._reduce_effects and tray._flip_left == 0.0, "恢復動態不補播換槍")
+	loadout.select(0)
+	check(not tray.is_energy and tray._flip_left == AmmoTray.FLIP_TIME, "恢復動態後下次換槍仍會翻轉")
+	Settings.set_reduce_ui_motion(motion_before)
+	Settings.set_reduce_flashes(flashes_before)
 	await end_level(level)
 
 
