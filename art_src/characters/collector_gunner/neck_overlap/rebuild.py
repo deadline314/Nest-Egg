@@ -1,14 +1,17 @@
 """Repair the approved Collector gunner collar at the traced neck contacts."""
 
 from argparse import ArgumentParser
-from hashlib import sha256
 from io import BytesIO
 from pathlib import Path
-from tempfile import NamedTemporaryFile
+import sys
 
-import numpy as np
 from PIL import Image
-from scipy.ndimage import distance_transform_edt
+
+
+ROOT = Path(__file__).resolve().parents[4]
+sys.path.insert(0, str(ROOT / "tools/comfyui"))
+from part_overlap import extend_overlap
+from registered_layers import write_registered_file
 
 
 SOURCE = Path("art_src/characters/collector_gunner/07_refined/torso.png")
@@ -32,45 +35,12 @@ HEAD_CONTACTS = (
 HEAD_LAST_SOURCE_ROW = 158
 
 
-def _extend(root: Path, source: Path, expected: str, contacts: tuple, last_row: int | None = None) -> Image.Image:
-    content = (root / source).read_bytes()
-    if sha256(content).hexdigest() != expected:
-        raise ValueError(f"{source}: expected the approved Collector gunner source")
-    with Image.open(BytesIO(content)) as image:
-        original = np.asarray(image.convert("RGBA"))
-    result = original.copy()
-    alpha = original[:, :, 3]
-    source_y, source_x = distance_transform_edt(alpha < 128, return_distances=False, return_indices=True)
-    for x, y, reach in contacts:
-        from_x = source_x[round(y), round(x)]
-        from_y = source_y[round(y), round(x)]
-        left = int(min(x, from_x) - reach - 2)
-        right = int(max(x, from_x) + reach + 3)
-        top = int(min(y, from_y) - reach - 2)
-        bottom = int(max(y, from_y) + reach + 3)
-        rows, columns = np.ogrid[top:bottom, left:right]
-        vx, vy = x - from_x, y - from_y
-        progress = np.clip(((columns + 0.5 - from_x) * vx + (rows + 0.5 - from_y) * vy)
-                           / max(vx * vx + vy * vy, 0.01), 0.0, 1.0)
-        distance = np.hypot(columns + 0.5 - from_x - progress * vx,
-                            rows + 0.5 - from_y - progress * vy)
-        coverage = np.clip((reach - distance) * 255.0, 0.0, 255.0).astype(np.uint8)
-        region = np.s_[top:bottom, left:right]
-        local = result[region]
-        mask = (coverage > local[:, :, 3]) & (alpha[region] < 128)
-        if last_row is not None:
-            mask &= rows <= last_row
-        local[mask, :3] = original[source_y[region][mask], source_x[region][mask], :3]
-        local[mask, 3] = coverage[mask]
-    return Image.fromarray(result)
-
-
 def build(root: Path) -> Image.Image:
-    return _extend(root, SOURCE, SOURCE_SHA256, CONTACTS)
+    return extend_overlap(root / SOURCE, SOURCE_SHA256, CONTACTS)
 
 
 def build_head(root: Path) -> Image.Image:
-    return _extend(root, HEAD_SOURCE, HEAD_SOURCE_SHA256, HEAD_CONTACTS, HEAD_LAST_SOURCE_ROW)
+    return extend_overlap(root / HEAD_SOURCE, HEAD_SOURCE_SHA256, HEAD_CONTACTS, last_row=HEAD_LAST_SOURCE_ROW)
 
 
 def _write_image(root: Path, output: Path, image: Image.Image) -> None:
@@ -78,17 +48,7 @@ def _write_image(root: Path, output: Path, image: Image.Image) -> None:
         raise ValueError(f"{output}: cannot replace the approved source")
     with BytesIO() as stream:
         image.save(stream, format="PNG")
-        content = stream.getvalue()
-    if output.is_file() and output.read_bytes() == content:
-        return
-    output.parent.mkdir(parents=True, exist_ok=True)
-    with NamedTemporaryFile(dir=output.parent, suffix=".png", delete=False) as stream:
-        temporary = Path(stream.name)
-        stream.write(content)
-    try:
-        temporary.replace(output)
-    finally:
-        temporary.unlink(missing_ok=True)
+        write_registered_file(output, stream.getvalue())
 
 
 def write_output(root: Path, output: Path) -> None:
@@ -96,13 +56,12 @@ def write_output(root: Path, output: Path) -> None:
 
 
 if __name__ == "__main__":
-    root = Path(__file__).resolve().parents[4]
     parser = ArgumentParser(description=__doc__)
     parser.add_argument("--out", type=Path, help="Write only the torso to this path.")
     output = parser.parse_args().out
     if output is not None:
-        write_output(root, output)
+        write_output(ROOT, output)
     else:
-        torso, head = build(root), build_head(root)
-        _write_image(root, root / OUTPUT, torso)
-        _write_image(root, root / HEAD_OUTPUT, head)
+        torso, head = build(ROOT), build_head(ROOT)
+        _write_image(ROOT, ROOT / OUTPUT, torso)
+        _write_image(ROOT, ROOT / HEAD_OUTPUT, head)
