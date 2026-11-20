@@ -527,6 +527,7 @@ func _test_weapon_changes_during_carry() -> void:
 				break
 			await physics_frames(1)
 		check(loadout.mag_in(Loadout.PRIMARY) == ammo and not visual.rig.weapon_root().visible, "reload finishes without replacing the carried prop")
+		check(not player._weapon_light.is_lit(), "the carried prop leaves the holstered pistol lamp off")
 		loadout.select(rifle_slot)
 		check(loadout.active_slot == rifle_slot and not visual.rig.weapon_root().visible, "rifle selection updates the loadout without drawing it during carry")
 		loadout.select(melee_slot)
@@ -552,6 +553,7 @@ func _test_weapon_changes_during_carry() -> void:
 		await physics_frames(20)
 		check(player.carry.phase == PlayerCarry.Phase.NONE and visual.rig.weapon_root().visible and loadout.mag_in(Loadout.PRIMARY) == ammo,
 				"the selected gun returns when the throw ends without an extra shot")
+		check(player._weapon_light.is_lit(), "the selected gun lamp returns after the throw pose")
 	await physics_frames(60)
 	place_player(10.0)
 	var next_crate := _place(CRATE, 11.0)

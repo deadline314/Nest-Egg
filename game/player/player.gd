@@ -680,13 +680,14 @@ func _apply_corner_correction(delta: float) -> void:
 
 
 ## 滑鼠／右搖桿 360° 瞄準；角色永遠面向準星。
-## 槍燈跟著瞄準方向走；死亡、搭載具、講電話時熄掉。身邊的微光在有槍燈時縮小。
+## 槍燈跟著瞄準方向走；武器收起時熄掉。身邊的微光在有槍燈時縮小。
 func _update_weapon_light(delta: float) -> void:
 	var weapon := loadout.active_weapon()
 	if weapon != _lit_weapon:
 		_lit_weapon = weapon
 		_weapon_light.configure(weapon)
-	_weapon_light.set_active(state != State.DEAD and state != State.MOUNTED and state != State.PHONE and not interaction.active)
+	_weapon_light.set_active(state != State.DEAD and state != State.MOUNTED and state != State.PHONE
+			and carry.phase == PlayerCarry.Phase.NONE and not interaction.active)
 	var interval := weapon.fire_interval / cyber.fire_rate_scale() if weapon != null else 1.0
 	_weapon_light.aim(aim_origin().lerp(muzzle_position(), WEAPON_LIGHT_ORIGIN), aim_dir, 1.0 - _fire_cooldown_left / maxf(0.01, interval), delta)
 	var radius := SELF_GLOW_RADIUS if _weapon_light.is_lit() else SELF_GLOW_RADIUS_UNARMED
