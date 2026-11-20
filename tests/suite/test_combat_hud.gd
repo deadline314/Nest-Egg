@@ -9,6 +9,7 @@ func run() -> void:
 	await _test_credits_tag()
 	await _test_banner_kinds()
 	await _test_tooltips()
+	await _test_cyber_motion()
 	await _test_reload_prompt_clearance()
 	await _test_localized_hud_help()
 	await preload("res://tests/helpers/hud_background_hover_checks.gd").run(self)
@@ -143,6 +144,25 @@ func _test_tooltips() -> void:
 	check(hud.cyber_gauge.mouse_filter == Control.MOUSE_FILTER_PASS, "義體電量可以顯示說明")
 	for slot in hud.weapon_bar.row_count():
 		check(hud.weapon_bar.get_child(slot).tooltip_text != "", "武器欄第 %d 列有說明" % (slot + 1))
+	await end_level(level)
+
+
+func _test_cyber_motion() -> void:
+	var original := Settings.get_reduce_ui_motion()
+	Settings.set_reduce_ui_motion(true)
+	var level := await start_level(PropsSuite.level_data())
+	var cyber := level.player.cyber
+	var gauge := level.hud.cyber_gauge
+	cyber.charge = CyberSystem.MAX_CHARGE
+	cyber.debug_set_ability(Progression.find_ability(&"emp_pulse"))
+	check(gauge.visible and gauge._ready_to_use and is_equal_approx(gauge._bar.ratio(), 1.0), "reduced motion keeps the ready indicator and full charge")
+	check(not gauge.is_processing(), "an ability becoming ready with reduced motion does not start the pulse")
+	Settings.set_reduce_ui_motion(false)
+	check(gauge.is_processing(), "returning to normal motion starts the current ready pulse")
+	Settings.set_reduce_ui_motion(true)
+	check(not gauge.is_processing() and gauge._ready_to_use, "enabling reduced motion stops the current pulse immediately")
+	check(cyber.try_activate() and not gauge._ready_to_use and gauge._bar.ratio() < 1.0, "reduced motion still displays spent charge")
+	Settings.set_reduce_ui_motion(original)
 	await end_level(level)
 
 

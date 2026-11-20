@@ -27,6 +27,10 @@ func _init() -> void:
 	set_process(false)
 
 
+func _ready() -> void:
+	Settings.display_changed.connect(_sync_pulse)
+
+
 func update_state(charge: float, ready_now: bool, ability_name: String, progress: float) -> void:
 	_charge = charge
 	_ready_to_use = ready_now
@@ -34,7 +38,11 @@ func update_state(charge: float, ready_now: bool, ability_name: String, progress
 	_progress = progress
 	_bar.color = LightKit.glow(Palette.CYAN, 1.5) if ready_now else Palette.UI_MUTED
 	_bar.set_ratio(clampf(charge / 100.0, 0.0, 1.0))
-	set_process(ready_now)
+	_sync_pulse()
+
+
+func _sync_pulse() -> void:
+	set_process(_ready_to_use and not Settings.get_reduce_ui_motion())
 	queue_redraw()
 
 
@@ -47,7 +55,7 @@ func _draw() -> void:
 	var font := UiKit.font()
 	var color := Palette.CYAN if _ready_to_use else Palette.UI_MUTED
 	var label := "%s%s" % [_name, "　就緒" if _ready_to_use else ""]
-	var pulse := 0.8 + 0.2 * sin(_time * 6.0) if _ready_to_use else 1.0
+	var pulse := 0.8 + 0.2 * sin(_time * 6.0) if is_processing() else 1.0
 	draw_string(font, Vector2(size.x - font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, UiKit.FS_BODY).x, 10), label,
 			HORIZONTAL_ALIGNMENT_LEFT, -1, UiKit.FS_BODY, Color(color, pulse))
 	if _progress < 1.0:
