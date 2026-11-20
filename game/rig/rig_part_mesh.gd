@@ -18,6 +18,7 @@ const ZONE_ROWS := 3
 static var volume_keep := 1.0
 ## 骨頭相對變換小於這個值就當作沒動。
 const EPSILON := 0.0005
+const WIDTH_EPSILON := 0.0001
 
 ## 重算過幾次頂點（測試用：骨頭沒動時不該增加）。
 var deform_count := 0
@@ -33,7 +34,7 @@ var _axis_x := 0.0
 var _rest_local := PackedVector2Array()
 var _triangles := PackedInt32Array()
 var _zone_rows := PackedInt32Array()
-var _zone_offsets := PackedVector2Array()
+var _zone_offsets := PackedVector2Array()  ## X offsets shared by every joint row.
 var _zone_row_data := PackedVector2Array()  ## (height in bone space, blend weight)
 var _to_local := Transform2D.IDENTITY
 var _last := Transform2D.IDENTITY
@@ -44,10 +45,10 @@ var _root_indices := PackedInt32Array()
 var _root_points := PackedVector2Array()
 var _root_weights := PackedFloat32Array()
 var _last_root := Transform2D.IDENTITY
-var _dirty := true
 var _glow: Polygon2D
 var _deformed := PackedVector2Array()
 var _min_width_ratio := 1.0
+var _width_stale := false
 var _folds := 0
 var _folds_stale := false  ## 折疊數只在有人問（測試、稽核）時才算，每格動畫不付這個成本
 
@@ -125,13 +126,14 @@ func setup(p_texture: Texture2D, size: Vector2, pivot: Vector2, self_bone: Bone2
 		if weight > 0.0:
 			_zone_rows.append(_rest_local.size())
 			_zone_row_data.append(Vector2(row_y, weight))
+		var store_offsets := weight > 0.0 and _zone_offsets.is_empty()
 		for c in COLUMNS:
 			var u := size.x * float(c) / float(COLUMNS - 1)
 			uv.append(Vector2(u, row))
 			var local := Vector2(u, row) - pivot
 			_rest_local.append(local)
 			var in_a: Vector2 = node_transform * local
-			if weight > 0.0:
+			if store_offsets:
 				_zone_offsets.append(Vector2(in_a.x - _axis_x, 0.0))
 			if _root_partner != null and in_a.y < _root_radius:
 				var t := clampf(in_a.y / _root_radius, 0.0, 1.0)
@@ -152,7 +154,8 @@ func setup(p_texture: Texture2D, size: Vector2, pivot: Vector2, self_bone: Bone2
 	_deformed = _rest_local.duplicate()
 	_last = Transform2D.IDENTITY
 	_last_root = Transform2D.IDENTITY
-	_dirty = false
+	_min_width_ratio = 1.0
+	_width_stale = false
 	return true
 
 
@@ -177,12 +180,13 @@ func refresh() -> void:
 	if not visible or _self_bone == null:
 		return
 	var follow := _follow_transform()
-	var root_follow := _self_bone.transform.affine_inverse() * Transform2D(0.0, _root_origin) if _root_partner != null else Transform2D.IDENTITY
-	if not _dirty and _same(follow, _last) and _same(root_follow, _last_root):
+	var has_root := _root_partner != null
+	var root_follow := _self_bone.transform.affine_inverse() * Transform2D(0.0, _root_origin) if has_root else Transform2D.IDENTITY
+	if _same(follow, _last) and (not has_root or _same(root_follow, _last_root)):
 		return
-	_dirty = false
 	_last = follow
-	_last_root = root_follow
+	if has_root:
+		_last_root = root_follow
 	_deform(follow, root_follow)
 	polygon = _deformed
 	if _glow != null:
@@ -198,24 +202,22 @@ func _follow_transform() -> Transform2D:
 func _deform(follow: Transform2D, root_follow: Transform2D) -> void:
 	deform_count += 1
 	_deformed = _rest_local.duplicate()
-	var narrowest := 1.0
+	var along_x := follow.x
 	for row in _zone_rows.size():
 		var first := _zone_rows[row]
-		var start := row * COLUMNS
 		var row_data := _zone_row_data[row]
 		var w := row_data.y
 		var axis := Vector2(_axis_x, row_data.x)
 		var moved_axis: Vector2 = axis.lerp(follow * axis, w)
 		for column in COLUMNS:
-			var offset := _zone_offsets[start + column]
-			var moved_offset: Vector2 = offset.lerp(follow.basis_xform(offset), w)
+			var offset := _zone_offsets[column]
+			var moved_offset: Vector2 = offset.lerp(along_x * offset.x, w)
 			var length := moved_offset.length()
 			var wanted := absf(offset.x)
-			if length > 0.0001 and wanted > 0.0001:
+			if length > WIDTH_EPSILON and wanted > WIDTH_EPSILON:
 				moved_offset *= lerpf(1.0, wanted / length, volume_keep)
-				narrowest = minf(narrowest, length / wanted)
 			_deformed[first + column] = _to_local * (moved_axis + moved_offset)
-	_min_width_ratio = narrowest
+	_width_stale = true
 	_folds_stale = true
 	if _root_indices.is_empty():
 		return
@@ -251,6 +253,16 @@ func fold_fraction() -> float:
 
 ## 關節附近最窄處相對靜止寬度的比例（混合後、修正前）；越接近 1 越沒有縮腰。
 func width_ratio() -> float:
+	if _width_stale:
+		_width_stale = false
+		_min_width_ratio = 1.0
+		var along_x := _last.x
+		for row_data in _zone_row_data:
+			for offset in _zone_offsets:
+				var wanted := absf(offset.x)
+				var length := offset.lerp(along_x * offset.x, row_data.y).length()
+				if length > WIDTH_EPSILON and wanted > WIDTH_EPSILON:
+					_min_width_ratio = minf(_min_width_ratio, length / wanted)
 	return _min_width_ratio
 
 
