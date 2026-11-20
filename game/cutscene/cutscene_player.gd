@@ -631,13 +631,16 @@ func _do_prop(step: Dictionary) -> void:
 
 func _do_scene(step: Dictionary) -> void:
 	var id := StringName(str(step.get("id", "")))
-	if not StageLibrary.exists(id):
-		push_error("[Cutscene] %s：場景「%s」不存在，保留原本的場景" % [_current_where, id])
-		return
+	var stage_exists := StageLibrary.exists(id)
+	if not stage_exists:
+		var fallback := "保留原本的舞台" if _stage != null else "使用空白舞台"
+		push_error("[Cutscene] %s：場景「%s」不存在，%s" % [_current_where, id, fallback])
+		if _stage != null:
+			return
 	if _stage != null:
 		_stage.queue_free()
 		_actors.clear()
-	_stage = StageLibrary.build(id)
+	_stage = StageLibrary.build(id) if stage_exists else StageLibrary.Stage.new()
 	var initial_states: Variant = step.get("prop_states", {})
 	if initial_states is Dictionary and initial_states.size() <= 8:
 		for prop: Variant in initial_states:
@@ -682,6 +685,9 @@ func _do_camera(step: Dictionary) -> void:
 
 func _do_actor(step: Dictionary) -> void:
 	var id := StringName(str(step.get("id", "")))
+	if _stage == null:
+		push_error("[Cutscene] %s：角色「%s」沒有舞台可放置，已略過" % [_current_where, id])
+		return
 	var actor := CutsceneActor.new()
 	var ok := actor.setup(id, str(step.get("kind", "")), str(step.get("portrait", "")),
 			float(step.get("scale", 1.0)), str(step.get("weapon", "")))
@@ -700,7 +706,7 @@ func _do_actor(step: Dictionary) -> void:
 		actor.modulate = Color(shade, shade, shade)
 	actor.set_loop(StringName(str(step.get("loop", ""))), float(step.get("loop_scale", 1.0)))
 	actor.speaker_id = StringName(str(step.get("speaker", id)))
-	actor.ground_y = float(step["ground"]) if step.has("ground") else (_stage.floor_y if _stage != null else NAN)
+	actor.ground_y = float(step["ground"]) if step.has("ground") else _stage.floor_y
 	var slot := _actor_slot(id, step)
 	actor.layer_slot = slot
 	actor.z_index = WorldLayers.stage_actor_z(slot)

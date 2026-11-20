@@ -76,6 +76,7 @@ func run() -> void:
 	await _test_play_all_steps()
 	await _test_skip()
 	await _test_broken_data()
+	await _test_missing_stage()
 	await _test_pause_restored()
 	await _test_story_integration()
 	await _test_overlay_and_layers()
@@ -565,6 +566,47 @@ func _test_broken_data() -> void:
 	var player := _play(&"test_bad_cutscene", scene)
 	check(await _wait_finished(&"test_bad_cutscene"), "資料損毀的演出略過壞步驟後仍然結束")
 	check(int(_steps_done.get(&"test_bad_cutscene", 0)) >= 2, "好的步驟照常執行")
+
+
+func _test_missing_stage() -> void:
+	_finished_ids.clear()
+	var show_actor := {"do": "actor", "id": "rin", "kind": "rin", "pos": [280, 280]}
+	var missing := {"do": "scene", "id": "test_bad_cutscene_missing_stage_asset", "fade": 0.05}
+	var line := {"do": "say", "speaker": "rin", "text": "The dialogue is still available."}
+	var player := _play(&"test_bad_cutscene_missing_stage", {"steps": [missing, show_actor, line]}, 20.0)
+	for _attempt in 30:
+		if player._dialogue.visible:
+			break
+		await frames(1)
+	check(player._stage != null and player._stage.stage_id.is_empty() and player._actors.has(&"rin"),
+			"a missing opening stage retains actors on the empty fallback")
+	check(player._fade.color.a == 0.0 and player._dialogue.visible, "the missing opening stage reveals the dialogue")
+	for _attempt in 120:
+		if player._dialogue.is_complete():
+			break
+		await frames(1)
+	player._advance_requested = true
+	check(await _wait_finished(&"test_bad_cutscene_missing_stage"), "missing-stage completion releases the cinematic")
+
+	var original := {"do": "scene", "id": "test_room", "fade": 0.05}
+	player = _play(&"test_bad_cutscene_keep_stage", {"steps": [original, show_actor, missing, line]}, 20.0)
+	for _attempt in 30:
+		if player._dialogue.visible:
+			break
+		await frames(1)
+	check(player._stage != null and player._stage.stage_id == &"test_room" and player._actors.has(&"rin"),
+			"a missing later stage preserves the original stage and actors")
+	player.skip()
+	check(await _wait_finished(&"test_bad_cutscene_keep_stage"), "the original skip still releases the stage")
+	player = _play(&"test_bad_cutscene_no_scene_step", {"overlay": true, "steps": [show_actor, line]}, 20.0)
+	for _attempt in 30:
+		if player._dialogue.visible:
+			break
+		await frames(1)
+	check(player._stage == null and player._actors.is_empty() and player._dialogue.visible,
+			"an actor without a scene step is skipped while the overlay dialogue remains available")
+	player.skip()
+	check(await _wait_finished(&"test_bad_cutscene_no_scene_step"), "a malformed actor leaves the existing completion path free")
 
 
 func _test_pause_restored() -> void:
