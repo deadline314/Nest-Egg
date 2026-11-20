@@ -205,10 +205,16 @@ func _desired_position() -> Vector2:
 ## 速度除以平滑速率是鏡頭追蹤的位移延遲。後退時補回一部分，讓落點較早入鏡。
 func _retreat_follow_x() -> float:
 	var player := target as Player
-	if tuning.retreat_look_max <= 0.0 or not position_smoothing_enabled or player == null or player.state != Player.State.NORMAL:
+	if not position_smoothing_enabled or player == null:
 		return 0.0
 	var velocity_x := player.velocity.x
-	if velocity_x * player.facing >= 0.0 or velocity_x * Input.get_axis(&"move_left", &"move_right") <= 0.0:
+	if velocity_x * player.facing >= 0.0:
+		return 0.0
+	# A dash keeps moving after its direction button is released.
+	if player.state == Player.State.DASH:
+		return clampf(velocity_x / tuning.smoothing_speed, -tuning.retreat_dash_look_max, tuning.retreat_dash_look_max)
+	if player.state != Player.State.NORMAL or tuning.retreat_look_max <= 0.0 \
+			or velocity_x * Input.get_axis(&"move_left", &"move_right") <= 0.0:
 		return 0.0
 	return clampf(velocity_x / tuning.smoothing_speed, -tuning.retreat_look_max, tuning.retreat_look_max)
 

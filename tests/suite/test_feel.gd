@@ -235,11 +235,20 @@ func _test_camera_retreat() -> void:
 	check(is_zero_approx(camera._retreat_follow_x()), "forward travel keeps the normal view")
 	player.facing = 1
 	player.state = Player.State.DASH
-	check(is_zero_approx(camera._retreat_follow_x()), "dash motion keeps the normal view")
-	player.state = Player.State.NORMAL
+	player.velocity.x = -360.0
+	Input.action_release(&"move_left")
+	check(is_equal_approx(camera._retreat_follow_x(), -48.0), "backward dash keeps its capped compensation after input release")
+	player.facing = -1
+	check(is_zero_approx(camera._retreat_follow_x()), "forward dash keeps its normal view")
+	player.velocity.x = 147.0
+	check(is_equal_approx(camera._retreat_follow_x(), 21.0), "slower rightward backward dash uses velocity over smoothing")
+	var near_tuning := camera.tuning
+	camera.tuning = CameraTuning.profile(&"level_wide")
+	check(is_zero_approx(camera._retreat_follow_x()), "wide camera keeps its original backward dash")
+	camera.tuning = near_tuning
 	camera.position_smoothing_enabled = false
 	check(is_zero_approx(camera._retreat_follow_x()), "instant tracking does not need lag compensation")
-	Input.action_release(&"move_left")
+	player.state = Player.State.NORMAL
 	camera.position_smoothing_enabled = true
 	player.velocity.x = 30.0
 	player.facing = -1

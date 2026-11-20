@@ -29,6 +29,7 @@ const FIELDS := {
 	"fall_look_speed": [4.0, 0.1, 30.0],
 	"smoothing_speed": [7.0, 0.5, 60.0],
 	"retreat_look_max": [0.0, 0.0, 48.0],
+	"retreat_dash_look_max": [0.0, 0.0, 80.0],
 	"shake_reference_zoom": [1.5, 0.5, 4.0],
 	"aim_look_down": [60.0, 0.0, 120.0],
 	"ledge_peek_max": [66.0, 0.0, 120.0],
@@ -56,6 +57,8 @@ var fall_look_speed: float
 var smoothing_speed: float
 ## 主動後退時補償水平追蹤延遲的上限（世界像素）。
 var retreat_look_max: float
+## 後退衝刺時補償水平追蹤延遲的上限（世界像素）。
+var retreat_dash_look_max: float
 ## 背後這段距離內有交戰中的敵人時，縮小前瞻讓牠留在畫面裡（邊距 rear_margin）；0＝關閉。
 var rear_watch_range: float
 var rear_margin: float
