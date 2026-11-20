@@ -105,7 +105,9 @@ func _test_locale_narration() -> void:
 		var opening: Array = Story._scenes["ch1_p01_door"]["steps"]
 		check(opening[1]["lines"][0] == narration[language] and opening[2]["sub"] == subtitles[language], "real prologue narration and subtitle display %s" % language)
 		if language == "ja":
-			check(str(opening[11]["text"]).contains(subtitles["ja"]), "the Japanese prologue subtitle and Old K dialogue use the same pawnshop name")
+			check(opening.any(func(step: Dictionary) -> bool:
+				return step.get("speaker") == "old_k" and str(step.get("text", "")).contains(subtitles["ja"])
+			), "the Japanese prologue subtitle and Old K dialogue use the same pawnshop name")
 		check(Story._seen == expected_seen and Story._completed == expected_completed and GameState.world_flags == expected_flags, "switching to %s preserves seen/completed/world_flags snapshots" % language)
 	Story._seen.assign(seen_before)
 	Story._completed.assign(completed_before)

@@ -8224,9 +8224,9 @@
     {
      "do": "say",
      "speaker": "old_k",
-     "text": "把門帶上喔，雨都跑進來了。",
-     "ja": "ドア閉めとくれよ。雨が入ってきてるじゃないか。",
-     "en": "Shut the door, you hear? The rain's getting in."
+     "text": "帶上門，順手把鞋擦乾。巢蛋當舖可不收雨水喔。",
+     "ja": "戸を閉めて、靴を拭きな。巣卵質店じゃ雨水は預からんぞ。",
+     "en": "Shut the door and wipe your shoes. Nest Egg Pawnshop doesn't take rainwater."
     },
     {
      "do": "say",
@@ -8242,23 +8242,9 @@
     {
      "do": "say",
      "speaker": "old_k",
-     "text": "先把鞋擦乾。巢蛋當舖收貨，不收你一路踩進來的水。",
-     "ja": "まず靴を拭きな。巣卵質店は品物を預かる店だ。ここまで踏み込んできた水は預からんぞ。",
-     "en": "Dry your shoes first. The Nest Egg pawnshop takes in goods, not the water you've tracked in all the way."
-    },
-    {
-     "do": "say",
-     "speaker": "rin",
-     "text": "你今天收了什麼要我試？",
-     "ja": "今日は何を入れた。試せってことか？",
-     "en": "What did you take in today that you want me to test?"
-    },
-    {
-     "do": "say",
-     "speaker": "old_k",
-     "text": "靶跟訓練器都在後面，工作桌上有貨單。今天剛收的，別急著拿出去用。",
-     "ja": "的と訓練機は裏にある。作業台に納品書がある。今日入ったばかりだから、急いで持ち出して使うんじゃないよ。",
-     "en": "The targets and training rig are out back, and the delivery sheet is on the work table. We took them in today, so don't rush to take them out and use them."
+     "text": "後面有剛收的靶和訓練器。先去工作桌看貨單。",
+     "ja": "奥に入荷したばかりの的と訓練機がある。まず作業台の伝票を見な。",
+     "en": "The new targets and trainer are out back. Check the delivery slip on the workbench."
     },
     {
      "do": "fade",
@@ -8277,27 +8263,15 @@
    "lines": [
     {
      "speaker": "old_k",
-     "text": "目錄又翻到那一頁啦？紙都要被你磨破了。",
-     "ja": "またカタログのあのページかい？紙がすり切れちまうよ。",
-     "en": "Back to that catalog page again? You'll wear the paper through."
+     "text": "又看晴岸啦？上層那裡光是電梯就要換兩趟喔。",
+     "ja": "また晴岸か？ 上層のあそこまで、エレベーターだけで二度も乗り換えるんだぞ。",
+     "en": "The Far Shore catalog again? That's two elevator transfers up."
     },
     {
      "speaker": "rin",
-     "text": "晴岸那間四十八萬，窗戶下午照得到太陽。",
-     "ja": "晴岸のあの物件は48万クレジット。窓には午後に日が当たる。",
-     "en": "That place in The Far Shore is 480,000 credits, and its windows get afternoon sun."
-    },
-    {
-     "speaker": "old_k",
-     "text": "晴岸是上層的日照區，光是電梯就要換兩趟。你搬箱子別一直看它。",
-     "ja": "晴岸は上層の日当たりのいい地区だ。エレベーターだけで乗り換えが二回もいる。箱を運ぶ間、ずっと見上げてるんじゃないよ。",
-     "en": "The Far Shore is the upper sunlit district. Getting there takes two elevator changes. Don't keep staring up at it while you carry boxes."
-    },
-    {
-     "speaker": "rin",
-     "text": "我沒要搬上去。我想把你搬上去。",
-     "ja": "自分が上に引っ越すとは言ってない。あんたを上に移したいんだ。",
-     "en": "I'm not moving up there. I want to move you up there."
+     "text": "四十八萬，下午有太陽。我想讓你搬過去。",
+     "ja": "四十八万クレジット。午後は日が差すんだ。あそこへ越してほしい。",
+     "en": "It's 480,000 credits. It gets afternoon sun. I want you to move there."
     },
     {
      "speaker": "old_k",
@@ -8307,15 +8281,15 @@
     },
     {
      "speaker": "rin",
-     "text": "你睡的那間，晴天也看不出來。",
-     "ja": "あんたが寝てる部屋は、晴れてても晴れてるって分からないな。",
-     "en": "The room you sleep in, you can't even tell it's sunny out."
+     "text": "你那間連晴天也看不出來。",
+     "ja": "今の部屋じゃ晴れてるかどうかも分からないよ。",
+     "en": "In your room, you can't even tell when it's sunny."
     },
     {
      "speaker": "old_k",
-     "text": "那就先把今天過完。你跳上搬貨台拿工具，我替你留飯。",
-     "ja": "じゃあまず今日を終わらせな。荷台に飛び乗って道具を取ってきな。飯は取っておくから。",
-     "en": "Then get through today first. Hop up onto the loading platform and grab your tools. I'll keep some food for you."
+     "text": "先把今天過完。跳上搬貨台拿工具，我替你留飯。",
+     "ja": "まず今日を乗り切ろう。荷台に跳び乗って工具を取ってきな。飯は取っとくから。",
+     "en": "Let's get through today first. Jump onto the loading platform for the tools. I'll save you dinner."
     }
    ]
   },
