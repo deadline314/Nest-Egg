@@ -224,9 +224,33 @@ func _test_story_language() -> void:
 	check(row.text.contains(quest["title"]), "malformed translated fields cannot leak array or dictionary text into the title")
 	row.free()
 	preview.free()
+	await _check_objective_width(guidance._label, catalog)
 	Story.set_language(previous_language)
 	GameState.world_flags = old_flags
 	await end_level(level)
+
+
+func _check_objective_width(label: Label, catalog: QuestCatalog) -> void:
+	var original_font := Settings.get_ui_font()
+	var original_scale := Settings.get_ui_text_scale()
+	for language: String in ["zh", "ja", "en"]:
+		Story.set_language(language)
+		for style: String in UiKit.FONT_STYLES:
+			Settings.set_ui_font(style)
+			Settings.set_ui_text_scale(1.2)
+			await frames(3)
+			var font := label.get_theme_font(&"font")
+			var font_size := label.get_theme_font_size(&"font_size")
+			var overflow := PackedStringArray()
+			for quest: Dictionary in catalog.quests:
+				for step: Dictionary in quest["steps"]:
+					var text := "◎ " + QuestCatalog.display_text(step, "title")
+					var width := font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x
+					if width > label.size.x:
+						overflow.append(str(step["complete_flag"]))
+			check(overflow.is_empty(), "%s objectives fit the HUD with the %s font at 120%%: %s" % [language, style, ", ".join(overflow)])
+	Settings.set_ui_font(original_font)
+	Settings.set_ui_text_scale(original_scale)
 
 
 static func fixture_catalog() -> QuestCatalog:
