@@ -207,12 +207,23 @@ func second_grip_near(shoulder: Vector2, ideal := 0.0, near := 0.0, far := INF, 
 	var best_error := INF
 	var tail_end := _butt - SECOND_TAIL_MARGIN
 	var s := -tail_end if tail_end >= SECOND_MIN else best
+	var has_preference := is_finite(_second_along)
+	if has_preference:
+		var remembered := s + roundf((_second_along - s) / SECOND_STEP) * SECOND_STEP
+		if remembered >= s and remembered <= second + 0.001 and absf(remembered) >= SECOND_MIN - 0.001 \
+				and (shaft_side == 0 or signf(remembered) == shaft_side) \
+				and absf(remembered - _second_along) <= SECOND_STEP * 0.1:
+			var point := _origin + _direction * remembered
+			var distance := shoulder.distance_to(point)
+			# A reachable point this close to the previous grip outranks its neighbours.
+			if distance >= near and distance <= far and absf(distance - ideal) < OUT_OF_REACH:
+				return point
 	while s <= second + 0.001:
 		if (shaft_side == 0 or signf(s) == shaft_side) and (absf(s) >= SECOND_MIN - 0.001 or s == minf(SECOND_MIN, second)):
 			var distance := shoulder.distance_to(_origin + _direction * s)
 			var outside := maxf(near - distance, distance - far)
 			var error := absf(distance - ideal) if outside <= 0.0 else OUT_OF_REACH + outside
-			if outside <= 0.0 and is_finite(_second_along):
+			if outside <= 0.0 and has_preference:
 				error = absf(s - _second_along) + absf(distance - ideal) * 0.01
 			if error < best_error:
 				best_error = error

@@ -1,0 +1,176 @@
+{
+	"adapter": "AMD Radeon RX 9070 XT",
+	"failures": 0,
+	"weapons": {
+		"blade": {
+			"both": {
+				"first_active": 5,
+				"maximum_grip_error": 0.0,
+				"ok": true,
+				"peak_light": 0.649983942508698,
+				"physics_samples": 24,
+				"pose": "thermal_blade_cut_1"
+			},
+			"flashes": {
+				"first_active": 5,
+				"maximum_grip_error": 0.0,
+				"ok": true,
+				"peak_light": 0.649984240531921,
+				"physics_samples": 24,
+				"pose": "thermal_blade_cut_1"
+			},
+			"motion": {
+				"first_active": 5,
+				"maximum_grip_error": 0.0,
+				"ok": true,
+				"peak_light": 0.949935734272003,
+				"physics_samples": 24,
+				"pose": "thermal_blade_cut_1"
+			},
+			"normal": {
+				"first_active": 5,
+				"maximum_grip_error": 0.0,
+				"ok": true,
+				"peak_light": 0.949929475784302,
+				"physics_samples": 24,
+				"pose": "thermal_blade_cut_1"
+			}
+		},
+		"dagger": {
+			"both": {
+				"first_active": 2,
+				"maximum_grip_error": 0.0,
+				"ok": true,
+				"peak_light": 0.497487455606461,
+				"physics_samples": 12,
+				"pose": "mono_dagger_stab_1"
+			},
+			"flashes": {
+				"first_active": 2,
+				"maximum_grip_error": 0.0,
+				"ok": true,
+				"peak_light": 0.497488796710968,
+				"physics_samples": 12,
+				"pose": "mono_dagger_stab_1"
+			},
+			"motion": {
+				"first_active": 2,
+				"maximum_grip_error": 0.0,
+				"ok": true,
+				"peak_light": 0.639949858188629,
+				"physics_samples": 12,
+				"pose": "mono_dagger_stab_1"
+			},
+			"normal": {
+				"first_active": 2,
+				"maximum_grip_error": 0.0,
+				"ok": true,
+				"peak_light": 0.63994824886322,
+				"physics_samples": 12,
+				"pose": "mono_dagger_stab_1"
+			}
+		},
+		"glaive": {
+			"both": {
+				"first_active": 9,
+				"maximum_grip_error": 0.0,
+				"ok": true,
+				"peak_light": 0.709113895893097,
+				"physics_samples": 34,
+				"pose": "ion_glaive_thrust"
+			},
+			"flashes": {
+				"first_active": 9,
+				"maximum_grip_error": 0.0,
+				"ok": true,
+				"peak_light": 0.709113955497742,
+				"physics_samples": 34,
+				"pose": "ion_glaive_thrust"
+			},
+			"motion": {
+				"first_active": 9,
+				"maximum_grip_error": 0.0,
+				"ok": true,
+				"peak_light": 1.03645551204681,
+				"physics_samples": 34,
+				"pose": "ion_glaive_thrust"
+			},
+			"normal": {
+				"first_active": 9,
+				"maximum_grip_error": 0.0,
+				"ok": true,
+				"peak_light": 1.03645551204681,
+				"physics_samples": 34,
+				"pose": "ion_glaive_thrust"
+			}
+		},
+		"maul": {
+			"both": {
+				"first_active": 21,
+				"maximum_grip_error": 0.0,
+				"ok": true,
+				"peak_light": 0.635725319385529,
+				"physics_samples": 60,
+				"pose": "hydraulic_maul_smash"
+			},
+			"flashes": {
+				"first_active": 21,
+				"maximum_grip_error": 0.0,
+				"ok": true,
+				"peak_light": 0.635725319385529,
+				"physics_samples": 60,
+				"pose": "hydraulic_maul_smash"
+			},
+			"motion": {
+				"first_active": 21,
+				"maximum_grip_error": 0.0,
+				"ok": true,
+				"peak_light": 1.04290127754211,
+				"physics_samples": 60,
+				"pose": "hydraulic_maul_smash"
+			},
+			"normal": {
+				"first_active": 21,
+				"maximum_grip_error": 0.0,
+				"ok": true,
+				"peak_light": 1.04290127754211,
+				"physics_samples": 60,
+				"pose": "hydraulic_maul_smash"
+			}
+		},
+		"whip": {
+			"both": {
+				"first_active": 11,
+				"maximum_grip_error": 0.0,
+				"ok": true,
+				"peak_light": 0.606898963451386,
+				"physics_samples": 40,
+				"pose": "mono_whip_lash"
+			},
+			"flashes": {
+				"first_active": 11,
+				"maximum_grip_error": 0.0,
+				"ok": true,
+				"peak_light": 0.60689902305603,
+				"physics_samples": 40,
+				"pose": "mono_whip_lash"
+			},
+			"motion": {
+				"first_active": 11,
+				"maximum_grip_error": 0.0,
+				"ok": true,
+				"peak_light": 0.927595853805542,
+				"physics_samples": 40,
+				"pose": "mono_whip_lash"
+			},
+			"normal": {
+				"first_active": 11,
+				"maximum_grip_error": 0.0,
+				"ok": true,
+				"peak_light": 0.927595794200897,
+				"physics_samples": 40,
+				"pose": "mono_whip_lash"
+			}
+		}
+	}
+}

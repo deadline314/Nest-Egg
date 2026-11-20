@@ -1,0 +1,112 @@
+{
+  "trials": [
+    {
+      "order": [
+        "baseline",
+        "candidate"
+      ],
+      "results": {
+        "baseline": {
+          "glaive": 3.95099997520447,
+          "maul": 4.02049994468689
+        },
+        "candidate": {
+          "glaive": 3.933500051498415,
+          "maul": 3.95000004768372
+        }
+      }
+    },
+    {
+      "order": [
+        "candidate",
+        "baseline"
+      ],
+      "results": {
+        "candidate": {
+          "glaive": 4.06599998474121,
+          "maul": 3.9760000705719
+        },
+        "baseline": {
+          "glaive": 3.980000019073485,
+          "maul": 3.96000003814697
+        }
+      }
+    },
+    {
+      "order": [
+        "baseline",
+        "candidate"
+      ],
+      "results": {
+        "baseline": {
+          "glaive": 3.9300000667572,
+          "maul": 3.929499983787535
+        },
+        "candidate": {
+          "glaive": 4.5479998588562,
+          "maul": 4.482499837875365
+        }
+      }
+    },
+    {
+      "order": [
+        "candidate",
+        "baseline"
+      ],
+      "results": {
+        "candidate": {
+          "glaive": 3.9449999332428,
+          "maul": 3.9539999961853
+        },
+        "baseline": {
+          "glaive": 4.441499948501585,
+          "maul": 4.461499929428101
+        }
+      }
+    },
+    {
+      "order": [
+        "baseline",
+        "candidate"
+      ],
+      "results": {
+        "baseline": {
+          "glaive": 3.94899988174438,
+          "maul": 3.96900010108948
+        },
+        "candidate": {
+          "glaive": 3.99699997901917,
+          "maul": 3.927500009536745
+        }
+      }
+    },
+    {
+      "order": [
+        "candidate",
+        "baseline"
+      ],
+      "results": {
+        "candidate": {
+          "glaive": 3.99699997901917,
+          "maul": 4.00299978256226
+        },
+        "baseline": {
+          "glaive": 4.180999994277955,
+          "maul": 4.0479998588562
+        }
+      }
+    }
+  ],
+  "median": {
+    "glaive": {
+      "percent": 0.38628809033392497,
+      "min": -11.178656332671755,
+      "max": 15.725185282475994
+    },
+    "maul": {
+      "percent": -1.078633854581884,
+      "min": -11.37509674482623,
+      "max": 14.07303362690968
+    }
+  }
+}

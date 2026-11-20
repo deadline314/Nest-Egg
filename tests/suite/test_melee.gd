@@ -20,6 +20,7 @@ func run() -> void:
 	_test_bad_data()
 	_test_module_format()
 	await _test_data_only_weapon()
+	_test_supported_second_grip()
 	await _test_weapon_holds()
 	await _test_input_parity()
 	await preload("res://tests/helpers/melee_trigger_edge_checks.gd").run(self)
@@ -363,6 +364,20 @@ func _test_data_only_weapon() -> void:
 	await physics_frames(60)
 	await end_level(level)
 	MeleeData._profiles.erase(TEST_WEAPON_PROFILE)
+
+
+func _test_supported_second_grip() -> void:
+	var held := MeleeHeld.new()
+	held._spec = {"second": 12.0}
+	held._butt = 29.0
+	held._second_along = 9.00001
+	check(held.second_grip_near(Vector2.ZERO, 12.0, 7.0, 14.0, 1).is_equal_approx(Vector2(9, 0)),
+			"a reachable remembered grip stays at its original shaft sample")
+	check(held.second_grip_near(Vector2.ZERO, 12.0, 7.0, 14.0, -1).is_equal_approx(Vector2(-7, 0)),
+			"the remembered grip cannot override the authored side of the shaft")
+	check(held.second_grip_near(Vector2(-5, 0), 12.0, 7.0, 12.0, 1).is_equal_approx(Vector2(7, 0)),
+			"a displaced shoulder uses a real alternative when the old grip is out of reach")
+	held.free()
 
 
 ## 五把近戰武器的按住招式：第一招打完還按著就接上；蓄力停在前搖、持續的招式一直判定、重複的招式多段命中。
