@@ -8,6 +8,7 @@ func run() -> void:
 	await _test_boss_bar()
 	await _test_boss_bar_accessibility()
 	await _test_credits_tag()
+	await _test_credit_counter_accessibility()
 	await _test_banner_kinds()
 	await _test_tooltips()
 	await _test_cyber_motion()
@@ -132,6 +133,47 @@ func _test_credits_tag() -> void:
 	Progression.credits_changed.emit(20, -30)
 	await frames(1)
 	check(tag.value() == 20 and tag._flash_color == Palette.DANGER, "花費時閃紅")
+	await end_level(level)
+
+
+func _test_credit_counter_accessibility() -> void:
+	var previous_motion := Settings.get_reduce_ui_motion()
+	var previous_flashes := Settings.get_reduce_flashes()
+	var level := await start_level(PropsSuite.level_data())
+	var tag := level.hud.credits_tag
+	Settings.set_reduce_ui_motion(true)
+	Settings.set_reduce_flashes(false)
+	check(Progression.add_credits(30) == 30, "the original wallet gains credits")
+	check(tag.value() == 30 and tag._shown == 30.0 and tag._flash == 0.0 and not tag.is_processing(),
+			"reduced motion immediately shows the actual gain without a flash")
+	check(Progression.spend(8) and tag._shown == 22.0 and tag._flash == 0.0 and not tag.is_processing(),
+			"reduced motion immediately shows the actual spend without a flash")
+	Settings.set_reduce_ui_motion(false)
+	Settings.set_reduce_flashes(true)
+	check(Progression.add_credits(11) == 11 and tag.value() == 33 and tag._shown < 33.0 and tag._flash == 0.0 and tag.is_processing(),
+			"reduced flashes keeps the ordinary count-up without a gain flash")
+	check(Progression.spend(4) and tag._shown == 29.0 and tag._flash == 0.0 and not tag.is_processing(),
+			"reduced flashes also suppresses the expense flash")
+	Settings.set_reduce_ui_motion(true)
+	check(Progression.add_credits(7) == 7 and tag._shown == 36.0 and tag._flash == 0.0,
+			"both settings keep the credit counter still and correct")
+	check(not Progression.spend(37) and tag.value() == 36 and tag._shown == 36.0,
+			"an unaffordable expense leaves the displayed balance unchanged")
+	Settings.set_reduce_ui_motion(false)
+	Settings.set_reduce_flashes(false)
+	check(Progression.add_credits(8) == 8 and tag._shown < 44.0 and tag._flash > 0.0,
+			"ordinary counting and flashing resume for a new gain")
+	Settings.set_reduce_ui_motion(true)
+	check(tag._shown == 44.0 and tag._flash == 0.0 and not tag.is_processing(),
+			"enabling reduced motion immediately finishes the active count-up")
+	Settings.set_reduce_ui_motion(false)
+	check(Progression.spend(6) and tag._flash > 0.0 and tag._flash_color == Palette.DANGER,
+			"ordinary expenses still use the red feedback")
+	Settings.set_reduce_flashes(true)
+	check(tag.value() == 38 and tag._shown == 38.0 and tag._flash == 0.0 and not tag.is_processing(),
+			"enabling reduced flashes clears the active expense flash")
+	Settings.set_reduce_ui_motion(previous_motion)
+	Settings.set_reduce_flashes(previous_flashes)
 	await end_level(level)
 
 

@@ -1,6 +1,6 @@
 class_name CreditsTag
 extends Control
-## 信用點讀數：黃色晶片圖示 + 數字。增加時數字往上跳動並閃白，花費時閃紅。
+## 信用點讀數：黃色晶片圖示與餘額；動態提示受顯示設定控制。
 
 const SIZE := Vector2(110, 16)
 const COUNT_TIME := 0.45
@@ -20,6 +20,10 @@ func _init() -> void:
 	set_process(false)
 
 
+func _ready() -> void:
+	Settings.display_changed.connect(_sync_display)
+
+
 func value() -> int:
 	return _value
 
@@ -27,20 +31,22 @@ func value() -> int:
 ## delta 為這次的變化量（0 代表只是設定初值）。
 func set_credits(value: int, delta: int) -> void:
 	_value = value
-	if delta > 0 and not Settings.get_reduce_flashes():
-		_flash = 1.0
-		_flash_color = Color.WHITE
-		set_process(true)
-	elif delta < 0:
+	if delta <= 0:
 		_shown = float(value)
+	if delta != 0:
 		_flash = 1.0
-		_flash_color = Palette.DANGER
-		set_process(true)
-	elif delta == 0:
-		_shown = float(value)
+		_flash_color = Color.WHITE if delta > 0 else Palette.DANGER
+	_sync_display()
+
+
+func _sync_display() -> void:
+	var reduced_motion := Settings.get_reduce_ui_motion()
+	if reduced_motion:
+		_shown = float(_value)
+	if reduced_motion or Settings.get_reduce_flashes():
+		_flash = 0.0
+	set_process(_flash > 0.0 or _shown < float(_value))
 	queue_redraw()
-	if delta > 0:
-		set_process(true)
 
 
 func _process(delta: float) -> void:
