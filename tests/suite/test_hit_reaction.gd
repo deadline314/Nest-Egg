@@ -26,6 +26,7 @@ func run() -> void:
 	await _test_hurt_direction()
 	await _test_death_direction_and_force()
 	await _test_player_death_direction_and_force()
+	await _test_player_death_on_ledge()
 	await _test_corpse_cap()
 	await _test_debris_pool()
 	await _test_armor_still_flies_off()
@@ -354,6 +355,26 @@ func _test_player_death_direction_and_force() -> void:
 	var animator := player._visual.rig.animator as HumanoidAnimator
 	check(player.is_dead() and animator._death_dir == 1.0 and animator._death_force == 0.0,
 			"a scripted death without a hit keeps the original unforced supine pose")
+	await end_level(level)
+
+
+func _test_player_death_on_ledge() -> void:
+	await open_level()
+	var player := level.player
+	var edge := Vector2(57 * 16.0, 16 * 16.0)
+	player.global_position = edge + Vector2(-1.0, -2.0)
+	await physics_frames(8)
+	check(player.is_on_floor() and absf(player.global_position.y - edge.y) < 1.0,
+			"the live player stands on the last pixel of the one-way platform")
+	player.facing = 1
+	var blow := DamageInfo.create(9999, Combat.Team.ENEMY, &"death_ledge_test")
+	blow.origin = player.global_position - Vector2(30.0, 0.0)
+	blow.impact = 7.0
+	blow.ignore_invulnerability = true
+	check(player.health.take_damage(blow) and player.is_dead(), "the platform case uses a real lethal hit from behind")
+	await physics_frames(72)
+	check(player.is_on_floor() and absf(player.global_position.y - FLOOR_Y) < 1.0,
+			"the unsupported prone torso settles on the floor below the platform")
 	await end_level(level)
 
 

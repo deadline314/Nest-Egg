@@ -417,6 +417,14 @@ func notify_death(info: DamageInfo) -> void:
 	_input.set_death_hit(info, player.global_position.x, player.facing)
 
 
+func corpse_support_x() -> float:
+	if not is_instance_valid(rig):
+		return INF
+	var hips := rig.bone(&"hip")
+	var chest := rig.bone(&"chest")
+	return (hips.global_position.x + chest.global_position.x) * 0.5 if hips != null and chest != null else INF
+
+
 func _physics_process(delta: float) -> void:
 	if player == null or rig == null:
 		return

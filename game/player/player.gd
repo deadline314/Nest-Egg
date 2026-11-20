@@ -16,6 +16,10 @@ const STEP_LOUD_DB := -14.0
 const STEP_CROUCH_DB := -8.0
 
 const BODY_SIZE := Vector2(12, 44)
+const CORPSE_SUPPORT_WINDOW := 0.75
+const CORPSE_SUPPORT_BAND := 8.0
+const CORPSE_EDGE_SPEED := 124.0
+const CORPSE_EDGE_TIME := 0.22
 
 ## Breathing, stance interpolation and weapon-hand motion need a small UI gutter.
 ## This is a reading-space proxy, not a continuous combat collision envelope.
@@ -87,6 +91,10 @@ var _weapon_light: WeaponLight
 ## 槍燈目前照的是哪一把武器（換槍時重新設定）。
 var _lit_weapon: WeaponData
 var _contact_shadow: ContactShadow
+var _corpse_support_left := -1.0
+var _corpse_edge_left := 0.0
+var _corpse_edge_direction := 0.0
+var _corpse_support_ray: PhysicsRayQueryParameters2D
 var _was_on_floor := true
 var _fall_speed_before_move := 0.0
 var _max_health := 6
@@ -431,9 +439,7 @@ func _physics_process(delta: float) -> void:
 				state = State.NORMAL
 			return
 		State.DEAD:
-			velocity.x = move_toward(velocity.x, 0.0, tuning.ground_deceleration * delta)
-			_apply_gravity(delta)
-			move_and_slide()
+			_move_corpse(delta)
 			return
 		State.DASH:
 			_process_dash(delta)
@@ -445,6 +451,47 @@ func _physics_process(delta: float) -> void:
 	_apply_corner_correction(delta)
 	move_and_slide()
 	_after_move(delta)
+
+
+func _move_corpse(delta: float) -> void:
+	if is_on_floor() and velocity.y >= 0.0 and _corpse_support_left != 0.0:
+		_check_corpse_support(delta)
+	if _corpse_edge_left > 0.0:
+		velocity.x = _corpse_edge_direction * maxf(_corpse_edge_direction * velocity.x, CORPSE_EDGE_SPEED)
+		_corpse_edge_left = maxf(0.0, _corpse_edge_left - delta)
+	else:
+		velocity.x = move_toward(velocity.x, 0.0, tuning.ground_deceleration * delta)
+	_apply_gravity(delta)
+	move_and_slide()
+	if is_on_wall():
+		_corpse_edge_left = 0.0
+
+
+## A standing capsule can still touch the edge after the chest and hips have moved past it.
+func _check_corpse_support(delta: float) -> void:
+	if _corpse_support_left < 0.0:
+		_corpse_support_left = CORPSE_SUPPORT_WINDOW
+	_corpse_support_left = maxf(0.0, _corpse_support_left - delta)
+	if not is_instance_valid(_visual):
+		return
+	var x := _visual.corpse_support_x()
+	var distance := x - global_position.x
+	if not is_finite(distance) or absf(distance) < BODY_SIZE.x * 0.5:
+		return
+	var normal := get_floor_normal()
+	if normal.y >= -0.1:
+		return
+	var floor_y := global_position.y - normal.x * distance / normal.y
+	if _corpse_support_ray == null:
+		_corpse_support_ray = PhysicsRayQueryParameters2D.new()
+	_corpse_support_ray.collision_mask = collision_mask & Layers.SOLID
+	_corpse_support_ray.from = Vector2(x, floor_y - CORPSE_SUPPORT_BAND)
+	_corpse_support_ray.to = Vector2(x, floor_y + CORPSE_SUPPORT_BAND)
+	if not get_world_2d().direct_space_state.intersect_ray(_corpse_support_ray).is_empty():
+		return
+	_corpse_support_left = 0.0
+	_corpse_edge_left = CORPSE_EDGE_TIME
+	_corpse_edge_direction = signf(distance)
 
 
 func _clear_input_buffers() -> void:
@@ -1254,6 +1301,8 @@ func _on_died(info: DamageInfo) -> void:
 	_interrupt_melee()
 	carry.drop()
 	state = State.DEAD
+	_corpse_support_left = -1.0
+	_corpse_edge_left = 0.0
 	# 倒地後身體橫躺：陰影放寬成身長的一半。
 	_contact_shadow.half_width = BODY_SIZE.y * 0.5
 	if is_instance_valid(_visual):
