@@ -40,6 +40,10 @@ func _init() -> void:
 	set_process(false)
 
 
+func _ready() -> void:
+	Settings.display_changed.connect(_sync_display)
+
+
 func is_open() -> bool:
 	return visible
 
@@ -53,12 +57,17 @@ func open(display_name: String, start_ratio := 1.0) -> void:
 	_name = display_name
 	_ratio = clampf(start_ratio, 0.0, 1.0)
 	_bar.set_ratio(1.0)
-	_bar.set_ratio(_ratio)
+	_bar.set_ratio(_ratio, not _quiet_feedback())
+	_bar.set_pulse(false)
 	_crossed.clear()
 	_flash = 0.0
+	set_process(false)
 	visible = true
 	_kill_tween()
-	if Settings.get_reduce_flashes():
+	if Settings.get_reduce_ui_motion():
+		scale = Vector2.ONE
+		modulate.a = 1.0
+	elif Settings.get_reduce_flashes():
 		scale = Vector2.ONE
 		modulate.a = 0.0
 		_tween = create_tween()
@@ -75,6 +84,9 @@ func close() -> void:
 	if not visible:
 		return
 	_kill_tween()
+	if Settings.get_reduce_ui_motion():
+		hide()
+		return
 	_tween = create_tween()
 	_tween.tween_property(self, "modulate:a", 0.0, CLOSE_TIME)
 	_tween.tween_callback(func() -> void: visible = false)
@@ -83,13 +95,31 @@ func close() -> void:
 func set_ratio(value: float) -> void:
 	var previous := _ratio
 	_ratio = clampf(value, 0.0, 1.0)
-	_bar.set_ratio(_ratio)
+	var quiet := _quiet_feedback()
+	_bar.set_ratio(_ratio, not quiet)
 	for i in phase_marks.size():
 		if previous > phase_marks[i] and _ratio <= phase_marks[i] and not _crossed.has(i):
 			_crossed[i] = true
-			_flash = 1.0
-			set_process(true)
-	_bar.set_pulse(_ratio <= 0.2 and _ratio > 0.0)
+			if not quiet:
+				_flash = 1.0
+				set_process(true)
+	_bar.set_pulse(not quiet and _ratio <= 0.2 and _ratio > 0.0)
+	queue_redraw()
+
+
+func _quiet_feedback() -> bool:
+	return Settings.get_reduce_ui_motion() or Settings.get_reduce_flashes()
+
+
+func _sync_display() -> void:
+	if Settings.get_reduce_ui_motion() and _tween != null and _tween.is_running():
+		_tween.custom_step(OPEN_TIME + CLOSE_TIME)
+	var quiet := _quiet_feedback()
+	_bar.set_pulse(visible and not quiet and _ratio <= 0.2 and _ratio > 0.0)
+	if quiet:
+		_flash = 0.0
+		set_process(false)
+		_bar.set_ratio(_ratio, false)
 	queue_redraw()
 
 

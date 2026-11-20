@@ -6,6 +6,7 @@ extends TestSuite
 
 func run() -> void:
 	await _test_boss_bar()
+	await _test_boss_bar_accessibility()
 	await _test_credits_tag()
 	await _test_banner_kinds()
 	await _test_tooltips()
@@ -70,6 +71,51 @@ func _test_boss_bar() -> void:
 		if not bar.is_open():
 			break
 	check(not bar.is_open(), "頭目擊敗後血條收起")
+	await end_level(level)
+
+
+func _test_boss_bar_accessibility() -> void:
+	var previous_motion := Settings.get_reduce_ui_motion()
+	var previous_flashes := Settings.get_reduce_flashes()
+	var level := await start_level(PropsSuite.level_data())
+	var bar := level.hud.boss_bar
+	for mode: Vector2i in [Vector2i(1, 0), Vector2i(0, 1), Vector2i(1, 1)]:
+		Settings.set_reduce_ui_motion(bool(mode.x))
+		Settings.set_reduce_flashes(bool(mode.y))
+		EventBus.boss_started.emit("測試頭目", 100)
+		check(bar.visible and bar.scale == Vector2.ONE, "accessible boss bar starts at full width")
+		if mode.x:
+			check(bar.modulate.a == 1.0, "reduced motion displays the complete boss bar immediately")
+		EventBus.boss_health_changed.emit(45, 100)
+		check(bar._crossed.has(0) and bar._flash == 0.0 and is_equal_approx(bar._bar._trail, 0.45),
+				"the phase tick stays crossed without a phase flash or white trail")
+		EventBus.boss_health_changed.emit(15, 100)
+		check(is_equal_approx(bar.ratio(), 0.15) and not bar._bar._pulse and not bar._bar.is_processing(),
+				"accessible boss bar shows real low health without a pulse or per-frame update")
+		EventBus.boss_defeated.emit()
+		if mode.x:
+			check(not bar.visible, "reduced motion hides the defeated boss bar immediately")
+	Settings.set_reduce_ui_motion(false)
+	Settings.set_reduce_flashes(false)
+	EventBus.boss_started.emit("測試頭目", 100)
+	check(bar.scale.x < 1.0, "normal mode still starts the boss bar animation")
+	Settings.set_reduce_ui_motion(true)
+	check(bar.visible and bar.scale == Vector2.ONE and bar.modulate.a == 1.0,
+			"switching reduced motion on finishes an active opening animation")
+	Settings.set_reduce_ui_motion(false)
+	EventBus.boss_health_changed.emit(15, 100)
+	check(bar._flash > 0.0 and bar._bar._pulse, "ordinary phase and low-health feedback still run")
+	Settings.set_reduce_flashes(true)
+	check(bar._flash == 0.0 and not bar._bar.is_processing() and is_equal_approx(bar._bar._trail, 0.15),
+			"turning on reduced flashes clears the active pulse, flash, and white trail")
+	Settings.set_reduce_flashes(false)
+	check(bar._bar._pulse and bar._flash == 0.0, "restoring normal mode resumes low health without replaying the phase flash")
+	EventBus.boss_defeated.emit()
+	check(bar.visible, "normal mode still fades out a defeated boss bar")
+	Settings.set_reduce_ui_motion(true)
+	check(not bar.visible, "switching reduced motion on finishes an active close animation")
+	Settings.set_reduce_ui_motion(previous_motion)
+	Settings.set_reduce_flashes(previous_flashes)
 	await end_level(level)
 
 

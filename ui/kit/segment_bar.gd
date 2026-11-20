@@ -32,8 +32,15 @@ func _init() -> void:
 
 
 ## ratio：0 到 1。
-func set_ratio(ratio: float) -> void:
+func set_ratio(ratio: float, animate_loss := true) -> void:
 	var clamped := clampf(ratio, 0.0, 1.0)
+	if not animate_loss:
+		_value = clamped
+		_trail = clamped
+		_trail_wait = 0.0
+		set_process(_pulse)
+		queue_redraw()
+		return
 	if is_equal_approx(clamped, _value):
 		return
 	if clamped < _value:
