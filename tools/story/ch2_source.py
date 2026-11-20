@@ -29,6 +29,7 @@ import market_pass_staging  # noqa: E402
 import roof_watcher_staging  # noqa: E402
 import roof_tea_staging  # noqa: E402
 from ch2_stages import BOOTH, COLLECTION, LEDGER, LEDGER_DISPUTE, PAWNSHOP, RENT_WINDOW, MEDIC_LEDGER, MARKET_PASS, Cast, Stage  # noqa: E402
+from ch2_stages import LEDGER_XIAOWEI, ledger_xiaowei_actor  # noqa: E402
 import ledger_dispute_staging  # noqa: E402
 
 # 屋頂使用原場景與原茶座。早晚共用同樣的站位與比例。
@@ -930,6 +931,11 @@ FORMAL_FRAMES = {
     "ch2_t_s11_intro": Frame(LEDGER_DISPUTE, (
         Cast("egret", 161, 1), Cast("rin", ledger_dispute_staging.RIN_X, 1), Cast("yong", 409, -1)),
         True, ((1, ledger_dispute_staging.place_papers(LEDGER_DISPUTE.floor)),)),
+    "ch2_t_s11_xiaowei": Frame(LEDGER_XIAOWEI, (Cast("rin", 225, 1), Cast("yong", 384, 1)), True, (
+        (0, (ledger_xiaowei_actor(),)),
+        (2, (dict(do="face", id="yong", dir=-1),)),
+        (4, (dict(do="camera", pos=[398,255], zoom=1.17, time=0.45, wait=True),)),
+    )),
     "ch2_t_s13_cut": Frame(MEDIC_LEDGER, _LEDGER_CAST, True, ((0, medic_transport_staging.medic_opening(keep=False)),)),
     "ch2_t_s13_keep": Frame(MEDIC_LEDGER, _LEDGER_CAST, True, ((0, medic_transport_staging.medic_opening(keep=True)),)),
     "ch2_t_s13_cabinet": Frame(LEDGER, (Cast("rin", 280, 1), Cast("yong", 440, -1))),

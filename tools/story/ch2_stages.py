@@ -135,6 +135,49 @@ LEDGER = Stage(
 LEDGER_DISPUTE = replace(LEDGER, ident="ch2_ledger_dispute", shot=(300, 216, 1.22),
                          layers=LEDGER.layers + ledger_dispute_staging.layers())
 
+# S11：在原帳房立繪的高臺上沿用正式關卡的小薇座椅與黃傘。
+_XIAOWEI_PLATFORM = 223.0
+_XIAOWEI_FOOTREST = 219.4
+_XIAOWEI_CHAIR_X = 451.0
+_XIAOWEI_CHAIR = prop_layer("yong_hideout", "yong_hideout__xiaowei_chair_umbrella",
+                            _XIAOWEI_CHAIR_X, _XIAOWEI_PLATFORM, LEDGER.scale)
+_XIAOWEI_CHAIR["support_rect"] = [411, _XIAOWEI_PLATFORM, 103, 4]
+_XIAOWEI_CHAIR_SCALE = _XIAOWEI_CHAIR["scale"]
+_XIAOWEI_SEAT_Y = _XIAOWEI_CHAIR["pos"][1] + 63.5 * _XIAOWEI_CHAIR_SCALE
+_XIAOWEI_SEAT_X = (_XIAOWEI_CHAIR_X + 40.0 * _XIAOWEI_CHAIR_SCALE,
+                   _XIAOWEI_CHAIR_X + 99.0 * _XIAOWEI_CHAIR_SCALE)
+LEDGER_XIAOWEI = replace(
+    LEDGER, ident="ch2_ledger_xiaowei", shot=(350, 252, 1.13), floors=(_XIAOWEI_PLATFORM,_XIAOWEI_FOOTREST),
+    furniture=LEDGER.furniture + (
+        dict(id="xiaowei_safety_seat", kind="seat", plane="actor", support="platform",
+             rect=[_XIAOWEI_SEAT_X[0], _XIAOWEI_SEAT_Y, _XIAOWEI_SEAT_X[1] - _XIAOWEI_SEAT_X[0],
+                   _XIAOWEI_PLATFORM - _XIAOWEI_SEAT_Y]),),
+    layers=LEDGER.layers + (
+        _XIAOWEI_CHAIR,
+        dict(kind="rect", rect=[456, _XIAOWEI_FOOTREST,22, 1.3], color="#806052"),
+        dict(kind="rect", rect=[456.8, _XIAOWEI_FOOTREST+1.3, 20, 1.7], color="#503c35"),
+        dict(kind="rect", rect=[458.4, _XIAOWEI_FOOTREST+2.6, 1.7, 1.0], color="#443430"),
+        dict(kind="rect", rect=[473.0, _XIAOWEI_FOOTREST+2.6, 1.7, 1.0], color="#443430"),
+        # 玻璃沿原門框構圖。低亮度反射留出臉部與黃傘的輪廓。
+        dict(kind="rect", rect=[411, 115, 103, 108], color="#4b5c67", alpha=0.14, depth="front"),
+        dict(kind="rect", rect=[411, 115, 1.4, 108], color="#6b5150", alpha=0.72, depth="front"),
+        dict(kind="rect", rect=[512, 115, 2, 108], color="#392a2b", alpha=0.75, depth="front"),
+        dict(kind="rect", rect=[411, 221.6, 103, 1.4], color="#5a413e", alpha=0.75, depth="front"),
+        dict(kind="poly", points=[[413, 120],[470, 120],[421, 177],[413, 177]], color="#fff2d3", alpha=0.12, depth="front"),
+        dict(kind="poly", points=[[503, 123],[509, 123],[476, 162],[470, 162]], color="#fff2e0", alpha=0.12, depth="front"),
+    ))
+
+
+def ledger_xiaowei_actor() -> dict:
+    seated = stage_actor("xiaowei", "xiaowei", 483, _XIAOWEI_FOOTREST, facing=-1, scale=LEDGER_XIAOWEI.scale,
+                         speaker="xiaowei", pose="sit", loop="glance", weapon="",
+                         pose_reason="坐在高臺的安全座位，問父親傘要放在何處。",
+                         pose_support=f"椅面 x={_XIAOWEI_SEAT_X[0]:.1f}～{_XIAOWEI_SEAT_X[1]:.1f}、y={_XIAOWEI_SEAT_Y:.1f}；"
+                                      f"雙腳落在椅前腳踏 y={_XIAOWEI_FOOTREST:.1f}。")
+    seated["seat_sag"] = 0.45
+    return seated
+
+
 # --- 市集電話亭（S14）：art/environment/scenes/anchor_phone_booth.webp，疊上關卡裡同一座電話亭 --------------
 # 量自立繪：人行道從牆腳 y≈249 到路緣 y≈304，演員與電話亭都站在 292。捲門高約 180（1.5 身高，車庫門），縮放 2.0。
 BOOTH_FLOOR = booth_return_staging.FLOOR
@@ -202,4 +245,4 @@ ROOF_WATCHER = replace(derived(
 ROOF_TEA = replace(derived(roof_tea_staging.STAGE, "ch1_rooftop", roof_tea_staging.layers(), scale=2.2, shot=(320, 200, 1.0)),
                    furniture=roof_tea_staging.furniture())
 
-STAGES = (LEDGER, LEDGER_DISPUTE, BOOTH, COLLECTION, PAWNSHOP, RENT_WINDOW, MEDIC_LEDGER, MARKET_PASS, ROOF_WATCHER, ROOF_TEA)
+STAGES = (LEDGER, LEDGER_DISPUTE, LEDGER_XIAOWEI, BOOTH, COLLECTION, PAWNSHOP, RENT_WINDOW, MEDIC_LEDGER, MARKET_PASS, ROOF_WATCHER, ROOF_TEA)

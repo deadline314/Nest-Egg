@@ -7287,6 +7287,60 @@
    "mode": "animated",
    "steps": [
     {
+     "do": "scene",
+     "id": "ch2_ledger_xiaowei",
+     "pos": [
+      350,
+      252
+     ],
+     "zoom": 1.13,
+     "fade": 0.8
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      225,
+      296
+     ],
+     "facing": 1,
+     "scale": 1.9,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "actor",
+     "id": "yong",
+     "kind": "yong",
+     "pos": [
+      384,
+      296
+     ],
+     "facing": 1,
+     "scale": 1.9,
+     "weapon": "",
+     "speaker": "yong"
+    },
+    {
+     "do": "actor",
+     "id": "xiaowei",
+     "kind": "xiaowei",
+     "pos": [
+      483,
+      219.4
+     ],
+     "facing": -1,
+     "scale": 1.9,
+     "weapon": "",
+     "speaker": "xiaowei",
+     "pose": "sit",
+     "loop": "glance",
+     "pose_reason": "坐在高臺的安全座位，問父親傘要放在何處。",
+     "pose_support": "椅面 x=470.0～498.0、y=200.0；雙腳落在椅前腳踏 y=219.4。",
+     "seat_sag": 0.45
+    },
+    {
      "do": "say",
      "speaker": "xiaowei",
      "text": "爸爸，傘要放在哪裡？",
@@ -7299,6 +7353,11 @@
      "text": "小薇，傘放在腳邊就好，不要離開椅子。",
      "ja": "小薇、傘は足元に置いておけ。椅子から離れるなよ。",
      "en": "Vee, keep the umbrella by your feet. Don't leave your chair."
+    },
+    {
+     "do": "face",
+     "id": "yong",
+     "dir": -1
     },
     {
      "do": "say",
@@ -7319,6 +7378,16 @@
      "en": "Vee is my anchor. I can only come back while I'm linked to the terminal through her. She wants me to come back."
     },
     {
+     "do": "camera",
+     "pos": [
+      398,
+      255
+     ],
+     "zoom": 1.17,
+     "time": 0.45,
+     "wait": true
+    },
+    {
      "do": "say",
      "speaker": "xiaowei",
      "text": "我不想爸爸再不見了。",
@@ -7326,7 +7395,7 @@
      "en": "I don't want Dad to disappear again."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "not": {
      "flag": "ch2_yong_intro_seen",
