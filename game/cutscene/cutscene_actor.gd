@@ -275,6 +275,8 @@ func _apply_pose(velocity: Vector2) -> void:
 	_input.aim_dir = Vector2(float(facing), 0.0)
 	_input.velocity = Vector2.ZERO
 	_input.on_floor = true
+	_input.stage_grounded = not _settling and is_finite(ground_y) and is_equal_approx(position.y, ground_y) \
+		and (pose == &"walk" or pose == &"run" or pose == &"idle")
 	_input.crouching = false
 	_input.blocking = false
 	_input.dead = false

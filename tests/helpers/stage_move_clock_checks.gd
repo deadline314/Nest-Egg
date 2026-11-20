@@ -61,6 +61,9 @@ static func _case(s:TestSuite,pattern:Array,held:bool,rate:float,facing:int,skin
 	var worst_velocity_error:=0.0
 	var lowest_gait:=1.0
 	var worst_hold:=0.0
+	var blend_samples:=0
+	var worst_ankle_penetration:=0.0
+	var animator:=actor.rig.animator as HumanoidAnimator
 	for frame in 1200:
 		var delta:float=pattern[frame%pattern.size()]
 		var moving_before:=actor.pose==&"walk"
@@ -72,6 +75,10 @@ static func _case(s:TestSuite,pattern:Array,held:bool,rate:float,facing:int,skin
 		actor._process(delta)
 		player._stage._process(delta)
 		if not held:tween.custom_step(delta)
+		if actor._input.stage_grounded and actor.pose==&"walk" and animator._gait_w>0.01 and animator._gait_w<0.99:
+			blend_samples+=1
+			var lower_ankle:=maxf(animator.bone_pos(&"foot_front").y,animator.bone_pos(&"foot_back").y)
+			worst_ankle_penetration=maxf(worst_ankle_penetration,lower_ankle-animator.ground_level())
 		elapsed+=delta
 		if elapsed>1.5 and moving_before and actor.pose==&"walk":
 			samples+=1
@@ -85,6 +92,7 @@ static func _case(s:TestSuite,pattern:Array,held:bool,rate:float,facing:int,skin
 	s.check(samples>0,label+" exercises actual steady movement")
 	s.check(worst_velocity_error<=absf(expected_velocity)*.001+.00001,label+" consumes velocity from the same published time interval")
 	s.check(lowest_gait>=.99,label+" keeps steady gait engaged across render/physics clocks")
+	s.check(blend_samples>0 and worst_ankle_penetration<0.01,label+" blends into the registered floor without sinking an ankle")
 	if held:s.check(worst_hold<=StagePropHold.CONTACT_TOLERANCE,label+" retains actual kettle/grip contact")
 	print("MOVE_CLOCK_CASE ",label," samples=",samples," velocity_error=",worst_velocity_error," gait_min=",lowest_gait," hold=",worst_hold)
 	player.free()

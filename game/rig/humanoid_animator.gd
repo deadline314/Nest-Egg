@@ -335,7 +335,7 @@ func update(delta: float, input: RigInput) -> void:
 	_gait_amp_now = lerpf(_gait_amp_now, _gait_amp if _gait_on else 0.0, 1.0 - exp(-10.0 * delta))
 	if floor_pose:
 		if _gait_w > 0.01:
-			_step_legs()
+			_step_legs(input.stage_grounded)
 		elif ground_idle and not _feet_placed:  # 姿勢已經把腳放在地上（NPC 坐、蹲）時，不再用補償推翻它
 			_plant_feet(delta)
 			if _idle_pin_w > 0.01:
@@ -631,10 +631,12 @@ func _set_legs(pose: Dictionary, front_upper: float, front_lower: float, back_up
 ## 跑步的落腳：兩隻腳各有一個踩地／前擺的循環，踩地時腳底貼地並隨身體往後移動，前擺時抬起畫弧；
 ## 身體高度由腿能不能夠到地面決定（腿張最開時最低），兩段骨頭用 IK 夠到腳的位置，膝蓋朝前彎。
 ## 動作資料有 bounce／rise 時，身體高度另外依步伐起伏（踩地中段壓低、騰空時升高），腳掌依相位滾動（GaitShape）。
-func _step_legs() -> void:
+func _step_legs(stage_grounded: bool) -> void:
 	var offsets: Array[Vector2] = []
 	var angles: Array[float] = []
 	var foot: Dictionary = _motion["foot"]
+	# 慢步減少鞋底滾動，避免過場放大後看見靴尖插進地面。
+	var stage_roll := lerpf(0.25, 1.0, smoothstep(0.25, 0.55, _gait_speed_ratio)) if stage_grounded else 1.0
 	_cycle = fposmod(_phase / TAU, 1.0)
 	for i in LEG_CHAINS.size():
 		var p := fposmod(_cycle + (0.0 if i == 0 else 0.5), 1.0)
@@ -651,7 +653,7 @@ func _step_legs() -> void:
 			x = _gait_amp_now * (-1.0 + 2.0 * smoothstep(0.0, 1.0, t))
 			lift = _gait_lift * sin(PI * t)
 		offsets.append(Vector2(x, lift))
-		angles.append(GaitShape.foot_angle(p, _gait_duty, lift / maxf(0.1, _gait_lift), foot))
+		angles.append(GaitShape.foot_angle(p, _gait_duty, lift / maxf(0.1, _gait_lift), foot) * stage_roll)
 	_stance_known = _gait_on
 	var floor_sag := GAIT_MIN_SAG if is_nan(_gait_floor) else _gait_floor
 	if _gait_level:
@@ -674,7 +676,7 @@ func _step_legs() -> void:
 	# 只在移動時落腳的角色，起停時骨盆也要一起淡入淡出，鞋底才不會短暫陷入地面。
 	var blend_shift := not bool(_motion["grounding"])
 	_place_feet(offsets, angles, planted, floor_sag, reach, blend_shift, _land_sag())
-	if not _crouch_feet.is_empty():
+	if stage_grounded or not _crouch_feet.is_empty():
 		# Both ends of this blend use the same ground: the base pose is planted,
 		# while the gait keeps its authored airborne clearance. Angle blending
 		# can move the final ankles away from either endpoint; correct only the

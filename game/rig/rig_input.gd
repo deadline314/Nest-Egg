@@ -6,6 +6,8 @@ const DEATH_FORCE_RANGE := 6.0
 
 var velocity := Vector2.ZERO
 var on_floor := true
+## 過場演員正走在舞台登記的地面線上，步態淡入淡出時仍依該地面落腳。
+var stage_grounded := false
 ## 世界座標的瞄準方向（單位向量）。
 var aim_dir := Vector2.RIGHT
 var facing := 1
