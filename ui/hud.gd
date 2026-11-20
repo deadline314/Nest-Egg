@@ -7,9 +7,24 @@ extends CanvasLayer
 const TOAST_TIME := 2.2
 const CONTROLS_HINT_TIME := 5.0
 const HUD_TEXT := {
-	"zh": {"quick_controls": "{pause} 開啟操作說明", "lives": "殘機 ×%d", "lives_help": "殘機用完會從關卡開頭重來"},
-	"ja": {"quick_controls": "{pause} 操作ガイド", "lives": "残機 ×%d", "lives_help": "残機がなくなると、エリアの入口からやり直します。"},
-	"en": {"quick_controls": "{pause} Controls", "lives": "Lives ×%d", "lives_help": "When lives run out, restart the area."},
+	"zh": {
+		"quick_controls": "{pause} 開啟操作說明", "lives": "殘機 ×%d", "lives_help": "殘機用完會從關卡開頭重來",
+		"items_help": "按 {inventory} 開啟背包來使用消耗品。",
+		"quick_item_help": "按 {use_item} 使用快速道具，其餘在背包使用。",
+		"cyber_help": "就緒時按 {ability}，電量隨時間與擊敗敵人回復。",
+	},
+	"ja": {
+		"quick_controls": "{pause} 操作ガイド", "lives": "残機 ×%d", "lives_help": "残機がなくなると、エリアの入口からやり直します。",
+		"items_help": "{inventory} でインベントリを開いて消耗品を使います。",
+		"quick_item_help": "クイックアイテムは {use_item}、その他はインベントリで使います。",
+		"cyber_help": "準備ができたら {ability} で発動し、時間経過や敵撃破で充電します。",
+	},
+	"en": {
+		"quick_controls": "{pause} Controls", "lives": "Lives ×%d", "lives_help": "When lives run out, restart the area.",
+		"items_help": "Open Inventory with {inventory} to use consumables.",
+		"quick_item_help": "Use {use_item} for the quick item and Inventory for the others.",
+		"cyber_help": "Press {ability} when ready, then recharge over time or by defeating enemies.",
+	},
 }
 ## {動作} 會換成玩家目前設定的按鍵（見 InputBindings.format）。
 const CONTROLS_TEMPLATE := "移動 {move_left}/{move_right}　跳 {jump}　射擊 {shoot}　格擋 {block}　衝刺 {dash}　近戰／終結 {melee}　換彈 {reload}　換武器 {weapon_next}／1～4　搭乘 {interact}　背包 {inventory}　暫停 {pause}"
@@ -86,7 +101,6 @@ func _ready() -> void:
 	_items_label = UiKit.label("", 10, Palette.UI_MUTED)
 	_items_label.position = Vector2(12, 254)
 	_items_label.mouse_filter = Control.MOUSE_FILTER_PASS
-	_items_label.tooltip_text = "攜帶的消耗品；快速鍵使用醫療針，其他在背包使用"
 	root.add_child(_items_label)
 	# 拾取紀錄在右上角信用點下方：角色常站的左下與中央都不擋。
 	pickup_feed = PickupFeed.new()
@@ -147,10 +161,9 @@ func _ready() -> void:
 	_controls_card.add_child(_hint_row)
 	_controls.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_hint_row.add_child(_controls)
-	_render_hint()
+	_refresh_controls()
 	_controls.minimum_size_changed.connect(_layout_controls)
 	root.resized.connect(_layout_controls)
-	_layout_controls()
 
 	# 整個edge元件一起隱藏，避免黑邊切半行；子元件原有visible/值/動畫不變。
 	_framing_edge_root = UiKit.full_rect_root(root)
@@ -201,8 +214,15 @@ func _fixed_reading_rect(control: Control) -> Rect2:
 func _refresh_controls() -> void:
 	_render_hint()
 	_layout_controls()
+	_refresh_items()
+	cyber_gauge.tooltip_text = InputBindings.format(_hud_text("cyber_help"))
+
+
+func _refresh_items() -> void:
 	_items_label.text = InputBindings.format(_items_template)
-	cyber_gauge.tooltip_text = InputBindings.format("義體能力：{ability} 使用；電量隨時間與擊敗敵人回復")
+	_items_label.visible = not _items_template.is_empty()
+	var help_key := "quick_item_help" if _items_template.contains("{use_item}") else "items_help"
+	_items_label.tooltip_text = InputBindings.format(_hud_text(help_key))
 
 
 func _layout_controls() -> void:
@@ -403,7 +423,6 @@ func _on_credits_changed(credits: int, delta: int) -> void:
 func _on_cyber_changed(charge: float, ready: bool, ability_name: String, progress: float) -> void:
 	cyber_gauge.visible = not ability_name.is_empty()
 	cyber_gauge.update_state(charge, ready, ability_name, progress)
-	cyber_gauge.tooltip_text = InputBindings.format("義體能力：{ability} 使用；電量隨時間與擊敗敵人回復")
 
 
 func _on_lives_changed(lives: int) -> void:
@@ -418,12 +437,13 @@ func _on_loadout_changed(loadout: Loadout) -> void:
 
 func _on_consumables_changed(bag: ConsumableBag) -> void:
 	var parts := PackedStringArray()
+	var quick := bag.quick_use_item()
 	for item in ConsumableBag.catalog():
 		var count := bag.count(item.id)
 		if count > 0:
-			parts.append("%s ×%d%s" % [item.display_name, count, "　{use_item}" if item.quick_use else ""])
+			parts.append("%s ×%d%s" % [item.display_name, count, "　{use_item}" if item == quick else ""])
 	_items_template = "　".join(parts)
-	_items_label.text = InputBindings.format(_items_template)
+	_refresh_items()
 
 
 func _on_vehicle_mounted(_vehicle: Node2D) -> void:

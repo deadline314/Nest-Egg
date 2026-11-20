@@ -168,7 +168,11 @@ func _test_cyber_motion() -> void:
 
 func _test_localized_hud_help() -> void:
 	var original := Story.language
-	var locales := {"zh": ["開啟操作說明", "殘機 ×3"], "ja": ["操作ガイド", "残機 ×3"], "en": ["Controls", "Lives ×3"]}
+	var locales := {
+		"zh": ["開啟操作說明", "殘機 ×3", "快速道具", "消耗品", "擊敗敵人"],
+		"ja": ["操作ガイド", "残機 ×3", "クイックアイテム", "消耗品", "敵撃破"],
+		"en": ["Controls", "Lives ×3", "quick item", "consumables", "defeating enemies"],
+	}
 	for language: String in locales:
 		Story.set_language(language)
 		var level := await start_level(PropsSuite.level_data(), 2)
@@ -177,6 +181,18 @@ func _test_localized_hud_help() -> void:
 				"%s HUD presents the opening help and remaining lives in the selected language" % language)
 		var cap := hud._hint_caps[0].get_child(0) as Label
 		check(cap.text == InputBindings.primary_label(&"pause"), "%s HUD still shows the active pause binding" % language)
+		var bag := level.player.consumables
+		var items := hud._items_label
+		bag.restore({})
+		check(not items.visible, "%s HUD removes the hover target when the bag is empty" % language)
+		bag.add(ConsumableBag.find(&"shield_cell"))
+		check(items.visible and items.tooltip_text.contains(locales[language][3]) and items.tooltip_text.contains(InputBindings.primary_label(&"inventory")),
+				"%s HUD points to the inventory when no quick item is carried" % language)
+		bag.add(ConsumableBag.find(&"med_injector"))
+		check(items.tooltip_text.contains(locales[language][2]) and items.tooltip_text.contains(InputBindings.primary_label(&"use_item")),
+				"%s HUD says how to use the current quick item" % language)
+		check(hud.cyber_gauge.tooltip_text.contains(locales[language][4]) and hud.cyber_gauge.tooltip_text.contains(InputBindings.primary_label(&"ability")),
+				"%s HUD explains cyber charge and the current activation binding" % language)
 		await end_level(level)
 	Story.set_language(original)
 
