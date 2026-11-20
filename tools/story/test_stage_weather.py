@@ -24,7 +24,7 @@ OUTDOOR_RAIN_STAGES = {"ch1_rooftop", "ch1_dawn_noodle_stall"}
 
 
 WEATHER_STAGES = OUTDOOR_RAIN_STAGES | {
-    "rainy_harbor", "ch2_phone_booth", "ch2_market_pass", "ch2_rooftop_watcher",
+    "rainy_harbor", "ch2_phone_booth", "ch2_market_pass", "ch2_rooftop_tea", "ch2_rooftop_watcher",
 }
 
 
