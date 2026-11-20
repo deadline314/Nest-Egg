@@ -17,6 +17,9 @@ const GHOST_LIFETIME := DashSilhouettePool.LIFETIME
 const MAX_GHOSTS := DashSilhouettePool.CAPACITY
 ## 重生淡入秒數。
 const MATERIALIZE_TIME := 0.7
+## 槍口在換彈前段放低，最後一段抬回瞄準線。
+const RELOAD_LOWER_END := 0.22
+const RELOAD_RAISE_START := 0.72
 const LASH_SEGMENTS := 10
 ## 軌跡一開始就已經掃過的比例（0~1，掃出弧度的段落在前 40%）。
 const TRAIL_HEAD_START := 0.3
@@ -437,8 +440,11 @@ func _physics_process(delta: float) -> void:
 		return
 	_input.velocity = player.velocity
 	_input.on_floor = player.is_on_floor()
-	# 換彈時槍口壓低朝前下方。
-	_input.aim_dir = player.aim_dir if not player.is_reloading() else Vector2(player.facing * 0.6, 0.8).normalized()
+	_input.aim_dir = player.aim_dir
+	if player.is_reloading():
+		var progress := player.loadout.reload_progress()
+		var lower := smoothstep(0.0, RELOAD_LOWER_END, progress) * (1.0 - smoothstep(RELOAD_RAISE_START, 1.0, progress))
+		_input.aim_dir = player.aim_dir.slerp(Vector2(player.facing * 0.6, 0.8), lower)
 	_input.facing = player.facing
 	_input.run_speed = player.tuning.run_speed
 	_input.crouching = player.is_crouching

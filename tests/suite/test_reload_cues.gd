@@ -160,7 +160,12 @@ func _test_in_play() -> void:
 	check(weapon != null and weapon.has_magazine(), "the starting weapon has a magazine to reload")
 	if weapon == null:
 		return
-	await _reload_once(player)
+	AimInput.set_virtual_gamepad(player, true)
+	Input.action_press(&"aim_right")
+	await physics_frames(8)
+	await _reload_once(player, true)
+	Input.action_release(&"aim_right")
+	AimInput.set_virtual_gamepad(player, false)
 	check(played == [0, 1, 2], "a real reload plays the three default parts in order: %s" % [played])
 	var five: Array = []
 	for i in 5:
@@ -185,12 +190,26 @@ func _test_in_play() -> void:
 	await end_level(level)
 
 
-func _reload_once(player: Player) -> void:
+func _reload_once(player: Player, check_pose := false) -> void:
 	player.loadout.consume_ammo()
 	player.loadout.start_reload()
 	check(player.loadout.is_reloading(), "the reload starts")
 	var frames_left := int(player.loadout.active_weapon().reload_time * 240.0) + 30
+	var lowers_gradually := false
+	var reaches_lowered_pose := false
+	var returns_before_finish := false
 	while player.loadout.is_reloading() and frames_left > 0:
 		await physics_frames(1)
 		frames_left -= 1
+		if check_pose and player.is_reloading():
+			var progress := player.loadout.reload_progress()
+			var shown := player._visual._input.aim_dir
+			var deviation := absf(player.aim_dir.angle_to(shown))
+			var lowered := Vector2(player.facing * 0.6, 0.8)
+			lowers_gradually = lowers_gradually or (progress < 0.15 and deviation > 0.04 and deviation < 0.65)
+			reaches_lowered_pose = reaches_lowered_pose or (progress > 0.3 and progress < 0.65 and absf(shown.angle_to(lowered)) < 0.01)
+			returns_before_finish = returns_before_finish or (progress > 0.92 and deviation < 0.25)
 	await physics_frames(2)
+	if check_pose:
+		check(lowers_gradually and reaches_lowered_pose and returns_before_finish, "the real reload lowers smoothly and raises along the existing reload clock")
+		check(player._visual._input.aim_dir.is_equal_approx(player.aim_dir), "the ready visual returns to the real aim before firing can resume")
