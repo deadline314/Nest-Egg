@@ -219,11 +219,15 @@ func _aim_and_fire() -> void:
 	if _use_pad:
 		_set_stick(direction)
 	else:
-		# 滑鼠：送出真正的滑鼠移動事件，游標放在目標的螢幕位置。
+		# 原生視窗從系統游標讀取瞄準，合成事件本身不會移動它。
+		var viewport := get_viewport()
+		var screen := player.get_canvas_transform() * target
 		var motion := InputEventMouseMotion.new()
-		motion.position = get_viewport().get_final_transform() * player.get_canvas_transform() * target
+		motion.position = viewport.get_final_transform() * screen
 		motion.global_position = motion.position
 		Input.parse_input_event(motion)
+		if DisplayServer.get_name() != "headless":
+			viewport.warp_mouse(screen)
 	_set_action(&"shoot", absf(target.x - player.global_position.x) < 320.0)
 
 
