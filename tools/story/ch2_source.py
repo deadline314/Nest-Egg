@@ -520,8 +520,9 @@ def _loading(source: ProductionSource):
         ("lamp", "先看門內，別替影子取名字。"))], mode="animated",
         when=negate(flag("ch2_guard_seen")), completion=(set_flag("ch2_guard_seen"),))
     source.add("ch2_t_s09_guard_revisit", "S09", (("label", "守衛倚著牆睡著，胸口一起一伏，沒有受傷。"),), when=flag("ch2_guard_seen"))
-    source.add("ch2_t_s09_lever", "S09", (("rin", "從這邊放下橋梯，回代收處就不用繞了。"),),
-               when=negate(flag("ch2_sc1_open")), completion=(set_flag("ch2_sc1_open"),))
+    source.add("ch2_t_s09_lever", "S09", steps=[dict(do="world_action", id="loading_bridge_lever"), *beats(
+        ("rin", "從這邊放下橋梯，回代收處就不用繞了。"))],
+        when=negate(flag("ch2_sc1_open")), completion=(set_flag("ch2_sc1_open"),))
     source.add("ch2_t_s09_lever_revisit", "S09", (("label", "橋梯已經放下，通到代收處。"),), when=flag("ch2_sc1_open"))
 
     have_all = all_of(flag("ch2_evidence_contract"), flag("ch2_evidence_receipt"), flag("ch2_evidence_collection"))

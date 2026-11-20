@@ -6031,6 +6031,10 @@
    "overlay": true,
    "steps": [
     {
+     "do": "world_action",
+     "id": "loading_bridge_lever"
+    },
+    {
      "do": "say",
      "speaker": "rin",
      "text": "從這邊放下橋梯，回代收處就不用繞了。",

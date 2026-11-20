@@ -159,6 +159,24 @@
     "strokes": 1,
     "stall": 0.35
   },
+  "loading_bridge_lever": {
+    "scene": "ch2_t_s09_lever",
+    "level": "res://data/levels/ch2_loading.tres",
+    "source": "res://data/npcs/ch2_sc1_lever.tres",
+    "prop": "dock_warehouse__bridge_lever",
+    "kind": "press",
+    "station": [
+      -8.5,
+      36
+    ],
+    "facing": 1,
+    "crouch": true,
+    "hand_angle": 30,
+    "button": [
+      6.3,
+      7.3
+    ]
+  },
   "loading_guard_inspect": {
     "scene": "ch2_t_s09_guard",
     "level": "res://data/levels/ch2_loading.tres",

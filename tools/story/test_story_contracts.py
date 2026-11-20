@@ -36,6 +36,17 @@ class StoryContracts(unittest.TestCase):
         changed["steps"][-1]["options"][0]["target"] = "ch2_t_s02_off"
         self.assertFalse(contracts.same_effects(changed, sealed))
 
+    def test_bridge_contact_keeps_the_original_shortcut_result(self):
+        ident = "ch2_t_s09_lever"
+        action_id = "loading_bridge_lever"
+        scene = self.chapter["scenes"][ident]
+        table = Path(__file__).resolve().parents[2] / "data/cutscene/world_prop_actions.json"
+        action = json.loads(table.read_bytes())[action_id]
+        self.assertEqual(scene["steps"][0], {"do": "world_action", "id": action_id})
+        self.assertEqual((action["scene"], action["kind"]), (ident, "press"))
+        self.assertEqual(scene["results"], [{"kind": "flag", "id": "ch2_sc1_open", "value": True}])
+        self.assertFalse(any(step.get("do") == "world_action" for step in self.chapter["scenes"]["ch2_t_s09_lever_revisit"]["steps"]))
+
     def _load_changed(self, mutate):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
