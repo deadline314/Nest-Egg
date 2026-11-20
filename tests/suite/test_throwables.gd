@@ -27,6 +27,7 @@ func run() -> void:
 	await _test_preview_matches_first_contact()
 	await _test_drop_terrain()
 	await _test_no_input_conflicts()
+	await _test_weapon_changes_during_carry()
 	await _test_gamepad_events()
 	await _test_chapter_one_placement()
 
@@ -502,6 +503,65 @@ func _test_no_input_conflicts() -> void:
 	player.hurtbox.receive(hit_player())
 	await physics_frames(2)
 	check(not player.carry.is_holding(), "getting hit drops what you carry")
+	await end_level(level)
+
+
+func _test_weapon_changes_during_carry() -> void:
+	await open_level(10.0)
+	var player := level.player
+	var visual := player._visual
+	var loadout := player.loadout
+	var rifle_slot := loadout.equip(load("res://data/weapons/rifle.tres") as WeaponData)
+	var melee_slot := loadout.equip(load("res://data/weapons/melee/melee_blade.tres") as WeaponData)
+	for dispatch_event: bool in [false, true]:
+		place_player(10.0)
+		var crate := _place(CRATE, 11.0)
+		loadout.select(Loadout.PRIMARY)
+		var ammo := loadout.mag_in(Loadout.PRIMARY)
+		loadout.consume_ammo()
+		check(loadout.start_reload(), "start reloading before grabbing the crate")
+		await physics_frames(3)
+		check(await _pick_up(crate), "pick up the crate while the original reload runs")
+		for i in 60:
+			if not player.is_reloading():
+				break
+			await physics_frames(1)
+		check(loadout.mag_in(Loadout.PRIMARY) == ammo and not visual.rig.weapon_root().visible, "reload finishes without replacing the carried prop")
+		loadout.select(rifle_slot)
+		check(loadout.active_slot == rifle_slot and not visual.rig.weapon_root().visible, "rifle selection updates the loadout without drawing it during carry")
+		loadout.select(melee_slot)
+		await physics_frames(2)
+		check(loadout.active_slot == melee_slot and not visual.melee_held().visible, "melee selection stays invisible during carry")
+		var attack := InputEventAction.new()
+		attack.action = &"shoot"
+		if dispatch_event:
+			attack.pressed = true
+			Input.parse_input_event(attack)
+		else:
+			Input.action_press(&"shoot")
+		await physics_frames(5)
+		check(player.carry.phase == PlayerCarry.Phase.THROWING and not player.melee.is_active(),
+				"one throw press does not also queue a melee swing (event=%s)" % dispatch_event)
+		if dispatch_event:
+			attack.pressed = false
+			Input.parse_input_event(attack)
+		else:
+			Input.action_release(&"shoot")
+		loadout.select(Loadout.PRIMARY)
+		check(not visual.rig.weapon_root().visible, "the selected gun stays away during the throw pose")
+		await physics_frames(20)
+		check(player.carry.phase == PlayerCarry.Phase.NONE and visual.rig.weapon_root().visible and loadout.mag_in(Loadout.PRIMARY) == ammo,
+				"the selected gun returns when the throw ends without an extra shot")
+	await physics_frames(60)
+	place_player(10.0)
+	var next_crate := _place(CRATE, 11.0)
+	loadout.select(melee_slot)
+	await physics_frames(3)
+	await _press(&"shoot")
+	check(player.melee.is_active(), "a new attack still starts after throwing and releasing")
+	await _press(&"interact")
+	check(player.carry.held == next_crate and not player.melee.is_active() and player.melee.cooldown_left > 0.0,
+			"pickup ends the previous swing while preserving its recovery time")
 	await end_level(level)
 
 

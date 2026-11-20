@@ -119,6 +119,7 @@ func _find_nearest_pickable() -> Throwable:
 
 
 func pick(item: Throwable) -> void:
+	player.melee.interrupt(true)
 	held = item
 	item.pick_up()
 	phase = Phase.LIFTING

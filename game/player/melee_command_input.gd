@@ -25,7 +25,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			var was_pressed: bool = _held_actions.get(action, false)
 			_held_actions[action] = true
 			if not was_pressed:
-				queue_command()
+				queue_command(action)
 
 
 func accepts_input() -> bool:
@@ -38,12 +38,15 @@ func poll(action: StringName) -> void:
 	var was_pressed: bool = _held_actions.get(action, false)
 	_held_actions[action] = pressed
 	if pressed and not was_pressed:
-		queue_command()
+		queue_command(action)
 
 
-func queue_command() -> void:
-	if accepts_input():
-		_deadline_ms = _now_msec() + int(MeleeData.buffer_time() * 1000.0)
+func queue_command(action: StringName = &"") -> void:
+	if not accepts_input():
+		return
+	if action == &"shoot" and player.carry != null and (player.carry.is_holding() or player.carry.holds_back_shoot()):
+		return
+	_deadline_ms = _now_msec() + int(MeleeData.buffer_time() * 1000.0)
 
 
 func remaining() -> float:

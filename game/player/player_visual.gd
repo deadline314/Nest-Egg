@@ -609,9 +609,9 @@ func _draw_shield() -> void:
 		Settings.flash_scale(), Settings.get_feel_scale("shake"))
 
 
-## 手上現在有沒有畫出近戰武器（撥號、乘載、骨架不可用時不畫）。
+## 手上現在有沒有畫出近戰武器。撥號和搬運姿勢會占用手部。
 func shows_melee_weapon() -> bool:
-	return not _interacting and player != null and player.holds_melee_weapon() and rig != null and rig.is_valid() and _phone_t < 0.0 \
+	return not _interacting and not _carry_hid_weapon and player != null and player.holds_melee_weapon() and rig != null and rig.is_valid() and _phone_t < 0.0 \
 			and rig.bone(&"hand_front") != null and rig.bone(&"arm_front_lower") != null
 
 

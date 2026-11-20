@@ -1332,7 +1332,7 @@ func _on_loadout_changed() -> void:
 	if weapon_id != _melee_weapon_id:
 		_interrupt_melee(true)
 		_melee_weapon_id = weapon_id
-	if not is_on_phone():
+	if not is_on_phone() and carry.pose() == &"":
 		_visual.set_weapon_visual(_visual_id_of(weapon))
 	var owned: Array = []
 	for slot in loadout.slot_count():
