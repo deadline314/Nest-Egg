@@ -28,6 +28,7 @@ func run() -> void:
 	await _test_landing_absorbs_and_recovers()
 	await _test_landing_keeps_boots_near_floor()
 	await _test_kneeling_keeps_boots_near_floor()
+	await _test_walking_and_running_keep_boots_near_floor()
 	await _test_back_dash_keeps_ankles_near_floor()
 	await _test_spring_impulses()
 	await _test_secondary_motion_lifecycle()
@@ -172,7 +173,7 @@ func _test_flight_only_at_full_speed() -> void:
 	var worst := INF
 	for i in 120:
 		rig.animate(DT, input)
-		var height := _lowest_foot_height(rig.animator)
+		var height := -_painted_sole_depth(rig)
 		best = maxf(best, height)
 		worst = minf(worst, height)
 	check(best > 0.5, "rin has a flight phase at full speed (both feet %.2f px off the ground)" % best)
@@ -182,7 +183,7 @@ func _test_flight_only_at_full_speed() -> void:
 	best = -INF
 	for i in 120:
 		rig.animate(DT, input)
-		best = maxf(best, _lowest_foot_height(rig.animator))
+		best = maxf(best, -_painted_sole_depth(rig))
 	check(best < 0.5, "at walking speed one foot is always on the ground (%.2f)" % best)
 	rig.get_parent().queue_free()
 	await frames(1)
@@ -330,6 +331,24 @@ func _test_kneeling_keeps_boots_near_floor() -> void:
 			deepest = maxf(deepest, _painted_sole_depth(rig))
 		check(deepest < 0.65, "leaving a kneel keeps the painted soles above the floor (facing %d, depth %.2f)" % [facing, deepest])
 		rig.get_parent().queue_free()
+	await frames(1)
+
+
+func _test_walking_and_running_keep_boots_near_floor() -> void:
+	for facing: int in [-1, 1]:
+		for speed: float in [69.0, 150.0]:
+			var input := RigInput.new()
+			var rig := _make("rin", input)
+			input.facing = facing
+			input.aim_dir = Vector2(facing, 0.0)
+			_run(rig, input, 36)
+			input.velocity.x = speed * facing
+			var deepest := 0.0
+			for _frame in 120:
+				rig.animate(DT, input)
+				deepest = maxf(deepest, _painted_sole_depth(rig))
+			check(deepest < 0.65, "grounded gait keeps the painted soles above the floor (facing %d, speed %.0f, depth %.2f)" % [facing, speed, deepest])
+			rig.get_parent().queue_free()
 	await frames(1)
 
 

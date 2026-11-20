@@ -401,7 +401,8 @@ func _support_floor_contact(delta: float, input: RigInput) -> void:
 		_foot_contact_left = FOOT_CONTACT_RECOVERY if input.dashing or input.landed > 0.0 else maxf(0.0, _foot_contact_left - delta)
 	# During the kneel blend the ankles can stay above ground while the painted heels cross it.
 	var blending_kneel := _kneel_w > 0.001 and _kneel_w < 1.0
-	if _foot_contact_left == 0.0 and not blending_kneel:
+	var grounded_gait := _gait_on and not input.stage_grounded
+	if _foot_contact_left == 0.0 and not blending_kneel and not grounded_gait:
 		return
 	var corrected := false
 	for chain: Array in LEG_CHAINS:
