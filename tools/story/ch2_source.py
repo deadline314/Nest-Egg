@@ -509,10 +509,10 @@ def _loading(source: ProductionSource):
     source.speakers["hawker_far"] = dict(source.speakers["hawker"], name="遠處的小販",
         name_ja="遠くの屋台の店主", name_en="Distant vendor")
     source.add("ch2_s09_hawker", "S09", (("hawker_far", "有人說灰無常來了，我可沒敢上去看。"),), mode="radio")
-    source.add("ch2_t_s09_guard", "S09", (
+    source.add("ch2_t_s09_guard", "S09", steps=[dict(do="world_action", id="loading_guard_inspect"), *beats(
         ("rin", "守衛還有呼吸，誰先來過？"),
         ("lamp", "我只看見門沒鎖，查不到人。"),
-        ("lamp", "先看門內，別替影子取名字。")),
+        ("lamp", "先看門內，別替影子取名字。"))], mode="animated",
         when=negate(flag("ch2_guard_seen")), completion=(set_flag("ch2_guard_seen"),))
     source.add("ch2_t_s09_guard_revisit", "S09", (("label", "守衛倚著牆睡著，胸口一起一伏，沒有受傷。"),), when=flag("ch2_guard_seen"))
     source.add("ch2_t_s09_lever", "S09", (("rin", "從這邊放下橋梯，回代收處就不用繞了。"),),

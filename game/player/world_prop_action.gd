@@ -11,6 +11,7 @@ extends RefCounted
 ## place（拿起、沖洗、放好，ST-19）：手到擺設的 pick 點拿起一件只用來呈現的東西（texture／width／grip，例如一只碗），
 ## 繞著 pick 點做 scrub_loops 圈小動作（scrub 是橢圓半徑，往上繞；0 圈就是直接拿起），再放到 drop 點、放手。不需要擺設的反應物件，也不動任何物品。
 ## press：掌心按下擺設的 button 點再收手，只呈現已啟動的互動。
+## inspect：從目前一側走到可安全蹲下的位置，查看原互動來源，不移動對方或碰道具。
 ## hand_angle（選填，度）：手掌朝向，0＝朝前平舉、正的往下彎（例如在水槽邊向下沖碗）；沒寫就是 0。
 
 const TABLE := "res://data/cutscene/world_prop_actions.json"
@@ -35,6 +36,7 @@ var _player: WeakRef
 var _prop: WeakRef
 var _reaction: WeakRef
 var _request := 0
+var _inspection_facing := 0
 var _scene: StringName
 var _spec: Dictionary
 var _sequence: Array[Dictionary] = []
@@ -70,7 +72,7 @@ static func definition(id: String) -> Dictionary:
 
 
 static func is_presentation_only(id: String) -> bool:
-	return definition(id).get("kind") == "press"
+	return definition(id).get("kind") in ["press", "inspect"]
 
 
 static func problem(id: Variant, scene: String, overlay: Variant) -> String:
@@ -78,10 +80,12 @@ static func problem(id: Variant, scene: String, overlay: Variant) -> String:
 		return "world_action requires a named action in an overlay scene"
 	var spec := definition(id)
 	if spec.is_empty() or (spec.get("scene") != scene and spec.get("also_scene") != scene) \
-			or spec.get("kind") not in ["insert", "take_paper", "turn", "support", "place", "press"]:
+			or spec.get("kind") not in ["insert", "take_paper", "turn", "support", "place", "press", "inspect"]:
 		return "world_action is missing or belongs to another scene"
 	var required: Array[String] = ["level", "source", "prop", "reaction"]
-	if spec["kind"] == "support":
+	if spec["kind"] == "inspect":
+		required = ["level", "source"]
+	elif spec["kind"] == "support":
 		required = ["level", "source", "bone", "pose"]
 	elif spec["kind"] in ["place", "turn", "press"]:
 		required = ["level", "source", "prop"]
@@ -94,7 +98,8 @@ static func problem(id: Variant, scene: String, overlay: Variant) -> String:
 		return "world_action requires authored level and NPC resources"
 	if not ResourceLoader.exists(spec["level"]) or not ResourceLoader.exists(spec["source"]):
 		return "world_action level/source is unavailable"
-	if typeof(spec.get("facing")) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(spec["facing"])) or absf(float(spec["facing"])) != 1.0:
+	if spec["kind"] != "inspect" and (typeof(spec.get("facing")) not in [TYPE_INT, TYPE_FLOAT] \
+			or not is_finite(float(spec["facing"])) or absf(float(spec["facing"])) != 1.0):
 		return "world_action facing must be -1 or 1"
 	if typeof(spec.get("crouch", false)) != TYPE_BOOL:
 		return "world_action crouch must be a boolean"
@@ -144,6 +149,9 @@ static func problem(id: Variant, scene: String, overlay: Variant) -> String:
 		for component: Variant in point:
 			if typeof(component) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(component)) or absf(float(component)) > 256.0:
 				return "world_action coordinates must be finite and bounded"
+	if spec["kind"] == "inspect":
+		if spec.get("crouch") != true or float(spec["station"][0]) <= 0.0 or float(spec["station"][0]) > MAX_APPROACH:
+			return "world_action inspect requires crouch and a positive same-side station distance"
 	if spec["kind"] == "turn":
 		if float(spec["radius"][0]) < 1.0 or float(spec["radius"][1]) < 0.0 or float(spec["radius"][1]) > float(spec["radius"][0]):
 			return "world_action radius must be a flat rim ellipse (1 <= x, 0 <= y <= x)"
@@ -181,6 +189,8 @@ func start(id: String, player: Player, scene: String) -> bool:
 	_source = weakref(source)
 	if _spec["kind"] == "support":
 		return _start_support(player, source)
+	if _spec["kind"] == "inspect":
+		return _start_inspection(player, source)
 	var prop: PropNode
 	for node: Node in player.get_tree().get_nodes_in_group(PropNode.GROUP):
 		if node is PropNode and level.is_ancestor_of(node) and node.data != null and String(node.data.id) == _spec["prop"]:
@@ -299,8 +309,10 @@ func before_frame(input: RigInput, delta: float) -> void:
 	if _age > MAX_SECONDS:
 		_fail("world action exceeded its bounded presentation time")
 		return
-	input.facing = int(_spec["facing"])
+	input.facing = _inspection_facing if _inspection_facing != 0 else int(_spec["facing"])
 	input.aim_dir = Vector2(input.facing, 0)
+	if phase == "inspect":
+		input.aim_dir = Vector2(input.facing, 0.25).normalized()
 	input.on_floor = true  # Start was physically grounded; route support was checked.
 	# Presentation turns only the rig input. Gameplay facing stays paired with its
 	# actual aim, so restoring the held weapon cannot create a crossed-arm frame.
@@ -314,7 +326,7 @@ func before_frame(input: RigInput, delta: float) -> void:
 			input.aim_dir = Vector2(input.facing, 0)
 	elif phase == "feed" and reaction != null:
 		reaction.presentation_tick(dt)
-	else:
+	elif _inspection_facing == 0:
 		input.hand_grip_front = true
 
 
@@ -328,7 +340,7 @@ func after_frame(rig: CharacterRig) -> void:
 		return
 	var t := clampf(_elapsed / _duration, 0.0, 1.0)
 	var eased := smoothstep(0.0, 1.0, t)
-	if phase not in ["approach", "feed"]:
+	if _inspection_facing == 0 and phase not in ["approach", "feed"]:
 		if not _phase_started:
 			_from_hand = _last_hand if _hand_started else rig.hand_contact_global(&"front")
 			_hand_started = true
@@ -577,8 +589,25 @@ func support_global() -> Vector2:
 	return at + Vector2(float(_spec["contact"][0]) * side, float(_spec["contact"][1]))
 
 
+func _start_inspection(player: Player, source: NpcActor) -> bool:
+	if not source.bone_global(&"chest").is_finite():
+		return _fail("world action inspect needs its visible original actor")
+	_start_position = player.global_position
+	var side := -1 if _start_position.x < source.global_position.x else 1
+	_station = source.global_position + Vector2(side * float(_spec["station"][0]), float(_spec["station"][1]))
+	if not route_clear(player, _station):
+		return _fail("world action inspection needs a supported route beside the actor", &"route")
+	_player = weakref(player)
+	_inspection_facing = -side
+	player.velocity = Vector2.ZERO
+	_sequence = [{"id":"approach"}, {"id":"inspect", "time":0.65}, {"id":"release", "time":0.28}]
+	_enter_phase()
+	_frame_camera(player, source.global_position.x)
+	return true
+
+
 func _without_reaction() -> bool:
-	return _spec.get("kind") in ["support", "place", "press"] or (_spec.get("kind") == "turn" and not _spec.has("reaction"))
+	return _spec.get("kind") in ["support", "place", "press", "inspect"] or (_spec.get("kind") == "turn" and not _spec.has("reaction"))
 
 
 ## place：走到擺設前、伸手到 pick 點、拿起要呈現的東西、繞小圈、放到 drop 點、放手。

@@ -84,6 +84,14 @@ func _test_audit_terminal_contact() -> void:
 
 
 func _test_loading_guard() -> void:
+	const ACTION := "loading_guard_inspect"
+	const SCENE := "ch2_t_s09_guard"
+	var steps: Array = Story._scenes[SCENE].get("steps", [])
+	check(not steps.is_empty() and steps[0] == {"do": "world_action", "id": ACTION}
+			and WorldPropAction.is_presentation_only(ACTION), "the first inspection can lower Rin without owning story results")
+	check(WorldPropAction.problem(ACTION, SCENE, true).is_empty()
+			and not WorldPropAction.problem(ACTION, "ch2_t_s09_guard_revisit", true).is_empty(),
+			"the first guard reading owns the optional inspection, and the revisit stays short")
 	var level := await start_level(_datas["loading"] as LevelData)
 	var guard: NpcActor
 	for node in level._entities.get_children():

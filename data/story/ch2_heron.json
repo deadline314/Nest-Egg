@@ -5965,27 +5965,35 @@
    ]
   },
   "ch2_t_s09_guard": {
-   "mode": "dialogue",
-   "lines": [
+   "mode": "animated",
+   "steps": [
     {
+     "do": "world_action",
+     "id": "loading_guard_inspect"
+    },
+    {
+     "do": "say",
      "speaker": "rin",
      "text": "守衛還有呼吸，誰先來過？",
      "ja": "警備員はまだ息がある。先に来たのは誰だ？",
      "en": "The guard's still breathing. Who got here first?"
     },
     {
+     "do": "say",
      "speaker": "lamp",
      "text": "我只看見門沒鎖，查不到人。",
      "ja": "見えるのは、ドアに鍵がかかってなかったことだけ。誰が来たかまでは追えないよ。",
      "en": "All I see is that the door wasn't locked. I can't trace anyone."
     },
     {
+     "do": "say",
      "speaker": "lamp",
      "text": "先看門內，別替影子取名字。",
      "ja": "まずドアの中を確かめて。影に勝手に名前をつけないでね。",
      "en": "Check inside the door first. Don't go giving the shadows names."
     }
    ],
+   "overlay": true,
    "when": {
     "not": {
      "flag": "ch2_guard_seen",

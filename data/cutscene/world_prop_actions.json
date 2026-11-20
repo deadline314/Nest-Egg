@@ -159,6 +159,14 @@
     "strokes": 1,
     "stall": 0.35
   },
+  "loading_guard_inspect": {
+    "scene": "ch2_t_s09_guard",
+    "level": "res://data/levels/ch2_loading.tres",
+    "source": "res://data/npcs/ch2_guard.tres",
+    "kind": "inspect",
+    "station": [46, 0],
+    "crouch": true
+  },
   "audit_terminal_submit": {
     "scene": "ch2_t_s15_upload",
     "level": "res://data/levels/ch2_lounge_front.tres",

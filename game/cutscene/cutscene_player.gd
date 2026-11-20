@@ -287,6 +287,8 @@ func _input(event: InputEvent) -> void:
 		skip()
 		get_viewport().set_input_as_handled()
 	elif event.is_action_pressed(&"ui_accept") or shoot_pressed or event.is_action_pressed(&"jump") \
+			or (event.is_action_pressed(&"interact") and _overlay_mode and _dialogue.visible \
+				and Story.current_presentation_context().get("framing_source") == "object") \
 			or (event is InputEventMouseButton and event.is_pressed() and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT):
 		if _dialogue.visible and not _dialogue.is_complete():
 			_dialogue.complete()
