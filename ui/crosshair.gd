@@ -14,6 +14,9 @@ const WEAK_MARK_END := 11.0
 const BLOCK_MARK_END := 7.0
 
 var _bound_player: WeakRef
+var _reduce_motion := false
+var _flash_scale := 1.0
+var _kill_grows := false
 var _hit_left := 0.0
 var _kill_left := 0.0
 var _weak_left := 0.0
@@ -31,7 +34,23 @@ func _ready() -> void:
 	PromptLayout.add_obstacle(self, prompt_obstacle_rect)
 	EventBus.hit_confirmed.connect(_on_hit_confirmed)
 	EventBus.hit_marker.connect(_on_hit_marker)
-	EventBus.dry_fired.connect(func() -> void: _dry_left = DRY_TIME)
+	EventBus.dry_fired.connect(_on_dry_fired)
+	_sync_display()
+	Settings.display_changed.connect(_sync_display)
+
+
+func _sync_display() -> void:
+	_reduce_motion = Settings.get_reduce_ui_motion()
+	_flash_scale = Settings.flash_scale()
+	if _reduce_motion:
+		_dry_left = 0.0
+		_kill_grows = false
+	queue_redraw()
+
+
+func _on_dry_fired() -> void:
+	if not _reduce_motion:
+		_dry_left = DRY_TIME
 
 
 func _enter_tree() -> void:
@@ -103,6 +122,7 @@ func _on_hit_confirmed(_world_position: Vector2, killed: bool) -> void:
 	_hit_left = HIT_TIME
 	if killed:
 		_kill_left = KILL_TIME
+		_kill_grows = not _reduce_motion
 
 
 func prompt_obstacle_rect() -> Rect2:
@@ -124,7 +144,8 @@ func _draw_center() -> Vector2:
 
 
 func _tick_gap() -> float:
-	return BASE_GAP + _bloom * BLOOM_GAP + 3.0 * (_kill_left / KILL_TIME)
+	var kill_gap := 3.0 * (_kill_left / KILL_TIME) if _kill_grows else 0.0
+	return BASE_GAP + _bloom * BLOOM_GAP + kill_gap
 
 
 func _draw() -> void:
@@ -132,7 +153,7 @@ func _draw() -> void:
 	var gap := _tick_gap()
 	var color := LightKit.glow(Palette.CYAN, 1.6)
 	if _kill_left > 0.0:
-		color = LightKit.glow(Palette.DANGER, 2.2)
+		color = LightKit.glow(Palette.DANGER, lerpf(1.0, 2.2, _flash_scale))
 	for dir: Vector2 in [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]:
 		draw_line(p + dir * gap, p + dir * (gap + TICK_LENGTH), Color(0, 0, 0, 0.6), 3.0)
 		draw_line(p + dir * gap, p + dir * (gap + TICK_LENGTH), color, 1.5)
@@ -140,13 +161,16 @@ func _draw() -> void:
 	if _hit_left > 0.0:
 		# 命中標記：斜向四短線。
 		var t := _hit_left / HIT_TIME
-		var mark_color := Color(LightKit.glow(Palette.WHITE, 2.0), t)
+		# 白色在高光影下仍可能飽和，減閃光時也降低覆蓋強度。
+		var mark_intensity := lerpf(1.0, 2.0, _flash_scale)
+		var mark_alpha := t * lerpf(0.55, 1.0, _flash_scale)
+		var mark_color := Color(LightKit.glow(Palette.WHITE, mark_intensity), mark_alpha)
 		for dir: Vector2 in [Vector2(1, 1), Vector2(-1, 1), Vector2(1, -1), Vector2(-1, -1)]:
 			var n := dir.normalized()
 			draw_line(p + n * (gap + 2.0), p + n * (gap + 7.0), mark_color, 1.5)
 	if _weak_left > 0.0:
 		var tw := _weak_left / (HIT_TIME * 1.6)
-		var weak_color := Color(LightKit.glow(Palette.WARNING, 2.4), tw)
+		var weak_color := Color(LightKit.glow(Palette.WARNING, lerpf(1.0, 2.4, _flash_scale)), tw)
 		for dir: Vector2 in [Vector2(1, 1), Vector2(-1, 1), Vector2(1, -1), Vector2(-1, -1)]:
 			var n := dir.normalized()
 			draw_line(p + n * (gap + 1.0), p + n * (gap + WEAK_MARK_END), weak_color, 2.0)

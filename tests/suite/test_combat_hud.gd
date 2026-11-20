@@ -14,6 +14,7 @@ func run() -> void:
 	await _test_tooltips()
 	await _test_cyber_motion()
 	await _test_reload_prompt_clearance()
+	await _test_aim_feedback_accessibility()
 	await _test_localized_hud_help()
 	await preload("res://tests/helpers/hud_background_hover_checks.gd").run(self)
 	await _test_radio_panel()
@@ -46,6 +47,44 @@ func _test_reload_prompt_clearance() -> void:
 		await frames(2)
 		reserved = bounds_for_ring.call()
 		check(not reserved.has_area(), "a full magazine does not reserve space around the crosshair")
+	await end_level(level)
+
+
+func _test_aim_feedback_accessibility() -> void:
+	var motion_before := Settings.get_reduce_ui_motion()
+	var flashes_before := Settings.get_reduce_flashes()
+	Settings.set_reduce_ui_motion(false)
+	Settings.set_reduce_flashes(false)
+	var level := await start_level(PropsSuite.level_data())
+	var reticle := level.hud.crosshair
+	var ring := level.hud.ammo_ring
+	reticle._bloom = 0.35
+	var aim_gap := reticle._tick_gap()
+	EventBus.dry_fired.emit()
+	reticle._dry_left *= 0.8
+	EventBus.hit_confirmed.emit(Vector2.ZERO, true)
+	EventBus.hit_marker.emit(&"weak")
+	check(reticle._tick_gap() > aim_gap and reticle._draw_center() != reticle._screen_point,
+			"ordinary reticle widens on a kill and recoils from a dry shot")
+	Settings.set_reduce_flashes(true)
+	check(is_equal_approx(reticle._flash_scale, Settings.REDUCED_FLASH_SCALE) and ring._reduce_pulses
+			and not ring._reduce_motion and reticle._tick_gap() > aim_gap,
+			"reduced flashes dims burst feedback without removing reticle motion")
+	Settings.set_reduce_ui_motion(true)
+	check(reticle._draw_center() == reticle._screen_point and is_equal_approx(reticle._tick_gap(), aim_gap)
+			and reticle._kill_left > 0.0 and reticle._weak_left > 0.0,
+			"reduced motion stops active decorative displacement and keeps real aim and hit markers")
+	EventBus.reload_completed.emit()
+	check(ring._done_left == AmmoRing.DONE_TIME and ring._reduce_pulses and ring._reduce_motion,
+			"reduced settings keep reload completion available at a fixed radius")
+	Settings.set_reduce_ui_motion(false)
+	Settings.set_reduce_flashes(false)
+	check(reticle._draw_center() == reticle._screen_point and is_equal_approx(reticle._tick_gap(), aim_gap)
+			and not ring._reduce_pulses, "restoring ordinary settings does not replay completed aim motion")
+	EventBus.hit_confirmed.emit(Vector2.ZERO, true)
+	check(reticle._tick_gap() > aim_gap, "the next actual kill starts ordinary reticle motion again")
+	Settings.set_reduce_ui_motion(motion_before)
+	Settings.set_reduce_flashes(flashes_before)
 	await end_level(level)
 
 

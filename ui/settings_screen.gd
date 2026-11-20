@@ -240,7 +240,7 @@ func _build_display_tab() -> Control:
 	box.add_child(_reduce_flashes)
 	_reduce_ui_motion = CheckButton.new()
 	_reduce_ui_motion.text = "減少介面動態"
-	_reduce_ui_motion.tooltip_text = "選單直接顯示，關閉滑入與數字跳動；遊戲動作照常。"
+	_reduce_ui_motion.tooltip_text = "關閉選單滑入、數字跳動與空槍時的準星晃動。"
 	_reduce_ui_motion.focus_mode = Control.FOCUS_ALL
 	_reduce_ui_motion.button_pressed = Settings.get_reduce_ui_motion()
 	_reduce_ui_motion.toggled.connect(func(on: bool) -> void:

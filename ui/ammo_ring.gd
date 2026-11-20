@@ -26,6 +26,9 @@ var weapon_color := Palette.CYAN
 var is_energy := false
 
 var _player_ref := PlayerRef.new()
+var _reduce_motion := false
+var _reduce_pulses := false
+var _flash_scale := 1.0
 var _weapon_id: StringName = &""
 var _has_mag := false
 var _point := Vector2.ZERO
@@ -49,7 +52,16 @@ func _ready() -> void:
 	EventBus.reload_completed.connect(func() -> void: _done_left = DONE_TIME)
 	InputBindings.bindings_changed.connect(_refresh_reload_hint)
 	_refresh_reload_hint()
+	_sync_display()
+	Settings.display_changed.connect(_sync_display)
 	PromptLayout.add_obstacle(self, _prompt_obstacle_rect)
+
+
+func _sync_display() -> void:
+	_reduce_motion = Settings.get_reduce_ui_motion()
+	_flash_scale = Settings.flash_scale()
+	_reduce_pulses = _reduce_motion or _flash_scale < 1.0
+	queue_redraw()
 
 
 func is_showing_ammo() -> bool:
@@ -136,21 +148,25 @@ func _draw() -> void:
 	var p := _point
 	if _has_mag and _reloading:
 		_draw_reload_arc(p, alpha)
+		var label_alpha := 1.0 if _reduce_pulses else 0.7 + 0.3 * sin(_time * 12.0)
 		_shadowed(p + RELOAD_TEXT_OFFSET, _reload_label(), RELOAD_TEXT_SIZE,
-				Color(LightKit.glow(Palette.WHITE, 1.5), (0.7 + 0.3 * sin(_time * 12.0)) * alpha))
+				Color(LightKit.glow(Palette.WHITE, 1.5), label_alpha * alpha))
 	if _done_left > 0.0:
 		# 換彈完成：整圈亮一下。
 		var kd := _done_left / DONE_TIME
-		draw_arc(p, RADIUS + 1.0 * (1.0 - kd), 0.0, TAU, 32, Color(LightKit.glow(weapon_color, 2.2), kd * alpha), ARC_WIDTH)
+		var radius := RADIUS if _reduce_motion else RADIUS + (1.0 - kd)
+		var intensity := lerpf(1.0, 2.2, _flash_scale)
+		draw_arc(p, radius, 0.0, TAU, 32, Color(LightKit.glow(weapon_color, intensity), kd * alpha), ARC_WIDTH)
 	elif _show_low_hint():
 		_shadowed(p + RELOAD_TEXT_OFFSET, _low_reload_hint, RELOAD_TEXT_SIZE,
 				Color(LightKit.glow(Palette.WARNING, 1.6), 0.8 * alpha))
 	if _name_left > 0.0:
 		var k := minf(1.0, _name_left / 0.3)
-		_shadowed(p + Vector2(RADIUS + 5.0, -10.0 + 3.0 * (1.0 - k)), weapon_name, 8, Color(LightKit.glow(weapon_color, 1.4), k * alpha))
+		var offset := -10.0 if _reduce_motion else -10.0 + 3.0 * (1.0 - k)
+		_shadowed(p + Vector2(RADIUS + 5.0, offset), weapon_name, 8, Color(LightKit.glow(weapon_color, 1.4), k * alpha))
 	if _empty_left > 0.0:
 		var k := _empty_left / EMPTY_TIME
-		var flicker := 0.6 + 0.4 * signf(sin(_time * 30.0))
+		var flicker := 1.0 if _reduce_pulses else 0.6 + 0.4 * signf(sin(_time * 30.0))
 		_shadowed(p + Vector2(-14, 36), "EMPTY", 9, Color(LightKit.glow(Palette.DANGER, 1.8), k * flicker * alpha))
 
 
