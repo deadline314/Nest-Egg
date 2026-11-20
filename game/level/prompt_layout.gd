@@ -197,10 +197,10 @@ static func _collect_obstacles() -> void:
 
 
 ## Bubble layout excludes its own child owners, avoiding feedback from last frame's boxes.
-static func collect_obstacles_except(excluded_owner: Node, output: Array[Rect2]) -> void:
+static func collect_obstacles_except(excluded_owner: Node, output: Array[Rect2], excluded_item: Node = null) -> void:
 	output.clear()
 	for owner in _obstacles:
-		if excluded_owner != null and is_instance_valid(owner) and excluded_owner.is_ancestor_of(owner):
+		if owner == excluded_item or (excluded_owner != null and is_instance_valid(owner) and excluded_owner.is_ancestor_of(owner)):
 			continue
 		if is_instance_valid(owner) and not owner.is_queued_for_deletion() and _obstacles[owner].is_valid():
 			var rect: Rect2 = _obstacles[owner].call()

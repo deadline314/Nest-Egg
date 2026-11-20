@@ -26,6 +26,9 @@ var _bloom := 0.0
 func _ready() -> void:
 	set_anchors_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	# Update the actual draw bounds before world prompts lay out for this frame.
+	process_priority = -1
+	PromptLayout.add_obstacle(self, prompt_obstacle_rect)
 	EventBus.hit_confirmed.connect(_on_hit_confirmed)
 	EventBus.hit_marker.connect(_on_hit_marker)
 	EventBus.dry_fired.connect(func() -> void: _dry_left = DRY_TIME)

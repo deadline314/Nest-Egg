@@ -12,6 +12,7 @@ func run() -> void:
 	await _test_motion_safety()
 	await _test_nodes()
 	await _test_npc_obstacle()
+	await _test_aim_obstacle()
 	await _test_modal_suppression()
 	await _test_keycaps()
 	await _test_screen_edge()
@@ -278,6 +279,28 @@ func _test_npc_obstacle() -> void:
 	stage.queue_free()
 	await frames(2)
 	check(PromptLayout._obstacles.is_empty(), "人物離開場景時取消障礙登記")
+
+
+func _test_aim_obstacle() -> void:
+	var level := await start_level(PropsSuite.level_data())
+	var crosshair := level.hud.crosshair
+	var viewport := level.get_viewport()
+	var view := viewport.get_canvas_transform().affine_inverse() * viewport.get_visible_rect()
+	var prompt := _spawn_prompt(level, view.get_center().x, "{melee} 近戰")
+	var holder := prompt.get_parent() as Node2D
+	holder.global_position.y = view.get_center().y + 36.0
+	level.player.set_physics_process(false)
+	level.player.aim_point = prompt.base_rect().get_center()
+	await frames(20)
+	var blocked := crosshair.prompt_obstacle_rect()
+	var placed := Rect2(prompt.base_rect().position + prompt._nudge, prompt.base_rect().size)
+	check(blocked.intersects(prompt.base_rect()) and prompt.is_showing() and not blocked.intersects(placed),
+		"a real visible aiming reticle and world invitation leave each other readable")
+	check(crosshair.prompt_obstacle_rect().has_point(level.player.aim_point), "world prompt placement preserves the actual aim point")
+	level.hud.hide()
+	await frames(2)
+	check(not crosshair.prompt_obstacle_rect().has_area(), "a hidden HUD does not reserve invisible aiming space")
+	await end_level(level)
 
 
 func _test_leader_geometry() -> void:

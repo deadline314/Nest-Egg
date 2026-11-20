@@ -317,7 +317,8 @@ func _layout_boxes() -> void:
 		stack_offset[key] = lift + size.y + STACK_GAP + TAIL
 	if _layout_rects.is_empty():
 		return
-	PromptLayout.collect_obstacles_except(self, _layout_obstacles)
+	# Aiming stays a second pass here so a crowded ambient caption retains its original place.
+	PromptLayout.collect_obstacles_except(self, _layout_obstacles, crosshair)
 	var bounds := camera_rect.grow(-4.0)
 	var nudges := PromptLayout.solve(_layout_rects, _layout_obstacles, STACK_GAP, bounds)
 	for i in _layout_entries.size():
