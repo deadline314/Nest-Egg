@@ -9,13 +9,21 @@ from PIL import Image
 from scipy.ndimage import distance_transform_edt
 
 
-def extend_overlap(source: Path, expected: str, contacts: tuple, *,
-                   last_row: int | None = None, last_column: int | None = None) -> Image.Image:
+def approved_pixels(source: Path, expected: str) -> np.ndarray:
     content = source.read_bytes()
     if sha256(content).hexdigest() != expected:
         raise ValueError(f"{source}: expected the approved contact source")
     with Image.open(BytesIO(content)) as image:
-        original = np.asarray(image.convert("RGBA"))
+        return np.asarray(image.convert("RGBA"))
+
+
+def extend_overlap(source: Path, expected: str, contacts: tuple, *,
+                   last_row: int | None = None, last_column: int | None = None) -> Image.Image:
+    return extend_pixels(approved_pixels(source, expected), contacts, last_row=last_row, last_column=last_column)
+
+
+def extend_pixels(original: np.ndarray, contacts: tuple, *,
+                  last_row: int | None = None, last_column: int | None = None) -> Image.Image:
     result = original.copy()
     alpha = original[:, :, 3]
     source_y, source_x = distance_transform_edt(alpha < 128, return_distances=False, return_indices=True)
