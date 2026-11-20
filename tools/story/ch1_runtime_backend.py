@@ -563,7 +563,17 @@ def _stage_talks(scenes):
             actions = _stage_actions(spec.get("actions", {}).get(ident, ()), floor)
             choice_at = next((i for i, step in enumerate(body) if step.get("do") == "choice"), len(body))
             steps = [legacy.stage(stage_id, x, y, zoom, fade_in)] + cast + legacy.spaced(body[:choice_at]) + actions + body[choice_at:]
-            if ident == "ch1_t_supper_stay_meal":
+            if ident == "ch1_t_ali_2_sit":
+                pot = legacy.LOUNGE_POT
+                steps[0]["props"] = {pot["id"]: {"visible": True}}
+                after_cast = 1 + len(cast)
+                steps[after_cast:after_cast] = [
+                    {"do": "reach", "id": "ali", "hand": "front", "space": "prop", "prop": pot["id"],
+                     "to": [158, 28], "time": 0.32, "contact": [80.5, 24.5], "angle": 3.14},
+                    {"do": "prop_move", "id": pot["id"], "to": [264, pot["pos"][1]], "time": 0.42},
+                    {"do": "reach", "id": "ali", "hand": "front", "release": True, "time": 0.26},
+                ]
+            elif ident == "ch1_t_supper_stay_meal":
                 # The last line explicitly says Rin has finished her bowl.
                 # Apply the visible state before that line, never award results here.
                 last_say = max(i for i, step in enumerate(steps) if step.get("do") == "say")
