@@ -58,14 +58,22 @@ func _test_ch1_pose_baseline() -> void:
 	for step: Dictionary in _scene(&"ch1_p01_door")["steps"]:
 		if step.get("do") == "actor" and step.get("id") == "rin":
 			check(step.get("pose") == "idle", "Rin stands at the pawnshop counter in the opening")
-	for action in [{"do": "pose", "id": "rin", "pose": "squat"}, {"do": "move", "id": "rin", "to": [385, 348], "then": "sit"}]:
+	for action in [
+		{"do": "pose", "id": "rin", "pose": "squat"},
+		{"do": "pose", "id": "rin", "pose": "kneel"},
+		{"do": "move", "id": "rin", "to": [385, 348], "then": "sit"},
+	]:
 		var scene := _scene(&"ch1_p01_door").duplicate(true)
 		scene["steps"].append(action)
 		check("\n".join(CutsceneChecker.validate("pose_negative", scene, Story._speakers)).contains("pose_reason"), "unsupported %s without a reason fails" % action)
 		action["pose_reason"] = "在舞台上檢查地面物件。"
 		check("\n".join(CutsceneChecker.validate("pose_negative", scene, Story._speakers)).contains("pose_support"), "a reason without a support fails")
 		action["pose_support"] = "舞台地板接觸線 y=348。"
-		check(CutsceneChecker.validate("pose_positive", scene, Story._speakers).is_empty(), "explicit pose context passes the data check; geometry still needs visual review")
+		var problems := CutsceneChecker.validate("pose_positive", scene, Story._speakers)
+		if action.get("pose", "") == "kneel":
+			check("\n".join(problems).contains("動作「kneel」不存在"), "a reason and support cannot enable an unavailable cutscene pose")
+		else:
+			check(problems.is_empty(), "explicit pose context passes the data check; geometry still needs visual review")
 
 
 func _test_script_consistency() -> void:
