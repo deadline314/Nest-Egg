@@ -28,6 +28,7 @@ func run() -> void:
 	await _test_landing_absorbs_and_recovers()
 	await _test_landing_keeps_boots_near_floor()
 	await _test_kneeling_keeps_boots_near_floor()
+	await _test_crouch_pose_switches_with_weapon()
 	await _test_walking_and_running_keep_boots_near_floor()
 	await _test_back_dash_keeps_ankles_near_floor()
 	await _test_spring_impulses()
@@ -334,6 +335,43 @@ func _test_kneeling_keeps_boots_near_floor() -> void:
 	await frames(1)
 
 
+func _test_crouch_pose_switches_with_weapon() -> void:
+	for facing: int in [-1, 1]:
+		var input := RigInput.new()
+		var rig := _make("rin", input)
+		input.facing = facing
+		input.aim_dir = Vector2(facing, 0.0)
+		input.crouching = true
+		_run(rig, input, 30)
+		var knee_height := rig.animator.ground_level() - rig.to_local(rig.bone(&"leg_back_lower").global_position).y
+		check(rig.active_pose_parts() == &"kneel", "a held gun uses the dedicated kneel shape")
+		rig.set_weapon("")
+		input.crouch_uses_kneel = false
+		input.melee_grip = true
+		var deepest := 0.0
+		for _frame in 24:
+			rig.animate(DT, input)
+			deepest = maxf(deepest, _painted_sole_depth(rig))
+		check(rig.active_pose_parts() == &"" and is_zero_approx(rig.animator._kneel_w),
+				"switching to melee while crouched clears the kneeling pose")
+		check(rig.animator.ground_level() - rig.to_local(rig.bone(&"leg_back_lower").global_position).y > knee_height + 2.0
+				and deepest < 0.65, "the squat raises the rear knee without burying either boot")
+		input.melee_grip = false
+		_run(rig, input, 4)
+		for id: StringName in [&"foot_front", &"foot_back"]:
+			var foot := rig.bone(id)
+			var pitch := rig.to_local(foot.to_global(Vector2.RIGHT)).y - rig.to_local(foot.global_position).y
+			check(absf(_painted_sole_depth(rig, id)) < 0.65 and absf(pitch) < 0.01,
+					"an unarmed squat keeps the full %s sole on the floor" % id)
+		rig.set_weapon("rifle")
+		input.crouch_uses_kneel = true
+		_run(rig, input, 24)
+		check(rig.active_pose_parts() == &"kneel" and is_equal_approx(rig.animator._kneel_w, 1.0),
+				"a return to the firearm restores the kneel")
+		rig.get_parent().queue_free()
+	await frames(1)
+
+
 func _test_walking_and_running_keep_boots_near_floor() -> void:
 	for facing: int in [-1, 1]:
 		for speed: float in [69.0, 150.0]:
@@ -352,9 +390,11 @@ func _test_walking_and_running_keep_boots_near_floor() -> void:
 	await frames(1)
 
 
-func _painted_sole_depth(rig: CharacterRig) -> float:
+func _painted_sole_depth(rig: CharacterRig, foot_only: StringName = &"") -> float:
 	var depth := -INF
 	for id: StringName in [&"foot_front", &"foot_back"]:
+		if foot_only != &"" and foot_only != id:
+			continue
 		var foot := rig.bone(id)
 		for point: Vector2 in rig.animator._dash_sole:
 			depth = maxf(depth, rig.to_local(foot.to_global(point)).y - rig.animator._dash_floor)

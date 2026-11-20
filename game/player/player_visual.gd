@@ -449,6 +449,7 @@ func _physics_process(delta: float) -> void:
 	_input.facing = player.facing
 	_input.run_speed = player.tuning.run_speed
 	_input.crouching = player.is_crouching
+	_input.crouch_uses_kneel = not rig.weapon_def().is_empty()
 	_input.blocking = player.is_blocking
 	_input.dashing = player.state == Player.State.DASH
 	_input.staggered = player.state == Player.State.STAGGERED

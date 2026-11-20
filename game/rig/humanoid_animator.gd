@@ -162,6 +162,7 @@ var _idle_on := false
 var _idle_pin_w := 0.0
 var _kneel_w := 0.0
 var _kneel_parts := false  # 跪姿的專屬零件（前大腿用坐姿畫的那一塊）有沒有換上
+var _squat_support := 0.0
 var _idle_foot_x: Array[float] = [0.0, 0.0]
 ## Reused leg IK blend base; do not allocate a temporary pose for each chain each frame.
 var _feet_base: Array[float] = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
@@ -394,6 +395,7 @@ var _feet_placed := false
 func _support_floor_contact(delta: float, input: RigInput) -> void:
 	if not input.on_floor or input.dead:
 		_foot_contact_left = 0.0
+		_squat_support = 0.0
 		return
 	if input.crouching:
 		_foot_contact_left = 0.0
@@ -402,17 +404,24 @@ func _support_floor_contact(delta: float, input: RigInput) -> void:
 	# During the kneel blend the ankles can stay above ground while the painted heels cross it.
 	var blending_kneel := _kneel_w > 0.001 and _kneel_w < 1.0
 	var grounded_gait := _gait_on and not input.stage_grounded
-	if _foot_contact_left == 0.0 and not blending_kneel and not grounded_gait:
+	var squat_target := 1.0 if input.crouching and not input.crouch_uses_kneel else 0.0
+	_squat_support = 0.0 if input.dashing else move_toward(_squat_support, squat_target, KNEEL_BLEND_SPEED * delta)
+	# A squat supports both soles; a kneel still needs its raised rear heel.
+	var support := minf(_squat_support, 1.0 - _kneel_w)
+	if _foot_contact_left == 0.0 and not blending_kneel and not grounded_gait and support == 0.0:
 		return
 	var corrected := false
 	for chain: Array in LEG_CHAINS:
 		var foot: StringName = chain[2]
 		if not (_global_pos.has(chain[0]) and _rig.has_bone(chain[1]) and _global_pos.has(foot)):
 			continue
-		var angle: float = _global_angle[foot]
+		var original_angle: float = _global_angle[foot]
+		var angle := lerp_angle(original_angle, 0.0, support) if support > 0.0 else original_angle
 		var ankle: Vector2 = _global_pos[foot]
 		var excess := ankle.y + _painted_sole_offset(angle) - _dash_floor
-		if excess > 0.001:
+		if excess < 0.0:
+			excess *= support
+		if absf(excess) > 0.001 or angle != original_angle:
 			# Keep the hip and muzzle on their authored path.
 			ankle.y -= excess
 			_reach_leg(chain[0], chain[1], foot, ankle, angle)
@@ -830,7 +839,7 @@ func _remember_feet_base() -> void:
 ## 骨架原點在腳底，所以地面是 y = 0；_ground_y 是站立時腳踝的高度，前腳踝就放在那裡。
 func _kneel(delta: float, input: RigInput) -> void:
 	var kneel: Dictionary = (_motion["crouch"] as Dictionary).get("kneel", {})
-	var want := 1.0 if input.crouching and input.on_floor and not input.dead and not kneel.is_empty() else 0.0
+	var want := 1.0 if input.crouching and input.crouch_uses_kneel and input.on_floor and not input.dead and not kneel.is_empty() else 0.0
 	_kneel_w = move_toward(_kneel_w, want, KNEEL_BLEND_SPEED * delta)
 	# 有跪姿專屬零件的外觀，跪下過半時換上、起身過半時換回；只收回自己換上的那一組，不動別人選的（過場的坐姿）。
 	if (_kneel_w >= 0.5) != _kneel_parts:

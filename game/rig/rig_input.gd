@@ -13,6 +13,8 @@ var aim_dir := Vector2.RIGHT
 var facing := 1
 var run_speed := 150.0
 var crouching := false
+## 地圖上的一般蹲姿與持槍跪瞄可各自使用原姿勢。
+var crouch_uses_kneel := true
 var blocking := false
 var dashing := false
 var staggered := false
