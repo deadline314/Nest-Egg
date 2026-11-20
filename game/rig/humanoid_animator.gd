@@ -11,7 +11,7 @@ extends RefCounted
 
 const POSE_SHARPNESS := 18.0
 ## Follow the original pose blend through its first four time constants after the dash.
-const DASH_FLOOR_RECOVERY := 4.0 / POSE_SHARPNESS
+const FOOT_CONTACT_RECOVERY := 4.0 / POSE_SHARPNESS
 const MAX_AIM_ANGLE := deg_to_rad(105.0)
 const SPRING_STIFFNESS := 140.0
 const SPRING_DAMPING := 11.0
@@ -177,7 +177,7 @@ var _springs: Array[Dictionary] = []
 var _motion: Dictionary = {}
 var _dash_sole := PackedVector2Array()
 var _dash_floor := 0.0
-var _dash_floor_left := 0.0
+var _foot_contact_left := 0.0
 ## Optional local foot angles, validated once when this animator loads its motion.
 var _crouch_feet: Array = []
 var _spring_angle: Dictionary[StringName, float] = {}
@@ -377,7 +377,7 @@ func update(delta: float, input: RigInput) -> void:
 	if input.dead:
 		_rest_corpse()
 	if not _dash_sole.is_empty():
-		_support_dash_feet(delta, input)
+		_support_floor_contact(delta, input)
 	_drape_hems()
 	if not input.dead:
 		_solve_arms(input, aim_angle)
@@ -391,12 +391,12 @@ func update(delta: float, input: RigInput) -> void:
 var _feet_placed := false
 
 
-func _support_dash_feet(delta: float, input: RigInput) -> void:
+func _support_floor_contact(delta: float, input: RigInput) -> void:
 	if not input.on_floor or input.dead or input.crouching:
-		_dash_floor_left = 0.0
+		_foot_contact_left = 0.0
 		return
-	_dash_floor_left = DASH_FLOOR_RECOVERY if input.dashing else maxf(0.0, _dash_floor_left - delta)
-	if _dash_floor_left == 0.0:
+	_foot_contact_left = FOOT_CONTACT_RECOVERY if input.dashing or input.landed > 0.0 else maxf(0.0, _foot_contact_left - delta)
+	if _foot_contact_left == 0.0:
 		return
 	var corrected := false
 	for chain: Array in LEG_CHAINS:

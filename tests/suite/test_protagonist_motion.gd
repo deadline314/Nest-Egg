@@ -26,6 +26,7 @@ func run() -> void:
 	await _test_air_pose_is_continuous()
 	await _test_takeoff_stretch()
 	await _test_landing_absorbs_and_recovers()
+	await _test_landing_keeps_boots_near_floor()
 	await _test_back_dash_keeps_ankles_near_floor()
 	await _test_spring_impulses()
 	await _test_secondary_motion_lifecycle()
@@ -279,6 +280,32 @@ func _test_landing_absorbs_and_recovers() -> void:
 		rig.get_parent().queue_free()
 	check(depths[0] > 1.0, "a light landing still bends the knees (%.2f px)" % depths[0])
 	check(depths[1] > depths[0] + 1.0 and depths[1] < 14.0, "a hard landing sinks deeper but not through the floor (%.2f vs %.2f px)" % [depths[1], depths[0]])
+	await frames(1)
+
+
+func _test_landing_keeps_boots_near_floor() -> void:
+	for facing: int in [-1, 1]:
+		var input := RigInput.new()
+		var rig := _make("rin", input)
+		input.facing = facing
+		input.aim_dir = Vector2(facing, 0.0)
+		_run(rig, input, 36)
+		input.on_floor = false
+		input.velocity = Vector2(0.0, 190.0)
+		_run(rig, input, 24)
+		input.on_floor = true
+		input.velocity = Vector2.ZERO
+		input.landed = 0.4
+		var deepest := 0.0
+		for _frame in 12:
+			rig.animate(DT, input)
+			input.landed = 0.0
+			for id: StringName in [&"foot_front", &"foot_back"]:
+				var foot := rig.bone(id)
+				for point: Vector2 in rig.animator._dash_sole:
+					deepest = maxf(deepest, rig.to_local(foot.to_global(point)).y - rig.animator._dash_floor)
+		check(deepest < 0.75, "landing keeps the painted soles above the floor (facing %d, depth %.2f)" % [facing, deepest])
+		rig.get_parent().queue_free()
 	await frames(1)
 
 
