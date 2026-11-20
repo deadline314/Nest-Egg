@@ -416,6 +416,21 @@ func _test_player_fx() -> void:
 	var base := Fx.particle_count()
 	player._on_parry(DamageInfo.create(1, Combat.Team.ENEMY, &"test"), at)
 	check(Fx.particle_count() - base >= 10, "a perfect parry plays the new burst on top of the old effect (%d)" % (Fx.particle_count() - base))
+	var previous_flash_setting := Settings.get_reduce_flashes()
+	var opacity: PackedVector2Array = []
+	for reduced: bool in [false, true]:
+		Settings.set_reduce_flashes(reduced)
+		MeleeFx.hit(at, Vector2.RIGHT, Palette.CYAN, &"pierce", false)
+		var field := Fx._glow
+		var star := posmod(field._cursor - 2, ParticleField.CAPACITY)
+		var glow := posmod(field._cursor - 1, ParticleField.CAPACITY)
+		check(field._cell[star] == VfxAtlas.Cell.FLARE and field._cell[glow] == VfxAtlas.Cell.GLOW,
+			"melee contact emits its star and halo with Reduce Flashes %s" % reduced)
+		opacity.append(Vector2(field._col0[star].a, field._col0[glow].a))
+	Settings.set_reduce_flashes(previous_flash_setting)
+	check(opacity[0].is_equal_approx(Vector2(0.85, 0.45)), "normal impact keeps its original flare opacity")
+	check(opacity[1].is_equal_approx(opacity[0] * Settings.REDUCED_FLASH_SCALE),
+		"Reduce Flashes dims both additive impact layers using the configured scale")
 	await physics_frames(3)
 	await end_level(level)
 

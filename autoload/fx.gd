@@ -414,9 +414,10 @@ func flare(position: Vector2, color: Color, size := 40.0, life := 0.14) -> void:
 	size *= FLARE_SCALE
 	if _glow == null:
 		return
-	_glow.emit_ex(position, Vector2.ZERO, life, VfxAtlas.Cell.FLARE, size * 0.6, size, Color(minf(1.9, color.r * 1.3 + 0.4), minf(1.9, color.g * 1.3 + 0.35), minf(1.9, color.b * 1.3 + 0.3), 0.85),
+	var flash := Settings.flash_scale()
+	_glow.emit_ex(position, Vector2.ZERO, life, VfxAtlas.Cell.FLARE, size * 0.6, size, Color(minf(1.9, color.r * 1.3 + 0.4), minf(1.9, color.g * 1.3 + 0.35), minf(1.9, color.b * 1.3 + 0.3), 0.85 * flash),
 			Color(color.r, color.g, color.b, 0.0), 0.0, 0.0, randf() * 0.4)
-	_glow.emit_ex(position, Vector2.ZERO, life * 1.4, VfxAtlas.Cell.GLOW, size * 0.7, size * 1.6, Color(color.r * 1.3, color.g * 1.3, color.b * 1.3, 0.45),
+	_glow.emit_ex(position, Vector2.ZERO, life * 1.4, VfxAtlas.Cell.GLOW, size * 0.7, size * 1.6, Color(color.r * 1.3, color.g * 1.3, color.b * 1.3, 0.45 * flash),
 			Color(color.r, color.g, color.b, 0.0), 0.0, 0.0)
 
 
