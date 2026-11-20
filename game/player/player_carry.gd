@@ -22,6 +22,7 @@ var player: Player
 var phase: Phase = Phase.NONE
 var held: Throwable
 var _phase_t := 0.0
+var _lift_offset := Vector2.ZERO
 var _hinted := false
 ## 丟出去的那一下射擊鍵還按著：放開之前不算開槍（否則每丟一次就多開一槍或多揮一刀）。
 var _throw_press_held := false
@@ -120,6 +121,7 @@ func _find_nearest_pickable() -> Throwable:
 
 func pick(item: Throwable) -> void:
 	player.melee.interrupt(true)
+	_lift_offset = item.global_position - player.global_position
 	held = item
 	item.pick_up()
 	phase = Phase.LIFTING
@@ -178,7 +180,7 @@ func hold_point() -> Vector2:
 	var overhead := player.global_position + Vector2(player.facing * 2.0, -HOLD_HEIGHT)
 	if phase == Phase.LIFTING and is_instance_valid(held):
 		var t := clampf(_phase_t / maxf(0.01, held.data.lift_time), 0.0, 1.0)
-		return (player.global_position + Vector2(player.facing * 12.0, 0.0)).lerp(overhead, ease(t, -2.0))
+		return (player.global_position + _lift_offset).lerp(overhead, ease(t, -2.0))
 	return overhead
 
 

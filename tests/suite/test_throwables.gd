@@ -315,8 +315,15 @@ func _test_pick_throw_hit() -> void:
 	grunt.set_physics_process(false)
 	await physics_frames(3)
 	check(player.carry.nearest_pickable() == crate, "the crate at the player's feet can be picked up")
+	var initial_offset := crate.global_position - player.global_position
 	await _press(&"interact")
 	check(player.carry.phase == PlayerCarry.Phase.LIFTING and player.carry.pose() == PlayerCarry.POSE_LIFT, "pressing interact starts the lift pose")
+	await physics_frames(1)
+	var lift_progress := player.carry.pose_progress()
+	var overhead := Vector2(2.0 * player.facing, -PlayerCarry.HOLD_HEIGHT)
+	var expected := player.global_position + initial_offset.lerp(overhead, ease(lift_progress, -2.0))
+	check(lift_progress > 0.0 and crate.global_position.distance_to(expected) < 0.05,
+			"the first lift movement starts at the actual crate instead of a fixed point in front of the player")
 	for i in 40:
 		if player.carry.phase == PlayerCarry.Phase.HOLDING:
 			break
