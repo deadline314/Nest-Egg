@@ -76,6 +76,32 @@
    "furniture_ref": "ali_lounge_soup_bowl"
   },
   {
+   "kind": "sprite",
+   "id": "ali_lounge_closing_cup",
+   "path": "res://art/environment/scene_props/revival_room_contacts/clinic_atlas.png",
+   "pos": [
+    289,
+    179
+   ],
+   "region": [
+    131,
+    776,
+    396,
+    328
+   ],
+   "pivot": [
+    198,
+    315
+   ],
+   "scale": 0.024,
+   "source_width": 1254,
+   "filter": "linear",
+   "visible": false,
+   "modulate": "#d5b5a1",
+   "depth": "front",
+   "furniture_ref": "ali_lounge_closing_cup"
+  },
+  {
    "kind": "glow",
    "pos": [
     320,
@@ -148,6 +174,17 @@
     169.16,
     19.68,
     9.84
+   ],
+   "support": "bar_counter"
+  },
+  {
+   "id": "ali_lounge_closing_cup",
+   "kind": "cup",
+   "rect": [
+    284.25,
+    171.44,
+    9.5,
+    7.87
    ],
    "support": "bar_counter"
   }

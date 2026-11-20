@@ -103,6 +103,14 @@ LOUNGE_BOWL = {
     "scale": 0.24, "source_width": 128, "filter": "linear", "visible": False,
     "modulate": "#edc9c0",
 }
+# Mug cut from the existing clinic atlas; only the closing uses it.
+LOUNGE_CUP = {
+    "kind": "sprite", "id": "ali_lounge_closing_cup",
+    "path": "res://art/environment/scene_props/revival_room_contacts/clinic_atlas.png",
+    "pos": [289, 179], "region": [131, 776, 396, 328], "pivot": [198, 315],
+    "scale": 0.024, "source_width": 1254, "filter": "linear", "visible": False,
+    "modulate": "#d5b5a1", "depth": "front",
+}
 # 演員縮放：{舞台: {骨架: 縮放}}。同一個舞台上的人高度大致一致。
 SCALE = {
     # 店面：櫃台約 0.65 個身高。老 K 用 3.6：3.7 在 21:9 黑邊與對話框之間（畫面 43～232）差 2 像素放不下。
@@ -171,7 +179,7 @@ def write_stage(stage_id, scene, top, bottom, rain, glow, extra):
     if 'modulate' in tone:
         layers[1]["modulate"] = tone['modulate']
     if stage_id == 'ch1_revival_lounge':
-        for index, (prop, kind) in enumerate(((LOUNGE_POT, "soup_pot"), (LOUNGE_BOWL, "cup")), start=2):
+        for index, (prop, kind) in enumerate(((LOUNGE_POT, "soup_pot"), (LOUNGE_BOWL, "cup"), (LOUNGE_CUP, "cup")), start=2):
             layers.insert(index, dict(prop, furniture_ref=prop["id"]))
             x, y = prop["pos"]
             width, height = prop["region"][2:]

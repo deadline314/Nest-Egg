@@ -51,7 +51,7 @@
 | F02 | 真 `ch1_data_disk` pickup；`ch1_g10_disk`僅取後radio | 拾取事件同存world空槽與held/history；radio不給盤、不給券或錢 |
 | F03 | `ch1_t_handoff_accept`、`ch1_t_handoff_receipt`、`ch1_t_handoff_summary` | 三個不同完成場景；收盤→取紙→存摘要，任一中斷不撤回前段；回訪精確指下一段；與二章S00共用同實體交付事實 |
 | F04 | 阿梨首見 clinic-only／booth／no-death／unknown 四變體；點餐或只坐的獨立确认 | 實際服務事實選問候；兩百公開且明確點才成立。未點none，不能有付款200UI |
-| F05–F07 | 甜湯／只坐，下班；明確去留；paid／owed／no-order 三種告別 | 接待與晚間完成分開，route意圖不開門。現金不足有欠條／留下／返回，完成結果才supper_done |
+| F05–F07 | 甜湯／只坐，下班；明確去留；paid／owed／no-order 三種告別 | 阿梨把杯收在吧台一旁，轉身往館外麵攤。接待與晚間完成分開，route意圖不開門。現金不足有欠條／留下／返回，完成結果才supper_done |
 | F08 | host、meal、address 三個完成場景 | 招待無現金增減；接受麵→吃麵→夜話實際說出地址，拍7段尾保存地址與SQ。未知地址不靠場景ID猜真 |
 | F09 | `ch1_c14_home` | 爐關、壺有水未沸、老K忘記已回來；同章末結果，不給720、不跳舊level02 |
 | O01–O04 | Sunday；四label；voice heard→問一次→問二次；真灰布交互 | 每項可選、可返回，無本章新增現金/XP；灰布在真初次建檔舞臺交互前不發布假地圖目標，不要求重覆死亡 |

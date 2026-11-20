@@ -593,6 +593,24 @@ def _stage_talks(scenes):
                     {"do": "prop_release", "id": bowl["id"]},
                     {"do": "reach", "id": "rin", "hand": "front", "release": True, "time": 0.24},
                 ]
+            elif ident == "ch1_t_ali_evening_close":
+                cup = legacy.LOUNGE_CUP
+                grip = [162, 858]
+                surface_grip = [round(x + (point - origin - pivot) * cup["scale"], 3)
+                                for x, point, origin, pivot in zip(cup["pos"], grip, cup["region"], cup["pivot"])]
+                rest = [surface_grip[0] - 14, surface_grip[1]]
+                touch = {"do": "reach", "id": "ali", "hand": "front", "contact": [80.5, 24.5], "angle": 3.14}
+                steps[0]["props"] = {cup["id"]: {"visible": True}}
+                steps.extend([
+                    dict(touch, space="prop", prop=cup["id"], to=grip, time=0.32),
+                    {"do": "prop_hold", "id": cup["id"], "actor": "ali", "hand": "front", "point": grip},
+                    dict(touch, to=[surface_grip[0], surface_grip[1] - 5], time=0.24),
+                    dict(touch, to=[rest[0], rest[1] - 5], time=0.32),
+                    dict(touch, to=rest, time=0.24),
+                    {"do": "prop_release", "id": cup["id"]},
+                    {"do": "reach", "id": "ali", "hand": "front", "release": True, "time": 0.24},
+                    legacy.move("ali", 413, floor, 1.0),
+                ])
             elif ident == "ch1_t_supper_stay_meal":
                 # The last line explicitly says Rin has finished her bowl.
                 # Apply the visible state before that line, never award results here.
