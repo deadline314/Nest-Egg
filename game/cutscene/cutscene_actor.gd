@@ -7,7 +7,7 @@ extends Node2D
 const STAGE_SHADOW_HALF_WIDTH := 11.0
 const STAGE_SHADOW_LYING := 2.4
 const STAGE_SHADOW_SINK := 4.0
-const POSES: PackedStringArray = ["idle", "walk", "run", "crouch", "aim_up", "block", "dead", "jump", "sit", "lean", "squat", "wave", "listen"]
+const POSES: PackedStringArray = ["idle", "walk", "run", "crouch", "aim_up", "block", "dead", "jump", "sit", "lean", "squat", "wave", "listen", "rest"]
 const BREATH_PERIOD := 3.2
 
 var actor_id: StringName = &""
@@ -284,7 +284,7 @@ func _apply_pose(velocity: Vector2) -> void:
 	_input.waving = false
 	_input.listening = _listen_flag
 	match pose:
-		&"sit", &"lean":
+		&"sit", &"lean", &"rest":
 			_input.npc_pose = pose
 		&"squat":
 			_input.npc_pose = &"crouch"

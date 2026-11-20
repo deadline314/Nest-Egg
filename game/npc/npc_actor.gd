@@ -81,9 +81,10 @@ func _ready() -> void:
 	add_child(shape_node)
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
-	if data.kind == NpcData.Kind.PERSON:
+	if data.kind == NpcData.Kind.PERSON or not data.rig_id.is_empty():
 		_build_visual()
-		ContactShadow.attach(self, FIGURE_HALF_WIDTH)
+		if data.kind == NpcData.Kind.PERSON or _actor != null:
+			ContactShadow.attach(self, FIGURE_HALF_WIDTH)
 	_prompt = WorldPrompt.new()
 	_prompt.text = data.prompt_text()
 	_prompt.radius = PROMPT_RADIUS
@@ -180,6 +181,9 @@ func prompt_obstacle_rect() -> Rect2:
 ## 有骨架外觀就用骨架，沒有就用講者的頭像做剪影（兩者都沒有時只畫一個記號）。
 func _build_visual() -> void:
 	var rig_id := data.rig_id if ResourceLoader.exists(RigLibrary.CHARACTER_PATH % data.rig_id) else ""
+	if data.kind == NpcData.Kind.OBJECT and rig_id.is_empty():
+		push_warning("[NpcActor] %s 格 %s 的調查外觀無法載入：%s" % [data.id, cell, data.rig_id])
+		return
 	var portrait := str(Story.speaker(data.speaker).get("portrait", ""))
 	_actor = CutsceneActor.new()
 	add_child(_actor)
@@ -193,7 +197,7 @@ func _build_visual() -> void:
 	_actor.set_pose(data.current_pose(GameState.has_flag))
 	_actor.set_loop(data.loop, data.loop_scale)
 	_actor.face(data.facing)
-	if not rig_id.is_empty():
+	if data.kind == NpcData.Kind.PERSON and not rig_id.is_empty():
 		awareness = NpcAwareness.new(_actor, data)
 		EventBus.world_noise.connect(_on_world_noise)
 
@@ -201,7 +205,7 @@ func _build_visual() -> void:
 func _physics_process(delta: float) -> void:
 	_time += delta
 	_cooldown = maxf(0.0, _cooldown - delta)
-	if _actor != null:
+	if _actor != null and data.kind == NpcData.Kind.PERSON:
 		_actor.set_listening(_player_in_range and not _talking and (awareness == null or not awareness.is_cowering()))
 	if awareness != null:
 		var player := get_tree().get_first_node_in_group(&"player") as Node2D
@@ -238,8 +242,10 @@ func _on_world_noise(world_position: Vector2, loudness: float) -> void:
 
 
 func _face_player() -> void:
+	if _actor == null or data.kind != NpcData.Kind.PERSON:
+		return
 	var player := get_tree().get_first_node_in_group(&"player") as Node2D
-	if player != null and _actor != null and absf(player.global_position.x - global_position.x) > 4.0:
+	if player != null and absf(player.global_position.x - global_position.x) > 4.0:
 		_actor.face(1 if player.global_position.x > global_position.x else -1)
 
 
@@ -403,7 +409,8 @@ func _on_body_exited(body: Node2D) -> void:
 
 func _draw() -> void:
 	if data.kind == NpcData.Kind.OBJECT:
-		_draw_object_marker()
+		if _actor == null or _actor.rig == null:
+			_draw_object_marker()
 		return
 	# 還沒說過話：頭上有個對話泡泡。沒有任何外觀時畫一個站著的記號。
 	if _actor == null:

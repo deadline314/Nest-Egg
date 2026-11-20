@@ -3,7 +3,7 @@ extends Resource
 ## 場景人物定義：站在關卡裡，玩家靠近按互動鍵就會說話。新增人物只需要一份 .tres 與一個地圖字元（LevelData.legend）。
 ## 台詞放在章節劇本（data/story/*.json，mode 為 dialogue），這裡只決定「什麼時候說哪一段、說完給什麼」。
 
-## 人物（站著的人）或可調查物（牆上的刻痕、告示…，只畫一個記號，沒有外觀）。
+## 可交談的人物，或由玩家調查的場景目標。調查目標可用固定骨架表現沒有回應的人。
 enum Kind { PERSON, OBJECT }
 
 @export var id: StringName = &"npc"

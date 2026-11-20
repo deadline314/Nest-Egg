@@ -114,18 +114,26 @@ func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> 
 	if _far_arm_tuck.is_finite() and absf(float(pose.get(&"arm_back_upper", 1.0))) < FAR_ARM_HANGING and absf(float(pose.get(&"arm_back_lower", 1.0))) < FAR_ARM_HANGING:
 		pose[&"arm_back_upper"] = _far_arm_tuck.x
 		pose[&"arm_back_lower"] = _far_arm_tuck.y
+	var resting := input.npc_pose == &"rest"
+	var breath_rate := 1.0
+	var extra_breath := 0.0
 	# 生命感：緩慢飄動、重心轉移、轉頭看一下、呼吸速率變化與嘆氣、說話前吸氣與重音手勢、聆聽點頭、小動作。
-	var busy := input.waving or _loop_name != &"" or input.npc_loop != &""
-	var life := _life.step(delta, {"posture": input.npc_pose, "talking": input.talking, "listening": input.listening, "busy": busy,
-			"thigh": _rig.rest(&"leg_front_lower").length()})
-	_add_bones(pose, life["bones"], 1.0)
-	pose[&"_hip_x"] = float(pose[&"_hip_x"]) + float(life["hip_x"])
-	pose[&"_hip_y"] = float(pose[&"_hip_y"]) + float(life["hip_y"])
+	if not resting:
+		var busy := input.waving or _loop_name != &"" or input.npc_loop != &""
+		var life := _life.step(delta, {"posture": input.npc_pose, "talking": input.talking, "listening": input.listening, "busy": busy,
+				"thigh": _rig.rest(&"leg_front_lower").length()})
+		_add_bones(pose, life["bones"], 1.0)
+		pose[&"_hip_x"] = float(pose[&"_hip_x"]) + float(life["hip_x"])
+		pose[&"_hip_y"] = float(pose[&"_hip_y"]) + float(life["hip_y"])
+		breath_rate = float(life["breath_rate"])
+		extra_breath = float(life["breath_extra"])
 	# 呼吸：吸氣短、呼氣長（約 4：6），胸口與骨盆微微起伏（速率會緩慢變化，偶爾較深）。
 	var idle: Dictionary = _motion["idle"]
-	_breath_phase += delta * float(idle["breath_speed"]) * float(life["breath_rate"])
+	_breath_phase += delta * float(idle["breath_speed"]) * breath_rate
 	var breath := breath_curve(fmod(_breath_phase / TAU, 1.0))
-	pose[&"chest"] = float(pose.get(&"chest", 0.0)) + breath * (1.0 + float(life["breath_extra"])) * float(idle["breath_amp"])  # 嘆氣只讓胸口起伏更深，骨盆不跟著動（腳才不會被帶著上下）
+	pose[&"chest"] = float(pose.get(&"chest", 0.0)) + breath * (1.0 + extra_breath) * float(idle["breath_amp"])
+	if resting:
+		return pose
 	pose[&"_hip_y"] = float(pose[&"_hip_y"]) + breath * float(idle["hip_bob"])
 	# 專屬工作循環：開始與停止淡入淡出；換循環時先淡出舊的再淡入新的。
 	_step_loop(data, input, pose, delta)

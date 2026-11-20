@@ -31,7 +31,7 @@ NPC_CHARS = {
     'ⓠ': 'ch2_guest_entry',
     'Ⓔ': 'ch2_egret_booth',
 }
-# 人物（kind 0）有骨架外觀；物件（kind 1）只有互動提示。rig 用既有外觀；沒有專屬外觀的配角先借用，缺口列在 NE-267。
+# 人物可交談；調查目標可選擇有固定骨架的外觀。既有配角的外觀缺口列在 NE-267。
 P, O = 0, 1
 NPCS = {
     'ch2_old_k': dict(name='老 K', speaker='old_k', rig='old_k', loop='wipe_hands', facing=1, prompt='{interact} 和老 K 說話',
@@ -56,7 +56,8 @@ NPCS = {
                              'requires_flag': 'ch2_ali_home_visit', 'unless_flag': 'sq1_soup_practice_done',
                          })]),
     'ch2_collection_book': dict(name='代收簿', speaker='label', kind=O, prompt='{interact} 翻裝卸間的代收簿', talks=[('ch2_dispatch_collection_book', 0)]),
-    'ch2_guard': dict(name='倚著牆的守衛', speaker='label', kind=O, prompt='{interact} 查看倚著牆的守衛', talks=[('ch2_dispatch_guard', 0)]),
+    'ch2_guard': dict(name='倚著牆的守衛', speaker='label', kind=O, rig='ch2_patroller', pose='rest',
+                      prompt='{interact} 查看倚著牆的守衛', talks=[('ch2_dispatch_guard', 0)]),
     'ch2_sc1_lever': dict(name='橋梯拉桿', speaker='label', kind=O, prompt='{interact} 放下通往代收處的橋梯', talks=[('ch2_dispatch_sc1', 0)]),
     'ch2_drying_desk': dict(name='乾燥作業桌', speaker='label', kind=O, prompt='{interact} 在作業桌上對帳', talks=[('ch2_dispatch_reconcile', 0)]),
     'ch2_isolation_diagram': dict(name='隔離箱示意圖', speaker='label', kind=O, prompt='{interact} 看隔離箱示意圖', talks=[('ch2_dispatch_diagram', 0)]),
@@ -340,6 +341,7 @@ def _build_loading_v1():
     # 下層貨道（戰鬥區）
     a.prop('dock_warehouse__wrapped_pallets', 36)
     a.prop('dock_warehouse__float_drum_crate', 68)
+    a.prop('dock_warehouse__wrapped_pallets', 81, y=19, dx=6.4)
     a.stand(84, 'ⓧ')
     # 橋梯拉桿（SC1）與捷徑口
     a.stand(92, 'ⓙ', row=12)

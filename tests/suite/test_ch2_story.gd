@@ -27,6 +27,7 @@ func run() -> void:
 	_test_audit_terminal_contact()
 	_test_rooftop_props()
 	await _test_rooftop_combo_station()
+	await _test_loading_guard()
 	_test_ali_kitchen_revisit()
 	_test_ali_soup_healing()
 	_test_ledger_install()
@@ -80,6 +81,49 @@ func _test_audit_terminal_contact() -> void:
 	var terminal := load("res://data/environment/scene_props/revival_lounge/revival_lounge__commission_terminal.tres") as PropData
 	check(terminal != null and button.size() == 2 and Rect2(Vector2.ZERO, terminal.size).has_point(Vector2(button[0], button[1])),
 		"the contact lies on the real terminal image")
+
+
+func _test_loading_guard() -> void:
+	var level := await start_level(_datas["loading"] as LevelData)
+	var guard: NpcActor
+	for node in level._entities.get_children():
+		if node is NpcActor and node.data.id == &"ch2_guard":
+			guard = node
+			break
+	check(guard != null and guard.cell == Vector2i(84, 35) and guard.data.kind == NpcData.Kind.OBJECT,
+			"the resting guard keeps the original inspect-only world source")
+	if guard == null:
+		await end_level(level)
+		return
+	check(guard._actor != null and guard._actor.rig != null and guard._actor.pose == &"rest",
+			"the guard displays an authored breathing pose instead of the object marker")
+	if guard._actor != null and guard._actor.rig != null:
+		var rig := guard._actor.rig
+		var front := rig.bone(&"foot_front")
+		var back := rig.bone(&"foot_back")
+		var chest := rig.bone(&"chest")
+		for step in 36:
+			guard._actor._process(1.0 / 60.0)
+		var feet := [front.global_position, back.global_position]
+		var initial_breath := chest.rotation
+		level.player.global_position = guard.global_position + Vector2(-28, 0)
+		guard._face_player()
+		for step in 80:
+			guard._actor._process(1.0 / 60.0)
+		check(guard._actor.facing == guard.data.facing and guard.awareness == null,
+				"a resting guard does not greet, turn or react to the player")
+		check(absf(chest.rotation - initial_breath) > 0.0001
+				and front.global_position.distance_to(feet[0]) < 0.01 and back.global_position.distance_to(feet[1]) < 0.01,
+				"the chest breathes while both boots stay planted")
+	var supported := false
+	for prop in level.find_children("*", "PropNode", true, false):
+		if prop.data.id == &"dock_warehouse__wrapped_pallets" and absf(prop.position.x - guard.position.x) < 52.0:
+			supported = is_equal_approx(prop.global_position.y + prop.data.size.y, guard.global_position.y) \
+					and absf(guard.global_position.x - prop.global_position.x - prop.data.size.x - 5.5) < 0.05
+	check(supported, "the authored backrest touches the guard's floor at its seat")
+	check(Story.resolve_dispatch(guard.data.talks[0].scene) == &"ch2_t_s09_guard" and not GameState.has_flag(&"ch2_guard_seen"),
+			"the visible guard keeps the original unread inspection and grants no progress")
+	await end_level(level)
 
 
 func _test_rooftop_props() -> void:
