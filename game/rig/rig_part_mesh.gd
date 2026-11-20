@@ -32,9 +32,9 @@ var _partner_rest := Vector2.ZERO
 var _axis_x := 0.0
 var _rest_local := PackedVector2Array()
 var _triangles := PackedInt32Array()
-var _zone_index := PackedInt32Array()
-var _zone_rest := PackedVector2Array()  ## 骨頭 A 空間裡的靜止位置
-var _zone_weight := PackedFloat32Array()
+var _zone_rows := PackedInt32Array()
+var _zone_offsets := PackedVector2Array()
+var _zone_row_data := PackedVector2Array()  ## (height in bone space, blend weight)
 var _to_local := Transform2D.IDENTITY
 var _last := Transform2D.IDENTITY
 var _root_partner: Bone2D
@@ -108,9 +108,9 @@ func setup(p_texture: Texture2D, size: Vector2, pivot: Vector2, self_bone: Bone2
 	rows.sort()
 	var uv := PackedVector2Array()
 	_rest_local = PackedVector2Array()
-	_zone_index = PackedInt32Array()
-	_zone_rest = PackedVector2Array()
-	_zone_weight = PackedFloat32Array()
+	_zone_rows = PackedInt32Array()
+	_zone_offsets = PackedVector2Array()
+	_zone_row_data = PackedVector2Array()
 	_root_indices = PackedInt32Array()
 	_root_points = PackedVector2Array()
 	_root_weights = PackedFloat32Array()
@@ -119,17 +119,20 @@ func setup(p_texture: Texture2D, size: Vector2, pivot: Vector2, self_bone: Bone2
 		if is_equal_approx(row, previous_row):
 			continue
 		previous_row = row
+		# A row has one Y value because the mesh setup transform has no rotation or shear.
+		var row_y := (node_transform * (Vector2(0.0, row) - pivot)).y
+		var weight := _weight_at(row_y, joint_y, zone, _partner_direction > 0)
+		if weight > 0.0:
+			_zone_rows.append(_rest_local.size())
+			_zone_row_data.append(Vector2(row_y, weight))
 		for c in COLUMNS:
 			var u := size.x * float(c) / float(COLUMNS - 1)
 			uv.append(Vector2(u, row))
 			var local := Vector2(u, row) - pivot
 			_rest_local.append(local)
 			var in_a: Vector2 = node_transform * local
-			var weight := _weight_at(in_a.y, joint_y, zone, _partner_direction > 0)
 			if weight > 0.0:
-				_zone_index.append(_rest_local.size() - 1)
-				_zone_rest.append(in_a)
-				_zone_weight.append(weight)
+				_zone_offsets.append(Vector2(in_a.x - _axis_x, 0.0))
 			if _root_partner != null and in_a.y < _root_radius:
 				var t := clampf(in_a.y / _root_radius, 0.0, 1.0)
 				_root_indices.append(_rest_local.size() - 1)
@@ -196,20 +199,26 @@ func _deform(follow: Transform2D, root_follow: Transform2D) -> void:
 	deform_count += 1
 	_deformed = _rest_local.duplicate()
 	var narrowest := 1.0
-	for k in _zone_index.size():
-		var v := _zone_rest[k]
-		var w := _zone_weight[k]
-		var axis := Vector2(_axis_x, v.y)
-		var offset := Vector2(v.x - _axis_x, 0.0)
+	for row in _zone_rows.size():
+		var first := _zone_rows[row]
+		var start := row * COLUMNS
+		var row_data := _zone_row_data[row]
+		var w := row_data.y
+		var axis := Vector2(_axis_x, row_data.x)
 		var moved_axis: Vector2 = axis.lerp(follow * axis, w)
-		var moved_offset: Vector2 = offset.lerp(follow.basis_xform(offset), w)
-		var length := moved_offset.length()
-		var wanted := absf(offset.x)
-		if length > 0.0001 and wanted > 0.0001:
-			moved_offset *= lerpf(1.0, wanted / length, volume_keep)
-			narrowest = minf(narrowest, length / wanted)
-		_deformed[_zone_index[k]] = _to_local * (moved_axis + moved_offset)
+		for column in COLUMNS:
+			var offset := _zone_offsets[start + column]
+			var moved_offset: Vector2 = offset.lerp(follow.basis_xform(offset), w)
+			var length := moved_offset.length()
+			var wanted := absf(offset.x)
+			if length > 0.0001 and wanted > 0.0001:
+				moved_offset *= lerpf(1.0, wanted / length, volume_keep)
+				narrowest = minf(narrowest, length / wanted)
+			_deformed[first + column] = _to_local * (moved_axis + moved_offset)
 	_min_width_ratio = narrowest
+	_folds_stale = true
+	if _root_indices.is_empty():
+		return
 	# The root edge follows its rigid parent completely; fade to the limb below it.
 	# Rotate the row width instead of averaging opposing vectors at large hip angles.
 	var last_y := INF
@@ -225,7 +234,6 @@ func _deform(follow: Transform2D, root_follow: Transform2D) -> void:
 			moved_axis = axis.lerp(root_follow * axis, w)
 			row_direction = Vector2.from_angle(angle * w)
 		_deformed[_root_indices[k]] = _to_local * (moved_axis + row_direction * v.x)
-	_folds_stale = true
 
 
 ## 目前的網格有幾個三角形被翻面（折疊）。彎到 90° 以上時內側一定會有幾個（關節的內側被壓攏，貼圖重疊在一起像皺褶）。
