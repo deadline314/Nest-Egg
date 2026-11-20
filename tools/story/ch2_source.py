@@ -194,6 +194,7 @@ def _morning(source: ProductionSource):
         ("rin", "這臺還有電，喇叭為什麼沒聲音？"),
         ("old_k", "上次摔到接線鬆了，零件盒有同一款接頭。你要修就拿，別拿槍託敲喔。")),
         when=negate(repaired), next_scene="ch2_t_s02_power", mode="animated")
+    static_cue = dict(do="sfx", id="ch2_radio_static", volume=0.0, jitter=0.0)
     wiring = (("power", "電源線", "標著電源的孔", "ch2_t_s02_antenna"), ("antenna", "天線", "標著天線的孔", "ch2_t_s02_speaker"),
               ("speaker", "喇叭線", "標著音源的孔", "ch2_t_s02_tune"))
     holes = (("power", "接到標著電源的孔。"), ("antenna", "接到標著天線的孔。"), ("speaker", "接到標著音源的孔。"))
@@ -205,12 +206,13 @@ def _morning(source: ProductionSource):
         options.append(_opt("leave", "先把收音機放著。", None, "不修也能出門，之後可以再來。"))
         source.add(f"ch2_t_s02_{wire}", "S02", (("label", f"三條線都鬆了。現在要接{name}，它該接到{right}。"),),
                    when=negate(repaired), options=tuple(options))
-        source.add(f"ch2_t_s02_{wire}_wrong", "S02", (("label", f"喇叭只發出一陣雜訊。{name}要接到{right}，再試一次。"),),
+        source.add(f"ch2_t_s02_{wire}_wrong", "S02", steps=[static_cue, *beats(
+            ("label", f"喇叭只發出一陣雜訊。{name}要接到{right}，再試一次。"))],
                    mode="animated", next_scene=f"ch2_t_s02_{wire}")
     source.add("ch2_t_s02_tune", "S02", (("lamp", "先讓指標進兩條刻線中間，再轉到聲音最清楚的地方。"),), when=negate(repaired), options=(
         _opt("middle", "把指標轉進兩條刻線中間。", "ch2_t_s02_broadcast", "停在聲音最清楚的地方。"),
         _opt("edge", "把指標轉到刻線外面。", "ch2_t_s02_tune_wrong", "刻線外只有雜訊。")))
-    source.add("ch2_t_s02_tune_wrong", "S02", steps=[dict(do="world_action", id="radio_tune_noise"), *beats(
+    source.add("ch2_t_s02_tune_wrong", "S02", steps=[dict(do="world_action", id="radio_tune_noise"), static_cue, *beats(
         ("label", "刻線外只有低頻的雜訊。把指標轉回兩條刻線中間，再試一次。"))],
                mode="animated", next_scene="ch2_t_s02_tune")
     source.add("ch2_t_s02_broadcast", "S02", steps=[dict(do="world_action", id="radio_tune_clear"), *beats(

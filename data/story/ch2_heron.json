@@ -1342,6 +1342,12 @@
    "mode": "animated",
    "steps": [
     {
+     "do": "sfx",
+     "id": "ch2_radio_static",
+     "volume": 0.0,
+     "jitter": 0.0
+    },
+    {
      "do": "say",
      "speaker": "label",
      "text": "喇叭只發出一陣雜訊。電源線要接到標著電源的孔，再試一次。",
@@ -1422,6 +1428,12 @@
   "ch2_t_s02_antenna_wrong": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "sfx",
+     "id": "ch2_radio_static",
+     "volume": 0.0,
+     "jitter": 0.0
+    },
     {
      "do": "say",
      "speaker": "label",
@@ -1504,6 +1516,12 @@
    "mode": "animated",
    "steps": [
     {
+     "do": "sfx",
+     "id": "ch2_radio_static",
+     "volume": 0.0,
+     "jitter": 0.0
+    },
+    {
      "do": "say",
      "speaker": "label",
      "text": "喇叭只發出一陣雜訊。喇叭線要接到標著音源的孔，再試一次。",
@@ -1568,6 +1586,12 @@
     {
      "do": "world_action",
      "id": "radio_tune_noise"
+    },
+    {
+     "do": "sfx",
+     "id": "ch2_radio_static",
+     "volume": 0.0,
+     "jitter": 0.0
     },
     {
      "do": "say",

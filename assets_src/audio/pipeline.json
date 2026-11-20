@@ -2340,6 +2340,22 @@
    ],
    "volume_db": -4.0
   },
+  "ch2_radio_static": {
+   "category": "foley",
+   "volume_db": -5.0,
+   "variants": [
+    {
+     "pack": "oga_radio-noise-1",
+     "file": "radio_noise_loop.wav",
+     "mode": "whole",
+     "start": 4.8,
+     "end": 5.08,
+     "max_len": 0.28,
+     "target_db": -25.0,
+     "fade_out_ms": 35
+    }
+   ]
+  },
   "ch2_roof_cup": {
    "category": "foley",
    "volume_db": -5.0,
