@@ -143,7 +143,19 @@ func _test_tooltips() -> void:
 	check(hud.boss_bar.tooltip_text != "", "頭目血條有說明")
 	check(hud.cyber_gauge.mouse_filter == Control.MOUSE_FILTER_PASS, "義體電量可以顯示說明")
 	for slot in hud.weapon_bar.row_count():
-		check(hud.weapon_bar.get_child(slot).tooltip_text != "", "武器欄第 %d 列有說明" % (slot + 1))
+		check(hud.weapon_bar.get_child(slot).get_tooltip() != "", "武器欄第 %d 列有說明" % (slot + 1))
+	var empty := hud.weapon_bar.get_child(Loadout.MAX_SLOTS - 1) as Control
+	var using_gamepad := InputBindings.using_gamepad
+	var previous_device := InputBindings.active_device
+	var press := InputEventKey.new()
+	press.physical_keycode = KEY_N
+	press.pressed = true
+	InputBindings.observe_device(press)
+	var old_key := InputBindings.get_code(&"weapon_next", 0)
+	InputBindings.set_code(&"weapon_next", 0, KEY_N)
+	check(empty.get_tooltip().contains(InputBindings.primary_label(&"weapon_next")), "empty weapon slot help uses the new cycling binding before another loadout change")
+	InputBindings.set_code(&"weapon_next", 0, old_key)
+	InputBindings._set_device(using_gamepad, previous_device)
 	await end_level(level)
 
 

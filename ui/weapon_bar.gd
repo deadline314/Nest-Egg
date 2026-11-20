@@ -6,6 +6,11 @@ extends VBoxContainer
 
 const ROW_SIZE := Vector2(132, 18)
 const LOW_RATIO := 0.25
+const EMPTY_SLOT_HELP := {
+	"zh": "空欄位，按 {weapon_prev} 或 {weapon_next} 切換已裝備的武器。",
+	"ja": "空き枠です。装備した武器は {weapon_prev}／{weapon_next} で切り替えます。",
+	"en": "Empty slot. Use {weapon_prev} or {weapon_next} to switch equipped weapons.",
+}
 
 ## 主角和武器欄真的重疊時（例如站在畫面左下角的低處），武器欄讓位變淡，不蓋住腳邊（NE-264）。
 const MAKE_WAY_ALPHA := 0.3
@@ -52,13 +57,11 @@ func update_from(loadout: Loadout) -> void:
 		row.active = weapon != null and row.slot == loadout.active_slot
 		if weapon == null:
 			row.state = AmmoIcons.State.EMPTY
-			row.tooltip_text = "撿取武器後放在這裡；滾輪或數字鍵切換"
 		else:
 			if weapon.has_magazine():
 				row.state = _state_for(loadout.mag_in(row.slot), weapon.magazine_size)
 			else:
 				row.state = AmmoIcons.State.FULL
-			row.tooltip_text = weapon.description
 		row.queue_redraw()
 
 
@@ -89,6 +92,11 @@ class _Row:
 	func _init() -> void:
 		custom_minimum_size = WeaponBar.ROW_SIZE
 		mouse_filter = Control.MOUSE_FILTER_PASS
+
+	func _get_tooltip(_at_position: Vector2) -> String:
+		if weapon != null:
+			return weapon.description
+		return InputBindings.format(WeaponBar.EMPTY_SLOT_HELP.get(Story.language, WeaponBar.EMPTY_SLOT_HELP[StoryLocale.SOURCE_LANGUAGE]))
 
 	func _draw() -> void:
 		var font := UiKit.font()
