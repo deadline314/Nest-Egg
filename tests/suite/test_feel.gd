@@ -788,8 +788,6 @@ func _test_screen_fx() -> void:
 	var reduced := FlashGuard.request(0.2, 300000)
 	check(is_equal_approx(reduced, normal * Settings.REDUCED_FLASH_SCALE), "reduce flashes lowers every screen effect")
 	Settings.set_reduce_flashes(false)
-	Settings.use_storage(original)
-	DirAccess.remove_absolute("user://test_feel_flash.cfg")
 	FlashGuard.reset()
 	# 真的畫面：效果寫進 shader 並隨時間衰減回 0。
 	var level := await start_level(PropsSuite.level_data())
@@ -800,13 +798,32 @@ func _test_screen_fx() -> void:
 		post._update_pulse(0.016)
 		check(float(post.parameter(&"pulse_amount")) > 0.0 and is_equal_approx(float(post.parameter(&"pulse_edge_mix")), edge_mix),
 				"the hurt pulse reaches the shader with its authored edge weight")
+		var visible := float(post.parameter(&"pulse_amount"))
+		var chromatic := float(post.parameter(&"pulse_aberration"))
+		var vignette := float(post.parameter(&"pulse_vignette"))
+		var remaining := post._pulse_left
+		var starts := FlashGuard.accepted
+		Settings.set_reduce_flashes(true)
+		var scale := Settings.flash_scale()
+		check(is_equal_approx(float(post.parameter(&"pulse_amount")), visible * scale)
+				and is_equal_approx(float(post.parameter(&"pulse_aberration")), chromatic * scale)
+				and is_equal_approx(float(post.parameter(&"pulse_vignette")), vignette * scale),
+				"the display signal dims every component without advancing the game")
+		Settings.set_reduce_flashes(false)
+		check(is_equal_approx(float(post.parameter(&"pulse_amount")), visible * scale)
+				and is_equal_approx(post._pulse_left, remaining) and FlashGuard.accepted == starts,
+				"re-enabling normal effects cannot brighten, restart or re-count a pulse")
 		post._update_pulse(1.0)
 		post._update_pulse(0.016)
 		check(float(post.parameter(&"pulse_amount")) == 0.0, "the screen effect fades back to zero")
 		EventBus.screen_pulse.emit(&"parry")
 		check(float(post.parameter(&"pulse_edge_mix")) == 0.0, "an ordinary screen effect never inherits the hurt mask")
+		check(is_equal_approx(post._pulse_amount, float(PostProcess.effects()["parry"]["amount"])),
+				"a new pulse uses the current normal setting")
 	await physics_frames(3)
 	await end_level(level)
+	Settings.use_storage(original)
+	DirAccess.remove_absolute("user://test_feel_flash.cfg")
 	FlashGuard.reset()
 
 

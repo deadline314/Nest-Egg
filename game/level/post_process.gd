@@ -22,6 +22,7 @@ var _pulse_time := 0.0
 var _cache: Dictionary[StringName, Variant] = {}
 ## 目前的全螢幕效果：強度、總秒數、剩餘秒數與其資料；一次只播一個，新的取代舊的。
 var _pulse_amount := 0.0
+var _pulse_flash_scale := 1.0
 var _pulse_time_total := 0.0
 var _pulse_left := 0.0
 var _pulse_def: Dictionary = {}
@@ -43,9 +44,8 @@ func _ready() -> void:
 	_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_rect.material = _material
 	add_child(_rect)
-	# 玩家的亮度設定即時生效。
-	Settings.display_changed.connect(_apply_brightness)
-	_apply_brightness()
+	Settings.display_changed.connect(_apply_display_options)
+	_apply_display_options()
 	EventBus.player_health_changed.connect(_on_health_changed)
 	EventBus.screen_pulse.connect(pulse)
 
@@ -70,8 +70,14 @@ func apply(profile: LightingProfile) -> void:
 	_write_param(&"aberration", profile.aberration * effects)
 
 
-func _apply_brightness() -> void:
+func _apply_display_options() -> void:
 	_write_param(&"brightness", Settings.brightness_gamma())
+	var scale := Settings.flash_scale()
+	# 關閉減少閃光時，已開始的效果維持較低強度直到結束。
+	if _pulse_left > 0.0 and scale < _pulse_flash_scale:
+		_pulse_amount *= scale / _pulse_flash_scale
+		_pulse_flash_scale = scale
+		_update_pulse(0.0)
 
 
 ## 目前寫進 shader 的參數值（測試與除錯用）。
@@ -155,6 +161,7 @@ func pulse(kind: StringName) -> void:
 		return
 	_pulse_def = def as Dictionary
 	_pulse_amount = granted
+	_pulse_flash_scale = Settings.flash_scale()
 	_pulse_time_total = float(_pulse_def.get("time", 0.2))
 	_pulse_left = _pulse_time_total
 	var edge_mix: Variant = _pulse_def.get("edge_mix", 0.0)
@@ -176,8 +183,9 @@ func _update_pulse(delta: float) -> void:
 	var k := _pulse_left / _pulse_time_total
 	var envelope := k * k
 	_write_param(&"pulse_amount", _pulse_amount * envelope)
-	_write_param(&"pulse_aberration", float(_pulse_def.get("aberration", 0.0)) * envelope * Settings.flash_scale())
-	_write_param(&"pulse_vignette", float(_pulse_def.get("vignette", 0.0)) * envelope * Settings.flash_scale())
+	var guarded_envelope := envelope * _pulse_flash_scale
+	_write_param(&"pulse_aberration", float(_pulse_def.get("aberration", 0.0)) * guarded_envelope)
+	_write_param(&"pulse_vignette", float(_pulse_def.get("vignette", 0.0)) * guarded_envelope)
 
 
 func _write_param(name: StringName, value: Variant) -> void:
