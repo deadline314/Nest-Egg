@@ -344,7 +344,7 @@ def _build_loading_v1():
     # 橋梯拉桿（SC1）與捷徑口
     a.stand(92, 'ⓙ', row=12)
     # 拉桿箱立在雨棚上層、互動點旁；橋梯摺起來立在出入口，捷徑開通後換成放下的樣子（BG-41）。
-    a.prop('dock_warehouse__bridge_lever', 93, y=12)
+    a.prop('dock_warehouse__bridge_lever', 93, y=12, react='bridge_lever')
     a.prop('dock_warehouse__bridge_ladder_up', 100, react='bridge_ladder')
     a.stand(100, 'Ⅺ')
     # 裝卸間

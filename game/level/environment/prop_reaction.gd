@@ -6,9 +6,9 @@ extends Node2D
 ##         states 由前往後看，旗標成立的最後一個勝出；第一個不寫 flag，是預設狀態。
 ##   paper：{at、width、length、feed_seconds、show_flag、hide_flag}，show_flag 成立後紙從出紙口慢慢送出來，
 ##         hide_flag 成立（被拿走）就不見。
-##   swap：{flag、prop、pack、align、offset}，flag 成立時整件擺設換成另一件（收起的梯子換成放下的、關著的配電盤換成打開的）。
+##   swap：{flag、prop、pack、align、offset、sound}，flag 成立時整件擺設換成另一件（收起的梯子換成放下的、關著的配電盤換成打開的）。
 ##         prop 是另一件擺設的 id、pack 是它所在的資料夾；align＝"bottom"（預設，兩件都站在同一條底邊）或 "top"（掛在同一個高度往下延伸）。
-##         兩件預設靠左對齊；offset＝[x, y] 再位移幾個世界像素（打開的門板往左多出一塊時，把箱體對回原位）。
+##         sound 可省略，玩家在場時放下才播放。兩件預設靠左對齊；offset＝[x, y] 再位移幾個世界像素（打開的門板往左多出一塊時，把箱體對回原位）。
 ##   dial：{at、length、from_deg、to_deg、flag、turn_seconds、color}，一根開度指針；flag 成立時從 from_deg 慢慢轉到 to_deg
 ##         （0 度朝右、90 度朝下），看得出閥門轉過了，不只靠燈的顏色。
 ## 進關卡時旗標已經成立＝直接是結果的樣子，不重播送紙與聲音；玩家在場時旗標才成立，才播一次。
@@ -47,6 +47,7 @@ var _swap_data: PropData
 var _swap_node: PropNode
 var _swap_flip := false
 var _swapped := false
+var _swap_sound: StringName
 var _swap_hidden: Array[CanvasItem] = []
 
 
@@ -114,6 +115,12 @@ func _setup(spec: Dictionary, flip: bool, reaction_id: String) -> void:
 		if _swap_data == null:
 			push_error("[PropReaction] %s 的 swap 要有 flag，而且 prop（%s）要在 %s 裡；略過換樣子" % [reaction_id, _swap.get("prop", ""), pack])
 			_swap = {}
+		elif _swap.has("sound"):
+			var sound_name: Variant = _swap["sound"]
+			if sound_name is String and Sfx.has_named(StringName(sound_name)):
+				_swap_sound = StringName(sound_name)
+			else:
+				push_warning("[PropReaction] %s swap.sound 無效，擺設照常切換" % reaction_id)
 
 
 func _ready() -> void:
@@ -192,6 +199,8 @@ func _refresh(live: bool) -> void:
 						item.visible = true
 				_swap_hidden.clear()
 			_swap_node.visible = on
+			if live and on and _swap_sound != &"":
+				Sfx.play_named(_swap_sound, -12.0)
 	set_process(_needs_process())
 	_sync_paper()
 	queue_redraw()

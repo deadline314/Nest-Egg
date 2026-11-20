@@ -11,6 +11,7 @@ var _definition: Dictionary
 var _store: RunSaveStore
 var _original_facts := PackedByteArray()
 var _flag_notices := 0
+var _bridge_audio := 0
 var _events: Array[Dictionary] = []
 func _ready() -> void:
 	super._ready()
@@ -21,6 +22,8 @@ func _ready() -> void:
 		_producer=_mode.get_slice("--",0)
 		_mode=_mode.get_slice("--",1)
 	_definition=PRODUCERS.get(_producer,{})
+	if _producer == "bridge":
+		Sfx.sound_played.connect(_count_bridge_cue)
 func _run() -> void:
 	_check(not _definition.is_empty(),"declared original reading producer exists")
 	_check(_mode in ["accepted","accepted_read","cancel","cancel_read","stale","contract","duplicate"],"declared reading probe mode is supported")
@@ -205,6 +208,11 @@ func _done() -> void:
 	Story.reset_active_presentation(&"menu")
 	_main.call("_quit",0 if _issues.is_empty() else 1)
 
+func _count_bridge_cue(id: StringName) -> void:
+	if id == &"gate":
+		_bridge_audio += 1
+
+
 func _check_bridge(accepted: bool, visual := true) -> void:
 	if _producer!="bridge":return
 	var level:=_level()
@@ -217,6 +225,13 @@ func _check_bridge(accepted: bool, visual := true) -> void:
 			_check(portal.is_open()==accepted,"original bridge shortcut eligibility agrees with the accepted result")
 	_check(found>0,"actual authored bridge shortcut exists in the original area")
 	if not visual:return
+	var expected_audio := 1 if accepted and not _mode.ends_with("_read") else 0
+	_check(_bridge_audio == expected_audio, "bridge metal cue plays once on accepted live change and stays silent when refused, cancelled or loaded")
+	var lever := level.find_child("Reaction_bridge_lever", true, false) as PropReaction
+	_check(lever != null, "the real lever has a state lamp")
+	if lever != null:
+		var color := lever._lamp_color()
+		_check((color.g > color.r) == accepted and not lever.is_processing(), "the lever state follows the saved flag and stays still")
 	var reaction: PropReaction
 	for node: Node in level.find_children("Reaction_bridge_ladder","Node",true,false):
 		if node is PropReaction:reaction=node

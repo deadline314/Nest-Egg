@@ -48,7 +48,8 @@
   "swap": {
    "flag": "ch2_sc1_open",
    "prop": "dock_warehouse__bridge_ladder_down",
-   "pack": "res://data/environment/scene_props/dock_warehouse"
+   "pack": "res://data/environment/scene_props/dock_warehouse",
+   "sound": "gate"
   },
   "lamp": {
    "at": [
@@ -72,6 +73,18 @@
      "color": "#52d98c",
      "pulse": 0
     }
+   ]
+  }
+ },
+ "bridge_lever": {
+  "lamp": {
+   "at": [0.65, 0.683],
+   "radius": 1.35,
+   "light_radius": 24,
+   "light_energy": 0.25,
+   "states": [
+    {"color": "#ffbd68", "pulse": 0},
+    {"flag": "ch2_sc1_open", "color": "#7be6a7", "pulse": 0}
    ]
   }
  },
