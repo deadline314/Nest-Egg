@@ -326,14 +326,10 @@ static func _measure(ctx: Dictionary, with_ground := true) -> void:
 		_record(ctx, "limb_pinch", pinch, where, frame)
 	# 腳底與地面
 	if with_ground and ctx.get("grounded", false):
-		var ground := animator.ground_level()
-		var low := -INF
-		for foot: StringName in [&"foot_front", &"foot_back"]:
-			if rig.has_bone(foot):
-				low = maxf(low, animator.bone_pos(foot).y)
-		if low > -INF:
-			_record(ctx, "foot_below_ground", low - ground, where, frame)
-			_record(ctx, "foot_floating", ground - low, where, frame)
+		var depth := animator.foot_floor_depth()
+		if is_finite(depth):
+			_record(ctx, "foot_below_ground", depth, where, frame)
+			_record(ctx, "foot_floating", -depth, where, frame)
 	# 手握武器
 	var weapon := rig.weapon_def()
 	if not weapon.is_empty() and rig.weapon_root().visible and rig.has_bone(&"hand_front") and not where.begins_with("action") and not (where.begins_with("after") and frame < 10):

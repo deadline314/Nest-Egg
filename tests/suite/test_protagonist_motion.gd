@@ -27,6 +27,7 @@ func run() -> void:
 	await _test_takeoff_stretch()
 	await _test_landing_absorbs_and_recovers()
 	await _test_landing_keeps_boots_near_floor()
+	await _test_kneeling_keeps_boots_near_floor()
 	await _test_back_dash_keeps_ankles_near_floor()
 	await _test_spring_impulses()
 	await _test_secondary_motion_lifecycle()
@@ -300,13 +301,45 @@ func _test_landing_keeps_boots_near_floor() -> void:
 		for _frame in 12:
 			rig.animate(DT, input)
 			input.landed = 0.0
-			for id: StringName in [&"foot_front", &"foot_back"]:
-				var foot := rig.bone(id)
-				for point: Vector2 in rig.animator._dash_sole:
-					deepest = maxf(deepest, rig.to_local(foot.to_global(point)).y - rig.animator._dash_floor)
+			deepest = maxf(deepest, _painted_sole_depth(rig))
 		check(deepest < 0.75, "landing keeps the painted soles above the floor (facing %d, depth %.2f)" % [facing, deepest])
 		rig.get_parent().queue_free()
 	await frames(1)
+
+
+func _test_kneeling_keeps_boots_near_floor() -> void:
+	for facing: int in [-1, 1]:
+		var input := RigInput.new()
+		var rig := _make("rin", input)
+		input.facing = facing
+		input.aim_dir = Vector2(facing, 0.0)
+		_run(rig, input, 36)
+		input.velocity.x = 150.0 * facing
+		_run(rig, input, 18)
+		input.crouching = true
+		var deepest := 0.0
+		for _frame in 16:
+			input.velocity.x = move_toward(input.velocity.x, 0.0, 14.0)
+			rig.animate(DT, input)
+			deepest = maxf(deepest, _painted_sole_depth(rig))
+		check(deepest < 0.65, "entering and holding a kneel keeps the painted soles above the floor (facing %d, depth %.2f)" % [facing, deepest])
+		input.crouching = false
+		deepest = 0.0
+		for _frame in 8:
+			rig.animate(DT, input)
+			deepest = maxf(deepest, _painted_sole_depth(rig))
+		check(deepest < 0.65, "leaving a kneel keeps the painted soles above the floor (facing %d, depth %.2f)" % [facing, deepest])
+		rig.get_parent().queue_free()
+	await frames(1)
+
+
+func _painted_sole_depth(rig: CharacterRig) -> float:
+	var depth := -INF
+	for id: StringName in [&"foot_front", &"foot_back"]:
+		var foot := rig.bone(id)
+		for point: Vector2 in rig.animator._dash_sole:
+			depth = maxf(depth, rig.to_local(foot.to_global(point)).y - rig.animator._dash_floor)
+	return depth
 
 
 ## 起跳、落地時凜的衣襬與頭髮被注入速度（有資料）；沒有資料的角色完全不動。

@@ -392,11 +392,16 @@ var _feet_placed := false
 
 
 func _support_floor_contact(delta: float, input: RigInput) -> void:
-	if not input.on_floor or input.dead or input.crouching:
+	if not input.on_floor or input.dead:
 		_foot_contact_left = 0.0
 		return
-	_foot_contact_left = FOOT_CONTACT_RECOVERY if input.dashing or input.landed > 0.0 else maxf(0.0, _foot_contact_left - delta)
-	if _foot_contact_left == 0.0:
+	if input.crouching:
+		_foot_contact_left = 0.0
+	else:
+		_foot_contact_left = FOOT_CONTACT_RECOVERY if input.dashing or input.landed > 0.0 else maxf(0.0, _foot_contact_left - delta)
+	# During the kneel blend the ankles can stay above ground while the painted heels cross it.
+	var blending_kneel := _kneel_w > 0.001 and _kneel_w < 1.0
+	if _foot_contact_left == 0.0 and not blending_kneel:
 		return
 	var corrected := false
 	for chain: Array in LEG_CHAINS:
@@ -404,12 +409,8 @@ func _support_floor_contact(delta: float, input: RigInput) -> void:
 		if not (_global_pos.has(chain[0]) and _rig.has_bone(chain[1]) and _global_pos.has(foot)):
 			continue
 		var angle: float = _global_angle[foot]
-		var down := Vector2(sin(angle), cos(angle))
-		var depth := -INF
-		for point in _dash_sole:
-			depth = maxf(depth, point.dot(down))
 		var ankle: Vector2 = _global_pos[foot]
-		var excess := ankle.y + depth - _dash_floor
+		var excess := ankle.y + _painted_sole_offset(angle) - _dash_floor
 		if excess > 0.001:
 			# Keep the hip and muzzle on their authored path.
 			ankle.y -= excess
@@ -417,6 +418,27 @@ func _support_floor_contact(delta: float, input: RigInput) -> void:
 			corrected = true
 	if corrected:
 		_forward_kinematics()
+
+
+func _painted_sole_offset(angle: float) -> float:
+	var down := Vector2(sin(angle), cos(angle))
+	var bottom := -INF
+	for point in _dash_sole:
+		bottom = maxf(bottom, point.dot(down))
+	return bottom
+
+
+## Signed depth of the lowest painted sole. Rigs without a sole outline use their ankle reference.
+func foot_floor_depth() -> float:
+	var painted := not _dash_sole.is_empty()
+	var floor_y := _dash_floor if painted else _ground_y
+	var bottom := -INF
+	for chain: Array in LEG_CHAINS:
+		var foot: StringName = chain[2]
+		if _global_pos.has(foot):
+			var offset := _painted_sole_offset(_global_angle[foot]) if painted else 0.0
+			bottom = maxf(bottom, _global_pos[foot].y + offset)
+	return bottom - floor_y
 
 
 ## 姿勢算完後的貼地修正；NPC 子類別以自己的坐、蹲與站姿放腳。
