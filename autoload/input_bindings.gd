@@ -125,11 +125,25 @@ const FIXED_ACTIONS: Dictionary[StringName, Array] = {
 const RESERVED_CODES: Array[int] = [KEY_ESCAPE, KEY_1, KEY_2, KEY_3, KEY_4, KEY_F1, KEY_F2, KEY_F3, KEY_F4,
 	KEY_F5, KEY_F6, KEY_F7, KEY_F8, KEY_F9, KEY_F10, KEY_F11, KEY_F12]
 
-const MOUSE_LABELS: Dictionary[int, String] = {
-	MOUSE_BUTTON_LEFT: "左鍵", MOUSE_BUTTON_RIGHT: "右鍵", MOUSE_BUTTON_MIDDLE: "中鍵",
-	MOUSE_BUTTON_WHEEL_UP: "滾輪↑", MOUSE_BUTTON_WHEEL_DOWN: "滾輪↓",
-	MOUSE_BUTTON_WHEEL_LEFT: "滾輪←", MOUSE_BUTTON_WHEEL_RIGHT: "滾輪→",
-	MOUSE_BUTTON_XBUTTON1: "側鍵1", MOUSE_BUTTON_XBUTTON2: "側鍵2",
+const MOUSE_LABELS := {
+	"zh": {
+		NONE: "滑鼠 %d", MOUSE_BUTTON_LEFT: "左鍵", MOUSE_BUTTON_RIGHT: "右鍵", MOUSE_BUTTON_MIDDLE: "中鍵",
+		MOUSE_BUTTON_WHEEL_UP: "滾輪↑", MOUSE_BUTTON_WHEEL_DOWN: "滾輪↓",
+		MOUSE_BUTTON_WHEEL_LEFT: "滾輪←", MOUSE_BUTTON_WHEEL_RIGHT: "滾輪→",
+		MOUSE_BUTTON_XBUTTON1: "側鍵1", MOUSE_BUTTON_XBUTTON2: "側鍵2",
+	},
+	"ja": {
+		NONE: "マウス %d", MOUSE_BUTTON_LEFT: "左クリック", MOUSE_BUTTON_RIGHT: "右クリック", MOUSE_BUTTON_MIDDLE: "中クリック",
+		MOUSE_BUTTON_WHEEL_UP: "ホイール↑", MOUSE_BUTTON_WHEEL_DOWN: "ホイール↓",
+		MOUSE_BUTTON_WHEEL_LEFT: "ホイール←", MOUSE_BUTTON_WHEEL_RIGHT: "ホイール→",
+		MOUSE_BUTTON_XBUTTON1: "サイド1", MOUSE_BUTTON_XBUTTON2: "サイド2",
+	},
+	"en": {
+		NONE: "Mouse %d", MOUSE_BUTTON_LEFT: "Left click", MOUSE_BUTTON_RIGHT: "Right click", MOUSE_BUTTON_MIDDLE: "Middle click",
+		MOUSE_BUTTON_WHEEL_UP: "Wheel ↑", MOUSE_BUTTON_WHEEL_DOWN: "Wheel ↓",
+		MOUSE_BUTTON_WHEEL_LEFT: "Wheel ←", MOUSE_BUTTON_WHEEL_RIGHT: "Wheel →",
+		MOUSE_BUTTON_XBUTTON1: "Side 1", MOUSE_BUTTON_XBUTTON2: "Side 2",
+	},
 }
 
 const JOY_BUTTON_LABELS: Dictionary[int, String] = {
@@ -257,7 +271,9 @@ func code_label(code: int) -> String:
 	if code == NONE:
 		return "—"
 	if code < 0:
-		return MOUSE_LABELS.get(-code, "滑鼠 %d" % -code)
+		var language := Story.language if is_instance_valid(Story) else StoryLocale.SOURCE_LANGUAGE
+		var labels: Dictionary = MOUSE_LABELS.get(language, MOUSE_LABELS[StoryLocale.SOURCE_LANGUAGE])
+		return labels.get(-code, labels[NONE] % -code)
 	var display := code
 	if DisplayServer.get_name() != "headless":
 		var mapped := DisplayServer.keyboard_get_label_from_physical(code)

@@ -10,10 +10,23 @@ func run() -> void:
 	_test_windows_from_data()
 	_test_aim_assist()
 	_test_latency()
+	_test_mouse_labels()
 	await _test_controller_flow()
 	await _test_controller_ui_flow()
 	await _test_dash_buffer()
 	await _test_air_jump()
+
+
+func _test_mouse_labels() -> void:
+	var previous := Story.language
+	var labels := {"zh": ["右鍵", "滾輪↓", "滑鼠 99"], "ja": ["右クリック", "ホイール↓", "マウス 99"],
+		"en": ["Right click", "Wheel ↓", "Mouse 99"]}
+	for language: String in labels:
+		Story.language = language
+		check(InputBindings.code_label(-MOUSE_BUTTON_RIGHT) == labels[language][0]
+				and InputBindings.code_label(-MOUSE_BUTTON_WHEEL_DOWN) == labels[language][1]
+				and InputBindings.code_label(-99) == labels[language][2], "%s labels mouse clicks, wheel and unknown buttons consistently" % language)
+	Story.language = previous
 
 
 func _air_jump_press() -> void:
