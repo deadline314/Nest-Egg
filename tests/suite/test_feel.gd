@@ -17,6 +17,7 @@ func run() -> void:
 	await _test_slowmo()
 	await _test_camera()
 	_test_camera_tuning()
+	_test_camera_retreat()
 	await _test_camera_rear_threat()
 	await _test_camera_ledge_peek()
 	await _test_sound_events()
@@ -217,6 +218,35 @@ func _test_camera_tuning() -> void:
 	for key: String in CameraTuning.FIELDS:
 		var spec: Array = CameraTuning.FIELDS[key]
 		check(float(spec[1]) <= float(spec[0]) and float(spec[0]) <= float(spec[2]), "default %s is inside its own range" % key)
+
+
+func _test_camera_retreat() -> void:
+	var camera := LevelCamera.new()
+	var player := Player.new()
+	camera.target = player
+	camera.position_smoothing_enabled = true
+	player.facing = 1
+	player.velocity.x = -127.5
+	check(is_zero_approx(camera._retreat_follow_x()), "uncommanded motion does not shift the camera")
+	Input.action_press(&"move_left")
+	check(is_equal_approx(camera._retreat_follow_x(), -camera.tuning.retreat_look_max), "holding back while facing right previews the left landing within the cap")
+	player.facing = -1
+	check(is_zero_approx(camera._retreat_follow_x()), "forward travel keeps the normal view")
+	player.facing = 1
+	player.state = Player.State.DASH
+	check(is_zero_approx(camera._retreat_follow_x()), "dash motion keeps the normal view")
+	player.state = Player.State.NORMAL
+	camera.position_smoothing_enabled = false
+	check(is_zero_approx(camera._retreat_follow_x()), "instant tracking does not need lag compensation")
+	Input.action_release(&"move_left")
+	camera.position_smoothing_enabled = true
+	player.velocity.x = 30.0
+	player.facing = -1
+	Input.action_press(&"move_right")
+	check(is_equal_approx(camera._retreat_follow_x(), 30.0 / camera.tuning.smoothing_speed), "rightward retreat previews the right landing in proportion to speed")
+	Input.action_release(&"move_right")
+	player.free()
+	camera.free()
 
 
 ## NE-256：背後有交戰中的敵人時前瞻縮小，敵人留在畫面裡；沒有威脅時恢復；轉向時鏡頭橫移有速度上限。

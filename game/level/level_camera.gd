@@ -199,7 +199,18 @@ func _release_presentation_focus() -> void:
 func _desired_position() -> Vector2:
 	# 往下看的三個來源（瞄準下方、站在邊緣、下落）加起來有上限；往上瞄不受影響。
 	var down := minf(maxf(_aim_look.y, 0.0) + _peek + _fall_look, tuning.down_look_max)
-	return Vector2(target.global_position.x + _look + _aim_look.x, _anchor_y + tuning.vertical_offset + down + minf(_aim_look.y, 0.0) - _lift)
+	return Vector2(target.global_position.x + _look + _aim_look.x + _retreat_follow_x(), _anchor_y + tuning.vertical_offset + down + minf(_aim_look.y, 0.0) - _lift)
+
+
+## 速度除以平滑速率是鏡頭追蹤的位移延遲。後退時補回一部分，讓落點較早入鏡。
+func _retreat_follow_x() -> float:
+	var player := target as Player
+	if tuning.retreat_look_max <= 0.0 or not position_smoothing_enabled or player == null or player.state != Player.State.NORMAL:
+		return 0.0
+	var velocity_x := player.velocity.x
+	if velocity_x * player.facing >= 0.0 or velocity_x * Input.get_axis(&"move_left", &"move_right") <= 0.0:
+		return 0.0
+	return clampf(velocity_x / tuning.smoothing_speed, -tuning.retreat_look_max, tuning.retreat_look_max)
 
 
 ## 腳底下方目前看得到多少（世界像素，鏡頭停穩、沒有往下看時）。
