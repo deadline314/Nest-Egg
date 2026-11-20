@@ -18,24 +18,29 @@ func clear() -> void:
 	previous_tick = -1
 
 func capture(weapon: WeaponData, xf: Transform2D, facing: int, rope: SoftWhip, canvas: Transform2D, span := Vector2(-512.0, 512.0)) -> void:
+	var is_whip := weapon.melee_shape == "whip"
 	var changed := weapon != _weapon or facing != _facing or span != _span
 	if changed:
 		_weapon = weapon
 		_span = span
 		_facing = facing
-		_local = _mesh(weapon, span) if weapon.melee_shape != "whip" else PackedVector2Array()
-		var count := _local.size() if weapon.melee_shape != "whip" else (SoftWhip.NODES - 1) * 6
+		_local = _mesh(weapon, span) if not is_whip else PackedVector2Array()
+		var count := (SoftWhip.NODES - 1) * 6 if is_whip else _local.size()
 		current.resize(count)
 		previous.resize(count)
 		_valid = false
 	previous_tick = tick
 	tick = Engine.get_physics_frames()
-	for i in current.size():
-		previous[i] = current[i]
-	if weapon.melee_shape == "whip":
-		if rope == null or not rope.is_laid():
-			clear()
-			return
+	if is_whip and (rope == null or not rope.is_laid()):
+		for i in current.size():
+			previous[i] = current[i]
+		clear()
+		return
+	if _valid:
+		var last := current
+		current = previous
+		previous = last
+	if is_whip:
 		var inverse := canvas.affine_inverse()
 		for i in range(1, SoftWhip.NODES):
 			# Match SoftWhip.draw body width in its drawing canvas, including canvas scale.
