@@ -7409,11 +7409,83 @@
    "mode": "animated",
    "steps": [
     {
+     "do": "scene",
+     "id": "ch2_ledger_controls",
+     "pos": [
+      386,
+      253
+     ],
+     "zoom": 1.15,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      225,
+      296
+     ],
+     "facing": 1,
+     "scale": 1.9,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "actor",
+     "id": "egret",
+     "kind": "egret",
+     "pos": [
+      304,
+      296
+     ],
+     "facing": 1,
+     "scale": 1.9,
+     "weapon": "",
+     "speaker": "egret"
+    },
+    {
+     "do": "actor",
+     "id": "yong",
+     "kind": "yong",
+     "pos": [
+      384,
+      296
+     ],
+     "facing": -1,
+     "scale": 1.9,
+     "weapon": "",
+     "speaker": "yong"
+    },
+    {
+     "do": "actor",
+     "id": "xiaowei",
+     "kind": "xiaowei",
+     "pos": [
+      483,
+      219.4
+     ],
+     "facing": -1,
+     "scale": 1.9,
+     "weapon": "",
+     "speaker": "xiaowei",
+     "pose": "sit",
+     "loop": "glance",
+     "pose_reason": "坐在高臺的安全座位，問父親傘要放在何處。",
+     "pose_support": "椅面 x=470.0～498.0、y=200.0；雙腳落在椅前腳踏 y=219.4。",
+     "seat_sag": 0.45
+    },
+    {
      "do": "say",
      "speaker": "lamp",
      "text": "他的裝甲和復原共用電源，主箱撤銷能一起切掉。斷電後才能卸下棍子和儲能匣。",
      "ja": "あいつの装甲と復元は電源を共有している。主ボックスの撤回で両方まとめて切れる。電源が切れてから、鉄棍と蓄電カセットを外せる。",
      "en": "His armor and restoration share a power supply, so revoking the main box cuts both. Only after the power is off can you remove the iron club and the power cell."
+    },
+    {
+     "do": "face",
+     "id": "yong",
+     "dir": 1
     },
     {
      "do": "say",
@@ -7423,6 +7495,16 @@
      "en": "The mainframe is under her layer, so don't fire toward her."
     },
     {
+     "do": "camera",
+     "pos": [
+      414,
+      254
+     ],
+     "zoom": 1.19,
+     "time": 0.45,
+     "wait": true
+    },
+    {
      "do": "say",
      "speaker": "lamp",
      "text": "主箱會永久解除這段連結，側箱只能暫停，但現在被護板擋住。",
@@ -7430,7 +7512,7 @@
      "en": "The main box will permanently sever this link. The side box can only be paused, but the panel is blocking it right now."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "not": {
      "flag": "ch2_yong_intro_seen",

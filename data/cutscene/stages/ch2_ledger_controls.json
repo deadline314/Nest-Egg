@@ -1,0 +1,556 @@
+{
+ "camera": {
+  "pos": [
+   386,
+   253
+  ],
+  "zoom": 1.15
+ },
+ "floor": 296,
+ "layers": [
+  {
+   "kind": "gradient",
+   "top": "#120808",
+   "bottom": "#2a1410",
+   "parallax": 0.0
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scenes/yong_hideout.webp",
+   "pos": [
+    -64,
+    -36.0
+   ],
+   "scale": 0.5,
+   "filter": "linear",
+   "source_width": 1536
+  },
+  {
+   "kind": "glow",
+   "pos": [
+    310,
+    160
+   ],
+   "radius": 150,
+   "color": "#ffd08a",
+   "intensity": 0.6,
+   "additive": true,
+   "alpha": 0.3,
+   "pulse": 0.05,
+   "pulse_depth": 0.2
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scene_props/yong_hideout/yong_hideout__xiaowei_chair_umbrella.png",
+   "pos": [
+    451.0,
+    169.8
+   ],
+   "scale": 0.475,
+   "filter": "linear",
+   "source_width": 128,
+   "support_rect": [
+    411,
+    223.0,
+    103,
+    4
+   ]
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    456,
+    219.4,
+    22,
+    1.3
+   ],
+   "color": "#806052"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    456.8,
+    220.70000000000002,
+    20,
+    1.7
+   ],
+   "color": "#503c35"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    458.4,
+    222.0,
+    1.7,
+    1.0
+   ],
+   "color": "#443430"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    473.0,
+    222.0,
+    1.7,
+    1.0
+   ],
+   "color": "#443430"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    411,
+    115,
+    103,
+    108
+   ],
+   "color": "#4b5c67",
+   "alpha": 0.14,
+   "depth": "front"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    411,
+    115,
+    1.4,
+    108
+   ],
+   "color": "#6b5150",
+   "alpha": 0.72,
+   "depth": "front"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    512,
+    115,
+    2,
+    108
+   ],
+   "color": "#392a2b",
+   "alpha": 0.75,
+   "depth": "front"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    411,
+    221.6,
+    103,
+    1.4
+   ],
+   "color": "#5a413e",
+   "alpha": 0.75,
+   "depth": "front"
+  },
+  {
+   "kind": "poly",
+   "points": [
+    [
+     413,
+     120
+    ],
+    [
+     470,
+     120
+    ],
+    [
+     421,
+     177
+    ],
+    [
+     413,
+     177
+    ]
+   ],
+   "color": "#fff2d3",
+   "alpha": 0.12,
+   "depth": "front"
+  },
+  {
+   "kind": "poly",
+   "points": [
+    [
+     503,
+     123
+    ],
+    [
+     509,
+     123
+    ],
+    [
+     476,
+     162
+    ],
+    [
+     470,
+     162
+    ]
+   ],
+   "color": "#fff2e0",
+   "alpha": 0.12,
+   "depth": "front"
+  },
+  {
+   "kind": "poly",
+   "points": [
+    [
+     432,
+     281
+    ],
+    [
+     521,
+     281
+    ],
+    [
+     535,
+     289
+    ],
+    [
+     514,
+     294
+    ],
+    [
+     436,
+     294
+    ],
+    [
+     426,
+     290
+    ]
+   ],
+   "color": "#160f12",
+   "alpha": 0.58
+  },
+  {
+   "kind": "poly",
+   "points": [
+    [
+     432,
+     239
+    ],
+    [
+     446,
+     231
+    ],
+    [
+     506,
+     231
+    ],
+    [
+     520,
+     239
+    ],
+    [
+     508,
+     246
+    ],
+    [
+     432,
+     246
+    ]
+   ],
+   "color": "#534648"
+  },
+  {
+   "kind": "poly",
+   "points": [
+    [
+     432,
+     239
+    ],
+    [
+     505,
+     239
+    ],
+    [
+     520,
+     232
+    ],
+    [
+     520,
+     282
+    ],
+    [
+     505,
+     290
+    ],
+    [
+     432,
+     290
+    ]
+   ],
+   "color": "#2e2428"
+  },
+  {
+   "kind": "poly",
+   "points": [
+    [
+     505,
+     239
+    ],
+    [
+     520,
+     232
+    ],
+    [
+     520,
+     282
+    ],
+    [
+     505,
+     290
+    ]
+   ],
+   "color": "#211b21"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    433,
+    286,
+    71,
+    3
+   ],
+   "color": "#5a4545"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    438,
+    242,
+    29,
+    39
+   ],
+   "color": "#655e62"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    439.3,
+    243.3,
+    26.4,
+    36.4
+   ],
+   "color": "#2f2b32"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    443,
+    259,
+    16,
+    3.5
+   ],
+   "color": "#838388"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    448.5,
+    246,
+    5,
+    5
+   ],
+   "color": "#9ae5f0"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    481,
+    248,
+    23,
+    26
+   ],
+   "color": "#1d2029"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    483,
+    250,
+    19,
+    21
+   ],
+   "color": "#3b4449"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    486,
+    252,
+    14,
+    8
+   ],
+   "color": "#8fced1"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    489,
+    264,
+    9,
+    1.6
+   ],
+   "color": "#a1a2a0"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    510,
+    208,
+    26,
+    62
+   ],
+   "color": "#31252a"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    508,
+    260,
+    29,
+    3.5
+   ],
+   "color": "#574345"
+  },
+  {
+   "kind": "sprite",
+   "id": "medic_side_box",
+   "path": "res://art/environment/scene_props/ch2_medic_transport/ch2_medic_transport__pause_box.png",
+   "pos": [
+    508.0,
+    203.0
+   ],
+   "scale": 0.12083333333333333,
+   "source_width": 243,
+   "filter": "linear",
+   "glow": false,
+   "visible": true,
+   "depth": "back",
+   "lighting": "physical",
+   "support": "帳房右側實牆支架"
+  },
+  {
+   "kind": "poly",
+   "points": [
+    [
+     512,
+     211
+    ],
+    [
+     533,
+     209
+    ],
+    [
+     537,
+     214
+    ],
+    [
+     537,
+     250
+    ],
+    [
+     512,
+     252
+    ]
+   ],
+   "color": "#363039"
+  },
+  {
+   "kind": "poly",
+   "points": [
+    [
+     514,
+     213
+    ],
+    [
+     531,
+     211
+    ],
+    [
+     535,
+     215
+    ],
+    [
+     535,
+     247
+    ],
+    [
+     514,
+     249
+    ]
+   ],
+   "color": "#565059"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    518,
+    219,
+    12,
+    1.5
+   ],
+   "color": "#ddae69"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    518,
+    221.5,
+    12,
+    1.5
+   ],
+   "color": "#ddae69"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    515,
+    244,
+    2,
+    2
+   ],
+   "color": "#93818a"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    532,
+    243,
+    2,
+    2
+   ],
+   "color": "#93818a"
+  }
+ ],
+ "floors": [
+  223.0,
+  219.4
+ ],
+ "furniture": [
+  {
+   "id": "ledger_desk",
+   "kind": "counter",
+   "rect": [
+    217,
+    215,
+    165,
+    69
+   ]
+  },
+  {
+   "id": "xiaowei_safety_seat",
+   "kind": "seat",
+   "plane": "actor",
+   "support": "platform",
+   "rect": [
+    470.0,
+    199.9625,
+    28.024999999999977,
+    23.037499999999994
+   ]
+  }
+ ]
+}

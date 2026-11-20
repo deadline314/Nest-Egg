@@ -178,6 +178,39 @@ def ledger_xiaowei_actor() -> dict:
     return seated
 
 
+# 主箱、主機與維修側箱安在高臺下的同一組牆架。主箱沿用戰鬥外觀的青燈和橫把手。
+LEDGER_CONTROLS = replace(
+    LEDGER_XIAOWEI, ident="ch2_ledger_controls", shot=(386, 253, 1.15),
+    layers=LEDGER_XIAOWEI.layers + (
+        dict(kind="poly", points=[[432, 281], [521, 281], [535, 289], [514, 294], [436, 294], [426, 290]],
+             color="#160f12", alpha=0.58),
+        dict(kind="poly", points=[[432, 239], [446, 231], [506, 231], [520, 239], [508, 246], [432, 246]],
+             color="#534648"),
+        dict(kind="poly", points=[[432, 239], [505, 239], [520, 232], [520, 282], [505, 290], [432, 290]],
+             color="#2e2428"),
+        dict(kind="poly", points=[[505, 239], [520, 232], [520, 282], [505, 290]], color="#211b21"),
+        dict(kind="rect", rect=[433, 286, 71, 3], color="#5a4545"),
+        dict(kind="rect", rect=[438, 242, 29, 39], color="#655e62"),
+        dict(kind="rect", rect=[439.3, 243.3, 26.4, 36.4], color="#2f2b32"),
+        dict(kind="rect", rect=[443, 259, 16, 3.5], color="#838388"),
+        dict(kind="rect", rect=[448.5, 246, 5, 5], color="#9ae5f0"),
+        dict(kind="rect", rect=[481, 248, 23, 26], color="#1d2029"),
+        dict(kind="rect", rect=[483, 250, 19, 21], color="#3b4449"),
+        dict(kind="rect", rect=[486, 252, 14, 8], color="#8fced1"),
+        dict(kind="rect", rect=[489, 264, 9, 1.6], color="#a1a2a0"),
+        dict(kind="rect", rect=[510, 208, 26, 62], color="#31252a"),
+        dict(kind="rect", rect=[508, 260, 29, 3.5], color="#574345"),
+        medic_transport_staging.sprite("pause_box", "medic_side_box", medic_transport_staging.BOX_POS,
+                                      medic_transport_staging.BOX_SCALE),
+        dict(kind="poly", points=[[512, 211], [533, 209], [537, 214], [537, 250], [512, 252]], color="#363039"),
+        dict(kind="poly", points=[[514, 213], [531, 211], [535, 215], [535, 247], [514, 249]], color="#565059"),
+        dict(kind="rect", rect=[518, 219, 12, 1.5], color="#ddae69"),
+        dict(kind="rect", rect=[518, 221.5, 12, 1.5], color="#ddae69"),
+        dict(kind="rect", rect=[515, 244, 2, 2], color="#93818a"),
+        dict(kind="rect", rect=[532, 243, 2, 2], color="#93818a"),
+    ))
+
+
 # --- 市集電話亭（S14）：art/environment/scenes/anchor_phone_booth.webp，疊上關卡裡同一座電話亭 --------------
 # 量自立繪：人行道從牆腳 y≈249 到路緣 y≈304，演員與電話亭都站在 292。捲門高約 180（1.5 身高，車庫門），縮放 2.0。
 BOOTH_FLOOR = booth_return_staging.FLOOR
@@ -245,4 +278,4 @@ ROOF_WATCHER = replace(derived(
 ROOF_TEA = replace(derived(roof_tea_staging.STAGE, "ch1_rooftop", roof_tea_staging.layers(), scale=2.2, shot=(320, 200, 1.0)),
                    furniture=roof_tea_staging.furniture())
 
-STAGES = (LEDGER, LEDGER_DISPUTE, LEDGER_XIAOWEI, BOOTH, COLLECTION, PAWNSHOP, RENT_WINDOW, MEDIC_LEDGER, MARKET_PASS, ROOF_WATCHER, ROOF_TEA)
+STAGES = (LEDGER, LEDGER_DISPUTE, LEDGER_XIAOWEI, LEDGER_CONTROLS, BOOTH, COLLECTION, PAWNSHOP, RENT_WINDOW, MEDIC_LEDGER, MARKET_PASS, ROOF_WATCHER, ROOF_TEA)
