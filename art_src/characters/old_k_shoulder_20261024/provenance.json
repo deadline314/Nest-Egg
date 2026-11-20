@@ -12,12 +12,14 @@
     241,
     334
   ],
-  "registration": "Canvas ratios, then inverse canonical part_transform; preserve source alpha.",
+  "registration": "Shoulder RGB uses canvas ratios and inverse canonical part_transform. Collar pixels use the original source canvas.",
+  "collar_origin": [376, 135],
   "inputs": {
     "art_src/characters/old_k_shoulder_20261024/raw/torso-generated.png": "dbc58de6418f0bc322f4429c6a65fae9c60624625811a834fdd66cf410247803",
     "art_src/characters/old_k_shoulder_20261024/reference/torso-source.png": "ae51a5c049e0407fb9bf8677d27530992206d4c5a81d1022535a0d003b31c35a",
     "art_src/characters/old_k_shoulder_20261024/reference/torso-runtime.png": "34b97f13f484f227055abf7a393fcc47507bf2ae8e47a5efcec8462df9a41735",
     "art_src/characters/old_k_shoulder_20261024/shoulder-mask.png": "0bfaadb224ef5753daf417b9c2c400e3a9543962197ed5772762fd4718bfa0a1",
+    "art_src/characters/old_k_shoulder_20261024/neck-overlap.png": "13e76572abbe8dcf7247114119efe5cf330f18804ffabb70b10959dd3226e301",
     "art_src/characters/old_k/07_refined/torso.png": "ae51a5c049e0407fb9bf8677d27530992206d4c5a81d1022535a0d003b31c35a",
     "tools/comfyui/specs/old_k_side.json": "325918c887f45ae63fa1588ab9cf207a8ab8e2431d183ab62da8b8234d2b86f9"
   },
