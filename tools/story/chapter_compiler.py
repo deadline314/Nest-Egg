@@ -27,7 +27,7 @@ sys.path.insert(0, str(ROOT / "tools/story"))
 import dataclasses  # noqa: E402
 
 import story_i18n  # noqa: E402
-from ch1_closure import choice_reference_fields, render_document_resource  # noqa: E402
+from ch1_closure import choice_ui_fields, render_document_resource  # noqa: E402
 from ch1_runtime_backend import CompileError, DURABLE_POLICIES, validate_completion_policies, apply_npc_contracts, _bubble_ok, _results, _say_lines, _walk  # noqa: E402
 
 DIALOGUE_MIN_LINES = 3
@@ -80,7 +80,7 @@ def _choice_step(segment, spec: ChapterSpec) -> dict:
     says = [s for s in segment.steps if s.get("do") == "say"]
     prompt = says[-1]["text"] if says else "請選擇接下來的行動。"
     return {"do": "choice", "text": prompt, "default": default, "options": options,
-            **choice_reference_fields(segment, spec.source.documents)}
+            **choice_ui_fields(segment, spec.source.documents)}
 
 
 def _compile_segment(segment, spec: ChapterSpec, inside_presentation: bool) -> dict:

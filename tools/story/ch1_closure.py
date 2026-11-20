@@ -141,6 +141,7 @@ class Segment:
     skip_then: bool = False
     cancel_on_skip: bool = False
     reference_items: tuple[str, ...] = ()
+    cancel_choice_on_back: bool = False
 
 
 @dataclass(frozen=True)
@@ -175,13 +176,14 @@ class Binding:
     pending: str = ""
 
 
-def choice_reference_fields(segment: Segment, documents: dict) -> dict:
+def choice_ui_fields(segment: Segment, documents: dict) -> dict:
     ids = segment.reference_items
-    if not ids:
-        return {}
-    if len(ids) > 3 or len(set(ids)) != len(ids) or any(item not in documents for item in ids):
-        raise ValueError(f"{segment.id}: invalid choice document references {ids!r}")
-    return {"reference_items": list(ids)}
+    fields = {"cancel_choice_on_back": True} if segment.cancel_choice_on_back else {}
+    if ids:
+        if len(ids) > 3 or len(set(ids)) != len(ids) or any(item not in documents for item in ids):
+            raise ValueError(f"{segment.id}: invalid choice document references {ids!r}")
+        fields["reference_items"] = list(ids)
+    return fields
 
 
 @dataclass
@@ -292,13 +294,18 @@ def render_document_resource(ident: str, document: dict, order: int) -> str:
     collectible totals.  Loading their definitions never grants an item.
     """
     quote = lambda value: json.dumps(value, ensure_ascii=False)
+    source_actor = document.get("source_actor", "")
+    if not isinstance(source_actor, str):
+        raise ValueError(f"{ident}: source_actor must be an NPC id")
+    origin = [f"source_actor = &{quote(source_actor)}"] if source_actor else []
     return "\n".join([
         '[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]', "",
         '[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]', "",
         '[resource]', 'script = ExtResource("1_script")', f'id = &{quote(ident)}',
         f'display_name = {quote(document["name"])}', f'description = {quote(document["description"])}',
         'color = Color(0.78, 0.86, 0.92, 1.0)', 'category = 0', f'order = {order}',
-        'chapter = &"ch1_kasa"', f'body = {quote(document["body"])}', 'trigger = 3', f'icon = {quote(document["icon"])}', "",
+        'chapter = &"ch1_kasa"', f'body = {quote(document["body"])}', 'trigger = 3', *origin,
+        f'icon = {quote(document["icon"])}', "",
     ])
 
 

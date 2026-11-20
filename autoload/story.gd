@@ -1334,6 +1334,15 @@ func _on_cinematic_finished(id: StringName, expected_request := 0) -> void:
 	_start_queued_cinematic()
 
 
+## Leave an authored choice without applying its default or retiring unrelated presentations.
+func cancel_active_choice(player: CutscenePlayer) -> void:
+	if player != _player or player.scene_id != _current_cinematic or not player.choice_active() or choice_save_pending():
+		return
+	_player = null
+	player.cancel()
+	_cancel_skipped_cinematic(player.scene_id)
+
+
 func _cancel_skipped_cinematic(id: StringName) -> void:
 	var request := _current_request
 	presentation_cancelled.emit(id, current_presentation_context(), &"skip", request)

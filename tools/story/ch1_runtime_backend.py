@@ -26,7 +26,7 @@ sys.path.insert(0, str(ROOT / "tools/story"))
 import build_ch1_story as legacy  # noqa: E402
 import meal_staging  # noqa: E402
 import story_i18n  # noqa: E402
-from ch1_closure import build_source, choice_reference_fields, validate_source  # noqa: E402
+from ch1_closure import build_source, choice_ui_fields, validate_source  # noqa: E402
 import prologue_source  # noqa: E402
 
 OUT = ROOT / "data/story/ch1_kasa.json"
@@ -185,7 +185,7 @@ def _choice_step(segment, source):
     if says:
         prompt = says[-1]["text"]
     return {"do": "choice", "text": prompt, "default": default, "options": options,
-            **choice_reference_fields(segment, source.documents)}
+            **choice_ui_fields(segment, source.documents)}
 
 
 def _presentation_targets(source):

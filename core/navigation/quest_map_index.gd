@@ -71,6 +71,17 @@ static func _marker(kind: String, text: String, position: Vector2, tile: int) ->
 	return {"kind": kind, "text": text, "position": position, "cell": Vector2i(int(position.x / tile), int(ceilf(position.y / tile)) - 1)}
 
 
+func source_location(id: StringName) -> Dictionary:
+	for path: String in areas:
+		var layout: LevelLayout = areas[path]["layout"]
+		for spawn: Dictionary in layout.spawns:
+			var actor := spawn["resource"] as NpcData
+			if actor != null and actor.id == id:
+				var cell: Vector2i = spawn["cell"]
+				return {"level": path, "cell": [cell.x, cell.y]}
+	return {}
+
+
 func edges(path: String) -> Array[Dictionary]:
 	var result: Array[Dictionary] = []
 	for marker: Dictionary in areas.get(path, {}).get("markers", []):

@@ -13,4 +13,5 @@ order = 201
 chapter = &"ch2_heron"
 body = "市場修繕代收批號M17。攤位押金本金200信用點，本期利息20信用點。申請核准前不收續租款。蓋章：暫未核准。"
 trigger = 3
+source_actor = &"ch2_rent_window"
 icon = "doc_notice"

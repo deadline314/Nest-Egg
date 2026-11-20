@@ -65,6 +65,7 @@ var _current_where := ""
 var _next_is_say := false
 var _choice: VBoxContainer
 var _choice_reader: DocumentReader
+var _choice_map: QuestMapScreen
 # HDR背景通知不能透進選項與後果說明，底板保持不透明。
 const CHOICE_BACKING := Color(0.02, 0.04, 0.07, 1.0)
 var _choice_options: Array[Dictionary] = []
@@ -280,6 +281,8 @@ func _input(event: InputEvent) -> void:
 	var shoot_pressed := _shoot_press.is_action_pressed(event, &"shoot")
 	if not _running:
 		return
+	if is_instance_valid(_choice_map):
+		return
 	if is_instance_valid(_choice_reader):
 		if event.is_action_pressed(&"ui_cancel") or event.is_action_pressed(&"pause"):
 			_choice_reader.dismissed.emit()
@@ -290,7 +293,10 @@ func _input(event: InputEvent) -> void:
 		return
 	if choice_active():
 		if event.is_action_pressed(&"ui_cancel") or event.is_action_pressed(&"pause"):
-			skip()
+			if _choice_step.get("cancel_choice_on_back", false) == true:
+				Story.cancel_active_choice(self)
+			else:
+				skip()
 			get_viewport().set_input_as_handled()
 		return  # focused buttons handle keyboard, controller and pointer confirmation
 	if event.is_action_pressed(&"pause") or event.is_action_pressed(&"ui_cancel"):
@@ -1072,6 +1078,7 @@ func _do_choice(step: Dictionary) -> void:
 		_choice.add_child(button)
 	_choice.add_child(explain)
 	_add_choice_references(step, explain)
+	_refresh_skip_hint()
 	_isolate_ui_lighting(_choice)
 	_layout_safe_rect(Story.framing.safe_rect())
 	(_choice.get_child(1) as Button).grab_focus()
@@ -1091,6 +1098,9 @@ func _do_choice(step: Dictionary) -> void:
 	if is_instance_valid(_choice_reader):
 		_choice_reader.queue_free()
 		_choice_reader = null
+	if is_instance_valid(_choice_map):
+		_choice_map.queue_free()
+		_choice_map = null
 	_choice.queue_free()
 	_choice_step = {}
 	Input.mouse_mode = mouse_mode
@@ -1160,6 +1170,48 @@ func _open_choice_reference(item: StoryItemData, anchor: Button) -> void:
 	_isolate_ui_lighting(reader)
 	_layout_safe_rect(Story.framing.safe_rect())
 	reader.show_document(item.title_text(), item.body_text(), item.color)
+	_offer_reference_map(reader, item)
+
+
+func _offer_reference_map(reader: DocumentReader, item: StoryItemData) -> void:
+	if item.source_actor == &"":
+		return
+	var node := get_tree().get_first_node_in_group(&"player")
+	while node != null and not node is Level:
+		node = node.get_parent()
+	var level := node as Level
+	if level == null or not is_instance_valid(level.hud) or level.hud.quest_guidance == null:
+		return
+	var location := level.hud.quest_guidance.maps.source_location(item.source_actor)
+	if location.is_empty():
+		push_warning("[Cutscene] %s 找不到 %s 的證據來源：%s" % [_current_where, item.id, item.source_actor])
+		return
+	var label := "在地圖查看來源"
+	var title := "%s的來源"
+	match Story.language:
+		"ja":
+			label = "地図で入手先を確認"
+			title = "%sの入手先"
+		"en":
+			label = "Show source on map"
+			title = "Source of %s"
+	reader.add_source_action(label, _show_reference_map.bind(level, location, title % item.title_text()))
+
+
+func _show_reference_map(level: Level, location: Dictionary, title: String) -> void:
+	if is_instance_valid(_choice_map) or not is_instance_valid(_choice_reader) or not is_instance_valid(level):
+		return
+	var map := QuestMapScreen.for_level(level)
+	if map == null:
+		return
+	_choice_map = map
+	map.z_index = EFFECT_Z + 22
+	map.start_page = "region"
+	map.reference_location = location
+	map.reference_label = title
+	map.closed.connect(func() -> void: _choice_map = null)
+	UiOverlay.open(_root, map)
+	_isolate_ui_lighting(map)
 
 
 func _do_branch(step: Dictionary) -> void:
@@ -1197,4 +1249,5 @@ func _layout_safe_rect(rect: Rect2) -> void:
 
 func _refresh_skip_hint() -> void:
 	if is_instance_valid(_skip_hint):
-		_skip_hint.text = UiKit.cinematic_skip_hint(Story.language, &"ui_cancel", Story.cancels_on_skip(scene_id))
+		var returns: bool = Story.cancels_on_skip(scene_id) or _choice_step.get("cancel_choice_on_back", false) == true
+		_skip_hint.text = UiKit.cinematic_skip_hint(Story.language, &"ui_cancel", returns)

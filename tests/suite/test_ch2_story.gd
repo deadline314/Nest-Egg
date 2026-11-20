@@ -72,12 +72,24 @@ func _test_story_gates() -> void:
 func _test_reconcile_documents() -> void:
 	const SCENE := &"ch2_t_s10_principal"
 	const IDS := [&"ch2_evidence_contract", &"ch2_evidence_receipt", &"ch2_evidence_collection"]
+	const MARKET := "res://data/levels/ch2_market.tres"
+	const LOADING := "res://data/levels/ch2_loading.tres"
 	var steps: Array = Story._scenes[SCENE].get("steps", [])
 	var step: Dictionary = steps.back()
 	check(step.get("reference_items", []) == Array(IDS).map(func(id: StringName) -> String: return str(id)),
 		"the actual reconciliation choice references the three acquired records in author order")
-	for id: StringName in IDS:
+	var origin := QuestMapIndex.for_chapter(&"ch2_heron")
+	var locations := [
+		{"level": MARKET, "cell": [53, 35]},
+		{"level": MARKET, "cell": [30, 35]},
+		{"level": LOADING, "cell": [112, 35]},
+	]
+	for i in IDS.size():
+		var id: StringName = IDS[i]
 		check(StoryItems.acquire(id, false), "test fixture owns the real reconciliation record %s" % id)
+		var item := StoryItems.find(id)
+		check(item != null and origin.source_location(item.source_actor) == locations[i],
+			"%s points to its original map actor" % id)
 	var stored := StoryItems.snapshot()
 	var cutscene := CutscenePlayer.new()
 	runner.get_tree().root.add_child(cutscene)

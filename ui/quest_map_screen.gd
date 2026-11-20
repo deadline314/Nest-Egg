@@ -12,6 +12,11 @@ const PAGES := ["quests", "region", "world"]
 const PAGE_NAMES := {"quests": "任務", "region": "區域地圖", "world": "世界地圖"}
 const PAGE_TIPS := {"quests": "查看任務步驟與釘選目標。", "region": "查看目前區域及已探索的地點。", "world": "查看區域之間的真實出入口連接。"}
 const LEGEND := [["player", "你的位置", "主角目前在這裡。"], ["goal", "追蹤目標", "前往這裡完成追蹤中的步驟。"], ["exit", "出入口", "從出入口前往其他區域。"], ["checkpoint", "復原點", "啟用後可從這裡重新開始。"], ["shop", "商店", "在商店查看補給與服務。"], ["pickup", "拾取點", "探索附近後可查看拾取地點。"], ["gate", "閘門", "選擇閘門圖示查看通行條件。"]]
+const SOURCE_MAP_COPY := {
+	"zh": {"center": "回到來源", "marker": "文件來源", "hint": "取得這份文件的地點。", "zoom": "放大來源周圍的地圖。"},
+	"ja": {"center": "入手先に戻る", "marker": "入手先", "hint": "この書類を入手した場所。", "zoom": "入手先の周辺を拡大。"},
+	"en": {"center": "Center source", "marker": "Document source", "hint": "Where this document was obtained.", "zoom": "Zoom in around the source."},
+}
 
 var catalog: QuestCatalog
 var maps: QuestMapIndex
@@ -21,6 +26,8 @@ var player_path := ""
 var player_position := Vector2.ZERO
 var world: Dictionary = {}
 var start_page := "quests"
+var reference_location: Dictionary = {}
+var reference_label := ""
 var _page := ""
 var _kind := "all"
 var _completed := false
@@ -48,6 +55,22 @@ var _tabs: HBoxContainer
 var _buttons: Array[Button] = []
 
 
+static func for_level(level: Level) -> QuestMapScreen:
+	if not is_instance_valid(level) or not is_instance_valid(level.player) \
+			or not is_instance_valid(level.hud) or level.hud.quest_guidance == null:
+		return null
+	var guidance := level.hud.quest_guidance
+	var screen := QuestMapScreen.new()
+	screen.catalog = guidance.catalog
+	screen.maps = guidance.maps
+	screen.state = guidance.state
+	screen.chapter = String(level.data.chapter)
+	screen.player_path = level.data.resource_path
+	screen.player_position = level.player.global_position
+	screen.world = WorldState.capture(level.get_tree())
+	return screen
+
+
 func _ready() -> void:
 	_display_language = Story.language
 	# 本頁底部已有聚焦說明，疊在暫停頁裡時不讓暫停頁的說明列重複顯示。
@@ -73,7 +96,7 @@ func _ready() -> void:
 	layout.add_child(_body)
 	layout.add_child(FlatStyle.rule())
 	layout.add_child(_build_footer())
-	_map_path = player_path
+	_map_path = str(reference_location.get("level", player_path))
 	InputBindings.device_changed.connect(_on_device_changed)
 	InputBindings.bindings_changed.connect(_refresh_prompts)
 	show_page(start_page, false)
@@ -138,7 +161,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed(&"ui_cancel") or event.is_action_pressed(&"pause"):
 		go_back()
 		get_viewport().set_input_as_handled()
-	elif event.is_action_pressed(&"inventory_next_tab") or event.is_action_pressed(&"inventory_prev_tab"):
+	elif reference_location.is_empty() and (event.is_action_pressed(&"inventory_next_tab") or event.is_action_pressed(&"inventory_prev_tab")):
 		var offset := 1 if event.is_action_pressed(&"inventory_next_tab") else -1
 		show_page(PAGES[posmod(PAGES.find(_page) + offset, PAGES.size())])
 		get_viewport().set_input_as_handled()
@@ -198,6 +221,12 @@ func _build_tabs() -> void:
 	for child in _tabs.get_children():
 		_tabs.remove_child(child)
 		child.queue_free()
+	if not reference_location.is_empty():
+		var label := UiKit.caption(reference_label, Palette.UI_TEXT, HORIZONTAL_ALIGNMENT_CENTER)
+		label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		_tabs.add_child(label)
+		return
 	var prev := FlatStyle.keycap(InputBindings.primary_label(&"inventory_prev_tab"))
 	prev.set_meta(&"prompt_action", &"inventory_prev_tab")
 	_tabs.add_child(prev)
@@ -479,6 +508,8 @@ func _build_map() -> void:
 	info.add_theme_constant_override(&"separation", 3)
 	columns.add_child(info)
 	var world_mode := _page == "world"
+	var showing_source := not reference_location.is_empty()
+	var source_copy: Dictionary = SOURCE_MAP_COPY.get(Story.language, SOURCE_MAP_COPY["zh"])
 	info.add_child(UiKit.caption("第一章的區域" if world_mode else "目前區域" if _map_path == player_path else "查看中的區域", Palette.CYAN))
 	var heading := UiKit.heading("世界地圖" if world_mode else data.display_name if data != null else "尚未載入區域")
 	heading.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -493,14 +524,19 @@ func _build_map() -> void:
 		tools.add_theme_constant_override(&"h_separation", 2)
 		tools.add_theme_constant_override(&"v_separation", 2)
 		info.add_child(tools)
-		for entry: Array in [["放大", _zoom.bind(2.0), "放大區域地圖，中心對準玩家位置。"], ["縮小", _zoom.bind(0.5), "縮小區域地圖，查看更遠的路。"], ["回到所在區域", _here, "顯示主角目前所在的區域。"]]:
+		var zoom_hint: String = source_copy["zoom"] if showing_source else "放大區域地圖，中心對準玩家位置。"
+		var center := [source_copy["center"], _here, source_copy["hint"]] if showing_source else ["回到所在區域", _here, "顯示主角目前所在的區域。"]
+		for entry: Array in [["放大", _zoom.bind(2.0), zoom_hint], ["縮小", _zoom.bind(0.5), "縮小區域地圖，查看更遠的路。"], center]:
 			var tool := UiKit.button(entry[0], entry[1], entry[2])
 			FlatStyle.chip(tool)
 			tools.add_child(tool)
 			_buttons.append(tool)
 	info.add_child(FlatStyle.section("圖例"))
 	for item: Array in LEGEND:
-		var button := UiKit.button("　 " + str(item[1]), Callable(), item[2])
+		var source_marker: bool = showing_source and item[0] == "goal"
+		var text: String = source_copy["marker"] if source_marker else item[1]
+		var tip: String = source_copy["hint"] if source_marker else item[2]
+		var button := UiKit.button("　 " + text, Callable(), tip)
 		FlatStyle.chip(button)
 		button.alignment = HORIZONTAL_ALIGNMENT_LEFT
 		var glyph := UiKit.caption(QuestMapCanvas.SYMBOLS[item[0]], QuestMapCanvas.COLORS[item[0]])
@@ -529,7 +565,8 @@ func _build_map() -> void:
 	var step := QuestCatalog.current_step(quest, GameState.world_flags)
 	if step.is_empty() and not quest.is_empty():
 		step = quest["steps"].back()
-	_canvas.goal = step.get("location", {})
+	_canvas.goal = step.get("location", {}) if reference_location.is_empty() else reference_location
+	_canvas.goal_name = reference_label
 	_canvas.marker_selected.connect(func(text: String) -> void: _status.text = text)
 	_canvas.area_selected.connect(_jump_to_map)
 	_canvas.refreshed.connect(func() -> void: stats.text = _map_stats(world_mode))
@@ -555,7 +592,7 @@ func _zoom(factor: float) -> void:
 
 
 func _here() -> void:
-	_map_path = player_path
+	_map_path = str(reference_location.get("level", player_path))
 	_build()
 
 

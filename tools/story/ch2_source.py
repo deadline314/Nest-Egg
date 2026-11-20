@@ -106,12 +106,15 @@ DOCUMENTS = {
         "body": "持證人可進入市集公眾攤道查核市場修繕代收批號M17。後方帳房與貨道不在放行範圍。本證不是付款憑證，也不能用來免付任何費用。"},
     "ch2_evidence_contract": {
         "name": "租攤合約副本", "icon": "doc_notice", "description": "租攤視窗給的合約副本：押金本金200，本期利息20。",
+        "source_actor": "ch2_rent_window",
         "body": "市場修繕代收批號M17。攤位押金本金200信用點，本期利息20信用點。申請核准前不收續租款。蓋章：暫未核准。"},
     "ch2_evidence_receipt": {
         "name": "代收收據副本", "icon": "doc_stub", "description": "代收處印的收據副本：已付120，本期應付100。",
+        "source_actor": "ch2_vig",
         "body": "市場修繕代收／批號M17／本金200／本期利息20／已付120／本期應付100。蓋章日期清楚。若當天代墊，另有一行「今日代墊40，待查核抵扣」。"},
     "ch2_evidence_collection": {
         "name": "代收簿副本", "icon": "doc_log", "description": "裝卸間代收簿的副本：同一批號還記著待收120。",
+        "source_actor": "ch2_collection_book",
         "body": "批號M17／收款120，其中本金100、利息20／轉送北棟二樓／待收欄120。按合約與收據，正確的待收應該是100。"},
     "ch2_original_ledger": {
         "name": "公開原帳副本", "icon": "doc_log", "description": "帳櫃裡的公開原帳：待收100，代收簿多加的20沒有根據。",
@@ -531,7 +534,7 @@ def _loading(source: ProductionSource):
     source.add("ch2_t_s10_principal", "S10", (
         ("egret", "拿本金的欄對本金，別拿還款總額整筆減掉。裡面有已付利息。"),
         ("label", "三張紙攤在桌上。先找出本金還剩多少。")),
-        when=all_of(have_all, negate(done)), reference_items=evidence, options=(
+        when=all_of(have_all, negate(done)), reference_items=evidence, cancel_choice_on_back=True, options=(
             _opt("principal", "選收據的本金欄：本金還剩一百。", "ch2_t_s10_interest", "收據寫本金兩百、已付的一百二裡有一百是本金。"),
             _opt("total", "把已付的一百二整筆當本金減掉。", "ch2_t_s10_principal_wrong", "已付的一百二裡還有利息。")))
     source.add("ch2_t_s10_principal_wrong", "S10", (("label", "收據的一百二包含一百本金與二十利息，請分別比較。"),),
@@ -539,7 +542,7 @@ def _loading(source: ProductionSource):
     source.add("ch2_t_s10_interest", "S10", (
         ("rin", "本金還剩一百，二十的利息已經付過。"),
         ("label", "再找出哪一欄把已付的利息又算了一次。")),
-        reference_items=evidence, options=(
+        reference_items=evidence, cancel_choice_on_back=True, options=(
             _opt("collection", "選代收簿的待收欄：一百二十。", "ch2_t_s10_batch", "合約與收據都說利息付過了。"),
             _opt("contract", "選合約的利息欄：二十。", "ch2_t_s10_interest_wrong", "合約上的二十是本期該付的利息，不是重複的那筆。")))
     source.add("ch2_t_s10_interest_wrong", "S10", (("label", "合約的二十是本期利息，收據寫著已經付過。請找把它又算一次的那一欄。"),),
@@ -547,7 +550,7 @@ def _loading(source: ProductionSource):
     source.add("ch2_t_s10_batch", "S10", (
         ("rin", "代收簿還寫一百二十，他把已付的二十再收一次。"),
         ("label", "最後確認這筆帳送到哪裡。")),
-        reference_items=evidence, options=(
+        reference_items=evidence, cancel_choice_on_back=True, options=(
             _opt("north", "選代收簿的批號：轉送北棟二樓。", "ch2_t_s10_done", "三張都有同一批號。"),
             _opt("window", "選租攤視窗的地址。", "ch2_t_s10_batch_wrong", "租攤視窗只開合約，帳不是送到那裡。")))
     source.add("ch2_t_s10_batch_wrong", "S10", (("label", "租攤視窗只開合約。代收簿的批號旁寫著帳送去的地方。"),),

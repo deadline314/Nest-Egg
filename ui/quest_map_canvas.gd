@@ -30,6 +30,7 @@ var path := ""
 var player_path := ""
 var player_position := Vector2.ZERO
 var goal: Dictionary = {}
+var goal_name := ""
 var flags: Dictionary = {}
 var world: Dictionary = {}
 var world_mode := false
@@ -131,7 +132,7 @@ func _region_map() -> void:
 		factor = _cell_size(cells, avail)
 	_view = Rect2(Vector2(PAD, PAD), avail)
 	var focus := cells * 0.5
-	if path == player_path:
+	if path == player_path and goal_name.is_empty():
 		focus = player_position / layout.tile_size
 	elif goal.get("level", "") == path:
 		var goal_cell: Array = goal.get("cell", [0, 0])
@@ -174,7 +175,10 @@ func _region_map() -> void:
 		var cell: Array = goal.get("cell", [0, 0])
 		var point := _map_rect.position + Vector2(cell[0] + 0.5, cell[1] + 1.0) * factor
 		if _view.grow(1).has_point(point):
-			_button("◎", "前往這裡完成追蹤中的步驟。", point, MARKER, Palette.MAGENTA)
+			var text := "前往這裡完成追蹤中的步驟。" if goal_name.is_empty() else goal_name
+			var marker := _button("◎", text, point, MARKER, Palette.MAGENTA)
+			if not goal_name.is_empty():
+				marker.pressed.connect(marker_selected.emit.bind(text))
 		else:
 			_edge_label(point, "◎ 目標", Palette.MAGENTA)
 

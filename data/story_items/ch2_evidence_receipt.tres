@@ -13,4 +13,5 @@ order = 202
 chapter = &"ch2_heron"
 body = "市場修繕代收／批號M17／本金200／本期利息20／已付120／本期應付100。蓋章日期清楚。若當天代墊，另有一行「今日代墊40，待查核抵扣」。"
 trigger = 3
+source_actor = &"ch2_vig"
 icon = "doc_stub"

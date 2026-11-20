@@ -38,6 +38,8 @@ enum Category { KEY_ITEM, DOCUMENT, RECORDING }
 @export var trigger_scene: StringName = &""
 ## 第一次取得時寫入的劇情旗標（例如拿到資料盤）；交出後旗標仍在，代表「曾經取得」。
 @export var acquire_flag: StringName = &""
+## 可在地圖查看的原始取得處，填寫關卡中既有的 NPC id。
+@export var source_actor: StringName = &""
 @export_group("Art")
 ## 背包像素圖示的檔名（art/items/icons/<icon>.png）。
 @export var icon: String = ""

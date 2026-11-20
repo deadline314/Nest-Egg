@@ -52,6 +52,19 @@ func show_document(title: String, text: String, accent: Color) -> void:
 	_back.grab_focus()
 
 
+func add_source_action(label: String, action: Callable) -> void:
+	var button := UiKit.button(label, action)
+	button.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	var actions := HBoxContainer.new()
+	body.add_child(actions)
+	body.remove_child(_back)
+	actions.add_child(_back)
+	actions.add_child(button)
+	_back.focus_neighbor_right = _back.get_path_to(button)
+	button.focus_neighbor_left = button.get_path_to(_back)
+	_back.grab_focus()
+
+
 func scroll(direction: int) -> void:
 	if direction != 0:
 		var line := _text.get_theme_font("font").get_height(_text.get_theme_font_size("font"))

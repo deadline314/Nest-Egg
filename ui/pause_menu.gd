@@ -319,17 +319,11 @@ func _on_menu() -> void:
 
 func _open_navigation(page: String) -> void:
 	var level := get_parent() as Level
-	if level == null or not is_instance_valid(level.hud) or level.hud.quest_guidance == null:
+	if level == null:
 		return
-	var guidance := level.hud.quest_guidance
-	_navigation = QuestMapScreen.new()
-	_navigation.catalog = guidance.catalog
-	_navigation.maps = guidance.maps
-	_navigation.state = guidance.state
-	_navigation.chapter = String(level.data.chapter)
-	_navigation.player_path = level.data.resource_path
-	_navigation.player_position = level.player.global_position
-	_navigation.world = WorldState.capture(get_tree())
+	_navigation = QuestMapScreen.for_level(level)
+	if _navigation == null:
+		return
 	_navigation.start_page = page
 	_navigation.closed.connect(func() -> void: _navigation = null)
 	UiOverlay.open(_root, _navigation)
