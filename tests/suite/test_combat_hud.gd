@@ -7,6 +7,7 @@ extends TestSuite
 func run() -> void:
 	await _test_boss_bar()
 	await _test_boss_bar_accessibility()
+	await _test_player_vitals_accessibility()
 	await _test_credits_tag()
 	await _test_credit_counter_accessibility()
 	await _test_banner_kinds()
@@ -115,6 +116,50 @@ func _test_boss_bar_accessibility() -> void:
 	check(bar.visible, "normal mode still fades out a defeated boss bar")
 	Settings.set_reduce_ui_motion(true)
 	check(not bar.visible, "switching reduced motion on finishes an active close animation")
+	Settings.set_reduce_ui_motion(previous_motion)
+	Settings.set_reduce_flashes(previous_flashes)
+	await end_level(level)
+
+
+func _test_player_vitals_accessibility() -> void:
+	var previous_motion := Settings.get_reduce_ui_motion()
+	var previous_flashes := Settings.get_reduce_flashes()
+	var level := await start_level(PropsSuite.level_data())
+	var tag := level.hud.vitals_tag
+	Settings.set_reduce_ui_motion(false)
+	Settings.set_reduce_flashes(false)
+	EventBus.player_health_changed.emit(6, 6)
+	tag.presence.alpha = 0.12
+	EventBus.player_health_changed.emit(2, 6)
+	EventBus.player_guard_changed.emit(25.0, 100.0, false)
+	tag._tick_effects(0.05)
+	EventBus.player_parried.emit(Vector2.ZERO)
+	check(tag.is_low_health() and tag._lost_time[2] >= 0.0 and tag._shake_left > 0.0 and tag.presence.pop > 0.0,
+			"ordinary player vitals retain health loss, shake, pop and low-health state")
+	check(tag._parry_left > 0.0 and tag._guard_ghost > tag._guard_shown and tag._guard_shown > tag.guard_ratio,
+			"ordinary player vitals retain parry feedback and the guard trail")
+	Settings.set_reduce_flashes(true)
+	var low_color := tag._health_color(1.0)
+	tag._time += 0.24
+	check(tag._lost_time[2] < 0.0 and tag._parry_left == 0.0 and tag._guard_ghost == tag._guard_shown
+			and tag._shake_left > 0.0 and tag._health_color(1.0).is_equal_approx(low_color),
+			"reduced flashes clears active light effects while retaining the ordinary motion")
+	Settings.set_reduce_ui_motion(true)
+	check(tag._shake_left == 0.0 and tag.presence.pop == 0.0 and is_equal_approx(tag._guard_shown, tag.guard_ratio),
+			"switching reduced motion on finishes existing shake, pop and guard easing")
+	EventBus.player_health_changed.emit(4, 6)
+	EventBus.player_guard_changed.emit(0.0, 100.0, true)
+	EventBus.player_parried.emit(Vector2.ZERO)
+	check(tag.health == 4 and tag._gain_time[2] < 0.0 and tag.guard_broken and tag._guard_shown == 0.0
+			and tag._parry_left == 0.0 and tag.presence.pop == 0.0, "reduced player vitals keep the actual new values and break state")
+	EventBus.player_guard_changed.emit(65.0, 100.0, false)
+	tag._tick_effects(0.05)
+	check(is_equal_approx(tag._guard_shown, 0.65) and not tag._guard_rising and not tag.guard_broken,
+			"recovery remains visible immediately without a scan or break indicator")
+	Settings.set_reduce_ui_motion(false)
+	Settings.set_reduce_flashes(false)
+	check(tag._gain_time[2] < 0.0 and tag._parry_left == 0.0 and tag._shake_left == 0.0,
+			"returning to ordinary settings does not replay retired player effects")
 	Settings.set_reduce_ui_motion(previous_motion)
 	Settings.set_reduce_flashes(previous_flashes)
 	await end_level(level)

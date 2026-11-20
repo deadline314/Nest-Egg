@@ -34,6 +34,8 @@ var guard_broken := false
 
 var _player_ref := PlayerRef.new()
 var _auto_hide := true
+var _reduce_motion := false
+var _reduce_effects := false
 var _pos := Vector2.ZERO
 var _has_pos := false
 var _side := -1.0
@@ -57,14 +59,37 @@ func _ready() -> void:
 	# 過場會暫停遊戲；仍要處理才能淡出隱藏。
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	PromptLayout.add_obstacle(self, prompt_obstacle_rect)
-	_auto_hide = Settings.get_hud_auto_hide()
-	Settings.display_changed.connect(func() -> void: _auto_hide = Settings.get_hud_auto_hide())
+	_sync_display()
+	Settings.display_changed.connect(_sync_display)
 	EventBus.player_health_changed.connect(_on_health_changed)
 	EventBus.player_guard_changed.connect(_on_guard_changed)
 	EventBus.player_parried.connect(_on_parried)
 	EventBus.player_spawned.connect(func(_p: Node2D) -> void:
 		_has_pos = false
-		presence.poke())
+		_show_activity())
+
+
+func _sync_display() -> void:
+	_auto_hide = Settings.get_hud_auto_hide()
+	_reduce_motion = Settings.get_reduce_ui_motion()
+	_reduce_effects = _reduce_motion or Settings.get_reduce_flashes()
+	if _reduce_motion:
+		_shake_left = 0.0
+		presence.pop = 0.0
+		_guard_shown = guard_ratio
+	if _reduce_effects:
+		_lost_time.fill(-1.0)
+		_gain_time.fill(-1.0)
+		_parry_left = 0.0
+		_guard_ghost = _guard_shown
+		_guard_rising = false
+	queue_redraw()
+
+
+func _show_activity() -> void:
+	presence.poke()
+	if _reduce_motion:
+		presence.pop = 0.0
 
 
 func is_low_health() -> bool:
@@ -94,10 +119,10 @@ func _tick_effects(delta: float) -> void:
 			_lost_time[i] = _lost_time[i] + delta if _lost_time[i] + delta < LOST_TIME else -1.0
 		if _gain_time[i] >= 0.0:
 			_gain_time[i] = _gain_time[i] + delta if _gain_time[i] + delta < GAIN_TIME else -1.0
-	_guard_rising = guard_ratio > _guard_shown + 0.001
-	_guard_shown = move_toward(_guard_shown, guard_ratio, delta * 4.0)
+	_guard_rising = not _reduce_effects and guard_ratio > _guard_shown + 0.001
+	_guard_shown = guard_ratio if _reduce_motion else move_toward(_guard_shown, guard_ratio, delta * 4.0)
 	# 殘影條：先停一下再慢慢追上，看得出剛剛扣了多少。
-	if _guard_ghost < _guard_shown:
+	if _reduce_effects or _guard_ghost < _guard_shown:
 		_guard_ghost = _guard_shown
 	else:
 		_guard_ghost = move_toward(_guard_ghost, _guard_shown, delta * 0.8)
@@ -193,32 +218,37 @@ func _on_health_changed(current: int, maximum: int) -> void:
 		_gain_time.fill(-1.0)
 	var previous := health
 	health = clampi(current, 0, max_health)
-	if first:
+	if first or health == previous:
 		return
-	if health < previous:
-		for i in range(health, mini(previous, max_health)):
-			_lost_time[i] = 0.0
-			_gain_time[i] = -1.0
+	if not _reduce_effects:
+		if health < previous:
+			for i in range(health, mini(previous, max_health)):
+				_lost_time[i] = 0.0
+				_gain_time[i] = -1.0
+		else:
+			for i in range(maxi(previous, 0), health):
+				_gain_time[i] = 0.0
+				_lost_time[i] = -1.0
+	if health < previous and not _reduce_motion:
 		_shake_left = SHAKE_TIME
-		presence.poke()
-	elif health > previous:
-		for i in range(maxi(previous, 0), health):
-			_gain_time[i] = 0.0
-			_lost_time[i] = -1.0
-		presence.poke()
+	_show_activity()
 
 
 func _on_guard_changed(current: float, maximum: float, broken: bool) -> void:
 	var ratio := clampf(current / maxf(1.0, maximum), 0.0, 1.0)
 	if ratio < guard_ratio - 0.001 or broken != guard_broken:
-		presence.poke()
+		_show_activity()
 	guard_ratio = ratio
 	guard_broken = broken
+	if _reduce_motion:
+		_guard_shown = ratio
+		_guard_ghost = ratio
 
 
 func _on_parried(_at: Vector2) -> void:
-	_parry_left = PARRY_TIME
-	presence.poke()
+	if not _reduce_effects:
+		_parry_left = PARRY_TIME
+	_show_activity()
 
 
 # ---------------------------------------------------------------------------
@@ -325,7 +355,7 @@ func _draw_guard(alpha: float) -> void:
 	var rect := Rect2(PAD, PAD + PIP_H + 3.0, width, GUARD_H)
 	draw_rect(rect, Color(0.02, 0.03, 0.05, 0.75 * alpha))
 	if guard_broken:
-		var flicker := 0.55 + 0.45 * signf(sin(_time * 28.0))
+		var flicker := 1.0 if _reduce_effects else 0.55 + 0.45 * signf(sin(_time * 28.0))
 		draw_rect(Rect2(rect.position, Vector2(width * maxf(_guard_shown, 0.04), GUARD_H)), Color(LightKit.glow(Palette.DANGER, 1.6), flicker * alpha))
 		draw_string(UiKit.font(), Vector2(rect.end.x - 26.0, rect.end.y + 9.0), "BREAK", HORIZONTAL_ALIGNMENT_LEFT, -1, 8,
 				Color(LightKit.glow(Palette.DANGER, 1.4), flicker * alpha))
@@ -345,5 +375,7 @@ func _draw_guard(alpha: float) -> void:
 
 ## 低血量的心跳節奏（0~1，一下強一下弱）。
 func _heartbeat() -> float:
+	if _reduce_effects:
+		return 0.35
 	var t := fmod(_time, 0.9)
 	return maxf(exp(-pow((t - 0.08) * 22.0, 2.0)), 0.6 * exp(-pow((t - 0.3) * 22.0, 2.0)))
