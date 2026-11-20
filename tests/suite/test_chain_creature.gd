@@ -260,6 +260,19 @@ func _test_severing() -> void:
 		creature.animate(DT, &"idle")
 	check(creature.life_of(2) == 3 and not creature.damage_tentacle(2, 2), "two points of damage do not sever a three-life tentacle")
 	check(creature.life_of(2) == 1 and creature.is_alive(2), "the tentacle keeps its remaining life")
+	var previous_reduced := Settings.get_reduce_flashes()
+	var limb := creature._chains[2]
+	var mesh := limb["polygon"] as Polygon2D
+	var tint: Color = limb["tint"]
+	for reduced: bool in [false, true]:
+		Settings.set_reduce_flashes(reduced)
+		creature.animate(DT, &"idle")
+		var scale := Settings.REDUCED_FLASH_SCALE if reduced else 1.0
+		var gain := ChainCreature.FLASH_GAIN * scale * float(limb["flash"]) / ChainCreature.FLASH_TIME
+		check(is_equal_approx(mesh.self_modulate.r, tint.r * (1.0 + gain)), "tentacle hit flash follows the display setting (%s)" % reduced)
+	Settings.set_reduce_flashes(previous_reduced)
+	creature.animate(ChainCreature.FLASH_TIME, &"idle")
+	check(mesh.self_modulate.is_equal_approx(tint), "the tentacle returns to its original tint when the flash ends")
 	check(creature.damage_tentacle(2, 1, Vector2.RIGHT) and not creature.is_alive(2), "the killing blow severs it")
 	check(not creature.damage_tentacle(2, 5) and severed == [2], "a severed tentacle cannot be hurt again and is announced once")
 	await physics_frames(3)

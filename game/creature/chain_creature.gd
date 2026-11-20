@@ -273,7 +273,7 @@ func _tick_flash(chain: Dictionary, delta: float) -> void:
 		return
 	left = maxf(0.0, left - delta)
 	chain["flash"] = left
-	var k := 1.0 + FLASH_GAIN * left / FLASH_TIME
+	var k := 1.0 + FLASH_GAIN * Settings.flash_scale() * left / FLASH_TIME
 	var tint: Color = chain["tint"]
 	(chain["polygon"] as Polygon2D).self_modulate = Color(tint.r * k, tint.g * k, tint.b * k, 1.0)
 
