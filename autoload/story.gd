@@ -524,7 +524,7 @@ func _validate_chain(scene_id: String, scene: Variant) -> PackedStringArray:
 		problems.append("場景 %s 的 cancel_on_skip 需要沒有接續或選擇的動畫收尾" % scene_id)
 	if scene is Dictionary and scene.has("skip_then"):
 		var skip_config: Variant = scene["skip_then"]
-		if not skip_config is bool or (skip_config and not _can_finish_skipped_tail(scene_id, scene)):
+		if not skip_config is bool or (skip_config and _skip_tail_target(scene_id, scene) == &""):
 			problems.append("場景 %s 的 skip_then 需要同一劇本內沒有選擇、只有旗標結果的最後一段" % scene_id)
 	if typeof(scene) != TYPE_DICTIONARY or not (scene as Dictionary).has("then"):
 		return problems
@@ -1377,16 +1377,30 @@ func _queue_dynamic_scene(next: StringName, request: int) -> bool:
 	return true
 
 
-## 明示可略過的收尾沿正常結束流程提交。
-func _can_finish_skipped_tail(id: String, scene: Dictionary) -> bool:
+## 明示略過可跨過同一門檻下、沒有獨立結果或世界動作的一段演出。
+func _skip_tail_target(id: String, scene: Dictionary) -> StringName:
+	if scene.get("mode") != String(MODE_ANIMATED) or offers_choice(scene):
+		return &""
 	var next := str(scene.get("then", ""))
 	var tail: Dictionary = _scenes.get(next, {})
-	if scene.get("mode") != String(MODE_ANIMATED) or offers_choice(scene) or tail.get("mode") != String(MODE_ANIMATED) \
-			or _scene_sources.get(next) != _scene_sources.get(id) or tail.has("then") or tail.has("transfer_items") \
-			or tail.has("on_failure") or _can_cancel_on_skip(tail) or offers_choice(tail):
-		return false
+	if tail.has("then"):
+		if tail.get("skip_then", false) != true or _scene_sources.get(next) != _scene_sources.get(id) \
+				or tail.has("cancel_on_skip") or not _can_replay_chain_middle(scene, tail):
+			return &""
+		var middle_steps: Variant = tail.get("steps", [])
+		if not middle_steps is Array or CutsceneChecker._expanded_steps(middle_steps).any(func(step: Variant) -> bool:
+			return not step is Dictionary or step.get("do") == "world_action"):
+			return &""
+		next = str(tail["then"])
+		tail = _scenes.get(next, {})
+	if tail.get("mode") != String(MODE_ANIMATED) or _scene_sources.get(next) != _scene_sources.get(id) \
+			or tail.has("then") or tail.has("transfer_items") or tail.has("on_failure") or _can_cancel_on_skip(tail) \
+			or offers_choice(tail):
+		return &""
 	var results := StoryOutcomes.operations(tail)
-	return not results.is_empty() and results.all(func(op: Dictionary) -> bool: return op.get("kind") == "flag")
+	if results.is_empty() or not results.all(func(op: Dictionary) -> bool: return op.get("kind") == "flag"):
+		return &""
+	return StringName(next)
 
 
 ## 結束後接著播 then。Esc 略過後，只完成明示的旗標收尾。
@@ -1397,9 +1411,13 @@ func _queue_chained_scene(id: StringName, request: int) -> bool:
 	if next == &"" or not has_scene(next):
 		return false
 	var skipped := is_instance_valid(_player) and _player.user_skipped
-	var finish_tail: Variant = scene.get("skip_then", false)
-	if skipped and (not finish_tail is bool or not finish_tail or not _can_finish_skipped_tail(String(id), scene)):
-		return false
+	if skipped:
+		var finish_tail: Variant = scene.get("skip_then", false)
+		if not finish_tail is bool or not finish_tail:
+			return false
+		next = _skip_tail_target(String(id), scene)
+		if next == &"":
+			return false
 	# 接到分派時依當下進度挑段落（和選項接續一樣，可以回到看過的中樞，例如客人名單）。
 	var target: Dictionary = _scenes[String(next)]
 	if target.get("mode") == String(MODE_DISPATCH):

@@ -580,14 +580,14 @@ def _ledger(source: ProductionSource):
         ("yong", "上面一天一張收費表，我只能照今天的收。你要說我錯，把今天那張也拿來。"),
         ("rin", "那就讓我們看。"),
         ("yong", "這裡沒有給你們的鑰匙，拿帳先過我。")),
-        when=negate(intro), next_scene="ch2_t_s11_xiaowei", mode="animated")
+        when=negate(intro), next_scene="ch2_t_s11_xiaowei", mode="animated", skip_then=True)
     source.add("ch2_t_s11_xiaowei", "S11", (
         ("xiaowei", "爸爸，傘要放在哪裡？"),
         ("yong", "小薇，傘放在腳邊就好，不要離開椅子。"),
         ("rin", "你把你女兒帶到帳房幹什麼？"),
         ("yong", "小薇是我的錨人，連著終端我才能回來。她要我回來。"),
         ("xiaowei", "我不想爸爸再不見了。")),
-        when=negate(intro), next_scene="ch2_t_s11_boxes", mode="animated")
+        when=negate(intro), next_scene="ch2_t_s11_boxes", mode="animated", skip_then=True)
     source.add("ch2_t_s11_boxes", "S11", (
         ("lamp", "他的裝甲和復原共用電源，主箱撤銷能一起切掉。斷電後才能卸下棍子和儲能匣。"),
         ("egret", "主機在她那層下面，別朝她那邊開槍。"),

@@ -57,6 +57,23 @@ class StoryContracts(unittest.TestCase):
         self.assertTrue(contracts._same(1.0,1))
         self.assertTrue(self._load_changed(lambda rows:None))
 
+    def test_skip_then_can_bypass_only_an_opted_in_visual_middle(self):
+        first = "ch2_t_s11_intro"
+        middle = "ch2_t_s11_xiaowei"
+        chapter = spec()
+        segments = chapter.source.segments
+        for ident in (first, middle):
+            segments[ident] = dataclasses.replace(segments[ident], skip_then=True)
+        self.assertIs(compile_chapter(chapter)["scenes"][first]["skip_then"], True)
+        visual_middle = segments[middle]
+        segments[middle] = dataclasses.replace(visual_middle, skip_then=False)
+        with self.assertRaisesRegex(CompileError, first + ".*skip_then"):
+            compile_chapter(chapter)
+        middle_steps = visual_middle.steps + ({"do": "world_action", "id": "test"},)
+        segments[middle] = dataclasses.replace(visual_middle, steps=middle_steps)
+        with self.assertRaisesRegex(CompileError, first + ".*skip_then"):
+            compile_chapter(chapter)
+
     def test_finite_fractional_wait_is_not_rounded(self):
         rule={"default":"no","options":[{"id":"yes","target":"","flags":{}},{"id":"no","target":"","flags":{}}],"waits":{"3":0.125}}
         self.assertTrue(contracts._rule_valid("choice",rule))

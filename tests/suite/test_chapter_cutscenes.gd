@@ -124,6 +124,26 @@ func _test_skip_tail_policy() -> void:
 	check(not Story._validate_chain(id, invalid).is_empty(), "malformed skip policy is rejected")
 
 
+	var entrance := "ch2_t_s11_intro"
+	var middle_id := "ch2_t_s11_xiaowei"
+	var first := _scene(StringName(entrance)).duplicate(true)
+	var original_middle := _scene(StringName(middle_id))
+	var middle := original_middle.duplicate(true)
+	first["skip_then"] = true
+	middle["skip_then"] = true
+	Story._scenes[middle_id] = middle
+	check(Story._validate_chain(entrance, first).is_empty(), "a visual middle with the same pending flag can skip to its terminal result")
+	middle.erase("skip_then")
+	check(not Story._validate_chain(entrance, first).is_empty(), "a visual middle must explicitly permit skipping")
+	middle["skip_then"] = true
+	middle["results"] = [{"kind": "flag", "id": "other_story_result", "value": true}]
+	check(not Story._validate_chain(entrance, first).is_empty(), "skip cannot discard an independent result on the middle beat")
+	middle.erase("results")
+	middle["steps"] = [{"do": "branch", "steps": [{"do": "world_action", "id": "test"}]}]
+	check(not Story._validate_chain(entrance, first).is_empty(), "skip cannot discard a nested world action")
+	Story._scenes[middle_id] = original_middle
+
+
 func _test_chain_playback() -> void:
 	var previous_auto := Story.auto_skip
 	Story.auto_skip = true

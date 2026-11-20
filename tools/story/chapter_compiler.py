@@ -207,6 +207,25 @@ def _defaults(spec: ChapterSpec, scenes: dict) -> dict:
     return out
 
 
+def _skip_tail(scene: dict, scenes: dict) -> dict:
+    middle = scenes.get(scene.get("then"), {})
+    if "then" not in middle:
+        return middle
+    tail = scenes.get(middle["then"], {})
+    gate = scene.get("when")
+    pending = gate.get("not", {}) if isinstance(gate, dict) else {}
+    if (middle.get("mode") != "animated" or middle.get("skip_then") is not True
+        or not isinstance(pending, dict) or not pending.get("flag") or pending.get("equals", True) is not True
+        or middle.get("when") != gate or tail.get("when") != gate
+        or any(key in middle for key in ("results", "set_flags", "transfer_items", "completion_policy",
+                                         "on_failure", "context_facts", "cancel_on_skip"))
+        or any(step.get("do") in ("choice", "world_action") for step in _walk(middle.get("steps", [])))
+        or not any(op.get("kind") == "flag" and op.get("id") == pending["flag"] and op.get("value", True) is True
+                   for op in tail.get("results", []))):
+        return {}
+    return tail
+
+
 def compile_chapter(spec: ChapterSpec) -> dict:
     source = spec.source
     targets = _presentation_targets(spec)
@@ -247,7 +266,7 @@ def compile_chapter(spec: ChapterSpec) -> dict:
             raise CompileError(f"{ident}: cancel_on_skip 需要沒有接續或選擇的動畫收尾")
         if "skip_then" not in scene:
             continue
-        tail = scenes.get(scene.get("then"), {})
+        tail = _skip_tail(scene, scenes)
         results = tail.get("results", [])
         if (scene["skip_then"] is not True or scene["mode"] != "animated" or tail.get("mode") != "animated"
             or any(key in tail for key in ("then", "transfer_items", "on_failure", "cancel_on_skip"))
