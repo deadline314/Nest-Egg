@@ -94,6 +94,17 @@ func _test_synthetic() -> void:
 		var joint_upper := _nearest_world(upper, Vector2(0, 10))
 		var joint_lower := _nearest_world(lower, Vector2(0, 10))
 		check(joint_upper.distance_to(joint_lower) < 1.2, "the two parts meet at the joint at %.2f rad (%.2f apart)" % [angle, joint_upper.distance_to(joint_lower)])
+	var joint_bone := chain["lower"] as Bone2D
+	for angle: float in [PI - 0.00003, PI - 0.0003]:
+		joint_bone.rotation = angle
+		upper.refresh()
+		var offset := Vector2(20.0 * SCALE, 0.0)
+		var blended := offset.lerp(joint_bone.transform.x * offset.x, 0.5)
+		var width := blended.length()
+		if width > RigPartMesh.WIDTH_EPSILON:
+			blended *= offset.x / width
+		var expected := (Vector2(0.0, 10.0) + blended) / SCALE
+		check(upper.deformed_vertices()[-1].distance_to(expected) < 0.001, "an almost collapsed row keeps the original width cutoff")
 	(chain["lower"] as Bone2D).rotation = 0.0
 	upper.refresh()
 	check(is_equal_approx(upper.width_ratio(), 1.0), "width returns to rest after the bone straightens")

@@ -19,6 +19,7 @@ static var volume_keep := 1.0
 ## 骨頭相對變換小於這個值就當作沒動。
 const EPSILON := 0.0005
 const WIDTH_EPSILON := 0.0001
+const ROW_WIDTH_GUARD := 0.002
 
 ## 重算過幾次頂點（測試用：骨頭沒動時不該增加）。
 var deform_count := 0
@@ -36,6 +37,7 @@ var _triangles := PackedInt32Array()
 var _zone_rows := PackedInt32Array()
 var _zone_offsets := PackedVector2Array()  ## X offsets shared by every joint row.
 var _zone_row_data := PackedVector2Array()  ## (height in bone space, blend weight)
+var _row_width_floor := ROW_WIDTH_GUARD
 var _to_local := Transform2D.IDENTITY
 var _last := Transform2D.IDENTITY
 var _root_partner: Bone2D
@@ -111,6 +113,7 @@ func setup(p_texture: Texture2D, size: Vector2, pivot: Vector2, self_bone: Bone2
 	_rest_local = PackedVector2Array()
 	_zone_rows = PackedInt32Array()
 	_zone_offsets = PackedVector2Array()
+	_row_width_floor = ROW_WIDTH_GUARD
 	_zone_row_data = PackedVector2Array()
 	_root_indices = PackedInt32Array()
 	_root_points = PackedVector2Array()
@@ -134,7 +137,11 @@ func setup(p_texture: Texture2D, size: Vector2, pivot: Vector2, self_bone: Bone2
 			_rest_local.append(local)
 			var in_a: Vector2 = node_transform * local
 			if store_offsets:
-				_zone_offsets.append(Vector2(in_a.x - _axis_x, 0.0))
+				var offset := Vector2(in_a.x - _axis_x, 0.0)
+				_zone_offsets.append(offset)
+				var width := absf(offset.x)
+				if width > 0.0:
+					_row_width_floor = maxf(_row_width_floor, 2.0 * WIDTH_EPSILON / width if width > WIDTH_EPSILON else INF)
 			if _root_partner != null and in_a.y < _root_radius:
 				var t := clampf(in_a.y / _root_radius, 0.0, 1.0)
 				_root_indices.append(_rest_local.size() - 1)
@@ -209,14 +216,16 @@ func _deform(follow: Transform2D, root_follow: Transform2D) -> void:
 		var w := row_data.y
 		var axis := Vector2(_axis_x, row_data.x)
 		var moved_axis: Vector2 = axis.lerp(follow * axis, w)
-		for column in COLUMNS:
-			var offset := _zone_offsets[column]
-			var moved_offset: Vector2 = offset.lerp(along_x * offset.x, w)
-			var length := moved_offset.length()
-			var wanted := absf(offset.x)
-			if length > WIDTH_EPSILON and wanted > WIDTH_EPSILON:
-				moved_offset *= lerpf(1.0, wanted / length, volume_keep)
-			_deformed[first + column] = _to_local * (moved_axis + moved_offset)
+		var blended := Vector2.RIGHT.lerp(along_x, w)
+		var length := blended.length()
+		if length <= _row_width_floor:
+			_deform_narrow_row(first, moved_axis, along_x, w)
+			continue
+		var direction := blended * lerpf(1.0, 1.0 / length, volume_keep)
+		var index := first
+		for offset in _zone_offsets:
+			_deformed[index] = _to_local * (moved_axis + direction * offset.x)
+			index += 1
 	_width_stale = true
 	_folds_stale = true
 	if _root_indices.is_empty():
@@ -236,6 +245,19 @@ func _deform(follow: Transform2D, root_follow: Transform2D) -> void:
 			moved_axis = axis.lerp(root_follow * axis, w)
 			row_direction = Vector2.from_angle(angle * w)
 		_deformed[_root_indices[k]] = _to_local * (moved_axis + row_direction * v.x)
+
+
+## Near a collapsed row, retain per-column precision at the width cutoff.
+func _deform_narrow_row(first: int, axis: Vector2, along_x: Vector2, weight: float) -> void:
+	var index := first
+	for offset in _zone_offsets:
+		var moved: Vector2 = offset.lerp(along_x * offset.x, weight)
+		var length := moved.length()
+		var width := absf(offset.x)
+		if length > WIDTH_EPSILON and width > WIDTH_EPSILON:
+			moved *= lerpf(1.0, width / length, volume_keep)
+		_deformed[index] = _to_local * (axis + moved)
+		index += 1
 
 
 ## 目前的網格有幾個三角形被翻面（折疊）。彎到 90° 以上時內側一定會有幾個（關節的內側被壓攏，貼圖重疊在一起像皺褶）。
