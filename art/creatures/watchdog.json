@@ -2,6 +2,7 @@
  "description": "看門狗（PartCreature，NE-218）：四足機械犬，背上一座小砲塔。小跑時對角的腿同步，砲塔跟著瞄準方向轉；睡著時低頭垂尾，連射前後坐、撲擊前壓低再伸展、扇形彈幕前仰頭。零件與這份檔案由 art_src/creatures/watchdog/parts/build_parts.py 產生，不要手改。",
  "dir": "res://art/creatures/watchdog/",
  "texture_scale": 0.08,
+ "hit_flash_brightness": 1.12,
  "parts": [
   {
    "name": "body",

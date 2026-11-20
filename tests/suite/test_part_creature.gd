@@ -13,6 +13,7 @@ func run() -> void:
 	_test_smooth_motion()
 	_test_show_and_aim()
 	_test_optional_lighting()
+	_test_hit_flash_brightness()
 	_test_bad_data_is_safe()
 
 
@@ -68,6 +69,28 @@ func _test_optional_lighting() -> void:
 		check(part.material == originals[i].material and part.self_modulate == originals[i].tint and part.texture == originals[i].texture,
 			"area round trip restores exact material, tint and normal texture: %d" % i)
 	creature.queue_free()
+
+
+func _test_hit_flash_brightness() -> void:
+	var watchdog := _make("watchdog")
+	var drone := _make("drone")
+	var previous := Settings.get_reduce_flashes()
+	Settings.set_reduce_flashes(false)
+	watchdog.flash()
+	drone.flash()
+	check(is_equal_approx(watchdog.modulate.r, 1.12), "the pale watchdog armor uses its authored flash brightness")
+	check(is_equal_approx(drone.modulate.r, PartCreature.FLASH_BRIGHTNESS), "a creature without an override keeps normal flash brightness")
+	Settings.set_reduce_flashes(true)
+	watchdog.flash()
+	drone.flash()
+	check(is_equal_approx(watchdog.modulate.r, 1.03)
+		and is_equal_approx(drone.modulate.r, lerpf(1.0, PartCreature.FLASH_BRIGHTNESS, Settings.flash_scale())),
+		"the reduced flash setting dims authored and default creature flashes")
+	watchdog._update_flash(0.1)
+	check(watchdog.modulate == Color.WHITE, "after the flash the creature restores its original tint")
+	Settings.set_reduce_flashes(previous)
+	watchdog.queue_free()
+	drone.queue_free()
 
 
 func _make(id: String) -> PartCreature:

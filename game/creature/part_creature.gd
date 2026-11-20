@@ -3,6 +3,7 @@ extends Node2D
 ## 零件式生物（NE-99、NE-100）：一組貼圖零件（掛在父零件的關節上）加上資料驅動的程序動畫，給機械類與動物類的非人形敵人用。
 ## 資料在 art/creatures/<id>.json：
 ##   dir / texture_scale   零件圖資料夾與貼圖縮放（預設 0.25：貼圖 4 像素＝世界 1 像素）
+##   hit_flash_brightness   受擊時的亮度倍率，範圍 1.0 至 1.45，預設 1.45。
 ##   parts[]               name、file、pivot（關節在貼圖上的像素位置）、pos（相對父零件關節的世界像素）、parent、z、rot、tint、
 ##                         aim（跟著瞄準方向轉，倍率）、recoil（開火時往後退的位移 [x, y]）、muzzle（零件座標的槍口 [x, y]）
 ##   states{}              每個狀態有 channels[]（part、prop＝rot／x／y／sx／sy、base、amp、freq、phase、abs）與 root{bob_amp、bob_freq、tilt}
@@ -38,6 +39,8 @@ var _speed_all := 0.0
 var _aim := 0.0
 var _recoil := 0.0
 var _flash_left := 0.0
+var _flash_brightness := FLASH_BRIGHTNESS
+var _active_flash_brightness := 1.0
 var _wear := Color.WHITE
 ## All caches belong to this instance. Default 0 never binds a material or tint.
 var _light_material: ShaderMaterial
@@ -63,9 +66,16 @@ var extra_scale := Vector2.ONE
 ## 建立零件。回傳 false 代表資料無法使用（已記錄原因）。
 func setup(id: String) -> bool:
 	creature_id = id
-	var data := RigLibrary.load_json(PATH % id)
+	var path := PATH % id
+	var data := RigLibrary.load_json(path)
 	if data.is_empty():
 		return false
+	var brightness: Variant = data.get("hit_flash_brightness", FLASH_BRIGHTNESS)
+	_flash_brightness = FLASH_BRIGHTNESS
+	if (brightness is float or brightness is int) and is_finite(float(brightness)) and float(brightness) >= 1.0 and float(brightness) <= FLASH_BRIGHTNESS:
+		_flash_brightness = float(brightness)
+	else:
+		RigLibrary.report_once(path + "/hit_flash_brightness", "[PartCreature] %s/hit_flash_brightness 需為 1.0 至 %.2f，採用預設值。" % [path, FLASH_BRIGHTNESS])
 	var dir := str(data.get("dir", "res://art/creatures/%s/" % id))
 	var texture_scale := float(data.get("texture_scale", DEFAULT_TEXTURE_SCALE))
 	_root = Node2D.new()
@@ -336,12 +346,13 @@ func _apply_gait_to_parts() -> void:
 ## 受擊閃白（亮度提高一下，不是純白，外形與顏色看得出來）。
 func flash() -> void:
 	_flash_left = FLASH_TIME
+	_active_flash_brightness = lerpf(1.0, _flash_brightness, Settings.flash_scale())
 	_update_flash(0.0)
 
 
 func _update_flash(delta: float) -> void:
 	_flash_left = maxf(0.0, _flash_left - delta)
-	var k := FLASH_BRIGHTNESS if _flash_left > 0.0 else 1.0
+	var k := _active_flash_brightness if _flash_left > 0.0 else 1.0
 	modulate = Color(_wear.r * k, _wear.g * k, _wear.b * k, 1.0)
 
 

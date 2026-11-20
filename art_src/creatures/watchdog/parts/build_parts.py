@@ -173,7 +173,7 @@ def main() -> None:
     definition = {
         "description": "看門狗（PartCreature，NE-218）：四足機械犬，背上一座小砲塔。小跑時對角的腿同步，砲塔跟著瞄準方向轉；睡著時低頭垂尾，"
                        "連射前後坐、撲擊前壓低再伸展、扇形彈幕前仰頭。零件與這份檔案由 art_src/creatures/watchdog/parts/build_parts.py 產生，不要手改。",
-        "dir": "res://art/creatures/watchdog/", "texture_scale": SCALE, "parts": parts,
+        "dir": "res://art/creatures/watchdog/", "texture_scale": SCALE, "hit_flash_brightness": 1.12, "parts": parts,
         "gait": {"stride": 44, "full_speed": 60, "hop": 0.9, "legs": [
             {"part": "front_upper", "phase": 0.0, "swing": 0.3, "lift": 1.0}, {"part": "front_lower", "phase": 0.6, "swing": 0.2, "lift": 0.0},
             {"part": "far_front_upper", "phase": math.pi, "swing": 0.3, "lift": 1.0}, {"part": "far_front_lower", "phase": math.pi + 0.6, "swing": 0.2, "lift": 0.0},
