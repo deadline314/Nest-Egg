@@ -7,6 +7,7 @@ func run() -> void:
 	_test_solver()
 	_test_bounded_solver()
 	_test_leader_geometry()
+	_test_chapter_one_hint_language()
 	await _test_leader_world_transform()
 	await _test_toast_reading_space()
 	await _test_motion_safety()
@@ -19,6 +20,15 @@ func run() -> void:
 	await _test_dead_player_suppression()
 	await _test_long_text()
 	await _test_framing_bounds()
+
+
+func _test_chapter_one_hint_language() -> void:
+	var booth := load("res://data/levels/ch1_booth_alley.tres") as LevelData
+	var source := booth.hints[0]
+	var en := HintSign.localized_text(source, "en")
+	var ja := HintSign.localized_text(source, "ja")
+	check(en.begins_with("Press {interact}") and ja.contains("電話ボックスで {interact}"), "the authored booth hint has two translations with live input tokens")
+	check(HintSign.localized_text(source, "zh") == source and HintSign.localized_text("An older sign", "ja") == "An older sign", "default and uncatalogued hint text remain usable")
 
 
 func _test_framing_bounds() -> void:

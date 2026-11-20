@@ -1,0 +1,90 @@
+{
+  "按 {inventory} 打開背包，武器改裝、道具與文件都在裡面。": {
+    "en": "Press {inventory} for weapons, upgrades, items, and documents.",
+    "ja": "{inventory} で武器、改造、アイテム、書類を確認できます。"
+  },
+  "換彈按 {reload}；從單向平台落下要按住 {move_down} 再按 {jump}。": {
+    "en": "Reload with {reload}. Hold {move_down} and press {jump} to drop through a platform.",
+    "ja": "{reload} でリロード。足場を降りるには {move_down} を押しながら {jump}。"
+  },
+  "屋頂中間有一條縫，助跑後按 {jump} 跳過去。": {
+    "en": "Take a run-up, then press {jump} to clear the roof gap.",
+    "ja": "助走をつけて {jump} で屋上のすき間を跳び越えます。"
+  },
+  "朝左看見對面的屋頂，再跳回去。": {
+    "en": "Look left to find the other roof, then jump back.",
+    "ja": "左を向いて向こうの屋上を確認し、跳び戻ります。"
+  },
+  "街上有人發傳單、有人聊天，不是每個人都想打你。": {
+    "en": "Some people here hand out flyers or just talk. You can approach them.",
+    "ja": "通りにはビラを配る人や話をする人もいます。近づいて大丈夫です。"
+  },
+  "街角的巷子裡有電話亭，先去備份，死了才有地方醒來。": {
+    "en": "Back up at the alley phone booth to revive there.",
+    "ja": "路地の電話ボックスでバックアップしておくと、そこで復活できます。"
+  },
+  "前面有清掃兵，靠著箱子瞄準射擊，打完再縮回去。": {
+    "en": "Sweepers ahead. Fire from the crates, then duck back into cover.",
+    "ja": "この先に清掃兵。木箱を盾に撃ち、すぐに身を隠しましょう。"
+  },
+  "子彈到的瞬間才舉盾 {block}，就能把子彈反彈回去。": {
+    "en": "At impact, {block} reflects shots.",
+    "ja": "着弾直前の {block} で弾を反射。"
+  },
+  "敵人頭上出現青色菱形時，按 {melee} 終結他並補回彈藥。": {
+    "en": "Press {melee} when a cyan diamond appears above an enemy to finish them and recover ammo.",
+    "ja": "敵の頭上に水色のひし形が出たら {melee}。とどめを刺して弾薬を補充できます。"
+  },
+  "前面是碼頭倉庫，看門狗睡在大廳深處，走進去再決定要不要叫醒牠。": {
+    "en": "Dock warehouse ahead. The Watchdog is asleep deeper inside.",
+    "ja": "この先は埠頭倉庫。番犬はホールの奥で眠っています。"
+  },
+  "往斜下方瞄準，先看清落點。": {
+    "en": "Aim down at an angle to see where you will land.",
+    "ja": "斜め下に照準を合わせ、着地点を確認しましょう。"
+  },
+  "按 {interact} 在電話亭備份，死了會從最近的電話亭醒來。": {
+    "en": "Press {interact} at a booth to back up. You revive at your latest booth.",
+    "ja": "電話ボックスで {interact} を押してバックアップ。最後に使ったボックスで復活します。"
+  },
+  "留意大廳深處的看門狗，死亡後牠仍會保留部分傷勢。": {
+    "en": "The Watchdog waits deeper in the hall. Some of its damage carries over if you die.",
+    "ja": "ホールの奥に番犬がいます。倒されても番犬には一部のダメージが残ります。"
+  },
+  "打倒看門狗，前方的隔牆才會升起。": {
+    "en": "Defeat the Watchdog to raise the partition.",
+    "ja": "番犬を倒すと、前方の仕切りが上がります。"
+  },
+  "先在電話亭 B2 備份，再往倉庫裡走。": {
+    "en": "Back up at phone booth B2 before going deeper into the warehouse.",
+    "ja": "倉庫の奥へ進む前に、電話ボックス B2 でバックアップしましょう。"
+  },
+  "按 {interact} 操作開關，控制同一頻道的閘門。": {
+    "en": "Press {interact} at the switch to operate its linked gate.",
+    "ja": "{interact} でスイッチを操作すると、連動するゲートが動きます。"
+  },
+  "留意牆上的水位刻度，前方水坑會漲水。": {
+    "en": "Watch the marks on the wall. The water ahead will rise.",
+    "ja": "壁の水位目盛りに注目。この先の水位は上がります。"
+  },
+  "進入前方的倉庫深處，保險箱旁有守衛。": {
+    "en": "A guard watches the safe deeper in the warehouse.",
+    "ja": "倉庫の奥では、守衛が金庫を見張っています。"
+  },
+  "水梯要折返，先瞄向下一塊踏板。": {
+    "en": "The water stairs double back. Aim at the next ledge before jumping.",
+    "ja": "水路の足場は折り返します。次の足場に照準を合わせてから跳びましょう。"
+  },
+  "保險箱裡有一片資料盤，拿到後就能從上層通道離開。": {
+    "en": "Take the data disk from the safe, then leave through the upper passage.",
+    "ja": "金庫からデータディスクを取り、上の通路から出ましょう。"
+  },
+  "朝左上瞄準，看清踏板再跳。": {
+    "en": "Aim up-left to spot the ledge before jumping.",
+    "ja": "左上に照準を合わせ、足場を確認してから跳びましょう。"
+  },
+  "取得資料盤後，在空中再按 {jump} 跳上高台；失手會落回這個平台，可再試一次。": {
+    "en": "With the disk, press {jump} again in midair to reach the ledge. You can retry from here.",
+    "ja": "ディスクを取ったら、空中でもう一度 {jump} で高い足場へ。失敗してもここからやり直せます。"
+  }
+}

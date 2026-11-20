@@ -2,6 +2,11 @@ class_name HintSign
 extends Node2D
 ## 教學看板：地圖數字字元（1~9）對應 LevelData.hints 的文字，玩家靠近時顯示重點操作說明。
 
+const TEXT_CATALOG := "res://data/levels/ch1_hint_text.json"
+
+static var _translations: Dictionary = {}
+static var _translations_loaded := false
+
 var text := ""
 
 var _time := 0.0
@@ -15,10 +20,34 @@ func _ready() -> void:
 	var prompt := WorldPrompt.new()
 	# 教學看板教的是「按哪個鍵」：佔位符畫成按鍵帽，鍵鼠與手把各自顯示目前的綁定。
 	prompt.keycaps = true
-	prompt.text = text
+	prompt.text = localized_text(text, Story.language)
 	prompt.radius = 64.0
 	prompt.offset = Vector2(0, -30)
 	add_child(prompt)
+
+
+static func localized_text(source: String, language: String) -> String:
+	if source.is_empty() or language == StoryLocale.SOURCE_LANGUAGE or not StoryLocale.is_supported(language):
+		return source
+	if not _translations_loaded:
+		_translations_loaded = true
+		var catalog: Variant = JSON.parse_string(FileAccess.get_file_as_string(TEXT_CATALOG))
+		if catalog is Dictionary:
+			_translations = catalog
+		else:
+			push_warning("[HintSign] %s 無法讀取或格式錯誤，沿用看板原文。" % TEXT_CATALOG)
+	var entry: Variant = _translations.get(source)
+	if entry == null:
+		return source
+	if not entry is Dictionary:
+		push_warning("[HintSign] %s 的「%s」譯文格式錯誤，沿用看板原文。" % [TEXT_CATALOG, source])
+		return source
+	var localized: Dictionary = entry.duplicate()
+	localized["text"] = source
+	var missing := StoryLocale.localize(localized, language)
+	if not missing.is_empty():
+		push_warning(StoryLocale.report("[HintSign] %s 的「%s」" % [TEXT_CATALOG, source], missing, "缺少看板譯文"))
+	return localized["text"]
 
 
 func _process(delta: float) -> void:
