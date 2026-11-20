@@ -113,6 +113,25 @@ func _test_call_timeline_and_weapon_swap() -> void:
 	check(str(player._visual.rig.weapon_def().get("file", "")) == str(RigLibrary.weapon(original).get("file", "x")), "the original weapon is back afterwards")
 	check(toasts.has(Checkpoint.SLOGAN), "the receiver plays the slogan")
 	EventBus.toast_requested.disconnect(listener)
+
+	var rifle := preload("res://data/weapons/rifle.tres") as WeaponData
+	var rifle_slot := player.loadout.equip(rifle)
+	player.loadout.select(Loadout.PRIMARY)
+	player.loadout.consume_ammo()
+	check(player.loadout.start_reload(), "the second call starts with a reload in progress")
+	await physics_frames(5)
+	check(booth.start_call(player), "the player can dial while reloading")
+	for i in 60:
+		if not player.is_reloading():
+			break
+		await physics_frames(1)
+	check(booth._handset_out and not player.is_reloading(), "the reload completes while the handset is off its hook")
+	check(str(player._visual.rig.weapon_def().get("file", "")) == HANDSET_FILE, "finishing the reload keeps the handset in hand")
+	player.loadout.select(rifle_slot)
+	check(player.loadout.active_slot == rifle_slot, "equipment can still change during the call")
+	check(str(player._visual.rig.weapon_def().get("file", "")) == HANDSET_FILE, "changing equipment keeps the handset in hand")
+	await physics_frames(90)
+	check(str(player._visual.rig.weapon_def().get("file", "")) == str(RigLibrary.weapon(str(rifle.visual_id)).get("file", "x")), "the newly selected weapon is in hand after the call")
 	await end_level(level)
 
 

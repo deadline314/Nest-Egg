@@ -1332,7 +1332,8 @@ func _on_loadout_changed() -> void:
 	if weapon_id != _melee_weapon_id:
 		_interrupt_melee(true)
 		_melee_weapon_id = weapon_id
-	_visual.set_weapon_visual(_visual_id_of(weapon))
+	if not is_on_phone():
+		_visual.set_weapon_visual(_visual_id_of(weapon))
 	var owned: Array = []
 	for slot in loadout.slot_count():
 		owned.append(loadout.weapon_in(slot))
