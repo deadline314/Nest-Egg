@@ -861,14 +861,17 @@ func _build_parts(skin: Dictionary) -> void:
 		var texture := LitTextures.load_texture(base_dir.path_join(str(tex_def.get("file", ""))), Vector2i(size))
 		var glow_texture := RigLibrary.optional_texture(base_dir.path_join(str(tex_def.get("glow", ""))))
 		var tint := float(entry.get("tint", 1.0))
+		var glow_tint := tint
+		if glow_texture != null and tex_def.has("glow_gain"):
+			glow_tint *= _texture_glow_gain(tex_def["glow_gain"], tex_name)
 		var part_name := str(entry.get("name", tex_name))
 		var part_pos := RigLibrary.vec2(entry.get("offset"))
 		var part_rot := float(entry.get("rotation", 0.0))
 		var part: CanvasItem = null
 		if bend_limbs and is_zero_approx(part_rot) and not (bone_name in [&"hip", &"chest"] and tex_name.begins_with("armor_")):
-			part = _make_limb_mesh(bone_name, texture, glow_texture, size, pivot, part_pos, tint, bool(entry.get("root_attach", false)), StringName(str(entry.get("bend_partner", ""))))
+			part = _make_limb_mesh(bone_name, texture, glow_texture, size, pivot, part_pos, glow_tint, bool(entry.get("root_attach", false)), StringName(str(entry.get("bend_partner", ""))))
 		if part == null:
-			part = _make_sprite(texture, glow_texture, pivot, part_pos, part_rot, tint)
+			part = _make_sprite(texture, glow_texture, pivot, part_pos, part_rot, glow_tint)
 		part.name = part_name
 		part.material = _light_material
 		if part is Polygon2D: part.set_instance_shader_parameter(&"mesh_normal_basis", true)
@@ -1703,7 +1706,16 @@ func _update_hand_grips(input: RigInput) -> void:
 		entry["closed"] = closed
 
 
-func _make_sprite(texture: Texture2D, glow_texture: Texture2D, pivot: Vector2, part_pos: Vector2, part_rot: float, tint: float) -> Sprite2D:
+func _texture_glow_gain(value: Variant, tex_name: String) -> float:
+	if typeof(value) in [TYPE_INT, TYPE_FLOAT]:
+		var gain := float(value)
+		if is_finite(gain) and gain >= 0.0 and gain <= 1.5:
+			return gain
+	push_warning("[CharacterRig] %s/textures/%s/glow_gain must be between 0 and 1.5; using 1.0" % [skin_id, tex_name])
+	return 1.0
+
+
+func _make_sprite(texture: Texture2D, glow_texture: Texture2D, pivot: Vector2, part_pos: Vector2, part_rot: float, glow_tint: float) -> Sprite2D:
 	var sprite := Sprite2D.new()
 	sprite.centered = false
 	sprite.texture = texture
@@ -1715,13 +1727,13 @@ func _make_sprite(texture: Texture2D, glow_texture: Texture2D, pivot: Vector2, p
 		var glow_sprite := _make_glow_sprite()
 		glow_sprite.texture = glow_texture
 		glow_sprite.offset = sprite.offset
-		glow_sprite.self_modulate = Color(GLOW_INTENSITY * tint, GLOW_INTENSITY * tint, GLOW_INTENSITY * tint, 1.0)
+		glow_sprite.self_modulate = Color(GLOW_INTENSITY * glow_tint, GLOW_INTENSITY * glow_tint, GLOW_INTENSITY * glow_tint, 1.0)
 		sprite.add_child(glow_sprite)
 	return sprite
 
 
 ## 肢體零件（上臂、前臂、大腿、小腿）靠近關節時做成可彎曲的網格，回傳 null＝這個零件維持剛體（不是肢體、碰不到關節、骨架沒有成對的上下段）。
-func _make_limb_mesh(bone_name: StringName, texture: Texture2D, glow_texture: Texture2D, size: Vector2, pivot: Vector2, part_pos: Vector2, tint: float, attach_root := false, bend_partner: StringName = &"") -> RigPartMesh:
+func _make_limb_mesh(bone_name: StringName, texture: Texture2D, glow_texture: Texture2D, size: Vector2, pivot: Vector2, part_pos: Vector2, glow_tint: float, attach_root := false, bend_partner: StringName = &"") -> RigPartMesh:
 	var limb := _limb_of(bone_name)
 	if bend_partner != &"":
 		if not _bones.has(bend_partner) or _parent.get(bend_partner, &"") != bone_name:
@@ -1749,7 +1761,7 @@ func _make_limb_mesh(bone_name: StringName, texture: Texture2D, glow_texture: Te
 		mesh.free()
 		return null
 	if glow_texture != null:
-		mesh.set_glow(glow_texture, _glow_material(), Color(GLOW_INTENSITY * tint, GLOW_INTENSITY * tint, GLOW_INTENSITY * tint, 1.0))
+		mesh.set_glow(glow_texture, _glow_material(), Color(GLOW_INTENSITY * glow_tint, GLOW_INTENSITY * glow_tint, GLOW_INTENSITY * glow_tint, 1.0))
 	_meshes.append(mesh)
 	return mesh
 

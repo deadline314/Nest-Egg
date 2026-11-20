@@ -48,7 +48,8 @@
         116.0
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出",
-      "glow": "parts/pelvis_glow.png"
+      "glow": "parts/pelvis_glow.png",
+      "glow_gain": 1.48
     },
     "torso": {
       "file": "parts/torso.png",
@@ -61,7 +62,8 @@
         390.0
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出",
-      "glow": "parts/torso_glow.png"
+      "glow": "parts/torso_glow.png",
+      "glow_gain": 1.15
     },
     "head": {
       "file": "parts/head.png",
@@ -122,7 +124,8 @@
         103.0
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出",
-      "glow": "parts/foot_glow.png"
+      "glow": "parts/foot_glow.png",
+      "glow_gain": 1.04
     },
     "arm_upper": {
       "file": "parts/arm_upper.png",

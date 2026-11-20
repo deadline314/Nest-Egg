@@ -16,6 +16,7 @@ static func rig_attachments(s: TestSuite) -> void:
 			rigid += 1
 			s.check(part.get_instance_shader_parameter(&"mesh_normal_basis") != true, "lighting: rigid sprite retains original normal basis")
 	s.check(meshes > 0 and rigid > 0, "lighting: both real renderer kinds were exercised")
+	_rin_emitters(s, rig)
 	var item := Sprite2D.new()
 	item.texture = LitTextures.load_texture("res://art/environment/scene_props/ali_kitchen_contacts/bowl.png")
 	item.offset = Vector2(3, -2)
@@ -69,6 +70,24 @@ static func rig_attachments(s: TestSuite) -> void:
 	LightKit.mark_emissive(glow)
 	s.check(not rig.bind_attachment(glow) and glow.material == LightKit.emissive_material(), "lighting: emission is never silently rebound as reflective")
 	rig.free()
+
+
+static func _rin_emitters(s: TestSuite, rig: CharacterRig) -> void:
+	var gains := {&"foot_back": 1.04, &"foot_front": 1.04, &"armor_torso": 1.15, &"armor_pelvis": 1.48}
+	var found := 0
+	for index in rig._parts.size():
+		var part: CanvasItem = rig._parts[index]
+		if not gains.has(part.name):
+			continue
+		var expected := CharacterRig.GLOW_INTENSITY * rig._part_tints[index] * float(gains[part.name])
+		for child: Node in part.get_children():
+			if child is CanvasItem and child.light_mask == 0 and child.material == CharacterRig._glow_material():
+				found += 1
+				s.check(child.self_modulate.is_equal_approx(Color(expected, expected, expected, 1.0)), "lighting: %s applies the authored gain to its emitter" % part.name)
+		s.check(is_equal_approx(part.self_modulate.r, rig._part_tints[index]), "lighting: %s retains its diffuse tint" % part.name)
+	s.check(found == gains.size(), "lighting: the original four Rin emitter nodes are reused")
+	for invalid: Variant in ["1.2", INF, NAN, -1, 1.51]:
+		s.check(rig._texture_glow_gain(invalid, "test") == 1.0, "lighting: invalid glow gain retains the legacy default")
 
 
 static func npc_context(s: TestSuite) -> void:
