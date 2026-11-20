@@ -1,0 +1,2289 @@
+{
+  "baseline": "ae39773b8a8f78c7b7b90b6f8eade4bc505675fd",
+  "models": [
+    {
+      "id": "ah_po",
+      "name": "麵攤阿婆",
+      "type": "human",
+      "definition": "art/characters/ah_po/character.json",
+      "definition_sha256": "80e74f44a9ff126f68f5aa16987a4e38d5e8c9cc90ab51c190ddcc03a9c4b0f0",
+      "usage_refs": [
+        "data/npcs/ah_po.tres"
+      ],
+      "level_resource_refs": [
+        "data/levels/level_01.tres"
+      ],
+      "review_image": "npc-01.png",
+      "review_box": [
+        0,
+        0,
+        320,
+        720
+      ],
+      "native_group": "npc-01",
+      "native_pose": "npc",
+      "native_raw": "gallery-npc-01/preview.png",
+      "native_sha256": "101ade9ba32ccefdbc133f99c5d90de7a8ed1359b71494fec99bee31a9562254",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "101ade9ba32ccefdbc133f99c5d90de7a8ed1359b71494fec99bee31a9562254",
+      "selected_native_frame": "gallery-npc-01/preview.png"
+    },
+    {
+      "id": "ali",
+      "name": "阿梨",
+      "type": "human",
+      "definition": "art/characters/ali/character.json",
+      "definition_sha256": "f96c17e97557d775076275c9306437c05453bf853b4a1f553be112e8a2d31618",
+      "usage_refs": [
+        "data/npcs/ch1_ali_lounge.tres",
+        "data/npcs/ch1_ali_stall.tres",
+        "data/npcs/ch2_ali_home.tres",
+        "data/npcs/ch2_ali_lounge.tres",
+        "data/npcs/ch2_ali_market.tres",
+        "data/story/ch1_kasa.json#ch1_hub_ali_lounge",
+        "data/story/ch1_kasa.json#ch1_t_ali_1",
+        "data/story/ch1_kasa.json#ch1_t_ali_2_ordered",
+        "data/story/ch1_kasa.json#ch1_t_ali_2_sit",
+        "data/story/ch1_kasa.json#ch1_t_ali_death_topic",
+        "data/story/ch1_kasa.json#ch1_t_ali_evening_close",
+        "data/story/ch1_kasa.json#ch1_t_ali_late_topic",
+        "data/story/ch1_kasa.json#ch1_t_ali_meet_booth",
+        "data/story/ch1_kasa.json#ch1_t_ali_meet_clinic",
+        "data/story/ch1_kasa.json#ch1_t_ali_meet_no_death",
+        "data/story/ch1_kasa.json#ch1_t_ali_meet_unknown",
+        "data/story/ch1_kasa.json#ch1_t_ali_name",
+        "data/story/ch1_kasa.json#ch1_t_ali_order",
+        "data/story/ch1_kasa.json#ch1_t_ali_sit",
+        "data/story/ch1_kasa.json#ch1_t_supper_choice_none",
+        "data/story/ch1_kasa.json#ch1_t_supper_choice_ordered",
+        "data/story/ch1_kasa.json#ch1_t_supper_host_none_prompt",
+        "data/story/ch1_kasa.json#ch1_t_supper_host_prompt",
+        "data/story/ch1_kasa.json#ch1_t_supper_insufficient",
+        "data/story/ch1_kasa.json#ch1_t_supper_leave_none",
+        "data/story/ch1_kasa.json#ch1_t_supper_leave_options",
+        "data/story/ch1_kasa.json#ch1_t_supper_paid_goodbye",
+        "data/story/ch1_kasa.json#ch1_t_supper_pay",
+        "data/story/ch1_kasa.json#ch1_t_supper_return",
+        "data/story/ch1_kasa.json#ch1_t_supper_stay_address",
+        "data/story/ch1_kasa.json#ch1_t_supper_stay_host",
+        "data/story/ch1_kasa.json#ch1_t_supper_stay_host_none",
+        "data/story/ch1_kasa.json#ch1_t_supper_stay_meal",
+        "data/story/ch1_kasa.json#ch1_t_supper_tab",
+        "data/story/ch1_kasa.json#ch1_t_supper_tab_confirm",
+        "data/story/ch1_kasa.json#ch1_t_supper_tab_goodbye",
+        "data/story/ch2_heron.json#ch2_t_s06_ali_paid_revisit",
+        "data/story/ch2_heron.json#ch2_t_s06_ask",
+        "data/story/ch2_heron.json#ch2_t_s06_ask_late",
+        "data/story/ch2_heron.json#ch2_t_s06_close",
+        "data/story/ch2_heron.json#ch2_t_s06_invite",
+        "data/story/ch2_heron.json#ch2_t_s06_invite_left",
+        "data/story/ch2_heron.json#ch2_t_s06_invite_stayed",
+        "data/story/ch2_heron.json#ch2_t_s06_later",
+        "data/story/ch2_heron.json#ch2_t_s06_open",
+        "data/story/ch2_heron.json#ch2_t_s06_open_again",
+        "data/story/ch2_heron.json#ch2_t_s06_paid",
+        "data/story/ch2_heron.json#ch2_t_s06_pay_confirm",
+        "data/story/ch2_heron.json#ch2_t_s06_short",
+        "data/story/ch2_heron.json#ch2_t_s17_book",
+        "data/story/ch2_heron.json#ch2_t_s17_open",
+        "data/story/ch2_heron.json#ch2_t_s18_dad",
+        "data/story/ch2_heron.json#ch2_t_s18_done",
+        "data/story/ch2_heron.json#ch2_t_s18_name",
+        "data/story/ch2_heron.json#ch2_t_s18_ticket",
+        "data/story/ch2_heron.json#ch2_t_s18_wrong",
+        "data/story/ch2_heron.json#ch2_t_s19_band",
+        "data/story/ch2_heron.json#ch2_t_s19_done",
+        "data/story/ch2_heron.json#ch2_t_s19_quiet",
+        "data/story/ch2_heron.json#ch2_t_s19_wrong_death",
+        "data/story/ch2_heron.json#ch2_t_s19_wrong_soup",
+        "data/story/ch2_heron.json#ch2_t_s20_done",
+        "data/story/ch2_heron.json#ch2_t_s20_letter",
+        "data/story/ch2_heron.json#ch2_t_s20_story",
+        "data/story/ch2_heron.json#ch2_t_s20_wrong",
+        "data/story/ch2_heron.json#ch2_t_s20_wrong_fine",
+        "data/story/ch2_heron.json#ch2_t_s21_close"
+      ],
+      "level_resource_refs": [
+        "data/levels/ch1_lounge.tres",
+        "data/levels/ch1_stall.tres",
+        "data/levels/ch2_ali_home.tres",
+        "data/levels/ch2_lounge_front.tres",
+        "data/levels/ch2_market.tres"
+      ],
+      "review_image": "npc-01.png",
+      "review_box": [
+        320,
+        0,
+        320,
+        720
+      ],
+      "native_group": "npc-01",
+      "native_pose": "npc",
+      "native_raw": "gallery-npc-01/preview.png",
+      "native_sha256": "101ade9ba32ccefdbc133f99c5d90de7a8ed1359b71494fec99bee31a9562254",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "101ade9ba32ccefdbc133f99c5d90de7a8ed1359b71494fec99bee31a9562254",
+      "selected_native_frame": "gallery-npc-01/preview.png"
+    },
+    {
+      "id": "banyan",
+      "name": "榕伯",
+      "type": "human",
+      "definition": "art/characters/banyan/character.json",
+      "definition_sha256": "b27f502e2c94533a1b1eb06a593fc2b554b53e84bcd8c9c39f9088cc176806cb",
+      "usage_refs": [
+        "data/npcs/ch2_banyan.tres",
+        "data/story/ch2_heron.json#ch2_t_s14_quiet",
+        "data/story/ch2_heron.json#ch2_t_s14_return"
+      ],
+      "level_resource_refs": [
+        "data/levels/ch2_market.tres"
+      ],
+      "review_image": "npc-01.png",
+      "review_box": [
+        640,
+        0,
+        320,
+        720
+      ],
+      "native_group": "npc-01",
+      "native_pose": "npc",
+      "native_raw": "gallery-npc-01/preview.png",
+      "native_sha256": "101ade9ba32ccefdbc133f99c5d90de7a8ed1359b71494fec99bee31a9562254",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "101ade9ba32ccefdbc133f99c5d90de7a8ed1359b71494fec99bee31a9562254",
+      "selected_native_frame": "gallery-npc-01/preview.png"
+    },
+    {
+      "id": "ch2_bill_thrower",
+      "name": "收帳人·票據投手",
+      "type": "human",
+      "definition": "art/characters/ch2_bill_thrower/character.json",
+      "definition_sha256": "ab4803f1abec5c166c938276c2c93ccf0f8951c7634fb6c124d7e713b633a5d6",
+      "usage_refs": [
+        "data/enemies/ch2_bill_thrower.tres"
+      ],
+      "level_resource_refs": [
+        "data/levels/ch2_loading.tres",
+        "data/levels/ch2_market_gate.tres"
+      ],
+      "review_image": "combat-01.png",
+      "review_box": [
+        0,
+        0,
+        320,
+        720
+      ],
+      "native_group": "combat-01",
+      "native_pose": "combat",
+      "native_raw": "gallery-combat-01/preview.png",
+      "native_sha256": "2dc574144b7abdfb4ff34716f4e4797bb1c4f2e89549236c9281f480a2fb7d88",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "2dc574144b7abdfb4ff34716f4e4797bb1c4f2e89549236c9281f480a2fb7d88",
+      "selected_native_frame": "gallery-combat-01/preview.png"
+    },
+    {
+      "id": "ch2_escort",
+      "name": "收帳人·押運手",
+      "type": "human",
+      "definition": "art/characters/ch2_escort/character.json",
+      "definition_sha256": "9cf5edac5c5abb1346c98076a0534217eeb9382135670dfed138f486142cfd3a",
+      "usage_refs": [
+        "data/enemies/ch2_escort.tres"
+      ],
+      "level_resource_refs": [
+        "data/levels/ch2_loading.tres",
+        "data/levels/ch2_market_gate.tres"
+      ],
+      "review_image": "combat-01.png",
+      "review_box": [
+        320,
+        0,
+        320,
+        720
+      ],
+      "native_group": "combat-01",
+      "native_pose": "combat",
+      "native_raw": "gallery-combat-01/preview.png",
+      "native_sha256": "2dc574144b7abdfb4ff34716f4e4797bb1c4f2e89549236c9281f480a2fb7d88",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "2dc574144b7abdfb4ff34716f4e4797bb1c4f2e89549236c9281f480a2fb7d88",
+      "selected_native_frame": "gallery-combat-01/preview.png"
+    },
+    {
+      "id": "ch2_greycoat",
+      "name": "灰衣人",
+      "type": "human",
+      "definition": "art/characters/ch2_greycoat/character.json",
+      "definition_sha256": "4b4d6991cd782a21f46aab48ff3c444089bd1d4eae10643eb72ed7e65691f0c7",
+      "usage_refs": [
+        "data/story/ch2_heron.json#ch2_t_s22_greycoat"
+      ],
+      "level_resource_refs": [],
+      "review_image": "combat-01.png",
+      "review_box": [
+        640,
+        0,
+        320,
+        720
+      ],
+      "native_group": "combat-01",
+      "native_pose": "combat",
+      "native_raw": "gallery-combat-01/preview.png",
+      "native_sha256": "2dc574144b7abdfb4ff34716f4e4797bb1c4f2e89549236c9281f480a2fb7d88",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "2dc574144b7abdfb4ff34716f4e4797bb1c4f2e89549236c9281f480a2fb7d88",
+      "selected_native_frame": "gallery-combat-01/preview.png"
+    },
+    {
+      "id": "ch2_hawker",
+      "name": "小販",
+      "type": "human",
+      "definition": "art/characters/ch2_hawker/character.json",
+      "definition_sha256": "cb8aab59c69e30a7dbae13df29eedd41289cebdd1a4fee69947c1b4ce9ac4fba",
+      "usage_refs": [
+        "data/npcs/ch2_hawker.tres"
+      ],
+      "level_resource_refs": [
+        "data/levels/ch2_market.tres"
+      ],
+      "review_image": "npc-01.png",
+      "review_box": [
+        960,
+        0,
+        320,
+        720
+      ],
+      "native_group": "npc-01",
+      "native_pose": "npc",
+      "native_raw": "gallery-npc-01/preview.png",
+      "native_sha256": "101ade9ba32ccefdbc133f99c5d90de7a8ed1359b71494fec99bee31a9562254",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "101ade9ba32ccefdbc133f99c5d90de7a8ed1359b71494fec99bee31a9562254",
+      "selected_native_frame": "gallery-npc-01/preview.png"
+    },
+    {
+      "id": "ch2_medic",
+      "name": "救護員",
+      "type": "human",
+      "definition": "art/characters/ch2_medic/character.json",
+      "definition_sha256": "f7f865cd878e2283834dfce1dfde7d00d0a8fd4f3601b24b0fe580805b3ac8fc",
+      "usage_refs": [
+        "data/story/ch2_heron.json#ch2_t_s13_cut",
+        "data/story/ch2_heron.json#ch2_t_s13_keep"
+      ],
+      "level_resource_refs": [],
+      "review_image": "combat-01.png",
+      "review_box": [
+        960,
+        0,
+        320,
+        720
+      ],
+      "native_group": "combat-01",
+      "native_pose": "combat",
+      "native_raw": "gallery-combat-01/preview.png",
+      "native_sha256": "2dc574144b7abdfb4ff34716f4e4797bb1c4f2e89549236c9281f480a2fb7d88",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "2dc574144b7abdfb4ff34716f4e4797bb1c4f2e89549236c9281f480a2fb7d88",
+      "selected_native_frame": "gallery-combat-01/preview.png"
+    },
+    {
+      "id": "ch2_patroller",
+      "name": "巡帳員",
+      "type": "human",
+      "definition": "art/characters/ch2_patroller/character.json",
+      "definition_sha256": "b82dc15d9d74c3d98b0b1ad68e9a9ca1ad66c268b46dbf6b55090b279362feee",
+      "usage_refs": [
+        "data/npcs/ch2_patroller.tres",
+        "data/story/ch2_heron.json#ch2_t_s05_gate"
+      ],
+      "level_resource_refs": [
+        "data/levels/ch2_market_gate.tres"
+      ],
+      "review_image": "npc-02.png",
+      "review_box": [
+        0,
+        0,
+        320,
+        720
+      ],
+      "native_group": "npc-02",
+      "native_pose": "npc",
+      "native_raw": "gallery-npc-02/preview.png",
+      "native_sha256": "927433e3cefa82b3e7d75807db5c6fd46517d641e1246ea3659df14d3c00c147",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "927433e3cefa82b3e7d75807db5c6fd46517d641e1246ea3659df14d3c00c147",
+      "selected_native_frame": "gallery-npc-02/preview.png"
+    },
+    {
+      "id": "ch2_window_clerk",
+      "name": "視窗員",
+      "type": "human",
+      "definition": "art/characters/ch2_window_clerk/character.json",
+      "definition_sha256": "a67aa42b4790dcc069097e1962ab5890b4f9de860cac613ce914618758a5c063",
+      "usage_refs": [
+        "data/story/ch2_heron.json#ch2_t_s08_contract",
+        "data/story/ch2_heron.json#ch2_t_s08_contract_revisit"
+      ],
+      "level_resource_refs": [],
+      "review_image": "combat-02.png",
+      "review_box": [
+        0,
+        0,
+        320,
+        720
+      ],
+      "native_group": "combat-02",
+      "native_pose": "combat",
+      "native_raw": "gallery-combat-02/preview.png",
+      "native_sha256": "0287da0731875c2e5ad79b3a65fe8bad58f9f1338ca7dc681fbaf4dac06f3078",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "0287da0731875c2e5ad79b3a65fe8bad58f9f1338ca7dc681fbaf4dac06f3078",
+      "selected_native_frame": "gallery-combat-02/preview.png"
+    },
+    {
+      "id": "collector_brute",
+      "name": "收帳人·打手",
+      "type": "human",
+      "definition": "art/characters/collector_brute/character.json",
+      "definition_sha256": "f1ff47646683090826e4353a123edf64db14e88c9b856289c9068e334115d97c",
+      "usage_refs": [
+        "data/enemies/collector_brute.tres"
+      ],
+      "level_resource_refs": [
+        "data/levels/ch1_street.tres",
+        "data/levels/ch1_warehouse.tres"
+      ],
+      "review_image": "combat-02.png",
+      "review_box": [
+        320,
+        0,
+        320,
+        720
+      ],
+      "native_group": "combat-02",
+      "native_pose": "combat",
+      "native_raw": "gallery-combat-02/preview.png",
+      "native_sha256": "0287da0731875c2e5ad79b3a65fe8bad58f9f1338ca7dc681fbaf4dac06f3078",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "0287da0731875c2e5ad79b3a65fe8bad58f9f1338ca7dc681fbaf4dac06f3078",
+      "selected_native_frame": "gallery-combat-02/preview.png"
+    },
+    {
+      "id": "collector_gunner",
+      "name": "收帳人·槍手",
+      "type": "human",
+      "definition": "art/characters/collector_gunner/character.json",
+      "definition_sha256": "20a8f08f877ba7149ed2087bce3647dae4d3b79eed88257377eaeddc08748357",
+      "usage_refs": [
+        "data/enemies/collector_gunner.tres"
+      ],
+      "level_resource_refs": [
+        "data/levels/ch1_street.tres",
+        "data/levels/ch1_vault.tres",
+        "data/levels/ch1_warehouse.tres"
+      ],
+      "review_image": "combat-02.png",
+      "review_box": [
+        640,
+        0,
+        320,
+        720
+      ],
+      "native_group": "combat-02",
+      "native_pose": "combat",
+      "native_raw": "gallery-combat-02/preview.png",
+      "native_sha256": "0287da0731875c2e5ad79b3a65fe8bad58f9f1338ca7dc681fbaf4dac06f3078",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "0287da0731875c2e5ad79b3a65fe8bad58f9f1338ca7dc681fbaf4dac06f3078",
+      "selected_native_frame": "gallery-combat-02/preview.png"
+    },
+    {
+      "id": "egret",
+      "name": "鷺",
+      "type": "human",
+      "definition": "art/characters/egret/character.json",
+      "definition_sha256": "189f60232e29d360aef1e6161a8a026cfea4239082565bfd6f3bc2759a6358fb",
+      "usage_refs": [
+        "data/npcs/ch1_egret.tres",
+        "data/npcs/ch2_egret.tres",
+        "data/npcs/ch2_egret_booth.tres",
+        "data/story/ch1_kasa.json#ch1_t_egret_1",
+        "data/story/ch1_kasa.json#ch1_t_egret_sunday",
+        "data/story/ch1_kasa.json#ch1_t_egret_sunday_prompt",
+        "data/story/ch2_heron.json#ch2_t_s03_brief",
+        "data/story/ch2_heron.json#ch2_t_s03_rain",
+        "data/story/ch2_heron.json#ch2_t_s03_tea",
+        "data/story/ch2_heron.json#ch2_t_s14_quiet",
+        "data/story/ch2_heron.json#ch2_t_s14_return",
+        "data/story/ch2_heron.json#ch2_t_s22_decided",
+        "data/story/ch2_heron.json#ch2_t_s22_greycoat",
+        "data/story/ch2_heron.json#ch2_t_s22_sunday_known",
+        "data/story/ch2_heron.json#ch2_t_s22_sunday_unknown",
+        "data/story/ch2_heron.json#ch2_t_s22_tea"
+      ],
+      "level_resource_refs": [
+        "data/levels/ch1_rooftop.tres",
+        "data/levels/ch2_market_gate.tres",
+        "data/levels/ch2_rooftop.tres"
+      ],
+      "review_image": "npc-02.png",
+      "review_box": [
+        320,
+        0,
+        320,
+        720
+      ],
+      "native_group": "npc-02",
+      "native_pose": "npc",
+      "native_raw": "gallery-npc-02/preview.png",
+      "native_sha256": "927433e3cefa82b3e7d75807db5c6fd46517d641e1246ea3659df14d3c00c147",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "927433e3cefa82b3e7d75807db5c6fd46517d641e1246ea3659df14d3c00c147",
+      "selected_native_frame": "gallery-npc-02/preview.png"
+    },
+    {
+      "id": "enforcer",
+      "name": "鎮暴員",
+      "type": "human",
+      "definition": "art/characters/enforcer/character.json",
+      "definition_sha256": "0db41f9e357b33662bcd4c37df3fbd21f35def827118a079b0a1f9310175e874",
+      "usage_refs": [
+        "data/enemies/ch1_inspector.tres",
+        "data/enemies/shield_rusher.tres",
+        "data/enemies/strike/chain_hook.tres"
+      ],
+      "level_resource_refs": [
+        "data/levels/ch1_street.tres",
+        "data/levels/ch1_vault.tres",
+        "data/levels/level_01.tres",
+        "data/levels/level_02.tres"
+      ],
+      "review_image": "combat-02.png",
+      "review_box": [
+        960,
+        0,
+        320,
+        720
+      ],
+      "native_group": "combat-02",
+      "native_pose": "combat",
+      "native_raw": "gallery-combat-02/preview.png",
+      "native_sha256": "0287da0731875c2e5ad79b3a65fe8bad58f9f1338ca7dc681fbaf4dac06f3078",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "0287da0731875c2e5ad79b3a65fe8bad58f9f1338ca7dc681fbaf4dac06f3078",
+      "selected_native_frame": "gallery-combat-02/preview.png"
+    },
+    {
+      "id": "flamer",
+      "name": "火焰兵",
+      "type": "human",
+      "definition": "art/characters/flamer/character.json",
+      "definition_sha256": "2fe15806a95dd08cf0c60b1b9d949afa6f3ba18f0ed9607ffed162e97e819b77",
+      "usage_refs": [
+        "data/enemies/flamer.tres"
+      ],
+      "level_resource_refs": [
+        "data/levels/level_02.tres"
+      ],
+      "review_image": "combat-03.png",
+      "review_box": [
+        0,
+        0,
+        320,
+        720
+      ],
+      "native_group": "combat-03",
+      "native_pose": "combat",
+      "native_raw": "gallery-combat-03/preview.png",
+      "native_sha256": "6f1f0d601a92ae6e280a6c9f2268c8837fb1005c97d32c6a809caa25b8366252",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "6f1f0d601a92ae6e280a6c9f2268c8837fb1005c97d32c6a809caa25b8366252",
+      "selected_native_frame": "gallery-combat-03/preview.png"
+    },
+    {
+      "id": "grenadier",
+      "name": "擲彈兵",
+      "type": "human",
+      "definition": "art/characters/grenadier/character.json",
+      "definition_sha256": "be8f6f4c4443dbeaab1af6aa199f2c0217ea2cc42659bd3d2005d9f5e803eb2e",
+      "usage_refs": [
+        "data/enemies/mortar.tres"
+      ],
+      "level_resource_refs": [
+        "data/levels/level_01.tres"
+      ],
+      "review_image": "combat-03.png",
+      "review_box": [
+        320,
+        0,
+        320,
+        720
+      ],
+      "native_group": "combat-03",
+      "native_pose": "combat",
+      "native_raw": "gallery-combat-03/preview.png",
+      "native_sha256": "6f1f0d601a92ae6e280a6c9f2268c8837fb1005c97d32c6a809caa25b8366252",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "6f1f0d601a92ae6e280a6c9f2268c8837fb1005c97d32c6a809caa25b8366252",
+      "selected_native_frame": "gallery-combat-03/preview.png"
+    },
+    {
+      "id": "guest_chen",
+      "name": "陳女士",
+      "type": "human",
+      "definition": "art/characters/guest_chen/character.json",
+      "definition_sha256": "565802c2fba66f31f0c6d153c11be5e80094da05165bbfada2ccd18645c984d7",
+      "usage_refs": [
+        "data/story/ch2_heron.json#ch2_t_s19_band",
+        "data/story/ch2_heron.json#ch2_t_s19_done",
+        "data/story/ch2_heron.json#ch2_t_s19_quiet",
+        "data/story/ch2_heron.json#ch2_t_s19_wrong_death",
+        "data/story/ch2_heron.json#ch2_t_s19_wrong_soup"
+      ],
+      "level_resource_refs": [],
+      "review_image": "combat-03.png",
+      "review_box": [
+        640,
+        0,
+        320,
+        720
+      ],
+      "native_group": "combat-03",
+      "native_pose": "combat",
+      "native_raw": "gallery-combat-03/preview.png",
+      "native_sha256": "6f1f0d601a92ae6e280a6c9f2268c8837fb1005c97d32c6a809caa25b8366252",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "6f1f0d601a92ae6e280a6c9f2268c8837fb1005c97d32c6a809caa25b8366252",
+      "selected_native_frame": "gallery-combat-03/preview.png"
+    },
+    {
+      "id": "guest_hong",
+      "name": "洪先生",
+      "type": "human",
+      "definition": "art/characters/guest_hong/character.json",
+      "definition_sha256": "ab2d5dfe5623e98febea847dec1f55856cf251ce98a554845e65a2fff9b2f19f",
+      "usage_refs": [
+        "data/story/ch2_heron.json#ch2_t_s20_done",
+        "data/story/ch2_heron.json#ch2_t_s20_letter",
+        "data/story/ch2_heron.json#ch2_t_s20_story",
+        "data/story/ch2_heron.json#ch2_t_s20_wrong",
+        "data/story/ch2_heron.json#ch2_t_s20_wrong_fine"
+      ],
+      "level_resource_refs": [],
+      "review_image": "combat-03.png",
+      "review_box": [
+        960,
+        0,
+        320,
+        720
+      ],
+      "native_group": "combat-03",
+      "native_pose": "combat",
+      "native_raw": "gallery-combat-03/preview.png",
+      "native_sha256": "6f1f0d601a92ae6e280a6c9f2268c8837fb1005c97d32c6a809caa25b8366252",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "6f1f0d601a92ae6e280a6c9f2268c8837fb1005c97d32c6a809caa25b8366252",
+      "selected_native_frame": "gallery-combat-03/preview.png"
+    },
+    {
+      "id": "guest_zheng",
+      "name": "鄭先生",
+      "type": "human",
+      "definition": "art/characters/guest_zheng/character.json",
+      "definition_sha256": "2e89f49b3c9f201e074eb49bac720ebce595dea23c35982306e59e6ac6ad5606",
+      "usage_refs": [
+        "data/story/ch2_heron.json#ch2_t_s18_dad",
+        "data/story/ch2_heron.json#ch2_t_s18_done",
+        "data/story/ch2_heron.json#ch2_t_s18_name",
+        "data/story/ch2_heron.json#ch2_t_s18_ticket",
+        "data/story/ch2_heron.json#ch2_t_s18_wrong"
+      ],
+      "level_resource_refs": [],
+      "review_image": "combat-04.png",
+      "review_box": [
+        0,
+        0,
+        320,
+        720
+      ],
+      "native_group": "combat-04",
+      "native_pose": "combat",
+      "native_raw": "gallery-combat-04/preview.png",
+      "native_sha256": "dcecfb98568178f02c3ba3454a5789874fcb76a4e1f3b3d3a6954ac47dcd3664",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "dcecfb98568178f02c3ba3454a5789874fcb76a4e1f3b3d3a6954ac47dcd3664",
+      "selected_native_frame": "gallery-combat-04/preview.png"
+    },
+    {
+      "id": "heavy_gunner",
+      "name": "重裝機槍手",
+      "type": "human",
+      "definition": "art/characters/heavy_gunner/character.json",
+      "definition_sha256": "2b89ef6663357f7ec6f9e4b1d0916ef7cb82c33ef4f515c946ac8ddade8b0218",
+      "usage_refs": [
+        "data/enemies/heavy_gunner.tres",
+        "data/enemies/strike/hydraulic_claw.tres"
+      ],
+      "level_resource_refs": [
+        "data/levels/level_02.tres"
+      ],
+      "review_image": "combat-04.png",
+      "review_box": [
+        320,
+        0,
+        320,
+        720
+      ],
+      "native_group": "combat-04",
+      "native_pose": "combat",
+      "native_raw": "gallery-combat-04/preview.png",
+      "native_sha256": "dcecfb98568178f02c3ba3454a5789874fcb76a4e1f3b3d3a6954ac47dcd3664",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "dcecfb98568178f02c3ba3454a5789874fcb76a4e1f3b3d3a6954ac47dcd3664",
+      "selected_native_frame": "gallery-combat-04/preview.png"
+    },
+    {
+      "id": "janus",
+      "name": "守門人",
+      "type": "human",
+      "definition": "art/characters/janus/character.json",
+      "definition_sha256": "8e480797b91f27b2f74559d9d6f744b59a53052cad090b40e1f36762642395d9",
+      "usage_refs": [
+        "data/enemies/janus.tres",
+        "data/npcs/ch3_gatekeeper.tres"
+      ],
+      "level_resource_refs": [
+        "data/levels/ch3_gate_hall.tres"
+      ],
+      "review_image": "combat-04.png",
+      "review_box": [
+        640,
+        0,
+        320,
+        720
+      ],
+      "native_group": "combat-04",
+      "native_pose": "combat",
+      "native_raw": "gallery-combat-04/preview.png",
+      "native_sha256": "dcecfb98568178f02c3ba3454a5789874fcb76a4e1f3b3d3a6954ac47dcd3664",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "dcecfb98568178f02c3ba3454a5789874fcb76a4e1f3b3d3a6954ac47dcd3664",
+      "selected_native_frame": "gallery-combat-04/preview.png"
+    },
+    {
+      "id": "lin",
+      "name": "林小姐",
+      "type": "human",
+      "definition": "art/characters/lin/character.json",
+      "definition_sha256": "76e1068a38a8c4f6a6843a12cb8ef6fb99537efc9c1eb52e07a2eb323e163f0e",
+      "usage_refs": [
+        "data/npcs/ch3_lin.tres",
+        "data/story/ch3_clearwater.json#ch3_t_c15_posted",
+        "data/story/ch3_clearwater.json#ch3_t_c16_morning"
+      ],
+      "level_resource_refs": [
+        "data/levels/ch3_showroom.tres"
+      ],
+      "review_image": "npc-02.png",
+      "review_box": [
+        640,
+        0,
+        320,
+        720
+      ],
+      "native_group": "npc-02",
+      "native_pose": "npc",
+      "native_raw": "gallery-npc-02/preview.png",
+      "native_sha256": "927433e3cefa82b3e7d75807db5c6fd46517d641e1246ea3659df14d3c00c147",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "927433e3cefa82b3e7d75807db5c6fd46517d641e1246ea3659df14d3c00c147",
+      "selected_native_frame": "gallery-npc-02/preview.png"
+    },
+    {
+      "id": "mei",
+      "name": "芽",
+      "type": "human",
+      "definition": "art/characters/mei/character.json",
+      "definition_sha256": "93a5b4a5cb9adcf81fff0f67543b879ad646a11ae870497c9aadc745076531b3",
+      "usage_refs": [],
+      "level_resource_refs": [],
+      "review_image": "combat-04.png",
+      "review_box": [
+        960,
+        0,
+        320,
+        720
+      ],
+      "native_group": "combat-04",
+      "native_pose": "combat",
+      "native_raw": "gallery-combat-04/preview.png",
+      "native_sha256": "dcecfb98568178f02c3ba3454a5789874fcb76a4e1f3b3d3a6954ac47dcd3664",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "dcecfb98568178f02c3ba3454a5789874fcb76a4e1f3b3d3a6954ac47dcd3664",
+      "selected_native_frame": "gallery-combat-04/preview.png"
+    },
+    {
+      "id": "night_worker",
+      "name": "夜班工人",
+      "type": "human",
+      "definition": "art/characters/night_worker/character.json",
+      "definition_sha256": "a79bc8a9a672d2adde98f9e0b47e1c0a772e65061b0b01f77a1a8daa0f35c8c4",
+      "usage_refs": [
+        "data/npcs/night_worker.tres",
+        "data/story/ch2_heron.json#ch2_t_s14_quiet",
+        "data/story/ch2_heron.json#ch2_t_s14_return"
+      ],
+      "level_resource_refs": [
+        "data/levels/level_01.tres"
+      ],
+      "review_image": "npc-02.png",
+      "review_box": [
+        960,
+        0,
+        320,
+        720
+      ],
+      "native_group": "npc-02",
+      "native_pose": "npc",
+      "native_raw": "gallery-npc-02/preview.png",
+      "native_sha256": "927433e3cefa82b3e7d75807db5c6fd46517d641e1246ea3659df14d3c00c147",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "927433e3cefa82b3e7d75807db5c6fd46517d641e1246ea3659df14d3c00c147",
+      "selected_native_frame": "gallery-npc-02/preview.png"
+    },
+    {
+      "id": "nurse",
+      "name": "護理師",
+      "type": "human",
+      "definition": "art/characters/nurse/character.json",
+      "definition_sha256": "f29e835b3033d083461c200fcc1a7a12e90ae17c707f602ee65ab9c1396a9f02",
+      "usage_refs": [
+        "data/npcs/nurse.tres"
+      ],
+      "level_resource_refs": [
+        "data/levels/level_02.tres"
+      ],
+      "review_image": "npc-03.png",
+      "review_box": [
+        0,
+        0,
+        320,
+        720
+      ],
+      "native_group": "npc-03",
+      "native_pose": "npc",
+      "native_raw": "gallery-npc-03/preview.png",
+      "native_sha256": "55b5856d7c9dbf1317216e58ff4aa89890ecc7844456806ae46a7eee426bba21",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "55b5856d7c9dbf1317216e58ff4aa89890ecc7844456806ae46a7eee426bba21",
+      "selected_native_frame": "gallery-npc-03/preview.png"
+    },
+    {
+      "id": "old_k",
+      "name": "老K",
+      "type": "human",
+      "definition": "art/characters/old_k/character.json",
+      "definition_sha256": "59fe4ddd27e2e642a07f2719caeddf88769a7e94006a9837329067c5e1dbe338",
+      "usage_refs": [
+        "data/npcs/ch1_old_k.tres",
+        "data/npcs/ch1_old_k_backyard.tres",
+        "data/npcs/ch1_old_k_counter.tres",
+        "data/npcs/ch1_old_k_prologue.tres",
+        "data/npcs/ch2_old_k.tres",
+        "data/npcs/ch3_old_k.tres",
+        "data/npcs/ch3_old_k_kitchen.tres",
+        "data/story/ch1_kasa.json#ch1_c14_home",
+        "data/story/ch1_kasa.json#ch1_p01_door",
+        "data/story/ch2_heron.json#ch2_t_s01_reaction",
+        "data/story/ch2_heron.json#ch2_t_s01_reaction_left",
+        "data/story/ch2_heron.json#ch2_t_s01_settle",
+        "data/story/ch2_heron.json#ch2_t_s01_settled",
+        "data/story/ch3_clearwater.json#ch3_t_c00_ask",
+        "data/story/ch3_clearwater.json#ch3_t_c00_breakfast",
+        "data/story/ch3_clearwater.json#ch3_t_c00_choice",
+        "data/story/ch3_clearwater.json#ch3_t_c00_go",
+        "data/story/ch3_clearwater.json#ch3_t_c18_box",
+        "data/story/ch3_clearwater.json#ch3_t_c19_choice",
+        "data/story/ch3_clearwater.json#ch3_t_c19_read_new",
+        "data/story/ch3_clearwater.json#ch3_t_c19_read_tape",
+        "data/story/ch3_clearwater.json#ch3_t_c19_watch",
+        "data/story/ch3_clearwater.json#ch3_t_c20_hold",
+        "data/story/ch3_clearwater.json#ch3_t_c20_middle",
+        "data/story/ch3_clearwater.json#ch3_t_c20_rest",
+        "data/story/ch3_clearwater.json#ch3_t_c20_trade",
+        "data/story/ch3_clearwater.json#ch3_t_c22_door",
+        "data/story/ch3_clearwater.json#ch3_t_c22_note",
+        "data/story/ch3_clearwater.json#ch3_t_c22_room_set",
+        "data/story/ch3_clearwater.json#ch3_t_c22_room_unset",
+        "data/story/ch3_clearwater.json#ch3_t_c22_second"
+      ],
+      "level_resource_refs": [
+        "data/levels/ch1_pawnshop.tres",
+        "data/levels/ch1_pawnshop_dawn.tres",
+        "data/levels/ch1_prologue.tres",
+        "data/levels/ch2_pawnshop.tres",
+        "data/levels/ch3_pawnshop.tres"
+      ],
+      "review_image": "npc-03.png",
+      "review_box": [
+        320,
+        0,
+        320,
+        720
+      ],
+      "native_group": "npc-03",
+      "native_pose": "npc",
+      "native_raw": "gallery-npc-03/preview.png",
+      "native_sha256": "55b5856d7c9dbf1317216e58ff4aa89890ecc7844456806ae46a7eee426bba21",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "55b5856d7c9dbf1317216e58ff4aa89890ecc7844456806ae46a7eee426bba21",
+      "selected_native_frame": "gallery-npc-03/preview.png"
+    },
+    {
+      "id": "reclaimer",
+      "name": "回收員",
+      "type": "human",
+      "definition": "art/characters/reclaimer/character.json",
+      "definition_sha256": "ca1b2143b00e6d2595dcbfff5810fa9727e4616463f034f5a3eb923ad4a7f0e7",
+      "usage_refs": [
+        "data/enemies/reclaimer.tres"
+      ],
+      "level_resource_refs": [
+        "data/levels/level_02.tres"
+      ],
+      "review_image": "combat-05.png",
+      "review_box": [
+        0,
+        0,
+        320,
+        720
+      ],
+      "native_group": "combat-05",
+      "native_pose": "combat",
+      "native_raw": "gallery-combat-05/preview.png",
+      "native_sha256": "24ac2ae489460ce7f918ade2f307fa5cdf430d3c8274c3dfba29105233059787",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "24ac2ae489460ce7f918ade2f307fa5cdf430d3c8274c3dfba29105233059787",
+      "selected_native_frame": "gallery-combat-05/preview.png"
+    },
+    {
+      "id": "repairman_chen",
+      "name": "維修員老陳",
+      "type": "human",
+      "definition": "art/characters/repairman_chen/character.json",
+      "definition_sha256": "ee7a01a08f27457438eeba91fb2bf910c98cd6acfa4dbae86bf078a334ba17fe",
+      "usage_refs": [
+        "data/npcs/repairman_chen.tres"
+      ],
+      "level_resource_refs": [
+        "data/levels/level_02.tres"
+      ],
+      "review_image": "npc-03.png",
+      "review_box": [
+        640,
+        0,
+        320,
+        720
+      ],
+      "native_group": "npc-03",
+      "native_pose": "npc",
+      "native_raw": "gallery-npc-03/preview.png",
+      "native_sha256": "55b5856d7c9dbf1317216e58ff4aa89890ecc7844456806ae46a7eee426bba21",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "55b5856d7c9dbf1317216e58ff4aa89890ecc7844456806ae46a7eee426bba21",
+      "selected_native_frame": "gallery-npc-03/preview.png"
+    },
+    {
+      "id": "resident",
+      "name": "住戶",
+      "type": "human",
+      "definition": "art/characters/resident/character.json",
+      "definition_sha256": "690a47167d18a8fc65b9693420dc6ce1f19f49f00a22c0ad089590d261b58232",
+      "usage_refs": [
+        "data/npcs/resident.tres",
+        "data/story/ch2_heron.json#ch2_t_s14_quiet",
+        "data/story/ch2_heron.json#ch2_t_s14_return"
+      ],
+      "level_resource_refs": [
+        "data/levels/level_02.tres"
+      ],
+      "review_image": "npc-03.png",
+      "review_box": [
+        960,
+        0,
+        320,
+        720
+      ],
+      "native_group": "npc-03",
+      "native_pose": "npc",
+      "native_raw": "gallery-npc-03/preview.png",
+      "native_sha256": "55b5856d7c9dbf1317216e58ff4aa89890ecc7844456806ae46a7eee426bba21",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "55b5856d7c9dbf1317216e58ff4aa89890ecc7844456806ae46a7eee426bba21",
+      "selected_native_frame": "gallery-npc-03/preview.png"
+    },
+    {
+      "id": "rin",
+      "name": "凜",
+      "type": "human",
+      "definition": "art/characters/rin/character.json",
+      "definition_sha256": "f4598098b3d6693669ccdb6fd437382690492ea6ca37c9efec8c6a75da6bdea6",
+      "usage_refs": [
+        "data/story/ch1_kasa.json#ch1_c09_wake",
+        "data/story/ch1_kasa.json#ch1_c14_home",
+        "data/story/ch1_kasa.json#ch1_hub_ali_lounge",
+        "data/story/ch1_kasa.json#ch1_p01_door",
+        "data/story/ch1_kasa.json#ch1_t_ali_1",
+        "data/story/ch1_kasa.json#ch1_t_ali_2_ordered",
+        "data/story/ch1_kasa.json#ch1_t_ali_2_sit",
+        "data/story/ch1_kasa.json#ch1_t_ali_death_topic",
+        "data/story/ch1_kasa.json#ch1_t_ali_evening_close",
+        "data/story/ch1_kasa.json#ch1_t_ali_late_topic",
+        "data/story/ch1_kasa.json#ch1_t_ali_meet_booth",
+        "data/story/ch1_kasa.json#ch1_t_ali_meet_clinic",
+        "data/story/ch1_kasa.json#ch1_t_ali_meet_no_death",
+        "data/story/ch1_kasa.json#ch1_t_ali_meet_unknown",
+        "data/story/ch1_kasa.json#ch1_t_ali_name",
+        "data/story/ch1_kasa.json#ch1_t_ali_order",
+        "data/story/ch1_kasa.json#ch1_t_ali_sit",
+        "data/story/ch1_kasa.json#ch1_t_clinic_backup_missing",
+        "data/story/ch1_kasa.json#ch1_t_clinic_backup_registered",
+        "data/story/ch1_kasa.json#ch1_t_clinic_cloth_decide",
+        "data/story/ch1_kasa.json#ch1_t_clinic_cloth_leave",
+        "data/story/ch1_kasa.json#ch1_t_clinic_cloth_look",
+        "data/story/ch1_kasa.json#ch1_t_clinic_cloth_take",
+        "data/story/ch1_kasa.json#ch1_t_clinic_tray_prompt",
+        "data/story/ch1_kasa.json#ch1_t_egret_1",
+        "data/story/ch1_kasa.json#ch1_t_egret_sunday",
+        "data/story/ch1_kasa.json#ch1_t_egret_sunday_prompt",
+        "data/story/ch1_kasa.json#ch1_t_supper_choice_none",
+        "data/story/ch1_kasa.json#ch1_t_supper_choice_ordered",
+        "data/story/ch1_kasa.json#ch1_t_supper_host_none_prompt",
+        "data/story/ch1_kasa.json#ch1_t_supper_host_prompt",
+        "data/story/ch1_kasa.json#ch1_t_supper_insufficient",
+        "data/story/ch1_kasa.json#ch1_t_supper_leave_none",
+        "data/story/ch1_kasa.json#ch1_t_supper_leave_options",
+        "data/story/ch1_kasa.json#ch1_t_supper_paid_goodbye",
+        "data/story/ch1_kasa.json#ch1_t_supper_pay",
+        "data/story/ch1_kasa.json#ch1_t_supper_return",
+        "data/story/ch1_kasa.json#ch1_t_supper_stay_address",
+        "data/story/ch1_kasa.json#ch1_t_supper_stay_host",
+        "data/story/ch1_kasa.json#ch1_t_supper_stay_host_none",
+        "data/story/ch1_kasa.json#ch1_t_supper_stay_meal",
+        "data/story/ch1_kasa.json#ch1_t_supper_tab",
+        "data/story/ch1_kasa.json#ch1_t_supper_tab_confirm",
+        "data/story/ch1_kasa.json#ch1_t_supper_tab_goodbye",
+        "data/story/ch2_heron.json#ch2_t_s01_reaction",
+        "data/story/ch2_heron.json#ch2_t_s01_reaction_left",
+        "data/story/ch2_heron.json#ch2_t_s01_settle",
+        "data/story/ch2_heron.json#ch2_t_s01_settled",
+        "data/story/ch2_heron.json#ch2_t_s03_brief",
+        "data/story/ch2_heron.json#ch2_t_s03_rain",
+        "data/story/ch2_heron.json#ch2_t_s03_tea",
+        "data/story/ch2_heron.json#ch2_t_s05_gate",
+        "data/story/ch2_heron.json#ch2_t_s06_ali_paid_revisit",
+        "data/story/ch2_heron.json#ch2_t_s06_ask",
+        "data/story/ch2_heron.json#ch2_t_s06_ask_late",
+        "data/story/ch2_heron.json#ch2_t_s06_close",
+        "data/story/ch2_heron.json#ch2_t_s06_invite",
+        "data/story/ch2_heron.json#ch2_t_s06_invite_left",
+        "data/story/ch2_heron.json#ch2_t_s06_invite_stayed",
+        "data/story/ch2_heron.json#ch2_t_s06_later",
+        "data/story/ch2_heron.json#ch2_t_s06_open",
+        "data/story/ch2_heron.json#ch2_t_s06_open_again",
+        "data/story/ch2_heron.json#ch2_t_s06_paid",
+        "data/story/ch2_heron.json#ch2_t_s06_pay_confirm",
+        "data/story/ch2_heron.json#ch2_t_s06_short",
+        "data/story/ch2_heron.json#ch2_t_s08_contract",
+        "data/story/ch2_heron.json#ch2_t_s08_contract_revisit",
+        "data/story/ch2_heron.json#ch2_t_s13_cabinet",
+        "data/story/ch2_heron.json#ch2_t_s13_cut",
+        "data/story/ch2_heron.json#ch2_t_s13_fall",
+        "data/story/ch2_heron.json#ch2_t_s13_keep",
+        "data/story/ch2_heron.json#ch2_t_s14_quiet",
+        "data/story/ch2_heron.json#ch2_t_s14_return",
+        "data/story/ch2_heron.json#ch2_t_s22_decided",
+        "data/story/ch2_heron.json#ch2_t_s22_greycoat",
+        "data/story/ch2_heron.json#ch2_t_s22_sunday_known",
+        "data/story/ch2_heron.json#ch2_t_s22_sunday_unknown",
+        "data/story/ch2_heron.json#ch2_t_s22_tea",
+        "data/story/ch3_clearwater.json#ch3_t_c00_ask",
+        "data/story/ch3_clearwater.json#ch3_t_c00_breakfast",
+        "data/story/ch3_clearwater.json#ch3_t_c00_choice",
+        "data/story/ch3_clearwater.json#ch3_t_c00_go",
+        "data/story/ch3_clearwater.json#ch3_t_c04_after",
+        "data/story/ch3_clearwater.json#ch3_t_c04_counter",
+        "data/story/ch3_clearwater.json#ch3_t_c04_disease",
+        "data/story/ch3_clearwater.json#ch3_t_c15_posted",
+        "data/story/ch3_clearwater.json#ch3_t_c16_morning",
+        "data/story/ch3_clearwater.json#ch3_t_c18_box",
+        "data/story/ch3_clearwater.json#ch3_t_c19_choice",
+        "data/story/ch3_clearwater.json#ch3_t_c19_read_new",
+        "data/story/ch3_clearwater.json#ch3_t_c19_read_tape",
+        "data/story/ch3_clearwater.json#ch3_t_c19_watch",
+        "data/story/ch3_clearwater.json#ch3_t_c20_hold",
+        "data/story/ch3_clearwater.json#ch3_t_c20_middle",
+        "data/story/ch3_clearwater.json#ch3_t_c20_react",
+        "data/story/ch3_clearwater.json#ch3_t_c20_recorded",
+        "data/story/ch3_clearwater.json#ch3_t_c20_rest",
+        "data/story/ch3_clearwater.json#ch3_t_c20_revisit",
+        "data/story/ch3_clearwater.json#ch3_t_c20_trade",
+        "data/story/ch3_clearwater.json#ch3_t_c22_door",
+        "data/story/ch3_clearwater.json#ch3_t_c22_note",
+        "data/story/ch3_clearwater.json#ch3_t_c22_room_set",
+        "data/story/ch3_clearwater.json#ch3_t_c22_room_unset",
+        "data/story/ch3_clearwater.json#ch3_t_c22_second",
+        "game/player/player_visual.gd"
+      ],
+      "level_resource_refs": [],
+      "review_image": "combat-05.png",
+      "review_box": [
+        320,
+        0,
+        320,
+        720
+      ],
+      "native_group": "combat-05",
+      "native_pose": "combat",
+      "native_raw": "gallery-combat-05/preview.png",
+      "native_sha256": "24ac2ae489460ce7f918ade2f307fa5cdf430d3c8274c3dfba29105233059787",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "24ac2ae489460ce7f918ade2f307fa5cdf430d3c8274c3dfba29105233059787",
+      "selected_native_frame": "gallery-combat-05/preview.png"
+    },
+    {
+      "id": "slasher",
+      "name": "切割者",
+      "type": "human",
+      "definition": "art/characters/slasher/character.json",
+      "definition_sha256": "1ea3670b7859552d6198899679950d99a41627dfbf15a3f68ec094d9213b2225",
+      "usage_refs": [
+        "data/enemies/slasher.tres"
+      ],
+      "level_resource_refs": [
+        "data/levels/level_02.tres"
+      ],
+      "review_image": "combat-05.png",
+      "review_box": [
+        640,
+        0,
+        320,
+        720
+      ],
+      "native_group": "combat-05",
+      "native_pose": "combat",
+      "native_raw": "gallery-combat-05/preview.png",
+      "native_sha256": "24ac2ae489460ce7f918ade2f307fa5cdf430d3c8274c3dfba29105233059787",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "24ac2ae489460ce7f918ade2f307fa5cdf430d3c8274c3dfba29105233059787",
+      "selected_native_frame": "gallery-combat-05/preview.png"
+    },
+    {
+      "id": "sniper",
+      "name": "狙擊手",
+      "type": "human",
+      "definition": "art/characters/sniper/character.json",
+      "definition_sha256": "514cad8b1dc38311def00b17bbc688cad502ecf6773c9cb62b48e6e62164c7c1",
+      "usage_refs": [
+        "data/enemies/sniper.tres"
+      ],
+      "level_resource_refs": [
+        "data/levels/level_02.tres"
+      ],
+      "review_image": "combat-05.png",
+      "review_box": [
+        960,
+        0,
+        320,
+        720
+      ],
+      "native_group": "combat-05",
+      "native_pose": "combat",
+      "native_raw": "gallery-combat-05/preview.png",
+      "native_sha256": "24ac2ae489460ce7f918ade2f307fa5cdf430d3c8274c3dfba29105233059787",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "24ac2ae489460ce7f918ade2f307fa5cdf430d3c8274c3dfba29105233059787",
+      "selected_native_frame": "gallery-combat-05/preview.png"
+    },
+    {
+      "id": "stalker",
+      "name": "迷彩獵手",
+      "type": "human",
+      "definition": "art/characters/stalker/character.json",
+      "definition_sha256": "f20a88510d815095d36d3ad754c1b3b845f3def9f148425470688d48d6875253",
+      "usage_refs": [
+        "data/enemies/stalker.tres",
+        "data/enemies/strike/plasma_whip.tres"
+      ],
+      "level_resource_refs": [
+        "data/levels/level_02.tres"
+      ],
+      "review_image": "combat-06.png",
+      "review_box": [
+        0,
+        0,
+        320,
+        720
+      ],
+      "native_group": "combat-06",
+      "native_pose": "combat",
+      "native_raw": "gallery-combat-06/preview.png",
+      "native_sha256": "a58635f2466bed21de4cf1e8678e8986510d83dc4f107b6d741cf5a4fa49f991",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "a58635f2466bed21de4cf1e8678e8986510d83dc4f107b6d741cf5a4fa49f991",
+      "selected_native_frame": "gallery-combat-06/preview.png"
+    },
+    {
+      "id": "sweeper",
+      "name": "清掃兵",
+      "type": "human",
+      "definition": "art/characters/sweeper/character.json",
+      "definition_sha256": "f2291f541cc7569747227d80c05ff02346fbd6890d917d1672252b06d2304025",
+      "usage_refs": [
+        "data/enemies/sweeper.tres"
+      ],
+      "level_resource_refs": [
+        "data/levels/ch1_street.tres",
+        "data/levels/ch1_vault.tres",
+        "data/levels/ch1_warehouse.tres"
+      ],
+      "review_image": "combat-06.png",
+      "review_box": [
+        320,
+        0,
+        320,
+        720
+      ],
+      "native_group": "combat-06",
+      "native_pose": "combat",
+      "native_raw": "gallery-combat-06/preview.png",
+      "native_sha256": "a58635f2466bed21de4cf1e8678e8986510d83dc4f107b6d741cf5a4fa49f991",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "a58635f2466bed21de4cf1e8678e8986510d83dc4f107b6d741cf5a4fa49f991",
+      "selected_native_frame": "gallery-combat-06/preview.png"
+    },
+    {
+      "id": "trooper",
+      "name": "天穹保全",
+      "type": "human",
+      "definition": "art/characters/trooper/character.json",
+      "definition_sha256": "836e741e43fff140385d9bff478e013821023857c7a99342adc3e6634e57751e",
+      "usage_refs": [
+        "data/enemies/grunt.tres",
+        "data/enemies/strike/chainsaw_arm.tres"
+      ],
+      "level_resource_refs": [
+        "data/levels/level_01.tres",
+        "data/levels/level_02.tres"
+      ],
+      "review_image": "combat-06.png",
+      "review_box": [
+        640,
+        0,
+        320,
+        720
+      ],
+      "native_group": "combat-06",
+      "native_pose": "combat",
+      "native_raw": "gallery-combat-06/preview.png",
+      "native_sha256": "a58635f2466bed21de4cf1e8678e8986510d83dc4f107b6d741cf5a4fa49f991",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "a58635f2466bed21de4cf1e8678e8986510d83dc4f107b6d741cf5a4fa49f991",
+      "selected_native_frame": "gallery-combat-06/preview.png"
+    },
+    {
+      "id": "trooper_elite",
+      "name": "精銳保全",
+      "type": "human",
+      "definition": "art/characters/trooper_elite/character.json",
+      "definition_sha256": "eab7c9676b770189e25b0b9bfc50a01fd00d7d073c9c2cec5e7d5b912944584f",
+      "usage_refs": [
+        "data/enemies/elite_grunt.tres"
+      ],
+      "level_resource_refs": [
+        "data/levels/level_02.tres"
+      ],
+      "review_image": "combat-06.png",
+      "review_box": [
+        960,
+        0,
+        320,
+        720
+      ],
+      "native_group": "combat-06",
+      "native_pose": "combat",
+      "native_raw": "gallery-combat-06/preview.png",
+      "native_sha256": "a58635f2466bed21de4cf1e8678e8986510d83dc4f107b6d741cf5a4fa49f991",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "a58635f2466bed21de4cf1e8678e8986510d83dc4f107b6d741cf5a4fa49f991",
+      "selected_native_frame": "gallery-combat-06/preview.png"
+    },
+    {
+      "id": "vig",
+      "name": "利息",
+      "type": "human",
+      "definition": "art/characters/vig/character.json",
+      "definition_sha256": "c557dc68e5c388b969c1403fd1eb75472f3b2100ca3f2bd4aab16d24b5bc2ca0",
+      "usage_refs": [
+        "data/npcs/ch2_vig.tres",
+        "data/story/ch2_heron.json#ch2_t_s06_ali_paid_revisit",
+        "data/story/ch2_heron.json#ch2_t_s06_ask",
+        "data/story/ch2_heron.json#ch2_t_s06_ask_late",
+        "data/story/ch2_heron.json#ch2_t_s06_close",
+        "data/story/ch2_heron.json#ch2_t_s06_invite",
+        "data/story/ch2_heron.json#ch2_t_s06_invite_left",
+        "data/story/ch2_heron.json#ch2_t_s06_invite_stayed",
+        "data/story/ch2_heron.json#ch2_t_s06_later",
+        "data/story/ch2_heron.json#ch2_t_s06_open",
+        "data/story/ch2_heron.json#ch2_t_s06_open_again",
+        "data/story/ch2_heron.json#ch2_t_s06_paid",
+        "data/story/ch2_heron.json#ch2_t_s06_pay_confirm",
+        "data/story/ch2_heron.json#ch2_t_s06_short"
+      ],
+      "level_resource_refs": [
+        "data/levels/ch2_market.tres"
+      ],
+      "review_image": "npc-04.png",
+      "review_box": [
+        0,
+        0,
+        320,
+        720
+      ],
+      "native_group": "npc-04",
+      "native_pose": "npc",
+      "native_raw": "gallery-npc-04/preview.png",
+      "native_sha256": "41b868c884cce75f3e95cc4f141bf888228c0d39ba01f7b0480e2e925f74edfa",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "41b868c884cce75f3e95cc4f141bf888228c0d39ba01f7b0480e2e925f74edfa",
+      "selected_native_frame": "gallery-npc-04/preview.png"
+    },
+    {
+      "id": "warden",
+      "name": "監管者",
+      "type": "human",
+      "definition": "art/characters/warden/character.json",
+      "definition_sha256": "ed883f4617dc22b3f666e2ad5342230f7f07aa6657dae1544fb24494fac962b4",
+      "usage_refs": [
+        "data/enemies/custodian.tres",
+        "data/enemies/warden.tres"
+      ],
+      "level_resource_refs": [
+        "data/levels/level_01.tres",
+        "data/levels/level_02.tres"
+      ],
+      "review_image": "combat-07.png",
+      "review_box": [
+        0,
+        0,
+        320,
+        720
+      ],
+      "native_group": "combat-07",
+      "native_pose": "combat",
+      "native_raw": "gallery-combat-07/preview.png",
+      "native_sha256": "c6ed9b9718fd64160f0f63b6e425ff568a8f897f0ca69cc2892d5f99521bd1ef",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "c6ed9b9718fd64160f0f63b6e425ff568a8f897f0ca69cc2892d5f99521bd1ef",
+      "selected_native_frame": "gallery-combat-07/preview.png"
+    },
+    {
+      "id": "wataru",
+      "name": "航",
+      "type": "human",
+      "definition": "art/characters/wataru/character.json",
+      "definition_sha256": "6d99b58db05d476beeadb76645ecf210e17f40d9ba64a72094c5778dae0060cb",
+      "usage_refs": [],
+      "level_resource_refs": [],
+      "review_image": "combat-07.png",
+      "review_box": [
+        320,
+        0,
+        320,
+        720
+      ],
+      "native_group": "combat-07",
+      "native_pose": "combat",
+      "native_raw": "gallery-combat-07/preview.png",
+      "native_sha256": "c6ed9b9718fd64160f0f63b6e425ff568a8f897f0ca69cc2892d5f99521bd1ef",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "c6ed9b9718fd64160f0f63b6e425ff568a8f897f0ca69cc2892d5f99521bd1ef",
+      "selected_native_frame": "gallery-combat-07/preview.png"
+    },
+    {
+      "id": "xiaowei",
+      "name": "小薇",
+      "type": "human",
+      "definition": "art/characters/xiaowei/character.json",
+      "definition_sha256": "11c28bc56ac5e44bbbdd37b6a46b66fa0da43ec6abfcf4c62d6e39224f2075c2",
+      "usage_refs": [
+        "data/npcs/ch2_xiaowei.tres",
+        "data/story/ch2_heron.json#ch2_t_s13_cut",
+        "data/story/ch2_heron.json#ch2_t_s13_keep"
+      ],
+      "level_resource_refs": [
+        "data/levels/ch2_ledger_office.tres"
+      ],
+      "review_image": "npc-04.png",
+      "review_box": [
+        320,
+        0,
+        320,
+        720
+      ],
+      "native_group": "npc-04",
+      "native_pose": "npc",
+      "native_raw": "gallery-npc-04/preview.png",
+      "native_sha256": "41b868c884cce75f3e95cc4f141bf888228c0d39ba01f7b0480e2e925f74edfa",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "41b868c884cce75f3e95cc4f141bf888228c0d39ba01f7b0480e2e925f74edfa",
+      "selected_native_frame": "gallery-npc-04/preview.png"
+    },
+    {
+      "id": "ye",
+      "name": "葉",
+      "type": "human",
+      "definition": "art/characters/ye/character.json",
+      "definition_sha256": "6572fc32729914ef97221963f0cb03d2642b77d7e6caa38fd13394e269cb4e81",
+      "usage_refs": [
+        "data/story/ch3_clearwater.json#ch3_t_c18_box",
+        "data/story/ch3_clearwater.json#ch3_t_c19_choice",
+        "data/story/ch3_clearwater.json#ch3_t_c19_read_new",
+        "data/story/ch3_clearwater.json#ch3_t_c19_read_tape",
+        "data/story/ch3_clearwater.json#ch3_t_c19_watch",
+        "data/story/ch3_clearwater.json#ch3_t_c20_hold",
+        "data/story/ch3_clearwater.json#ch3_t_c20_middle",
+        "data/story/ch3_clearwater.json#ch3_t_c20_react",
+        "data/story/ch3_clearwater.json#ch3_t_c20_recorded",
+        "data/story/ch3_clearwater.json#ch3_t_c20_rest",
+        "data/story/ch3_clearwater.json#ch3_t_c20_revisit",
+        "data/story/ch3_clearwater.json#ch3_t_c20_trade"
+      ],
+      "level_resource_refs": [],
+      "review_image": "combat-07.png",
+      "review_box": [
+        640,
+        0,
+        320,
+        720
+      ],
+      "native_group": "combat-07",
+      "native_pose": "combat",
+      "native_raw": "gallery-combat-07/preview.png",
+      "native_sha256": "c6ed9b9718fd64160f0f63b6e425ff568a8f897f0ca69cc2892d5f99521bd1ef",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "c6ed9b9718fd64160f0f63b6e425ff568a8f897f0ca69cc2892d5f99521bd1ef",
+      "selected_native_frame": "gallery-combat-07/preview.png"
+    },
+    {
+      "id": "yong",
+      "name": "阿勇",
+      "type": "human",
+      "definition": "art/characters/yong/character.json",
+      "definition_sha256": "96bb3154d33d02377c2f2d290344c432db6cee2b925e9e4eae4448f6021f7f75",
+      "usage_refs": [
+        "data/enemies/yong.tres",
+        "data/story/ch2_heron.json#ch2_t_s13_cabinet",
+        "data/story/ch2_heron.json#ch2_t_s13_cut",
+        "data/story/ch2_heron.json#ch2_t_s13_keep"
+      ],
+      "level_resource_refs": [
+        "data/levels/ch2_ledger_office.tres"
+      ],
+      "review_image": "combat-07.png",
+      "review_box": [
+        960,
+        0,
+        320,
+        720
+      ],
+      "native_group": "combat-07",
+      "native_pose": "combat",
+      "native_raw": "gallery-combat-07/preview.png",
+      "native_sha256": "c6ed9b9718fd64160f0f63b6e425ff568a8f897f0ca69cc2892d5f99521bd1ef",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "c6ed9b9718fd64160f0f63b6e425ff568a8f897f0ca69cc2892d5f99521bd1ef",
+      "selected_native_frame": "gallery-combat-07/preview.png"
+    },
+    {
+      "id": "zhi",
+      "name": "芷姐",
+      "type": "human",
+      "definition": "art/characters/zhi/character.json",
+      "definition_sha256": "753671ecbde77941e42c7780cc8cc5ac7a398d5be75aa18da52b9ee98cefebbb",
+      "usage_refs": [
+        "data/npcs/ch3_zhi.tres",
+        "data/story/ch3_clearwater.json#ch3_t_c04_after",
+        "data/story/ch3_clearwater.json#ch3_t_c04_counter",
+        "data/story/ch3_clearwater.json#ch3_t_c04_disease"
+      ],
+      "level_resource_refs": [
+        "data/levels/ch3_clinic.tres"
+      ],
+      "review_image": "npc-04.png",
+      "review_box": [
+        640,
+        0,
+        320,
+        720
+      ],
+      "native_group": "npc-04",
+      "native_pose": "npc",
+      "native_raw": "gallery-npc-04/preview.png",
+      "native_sha256": "41b868c884cce75f3e95cc4f141bf888228c0d39ba01f7b0480e2e925f74edfa",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "41b868c884cce75f3e95cc4f141bf888228c0d39ba01f7b0480e2e925f74edfa",
+      "selected_native_frame": "gallery-npc-04/preview.png"
+    },
+    {
+      "id": "bomber",
+      "name": "自爆蟲",
+      "type": "PartCreature",
+      "definition": "art/creatures/bomber.json",
+      "definition_sha256": "08b52e120cb8babb606e8aa51e0f1f6ea086de973d23c539ce3b425428475e6f",
+      "usage_refs": [
+        "data/enemies/bomber.tres"
+      ],
+      "level_resource_refs": [
+        "data/levels/level_01.tres"
+      ],
+      "source_crop": [
+        421,
+        459,
+        620,
+        636
+      ],
+      "selected_native_frame": "gallery-bomber/preview.png",
+      "selected_native_sha256": "f2cbcc11f832b3fe3c021831e3bd00c90af0c7d9c867292c8f9b78791f9a46e2",
+      "review_image": "creatures-01.png",
+      "review_box": [
+        0,
+        0,
+        420,
+        347
+      ],
+      "native_group": "bomber",
+      "native_pose": "idle",
+      "native_raw": "gallery-bomber/preview.png",
+      "native_sha256": "f2cbcc11f832b3fe3c021831e3bd00c90af0c7d9c867292c8f9b78791f9a46e2",
+      "native_size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "buoy_worm",
+      "name": "浮標蟲",
+      "type": "ChainCreature",
+      "definition": "art/creatures/buoy_worm.json",
+      "definition_sha256": "5b8ed5683bed550efd9416fe26b7515755f4f054ba782c545fe68eacecfe3f48",
+      "usage_refs": [
+        "data/enemies/buoy_worm.tres",
+        "data/enemies/buoy_worm_small.tres"
+      ],
+      "level_resource_refs": [],
+      "source_crop": [
+        516,
+        284,
+        765,
+        449
+      ],
+      "selected_native_frame": "lit-buoy_worm/preview.png",
+      "selected_native_sha256": "c0c98a24d0922f7372b4748381dffa8197c3d6698cc7210f7dc2485eb365ee96",
+      "review_image": "creatures-01.png",
+      "review_box": [
+        420,
+        0,
+        420,
+        347
+      ],
+      "native_group": "buoy_worm",
+      "native_pose": "idle",
+      "native_raw": "gallery-buoy_worm/preview.png",
+      "native_sha256": "c7a5b3b0eb264385e9c69d584cf2234fd6ed27c80d921f9ecdbc360563199dae",
+      "native_size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "cloud_jelly",
+      "name": "雲母",
+      "type": "ChainCreature",
+      "definition": "art/creatures/cloud_jelly.json",
+      "definition_sha256": "2ccdc5357d37be70cc59215f88387f632858365e5a5b9b9997d540884b33de2a",
+      "usage_refs": [
+        "data/enemies/cloud_jelly.tres"
+      ],
+      "level_resource_refs": [],
+      "source_crop": [
+        502,
+        264,
+        773,
+        656
+      ],
+      "selected_native_frame": "lit-cloud_jelly/preview.png",
+      "selected_native_sha256": "1f6cfb27690121d0d72308b96c91e56022383aa483d534c015a89107d68df929",
+      "review_image": "creatures-01.png",
+      "review_box": [
+        840,
+        0,
+        420,
+        347
+      ],
+      "native_group": "cloud_jelly",
+      "native_pose": "idle",
+      "native_raw": "gallery-cloud_jelly/preview.png",
+      "native_sha256": "b4309489365389297f243df2c352870776c10c6fd09ae176428fd021d867b58f",
+      "native_size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "cloud_serpent",
+      "name": "雲蛇",
+      "type": "WormCreature",
+      "definition": "art/creatures/cloud_serpent.json",
+      "definition_sha256": "76f59df173fec046520b486b86413ec12be3f7911e00b224e97da72aa465832b",
+      "usage_refs": [
+        "data/enemies/cloud_serpent.tres"
+      ],
+      "level_resource_refs": [],
+      "source_crop": [
+        310,
+        296,
+        956,
+        427
+      ],
+      "selected_native_frame": "lit-cloud_serpent/preview.png",
+      "selected_native_sha256": "ecf436c3bab0180f53b36feb5e0a522ebe65aa41bf09eac8d0897919c637b931",
+      "review_image": "creatures-01.png",
+      "review_box": [
+        0,
+        347,
+        420,
+        347
+      ],
+      "native_group": "cloud_serpent",
+      "native_pose": "idle",
+      "native_raw": "gallery-cloud_serpent/preview.png",
+      "native_sha256": "8038825f951b7f90bc0b810f05767d205c1e5b2a56730ebdb0e8e480213d3925",
+      "native_size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "drone",
+      "name": "監視蜂",
+      "type": "PartCreature",
+      "definition": "art/creatures/drone.json",
+      "definition_sha256": "a45e4b8c192781799e2919ae8fb630c8dad91c8aeb76ef0656ae56453eae80ff",
+      "usage_refs": [
+        "data/enemies/drone.tres"
+      ],
+      "level_resource_refs": [
+        "data/levels/ch1_street.tres",
+        "data/levels/ch1_vault.tres",
+        "data/levels/ch1_warehouse.tres",
+        "data/levels/level_01.tres"
+      ],
+      "source_crop": [
+        410,
+        422,
+        616,
+        585
+      ],
+      "selected_native_frame": "gallery-drone/preview.png",
+      "selected_native_sha256": "b7164749a7004a9ad5ff70698023d9fc936b53158498478bedfe1752a6eca2d5",
+      "review_image": "creatures-01.png",
+      "review_box": [
+        420,
+        347,
+        420,
+        347
+      ],
+      "native_group": "drone",
+      "native_pose": "idle",
+      "native_raw": "gallery-drone/preview.png",
+      "native_sha256": "b7164749a7004a9ad5ff70698023d9fc936b53158498478bedfe1752a6eca2d5",
+      "native_size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "insulation_inspector",
+      "name": "絕緣巡檢器",
+      "type": "PartCreature",
+      "definition": "art/creatures/insulation_inspector.json",
+      "definition_sha256": "275ee86426be14f15c748993dabd6a76363dccbfd6fea5486842d4f2e8a5e27c",
+      "usage_refs": [
+        "data/enemies/insulation_inspector.tres"
+      ],
+      "level_resource_refs": [
+        "data/levels/ch3_mezzanine.tres",
+        "data/levels/ch3_pump.tres"
+      ],
+      "source_crop": [
+        449,
+        420,
+        592,
+        628
+      ],
+      "selected_native_frame": "gallery-insulation_inspector/preview.png",
+      "selected_native_sha256": "fcf226a585d4cb7aaf601a063c9a00ecf569f505a250f11056321d006728ad95",
+      "review_image": "creatures-01.png",
+      "review_box": [
+        840,
+        347,
+        420,
+        347
+      ],
+      "native_group": "insulation_inspector",
+      "native_pose": "idle",
+      "native_raw": "gallery-insulation_inspector/preview.png",
+      "native_sha256": "fcf226a585d4cb7aaf601a063c9a00ecf569f505a250f11056321d006728ad95",
+      "native_size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "mimic",
+      "name": "偽裝箱",
+      "type": "PartCreature",
+      "definition": "art/creatures/mimic.json",
+      "definition_sha256": "a835cbbeb4bc661653a97a0bc40e8377120655c0a9ef5aebb8efc50c8c43bbfe",
+      "usage_refs": [
+        "data/enemies/mimic.tres"
+      ],
+      "level_resource_refs": [
+        "data/levels/level_01.tres"
+      ],
+      "source_crop": [
+        416,
+        442,
+        625,
+        597
+      ],
+      "selected_native_frame": "gallery-mimic/preview.png",
+      "selected_native_sha256": "81a7f84e3d2f65d6cf5d1d92afc01a28d2a28ff11584f8e4604b153b1f4d1f5c",
+      "review_image": "creatures-02.png",
+      "review_box": [
+        0,
+        0,
+        420,
+        347
+      ],
+      "native_group": "mimic",
+      "native_pose": "idle",
+      "native_raw": "gallery-mimic/preview.png",
+      "native_sha256": "81a7f84e3d2f65d6cf5d1d92afc01a28d2a28ff11584f8e4604b153b1f4d1f5c",
+      "native_size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "pump_inspector",
+      "name": "抽水巡檢器",
+      "type": "PartCreature",
+      "definition": "art/creatures/pump_inspector.json",
+      "definition_sha256": "e9ebda458d470880507992ac6fc2ed3db6bbed8a1f13ee43ca01570296499218",
+      "usage_refs": [
+        "data/enemies/pump_inspector.tres"
+      ],
+      "level_resource_refs": [
+        "data/levels/ch3_mezzanine.tres",
+        "data/levels/ch3_pump.tres"
+      ],
+      "source_crop": [
+        431,
+        447,
+        610,
+        597
+      ],
+      "selected_native_frame": "gallery-pump_inspector/preview.png",
+      "selected_native_sha256": "3ee0ef1bf67dccd537c225be5d8d11df1dfe43111f568e576204fd2171375d41",
+      "review_image": "creatures-02.png",
+      "review_box": [
+        420,
+        0,
+        420,
+        347
+      ],
+      "native_group": "pump_inspector",
+      "native_pose": "patrol",
+      "native_raw": "gallery-pump_inspector/preview.png",
+      "native_sha256": "3ee0ef1bf67dccd537c225be5d8d11df1dfe43111f568e576204fd2171375d41",
+      "native_size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "rail_cannon",
+      "name": "吊軌砲",
+      "type": "PartCreature",
+      "definition": "art/creatures/rail_cannon.json",
+      "definition_sha256": "094f3f113e0b294086b6c937f9ef0a0e2d0eedcf8a6280759fc5a9f31b009bbd",
+      "usage_refs": [
+        "data/enemies/rail_cannon.tres"
+      ],
+      "level_resource_refs": [
+        "data/levels/level_02.tres"
+      ],
+      "source_crop": [
+        448,
+        412,
+        645,
+        600
+      ],
+      "selected_native_frame": "gallery-rail_cannon/preview.png",
+      "selected_native_sha256": "fb5815269032ba768ee84fc66c18ac7556aa647ed7d07bee610d52f8ac9015db",
+      "review_image": "creatures-02.png",
+      "review_box": [
+        840,
+        0,
+        420,
+        347
+      ],
+      "native_group": "rail_cannon",
+      "native_pose": "idle",
+      "native_raw": "gallery-rail_cannon/preview.png",
+      "native_sha256": "fb5815269032ba768ee84fc66c18ac7556aa647ed7d07bee610d52f8ac9015db",
+      "native_size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "repair_drone",
+      "name": "維修機",
+      "type": "PartCreature",
+      "definition": "art/creatures/repair_drone.json",
+      "definition_sha256": "357e2fe906bd9541e71bbe9dff155a94437bd651f96cf9383e75580f6fa90902",
+      "usage_refs": [
+        "data/enemies/repair_drone.tres"
+      ],
+      "level_resource_refs": [
+        "data/levels/level_02.tres"
+      ],
+      "source_crop": [
+        435,
+        442,
+        606,
+        650
+      ],
+      "selected_native_frame": "gallery-repair_drone/preview.png",
+      "selected_native_sha256": "1f6c5bffc6226fa619a9b3b85c96c8064e85843736c011fd191a1ea8a4cacfb6",
+      "review_image": "creatures-02.png",
+      "review_box": [
+        0,
+        347,
+        420,
+        347
+      ],
+      "native_group": "repair_drone",
+      "native_pose": "idle",
+      "native_raw": "gallery-repair_drone/preview.png",
+      "native_sha256": "1f6c5bffc6226fa619a9b3b85c96c8064e85843736c011fd191a1ea8a4cacfb6",
+      "native_size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "salvage_arm",
+      "name": "打撈臂",
+      "type": "ChainCreature",
+      "definition": "art/creatures/salvage_arm.json",
+      "definition_sha256": "717bc560d04f0e608b82c9cb23286b3375ea94c4de302f86847ecc0fe5cf4e5e",
+      "usage_refs": [
+        "data/enemies/salvage_arm.tres"
+      ],
+      "level_resource_refs": [],
+      "source_crop": [
+        447,
+        136,
+        839,
+        454
+      ],
+      "selected_native_frame": "lit-salvage_arm/preview.png",
+      "selected_native_sha256": "db5a04f0abe3773d8e188d63900e7851f1a781c18709a6ba7bbd7132ca46681f",
+      "review_image": "creatures-02.png",
+      "review_box": [
+        420,
+        347,
+        420,
+        347
+      ],
+      "native_group": "salvage_arm",
+      "native_pose": "idle",
+      "native_raw": "gallery-salvage_arm/preview.png",
+      "native_sha256": "cff0160a5397d8aa870f25afd6975260ca66250bf951b4c055b39ff1ce66da40",
+      "native_size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "searchlight_drone",
+      "name": "探照無人機",
+      "type": "PartCreature",
+      "definition": "art/creatures/searchlight_drone.json",
+      "definition_sha256": "76b183cddb1997555c1e1639fe78bc7a1c6b5cd605034868c472eef0bf775a29",
+      "usage_refs": [
+        "data/enemies/searchlight_drone.tres"
+      ],
+      "level_resource_refs": [
+        "data/levels/level_02.tres"
+      ],
+      "source_crop": [
+        425,
+        462,
+        615,
+        615
+      ],
+      "selected_native_frame": "gallery-searchlight_drone/preview.png",
+      "selected_native_sha256": "e5da6667ec03e71d2fa168e71cfe8d7ae273711c9003ee74ac46e1b7c0672e51",
+      "review_image": "creatures-02.png",
+      "review_box": [
+        840,
+        347,
+        420,
+        347
+      ],
+      "native_group": "searchlight_drone",
+      "native_pose": "idle",
+      "native_raw": "gallery-searchlight_drone/preview.png",
+      "native_sha256": "e5da6667ec03e71d2fa168e71cfe8d7ae273711c9003ee74ac46e1b7c0672e51",
+      "native_size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "shaft_bat",
+      "name": "井道蝙蝠機",
+      "type": "PartCreature",
+      "definition": "art/creatures/shaft_bat.json",
+      "definition_sha256": "8f54be9d85bf8e6492b30ae8c957479b91fbee673db7ce9dee461458907dd26c",
+      "usage_refs": [
+        "data/enemies/shaft_bat.tres"
+      ],
+      "level_resource_refs": [
+        "data/levels/level_02.tres"
+      ],
+      "source_crop": [
+        420,
+        450,
+        615,
+        583
+      ],
+      "selected_native_frame": "gallery-shaft_bat/preview.png",
+      "selected_native_sha256": "195bbe1ea25ab818d1c4c05417e987c9831fbfd895857e13b62d233e756e7a2d",
+      "review_image": "creatures-03.png",
+      "review_box": [
+        0,
+        0,
+        420,
+        347
+      ],
+      "native_group": "shaft_bat",
+      "native_pose": "idle",
+      "native_raw": "gallery-shaft_bat/preview.png",
+      "native_sha256": "195bbe1ea25ab818d1c4c05417e987c9831fbfd895857e13b62d233e756e7a2d",
+      "native_size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "shock_hound",
+      "name": "電擊犬",
+      "type": "PartCreature",
+      "definition": "art/creatures/shock_hound.json",
+      "definition_sha256": "357646aa442c236e70406cf56315a2d7cc4acbfc56e77e5f8d827244e4d4b3c6",
+      "usage_refs": [
+        "data/enemies/shock_hound.tres"
+      ],
+      "level_resource_refs": [
+        "data/levels/level_01.tres"
+      ],
+      "source_crop": [
+        380,
+        454,
+        622,
+        596
+      ],
+      "selected_native_frame": "gallery-shock_hound/preview.png",
+      "selected_native_sha256": "74342d7ecdca6e8719f3ee0aeb83d8f7a4d16002c03dbbf9d90d61782073278a",
+      "review_image": "creatures-03.png",
+      "review_box": [
+        420,
+        0,
+        420,
+        347
+      ],
+      "native_group": "shock_hound",
+      "native_pose": "idle",
+      "native_raw": "gallery-shock_hound/preview.png",
+      "native_sha256": "74342d7ecdca6e8719f3ee0aeb83d8f7a4d16002c03dbbf9d90d61782073278a",
+      "native_size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "swarm_bee",
+      "name": "蜂群",
+      "type": "PartCreature",
+      "definition": "art/creatures/swarm_bee.json",
+      "definition_sha256": "4ccf84be4021d38c37d35548be45b4fadb437e7f2b2f42ad5542d2ebed45ad6b",
+      "usage_refs": [
+        "data/enemies/swarm_bee.tres"
+      ],
+      "level_resource_refs": [],
+      "source_crop": [
+        460,
+        489,
+        581,
+        600
+      ],
+      "selected_native_frame": "gallery-swarm_bee/preview.png",
+      "selected_native_sha256": "373a79b19b2173442a3f590ade899eedf80814a7597f28391abbf8ced19ed318",
+      "review_image": "creatures-03.png",
+      "review_box": [
+        840,
+        0,
+        420,
+        347
+      ],
+      "native_group": "swarm_bee",
+      "native_pose": "fly",
+      "native_raw": "gallery-swarm_bee/preview.png",
+      "native_sha256": "373a79b19b2173442a3f590ade899eedf80814a7597f28391abbf8ced19ed318",
+      "native_size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "tangle_wire",
+      "name": "纏絲",
+      "type": "ChainCreature",
+      "definition": "art/creatures/tangle_wire.json",
+      "definition_sha256": "3acd51456cd28c370f00b13cc389585b37a0df289cfb29312eb331daa5788dfe",
+      "usage_refs": [
+        "data/enemies/tangle_wire.tres"
+      ],
+      "level_resource_refs": [
+        "data/levels/level_02.tres"
+      ],
+      "source_crop": [
+        521,
+        294,
+        808,
+        463
+      ],
+      "selected_native_frame": "lit-tangle_wire/preview.png",
+      "selected_native_sha256": "c2a8fe26aec56766636821f90a81949ca78dd2b15849511e741630dfba0262c8",
+      "review_image": "creatures-03.png",
+      "review_box": [
+        0,
+        347,
+        420,
+        347
+      ],
+      "native_group": "tangle_wire",
+      "native_pose": "idle",
+      "native_raw": "gallery-tangle_wire/preview.png",
+      "native_sha256": "98aaac86558d98b32bcb27387bf90f4cb4f326b6c16f152e5a98e3f18980cdbe",
+      "native_size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "turret",
+      "name": "哨戒砲台",
+      "type": "PartCreature",
+      "definition": "art/creatures/turret.json",
+      "definition_sha256": "7819d382a2ebeea8c89045d567f8fcc6b29852965e44ded6325a1a488def4f4b",
+      "usage_refs": [
+        "data/enemies/turret.tres"
+      ],
+      "level_resource_refs": [
+        "data/levels/level_01.tres"
+      ],
+      "source_crop": [
+        435,
+        434,
+        665,
+        597
+      ],
+      "selected_native_frame": "gallery-turret/preview.png",
+      "selected_native_sha256": "1eb6a5792b087b0085478c20fbea1ef20c42dbe8b055d4af2508ed7281b49bb5",
+      "review_image": "creatures-03.png",
+      "review_box": [
+        420,
+        347,
+        420,
+        347
+      ],
+      "native_group": "turret",
+      "native_pose": "idle",
+      "native_raw": "gallery-turret/preview.png",
+      "native_sha256": "1eb6a5792b087b0085478c20fbea1ef20c42dbe8b055d4af2508ed7281b49bb5",
+      "native_size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "wall_gecko",
+      "name": "攀牆者",
+      "type": "PartCreature",
+      "definition": "art/creatures/wall_gecko.json",
+      "definition_sha256": "861e4460f883caf1466017270a28d3ee8f268e5951a7def45327cb7eb51d098a",
+      "usage_refs": [
+        "data/enemies/wall_gecko.tres"
+      ],
+      "level_resource_refs": [
+        "data/levels/level_02.tres"
+      ],
+      "source_crop": [
+        432,
+        480,
+        609,
+        606
+      ],
+      "selected_native_frame": "gallery-wall_gecko/preview.png",
+      "selected_native_sha256": "f648fbdc18299a46ca99f2a258b5aa715f57536b5236402116cfb6bf0889c9a0",
+      "review_image": "creatures-03.png",
+      "review_box": [
+        840,
+        347,
+        420,
+        347
+      ],
+      "native_group": "wall_gecko",
+      "native_pose": "idle",
+      "native_raw": "gallery-wall_gecko/preview.png",
+      "native_sha256": "f648fbdc18299a46ca99f2a258b5aa715f57536b5236402116cfb6bf0889c9a0",
+      "native_size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "watchdog",
+      "name": "看門狗",
+      "type": "PartCreature",
+      "definition": "art/creatures/watchdog.json",
+      "definition_sha256": "0f083a4870eb0b3c04d5f3249da782ac7f857167f98024b110013651b272ce36",
+      "usage_refs": [
+        "data/enemies/watchdog.tres"
+      ],
+      "level_resource_refs": [
+        "data/levels/ch1_warehouse.tres"
+      ],
+      "source_crop": [
+        368,
+        287,
+        762,
+        600
+      ],
+      "selected_native_frame": "gallery-watchdog/preview.png",
+      "selected_native_sha256": "93ae03057e1b4a871e796497771fe500c195402ec793dd185b3e4bcf5db77123",
+      "review_image": "creatures-04.png",
+      "review_box": [
+        0,
+        0,
+        420,
+        347
+      ],
+      "native_group": "watchdog",
+      "native_pose": "idle",
+      "native_raw": "gallery-watchdog/preview.png",
+      "native_sha256": "93ae03057e1b4a871e796497771fe500c195402ec793dd185b3e4bcf5db77123",
+      "native_size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "id": "bulwark",
+      "name": "壁壘 MK-II（Bulwark）",
+      "type": "vehicle",
+      "definition": "data/vehicles/bulwark.tres",
+      "definition_sha256": "48c5b7c8bc237f64b49a1b14e0021912541699c5b3861ffa32ca151dd41ad1a5",
+      "usage_refs": [
+        "data/vehicles/bulwark.tres"
+      ],
+      "level_resource_refs": [
+        "data/levels/level_01.tres"
+      ],
+      "review_image": "vehicle.png",
+      "review_box": [
+        0,
+        0,
+        1280,
+        720
+      ],
+      "native_group": "bulwark",
+      "native_pose": "vehicle",
+      "native_raw": "gallery-bulwark/vehicle.png",
+      "native_sha256": "ed45363c99490201cde53fc4b2be3fed7f07d3ef6e87747abc0930fe13b11cac",
+      "native_size": [
+        1280,
+        720
+      ],
+      "selected_native_sha256": "ed45363c99490201cde53fc4b2be3fed7f07d3ef6e87747abc0930fe13b11cac",
+      "selected_native_frame": "gallery-bulwark/vehicle.png"
+    }
+  ],
+  "model_counts": {
+    "human": 43,
+    "PartCreature": 14,
+    "ChainCreature": 4,
+    "WormCreature": 1,
+    "vehicle": 1
+  },
+  "native_captures": 31,
+  "display_recaptures": 5
+}
