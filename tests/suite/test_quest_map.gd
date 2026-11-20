@@ -932,6 +932,21 @@ func _check_destination_reading_priority(level: Level) -> void:
 		surface.free()
 		guidance._update_arrow()
 		check(guidance._arrow.visible, "the real destination caption returns after world reading releases its space")
+		var cross_area_width := guidance._arrow.size.x
+		var local_target := guidance._target.duplicate(true)
+		var step := QuestCatalog.current_step(local_target, GameState.world_flags)
+		step["location"] = {"level": level.data.resource_path, "cell": [500, 19]}
+		guidance._target = local_target
+		guidance._update_arrow()
+		check(guidance._arrow.visible and guidance._arrow.tooltip_text == QuestCatalog.display_text(step, "title"), "an off-screen goal in this area replaces the previous exit hover text")
+		check(guidance._arrow.size.x < cross_area_width and guidance._arrow.get_global_rect().end.x <= 628.01, "a bare arrow shrinks its hover and collision bounds within the screen edge")
+		var visibility_changes: Array[bool] = []
+		var record_visibility := func() -> void: visibility_changes.append(guidance._arrow.visible)
+		guidance._arrow.visibility_changed.connect(record_visibility)
+		for frame in 8:
+			guidance._update_arrow()
+		guidance._arrow.visibility_changed.disconnect(record_visibility)
+		check(guidance._arrow.visible and visibility_changes.is_empty(), "a steady arrow stays visible through repeated HUD updates so hover can finish")
 	guidance._target = original
 	guidance._update_arrow()
 

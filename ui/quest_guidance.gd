@@ -166,31 +166,36 @@ func _pulse_row() -> void:
 
 
 func _update_arrow() -> void:
-	_arrow.visible = false
+	_arrow.visible = _place_arrow()
+
+
+func _place_arrow() -> bool:
 	if not _enabled("quest_arrows") or Story.is_cinematic_active():
-		return
+		return false
 	var step := QuestCatalog.current_step(_target, GameState.world_flags)
 	var location: Dictionary = step.get("location", {})
 	if location.is_empty():
-		return
+		return false
 	var path: String = location["level"]
 	var position: Vector2
 	var caption := ""
+	var hint: String
 	if path == level.data.resource_path:
 		var cell: Array = location["cell"]
 		position = Vector2(cell[0] + 0.5, cell[1] + 1.0) * level.data.tile_size
+		hint = QuestCatalog.display_text(step, "title")
 	else:
 		var exit := maps.next_exit(level.data.resource_path, path, GameState.world_flags)
 		if exit.is_empty():
-			return
+			return false
 		position = exit["position"]
 		var target: LevelData = maps.areas[path]["data"]
 		caption = "前往%s" % target.display_name
-		_arrow.tooltip_text = maps.marker_text(exit, GameState.world_flags)
+		hint = maps.marker_text(exit, GameState.world_flags)
 	var screen := level.get_viewport().get_canvas_transform() * position
 	var bounds := Rect2(Vector2(18, 88), Vector2(604, 244))
 	if bounds.has_point(screen) and path == level.data.resource_path:
-		return
+		return false
 	var center := bounds.get_center()
 	var direction := (screen - center).normalized()
 	var scale := minf(bounds.size.x * 0.5 / maxf(absf(direction.x), 0.001), bounds.size.y * 0.5 / maxf(absf(direction.y), 0.001))
@@ -200,20 +205,24 @@ func _update_arrow() -> void:
 	# A shifted caption yields at its last displayed position, too.
 	var previous_rect := (get_viewport().get_canvas_transform().affine_inverse() * _arrow.get_global_transform_with_canvas()) * Rect2(Vector2.ZERO, _arrow.size.max(_arrow.get_minimum_size()))
 	if _arrow.text == caption_text and PromptLayout.covers(previous_rect.grow(2.0)):
-		return
-	_arrow.text = caption_text
+		return false
+	if _arrow.text != caption_text:
+		_arrow.text = caption_text
+	if _arrow.tooltip_text != hint:
+		_arrow.tooltip_text = hint
+	var extent := _arrow.get_combined_minimum_size()
+	if not _arrow.size.is_equal_approx(extent):
+		_arrow.size = extent
 	# 左下角是武器欄與彈藥，箭頭靠左時不往下壓到它們。
 	var bottom := 240.0 if edge.x < WEAPON_BAR_RIGHT else 322.0
-	_arrow.position = Vector2(clampf(edge.x - _arrow.get_minimum_size().x * 0.5, 12, 628 - _arrow.get_minimum_size().x), clampf(edge.y, 88, bottom))
-	var extent := _arrow.size.max(_arrow.get_minimum_size())
-	var text_rect := (get_viewport().get_canvas_transform().affine_inverse() * _arrow.get_global_transform_with_canvas()) * Rect2(Vector2.ZERO, extent)
+	var origin := Vector2(clampf(edge.x - extent.x * 0.5, 12, 628 - extent.x), clampf(edge.y, 88, bottom))
+	var to_world := get_viewport().get_canvas_transform().affine_inverse() * get_global_transform_with_canvas()
+	var text_rect := to_world * Rect2(origin, extent)
 	# Preserve reading priority at the original destination position.
 	if PromptLayout.covers(text_rect.grow(2.0)):
-		return
+		return false
 	PromptLayout.collect_obstacles_except(null, _arrow_obstacles)
-	var origin := _arrow.position
 	var stride := ceilf(extent.y) + 4.0
-	var to_world := get_viewport().get_canvas_transform().affine_inverse() * get_global_transform_with_canvas()
 	for i in 13:
 		var row := int((i + 1) / 2)
 		var candidate := origin + Vector2(0.0, row * stride * (-1.0 if i % 2 == 1 else 1.0))
@@ -230,8 +239,8 @@ func _update_arrow() -> void:
 		if blocked:
 			continue
 		_arrow.position = candidate
-		_arrow.visible = true
-		return
+		return true
+	return false
 
 
 func _enabled(key: String) -> bool:
