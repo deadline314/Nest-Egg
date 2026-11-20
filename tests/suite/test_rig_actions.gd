@@ -11,6 +11,7 @@ func run() -> void:
 	_test_data()
 	await _test_playback()
 	await _test_death_overrides_enemy_actions()
+	await _test_rin_falls_before_settling()
 	preload("res://tests/helpers/crouch_feet_checks.gd").run(self)
 	preload("res://tests/helpers/crouch_hip_checks.gd").run(self)
 	await _test_unknown_action()
@@ -140,6 +141,41 @@ func _death_pose_signature(rig: CharacterRig) -> PackedFloat32Array:
 	for bone_name: StringName in [&"hip", &"chest", &"head", &"leg_front_upper", &"leg_front_lower", &"leg_back_upper", &"leg_back_lower"]:
 		values.append(rig.bone(bone_name).rotation)
 	return values
+
+
+func _test_rin_falls_before_settling() -> void:
+	const STEP := 1.0 / 60.0
+	const SUPPORT_GAPS := [20, 21, 33, 34]
+	for direction in [-1.0, 1.0]:
+		for force in [0.0, 1.0]:
+			var air := RigInput.new()
+			var ground := RigInput.new()
+			var falling := await _rig("rin", air)
+			var standing := await _rig("rin", ground)
+			air.on_floor = false
+			air.velocity.y = 300.0
+			for input in [air, ground]:
+				input.dead = true
+				input.death_dir = direction
+				input.death_force = force
+			for frame in 90:
+				falling.animate(STEP, air)
+				ground.on_floor = frame not in SUPPORT_GAPS
+				standing.animate(STEP, ground)
+			check(is_equal_approx(standing.animator._death_time, 90 * STEP), "brief losses of contact after landing do not interrupt death playback")
+			var midair := falling.bone(&"hip").rotation
+			check(absf(midair) > 0.5 and absf(midair) < 1.2 and signf(midair) == -direction,
+					"airborne Rin loses balance without lying flat (direction %.1f, force %.1f)" % [direction, force])
+			air.on_floor = true
+			air.velocity.y = 0.0
+			falling.animate(STEP, air)
+			check(absf(falling.bone(&"hip").rotation - midair) < 0.15, "landing keeps the authored transition continuous")
+			for frame in 90:
+				falling.animate(STEP, air)
+			check(_pose_distance(_death_pose_signature(falling), _death_pose_signature(standing)) < 0.001,
+					"Rin settles into the same final pose after landing")
+			falling.get_parent().queue_free()
+			standing.get_parent().queue_free()
 
 
 func _pose_distance(a: PackedFloat32Array, b: PackedFloat32Array) -> float:

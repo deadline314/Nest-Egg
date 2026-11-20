@@ -119,6 +119,8 @@ var _hurt_dir := 1.0
 var _death_dir := 1.0
 var _death_force := 0.0
 var _death_time := 0.0
+var _death_air_limit := INF
+var _death_touched_ground := false
 ## 腳踩實地（資料 grounding＝true 的角色）：腳底離地時整個身體上下補償；站在地上時最低的腳底高度（骨架空間）、目前的補償量。
 var _ground_y := 0.0
 var _leg_length := 25.0
@@ -276,10 +278,7 @@ func update(delta: float, input: RigInput) -> void:
 		_kick_springs("hurt", input.hurt_dir)
 	_take_events(delta, input)
 	_hurt_left = maxf(0.0, _hurt_left - delta)
-	_death_time = _death_time + delta if input.dead else 0.0
-	if input.dead and _death_time <= delta:  # 剛死的那一格記下最後一擊的方向與力道
-		_death_dir = input.death_dir
-		_death_force = input.death_force
+	_advance_death(delta, input)
 
 	var local_velocity := Vector2(input.velocity.x * input.facing, input.velocity.y)
 	# 翻面、瞬移（重生、過場換位）時，頭髮與衣襬不能被當成「瞬間移動了很遠」而甩一大下：彈簧直接放回靜止位置。
@@ -522,6 +521,32 @@ func _death_pose(pose: Dictionary, d: Dictionary) -> void:
 	for i in 4:
 		var bone: StringName = [&"leg_front_upper", &"leg_front_lower", &"leg_back_upper", &"leg_back_lower"][i]
 		pose[bone] = lerpf(float(legs[i]), float(folded[i]), fold * fold_t * (1.0 - eased * (1.0 - float(d["fold_keep"]))))
+
+
+## air_limit 是首次碰地前可播放的進度上限，其後接原倒地關鍵格。
+func _advance_death(delta: float, input: RigInput) -> void:
+	if not input.dead:
+		_death_time = 0.0
+		return
+	if _death_time == 0.0:
+		_death_dir = input.death_dir
+		_death_force = input.death_force
+		_death_air_limit = INF
+		_death_touched_ground = false
+		var keys := _death_keys()
+		if keys.has("air_limit"):
+			var cap: Variant = keys["air_limit"]
+			if (cap is float or cap is int) and float(cap) > 0.0 and float(cap) < 1.0:
+				_death_air_limit = _death_duration() * float(cap)
+			else:
+				RigLibrary.report_once("motion.death.air_limit:" + _rig.skin_id,
+					"[HumanoidAnimator] %s: death.keys air_limit must be between 0 and 1; using the original fall timing." % (MOTION_PATH % _rig.skin_id))
+	# The landing keys continue once the body has touched actual support.
+	_death_touched_ground = _death_touched_ground or input.on_floor
+	if _death_touched_ground:
+		_death_time += delta
+	else:
+		_death_time = minf(_death_time + delta, _death_air_limit)
 
 
 ## 分段倒地（動作資料 death.keys 有內容時使用）：正面中彈用 supine（向後仰躺、臉朝上），背後中彈用 prone（向前俯臥、臉朝下）。

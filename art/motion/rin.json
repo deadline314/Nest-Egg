@@ -162,6 +162,7 @@
   "keys": {
    "supine": {
     "duration": 0.95,
+    "air_limit": 0.58,
     "frames": [
      {
       "t": 0.0,
@@ -279,6 +280,7 @@
    },
    "prone": {
     "duration": 0.9,
+    "air_limit": 0.58,
     "frames": [
      {
       "t": 0.0,
