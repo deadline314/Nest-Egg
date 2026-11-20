@@ -28,7 +28,8 @@ import booth_return_staging  # noqa: E402
 import market_pass_staging  # noqa: E402
 import roof_watcher_staging  # noqa: E402
 import roof_tea_staging  # noqa: E402
-from ch2_stages import BOOTH, COLLECTION, LEDGER, PAWNSHOP, RENT_WINDOW, MEDIC_LEDGER, MARKET_PASS, Cast, Stage  # noqa: E402
+from ch2_stages import BOOTH, COLLECTION, LEDGER, LEDGER_DISPUTE, PAWNSHOP, RENT_WINDOW, MEDIC_LEDGER, MARKET_PASS, Cast, Stage  # noqa: E402
+import ledger_dispute_staging  # noqa: E402
 
 # 屋頂使用原場景與原茶座。早晚共用同樣的站位與比例。
 # 兩人站在茶座兩側、面向對方（0.40W 與 0.60W）；接續的段落沿用同一個舞台與站位，只用很短的淡入。
@@ -926,6 +927,9 @@ FORMAL_FRAMES = {
         "ch2_t_s06_open", "ch2_t_s06_pay_confirm", "ch2_t_s06_open_again", "ch2_t_s06_short", "ch2_t_s06_paid", "ch2_t_s06_ask",
         "ch2_t_s06_invite", "ch2_t_s06_invite_left", "ch2_t_s06_invite_stayed", "ch2_t_s06_close",
         "ch2_t_s06_ali_paid_revisit", "ch2_t_s06_ask_late", "ch2_t_s06_later")},
+    "ch2_t_s11_intro": Frame(LEDGER_DISPUTE, (
+        Cast("egret", 161, 1), Cast("rin", ledger_dispute_staging.RIN_X, 1), Cast("yong", 409, -1)),
+        True, ((1, ledger_dispute_staging.place_papers(LEDGER_DISPUTE.floor)),)),
     "ch2_t_s13_cut": Frame(MEDIC_LEDGER, _LEDGER_CAST, True, ((0, medic_transport_staging.medic_opening(keep=False)),)),
     "ch2_t_s13_keep": Frame(MEDIC_LEDGER, _LEDGER_CAST, True, ((0, medic_transport_staging.medic_opening(keep=True)),)),
     "ch2_t_s13_cabinet": Frame(LEDGER, (Cast("rin", 280, 1), Cast("yong", 440, -1))),

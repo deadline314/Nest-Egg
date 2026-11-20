@@ -1,0 +1,175 @@
+{
+ "camera": {
+  "pos": [
+   300,
+   216
+  ],
+  "zoom": 1.22
+ },
+ "floor": 296,
+ "layers": [
+  {
+   "kind": "gradient",
+   "top": "#120808",
+   "bottom": "#2a1410",
+   "parallax": 0.0
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scenes/yong_hideout.webp",
+   "pos": [
+    -64,
+    -36.0
+   ],
+   "scale": 0.5,
+   "filter": "linear",
+   "source_width": 1536
+  },
+  {
+   "kind": "glow",
+   "pos": [
+    310,
+    160
+   ],
+   "radius": 150,
+   "color": "#ffd08a",
+   "intensity": 0.6,
+   "additive": true,
+   "alpha": 0.3,
+   "pulse": 0.05,
+   "pulse_depth": 0.2
+  },
+  {
+   "kind": "sprite",
+   "id": "s11_contract_copy",
+   "path": "res://art/items/world/document.png",
+   "source_width": 96,
+   "pos": [
+    201.0,
+    223.0
+   ],
+   "scale": 0.2,
+   "filter": "linear",
+   "visible": false,
+   "depth": "back",
+   "states": {
+    "lay_1": {
+     "path": "res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_1.png"
+    },
+    "lay_2": {
+     "path": "res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_2.png"
+    },
+    "lay_3": {
+     "path": "res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_3.png"
+    },
+    "lay_4": {
+     "path": "res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_4.png"
+    },
+    "lay_5": {
+     "path": "res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_5.png"
+    },
+    "lay_6": {
+     "path": "res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_6.png"
+    },
+    "lay_7": {
+     "path": "res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_7.png"
+    },
+    "lay_8": {
+     "path": "res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_8.png"
+    }
+   }
+  },
+  {
+   "kind": "sprite",
+   "id": "s11_interest_receipt",
+   "path": "res://art/items/world/document.png",
+   "source_width": 96,
+   "pos": [
+    215.0,
+    223.0
+   ],
+   "scale": 0.2,
+   "filter": "linear",
+   "visible": false,
+   "depth": "back",
+   "states": {
+    "lay_1": {
+     "path": "res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_1.png"
+    },
+    "lay_2": {
+     "path": "res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_2.png"
+    },
+    "lay_3": {
+     "path": "res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_3.png"
+    },
+    "lay_4": {
+     "path": "res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_4.png"
+    },
+    "lay_5": {
+     "path": "res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_5.png"
+    },
+    "lay_6": {
+     "path": "res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_6.png"
+    },
+    "lay_7": {
+     "path": "res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_7.png"
+    },
+    "lay_8": {
+     "path": "res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_8.png"
+    }
+   }
+  },
+  {
+   "kind": "sprite",
+   "id": "s11_collection_copy",
+   "path": "res://art/items/world/document.png",
+   "source_width": 96,
+   "pos": [
+    229.0,
+    223.0
+   ],
+   "scale": 0.2,
+   "filter": "linear",
+   "visible": false,
+   "depth": "back",
+   "states": {
+    "lay_1": {
+     "path": "res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_1.png"
+    },
+    "lay_2": {
+     "path": "res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_2.png"
+    },
+    "lay_3": {
+     "path": "res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_3.png"
+    },
+    "lay_4": {
+     "path": "res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_4.png"
+    },
+    "lay_5": {
+     "path": "res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_5.png"
+    },
+    "lay_6": {
+     "path": "res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_6.png"
+    },
+    "lay_7": {
+     "path": "res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_7.png"
+    },
+    "lay_8": {
+     "path": "res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_8.png"
+    }
+   }
+  }
+ ],
+ "furniture": [
+  {
+   "id": "ledger_desk",
+   "kind": "counter",
+   "rect": [
+    217,
+    215,
+    165,
+    69
+   ]
+  }
+ ]
+}

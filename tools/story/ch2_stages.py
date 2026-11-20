@@ -15,6 +15,7 @@ from pathlib import Path
 
 import towel_staging
 import rent_window_staging
+import ledger_dispute_staging
 import medic_transport_staging
 import booth_return_staging
 import market_pass_staging
@@ -131,6 +132,9 @@ LEDGER = Stage(
              "pulse": 0.05, "pulse_depth": 0.2}),
     furniture=({"id": "ledger_desk", "kind": "counter", "rect": [217, 215, 165, 69]},))
 
+LEDGER_DISPUTE = replace(LEDGER, ident="ch2_ledger_dispute", shot=(300, 216, 1.22),
+                         layers=LEDGER.layers + ledger_dispute_staging.layers())
+
 # --- 市集電話亭（S14）：art/environment/scenes/anchor_phone_booth.webp，疊上關卡裡同一座電話亭 --------------
 # 量自立繪：人行道從牆腳 y≈249 到路緣 y≈304，演員與電話亭都站在 292。捲門高約 180（1.5 身高，車庫門），縮放 2.0。
 BOOTH_FLOOR = booth_return_staging.FLOOR
@@ -198,4 +202,4 @@ ROOF_WATCHER = replace(derived(
 ROOF_TEA = replace(derived(roof_tea_staging.STAGE, "ch1_rooftop", roof_tea_staging.layers(), scale=2.2, shot=(320, 200, 1.0)),
                    furniture=roof_tea_staging.furniture())
 
-STAGES = (LEDGER, BOOTH, COLLECTION, PAWNSHOP, RENT_WINDOW, MEDIC_LEDGER, MARKET_PASS, ROOF_WATCHER, ROOF_TEA)
+STAGES = (LEDGER, LEDGER_DISPUTE, BOOTH, COLLECTION, PAWNSHOP, RENT_WINDOW, MEDIC_LEDGER, MARKET_PASS, ROOF_WATCHER, ROOF_TEA)

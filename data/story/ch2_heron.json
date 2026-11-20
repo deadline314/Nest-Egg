@@ -6477,11 +6477,761 @@
    "mode": "animated",
    "steps": [
     {
+     "do": "scene",
+     "id": "ch2_ledger_dispute",
+     "pos": [
+      300,
+      255.3
+     ],
+     "zoom": 1.22,
+     "fade": 0.8
+    },
+    {
+     "do": "actor",
+     "id": "egret",
+     "kind": "egret",
+     "pos": [
+      161,
+      296
+     ],
+     "facing": 1,
+     "scale": 1.9,
+     "weapon": "",
+     "speaker": "egret"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      210.0,
+      296
+     ],
+     "facing": 1,
+     "scale": 1.9,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "actor",
+     "id": "yong",
+     "kind": "yong",
+     "pos": [
+      409,
+      296
+     ],
+     "facing": -1,
+     "scale": 1.9,
+     "weapon": "",
+     "speaker": "yong"
+    },
+    {
      "do": "say",
      "speaker": "yong",
      "text": "你們拿幾張副本，就要我把人借出去的錢當沒借？",
      "ja": "写しを何枚か持ってきただけで、俺が貸した金をなかったことにしろってのか？",
      "en": "You bring a few copies, and you want me to treat the money I lent out as if I never lent it?"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "space": "prop",
+     "prop": "s11_contract_copy",
+     "to": [
+      72,
+      42
+     ],
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "time": 0.21,
+     "wait": true
+    },
+    {
+     "do": "prop_visible",
+     "id": "s11_contract_copy",
+     "visible": true
+    },
+    {
+     "do": "prop_hold",
+     "id": "s11_contract_copy",
+     "actor": "rin",
+     "hand": "front",
+     "point": [
+      72,
+      42
+     ],
+     "follow_rotation": false
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      234.4,
+      197.0
+     ],
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "time": 0.29,
+     "wait": true
+    },
+    {
+     "do": "prop",
+     "id": "s11_contract_copy",
+     "state": "lay_1"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      234.4,
+      206.9
+     ],
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "time": 0.06,
+     "wait": true
+    },
+    {
+     "do": "prop",
+     "id": "s11_contract_copy",
+     "state": "lay_2"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      234.4,
+      207.7
+     ],
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "time": 0.06,
+     "wait": true
+    },
+    {
+     "do": "prop",
+     "id": "s11_contract_copy",
+     "state": "lay_3"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      234.4,
+      208.7
+     ],
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "time": 0.06,
+     "wait": true
+    },
+    {
+     "do": "prop",
+     "id": "s11_contract_copy",
+     "state": "lay_4"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      234.4,
+      209.5
+     ],
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "time": 0.06,
+     "wait": true
+    },
+    {
+     "do": "prop",
+     "id": "s11_contract_copy",
+     "state": "lay_5"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      234.4,
+      210.3
+     ],
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "time": 0.06,
+     "wait": true
+    },
+    {
+     "do": "prop",
+     "id": "s11_contract_copy",
+     "state": "lay_6"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      234.4,
+      211.3
+     ],
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "time": 0.06,
+     "wait": true
+    },
+    {
+     "do": "prop",
+     "id": "s11_contract_copy",
+     "state": "lay_7"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      234.4,
+      212.1
+     ],
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "time": 0.06,
+     "wait": true
+    },
+    {
+     "do": "prop",
+     "id": "s11_contract_copy",
+     "state": "lay_8"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      234.4,
+      213.1
+     ],
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "time": 0.06,
+     "wait": true
+    },
+    {
+     "do": "prop_release",
+     "id": "s11_contract_copy"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "release": true,
+     "time": 0.22,
+     "wait": true
+    },
+    {
+     "do": "move",
+     "id": "rin",
+     "to": [
+      224.0,
+      296
+     ],
+     "time": 0.32,
+     "pose": "walk",
+     "then": "idle",
+     "wait": true
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "space": "prop",
+     "prop": "s11_interest_receipt",
+     "to": [
+      72,
+      42
+     ],
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "time": 0.21,
+     "wait": true
+    },
+    {
+     "do": "prop_visible",
+     "id": "s11_interest_receipt",
+     "visible": true
+    },
+    {
+     "do": "prop_hold",
+     "id": "s11_interest_receipt",
+     "actor": "rin",
+     "hand": "front",
+     "point": [
+      72,
+      42
+     ],
+     "follow_rotation": false
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      248.4,
+      197.0
+     ],
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "time": 0.29,
+     "wait": true
+    },
+    {
+     "do": "prop",
+     "id": "s11_interest_receipt",
+     "state": "lay_1"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      248.4,
+      206.9
+     ],
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "time": 0.06,
+     "wait": true
+    },
+    {
+     "do": "prop",
+     "id": "s11_interest_receipt",
+     "state": "lay_2"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      248.4,
+      207.7
+     ],
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "time": 0.06,
+     "wait": true
+    },
+    {
+     "do": "prop",
+     "id": "s11_interest_receipt",
+     "state": "lay_3"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      248.4,
+      208.7
+     ],
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "time": 0.06,
+     "wait": true
+    },
+    {
+     "do": "prop",
+     "id": "s11_interest_receipt",
+     "state": "lay_4"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      248.4,
+      209.5
+     ],
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "time": 0.06,
+     "wait": true
+    },
+    {
+     "do": "prop",
+     "id": "s11_interest_receipt",
+     "state": "lay_5"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      248.4,
+      210.3
+     ],
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "time": 0.06,
+     "wait": true
+    },
+    {
+     "do": "prop",
+     "id": "s11_interest_receipt",
+     "state": "lay_6"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      248.4,
+      211.3
+     ],
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "time": 0.06,
+     "wait": true
+    },
+    {
+     "do": "prop",
+     "id": "s11_interest_receipt",
+     "state": "lay_7"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      248.4,
+      212.1
+     ],
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "time": 0.06,
+     "wait": true
+    },
+    {
+     "do": "prop",
+     "id": "s11_interest_receipt",
+     "state": "lay_8"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      248.4,
+      213.1
+     ],
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "time": 0.06,
+     "wait": true
+    },
+    {
+     "do": "prop_release",
+     "id": "s11_interest_receipt"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "release": true,
+     "time": 0.22,
+     "wait": true
+    },
+    {
+     "do": "move",
+     "id": "rin",
+     "to": [
+      238.0,
+      296
+     ],
+     "time": 0.32,
+     "pose": "walk",
+     "then": "idle",
+     "wait": true
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "space": "prop",
+     "prop": "s11_collection_copy",
+     "to": [
+      72,
+      42
+     ],
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "time": 0.21,
+     "wait": true
+    },
+    {
+     "do": "prop_visible",
+     "id": "s11_collection_copy",
+     "visible": true
+    },
+    {
+     "do": "prop_hold",
+     "id": "s11_collection_copy",
+     "actor": "rin",
+     "hand": "front",
+     "point": [
+      72,
+      42
+     ],
+     "follow_rotation": false
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      262.4,
+      197.0
+     ],
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "time": 0.29,
+     "wait": true
+    },
+    {
+     "do": "prop",
+     "id": "s11_collection_copy",
+     "state": "lay_1"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      262.4,
+      206.9
+     ],
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "time": 0.06,
+     "wait": true
+    },
+    {
+     "do": "prop",
+     "id": "s11_collection_copy",
+     "state": "lay_2"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      262.4,
+      207.7
+     ],
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "time": 0.06,
+     "wait": true
+    },
+    {
+     "do": "prop",
+     "id": "s11_collection_copy",
+     "state": "lay_3"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      262.4,
+      208.7
+     ],
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "time": 0.06,
+     "wait": true
+    },
+    {
+     "do": "prop",
+     "id": "s11_collection_copy",
+     "state": "lay_4"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      262.4,
+      209.5
+     ],
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "time": 0.06,
+     "wait": true
+    },
+    {
+     "do": "prop",
+     "id": "s11_collection_copy",
+     "state": "lay_5"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      262.4,
+      210.3
+     ],
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "time": 0.06,
+     "wait": true
+    },
+    {
+     "do": "prop",
+     "id": "s11_collection_copy",
+     "state": "lay_6"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      262.4,
+      211.3
+     ],
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "time": 0.06,
+     "wait": true
+    },
+    {
+     "do": "prop",
+     "id": "s11_collection_copy",
+     "state": "lay_7"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      262.4,
+      212.1
+     ],
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "time": 0.06,
+     "wait": true
+    },
+    {
+     "do": "prop",
+     "id": "s11_collection_copy",
+     "state": "lay_8"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      262.4,
+      213.1
+     ],
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "time": 0.06,
+     "wait": true
+    },
+    {
+     "do": "prop_release",
+     "id": "s11_collection_copy"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "release": true,
+     "time": 0.22,
+     "wait": true
+    },
+    {
+     "do": "move",
+     "id": "rin",
+     "to": [
+      210.0,
+      296
+     ],
+     "time": 0.54,
+     "pose": "walk",
+     "then": "idle",
+     "wait": true
+    },
+    {
+     "do": "face",
+     "id": "rin",
+     "dir": 1
     },
     {
      "do": "say",
@@ -6523,7 +7273,7 @@
      "en": "There's no key here for you two. Take the books through me first."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "not": {
      "flag": "ch2_yong_intro_seen",
