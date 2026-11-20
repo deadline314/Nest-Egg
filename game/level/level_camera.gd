@@ -244,9 +244,12 @@ static func base_zoom() -> float:
 func _look_goal() -> float:
 	if _rear_room <= 0.0:
 		return tuning.look_ahead
-	var half_width := get_viewport_rect().size.x * 0.5 / tuning.zoom
 	var aim_forward := maxf(0.0, _aim_look.x * _facing())
-	return clampf(half_width - _rear_room - aim_forward, 0.0, tuning.look_ahead)
+	return clampf(_rear_forward_room() - aim_forward, 0.0, tuning.look_ahead)
+
+
+func _rear_forward_room() -> float:
+	return maxf(0.0, get_viewport_rect().size.x * 0.5 / tuning.zoom - _rear_room)
 
 
 ## 一次走訪敵人，更新兩種構圖需求：
@@ -354,6 +357,9 @@ func _update_aim_look(delta: float) -> void:
 		# 往上瞄維持一半的偏移；往下瞄用 aim_look_down，才看得到落差底下。
 		var vertical := player.aim_dir.y * tuning.aim_look_down if player.aim_dir.y > 0.0 else player.aim_dir.y * 0.5 * tuning.aim_look
 		goal = Vector2(player.aim_dir.x * tuning.aim_look, vertical)
+		if _rear_room > 0.0:
+			var facing := float(player.facing)
+			goal.x = facing * minf(goal.x * facing, _rear_forward_room())
 		_aim_look = _aim_look.lerp(goal, minf(1.0, tuning.aim_look_speed * delta))
 
 

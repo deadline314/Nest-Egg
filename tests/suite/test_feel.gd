@@ -223,6 +223,7 @@ func _test_camera_tuning() -> void:
 func _test_camera_retreat() -> void:
 	var camera := LevelCamera.new()
 	var player := Player.new()
+	player.add_child(player.melee)
 	camera.target = player
 	camera.position_smoothing_enabled = true
 	player.facing = 1
@@ -349,6 +350,22 @@ func _test_camera_rear_threat() -> void:
 	enemy.position = Vector2(1000.0 + 90.0, -600.0)
 	camera.snap_to_target()
 	check(is_zero_approx(camera._lift), "an enemy far above (another floor) does not lift the camera")
+	var player := Player.new()
+	player.add_child(player.melee)
+	player.position = dummy.position
+	camera.target = player
+	for facing: int in [-1, 1]:
+		player.facing = facing
+		player.aim_dir = Vector2(facing, 0.0)
+		enemy.position = player.position - Vector2(facing * camera.tuning.rear_watch_range, 0.0)
+		camera.snap_to_target()
+		for i in 90:
+			camera._physics_process(1.0 / 60.0)
+		var rear_visible := half - (camera._look + camera._aim_look.x) * facing
+		check(rear_visible > camera.tuning.rear_watch_range, "forward aim keeps a distant rear threat visible (facing %s, sees %.1f px behind)" % [facing, rear_visible])
+	camera.target = dummy
+	camera._aim_look = Vector2.ZERO
+	player.free()
 	enemy.free()
 	# 轉向：每個物理影格的橫移不超過速度上限。
 	camera._look = -camera.tuning.look_ahead
