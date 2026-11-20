@@ -6,12 +6,14 @@ static func run(s:TestSuite)->void:
 			for rate:float in [1.0,2.0]:
 				for facing:int in [-1,1]:
 					await _case(s,pattern,held,rate,facing)
+	for facing:int in [-1,1]:
+		await _case(s,[1.0/60.0],true,1.0,facing,"old_k")
 	await _ownership_and_pause(s)
 
 static func _start(player:CutscenePlayer,step:Dictionary)->void:
 	await player._do_move(step)
 
-static func _case(s:TestSuite,pattern:Array,held:bool,rate:float,facing:int)->void:
+static func _case(s:TestSuite,pattern:Array,held:bool,rate:float,facing:int,skin:String="rin")->void:
 	var player:=CutscenePlayer.new()
 	s.runner.add_child(player)
 	player._root=Control.new()
@@ -22,7 +24,7 @@ static func _case(s:TestSuite,pattern:Array,held:bool,rate:float,facing:int)->vo
 	player.add_child(player._stage)
 	var actor:=CutsceneActor.new()
 	player._stage.actors.add_child(actor)
-	assert(actor.setup(&"visitor","rin","",3.4,""))
+	assert(actor.setup(&"visitor",skin,"",3.4,""))
 	actor.position=Vector2(320,180)
 	actor.ground_y=180
 	actor.face(facing)
@@ -79,7 +81,7 @@ static func _case(s:TestSuite,pattern:Array,held:bool,rate:float,facing:int)->vo
 				var point:=player._stage.to_local(prop.to_global(prop.source_point(grip)))
 				worst_hold=maxf(worst_hold,point.distance_to(player._stage.to_local(actor.hand_contact_global(&"front"))))
 		if actor.pose==&"idle":break
-	var label:="pattern=%s held=%s speed=%s face=%s"%[pattern,held,rate,facing]
+	var label:="skin=%s pattern=%s held=%s speed=%s face=%s"%[skin,pattern,held,rate,facing]
 	s.check(samples>0,label+" exercises actual steady movement")
 	s.check(worst_velocity_error<=absf(expected_velocity)*.001+.00001,label+" consumes velocity from the same published time interval")
 	s.check(lowest_gait>=.99,label+" keeps steady gait engaged across render/physics clocks")

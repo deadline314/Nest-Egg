@@ -14,13 +14,18 @@
   ]
  },
  "move": {
+  "grounding": true,
   "stride": 52.0,
   "swing": 0.55,
   "knee_bend": 0.9,
   "knee_base": 0.15,
   "hip_bounce": 0.9,
   "chest_lean": 0.1,
-  "threshold": 0.08
+  "threshold": 0.08,
+  "stride_exp": 0.75,
+  "stride_floor": 0.45,
+  "duty": 0.72,
+  "lift": 3.5
  },
  "crouch": {
   "hip_drop": 8.0,

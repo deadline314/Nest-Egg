@@ -62,6 +62,7 @@ func _test_defaults_are_inert() -> void:
 	check(float(defaults["inertia"]["gain"]) == 0.0, "default motion has no inertia lean")
 	check(float(defaults["move"]["bounce"]) == 0.0 and float(defaults["move"]["rise"]) == 0.0, "default motion has no body bounce")
 	check(float(defaults["move"]["duty"]) >= HumanoidAnimator.WALK_DUTY, "default motion has no flight phase")
+	check(not bool(defaults["move"]["grounding"]), "default motion keeps the original pendulum gait")
 	check(not bool(defaults["idle"]["pin_feet"]), "default motion does not pin the feet in idle")
 	for key: String in (defaults["torso"] as Dictionary).keys():
 		check(float(defaults["torso"][key]) == 0.0, "default torso %s is off" % key)
@@ -73,7 +74,10 @@ func _test_defaults_are_inert() -> void:
 		var level_gait := float(motion["move"]["level"]) > 0.0
 		check(level_gait or (float(motion["move"]["bounce"]) == 0.0 and float(motion["move"]["rise"]) == 0.0), "%s: body bounce stays off unless it uses the level gait" % skin)
 		check(float(motion["move"]["bounce"]) + float(motion["move"]["rise"]) <= 1.5, "%s: the designed body bounce is small (%.1f px)" % [skin, float(motion["move"]["bounce"]) + float(motion["move"]["rise"])])
-		check(float(motion["move"]["duty"]) == float(defaults["move"]["duty"]), "%s: stride duty is unchanged" % skin)
+		var stride_duty := 0.72 if skin == "old_k" else float(defaults["move"]["duty"])
+		check(is_equal_approx(float(motion["move"]["duty"]), stride_duty), "%s: stride duty matches its authored gait" % skin)
+		if skin == "old_k":
+			check(bool(motion["move"]["grounding"]) and not bool(motion["grounding"]), "old_k grounds his steps while preserving the original idle pose")
 		check(not bool(motion["idle"]["pin_feet"]), "%s: idle feet are not pinned" % skin)
 		check(float(motion["torso"]["hip_swing"]) == 0.0 and float(motion["torso"]["chest_wobble"]) == 0.0, "%s: torso overlay stays off" % skin)
 	check(float(defaults["air"]["apex_speed"]) == 0.0 and float(defaults["air"]["takeoff"]["time"]) == 0.0, "default motion keeps the two-pose air and no takeoff stretch")

@@ -43,7 +43,7 @@ const MOTION_PATH := "res://art/motion/%s.json"
 const DEFAULT_MOTION := {
 	"grounding": false,
 	"idle": {"breath_speed": 2.4, "breath_amp": 0.02, "hip_bob": 0.3, "chest": 0.0, "legs": [-0.12, 0.12, 0.2, 0.08], "sway": 0.0, "sway_speed": 1.3, "pin_feet": false, "pin_reach": 0.95, "counter": 0.0, "feet_x": []},
-	"move": {"stride": 50.0, "swing": 0.8, "knee_bend": 1.2, "knee_base": 0.15, "hip_bounce": 1.4, "chest_lean": 0.12, "threshold": 0.08,
+	"move": {"grounding": false, "stride": 50.0, "swing": 0.8, "knee_bend": 1.2, "knee_base": 0.15, "hip_bounce": 1.4, "chest_lean": 0.12, "threshold": 0.08,
 			"duty": 0.55, "lift": 5.0, "reach": 0.985, "bounce": 0.0, "rise": 0.0, "stride_exp": 0.0, "stride_floor": 0.45, "level": 0.0, "bob_slow": 0.5},
 	"foot": {"droop": 0.25, "heel": 0.0, "toe_off": 0.0},
 	"torso": {"hip_swing": 0.0, "chest_counter": 0.0, "chest_wobble": 0.0, "wobble_phase": 0.0, "head_hold": 0.0},
@@ -327,15 +327,16 @@ func update(delta: float, input: RigInput) -> void:
 	_feet_placed = false
 	_post_pose(delta, input)
 	_kneel(delta, input)
-	var can_plant := bool(_motion.get("grounding", false)) and input.on_floor and not input.dead and not input.dashing and not input.crouching
-	var can_pin := can_plant and _idle_on and not input.blocking and not input.staggered
-	_gait_w = move_toward(_gait_w, 1.0 if _gait_on and can_plant else 0.0, GAIT_BLEND_SPEED * delta)
+	var floor_pose := input.on_floor and not input.dead and not input.dashing
+	var ground_idle := bool(_motion["grounding"])
+	var can_pin := floor_pose and ground_idle and not input.crouching and _idle_on and not input.blocking and not input.staggered
+	_gait_w = move_toward(_gait_w, 1.0 if _gait_on and floor_pose and not input.crouching else 0.0, GAIT_BLEND_SPEED * delta)
 	_idle_pin_w = move_toward(_idle_pin_w, 1.0 if can_pin else 0.0, GAIT_BLEND_SPEED * delta)
 	_gait_amp_now = lerpf(_gait_amp_now, _gait_amp if _gait_on else 0.0, 1.0 - exp(-10.0 * delta))
-	if bool(_motion.get("grounding", false)) and input.on_floor and not input.dead and not input.dashing:
+	if floor_pose:
 		if _gait_w > 0.01:
 			_step_legs()
-		elif not _feet_placed:  # 姿勢已經把腳放在地上（NPC 坐、蹲）時，不再用補償推翻它
+		elif ground_idle and not _feet_placed:  # 姿勢已經把腳放在地上（NPC 坐、蹲）時，不再用補償推翻它
 			_plant_feet(delta)
 			if _idle_pin_w > 0.01:
 				_pin_feet()
@@ -411,7 +412,7 @@ func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> 
 		_air_pose(pose, m["air"], v.y)
 	elif speed_ratio > float(move["threshold"]):
 		var swing := float(move["swing"]) * minf(speed_ratio, 1.0)
-		var grounded := bool(m.get("grounding", false))
+		var grounded := _has_grounded_gait()
 		var stride := maxf(8.0, float(move["stride"]))
 		var stride_exp := float(move["stride_exp"])
 		if stride_exp > 0.0:
@@ -670,7 +671,9 @@ func _step_legs() -> void:
 			angles[i] *= gait
 		reach = lerpf(float((_motion["idle"] as Dictionary)["pin_reach"]), reach, gait)
 		floor_sag *= gait
-	_place_feet(offsets, angles, planted, floor_sag, reach, false, _land_sag())
+	# 只在移動時落腳的角色，起停時骨盆也要一起淡入淡出，鞋底才不會短暫陷入地面。
+	var blend_shift := not bool(_motion["grounding"])
+	_place_feet(offsets, angles, planted, floor_sag, reach, blend_shift, _land_sag())
 	if not _crouch_feet.is_empty():
 		# Both ends of this blend use the same ground: the base pose is planted,
 		# while the gait keeps its authored airborne clearance. Angle blending
@@ -1048,7 +1051,12 @@ func consume_footfalls() -> int:
 
 ## 這個角色全速奔跑時有沒有騰空（踩地比例低於走路的落腳）。
 func has_flight() -> bool:
-	return bool(_motion.get("grounding", false)) and float((_motion["move"] as Dictionary)["duty"]) < WALK_DUTY
+	return _has_grounded_gait() and float((_motion["move"] as Dictionary)["duty"]) < WALK_DUTY
+
+
+## 移動可單獨啟用落腳 IK，讓待機保有原來的站姿。
+func _has_grounded_gait() -> bool:
+	return bool(_motion["grounding"]) or bool((_motion["move"] as Dictionary)["grounding"])
 
 
 ## 稽核用：骨頭目前的位置（骨架空間）與站立時的地面高度。
