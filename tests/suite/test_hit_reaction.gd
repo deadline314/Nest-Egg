@@ -17,6 +17,7 @@ func run() -> void:
 	_test_impact_values()
 	_test_data()
 	await _test_light_hits()
+	await _test_reduced_rig_flashes()
 	await _test_accumulated_flinch()
 	await _test_heavy_hit_staggers()
 	await _test_armor_states()
@@ -202,6 +203,30 @@ func _spawn_trooper_at(x_tile: float) -> Enemy:
 func _push(info: DamageInfo, to_right: bool) -> DamageInfo:
 	info.knockback = Vector2(40.0 if to_right else -40.0, 0.0)
 	return info
+
+
+func _test_reduced_rig_flashes() -> void:
+	await open_level(10.0)
+	var player := level.player
+	var prior_reduced := Settings.get_reduce_flashes()
+	for reduced: bool in [false, true]:
+		Settings.set_reduce_flashes(reduced)
+		var light := _spawn_trooper()
+		var heavy := _spawn_trooper()
+		player.health.setup(6, 0.0)
+		light.hurtbox.receive(_light())
+		heavy.hurtbox.receive(_heavy(6.0))
+		player.hurtbox.receive(DamageInfo.create(1, Combat.Team.ENEMY, &"rig_flash"))
+		var boost := (CharacterRig.FLASH_BRIGHTNESS - 1.0) * (Settings.REDUCED_FLASH_SCALE if reduced else 1.0)
+		check(is_equal_approx(light.rig._skeleton.modulate.r, 1.0 + boost * 0.5), "light enemy rig flash respects the setting (%s)" % reduced)
+		check(is_equal_approx(heavy.rig._skeleton.modulate.r, 1.0 + boost), "heavy enemy rig flash respects the setting (%s)" % reduced)
+		check(is_equal_approx(player._visual.rig._skeleton.modulate.r, 1.0 + boost), "player rig flash respects the setting (%s)" % reduced)
+		check(heavy.is_stunned() and player.health.current == 5, "reducing rig flashes preserves the actual hit reactions (%s)" % reduced)
+		await physics_frames(20)
+		for rig: CharacterRig in [light.rig, heavy.rig, player._visual.rig]:
+			check(rig._skeleton.modulate.is_equal_approx(Color.WHITE), "rig flash returns to its base tint after the hit")
+	Settings.set_reduce_flashes(prior_reduced)
+	await end_level(level)
 
 
 func _test_hurt_direction() -> void:

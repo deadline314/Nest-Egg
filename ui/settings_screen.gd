@@ -231,7 +231,7 @@ func _build_display_tab() -> Control:
 	box.add_child(_build_quality_row())
 	_reduce_flashes = CheckButton.new()
 	_reduce_flashes.text = "減少閃光"
-	_reduce_flashes.tooltip_text = "降低爆炸與閃電的畫面閃光強度，閃電只閃一次；對閃光敏感時開啟"
+	_reduce_flashes.tooltip_text = "降低命中、爆炸與閃電的亮度。閃電只閃一次。"
 	_reduce_flashes.focus_mode = Control.FOCUS_ALL
 	_reduce_flashes.button_pressed = Settings.get_reduce_flashes()
 	_reduce_flashes.toggled.connect(func(on: bool) -> void:

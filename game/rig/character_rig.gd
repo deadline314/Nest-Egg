@@ -652,7 +652,7 @@ func flash(strength := 1.0) -> void:
 	if _skeleton == null:
 		return
 	_flash_left = FLASH_TIME
-	var level := lerpf(1.0, FLASH_BRIGHTNESS, clampf(strength, 0.0, 1.0))
+	var level := lerpf(1.0, FLASH_BRIGHTNESS, clampf(strength, 0.0, 1.0) * Settings.flash_scale())
 	_skeleton.modulate = Color(level, level, level, 1)
 	_sync_attachments(_fill)
 
