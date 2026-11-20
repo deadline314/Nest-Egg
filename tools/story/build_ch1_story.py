@@ -95,6 +95,14 @@ LOUNGE_POT = {
     "scale": 0.17, "source_width": 181, "filter": "linear", "visible": False,
     "modulate": "#cab7bc",
 }
+# Keep the bowl separate from the other guest-room props in the atlas.
+LOUNGE_BOWL = {
+    "kind": "sprite", "id": "ali_lounge_soup_bowl",
+    "path": "res://art/environment/scene_props/guest_book_contacts/chen_soup_props.png",
+    "pos": [228, 179], "region": [2, 52, 82, 41], "pivot": [41, 41],
+    "scale": 0.24, "source_width": 128, "filter": "linear", "visible": False,
+    "modulate": "#edc9c0",
+}
 # 演員縮放：{舞台: {骨架: 縮放}}。同一個舞台上的人高度大致一致。
 SCALE = {
     # 店面：櫃台約 0.65 個身高。老 K 用 3.6：3.7 在 21:9 黑邊與對話框之間（畫面 43～232）差 2 像素放不下。
@@ -163,15 +171,16 @@ def write_stage(stage_id, scene, top, bottom, rain, glow, extra):
     if 'modulate' in tone:
         layers[1]["modulate"] = tone['modulate']
     if stage_id == 'ch1_revival_lounge':
-        layers.insert(2, dict(LOUNGE_POT, furniture_ref=LOUNGE_POT["id"]))
-        x, y = LOUNGE_POT["pos"]
-        width, height = LOUNGE_POT["region"][2:]
-        px, py = LOUNGE_POT["pivot"]
-        scale = LOUNGE_POT["scale"]
-        furniture.append({"id": LOUNGE_POT["id"], "kind": "soup_pot",
-                          "rect": [round(x - px * scale, 2), round(y - py * scale, 2),
-                                   round(width * scale, 2), round(height * scale, 2)],
-                          "support": "bar_counter"})
+        for index, (prop, kind) in enumerate(((LOUNGE_POT, "soup_pot"), (LOUNGE_BOWL, "cup")), start=2):
+            layers.insert(index, dict(prop, furniture_ref=prop["id"]))
+            x, y = prop["pos"]
+            width, height = prop["region"][2:]
+            px, py = prop["pivot"]
+            scale = prop["scale"]
+            furniture.append({"id": prop["id"], "kind": kind,
+                              "rect": [round(x - px * scale, 2), round(y - py * scale, 2),
+                                       round(width * scale, 2), round(height * scale, 2)],
+                              "support": "bar_counter"})
     if stage_id == 'ch1_pawnshop_kitchen':
         try:
             from .kitchen_staging import layers as kitchen_layers

@@ -573,6 +573,25 @@ def _stage_talks(scenes):
                     {"do": "prop_move", "id": pot["id"], "to": [264, pot["pos"][1]], "time": 0.42},
                     {"do": "reach", "id": "ali", "hand": "front", "release": True, "time": 0.26},
                 ]
+            elif ident == "ch1_t_ali_2_ordered":
+                bowl = legacy.LOUNGE_BOWL
+                grip = [14, 73]
+                # Return this source pixel to its original counter position before releasing.
+                counter = [round(x + (point - origin - pivot) * bowl["scale"], 3)
+                           for x, point, origin, pivot in zip(bowl["pos"], grip, bowl["region"], bowl["pivot"])]
+                steps[0]["props"] = {bowl["id"]: {"visible": True}}
+                after_cast = 1 + len(cast)
+                steps[after_cast:after_cast] = [
+                    {"do": "reach", "id": "rin", "hand": "front", "space": "prop", "prop": bowl["id"],
+                     "to": grip, "grip": True, "time": 0.30},
+                    {"do": "prop_hold", "id": bowl["id"], "actor": "rin", "hand": "front", "point": grip,
+                     "follow_rotation": True},
+                    {"do": "reach", "id": "rin", "hand": "front", "to": [212.8, 162.2], "angle": -0.18, "time": 0.36},
+                    {"do": "wait", "time": 0.28},
+                    {"do": "reach", "id": "rin", "hand": "front", "to": counter, "time": 0.32},
+                    {"do": "prop_release", "id": bowl["id"]},
+                    {"do": "reach", "id": "rin", "hand": "front", "release": True, "time": 0.24},
+                ]
             elif ident == "ch1_t_supper_stay_meal":
                 # The last line explicitly says Rin has finished her bowl.
                 # Apply the visible state before that line, never award results here.

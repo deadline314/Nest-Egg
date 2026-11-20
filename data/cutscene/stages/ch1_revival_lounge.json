@@ -51,6 +51,31 @@
    "furniture_ref": "ali_lounge_soup_pot"
   },
   {
+   "kind": "sprite",
+   "id": "ali_lounge_soup_bowl",
+   "path": "res://art/environment/scene_props/guest_book_contacts/chen_soup_props.png",
+   "pos": [
+    228,
+    179
+   ],
+   "region": [
+    2,
+    52,
+    82,
+    41
+   ],
+   "pivot": [
+    41,
+    41
+   ],
+   "scale": 0.24,
+   "source_width": 128,
+   "filter": "linear",
+   "visible": false,
+   "modulate": "#edc9c0",
+   "furniture_ref": "ali_lounge_soup_bowl"
+  },
+  {
    "kind": "glow",
    "pos": [
     320,
@@ -112,6 +137,17 @@
     162.0,
     28.56,
     17.0
+   ],
+   "support": "bar_counter"
+  },
+  {
+   "id": "ali_lounge_soup_bowl",
+   "kind": "cup",
+   "rect": [
+    218.16,
+    169.16,
+    19.68,
+    9.84
    ],
    "support": "bar_counter"
   }
