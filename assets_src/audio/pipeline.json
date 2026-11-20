@@ -842,7 +842,8 @@
      "file": "hit.wav",
      "mode": "shot",
      "max_len": 0.6,
-     "target_db": -16.0
+     "target_db": -16.0,
+     "highpass": 180
     }
    ]
   },
@@ -855,7 +856,8 @@
      "file": "shieldhit.wav",
      "mode": "shot",
      "max_len": 0.8,
-     "target_db": -16.0
+     "target_db": -16.0,
+     "highpass": 340
     }
    ]
   },
