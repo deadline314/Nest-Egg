@@ -45,9 +45,19 @@ func _run() -> void:
 		var flag := station.data.done_flag if completed else station.data.fail_flag
 		var scene := station.data.done_scene if completed else station.data.fail_scene
 		_check(GameState.has_flag(flag) and station.is_done() == completed, "cold original primary restores its genuine training result")
-		_check(Story._current_cinematic == scene, "cold saved result preserves the unread original explanation")
-		_check(_player().interaction.active and not _player()._visual.rig.weapon_root().visible, "cold original training dialogue restores the authored holster scope")
-		await _finish_story()
+		if _mode == "dash_read":
+			_check(not Story.is_cinematic_active() and not DialogueLayer.radio_visible() and not GameplayLock.is_locked(),
+				"cold dash restores the result without replaying or locking the ambient radio")
+			_check(not _player().interaction.active and _player()._visual.rig.weapon_root().visible,
+				"cold dash returns to the equipped gun without starting an interaction holster")
+			var start_x := _player().global_position.x
+			await _press(&"move_left", 12)
+			_check(_player().global_position.x < start_x - 2.0, "cold dash allows actual movement toward the counter")
+			await _shot("training-dash-resumed")
+		else:
+			_check(Story._current_cinematic == scene, "cold saved result preserves the unread original explanation")
+			_check(_player().interaction.active and not _player()._visual.rig.weapon_root().visible, "cold original training dialogue restores the authored holster scope")
+			await _finish_story()
 		_check(GameState.has_flag(flag) and not Story.is_cinematic_active(), "cold explanation finishes without repeating the training action")
 		await _done()
 		return
@@ -158,7 +168,12 @@ func _verify_fault(station: TrainingStation, success: bool) -> void:
 		await _frames(4)
 		_check(GameState.has_flag(flag) and station.is_done() == success, "successful retry accepts exactly the genuine original result")
 		_check(_starts.count(scene) == 1, "retry starts its original explanation exactly once")
-		if Story.scene_mode(scene) == Story.MODE_DIALOGUE:
+		if _mode == "dash":
+			_check(Story.scene_mode(scene) == Story.MODE_RADIO and DialogueLayer.radio_visible() and not GameplayLock.is_locked()
+				and not _player().interaction.active, "committed dash plays its actual nonblocking radio without holstering")
+			var saved := RunSaveCodec.decode(FileAccess.get_file_as_string(store.path))
+			_check(saved.has("data") and saved["data"].get("cinematic") == "", "durable dash primary carries no pending cinematic for ambient radio")
+		elif Story.scene_mode(scene) == Story.MODE_DIALOGUE:
 			_check(_player().interaction.active and not _player()._visual.rig.weapon_root().visible and not _player()._weapon_light.is_lit(), "actual authored training dialogue holsters the equipped gun and light")
 		_check(_observations == [true], "one observer sees the durable primary and matching station state")
 		_check(_player().health.current == _player().health.max_health and GameState.deaths == 0 and not GameState.has_flag(&"ch1_first_death_done"), "training failure/guard never spends health, death or first registration")
