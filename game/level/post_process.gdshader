@@ -18,6 +18,7 @@ uniform float grain_seed = 0.0;
 // 全螢幕效果（受傷、格擋、擊殺…）：疊加色、強度、額外色差與暗角；強度已由 FlashGuard 限制。
 uniform vec3 pulse_color = vec3(1.0);
 uniform float pulse_amount = 0.0;
+uniform float pulse_edge_mix = 0.0;
 uniform float pulse_aberration = 0.0;
 uniform float pulse_vignette = 0.0;
 
@@ -47,7 +48,7 @@ void fragment() {
 	float falloff = smoothstep(0.3 - danger * 0.04, 1.05 - danger * 0.1, length(centered) * 1.7);
 	vec3 edge_color = mix(vignette_color, vec3(0.32, 0.015, 0.03), clamp(danger, 0.0, 1.0));
 	color = mix(color, edge_color, clamp(falloff * (vignette + pulse_vignette + danger * 0.35), 0.0, 1.0));
-	color += pulse_color * pulse_amount;
+	color += pulse_color * pulse_amount * mix(1.0, falloff, pulse_edge_mix);
 
 	// 玩家的亮度設定（gamma）：大於 1 提亮暗部，黑色與暗角的黑維持不變。
 	color = pow(max(color, vec3(0.0)), vec3(1.0 / brightness));

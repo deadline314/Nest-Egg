@@ -763,6 +763,12 @@ func _test_save_events() -> void:
 func _test_screen_fx() -> void:
 	var errors := PostProcess.validate_effects()
 	check(errors.is_empty(), "screen effects have no errors: %s" % ", ".join(errors))
+	var hurt: Dictionary = PostProcess.effects()["hurt"]
+	var edge_mix: float = hurt["edge_mix"]
+	hurt["edge_mix"] = "invalid"
+	check(" ".join(PostProcess.validate_effects()).contains("effects/hurt/edge_mix"),
+			"invalid tint weight diagnostics name the authored screen effect field")
+	hurt["edge_mix"] = edge_mix
 	# 閃光防護：峰值有上限，每秒最多三次，超過的丟棄。
 	FlashGuard.reset()
 	var t := 100000
@@ -792,10 +798,13 @@ func _test_screen_fx() -> void:
 		EventBus.screen_pulse.emit(&"hurt")
 		check(post._pulse_amount > 0.0, "a screen effect is accepted")
 		post._update_pulse(0.016)
-		check(float(post.parameter(&"pulse_amount")) > 0.0, "a screen effect reaches the shader")
+		check(float(post.parameter(&"pulse_amount")) > 0.0 and is_equal_approx(float(post.parameter(&"pulse_edge_mix")), edge_mix),
+				"the hurt pulse reaches the shader with its authored edge weight")
 		post._update_pulse(1.0)
 		post._update_pulse(0.016)
 		check(float(post.parameter(&"pulse_amount")) == 0.0, "the screen effect fades back to zero")
+		EventBus.screen_pulse.emit(&"parry")
+		check(float(post.parameter(&"pulse_edge_mix")) == 0.0, "an ordinary screen effect never inherits the hurt mask")
 	await physics_frames(3)
 	await end_level(level)
 	FlashGuard.reset()

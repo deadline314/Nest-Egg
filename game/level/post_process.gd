@@ -132,9 +132,15 @@ static func validate_effects() -> PackedStringArray:
 			errors.append("%s 的效果「%s」的 color 要是 #rrggbb" % [EFFECTS_PATH, id])
 		if float((def as Dictionary).get("amount", 0.0)) <= 0.0 or float((def as Dictionary).get("amount", 0.0)) > FlashGuard.MAX_AMOUNT:
 			errors.append("%s 的效果「%s」的 amount 要在 0 到 %s 之間（過曝上限）" % [EFFECTS_PATH, id, FlashGuard.MAX_AMOUNT])
+		if not _valid_edge_mix((def as Dictionary).get("edge_mix", 0.0)):
+			errors.append("%s/effects/%s/edge_mix 要是 0 到 1 的數字" % [EFFECTS_PATH, id])
 		if float((def as Dictionary).get("time", 0.0)) <= 0.0:
 			errors.append("%s 的效果「%s」的 time 要大於 0" % [EFFECTS_PATH, id])
 	return errors
+
+
+static func _valid_edge_mix(value: Variant) -> bool:
+	return (value is int or value is float) and is_finite(float(value)) and float(value) >= 0.0 and float(value) <= 1.0
 
 
 ## 播放一個全螢幕效果：先過閃光防護（峰值上限、每秒最多三次、減少閃光降階），沒有 shader 或種類不存在時什麼都不做。
@@ -151,6 +157,11 @@ func pulse(kind: StringName) -> void:
 	_pulse_amount = granted
 	_pulse_time_total = float(_pulse_def.get("time", 0.2))
 	_pulse_left = _pulse_time_total
+	var edge_mix: Variant = _pulse_def.get("edge_mix", 0.0)
+	if not _valid_edge_mix(edge_mix):
+		push_warning("[PostProcess] %s/effects/%s/edge_mix 要是 0 到 1 的數字，已使用 0" % [EFFECTS_PATH, kind])
+		edge_mix = 0.0
+	_write_param(&"pulse_edge_mix", float(edge_mix))
 	_write_param(&"pulse_color", Vector3(Color.html(str(_pulse_def.get("color", "#ffffff"))).r, Color.html(str(_pulse_def.get("color", "#ffffff"))).g, Color.html(str(_pulse_def.get("color", "#ffffff"))).b))
 
 
