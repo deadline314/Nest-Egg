@@ -100,19 +100,15 @@ def build():
         ("old_k", "我記在貨單上了。來櫃台看復原服務單。"))}
     # P05：服務單與老 K 的說明；依剛才是否真的被訓練器打停而分兩種收尾。
     service = [
-        ("rin", "這上面寫的記憶代價，為什麼不寫在價錢旁邊？"),
-        ("old_k", "價錢能補，忘掉的事不一定補得回來喔。"),
-        ("rin", "我每次都算進你的那一成了，不是嗎？"),
+        ("rin", "服務單說復原要付錢，還可能磨損記憶。你抽的那一成，我都有算進去。"),
         ("old_k", "你這邊有保單，先別拿別人的契約套在自己身上。"),
-        ("rin", "你每次都這樣講。我至少要知道，出事了該回哪裡。"),
-        ("old_k", "到電話亭要真的確認備份，光走過不算。現場要補什麼資料，就問服務的人。"),
+        ("rin", "我只想知道，出事了要去哪裡？"),
+        ("old_k", "到電話亭要按確認備份，光走過不算。要補什麼資料，就問服務的人。"),
     ]
     s["ch1_p05_service_fall"] = {"mode": "dialogue", "completion_policy": "main_terminal_results_v1", "results": done("ch1_prologue_service_heard"), "lines": lines(*service,
-        ("rin", "那剛才機器停下來，跟這個沒關係。"),
-        ("old_k", "當然沒關係。你是在地墊上站不穩，又不是去拿命試貨。"))}
+        ("old_k", "剛才只是在地墊上站不穩，練習停機跟復原無關喔。"))}
     s["ch1_p05_service_clean"] = {"mode": "dialogue", "completion_policy": "main_terminal_results_v1", "results": done("ch1_prologue_service_heard"), "lines": lines(*service,
-        ("rin", "剛才試貨只是練習，不是復原。"),
-        ("old_k", "本來就是喔。你拿器材試手感，不是拿命試貨。"))}
+        ("old_k", "剛才試貨只是練習，跟真正的復原無關喔。"))}
     s["ch1_p05_sheet"] = {"mode": "dialogue", "lines": lines(
         ("note", "沉港市公共復原服務說明：復原需要有效登記、備份與接應地點，不保證每次都能執行。"),
         ("note", "首次建檔與一般復原不同，請依服務人員指示辦理。"),
@@ -120,12 +116,10 @@ def build():
         ("note", "電話亭的確認紀錄用來查找最近的備份與接應位置；地圖上的標記不代表已經辦妥登記。"))}
     # P06：收尾與鷺的聯絡，交到第一章的第一個目標。
     s["ch1_p06_call"] = {"mode": "dialogue", "completion_policy": "main_terminal_results_v1", "results": done("ch1_prologue_done", "ch1_prologue_exit"), "lines": lines(
-        ("egret", "我是鷺，人在你家屋頂，待會兒有份差事給你看。"),
-        ("rin", "你又不走正門，老 K 還以為雨把屋頂敲壞了。"),
-        ("egret", "我怕他又留我修門扣。你吃完飯再上來，這次不催你。"),
-        ("old_k", "聽到了喔，先吃飯。試貨的事我來收尾。"),
-        ("rin", "門扣我扣緊了，燈也關了。靶的毛病寫在貨單旁邊。"),
-        ("old_k", "我都看到了。你先去洗手，飯還熱著，從旁邊那扇門回店裡吃。"))}
+        ("egret", "我是鷺，人在你家屋頂。待會兒有份差事給你看，你吃完飯再上來。"),
+        ("rin", "你又沒走正門，是怕老 K 留你修門扣吧？我剛扣好了。"),
+        ("old_k", "我看到你關燈，也看到貨單上寫的毛病了。試貨的事我來收尾。"),
+        ("old_k", "從旁邊那扇門回店裡，先洗手吃飯。飯還熱著喔。"))}
     s["ch1_p_k_wait"] = {"mode": "animated", "overlay": True, "steps": [
         say("old_k", "器材都在後面，一樣一樣試，試完再回來跟我說。")]}
     s["ch1_p_k_backyard"] = {"mode": "animated", "overlay": True, "steps": [
