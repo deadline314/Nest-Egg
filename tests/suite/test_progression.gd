@@ -24,6 +24,7 @@ func run() -> void:
 	_test_credits()
 	_test_upgrades()
 	_test_loadout_tuning()
+	_test_loadout_missing_primary()
 	_test_no_dominant_gun()
 	_test_snapshot()
 	await _test_pickups_and_checkpoint()
@@ -500,6 +501,22 @@ func _test_loadout_tuning() -> void:
 	check(loadout.weapon_in(loadout.find_slot(rifle.id)).magazine_size == tuned_size, "picking up the same weapon keeps the upgrade")
 	Progression.upgrades_changed.disconnect(loadout.retune)
 	_fresh()
+
+
+func _test_loadout_missing_primary() -> void:
+	var loadout := Loadout.new()
+	for paths: Variant in [[], "damaged", ["res://data/weapons/test_missing_primary.tres"]]:
+		loadout.restore({"weapons": paths}, null)
+		loadout.retune()
+		var pistol := loadout.active_weapon()
+		check(loadout.slot_count() == 1 and pistol != null and pistol.resource_path == PISTOL_PATH,
+				"missing configured and saved weapons restore the emergency P-9")
+		var rounds := loadout.mag_in(Loadout.PRIMARY)
+		check(loadout.consume_ammo() and loadout.mag_in(Loadout.PRIMARY) == rounds - 1, "the fallback spends real ammunition")
+	loadout.restore({"weapons": [RIFLE_PATH], "mag": [9], "reserve": [21]}, null)
+	check(loadout.slot_count() == 1 and loadout.active_weapon() != null and loadout.active_weapon().resource_path == RIFLE_PATH
+			and loadout.mag_in(Loadout.PRIMARY) == 9 and loadout.reserve_in(Loadout.PRIMARY) == 21,
+			"a valid saved main weapon, its magazine and reserves survive missing tuning")
 
 
 func _test_snapshot() -> void:

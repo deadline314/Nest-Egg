@@ -13,6 +13,7 @@ signal reload_cancelled
 
 const PRIMARY := 0
 const MAX_SLOTS := 4
+const FALLBACK_PRIMARY := "res://data/weapons/pistol.tres"
 ## 快照格式版本（舊版只有總彈量 "ammo"）。
 const SNAPSHOT_VERSION := 2
 
@@ -249,7 +250,9 @@ func restore(data: Dictionary, default_primary: WeaponData) -> void:
 	reset(default_primary)
 	var paths: Variant = data.get("weapons", [])
 	if typeof(paths) != TYPE_ARRAY:
-		return
+		if default_primary != null:
+			return
+		paths = []
 	var mags: Array = _int_array(data.get("mag", []))
 	var reserves: Array = _int_array(data.get("reserve", []))
 	var legacy: Array = _int_array(data.get("ammo", [])) if not data.has("mag") else []
@@ -271,7 +274,11 @@ func restore(data: Dictionary, default_primary: WeaponData) -> void:
 				_mag[slot] = clampi(int(mags[i]), 0, _weapons[slot].magazine_size)
 			if i < reserves.size():
 				_reserve[slot] = -1 if weapon.has_infinite_reserve() else clampi(int(reserves[i]), 0, weapon.max_reserve)
-	if _weapons.is_empty() or (default_primary != null and _bases[0] != default_primary and find_slot(default_primary.id) < 0):
+	if _weapons.is_empty() and default_primary == null:
+		default_primary = load(FALLBACK_PRIMARY) as WeaponData if ResourceLoader.exists(FALLBACK_PRIMARY) else null
+		var recovery := "暫時空手（無法載入 %s）" % FALLBACK_PRIMARY if default_primary == null else "改用 %s" % FALLBACK_PRIMARY
+		push_warning("[Loadout] player_tuning.default_weapon 缺漏，loadout.weapons 無有效武器；%s" % recovery)
+	if default_primary != null and find_slot(default_primary.id) < 0:
 		var primary := _effective(default_primary)
 		_bases.insert(0, default_primary)
 		_weapons.insert(0, primary)
