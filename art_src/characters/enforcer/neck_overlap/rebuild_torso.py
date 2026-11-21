@@ -35,7 +35,14 @@ def main() -> None:
         extension = original[row, 236 - shift:250 - shift]
         replace = (margin[:, 3] < 235) & (extension[:, 3] > margin[:, 3])
         margin[replace] = extension[replace]
-    if np.count_nonzero(np.any(patched != original, axis=2)) != 860:
+    # Keep the lining behind the raised forearm when the shield is lifted.
+    for row in range(72, 101):
+        shift = round(12 * max(0.0, sin(pi * (row - 72) / 28)) ** 0.6)
+        margin = patched[row, 220:244]
+        extension = patched[row, 220 - shift:244 - shift]
+        replace = (margin[:, 3] < 235) & (extension[:, 3] > margin[:, 3])
+        margin[replace] = extension[replace]
+    if np.count_nonzero(np.any(patched != original, axis=2)) != 1145:
         raise ValueError("Enforcer collar overlap has drifted from the registered torso grid")
     with BytesIO() as stream:
         Image.fromarray(patched).save(stream, format="PNG")
