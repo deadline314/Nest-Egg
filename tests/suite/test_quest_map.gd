@@ -671,6 +671,28 @@ func _test_pause_navigation(level: Level) -> void:
 	await frames(3)
 	check(not is_instance_valid(pause._navigation) and runner.get_tree().paused and runner.get_viewport().gui_get_focus_owner() == pause._map_button, "controller returns to pause and restores the selected map button")
 	check(not pause._map_button.tooltip_text.contains("快捷鍵"), "controller device changes refresh pause map tooltip")
+	var hint := pause._root.get_node("FocusHintBar") as FocusHintBar
+	await _key(KEY_F24)
+	await frames(2)
+	check(pause._map_button.has_focus() and hint.text() == pause._map_button.tooltip_text and hint.text().contains(InputBindings.primary_label(&"map")),
+		"the visible hint restores the keyboard shortcut without moving focus")
+	var aim := InputEventJoypadMotion.new()
+	aim.axis = JOY_AXIS_RIGHT_X
+	aim.axis_value = 0.8
+	runner.get_viewport().push_input(aim)
+	await frames(2)
+	check(InputBindings.using_gamepad and pause._map_button.has_focus() and hint.text() == pause._map_button.tooltip_text and not hint.text().contains("快捷鍵"),
+		"the visible hint switches to the controller wording without moving focus")
+	aim = aim.duplicate()
+	aim.axis_value = 0.0
+	runner.get_viewport().push_input(aim)
+	await _key(KEY_F24)
+	var original := InputBindings.get_code(&"map", 0)
+	InputBindings.set_code(&"map", 0, KEY_F23)
+	await frames(2)
+	check(pause._map_button.has_focus() and hint.text() == pause._map_button.tooltip_text and hint.text().contains(InputBindings.code_label(KEY_F23)),
+		"rebinding the map shortcut updates the current focus hint")
+	InputBindings.set_code(&"map", 0, original)
 	await _key(KEY_UP)
 	check(pause._map_button.tooltip_text.contains(InputBindings.primary_label(&"map")), "keyboard device changes restore the current map shortcut tooltip")
 	await _key(KEY_ESCAPE)
