@@ -32,7 +32,18 @@ def main() -> None:
             extension = original[row, left + shift:right + shift]
             replace = (margin[:, 3] < 235) & (extension[:, 3] > margin[:, 3])
             margin[replace] = extension[replace]
-    if np.count_nonzero(np.any(patched != original, axis=2)) != 64:
+    # Extend the inside edge below the glove where the arm crosses the hip.
+    edge = ((258, 260), (258, 261), (258, 262), (258, 263), (259, 263), (259, 262), (259, 262),
+            (260, 262), (261, 263), (260, 264), (258, 264), (258, 265), (260, 265))
+    for row, (left, right) in enumerate(edge, 358):
+        opacity = 155 if row < 366 else 185
+        alpha = np.full(right - left + 1, opacity, dtype=np.uint8)
+        alpha[-1] = round(0.66 * opacity)
+        margin = patched[row, left:right + 1]
+        extend = alpha > margin[:, 3]
+        margin[extend, :3] = original[row, 256, :3]
+        margin[extend, 3] = alpha[extend]
+    if np.count_nonzero(np.any(patched != original, axis=2)) != 107:
         raise ValueError("Warden forearm overlap has drifted from its registered source grid")
     with BytesIO() as stream:
         Image.fromarray(patched).save(stream, format="PNG")
