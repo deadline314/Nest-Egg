@@ -1,0 +1,93 @@
+{
+  "tested_parent": "e5f8d8ec652d452186ae4bb7eeda13c6cd76009d",
+  "engine": "Godot 4.7.2 Forward+ RX 9070 XT",
+  "scope": "compare the premature assertion with the actual published contact without relaxing tolerance",
+  "samples": {
+    "stock-24": {
+      "sample_count": 300,
+      "max_error_px": {
+        "late": 3.41196900990326e-05,
+        "early": 3.53030395507813
+      }
+    },
+    "stock-36": {
+      "sample_count": 432,
+      "max_error_px": {
+        "late": 3.814697265625e-05,
+        "early": 2.37762451171875
+      }
+    },
+    "stock-60": {
+      "sample_count": 708,
+      "max_error_px": {
+        "late": 3.814697265625e-05,
+        "early": 1.1888427734375
+      }
+    },
+    "stock-120": {
+      "sample_count": 1370,
+      "max_error_px": {
+        "late": 4.31583721365314e-05,
+        "early": 1.18887329101563
+      }
+    },
+    "native-stock-24": {
+      "sample_count": 300,
+      "max_error_px": {
+        "early": 3.557373046875,
+        "late": 3.814697265625e-05,
+        "draw": 3.814697265625e-05
+      }
+    },
+    "suite-pass-before-24": {
+      "checks": 12,
+      "failures": 6
+    },
+    "suite-pass-after-24": {
+      "checks": 12,
+      "failures": 0
+    },
+    "suite-pass-before-60": {
+      "checks": 12,
+      "failures": 0
+    },
+    "suite-pass-after-60": {
+      "checks": 12,
+      "failures": 0
+    }
+  },
+  "affected_suites": 1,
+  "affected_checks": 2453,
+  "wall_seconds": 85,
+  "evidence": {
+    "probe.gd": "cc01ea41afcd79b11d35e005ef17a59f830bd06e3aa54df81a25582ef2d787d6",
+    "probe.tscn": "9ec0c28afffe045026827ff19147009408b134d40c99ed738d0e59333b1a7e06",
+    "suite-probe.gd": "48a0b10aaa8d5f5eaa5f6cf3eaffd726921ba4c85bf5e77f59cd12c2ef91aa64",
+    "suite-probe.tscn": "b7001ec7e5ac6485b1142365f1a3aa9c0430f32bf1b660ce57317136d6a0f432",
+    "before-suite.gd": "9a112c55bb3609017320720171bcbb94da7c6e3f99621aa36573c87373cea1f6",
+    "after-suite.gd": "953ccc738e0f014c9576b79148c10d1339f4dfab87e6634a2eb2188f67b5f494",
+    "stock-24/contacts.json": "7679bda24bbce9a10859645195e72530df91e7cd9d1b65681cf94d2d2247fb9f",
+    "stock-24/raw.log": "44849c15c773e6d11e8c4bd5f516b4f1eea866595e43c4999a20c6f0c028d928",
+    "stock-36/contacts.json": "d8da13f2bdfca6406e8172a33cabdb357a8dc222dee65f6518f51b71400855c2",
+    "stock-36/raw.log": "28ec6b19026e9db7d282d0ed79e6eb2fbf38b351dbdc7d756db122aee2a9044e",
+    "stock-60/contacts.json": "76b7b4919c1937464c9c32d61eb72a6b36672f6c49ee8ee3ebfb2ab221b40b0f",
+    "stock-60/raw.log": "fc0ff655d9ac54789adbf54dab44a9d11651777b1fcb5dee25f4785a8f600a39",
+    "stock-120/contacts.json": "f9a3af38c8374eb24f3fe987be0cb4067eb084fb54cf6038ec010b0a7dd8a399",
+    "stock-120/raw.log": "d22aa277016ed0c3c15dfc70192d7f12fa7aba08a5b8ae28fa99c24abb56069c",
+    "native-stock-24/worst.png": "66adac7d597393d1b1385f0722518dd9208c7d62678c92872d45b3b6f0f3db06",
+    "native-stock-24/contacts.json": "1b69ffde60292f228c62903f53977992409d0653ac66d0226742483dbe93389c",
+    "native-stock-24/raw.log": "cdc79c5bedf0fa03b338832d0644ab17af4899f385a8e7bcf4078a970bbd07d7",
+    "suite-pass-before-24/raw.log": "baf64e6de8d12ceed2a5fe5780b0945b8cdd57ee45399cff559c228b6b5e8ca1",
+    "suite-pass-before-24/exit.txt": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+    "suite-pass-after-24/raw.log": "f6c1d5e09739156709c13677c491171b6168c0cfc4966909d7965a3ea5508cab",
+    "suite-pass-after-24/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "suite-pass-before-60/raw.log": "f6c1d5e09739156709c13677c491171b6168c0cfc4966909d7965a3ea5508cab",
+    "suite-pass-before-60/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "suite-pass-after-60/raw.log": "f6c1d5e09739156709c13677c491171b6168c0cfc4966909d7965a3ea5508cab",
+    "suite-pass-after-60/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "official-release/raw.log": "cb687c1996deb26a8b9c16d36fb082b7d3885c56a1f70f766a816b6c658dcf85",
+    "official-release/verification.json": "bcd48cf77067c8483a435e6bbc6e11a20ca3db5c15f7b4ee58870c153b5d2b10",
+    "official-release/command.json": "e62d406f2bd4ee2f7f35ede58c5d19942387c412c12c6ca78d13e8207ca04aab",
+    "discovery/affected-suite-first.log": "4c1a13c06fdee96f32b2039cfe2c34276d03894688c54cba9b768e9991d16a60"
+  }
+}

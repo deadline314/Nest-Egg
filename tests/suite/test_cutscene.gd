@@ -115,6 +115,8 @@ func _test_pawnshop_towel_contact() -> void:
 	var binding: StagePropBinding
 	for _frame in 240:
 		await frames(1)
+		# Match the rendered prop and contact after the actor and stage finish processing.
+		await runner.get_tree().create_timer(0.0, true, false, true).timeout
 		if not is_instance_valid(player):
 			break
 		if player.steps_run < push:
