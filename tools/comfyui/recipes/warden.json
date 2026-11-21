@@ -30,6 +30,7 @@
     "prompt": "Anime cel-shaded character art in the style of Studio Trigger's Cyberpunk Edgerunners: flat colors, bold clean black outlines, hard-edged two-tone shading, saturated neon accents. Full body, strict side view facing right, standing upright with the arms relaxed at the sides and empty hands, the far-side leg hidden behind the near leg. a boss called Warden, huge and imposing, about six heads tall: massive silver-white heavy armor with enormous shoulder pauldrons, a very thick chest plate, huge forearm guards and knee armor, a smooth expressionless faceless helmet with a thin red visor line, black boots, big gloves, red neon lines."
   },
   "source_rebuilds": [
+    "art_src/characters/warden/forearm_overlap/rebuild.py",
     "art_src/characters/warden/knee_overlap/rebuild.py",
     "art_src/characters/warden/neck_overlap/rebuild_torso.py",
     "art_src/characters/warden/wrist_overlap/rebuild.py"
