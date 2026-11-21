@@ -79,11 +79,10 @@ func _tunnel() -> void:
 	await finish()
 
 
-## 滑鼠指向「從瞄準起點出發、往 direction 方向」的世界座標。
+## 在測試角色上設定瞄準方向，攝影機與桌面游標可自由移動。
 func _aim(direction: Vector2) -> void:
-	var target := player.aim_origin() + direction.normalized() * 90.0
-	var screen := get_viewport().get_canvas_transform() * target
-	Input.warp_mouse(screen * (Vector2(get_window().size) / get_viewport().get_visible_rect().size))
+	AimInput.set_virtual_gamepad(player, true)
+	AimInput.restore_direction(direction)
 
 
 class _Overlay:

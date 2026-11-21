@@ -18,8 +18,8 @@ func run() -> void:
 		trooper.process_mode = Node.PROCESS_MODE_DISABLED
 		place_player(18.0)
 		await wait(1.2)
-		var screen := get_viewport().get_canvas_transform() * (player.aim_origin() + Vector2(90, -6))
-		Input.warp_mouse(screen * (Vector2(get_window().size) / get_viewport().get_visible_rect().size))
+		AimInput.set_virtual_gamepad(player, true)
+		AimInput.restore_direction(Vector2(90, -6))
 		await wait(0.5)
 		capture("rin_light_%s" % tag)
 		await finish()

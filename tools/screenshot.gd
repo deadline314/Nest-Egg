@@ -2068,13 +2068,15 @@ func _run_exposure_states() -> void:
 	level_camera_snap()
 	await _settle(60)
 	var visual: PlayerVisual = level.player._visual
+	var preview_hit := DamageInfo.create(1, Combat.Team.ENEMY, &"exposure_preview")
+	preview_hit.knockback = Vector2(-level.player.facing, 0.0)
 	for state in ["idle", "hurt", "hurt_late", "fire", "block"]:
 		match state:
 			"hurt":
-				visual.notify_hurt()
+				visual.notify_hurt(preview_hit)
 				await _settle(1)
 			"hurt_late":
-				visual.notify_hurt()
+				visual.notify_hurt(preview_hit)
 				await _settle(3)
 			"fire":
 				level.player._try_fire()
