@@ -52,7 +52,13 @@ def main() -> None:
             if opacity > patched[row, column, 3]:
                 patched[row, column, :3] = patched[row, 46, :3]
                 patched[row, column, 3] = opacity
-    if np.count_nonzero(np.any(patched != original, axis=2)) != 1162:
+    # Close the collar edge exposed when the raised forearm passes the rear elbow.
+    for row, left, right, opacity in ((35, 173, 174, 155), (36, 173, 175, 190), (37, 174, 176, 177)):
+        for column in range(left, right + 1):
+            if opacity > patched[row, column, 3]:
+                patched[row, column, :3] = patched[40, column, :3]
+                patched[row, column, 3] = opacity
+    if np.count_nonzero(np.any(patched != original, axis=2)) != 1170:
         raise ValueError("Enforcer collar overlap has drifted from the registered torso grid")
     with BytesIO() as stream:
         Image.fromarray(patched).save(stream, format="PNG")
