@@ -99,7 +99,10 @@ func activate() -> void:
 
 
 func current_hint() -> String:
-	return _entries[_selected].hint if _selected < _entries.size() else ""
+	if _selected >= _entries.size():
+		return ""
+	var entry := _entries[_selected]
+	return entry.action_hint if not entry.action_enabled and not entry.action_hint.is_empty() else entry.hint
 
 
 func _select(index: int) -> void:
@@ -148,4 +151,4 @@ func _apply_selection(previous: int, animate: bool) -> void:
 		_scroll.ensure_control_visible.call_deferred(_cards[_selected])
 	if previous != _selected or previous < 0:
 		_on_selection_changed(previous, _selected)
-	hint_changed.emit(entry.hint if entry != null else "")
+	hint_changed.emit(current_hint())

@@ -223,6 +223,7 @@ func _test_shop() -> void:
 	var med := ConsumableBag.find(MED_ID)
 	var entries := page._build_entries()
 	check(entries.size() == shop.stock.size() and not entries[0].action_enabled, "unaffordable items are disabled")
+	check(station._screen._hint_label.text == entries[0].action_hint, "the selected item shows the missing credits without hovering")
 	check(not page._activate_entry(0) and warnings[0] == 1 and Progression.credits == 0, "buying without credits is refused with a warning")
 	Progression.add_credits(1000)
 	var bag := player.consumables
@@ -236,6 +237,10 @@ func _test_shop() -> void:
 	check(not page._activate_entry(0) and Progression.credits == credits, "the carry limit blocks buying without charging")
 	entries = page._build_entries()
 	check(not entries[0].action_enabled and entries[0].action_hint.contains("上限"), "a full item shows the limit as the reason")
+	page.refresh()
+	check(page.current_hint() == entries[0].action_hint, "a full item announces the carry limit when selected")
+	page.navigate(Vector2i.DOWN)
+	check(page.current_hint() == entries[1].hint, "an available item keeps its effect in the selection hint")
 	check(not page._activate_entry(99) and not page._activate_entry(-1), "out-of-range purchases are ignored")
 	# 離開：背包鍵關閉，遊戲繼續。
 	await runner._press_action(&"inventory")
