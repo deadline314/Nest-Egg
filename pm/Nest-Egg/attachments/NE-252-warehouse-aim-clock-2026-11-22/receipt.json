@@ -1,0 +1,48 @@
+{
+  "engine": "Godot 4.7.2 Forward+ RX 9070 XT",
+  "tested_parent": "f300bba6bb11b23f5a71212713abfbd2636fa868",
+  "native_failures": {
+    "native-original": 1,
+    "native-after": 0
+  },
+  "headless": {
+    "checks_per_version": 9,
+    "failures_before": 6,
+    "failures_after": 0
+  },
+  "affected": {
+    "suites": 2,
+    "checks": 493,
+    "seconds": 156
+  },
+  "sha256": {
+    "warehouse.gd": "f0a06dacd923f7046f779bc9d44440a2c596c573af62d17ae51be03947271ec0",
+    "warehouse.tscn": "f492764150082e552a41fea5b0911abec1c11979faad9d3ba0d046e45a3b3afd",
+    "warehouse-suite.gd": "44f54e0e1401c32019c6ab8715e8b22a9a2004125dbf1f7c27099b5913575ce3",
+    "warehouse-before.gd": "c3b4876ac5047b6fb8f1fc6109874befa74f55cdfe54a9572bce5f6226ca92e9",
+    "warehouse-before.tscn": "03c177482ee06b44fa6083ced329a45ca0902b3dd1d63527762b2150f70a964a",
+    "warehouse-before-suite.gd": "5e9da001d3692c976e9dcdc46b3055a7069402378188e97ed31c39884a3320a7",
+    "run-native.ps1": "dfd90729709a32f64be9aaf14e6507e8a38afd543f9508aa8fa1f3eebc724739",
+    "native-original/raw.log": "a37a668d27b9e40de907b02870239d1ce0024384daf6719307721408991e15fd",
+    "native-original/exit.txt": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+    "native-original/watchdog-side--1.png": "bcd14197ea69cddb09b949fd139f78e3d29dd4b5e2da14b4e8feeb29969282f1",
+    "native-original/watchdog-side-1.png": "ea857c817ff5f8f765357e11f24bde8a697c1318342693c82569dc535d2b7b47",
+    "native-after/raw.log": "4972261d6e342b6b8681c7e5b212c4c8d7f49ca1d20b9f62df369408cc7f907e",
+    "native-after/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "native-after/watchdog-side--1.png": "38f0938ea56a53f4464e534be7c1fe0eab8252856511b911038a519419e066d2",
+    "native-after/watchdog-side-1.png": "69a2e1afe915795b6152d14d9a1fcf5819234a71c8ad83d8039ad225ca0a722f",
+    "watchdog-stale-before/raw.log": "eb469cf2248b6670b7243a39e88bb86a2d6de60693212c0b9e83fbea87cd5f20",
+    "watchdog-stale-after/raw.log": "601550e441b024d0fc620f788d948e8b81904b3087df3ebb9e540e6a8ebcc3a9",
+    "headless/stale-before.gd": "fc9b4e8bbe10057f849fa568fc140c49f7b3873f4719eea29d4558ee10903028",
+    "headless/stale-before-suite.gd": "e6ee4a1368996ab37a27663a2757615a7a0ef0025132303ec1d091c48d12d86c",
+    "headless/stale-before.tscn": "f9e383d39962ed96e12a39f37f5172b0afd704722f7a03d18d0147e2d6e33e61",
+    "headless/stale-after.gd": "44def73c355a82a8fbe3df6c03b84f00e3bf297fe5747586be0b62ed29dae7ba",
+    "headless/stale-after-suite.gd": "388416c702b5966f148eb4a41329c075ab3d81e4cc88246bbd8e26eeb0f5ed18",
+    "headless/stale-after.tscn": "6cb4e6a723857d416fdca6447191851c20c48ebf9732fdcdcd033b7592626a44",
+    "first-affected/raw.log": "4e0a30603df5640b9c0c64ac2964df4a242bfbfe304290600056f2a2ef6df934",
+    "first-affected/diagnostic.log": "ee13c7adfd4ea1174fd965481cb965c07c5cfa599c120af5d5d2c1ce27e0c017",
+    "official/command.json": "2789d3daf5b959ba53afbed12cc49dd6fa606a6cd6394fcedecc9c298f14f064",
+    "official/raw.log": "387be934983966042b4e0bb97c4a7f3da3a89337c8d5d2b2ac4db973babc1c10",
+    "official/verification.json": "bcd48cf77067c8483a435e6bbc6e11a20ca3db5c15f7b4ee58870c153b5d2b10"
+  }
+}

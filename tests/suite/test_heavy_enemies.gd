@@ -531,13 +531,19 @@ func _settle_player_aim(player: Player, target: Vector2) -> void:
 	steady.random_spread_degrees = 0.0
 	player.loadout.reset(steady)
 	player.aim_bloom = 0.0
-	player.facing = 1 if target.x >= player.global_position.x else -1
-	player.aim_dir = (target - player.aim_origin()).normalized()
 	for i in 60:
 		await frames(1)
 		if player._fire_cooldown_left <= 0.0 and player._melee_cooldown_left <= 0.0 and not player.loadout.is_reloading() and i >= 3:
 			break
+
+	# Let the visual rig follow the fixture aim without reading the ambient device.
+	var was_processing := player.is_physics_processing()
+	player.set_physics_process(false)
+	player.facing = 1 if target.x >= player.global_position.x else -1
+	player.aim_dir = (target - player.aim_origin()).normalized()
+	await physics_frames(2)
 	player.aim_dir = (target - player.muzzle_position()).normalized()
+	player.set_physics_process(was_processing)
 
 
 ## 監管者的外露核心藏在身體框裡：子彈先碰到身體框，但彈道會穿過核心，就算核心命中（雙倍、弱點、只扣一次）。
