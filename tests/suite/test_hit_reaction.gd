@@ -222,9 +222,18 @@ func _test_reduced_rig_flashes() -> void:
 		check(is_equal_approx(heavy.rig._skeleton.modulate.r, 1.0 + boost), "heavy enemy rig flash respects the setting (%s)" % reduced)
 		check(is_equal_approx(player._visual.rig._skeleton.modulate.r, 1.0 + boost), "player rig flash respects the setting (%s)" % reduced)
 		check(heavy.is_stunned() and player.health.current == 5, "reducing rig flashes preserves the actual hit reactions (%s)" % reduced)
+		# Queued hitstop expires on wall time, while the rig only ticks on active physics frames.
+		var tree := runner.get_tree()
+		await tree.process_frame
+		var actors: Array[Node] = [light, heavy, player]
+		var deadline := Time.get_ticks_msec() + 2000
+		while actors.any(Fx.is_frozen) and Time.get_ticks_msec() < deadline:
+			await tree.process_frame
+		check(not actors.any(Fx.is_frozen), "rig owners resume after hitstop (%s)" % reduced)
 		await physics_frames(20)
-		for rig: CharacterRig in [light.rig, heavy.rig, player._visual.rig]:
-			check(rig._skeleton.modulate.is_equal_approx(Color.WHITE), "rig flash returns to its base tint after the hit")
+		check(light.rig._skeleton.modulate.is_equal_approx(Color.WHITE), "light enemy flash returns to its base tint (%s)" % reduced)
+		check(heavy.rig._skeleton.modulate.is_equal_approx(Color.WHITE), "heavy enemy flash returns to its base tint (%s)" % reduced)
+		check(player._visual.rig._skeleton.modulate.is_equal_approx(Color.WHITE), "player flash returns to its base tint (%s)" % reduced)
 	Settings.set_reduce_flashes(prior_reduced)
 	await end_level(level)
 

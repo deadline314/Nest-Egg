@@ -1,0 +1,36 @@
+{
+  "baseline": "ca490aaa13de97c2f34b9c0ebcf9020661b17b6d",
+  "cases": [
+    "native unchanged effects",
+    "accelerated headless simulation",
+    "extended local hitstop"
+  ],
+  "ci_before": "44882360662",
+  "ci_later_green": "44898405859",
+  "affected_checks": 272,
+  "evidence": {
+    "probe.gd": "5199bb68fa509624ec7d671dd674d69a8040cc4612e5a6e57fc4d93bbacd5d8b",
+    "probe.tscn": "4646a5bbcd72abaf37f349f50c223338579bc534e501815cdc1d3680791e2709",
+    "probe-real.gd": "070a75b92726387ad6c4208042afc158cf7cb1b551a133435b550e908594de01",
+    "probe-real.tscn": "d14b4e1c695934a858f24e2d0127f30b17cf12375891caae0d576179232b39ce",
+    "native-probe.gd": "d67a1ce610df7dfc28987b7eedac6ff6c127799ac84933ef197f90672ddfe329",
+    "native-probe.tscn": "daa892d72c3bc7d1f4202964b7200aec68b5fe5b72a12d920020ba5768d12bd0",
+    "before/raw.log": "7cea7fcfdfa17a8d4ccb596ca9f7bf27b28bde566ffb8ef6bf97b37cdb0fb433",
+    "before/exit.txt": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+    "before-real/raw.log": "928a3cdab5bbba234a7576c044ab17eaa2c81283b93a3090c890615326735009",
+    "before-real/exit.txt": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+    "after-real/raw.log": "3eaafc9be90dab6fd9fbf1ad24683aafc49aab2367848262e3be4557efbe5297",
+    "after-real/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "after-stress/raw.log": "1eb409dd6ea0ba823d71bc399cdc5ea5f875761303271bf64aed5eb19b66f4b5",
+    "after-stress/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "native/raw.log": "872c0eaed564699265b520741f15c5d82473d8cb6531f1f7ddb02ce15fb2ba97",
+    "native/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "native/reduced-false-flash.png": "9f2186637cceae86ab8570125a3d32933ad2f6b90ca2f1c3b03ec7b41b02399c",
+    "native/reduced-false-restored.png": "726f751b648e919d9e7217c14ea273c06272016cc63b272294c0ebeb3eecb38b",
+    "native/reduced-true-flash.png": "9e653e6ee0435e5ee2708b87c998a74fc04ceab484836e591ffce0f2c0aca436",
+    "native/reduced-true-restored.png": "e8a75707ef890c75d4bac1d0bf2a1e48a698f37ad62ee1b70810fbea08efe5e2",
+    "official-release/verification.json": "bcd48cf77067c8483a435e6bbc6e11a20ca3db5c15f7b4ee58870c153b5d2b10",
+    "official-release/raw.log": "042587016c813813890ae01a8dc62e58d8ba24172dfbd31788b1962a60627250",
+    "official-release/command.json": "71bc50cd1d8a5cb32b4990850b7e397de3e2234b05de9b512830a43dfef8340c"
+  }
+}
