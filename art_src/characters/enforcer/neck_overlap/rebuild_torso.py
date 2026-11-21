@@ -1,0 +1,47 @@
+"""Rebuild the fabric beneath the Enforcer collar on the approved torso grid."""
+
+from hashlib import sha256
+from io import BytesIO
+from pathlib import Path
+from tempfile import NamedTemporaryFile
+
+import numpy as np
+from PIL import Image
+
+
+SOURCE = Path(__file__).with_name("torso-before.png")
+SOURCE_SHA256 = "51400f87e78cd0e375a22a2d5a4182f8a644bc3f63dd3668d761e73706875669"
+OUTPUT = SOURCE.parent.parent / "overrides/torso.png"
+
+
+def main() -> None:
+    content = SOURCE.read_bytes()
+    if sha256(content).hexdigest() != SOURCE_SHA256:
+        raise ValueError(f"{SOURCE}: expected the approved Enforcer torso grid")
+    with Image.open(BytesIO(content)) as image:
+        original = np.asarray(image.convert("RGBA"))
+    patched = original.copy()
+    # Join the existing fabric edges where the chest plate closes the open cutout.
+    for row in range(90, 117):
+        opaque_columns = np.flatnonzero(original[row, 180:239, 3] >= 235)
+        if opaque_columns.size:
+            span = patched[row, 180:181 + opaque_columns[-1]]
+            span[span[:, 3] < 235] = original[row, 177]
+    if np.count_nonzero(np.any(patched != original, axis=2)) != 712:
+        raise ValueError("Enforcer collar overlap has drifted from the registered torso grid")
+    with BytesIO() as stream:
+        Image.fromarray(patched).save(stream, format="PNG")
+        content = stream.getvalue()
+    if OUTPUT.is_file() and OUTPUT.read_bytes() == content:
+        return
+    with NamedTemporaryFile(dir=OUTPUT.parent, suffix=".png", delete=False) as output:
+        temporary = Path(output.name)
+    try:
+        temporary.write_bytes(content)
+        temporary.replace(OUTPUT)
+    finally:
+        temporary.unlink(missing_ok=True)
+
+
+if __name__ == "__main__":
+    main()
