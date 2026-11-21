@@ -146,7 +146,6 @@ func update(delta: float, path: PackedFloat32Array) -> void:
 	else:
 		_contact_sweep.clear()
 	queue_redraw()
-	_base_sprite.queue_redraw()
 
 
 ## 這把武器的軟鞭身（不是鞭類或還沒拿出來時是 null 或還沒垂好）。
@@ -294,6 +293,7 @@ func _adopt(weapon: WeaponData) -> void:
 func _update_base() -> void:
 	if _base_sprite.texture == null:
 		_base_sprite.transform = Transform2D.IDENTITY
+		_base_sprite.queue_redraw()
 		return
 	var down := Vector2(-_direction.y, _direction.x) * (-1.0 if _direction.x < 0.0 else 1.0)
 	_base_sprite.transform = global_transform.affine_inverse() * Transform2D(_direction * _base_scale.x, down * _base_scale.y, _origin)
