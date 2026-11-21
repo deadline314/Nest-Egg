@@ -127,16 +127,22 @@ func _test_expired_early_command() -> void:
 	var damage := int(player._melee_attack["damage"])
 	check(float(player._melee_attack["windup"]) > MeleeData.buffer_time(), "the real long windup outlasts the command without changing timing data")
 	var deadline := player._melee_commands._deadline_ms
-	var observed_hitstop := false
+	var observed_hitstop := [false]
+	var capture_hitstop := func() -> void:
+		observed_hitstop[0] = Fx.is_frozen(player) and Fx.is_frozen(enemy)
+	# Observe the deferred Feel call in the same message flush, before the next frame can thaw it.
+	var on_hit := func(_point: Vector2, _killed: bool) -> void: capture_hitstop.call_deferred()
+	EventBus.hit_confirmed.connect(on_hit, CONNECT_DEFERRED | CONNECT_ONE_SHOT)
 	var auto_chained := false
 	var guard := 180
 	while player._melee_phase != Player.MeleePhase.NONE and guard > 0:
-		observed_hitstop = observed_hitstop or Fx._frozen.has(player)
 		auto_chained = auto_chained or player._melee_index > 0
 		await physics_frames(1)
 		guard -= 1
+	if EventBus.hit_confirmed.is_connected(on_hit):
+		EventBus.hit_confirmed.disconnect(on_hit)
 	check(guard > 0, "the expired-command swing naturally finishes within its physics guard")
-	check(observed_hitstop and enemy.health.current == 999 - damage, "the early-command regression includes one real hit and natural local hitstop")
+	check(observed_hitstop[0] and enemy.health.current == 999 - damage, "the early-command regression includes one real hit and natural local hitstop")
 	check(player._melee_commands.remaining() == 0.0 and player._melee_commands._deadline_ms == deadline, "the old command really expires without extending its deadline through hitstop")
 	check(not auto_chained, "an early command that expires before cancellation cannot automatically advance the combo")
 	_combo_trace("expired-early-command", player, enemy)
