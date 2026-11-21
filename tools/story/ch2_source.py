@@ -911,7 +911,7 @@ class Frame:
     cues: tuple[tuple[int, tuple[dict, ...]], ...] = ()   # （第幾句台詞之前, 動作）
 
 
-_PAWNSHOP_CAST = (Cast("k", 205, 1, kind="old_k", scale=3.6), Cast("rin", 325, -1, scale=3.4))
+_PAWNSHOP_CAST = (Cast("k", towel_staging.K_X, 1, kind="old_k", scale=3.6), Cast("rin", 325, -1, scale=3.4))
 _COLLECTION_CAST = (Cast("rin", 230, 1), Cast("ali", 300, 1), Cast("vig", 430, -1, floor=322))
 _LEDGER_CAST = (Cast("rin", 250, 1), Cast("yong", 440, -1), Cast("xiaowei", 490, -1))
 _TOWEL_RESTS = ((0, tuple(towel_staging.rest_steps())),)

@@ -2,7 +2,7 @@
 
 只是演出：毛巾是舞台上的一件擺設，不是物品，不影響結算。座標都是舞台座標（ch1_pawnshop_front 的櫃臺頂面 y=207），
 握點是毛巾貼圖的原圖像素。重建舞台時毛巾回到老 K 手邊，接續的段落用 rest_steps() 把它直接放回凜那側。
-兩人站得比早飯那場近（老 K 205、凜 325）：手臂只搆得到身前約 0.35 倍身高，站遠了推不過去、也接不到。
+老 K 比早飯那場更靠近凜，讓前手在整段移動中都搆得到毛巾。
 """
 from __future__ import annotations
 
@@ -14,7 +14,8 @@ COUNTER_TOP = 207            # 舞台家具 shop_counter 的頂面
 SCALE = round(ACTOR_SCALE * WORLD_WIDTH / SOURCE[0], 4)
 HEIGHT = SOURCE[1] * SCALE
 REST_Y = round(COUNTER_TOP - HEIGHT + 1.5, 1)   # 布底邊略壓在頂面上，不浮空
-START_X = 215                # 毛巾一開始在老 K 手邊
+K_X = 229                    # 最後一格仍搆得到，前臂不用離開毛巾
+START_X = K_X + 8            # 毛巾一開始放在老 K 手邊
 PUSHED_X = 268               # 推過去以後
 RETURNED_X = 274             # 凜擦完放回自己這側
 K_GRIP = [80, 30]            # 老 K 的掌心按在毛巾左端

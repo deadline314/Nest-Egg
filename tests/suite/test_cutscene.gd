@@ -56,6 +56,7 @@ func run() -> void:
 	preload("res://tests/helpers/cutscene_prop_action_checks.gd").run(self)
 	await preload("res://tests/helpers/reach_completion_checks.gd").run(self)
 	await preload("res://tests/helpers/kitchen_choreography_checks.gd").run(self)
+	await _test_pawnshop_towel_contact()
 	preload("res://tests/helpers/stage_prop_parent_checks.gd").run(self)
 	preload("res://tests/helpers/stage_prop_hold_checks.gd").run(self)
 	preload("res://tests/helpers/stage_prop_binding_checks.gd").run(self)
@@ -92,6 +93,46 @@ func run() -> void:
 	_test_real_data()
 	await preload("res://tests/helpers/resume_physics_scope_checks.gd").run(self)
 	await preload("res://tests/helpers/grain_accessibility_checks.gd").run(self)
+
+
+func _test_pawnshop_towel_contact() -> void:
+	var authored: Array = Story.audit_data()["scenes"]["ch2_t_s01_settle"]["steps"]
+	var reach := authored.find_custom(func(step: Dictionary) -> bool:
+		return step.get("do") == "reach" and step.get("id") == "k" and step.get("prop") == "towel")
+	var push := authored.find_custom(func(step: Dictionary) -> bool:
+		return step.get("do") == "prop_move" and step.get("id") == "towel")
+	check(reach >= 0 and push > reach, "the settlement defines Old K's towel reach followed by the push")
+	if reach < 0 or push <= reach:
+		return
+	var steps := authored.slice(0, push + 1)
+	var point := Vector2(steps[reach]["to"][0], steps[reach]["to"][1])
+	steps.append({"do": "wait", "time": 0.3})
+	var player := CutscenePlayer.new()
+	runner.get_tree().root.add_child(player)
+	player.play(&"ch2_t_s01_settle", {"steps": steps})
+	var sampled := 0
+	var worst := 0.0
+	var binding: StagePropBinding
+	for _frame in 240:
+		await frames(1)
+		if not is_instance_valid(player):
+			break
+		if player.steps_run < push:
+			continue
+		var actor: CutsceneActor = player._actors[&"k"]
+		if binding == null:
+			binding = StagePropBinding.new(player._stage.prop_node("towel"), point)
+		var parent := actor.get_parent() as Node2D
+		var target := parent.to_global(binding.stage_point(parent))
+		worst = maxf(worst, target.distance_to(actor.hand_contact_global(&"front")))
+		sampled += 1
+		if player.steps_run > push:
+			break
+	check(sampled > 5 and worst < 2.0,
+			"Old K keeps his palm on the towel through the entire push (%.2f px, %d samples)" % [worst, sampled])
+	if is_instance_valid(player):
+		player.cancel()
+	await frames(1)
 
 
 ## A malformed result must not be silently filtered after a real payment.
