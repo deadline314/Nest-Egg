@@ -453,10 +453,12 @@ func _test_dash_and_materialize() -> void:
 	await frames(2)
 	check(visual._parry_flash > 0.0, "the parry starburst is playing")
 	player.play_respawn_fx()
-	await frames(2)
-	check(visual._materialize_left > 0.0 and visual.modulate.a < 1.0, "a respawn fades the body in")
-	await physics_frames(int(PlayerVisual.MATERIALIZE_TIME * 60.0) + 12)
-	await frames(2)
+	# The fade advances in render time; physics can run several steps before it draws.
+	var half_duration := PlayerVisual.MATERIALIZE_TIME * 0.5
+	check(is_equal_approx(visual._materialize_left, PlayerVisual.MATERIALIZE_TIME), "respawn starts the full body fade")
+	visual._process(half_duration)
+	check(is_equal_approx(visual.modulate.a, 0.5), "a respawn fades the body in")
+	visual._process(half_duration)
 	check(visual._materialize_left == 0.0 and visual.modulate.a >= 0.99, "the fade-in ends fully visible")
 	await end_level(level)
 
