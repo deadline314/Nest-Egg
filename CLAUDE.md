@@ -23,6 +23,7 @@
 
 - 需求先整理進 `design/`，再依 `pm-ticket` skill 在 `pm/Nest-Egg/` 開票
 - 一張票完成：受影響範圍的測試全過 → 截圖存到 `pm/Nest-Egg/images/` → 在票上加 Commit 段落、狀態改「完成」、驗收條件打勾 → commit 一次
+- 本機驗收證據依 [保留規則](design/06-roadmap/EVIDENCE_RETENTION.md) 處理。受影響測試會自動清理到期且已有相同正式封存副本的檔案；交付時保留附件與發布紀錄。
 
 ## 4. Git 流程
 

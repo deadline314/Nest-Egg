@@ -41,6 +41,11 @@ STATUS=$?
 [ "$STATUS" -eq 0 ] || fail "挑選受影響測試的工具出錯（tools/select_tests.py 結束代碼 $STATUS，原因見上方）。"
 SELECTED="${SELECTED//$'\r'/}"  # Windows 的 Python 以 CRLF 換行
 
+# 本機已發布的重複證據到期後清理，結果不影響測試退出狀態。
+if ! PYTHONIOENCODING=utf-8 "$PYTHON" tools/evidence_retention.py --apply; then
+	echo "舊證據清理有錯誤，繼續執行受影響測試。" >&2
+fi
+
 if [ "$SELECTED" = "ALL" ]; then
 	echo "改到整個專案或測試流程本身，跑全部測試。"
 	exec tools/run_tests_parallel.sh
