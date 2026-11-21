@@ -477,11 +477,37 @@ func _test_janus_in_gate_hall() -> void:
 		if node is JanusBoss:
 			janus = node
 	check(janus != null, "the gate hall spawns the gatekeeper")
-	if janus != null:
+	var scanner: NpcActor
+	for node in level.get_tree().get_nodes_in_group(NpcActor.GROUP):
+		if node is NpcActor and node.data.id == &"ch3_scanner_gate":
+			scanner = node
+			break
+	check(scanner != null, "the gate hall spawns the access scanner")
+	if janus != null and scanner != null:
 		janus.health.take_damage(lethal())
+		# The moving frame can stop close enough to share the scanner's reach.
+		janus.global_position = scanner.global_position + Vector2(10.0, 0.0)
+		janus.facing = -1
+		level.player.global_position = scanner.global_position + Vector2(-16.0, 0.0)
+		await physics_frames(3)
+		check(not janus.pin_reachable() and Story.framing.is_interaction_target(scanner),
+			"the scanner keeps its interaction outside pin reach")
+		level.player.global_position = scanner.global_position
+		await physics_frames(3)
+		check(scanner.interaction_available() and janus.pin_reachable(), "both gate interactions can be reached at once")
+		check(Story.framing.is_interaction_prompt_target(janus), "the pin is the only selected prompt in shared reach")
+		var scenes: Array[StringName] = []
+		var on_scene := func(id: StringName, _mode: StringName) -> void: scenes.append(id)
+		Story.scene_started.connect(on_scene)
+		await runner.get_tree().process_frame
+		Input.action_press(&"interact")
 		await physics_frames(2)
-		janus.pull_pin()
+		Input.action_release(&"interact")
 		await physics_frames(5)
+		Story.scene_started.disconnect(on_scene)
+		check(not scenes.has(&"ch3_t_c10_hint"), "one pin press does not start the scanner hint")
 		check(GameState.has_flag(&"ch3_janus_disabled"), "the gate hall writes ch3_janus_disabled when the pin is pulled")
+		if Story.is_cinematic_active():
+			Story.skip_cinematic()
 	_clear_janus_flags()
 	await end_level(level)

@@ -507,10 +507,12 @@ func _halt(perform: bool) -> void:
 	_pin_prompt = WorldPrompt.new()
 	_pin_prompt.text = "{interact} 拔維修插銷"
 	_pin_prompt.radius = PIN_REACH.x + 8.0
+	_pin_prompt.interaction_owner = self
 	# 提示放在他頭頂上方：插銷就在背後，放在插銷旁會和站在那裡的主角重疊、被擠到旁邊。
 	_pin_prompt.offset = Vector2(0, -data.body_size.y - 22.0)
 	_pin_prompt.reach_check = pin_reachable
 	add_child(_pin_prompt)
+	Story.framing.register_target(self, true)
 	if perform:
 		EventBus.boss_health_changed.emit(0, health.max_health)
 		Fx.sparks(_center(), Palette.CYAN, 12, 160.0, 0.4, Vector2(0, -1))
@@ -522,8 +524,12 @@ func _halted_tick(_delta: float) -> void:
 	velocity.x = 0.0
 	if pin_pulled or get_tree().paused or GameplayLock.is_locked():
 		return
-	if Input.is_action_just_pressed(&"interact") and pin_reachable():
+	if Input.is_action_just_pressed(&"interact") and Story.framing.is_interaction_target(self):
 		pull_pin()
+
+
+func interaction_available() -> bool:
+	return pin_reachable()
 
 
 ## 玩家在插銷旁邊（工作架背後）而且活著。

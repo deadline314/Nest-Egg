@@ -23,6 +23,7 @@ var _bottom: ColorRect
 var _scopes: Dictionary[int, Dictionary] = {}
 var _next_token := 0
 var _targets: Array[Node2D] = []
+var _priority_interactions: Array[Node2D] = []
 var _consumed_targets: Dictionary[int, bool] = {}
 var _selected: Node2D
 var _prompt_target: Node2D
@@ -121,16 +122,21 @@ func scope_count() -> int:
 	return _scopes.size()
 
 
-func register_target(target: Node2D) -> void:
-	if not is_instance_valid(target) or _targets.has(target):
+## Priority interactions supply their full reach check and never preview a cutscene.
+func register_target(target: Node2D, priority_interaction := false) -> void:
+	if not is_instance_valid(target) or _targets.has(target) or _priority_interactions.has(target):
 		return
-	_targets.append(target)
+	if priority_interaction:
+		_priority_interactions.append(target)
+	else:
+		_targets.append(target)
+		set_physics_process(true)
 	target.tree_exiting.connect(unregister_target.bind(target), CONNECT_ONE_SHOT)
-	set_physics_process(true)
 
 
 func unregister_target(target: Node2D) -> void:
 	_targets.erase(target)
+	_priority_interactions.erase(target)
 	_consumed_targets.erase(target.get_instance_id())
 	if _selected == target:
 		_select(null)
@@ -176,6 +182,9 @@ func _nearest_interaction() -> Node2D:
 	var player := get_tree().get_first_node_in_group(&"player") as Node2D
 	if player == null:
 		return null
+	for candidate in _priority_interactions:
+		if is_instance_valid(candidate) and bool(candidate.call("interaction_available")):
+			return candidate
 	var closest: Node2D
 	var distance := INF
 	for candidate in _targets:
