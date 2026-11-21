@@ -1247,8 +1247,10 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 	var reach: float = anchor[2] * (0.7 if input.blocking else 1.0) - _recoil * float((_motion["recoil"] as Dictionary)["reach"])
 	var aim := Vector2.RIGHT.rotated(aim_angle)
 	if not weapon.is_empty():
+		var floor_limited := input.on_floor and input.crouching and input.crouched_muzzle_clearance > 0.0 and not _dash_sole.is_empty() and aim.y > 0.0
 		var minimum := 0.0
 		var maximum := INF
+		var folded_elbow_limit := 0.0
 		for chain: Array in ARM_CHAINS:
 			var hand: StringName = chain[2]
 			if hand == &"hand_back" and (not input.two_handed or input.shield_forward):
@@ -1257,17 +1259,31 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 				continue
 			var fore := (RigLibrary.vec2(weapon.get("foregrip")) - RigLibrary.vec2(weapon.get("grip"))) * _rig.weapon_scale() if hand == &"hand_back" else Vector2.ZERO
 			var delta_to_shoulder: Vector2 = anchor_point + (fore - _rig.hand_grip_offset(hand)).rotated(aim_angle) - _global_pos[chain[0]]
-			var length := _rig.rest(chain[1]).length() + _rig.rest(hand).length() - 0.01
+			var upper_length := _rig.rest(chain[1]).length()
+			var forearm_length := _rig.rest(hand).length()
+			var length := upper_length + forearm_length - 0.01
 			var along := delta_to_shoulder.dot(aim)
-			var discriminant := length * length - (delta_to_shoulder.length_squared() - along * along)
+			var across_squared := delta_to_shoulder.length_squared() - along * along
+			var discriminant := length * length - across_squared
 			if discriminant < 0.0:
 				maximum = -INF
 				break
 			var span := sqrt(discriminant)
 			minimum = maxf(minimum, -along - span)
 			maximum = minf(maximum, -along + span)
+			if floor_limited:
+				var folded := absf(upper_length - forearm_length) + 0.01
+				var folded_squared := folded * folded - across_squared
+				if folded_squared > 0.0:
+					folded_elbow_limit = maxf(folded_elbow_limit, -along + sqrt(folded_squared))
 		if minimum <= maximum:
 			reach = clampf(reach, minimum, maximum)
+			if floor_limited:
+				var muzzle_offset := (RigLibrary.vec2(weapon.get("muzzle")) - RigLibrary.vec2(weapon.get("grip"))) * _rig.weapon_scale()
+				var cleared_max := (_dash_floor - input.crouched_muzzle_clearance - anchor_point.y - muzzle_offset.rotated(aim_angle).y) / aim.y
+				# Stay on the original side of the fully folded elbow to keep both grips planted.
+				var allowed_min := minf(reach, maxf(minimum, folded_elbow_limit))
+				reach = clampf(cleared_max, allowed_min, reach)
 		else:
 			RigLibrary.report_once("grip-reach:%s:%s" % [_rig.skin_id, weapon.get("file", "")], "[HumanoidAnimator] %s weapon %s has no reachable two-hand grip at %.2f radians" % [_rig.skin_id, weapon.get("file", ""), aim_angle])
 	var grip := anchor_point + aim * reach

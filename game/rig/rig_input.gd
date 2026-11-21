@@ -15,6 +15,8 @@ var run_speed := 150.0
 var crouching := false
 ## 地圖上的一般蹲姿與持槍跪瞄可各自使用原姿勢。
 var crouch_uses_kneel := true
+## Optional shot-head clearance above the calibrated foot plane in skeleton units.
+var crouched_muzzle_clearance := 0.0
 var blocking := false
 var dashing := false
 var staggered := false

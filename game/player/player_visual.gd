@@ -450,6 +450,12 @@ func _physics_process(delta: float) -> void:
 	_input.run_speed = player.tuning.run_speed
 	_input.crouching = player.is_crouching
 	_input.crouch_uses_kneel = not rig.weapon_def().is_empty()
+	_input.crouched_muzzle_clearance = 0.0
+	if _input.crouching and _input.crouch_uses_kneel and _input.aim_dir.y > 0.0:
+		var weapon := player.loadout.active_weapon()
+		if weapon != null and weapon.projectile != null and is_finite(weapon.projectile.radius):
+			# The painted sole can reach slightly below the collision surface.
+			_input.crouched_muzzle_clearance = (maxf(1.0, weapon.projectile.radius) + 0.75) / maxf(rig.body_scale(), 0.001)
 	_input.blocking = player.is_blocking
 	_input.dashing = player.state == Player.State.DASH
 	_input.staggered = player.state == Player.State.STAGGERED

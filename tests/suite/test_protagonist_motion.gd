@@ -29,6 +29,7 @@ func run() -> void:
 	await _test_landing_keeps_boots_near_floor()
 	await _test_kneeling_keeps_boots_near_floor()
 	await _test_crouch_pose_switches_with_weapon()
+	await _test_crouched_rifle_muzzle()
 	await _test_walking_and_running_keep_boots_near_floor()
 	await _test_back_dash_keeps_ankles_near_floor()
 	await _test_spring_impulses()
@@ -368,6 +369,35 @@ func _test_crouch_pose_switches_with_weapon() -> void:
 		_run(rig, input, 24)
 		check(rig.active_pose_parts() == &"kneel" and is_equal_approx(rig.animator._kneel_w, 1.0),
 				"a return to the firearm restores the kneel")
+		rig.get_parent().queue_free()
+	await frames(1)
+
+
+func _test_crouched_rifle_muzzle() -> void:
+	for facing: int in [-1, 1]:
+		var input := RigInput.new()
+		var rig := _make("rin", input)
+		input.facing = facing
+		input.crouching = true
+		input.aim_dir = Vector2.DOWN
+		var floor_y := rig.skeleton_to_global(Vector2(0.0, rig.animator._dash_floor)).y
+		for weapon_id: String in ["rifle", "railgun"]:
+			rig.set_weapon(weapon_id)
+			input.crouched_muzzle_clearance = 0.0
+			_run(rig, input, 30)
+			var old_muzzle := rig.muzzle_global()
+			input.crouched_muzzle_clearance = (2.75 if weapon_id == "rifle" else 3.75) / rig.body_scale()
+			_run(rig, input, 1)
+			var muzzle := rig.muzzle_global()
+			check(old_muzzle.y > floor_y and absf(muzzle.x - old_muzzle.x) < 0.001 and muzzle.y < floor_y,
+					"%s retracts along the vertical aim above the rig floor" % weapon_id)
+			var weapon := rig.weapon_def()
+			var foregrip := (RigLibrary.vec2(weapon["foregrip"]) - RigLibrary.vec2(weapon["grip"])) * rig.weapon_scale()
+			check(rig.hand_contact_global(&"front").distance_to(rig.weapon_root().global_position) < 0.025
+					and rig.hand_contact_global(&"back").distance_to(rig.weapon_root().to_global(foregrip)) < 0.025,
+					"%s retains both grips even when its elbow limits muzzle clearance" % weapon_id)
+			if weapon_id == "rifle":
+				check(muzzle.y <= floor_y - 2.74, "K-7 leaves room for the whole projectile head")
 		rig.get_parent().queue_free()
 	await frames(1)
 
