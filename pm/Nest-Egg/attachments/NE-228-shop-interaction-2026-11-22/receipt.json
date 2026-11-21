@@ -1,0 +1,27 @@
+{
+  "baseline": "55bae7417a68cca9fc7dcf7610867391e54b4fc0",
+  "engine": "Godot 4.7.2 Forward+",
+  "display": "RX 9070 XT, synthetic keyboard, window without focus",
+  "fixture": "actual pawnshop map; player placed in overlapping reach; matching world positions, live camera may differ",
+  "affected_suites": 4,
+  "affected_checks": 2015,
+  "wall_seconds": 84,
+  "evidence": {
+    "probe.gd": "fe503ab984fd2d58b0d69e60f7f653479cf0850b5107dce0bc23f47e48b9107f",
+    "probe.tscn": "5e7d987ab064f54b4f8d8a8f9e25af3efa96ffc1d6227071a10edafc34eb5d4b",
+    "run.ps1": "b4f471eb85213ec5115f744c0efb2f2f900232ffb9d82f691988b8965ca4892f",
+    "before-720/raw.log": "f76f89a21fbd473bd4b36099bce353b8834fc4b50310fe87a432b8ca3825c355",
+    "before-720/exit.txt": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+    "before-720/overlap.png": "c064bc56af5aeaae2e33e1818abbed3b6dd7c1d038cdfda6686a6d6dec44f5de",
+    "before-720/press.png": "7c9682c0110ff1d5588e1de923f048d17e0b0d1ac3d0262c89883ac60b123138",
+    "before-720/ledger.png": "5fba22b10b810da24eef894b0ae0c807203a924e015ac229c512b22d1add9215",
+    "after-720/raw.log": "6b8fdfeebb804b4fedcfaf9707b15b12e48c6d4152fb4736cd4cb504a7e2d610",
+    "after-720/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "after-720/overlap.png": "86543da93517a68b0d31e0ba8c574226b9949bf7300b15f6085148dfdcc0970f",
+    "after-720/press.png": "3b27c9e9e33a8e61817bc635ffe102685217df8a20558f5fe124f7376c234799",
+    "after-720/ledger.png": "4dea86b0fda8bede8897aab2b4df93f4c527bc969872f41ebe2d6a57abf8ece4",
+    "official-release/raw.log": "a3001cc51e3ba6e5ce9d1cac63492231d54e17dff68efaf4048cf187aa83e240",
+    "official-release/verification.json": "bcd48cf77067c8483a435e6bbc6e11a20ca3db5c15f7b4ee58870c153b5d2b10",
+    "official-release/command.json": "f0fd402b9b019d0eeaa93fc73b855e116a7e4be7b2a5ab8d2b44e440791402ea"
+  }
+}

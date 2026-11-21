@@ -592,8 +592,41 @@ func _test_pawnshop_door_and_label() -> void:
 			"a press nearer the fare label starts only its conversation")
 	EventBus.toast_requested.disconnect(capture)
 	Story.reset_active_presentation()
+	await _test_pawnshop_shop_and_ledger(level)
 	await end_level(level)
 	Story.auto_skip = true
+
+
+func _test_pawnshop_shop_and_ledger(level: Level) -> void:
+	var shop: ShopStation
+	for node in level._entities.get_children():
+		if node is ShopStation:
+			shop = node
+			break
+	var ledger := _find_npc(level, 53)
+	check(shop != null and ledger != null, "the pawnshop has its original counter and ledger box")
+	if shop == null or ledger == null:
+		return
+	level.player.global_position = shop.global_position + Vector2(-15.0, 0.0)
+	await frames(6)
+	check(shop._player_in_range and ledger.interaction_available(), "the counter and ledger can both be reached")
+	check(Story.framing.is_interaction_prompt_target(shop), "the closer counter has the only interaction prompt")
+	Input.action_press(&"interact")
+	await frames(3)
+	Input.action_release(&"interact")
+	check(is_instance_valid(shop._screen) and shop._screen._is_open and not Story.is_cinematic_active() and ledger.talk_count == 0,
+		"one press opens the closer shop without also reading the ledger")
+	if is_instance_valid(shop._screen):
+		shop._screen.close()
+	Story.reset_active_presentation()
+	level.player.global_position = ledger.global_position
+	await frames(6)
+	Input.action_press(&"interact")
+	await frames(3)
+	Input.action_release(&"interact")
+	check(Story.current_presentation_context().get("source_id", "").contains("ch1_ledger_box"),
+		"a press beside the ledger still reads the original box")
+	Story.reset_active_presentation()
 
 
 # ---------------------------------------------------------------------------

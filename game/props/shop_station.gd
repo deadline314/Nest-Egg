@@ -38,17 +38,31 @@ func _ready() -> void:
 	var prompt := WorldPrompt.new()
 	prompt.text = data.prompt_text()
 	prompt.radius = PROMPT_RADIUS
-	prompt.reach_check = func() -> bool: return _player_in_range
+	prompt.reach_check = interaction_available
+	prompt.interaction_owner = self
 	prompt.offset = Vector2(0, -REACH.y - 12.0)
 	add_child(prompt)
 	var light := LightKit.create_point_light(Palette.CYAN, 90.0, 0.8, false)
 	light.position = Vector2(0, -20)
 	add_child(light)
+	Story.framing.register_target(self)
+
+
+func interaction_available() -> bool:
+	if not _player_in_range:
+		return false
+	var player := get_tree().get_first_node_in_group(&"player") as Player
+	return player != null and not player.is_dead() and player.state != Player.State.MOUNTED
+
+
+func preview_available() -> bool:
+	return false
 
 
 func _physics_process(delta: float) -> void:
 	_time += delta
-	if _player_in_range and Input.is_action_just_pressed(&"interact") and not get_tree().paused:
+	if _player_in_range and Input.is_action_just_pressed(&"interact") and not get_tree().paused \
+			and Story.framing.is_interaction_target(self):
 		_open()
 	queue_redraw()
 
