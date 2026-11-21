@@ -1,0 +1,45 @@
+{
+  "tested_parent": "9b8e515cf7b551a6af711cac1653bce4560a98f1",
+  "engine": "Godot 4.7.2 Forward+ RX 9070 XT",
+  "input": "keyboard and synthetic controller button events in the no-focus game viewport",
+  "native_results": {
+    "native-before": {
+      "checks": 14,
+      "failures": 3
+    },
+    "native-after-720": {
+      "checks": 14,
+      "failures": 0
+    },
+    "native-after-1080": {
+      "checks": 14,
+      "failures": 0
+    }
+  },
+  "affected_suites": 15,
+  "affected_checks": 8885,
+  "wall_seconds": 246,
+  "evidence": {
+    "probe-v2.gd": "f7ec5ee4d82fdce5e7a0c27bf2a847893666224db9a6f2d20006fff54b37e746",
+    "probe-v2.tscn": "2ca55eef1c0088331d5f93d4f4e0808d0b2906d64922e6931d9fbbea3af1d206",
+    "run.ps1": "b87e82b3e121a5a6d52678a35a3bf75261aa9602b6b4b9eb859ae4606d6d848b",
+    "native-before/raw.log": "bd669adb97bbea482a987828b8b75925f0af4dc91f2bffc725affd1ed1d7aacb",
+    "native-before/exit.txt": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+    "native-before/region.png": "7cc2fdefb5724542c23e0894d611608d78948d405a581dd90024b36765d51953",
+    "native-before/after-back.png": "d923e31a18268dcfdf2f71ef0e1d1ad538e214fedd291d25bd1f9e13ac6d7e46",
+    "native-after-720/raw.log": "7c6114738e6ab5f454799f3a609198db8a257741d0c514b70956d342876a9fc7",
+    "native-after-720/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "native-after-720/region.png": "c3ebe5c01036ce9badc34f5d431af191e4c10dbe27f07b4bc9453a854410eb50",
+    "native-after-720/after-back.png": "aeea8b9e6a00004cc769b8e499bca5c2319030127b185971b64c0aa4f1df0a9d",
+    "native-after-1080/raw.log": "0c4e36e0f1be761587e8d7762fb4fac1684e0aceda328ba24d98e3a6d82ea35e",
+    "native-after-1080/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "native-after-1080/region.png": "24288b082d440724d19c425f187a930943d1ce6ba5a446877b3d8be2aa371506",
+    "native-after-1080/after-back.png": "02084a73d3a50f37559f1742cadb31dd6e6148ab810493c5011cc5bdc8ce49de",
+    "official-release/raw.log": "e7203d4a16cc44323a9cf5d46147bdedbf5f0b38e9756f382d6a2d133b1ab797",
+    "official-release/verification.json": "bcd48cf77067c8483a435e6bbc6e11a20ca3db5c15f7b4ee58870c153b5d2b10",
+    "official-release/command.json": "c5e03ddd489e0d39f83c4193346a2e8d2ddef6cfd92ce0e58e5eab761e766281",
+    "official-release-first/raw.log": "4c1a13c06fdee96f32b2039cfe2c34276d03894688c54cba9b768e9991d16a60",
+    "official-release-first/verification.json": "f7c15320a133443d9f9fe5f8e991b419ad60445389ae46739fc9492553f8393a",
+    "official-release-first/command.json": "c5e03ddd489e0d39f83c4193346a2e8d2ddef6cfd92ce0e58e5eab761e766281"
+  }
+}

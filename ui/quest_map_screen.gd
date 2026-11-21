@@ -176,6 +176,11 @@ func show_page(page: String, remember := true) -> void:
 	if _page == page:
 		return
 	if remember and not _page.is_empty():
+		for index in range(_history.size() - 1, -1, -1):
+			if _history[index]["page"] == page:
+				_history.resize(index + 1)
+				go_back()
+				return
 		_history.append({"page": _page, "map_path": _map_path, "selected": _selected, "focus_text": _focus_text()})
 	_page = page
 	_build()

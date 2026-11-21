@@ -512,6 +512,7 @@ func _test_ui(catalog: QuestCatalog, maps: QuestMapIndex) -> void:
 	await _test_journal_input(screen, false)
 	await _test_journal_input(screen, true)
 	await _test_map_recenter(screen)
+	await _test_tab_history(screen)
 	await _test_completed_pin_label(screen)
 	screen.queue_free()
 	await frames(2)
@@ -793,6 +794,22 @@ func _test_display_defaults() -> void:
 	check(Settings.get_value(Settings.DISPLAY_SECTION, "quest_objective") == true and Settings.get_value(Settings.DISPLAY_SECTION, "quest_arrows") == true, "reset display restores both navigation switches")
 	Settings.set_value(Settings.DISPLAY_SECTION, "quest_objective", old_objective)
 	Settings.set_value(Settings.DISPLAY_SECTION, "quest_arrows", old_arrows)
+
+
+func _test_tab_history(screen: QuestMapScreen) -> void:
+	screen._history.clear()
+	screen.show_page("region", false)
+	await frames(3)
+	var center := screen._buttons[2]
+	center.grab_focus()
+	for repeat in 3:
+		await _key(KEY_Q)
+		await _joy(JOY_BUTTON_RIGHT_SHOULDER)
+		await frames(3)
+	check(screen._page == "region" and screen._history.is_empty(), "revisiting a tab removes each navigation loop")
+	var owner := screen.get_viewport().gui_get_focus_owner() as Button
+	check(owner != null and owner.text == "回到所在區域", "revisiting the original tab restores its action focus")
+	screen.show_page("quests", false)
 
 
 func _test_map_recenter(screen: QuestMapScreen) -> void:
