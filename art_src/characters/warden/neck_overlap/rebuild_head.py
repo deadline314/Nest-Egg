@@ -1,4 +1,4 @@
-"""Rebuild the Warden helmet's guard-pose underlap on the registered texture grid."""
+"""Rebuild the Warden helmet lining on the registered texture grid."""
 
 import argparse
 import json
@@ -51,8 +51,22 @@ def build() -> Image.Image:
         edge = result[row, first:first + len(coverage)]
         edge[:, :3] = original[row, donor, :3]
         edge[:, 3] = coverage
+    # Under the chin, follow the plated edge behind the arm in crouch and early guard.
+    bands = (
+        ((174, 177, 180, 185, 189, 193, 198, 202, 204), (199, 200, 202, 203, 202, 201, 200, 198, 196), 150, 196),
+        ((199, 201, 204, 208, 211, 214, 217), (199, 199, 202, 204, 203, 199, 196), 145, 195),
+    )
+    for rows, ends, opacity, donor in bands:
+        for row in range(rows[0], rows[-1] + 1):
+            end = round(float(np.interp(row, rows, ends)))
+            color = np.minimum(original[row, donor, :3], [38, 48, 71])
+            for column in range(196, end + 1):
+                cover = opacity if column < end else round(opacity * 0.5)
+                if cover > result[row, column, 3]:
+                    result[row, column, :3] = color
+                    result[row, column, 3] = cover
     changed = np.any(result != original, axis=2)
-    if np.count_nonzero(changed) != 32 or np.any(result[:, :, 3] < original[:, :, 3]):
+    if np.count_nonzero(changed) != 260 or np.any(result[:, :, 3] < original[:, :, 3]):
         raise ValueError("Warden helmet underlap has drifted from its traced source grid")
     return Image.fromarray(result)
 
