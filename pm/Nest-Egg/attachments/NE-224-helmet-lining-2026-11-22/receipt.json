@@ -1,0 +1,448 @@
+{
+  "tested_parent": "a79769ce10134b61b9c36af1aa1cb665255a72a6",
+  "setup": "Godot 4.7.2 Forward+ RX 9070 XT, native no-focus window. Gameplay uses the street inspector AI.",
+  "affected_suites": 4,
+  "affected_checks": 7676,
+  "wall_seconds": 35,
+  "check_counts": {
+    "whole": {
+      "samples": 3840,
+      "hard_before": 272,
+      "hard_after": 6,
+      "edge_before": 416,
+      "edge_after": 416,
+      "new_keys": [],
+      "new_hard_keys": [],
+      "remaining_hard_keys": [
+        [
+          "aim_up",
+          1.0,
+          1,
+          1,
+          "neck"
+        ],
+        [
+          "aim_up",
+          1.0,
+          -1,
+          1,
+          "neck"
+        ],
+        [
+          "aim_up",
+          1.0,
+          1,
+          2,
+          "neck"
+        ],
+        [
+          "aim_up",
+          1.0,
+          -1,
+          2,
+          "neck"
+        ],
+        [
+          "aim_up",
+          3.4,
+          1,
+          0,
+          "neck"
+        ],
+        [
+          "aim_up",
+          3.4,
+          -1,
+          0,
+          "neck"
+        ]
+      ]
+    },
+    "dressed": {
+      "samples": 3840,
+      "hard_before": 0,
+      "hard_after": 0,
+      "edge_before": 278,
+      "edge_after": 276,
+      "new_keys": [],
+      "new_hard_keys": [],
+      "remaining_hard_keys": []
+    },
+    "isolated": {
+      "samples": 3840,
+      "hard_before": 0,
+      "hard_after": 0,
+      "edge_before": 442,
+      "edge_after": 440,
+      "new_keys": [],
+      "new_hard_keys": [],
+      "remaining_hard_keys": []
+    },
+    "adjacent": {
+      "samples": 5760,
+      "hard_before": 198,
+      "hard_after": 38,
+      "edge_before": 294,
+      "edge_after": 294,
+      "new_keys": [],
+      "new_hard_keys": [],
+      "remaining_hard_keys": [
+        [
+          "aim_up",
+          1.0,
+          1,
+          1,
+          "neck"
+        ],
+        [
+          "aim_up",
+          1.0,
+          -1,
+          1,
+          "neck"
+        ],
+        [
+          "aim_up",
+          1.0,
+          1,
+          2,
+          "neck"
+        ],
+        [
+          "aim_up",
+          1.0,
+          -1,
+          2,
+          "neck"
+        ],
+        [
+          "dead",
+          1.0,
+          1,
+          0,
+          "hip_front"
+        ],
+        [
+          "dead",
+          1.0,
+          1,
+          0,
+          "hip_back"
+        ],
+        [
+          "dead",
+          1.0,
+          -1,
+          0,
+          "hip_front"
+        ],
+        [
+          "dead",
+          1.0,
+          -1,
+          0,
+          "hip_back"
+        ],
+        [
+          "aim_up",
+          3.4,
+          1,
+          0,
+          "neck"
+        ],
+        [
+          "aim_up",
+          3.4,
+          -1,
+          0,
+          "neck"
+        ],
+        [
+          "dead",
+          3.4,
+          1,
+          0,
+          "hip_front"
+        ],
+        [
+          "dead",
+          3.4,
+          1,
+          0,
+          "hip_back"
+        ],
+        [
+          "dead",
+          3.4,
+          -1,
+          0,
+          "hip_front"
+        ],
+        [
+          "dead",
+          3.4,
+          -1,
+          0,
+          "hip_back"
+        ],
+        [
+          "dead",
+          3.4,
+          1,
+          12,
+          "shoulder_back"
+        ],
+        [
+          "dead",
+          3.4,
+          -1,
+          12,
+          "shoulder_back"
+        ],
+        [
+          "dead",
+          3.4,
+          1,
+          13,
+          "shoulder_front"
+        ],
+        [
+          "dead",
+          3.4,
+          -1,
+          13,
+          "shoulder_front"
+        ],
+        [
+          "dead",
+          3.4,
+          1,
+          14,
+          "shoulder_front"
+        ],
+        [
+          "dead",
+          3.4,
+          -1,
+          14,
+          "shoulder_front"
+        ],
+        [
+          "dead",
+          3.4,
+          1,
+          15,
+          "shoulder_front"
+        ],
+        [
+          "dead",
+          3.4,
+          -1,
+          15,
+          "shoulder_front"
+        ],
+        [
+          "dead",
+          3.4,
+          1,
+          16,
+          "shoulder_front"
+        ],
+        [
+          "dead",
+          3.4,
+          -1,
+          16,
+          "shoulder_front"
+        ],
+        [
+          "dead",
+          3.4,
+          1,
+          17,
+          "shoulder_front"
+        ],
+        [
+          "dead",
+          3.4,
+          -1,
+          17,
+          "shoulder_front"
+        ],
+        [
+          "dead",
+          3.4,
+          1,
+          18,
+          "shoulder_front"
+        ],
+        [
+          "dead",
+          3.4,
+          1,
+          18,
+          "shoulder_back"
+        ],
+        [
+          "dead",
+          3.4,
+          -1,
+          18,
+          "shoulder_front"
+        ],
+        [
+          "dead",
+          3.4,
+          -1,
+          18,
+          "shoulder_back"
+        ],
+        [
+          "dead",
+          3.4,
+          1,
+          19,
+          "shoulder_back"
+        ],
+        [
+          "dead",
+          3.4,
+          -1,
+          19,
+          "shoulder_back"
+        ],
+        [
+          "dead",
+          3.4,
+          1,
+          20,
+          "shoulder_back"
+        ],
+        [
+          "dead",
+          3.4,
+          -1,
+          20,
+          "shoulder_back"
+        ],
+        [
+          "dead",
+          3.4,
+          1,
+          21,
+          "shoulder_back"
+        ],
+        [
+          "dead",
+          3.4,
+          -1,
+          21,
+          "shoulder_back"
+        ],
+        [
+          "dead",
+          3.4,
+          1,
+          28,
+          "shoulder_back"
+        ],
+        [
+          "dead",
+          3.4,
+          -1,
+          28,
+          "shoulder_back"
+        ]
+      ]
+    }
+  },
+  "evidence": {
+    "build-candidate.py": "abe99af52b14e679909458a93b01da14fe96283e4de6c554e68bc192636be1aa",
+    "compare-final.py": "71404b774ae0dc434d024c5b0c1daf3eac0d8721a9f56bc9564a31b014cb54cc",
+    "trace.gd": "e0bc82322470423a28740dc2f1d3b1747cf0c5fa76c584e7aabbbd78e8f4f36b",
+    "trace.tscn": "3fa79921502f4b286053b2b01f11d043921953264030175f6feaabea18e068d6",
+    "trace.py": "341be5a9e83340e47e407b625c3ce92d0a494f58cff1358e17d5bcee8137f27c",
+    "trace-stock-source.json": "9f60571f5c6c4a72ce4e4d293340ae8883497282b9a686dae170be829c6666e5",
+    "early-0-source.json": "6cab4286a2fc87eab9ae749f756d108f145aed081a5d7f61fe66d32abafe59e8",
+    "early-1-source.json": "be644affe08a7fd89d7fdccb56ab9517fde9c94c77af13a58aad70951b47ec7d",
+    "early-2-source.json": "6c4e02fb4b66353cc6be96b9f44187310b6cb4996a17bab5d6603bcb7ae60e0c",
+    "texture-diff.json": "016a3ad27aa32c8b1a7a377829fc930776a7bfd328f2037ed0455bb4fc312308",
+    "crop_phase.json": "7cc8d8def2d1133a447161dabd87d2bceeff46ea7baa5dd861c46358609a3a82",
+    "normal.log": "3cd964fa6743c7432fc29371297edba6ebe782f87d582d371fd71e68724cf7a4",
+    "rebuild.log": "de0f160d28209554e4001359d66a4ab72898f3d193b688eb4d2464f2ca3cc5d4",
+    "import.log": "2200b2fd2dbda8b191976f8004c66df2bf6c52aba0904ea0489899d47f2f9413",
+    "import.exit": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "spec.log": "20c4d31bbdeb6543e0091688ecaf79636b083b3a56bfb545dbfc7a89a0cab2a5",
+    "parts.log": "56cb58ba04d56408421fa72e646ec0acab23da3f800d40ea91dddc8d43f69ce4",
+    "checker.log": "8d37c3f9e29c77cb812869b8aad7abf140b30ed56e46df67408ae1a4e92ddea9",
+    "street.gd": "f19a9bdc23d9c776f1613a0022a67f0744decca56a8b9836b269c918df073846",
+    "street.tscn": "1806112faf1c2dac8bcd8d36fb3e89972aca9ee8de26323cd25058af79f4c6a1",
+    "run-street.ps1": "9ef8ae0e52e12215ca2a87d7f01ec671370477aca26fbda6fb59a4b77eb558af",
+    "run-final.ps1": "f7238e5d2f4145cd208b4edaeb1a58e8868665eb9c08faa11308ea3f426a8e45",
+    "comparison.json": "89fa727a280e4c3964122bf82096b9586fde7a085594c14e745db9874bd6bb53",
+    "aim-joint-comparison.png": "c8d68fed51b49ef58e62e8b935e5d34412b24151347515c2c4d50ba76d3d8365",
+    "gap-locations.png": "a3260b35481398c16ba0ff1e601f16d23fb02a70b14884a173f3dc7b878d33c5",
+    "remaining-visor-positions.png": "cf0f67f67d415bcb5753edb3782f4bcf98eef724d50cc8ea394ac93252a4c340",
+    "before-whole/report.json": "25e9f76194f5dded1ca03a292cfc344d31bb893e76897d09e0c264291dc96498",
+    "before-whole/frames.json": "aab8493c7545f463ef1655b4fce52d33af750d1e6cc814e925b6f5690a1d2e19",
+    "before-whole/checker.log": "d24b6d0461e15fe452f044ccfedc837acd6617e670636956eef0edf4b6214196",
+    "after-whole/report.json": "fe85f75f097286d95b0ad4880af873f8a654971d86572abfbc4b0968af7f4bb7",
+    "after-whole/frames.json": "aab8493c7545f463ef1655b4fce52d33af750d1e6cc814e925b6f5690a1d2e19",
+    "after-whole/checker.log": "e8d01c944922a850fc26d9ba4cd55e4ef7f5d40f75c3d4010b7c2112410eae89",
+    "before-whole/aim_up_3.4_102.png": "3a0b1314628ace3de0d3b945331f11eb64bc731817e9a89cc786d5f2b8a0e143",
+    "after-whole/aim_up_3.4_102.png": "b8112660c7d95863fcc32c5ca012888698258ba5e193abc1ac875bc8810ca4d0",
+    "before-whole/aim_up_3.4_000.png": "bd2ef06b6af993ecb1eaf4ca4ba451d3068c079fb79e94d198221b46e4bfdfad",
+    "after-whole/aim_up_3.4_000.png": "1a9d9b6d9e2adc75535db76e053a719be889f43a8981d44009cb81c4b5e02579",
+    "before-dressed/report.json": "0de1621b75cfdaea47369cd9c774db1a8c0c4493a97d12d5858bbf87bfe4d07c",
+    "before-dressed/frames.json": "90b7e2f951185ee0ff6de95ddf7a901b940595f67df666be35f0693ae711352e",
+    "before-dressed/checker.log": "ced5918f4036e0f3a6053a7792677d6338c1f605dc8210a4b635a7b977594602",
+    "after-dressed/report.json": "0b03afbc4de3a85e931ae0836949e699248cf929ab882db376426c633e88bbcd",
+    "after-dressed/frames.json": "90b7e2f951185ee0ff6de95ddf7a901b940595f67df666be35f0693ae711352e",
+    "after-dressed/checker.log": "901ec7f6bddb6772efdad668a615ef799fb512136c7ab3d952d67ae4f96fb4a2",
+    "before-isolated/report.json": "13b578523bb7dbae3d46751b9264a26d5579e07ec3e072745e3ff56ad3d88d3d",
+    "before-isolated/frames.json": "90b7e2f951185ee0ff6de95ddf7a901b940595f67df666be35f0693ae711352e",
+    "before-isolated/checker.log": "bee150a97a155539d20f8af1eb0e6ce1251b2eded7e940e9c1fa36141b39cea2",
+    "after-isolated/report.json": "3f40d083226620af188a1475fdd6e2abf99d1f7966cd5e6ed26bf8a5853f754e",
+    "after-isolated/frames.json": "90b7e2f951185ee0ff6de95ddf7a901b940595f67df666be35f0693ae711352e",
+    "after-isolated/checker.log": "5fa1386b1f76c007d4843f1d62e26def6d0c8a410994582b077ab7c5276a187f",
+    "before-adjacent/report.json": "d61f20f9ee64af2e6c9250f97d5d453a233f1eca51321e3bde64e5da7e7b7994",
+    "before-adjacent/frames.json": "9303632d9dd8d09a6c5695a7307709e74f931f6d8233899386dfe71e6bcb788d",
+    "before-adjacent/checker.log": "b5e5d2f366b0e54b9957d44b6e820012bf104dbd5a5e56fbe3c0db9c6d19d28f",
+    "after-adjacent/report.json": "e7530551e7204266af8581620aeb5ced4c02ca583112787a133229cef0e0454d",
+    "after-adjacent/frames.json": "9303632d9dd8d09a6c5695a7307709e74f931f6d8233899386dfe71e6bcb788d",
+    "after-adjacent/checker.log": "a15e6ede36a44997f38cde2ab87bba6001ed787f0b4cc16f20dee29d5d870057",
+    "street-before/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "street-before/left_192_leap.png": "f43e39de21734b256eb83b94458c2e605f61a4a81c0f8556775af264b5d1c65e",
+    "street-before/left_192_recover.png": "653a5b624e2bde433286b16e0e6489713d29e32d9285e4633554cf7a933aaded",
+    "street-before/left_192_windup.png": "15641e651435f106073af37c5ad56dc39ab2142f80ee0a2dd354a690f18fe94d",
+    "street-before/left_340_leap.png": "3b5a834dafefd8d2dd2d5f13bc8bdf7ba99beb724cc73299a718490574e3c3f3",
+    "street-before/left_340_recover.png": "7d227ee6947c65587259683d4519b678761f40e911894fb313e1be7a8153d5db",
+    "street-before/left_340_windup.png": "2708f963fa44d2b8b2a7c5d532b32f41f9800eddf6b7046b2a8cd0f351c1d8c7",
+    "street-before/raw.log": "b18c5b59db008f72702ffed2699e6e46b0571f75903f8c1913961e964f5d1221",
+    "street-before/right_192_leap.png": "7e2e273bdc4fe432829f9e43d488b2d02640d6ea9700da2a6d82c468e86edf36",
+    "street-before/right_192_recover.png": "5886180c3c5781350263e6826ff6aa7fc3f541a29fb616f3f00439cd507d31bb",
+    "street-before/right_192_windup.png": "6779418e01e933d6c10d98393d310ea3f800f5985612a6c2c4b1902b775ed4ef",
+    "street-before/right_340_leap.png": "eb11e90278fd7d19312557de495aba50cfa8731c7aff289f13b43226f91c3501",
+    "street-before/right_340_recover.png": "a7e6eafeeb4535335b7147df11fe9d8631a074d0b6a986f676888ba30a53f74d",
+    "street-before/right_340_windup.png": "abd5cbe62eb7798ff1e09ab249c7defef5a6a0280441c5f83343efd349a9272a",
+    "street-before/street.json": "65739d58900949087fd930bc3de1e0726d61e0c0541c5c688dde982d288a1304",
+    "street-after/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "street-after/left_192_leap.png": "9f6927988905148b54139f2603f19929d4e6505e27f8f30becf17523b4b90aec",
+    "street-after/left_192_recover.png": "b0fd77f3e49cb672a6800601f5319eb1ceba2c1f100c5cfcd5be5d3c289781d5",
+    "street-after/left_192_windup.png": "59bbf53a8841096e110811d38375605de9422bf896be4a845415bcfe162a6b7d",
+    "street-after/left_340_leap.png": "96ae12c08a11a1053c46337a187418ed0f06a4b749f8c30d30b8e559cf8c8a98",
+    "street-after/left_340_recover.png": "913b6ad25485fc5efac74ac16de453f3aca0958eadef402a5722268966b19714",
+    "street-after/left_340_windup.png": "dabfb4143d76f4deb9b652d73a5c8e35c14cbbda7d9ff51445a22bcca260231a",
+    "street-after/raw.log": "b18c5b59db008f72702ffed2699e6e46b0571f75903f8c1913961e964f5d1221",
+    "street-after/right_192_leap.png": "b0ca3cf978d1534f20e9e16937c284c665a5fa0679a7c9cb7e2cd6c5a375750e",
+    "street-after/right_192_recover.png": "8eaf44782d3959ecae9912ea2033f9f02d5cfd7cf8fe8a08c1451a07b8031417",
+    "street-after/right_192_windup.png": "fdd24fc8ae256f95d8505d61921a1bb1037240066d54d95c205e35742ebe30b2",
+    "street-after/right_340_leap.png": "28c081c3e3bca2d899331651f7d5b6660d09975b1732dcf503f0a28de24b6a62",
+    "street-after/right_340_recover.png": "e2d63587cd5485a3034a08402a18b3f9eee2dc2d7853f1ba3194ffee7528997f",
+    "street-after/right_340_windup.png": "c1051eea346967e404059aaebb6a988fd87bb51cbcd1e73bb0ee09f7e45ce5f9",
+    "street-after/street.json": "65739d58900949087fd930bc3de1e0726d61e0c0541c5c688dde982d288a1304",
+    "official-release/raw.log": "c5c60077a684ad105b2b6ae1e2eba92954eb20c881b3e3e316a32a73e9c92885",
+    "official-release/verification.json": "bcd48cf77067c8483a435e6bbc6e11a20ca3db5c15f7b4ee58870c153b5d2b10",
+    "official-release/command.json": "99723549f2c77e4339eaab93248b520b68a1a3ae33748b84da3f88d897ba5112"
+  }
+}
