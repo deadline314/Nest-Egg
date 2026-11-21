@@ -43,16 +43,17 @@ def build(root: Path) -> Image.Image:
         target[target_rows[selected], 3] = source_pixels[:, 3]
     if np.count_nonzero(np.any(result != original, axis=2)) != 612:
         raise ValueError("Enforcer helmet overlap has drifted from its traced source grid")
-    # Extend the inner helmet lining beneath the raised forearm.
-    for column in range(463, 485):
-        lining = result[:169, column].copy()
-        reach = min(10, column - 462, 2 * (485 - column))
-        edge = int(np.flatnonzero(lining[:, 3] >= 128)[-1])
-        rows = np.arange(edge + 1, min(edge + 2 + reach, len(lining)))
-        underlap = lining[rows - reach]
-        keep = underlap[:, 3] > lining[rows, 3]
-        result[rows[keep], column, :3] = np.minimum(underlap[keep, :3], [38, 65, 96])
-        result[rows[keep], column, 3] = underlap[keep, 3]
+    # Carry the inner helmet lining beneath the raised forearm and shoulder.
+    for left, right, depth, right_taper, bottom in ((462, 485, 10, 2, 169), (446, 456, 2, 1, 153)):
+        for column in range(left + 1, right):
+            lining = result[:bottom, column].copy()
+            reach = min(depth, column - left, right_taper * (right - column))
+            edge = int(np.flatnonzero(lining[:, 3] >= 128)[-1])
+            rows = np.arange(edge + 1, min(edge + 2 + reach, len(lining)))
+            underlap = lining[rows - reach]
+            keep = underlap[:, 3] > lining[rows, 3]
+            result[rows[keep], column, :3] = np.minimum(underlap[keep, :3], [38, 65, 96])
+            result[rows[keep], column, 3] = underlap[keep, 3]
     return Image.fromarray(result)
 
 

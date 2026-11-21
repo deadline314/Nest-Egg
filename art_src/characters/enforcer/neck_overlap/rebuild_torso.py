@@ -45,7 +45,14 @@ def main() -> None:
     # Feather the lining behind the collar at the upper aim angle.
     patched[115, 229:231, :3] = patched[114, 229:231, :3]
     patched[115, 229:231, 3] = 80
-    if np.count_nonzero(np.any(patched != original, axis=2)) != 1147:
+    # Preserve the fabric overlap at the shoulder through the fall.
+    for row, left, right in ((25, 41, 43), (26, 40, 44), (27, 40, 44), (28, 41, 43), (29, 42, 43)):
+        for column in range(left, right + 1):
+            opacity = 150 if 41 <= column <= 43 and 26 <= row <= 27 else 98
+            if opacity > patched[row, column, 3]:
+                patched[row, column, :3] = patched[row, 46, :3]
+                patched[row, column, 3] = opacity
+    if np.count_nonzero(np.any(patched != original, axis=2)) != 1162:
         raise ValueError("Enforcer collar overlap has drifted from the registered torso grid")
     with BytesIO() as stream:
         Image.fromarray(patched).save(stream, format="PNG")

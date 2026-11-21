@@ -1,0 +1,237 @@
+{
+  "tested_parent": "87248030afd722e19c125c5b88e29361675234f3",
+  "engine": "Godot 4.7.2 Forward+ RX 9070 XT",
+  "setup": "no-focus app, staged street positions and actual Enemy health damage",
+  "affected_suites": 4,
+  "affected_checks": 7676,
+  "wall_seconds": 48,
+  "check_counts": {
+    "whole": {
+      "samples": 7680,
+      "closed_before": 100,
+      "closed_after": 0,
+      "edge_before": 162,
+      "edge_after": 158,
+      "remaining": []
+    },
+    "dressed": {
+      "samples": 7680,
+      "closed_before": 12,
+      "closed_after": 0,
+      "edge_before": 8,
+      "edge_after": 6,
+      "remaining": []
+    },
+    "isolated": {
+      "samples": 7680,
+      "closed_before": 0,
+      "closed_after": 0,
+      "edge_before": 432,
+      "edge_after": 432,
+      "remaining": []
+    },
+    "adjacent": {
+      "samples": 5760,
+      "closed_before": 38,
+      "closed_after": 14,
+      "edge_before": 294,
+      "edge_after": 290,
+      "remaining": [
+        [
+          "aim_up",
+          1.0,
+          1,
+          1,
+          "neck"
+        ],
+        [
+          "aim_up",
+          1.0,
+          -1,
+          1,
+          "neck"
+        ],
+        [
+          "aim_up",
+          1.0,
+          1,
+          2,
+          "neck"
+        ],
+        [
+          "aim_up",
+          1.0,
+          -1,
+          2,
+          "neck"
+        ],
+        [
+          "dead",
+          1.0,
+          1,
+          0,
+          "hip_front"
+        ],
+        [
+          "dead",
+          1.0,
+          1,
+          0,
+          "hip_back"
+        ],
+        [
+          "dead",
+          1.0,
+          -1,
+          0,
+          "hip_front"
+        ],
+        [
+          "dead",
+          1.0,
+          -1,
+          0,
+          "hip_back"
+        ],
+        [
+          "aim_up",
+          3.4,
+          1,
+          0,
+          "neck"
+        ],
+        [
+          "aim_up",
+          3.4,
+          -1,
+          0,
+          "neck"
+        ],
+        [
+          "dead",
+          3.4,
+          1,
+          0,
+          "hip_front"
+        ],
+        [
+          "dead",
+          3.4,
+          1,
+          0,
+          "hip_back"
+        ],
+        [
+          "dead",
+          3.4,
+          -1,
+          0,
+          "hip_front"
+        ],
+        [
+          "dead",
+          3.4,
+          -1,
+          0,
+          "hip_back"
+        ]
+      ]
+    },
+    "street_count": 36,
+    "texture_differences": {
+      "torso.png": {
+        "count": 15,
+        "before": "2481bf2a5e73f8b44c924c938bede5381e57a0cec0a626f2b11626c5eddd707d",
+        "after": "b429d906fd361429ac9120dd2733b1eff9855dd93c254354dedb2b4a902f35a5"
+      },
+      "torso_n.png": {
+        "count": 97,
+        "before": "5817a8977be1d0736d3ad128a292136caa8868629c5ef4b2fce892fbbb0fe570",
+        "after": "829b3ab121e6395a8fa7e1624f0f8b928aaef4cf76b3554d125dea5125a47b43"
+      },
+      "head.png": {
+        "count": 34,
+        "before": "be9f0993891020f52e36611571e39a17a6d24f27bb3aa514ce3783e6a16fdca3",
+        "after": "545bcb8e2bdd15e5536f9d61e67fe1af281c73994f618100db3193ff5d780df0"
+      },
+      "head_n.png": {
+        "count": 150,
+        "before": "3d60f347eee96a3322e278b3332189934bd954b08530aa73bb86465e3ab99d3e",
+        "after": "fe621b7adc836d42d841adeece5b543a7476da30eb503a4d42fab37a1e3d184a"
+      }
+    }
+  },
+  "evidence": {
+    "try-matrix.ps1": "ae633b470cb4c4711112b834a5ca4291c636bfc7964fa2bbba989152fd12cdb8",
+    "compare-final.py": "17d3f2eef97073e7311a127b41303b717a5986016beb61bd17fadf2a9e1ef7d1",
+    "trace.gd": "117e9161a0cb3b594be12a6c908c154581535f22ffd1874acea940bf4ebb42b6",
+    "trace.tscn": "226d7fd4e08dae9fc659bf8d43a66c1bedcd4f331e67a84f3e442d4b9c3b2800",
+    "trace.py": "341be5a9e83340e47e407b625c3ce92d0a494f58cff1358e17d5bcee8137f27c",
+    "normal.log": "3cd964fa6743c7432fc29371297edba6ebe782f87d582d371fd71e68724cf7a4",
+    "normal-head.log": "3cd964fa6743c7432fc29371297edba6ebe782f87d582d371fd71e68724cf7a4",
+    "rebuild.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "rebuild-head.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "rebuild-parts.log": "de0f160d28209554e4001359d66a4ab72898f3d193b688eb4d2464f2ca3cc5d4",
+    "import.log": "005f20bffd7bf330ce8eef684a8d6d81dbeb616b037461ed99a655ab37231f95",
+    "import.exit": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "spec.log": "20c4d31bbdeb6543e0091688ecaf79636b083b3a56bfb545dbfc7a89a0cab2a5",
+    "parts.log": "56cb58ba04d56408421fa72e646ec0acab23da3f800d40ea91dddc8d43f69ce4",
+    "street.gd": "ef6c7f0d98b662b506757811c0864408fd69f2a56196b2a6d8f49dc7e4d43645",
+    "street.tscn": "d63f2c9ff97ef106905b9f964a112e40186096f042362362ce6e7be0fa3a4a7f",
+    "run-street.ps1": "94cbe4da6c162d3f89a461cb46a5000bc1161da248506f8073d247986bd3dd33",
+    "run-final.ps1": "2c9b8fdc9ad739314469b2645a07f18c68a6cb6184520be61c78f5b666e9ef49",
+    "comparison.json": "7d61bfa8330a9b22a79fec81e326489fe01a89d90fafc35b86d92208b4da661e",
+    "shoulder-comparison.png": "9bbeb0c7be6f4e021928e6380bf0f9c6ebe7f94b61aeeac8e4e4c81ed583d342",
+    "shoulder-sample-index.png": "b148b5522a5de9acf47a189f82f64e07e0b57ed1d3f23d1960b8cc47522eb6b0",
+    "trace-12-shoulder_back.json": "e17b6b82be88eebace5850b08919f68f853d9a0288faaa59e265911012357b60",
+    "trace-12-shoulder_front.json": "a5338d955b09046ec0b16f3a9625b7955c763aae07dc722e474e6078745f932f",
+    "trace-15-shoulder_back.json": "a5338d955b09046ec0b16f3a9625b7955c763aae07dc722e474e6078745f932f",
+    "trace-15-shoulder_front.json": "fa2a87fb74a02af9681d7d331b776540f2337675ffa5c8938f77c804b290d2b6",
+    "trace-18-shoulder_back.json": "8e444168449ad5f93d132eba6cb9bb0f20382aba59a00b1f31ac71fb959f0a7a",
+    "trace-18-shoulder_front.json": "aed057b2acb5994edc85c4c5cdc2b114141a3fb78415ffdd2ebac281b08f3804",
+    "trace-21-shoulder_back.json": "38ac7ca9e348ba56b4ed853adfe5a3699c12f4fcbdbf122a4d6ad2d8f95ad131",
+    "trace-21-shoulder_front.json": "a5338d955b09046ec0b16f3a9625b7955c763aae07dc722e474e6078745f932f",
+    "trace-28-shoulder_back.json": "ff84ce8957172d5fbb0421d3b5e1ce60ca5b76c80691352b3d87337f2ad0a6a5",
+    "trace-28-shoulder_front.json": "a5338d955b09046ec0b16f3a9625b7955c763aae07dc722e474e6078745f932f",
+    "raised/trace-103-source.json": "633b88f3d72eb0a111367dfad983f706ae1410da310631da2572b8cc432855bd",
+    "raised/trace-78-source.json": "8260278f086d351fe7758d5a55fa746e6d31ff218ecb8af5904ca0ee15d593eb",
+    "raised/candidate-2-report.json": "0a282ab3e3c9e3ee3996cc0ee985ee359de352baae02d325ecc0dd493db56d34",
+    "before-whole/report.json": "e45c9618063733a3243fa6dccc9d78fd9b6340147efb87645a0f0745fda61901",
+    "before-whole/frames.json": "d01fda9789a19f087b0bfc02892e73a0123ad5eaf546159cc2e67698c4fe0b23",
+    "before-whole/dead_3.4_015.png": "0b390f755700e8e3398ea261612da0d8c6aa9ac82186a4175532abd7599005a9",
+    "before-whole/aim_up_3.4_103.png": "6d91fee3678fd1f3727257b2139aa70f9535a59f4e7685388742bb2571874540",
+    "after-whole/report.json": "be85fa69704e3339d11b3b7a1e3ee0b869f4e086cab5caefbcb72d00bc01f05e",
+    "after-whole/frames.json": "d01fda9789a19f087b0bfc02892e73a0123ad5eaf546159cc2e67698c4fe0b23",
+    "after-whole/dead_3.4_015.png": "9b5126763173104c34119057a3f99cae60a655cee3279ac12d113cab9a18b5b7",
+    "after-whole/aim_up_3.4_103.png": "d72a01569227b46c7b477db9b655bbe38df3ccd6c31691edcc6bb5b7b6fa509b",
+    "before-dressed/report.json": "c02923d74c9a089bab67fc09118e800c1ee9b8ddac2efe6e89748add0fd3c066",
+    "before-dressed/frames.json": "9e8605e6d6be780f67003126a1328b38823187c379a12e9b88c7221bc59fc6dc",
+    "after-dressed/report.json": "87dfd2831f743d0ca527553850f6e8daa9609dbfb97eef74fc87252ffe7ee59d",
+    "after-dressed/frames.json": "9e8605e6d6be780f67003126a1328b38823187c379a12e9b88c7221bc59fc6dc",
+    "before-isolated/report.json": "f085b0bdccc13cea448e13597b21af226a1c027ef23e15b9710e2e86f14f2604",
+    "before-isolated/frames.json": "9e8605e6d6be780f67003126a1328b38823187c379a12e9b88c7221bc59fc6dc",
+    "after-isolated/report.json": "f085b0bdccc13cea448e13597b21af226a1c027ef23e15b9710e2e86f14f2604",
+    "after-isolated/frames.json": "9e8605e6d6be780f67003126a1328b38823187c379a12e9b88c7221bc59fc6dc",
+    "before-adjacent/report.json": "e7530551e7204266af8581620aeb5ced4c02ca583112787a133229cef0e0454d",
+    "before-adjacent/frames.json": "9303632d9dd8d09a6c5695a7307709e74f931f6d8233899386dfe71e6bcb788d",
+    "after-adjacent/report.json": "e80427f3a5b902c27d774d806ed4069cb693c89b3073c3e6ff81613732e3784b",
+    "after-adjacent/frames.json": "9303632d9dd8d09a6c5695a7307709e74f931f6d8233899386dfe71e6bcb788d",
+    "street-before/street.json": "7043f9afef8e0e35fafc3fd95a84dec2f07f1de9bf19c583d77737f4da808108",
+    "street-before/raw.log": "72dd6d04b04c59bdda23ff7824d3b121c42e9b729a01500fedfab39c7be69cf9",
+    "street-before/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "street-before/left_192_death_12.png": "33548d5e6d77db581e72ec29068f0d7cb81921352626b3455bcdb875dc977e0b",
+    "street-before/right_192_death_12.png": "ac67282fca291fd36c329e40fc55655ac8940662d24bdedc44bd1823e003b6ca",
+    "street-before/left_340_death_15.png": "744e577657c3a87cf8166a58f67315a1e3903a6daeb9bca6ef4d2a3619c36fc0",
+    "street-before/right_340_death_15.png": "be4ea7861ff7ba0c08af388b4fee57a9ad5e9fcd3adfe9a22ba1f0e236cb7f1f",
+    "street-after/street.json": "7043f9afef8e0e35fafc3fd95a84dec2f07f1de9bf19c583d77737f4da808108",
+    "street-after/raw.log": "b18c5b59db008f72702ffed2699e6e46b0571f75903f8c1913961e964f5d1221",
+    "street-after/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "street-after/left_192_death_12.png": "edcf0f5e1e7529021a8994948698233b319e6610947a16aa6c23de32f8ff2a6a",
+    "street-after/right_192_death_12.png": "2b806eab4b2e2c4f405ede4a349b40861b4d760afa4e1f7b27ff59a6b1e641a4",
+    "street-after/left_340_death_15.png": "23403296da762bea06bd77f952eab519cc1aa00747191f6f5ec1a4ef6f680547",
+    "street-after/right_340_death_15.png": "c2c4cb6ce566e2ea68eb3213b6aedf4a8ab9ff234aedff32fd064182d14abdd8",
+    "official-release/raw.log": "7ddb1d7402f80168a5c4d9b77ac81f8ebf07a7bbbda92d94ab82d460ff910140",
+    "official-release/verification.json": "bcd48cf77067c8483a435e6bbc6e11a20ca3db5c15f7b4ee58870c153b5d2b10",
+    "official-release/command.json": "2552d334c9d146e4429aaa64ca5ee2b2eb9c917cb5c35f3c95c5fcb209e3e5d8"
+  }
+}
