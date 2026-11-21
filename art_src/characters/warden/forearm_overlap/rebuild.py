@@ -35,15 +35,21 @@ def main() -> None:
     # Extend the inside edge below the glove where the arm crosses the hip.
     edge = ((258, 260), (258, 261), (258, 262), (258, 263), (259, 263), (259, 262), (259, 262),
             (260, 262), (261, 263), (260, 264), (258, 264), (258, 265), (260, 265))
+    edge_alpha = []
     for row, (left, right) in enumerate(edge, 358):
         opacity = 155 if row < 366 else 185
+        edge_alpha.append((row, left, right, opacity, round(0.66 * opacity)))
+    # Back the cuff where the rear plate crosses the hip during the final fall.
+    cuff_right = (263, 265, 266, 266, 266, 265, 265, 266, 266, 267, 267, 267, 267, 267, 266)
+    edge_alpha.extend((row, 259, right, 225, 150) for row, right in enumerate(cuff_right, 357))
+    for row, left, right, opacity, feathered in edge_alpha:
         alpha = np.full(right - left + 1, opacity, dtype=np.uint8)
-        alpha[-1] = round(0.66 * opacity)
+        alpha[-1] = feathered
         margin = patched[row, left:right + 1]
         extend = alpha > margin[:, 3]
         margin[extend, :3] = original[row, 256, :3]
         margin[extend, 3] = alpha[extend]
-    if np.count_nonzero(np.any(patched != original, axis=2)) != 107:
+    if np.count_nonzero(np.any(patched != original, axis=2)) != 159:
         raise ValueError("Warden forearm overlap has drifted from its registered source grid")
     with BytesIO() as stream:
         Image.fromarray(patched).save(stream, format="PNG")
