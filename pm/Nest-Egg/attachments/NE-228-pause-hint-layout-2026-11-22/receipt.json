@@ -1,0 +1,288 @@
+{
+  "baseline": "af2b908db7d09db9a56bb9dff30e6f3e21d26caf",
+  "engine": "Godot 4.7.2 Forward+",
+  "display": "RX 9070 XT, synthetic key presses, window without focus",
+  "affected_suites": 24,
+  "affected_checks": 11207,
+  "wall_seconds": 300,
+  "capture_dimensions": {
+    "720": [
+      1280,
+      720
+    ],
+    "720-standard": [
+      1280,
+      720
+    ],
+    "1080": [
+      1920,
+      1080
+    ],
+    "43": [
+      1024,
+      576
+    ],
+    "pawnshop-720": [
+      1280,
+      720
+    ]
+  },
+  "cases": {
+    "before-720": [
+      {
+        "area": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "focus": "地圖",
+        "info_overlap": false,
+        "level": "ch1_prologue",
+        "menu": "[P: (36.0, 28.0), S: (208.0, 337.0)]",
+        "overlap": "(208.0, 28.0)",
+        "scale": 1.2,
+        "tip": "[P: (36.0, 332.0), S: (212.0, 28.0)]"
+      },
+      {
+        "area": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "focus": "繼續",
+        "info_overlap": false,
+        "level": "ch1_prologue",
+        "menu": "[P: (36.0, 28.0), S: (208.0, 337.0)]",
+        "overlap": "(68.0, 28.0)",
+        "scale": 1.2,
+        "tip": "[P: (36.0, 332.0), S: (68.0, 28.0)]"
+      }
+    ],
+    "before-720-standard": [
+      {
+        "area": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "focus": "地圖",
+        "info_overlap": false,
+        "level": "ch1_prologue",
+        "menu": "[P: (36.0, 28.0), S: (208.0, 310.0)]",
+        "overlap": "(182.0, 3.0)",
+        "scale": 1.0,
+        "tip": "[P: (36.0, 335.0), S: (182.0, 25.0)]"
+      },
+      {
+        "area": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "focus": "繼續",
+        "info_overlap": false,
+        "level": "ch1_prologue",
+        "menu": "[P: (36.0, 28.0), S: (208.0, 310.0)]",
+        "overlap": "(60.0, 3.0)",
+        "scale": 1.0,
+        "tip": "[P: (36.0, 335.0), S: (60.0, 25.0)]"
+      }
+    ],
+    "before-1080": [
+      {
+        "area": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "focus": "地圖",
+        "info_overlap": false,
+        "level": "ch1_prologue",
+        "menu": "[P: (36.0, 28.0), S: (208.0, 337.0)]",
+        "overlap": "(208.0, 28.0)",
+        "scale": 1.2,
+        "tip": "[P: (36.0, 332.0), S: (212.0, 28.0)]"
+      },
+      {
+        "area": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "focus": "繼續",
+        "info_overlap": false,
+        "level": "ch1_prologue",
+        "menu": "[P: (36.0, 28.0), S: (208.0, 337.0)]",
+        "overlap": "(68.0, 28.0)",
+        "scale": 1.2,
+        "tip": "[P: (36.0, 332.0), S: (68.0, 28.0)]"
+      }
+    ],
+    "before-43": [
+      {
+        "area": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "focus": "地圖",
+        "info_overlap": false,
+        "level": "ch1_prologue",
+        "menu": "[P: (36.0, 28.0), S: (208.0, 337.0)]",
+        "overlap": "(208.0, 28.0)",
+        "scale": 1.2,
+        "tip": "[P: (36.0, 332.0), S: (212.0, 28.0)]"
+      },
+      {
+        "area": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "focus": "繼續",
+        "info_overlap": false,
+        "level": "ch1_prologue",
+        "menu": "[P: (36.0, 28.0), S: (208.0, 337.0)]",
+        "overlap": "(68.0, 28.0)",
+        "scale": 1.2,
+        "tip": "[P: (36.0, 332.0), S: (68.0, 28.0)]"
+      }
+    ],
+    "before-pawnshop-720": [
+      {
+        "area": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "focus": "地圖",
+        "info_overlap": false,
+        "level": "ch1_pawnshop",
+        "menu": "[P: (36.0, 28.0), S: (208.0, 301.0)]",
+        "overlap": "(0.0, 0.0)",
+        "scale": 1.2,
+        "tip": "[P: (36.0, 332.0), S: (212.0, 28.0)]"
+      },
+      {
+        "area": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "focus": "繼續",
+        "info_overlap": false,
+        "level": "ch1_pawnshop",
+        "menu": "[P: (36.0, 28.0), S: (208.0, 301.0)]",
+        "overlap": "(0.0, 0.0)",
+        "scale": 1.2,
+        "tip": "[P: (36.0, 332.0), S: (68.0, 28.0)]"
+      }
+    ],
+    "after-720": [
+      {
+        "area": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "focus": "地圖",
+        "info_overlap": false,
+        "level": "ch1_prologue",
+        "menu": "[P: (36.0, 28.0), S: (208.0, 330.0)]",
+        "overlap": "(0.0, 0.0)",
+        "scale": 1.2,
+        "tip": "[P: (36.0, 0.0), S: (212.0, 28.0)]"
+      },
+      {
+        "area": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "focus": "繼續",
+        "info_overlap": false,
+        "level": "ch1_prologue",
+        "menu": "[P: (36.0, 28.0), S: (208.0, 330.0)]",
+        "overlap": "(0.0, 0.0)",
+        "scale": 1.2,
+        "tip": "[P: (36.0, 0.0), S: (68.0, 28.0)]"
+      }
+    ],
+    "after-720-standard": [
+      {
+        "area": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "focus": "地圖",
+        "info_overlap": false,
+        "level": "ch1_prologue",
+        "menu": "[P: (36.0, 28.0), S: (208.0, 303.0)]",
+        "overlap": "(0.0, 0.0)",
+        "scale": 1.0,
+        "tip": "[P: (36.0, 335.0), S: (182.0, 25.0)]"
+      },
+      {
+        "area": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "focus": "繼續",
+        "info_overlap": false,
+        "level": "ch1_prologue",
+        "menu": "[P: (36.0, 28.0), S: (208.0, 303.0)]",
+        "overlap": "(0.0, 0.0)",
+        "scale": 1.0,
+        "tip": "[P: (36.0, 335.0), S: (60.0, 25.0)]"
+      }
+    ],
+    "after-1080": [
+      {
+        "area": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "focus": "地圖",
+        "info_overlap": false,
+        "level": "ch1_prologue",
+        "menu": "[P: (36.0, 28.0), S: (208.0, 330.0)]",
+        "overlap": "(0.0, 0.0)",
+        "scale": 1.2,
+        "tip": "[P: (36.0, 0.0), S: (212.0, 28.0)]"
+      },
+      {
+        "area": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "focus": "繼續",
+        "info_overlap": false,
+        "level": "ch1_prologue",
+        "menu": "[P: (36.0, 28.0), S: (208.0, 330.0)]",
+        "overlap": "(0.0, 0.0)",
+        "scale": 1.2,
+        "tip": "[P: (36.0, 0.0), S: (68.0, 28.0)]"
+      }
+    ],
+    "after-43": [
+      {
+        "area": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "focus": "地圖",
+        "info_overlap": false,
+        "level": "ch1_prologue",
+        "menu": "[P: (36.0, 28.0), S: (208.0, 330.0)]",
+        "overlap": "(0.0, 0.0)",
+        "scale": 1.2,
+        "tip": "[P: (36.0, 0.0), S: (212.0, 28.0)]"
+      },
+      {
+        "area": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "focus": "繼續",
+        "info_overlap": false,
+        "level": "ch1_prologue",
+        "menu": "[P: (36.0, 28.0), S: (208.0, 330.0)]",
+        "overlap": "(0.0, 0.0)",
+        "scale": 1.2,
+        "tip": "[P: (36.0, 0.0), S: (68.0, 28.0)]"
+      }
+    ],
+    "after-pawnshop-720": [
+      {
+        "area": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "focus": "地圖",
+        "info_overlap": false,
+        "level": "ch1_pawnshop",
+        "menu": "[P: (36.0, 28.0), S: (208.0, 301.0)]",
+        "overlap": "(0.0, 0.0)",
+        "scale": 1.2,
+        "tip": "[P: (36.0, 332.0), S: (212.0, 28.0)]"
+      },
+      {
+        "area": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "focus": "繼續",
+        "info_overlap": false,
+        "level": "ch1_pawnshop",
+        "menu": "[P: (36.0, 28.0), S: (208.0, 301.0)]",
+        "overlap": "(0.0, 0.0)",
+        "scale": 1.2,
+        "tip": "[P: (36.0, 332.0), S: (68.0, 28.0)]"
+      }
+    ]
+  },
+  "evidence": {
+    "probe.gd": "bb0edfac63fd48a7dd6bc77a5518a3b39e59c9f4ff2eb9133120f1255af7a0a2",
+    "probe.tscn": "0e2fd235522cb6cbe6f623b086ec81f09380c01517eb5dbcc2d416f85410f6d2",
+    "run.ps1": "aed82ebcd0afb1cb9ff39659889bc82e4ad7dc175d4c7d27ce86c75768ec93c5",
+    "before-720/raw.log": "bd677d9709ff5b436c82e99d43fb862d8a4d1fd1ab5328067d49579058b0581e",
+    "before-720/exit.txt": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+    "before-720/map.png": "fda1b6a8f60ba1f4e628facc36840b4d77441d22722e0927f48938e1eeb6952e",
+    "before-720-standard/raw.log": "b99a0618f411978fccdbf65eb6d855911279a0443a01ac0d8d5aef7883f55954",
+    "before-720-standard/exit.txt": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+    "before-1080/raw.log": "bd677d9709ff5b436c82e99d43fb862d8a4d1fd1ab5328067d49579058b0581e",
+    "before-1080/exit.txt": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+    "before-1080/map.png": "eaa59ceb9d80192d642a7c1b321dcc826c14448707fddd63fb91cf314c45cd49",
+    "before-43/raw.log": "bd677d9709ff5b436c82e99d43fb862d8a4d1fd1ab5328067d49579058b0581e",
+    "before-43/exit.txt": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+    "before-43/map.png": "578a6eb62c0a43a4a1a6b9c5920cf08135b59b639b13e176040c11abea0c5db7",
+    "before-pawnshop-720/raw.log": "a15d0537f7796bbb08e7e656c8be9a9f46b5165f59293865dc6f09e1ab8f730e",
+    "before-pawnshop-720/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "before-pawnshop-720/map.png": "adb66f91a8fdda6d998cb0f658a0be2760547f1b7523a874076a266d0fb1f6ae",
+    "after-720/raw.log": "3ce2414071c4ff3c91485e692b240327e39a154d82979076200bbd475b76125d",
+    "after-720/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "after-720/map.png": "bf820727ba199323fcc3862965c06ca094471a7651fed4e0c913c81afac33cac",
+    "after-720-standard/raw.log": "ef5aad2db8a67b8fff58c32095ff705bdd8c636f9718ca89c03a3ecf01e7e545",
+    "after-720-standard/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "after-1080/raw.log": "3ce2414071c4ff3c91485e692b240327e39a154d82979076200bbd475b76125d",
+    "after-1080/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "after-1080/map.png": "d53c08ee4e3ee65a23c745e3bd5be96cfb2b6b574f6fc2cee799487d519d58b4",
+    "after-43/raw.log": "3ce2414071c4ff3c91485e692b240327e39a154d82979076200bbd475b76125d",
+    "after-43/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "after-43/map.png": "555aef305a6d7cd250c3ea4642735c9c2d8fe9b24f102ce91d43c6a4578987a1",
+    "after-pawnshop-720/raw.log": "a15d0537f7796bbb08e7e656c8be9a9f46b5165f59293865dc6f09e1ab8f730e",
+    "after-pawnshop-720/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "after-pawnshop-720/map.png": "f7d8d13aed1fac2a06f18609cd99feb85eb70cab637539b48c5aa6d73ffaa3d2",
+    "official-release/raw.log": "45af898c28be26233f5ad0b97fc771c211d8c287aa056a2f7a16409320931576",
+    "official-release/verification.json": "bcd48cf77067c8483a435e6bbc6e11a20ca3db5c15f7b4ee58870c153b5d2b10",
+    "official-release/command.json": "1afcabead411ca000d42be65df5ae662594f6b8031e878c56545acd1f5ed3512"
+  }
+}

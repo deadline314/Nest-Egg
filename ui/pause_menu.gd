@@ -49,7 +49,7 @@ func _ready() -> void:
 	_root.add_child(shade)
 
 	var menu := UiPanel.new("暫停")
-	# 上緣只留給計時器：放大文字時「目前進度」的完整操作表仍在畫面內。
+	# 右上留給計時器，放大文字時也保留完整進度面板。
 	menu.position = Vector2(36, 28)
 	menu.custom_minimum_size = Vector2(190, 0)
 	_root.add_child(menu)
@@ -63,6 +63,7 @@ func _ready() -> void:
 	menu.body.add_child(UiKit.button("設定", _open_settings, "音量、按鍵、顯示"))
 	menu.body.add_child(UiKit.button("圖鑑", _open_codex, "查看敗北紀錄，重看本輪看過的故事"))
 	if not skip_label.is_empty():
+		menu.body.add_theme_constant_override(&"separation", 5)
 		_skip_button = UiKit.button(skip_label, _on_skip_pressed, "長按直接%s；短按會再確認一次。" % skip_label)
 		_skip_button.button_down.connect(_on_skip_down)
 		_skip_button.button_up.connect(_reset_skip_hold)

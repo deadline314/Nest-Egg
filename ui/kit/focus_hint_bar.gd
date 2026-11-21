@@ -120,4 +120,7 @@ func _place() -> void:
 		var rect := _anchor.get_global_rect()
 		var origin := (get_parent() as Control).get_global_rect().position if get_parent() is Control else Vector2.ZERO
 		target = Vector2(rect.position.x, rect.end.y + MARGIN) - origin
+		var above := rect.position.y - origin.y - size.y
+		if rect.end.y - origin.y + size.y > area.y and above >= 0.0:
+			target.y = maxf(0.0, above - MARGIN)
 	position = Vector2(clampf(target.x, 0.0, maxf(0.0, area.x - size.x)), clampf(target.y, 0.0, maxf(0.0, area.y - size.y)))

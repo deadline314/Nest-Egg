@@ -1543,8 +1543,20 @@ func _test_prologue_skip() -> void:
 	level.area_requested.connect(func(path: String) -> void: requested[0] = path)
 	var menu := level._pause_menu
 	check(menu.skip_label == "略過序章" and not menu.skip_note.is_empty(), "the pause menu offers a confirmed prologue skip")
-	# 短按：開確認畫面，預設焦點在「繼續練習」；取消完全不改進度。
+	var previous_scale := Settings.get_ui_text_scale()
+	Settings.set_ui_text_scale(1.2)
 	menu.open()
+	menu._map_button.grab_focus()
+	await frames(6)
+	var hint := menu._root.get_node("FocusHintBar") as FocusHintBar
+	var viewport := menu._root.get_global_rect()
+	var menu_rect := menu._menu_panel.get_global_rect()
+	check(viewport.encloses(menu_rect), "the complete prologue pause menu fits at 120 percent text")
+	check(not hint.text().is_empty() and viewport.encloses(hint.get_global_rect()) and not hint.get_global_rect().intersects(menu_rect),
+		"the enlarged focus hint stays inside the viewport and clear of pause actions")
+	Settings.set_ui_text_scale(previous_scale)
+	await frames(3)
+	# 短按：開確認畫面，預設焦點在「繼續練習」；取消完全不改進度。
 	menu._skip_button.button_down.emit()
 	menu._skip_button.button_up.emit()
 	menu._skip_button.pressed.emit()
