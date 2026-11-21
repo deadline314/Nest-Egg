@@ -81,6 +81,7 @@ func _ready() -> void:
 		_prompt.radius = PROMPT_RADIUS
 		_prompt.offset = Vector2(0, -data.size.y - 10.0)
 		_prompt.reach_check = _pickup_prompt_reachable
+		_prompt.interaction_owner = self
 		add_child(_prompt)
 	add_to_group(GROUP)
 	_emission = _Emission.new()
@@ -102,12 +103,12 @@ func _pickup_prompt_reachable() -> bool:
 	if not can_pick_up():
 		return false
 	var player := get_tree().get_first_node_in_group(&"player") as Player
-	if player == null or player.state != Player.State.NORMAL or player.carry == null or player.carry.phase not in [PlayerCarry.Phase.NONE, PlayerCarry.Phase.THROWING]:
+	if player == null or player.carry == null:
 		return false
 	var offset := global_position - player.global_position
 	if absf(offset.x) > PlayerCarry.PICK_RANGE_X + data.size.x * 0.5 or absf(offset.y) > PlayerCarry.PICK_RANGE_Y:
 		return false
-	return player.carry.nearest_pickable() == self
+	return player.carry.available_pickup() == self
 
 
 func world_center() -> Vector2:
@@ -301,7 +302,7 @@ func _to_rest() -> void:
 	if _prompt != null:
 		_prompt.text = data.hint
 		_prompt.reach_check = _pickup_prompt_reachable
-		_prompt.interaction_owner = null
+		_prompt.interaction_owner = self
 		_prompt.enabled = true
 
 

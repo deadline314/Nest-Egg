@@ -1,0 +1,65 @@
+{
+  "tested_parent": "79ffc2ec8a23f8cd0974a1dd2ac8775101c3f67c",
+  "engine": "Godot 4.7.2 Forward+",
+  "display": "RX 9070 XT, no-focus window",
+  "input": "keyboard events and synthetic gamepad events",
+  "setup": "real warehouse; staged start, with actual walking and original gate and box",
+  "affected_suites": 13,
+  "affected_checks": 13769,
+  "wall_seconds": 129,
+  "cases": {
+    "before-nearest-both-720": [
+      "CARRY_ARRIVAL pos=(1347.417, 784.0) lever=(1336.0, 784.0) holding=true reachable=true",
+      "CARRY_HINT box=E 放下 box_visible=true switch_visible=false pad=false",
+      "CARRY_DROP holding=false box=(1361.417, 783.9445) player=(1347.417, 784.0) lever=false prior=false signals=0",
+      "REPICK_LEVER_SIDE pos=(1347.417, 784.0) lever=(1336.0, 784.0) box=(1361.417, 783.9445) box_visible=true switch_visible=true pad=false",
+      "REPICK_LEVER_PRESS holding=true switch=true signals=1",
+      "REPICK_BOX_SIDE pos=(1353.695, 784.0) lever=(1336.0, 784.0) box=(1361.417, 783.9445) box_visible=true switch_visible=true",
+      "REPICK_BOX_PRESS holding=true switch=false prior=true signals=1"
+    ],
+    "after-720": [
+      "CARRY_ARRIVAL pos=(1347.417, 784.0) lever=(1336.0, 784.0) holding=true reachable=true",
+      "CARRY_HINT box=E 放下 box_visible=true switch_visible=false pad=false",
+      "CARRY_DROP holding=false box=(1361.417, 783.9445) player=(1347.417, 784.0) lever=false prior=false signals=0",
+      "REPICK_LEVER_SIDE pos=(1347.417, 784.0) lever=(1336.0, 784.0) box=(1361.417, 783.9445) box_visible=false switch_visible=true pad=false",
+      "REPICK_LEVER_PRESS holding=false switch=true signals=1",
+      "REPICK_BOX_SIDE pos=(1353.695, 784.0) lever=(1336.0, 784.0) box=(1361.417, 783.9445) box_visible=true switch_visible=false",
+      "REPICK_BOX_PRESS holding=true switch=true prior=true signals=0"
+    ],
+    "after-1080-pad": [
+      "CARRY_ARRIVAL pos=(1347.417, 784.0) lever=(1336.0, 784.0) holding=true reachable=true",
+      "CARRY_HINT box=X（左） 放下 box_visible=true switch_visible=false pad=true",
+      "CARRY_DROP holding=false box=(1361.417, 783.9445) player=(1347.417, 784.0) lever=false prior=false signals=0",
+      "REPICK_LEVER_SIDE pos=(1347.417, 784.0) lever=(1336.0, 784.0) box=(1361.417, 783.9445) box_visible=false switch_visible=true pad=true",
+      "REPICK_LEVER_PRESS holding=false switch=true signals=1",
+      "REPICK_BOX_SIDE pos=(1353.695, 784.0) lever=(1336.0, 784.0) box=(1361.417, 783.9445) box_visible=true switch_visible=false",
+      "REPICK_BOX_PRESS holding=true switch=true prior=true signals=0"
+    ]
+  },
+  "evidence": {
+    "probe-nearest.gd": "d9eaf16cc4934cb26370a7007afb44c55a16856ad79e27a6caa2427e829c3090",
+    "probe-nearest.tscn": "6319920755f35879008520d4a3573d765557493f815cdd60ea0071018c4aa54e",
+    "run-nearest.ps1": "0cd12e72c74608f198e459caa0e1b3c86b6ff68f47374126ce8b572c45380b48",
+    "before-nearest-both-720/raw.log": "3e13a0515dda44e08471f5d63113674cb93c52a85723c608f72a375ee83498c2",
+    "before-nearest-both-720/exit.txt": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+    "before-nearest-both-720/lever-side.png": "2f5041d84c4cbbabda0b2e912c5012dec329ade49e84731d665a41f6bf080a7c",
+    "before-nearest-both-720/box-side.png": "d6728ec4e6d5c9b47420fa8c779f76d251032e0aa31a49c24192f77c9ee3fc81",
+    "before-nearest-both-720/near-lever.png": "2d46c29481f0d1a48b3cb8ea7246a55ac30684ad307aba2245f574e88d6adfd0",
+    "before-nearest-both-720/repicked.png": "783a300f8269ef85b88df96a4d547cc78c1f755535120a6fa058db076fa27217",
+    "after-720/raw.log": "6152ce0e7f2f137eeb7ec06e10b743c1011cdd2e5c63ebc3acea7d2322ffaee4",
+    "after-720/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "after-720/lever-side.png": "ae76ae905afb4cbd4832a4165955cd6165c4a9b996554a86fa50cd26b8fcd6fd",
+    "after-720/box-side.png": "e3c28535fc6071f452cd1ec3c0360a1c29416bb91f6fdc248a03e1dafc2c43b3",
+    "after-720/near-lever.png": "d5de66e1d90660d221b5baeb35e52986e3746e91af63bd3c8faf1b59d6a7fc41",
+    "after-720/repicked.png": "554bf6e3f8390837826b8e5cd0fd7716e62c3f735a60bd13850a54669184e534",
+    "after-1080-pad/raw.log": "2273280c177c7465fb7f861e63df63d157feaf94a912048fc4e7c3cf848e4ab5",
+    "after-1080-pad/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "after-1080-pad/lever-side.png": "058411b4c42b06205ec74c0a7602a7cab47838c5eb77298c81fbbdbd00738c49",
+    "after-1080-pad/box-side.png": "71b8df6518cda88e104772ebb13affb1a076fd9c2d4d59ae6c70e67b4b6d3e71",
+    "after-1080-pad/near-lever.png": "cd004b76408ccd0693500857b649998bb003949bec869738fc1249471a44da6d",
+    "after-1080-pad/repicked.png": "22ccc48c648d9310782a0490af36ca39145a8ae7c957b0ab1cab63300ef610b3",
+    "official-release/raw.log": "a17321cc608f5cb6f18cdef1986aeb5474a102f694cf9399dbd08b4c40419d3a",
+    "official-release/verification.json": "bcd48cf77067c8483a435e6bbc6e11a20ca3db5c15f7b4ee58870c153b5d2b10",
+    "official-release/command.json": "2073ea231f31b9e7807b78417298c49fd0842624086ba9dcaf0e346cdd4910f9"
+  }
+}

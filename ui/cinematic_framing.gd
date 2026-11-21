@@ -187,6 +187,10 @@ func _nearest_interaction() -> Node2D:
 			return candidate
 	var closest: Node2D
 	var distance := INF
+	if player is Player and player.carry != null:
+		closest = player.carry.available_pickup()
+		if closest != null:
+			distance = absf(closest.global_position.x - player.global_position.x)
 	for candidate in _targets:
 		if not is_instance_valid(candidate) or not bool(candidate.call("interaction_available")):
 			continue

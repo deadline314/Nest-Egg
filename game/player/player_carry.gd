@@ -32,6 +32,7 @@ var _preview_blast_center := Vector2.INF
 var _preview_collision := KinematicCollision2D.new()
 var _pickup_ray := PhysicsRayQueryParameters2D.new()
 var _pickup_target: Throwable
+var _pickup_frame := -1
 
 
 func _ready() -> void:
@@ -49,6 +50,12 @@ func is_holding() -> bool:
 
 func interaction_available() -> bool:
 	return player.state == Player.State.NORMAL and is_holding()
+
+
+func available_pickup() -> Throwable:
+	if player.state != Player.State.NORMAL or (phase != Phase.NONE and phase != Phase.THROWING):
+		return null
+	return nearest_pickable()
 
 
 ## 丟東西用掉的那一下射擊鍵還沒放開：玩家這時不開槍、不用射擊鍵近戰；其他動作照常。
@@ -70,10 +77,9 @@ func handle_input() -> bool:
 	if phase == Phase.NONE or phase == Phase.THROWING:
 		# Refresh in physics; rendered prompts read the same target without querying a locked space.
 		var target := nearest_pickable()
-		if Input.is_action_just_pressed(&"interact"):
-			if target != null:
-				pick(target)
-				return true
+		if target != null and Input.is_action_just_pressed(&"interact") and Story.framing.is_interaction_target(target):
+			pick(target)
+			return true
 		return false
 	# 拿著：衝刺、近戰、格擋會先放下（不吃掉輸入，讓那個動作照常發生）。
 	for action: StringName in [&"dash", &"melee", &"block"]:
@@ -92,7 +98,8 @@ func handle_input() -> bool:
 
 ## 腳邊範圍內最近、可以撿的物件。
 func nearest_pickable() -> Throwable:
-	if Engine.is_in_physics_frame():
+	if Engine.is_in_physics_frame() and _pickup_frame != Engine.get_physics_frames():
+		_pickup_frame = Engine.get_physics_frames()
 		_pickup_target = _find_nearest_pickable()
 	if not is_instance_valid(_pickup_target) or not _pickup_target.can_pick_up():
 		return null
