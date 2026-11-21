@@ -29,7 +29,7 @@ func run() -> void:
 	await _test_landing_keeps_boots_near_floor()
 	await _test_kneeling_keeps_boots_near_floor()
 	await _test_crouch_pose_switches_with_weapon()
-	await _test_crouched_rifle_muzzle()
+	await _test_crouched_gun_muzzle()
 	await _test_walking_and_running_keep_boots_near_floor()
 	await _test_back_dash_keeps_ankles_near_floor()
 	await _test_spring_impulses()
@@ -373,7 +373,7 @@ func _test_crouch_pose_switches_with_weapon() -> void:
 	await frames(1)
 
 
-func _test_crouched_rifle_muzzle() -> void:
+func _test_crouched_gun_muzzle() -> void:
 	for facing: int in [-1, 1]:
 		var input := RigInput.new()
 		var rig := _make("rin", input)
@@ -389,15 +389,19 @@ func _test_crouched_rifle_muzzle() -> void:
 			input.crouched_muzzle_clearance = (2.75 if weapon_id == "rifle" else 3.75) / rig.body_scale()
 			_run(rig, input, 1)
 			var muzzle := rig.muzzle_global()
-			check(old_muzzle.y > floor_y and absf(muzzle.x - old_muzzle.x) < 0.001 and muzzle.y < floor_y,
-					"%s retracts along the vertical aim above the rig floor" % weapon_id)
 			var weapon := rig.weapon_def()
 			var foregrip := (RigLibrary.vec2(weapon["foregrip"]) - RigLibrary.vec2(weapon["grip"])) * rig.weapon_scale()
+			check(old_muzzle.y > floor_y and muzzle.y <= floor_y - input.crouched_muzzle_clearance * rig.body_scale() + 0.01,
+					"%s leaves room for the whole projectile head" % weapon_id)
+			check(absf(rig.weapon_root().rotation - PI * 0.5) < 0.001,
+					"%s holds the barrel along the original aim" % weapon_id)
 			check(rig.hand_contact_global(&"front").distance_to(rig.weapon_root().global_position) < 0.025
 					and rig.hand_contact_global(&"back").distance_to(rig.weapon_root().to_global(foregrip)) < 0.025,
-					"%s retains both grips even when its elbow limits muzzle clearance" % weapon_id)
+					"%s retains both grips while clearing the ground" % weapon_id)
 			if weapon_id == "rifle":
-				check(muzzle.y <= floor_y - 2.74, "K-7 leaves room for the whole projectile head")
+				check(absf(muzzle.x - old_muzzle.x) < 0.001, "K-7 retracts along the original vertical ray")
+			else:
+				check(absf(muzzle.x - old_muzzle.x) < 2.0, "railgun clearance uses a small movement around the folded elbow")
 		rig.get_parent().queue_free()
 	await frames(1)
 

@@ -1246,6 +1246,7 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 	var anchor_point: Vector2 = _global_pos.get(anchor_bone, Vector2.ZERO) + (anchor[1] as Vector2).rotated(_global_angle.get(anchor_bone, 0.0))
 	var reach: float = anchor[2] * (0.7 if input.blocking else 1.0) - _recoil * float((_motion["recoil"] as Dictionary)["reach"])
 	var aim := Vector2.RIGHT.rotated(aim_angle)
+	var lift := 0.0
 	if not weapon.is_empty():
 		var floor_limited := input.on_floor and input.crouching and input.crouched_muzzle_clearance > 0.0 and not _dash_sole.is_empty() and aim.y > 0.0
 		var minimum := 0.0
@@ -1284,9 +1285,12 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 				# Stay on the original side of the fully folded elbow to keep both grips planted.
 				var allowed_min := minf(reach, maxf(minimum, folded_elbow_limit))
 				reach = clampf(cleared_max, allowed_min, reach)
+				lift = (reach - cleared_max) * aim.y
 		else:
 			RigLibrary.report_once("grip-reach:%s:%s" % [_rig.skin_id, weapon.get("file", "")], "[HumanoidAnimator] %s weapon %s has no reachable two-hand grip at %.2f radians" % [_rig.skin_id, weapon.get("file", ""), aim_angle])
 	var grip := anchor_point + aim * reach
+	if lift > 0.001:
+		grip = _lift_crouched_grip(input, weapon, grip, aim_angle, lift)
 
 	if weapon.is_empty():
 		# 沒有武器：雙手自然下垂、隨步伐輕擺（不是伸出去握著空氣）。
@@ -1332,6 +1336,41 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 			_rig.bone(bone_name).rotation = lerp_angle(_rig.bone(bone_name).rotation, float(action_arms[bone_name]), w)
 		weapon_root.position = weapon_root.position.lerp(action_hand, w)
 		weapon_root.rotation = lerp_angle(weapon_root.rotation, action_weapon_angle, w)
+
+
+## If retracting along the aim stops at a folded elbow, lift the gun and let the
+## hands move sideways around that fold. The barrel keeps its original angle.
+func _lift_crouched_grip(input: RigInput, weapon: Dictionary, grip: Vector2, angle: float, lift: float) -> Vector2:
+	var min_x := -INF
+	var max_x := INF
+	for chain: Array in ARM_CHAINS:
+		var hand: StringName = chain[2]
+		if hand == &"hand_back" and (not input.two_handed or input.shield_forward):
+			continue
+		if not (_rig.has_bone(chain[0]) and _rig.has_bone(chain[1]) and _rig.has_bone(hand)):
+			continue
+		var fore := (RigLibrary.vec2(weapon.get("foregrip")) - RigLibrary.vec2(weapon.get("grip"))) * _rig.weapon_scale() if hand == &"hand_back" else Vector2.ZERO
+		var wrist: Vector2 = grip + (fore - _rig.hand_grip_offset(hand)).rotated(angle) - _global_pos[chain[0]]
+		var upper := _rig.rest(chain[1]).length()
+		var lower := _rig.rest(hand).length()
+		var lifted_y := wrist.y - lift
+		var extended := upper + lower - 0.01
+		var range_x_squared := extended * extended - lifted_y * lifted_y
+		if range_x_squared < 0.0:
+			return grip
+		var range_x := sqrt(range_x_squared)
+		min_x = maxf(min_x, -range_x - wrist.x)
+		max_x = minf(max_x, range_x - wrist.x)
+		var folded := absf(upper - lower) + 0.01
+		var nearest_y := clampf(0.0, lifted_y, wrist.y)
+		var separation_squared := folded * folded - nearest_y * nearest_y
+		if separation_squared > 0.0:
+			var separation := sqrt(separation_squared)
+			if wrist.x >= 0.0:
+				min_x = maxf(min_x, separation - wrist.x)
+			else:
+				max_x = minf(max_x, -separation - wrist.x)
+	return grip + Vector2(clampf(0.0, min_x, max_x), -lift) if min_x <= max_x else grip
 
 
 ## 近戰招式的身體動作（NE-277）：踏步、壓低、轉身疊加在姿勢上，不是只有手臂在動。
