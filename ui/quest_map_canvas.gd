@@ -300,7 +300,7 @@ func _world_map() -> void:
 		var accent := Palette.MAGENTA if target else Palette.CYAN if current or known else Palette.UI_MUTED
 		var button := _button(label, tooltip, centers[level_path], node, accent)
 		if _wrap_names:
-			button.autowrap_mode = TextServer.AUTOWRAP_ARBITRARY
+			button.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		_world_node_style(button, current, target, known)
 		button.pressed.connect(area_selected.emit.bind(level_path))
 

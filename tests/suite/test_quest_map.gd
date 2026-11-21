@@ -469,7 +469,7 @@ func _test_ui(catalog: QuestCatalog, maps: QuestMapIndex) -> void:
 			clipped = clipped or font.get_string_size(nodes[i].text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x > nodes[i].size.x
 		else:
 			# 折成兩行的名稱：行數疊起來的高度不能超過按鈕。
-			clipped = clipped or font.get_multiline_string_size(nodes[i].text, HORIZONTAL_ALIGNMENT_CENTER, nodes[i].size.x - 4, font_size, -1, TextServer.BREAK_GRAPHEME_BOUND | TextServer.BREAK_MANDATORY).y > nodes[i].size.y
+			clipped = clipped or font.get_multiline_string_size(nodes[i].text, HORIZONTAL_ALIGNMENT_CENTER, nodes[i].size.x - 4, font_size, -1, TextServer.BREAK_WORD_BOUND | TextServer.BREAK_ADAPTIVE | TextServer.BREAK_MANDATORY).y > nodes[i].size.y
 		for j in range(i + 1, nodes.size()):
 			if nodes[i].get_global_rect().grow(-1).intersects(nodes[j].get_global_rect()):
 				overlap = true
@@ -533,12 +533,43 @@ func _test_world_chapter_titles(catalog: QuestCatalog) -> void:
 		screen.player_path = chapters[chapter_id]
 		screen.start_page = "world"
 		runner.get_tree().root.add_child(screen)
+		screen.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
+		screen.size = Vector2(640, 360)
 		await frames(3)
 		var caption := screen._body.get_child(0).get_child(0).get_child(0) as Label
 		var title: String = Story.chapter_info(chapter_id)["title"]
 		check(caption != null and caption.text == title, "world map uses the authored title for %s" % chapter_id)
+		if chapter_id == &"ch3_clearwater":
+			screen._canvas.goal = {"level": "res://data/levels/ch3_pawnshop.tres"}
+			screen._canvas.refresh()
+			await frames(2)
+			_check_pawnshop_label(screen._canvas)
 		screen.queue_free()
 		await frames(2)
+
+
+func _check_pawnshop_label(canvas: QuestMapCanvas) -> void:
+	var index := canvas._markers.find_custom(func(marker: Button) -> bool:
+		return marker.text.begins_with("◎ ") and marker.text.ends_with("（週日）"))
+	check(index >= 0, "world map uses the real goal marker with a parenthesized name")
+	if index < 0:
+		return
+	var marker := canvas._markers[index]
+	var font := marker.get_theme_font(&"font")
+	var font_size := marker.get_theme_font_size(&"font_size")
+	var width := marker.size.x - marker.get_theme_stylebox(&"normal").get_minimum_size().x
+	var server := TextServerManager.get_primary_interface()
+	var shaped := server.create_shaped_text()
+	server.shaped_text_add_string(shaped, marker.text, font.get_rids(), font_size)
+	var flags := TextServer.BREAK_MANDATORY | marker.autowrap_trim_flags
+	if marker.autowrap_mode == TextServer.AUTOWRAP_WORD_SMART:
+		flags |= TextServer.BREAK_WORD_BOUND | TextServer.BREAK_ADAPTIVE
+	elif marker.autowrap_mode == TextServer.AUTOWRAP_ARBITRARY:
+		flags |= TextServer.BREAK_GRAPHEME_BOUND
+	var lines := server.shaped_text_get_line_breaks(shaped, width, 0, flags)
+	server.free_rid(shaped)
+	check(lines.size() == 4 and not marker.text.substr(lines[2], lines[3] - lines[2]).strip_edges().begins_with("）"),
+		"a two-line world marker keeps the closing parenthesis with its name")
 
 
 func _test_completed_pin_label(screen: QuestMapScreen) -> void:

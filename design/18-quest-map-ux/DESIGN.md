@@ -113,3 +113,7 @@
 字形沿原 Font 資源快取；明示 oversampling 的預製會保留啟動當下的一份尺寸，直到字型資源釋放，不能假稱它與引擎按 viewport 尺寸自動回收完全相同。僅首次載入做一次、不隨每格或視窗拖動重做，記憶體、節點與重開仍需量測。固定 33 ms gate 必須檢查每個首開與暖開原始樣本，不改以中位數掩蓋超標；實體手把條件另外保留。
 
 字形觀察 API 與 viewport 放大規則見 [TextServer](https://docs.godotengine.org/en/stable/classes/class_textserver.html#class-textserver-method-font-get-size-cache-info)、[Viewport](https://docs.godotengine.org/en/stable/classes/class_viewport.html#class-viewport-property-oversampling-override)。[Godot 4.7.2 原始實作](https://github.com/godotengine/godot/blob/4.7.2-stable/modules/text_server_adv/text_server_adv.cpp)另外確認相同實際尺寸會共用字形快取，但明示倍率會影響 viewport 自動回收名單；這是採用一次性準備並保存記憶體數據的理由，非改寫字型顯示規則。
+
+## 12. 世界圖區名換行
+
+同一章的區域節點先沿原格線排布。欄寬需要兩行時，由引擎依文字斷行規則決定位置，避免右括號獨佔一行。超過整行寬度的單字仍可分開。原生驗收核對兩解析度與兩字型的實際節點寬度、文字、焦點說明和兩行高度。[Godot TextServer 使用說明](https://docs.godotengine.org/en/stable/classes/class_textserver.html#enum-textserver-autowrapmode)
