@@ -26,7 +26,29 @@ def main() -> None:
         end = 376 - max(0, 114 - row) * 3 - max(0, row - 137) * 3
         span = patched[row, 316:end]
         span[span[:, 3] < 235] = original[row, 314]
-    if np.count_nonzero(np.any(patched != original, axis=2)) != 1515:
+    # Carry the dark fabric under the slanted plate through the hit reaction.
+    rows = (132, 136, 142, 151, 156, 166, 172)
+    columns = (370, 376, 376, 398, 404, 422, 426)
+    for row in range(rows[0], rows[-1] + 1):
+        center = np.interp(row, rows, columns)
+        width = min(10, (row - rows[0] + 1) * 2, (rows[-1] - row + 1) * 2)
+        left = width + max(0, 5 - abs(row - 151))
+        for column in range(int(center - left), int(center + width) + 1):
+            reach = left if column < center else width
+            opacity = round(220 * min(1, (reach + 1 - abs(column - center)) / 2))
+            if opacity > patched[row, column, 3]:
+                patched[row, column, :3] = original[row, 314, :3]
+                patched[row, column, 3] = opacity
+    # Add two tapered returns under the collar where it opens while running or guarding.
+    for x, y, half_width, half_height, strength in ((355, 145, 8, 5, 200), (337, 151, 9, 7, 215)):
+        for row in range(y - half_height, y + half_height + 1):
+            width = half_width * (1 - ((row - y) / half_height) ** 2) ** 0.5
+            for column in range(int(x - width), int(x + width) + 1):
+                opacity = round(strength * min(1, (width + 1 - abs(column - x)) / 2))
+                if opacity > patched[row, column, 3]:
+                    patched[row, column, :3] = original[row, 314, :3]
+                    patched[row, column, 3] = opacity
+    if np.count_nonzero(np.any(patched != original, axis=2)) != 2271:
         raise ValueError("Warden chest overlap has drifted from the registered torso grid")
     with BytesIO() as stream:
         Image.fromarray(patched).save(stream, format="PNG")
