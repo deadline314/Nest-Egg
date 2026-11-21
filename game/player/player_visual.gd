@@ -201,7 +201,7 @@ func set_interacting(value: bool) -> void:
 			_interaction_input.action_t = player.carry.pose_progress()
 		set_weapon_visual("")
 		# 第一格就收起握持物與武器光，不能等暫停中的一般處理。
-		_melee_held.update(0.0)
+		_melee_held.update(0.0, PackedFloat32Array())
 		_blade_light.hide()
 		clear_dash_silhouettes()
 		rig.animate(0.0, _interaction_input)
@@ -390,7 +390,7 @@ func second_hand_reach() -> float:
 
 
 ## 近戰招式的武器路徑與身體動作（NE-277）：路徑的權重在進出招式時漸變（約 0.05 秒），收招後放回原本的拿法。
-func _update_melee_path(delta: float) -> void:
+func _update_melee_path(delta: float) -> PackedFloat32Array:
 	var path := player.melee.path_now() if player.holds_melee_weapon() and _phone_t < 0.0 and _input.action != &"" else PackedFloat32Array()
 	# 進招式第一格就完全照路徑（路徑的起點就是平常的拿法，不會跳；快的招式前搖只有幾格，慢慢混會看不到預兆），收招後才慢慢放回。
 	_input.melee_path_w = 1.0 if not path.is_empty() else move_toward(_input.melee_path_w, 0.0, delta * MELEE_PATH_BLEND)
@@ -399,6 +399,7 @@ func _update_melee_path(delta: float) -> void:
 		_input.melee_path_reach = path[1]
 		_input.melee_path_weapon = path[0] + path[2]
 	_input.melee_body = player.melee.body_now() if player.holds_melee_weapon() and _input.action != &"" else Vector3.ZERO
+	return path
 
 
 ## 撿起、舉著、丟出（NE-254）：雙手空出來（收起武器外觀），播放 rin.carry_* 動作；結束後放回武器。回傳是否正在拿東西。
@@ -475,7 +476,7 @@ func _physics_process(delta: float) -> void:
 	_input.dead = player.state == Player.State.DEAD
 	_update_phone(delta)
 	_update_melee_pose()
-	_update_melee_path(delta)
+	var melee_path := _update_melee_path(delta)
 	_input.melee_grip = shows_melee_weapon()
 	# 雙手武器：另一隻手握的點用上一格武器的位置（武器要等骨架動完才知道在哪）。
 	_input.melee_second = _input.melee_grip and _melee_held.has_second_grip()
@@ -483,7 +484,7 @@ func _physics_process(delta: float) -> void:
 		_input.melee_second_target = rig.to_local(_melee_held.second_grip())
 		_input.melee_second_angle = _melee_held.angle()
 	rig.animate(delta, _input)
-	_melee_held.update(delta)
+	_melee_held.update(delta, melee_path)
 	if _input.melee_second and (player.melee.two_handed_now() or not player.melee.is_active()):
 		# 雙手招式：武器這一格的位置定了，後手才去握桿（每一格兩隻手都在武器上，不晚一格）。
 		# 長柄武器的後手可以沿著桿子滑：握在桿上離後肩最近、搆得到的那一點（手臂短，伸直刺擊時固定的握點會搆不到）。

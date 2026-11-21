@@ -94,7 +94,7 @@ func setup(visual: PlayerVisual) -> void:
 
 
 ## 每個物理影格在骨架動完之後呼叫：更新握點、武器的角度與要不要畫。
-func update(delta: float) -> void:
+func update(delta: float, path: PackedFloat32Array) -> void:
 	_shown = _visual.shows_melee_weapon()
 	visible = _shown
 	if not _shown:
@@ -117,7 +117,6 @@ func update(delta: float) -> void:
 	var arm_angle := Vector2(along.x * facing, along.y).angle()
 	var in_move := not player.melee_pose().is_empty()
 	# 有武器路徑的招式（NE-277）：武器朝路徑的方向，手去握它；沒有路徑的招式照舊以前臂為準。
-	var path := player.melee.path_now() if in_move else PackedFloat32Array()
 	if not path.is_empty():
 		arm_angle = path[0] + path[2]
 		_swing_blend = 1.0  # 有路徑的招式從第一格就朝路徑（起點就是拿法）；角度仍由彈簧去追，保留拖曳與跟隨
