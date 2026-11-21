@@ -1,0 +1,61 @@
+{
+  "tested_parent": "e00b1019c381ea0055db12e3ddca3895bc2065f4",
+  "engine": "Godot 4.7.2 Forward+",
+  "display": "RX 9070 XT, no-focus window",
+  "input": "keyboard event and synthetic gamepad event",
+  "setup": "real warehouse; stage an already-held box 75 units left of switch A and walk to it",
+  "affected_suites": 13,
+  "affected_checks": 13764,
+  "wall_seconds": 157,
+  "cases": {
+    "before-v2-720": [
+      "CARRY_ARRIVAL pos=(1347.417, 784.0) lever=(1336.0, 784.0) holding=true reachable=true",
+      "CARRY_DROP holding=false box=(1361.417, 783.9445) player=(1347.417, 784.0) lever=true prior=false signals=1"
+    ],
+    "after-720": [
+      "CARRY_ARRIVAL pos=(1347.417, 784.0) lever=(1336.0, 784.0) holding=true reachable=true",
+      "CARRY_DROP holding=false box=(1361.417, 783.9445) player=(1347.417, 784.0) lever=false prior=false signals=0"
+    ],
+    "after-v4-720": [
+      "CARRY_ARRIVAL pos=(1347.417, 784.0) lever=(1336.0, 784.0) holding=true reachable=true",
+      "CARRY_HINT box=E 放下 box_visible=true switch_visible=false pad=false",
+      "CARRY_DROP holding=false box=(1361.417, 783.9445) player=(1347.417, 784.0) lever=false prior=false signals=0"
+    ],
+    "after-v4-1080-pad": [
+      "CARRY_ARRIVAL pos=(1347.417, 784.0) lever=(1336.0, 784.0) holding=true reachable=true",
+      "CARRY_HINT box=X（左） 放下 box_visible=true switch_visible=false pad=true",
+      "CARRY_DROP holding=false box=(1361.417, 783.9445) player=(1347.417, 784.0) lever=false prior=false signals=0"
+    ]
+  },
+  "evidence": {
+    "probe-v2.gd": "ed566c3a08781be01948c6d451e81a9128c96fbb53a18c67da2e7269e0b2f8c7",
+    "probe-v2.tscn": "10ee15fd252cfe63a62c2168b1c280c4418b6c09f826b9fb182b8bc5e9cb0e1d",
+    "run-v2.ps1": "1506ea57c68b0baba5dfdeac656fcdc3246057cd2c6aad5e7ccf7043c6f0b209",
+    "probe-v4.gd": "44d3473ca363017459fa5a7b52b587386c9432b3af4a1e424531f7410fe2fa33",
+    "probe-v4.tscn": "aa1ba9339d8c57420e830ca07bb985899001fc59be96bf207dce830df8eeea82",
+    "run-v4.ps1": "b7e01a48107af2245d98da5fd6643753bd72f1b300f862a89f709f9b1631cf9b",
+    "before-v2-720/raw.log": "15c100f0eba58cdfe83dde13bc19abe7b87874af4f04b6ae77ab2fe14e5a215d",
+    "before-v2-720/exit.txt": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+    "before-v2-720/near-lever.png": "fedab7add3ee449a769ccf4790cdc26c22eb7880211144cf96b09cb8ca06c447",
+    "before-v2-720/dropped.png": "a315fd484e7544858a3a5c9156f74c33437ed46dfe110b8cdafb7f4695f14fc7",
+    "before-v2-720/lever.png": "3f32e14a7de7a7c68a619937b242fec9b68f0bc593e193415b0ca8f96b45b573",
+    "after-720/raw.log": "29c7fd06f59bb64af4e5082c7c478680794fa221c1995f1ef3f4ba3cec64b6ea",
+    "after-720/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "after-720/near-lever.png": "557d8ac292c118de5554342477190cb0ec80607a71f9faa8ef3cc797d34c87fd",
+    "after-720/dropped.png": "96bd502f6c574d19ba3554f39ad6c7bad9722ca1fb3355d90e9115394818014c",
+    "after-720/lever.png": "b87cc1603c645e192190fa43daf432708aab5ad12b6ffedd4ad4e4e0720a76ad",
+    "after-v4-720/raw.log": "0243f5be719188267fca7342909cf9049df4d4b7e43b08806d89d38e1decac91",
+    "after-v4-720/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "after-v4-720/near-lever.png": "b02e27eb99c327059ea205ed50d3ca2da9387392b3e956d1e96739538439d455",
+    "after-v4-720/dropped.png": "b92a37e2fa96c2a3a0c5a58bf5f87ff8fb7fe8a474eb46895857784dfaa592ad",
+    "after-v4-720/lever.png": "2835c408db584625dc541bdb0448c8d1fc05e05f79cbb89ada7cd1fe5e2cc2eb",
+    "after-v4-1080-pad/raw.log": "8815a71750b85b10dba20cb09f221a4b754b3ec9063306328a89b22040a5645c",
+    "after-v4-1080-pad/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "after-v4-1080-pad/near-lever.png": "25d77c8ad29991c9b2c295a3fac24e513218a66d41500f4a1ec700a1ef96acbf",
+    "after-v4-1080-pad/dropped.png": "20348f3391eaa96a0cfb17d5a458e73f6ccfee19b5e3bd361f0187a4f0c60718",
+    "after-v4-1080-pad/lever.png": "fe4a5c447964fa84f368b3264cfc1fe0ef67e8bd733fbdfb762f50c6f60fb9c8",
+    "official-release/raw.log": "120804bad386f1eb285be06b2ccbbc976059ae4a5e813a9945659372c91acafd",
+    "official-release/verification.json": "bcd48cf77067c8483a435e6bbc6e11a20ca3db5c15f7b4ee58870c153b5d2b10",
+    "official-release/command.json": "e6386dac3f6fd28870c074580e48a5349573b29a2eaf927c883e6dc14bdd9554"
+  }
+}

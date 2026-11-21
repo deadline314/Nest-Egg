@@ -67,3 +67,7 @@
 以左右方向、鐵管／木箱／油桶、起點真正重疊／遠處未接觸作對照，並驗鐵管留在同一目標內不重複傷害；原薄牆順序與其餘投擲套件保持。原生以本機9070 XT的Forward+及正式第一章街道，公開撿取／投擲輸入重現；近身靜止監視蜂與物件為明示排列，不能冒稱自然章節或真人／實體手把體驗。
 
 來源：[Godot PhysicsDirectSpaceState2D 官方文件，cast_motion](https://docs.godotengine.org/en/stable/classes/class_physicsdirectspacestate2d.html#class-physicsdirectspacestate2d-method-cast-motion)。文件說明起點已相交的形狀會被忽略；intersect_shape另能回傳當前相交物件，本專案仍另跑相同原版負控制與實際飛行。
+
+## 2026-11-22 持物時靠近開關
+
+手持物件時，互動鍵由共用的互動選擇器交給放下動作。同一個按鍵邊緣只選一次，因此箱子落地後，同一次輸入也不會落到近處的開關。持物期間在物件上方顯示目前按鍵和「放下」，放回地面便恢復物件的撿取提示；離開箱子的撿取距離後即可再按互動操作開關。

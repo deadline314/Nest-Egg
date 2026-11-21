@@ -22,6 +22,7 @@ func run() -> void:
 	await _test_initial_overlap_wall()
 	await _test_barrel_aim_priority()
 	await _test_pickup_prompt_target()
+	await _test_drop_near_switch()
 	await _test_pickup_terrain_reach()
 	await _test_rotated_centers()
 	await _test_preview_matches_first_contact()
@@ -46,7 +47,34 @@ func _test_pickup_prompt_target() -> void:
 	await physics_frames(2)
 	check(other._prompt._player_near() and not near._prompt._player_near(), "moving to the other object transfers the prompt to the actual pickup target")
 	await _press(&"interact")
-	check(level.player.carry.held == other and not near._prompt._player_near() and not other._prompt._player_near(), "the real interact key picks the advertised object and suppresses new pickup invitations while carrying")
+	check(level.player.carry.held == other and not near._prompt._player_near(), "the real interact key picks the advertised object and suppresses other pickup invitations")
+	check(other._prompt._player_near() and other._prompt.text == "{interact} 放下", "the held object offers the drop action")
+	await end_level(level)
+
+
+func _test_drop_near_switch() -> void:
+	await open_level(10.0)
+	var crate := _place(CRATE, 10.0)
+	await physics_frames(4)
+	check(await _pick_up(crate), "the real interact key picks up the crate before reaching the switch")
+	var data := MechanismData.new()
+	data.hint = "{interact} 拉下"
+	var lever := ChannelSwitch.new()
+	lever.configure(data, Vector2i(14, 20))
+	lever.position = Vector2(14 * 16.0, FLOOR_Y)
+	level._entities.add_child(lever)
+	place_player(14.7)
+	await _aim(Vector2.RIGHT)
+	await physics_frames(3)
+	check(lever.interaction_available() and not lever._prompt._player_near(), "the reachable switch yields its prompt to the held object")
+	await _press(&"interact")
+	check(crate.state == Throwable.State.REST and not lever.active, "the drop press cannot toggle the switch")
+	place_player(13.4)
+	await physics_frames(6)
+	check(lever.interaction_available() and level.player.carry.nearest_pickable() == null, "the second press starts within switch reach and outside crate reach")
+	await _press(&"interact")
+	check(lever.active and not level.player.carry.is_holding(), "the next press can still toggle the switch from outside pickup reach")
+	await _release_aim()
 	await end_level(level)
 
 

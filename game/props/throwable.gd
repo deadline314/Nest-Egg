@@ -123,12 +123,16 @@ func center_at(pose: Transform2D) -> Vector2:
 # 拿著與丟出（由 PlayerCarry 呼叫）
 # ---------------------------------------------------------------------------
 
-func pick_up() -> void:
+func pick_up(carrier: PlayerCarry = null) -> void:
 	state = State.HELD
 	velocity = Vector2.ZERO
 	_set_targetable(false)
 	if _prompt != null:
-		_prompt.visible = false
+		_prompt.enabled = carrier != null
+		_prompt.interaction_owner = carrier
+		if carrier != null:
+			_prompt.text = "{interact} 放下"
+			_prompt.reach_check = carrier.interaction_available
 
 
 ## 拿著時跟著玩家的手（世界座標，底邊中點）。
@@ -154,6 +158,9 @@ func launch(origin: Vector2, launch_velocity: Vector2, p_team: Combat.Team) -> v
 	_spin = signf(launch_velocity.x) * (6.0 if data.look != ThrowableData.Look.BARREL else 3.0)
 	_hit_ids.clear()
 	_set_targetable(false)
+	if _prompt != null:
+		_prompt.enabled = false
+		_prompt.interaction_owner = null
 	Sfx.play(&"melee_swing_heavy" if data.throw_speed < 360.0 else &"melee_swing", -6.0)
 
 
@@ -292,7 +299,10 @@ func _to_rest() -> void:
 	_spin = 0.0
 	_set_targetable(true)
 	if _prompt != null:
-		_prompt.visible = true
+		_prompt.text = data.hint
+		_prompt.reach_check = _pickup_prompt_reachable
+		_prompt.interaction_owner = null
+		_prompt.enabled = true
 
 
 func _set_targetable(on: bool) -> void:

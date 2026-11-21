@@ -39,11 +39,16 @@ func _ready() -> void:
 	z_index = WorldLayers.CHARACTER_MAX_Z + 1  # 預覽線畫在角色前面
 	_pickup_ray.collision_mask = Layers.WORLD
 	_pickup_ray.hit_from_inside = true
+	Story.framing.register_target(self, true)
 	set_physics_process(false)
 
 
 func is_holding() -> bool:
 	return phase != Phase.NONE and phase != Phase.THROWING and is_instance_valid(held)
+
+
+func interaction_available() -> bool:
+	return player.state == Player.State.NORMAL and is_holding()
 
 
 ## 丟東西用掉的那一下射擊鍵還沒放開：玩家這時不開槍、不用射擊鍵近戰；其他動作照常。
@@ -79,7 +84,7 @@ func handle_input() -> bool:
 		throw_toward(player.aim_dir)
 		_throw_press_held = true
 		return true
-	if Input.is_action_just_pressed(&"interact"):
+	if Input.is_action_just_pressed(&"interact") and Story.framing.is_interaction_target(self):
 		put_down()
 		return true
 	return true
@@ -123,8 +128,8 @@ func pick(item: Throwable) -> void:
 	player.melee.interrupt(true)
 	_lift_offset = item.global_position - player.global_position
 	held = item
-	item.pick_up()
 	phase = Phase.LIFTING
+	item.pick_up(self)
 	_phase_t = 0.0
 	Sfx.play(&"equip_heavy", -8.0)
 	set_physics_process(true)
