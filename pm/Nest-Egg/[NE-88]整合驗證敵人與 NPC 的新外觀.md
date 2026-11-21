@@ -399,3 +399,23 @@ main有兩張不同標題的NE-181，上表以完整標題及commit識別素材�
 ![小薇在第二章動畫對話使用專屬頭像](images/NE-88-portrait-xiaowei-20261121.png)
 ![沈望在正式第二章的通訊使用專屬頭像](images/NE-88-portrait-shen-20261121.png)
 ![正式廣播保留原系統圖](images/NE-88-portrait-broadcast-20261121.png)
+
+
+---
+
+# Commit-11（前兩章的場上說話角色取景）
+
+## 內文
+
+用正式的過場舞台及正常動畫速度，檢查第一、二章 98 段有台詞的過場，從開場到各段第一個選擇之前，共 297 句。其中場上 NPC 發言 161 句、14 種外觀，說話演員的頭部座標都在有效畫面內及對話框上方。另有凜發言 106 句、場外發言 30 句。
+
+RX 9070 XT Forward+ 原生另播七段，含屋頂、第二章當舖、電話亭、帳房和客簿間。第二章當舖老 K 推毛巾的後段有兩次接觸診斷，仍需修正手臂與毛巾的距離。其他分支、角色完整動作、遮擋與照明仍待驗。受影響測試選擇器為文件證據交付，0 套。
+
+[原生畫面、演員取景與毛巾的實際接觸紀錄](attachments/NE-88-cinematic-cast-2026-11-21/evidence.zip)
+
+### 截圖
+
+![第一章屋頂的鷺](images/NE-88-rooftop-dialogue-20261121.png)
+![第二章清早的當舖](images/NE-88-early-pawnshop-20261121.png)
+![第二章電話亭迎接鷺](images/NE-88-phone-booth-return-20261121.png)
+![客簿間的鄭先生](images/NE-88-guest-book-zheng-20261121.png)
