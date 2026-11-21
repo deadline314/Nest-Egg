@@ -42,7 +42,10 @@ def main() -> None:
         extension = patched[row, 220 - shift:244 - shift]
         replace = (margin[:, 3] < 235) & (extension[:, 3] > margin[:, 3])
         margin[replace] = extension[replace]
-    if np.count_nonzero(np.any(patched != original, axis=2)) != 1145:
+    # Feather the lining behind the collar at the upper aim angle.
+    patched[115, 229:231, :3] = patched[114, 229:231, :3]
+    patched[115, 229:231, 3] = 80
+    if np.count_nonzero(np.any(patched != original, axis=2)) != 1147:
         raise ValueError("Enforcer collar overlap has drifted from the registered torso grid")
     with BytesIO() as stream:
         Image.fromarray(patched).save(stream, format="PNG")
