@@ -1,0 +1,75 @@
+{
+  "tested_parent": "3d21a2cd81045ecc11601dc791ccef8f8aa50fdc",
+  "engine": "Godot 4.7.2 Forward+ RX 9070 XT",
+  "native": {
+    "baseline": {
+      "checks": 84,
+      "failures": 6,
+      "resolution": [
+        1280,
+        720
+      ]
+    },
+    "candidate": {
+      "checks": 84,
+      "failures": 0,
+      "resolution": [
+        1280,
+        720
+      ]
+    },
+    "candidate-hd": {
+      "checks": 84,
+      "failures": 0,
+      "resolution": [
+        1600,
+        900
+      ]
+    }
+  },
+  "live_checks": 36,
+  "affected_groups": 54,
+  "affected_checks": 57476,
+  "wall_seconds": 889,
+  "sha256": {
+    "baseline/command.json": "b4a3875f21304ab1be7e315ebbc89c07ac796cd98b0a5deeced6997bef369c0b",
+    "baseline/en-dialogue-pad.png": "2d7d26f50dd40ec9693affa3c0f7b7a9ccfbf0b33d99779433a42f84696f3924",
+    "baseline/en-frozen_radio-pad.png": "f92e06eb4083e417497886de5685aa935740647ac6b9c8ac7380e8435fbb826d",
+    "baseline/exit.txt": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+    "baseline/ja-dialogue-pad.png": "f06309cbdeb2eebf918b7117c78a6d9bcea966ffd4539f0e3a6dc93651a517f1",
+    "baseline/raw.log": "536b2c24ed462fa1c571f6397419f1639981222f6c577897d29a5b254e7b6b19",
+    "baseline/summary.json": "d9dd2d1e091180a774aa185fffdbae28974ed93fa03745b5558d59fcdbcf8180",
+    "candidate-hd/command.json": "e3b454b5e7b5903ab1916b0b8bf55883e6d9e9b6ca42b9f4dcae1e9cf315db77",
+    "candidate-hd/en-dialogue-pad.png": "56ea816f87249265108d121064cae3b85ad7511cd0b25a5ac6b53e19aa75a723",
+    "candidate-hd/en-frozen_radio-pad.png": "529ef27389950777392e8b9f9e7eb2b4740c412b31646c600068fd4de5179480",
+    "candidate-hd/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "candidate-hd/ja-dialogue-pad.png": "c83e50a019d9aec15e4c3bd0e5002cd6caa7513cf977175cf227130a27a810ee",
+    "candidate-hd/raw.log": "57b9f7d93765cfe133701a37c24a9342326993afa4c1e2e79dba42759cb0564f",
+    "candidate-hd/summary.json": "36981d80a25291af7337530ea357da5f644703f451959bb030189013c796af58",
+    "candidate/command.json": "be147f15642f79e0a04d0f1dfb0eb25d25b3a8563c0738ad80337d66190ea246",
+    "candidate/en-dialogue-pad.png": "2086c30c60cf3d1c6138bcf31210e507370f8ab94ab764fa8045d968bb83952b",
+    "candidate/en-frozen_radio-pad.png": "e4c0b3121e85b0181aa59875ed7ab327fc539e6d6112873fc86c35ddbc22b12e",
+    "candidate/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "candidate/ja-dialogue-pad.png": "f06309cbdeb2eebf918b7117c78a6d9bcea966ffd4539f0e3a6dc93651a517f1",
+    "candidate/raw.log": "57b9f7d93765cfe133701a37c24a9342326993afa4c1e2e79dba42759cb0564f",
+    "candidate/summary.json": "36981d80a25291af7337530ea357da5f644703f451959bb030189013c796af58",
+    "initial/raw.log": "2388dbd885ed5f524eb00370afc4476426b29ad54836b665908d5432c2061bee",
+    "initial/verification.json": "f7c15320a133443d9f9fe5f8e991b419ad60445389ae46739fc9492553f8393a",
+    "live/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "live/raw.log": "6f98dba56089df2fcdac104a10a9b28096933af8920fcb458c99e99ef1aff39d",
+    "live/screens/line-0.png": "81afbdcd0982a33a0b82b2ce5473e187546f624e7961295df1cdfba14ec57834",
+    "live/screens/line-3.png": "8d18e4223c6681efd7973a60ab1f0d857c0cb74753f1d80fdf7b4c1355479ad4",
+    "live/screens/result.json": "f0ef52bcfd516376ebec0ef3077b75d4712088edac222e6bed433954a49d4cae",
+    "live/screens/text.json": "65930ee7c7daa6d106762457f95b75eddbddb54d39e5e94d5bd51435e7cbcb54",
+    "official/command.json": "74f3651b7dfac4e899a68d53fe5753ebdf4fe5db7a450ed28ff44f4a59dd3104",
+    "official/raw.log": "3645da499a7649a341a012968cf7c1180040ab75c25711a1978453d26fe524cd",
+    "official/verification.json": "bcd48cf77067c8483a435e6bbc6e11a20ca3db5c15f7b4ee58870c153b5d2b10",
+    "replay/guide.gd": "ac64fa8e8f2496681c301b8885aea45dc9306c5d2c11a0ead65fcf93e3f5119f",
+    "replay/guide.tscn": "fe570872d00457b3bbe93c7bdd20ea28b7046fae097521a664ea66078bbbc7a8",
+    "replay/main-counter.gd": "239d54a053e10cfd4b7be62c6f19b092c7a89c4991afc00c38ea10ff8d46feff",
+    "replay/main-counter.tscn": "57e8eb804220bb6b325d02283bbdab1fe9bb2137e6c74e6f184fb317f107fbcf",
+    "replay/run-after.py": "0678649b25753fa8053b34b82030fd6e837ac041c4663df915e98886affc056e",
+    "replay/run-before.py": "813c80a769d64b6fdb00659fbb03b65c159d5aa8b1715a44e29b940556187a7c",
+    "replay/run-main-counter.py": "9506dada4e99d9396172702286cc9e62bdc9b1102b32543e3d4f28e8f67ba822"
+  }
+}

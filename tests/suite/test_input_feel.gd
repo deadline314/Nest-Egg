@@ -11,12 +11,31 @@ func run() -> void:
 	_test_aim_assist()
 	_test_latency()
 	_test_mouse_labels()
+	_test_generic_face_button_labels()
 	await _test_controller_flow()
 	await _test_controller_ui_flow()
 	await _test_shot_uses_current_aim()
 	await _test_shot_releases_guard_pose()
 	await _test_dash_buffer()
 	await _test_air_jump()
+
+
+func _test_generic_face_button_labels() -> void:
+	var previous := Story.language
+	var last_pad := InputBindings.using_gamepad
+	var device := InputBindings.active_device
+	InputBindings._set_device(true, 999)
+	for language: String in ["zh", "ja", "en"]:
+		Story.language = language
+		var expected := ["A (bottom)", "B (right)", "X (left)", "Y (top)"] if language == "en" else ["A（下）", "B（右）", "X（左）", "Y（上）"]
+		var buttons := [JOY_BUTTON_A, JOY_BUTTON_B, JOY_BUTTON_X, JOY_BUTTON_Y]
+		for index in buttons.size():
+			check(InputBindings._button_label(buttons[index]) == expected[index],
+					"generic face button uses an unambiguous position in " + language)
+		check(InputBindings.primary_label(&"ui_accept") == expected[0] and InputBindings.primary_label(&"ui_cancel") == expected[1],
+				"confirm and cancel get their face button labels from the same source in " + language)
+	Story.language = previous
+	InputBindings._set_device(last_pad, device)
 
 
 func _test_mouse_labels() -> void:

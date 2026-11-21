@@ -155,6 +155,11 @@ const JOY_BUTTON_LABELS: Dictionary[int, String] = {
 	JOY_BUTTON_DPAD_LEFT: "十字←", JOY_BUTTON_DPAD_RIGHT: "十字→",
 }
 
+const FACE_BUTTON_POSITIONS := {
+	"zh": {JOY_BUTTON_A: "下", JOY_BUTTON_B: "右", JOY_BUTTON_X: "左", JOY_BUTTON_Y: "上"},
+	"en": {JOY_BUTTON_A: "bottom", JOY_BUTTON_B: "right", JOY_BUTTON_X: "left", JOY_BUTTON_Y: "top"},
+}
+
 const JOY_AXIS_LABELS: Dictionary[int, String] = {
 	JOY_AXIS_TRIGGER_RIGHT: "RT", JOY_AXIS_TRIGGER_LEFT: "LT",
 }
@@ -329,9 +334,11 @@ func _button_label(button: int) -> String:
 		return labels.get(button, JOY_BUTTON_LABELS.get(button, "按鈕 %d" % button))
 	# 未知控制器附上位置，避免把 A/B 名称當作所有手把的實體標示。
 	if name.is_empty() or not (name.contains("xbox") or name.contains("xinput")):
-		var positions := {JOY_BUTTON_A: "下", JOY_BUTTON_B: "右", JOY_BUTTON_X: "左", JOY_BUTTON_Y: "上"}
+		var language := Story.language if is_instance_valid(Story) else StoryLocale.SOURCE_LANGUAGE
+		var positions: Dictionary = FACE_BUTTON_POSITIONS.get(language, FACE_BUTTON_POSITIONS[StoryLocale.SOURCE_LANGUAGE])
 		if positions.has(button):
-			return "%s（%s）" % [JOY_BUTTON_LABELS[button], positions[button]]
+			var layout := "%s (%s)" if language == "en" else "%s（%s）"
+			return layout % [JOY_BUTTON_LABELS[button], positions[button]]
 	return JOY_BUTTON_LABELS.get(button, "按鈕 %d" % button)
 
 
