@@ -35,7 +35,7 @@ func _run() -> void:
 		var local := load("res://data/lighting/market_gate.tres") as LightingProfile
 		_check(local.validate().is_empty() and local.id == &"market_gate", "authored local profile validates")
 		for name in LightingProfile.BLENDED:
-			_check(is_equal_approx(local.enemy_fill_scale, 1.0) if name == &"enemy_fill_scale" else local.get(name) == source.get(name),
+			_check(is_equal_approx(local.enemy_fill_scale, 1.45) if name == &"enemy_fill_scale" else local.get(name) == source.get(name),
 				"local profile changes only enemy fill: " + str(name))
 		for property in source.lamp_style.get_property_list():
 			if int(property.usage) & PROPERTY_USAGE_STORAGE:
