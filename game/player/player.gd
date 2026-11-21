@@ -1080,12 +1080,17 @@ func _handle_pit() -> void:
 # 載具
 # ---------------------------------------------------------------------------
 
+func can_mount_vehicle(vehicle: Vehicle) -> bool:
+	return state == State.NORMAL and _remount_cooldown_left <= 0.0 and is_instance_valid(vehicle) \
+			and vehicle.can_mount() and vehicle.global_position.distance_to(global_position) <= tuning.mount_range
+
+
 func _try_mount() -> bool:
 	if _remount_cooldown_left > 0.0:
 		return false
 	for node in get_tree().get_nodes_in_group(&"vehicles"):
 		var vehicle := node as Vehicle
-		if vehicle != null and vehicle.can_mount() and vehicle.global_position.distance_to(global_position) <= tuning.mount_range:
+		if can_mount_vehicle(vehicle) and Story.framing.is_interaction_target(vehicle):
 			mount_vehicle(vehicle)
 			return true
 	return false

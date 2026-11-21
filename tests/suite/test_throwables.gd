@@ -23,6 +23,7 @@ func run() -> void:
 	await _test_barrel_aim_priority()
 	await _test_pickup_prompt_target()
 	await _test_drop_near_switch()
+	await _test_drop_near_vehicle()
 	await _test_pickup_terrain_reach()
 	await _test_rotated_centers()
 	await _test_preview_matches_first_contact()
@@ -86,6 +87,47 @@ func _test_drop_near_switch() -> void:
 	check(crate._prompt._player_near() and not lever._prompt._player_near(), "only the nearer crate offers a pickup prompt")
 	await _press(&"interact")
 	check(not lever.active and level.player.carry.held == crate, "a press near the crate only picks it up")
+	await _release_aim()
+	await end_level(level)
+
+
+func _test_drop_near_vehicle() -> void:
+	await open_level(10.0)
+	var crate := _place(CRATE, 10.0)
+	await physics_frames(4)
+	check(await _pick_up(crate), "the original pickup keeps the crate before approaching the vehicle")
+	var vehicle := Vehicle.new()
+	vehicle.configure(load("res://data/vehicles/bulwark.tres"))
+	vehicle.position = Vector2(14.0 * 16.0, FLOOR_Y)
+	level._entities.add_child(vehicle)
+	place_player(14.0 - 20.0 / 16.0)
+	await _aim(Vector2.LEFT)
+	await physics_frames(6)
+	await runner.get_tree().process_frame
+	check(crate._prompt._player_near() and not vehicle._prompt._player_near(), "the drop affordance supersedes boarding")
+	await _press(&"interact")
+	check(crate.state == Throwable.State.REST and vehicle.driver == null, "dropping the crate never boards the vehicle")
+
+	place_player(14.0 + 38.0 / 16.0)
+	await physics_frames(4)
+	await runner.get_tree().process_frame
+	check(not vehicle._prompt._player_near(), "out-of-range vehicles reject their boarding hint")
+
+	var tuning := level.player.tuning
+	level.player.tuning = tuning.duplicate()
+	level.player.tuning.mount_range = 72.0
+	var parked := vehicle.global_position
+	vehicle.global_position = level.player.global_position + Vector2(0.0, -60.0)
+	check(Story.framing.is_interaction_target(vehicle), "a vehicle's tuned reach applies beyond the height of an ordinary prompt")
+	vehicle.global_position = parked
+	level.player.tuning = tuning
+
+	place_player(14.0 + 12.0 / 16.0)
+	await physics_frames(6)
+	await runner.get_tree().process_frame
+	check(vehicle._prompt._player_near(), "the boarding hint appears inside the actual mount range")
+	await _press(&"interact")
+	check(vehicle.driver == level.player, "a separate press within range still boards")
 	await _release_aim()
 	await end_level(level)
 

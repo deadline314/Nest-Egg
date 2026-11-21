@@ -1,0 +1,61 @@
+{
+  "tested_parent": "8b20701a88c26ec47281fa4c05b27bbfd7798728",
+  "engine": "Godot 4.7.2 Forward+ RX 9070 XT",
+  "input": "keyboard and synthetic controller; original rain-night vehicle and a deliberately staged authored crate",
+  "native_results": {
+    "native-before": {
+      "checks": 15,
+      "failures": 3
+    },
+    "native-range-720": {
+      "checks": 15,
+      "failures": 0
+    },
+    "native-range-1080": {
+      "checks": 15,
+      "failures": 0
+    }
+  },
+  "affected_suites": 70,
+  "affected_checks": 97469,
+  "wall_seconds": 1049,
+  "evidence": {
+    "probe.gd": "57e7a1413ebf6781d62ad9dbc95f1229938c1929e2b8174ed54e9761edc47fcd",
+    "probe.tscn": "17b3400c20967b7cf1efd690651498e2a27101a8b47eb311017cde227072a8ae",
+    "run.ps1": "28b99cd9b73bb5f80976f46340f1fc067f28d535bf7a2559e72a2e9593a75be2",
+    "probe-trace.gd": "47db951c7aa62dadd0d7055a95b14db9851df4f49465b1dede84196eec828c8b",
+    "probe-trace.tscn": "bee294410ec18e304e3aacf30174f0fcd53e9c3a133491d460bb3eb5f560f8d9",
+    "run-trace.ps1": "780ee0e587da6d1b7fedb91ee97c45c7a5a3c159cdc6a2cc759417e035bf129d",
+    "native-before/raw.log": "c606fd1971ab1cd36486524c31b9a9eca3181de9b26782207a06ee5434cd7b14",
+    "native-before/exit.txt": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+    "native-before/outside-range.png": "b9634b8698a430117f28c69ff69c893f81b62c910ff192aec0d4aedbb46f9fc8",
+    "native-before/hold-near-vehicle.png": "7fb80f7d1ca5a33dac4547e05c89574c177e74687789aacad8f06c8ffe1f8149",
+    "native-before/first-press.png": "a9bbc5a69647950925d211efae597b523a8cd4a48c12a5fffd07219dfcd12dc6",
+    "native-before/separate-mount.png": "eb13f40f905de6691079946451b1230de1eba53c2f297ad5e051be402aafea6b",
+    "native-range-720/raw.log": "15afd0cd4fde96d57dad82107f80595e0b077ff45a1bfb10a3b4d555fd013c45",
+    "native-range-720/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "native-range-720/outside-range.png": "485b6dda8073b1e800d7c5d0b2e4445f7968801c683b94fa55781aa0a5794e1a",
+    "native-range-720/hold-near-vehicle.png": "84866ae455219e4f82f34a9690e34c55aff02681d33ceb32cac9bfb6152c2f76",
+    "native-range-720/first-press.png": "4a6a228ff5423bb1c367a2c06462807b30223bc82b8526db5c5492989a80c898",
+    "native-range-720/separate-mount.png": "dbce1ae1a2fbd6e8475fe5c9f91e5156758001c84dcc80aac72fb3f25e57efed",
+    "native-range-1080/raw.log": "15afd0cd4fde96d57dad82107f80595e0b077ff45a1bfb10a3b4d555fd013c45",
+    "native-range-1080/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "native-range-1080/outside-range.png": "9546fe67437c4b3828c33a2fc05be73e3beded69fb1d0cf9497f4bbf732af6a4",
+    "native-range-1080/hold-near-vehicle.png": "50e76464d72cb06ea6f162edc466041d859f0c173c39fd29fc07ff723c1c7262",
+    "native-range-1080/first-press.png": "3f7dc764a1e1ca8302fe73ac64d8c9141ecceca4291bb55b24037fb620aef14f",
+    "native-range-1080/separate-mount.png": "7c28c9ab6dc287599c12cc391da5f2065531c77819f77b3f8cb2fd14a3faefc4",
+    "native-trace-1080/raw.log": "1a4e58806db2f5e294da6be92d64047d349031f63ab63cae7275696539f96512",
+    "native-trace-1080/exit.txt": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+    "native-trace-1080/second-prompt.png": "ca3fd91e4dc7998f94c6ff15c98152fe20acb0f1b17b00c675c2557a6496457b",
+    "native-range-trace/raw.log": "65f2c8abb4c49e0fe88fa46eb22f0aab6f4bf6db96df006b43b1fb78c2c85c99",
+    "native-range-trace/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "native-range-trace/second-prompt.png": "7cbaa741291818d46aa27776a027ce069928ababefcee19f5f81370cb86900e6",
+    "official-final/raw.log": "eb8407c80710c6f1198354e3aeec4359132162abc61a581bb807f28d2d3fd7b3",
+    "official-final/verification.json": "bcd48cf77067c8483a435e6bbc6e11a20ca3db5c15f7b4ee58870c153b5d2b10",
+    "official-final/command.json": "dd4a1b92957cd3d8076d4e6b1728c57e2b8e877efcbf29f638654d0af5c4c042",
+    "range-check/raw.log": "d131cdc52818c5e683c81ce947705def67db031a6f79fb4ba370d0cd62b68bf1",
+    "first-final/raw.log": "4e0a30603df5640b9c0c64ac2964df4a242bfbfe304290600056f2a2ef6df934",
+    "previous-focused/raw.log": "b48dc981d6b50dfc14a48d9db61b2008f4072a6087d0baf6a68cc4a9a39da796",
+    "first-candidate/selection.log": "ad9b9f1cdf1b2f518a77727b29d7b71f46eb83792d53f428f3291d11870d4607"
+  }
+}

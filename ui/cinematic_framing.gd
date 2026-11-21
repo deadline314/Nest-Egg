@@ -195,7 +195,7 @@ func _nearest_interaction() -> Node2D:
 		if not is_instance_valid(candidate) or not bool(candidate.call("interaction_available")):
 			continue
 		var offset := candidate.global_position - player.global_position
-		if (candidate is Portal or absf(offset.y) <= VERTICAL_RANGE) and absf(offset.x) < distance:
+		if (candidate is Portal or candidate is Vehicle or absf(offset.y) <= VERTICAL_RANGE) and absf(offset.x) < distance:
 			closest = candidate
 			distance = absf(offset.x)
 	return closest

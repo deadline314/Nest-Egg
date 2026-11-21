@@ -77,10 +77,21 @@ func _ready() -> void:
 	add_child(_light)
 
 	_prompt = WorldPrompt.new()
-	_prompt.text = "{interact} 搭乘 %s：重火力、可承受傷害" % data.display_name
-	_prompt.radius = 40.0
+	_prompt.text = "{interact} 搭乘 %s" % data.display_name
+	_prompt.reach_check = interaction_available
+	_prompt.interaction_owner = self
 	_prompt.offset = Vector2(0, -size.y - 14.0)
 	add_child(_prompt)
+	Story.framing.register_target(self)
+
+
+func preview_available() -> bool:
+	return false
+
+
+func interaction_available() -> bool:
+	var player := get_tree().get_first_node_in_group(&"player") as Player
+	return player != null and player.can_mount_vehicle(self)
 
 
 func can_mount() -> bool:
