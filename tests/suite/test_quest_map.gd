@@ -511,6 +511,7 @@ func _test_ui(catalog: QuestCatalog, maps: QuestMapIndex) -> void:
 	check(screen._page == "quests", "controller LB switches back to quests")
 	await _test_journal_input(screen, false)
 	await _test_journal_input(screen, true)
+	await _test_map_recenter(screen)
 	await _test_completed_pin_label(screen)
 	screen.queue_free()
 	await frames(2)
@@ -792,6 +793,26 @@ func _test_display_defaults() -> void:
 	check(Settings.get_value(Settings.DISPLAY_SECTION, "quest_objective") == true and Settings.get_value(Settings.DISPLAY_SECTION, "quest_arrows") == true, "reset display restores both navigation switches")
 	Settings.set_value(Settings.DISPLAY_SECTION, "quest_objective", old_objective)
 	Settings.set_value(Settings.DISPLAY_SECTION, "quest_arrows", old_arrows)
+
+
+func _test_map_recenter(screen: QuestMapScreen) -> void:
+	for area: String in [PAWN, ROOF]:
+		screen._jump_to_map(area)
+		await frames(3)
+		var center := screen._buttons[2]
+		center.grab_focus()
+		screen._canvas.zoom = 2.0
+		if area == PAWN:
+			await _key(KEY_ENTER)
+		else:
+			await _joy(JOY_BUTTON_A)
+		await frames(3)
+		var owner := screen.get_viewport().gui_get_focus_owner() as Button
+		check(screen._map_path == PAWN and screen._canvas.zoom == 1.0, "recenter restores the player area and zoom from %s" % area)
+		check(owner != null and owner.text == "回到所在區域", "recenter preserves the activated control's focus from %s" % area)
+		check(owner != null and screen._status.text == "顯示主角目前所在的區域。", "recenter preserves the activated control's hint from %s" % area)
+		screen.go_back()
+		await frames(3)
 
 
 func _test_journal_input(screen: QuestMapScreen, controller: bool) -> void:

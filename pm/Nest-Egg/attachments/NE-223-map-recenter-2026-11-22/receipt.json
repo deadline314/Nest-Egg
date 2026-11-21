@@ -1,0 +1,46 @@
+{
+  "tested_parent": "c51ebed88d27b1377aa6c364de73556d938ab5d2",
+  "engine": "Godot 4.7.2 Forward+ RX 9070 XT",
+  "input": "keyboard and synthetic controller button events in the no-focus game viewport",
+  "native_results": {
+    "native-before-v2": {
+      "checks": 21,
+      "failures": 6
+    },
+    "native-after-720": {
+      "checks": 21,
+      "failures": 0
+    },
+    "native-after-1080": {
+      "checks": 21,
+      "failures": 0
+    }
+  },
+  "affected_suites": 15,
+  "affected_checks": 8883,
+  "wall_seconds": 310,
+  "evidence": {
+    "probe-before-v2.gd": "a893f0ad62d1e8b7dd9109f7a8aaed607d315aa1550415d8b3e44635c89f2afd",
+    "probe-v2.gd": "c46de1b8aaa6516ab66053ed98cfec1f16677c75a616453d4ba45916142a958a",
+    "probe-v2.tscn": "c4d369513a6b3c4479d604e9087c1b8c4cc536e8c64153d6496a89b3ad79840f",
+    "run.ps1": "baa5334560526957902943efeb43e6c3abe877e73f793bc33d74fbde0c1dfc28",
+    "native-before-v2/raw.log": "3b6b4ee51589a5eecdb93387e500c15b831d54c26ba91ba853df26ab198ec510",
+    "native-before-v2/exit.txt": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+    "native-before-v2/keyboard-center.png": "982eba3d34bb4ee56b064905f96f09c9a6c7b01905339414db63990e06512d3d",
+    "native-before-v2/controller-center.png": "f14cf8c1443b28322731f7610be8136da09851c9a3fcd92a13e25c56790c97e3",
+    "native-before-v2/controller-other-area-center.png": "f14cf8c1443b28322731f7610be8136da09851c9a3fcd92a13e25c56790c97e3",
+    "native-after-720/raw.log": "857cc5c6a3b2f784e1f3d34f2abbd44b493b13d2e5b52a09413cd006df504542",
+    "native-after-720/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "native-after-720/keyboard-center.png": "1e071e26e7e71aada7a2fdf4c9d45fcb338670761073a320cddab447dc17732b",
+    "native-after-720/controller-center.png": "859c6944a0471d63054a5e6ec71350de0cbdda47217461ffc88058eee4ada389",
+    "native-after-720/controller-other-area-center.png": "c28ecdf5a70d7ac01ecf712ddc18a7d536d44ee5cbd21569add539fd2dce1c1b",
+    "native-after-1080/raw.log": "983c2ad6844498368461f72391f9330abd79bb22226b1e7a616b0ca56866e231",
+    "native-after-1080/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "native-after-1080/keyboard-center.png": "de84b7f95c3dcb1388a0f81a648f6d45ffb4e45322879533ee90732cd5a6065b",
+    "native-after-1080/controller-center.png": "45c40f201efdf03778eb396edbb7a15fe92cbd2b6f1b763a56b468d8fa9ffad5",
+    "native-after-1080/controller-other-area-center.png": "6ca89a21eadbb46a2ecd43a04e18a0bf9e36a022182f880b8a695e0860ee4fed",
+    "official-release/raw.log": "2a68fb82641e9c7c5d54be369fc5ee43c6f0b679cf8d113ddc6d66432196338d",
+    "official-release/verification.json": "bcd48cf77067c8483a435e6bbc6e11a20ca3db5c15f7b4ee58870c153b5d2b10",
+    "official-release/command.json": "0fa1d85cf2f29a2b6702f50c0dac7e9eb73ecfb75e14db71aa5b2396221f23f9"
+  }
+}

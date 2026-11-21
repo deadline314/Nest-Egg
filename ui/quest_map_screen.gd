@@ -592,8 +592,15 @@ func _zoom(factor: float) -> void:
 
 
 func _here() -> void:
-	_map_path = str(reference_location.get("level", player_path))
+	var path := str(reference_location.get("level", player_path))
+	if _map_path == path:
+		_canvas.zoom = 1.0
+		_canvas.refresh()
+		return
+	var focus_key := _focus_text()
+	_map_path = path
 	_build()
+	_restore_focus.call_deferred(focus_key)
 
 
 # ---------------------------------------------------------------------------
