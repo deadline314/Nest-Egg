@@ -21,12 +21,12 @@ def main() -> None:
     with Image.open(BytesIO(source)) as image:
         original = np.asarray(image.convert("RGBA"))
     patched = original.copy()
-    # Follow the narrowing fabric edge beneath the plate as it approaches the arm.
-    for row in range(109, 124):
-        end = 339 - max(0, row - 117) * 2
+    # Taper the overlap along the upper plate and the fold that opens during defeat.
+    for row in range(109, 158):
+        end = 376 - max(0, 114 - row) * 3 - max(0, row - 137) * 3
         span = patched[row, 316:end]
         span[span[:, 3] < 235] = original[row, 314]
-    if np.count_nonzero(np.any(patched != original, axis=2)) != 246:
+    if np.count_nonzero(np.any(patched != original, axis=2)) != 1515:
         raise ValueError("Warden chest overlap has drifted from the registered torso grid")
     with BytesIO() as stream:
         Image.fromarray(patched).save(stream, format="PNG")
