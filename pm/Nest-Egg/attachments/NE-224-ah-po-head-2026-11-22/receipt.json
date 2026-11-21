@@ -1,0 +1,187 @@
+{
+  "tested_parent": "c8d6d4153093a9c2239deddc3a87d14be5398793",
+  "engine": "Godot 4.7.2 Forward+ RX 9070 XT",
+  "matching_native_audit": {
+    "whole": {
+      "samples": 33600,
+      "before_hard": 1579,
+      "after_hard": 1477,
+      "new_hard": [],
+      "before_flags": 5030,
+      "after_flags": 4948,
+      "extra_resolved_after_import": [
+        [
+          "sit_talk",
+          "neck",
+          119,
+          -1,
+          3.4
+        ],
+        [
+          "sit_talk",
+          "neck",
+          119,
+          1,
+          3.4
+        ]
+      ],
+      "removed_by_joint": {
+        "sit_talk/wrist_front": 6,
+        "stand/neck": 20,
+        "sit_listen/shoulder_back": 38,
+        "sit_talk/neck": 4,
+        "wave/wrist_front": 2,
+        "wave/neck": 12,
+        "sit/neck": 18,
+        "sit_listen/neck": 2
+      }
+    },
+    "dressed": {
+      "samples": 33600,
+      "before_hard": 2972,
+      "after_hard": 2928,
+      "new_hard": [],
+      "before_flags": 4711,
+      "after_flags": 4669,
+      "extra_resolved_after_import": [
+        [
+          "sit_talk",
+          "neck",
+          119,
+          -1,
+          3.4
+        ],
+        [
+          "sit_talk",
+          "neck",
+          119,
+          1,
+          3.4
+        ]
+      ],
+      "removed_by_joint": {
+        "sit/neck": 18,
+        "stand/neck": 20,
+        "sit_listen/neck": 2,
+        "sit_talk/neck": 4
+      }
+    },
+    "isolated": {
+      "samples": 33600,
+      "before_hard": 1118,
+      "after_hard": 1074,
+      "new_hard": [],
+      "before_flags": 5055,
+      "after_flags": 5011,
+      "extra_resolved_after_import": [
+        [
+          "sit_talk",
+          "neck",
+          119,
+          -1,
+          3.4
+        ],
+        [
+          "sit_talk",
+          "neck",
+          119,
+          1,
+          3.4
+        ]
+      ],
+      "removed_by_joint": {
+        "sit/neck": 18,
+        "stand/neck": 20,
+        "sit_listen/neck": 2,
+        "sit_talk/neck": 4
+      }
+    }
+  },
+  "arena_pairs": 12,
+  "changed_source_pixels": 12,
+  "affected_groups": 4,
+  "affected_checks": 7676,
+  "wall_seconds": 174,
+  "sha256": {
+    "ah-po-head-compare.png": "611c2fed0dac5c388eb3e6635b21f6efa2f38546c132bbc8f9c67cd10b4f351b",
+    "arena-after/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "arena-after/left_340_work.png": "e89ee907f5a5c251e25a02942b63378cc70eeafaa9b97824e87e5f099b303b81",
+    "arena-after/raw.log": "b18c5b59db008f72702ffed2699e6e46b0571f75903f8c1913961e964f5d1221",
+    "arena-after/right_192_talk.png": "f647efb6f5704b5e97f2beb4d8353311a1cec3a6b39c6550eb57f7beb5f2c0dc",
+    "arena-after/right_340_finished.png": "9a1a8022d4c4fe2c82b5d71aeab0b7f4332bcead0704184b898e1183080bb2a2",
+    "arena-after/street.json": "c3176dc529b65da54473265493c049c77957ba0d8ac41d9ec4a124b8af7d533a",
+    "arena-before-pass/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "arena-before-pass/left_340_work.png": "af913480092359d39a15015ae7c90bae116be3d428903dd1381653fb76e2fefa",
+    "arena-before-pass/raw.log": "72dd6d04b04c59bdda23ff7824d3b121c42e9b729a01500fedfab39c7be69cf9",
+    "arena-before-pass/right_192_talk.png": "9e6a5cca93a7b3848b85e97dff79ff41650b2926a99377e8fe3ea200e7305949",
+    "arena-before-pass/right_340_finished.png": "14c65b08c522017b6ce48bd105500442a8adecca343473e65b492f4ff149944a",
+    "arena-before-pass/street.json": "c3176dc529b65da54473265493c049c77957ba0d8ac41d9ec4a124b8af7d533a",
+    "arena.gd": "64374f7611de4cf47df69577c7f724447d143324acb5777f36a53fcab90aa4fd",
+    "arena.tscn": "813c0b507b9cc60fcba43ea951c960a1a6dd2b1cf70228f9b3180180315e312f",
+    "baseline-normal.log": "83cf0b082206af2aa236c83064fbcfa76be1e00a4aa3558574b2f65965d9481c",
+    "baseline.txt": "61c99fa6ba05175f9ef58309ea1089eb0fd15e8078b6ae02517cc992d49e31bc",
+    "combine-head.py": "87ed2f072ef1ecda4d70282d0cb69448b6f4cf76833d5dc76ea65b8540efb6b1",
+    "controls/collar-only.json": "8e36d0ae38cb39813efc75d9c9b567d9757eef2546ca7f9e5f1f3f05bfef0e54",
+    "controls/combined-bridging-rejected.json": "43fe2b011fa4722e964ff9435d6c9383878b0da81c50698908d0672a121eb547",
+    "controls/fringe-only.json": "f07303dd7247dd6b4928a11f05a2e3be327260e1067da686505a3d592362d277",
+    "final-picture.py": "80aecd74dbb83aa3a22d0c987053867640b0c7d66ada427691e9dea115c33402",
+    "head-wide-comparison.json": "0cdf462101c656edf11a05b3e1f3593fa562f9761e40130f50338d27d13c9d89",
+    "import.exit": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "import.log": "cb77a40f6c2920833b801435196671ce4e2aaa164c791261c1f4a8f187ef4184",
+    "installed-head-comparison.json": "9f63d55e1a1eda12e42833784d38a0cbdb358df2698e4dcf233fdc13de10646f",
+    "installed-head.py": "26bafc70dbbde5df84470982f5bc2c0d8f1fbd9e526731093f43a3989d6c2c5a",
+    "installed/dressed/check.log": "8cf7f31fac2dc63d844dfb8c32ac651219fa2e7e2afa5e2c1851f8ab84983430",
+    "installed/dressed/frames.json": "1eeb1d5e7a9199ebe39a1a9961a14eaa33b4cd2e967557425f1881f3f00343fc",
+    "installed/dressed/raw.log": "0e49b62067f30d398eb6af2c83b64abbaf7c3de1c3ece2fb40e64fa631d27433",
+    "installed/dressed/report.json": "c29ab711056a0a7fe56856dda44e6812b650844ff5f9684ada35b154bf9c05d0",
+    "installed/dressed/sit_3.4_024.png": "6a13e4d4094235701cbfce748d9c26a00581364eb81d4ae4b50daa6e47ff9ec1",
+    "installed/dressed/sit_listen_3.4_047.png": "e2bbeadc4dc613898a4042db96e1787f353fb5e0c7713316728405a294de762c",
+    "installed/isolated/check.log": "d356df5d72998248330250855d6213589e00dbf711da6ec34ebc2e7dd9be1684",
+    "installed/isolated/frames.json": "1eeb1d5e7a9199ebe39a1a9961a14eaa33b4cd2e967557425f1881f3f00343fc",
+    "installed/isolated/raw.log": "0e49b62067f30d398eb6af2c83b64abbaf7c3de1c3ece2fb40e64fa631d27433",
+    "installed/isolated/report.json": "352ddb09cdaf0dda6a737d513fae66d28977a1245b4755af67afef8b445b4dc3",
+    "installed/isolated/sit_3.4_024.png": "4a4db224c7d94db64d35fa7049b82a6cfd1d6f7525e2cc0086eeca2f00ddd9c8",
+    "installed/isolated/sit_listen_3.4_047.png": "ab7ded8979ca02d57056af1a10d6fb9638b6c42fe96afc5f4e705da1cf7fab95",
+    "installed/whole/check.log": "29e41dc4f9e67e1b18cd2a042d466a88ea24c2688481467baa411e15cb19db54",
+    "installed/whole/frames.json": "474e4736edd9ab50b4424d8d1b4975684656f8a92ac82ce83c174f32d3f34218",
+    "installed/whole/raw.log": "0e49b62067f30d398eb6af2c83b64abbaf7c3de1c3ece2fb40e64fa631d27433",
+    "installed/whole/report.json": "1c17cdbf3b829371c13a6d67756c4bea35ccf72ba27fb0e1930417f47cad02b0",
+    "installed/whole/sit_3.4_024.png": "ca99aab3b0b2b591cd5c2d26314fa82375cf32bc7b9a9e23b1b27c0ef53a823c",
+    "installed/whole/sit_listen_3.4_047.png": "fdec66d2880faf09041a42df8efe2d7676485e7454929f501709d14a13e9741a",
+    "local-head.py": "2673e997d7a0bb88ff51e75636a507af4d3f8e5d65a11feebe45ee1a149ad71b",
+    "low-fringe.py": "f974876bdd2c1cf2ecc0d4760deb67bf16fa2117a356509617cb8268235b1d2b",
+    "normal.gd": "d62aa254294f247b4b1cae206f515795efda4b0bcdb92c97f3f0f41a510e9a9f",
+    "official/command.json": "03b778b9e9d1e32438ee99755a85ac8b4900bd57c54e4a6546a64a8a4694cc9a",
+    "official/raw.log": "354480b916d7c521060153f441a6c161abf118c7ecc39f66b6a3acba237a681b",
+    "official/verification.json": "bcd48cf77067c8483a435e6bbc6e11a20ca3db5c15f7b4ee58870c153b5d2b10",
+    "original/dressed/check.log": "da69d699abe3c794e93f4301f5e5514538423b7512b8dd576f871d06e4ff3598",
+    "original/dressed/frames.json": "1eeb1d5e7a9199ebe39a1a9961a14eaa33b4cd2e967557425f1881f3f00343fc",
+    "original/dressed/raw.log": "6ce705d29241453e3688c91783a2ae9aa6130a86782bddc25a3007d00444a088",
+    "original/dressed/report.json": "425488e9457806eb208bf2177294c5fa2533953ffc0fdacfa0c6ff6ffaa7b24e",
+    "original/dressed/sit_3.4_024.png": "a68ffd0c50e3510e3d3b128ab6d6ada82a6c31b26ba7c084dd75cb6a4c154262",
+    "original/dressed/sit_listen_3.4_047.png": "e2bbeadc4dc613898a4042db96e1787f353fb5e0c7713316728405a294de762c",
+    "original/isolated/check.log": "abbe172688260537ad556ec0bbddd1cfdc7fc7a4ccf47016df5ec4b1f05c0ca1",
+    "original/isolated/frames.json": "1eeb1d5e7a9199ebe39a1a9961a14eaa33b4cd2e967557425f1881f3f00343fc",
+    "original/isolated/raw.log": "0e49b62067f30d398eb6af2c83b64abbaf7c3de1c3ece2fb40e64fa631d27433",
+    "original/isolated/report.json": "f24e0f9ed72e3c18aa07aa60c820e8f001ad92336b509d859191f1c54a1cb904",
+    "original/isolated/sit_3.4_024.png": "751ba7258573a29b9167dbe545d742571bb770930cc0d4d591706a3f60f68ae0",
+    "original/isolated/sit_listen_3.4_047.png": "ab7ded8979ca02d57056af1a10d6fb9638b6c42fe96afc5f4e705da1cf7fab95",
+    "original/whole/check.log": "41e180f64ea6b2668250e1712bc355dabb642b8bfa1b984a8d3cc8ab96585b22",
+    "original/whole/frames.json": "474e4736edd9ab50b4424d8d1b4975684656f8a92ac82ce83c174f32d3f34218",
+    "original/whole/raw.log": "6ce705d29241453e3688c91783a2ae9aa6130a86782bddc25a3007d00444a088",
+    "original/whole/report.json": "6f359faf52724ff1f3b0e80600b37ba76c6b95d1c2f7b0fa298659a7bca67ddc",
+    "original/whole/sit_3.4_024.png": "fcae51743b10460ee1047b6e62ed27631a2bf6bf186bf105b40b83d0e2e80b9f",
+    "original/whole/sit_listen_3.4_047.png": "78a436725f5c23925f4b74cbca5d9a2615649b657d38c845e8a0e59afb9bd56b",
+    "parts.log": "34ca6db1a433197971c871bd49d114a6dc335352d0d3da9654acbab58fa8a79f",
+    "rebuild.log": "04b158c51d3081a0a4e83b0bedf43c0d39708827b943174a7426d650189c6010",
+    "replay/forearm-matrix.gd": "9597d4287ff13496ff2855f971625f6ee548cb107a775e9e8203c15e4ff8c5cd",
+    "replay/forearm-matrix.tscn": "5aefeecf10d7ff512b77da13d72fe458e521f3ac7018ec46528dfe90ce85b457",
+    "run-arena.ps1": "52920e90892a1af1392d007e9a0e93a40792dadb84cf802ffbcae4aeb84802dc",
+    "run-final.ps1": "731c08d802c3189ee0d1bf0998b944a586230648ed72f8ebe1318c82e8d020a1",
+    "select-head.py": "de7d5f3e3c04220a578881874d802ae2a4499e2b5f3c0030ac6e6db18088a395",
+    "selected-head.json": "127e04bd2cf0131aae68e15c9b48e025af07e8fce715aeb9d8896f90d8029482",
+    "spec.log": "d2ee56872bf7cce9a8124c97b7fbc5869ddd963fefbbae5887f0f0a0098559aa",
+    "split-head.py": "b5ff14d41cef1907bad83df2554deea2081af7799a31d8a7b11e5e045587cb81",
+    "stage.py": "714ff3c9044af0d920a03d8c61355d937a1d8155aa66d2926e2c6509cdbad18b"
+  }
+}
