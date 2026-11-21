@@ -1,0 +1,124 @@
+{
+  "tested_parent": "8b5cd2b25ed7b3a8d241c2c92c18ae6ca450579c",
+  "engine": "Godot 4.7.2 Forward+ RX 9070 XT",
+  "native": {
+    "baseline": {
+      "checks": 54,
+      "failures": 8,
+      "rendered_size": [
+        1280,
+        720
+      ],
+      "requested_window": [
+        1280,
+        720
+      ],
+      "expanded_viewport": false
+    },
+    "candidate-final": {
+      "checks": 54,
+      "failures": 0,
+      "rendered_size": [
+        1280,
+        720
+      ],
+      "requested_window": [
+        1280,
+        720
+      ],
+      "expanded_viewport": false
+    },
+    "candidate-final-wide": {
+      "checks": 54,
+      "failures": 0,
+      "rendered_size": [
+        1457,
+        820
+      ],
+      "requested_window": [
+        1920,
+        820
+      ],
+      "expanded_viewport": false
+    },
+    "candidate-expand": {
+      "checks": 54,
+      "failures": 0,
+      "rendered_size": [
+        1920,
+        820
+      ],
+      "requested_window": [
+        1920,
+        820
+      ],
+      "expanded_viewport": true
+    }
+  },
+  "synthetic_input_checks": 72,
+  "live_counter_checks": 62,
+  "affected_groups": 25,
+  "affected_checks": 12406,
+  "wall_seconds": 373,
+  "sha256": {
+    "baseline/en-dialogue-key.png": "920d94df2977af5cfa420f41f0c8094e261ac6f84b4773987ffe48e940220287",
+    "baseline/en-frozen_radio-pad.png": "a93db432d9b516c6aa6d375c044b66e2665fc3a8cf03f1bebf2b7010c1a35734",
+    "baseline/exit.txt": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+    "baseline/ja-frozen_radio-pad.png": "fe74319add7a4459c65bbb087a90c6ee0ee9170754777d37775442fde63d25a9",
+    "baseline/raw.log": "924ba89d087c073fbe55d7939a6ca602a8f14aafc2030a76df1b68da4890ba14",
+    "baseline/summary.json": "10333b8c73d09241dd7abd140625164734c9049d6dd66e4fa9ef95194352524a",
+    "candidate-expand/command.json": "6a67e43b9c55703fda56bd2ac396e2111d0f7fa6cd45f075938bded9ee2eccde",
+    "candidate-expand/en-dialogue-key.png": "caf2165b6b79cea031a7b1b71f70142340a4b7b7f7a42cc74ebbf58b662fe932",
+    "candidate-expand/en-frozen_radio-pad.png": "68018c051642c55f88c43f4544a79f927f6bf83ab4e9c7faf5a3b155028c935b",
+    "candidate-expand/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "candidate-expand/ja-frozen_radio-pad.png": "d5a04076def2f2c13cf4bb18937cb26def23bd9315e492e3d0c62d7646260501",
+    "candidate-expand/raw.log": "4401554133b630f93e54aa62821052ab51c55dcf926d7aa08302f0ed0ebe4b26",
+    "candidate-expand/summary.json": "7646ff64fa7fccc2611007cfd3633f3065a42bc73f766ac7c2274fe0b32710a0",
+    "candidate-final-wide/command.json": "a5242bcf0a64ae702c4ee2c455cdb47090de38df3a5ad6e777a24105b5a59939",
+    "candidate-final-wide/en-dialogue-key.png": "3586ecbcbfeb3ed5b7e93a1502011ed23197507068de62bbe2ba65aeb248de63",
+    "candidate-final-wide/en-frozen_radio-pad.png": "5a05b7c9b7be96455f1442f0e14f31a091913661aaac375d5d6abc31c9a5f01c",
+    "candidate-final-wide/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "candidate-final-wide/ja-frozen_radio-pad.png": "f74b442e9c09c72fb132e14216dc07af92db193d0cd51f77563985814d57cf72",
+    "candidate-final-wide/raw.log": "4401554133b630f93e54aa62821052ab51c55dcf926d7aa08302f0ed0ebe4b26",
+    "candidate-final-wide/summary.json": "7646ff64fa7fccc2611007cfd3633f3065a42bc73f766ac7c2274fe0b32710a0",
+    "candidate-final/command.json": "7f31903e779684b4749829f0d06ede3d664eb7dfcaf85d55d5b43a66c4247178",
+    "candidate-final/en-dialogue-key.png": "ca5bcb9051948acc5f09ff3826ad2b61f90f9a50a8578589de1be63bdad92ce1",
+    "candidate-final/en-frozen_radio-pad.png": "f92e06eb4083e417497886de5685aa935740647ac6b9c8ac7380e8435fbb826d",
+    "candidate-final/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "candidate-final/ja-frozen_radio-pad.png": "47cb5c29168d4aa7204d082341a5d6095d51c6fd82ecf33ab09766e6a246015e",
+    "candidate-final/raw.log": "f98b896accc90a5c3a952d439df2031f922f962c4a948e384d6fdb0a2f90275a",
+    "candidate-final/summary.json": "7646ff64fa7fccc2611007cfd3633f3065a42bc73f766ac7c2274fe0b32710a0",
+    "live/en/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "live/en/raw.log": "f095103163b300961102683487dfc1ba00f3b1fc538b1955a7554a8032f5d4c1",
+    "live/en/screens/line-0.png": "5de4d25b904730561bbb7154f195118976bb10da1362f039a4fea121f1e1b716",
+    "live/en/screens/result.json": "cfd318e467cb578e85db076bebd24fbfbe7996eef82771626feb8494070e8b0e",
+    "live/en/screens/text.json": "65930ee7c7daa6d106762457f95b75eddbddb54d39e5e94d5bd51435e7cbcb54",
+    "live/ja/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "live/ja/raw.log": "f095103163b300961102683487dfc1ba00f3b1fc538b1955a7554a8032f5d4c1",
+    "live/ja/screens/line-0.png": "f7eb3017655dcf8d3be8c283f8d234ff67e8756f6d77f6e9a8a57056bb0ed0d2",
+    "live/ja/screens/result.json": "cfd318e467cb578e85db076bebd24fbfbe7996eef82771626feb8494070e8b0e",
+    "live/ja/screens/text.json": "fb6c9169e8d4c12c5bbb229893defc0621cd8826833fc631111ac5d77c3612a9",
+    "official/command.json": "f796286b56c795b1afe450c66987b8e94c81fe20fae5fc73746bb9c3c6beb7bf",
+    "official/raw.log": "8e9bf5d14c5f66084d8007e93a4ce622c9fd29c0c398650f1aab2bd3bfa56fd6",
+    "official/verification.json": "bcd48cf77067c8483a435e6bbc6e11a20ca3db5c15f7b4ee58870c153b5d2b10",
+    "replay/guide-expand.gd": "676f76afaccd2111163f9df639f1ae3c9d8b734eaa45226bd86432063a281b6c",
+    "replay/guide-expand.tscn": "0d25576b215e9639e69f7608a3868d0458b3886b20123e1df64742ee13d3c3bf",
+    "replay/guide-final.gd": "ced70526d9b788522330db9e28716865c07534d5857b52ff719ca872834bf9b4",
+    "replay/guide-final.tscn": "eb97f4cae39cccafb4db93dd6216a7871ee4994941429599c152cf5cfad7989a",
+    "replay/guide-synthetic.gd": "52ef0ff9d244bced4f7e3f52514e616ec625c4311d412c78099912e78a49e362",
+    "replay/guide-synthetic.tscn": "8a330c8530c92a8bc1ba5cdefb9f15571a7d3649b7292db6e2e9fdb2540b61fb",
+    "replay/guide.gd": "a745fe793a0b38fe2278ddbea0dfd7c93ed753e2e9957eb585043b69dbba278f",
+    "replay/guide.tscn": "e6e691cfce1dd8471962fd077c1cf74750139185e0ada5be7cd44e12955227d5",
+    "replay/locale.gd": "c0c041c7a8c65077a5eac6e7a3b8d7a078ed1d70a4390a7ce6fa7eea48ee8a62",
+    "replay/locale.tscn": "415eeac4b35cc13654a79d0af59b2c59bac79843d26925e9dc4b5978131d80d4",
+    "replay/run-events.py": "96080f5b2e635ea570b13de7be16b6c905a87290a12428c8da1886a91eafa023",
+    "replay/run-expand.py": "fa60967f62e153b863b682d492943f03af7afc0be8bf462d96750b024c1c27ac",
+    "replay/run-final.py": "92097183289e6821bc81364c50883f09b2467423723140435fe4aa475f9d1ec5",
+    "replay/run-locales.py": "5cfe410d85a7a58f3d42d3e648c00fc758afe0ebf547009eafcd8fd8eb793865",
+    "replay/wide-diagnostics/raw.log": "4edb8840d0f02a2b597b7b5756fcfbab1bcfd0b4cd82ab4e62ece6b1fe02434b",
+    "synthetic-events/command.json": "b935429fa79e55bafdc0535cc8948cb67b4113ee4b61634fd71d5fa1575cd501",
+    "synthetic-events/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "synthetic-events/raw.log": "91b3e620c19029dd0fd39a6da14b93b18c1779d2f831032c95f49d269ea5cc6e",
+    "synthetic-events/summary.json": "91a481ecdeb28e572ca540d4303177e22b0f1527e9bd5f197a8e6542ebb9fe03"
+  }
+}

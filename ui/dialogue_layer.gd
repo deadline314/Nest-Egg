@@ -14,6 +14,7 @@ const RADIO_CHARS_PER_SECOND := 60.0
 const RADIO_HOLD_BASE := 1.6
 const RADIO_HOLD_PER_CHAR := 0.055
 const PORTRAIT_SIZE := 56.0
+const CONTINUE_LABELS := {"zh": "繼續", "ja": "続ける", "en": "Continue"}
 const RADIO_HOME := Vector2(170, 82)
 const RADIO_SLIDE := 28.0
 
@@ -324,8 +325,13 @@ func _front_dismissible() -> bool:
 	return not _radio_queue.is_empty() and _radio_queue.front()["dismissible"]
 
 
+func _continue_hint() -> String:
+	var verb: String = CONTINUE_LABELS.get(Story.language, CONTINUE_LABELS["zh"])
+	return InputBindings.format("{ui_accept} " + verb)
+
+
 func _radio_hint() -> String:
-	return UiKit.cinematic_skip_hint(Story.language, &"pause") if _front_dismissible() else InputBindings.format("{ui_accept} 繼續")
+	return UiKit.cinematic_skip_hint(Story.language, &"pause") if _front_dismissible() else _continue_hint()
 
 
 func _ensure_radio_freeze() -> void:
@@ -430,7 +436,7 @@ func _build_cinematic() -> void:
 	_place(_text, Control.PRESET_BOTTOM_LEFT, Rect2(92, -70, 500, 50))
 	_cinematic_root.add_child(_text)
 	_text.minimum_size_changed.connect(func() -> void: _layout_cinematic(_safe_rect))
-	_continue = UiKit.label(InputBindings.format("{ui_accept} 繼續"), UiKit.FS_BODY, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_RIGHT)
+	_continue = UiKit.label(_continue_hint(), UiKit.FS_BODY, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_RIGHT)
 	_place(_continue, Control.PRESET_BOTTOM_RIGHT, Rect2(-40, -26, 20, 14))
 	_cinematic_root.add_child(_continue)
 
@@ -557,7 +563,7 @@ func _display_changed() -> void:
 
 func _refresh_skip_hint() -> void:
 	_skip.text = UiKit.cinematic_skip_hint(Story.language)
-	_continue.text = InputBindings.format("{ui_accept} 繼續")
+	_continue.text = _continue_hint()
 	if _radio_continue != null:
 		_radio_continue.text = _radio_hint()
 
@@ -583,7 +589,7 @@ func _build_radio() -> void:
 	_radio_continue = UiKit.label("", UiKit.FS_BODY, Palette.UI_MUTED)
 	_radio_continue.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	_radio_continue.visible = false
-	_radio_continue.text = InputBindings.format("{ui_accept} 繼續")
+	_radio_continue.text = _continue_hint()
 	column.add_child(_radio_continue)
 
 

@@ -17,6 +17,7 @@ func run() -> void:
 	await _test_aim_feedback_accessibility()
 	await _test_localized_hud_help()
 	await preload("res://tests/helpers/hud_background_hover_checks.gd").run(self)
+	await _test_localized_dialogue_continue()
 	await _test_radio_panel()
 	await _test_radio_card()
 	await _test_radio_clearance()
@@ -380,6 +381,38 @@ func _test_localized_hud_help() -> void:
 				"%s HUD explains cyber charge and the current activation binding" % language)
 		await end_level(level)
 	Story.set_language(original)
+
+
+func _test_localized_dialogue_continue() -> void:
+	var language := Story.language
+	var device := InputBindings.active_device
+	var gamepad := InputBindings.using_gamepad
+	var layer := DialogueLayer.new()
+	runner.add_child(layer)
+	var lines: Array[Dictionary] = [{"name": "老K", "color": Color.WHITE, "portrait": "", "text": "準備好了就出發。"}]
+	var labels := {"zh": "繼續", "ja": "続ける", "en": "Continue"}
+	for locale: String in labels:
+		Story.language = locale
+		InputBindings._set_device(false, -1)
+		layer.start_cinematic(&"test_continue_dialogue", lines)
+		check(layer._continue.text == InputBindings.format("{ui_accept} " + labels[locale]),
+				"dialogue shows the current locale and keyboard confirmation: " + locale)
+		InputBindings._set_device(true, 999)
+		check(layer._continue.text == InputBindings.format("{ui_accept} " + labels[locale]),
+				"open dialogue refreshes the confirmation after changing devices: " + locale)
+		layer.cancel_cinematic()
+
+		layer.enqueue_radio(&"test_continue_radio", lines, true)
+		check(layer._radio_continue.text == InputBindings.format("{ui_accept} " + labels[locale]),
+				"important radio shows a localized controller confirmation: " + locale)
+		InputBindings._set_device(false, -1)
+		check(layer._radio_continue.text == InputBindings.format("{ui_accept} " + labels[locale]),
+				"open radio refreshes the confirmation after changing devices: " + locale)
+		layer.cancel_radio()
+	Story.language = language
+	InputBindings._set_device(gamepad, device)
+	layer.queue_free()
+	await frames(1)
 
 
 func _test_radio_panel() -> void:
