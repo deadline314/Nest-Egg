@@ -752,11 +752,11 @@ func _try_fire() -> void:
 	var weapon := loadout.active_weapon()
 	if weapon == null or weapon.is_melee():
 		return
-	var muzzle := muzzle_position()
 	var rate := cyber.fire_rate_scale()
 	if not is_finite(aim_bloom) or aim_bloom < 0.0 or aim_bloom > 1.0:
 		push_error("[WeaponSystem] %s/Player/aim_bloom outside finite 0–1; refusing before shot costs/feedback" % weapon.id)
 		return
+	var muzzle := _visual.firing_muzzle() if _visual != null else muzzle_position()
 	if not WeaponSystem.can_fire(weapon, muzzle, aim_dir, Combat.Team.PLAYER, 1.0, aim_bloom * AIM_BLOOM_MAX_DEGREES, rate):
 		return
 	var dry := loadout.is_dry() and loadout.reserve_in(loadout.active_slot) == 0

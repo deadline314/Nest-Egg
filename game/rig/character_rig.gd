@@ -328,6 +328,12 @@ func animate(delta: float, input: RigInput) -> void:
 			_sync_attachments(_fill)
 
 
+func refresh_weapon_aim(input: RigInput) -> void:
+	facing = input.facing
+	_update_hand_grips(input)
+	animator.refresh_weapon_aim(input)
+
+
 ## 世界座標的手部接觸（ST-10）：包含鏡像、縮放與父節點旋轉；沒有握持變體時接觸點是手腕。
 func place_hand(which: StringName, world_target: Vector2, world_angle: float, weight := 1.0, contact_offset: Variant = null) -> bool:
 	if not _valid or animator == null or _skeleton == null or not world_target.is_finite() or not is_finite(world_angle):

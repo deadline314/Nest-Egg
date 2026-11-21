@@ -228,6 +228,14 @@ func muzzle_global() -> Vector2:
 	return player.aim_origin() + player.aim_dir * 12.0
 
 
+## Sample the barrel after the current aim, before the shot applies recoil.
+func firing_muzzle() -> Vector2:
+	if rig != null and rig.is_valid() and not rig.weapon_def().is_empty() and player.aim_dir.is_finite() and not player.is_reloading():
+		_sync_aim_pose(player.aim_dir)
+		rig.refresh_weapon_aim(_input)
+	return muzzle_global()
+
+
 func on_health_changed(ratio: float, decreased: bool) -> void:
 	if rig != null:
 		rig.set_armor_ratio(ratio, decreased)
@@ -429,6 +437,20 @@ func corpse_support_x() -> float:
 	return (hips.global_position.x + chest.global_position.x) * 0.5 if hips != null and chest != null else INF
 
 
+func _sync_aim_pose(aim: Vector2) -> void:
+	_input.on_floor = player.is_on_floor()
+	_input.aim_dir = aim
+	_input.facing = player.facing
+	_input.crouching = player.is_crouching
+	_input.crouch_uses_kneel = not rig.weapon_def().is_empty()
+	_input.crouched_muzzle_clearance = 0.0
+	if _input.crouching and _input.crouch_uses_kneel and aim.y > 0.0:
+		var weapon := player.loadout.active_weapon()
+		if weapon != null and weapon.projectile != null and is_finite(weapon.projectile.radius):
+			# The painted sole can reach slightly below the collision surface.
+			_input.crouched_muzzle_clearance = (maxf(1.0, weapon.projectile.radius) + 0.75) / maxf(rig.body_scale(), 0.001)
+
+
 func _physics_process(delta: float) -> void:
 	if player == null or rig == null:
 		return
@@ -440,22 +462,13 @@ func _physics_process(delta: float) -> void:
 			interaction_action.after_frame(rig)
 		return
 	_input.velocity = player.velocity
-	_input.on_floor = player.is_on_floor()
-	_input.aim_dir = player.aim_dir
+	var aim := player.aim_dir
 	if player.is_reloading():
 		var progress := player.loadout.reload_progress()
 		var lower := smoothstep(0.0, RELOAD_LOWER_END, progress) * (1.0 - smoothstep(RELOAD_RAISE_START, 1.0, progress))
-		_input.aim_dir = player.aim_dir.slerp(Vector2(player.facing * 0.6, 0.8), lower)
-	_input.facing = player.facing
+		aim = aim.slerp(Vector2(player.facing * 0.6, 0.8), lower)
+	_sync_aim_pose(aim)
 	_input.run_speed = player.tuning.run_speed
-	_input.crouching = player.is_crouching
-	_input.crouch_uses_kneel = not rig.weapon_def().is_empty()
-	_input.crouched_muzzle_clearance = 0.0
-	if _input.crouching and _input.crouch_uses_kneel and _input.aim_dir.y > 0.0:
-		var weapon := player.loadout.active_weapon()
-		if weapon != null and weapon.projectile != null and is_finite(weapon.projectile.radius):
-			# The painted sole can reach slightly below the collision surface.
-			_input.crouched_muzzle_clearance = (maxf(1.0, weapon.projectile.radius) + 0.75) / maxf(rig.body_scale(), 0.001)
 	_input.blocking = player.is_blocking
 	_input.dashing = player.state == Player.State.DASH
 	_input.staggered = player.state == Player.State.STAGGERED

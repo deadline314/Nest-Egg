@@ -13,6 +13,7 @@ func run() -> void:
 	_test_mouse_labels()
 	await _test_controller_flow()
 	await _test_controller_ui_flow()
+	await _test_shot_uses_current_aim()
 	await _test_dash_buffer()
 	await _test_air_jump()
 
@@ -91,6 +92,35 @@ func _test_air_jump() -> void:
 func _test_controller_ui_flow() -> void:
 	var probe := ControllerFlowProbe.new()
 	await probe.run(runner, check)
+
+
+func _test_shot_uses_current_aim() -> void:
+	var level := await start_level(PropsSuite.level_data())
+	var player := level.player
+	var previous_direction := AimInput._last_stick_dir
+	var weapon := preload("res://data/weapons/railgun.tres")
+	player.loadout.reset(weapon)
+	AimInput.set_virtual_gamepad(player, true)
+	AimInput.restore_direction(Vector2.RIGHT)
+	await physics_frames(16)
+	var old_muzzle := player.muzzle_position()
+	var projectile: Projectile = ProjectilePool._free.back() if not ProjectilePool._free.is_empty() else null
+	var ammo := player.loadout.mag_in(player.loadout.active_slot)
+	# Aim and fire before the child gets another physics callback.
+	AimInput.restore_direction(Vector2.LEFT)
+	player._update_aim(0.0)
+	player._try_fire()
+	var muzzle := player.muzzle_position()
+	check(projectile != null and projectile.active and projectile.spec == weapon.projectile
+			and player.loadout.mag_in(player.loadout.active_slot) == ammo - 1,
+			"the turn fires one live railgun round and uses one unit of ammo")
+	check(projectile != null and projectile.global_position.distance_to(muzzle) < 0.001
+			and projectile.velocity.x < 0.0 and muzzle.x < player.global_position.x
+			and old_muzzle.x > player.global_position.x,
+			"the first shot leaves the barrel on the new side before recoil")
+	AimInput.set_virtual_gamepad(player, false)
+	AimInput.restore_direction(previous_direction)
+	await end_level(level)
 
 
 func _joy_motion(axis: JoyAxis, value: float) -> InputEventJoypadMotion:

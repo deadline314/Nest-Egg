@@ -329,8 +329,7 @@ func update(delta: float, input: RigInput) -> void:
 		reset_springs()
 	_detect_stop(input, local_velocity)
 	_lean = _inertia.update(delta, local_velocity.x, _motion["inertia"]) if not input.dead else 0.0
-	var local_aim := Vector2(input.aim_dir.x * input.facing, input.aim_dir.y)
-	var aim_angle := clampf(local_aim.angle(), -MAX_AIM_ANGLE, MAX_AIM_ANGLE)
+	var aim_angle := _local_aim_angle(input)
 	var relax: Dictionary = _motion["relax"]
 	_relax = move_toward(_relax, 1.0 if input.relaxed and not input.dead else 0.0, float(relax["speed"]) * delta)
 	var look_angle := aim_angle * (1.0 - _relax)  # 頭與上身看前方，不跟著垂下的槍口低頭
@@ -1219,6 +1218,19 @@ func _forward_kinematics() -> void:
 # ---------------------------------------------------------------------------
 # 3. 手臂 IK 與武器
 # ---------------------------------------------------------------------------
+
+## A shot can arrive before the next visual tick. Sample the new aim against
+## the current body without consuming any pose, spring, or recoil clocks.
+func refresh_weapon_aim(input: RigInput) -> void:
+	if _action_skip_ik and _action_w > 0.001:
+		return
+	var angle := lerpf(_local_aim_angle(input), float((_motion["relax"] as Dictionary)["aim"]), _relax)
+	_solve_arms(input, angle)
+
+
+func _local_aim_angle(input: RigInput) -> float:
+	return clampf(Vector2(input.aim_dir.x * input.facing, input.aim_dir.y).angle(), -MAX_AIM_ANGLE, MAX_AIM_ANGLE)
+
 
 func _solve_arms(input: RigInput, aim_angle: float) -> void:
 	var weapon := _rig.weapon_def()
