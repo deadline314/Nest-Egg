@@ -145,14 +145,15 @@ func _unhandled_input(event: InputEvent) -> void:
 	# 設定畫面開啟時由它自己處理輸入（Esc 會先關閉設定）。
 	if is_instance_valid(_navigation) or is_instance_valid(_settings) or is_instance_valid(_codex) or not GameplayLock.menu_allowed() or Story.is_cinematic_active():
 		return
+	if is_instance_valid(_skip_confirm):
+		if event.is_action_pressed(&"pause") or event.is_action_pressed(&"ui_cancel"):
+			_cancel_skip()
+		get_viewport().set_input_as_handled()
+		return
 	if allowed and (event.is_action_pressed(&"quests") or event.is_action_pressed(&"map")) and (not get_tree().paused or _root.visible):
 		if not _root.visible:
 			open()
 		_open_navigation("quests" if event.is_action_pressed(&"quests") else "region")
-		get_viewport().set_input_as_handled()
-		return
-	if is_instance_valid(_skip_confirm) and (event.is_action_pressed(&"pause") or event.is_action_pressed(&"ui_cancel")):
-		_cancel_skip()
 		get_viewport().set_input_as_handled()
 		return
 	if event.is_action_pressed(&"pause") or (_root.visible and event.is_action_pressed(&"ui_cancel")):
@@ -182,6 +183,7 @@ func close() -> void:
 	if is_instance_valid(_skip_confirm):
 		_skip_confirm.queue_free()
 		_skip_confirm = null
+		_menu_panel.visible = true
 		_info_panel.visible = true
 	if is_instance_valid(_navigation):
 		_navigation.queue_free()
@@ -253,11 +255,14 @@ func _ask_skip() -> void:
 	note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	note.custom_minimum_size = Vector2(330, 0)
 	panel.body.add_child(note)
-	var keep := UiKit.button("繼續練習", _cancel_skip, "回到暫停選單，不改任何進度")
+	var keep := UiKit.button("繼續練習", _cancel_skip, "返回暫停選單。")
 	panel.body.add_child(keep)
-	panel.body.add_child(UiKit.button("確認" + skip_label, _confirm_skip, "直接回店裡吃晚飯，第一章的目標照樣交給你"))
+	panel.body.add_child(UiKit.button("確認" + skip_label, _confirm_skip, "略過這一段。"))
+	panel.add_to_group(FocusHintBar.OWN_HINTS_GROUP)
+	FocusHintBar.attach(panel, FocusHintBar.Placement.INLINE, panel.body)
 	_root.add_child(panel)
 	_skip_confirm = panel
+	_menu_panel.visible = false
 	_info_panel.visible = false
 	keep.grab_focus()
 
@@ -294,11 +299,13 @@ func _on_skip_pressed() -> void:
 
 
 func _cancel_skip() -> void:
-	if is_instance_valid(_skip_confirm):
-		_skip_confirm.queue_free()
+	if not is_instance_valid(_skip_confirm):
+		return
+	_skip_confirm.queue_free()
 	_skip_confirm = null
+	_menu_panel.visible = true
 	_info_panel.visible = true
-	_resume_button.grab_focus()
+	_skip_button.grab_focus()
 
 
 func _confirm_skip() -> void:

@@ -1549,8 +1549,21 @@ func _test_prologue_skip() -> void:
 	menu._skip_button.button_up.emit()
 	menu._skip_button.pressed.emit()
 	check(is_instance_valid(menu._skip_confirm) and menu.get_viewport().gui_get_focus_owner() != null and menu.get_viewport().gui_get_focus_owner().text == "繼續練習", "a short press asks first with focus on keep practicing")
+	check(not menu._menu_panel.is_visible_in_tree() and not menu._info_panel.is_visible_in_tree(), "skip confirmation prevents focusing the underlying pause controls")
+	for action: StringName in [&"quests", &"map"]:
+		var shortcut := InputEventAction.new()
+		shortcut.action = action
+		shortcut.pressed = true
+		menu.get_viewport().push_input(shortcut)
+		check(not is_instance_valid(menu._navigation) and menu._skip_confirm.is_visible_in_tree(),
+			"skip confirmation keeps focus and blocks the %s shortcut" % action)
+		if is_instance_valid(menu._navigation):
+			menu._navigation.go_back()
+			await frames(2)
 	menu._cancel_skip()
 	check(not GameState.has_flag(&"ch1_prologue_skipped") and requested[0] == "", "cancelling the skip changes nothing")
+	check(menu._menu_panel.is_visible_in_tree() and menu._info_panel.is_visible_in_tree() and menu._skip_button.has_focus() and runner.get_tree().paused,
+		"cancelling skip restores the pause controls and the original skip button focus")
 	# 長按：滿一秒直接略過，不再跳確認。
 	menu._skip_button.button_down.emit()
 	menu._process(PauseMenu.SKIP_HOLD * 0.5)

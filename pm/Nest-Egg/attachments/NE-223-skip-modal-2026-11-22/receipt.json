@@ -1,0 +1,85 @@
+{
+  "baseline": "73f32918aadcb33dc52354f225c2fc6c5b1bc7c6",
+  "engine": "Godot 4.7.2 Forward+",
+  "display": "RX 9070 XT, background window; synthetic controller events",
+  "cases": [
+    [
+      "before-v3",
+      1,
+      [
+        1280,
+        720
+      ],
+      1.0
+    ],
+    [
+      "candidate-720",
+      0,
+      [
+        1280,
+        720
+      ],
+      1.0
+    ],
+    [
+      "candidate-720-large",
+      0,
+      [
+        1280,
+        720
+      ],
+      1.2
+    ],
+    [
+      "candidate-1080-large",
+      0,
+      [
+        1920,
+        1080
+      ],
+      1.2
+    ]
+  ],
+  "affected_suites": 15,
+  "affected_checks": 8872,
+  "wall_seconds": 236,
+  "evidence": {
+    "probe-v3.gd": "7cfb4b8b6f772cbab7503d4df29bc52ecfb53c3df1212f787c89ab8000ff0e2e",
+    "probe-v3.tscn": "6da40e3d2528dab5821f4002a9eea3eba6938dea47f001706e29d3c1783fb8a2",
+    "probe-candidate.gd": "952f49c1a17fe0216f0d68ae15b1ec6277a461d0c89d4d85388690e6fb36946f",
+    "probe-candidate.tscn": "9101e8b3ff6375dc7bb2d75af93f2ef351fe8fec821c6da9b817179b9b4594cf",
+    "run.ps1": "c0b5314c064b34167282c2d02ecce8ed9f73ee77ae9f808e605a5f84abea9cdf",
+    "run-candidate.ps1": "99cd23da0b776f352ba132e75fe455bdddf0e9db00e9486c11b9f2f7e2e431d3",
+    "before-v3/raw.log": "3faaa813aa9d8b61b00d19c3ffa3380f5040f97c94ecd810aa02c68ab3e498ab",
+    "before-v3/exit.txt": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+    "before-v3/confirmation.png": "2d6e1f8bcf11ceab0a7f4bb64d26d0e52d7400b4597023a1ca8a9f250ccc148e",
+    "before-v3/shortcut-o.png": "c95862ce975bdbf2289a8315368e272ef9e33289facc3f7878c603d4584125d0",
+    "before-v3/shortcut-m.png": "77931307434600ee6dbfd72116b05df5b700b14b5f80d4869e25ce1967a2b20d",
+    "before-v3/pause-returned.png": "b1bf7fea7d75bea863af254f10a66918a303119831d1d24c62e0e6b8a23dbed6",
+    "candidate-720/raw.log": "0ea985880d089ac537e05331085dbbe5ba0cda0a5ea470a396e5c4e04dab798f",
+    "candidate-720/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "candidate-720/confirmation.png": "db2a435299def01799faf139c74b5724b67338756935ae334ab4c279e41ed6fa",
+    "candidate-720/shortcut-o.png": "952a75d9a0fa31633a9741f463c0ccc2bf0570c97d17d213eb377b89fc6e7e90",
+    "candidate-720/shortcut-m.png": "e20b15ac4e62cb21d9a59c5fc5ea9850e36cededf2b2823c388b164f742c2095",
+    "candidate-720/pause-returned.png": "4d77392be5f78cb013f45cb15fba70aa047485d4d29791072a32ff9b90f17c7e",
+    "candidate-720-large/raw.log": "0ea985880d089ac537e05331085dbbe5ba0cda0a5ea470a396e5c4e04dab798f",
+    "candidate-720-large/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "candidate-720-large/confirmation.png": "2b98cb640d302da6567e8c765c387513349c0d7b2ee6ff364c8c39a4010dc447",
+    "candidate-720-large/shortcut-o.png": "ac0f0c9f53f29bae310e2d78e878558057aa51eebda0e14eca5221b41f24824c",
+    "candidate-720-large/shortcut-m.png": "1fb7c7cfe0f300a55154dbf5a65aea825110b20bdbb9f11e6bc272e87166162f",
+    "candidate-720-large/pause-returned.png": "edb71a3ac9449302eae2af386716e16d992f5f3eba56ce38db1e7bedc93c21c5",
+    "candidate-720-large/display.cfg": "9d914d428625aeff6826f6bf90b8749c15c3335f864db78f493da133d845fa42",
+    "candidate-1080-large/raw.log": "0ea985880d089ac537e05331085dbbe5ba0cda0a5ea470a396e5c4e04dab798f",
+    "candidate-1080-large/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "candidate-1080-large/confirmation.png": "8f45d8c1225036fcef34a4ac54c277aa17934510419997cc35b902a440295f56",
+    "candidate-1080-large/shortcut-o.png": "8098b3a067bcd0cfe78a87a87d6fb447a393b554b64e63b5c62de27892a4c924",
+    "candidate-1080-large/shortcut-m.png": "506964c0c9b96a495cb3029f7fb75b436673b74cb33a9b0907f9e47666fc56b0",
+    "candidate-1080-large/pause-returned.png": "c73e263c576be6209fc9f9f4b864241017949806cfda214e6dcc63c6a76964bd",
+    "candidate-1080-large/display.cfg": "9d914d428625aeff6826f6bf90b8749c15c3335f864db78f493da133d845fa42",
+    "headless-before-v3/raw.log": "3b29b460cf131802232a6fcb52d94f266403f8dea538ae4ecbfd7a7056b117f5",
+    "headless-before-v3/exit.txt": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+    "official-release/raw.log": "bcc16ea92f647518be3349e1b80c77041e6675c9740eb69a291fcff69586e373",
+    "official-release/verification.json": "bcd48cf77067c8483a435e6bbc6e11a20ca3db5c15f7b4ee58870c153b5d2b10",
+    "official-release/command.json": "f1fb7ef7b63e85592f437e458f0068086f7164e6548bb9f8afae51c8bda2fd9f"
+  }
+}
