@@ -443,6 +443,7 @@ func _sync_aim_pose(aim: Vector2) -> void:
 	_input.aim_dir = aim
 	_input.facing = player.facing
 	_input.crouching = player.is_crouching
+	_input.crouch_walking = _input.crouching and player.state == Player.State.NORMAL and absf(player.velocity.x) >= 4.0
 	_input.blocking = player.is_blocking
 	_input.crouch_uses_kneel = not rig.weapon_def().is_empty()
 	_input.crouched_muzzle_clearance = 0.0

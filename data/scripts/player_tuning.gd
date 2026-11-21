@@ -6,6 +6,7 @@ extends Resource
 
 @export_group("Run")
 @export var run_speed: float = 130.0
+@export_range(0.0, 1.0, 0.01) var crouch_speed_multiplier := 0.4
 @export var ground_acceleration: float = 1400.0
 @export var ground_deceleration: float = 1800.0
 @export var air_acceleration: float = 900.0

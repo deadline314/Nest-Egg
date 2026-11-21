@@ -7,6 +7,7 @@
 script = ExtResource("1_script")
 default_weapon = ExtResource("2_weapon")
 run_speed = 150.0
+crouch_speed_multiplier = 0.4
 ground_acceleration = 1600.0
 ground_deceleration = 2100.0
 air_acceleration = 1050.0

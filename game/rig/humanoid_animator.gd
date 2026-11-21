@@ -342,7 +342,7 @@ func update(delta: float, input: RigInput) -> void:
 	var target := _body_pose(delta, input, local_velocity, look_angle)
 	if not _gait_on:
 		_stance_known = false  # 重新起跑時第一次著地不算「剛著地」，避免用舊狀態誤判
-	_run_w = lerpf(_run_w, 1.0 if _gait_on else 0.0, 1.0 - exp(-RUN_OVERLAY_BLEND * delta))
+	_run_w = lerpf(_run_w, 1.0 if _gait_on and not input.crouching else 0.0, 1.0 - exp(-RUN_OVERLAY_BLEND * delta))
 	_update_run_overlay()
 	target[&"_hip_x"] = float(target.get(&"_hip_x", 0.0)) - _recoil * float((_motion["recoil"] as Dictionary)["hip"])  # 開火的後座把身體往後頂
 	_apply_action(delta, input, target)
@@ -364,7 +364,7 @@ func update(delta: float, input: RigInput) -> void:
 	var floor_pose := input.on_floor and not input.dead and not input.dashing
 	var ground_idle := bool(_motion["grounding"])
 	var can_pin := floor_pose and ground_idle and not input.crouching and _idle_on and not input.blocking and not input.staggered
-	_gait_w = move_toward(_gait_w, 1.0 if _gait_on and floor_pose and not input.crouching else 0.0, GAIT_BLEND_SPEED * delta)
+	_gait_w = move_toward(_gait_w, 1.0 if _gait_on and floor_pose else 0.0, GAIT_BLEND_SPEED * delta)
 	_idle_pin_w = move_toward(_idle_pin_w, 1.0 if can_pin else 0.0, GAIT_BLEND_SPEED * delta)
 	_gait_amp_now = lerpf(_gait_amp_now, _gait_amp if _gait_on else 0.0, 1.0 - exp(-10.0 * delta))
 	if floor_pose:
@@ -403,7 +403,7 @@ func _support_floor_contact(delta: float, input: RigInput) -> void:
 	# During the kneel blend the ankles can stay above ground while the painted heels cross it.
 	var blending_kneel := _kneel_w > 0.001 and _kneel_w < 1.0
 	var grounded_gait := _gait_on and not input.stage_grounded
-	var squat_target := 1.0 if input.crouching and not input.crouch_uses_kneel else 0.0
+	var squat_target := 1.0 if input.crouching and not input.crouch_uses_kneel and not _gait_on else 0.0
 	_squat_support = 0.0 if input.dashing else move_toward(_squat_support, squat_target, KNEEL_BLEND_SPEED * delta)
 	# A squat supports both soles; a kneel still needs its raised rear heel.
 	var support := minf(_squat_support, 1.0 - _kneel_w)
@@ -498,6 +498,17 @@ func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> 
 		pose[&"_hip_y"] = float(crouch["hip_drop"])
 		pose[&"chest"] = float(crouch["chest"])
 		_set_legs_from(pose, crouch["legs"])
+		if input.crouch_walking and _has_grounded_gait():
+			# A short planted stride stays below the standing pose and avoids sliding the locked kneel.
+			pose[&"_hip_y"] += 3.0
+			var stride := maxf(8.0, float(move["stride"]) * 0.5)
+			_phase += v.x * TAU / stride * delta
+			_gait_on = true
+			_gait_duty = 0.7
+			_gait_amp = minf(stride * _gait_duty * 0.5, _leg_length * 0.75)
+			_gait_lift = float(move["lift"]) * 0.5
+			_gait_reach = clampf(float(move["reach"]), 0.7, 1.0)
+			_gait_speed_ratio = speed_ratio
 	elif input.dashing:
 		var dash: Dictionary = m["dash"]["forward" if signf(v.x) >= 0.0 else "back"]
 		pose[&"chest"] = float(dash["chest"])
@@ -838,7 +849,7 @@ func _remember_feet_base() -> void:
 ## 骨架原點在腳底，所以地面是 y = 0；_ground_y 是站立時腳踝的高度，前腳踝就放在那裡。
 func _kneel(delta: float, input: RigInput) -> void:
 	var kneel: Dictionary = (_motion["crouch"] as Dictionary).get("kneel", {})
-	var want := 1.0 if input.crouching and input.crouch_uses_kneel and input.on_floor and not input.dead and not kneel.is_empty() else 0.0
+	var want := 1.0 if input.crouching and input.crouch_uses_kneel and not _gait_on and input.on_floor and not input.dead and not kneel.is_empty() else 0.0
 	_kneel_w = move_toward(_kneel_w, want, KNEEL_BLEND_SPEED * delta)
 	# 有跪姿專屬零件的外觀，跪下過半時換上、起身過半時換回；只收回自己換上的那一組，不動別人選的（過場的坐姿）。
 	if (_kneel_w >= 0.5) != _kneel_parts:

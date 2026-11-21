@@ -32,6 +32,7 @@ const CONTROLS_TEMPLATE := "移動 {move_left}/{move_right}　跳 {jump}　射�
 ## 對應的判定：放開跳躍會截短跳躍、按住射擊依射速連射、按住格擋持續舉盾、近戰與衝刺有輸入緩衝（data/feel/input.json）。
 const HOLD_RULES: Array[String] = [
 	"按住 {jump} 跳得更高，提早放開就跳得低。",
+	"按住 {move_down}，用 {move_left}／{move_right} 蹲行。",
 	"按住 {shoot} 依射速連射；按住 {block} 持續舉盾。",
 	"出招中先按 {melee} 會接下一段；衝刺快冷卻完時先按 {dash} 會排隊。",
 ]

@@ -538,14 +538,14 @@ func _process_normal(delta: float) -> void:
 	if was_crouching != is_crouching:
 		_update_hurtbox_shape()
 
-	var target_speed := 0.0
-	if not is_crouching:
-		target_speed = input_x * tuning.run_speed * cyber.move_speed_scale() * melee_move_scale() * carry.speed_scale()
-		# 背對準星移動（倒退）時稍慢，維持射擊時的控制感。
-		if signf(input_x) != 0.0 and signf(input_x) != float(facing):
-			target_speed *= tuning.backpedal_multiplier
-		if is_blocking:
-			target_speed *= guard_stats.block_speed_multiplier()
+	var target_speed := input_x * tuning.run_speed * cyber.move_speed_scale() * melee_move_scale() * carry.speed_scale()
+	# 背對準星移動（倒退）時稍慢，維持射擊時的控制感。
+	if signf(input_x) != 0.0 and signf(input_x) != float(facing):
+		target_speed *= tuning.backpedal_multiplier
+	if is_crouching:
+		target_speed *= tuning.crouch_speed_multiplier
+	elif is_blocking:
+		target_speed *= guard_stats.block_speed_multiplier()
 	var accel: float
 	if absf(target_speed) > 1.0:
 		accel = tuning.ground_acceleration if on_floor else tuning.air_acceleration

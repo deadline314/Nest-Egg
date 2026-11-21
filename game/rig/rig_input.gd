@@ -13,6 +13,7 @@ var aim_dir := Vector2.RIGHT
 var facing := 1
 var run_speed := 150.0
 var crouching := false
+var crouch_walking := false
 ## 地圖上的一般蹲姿與持槍跪瞄可各自使用原姿勢。
 var crouch_uses_kneel := true
 ## Optional shot-head clearance above the calibrated foot plane in skeleton units.

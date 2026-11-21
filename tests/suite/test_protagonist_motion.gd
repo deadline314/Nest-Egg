@@ -29,6 +29,7 @@ func run() -> void:
 	await _test_landing_keeps_boots_near_floor()
 	await _test_kneeling_keeps_boots_near_floor()
 	await _test_crouch_pose_switches_with_weapon()
+	await _test_crouch_walking_plants_steps()
 	await _test_crouched_gun_muzzle()
 	await _test_walking_and_running_keep_boots_near_floor()
 	await _test_back_dash_keeps_ankles_near_floor()
@@ -369,6 +370,33 @@ func _test_crouch_pose_switches_with_weapon() -> void:
 		_run(rig, input, 24)
 		check(rig.active_pose_parts() == &"kneel" and is_equal_approx(rig.animator._kneel_w, 1.0),
 				"a return to the firearm restores the kneel")
+		rig.get_parent().queue_free()
+	await frames(1)
+
+
+func _test_crouch_walking_plants_steps() -> void:
+	for facing: int in [-1, 1]:
+		var input := RigInput.new()
+		var rig := _make("rin", input)
+		input.facing = facing
+		input.aim_dir = Vector2(facing, 0.0)
+		input.crouching = true
+		_run(rig, input, 30)
+		input.crouch_walking = true
+		input.velocity.x = 60.0 * facing
+		_run(rig, input, 12)
+		var deepest := 0.0
+		var steps := 0
+		for i in 72:
+			rig.animate(DT, input)
+			steps += rig.animator.consume_footfalls()
+			deepest = maxf(deepest, _painted_sole_depth(rig))
+		check(rig.active_pose_parts() == &"" and steps >= 3 and deepest < 0.75,
+			"crouch walk plants both boots and releases the stationary knee pose (facing %d, steps %d, depth %.2f)" % [facing, steps, deepest])
+		input.crouch_walking = false
+		input.velocity.x = 0.0
+		_run(rig, input, 24)
+		check(rig.active_pose_parts() == &"kneel", "stopping in crouch returns to the stationary aiming pose")
 		rig.get_parent().queue_free()
 	await frames(1)
 
