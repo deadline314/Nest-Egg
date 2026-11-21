@@ -24,6 +24,7 @@ var held: Throwable
 var _phase_t := 0.0
 var _lift_offset := Vector2.ZERO
 var _hinted := false
+var _pickup_hint := ""
 ## 丟出去的那一下射擊鍵還按著：放開之前不算開槍（否則每丟一次就多開一槍或多揮一刀）。
 var _throw_press_held := false
 var _preview: PackedVector2Array = []
@@ -142,7 +143,8 @@ func pick(item: Throwable) -> void:
 	set_physics_process(true)
 	if not _hinted:
 		_hinted = true
-		EventBus.toast_requested.emit(InputBindings.format("{shoot} 往準星丟出，{interact} 放下"))
+		_pickup_hint = InputBindings.format("{shoot} 往準星丟出，{interact} 放下")
+		EventBus.toast_requested.emit(_pickup_hint)
 
 
 ## 往 direction（準星方向）丟出：速度與弧線由物件的重量決定，加上一點玩家自己的移動速度。
@@ -153,6 +155,7 @@ func throw_toward(direction: Vector2) -> void:
 	var item := held
 	item.launch(hold_point(), launch_velocity(dir), Combat.Team.PLAYER)
 	held = null
+	_dismiss_pickup_hint()
 	phase = Phase.THROWING
 	_phase_t = 0.0
 	_preview.clear()
@@ -180,11 +183,18 @@ func drop() -> void:
 
 func _reset() -> void:
 	held = null
+	_dismiss_pickup_hint()
 	phase = Phase.NONE
 	_phase_t = 0.0
 	_preview.clear()
 	set_physics_process(false)
 	queue_redraw()
+
+
+func _dismiss_pickup_hint() -> void:
+	if not _pickup_hint.is_empty():
+		EventBus.toast_dismiss_requested.emit(_pickup_hint)
+		_pickup_hint = ""
 
 
 ## 舉在頭上的位置（撿起時從腳前抬上來）。

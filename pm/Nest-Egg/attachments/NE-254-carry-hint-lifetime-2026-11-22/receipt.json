@@ -1,0 +1,49 @@
+{
+  "tested_parent": "2316b0b57b3aaa0e6a63e8e53b10550ad5f43b97",
+  "engine": "Godot 4.7.2 Forward+ RX 9070 XT",
+  "native": {
+    "native-original": 1,
+    "native-exact-720": 0,
+    "native-exact-1080": 0
+  },
+  "headless_failures": {
+    "carry-shadow": 4,
+    "carry-shadow-flushed": 0,
+    "carry-shadow-original": 2
+  },
+  "affected_suites": 13,
+  "affected_checks": 13781,
+  "wall_seconds": 186,
+  "sha256": {
+    "probe.gd": "8ca2c4ccabddf0f95ad79250a756232f6f2ed3f00d6cc24a3f856fb2d8c4bea8",
+    "probe.tscn": "e55901ef762b0b9ee08d0e953172455ea62425ba6ed310ed4acb74a461b6e7bb",
+    "run-native.ps1": "ed094c3d70a9c28a28527ab8d3368b37caee9843e91f1747bfa0fce204d11a2c",
+    "native-original/raw.log": "a3e34415c3d9032282373a517e85f52a9672fa531f2bc0a0a21e7fc042ae8513",
+    "native-original/exit.txt": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+    "native-original/hold-near-vehicle.png": "ad9fd5c0feb64c03b69425c5550da7279647a98a85542a431d2b423db8d7f383",
+    "native-original/first-press.png": "f8405a925c0c38a8db39c25a787ad79ab097d4ea16d79e22cf28730de1692eda",
+    "native-original/second-prompt.png": "12cc9e4daa5156f51afa9bcfdb0290953401e3efada58b99d41ba9f5b28623ae",
+    "native-exact-720/raw.log": "c42057b7e14d0c875967e312bd951bf82859aa1a62180227a69421ca27f1decc",
+    "native-exact-720/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "native-exact-720/hold-near-vehicle.png": "4fb33e7b03903fd29118750673976925b12a030ed282016ec201f4cb25cc6154",
+    "native-exact-720/first-press.png": "c59103d2d41424b6cb8d3fa0e4ecaf98fe93880e091ec47b2ec2b2a1e1c6722e",
+    "native-exact-720/second-prompt.png": "35618de50b722ab01c92c0b550b5750f390b7a8733737152b55cad2a6a14e12c",
+    "native-exact-1080/raw.log": "fd8ca9f8324de0f76f715cbd4bdb6c127918cdb980873e099974c397b15e368b",
+    "native-exact-1080/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "native-exact-1080/hold-near-vehicle.png": "d097afb159297299755039d268a037639e6bb5d7d128df0c6233313dfd68ca44",
+    "native-exact-1080/first-press.png": "43d23453074b4533087f5b66d7c19ca0ce872165891f12ed45a1cd6d4cdceafc",
+    "native-exact-1080/second-prompt.png": "62096c53146ca021e269c107fa9ed7f834db8221cb4b4a19b4561dae18d97412",
+    "headless/carry-shadow.log": "c5d6c7b2e0f395afa975fe8a0d91bcd41584d49ffd734a68c490ecde6c4700d6",
+    "headless/carry-shadow-flushed.log": "1764c6c54724a2b2b7de4d54c6d5aa626511b289123680db8edb56a81be7c6dd",
+    "headless/carry-shadow-original.log": "5b4e4fcdb097805d90c3c59ac0370c2c86bad68b45a3528f08916aaa877f907f",
+    "first-affected/raw.log": "0b90e801104808cd84471ac8b8e03e3aa9d859ac1f486a99d78394a83ee8770c",
+    "single-wait/raw.log": "06ee12a81a8a4094d1107373d81fb7f3cb2835cf8eec47d23df83764cfd9fba9",
+    "timing/raw.log": "644aa23f6a23f912c85058ae0e439b2ec76c796359ab920f00fa0b008d256f90",
+    "timing/prompt-render-suite.gd": "df9d427dae0fc2ae45b07fa408910363709aa48ea9b23d7d7ee46f304df50fca",
+    "timing/prompt-render.gd": "eded936caace0a649ae8097baff437eb3e5a6f4f8e54738e2f910f1742be502a",
+    "timing/prompt-render.tscn": "61f7ae1814fc7287707a8598e2b32028559043417ea619b06cb26eb49babe0e8",
+    "official/raw.log": "e0fcaca98c7661378731b0226f969b8960e50c2bd270e03e910fdc36555dfe22",
+    "official/command.json": "caa6c73d2f17153466abc8266da12766a7f6e9311a465c0fe99f48f3c6818111",
+    "official/verification.json": "bcd48cf77067c8483a435e6bbc6e11a20ca3db5c15f7b4ee58870c153b5d2b10"
+  }
+}

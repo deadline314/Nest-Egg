@@ -48,6 +48,9 @@ func _test_pickup_prompt_target() -> void:
 	await physics_frames(2)
 	check(other._prompt._player_near() and not near._prompt._player_near(), "moving to the other object transfers the prompt to the actual pickup target")
 	await _press(&"interact")
+	var prompt_frame := Engine.get_process_frames()
+	while Engine.get_process_frames() == prompt_frame:
+		await runner.get_tree().process_frame
 	check(level.player.carry.held == other and not near._prompt._player_near(), "the real interact key picks the advertised object and suppresses other pickup invitations")
 	check(other._prompt._player_near() and other._prompt.text == "{interact} 放下", "the held object offers the drop action")
 	await end_level(level)
@@ -68,7 +71,9 @@ func _test_drop_near_switch() -> void:
 	await _aim(Vector2.RIGHT)
 	await physics_frames(3)
 	check(lever.interaction_available() and not lever._prompt._player_near(), "the reachable switch yields its prompt to the held object")
+	level.hud.show_toast("關卡提示")
 	await _press(&"interact")
+	check(level.hud.toast_banner._label.text == "關卡提示", "putting an object down leaves the newer world notice visible")
 	check(crate.state == Throwable.State.REST and not lever.active, "the drop press cannot toggle the switch")
 	place_player(13.4)
 	await physics_frames(6)
@@ -96,6 +101,7 @@ func _test_drop_near_vehicle() -> void:
 	var crate := _place(CRATE, 10.0)
 	await physics_frames(4)
 	check(await _pick_up(crate), "the original pickup keeps the crate before approaching the vehicle")
+	check(level.hud.toast_banner._label.text.contains("往準星丟出"), "the first pickup still explains how to throw")
 	var vehicle := Vehicle.new()
 	vehicle.configure(load("res://data/vehicles/bulwark.tres"))
 	vehicle.position = Vector2(14.0 * 16.0, FLOOR_Y)
@@ -107,6 +113,7 @@ func _test_drop_near_vehicle() -> void:
 	check(crate._prompt._player_near() and not vehicle._prompt._player_near(), "the drop affordance supersedes boarding")
 	await _press(&"interact")
 	check(crate.state == Throwable.State.REST and vehicle.driver == null, "dropping the crate never boards the vehicle")
+	check(level.hud.toast_banner._label.text.is_empty(), "dropping an object withdraws the pickup tutorial immediately")
 
 	place_player(14.0 + 38.0 / 16.0)
 	await physics_frames(4)
@@ -669,6 +676,7 @@ func _joy_button(button: JoyButton, pressed: bool) -> void:
 	event.button_index = button
 	event.pressed = pressed
 	Input.parse_input_event(event)
+	Input.flush_buffered_events()
 
 
 func _joy_axis(axis: JoyAxis, value: float) -> void:
@@ -677,6 +685,7 @@ func _joy_axis(axis: JoyAxis, value: float) -> void:
 	event.axis = axis
 	event.axis_value = value
 	Input.parse_input_event(event)
+	Input.flush_buffered_events()
 
 
 func _joy_tap(button: JoyButton) -> void:
@@ -737,6 +746,7 @@ func _test_gamepad_events() -> void:
 	var ammo := player.loadout.mag_in(player.loadout.active_slot)
 	var before := grunt.health.current
 	await _joy_trigger(JOY_AXIS_TRIGGER_RIGHT)
+	check(level.hud.toast_banner._label.text.is_empty(), "throwing an object withdraws the gamepad pickup tutorial")
 	check(pipe.state == Throwable.State.FLYING and player.loadout.mag_in(player.loadout.active_slot) == ammo,
 			"the right trigger throws instead of firing (state %d, ammo %d -> %d)" % [pipe.state, ammo, player.loadout.mag_in(player.loadout.active_slot)])
 	for i in 90:
