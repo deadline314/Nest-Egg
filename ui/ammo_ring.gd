@@ -111,9 +111,13 @@ func _process(delta: float) -> void:
 	presence.update(delta, false, true, hidden or not (_has_mag or _name_left > 0.0 or _empty_left > 0.0))
 	if player != null:
 		_point = get_viewport().get_canvas_transform() * player.aim_point
-		_reloading = player.loadout.is_reloading()
-		_reload_progress = player.loadout.reload_progress()
+		_sync_reload_state(player.loadout)
 	queue_redraw()
+
+
+func _sync_reload_state(loadout: Loadout) -> void:
+	_reloading = loadout != null and loadout.is_reloading()
+	_reload_progress = loadout.reload_progress() if _reloading else 0.0
 
 
 func _on_loadout_changed(loadout: Loadout) -> void:
@@ -139,6 +143,9 @@ func _on_loadout_changed(loadout: Loadout) -> void:
 		ammo_per_shot = maxi(1, weapon.ammo_per_shot)
 		weapon_color = weapon.color
 		is_energy = weapon.is_energy
+	# PromptLayout can query clearance immediately after receiving changed ammunition.
+	_sync_reload_state(loadout)
+	queue_redraw()
 
 
 func _draw() -> void:

@@ -39,14 +39,15 @@ func _test_reload_prompt_clearance() -> void:
 			"world prompts leave the low-ammo hint and reticle readable together")
 	if bounds_for_ring.is_valid():
 		check(loadout.start_reload(), "the equipped magazine starts a reload")
+		check(ring._reloading, "reload feedback reflects the loadout signal before an idle frame")
 		await frames(2)
 		reserved = bounds_for_ring.call()
 		check(reserved.has_point(to_world * (ring._point + Vector2(-15, 24))),
 				"active reload feedback reserves the same label position")
 		loadout.set_ammo(slot, loadout.active_weapon().magazine_size, -1)
-		await frames(2)
 		reserved = bounds_for_ring.call()
-		check(not reserved.has_area(), "a full magazine does not reserve space around the crosshair")
+		check(not reserved.has_area() and ring._reload_progress == 0.0,
+				"a full magazine clears the reload label and its prompt clearance before the next frame")
 	await end_level(level)
 
 
