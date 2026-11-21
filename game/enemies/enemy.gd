@@ -647,6 +647,8 @@ func restore_lost_health(lost: int) -> void:
 	if health == null or lost <= 0 or _dying:
 		return
 	health.current = clampi(health.max_health - lost, 1, health.max_health)
+	if rig != null:
+		rig.set_armor_ratio(health.ratio(), false)
 	health.health_changed.emit(health.current, health.max_health)
 
 

@@ -14,6 +14,7 @@ const ALL: Array[String] = [SWEEPER_PATH, GUNNER_PATH, BRUTE_PATH, WATCHDOG_PATH
 func run() -> void:
 	_test_data()
 	await _test_watchdog_flow()
+	await _test_inspector_restores_visual_armor()
 	_test_watchdog_pattern_data()
 	_test_framework_extensions()
 	await _test_watchdog_habits()
@@ -78,6 +79,21 @@ func _test_watchdog_flow() -> void:
 	check(defeated.is_empty(), "defeating the watchdog does not end the level")
 	EventBus.mechanism_toggled.disconnect(on_toggle)
 	EventBus.boss_defeated.disconnect(on_defeated)
+	await end_level(level)
+
+
+func _test_inspector_restores_visual_armor() -> void:
+	await open_level(8.0)
+	var inspector := spawn(INSPECTOR_PATH, 50.0) as Enemy
+	var armor := inspector.rig.armor_count()
+	var debris := RigDebris._active
+	var lost := int(inspector.health.max_health * 0.5)
+	inspector.restore_lost_health(lost)
+	check(armor == 4 and inspector.health.current == 14 and inspector.rig._armor_visible == 2,
+			"restoring the wounded Inspector also restores its two remaining armor groups")
+	inspector.restore_lost_health(lost)
+	check(inspector.rig._armor_visible == 2 and RigDebris._active == debris,
+			"restoring the same armor does not replay armor debris")
 	await end_level(level)
 
 
