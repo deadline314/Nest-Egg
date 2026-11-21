@@ -49,6 +49,7 @@ var _time := 0.0
 var _fire_flash := 0.0
 ## 進行中的揮砍軌跡：{age, trail（資料）, facing}；最多同時兩條，亮度有上限，不走粒子預算。
 var _trails: Array[Dictionary] = []
+var _thrust_trail_points := PackedVector2Array([Vector2.ZERO, Vector2.ZERO, Vector2.ZERO, Vector2.ZERO])
 ## 手上的近戰武器（握在拳頭裡、有自己的重量）。
 var _melee_held: MeleeHeld
 ## 近戰武器的刃光（真的光源）。
@@ -573,8 +574,13 @@ func _draw_trail(entry: Dictionary) -> void:
 			var dir := Vector2.RIGHT.rotated(base)
 			var tip := center + dir * radius * sweep
 			var tail := center + dir * radius * maxf(0.0, sweep - 0.55)
-			draw_line(tail, tip, Color(LightKit.glow(tint, glow), fade), width)
-			draw_line(tail.lerp(tip, 0.25), tip, Color(LightKit.glow(Palette.WHITE, glow * 0.8), fade * 0.8), maxf(1.0, width * 0.4))
+			var widest := tail.lerp(tip, 0.65)
+			var side := dir.orthogonal() * (width * 0.5)
+			_thrust_trail_points[0] = tail
+			_thrust_trail_points[1] = widest + side
+			_thrust_trail_points[2] = tip
+			_thrust_trail_points[3] = widest - side
+			draw_colored_polygon(_thrust_trail_points, Color(LightKit.glow(tint, glow), fade * Settings.flash_scale()))
 		"lash":
 			var dir := Vector2.RIGHT.rotated(base)
 			var side := Vector2(-dir.y, dir.x)
