@@ -3,6 +3,8 @@ extends Node
 ## and non-target suspension are arranged; no enemy health/FSM/stat writes.
 const Capture := preload("res://tools/viewport_capture.gd")
 const Held := preload("res://tools/held_lighting_state.gd")
+const MARKET_GATE := "res://data/levels/ch2_market_gate.tres"
+const ACTOR_IDS: Array[StringName] = [&"ch2_escort", &"ch2_bill_thrower"]
 var _out := ""
 var _quality := "high"
 var _failures := 0
@@ -13,10 +15,7 @@ var _environment: WorldEnvironment
 func _ready() -> void:
 	Settings.use_storage("user://bg55_action_settings.cfg")
 	if OS.get_cmdline_user_args().has("--validate-only"):
-		var level_data := load("res://data/levels/ch2_market_gate.tres") as LevelData
-		var escort := load("res://data/enemies/ch2_escort.tres") as EnemyData
-		var thrower := load("res://data/enemies/ch2_bill_thrower.tres") as EnemyData
-		var valid: bool = level_data != null and escort.rig_skin == "collector_brute" and thrower.rig_skin == "collector_gunner"
+		var valid := _validate_market_resources()
 		print("BG55_ACTION_CPU valid=", valid, " (loading/compile only; not native AI validation)")
 		get_tree().quit(0 if valid else 1)
 		return
@@ -27,6 +26,10 @@ func _ready() -> void:
 		push_error("[BG55 Action] Requires native rendering and absolute --out")
 		get_tree().quit(2)
 		return
+	if not _validate_market_resources():
+		get_tree().quit(2)
+		return
+	get_window().set_flag(Window.FLAG_NO_FOCUS, true)
 	_environment = LightKit.create_environment()
 	add_child(_environment)
 	var overlay := CanvasLayer.new()
@@ -37,6 +40,19 @@ func _ready() -> void:
 	caption.add_theme_font_size_override("font_size", 12)
 	overlay.add_child(caption)
 	_run.call_deferred()
+
+
+func _validate_market_resources() -> bool:
+	var valid := ResourceLoader.exists(MARKET_GATE) and load(MARKET_GATE) is LevelData
+	if not valid:
+		printerr("[BG55 Action] Missing or invalid level: ", MARKET_GATE)
+	for id in ACTOR_IDS:
+		var path := "res://data/enemies/%s.tres" % id
+		var actor := load(path) as EnemyData if ResourceLoader.exists(path) else null
+		if actor == null or actor.id != id or actor.rig_skin != String(id):
+			printerr("[BG55 Action] Invalid actor or dedicated rig: ", path, " (expected ", id, ")")
+			valid = false
+	return valid
 
 
 func _check(value: bool, message: String) -> void:
@@ -55,7 +71,7 @@ func _run() -> void:
 	Story._layer.visible = false
 	for id in Story.scene_ids(): Story._seen[StringName(id)] = true
 	Input.action_press(&"aim_right")
-	for id in [&"ch2_escort", &"ch2_bill_thrower"]:
+	for id in ACTOR_IDS:
 		await _observe(id)
 	Input.action_release(&"aim_right")
 	Settings.set_light_quality(quality_before)
@@ -76,15 +92,16 @@ func _run() -> void:
 func _observe(id: StringName) -> void:
 	GameState.start_new_run(GameState.difficulties[1])
 	var level := Level.new()
-	level.configure(load("res://data/levels/ch2_market_gate.tres") as LevelData)
+	level.configure(load(MARKET_GATE) as LevelData)
 	add_child(level)
 	var target: Enemy
 	for node in level._entities.get_children():
 		if node is Enemy:
 			if target == null and node.data.id == id: target = node
 			else: node.process_mode = Node.PROCESS_MODE_DISABLED
-	_check(target != null, "authored target exists: " + str(id))
-	if target == null:
+	var matching_rig := target != null and target.rig != null and target.rig.skin_id == String(id)
+	_check(matching_rig, "authored target uses its dedicated rig: " + str(id))
+	if not matching_rig:
 		level.queue_free()
 		await get_tree().process_frame
 		return
