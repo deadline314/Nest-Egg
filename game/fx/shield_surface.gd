@@ -81,7 +81,7 @@ func paint_emitter(canvas: CanvasItem, wrist: Vector2, center: Vector2, guard_ra
 
 func paint(canvas: CanvasItem, center: Vector2, guard_ratio: float, parry_window: bool,
 		window_left: float, block_flash: float, parry_flash: float, flash_scale: float, motion_scale: float) -> void:
-	if _rim.is_empty() or (extension <= 0.0 and break_left <= 0.0 and parry_flash <= 0.0):
+	if _rim.is_empty() or not has_visible_effects(parry_flash):
 		return
 	var remaining := clampf(guard_ratio, 0.0, 1.0)
 	var strength := clampf(flash_scale, 0.0, 1.0)

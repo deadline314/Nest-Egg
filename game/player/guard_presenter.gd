@@ -36,6 +36,10 @@ func notify_impact(incoming: Vector2) -> void:
 	impact_direction = incoming.normalized() if incoming.is_finite() and incoming.length_squared() > 0.0001 else direction
 
 
+func has_visible_effects(parry_flash: float) -> bool:
+	return extension > 0.0 or break_left > 0.0 or parry_flash > 0.0
+
+
 ## 回傳盾面靠手腕那一側的錨點（測試用來量手腕到盾面的距離）。
 func paint_emitter(_canvas: CanvasItem, _wrist: Vector2, center: Vector2, _guard_ratio: float) -> Vector2:
 	return center

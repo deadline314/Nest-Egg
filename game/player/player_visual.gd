@@ -47,6 +47,7 @@ var rig: CharacterRig
 var _input := RigInput.new()
 var _time := 0.0
 var _fire_flash := 0.0
+var _drew_effects := false
 ## 進行中的揮砍軌跡：{age, trail（資料）, facing}；最多同時兩條，亮度有上限，不走粒子預算。
 var _trails: Array[Dictionary] = []
 var _thrust_trail_points := PackedVector2Array([Vector2.ZERO, Vector2.ZERO, Vector2.ZERO, Vector2.ZERO])
@@ -534,7 +535,9 @@ func _process(delta: float) -> void:
 	visible = player.state != Player.State.MOUNTED
 	# Sample after the current frame visibility/materialize alpha is applied.
 	_update_ghosts(delta)
-	queue_redraw()
+	# Redraw once after the last effect expires to clear cached drawing commands.
+	if _drew_effects or _has_effects():
+		queue_redraw()
 
 
 func _update_ghosts(delta: float) -> void:
@@ -602,8 +605,14 @@ func _draw_trail(entry: Dictionary) -> void:
 				draw_arc(center, radius * 0.85, start, back, 14, Color(LightKit.glow(tint, glow * 0.6), fade * 0.45), width * 0.5)
 
 
+func _has_effects() -> bool:
+	return _materialize_left > 0.0 or _fire_flash > 0.0 or not _trails.is_empty() \
+		or _shield.has_visible_effects(_parry_flash) or _finisher_flash > 0.0
+
+
 func _draw() -> void:
-	if player == null or _interacting:
+	_drew_effects = player != null and not _interacting and _has_effects()
+	if not _drew_effects:
 		return
 	_draw_materialize()
 	if _fire_flash > 0.0:
