@@ -16,6 +16,7 @@ const SIGHT_HEIGHT := 60.0
 
 var _cooldown := 0.6
 var _aim := Vector2.RIGHT
+var _target_at_lock := Vector2.ZERO
 var _paper_texture: Texture2D
 
 
@@ -39,6 +40,7 @@ func _param(key: String) -> float:
 
 func _on_stunned() -> void:
 	if fsm.is_in(&"windup"):
+		_aim = _muzzle().direction_to(_target_at_lock)
 		fsm.transition(&"recover")
 
 
@@ -74,7 +76,7 @@ func _is_ledge_behind() -> bool:
 func _windup_enter() -> void:
 	velocity.x = 0.0
 	_face_target()
-	_aim = _direction_to_target()
+	_target_at_lock = _target_point()
 	_start_telegraph(data.telegraph_time)
 
 
@@ -82,9 +84,11 @@ func _windup_tick(_delta: float) -> void:
 	velocity.x = 0.0
 	if _telegraph_left > _param("lock"):
 		_face_target()
-		_aim = _direction_to_target()
+		_target_at_lock = _target_point()
 	if not is_telegraphing():
-		WeaponSystem.fire_spread(data.projectile, _muzzle(), _aim, clampi(int(_param("count")), 1, 9), clampf(_param("spread"), 0.0, 120.0),
+		var origin := _muzzle()
+		_aim = origin.direction_to(_target_at_lock)
+		WeaponSystem.fire_spread(data.projectile, origin, _aim, clampi(int(_param("count")), 1, 9), clampf(_param("spread"), 0.0, 120.0),
 				0.0, Combat.Team.ENEMY, _projectile_speed_multiplier())
 		_rig_input.recoil = 1.0
 		Sfx.play(&"shot_spread", -10.0)
@@ -104,6 +108,10 @@ func _rig_aim() -> Vector2:
 	return _aim if fsm.is_in(&"recover") else Vector2(facing, 0.3).normalized()
 
 
+func _muzzle() -> Vector2:
+	return to_global(_hand_local() + PAPER_RECT.get_center())
+
+
 ## 預兆：舉起的紙疊與扇形兩條邊線（鎖定後變亮）。
 func _draw_overlay() -> void:
 	if _dying:
@@ -121,9 +129,11 @@ func _draw_overlay() -> void:
 	var locked := _telegraph_left <= _param("lock")
 	var color := Color(LightKit.glow(Palette.DANGER, 1.6 if locked else 0.8 + 0.6 * t), 0.7 if locked else 0.2 + 0.35 * t)
 	var spread := deg_to_rad(clampf(_param("spread"), 0.0, 120.0))
-	var origin := to_local(_muzzle())
+	var grip := _muzzle()
+	var origin := to_local(grip)
+	var direction := grip.direction_to(_target_at_lock)
 	for side: float in [-0.5, 0.5]:
-		draw_line(origin, origin + _aim.rotated(spread * side) * 60.0, color, 1.0)
+		draw_line(origin, origin + direction.rotated(spread * side) * 60.0, color, 1.0)
 
 
 ## 骨架載入失敗時的程式繪製：瘦長的人形、手上一疊單子。

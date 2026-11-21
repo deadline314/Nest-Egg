@@ -371,13 +371,42 @@ func _test_thrower_fan_and_bypass() -> void:
 	check(paper != null and paper.get_size() == Vector2(24, 20), "the bill thrower equips the paper bundle at the authored scale")
 	await wait_state(thrower, &"windup", 300)
 	check(thrower.fsm.is_in(&"windup"), "the bill thrower winds up a fan when the player is in range")
-	await wait_state(thrower, &"recover", 120)
+	var hand := thrower.anchor_node(&"hand_front")
+	var release_point := Vector2.ZERO
+	var locked_target := Vector2.ZERO
+	var locked_origin_matches := true
+	var locked_frames := 0
+	for tick in 120:
+		if not thrower.fsm.is_in(&"windup"):
+			break
+		if hand != null:
+			release_point = hand.global_position + Vector2(0.0, -1.5)
+			if thrower._telegraph_left <= 0.25:
+				if locked_frames == 0:
+					locked_target = thrower._target_point()
+					level.player.set_physics_process(false)
+					place_player(12.0, FLOOR_Y - 18.0)
+				locked_frames += 1
+				locked_origin_matches = locked_origin_matches and thrower._muzzle().is_equal_approx(release_point)
+		await physics_frames(1)
+	check(locked_frames > 0 and locked_origin_matches, "the locked fan starts at the held paper bundle")
+	check(thrower.fsm.is_in(&"recover"), "the bill thrower finishes the windup and recovers")
 	var sheets := 0
+	var sheets_start_at_hand := true
+	var velocity_sum := Vector2.ZERO
 	for child: Node in ProjectilePool.container().get_children():
 		var shot := child as Projectile
 		if shot != null and shot.active and shot.spec.source_id == &"bill_paper":
 			sheets += 1
+			var origin := shot.global_position - shot.velocity * (shot.spec.lifetime - shot._life)
+			sheets_start_at_hand = sheets_start_at_hand and origin.distance_to(release_point) < 0.05
+			velocity_sum += shot.velocity
 	check(sheets == 5, "the bill thrower throws a fan of five slow sheets (%d)" % sheets)
+	check(sheets == 5 and sheets_start_at_hand, "all five paper sheets leave the hand that held the bundle")
+	var fan_direction := velocity_sum.normalized()
+	check(locked_frames > 0 and sheets == 5 and absf((locked_target - release_point).cross(fan_direction)) < 0.1
+			and absf((thrower._target_point() - release_point).cross(fan_direction)) > 2.0,
+			"moving after lock leaves the paper fan aimed at the original target point")
 	await end_level(level)
 	await open_level(54.0)
 	var low := spawn(THROWER_PATH, 46.0)
@@ -387,6 +416,11 @@ func _test_thrower_fan_and_bypass() -> void:
 	level.player.set_physics_process(false)
 	await physics_frames(90)
 	check(low.fsm.is_in(&"patrol"), "a bill thrower on the ground does not see a player on the high walkway (bypass works)")
+	place_player(40.0)
+	var winds_up := await wait_state(low, &"windup", 300)
+	low.stun(0.4)
+	check(winds_up and low.fsm.is_in(&"recover") and low._rig_aim().x < 0.0,
+			"a stunned thrower recovers facing the interrupted throw")
 	await end_level(level)
 
 
