@@ -515,7 +515,12 @@ func _build_map() -> void:
 	var world_mode := _page == "world"
 	var showing_source := not reference_location.is_empty()
 	var source_copy: Dictionary = SOURCE_MAP_COPY.get(Story.language, SOURCE_MAP_COPY["zh"])
-	info.add_child(UiKit.caption("第一章的區域" if world_mode else "目前區域" if _map_path == player_path else "查看中的區域", Palette.CYAN))
+	var area_caption := "目前區域" if _map_path == player_path else "查看中的區域"
+	if world_mode:
+		area_caption = "本章區域"
+		if not chapter.is_empty():
+			area_caption = str(Story.chapter_info(StringName(chapter)).get("title", area_caption))
+	info.add_child(UiKit.caption(area_caption, Palette.CYAN))
 	var heading := UiKit.heading("世界地圖" if world_mode else data.display_name if data != null else "尚未載入區域")
 	heading.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	# 自動換行的標題先知道欄寬；否則第一次排版以零寬逐字換行，地圖會在同一格多重建一次。

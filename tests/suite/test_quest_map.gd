@@ -19,6 +19,7 @@ func run() -> void:
 	_test_state(catalog, maps)
 	await _test_terrain_cache(catalog, maps)
 	await _test_ui(catalog, maps)
+	await _test_world_chapter_titles(catalog)
 	await _test_runtime()
 	_test_display_defaults()
 	await _test_story_language()
@@ -518,6 +519,26 @@ func _test_ui(catalog: QuestCatalog, maps: QuestMapIndex) -> void:
 	await frames(2)
 	await _test_long_details(maps)
 	GameState.world_flags = old_flags
+
+
+func _test_world_chapter_titles(catalog: QuestCatalog) -> void:
+	var chapters := {&"ch1_kasa": PAWN, &"ch2_heron": "res://data/levels/ch2_harbor_street.tres",
+		&"ch3_clearwater": "res://data/levels/ch3_plaza.tres"}
+	for chapter_id: StringName in chapters:
+		var screen := QuestMapScreen.new()
+		screen.catalog = catalog
+		screen.maps = QuestMapIndex.for_chapter(chapter_id)
+		screen.state = QuestMapState.new()
+		screen.chapter = String(chapter_id)
+		screen.player_path = chapters[chapter_id]
+		screen.start_page = "world"
+		runner.get_tree().root.add_child(screen)
+		await frames(3)
+		var caption := screen._body.get_child(0).get_child(0).get_child(0) as Label
+		var title: String = Story.chapter_info(chapter_id)["title"]
+		check(caption != null and caption.text == title, "world map uses the authored title for %s" % chapter_id)
+		screen.queue_free()
+		await frames(2)
 
 
 func _test_completed_pin_label(screen: QuestMapScreen) -> void:

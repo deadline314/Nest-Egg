@@ -1,0 +1,45 @@
+{
+  "tested_parent": "a6892a49d72b060227ee88944e65ceca3a92d761",
+  "engine": "Godot 4.7.2 Forward+ RX 9070 XT",
+  "input": "keyboard map shortcut and tab confirmation in the no-focus game viewport",
+  "native_results": {
+    "native-before": {
+      "checks": 18,
+      "failures": 3
+    },
+    "native-after-720": {
+      "checks": 18,
+      "failures": 0
+    },
+    "native-after-1080": {
+      "checks": 18,
+      "failures": 0
+    }
+  },
+  "affected_suites": 15,
+  "affected_checks": 8888,
+  "wall_seconds": 263,
+  "evidence": {
+    "probe-v2.gd": "7ce6045c328eba0d0225aee97798de20fadf1afd57ac5d4c4a6a0566636aaf17",
+    "probe-v2.tscn": "d98bcb2032239296fc609cc62bd2c77be0f4310318af9bdf7d45b3a66f12f891",
+    "run.ps1": "b87e82b3e121a5a6d52678a35a3bf75261aa9602b6b4b9eb859ae4606d6d848b",
+    "native-before/raw.log": "fd4cccdd556724a91563a37b0b7a8ee36177318de2d0f429ec84d76e7352dde0",
+    "native-before/exit.txt": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+    "native-before/ch1_pawnshop.png": "e1b369ccee409438efc82fd2ede92a77e3b89028f5827720e461c816173b02d9",
+    "native-before/ch2_harbor_street.png": "3297fedec17e419f47fc48aba257b1ec59dec19a77f32e44acede809dd3ebe20",
+    "native-before/ch3_plaza.png": "a05a054e19efe2ab4fb1eccd6a1387a5c244d96605990eef21366263d0057396",
+    "native-after-720/raw.log": "f7558d0f34ef22c88ad09e9d884349ab80256a53541cac08747620f64ebc8755",
+    "native-after-720/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "native-after-720/ch1_pawnshop.png": "6a83b2d64d5ea13688861b613fce2ca99363e43f8695021eaddbc4bea3f2062a",
+    "native-after-720/ch2_harbor_street.png": "a4f54f1d46c1299c171f823c93ac344ee32300fe6cdbf9d91ace06cc2549ecbf",
+    "native-after-720/ch3_plaza.png": "2736d039aacc24fe36674fb211498abca971851da9ba89d30e580a1109f438d7",
+    "native-after-1080/raw.log": "aa891585f8fcff33cbc53f8a86d576433b182e32873c2d9dd0aa2db667d4f42c",
+    "native-after-1080/exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "native-after-1080/ch1_pawnshop.png": "f8f72114131006ddfa2e9b14e8082416240ee88a1c6289aa8ac24fcf5ccdc0b1",
+    "native-after-1080/ch2_harbor_street.png": "2b46734d005cc151716b01d529a2ecb81697af769138627ba6d3607bc2078a27",
+    "native-after-1080/ch3_plaza.png": "9d6ce616010c6d27553a372d3a71267d562765d8fa571ff15db1f9f4d5cb7c87",
+    "official-release/raw.log": "c056eb1d833a5c59c97b3f7bda021f05ef3c8b6bdbbc97ee422c80e8697d2765",
+    "official-release/verification.json": "bcd48cf77067c8483a435e6bbc6e11a20ca3db5c15f7b4ee58870c153b5d2b10",
+    "official-release/command.json": "af3620bd453a433ae20e9d16f166a257e7a2b03de1f4b26dcc614020da277875"
+  }
+}
