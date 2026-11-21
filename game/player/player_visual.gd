@@ -442,6 +442,7 @@ func _sync_aim_pose(aim: Vector2) -> void:
 	_input.aim_dir = aim
 	_input.facing = player.facing
 	_input.crouching = player.is_crouching
+	_input.blocking = player.is_blocking
 	_input.crouch_uses_kneel = not rig.weapon_def().is_empty()
 	_input.crouched_muzzle_clearance = 0.0
 	if _input.crouching and _input.crouch_uses_kneel and aim.y > 0.0:
@@ -469,7 +470,6 @@ func _physics_process(delta: float) -> void:
 		aim = aim.slerp(Vector2(player.facing * 0.6, 0.8), lower)
 	_sync_aim_pose(aim)
 	_input.run_speed = player.tuning.run_speed
-	_input.blocking = player.is_blocking
 	_input.dashing = player.state == Player.State.DASH
 	_input.staggered = player.state == Player.State.STAGGERED
 	_input.dead = player.state == Player.State.DEAD

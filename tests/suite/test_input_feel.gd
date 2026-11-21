@@ -14,6 +14,7 @@ func run() -> void:
 	await _test_controller_flow()
 	await _test_controller_ui_flow()
 	await _test_shot_uses_current_aim()
+	await _test_shot_releases_guard_pose()
 	await _test_dash_buffer()
 	await _test_air_jump()
 
@@ -118,6 +119,35 @@ func _test_shot_uses_current_aim() -> void:
 			and projectile.velocity.x < 0.0 and muzzle.x < player.global_position.x
 			and old_muzzle.x > player.global_position.x,
 			"the first shot leaves the barrel on the new side before recoil")
+	AimInput.set_virtual_gamepad(player, false)
+	AimInput.restore_direction(previous_direction)
+	await end_level(level)
+
+
+func _test_shot_releases_guard_pose() -> void:
+	var level := await start_level(PropsSuite.level_data())
+	var player := level.player
+	var previous_direction := AimInput._last_stick_dir
+	player.loadout.reset(preload("res://data/weapons/pistol.tres"))
+	AimInput.set_virtual_gamepad(player, true)
+	AimInput.restore_direction(Vector2.RIGHT)
+	Input.action_press(&"block")
+	await physics_frames(24)
+	var guarded_muzzle := player.muzzle_position()
+	var ammo := player.loadout.mag_in(player.loadout.active_slot)
+	var projectile: Projectile = ProjectilePool._free.back() if not ProjectilePool._free.is_empty() else null
+	Input.action_press(&"shoot")
+	player._process_normal(0.0)
+	check(player.is_blocking and player.loadout.mag_in(player.loadout.active_slot) == ammo,
+			"holding guard still prevents the shot")
+	Input.action_release(&"block")
+	player._process_normal(0.0)
+	Input.action_release(&"shoot")
+	var muzzle := player.muzzle_position()
+	check(not player.is_blocking and muzzle.x > guarded_muzzle.x + 2.0 and projectile != null
+			and projectile.active and projectile.global_position.distance_to(muzzle) < 0.001
+			and player.loadout.mag_in(player.loadout.active_slot) == ammo - 1,
+			"the shot on the guard-release tick leaves the extended barrel and spends one round")
 	AimInput.set_virtual_gamepad(player, false)
 	AimInput.restore_direction(previous_direction)
 	await end_level(level)
