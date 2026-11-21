@@ -2,6 +2,7 @@
 
 from hashlib import sha256
 from io import BytesIO
+from math import pi, sin
 from pathlib import Path
 from tempfile import NamedTemporaryFile
 
@@ -27,7 +28,14 @@ def main() -> None:
         if opaque_columns.size:
             span = patched[row, 180:181 + opaque_columns[-1]]
             span[span[:, 3] < 235] = original[row, 177]
-    if np.count_nonzero(np.any(patched != original, axis=2)) != 712:
+    # Carry the shaded side seam under the lower edge of the chest plate.
+    for row in range(223, 254):
+        shift = round(7 * max(0.0, sin(pi * (row - 223) / 30)) ** 0.65)
+        margin = patched[row, 236:250]
+        extension = original[row, 236 - shift:250 - shift]
+        replace = (margin[:, 3] < 235) & (extension[:, 3] > margin[:, 3])
+        margin[replace] = extension[replace]
+    if np.count_nonzero(np.any(patched != original, axis=2)) != 860:
         raise ValueError("Enforcer collar overlap has drifted from the registered torso grid")
     with BytesIO() as stream:
         Image.fromarray(patched).save(stream, format="PNG")
