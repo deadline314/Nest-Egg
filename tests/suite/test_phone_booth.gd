@@ -69,14 +69,21 @@ func _test_dial_with_the_interact_key() -> void:
 	GameState.clear_checkpoint()
 	place_player(BOOTH_TILE - 1.0)
 	await physics_frames(20)
-	Input.action_press(&"interact")
-	await physics_frames(2)
-	Input.action_release(&"interact")
+	await _press_interact()
 	check(level.player.is_on_phone() and booth.is_calling(), "pressing the interact key starts the call")
 	check(level.player.facing == 1, "the player faces the booth")
 	await physics_frames(100)
 	check(not level.player.is_on_phone() and not booth.is_calling() and booth.activated, "the call finishes by itself")
 	await end_level(level)
+
+
+func _press_interact() -> void:
+	var tree := runner.get_tree()
+	# The booth consumes the edge during _process, which can span several physics ticks.
+	await tree.process_frame
+	Input.action_press(&"interact")
+	await tree.process_frame
+	Input.action_release(&"interact")
 
 
 func _test_call_timeline_and_weapon_swap() -> void:
@@ -234,9 +241,7 @@ func _test_nearest_interaction() -> void:
 	check(not booth.can_dial() and Story.framing.is_interaction_target(npc), "the nearer NPC owns interact inside the same overlap")
 	level.player.global_position.x = booth.global_position.x + 20.0
 	await physics_frames(5)
-	Input.action_press(&"interact")
-	await physics_frames(2)
-	Input.action_release(&"interact")
+	await _press_interact()
 	check(level.player.is_on_phone() and booth.is_calling(), "a single overlap press begins the nearer booth call")
 	check(not npc._talking and not Story.is_cinematic_active(), "that same press does not also begin NPC dialogue")
 	Story.reset_active_presentation(&"test")
