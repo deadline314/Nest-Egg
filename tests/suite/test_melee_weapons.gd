@@ -468,9 +468,33 @@ func _test_ui() -> void:
 		check(AmmoIcons.for_weapon(weapon).get_size() == Vector2(MeleeArt.AMMO_SIZE), "%s has a weapon-bar icon" % id)
 	var page := WeaponsPage.new()
 	check(page._kind_text(_weapon("melee_blade")) == "近戰", "inventory cards label melee weapons")
+	await _check_purchased_readouts(player)
+	page.free()
 	bar.queue_free()
 	await physics_frames(3)
 	await end_level(level)
+
+
+func _check_purchased_readouts(player: Player) -> void:
+	var inventory := level._inventory
+	var page := inventory._pages[inventory.page_index(WeaponsPage)] as WeaponsPage
+	for id: String in WEAPONS:
+		var weapon := _weapon(id)
+		var profile := MeleeData.set_of(weapon)
+		var upgrade := Progression.find_upgrade(profile.extension_upgrade())
+		player.loadout.reset(weapon)
+		inventory.open()
+		await frames(3)
+		check(page._entries[0].detail_stats[0] == "連段　%d 招" % profile.combo().size(),
+				"%s inventory reports the base moves before acquiring the technique" % id)
+		inventory.close()
+		Progression.add_credits(upgrade.cost)
+		check(Progression.buy_upgrade(weapon, upgrade), "%s progression buys the actual optional technique" % id)
+		inventory.open()
+		await frames(3)
+		check(page._entries[0].detail_stats[0] == "連段　%d 招" % (profile.combo().size() + 1),
+				"%s inventory includes its newly available move" % id)
+		inventory.close()
 
 
 func _test_gun_unchanged() -> void:

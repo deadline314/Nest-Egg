@@ -82,10 +82,11 @@ func _stats(loadout: Loadout, slot: int, weapon: WeaponData) -> PackedStringArra
 ## 近戰武器的數字：連段、每秒傷害、最遠距離與電量（沒有電量限制的不顯示）。
 func _melee_stats(loadout: Loadout, slot: int, weapon: WeaponData) -> PackedStringArray:
 	var set := MeleeData.set_of(weapon)
+	var sequence := set.combo(Progression.has_upgrade(weapon, set.extension_upgrade()))
 	var lines := PackedStringArray()
-	lines.append("連段　%d 招" % set.combo().size())
-	lines.append("傷害　%.1f／秒" % set.damage_per_second())
-	lines.append("距離　%d" % roundi(set.max_range()))
+	lines.append("連段　%d 招" % sequence.size())
+	lines.append("傷害　%.1f／秒" % set.damage_per_second(sequence))
+	lines.append("距離　%d" % roundi(set.max_range(sequence)))
 	if weapon.has_magazine():
 		lines.append("電量　%d ／ %d（每揮 %d）" % [loadout.mag_in(slot), weapon.magazine_size, maxi(1, weapon.ammo_per_shot)])
 		lines.append("充電　%.1f 秒" % weapon.reload_time)

@@ -146,21 +146,25 @@ func attack(id: String, frozen_paid_tail := false) -> Dictionary:
 
 
 ## 整組的一次完整連段秒數與平均傷害率（說明與平衡檢查用）。
-func damage_per_second() -> float:
+func damage_per_second(sequence: Array = []) -> float:
 	var total_damage := 0.0
 	var total_time := 0.0
-	for id: Variant in combo():
+	for id: Variant in (combo() if sequence.is_empty() else sequence):
 		var def := attack(str(id))
+		if def.is_empty():
+			continue
 		total_damage += float(def["damage"])
 		total_time += float(def["windup"]) + float(def["active"]) + float(def["recovery"])
 	return total_damage / maxf(0.01, total_time)
 
 
 ## 這組裡最遠的攻擊距離。
-func max_range() -> float:
+func max_range(sequence: Array = []) -> float:
 	var best := 0.0
-	for id: Variant in combo():
-		best = maxf(best, float(attack(str(id))["range"]))
+	for id: Variant in (combo() if sequence.is_empty() else sequence):
+		var def := attack(str(id))
+		if not def.is_empty():
+			best = maxf(best, float(def["range"]))
 	return best
 
 
