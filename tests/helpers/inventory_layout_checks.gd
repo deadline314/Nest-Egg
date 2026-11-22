@@ -89,6 +89,18 @@ static func _check_backpack_language(suite: TestSuite, bag: InventoryScreen) -> 
 				"localized credits and controller directions fit at 120% text size in " + str(option[0]))
 		suite.check(bag._frame.get_global_rect().grow(0.5).encloses(bag._tab_buttons.back().get_global_rect()),
 				"localized tabs stay within the backpack at 120% text size in " + str(option[0]))
+		bag.select_tab(bag.page_index(StatusPage))
+		await suite.frames(3)
+		var status := bag._pages[bag._current] as StatusPage
+		var health_title := status._row_titles[&"health"]
+		var expected_health := "Health" if option[0] == "en" else "ライフ"
+		var expected_unlimited := "Unlimited" if option[0] == "en" else "無制限"
+		suite.check(health_title.text == expected_health and not (health_title.get_parent() as Control).tooltip_text.is_empty()
+				and status._values[&"lives"].text == expected_unlimited,
+				"the status page refreshes its readout and hover in " + str(option[0]))
+		suite.check(bag._frame.get_global_rect().grow(0.5).encloses(status._values[&"kills"].get_global_rect()),
+				"the localized finisher total remains inside the 120% status page")
+		bag.select_tab(bag.page_index(WeaponsPage))
 		bag.close()
 		await suite.frames(2)
 	Story.set_language(language)

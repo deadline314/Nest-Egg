@@ -28,20 +28,11 @@ extends Resource
 
 
 func display_name_for(language: String) -> String:
-	return _localized(localized_names, language, display_name)
+	return StoryLocale.optional_text(localized_names, language, display_name)
 
 
 func description_for(language: String) -> String:
-	return _localized(localized_descriptions, language, description)
-
-
-static func _localized(values: Dictionary[String, String], language: String, source: String) -> String:
-	if language == StoryLocale.SOURCE_LANGUAGE or not StoryLocale.is_supported(language):
-		return source
-	var translated: String = values.get(language, "")
-	if translated.strip_edges().is_empty():
-		translated = values.get(StoryLocale.FALLBACK, "")
-	return translated if not translated.strip_edges().is_empty() else source
+	return StoryLocale.optional_text(localized_descriptions, language, description)
 
 
 func validate() -> PackedStringArray:

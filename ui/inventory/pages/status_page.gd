@@ -6,17 +6,13 @@ extends InventoryPage
 const PORTRAIT_SIZE := Vector2(192, 256)
 const ROW_WIDTH := 330.0
 
-## 狀態列定義：id、名稱、一句說明。順序即顯示順序。
-const ROWS: Array[Dictionary] = [
-	{"id": &"health", "label": "生命", "hint": "生命歸零就會倒下；醫療針可以回復"},
-	{"id": &"guard", "label": "護盾", "hint": "格擋會消耗護盾能量，用盡會破防一小段時間"},
-	{"id": &"lives", "label": "殘機", "hint": "殘機用盡會從關卡開頭重來"},
-	{"id": &"difficulty", "label": "難度", "hint": "這一輪的難度，開始新遊戲時選擇"},
-	{"id": &"time", "label": "遊玩時間", "hint": "這一輪累計的遊玩時間，暫停與背包不計"},
-	{"id": &"kills", "label": "擊破數", "hint": "這一輪擊破的敵人數量（含終結技）"},
-]
+## Status rows in reading order. The same key supplies each title and its hover help.
+const ROWS: Array[StringName] = [&"health", &"guard", &"lives", &"difficulty", &"time", &"kills"]
 
 var _portrait: HdPortrait
+var _name_label: Label
+var _identity_label: Label
+var _row_titles: Dictionary[StringName, Label] = {}
 var _values: Dictionary[StringName, CountUpLabel] = {}
 var _health_bar: _Segments
 var _guard_bar: _Segments
@@ -55,31 +51,33 @@ func _ready() -> void:
 	right.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	right.add_theme_constant_override(&"separation", 6)
 	row.add_child(right)
-	var name_label := UiKit.label("凜", 18, Palette.MAGENTA)
-	right.add_child(name_label)
-	right.add_child(UiKit.label("傭兵・代號「七號」", 10, Palette.UI_MUTED))
+	_name_label = UiKit.label("", 18, Palette.MAGENTA)
+	right.add_child(_name_label)
+	_identity_label = UiKit.label("", 10, Palette.UI_MUTED)
+	right.add_child(_identity_label)
 	right.add_child(HSeparator.new())
-	for def in ROWS:
-		right.add_child(_make_row(def))
+	for id in ROWS:
+		right.add_child(_make_row(id))
+	_refresh_labels()
 
 
-func _make_row(def: Dictionary) -> Control:
+func _make_row(id: StringName) -> Control:
 	var row := HBoxContainer.new()
 	# 列高由文字決定、最少 24：放大文字時七列仍在頁面內，不壓到底部說明列。
 	row.custom_minimum_size = Vector2(ROW_WIDTH, 24)
 	row.add_theme_constant_override(&"separation", 10)
-	row.tooltip_text = str(def["hint"])
 	row.mouse_filter = Control.MOUSE_FILTER_PASS
-	var title := UiKit.label(str(def["label"]), 12, Palette.UI_MUTED)
+	var title := UiKit.label("", 12, Palette.UI_MUTED)
 	title.custom_minimum_size = Vector2(70, 0)
 	title.mouse_filter = Control.MOUSE_FILTER_PASS
 	title.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	row.add_child(title)
+	_row_titles[id] = title
 	var bar_slot := Control.new()
 	bar_slot.custom_minimum_size = Vector2(120, 0)
 	bar_slot.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	row.add_child(bar_slot)
-	match def["id"]:
+	match id:
 		&"health":
 			_health_bar = _add_bar(bar_slot)
 		&"guard":
@@ -91,8 +89,8 @@ func _make_row(def: Dictionary) -> Control:
 	value.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	value.mouse_filter = Control.MOUSE_FILTER_PASS
 	row.add_child(value)
-	_values[def["id"]] = value
-	row.mouse_entered.connect(func() -> void: hint_changed.emit(str(def["hint"])))
+	_values[id] = value
+	row.mouse_entered.connect(func() -> void: hint_changed.emit(row.tooltip_text))
 	return row
 
 
@@ -103,7 +101,18 @@ func _add_bar(slot: Control) -> _Segments:
 	return bar
 
 
+func _refresh_labels() -> void:
+	_name_label.text = str(Story.speaker("rin").get("name", "凜"))
+	_identity_label.text = Labels.get_text(&"status_identity")
+	for id in ROWS:
+		var title := _row_titles[id]
+		var key := "status_" + str(id)
+		title.text = Labels.get_text(StringName(key))
+		(title.get_parent() as Control).tooltip_text = Labels.get_text(StringName(key + "_help"))
+
+
 func page_shown(_animate: bool) -> void:
+	_refresh_labels()
 	_update(true)
 	hint_changed.emit(current_hint())
 
@@ -114,7 +123,7 @@ func refresh() -> void:
 
 
 func current_hint() -> String:
-	return "凜目前的狀態；這一輪的紀錄會一直累計到重新開始"
+	return Labels.get_text(&"status_overview")
 
 
 func _update(from_zero: bool) -> void:
@@ -127,16 +136,20 @@ func _update(from_zero: bool) -> void:
 	_values[&"health"].count_to(health, func(v: float) -> String: return "%d / %d" % [roundi(v), max_health], from_zero)
 	var guard_ratio := clampf(player.guard / maxf(1.0, player.guard_max()), 0.0, 1.0)
 	_guard_bar.setup(10, roundi(guard_ratio * 10.0), Palette.WARNING if player.is_guard_broken() else Palette.CYAN)
+	var broken_text := Labels.get_text(&"status_broken")
 	_values[&"guard"].count_to(guard_ratio * 100.0, func(v: float) -> String:
-		return "破防" if player.is_guard_broken() else "%d%%" % roundi(v), from_zero)
+		return broken_text if player.is_guard_broken() else "%d%%" % roundi(v), from_zero)
 	var lives := GameState.lives_left
 	var limited := GameState.difficulty.has_limited_lives()
+	var unlimited := Labels.get_text(&"status_unlimited")
 	_values[&"lives"].count_to(maxf(0.0, lives), func(v: float) -> String:
-		return ("× %d" % roundi(v)) if limited else "無限", from_zero)
-	_values[&"difficulty"].count_to(0.0, func(_v: float) -> String: return GameState.difficulty.display_name, false)
+		return ("× %d" % roundi(v)) if limited else unlimited, from_zero)
+	var difficulty := GameState.difficulty.display_name_for(Story.language)
+	_values[&"difficulty"].count_to(0.0, func(_v: float) -> String: return difficulty, false)
 	_values[&"time"].count_to(GameState.run_time, func(v: float) -> String: return UiKit.format_time(v), from_zero)
+	var finishers_format := Labels.get_text(&"status_finishers")
 	_values[&"kills"].count_to(GameState.kills, func(v: float) -> String:
-		return "%d　（終結 %d）" % [roundi(v), GameState.finishers], from_zero)
+		return finishers_format % [roundi(v), GameState.finishers], from_zero)
 
 
 ## 像素分格的量表（生命、護盾共用）。

@@ -26,6 +26,23 @@ const TEXT := {
 	&"pawn_help": ["典當補給並加息贖回（目前 ¥%d，當票 %d／%d）", "補給品を質に入れ、利息を払って買い戻す（残高 ¥%d、質札 %d／%d）", "Pawn or redeem supplies with interest (¥%d, %d/%d tickets)"],
 	&"stock": ["補給", "補給", "Stock"],
 	&"stock_help": ["購買補給（目前 ¥%d）", "補給品を購入する（残高 ¥%d）", "Buy supplies (¥%d available)"],
+	&"status_identity": ["傭兵・代號「七號」", "傭兵・コードネーム「7号」", "Mercenary · Codename Seven"],
+	&"status_health": ["生命", "ライフ", "Health"],
+	&"status_health_help": ["生命歸零會倒下，醫療針可回復", "ライフが尽きると倒れる。回復注射で回復できる", "Reaching zero downs Rin. Med injectors restore health"],
+	&"status_guard": ["護盾", "シールド", "Shield"],
+	&"status_guard_help": ["格擋消耗護盾，耗盡時短暫破防", "ガードでシールドを消費し、尽きると一時的に防御が崩れる", "Blocking drains the shield. An empty shield briefly breaks guard"],
+	&"status_lives": ["殘機", "残機", "Retries"],
+	&"status_lives_help": ["殘機用盡會從關卡開頭重來", "残機がなくなるとステージの最初からやり直す", "Using every retry restarts the level"],
+	&"status_difficulty": ["難度", "難易度", "Difficulty"],
+	&"status_difficulty_help": ["開始新遊戲時選擇的難度", "ニューゲームで選んだ難易度", "Difficulty selected when starting this run"],
+	&"status_time": ["遊玩時間", "プレイ時間", "Play time"],
+	&"status_time_help": ["累計本輪遊玩時間，暫停與背包不計", "今回のプレイ時間。一時停止中と所持品画面は含まない", "Time played, excluding pause and inventory"],
+	&"status_kills": ["擊破數", "撃破数", "Defeated"],
+	&"status_kills_help": ["擊破數包含終結技", "撃破数にはフィニッシュも含まれる", "Defeated enemies include finishers"],
+	&"status_overview": ["本輪的數值與紀錄", "今回の数値と記録", "Stats and records for this run"],
+	&"status_broken": ["破防", "ガード崩れ", "Guard broken"],
+	&"status_unlimited": ["無限", "無制限", "Unlimited"],
+	&"status_finishers": ["%d　（終結 %d）", "%d（フィニッシュ %d）", "%d (Finishers %d)"],
 }
 
 

@@ -22,6 +22,16 @@ static func is_supported(language: String) -> bool:
 	return LANGUAGES.has(language)
 
 
+## Optional resource translations fall back to English, then to the authored source.
+static func optional_text(values: Dictionary[String, String], language: String, source: String) -> String:
+	if language == StoryLocale.SOURCE_LANGUAGE or not StoryLocale.is_supported(language):
+		return source
+	var translated: String = values.get(language, "")
+	if translated.strip_edges().is_empty():
+		translated = values.get(StoryLocale.FALLBACK, "")
+	return translated if not translated.strip_edges().is_empty() else source
+
+
 static func field_key(field: String, language: String) -> String:
 	return language if field == "text" else "%s_%s" % [field, language]
 

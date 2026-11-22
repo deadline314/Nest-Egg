@@ -4,6 +4,7 @@ extends Resource
 
 @export var id: StringName = &"standard"
 @export var display_name: String = "標準"
+@export var localized_names: Dictionary[String, String] = {}
 @export_multiline var description: String = ""
 @export var player_max_health: int = 6
 ## -1 代表無限接關；大於 0 時用盡會從關卡開頭重來。
@@ -12,6 +13,10 @@ extends Resource
 @export var enemy_cooldown_multiplier: float = 1.0
 @export var enemy_projectile_speed_multiplier: float = 1.0
 @export var checkpoint_heals: bool = true
+
+
+func display_name_for(language: String) -> String:
+	return StoryLocale.optional_text(localized_names, language, display_name)
 
 
 func has_limited_lives() -> bool:

@@ -6,6 +6,10 @@
 script = ExtResource("1_script")
 id = &"assist"
 display_name = "輔助"
+localized_names = Dictionary[String, String]({
+"en": "Assist",
+"ja": "アシスト"
+})
 description = "生命多、敵人攻擊慢，適合第一次接觸動作遊戲"
 player_max_health = 10
 lives = -1

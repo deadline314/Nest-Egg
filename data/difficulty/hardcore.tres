@@ -6,6 +6,10 @@
 script = ExtResource("1_script")
 id = &"hardcore"
 display_name = "硬核"
+localized_names = Dictionary[String, String]({
+"en": "Hardcore",
+"ja": "ハードコア"
+})
 description = "生命少、殘機有限、敵人更兇猛，檢查點不回血"
 player_max_health = 4
 lives = 3
