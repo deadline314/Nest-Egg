@@ -26,6 +26,13 @@ func _full() -> bool:
 	return _route == "full"
 
 
+func _check_world_motion(phases: Array[String], action: String) -> void:
+	if _skip_setting:
+		_check(_action_phases.is_empty(), "%s skips its motion (%s)" % [action, _action_phases.keys()])
+	else:
+		_check(_action_phases.has_all(phases), "%s presents authored phases (%s)" % [action, _action_phases.keys()])
+
+
 func _wait_flag(flag: StringName, frames := 900) -> bool:
 	for i in frames:
 		if GameState.has_flag(flag):
@@ -53,6 +60,7 @@ func _run() -> void:
 	await _play_chapter()
 	Settings.set_skip_cutscenes(_previous_skip)
 	print("CH3_FLOW_PROBE route=%s yong=%s skip=%s failures=%d" % [_route, _yong, _skip_setting, _failures])
+	await AudioRelease.settle(get_tree())
 	get_tree().quit(1 if _failures > 0 else 0)
 
 
@@ -87,7 +95,7 @@ func _play_chapter() -> void:
 	await _talk(&"ch3_drain_wheel", ["back", "drain"])
 	_watching_actions = false
 	_check(GameState.has_flag(&"ch3_pump_low"), "turning the wheel the wrong way only stalls; the right way drains the tank")
-	_check(_action_phases.has("pump_wheel_jam:recoil") and _action_phases.has("pump_wheel_drain:turn"), "Rin's hand actually pushes the wheel both ways (phases seen: %s)" % [_action_phases.keys()])
+	_check_world_motion(["pump_wheel_jam:recoil", "pump_wheel_drain:turn"], "the pump wheel")
 	await _talk(&"ch3_branch_panel", ["main", "branch", "power"])
 	_check(GameState.has_flag(&"ch3_wet_branch_isolated") and GameState.has_flag(&"ch3_lift_powered"), "the wet branch is isolated and the main line powered")
 	await _enter("plaza")
@@ -136,7 +144,7 @@ func _play_chapter() -> void:
 	_watch_world_actions()
 	await _talk(&"ch3_gatekeeper")
 	_watching_actions = false
-	_check(_action_phases.has("janus_sit_support:lower") and _action_phases.has("janus_sit_support:release"), "Rin steadies the gatekeeper's shoulder while he sits (phases seen: %s)" % [_action_phases.keys().filter(func(k: String) -> bool: return k.begins_with("janus"))])
+	_check_world_motion(["janus_sit_support:lower", "janus_sit_support:release"], "the gatekeeper's aftercare")
 	_check(gatekeeper != null and gatekeeper._actor.pose == &"sit", "the gatekeeper stays seated on the stool once the aftercare is saved")
 	_check(GameState.has_flag(&"ch3_janus_aftercare_done") and GameState.has_flag(&"ch3_care_passage_open") and Progression.credits == before + 100,
 			"helping the gatekeeper back to his chair pays 100 once and opens the care passage")
