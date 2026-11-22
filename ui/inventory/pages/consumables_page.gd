@@ -22,6 +22,11 @@ const TEXT := {
 }
 
 
+func _ready() -> void:
+	super._ready()
+	InputBindings.bindings_changed.connect(_refresh_quick_use_hints)
+
+
 func _text(key: String) -> String:
 	return TEXT.get(Story.language, TEXT[StoryLocale.SOURCE_LANGUAGE])[key]
 
@@ -60,9 +65,8 @@ func _entry_for(item: ConsumableData) -> InventoryEntry:
 	entry.detail_icon_scale = 3
 	entry.subtitle = _text("count") % [count, item.max_carry]
 	entry.dimmed = count <= 0
-	entry.badge = InputBindings.primary_label(&"use_item") if item.quick_use else ""
 	entry.badge_color = Palette.WARNING
-	entry.detail_tag = _text("title") + (_text("quick") % entry.badge if item.quick_use else "")
+	_set_quick_use_hint(entry, InputBindings.primary_label(&"use_item") if item.quick_use else "")
 	entry.detail_stats = PackedStringArray([_text("count_detail") % [count, item.max_carry]])
 	entry.detail_body = item.description_for(Story.language)
 	entry.hint = entry.detail_body
@@ -70,6 +74,26 @@ func _entry_for(item: ConsumableData) -> InventoryEntry:
 	entry.action_enabled = count > 0
 	entry.action_hint = _text("use_item") % entry.title if count > 0 else _text("pick_up")
 	return entry
+
+
+func _set_quick_use_hint(entry: InventoryEntry, shortcut: String) -> void:
+	entry.badge = shortcut
+	entry.detail_tag = _text("title") + (_text("quick") % shortcut if not shortcut.is_empty() else "")
+
+
+func _refresh_quick_use_hints() -> void:
+	if not is_visible_in_tree():
+		return
+	var shortcut := InputBindings.primary_label(&"use_item")
+	for index in _entries.size():
+		var entry := _entries[index]
+		# Quick-use items have a badge even when the binding is unavailable (—).
+		if entry.badge.is_empty() or entry.badge == shortcut:
+			continue
+		_set_quick_use_hint(entry, shortcut)
+		_cards[index].queue_redraw()
+		if index == _selected:
+			_detail.set_tag(entry.detail_tag)
 
 
 func _activate_entry(index: int) -> bool:

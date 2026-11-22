@@ -128,7 +128,7 @@ func show_entry(entry: InventoryEntry, empty_text := "", animate := true) -> voi
 	_title.text = entry.title
 	_title.tooltip_text = entry.title
 	_title.add_theme_color_override(&"font_color", entry.accent)
-	_tag.text = entry.detail_tag
+	set_tag(entry.detail_tag)
 	_ammo_icon.texture = entry.ammo_icon
 	_ammo_icon.visible = entry.ammo_icon != null
 	for child in _stats.get_children():
@@ -146,6 +146,11 @@ func show_entry(entry: InventoryEntry, empty_text := "", animate := true) -> voi
 	_action.tooltip_text = entry.action_hint
 	if animate:
 		_pop_in()
+
+
+## 更新標籤，同時保留選取項目的詳情、捲動位置及焦點。
+func set_tag(text: String) -> void:
+	_tag.text = text
 
 
 func _pop_in() -> void:

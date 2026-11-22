@@ -45,11 +45,39 @@ static func run(suite: TestSuite) -> void:
 	var released_selection := page._selected
 	await suite.runner.get_tree().create_timer(InputBindings.NAVIGATION_REPEAT_DELAY + InputBindings.NAVIGATION_REPEAT_INTERVAL).timeout
 	suite.check(page._selected == released_selection, "releasing the stick stops further selection changes")
+	await _test_quick_use_hint(suite, bag)
 	bag.close()
 	await suite.frames(3)
 	InputBindings.clear_held_inputs()
 	await suite.end_level(level)
 	InputBindings._set_device(previous_gamepad, previous_device)
+
+
+static func _test_quick_use_hint(suite: TestSuite, bag: InventoryScreen) -> void:
+	await _key(suite, KEY_RIGHT)
+	var index := bag.page_index(ConsumablesPage)
+	bag.select_tab(index)
+	var page := bag._pages[index] as ConsumablesPage
+	var card := page._cards[0]
+	var stat := page._detail._stats.get_child(0)
+	var keyboard := InputBindings.primary_label(&"use_item")
+	suite.check(card.entry.id == &"med_injector" and card.entry.badge == keyboard, "medicine opens with the current keyboard shortcut")
+	await _joy(suite, JOY_BUTTON_Y)
+	var pad := InputBindings.primary_label(&"use_item")
+	suite.check(pad != keyboard and card.entry.badge == pad and page._detail._tag.text.ends_with(" " + pad),
+			"the open supplies page updates both shortcut labels after controller input")
+	suite.check(page._cards[0] == card and page._detail._stats.get_child(0) == stat and page._selected == 0,
+			"switching shortcut labels preserves selection and detail controls")
+	var previous_key := InputBindings.get_code(&"use_item", 0)
+	page._select(1)
+	await _key(suite, KEY_RIGHT)
+	InputBindings.set_code(&"use_item", 0, KEY_H)
+	var rebound := InputBindings.primary_label(&"use_item")
+	suite.check(card.entry.badge == rebound and page._detail._tag.text == page.tab_title() and page._selected == 1,
+			"rebind updates the medicine card without altering the selected shield cell")
+	page._select(0)
+	suite.check(page._detail._tag.text.ends_with(" " + rebound), "medicine details use the new shortcut when reselected")
+	InputBindings.set_code(&"use_item", 0, previous_key)
 
 
 static func _pad_legend(bag: InventoryScreen) -> bool:
