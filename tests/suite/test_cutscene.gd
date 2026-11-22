@@ -725,7 +725,7 @@ func _test_overlay_and_layers() -> void:
 	var overlay := {"overlay": true, "steps": [{"do": "fx", "kind": "noise", "time": 0.1}, {"do": "wait", "time": 0.1}]}
 	check(CutsceneChecker.validate("overlay", overlay, _speakers()).is_empty(), "疊加演出不需要舞台也能通過檢查")
 	var player := _play(&"test_overlay", overlay, 1.0)
-	await frames(2)
+	# play() builds the overlay immediately; a short scene can finish before another frame.
 	var backdrop := player._root.get_child(0) as ColorRect
 	check(backdrop.color.a == 0.0 and player._fade.color.a == 0.0, "疊加演出不蓋黑底，遊戲畫面看得到")
 	player.speed = 40.0
