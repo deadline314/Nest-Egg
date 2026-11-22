@@ -9,6 +9,49 @@ const EXTRA_FRAME_BUDGET_MS := 6.0
 const NODE_GROWTH_BUDGET := 40
 
 
+class ProcessEdge extends Node:
+	var observe: Callable
+
+	func _process(_delta: float) -> void:
+		observe.call()
+
+
+## TIME_PROCESS stores an engine peak refreshed once a second. Measure the
+## actual scene process callbacks in the current frame instead.
+class SceneProcessWindow extends Node:
+	var _start := ProcessEdge.new()
+	var _end := ProcessEdge.new()
+	var _from_usec := 0
+	var _elapsed_usec := 0
+	var _remaining := 0
+
+	func _ready() -> void:
+		_start.process_priority = -100000
+		_start.observe = func() -> void: _from_usec = Time.get_ticks_usec()
+		_end.process_priority = 100000
+		_end.observe = func() -> void: _record.call_deferred()
+		add_child(_start)
+		add_child(_end)
+		_start.set_process(false)
+		_end.set_process(false)
+
+	func measure(frames_to_sample: int) -> float:
+		_remaining = frames_to_sample
+		_elapsed_usec = 0
+		_start.set_process(true)
+		_end.set_process(true)
+		while _remaining > 0:
+			await get_tree().process_frame
+		_start.set_process(false)
+		_end.set_process(false)
+		return float(_elapsed_usec) / float(frames_to_sample) / 1000.0
+
+	func _record() -> void:
+		if _remaining > 0:
+			_elapsed_usec += Time.get_ticks_usec() - _from_usec
+			_remaining -= 1
+
+
 func run() -> void:
 	_test_melee_data()
 	await _test_melee_fx()
@@ -205,29 +248,45 @@ func _test_pickup_collect() -> void:
 	await end_level(level)
 
 
-## 十二個爆炸同時發生：粒子是固定容量、不新增節點（爆炸本體與光源池除外），每影格處理時間在預算內；數字印在 log 裡。
+## 三次各觸發十二個原生爆炸。用前後閒置樣本抵消主機負載變化，
+## 取三次差值的中位數，保留原本的 6 ms、粒子和節點上限。
 func _test_explosion_budget() -> void:
 	await open_level(10.0)
+	var previous_fps := Engine.max_fps
+	Engine.max_fps = 60
+	var window := SceneProcessWindow.new()
+	level.add_child(window)
 	await physics_frames(60)
-	var idle := await _mean_frame_ms(40)
-	var nodes_before := level.get_tree().get_node_count()
-	for i in EXPLOSION_COUNT:
-		Fx.explosion(level.player.global_position + Vector2(-120 + i * 24, -40 - (i % 3) * 16), 40.0, 0, Combat.Team.ENEMY, &"test_no_such_source")
-	var peak_particles := Fx.particle_count()
-	var burst := await _mean_frame_ms(40)
-	var nodes_peak := level.get_tree().get_node_count()
-	print("FX_PERF idle=%.2f ms, %d explosions=%.2f ms per frame, particles=%d, nodes +%d" % [idle, EXPLOSION_COUNT, burst, peak_particles, nodes_peak - nodes_before])
-	check(burst - idle <= EXTRA_FRAME_BUDGET_MS, "%d simultaneous explosions add little to a frame (+%.2f ms, budget %.0f ms)" % [EXPLOSION_COUNT, burst - idle, EXTRA_FRAME_BUDGET_MS])
-	check(nodes_peak - nodes_before <= NODE_GROWTH_BUDGET, "explosions do not create a pile of nodes (+%d)" % (nodes_peak - nodes_before))
-	check(peak_particles > 0 and peak_particles <= ParticleField.CAPACITY * 2, "particles stay within the fixed capacity (%d)" % peak_particles)
-	await physics_frames(120)
-	check(level.get_tree().get_node_count() - nodes_before <= 8, "the nodes created by the explosions are gone afterwards")
+	var deltas: Array[float] = []
+	var max_nodes := 0
+	var max_particles := 0
+	var max_leftovers := 0
+	for trial in 3:
+		var idle_before := await window.measure(40)
+		var idle_nodes := level.get_tree().get_node_count()
+		for i in EXPLOSION_COUNT:
+			Fx.explosion(level.player.global_position + Vector2(-120 + i * 24, -40 - (i % 3) * 16),
+				40.0, 0, Combat.Team.ENEMY, &"test_no_such_source")
+		var peak_particles := Fx.particle_count()
+		var peak_nodes := level.get_tree().get_node_count()
+		var active := await window.measure(40)
+		peak_nodes = maxi(peak_nodes, level.get_tree().get_node_count())
+		max_nodes = maxi(max_nodes, peak_nodes - idle_nodes)
+		max_particles = maxi(max_particles, peak_particles)
+		await physics_frames(120)
+		var idle_after := await window.measure(40)
+		max_leftovers = maxi(max_leftovers, level.get_tree().get_node_count() - idle_nodes)
+		var added := active - (idle_before + idle_after) * 0.5
+		deltas.append(added)
+		print("FX_PERF sample %d: idle %.2f / %.2f ms, %d explosions %.2f ms, delta %+.2f ms, particles %d, nodes +%d"
+			% [trial + 1, idle_before, idle_after, EXPLOSION_COUNT, active, added, peak_particles, peak_nodes - idle_nodes])
+	deltas.sort()
+	var added := deltas[1]
+	check(added <= EXTRA_FRAME_BUDGET_MS, "%d simultaneous explosions add little to a frame (+%.2f ms, budget %.0f ms)"
+		% [EXPLOSION_COUNT, added, EXTRA_FRAME_BUDGET_MS])
+	check(max_nodes <= NODE_GROWTH_BUDGET, "explosions do not create a pile of nodes (+%d)" % max_nodes)
+	check(max_particles > 0 and max_particles <= ParticleField.CAPACITY * 2,
+		"particles stay within the fixed capacity (%d)" % max_particles)
+	check(max_leftovers <= 8, "the nodes created by the explosions are gone afterwards")
+	Engine.max_fps = previous_fps
 	await end_level(level)
-
-
-func _mean_frame_ms(count: int) -> float:
-	var total := 0.0
-	for i in count:
-		await frames(1)
-		total += Performance.get_monitor(Performance.TIME_PROCESS) * 1000.0
-	return total / float(count)
