@@ -11,7 +11,10 @@ func configure(p_item: ConsumableData) -> void:
 
 
 func hint_text() -> String:
-	return "%s：%s" % [item.display_name, item.description] if item != null else ""
+	if item == null:
+		return ""
+	var separator := ": " if Story.language == "en" else "："
+	return item.display_name_for(Story.language) + separator + item.description_for(Story.language)
 
 
 func _ready() -> void:
@@ -25,11 +28,11 @@ func _ready() -> void:
 
 func _apply(player: Player) -> bool:
 	if player.consumables.add(item):
-		EventBus.toast_requested.emit("取得 %s（%d/%d）" % [item.display_name, player.consumables.count(item.id), item.max_carry])
+		EventBus.toast_requested.emit("取得 %s（%d/%d）" % [item.display_name_for(Story.language), player.consumables.count(item.id), item.max_carry])
 		return true
 	if not _full_notified:
 		_full_notified = true
-		EventBus.toast_requested.emit("%s 已達上限 %d" % [item.display_name, item.max_carry])
+		EventBus.toast_requested.emit("%s 已達上限 %d" % [item.display_name_for(Story.language), item.max_carry])
 	return false
 
 

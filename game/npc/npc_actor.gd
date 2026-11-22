@@ -377,14 +377,14 @@ func _give_reward(index: int, player: Player) -> void:
 	if claimed.has(index) or not talk.has_reward():
 		return
 	if talk.consumable != null and player.consumables.is_full(talk.consumable):
-		EventBus.toast_requested.emit("%s已達上限 %d，先用掉再來" % [talk.consumable.display_name, talk.consumable.max_carry])
+		EventBus.toast_requested.emit("%s已達上限 %d，先用掉再來" % [talk.consumable.display_name_for(Story.language), talk.consumable.max_carry])
 		return
 	claimed[index] = true
 	var parts := PackedStringArray()
 	if talk.credits > 0:
 		parts.append("信用點 +%d" % Progression.add_credits(talk.credits))
 	if talk.consumable != null and player.consumables.add(talk.consumable):
-		parts.append(talk.consumable.display_name)
+		parts.append(talk.consumable.display_name_for(Story.language))
 	if talk.story_item != null and StoryItems.acquire(talk.story_item.id, false):
 		parts.append(StoryItems.acquire_message(talk.story_item))
 	var text := talk.reward_text if not talk.reward_text.is_empty() else "，".join(parts)

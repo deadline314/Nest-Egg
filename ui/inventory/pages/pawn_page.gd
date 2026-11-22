@@ -41,14 +41,14 @@ func _pawn_entry(item: ConsumableData) -> InventoryEntry:
 	var reason := Progression.pawn_block_reason(item)
 	var value := Progression.pawn_value(item)
 	var entry := _base_entry(item)
-	entry.title = "典當：%s" % item.display_name
+	entry.title = "典當：%s" % item.display_name_for(Story.language)
 	entry.subtitle = "+¥%d　持有 %d" % [value, context.player.consumables.count(item.id)]
 	entry.detail_tag = "典當"
 	entry.detail_stats = PackedStringArray([
 		"當價　¥%d（售價的一半）" % value, "贖回　¥%d（含利息 %d%%）" % [Progression.redeem_cost(item), int(Progression.PAWN_INTEREST * 100.0)],
 		"當票　%d／%d" % [Progression.total_pawned(), Progression.MAX_PAWNED]])
 	entry.detail_body = "把它押在櫃台換現金。想要回來就加利息贖回；當票有張數上限，所以這是週轉，不是生意。"
-	entry.hint = "押一個%s換 ¥%d，之後加利息贖回" % [item.display_name, value]
+	entry.hint = "押一個%s換 ¥%d，之後加利息贖回" % [item.display_name_for(Story.language), value]
 	entry.action_label = "典當（+¥%d）" % value
 	entry.action_enabled = reason.is_empty()
 	entry.action_hint = reason if not reason.is_empty() else "拿到 ¥%d，記一張當票" % value
@@ -60,7 +60,7 @@ func _redeem_entry(item: ConsumableData) -> InventoryEntry:
 	var reason := _redeem_reason(item)
 	var cost := Progression.redeem_cost(item)
 	var entry := _base_entry(item)
-	entry.title = "贖回：%s" % item.display_name
+	entry.title = "贖回：%s" % item.display_name_for(Story.language)
 	entry.subtitle = "-¥%d　當票 ×%d" % [cost, Progression.pawned_count(item.id)]
 	entry.badge = "當票"
 	entry.badge_color = Palette.NEON_YELLOW
@@ -69,7 +69,7 @@ func _redeem_entry(item: ConsumableData) -> InventoryEntry:
 		"贖回　¥%d（當價 ¥%d + 利息）" % [cost, Progression.pawn_value(item)], "持有　%d／%d" % [context.player.consumables.count(item.id), item.max_carry],
 		"持有信用點　¥%d" % Progression.credits])
 	entry.detail_body = "老 K 把它收在櫃台後面。付當價加利息，原樣拿回去。"
-	entry.hint = "付 ¥%d 把%s贖回來" % [cost, item.display_name]
+	entry.hint = "付 ¥%d 把%s贖回來" % [cost, item.display_name_for(Story.language)]
 	entry.action_label = "贖回（¥%d）" % cost
 	entry.action_enabled = reason.is_empty()
 	entry.action_hint = reason if not reason.is_empty() else "花費 ¥%d" % cost
@@ -113,7 +113,7 @@ func _do_pawn(item: ConsumableData) -> bool:
 		return false
 	# 先從背包拿走再記帳；記帳失敗就還回去，不會讓東西憑空消失。
 	if not context.player.consumables.take(item.id):
-		context.say("身上沒有%s" % item.display_name, true)
+		context.say("身上沒有%s" % item.display_name_for(Story.language), true)
 		return false
 	var gained := Progression.pawn(item)
 	if gained <= 0:
@@ -121,7 +121,7 @@ func _do_pawn(item: ConsumableData) -> bool:
 		context.say("當舖沒收", true)
 		return false
 	Sfx.play(&"pickup", -4.0)
-	context.say("典當 %s（+¥%d）" % [item.display_name, gained])
+	context.say("典當 %s（+¥%d）" % [item.display_name_for(Story.language), gained])
 	return true
 
 
@@ -133,12 +133,12 @@ func _do_redeem(item: ConsumableData) -> bool:
 		return false
 	# 先確認放得進背包再扣款，失敗不會白花錢。
 	if not context.player.consumables.add(item):
-		context.say("%s 放不進背包" % item.display_name, true)
+		context.say("%s 放不進背包" % item.display_name_for(Story.language), true)
 		return false
 	if not Progression.redeem(item):
 		context.player.consumables.take(item.id)
 		context.say("信用點不足", true)
 		return false
 	Sfx.play(&"pickup", -4.0)
-	context.say("贖回 %s（-¥%d）" % [item.display_name, Progression.redeem_cost(item)])
+	context.say("贖回 %s（-¥%d）" % [item.display_name_for(Story.language), Progression.redeem_cost(item)])
 	return true

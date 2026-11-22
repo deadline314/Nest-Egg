@@ -354,11 +354,21 @@ func _test_cyber_motion() -> void:
 
 func _test_localized_hud_help() -> void:
 	var original := Story.language
+	var item_names := {"zh": ["醫療針", "護盾電池"],
+		"ja": ["回復注射", "シールドセル"], "en": ["Med injector", "Shield cell"]}
 	var locales := {
 		"zh": ["開啟操作說明", "殘機 ×3", "快速道具", "消耗品", "擊敗敵人"],
 		"ja": ["操作ガイド", "残機 ×3", "クイックアイテム", "消耗品", "敵撃破"],
 		"en": ["Controls", "Lives ×3", "quick item", "consumables", "defeating enemies"],
 	}
+	var legacy := ConsumableData.new()
+	legacy.display_name = "原名"
+	legacy.description = "原效果"
+	legacy.localized_names["en"] = "Fallback"
+	legacy.localized_names["ja"] = " "
+	check(legacy.display_name_for("ja") == "Fallback", "a blank item translation follows the English fallback")
+	check(legacy.display_name_for("unknown") == "原名" and legacy.description_for("en") == "原效果",
+		"older items fall back to their authored text")
 	for language: String in locales:
 		Story.set_language(language)
 		var level := await start_level(PropsSuite.level_data(), 2)
@@ -375,6 +385,8 @@ func _test_localized_hud_help() -> void:
 		check(items.visible and items.tooltip_text.contains(locales[language][3]) and items.tooltip_text.contains(InputBindings.primary_label(&"inventory")),
 				"%s HUD points to the inventory when no quick item is carried" % language)
 		bag.add(ConsumableBag.find(&"med_injector"))
+		for expected_name: String in item_names[language]:
+			check(items.text.contains(expected_name + " ×1"), "%s HUD uses the localized consumable name" % language)
 		check(items.tooltip_text.contains(locales[language][2]) and items.tooltip_text.contains(InputBindings.primary_label(&"use_item")),
 				"%s HUD says how to use the current quick item" % language)
 		check(hud.cyber_gauge.tooltip_text.contains(locales[language][4]) and hud.cyber_gauge.tooltip_text.contains(InputBindings.primary_label(&"ability")),

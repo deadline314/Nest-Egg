@@ -6,6 +6,8 @@ extends Resource
 @export var display_name: String = "道具"
 ## 一句話說明效果（拾取提示、背包說明）。
 @export_multiline var description: String = ""
+@export var localized_names: Dictionary[String, String] = {}
+@export var localized_descriptions: Dictionary[String, String] = {}
 @export var color: Color = Color.WHITE
 ## 背包與 HUD 的排列順序（小的在前）。
 @export var order: int = 0
@@ -23,6 +25,23 @@ extends Resource
 @export_group("Art")
 ## 背包像素圖示的檔名（art/items/icons/<icon>.png）。
 @export var icon: String = ""
+
+
+func display_name_for(language: String) -> String:
+	return _localized(localized_names, language, display_name)
+
+
+func description_for(language: String) -> String:
+	return _localized(localized_descriptions, language, description)
+
+
+static func _localized(values: Dictionary[String, String], language: String, source: String) -> String:
+	if language == StoryLocale.SOURCE_LANGUAGE or not StoryLocale.is_supported(language):
+		return source
+	var translated: String = values.get(language, "")
+	if translated.strip_edges().is_empty():
+		translated = values.get(StoryLocale.FALLBACK, "")
+	return translated if not translated.strip_edges().is_empty() else source
 
 
 func validate() -> PackedStringArray:

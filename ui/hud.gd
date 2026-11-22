@@ -442,7 +442,7 @@ func _on_consumables_changed(bag: ConsumableBag) -> void:
 	for item in ConsumableBag.catalog():
 		var count := bag.count(item.id)
 		if count > 0:
-			parts.append("%s ×%d%s" % [item.display_name, count, "　{use_item}" if item == quick else ""])
+			parts.append("%s ×%d%s" % [item.display_name_for(Story.language), count, "　{use_item}" if item == quick else ""])
 	_items_template = "　".join(parts)
 	_refresh_items()
 

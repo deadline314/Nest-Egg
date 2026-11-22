@@ -37,7 +37,7 @@ func _entry_for(item: ConsumableData) -> InventoryEntry:
 	var reason := _block_reason(item)
 	var entry := InventoryEntry.new()
 	entry.id = item.id
-	entry.title = item.display_name
+	entry.title = item.display_name_for(Story.language)
 	entry.accent = item.color
 	entry.icon = ItemIcons.item(item.icon)
 	entry.detail_icon = ItemIcons.item_hd(item.icon)
@@ -47,8 +47,8 @@ func _entry_for(item: ConsumableData) -> InventoryEntry:
 	entry.dimmed = not reason.is_empty()
 	entry.detail_tag = "補給"
 	entry.detail_stats = PackedStringArray(["持有　%d／%d" % [bag.count(item.id), item.max_carry], "持有信用點　¥%d" % Progression.credits])
-	entry.detail_body = item.description
-	entry.hint = item.description
+	entry.detail_body = item.description_for(Story.language)
+	entry.hint = item.description_for(Story.language)
 	entry.action_label = "購買（¥%d）" % item.price
 	entry.action_enabled = reason.is_empty()
 	entry.action_hint = reason if not reason.is_empty() else "花費 ¥%d" % item.price
@@ -75,12 +75,12 @@ func _activate_entry(index: int) -> bool:
 		return false
 	# 先確認放得進背包再扣款，失敗不會白花錢。
 	if not context.player.consumables.add(item):
-		context.say("%s 放不進背包" % item.display_name, true)
+		context.say("%s 放不進背包" % item.display_name_for(Story.language), true)
 		return false
 	if not Progression.spend(item.price):
 		context.player.consumables.take(item.id)
 		context.say("信用點不足", true)
 		return false
 	Sfx.play(&"pickup", -4.0)
-	context.say("購買 %s（-¥%d）" % [item.display_name, item.price])
+	context.say("購買 %s（-¥%d）" % [item.display_name_for(Story.language), item.price])
 	return true
