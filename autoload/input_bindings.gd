@@ -151,8 +151,20 @@ const JOY_BUTTON_LABELS: Dictionary[int, String] = {
 	JOY_BUTTON_BACK: "Back", JOY_BUTTON_GUIDE: "Guide", JOY_BUTTON_START: "Start",
 	JOY_BUTTON_LEFT_STICK: "L3", JOY_BUTTON_RIGHT_STICK: "R3",
 	JOY_BUTTON_LEFT_SHOULDER: "LB", JOY_BUTTON_RIGHT_SHOULDER: "RB",
-	JOY_BUTTON_DPAD_UP: "十字↑", JOY_BUTTON_DPAD_DOWN: "十字↓",
-	JOY_BUTTON_DPAD_LEFT: "十字←", JOY_BUTTON_DPAD_RIGHT: "十字→",
+}
+
+const PAD_ARROWS: Dictionary[int, String] = {
+	JOY_BUTTON_DPAD_UP: "↑", JOY_BUTTON_DPAD_DOWN: "↓",
+	JOY_BUTTON_DPAD_LEFT: "←", JOY_BUTTON_DPAD_RIGHT: "→",
+}
+
+const PAD_TERMS := {
+	"zh": {"direction_pad": "十字", "left_stick": "左搖桿", "right_stick": "右搖桿",
+		"menu": "%s 選單", "button": "按鈕 %d"},
+	"ja": {"direction_pad": "十字キー", "left_stick": "左スティック", "right_stick": "右スティック",
+		"menu": "%s メニュー", "button": "ボタン %d"},
+	"en": {"direction_pad": "D-pad ", "left_stick": "Left stick ", "right_stick": "Right stick ",
+		"menu": "%s menu", "button": "Button %d"},
 }
 
 const FACE_BUTTON_POSITIONS := {
@@ -276,8 +288,7 @@ func code_label(code: int) -> String:
 	if code == NONE:
 		return "—"
 	if code < 0:
-		var language := Story.language if is_instance_valid(Story) else StoryLocale.SOURCE_LANGUAGE
-		var labels: Dictionary = MOUSE_LABELS.get(language, MOUSE_LABELS[StoryLocale.SOURCE_LANGUAGE])
+		var labels: Dictionary = MOUSE_LABELS.get(_input_language(), MOUSE_LABELS[StoryLocale.SOURCE_LANGUAGE])
 		return labels.get(-code, labels[NONE] % -code)
 	var display := code
 	if DisplayServer.get_name() != "headless":
@@ -313,33 +324,48 @@ func joy_label(action: StringName) -> String:
 		return _stick_label(axis, JOY_AXES[action][1])
 	# 任務與地圖在暫停選單亦可完整操作，不虛構未綁定快捷鍵。
 	if action == &"quests" or action == &"map":
-		return "%s 選單" % joy_label(&"pause")
+		return _pad_terms(_input_language())["menu"] % joy_label(&"pause")
 	return "—"
 
 
+func _input_language() -> String:
+	return Story.language if is_instance_valid(Story) else StoryLocale.SOURCE_LANGUAGE
+
+
+func _pad_terms(language: String) -> Dictionary:
+	return PAD_TERMS.get(language, PAD_TERMS[StoryLocale.SOURCE_LANGUAGE])
+
+
 func _stick_label(axis: int, direction: float) -> String:
-	var stick := "右搖桿" if axis in [JOY_AXIS_RIGHT_X, JOY_AXIS_RIGHT_Y] else "左搖桿"
+	var terms := _pad_terms(_input_language())
+	var stick: String = terms["right_stick"] if axis in [JOY_AXIS_RIGHT_X, JOY_AXIS_RIGHT_Y] else terms["left_stick"]
 	if axis in [JOY_AXIS_LEFT_X, JOY_AXIS_RIGHT_X]:
 		return stick + ("→" if direction > 0.0 else "←")
 	return stick + ("↓" if direction > 0.0 else "↑")
 
 
 func _button_label(button: int) -> String:
+	var language := _input_language()
+	var terms := _pad_terms(language)
+	if PAD_ARROWS.has(button):
+		return terms["direction_pad"] + PAD_ARROWS[button]
+	var fallback: String = JOY_BUTTON_LABELS.get(button, "")
+	if fallback.is_empty():
+		fallback = terms["button"] % button
 	var name := Input.get_joy_name(active_device).to_lower() if active_device >= 0 else ""
 	if name.contains("playstation") or name.contains("dualshock") or name.contains("dualsense") or name.contains("sony"):
 		var labels := {JOY_BUTTON_A: "×", JOY_BUTTON_B: "○", JOY_BUTTON_X: "□", JOY_BUTTON_Y: "△", JOY_BUTTON_BACK: "Share", JOY_BUTTON_START: "Options", JOY_BUTTON_LEFT_SHOULDER: "L1", JOY_BUTTON_RIGHT_SHOULDER: "R1"}
-		return labels.get(button, JOY_BUTTON_LABELS.get(button, "按鈕 %d" % button))
+		return labels.get(button, fallback)
 	if name.contains("nintendo") or name.contains("switch") or name.contains("joy-con"):
 		var labels := {JOY_BUTTON_A: "B", JOY_BUTTON_B: "A", JOY_BUTTON_X: "Y", JOY_BUTTON_Y: "X", JOY_BUTTON_BACK: "−", JOY_BUTTON_START: "+", JOY_BUTTON_LEFT_SHOULDER: "L", JOY_BUTTON_RIGHT_SHOULDER: "R"}
-		return labels.get(button, JOY_BUTTON_LABELS.get(button, "按鈕 %d" % button))
+		return labels.get(button, fallback)
 	# 未知控制器附上位置，避免把 A/B 名称當作所有手把的實體標示。
 	if name.is_empty() or not (name.contains("xbox") or name.contains("xinput")):
-		var language := Story.language if is_instance_valid(Story) else StoryLocale.SOURCE_LANGUAGE
 		var positions: Dictionary = FACE_BUTTON_POSITIONS.get(language, FACE_BUTTON_POSITIONS[StoryLocale.SOURCE_LANGUAGE])
 		if positions.has(button):
 			var layout := "%s (%s)" if language == "en" else "%s（%s）"
 			return layout % [JOY_BUTTON_LABELS[button], positions[button]]
-	return JOY_BUTTON_LABELS.get(button, "按鈕 %d" % button)
+	return fallback
 
 
 ## 動作目前的主要輸入名稱（第一個非空欄位）。

@@ -12,6 +12,7 @@ func run() -> void:
 	_test_latency()
 	_test_mouse_labels()
 	_test_generic_face_button_labels()
+	_test_localized_controller_directions()
 	await _test_controller_flow()
 	await _test_controller_ui_flow()
 	await _test_shot_uses_current_aim()
@@ -34,6 +35,34 @@ func _test_generic_face_button_labels() -> void:
 					"generic face button uses an unambiguous position in " + language)
 		check(InputBindings.primary_label(&"ui_accept") == expected[0] and InputBindings.primary_label(&"ui_cancel") == expected[1],
 				"confirm and cancel get their face button labels from the same source in " + language)
+	Story.language = previous
+	InputBindings._set_device(last_pad, device)
+
+
+func _test_localized_controller_directions() -> void:
+	var previous := Story.language
+	var last_pad := InputBindings.using_gamepad
+	var device := InputBindings.active_device
+	InputBindings._set_device(true, 999)
+	var labels := {
+		"zh": ["十字", "左搖桿", "右搖桿", "Start 選單", "按鈕 63"],
+		"ja": ["十字キー", "左スティック", "右スティック", "Start メニュー", "ボタン 63"],
+		"en": ["D-pad ", "Left stick ", "Right stick ", "Start menu", "Button 63"],
+	}
+	var actions: Array[StringName] = [&"ui_up", &"ui_down", &"ui_left", &"ui_right"]
+	var arrows := ["↑", "↓", "←", "→"]
+	for language: String in labels:
+		Story.language = language
+		var expected: Array = labels[language]
+		for index in actions.size():
+			check(InputBindings.primary_label(actions[index]) == expected[0] + arrows[index],
+					"controller navigation direction is localized in " + language)
+		check(InputBindings.joy_label(&"aim_up") == expected[2] + "↑", "controller vertical aim label is localized in " + language)
+		check(InputBindings.joy_label(&"aim_right") == expected[2] + "→", "controller horizontal aim label is localized in " + language)
+		check(InputBindings._stick_label(JOY_AXIS_LEFT_Y, 1.0) == expected[1] + "↓", "controller movement axis label is localized in " + language)
+		check(InputBindings._button_label(63) == expected[4], "unknown controller button retains a readable label in " + language)
+		check(InputBindings.joy_label(&"map") == expected[3] and InputBindings.joy_label(&"quests") == expected[3],
+				"unbound journal and map direct controller users to the localized pause menu in " + language)
 	Story.language = previous
 	InputBindings._set_device(last_pad, device)
 
