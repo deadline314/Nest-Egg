@@ -3,8 +3,10 @@ extends TestSuite
 ## 動畫稽核（NE-107）：每個人形敵人的所有狀態與專屬動作逐格播放，量骨頭長度、關節範圍、腳底與地面、握槍、角度跳動、倒下後的躺姿，
 ## 都要在 AnimAudit.LIMITS 以內；超標時訊息會寫出最糟的數值、情境與格數。環境變數 ANIM_AUDIT_VERBOSE=1 會印出每個角色每一項的餘裕。
 
-const ENEMIES: Array[String] = ["rin", "trooper", "trooper_elite", "sniper", "flamer", "grenadier", "enforcer", "heavy_gunner", "warden", "reclaimer", "slasher", "stalker"]
-const WEAPONS := {"rin": "rifle", "trooper": "smg", "trooper_elite": "rifle", "sniper": "sniper", "flamer": "flamethrower", "grenadier": "launcher", "enforcer": "pistol", "heavy_gunner": "minigun", "warden": "minigun", "reclaimer": "rifle", "slasher": "", "stalker": "rifle"}
+const ENEMIES: Array[String] = ["rin", "trooper", "trooper_elite", "sniper", "flamer", "grenadier", "enforcer", "heavy_gunner", "warden", "reclaimer", "slasher", "stalker",
+	"sweeper", "collector_gunner", "collector_brute"]
+const WEAPONS := {"rin": "rifle", "trooper": "smg", "trooper_elite": "rifle", "sniper": "sniper", "flamer": "flamethrower", "grenadier": "launcher", "enforcer": "pistol", "heavy_gunner": "minigun", "warden": "minigun", "reclaimer": "rifle", "slasher": "", "stalker": "rifle",
+	"sweeper": "pistol", "collector_gunner": "pistol", "collector_brute": ""}
 
 
 ## 遊戲裡實際用到的 NPC 組合（骨架、基本姿勢、工作循環）：場景人物與過場演員。
@@ -14,6 +16,8 @@ const NPCS := [
 	["mei", &"sit", &"typing"], ["mei", &"stand", &""],
 	["ah_po", &"stand", &"stir"], ["night_worker", &"lean", &"yawn"], ["night_worker", &"lean", &"read_note"],
 	["nurse", &"stand", &"tablet"], ["nurse", &"stand", &"sort_gear"], ["repairman_chen", &"crouch", &"hammer"], ["resident", &"stand", &"hold_child"],
+	["egret", &"stand", &""], ["egret", &"lean", &""], ["egret", &"sit", &""], ["egret", &"crouch", &""],
+	["ali", &"stand", &""], ["ali", &"lean", &""], ["ali", &"sit", &""], ["ali", &"crouch", &""],
 ]
 
 
