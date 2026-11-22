@@ -195,7 +195,7 @@ func _ready() -> void:
 
 
 func _initial_language() -> String:
-	var wanted := str(ProjectSettings.get_setting("nest_egg/story/language", StoryLocale.SOURCE_LANGUAGE))
+	var wanted := Settings.get_story_language()
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--story-language="):
 			wanted = arg.trim_prefix("--story-language=")

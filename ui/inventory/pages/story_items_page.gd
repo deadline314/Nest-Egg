@@ -34,7 +34,7 @@ func tab_has_alert() -> bool:
 
 
 func _empty_text() -> String:
-	return "還沒有取得任何劇情道具。"
+	return Labels.get_text(&"story_empty")
 
 
 func _build_entries() -> Array[InventoryEntry]:
@@ -59,29 +59,31 @@ func _entry_for(item: StoryItemData) -> InventoryEntry:
 		entry.badge = "NEW"
 		entry.badge_color = Palette.MAGENTA
 	entry.detail_tag = kind
+	var text := item.body_text()
+	entry.detail_body = item.description_text()
+	entry.hint = Labels.get_text(&"story_readonly")
 	if item.is_collectible():
 		var chapter_title := str(Story.chapter_info(item.chapter).get("title", ""))
 		entry.detail_tag = "%s　%s" % [kind, chapter_title] if not chapter_title.is_empty() else kind
-		entry.detail_stats = PackedStringArray(["本章收集　%d／%d" % [StoryItems.collected_count(item.chapter), StoryItems.collectible_total(item.chapter)]])
-		entry.detail_body = item.body_text()
-		entry.hint = "%s只能閱讀；散落在關卡裡，隱藏房間裡也有" % kind
-	else:
-		entry.detail_body = item.description_text()
-		entry.hint = "劇情道具只能查看，不會被消耗"
-		if not item.body_text().is_empty():
-			entry.action_label = _copy("閱讀全文", "全文を読む", "Read full text")
-			entry.action_hint = _copy("閱讀完整記錄，不會消耗物品", "全文を読む。アイテムは消費しません", "Read full text; keep this item.")
-			entry.hint = entry.action_hint
+		entry.detail_stats = PackedStringArray([Labels.get_text(&"story_chapter_count") %
+				[StoryItems.collected_count(item.chapter), StoryItems.collectible_total(item.chapter)]])
+		if not text.is_empty():
+			entry.detail_body = text
+	if not text.is_empty():
+		var recording := item.category == StoryItemData.Category.RECORDING
+		entry.action_label = Labels.get_text(&"story_transcript" if recording else &"story_read")
+		entry.action_hint = Labels.get_text(&"story_transcript_help" if recording else &"story_read_help")
+		entry.hint = entry.action_hint
 	return entry
 
 
 static func _kind_name(item: StoryItemData) -> String:
 	match item.category:
 		StoryItemData.Category.DOCUMENT:
-			return "文件"
+			return Labels.get_text(&"story_document")
 		StoryItemData.Category.RECORDING:
-			return "錄音"
-	return "劇情道具"
+			return Labels.get_text(&"story_recording")
+	return Labels.get_text(&"story_key_item")
 
 
 func _on_selection_changed(previous: int, _current: int) -> void:
@@ -98,11 +100,14 @@ func _activate_entry(index: int) -> bool:
 	if index < 0 or index >= _entries.size() or _entries[index].action_label.is_empty():
 		return false
 	var item := StoryItems.find(_entries[index].id)
-	if item == null or not StoryItems.owns(item.id) or item.body_text().is_empty():
+	if item == null or not StoryItems.owns(item.id):
+		return false
+	var text := item.body_text()
+	if text.is_empty():
 		return false
 	var focus := get_viewport().gui_get_focus_owner()
 	_reader_focus = weakref(focus) if focus != null else null
-	_reader.show_document(item.title_text(), item.body_text(), item.color)
+	_reader.show_document(item.title_text(), text, item.color)
 	return false # Reading never refreshes or mutates the item transaction.
 
 
@@ -139,7 +144,3 @@ func _close_reader(restore_focus := true) -> void:
 		if is_instance_valid(previous) and previous.is_visible_in_tree() and previous.focus_mode != Control.FOCUS_NONE:
 			previous.grab_focus()
 	_reader_focus = null
-
-
-static func _copy(zh: String, ja: String, en: String) -> String:
-	return ja if Story.language == "ja" else (en if Story.language == "en" else zh)

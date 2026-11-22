@@ -1,7 +1,7 @@
 class_name SettingsScreen
 extends Control
 ## 設定畫面（主選單與暫停選單共用）：音量、按鍵綁定、顯示。
-## 所有變更即時生效並自動存檔。暫停中也能操作（process_mode = ALWAYS）。
+## 所有變更自動存檔，劇情語言於下次啟動套用。暫停中也能操作（process_mode = ALWAYS）。
 
 signal closed
 
@@ -25,6 +25,7 @@ var _dash_silhouettes: CheckButton
 var _skip_cutscenes: CheckButton
 var _smooth_font: CheckButton
 var _text_scale_option: OptionButton
+var _story_language_option: OptionButton
 var _zoom_pulse: CheckButton
 var _damage_numbers: CheckButton
 var _feel_sliders: Dictionary[String, HSlider] = {}
@@ -105,7 +106,7 @@ func _ready() -> void:
 	InputBindings.bindings_changed.connect(_refresh_bindings)
 	InputBindings.controller_options_changed.connect(_sync_controller_options)
 	_refresh_bindings()
-	_set_status("所有變更即時生效並自動儲存。")
+	_set_status("設定自動儲存。劇情語言於下次啟動套用。")
 	_focus_first.call_deferred()
 
 
@@ -205,6 +206,7 @@ func _build_display_tab() -> Control:
 		Settings.set_fullscreen(on)
 		Sfx.play(&"ui_confirm", -6.0, 0.0))
 	box.add_child(_fullscreen)
+	box.add_child(_build_story_language_row())
 	Settings.display_changed.connect(_sync_fullscreen)
 	tree_exiting.connect(func() -> void: Settings.display_changed.disconnect(_sync_fullscreen))
 	_hud_auto_hide = CheckButton.new()
@@ -397,6 +399,29 @@ func _on_quality_selected(index: int) -> void:
 	Settings.set_light_quality(tier)
 	_quality_option.tooltip_text = LightQuality.DESCRIPTIONS[tier]
 	_set_status("光影品質「%s」：%s" % [LightQuality.NAMES[tier], LightQuality.DESCRIPTIONS[tier]], Palette.CYAN)
+
+
+func _build_story_language_row() -> Control:
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override(&"separation", 8)
+	var label := UiKit.label("劇情語言 / Story language")
+	_indent(label)
+	row.add_child(label)
+	_story_language_option = OptionButton.new()
+	_story_language_option.focus_mode = Control.FOCUS_ALL
+	_story_language_option.tooltip_text = "重新啟動後套用。 / Restart to apply."
+	for caption: String in ["繁體中文", "日本語", "English"]:
+		_story_language_option.add_item(caption)
+	_sync_story_language_selection()
+	_story_language_option.item_selected.connect(func(index: int) -> void:
+		if Settings.set_story_language(StoryLocale.LANGUAGES[index]):
+			_set_status("已儲存。重新啟動後套用。 / Saved. Restart to apply.", Palette.CYAN))
+	row.add_child(_story_language_option)
+	return row
+
+
+func _sync_story_language_selection() -> void:
+	_story_language_option.select(maxi(0, StoryLocale.LANGUAGES.find(Settings.get_story_language())))
 
 
 func _build_brightness_row() -> Control:
@@ -703,6 +728,7 @@ func _reset_current_tab() -> void:
 		_set_status("手把選項已恢復預設。", Palette.CYAN)
 	else:
 		Settings.reset_display()
+		_sync_story_language_selection()
 		for key: String in _quest_toggles:
 			_quest_toggles[key].set_pressed_no_signal(true)
 		_hud_auto_hide.set_pressed_no_signal(Settings.get_hud_auto_hide())

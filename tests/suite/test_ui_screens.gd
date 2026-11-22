@@ -22,6 +22,7 @@ func run() -> void:
 	await _test_difficulty_cards_never_overlap()
 	await _test_chapter_card_under_pause()
 	await _test_fullscreen_setting()
+	await _test_story_language_preference()
 	await _test_death_screen()
 	await _test_victory_screen()
 	await _test_release_victory_layout()
@@ -285,6 +286,34 @@ func _test_chapter_card_under_pause() -> void:
 	check(card._root.visible, "取消暫停後標題卡還原")
 	card.queue_free()
 	await frames(2)
+
+
+func _test_story_language_preference() -> void:
+	var original := Settings.storage_path()
+	Settings.use_storage("user://ui_story_language_preference.cfg")
+	Settings.reset_display()
+	var active := Story.language
+	var screen := SettingsScreen.new()
+	runner.add_child(screen)
+	screen._tabs.current_tab = 2
+	await frames(3)
+	var menu := screen._story_language_option
+	check(menu.item_count == StoryLocale.LANGUAGES.size() and menu.get_item_text(1) == "日本語",
+			"display settings offer all supported story languages")
+	menu.get_popup().index_pressed.emit(1)
+	check(Settings.get_story_language() == "ja" and Story.language == active and screen._status.text.contains("重新啟動"),
+			"choosing a language persists it for restart without resetting the current story")
+	check(not Settings.set_story_language("unknown") and Settings.get_story_language() == "ja",
+			"unsupported preferences cannot overwrite the saved language")
+	Settings.save_now()
+	Settings.use_storage(Settings.storage_path())
+	check(Settings.get_story_language() == "ja", "the saved choice is read from disk")
+	screen._reset_current_tab()
+	check(Settings.get_story_language() == str(ProjectSettings.get_setting("nest_egg/story/language", StoryLocale.SOURCE_LANGUAGE)),
+			"display reset restores the project's story language preference")
+	screen.close()
+	await frames(3)
+	Settings.use_storage(original)
 
 
 ## 全螢幕（NE-172）：設定存檔與損毀退回、F11 切換、設定畫面勾選框跟著更新、恢復預設回視窗、顯示分頁可捲動。

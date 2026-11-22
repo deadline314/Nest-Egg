@@ -438,6 +438,14 @@ func _test_inventory_page() -> void:
 	check(doc.detail_stats.size() == 1 and doc.detail_stats[0].contains("2／7"), "document shows the chapter collection progress: %s" % [doc.detail_stats])
 	check((by_id[&"rec_wataru_1"] as InventoryEntry).subtitle == "錄音", "recording is labelled as a recording")
 	check(page.tab_tooltip().contains("2／17"), "tab tooltip shows overall progress: %s" % page.tab_tooltip())
+	check(doc.action_label == "閱讀全文" and not doc.action_hint.is_empty(), "a collected document can open a full reader")
+	check(by_id[&"rec_wataru_1"].action_label == "閱讀逐字稿", "a collected recording can open its transcript")
+	var original := Story.language
+	Story.language = "en"
+	var translated := page._entry_for(StoryItems.find(OPEN_ITEM))
+	check(translated.subtitle == "Document" and translated.detail_stats[0].begins_with("Chapter collection"),
+			"the document category and collection count follow the item language")
+	Story.language = original
 	check(not by_id.has(&"doc_nest_log"), "uncollected documents are not listed")
 	page.free()
 

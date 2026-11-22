@@ -10,6 +10,7 @@ const DEFAULT_PATH := "user://settings.cfg"
 const SAVE_DELAY := 0.4
 const AUDIO_SECTION := "audio"
 const DISPLAY_SECTION := "display"
+const STORY_LANGUAGE_KEY := "story_language"
 const FEEL_SECTION := "feel"
 const FEEL_KEYS: PackedStringArray = ["shake", "hitstop", "particles"]
 const HUD_AUTO_HIDE_DEFAULT := true
@@ -311,7 +312,24 @@ func zoom_pulse_active() -> bool:
 	return get_zoom_pulse() and get_feel_scale("shake") > 0.0
 
 
+## Persisted story language takes effect on the next launch.
+func get_story_language() -> String:
+	var saved: Variant = get_value(DISPLAY_SECTION, STORY_LANGUAGE_KEY)
+	if saved is String and StoryLocale.is_supported(saved):
+		return saved
+	return str(ProjectSettings.get_setting("nest_egg/story/language", StoryLocale.SOURCE_LANGUAGE))
+
+
+func set_story_language(language: String) -> bool:
+	if not StoryLocale.is_supported(language):
+		return false
+	set_value(DISPLAY_SECTION, STORY_LANGUAGE_KEY, language)
+	return true
+
+
 func reset_display() -> void:
+	if _config.has_section_key(DISPLAY_SECTION, STORY_LANGUAGE_KEY):
+		_config.erase_section_key(DISPLAY_SECTION, STORY_LANGUAGE_KEY)
 	set_value(DISPLAY_SECTION, "quest_objective", true)
 	set_value(DISPLAY_SECTION, "quest_arrows", true)
 	for key: String in FEEL_KEYS:
