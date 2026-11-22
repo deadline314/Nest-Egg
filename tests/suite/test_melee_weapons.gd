@@ -5,6 +5,19 @@ extends EnemySuiteBase
 
 const WEAPONS: Array[String] = ["melee_dagger", "melee_blade", "melee_maul", "melee_glaive", "melee_whip"]
 
+# Observe the real process-mode transition. A short stop can begin and
+# end between physics_frame samples when a host frame runs long.
+class GuardHitstopObserver extends Node:
+	var started := false
+	var released := false
+
+	func _notification(what: int) -> void:
+		if what == NOTIFICATION_DISABLED and Fx.is_frozen(get_parent()):
+			started = true
+		elif what == NOTIFICATION_ENABLED and started:
+			released = true
+
+
 class ReleasePoseObserver extends Node:
 	var player: Player
 	var frames: Array[Dictionary] = []
@@ -903,16 +916,18 @@ func _test_weapon_guard_transition() -> void:
 								await child.finished
 				_aim(player, Vector2(face, 0.0))
 				var target := _dummy(float(reaches[id]) * face)
+				var stop := GuardHitstopObserver.new()
+				player.add_child(stop)
 				await physics_frames(3)
 				var label := "%s face=%d %s" % [id, face, outcome]
 				check(player._try_melee(), label + " begins a paid real swing")
 				var attack := player._melee_attack.duplicate(true)
 				var ticks := 180
-				var hitstop_seen := false
 				while not player.is_melee_cancellable() and ticks > 0:
-					hitstop_seen = hitstop_seen or Fx._frozen.has(player)
 					await physics_frames(1)
 					ticks -= 1
+				var hitstop_seen := stop.started and stop.released
+				stop.queue_free()
 				check(ticks > 0 and hitstop_seen and target.health.current == 999 - int(attack.damage)
 					and (player._melee_landed or (player._melee_phase == Player.MeleePhase.NONE and float(attack.cancel_after) >= float(attack.recovery))),
 					label + " naturally lands and pays through local hitstop to its cancel window")
