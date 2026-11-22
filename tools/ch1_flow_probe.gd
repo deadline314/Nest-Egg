@@ -8,6 +8,8 @@ const LEVEL := "res://data/levels/ch1_%s.tres"
 ## 區域檔名的格式（第二章的探針沿用這份工具時改成 ch2）。
 var level_pattern := LEVEL
 const STEP_LIMIT := 2400
+## A single interaction can chain several scenes. Keep a separate overall ceiling.
+const DRIVE_CHAIN_LIMIT := STEP_LIMIT * 4
 
 var _out_dir := ""
 var _route := "stay"
@@ -109,11 +111,21 @@ func _talk(id: StringName, choices: Array = []) -> bool:
 func _drive(choices: Array, finished: Callable) -> void:
 	var pending := choices.duplicate()
 	var shown := {}
-	for i in STEP_LIMIT:
+	var last_scene := ""
+	var last_step := -1
+	var last_progress := 0
+	for i in DRIVE_CHAIN_LIMIT:
 		if finished.call():
 			break
 		var current := String(Story._current_cinematic)
 		var player: CutscenePlayer = Story._player
+		var step := player.steps_run if is_instance_valid(player) else -1
+		if current != last_scene or step != last_step:
+			last_scene = current
+			last_step = step
+			last_progress = i
+		elif i - last_progress >= STEP_LIMIT:
+			break
 		if Story._layer.is_radio_frozen():
 			# 重要通訊（NE-246）凍結世界等確認：像玩家一樣按確認讀完。
 			await _settle(8)
@@ -139,6 +151,8 @@ func _drive(choices: Array, finished: Callable) -> void:
 			player._dialogue.complete()
 			player._advance_requested = true
 		await get_tree().physics_frame
+	if not finished.call():
+		_check(false, "story interaction timed out at %s after step %d" % [last_scene, last_step])
 	_check(pending.is_empty(), "every planned choice was offered %s" % [choices])
 
 
