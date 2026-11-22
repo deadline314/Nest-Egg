@@ -13,7 +13,7 @@ func tab_tooltip() -> String:
 
 
 func _empty_text() -> String:
-	return "還沒有任何義體能力。"
+	return Labels.get_text(&"cyber_empty")
 
 
 func _initial_selection() -> int:
@@ -35,39 +35,42 @@ func _build_entries() -> Array[InventoryEntry]:
 
 func _entry_for(ability: CyberAbilityData) -> InventoryEntry:
 	var unlocked := Progression.is_ability_unlocked(ability.id)
-	var equipped := Progression.equipped_ability() != null and Progression.equipped_ability().id == ability.id
+	var active := Progression.equipped_ability()
+	var equipped := active != null and active.id == ability.id
 	var entry := InventoryEntry.new()
 	entry.id = ability.id
-	entry.title = ability.display_name
+	entry.title = ability.display_name_for(Story.language)
 	entry.accent = ability.color
 	entry.icon = ItemIcons.item(ability.icon)
 	entry.card_icon_scale = 1
 	entry.detail_icon_scale = 3
-	entry.subtitle = "裝備中" if equipped else ("已解鎖" if unlocked else "未解鎖　¥%d" % ability.unlock_cost)
+	entry.subtitle = Labels.get_text(&"cyber_unlocked") if unlocked else Labels.get_text(&"cyber_locked") % ability.unlock_cost
 	if equipped:
-		entry.badge = "裝備中"
+		entry.badge = Labels.get_text(&"cyber_equipped")
+		entry.subtitle = entry.badge
 		entry.badge_color = Palette.CYAN
 	entry.dimmed = not unlocked
-	entry.detail_tag = "義體能力"
+	entry.detail_tag = Labels.get_text(&"cyber_ability")
 	entry.detail_stats = PackedStringArray([
-		"耗電　%d／100" % roundi(ability.charge_cost),
-		"冷卻　%.0f 秒" % ability.cooldown,
-		"持有　¥%d" % Progression.credits,
+		Labels.get_text(&"cyber_power") % roundi(ability.charge_cost),
+		Labels.get_text(&"cyber_cooldown") % ability.cooldown,
+		Labels.get_text(&"cyber_balance") % Progression.credits,
 	])
-	entry.detail_body = ability.description
-	entry.hint = ability.description
+	entry.detail_body = ability.description_for(Story.language)
+	entry.hint = entry.detail_body
 	if equipped:
-		entry.action_label = "裝備中"
+		entry.action_label = entry.badge
 		entry.action_enabled = false
-		entry.action_hint = "已經裝備"
+		entry.action_hint = entry.badge
 	elif unlocked:
-		entry.action_label = "裝備"
-		entry.action_hint = "改用這個能力（取代目前裝備的）"
+		entry.action_label = Labels.get_text(&"cyber_equip")
+		entry.action_hint = Labels.get_text(&"cyber_equip_help")
 	else:
-		var reason := Progression.ability_unlock_block_reason(ability)
-		entry.action_label = "解鎖（¥%d）" % ability.unlock_cost
+		var reason := Progression.ability_unlock_block_reason(ability, Story.language)
+		var help := &"cyber_unlock_first_help" if active == null else &"cyber_unlock_help"
+		entry.action_label = Labels.get_text(&"cyber_unlock") % ability.unlock_cost
 		entry.action_enabled = reason.is_empty()
-		entry.action_hint = reason if not reason.is_empty() else "花費 ¥%d 解鎖，第一個解鎖的會自動裝備" % ability.unlock_cost
+		entry.action_hint = reason if not reason.is_empty() else Labels.get_text(help) % ability.unlock_cost
 	return entry
 
 
@@ -80,9 +83,9 @@ func _activate_entry(index: int) -> bool:
 		if not Progression.equip_ability(ability.id):
 			return false
 		Sfx.play(&"ui_confirm", -6.0)
-		context.say("已裝備 %s" % ability.display_name)
+		context.say(Labels.get_text(&"cyber_equipped_notice") % ability.display_name_for(Story.language))
 		return true
-	var reason := Progression.ability_unlock_block_reason(ability)
+	var reason := Progression.ability_unlock_block_reason(ability, Story.language)
 	if not reason.is_empty():
 		context.say(reason, true)
 		Sfx.play(&"ui_error", -6.0)
@@ -90,5 +93,5 @@ func _activate_entry(index: int) -> bool:
 	if not Progression.unlock_ability(ability):
 		return false
 	Sfx.play(&"overclock", -6.0)
-	context.say("已解鎖 %s（-¥%d）" % [ability.display_name, ability.unlock_cost])
+	context.say(Labels.get_text(&"cyber_unlocked_notice") % [ability.display_name_for(Story.language), ability.unlock_cost])
 	return true

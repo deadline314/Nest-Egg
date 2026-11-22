@@ -47,6 +47,10 @@ func _test_data() -> void:
 	bad_ability.radius = 0.0
 	bad_ability.unlock_cost = 0
 	check(bad_ability.validate().size() >= 3, "invalid ability data is reported")
+	bad_ability.localized_names = {"ja": " ", "en": "Legacy ability"}
+	check(bad_ability.display_name_for("ja") == "Legacy ability", "a blank cyberware translation falls back to English")
+	check(bad_ability.display_name_for("unsupported") == bad_ability.display_name, "unsupported language retains the authored ability name")
+	check(bad_ability.description_for("en") == bad_ability.description, "legacy abilities retain descriptions without a translation table")
 	var bad_shop := ShopData.new()
 	check(not bad_shop.validate().is_empty(), "empty shop is reported")
 	check(InputBindings.ACTIONS.any(func(a: Dictionary) -> bool: return a["id"] == &"ability"), "ability action is bindable")
@@ -58,6 +62,7 @@ func _test_progression() -> void:
 	var overclock := _ability(OVERCLOCK_PATH)
 	check(Progression.equipped_ability() == null, "no ability is equipped at the start")
 	check(Progression.ability_unlock_block_reason(emp).contains("不足"), "cannot unlock without credits")
+	check(Progression.ability_unlock_block_reason(emp, "en").contains("¥%d" % emp.unlock_cost), "translated unlock warning includes the exact shortage")
 	check(not Progression.unlock_ability(emp), "failed unlock does not charge")
 	Progression.add_credits(1000)
 	check(Progression.unlock_ability(emp) and Progression.credits == 1000 - emp.unlock_cost, "unlock charges the price")

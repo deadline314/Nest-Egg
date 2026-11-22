@@ -15,6 +15,8 @@ enum Kind {
 @export var kind: Kind = Kind.OVERCLOCK
 ## 一句話說明（背包 tooltip 與詳情）。
 @export var description: String = ""
+@export var localized_names: Dictionary[String, String] = {}
+@export var localized_descriptions: Dictionary[String, String] = {}
 @export var color: Color = Color(0.35, 0.88, 1.0, 1.0)
 ## 解鎖價格（信用點）。
 @export var unlock_cost: int = 250
@@ -32,6 +34,14 @@ enum Kind {
 ## 背包像素圖示（art/items/icons/<icon>.png）。
 @export var icon: String = ""
 @export var sound: StringName = &"emp"
+
+
+func display_name_for(language: String) -> String:
+	return StoryLocale.optional_text(localized_names, language, display_name)
+
+
+func description_for(language: String) -> String:
+	return StoryLocale.optional_text(localized_descriptions, language, description)
 
 
 func validate() -> PackedStringArray:

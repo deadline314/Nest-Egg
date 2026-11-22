@@ -465,13 +465,14 @@ func equipped_ability() -> CyberAbilityData:
 
 
 ## 回傳不能解鎖的原因（空字串代表可以）。
-func ability_unlock_block_reason(ability: CyberAbilityData) -> String:
+func ability_unlock_block_reason(ability: CyberAbilityData, language: String = StoryLocale.SOURCE_LANGUAGE) -> String:
 	if ability == null:
-		return "沒有這項能力"
+		return StoryLocale.optional_text({"ja": "この能力は存在しない", "en": "Ability unavailable"}, language, "沒有這項能力")
 	if is_ability_unlocked(ability.id):
-		return "已經解鎖了"
+		return StoryLocale.optional_text({"ja": "解放済み", "en": "Already unlocked"}, language, "已經解鎖了")
 	if not can_afford(ability.unlock_cost):
-		return "信用點不足（還差 %d）" % (ability.unlock_cost - credits)
+		return StoryLocale.optional_text({"ja": "クレジット不足（あと ¥%d）", "en": "Not enough credits (need ¥%d more)"},
+				language, "信用點不足（還差 %d）") % (ability.unlock_cost - credits)
 	return ""
 
 
