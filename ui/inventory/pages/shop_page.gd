@@ -8,12 +8,12 @@ var _stock_targets: Array[ConsumableData] = []
 
 func tab_title() -> String:
 	if shop != null and (shop.pawn or shop.workbench):
-		return "補給"  # 同一個畫面還有典當、改裝分頁：分頁名要短，不和畫面標題重複
-	return shop.display_name if shop != null else "補給點"
+		return Labels.get_text(&"stock")  # 用短名稱，避免重複櫃台標題。
+	return shop.display_name if shop != null else Labels.get_text(&"counter_title")
 
 
 func tab_tooltip() -> String:
-	return "用信用點購買補給（目前 ¥%d）" % Progression.credits
+	return Labels.get_text(&"stock_help") % Progression.credits
 
 
 func _empty_text() -> String:

@@ -23,11 +23,11 @@ var _guard_bar: _Segments
 
 
 func tab_title() -> String:
-	return "角色狀態"
+	return Labels.get_text(&"status")
 
 
 func tab_tooltip() -> String:
-	return "查看凜的狀態與這一輪的紀錄"
+	return Labels.get_text(&"status_help")
 
 
 ## 這一頁自己有即時骨架的立繪，不再顯示右側的靜態立繪。

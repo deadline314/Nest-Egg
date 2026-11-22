@@ -19,7 +19,7 @@ func _ready() -> void:
 
 
 func _screen_title() -> String:
-	return shop.display_name if shop != null else "補給點"
+	return shop.display_name if shop != null else Labels.get_text(&"counter_title")
 
 
 func _opens_with_key() -> bool:
@@ -27,10 +27,9 @@ func _opens_with_key() -> bool:
 
 
 func _legend_template() -> String:
-	var tabs_hint := "　{inventory_prev_tab}/{inventory_next_tab} 分頁" if _pages.size() > 1 else ""
-	if InputBindings.using_gamepad:
-		return "{ui_cancel} 返回%s　{ui_accept} 確認" % tabs_hint
-	return "{ui_cancel} 離開%s　↑↓ 選擇　{ui_accept} 確認" % tabs_hint
+	var tabs_hint := "　" + Labels.get_text(&"tabs") if _pages.size() > 1 else ""
+	var key := &"shop_pad" if InputBindings.using_gamepad else &"shop_keys"
+	return Labels.get_text(key) % tabs_hint
 
 
 ## 空櫃台沿用空貨架畫面，玩家仍可離開。

@@ -10,6 +10,7 @@ static func run(suite: TestSuite) -> void:
 	# This gate measures settled layout; normal opening/slide motion is verified separately.
 	Settings.set_reduce_ui_motion(true)
 	var level := await suite.start_level(PropsSuite.level_data())
+	await _check_backpack_language(suite, level._inventory)
 	level.player.consumables.add(ConsumableBag.find(&"med_injector"))
 	Progression.add_credits(500)
 	var shop := ShopScreen.new()
@@ -69,6 +70,29 @@ static func run(suite: TestSuite) -> void:
 	Settings.set_ui_font(old_font)
 	Settings.set_reduce_ui_motion(old_motion)
 	InputBindings.clear_held_inputs()
+
+
+static func _check_backpack_language(suite: TestSuite, bag: InventoryScreen) -> void:
+	var language := Story.language
+	var gamepad := InputBindings.using_gamepad
+	var device := InputBindings.active_device
+	for option: Array in [["en", "Inventory", "Weapons", "Credits", "Tabs"], ["ja", "所持品", "武器", "クレジット", "切替"]]:
+		Story.set_language(option[0])
+		InputBindings._set_device(true, 999)
+		bag.open()
+		await suite.frames(3)
+		var tab := bag._tab_buttons[bag.page_index(WeaponsPage)]
+		suite.check(bag._title.text == option[1] and tab.text == option[2] and not tab.tooltip_text.is_empty(),
+				"reopening the backpack refreshes its title, tabs and hover help in " + str(option[0]))
+		suite.check(bag._credits.text.begins_with(option[3]) and bag._legend_label.text.contains(option[4])
+				and bag._legend_label.get_combined_minimum_size().x <= bag._legend_label.size.x + 1.0,
+				"localized credits and controller directions fit at 120% text size in " + str(option[0]))
+		suite.check(bag._frame.get_global_rect().grow(0.5).encloses(bag._tab_buttons.back().get_global_rect()),
+				"localized tabs stay within the backpack at 120% text size in " + str(option[0]))
+		bag.close()
+		await suite.frames(2)
+	Story.set_language(language)
+	InputBindings._set_device(gamepad, device)
 
 
 static func _key(suite: TestSuite, key: Key) -> void:

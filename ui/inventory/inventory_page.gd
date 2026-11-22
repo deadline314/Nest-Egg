@@ -7,6 +7,8 @@ extends Control
 ## 目前選取（或滑鼠指到）的項目的一句說明；背包畫面底部說明列顯示它。
 signal hint_changed(text: String)
 
+const Labels := preload("res://ui/inventory/inventory_labels.gd")
+
 var context: InventoryContext
 
 

@@ -19,14 +19,14 @@ func _ready() -> void:
 
 
 func tab_title() -> String:
-	return "劇情道具"
+	return Labels.get_text(&"story")
 
 
 func tab_tooltip() -> String:
 	var overall := StoryItems.overall_collection()
 	if overall.y == 0:
-		return "回顧旅途中取得的關鍵物品"
-	return "回顧關鍵物品與收集的文件、錄音（已收集 %d／%d）" % [overall.x, overall.y]
+		return Labels.get_text(&"story_help")
+	return Labels.get_text(&"story_collection") % [overall.x, overall.y]
 
 
 func tab_has_alert() -> bool:

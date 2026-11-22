@@ -24,7 +24,7 @@ const LEGEND_WIDTH := 292.0
 const PORTRAIT_WIDTH := 104.0
 const PORTRAIT_GAP := 8.0
 const CREDITS_HEIGHT := 16.0
-const LEGEND_TEMPLATE := "{inventory} 關閉　{inventory_prev_tab}/{inventory_next_tab} 分頁　↑↓ 選擇　{ui_accept} 確認"
+const Labels := preload("res://ui/inventory/inventory_labels.gd")
 
 ## 死亡或過關時由關卡關閉，避免和結算畫面同時出現。
 var allowed := true
@@ -130,6 +130,7 @@ func open() -> void:
 	get_tree().paused = true
 	UiKit.set_cursor_visible(true)
 	_set_open_state(true)
+	_title.text = _screen_title()
 	for page in _pages:
 		page.visible = false
 	_portrait.acquire()
@@ -212,7 +213,6 @@ func _build_layout() -> void:
 	_credits.size = Vector2(PORTRAIT_WIDTH, CREDITS_HEIGHT)
 	_credits.clip_text = true
 	_credits.mouse_filter = Control.MOUSE_FILTER_PASS
-	_credits.tooltip_text = "目前持有的信用點；商店、改裝、義體與典當都用它。"
 	_frame.add_child(_credits)
 	_portrait = SidePortrait.new()
 	_frame.add_child(_portrait)
@@ -252,14 +252,13 @@ func _make_tab_button(index: int, width: float) -> Button:
 
 ## 畫面標題（子類別可覆寫，例如補給點）。
 func _screen_title() -> String:
-	return "背包"
+	return Labels.get_text(&"pack_title")
 
 
 ## 底部右側的操作提示（可用 {動作} 佔位符）。
 func _legend_template() -> String:
-	if InputBindings.using_gamepad:
-		return "{ui_cancel} 返回　{inventory_prev_tab}/{inventory_next_tab} 分頁　{ui_accept} 確認"
-	return LEGEND_TEMPLATE
+	var key := &"bag_pad" if InputBindings.using_gamepad else &"bag_keys"
+	return Labels.get_text(key) % Labels.get_text(&"tabs")
 
 
 func _refresh_legend() -> void:
@@ -293,11 +292,9 @@ func _create_pages() -> void:
 		page.visible = false
 		_page_host.add_child(page)
 		_pages.append(page)
-		_tab_buttons[i].tooltip_text = page.tab_tooltip()
 	# 只有一個分頁（補給點）時不需要分頁標籤。
 	_tabs.visible = pages.size() > 1
 	_refresh_tab_labels()
-	_layout_header()
 
 
 ## Counter names can be wider than the bag title, including after text-size changes.
@@ -306,9 +303,18 @@ func _layout_header() -> void:
 		return
 	_tabs.position.x = maxf(TABS_LEFT, _title.position.x + _title.get_combined_minimum_size().x + 12.0)
 	var available := maxf(0.0, 640.0 - _tabs.position.x - MARGIN.x - TAB_GAP * (_tab_buttons.size() - 1))
-	var width := minf(TAB_MAX_WIDTH, available / _tab_buttons.size())
+	var preferred := minf(TAB_MAX_WIDTH, available / _tab_buttons.size())
+	var needed := 0.0
+	var padding := 0.0
 	for button in _tab_buttons:
-		button.custom_minimum_size.x = width
+		var natural := button.get_minimum_size().x
+		needed += natural
+		padding += maxf(0.0, preferred - natural)
+	# Wide captions use their intrinsic width. Use the remaining space for shorter tabs.
+	var share := clampf((available - needed) / padding, 0.0, 1.0) if padding > 0.0 else 0.0
+	for button in _tab_buttons:
+		var natural := button.get_minimum_size().x
+		button.custom_minimum_size.x = natural + maxf(0.0, preferred - natural) * share
 
 
 func _refresh_tab_labels() -> void:
@@ -316,12 +322,14 @@ func _refresh_tab_labels() -> void:
 		var button := _tab_buttons[i]
 		var selected := i == _current
 		button.text = _pages[i].tab_title() + (" ●" if _pages[i].tab_has_alert() and not selected else "")
+		button.tooltip_text = _pages[i].tab_tooltip()
 		button.add_theme_stylebox_override(&"normal", UiKit.tab_style(selected))
 		button.add_theme_stylebox_override(&"hover", UiKit.tab_style(true))
 		button.add_theme_stylebox_override(&"pressed", UiKit.tab_style(true))
 		var alert := _pages[i].tab_has_alert() and not selected
 		button.add_theme_color_override(&"font_color", Palette.CYAN if selected else (Palette.MAGENTA if alert else Palette.UI_MUTED))
 		button.add_theme_color_override(&"font_hover_color", Palette.CYAN)
+	_layout_header()
 
 
 func _show_page(index: int, animate: bool) -> void:
@@ -390,7 +398,8 @@ func _on_credits_changed(_credits_now: int, _delta: int) -> void:
 
 func _refresh_credits() -> void:
 	if _is_open:
-		_credits.text = "信用點　¥%d" % Progression.credits
+		_credits.text = Labels.get_text(&"credits") % Progression.credits
+		_credits.tooltip_text = Labels.get_text(&"credits_help")
 
 
 ## 關閉時停用所有子節點的處理，背包不佔 CPU；立繪貼圖也一併放掉。

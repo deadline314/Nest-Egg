@@ -13,11 +13,11 @@ var _arm_targets: Array[ArmShieldPartData] = []
 
 
 func tab_title() -> String:
-	return "改裝"
+	return Labels.get_text(&"mods")
 
 
 func tab_tooltip() -> String:
-	return "用信用點改裝攜帶中的武器（目前 ¥%d）" % Progression.credits
+	return Labels.get_text(&"mods_help") % Progression.credits
 
 
 func _empty_text() -> String:

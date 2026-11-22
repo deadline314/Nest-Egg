@@ -9,11 +9,11 @@ var _targets: Array[Dictionary] = []
 
 
 func tab_title() -> String:
-	return "典當"
+	return Labels.get_text(&"pawn")
 
 
 func tab_tooltip() -> String:
-	return "把補給當成現金，之後加利息贖回（目前 ¥%d，當票 %d／%d）" % [Progression.credits, Progression.total_pawned(), Progression.MAX_PAWNED]
+	return Labels.get_text(&"pawn_help") % [Progression.credits, Progression.total_pawned(), Progression.MAX_PAWNED]
 
 
 func _empty_text() -> String:

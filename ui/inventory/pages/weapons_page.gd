@@ -4,11 +4,11 @@ extends CardListPage
 
 
 func tab_title() -> String:
-	return "武器與彈藥"
+	return Labels.get_text(&"weapons")
 
 
 func tab_tooltip() -> String:
-	return "查看攜帶的武器與彈藥，並換成手上武器"
+	return Labels.get_text(&"weapons_help")
 
 
 func _empty_text() -> String:

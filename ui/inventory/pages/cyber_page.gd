@@ -5,11 +5,11 @@ extends CardListPage
 
 
 func tab_title() -> String:
-	return "義體"
+	return Labels.get_text(&"cyberware")
 
 
 func tab_tooltip() -> String:
-	return "解鎖並裝備義體能力（目前 ¥%d）" % Progression.credits
+	return Labels.get_text(&"cyberware_help") % Progression.credits
 
 
 func _empty_text() -> String:
