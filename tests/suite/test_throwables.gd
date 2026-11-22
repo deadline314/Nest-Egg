@@ -24,6 +24,7 @@ func run() -> void:
 	await _test_pickup_prompt_target()
 	await _test_drop_near_switch()
 	await _test_drop_near_vehicle()
+	await _test_drop_near_phone()
 	await _test_pickup_terrain_reach()
 	await _test_rotated_centers()
 	await _test_preview_matches_first_contact()
@@ -135,6 +136,32 @@ func _test_drop_near_vehicle() -> void:
 	check(vehicle._prompt._player_near(), "the boarding hint appears inside the actual mount range")
 	await _press(&"interact")
 	check(vehicle.driver == level.player, "a separate press within range still boards")
+	await _release_aim()
+	await end_level(level)
+
+
+func _test_drop_near_phone() -> void:
+	await open_level(10.0)
+	GameState.clear_checkpoint()
+	var crate := _place(CRATE, 10.0)
+	await physics_frames(4)
+	check(await _pick_up(crate), "the crate is held before reaching the phone booth")
+	var booth := Checkpoint.new()
+	booth.position = Vector2(14.0 * 16.0, FLOOR_Y)
+	level._entities.add_child(booth)
+	place_player(14.0 - 6.0 / 16.0)
+	await _aim(Vector2.RIGHT)
+	await physics_frames(6)
+	check(booth.interaction_available() and crate._prompt._player_near() and not booth._prompt._player_near(),
+		"the held crate owns the prompt beside the reachable phone")
+	await _press(&"interact")
+	await runner.get_tree().process_frame
+	check(crate.state == Throwable.State.REST and not booth.is_calling() and not GameState.has_checkpoint,
+		"one press drops the crate without dialing or saving")
+	check(booth.can_dial(), "once the crate is down, the nearer phone owns the next action")
+	await _press(&"interact")
+	check(booth.is_calling() and level.player.is_on_phone() and not level.player.carry.is_holding(),
+		"a separate press starts only the phone call")
 	await _release_aim()
 	await end_level(level)
 

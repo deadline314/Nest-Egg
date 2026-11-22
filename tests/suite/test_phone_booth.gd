@@ -78,11 +78,8 @@ func _test_dial_with_the_interact_key() -> void:
 
 
 func _press_interact() -> void:
-	var tree := runner.get_tree()
-	# The booth consumes the edge during _process, which can span several physics ticks.
-	await tree.process_frame
 	Input.action_press(&"interact")
-	await tree.process_frame
+	await physics_frames(2)
 	Input.action_release(&"interact")
 
 

@@ -142,10 +142,14 @@ func is_calling() -> bool:
 	return _call_t >= 0.0
 
 
+func _physics_process(_delta: float) -> void:
+	# Use the same interaction tick as dropping objects, so one press has one target.
+	if Input.is_action_just_pressed(&"interact") and can_dial():
+		start_call(_player_ref.get_ref() as Player if _player_ref != null else null)
+
+
 func _process(delta: float) -> void:
 	_time += delta
-	if can_dial() and Input.is_action_just_pressed(&"interact"):
-		start_call(_player_ref.get_ref() as Player if _player_ref != null else null)
 	if _call_t >= 0.0:
 		_tick_call(delta)
 	if _rebirth > 0.0:
