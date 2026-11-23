@@ -90,6 +90,13 @@ const COPY := {
 	"note": ["{inventory_prev_tab}/{inventory_next_tab} 切換分頁。右搖桿或 Page Up／Down 捲動。改鍵時短按 %s 綁定，長按取消。",
 		"{inventory_prev_tab}/{inventory_next_tab} で切り替え、右スティックか Page Up／Down でスクロールします。割り当て時は %s を短く押すと登録、長押しで取り消し。",
 		"{inventory_prev_tab}/{inventory_next_tab} switches tabs. Scroll with the right stick or Page Up/Down. When rebinding, tap %s to assign it or hold it to cancel."],
+	"binding_action": ["動作", "アクション", "Action"],
+	"binding_key": ["鍵盤／滑鼠 %d", "キー／マウス %d", "Key / Mouse %d"],
+	"binding_key_hint": ["選取後輸入新按鍵。Backspace 清除。", "選択して新しいキーを押します。Backspace で解除。", "Select and press a key or mouse button. Backspace clears."],
+	"binding_pad_hint": ["選取後按新手把按鈕。搖桿和扳機維持固定。", "選択して新しいボタンを押します。スティックとトリガーは固定です。", "Select and press a button. Sticks and triggers stay fixed."],
+	"binding_cancel": ["已取消。", "取り消しました。", "Binding canceled."],
+	"binding_updated": ["已更新「%s」。", "「%s」を更新しました。", "%s binding updated."],
+	"binding_swapped": [" 與「%s」交換鍵位。", "「%s」と入れ替えました。", " Swapped with %s."],
 	"waiting": ["按下…", "入力待ち…", "Waiting…"],
 	"capture_pad": ["按新手把按鈕；%s短按綁定、長按0.6秒取消；Esc取消。",
 		"新しいボタンを押します。%s は短く押すと登録、0.6 秒長押しで取り消し。Esc でも取り消せます。",
@@ -590,10 +597,10 @@ func _build_bindings_tab() -> Control:
 	grid.add_theme_constant_override(&"v_separation", 4)
 	column.add_child(grid)
 
-	var headers: Array[String] = ["動作"]
+	var headers: Array[String] = [_text("binding_action")]
 	for slot in InputBindings.KEY_SLOTS:
-		headers.append("鍵盤／滑鼠 %d" % (slot + 1))
-	headers.append("手把")
+		headers.append(_text("binding_key") % (slot + 1))
+	headers.append(_text("controller"))
 	for i in headers.size():
 		var head := UiKit.label(headers[i], 10, Palette.UI_MUTED)
 		if i == 0:
@@ -602,13 +609,13 @@ func _build_bindings_tab() -> Control:
 
 	for entry in InputBindings.ACTIONS:
 		var action: StringName = entry["id"]
-		var label := UiKit.label(entry["label"], 11)
+		var label := UiKit.label(InputBindings.action_label(action), 11)
 		label.custom_minimum_size = Vector2(LABEL_WIDTH, 0)
 		_indent(label)
 		grid.add_child(label)
 		for slot in InputBindings.KEY_SLOTS:
-			grid.add_child(_make_binding_button(action, slot, "點擊後按下新按鍵或滑鼠鍵；Backspace 清除"))
-		grid.add_child(_make_binding_button(action, JOY_SLOT, "點擊後按下手把按鈕；搖桿與扳機固定不可改"))
+			grid.add_child(_make_binding_button(action, slot, _text("binding_key_hint")))
+		grid.add_child(_make_binding_button(action, JOY_SLOT, _text("binding_pad_hint")))
 	column.add_child(_hold_rules_block())
 	ScrollCue.attach(scroll)
 	return scroll
@@ -748,7 +755,7 @@ func _cancel_capture() -> void:
 	_cancel_hold_pressed = false
 	_cancel_hold.stop()
 	_refresh_bindings()
-	_set_status("已取消。")
+	_set_status(_text("binding_cancel"))
 
 
 func _input(event: InputEvent) -> void:
@@ -815,8 +822,9 @@ func _capture_code(code: int) -> void:
 	if code == KEY_BACKSPACE:
 		_finish_capture(InputBindings.set_code(_capture_action, _capture_slot, InputBindings.NONE))
 		return
-	if InputBindings.is_reserved(code):
-		_set_status("此按鍵保留給系統（Esc、數字鍵 1～4、F 鍵），請換一個。", Palette.DANGER)
+	var reason := InputBindings.key_binding_error(_capture_action, _capture_slot, code)
+	if not reason.is_empty():
+		_set_status(reason, Palette.DANGER)
 		return
 	_finish_capture(InputBindings.set_code(_capture_action, _capture_slot, code))
 
@@ -827,9 +835,9 @@ func _finish_capture(swapped: StringName) -> void:
 	_cancel_hold_pressed = false
 	_cancel_hold.stop()
 	_refresh_bindings()
-	var message := "已更新「%s」。" % InputBindings.action_label(action)
+	var message := _text("binding_updated") % InputBindings.action_label(action)
 	if swapped != &"":
-		message += "原本的按鍵已與「%s」互換。" % InputBindings.action_label(swapped)
+		message += _text("binding_swapped") % InputBindings.action_label(swapped)
 	_set_status(message, Palette.CYAN)
 	Sfx.play(&"ui_confirm", -6.0, 0.0)
 

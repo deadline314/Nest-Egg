@@ -35,24 +35,24 @@ const NONE := 0
 
 ## 動作的顯示順序與名稱（設定選單依此排列）。
 const ACTIONS: Array[Dictionary] = [
-	{"id": &"move_left", "label": "左移"},
-	{"id": &"move_right", "label": "右移"},
-	{"id": &"move_down", "label": "蹲下／落下平台"},
-	{"id": &"jump", "label": "跳躍"},
-	{"id": &"shoot", "label": "射擊"},
-	{"id": &"block", "label": "格擋"},
-	{"id": &"dash", "label": "衝刺"},
-	{"id": &"melee", "label": "近戰／終結"},
-	{"id": &"weapon_next", "label": "下一把武器"},
-	{"id": &"weapon_prev", "label": "上一把武器"},
-	{"id": &"reload", "label": "換彈"},
-	{"id": &"use_item", "label": "使用醫療針"},
-	{"id": &"ability", "label": "義體能力"},
-	{"id": &"interact", "label": "搭乘／互動"},
-	{"id": &"inventory", "label": "背包"},
-	{"id": &"pause", "label": "暫停"},
-	{"id": &"quests", "label": "任務目錄"},
-	{"id": &"map", "label": "地圖"},
+	{"id": &"move_left", "label": "左移", "ja": "左に移動", "en": "Move left"},
+	{"id": &"move_right", "label": "右移", "ja": "右に移動", "en": "Move right"},
+	{"id": &"move_down", "label": "蹲下／落下平台", "ja": "しゃがむ／足場を降りる", "en": "Crouch / Drop"},
+	{"id": &"jump", "label": "跳躍", "ja": "ジャンプ", "en": "Jump"},
+	{"id": &"shoot", "label": "射擊", "ja": "射撃", "en": "Shoot"},
+	{"id": &"block", "label": "格擋", "ja": "ガード", "en": "Block"},
+	{"id": &"dash", "label": "衝刺", "ja": "ダッシュ", "en": "Dash"},
+	{"id": &"melee", "label": "近戰／終結", "ja": "近接攻撃／とどめ", "en": "Melee / Finish"},
+	{"id": &"weapon_next", "label": "下一把武器", "ja": "次の武器", "en": "Next weapon"},
+	{"id": &"weapon_prev", "label": "上一把武器", "ja": "前の武器", "en": "Previous weapon"},
+	{"id": &"reload", "label": "換彈", "ja": "リロード", "en": "Reload"},
+	{"id": &"use_item", "label": "使用醫療針", "ja": "治療注射を使う", "en": "Use med injector"},
+	{"id": &"ability", "label": "義體能力", "ja": "義体能力", "en": "Cybernetic ability"},
+	{"id": &"interact", "label": "搭乘／互動", "ja": "乗る／調べる", "en": "Ride / Interact"},
+	{"id": &"inventory", "label": "背包", "ja": "所持品", "en": "Inventory"},
+	{"id": &"pause", "label": "暫停", "ja": "一時停止", "en": "Pause"},
+	{"id": &"quests", "label": "任務目錄", "ja": "クエスト一覧", "en": "Quest log"},
+	{"id": &"map", "label": "地圖", "ja": "マップ", "en": "Map"},
 ]
 
 const DEFAULT_CODES: Dictionary[StringName, Array] = {
@@ -124,6 +124,33 @@ const FIXED_ACTIONS: Dictionary[StringName, Array] = {
 ## 無法被綁定的鍵（Esc 用於取消設定；F 鍵保留給系統／除錯；數字鍵用於直選武器）。
 const RESERVED_CODES: Array[int] = [KEY_ESCAPE, KEY_1, KEY_2, KEY_3, KEY_4, KEY_F1, KEY_F2, KEY_F3, KEY_F4,
 	KEY_F5, KEY_F6, KEY_F7, KEY_F8, KEY_F9, KEY_F10, KEY_F11, KEY_F12]
+
+const BINDING_MESSAGES := {
+	"zh": {
+		"key_invalid": "這個鍵位無法綁定。",
+		"key_reserved": "Esc、數字鍵 1～4 與部分 F 鍵保留給系統。",
+		"key_only": "這是「%s」唯一的鍵位。請換一個鍵。",
+		"pad_invalid": "這個手把按鈕無法綁定。",
+		"pad_required": "「%s」必須保留一個手把按鈕。",
+		"pad_only": "這是「%s」唯一的手把按鈕。請換一個按鈕。",
+	},
+	"ja": {
+		"key_invalid": "このキーは割り当てられません。",
+		"key_reserved": "Esc、数字キー 1～4、一部の F キーは予約されています。",
+		"key_only": "これは「%s」唯一のキーです。別のキーを選んでください。",
+		"pad_invalid": "このボタンは割り当てられません。",
+		"pad_required": "「%s」にはボタンが一つ必要です。",
+		"pad_only": "これは「%s」唯一のボタンです。別のボタンを選んでください。",
+	},
+	"en": {
+		"key_invalid": "This key cannot be assigned.",
+		"key_reserved": "Esc, 1–4 and some function keys are reserved.",
+		"key_only": "This is the only binding for %s. Choose another key.",
+		"pad_invalid": "This controller button cannot be assigned.",
+		"pad_required": "%s needs a controller button.",
+		"pad_only": "This is the only button for %s. Choose another button.",
+	},
+}
 
 const MOUSE_LABELS := {
 	"zh": {
@@ -281,7 +308,7 @@ func get_joy_button(action: StringName) -> int:
 func action_label(action: StringName) -> String:
 	for entry in ACTIONS:
 		if entry["id"] == action:
-			return entry["label"]
+			return entry.get(_input_language(), entry["label"])
 	return String(action)
 
 
@@ -332,6 +359,11 @@ func joy_label(action: StringName) -> String:
 
 func _input_language() -> String:
 	return Story.language if is_instance_valid(Story) else StoryLocale.SOURCE_LANGUAGE
+
+
+func _binding_message(key: String) -> String:
+	var messages: Dictionary = BINDING_MESSAGES.get(_input_language(), BINDING_MESSAGES[StoryLocale.SOURCE_LANGUAGE])
+	return messages[key]
 
 
 func _pad_terms(language: String) -> Dictionary:
@@ -417,7 +449,7 @@ func is_reserved(code: int) -> bool:
 
 ## 綁定鍵盤／滑鼠欄位。若代碼已被其他欄位使用則互換。回傳被互換的動作（沒有則為 &""）。
 func set_code(action: StringName, slot: int, code: int) -> StringName:
-	if not _codes.has(action) or slot < 0 or slot >= KEY_SLOTS or is_reserved(code):
+	if not key_binding_error(action, slot, code).is_empty():
 		return &""
 	var previous := get_code(action, slot)
 	var swapped: StringName = &""
@@ -427,14 +459,33 @@ func set_code(action: StringName, slot: int, code: int) -> StringName:
 				if (other != action or other_slot != slot) and get_code(other, other_slot) == code:
 					# 保留鍵（例如預設的 Esc）不會被換到其他動作上。
 					_codes[other][other_slot] = NONE if is_reserved(previous) else previous
-					swapped = other
-					_apply(other)
-					_ensure_bound(other)
+					if other != action:
+						swapped = other
+						_apply(other)
+						_ensure_bound(other)
 	_codes[action][slot] = code
 	_apply(action)
 	_ensure_bound(action)
 	_save()
 	return swapped
+
+
+## 空欄位不能拿走其他動作唯一的鍵位，否則補回預設值可能讓兩個動作吃到同一輸入。
+func key_binding_error(action: StringName, slot: int, code: int) -> String:
+	if not _codes.has(action) or slot < 0 or slot >= KEY_SLOTS:
+		return _binding_message("key_invalid")
+	if is_reserved(code):
+		return _binding_message("key_reserved")
+	var previous := get_code(action, slot)
+	if code == NONE or code == previous or (previous != NONE and not is_reserved(previous)):
+		return ""
+	for other: StringName in _codes:
+		if other == action:
+			continue
+		var other_codes: Array = _codes[other]
+		if code in other_codes and other_codes.count(NONE) == KEY_SLOTS - 1:
+			return _binding_message("key_only") % action_label(other)
+	return ""
 
 
 ## 綁定手把按鈕。若已被其他動作使用則互換。回傳被互換的動作。
@@ -457,13 +508,13 @@ func set_joy_button(action: StringName, button: int) -> StringName:
 ## 必要動作保留手把輸入。空欄位只能綁到空閒按鈕或有軸後備的動作。
 func joy_binding_error(action: StringName, button: int) -> String:
 	if not _codes.has(action) or button < -1 or button >= JOY_BUTTON_MAX:
-		return "這個手把按鈕無法綁定。"
+		return _binding_message("pad_invalid")
 	if button == -1 and DEFAULT_JOY_BUTTONS.get(action, -1) >= 0 and not JOY_AXES.has(action):
-		return "「%s」必須保留一個手把按鈕。" % action_label(action)
+		return _binding_message("pad_required") % action_label(action)
 	if button >= 0 and get_joy_button(action) == -1:
 		for other: StringName in _joy:
 			if other != action and _joy[other] == button and not JOY_AXES.has(other):
-				return "這是「%s」唯一的手把按鈕，請選擇空閒按鈕。" % action_label(other)
+				return _binding_message("pad_only") % action_label(other)
 	return ""
 
 

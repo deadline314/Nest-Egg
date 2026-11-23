@@ -519,6 +519,16 @@ func _test_settings_and_bindings() -> void:
 	Settings.set_volume(&"Master", 0.0)
 	_check(AudioServer.is_bus_mute(0), "zero volume mutes")
 
+	var only_reload := InputEventKey.new()
+	only_reload.physical_keycode = KEY_R
+	InputBindings.set_code(&"map", 1, KEY_R)
+	_check(InputBindings.get_code(&"map", 1) == InputBindings.NONE
+			and InputMap.event_is_action(only_reload, &"reload")
+			and not InputMap.event_is_action(only_reload, &"map"), "empty slot cannot take the only key of another action")
+	_check(InputBindings.set_code(&"map", 1, KEY_M) == &""
+			and InputBindings.get_code(&"map", 0) == InputBindings.NONE
+			and InputBindings.get_code(&"map", 1) == KEY_M, "moving a key between slots of one action keeps it bound once")
+	InputBindings.reset_to_defaults()
 	var swapped := InputBindings.set_code(&"jump", 0, KEY_J)
 	_check(swapped == &"shoot" and InputBindings.get_code(&"shoot", 1) == KEY_SPACE, "rebinding swaps conflicting key")
 	var probe := InputEventKey.new()
