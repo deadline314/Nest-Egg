@@ -190,7 +190,7 @@ var _disconnect_token := 0
 var _recovery_layer: CanvasLayer
 var _recovery_prompt: Control
 var _recovery_focus: WeakRef
-var _recovery_device := -1
+var _connected_joypads: Dictionary[int, bool] = {}
 var _interrupted_player: WeakRef
 var _aim_deadzone := AIM_DEADZONE_DEFAULT
 var _invert_aim_y := false
@@ -204,6 +204,8 @@ func _ready() -> void:
 	_register_fixed_actions()
 	_register_ui_controller()
 	reload_from_settings()
+	for device: int in Input.get_connected_joypads():
+		_connected_joypads[device] = true
 	Input.joy_connection_changed.connect(_on_joy_connection_changed)
 	get_window().focus_exited.connect(_on_focus_exited)
 	get_tree().node_removed.connect(_on_node_removed)
@@ -738,14 +740,15 @@ func is_controller_interrupted() -> bool:
 
 func _on_joy_connection_changed(device: int, connected: bool) -> void:
 	_axis_values.erase(device)
+	if connected:
+		_connected_joypads[device] = true
+	else:
+		_connected_joypads.erase(device)
 	if is_controller_interrupted():
-		if connected:
-			_recovery_device = device
-			_recovery_prompt.set_connected(true)
-		elif device == _recovery_device:
+		if not connected and using_gamepad and active_device == device:
 			clear_held_inputs()
 			_set_device(false)
-			_recovery_prompt.set_connected(false)
+		_recovery_prompt.set_connected(not _connected_joypads.is_empty())
 		return
 	if connected or not using_gamepad or active_device != device:
 		return
@@ -756,7 +759,6 @@ func _on_joy_connection_changed(device: int, connected: bool) -> void:
 	if player != null and not get_tree().paused and not GameplayLock.is_locked():
 		_disconnect_token = GameplayLock.acquire(self, Input.MOUSE_MODE_VISIBLE)
 		_interrupted_player = weakref(player)
-		_recovery_device = device
 		_show_recovery_prompt()
 		controller_interrupted_changed.emit(true)
 	else:
@@ -786,6 +788,7 @@ func _show_recovery_prompt() -> void:
 	_recovery_prompt = RecoveryPrompt.new()
 	_recovery_prompt.resume_requested.connect(resume_after_disconnect)
 	_recovery_layer.add_child(_recovery_prompt)
+	_recovery_prompt.set_connected(not _connected_joypads.is_empty())
 
 
 func _hide_recovery_prompt() -> void:
@@ -795,7 +798,6 @@ func _hide_recovery_prompt() -> void:
 		_recovery_layer.queue_free()
 	_recovery_layer = null
 	_recovery_prompt = null
-	_recovery_device = -1
 	var focused: Control = _recovery_focus.get_ref() as Control if _recovery_focus != null else null
 	_recovery_focus = null
 	if is_instance_valid(focused) and focused.is_inside_tree() and focused.is_visible_in_tree() and not focused.is_queued_for_deletion():

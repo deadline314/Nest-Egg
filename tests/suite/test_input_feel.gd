@@ -346,6 +346,8 @@ func _test_controller_aim() -> void:
 
 
 func _test_controller_interruption() -> void:
+	var device_snapshot: Dictionary[int, bool] = InputBindings._connected_joypads.duplicate()
+	InputBindings._connected_joypads.clear()
 	var player := Node2D.new()
 	runner.add_child(player)
 	player.add_to_group(&"player")
@@ -366,9 +368,16 @@ func _test_controller_interruption() -> void:
 	Input.parse_input_event(_joy_motion(JOY_AXIS_LEFT_Y, 0.8))
 	await runner.get_tree().process_frame
 	check(InputBindings.is_controller_interrupted() and runner.get_viewport().gui_get_focus_owner() == prompt.resume_button, "cancel and stick motion cannot resume or escape recovery focus")
+	var available_text: String = prompt.copy("手把可用", "コントローラーを使えます", "Controller available")
+	InputBindings._on_joy_connection_changed(997, true)
+	InputBindings._on_joy_connection_changed(998, true)
+	InputBindings._on_joy_connection_changed(998, false)
+	check(prompt._title.text == available_text and InputBindings.is_controller_interrupted(),
+		"unplugging the last added pad keeps recovery ready when another is still connected")
+	InputBindings._on_joy_connection_changed(997, false)
 	InputBindings._on_joy_connection_changed(999, true)
 	check(InputBindings.is_controller_interrupted(), "reconnecting alone does not resume gameplay")
-	check(prompt._title.text == prompt.copy("手把已重新連線", "再接続しました", "Controller reconnected"), "recovery visibly acknowledges reconnection")
+	check(prompt._title.text == available_text, "recovery visibly acknowledges a usable controller")
 	InputBindings._on_joy_connection_changed(999, false)
 	check(InputBindings.is_controller_interrupted() and InputBindings._recovery_prompt == prompt and prompt._title.text == prompt.copy("手把已斷線", "接続が切れました", "Controller disconnected"), "repeated disconnect keeps one prompt and one pause")
 	Input.parse_input_event(_joy_button(JOY_BUTTON_A))
@@ -428,6 +437,7 @@ func _test_controller_interruption() -> void:
 	player.free()
 	await runner.get_tree().process_frame
 	check(not InputBindings.is_controller_interrupted() and not GameplayLock.is_locked() and InputBindings._recovery_layer == null, "removing the interrupted player releases the prompt and its pause")
+	InputBindings._connected_joypads = device_snapshot
 
 
 func _test_controller_navigation() -> void:

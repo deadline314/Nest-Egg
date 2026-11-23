@@ -10,6 +10,10 @@ const CHAIN_LINK_SIZE := Vector2(14.0, 14.0)
 const ARRIVE_DISTANCE := 26.0
 const BREAK_STUN := 0.9
 const WALL_MASK_FALLBACK := 1
+const ESCAPE_HINTS: Dictionary[String, String] = {
+	"ja": "{dash}で抜け出すか、鎖を攻撃する。",
+	"en": "Press {dash} to break free or hit the chain.",
+}
 
 var _throw_dir := Vector2.RIGHT
 var _hook_pos := Vector2.ZERO
@@ -144,7 +148,9 @@ func _reel_enter() -> void:
 	_build_link()
 	if _hooked_player != null:
 		_hooked_player.begin_pull(self, float(spec["reel_speed"]), _reel_left)
-	EventBus.toast_requested.emit("衝刺掙脫鉤子，或攻擊鎖鏈將它打斷。")
+	EventBus.toast_requested.emit(
+		StoryLocale.optional_text(ESCAPE_HINTS, Story.language, "{dash} 衝刺掙脫，或攻擊鎖鏈。")
+	)
 
 
 func _reel_tick(delta: float) -> void:

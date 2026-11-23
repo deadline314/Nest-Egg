@@ -53,7 +53,7 @@ func _focus_resume() -> void:
 
 
 func set_connected(connected: bool) -> void:
-	_title.text = copy("手把已重新連線", "再接続しました", "Controller reconnected") if connected else copy("手把已斷線", "接続が切れました", "Controller disconnected")
+	_title.text = copy("手把可用", "コントローラーを使えます", "Controller available") if connected else copy("手把已斷線", "接続が切れました", "Controller disconnected")
 	_message.text = copy("按確認後繼續遊戲，也可使用鍵盤與滑鼠。", "確認してから再開します。キーボードとマウスも使えます。", "Confirm to continue. Keyboard and mouse are also available.") if connected else copy("重新接上手把，或改用鍵盤與滑鼠。準備好再繼續。", "コントローラーを再接続するか、キーボードとマウスを使ってください。準備ができてから再開できます。", "Reconnect your controller, or use keyboard and mouse. Continue when you are ready.")
 
 

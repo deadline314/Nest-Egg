@@ -192,6 +192,8 @@ func _test_hook() -> void:
 	check(await wait_state(enemy, &"throw", 120), "the hook is thrown after its telegraph")
 	check(await wait_state(enemy, &"reel", 120), "a hook that hits pulls the player in")
 	check(player.is_pulled() and hp - player.health.current == 1, "being hooked costs one health and starts the pull (%d)" % (hp - player.health.current))
+	check(level.hud.toast_banner._label.text.contains(InputBindings.primary_label(&"dash")),
+		"the chain escape guide shows the active dash binding")
 	var x0 := player.global_position.x
 	var active_steps := await _wait_for_pull_steps(player, 10)
 	check(active_steps and player.global_position.x > x0 + 4.0, "the pull moves the player toward the hook owner")
