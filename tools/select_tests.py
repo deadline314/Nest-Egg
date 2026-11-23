@@ -8,7 +8,7 @@ git 的輸出一律用 NUL 分隔並以 UTF-8 解碼，不依賴系統編碼（�
 
 原理（靜態影響分析）：
   1. 為每個檔案建立相依關係：GDScript 用到另一個檔案的 class_name 或單例名稱，或字串裡出現它的 res:// 路徑（或它所在的資料夾）；
-     .tres／.tscn／.json 內寫到的 res:// 路徑也算相依。
+     .tres／.tscn／.json 內寫到的 res:// 路徑也算相依。GDScript 可用 # changed-test-inputs: 宣告執行時才列舉的來源。
   2. 從有更動的檔案出發，沿著「誰用到它」往外找（最多 MAX_DEPTH 層），碰到測試套件（tests/suite/*.gd）或流程測試（tests/smoke_test.gd）就收進來。
      被超過 HUB_DEPENDENTS 個檔案用到的核心（Player、Sfx、Level…）只在它自己被更動時才往外展開，
      不然改一個資料檔就會經過 Player 牽連到所有測試，失去「只跑受影響範圍」的意義。
@@ -21,6 +21,7 @@ import re
 import subprocess
 import sys
 from collections import defaultdict, deque
+from fnmatch import fnmatchcase
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -35,6 +36,7 @@ CLASS_RE = re.compile(r"^class_name\s+(\w+)", re.M)
 PATH_RE = re.compile(r"res://[\w./\-]+")
 AUTOLOAD_RE = re.compile(r'^(\w+)="\*?res://([^"]+)"', re.M)
 WORD_RE = re.compile(r"[A-Za-z_]\w*")
+RUNTIME_INPUT_RE = re.compile(r"^# changed-test-inputs:[ \t]*(.*)$", re.M)
 
 
 class SelectionError(Exception):
@@ -96,7 +98,7 @@ def strip_suite_registration(text):
     return text[:start] + (text[end:] if end > 0 else "")
 
 
-def build_graph(files):
+def build_graph(files, changed):
     texts = {f: read_text(f) for f in files if Path(f).suffix in SCAN_EXT}
     known_files = set(files)
     provides = {}  # 名稱 -> 檔案
@@ -134,6 +136,11 @@ def build_graph(files):
                 target = provides.get(word)
                 if target and target != f:
                     used.add(target)
+            if "# changed-test-inputs:" in scan_text:
+                patterns = " ".join(RUNTIME_INPUT_RE.findall(scan_text)).split()
+                # Include deleted inputs and avoid expanding patterns over the whole repository.
+                used.update(path for path in changed if path != f
+                            and any(fnmatchcase(path, pattern) for pattern in patterns))
         for path in set(PATH_RE.findall(scan_text)):
             stripped = path.rstrip("/")
             rel = stripped[len("res://"):]
@@ -148,7 +155,7 @@ def build_graph(files):
 
 
 def select(changed, files):
-    dependents, suite_of = build_graph(files)
+    dependents, suite_of = build_graph(files, changed)
     reasons = {}
     depth = {}
     queue = deque()

@@ -3,6 +3,9 @@ extends RefCounted
 ## 玩家文字盤點：全部故事 JSON、data 的說明／提示及 UI／遊戲訊息來源。
 ## 用來源位置回報，對白嚴格檢查；名稱／按鈕／數值是標籤，不套用句子短片段限制。
 
+# changed-test-inputs: data/*.json data/*.tres
+# changed-test-inputs: ui/*.gd ui/*.tscn game/*.gd game/*.tscn autoload/*.gd autoload/*.tscn
+# changed-test-inputs: core/navigation/quest_map_index.gd
 const TEXT_FIELDS := ["text", "ja", "en", "description", "body", "hint", "tooltip", "locked_text", "prompt", "hints", "message", "action_hint", "tooltip_text", "placeholder_text", "help", "background", "reward", "blocked_reason", "suggestion"]
 const LABEL_FIELDS := ["name", "display_name", "title", "subtitle", "sub", "end_title", "teaser", "label"]
 # Player-facing map text is produced here; the other navigation core strings

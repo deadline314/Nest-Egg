@@ -165,6 +165,25 @@ class SelectTestsTest(unittest.TestCase):
         write(self.root, "tests/suite/new.gd", "class_name NewSuite\nextends Node\nvar target: NewThing\n")
         self.assertEqual(run_main("--files", "game/new.gd")[:2], (0, "NewSuite"))
 
+    def test_runtime_inputs_select_audit_suite_with_a_reason(self):
+        audit = "core/player_text_audit.gd"
+        suite = "tests/suite/story_lint.gd"
+        write(self.root, audit,
+              "class_name PlayerTextAudit\nextends RefCounted\n"
+              "# changed-test-inputs: ui/*.gd data/*.json\n"
+              "# changed-test-inputs: autoload/*.gd\n")
+        write(self.root, suite, "class_name StoryLintSuite\nextends Node\nvar audit: PlayerTextAudit\n")
+        workbench_labels = "ui/inventory/inventory_labels.gd"
+        write(self.root, workbench_labels, 'extends RefCounted\nconst LABEL := "Workstation"\n')
+
+        code, out, _ = run_main("--files", workbench_labels, "--explain")
+        self.assertEqual(code, 0)
+        self.assertEqual(out, f"StoryLintSuite: {suite} ← {audit} ← {workbench_labels}")
+        self.assertEqual(run_main("--files", "data/story/removed.json")[:2], (0, "StoryLintSuite"))
+        self.assertEqual(run_main("--files", "autoload/input_bindings.gd")[:2], (0, "StoryLintSuite"))
+        self.assertEqual(run_main("--files", "ui/inventory/copy.png", "docs/review.md")[:2], (0, ""))
+        self.assertEqual(run_main("--files", CHINESE_CODE)[:2], (0, "PropSuite"))
+
     def test_adding_visible_ignore_boundary_runs_all(self):
         write(self.root, "game/.gdignore", "")
         self.assertEqual(run_main("--base", self.base)[:2], (0, "ALL"))
