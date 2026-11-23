@@ -16,6 +16,7 @@ const ABILITY_DIR := "res://data/abilities"
 const ARM_SHIELD_DIR := "res://data/arm_shield"
 const SNAPSHOT_VERSION := 1
 const MAX_CREDITS := 99999
+enum PawnBlock { NONE, NOT_ACCEPTED, TICKET_LIMIT, WALLET_FULL, NO_TICKET, SHORT_CREDITS }
 ## 典當：當價 = 售價 × PAWN_RATE；贖回 = 當價 × (1 + PAWN_INTEREST)（進位）。同時最多 MAX_PAWNED 張當票，
 ## 這樣典當不能變成「無限換錢」，也一定比直接買貴一點點的反面：當了再贖是週轉，不是賺錢。
 const PAWN_RATE := 0.5
@@ -252,39 +253,57 @@ func pawned_ids() -> Array[StringName]:
 	return ids
 
 
-## 不能典當的原因（空字串代表可以）。物品要不要從背包拿走由呼叫端處理，這裡只管錢與當票。
-func pawn_block_reason(item: ConsumableData) -> String:
+## 實收金額受錢包容量限制。贖回費用仍由原當價與利息決定。
+func pawn_payout(item: ConsumableData) -> int:
+	return mini(pawn_value(item), MAX_CREDITS - credits)
+
+
+func pawn_block(item: ConsumableData) -> PawnBlock:
 	if item == null or pawn_value(item) <= 0:
-		return "這個東西當舖不收"
+		return PawnBlock.NOT_ACCEPTED
 	if total_pawned() >= MAX_PAWNED:
-		return "當票滿了（最多 %d 張），先贖回幾樣" % MAX_PAWNED
+		return PawnBlock.TICKET_LIMIT
 	if credits >= MAX_CREDITS:
-		return "身上的錢已經滿了"
+		return PawnBlock.WALLET_FULL
+	return PawnBlock.NONE
+
+
+func pawn_block_reason(item: ConsumableData) -> String:
+	match pawn_block(item):
+		PawnBlock.NOT_ACCEPTED: return "這個東西當舖不收"
+		PawnBlock.TICKET_LIMIT: return "當票滿了（最多 %d 張），先贖回幾樣" % MAX_PAWNED
+		PawnBlock.WALLET_FULL: return "身上的錢已經滿了"
 	return ""
 
 
 ## 典當：加錢、記一張當票。回傳實際拿到的錢（失敗回傳 0）。
 func pawn(item: ConsumableData) -> int:
-	if not pawn_block_reason(item).is_empty():
+	if pawn_block(item) != PawnBlock.NONE:
 		return 0
-	var gained := add_credits(pawn_value(item))
+	var gained := add_credits(pawn_payout(item))
 	_pawned[item.id] = pawned_count(item.id) + 1
 	pawned_changed.emit()
 	return gained
 
 
-## 不能贖回的原因（空字串代表可以）。
-func redeem_block_reason(item: ConsumableData) -> String:
+func redeem_block(item: ConsumableData) -> PawnBlock:
 	if item == null or pawned_count(item.id) <= 0:
-		return "沒有這張當票"
+		return PawnBlock.NO_TICKET
 	if not can_afford(redeem_cost(item)):
-		return "信用點不足（還差 %d）" % (redeem_cost(item) - credits)
+		return PawnBlock.SHORT_CREDITS
+	return PawnBlock.NONE
+
+
+func redeem_block_reason(item: ConsumableData) -> String:
+	match redeem_block(item):
+		PawnBlock.NO_TICKET: return "沒有這張當票"
+		PawnBlock.SHORT_CREDITS: return "信用點不足（還差 %d）" % (redeem_cost(item) - credits)
 	return ""
 
 
 ## 贖回：扣錢、收回當票。回傳是否成功（失敗不扣款）。
 func redeem(item: ConsumableData) -> bool:
-	if not redeem_block_reason(item).is_empty() or not spend(redeem_cost(item)):
+	if redeem_block(item) != PawnBlock.NONE or not spend(redeem_cost(item)):
 		return false
 	var left := pawned_count(item.id) - 1
 	if left > 0:

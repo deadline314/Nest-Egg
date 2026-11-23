@@ -8,8 +8,10 @@
 script = ExtResource("1_script")
 id = &"ch1_pawn"
 display_name = "當舖櫃台"
+localized_names = Dictionary[String, String]({"en": "Pawnshop", "ja": "質屋"})
 stock = Array[ConsumableData]([ExtResource("2_med"), ExtResource("3_cell")])
 pawn = true
 workbench = true
 style = &"counter"
 prompt = "{interact} 老 K 的櫃台：買補給、典當、改裝武器"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Old K's counter • Buy, pawn, modify", "ja": "{interact} 老Kのカウンター・購入、質入れ、改造"})

@@ -9,7 +9,7 @@ var _stock_targets: Array[ConsumableData] = []
 func tab_title() -> String:
 	if shop != null and (shop.pawn or shop.workbench):
 		return Labels.get_text(&"stock")  # 用短名稱，避免重複櫃台標題。
-	return shop.display_name if shop != null else Labels.get_text(&"counter_title")
+	return shop.display_name_for(Story.language) if shop != null else Labels.get_text(&"counter_title")
 
 
 func tab_tooltip() -> String:
@@ -17,7 +17,7 @@ func tab_tooltip() -> String:
 
 
 func _empty_text() -> String:
-	return "這個補給點沒有商品。"
+	return Labels.get_text(&"shop_empty")
 
 
 func _build_entries() -> Array[InventoryEntry]:
@@ -43,24 +43,24 @@ func _entry_for(item: ConsumableData) -> InventoryEntry:
 	entry.detail_icon = ItemIcons.item_hd(item.icon)
 	entry.card_icon_scale = 1
 	entry.detail_icon_scale = 3
-	entry.subtitle = "¥%d　持有 %d／%d" % [item.price, bag.count(item.id), item.max_carry]
+	entry.subtitle = Labels.get_text(&"shop_offer") % [item.price, bag.count(item.id), item.max_carry]
 	entry.dimmed = not reason.is_empty()
-	entry.detail_tag = "補給"
-	entry.detail_stats = PackedStringArray(["持有　%d／%d" % [bag.count(item.id), item.max_carry], "持有信用點　¥%d" % Progression.credits])
+	entry.detail_tag = Labels.get_text(&"stock")
+	entry.detail_stats = PackedStringArray([Labels.get_text(&"shop_owned") % [bag.count(item.id), item.max_carry], Labels.get_text(&"credits") % Progression.credits])
 	entry.detail_body = item.description_for(Story.language)
 	entry.hint = item.description_for(Story.language)
-	entry.action_label = "購買（¥%d）" % item.price
+	entry.action_label = Labels.get_text(&"shop_buy") % item.price
 	entry.action_enabled = reason.is_empty()
-	entry.action_hint = reason if not reason.is_empty() else "花費 ¥%d" % item.price
+	entry.action_hint = reason if not reason.is_empty() else Labels.get_text(&"shop_cost") % item.price
 	return entry
 
 
 ## 不能買的原因（空字串代表可以買）。
 func _block_reason(item: ConsumableData) -> String:
 	if context.player.consumables.count(item.id) >= item.max_carry:
-		return "已達攜帶上限 %d" % item.max_carry
+		return Labels.get_text(&"shop_limit") % item.max_carry
 	if not Progression.can_afford(item.price):
-		return "信用點不足（還差 %d）" % (item.price - Progression.credits)
+		return Labels.get_text(&"shop_short") % (item.price - Progression.credits)
 	return ""
 
 
@@ -75,12 +75,12 @@ func _activate_entry(index: int) -> bool:
 		return false
 	# 先確認放得進背包再扣款，失敗不會白花錢。
 	if not context.player.consumables.add(item):
-		context.say("%s 放不進背包" % item.display_name_for(Story.language), true)
+		context.say(Labels.get_text(&"shop_no_room") % item.display_name_for(Story.language), true)
 		return false
 	if not Progression.spend(item.price):
 		context.player.consumables.take(item.id)
-		context.say("信用點不足", true)
+		context.say(Labels.get_text(&"shop_short") % (item.price - Progression.credits), true)
 		return false
 	Sfx.play(&"pickup", -4.0)
-	context.say("購買 %s（-¥%d）" % [item.display_name_for(Story.language), item.price])
+	context.say(Labels.get_text(&"shop_buy_notice") % [item.display_name_for(Story.language), item.price])
 	return true

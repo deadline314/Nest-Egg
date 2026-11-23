@@ -228,6 +228,15 @@ func _test_counter_and_pages() -> void:
 	var before := Progression.credits
 	check(pawn_page._activate_entry(0) and bag.count(med.id) == med.max_carry and Progression.credits == before - Progression.redeem_cost(med), "redeeming returns the item and charges the interest")
 	check(Progression.total_pawned() == 0, "the ticket is gone after redeeming")
+	bag.take(med.id)
+	Progression.add_credits(Progression.MAX_CREDITS - Progression.credits - 1)
+	entries = pawn_page._build_entries()
+	check(entries[0].action_enabled and entries[0].action_label.contains("+¥1"),
+		"the pawn button quotes the actual headroom near the wallet cap")
+	var full_price := Progression.redeem_cost(med)
+	check(pawn_page._activate_entry(0) and Progression.credits == Progression.MAX_CREDITS
+		and Progression.pawned_count(med.id) == 1 and Progression.redeem_cost(med) == full_price,
+		"the clipped payout leaves the original redemption rule and creates one ticket")
 	check(not pawn_page._activate_entry(9) and not pawn_page._activate_entry(-1), "out-of-range actions are ignored")
 	screen.queue_free()
 	await end_level(level)

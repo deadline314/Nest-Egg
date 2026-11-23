@@ -36,7 +36,7 @@ func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
 	var prompt := WorldPrompt.new()
-	prompt.text = data.prompt_text()
+	prompt.text = data.prompt_text(Story.language)
 	prompt.radius = PROMPT_RADIUS
 	prompt.reach_check = interaction_available
 	prompt.interaction_owner = self

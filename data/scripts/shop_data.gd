@@ -5,6 +5,7 @@ extends Resource
 
 @export var id: StringName = &"supply"
 @export var display_name: String = "補給點"
+@export var localized_names: Dictionary[String, String] = {}
 @export var stock: Array[ConsumableData] = []
 ## 收購與贖回（老 K 的當舖）：加一個「典當」分頁，把身上的補給換錢，之後可以加利息贖回。
 @export var pawn := false
@@ -14,6 +15,7 @@ extends Resource
 @export var style: StringName = &"cabinet"
 ## 靠近時的一句提示（可用 {interact}）；空白時依功能自動產生。
 @export var prompt: String = ""
+@export var localized_prompts: Dictionary[String, String] = {}
 
 
 func validate() -> PackedStringArray:
@@ -31,9 +33,15 @@ func validate() -> PackedStringArray:
 
 
 ## 靠近時顯示的提示：資料有寫就用，沒有就依功能組一句重點。
-func prompt_text() -> String:
-	if not prompt.is_empty():
-		return prompt
+func display_name_for(language: String) -> String:
+	return StoryLocale.optional_text(localized_names, language, display_name)
+
+
+func prompt_text(language: String = StoryLocale.SOURCE_LANGUAGE) -> String:
+	var authored := StoryLocale.optional_text(localized_prompts, language, prompt)
+	if not authored.is_empty():
+		return authored
+	var name := display_name_for(language)
 	var parts := PackedStringArray()
 	if not stock.is_empty():
 		parts.append("買補給")
@@ -42,5 +50,5 @@ func prompt_text() -> String:
 	if workbench:
 		parts.append("改裝武器")
 	if parts.is_empty():
-		return "{interact} %s" % display_name
-	return "{interact} %s：%s" % [display_name, "、".join(parts)]
+		return "{interact} %s" % name
+	return "{interact} %s：%s" % [name, "、".join(parts)]

@@ -19,7 +19,7 @@ func _ready() -> void:
 
 
 func _screen_title() -> String:
-	return shop.display_name if shop != null else Labels.get_text(&"counter_title")
+	return shop.display_name_for(Story.language) if shop != null else Labels.get_text(&"counter_title")
 
 
 func _opens_with_key() -> bool:

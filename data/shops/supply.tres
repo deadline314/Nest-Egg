@@ -8,4 +8,6 @@
 script = ExtResource("1_script")
 id = &"supply"
 display_name = "補給點"
+localized_names = Dictionary[String, String]({"en": "Supply counter", "ja": "補給所"})
+localized_prompts = Dictionary[String, String]({"en": "{interact} Buy supplies", "ja": "{interact} 補給品を買う"})
 stock = Array[ConsumableData]([ExtResource("2_med"), ExtResource("3_cell")])
