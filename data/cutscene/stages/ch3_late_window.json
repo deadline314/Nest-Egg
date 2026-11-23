@@ -1,0 +1,222 @@
+{
+ "camera": {
+  "pos": [
+   474,
+   242
+  ],
+  "zoom": 1.16
+ },
+ "floor": 305,
+ "furniture": [
+  {
+   "id": "late_window_frame",
+   "kind": "residential_window",
+   "support": "固定在西側室內牆",
+   "rect": [
+    323.33,
+    156.33,
+    171.6,
+    78.87
+   ]
+  },
+  {
+   "id": "late_window_side_table",
+   "kind": "table",
+   "rect": [
+    383.0,
+    244.16,
+    27.36,
+    60.84
+   ]
+  },
+  {
+   "id": "late_window_chair",
+   "kind": "high_back_chair",
+   "plane": "actor",
+   "rect": [
+    453.8,
+    218.6,
+    57.96,
+    86.4
+   ]
+  }
+ ],
+ "layers": [
+  {
+   "kind": "gradient",
+   "top": "#86818b",
+   "bottom": "#b3a69b"
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scenes/clearwater.webp",
+   "source_width": 1536,
+   "region": [
+    350,
+    181,
+    246,
+    258
+   ],
+   "pos": [
+    146,
+    73
+   ],
+   "scale": 0.9,
+   "filter": "linear",
+   "glow": false,
+   "modulate": "#99949e"
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scenes/clearwater.webp",
+   "source_width": 1536,
+   "region": [
+    350,
+    181,
+    246,
+    258
+   ],
+   "pos": [
+    367.4,
+    73
+   ],
+   "scale": 0.9,
+   "filter": "linear",
+   "glow": false,
+   "modulate": "#99949e"
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scenes/clearwater.webp",
+   "source_width": 1536,
+   "region": [
+    350,
+    181,
+    246,
+    258
+   ],
+   "pos": [
+    588.8,
+    73
+   ],
+   "scale": 0.9,
+   "filter": "linear",
+   "glow": false,
+   "modulate": "#99949e"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    146,
+    296,
+    665,
+    9
+   ],
+   "color": "#7d7380"
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scenes/clearwater.webp",
+   "source_width": 1536,
+   "region": [
+    700,
+    797,
+    650,
+    65
+   ],
+   "pos": [
+    146,
+    305
+   ],
+   "scale": 1.03,
+   "filter": "linear",
+   "glow": false,
+   "modulate": "#a39a98"
+  },
+  {
+   "kind": "poly",
+   "points": [
+    [
+     348,
+     305
+    ],
+    [
+     480,
+     305
+    ],
+    [
+     456,
+     361
+    ],
+    [
+     294,
+     361
+    ]
+   ],
+   "color": "#ffdfac",
+   "alpha": 0.31
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scene_props/clearwater/clearwater__late_window_shaded.png",
+   "source_width": 522,
+   "region": [
+    0,
+    0,
+    522,
+    240
+   ],
+   "pos": [
+    323,
+    156
+   ],
+   "scale": 0.33,
+   "filter": "linear",
+   "glow": false,
+   "modulate": "#e0d1b3",
+   "furniture_ref": "late_window_frame"
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scene_props/clearwater/clearwater__window_chair.png",
+   "source_width": 249,
+   "region": [
+    0,
+    0,
+    82,
+    240
+   ],
+   "pos": [
+    383,
+    221.12
+   ],
+   "scale": 0.36,
+   "filter": "linear",
+   "glow": false,
+   "modulate": "#d2c1a5",
+   "furniture_ref": "late_window_side_table"
+  },
+  {
+   "kind": "sprite",
+   "id": "late_window_chair",
+   "path": "res://art/environment/scene_props/clearwater/clearwater__window_chair.png",
+   "source_width": 249,
+   "region": [
+    83,
+    0,
+    166,
+    240
+   ],
+   "pos": [
+    452,
+    218.60000000000002
+   ],
+   "scale": 0.36,
+   "filter": "linear",
+   "depth": "front",
+   "glow": false,
+   "modulate": "#d2c1a5",
+   "furniture_ref": "late_window_chair"
+  }
+ ]
+}

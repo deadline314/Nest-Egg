@@ -16,6 +16,7 @@ sys.path.insert(0, str(ROOT / "tools/story"))
 
 import ch3_source  # noqa: E402
 import showroom_stamp_staging  # noqa: E402
+import showroom_late_window  # noqa: E402
 from ch1_runtime_backend import DEATH_SEQUENCES  # noqa: E402
 from chapter_compiler import ChapterSpec, CompileError, write_chapter, write_documents, write_transactions  # noqa: E402
 
@@ -40,6 +41,7 @@ def write_stages():
     """本章自己的過場舞台。格式同第一章的 write_stage：縮排 1、結尾換行。"""
     for stage_id, stage in (
         (ch3_source.MORNING_STAGE, ch3_source.morning_window_stage()),
+        (showroom_late_window.STAGE, showroom_late_window.definition()),
         (showroom_stamp_staging.STAGE, showroom_stamp_staging.definition()),
         (ch3_source.OFFICE_STAGE, ch3_source.office_stage()),
         (ch3_source.OFFICE_HAND_STAGE, ch3_source.office_hand_stage()),

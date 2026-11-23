@@ -19,6 +19,7 @@ func run() -> void:
 	_test_clinic_review_handoff()
 	_test_showroom_receipt_stamp()
 	_test_morning_window_measurement()
+	_test_late_window_chair()
 	_test_office_continuation_sources()
 	_test_office_movement()
 	_test_level_hooks()
@@ -100,6 +101,30 @@ func _test_morning_window_measurement() -> void:
 	check(contacts.size() == 2 and contacts[0].x < contacts[1].x,
 			"Rin measures along the morning ruler before the chair trial")
 	check(invitation_seat, "the morning ruler keeps the invitation chair trial")
+
+
+func _test_late_window_chair() -> void:
+	var scene: Dictionary = Story._scenes["ch3_t_c16_late"]
+	var stage := StageLibrary.definition(&"ch3_late_window")
+	var touch := false
+	var move := false
+	var released := false
+	for step: Dictionary in scene["steps"]:
+		if step.get("do") == "reach" and step.get("id") == "rin":
+			if step.get("prop") == "late_window_chair":
+				touch = not move and step.get("space") == "prop"
+			elif step.get("release", false):
+				released = move
+		elif step.get("do") == "prop_move" and step.get("id") == "late_window_chair":
+			for layer: Dictionary in stage.get("layers", []):
+				if layer.get("id") == "late_window_chair":
+					var start := StageLayers.vec2_of(layer["pos"])
+					var finish := StageLayers.vec2_of(step["to"])
+					move = touch and finish.x > start.x and is_equal_approx(finish.y, start.y)
+	check(released, "Rin grips the late window chair, moves it along the floor, and releases it")
+	var replay: Dictionary = Story._scenes["ch3_t_c16_late_revisit"]
+	check(not replay["steps"].any(func(step: Dictionary) -> bool: return step.get("do") == "prop_move"),
+			"the late window revisit only recalls the room notes")
 
 
 func _test_office_continuation_sources() -> void:

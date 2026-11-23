@@ -4533,6 +4533,40 @@
    "mode": "animated",
    "steps": [
     {
+     "do": "scene",
+     "id": "ch3_late_window",
+     "pos": [
+      474,
+      262.2
+     ],
+     "zoom": 1.16,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      523,
+      305
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": ""
+    },
+    {
+     "do": "actor",
+     "id": "lin",
+     "kind": "lin",
+     "pos": [
+      611,
+      305
+     ],
+     "facing": -1,
+     "scale": 2.26,
+     "weapon": ""
+    },
+    {
      "do": "say",
      "speaker": "rin",
      "text": "下午才亮，他忙完貨架也能坐一下。",
@@ -4545,6 +4579,67 @@
      "text": "我把椅子靠裡，別讓光直接照眼睛。",
      "ja": "椅子は奥に寄せる。光が直接目に入らないように。",
      "en": "I'll set the chair back so the light doesn't hit his eyes."
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "space": "prop",
+     "prop": "late_window_chair",
+     "to": [
+      234.5,
+      30.5
+     ],
+     "contact": [
+      96.5,
+      37.5
+     ],
+     "angle": 2.25,
+     "time": 0.35,
+     "wait": true
+    },
+    {
+     "do": "move",
+     "id": "rin",
+     "to": [
+      547,
+      305
+     ],
+     "time": 0.64,
+     "wait": false
+    },
+    {
+     "do": "face",
+     "id": "rin",
+     "dir": -1
+    },
+    {
+     "do": "prop_move",
+     "id": "late_window_chair",
+     "to": [
+      479,
+      218.60000000000002
+     ],
+     "time": 0.64,
+     "wait": true
+    },
+    {
+     "do": "sfx",
+     "id": "mat_wood",
+     "volume": -18.0,
+     "jitter": 0.0
+    },
+    {
+     "do": "wait",
+     "time": 0.16
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "release": true,
+     "time": 0.28,
+     "wait": true
     },
     {
      "do": "say",
@@ -4565,7 +4660,7 @@
      "en": "Not yet, so I will hold one proposal for now."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "all": [
      {

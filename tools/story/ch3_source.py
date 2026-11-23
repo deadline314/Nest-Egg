@@ -16,6 +16,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from ch1_closure import (Option, ProductionSource, Quest, QuestStep, all_of, any_of, flag, grant, item,  # noqa: E402
                          negate, set_flag, transaction)
 import showroom_stamp_staging
+import showroom_late_window
 
 from build_ch1_story import (actor as stage_actor, cam as stage_cam, face as stage_face, move as stage_move,  # noqa: E402
                              pose as stage_pose, say as stage_say, sfx as stage_sfx, stage as stage_scene, wait as stage_wait)
@@ -691,7 +692,14 @@ def _showroom(source: ProductionSource):
                    _opt("leave", "先去看窗。", None, "三扇窗可以照任意順序量。")))
     source.add("ch3_t_c16_locked", "C16", (("label", "林小姐先請您到接待桌登記看房。"),), when=negate(started))
     for room, name, lines, note in ROOMS:
-        steps = _morning_window(lines) if room == "morning" else beats(*lines)
+        if room == "morning":
+            steps = _morning_window(lines)
+        elif room == "late":
+            dialogue = beats(*lines)
+            steps = [*showroom_late_window.opening(), *dialogue[:2],
+                     *showroom_late_window.move_chair(), *dialogue[2:]]
+        else:
+            steps = beats(*lines)
         source.add(f"ch3_t_c16_{room}", "C16", steps=steps, when=all_of(started, negate(measured[room])), mode="animated",
                    completion=(set_flag(f"room_{room}_measured"),))
         source.add(f"ch3_t_c16_{room}_revisit", "C16", (("label", note),), when=measured[room])
