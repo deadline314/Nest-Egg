@@ -20,6 +20,12 @@ static func run(suite: TestSuite) -> void:
 	var ids := WorldPropAction.place_sequence(2).map(func(step: Dictionary) -> String: return step["id"])
 	suite.check(ids == ["approach", "pick", "lift", "scrub", "place", "release"], "washing picks up, rinses, places and lets go: %s" % [ids])
 	for id: String in ACTIONS:
+		var action := WorldPropAction.definition(id)
+		suite.check(action.get("lift_sound") == "" and Sfx.has_sound(StringName(action.get("place_sound", ""))),
+			"%s lifts silently and uses a real contact sound" % id)
+		var rinse_length := Sfx.sound_length(StringName(action.get("rinse_sound", "")))
+		suite.check(rinse_length >= 0.3 and rinse_length <= 0.47,
+			"%s rinse audio fits inside even the half-second rinse" % id)
 		_test_reach(suite, id)
 
 

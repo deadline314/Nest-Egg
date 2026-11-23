@@ -2371,6 +2371,24 @@
      "fade_out_ms": 22.0
     }
    ]
+  },
+  "ch2_sink_rinse": {
+   "category": "foley",
+   "volume_db": -5.0,
+   "variants": [
+    {
+     "pack": "fs_cc0-kitchen-faucet",
+     "file": "126040_2258946-hq.mp3",
+     "mode": "whole",
+     "start": 3.1,
+     "end": 3.54,
+     "max_len": 0.44,
+     "target_db": -29.0,
+     "highpass": 180,
+     "lowpass": 7700,
+     "fade_out_ms": 50
+    }
+   ]
   }
  },
  "music": {

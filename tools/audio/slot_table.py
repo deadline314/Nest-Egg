@@ -135,7 +135,8 @@ SFX = [
     ("dash", "MOV", "衝刺", "玩家衝刺；切割者與回收員的突進", "MLE", ["MOV"], {"hint": ["dash_slide"]}),
     # ---- 機關與場景 ENV
     ("ch2_radio_static", "ENV", "工作檯收音機的雜訊", "凜接錯線或調頻越過刻線時，收音機短暫響一次", "ELC", ["AMB"], {"dur": [0.1, 1.0], "kw": ["radio", "static"]}),
-    ("ch2_roof_cup", "ENV", "屋頂茶杯落桌", "第二章結尾凜喝完把杯子放回茶箱時", "ITM", [], {"dur": [0.1, 0.9], "kw": ["dishes", "cup", "ceramic"]}),
+    ("ch2_roof_cup", "ENV", "陶器放下", "第二章的茶杯回到茶箱，或洗好的碗碰到架子", "ITM", [], {"dur": [0.1, 0.9], "kw": ["dishes", "cup", "ceramic"]}),
+    ("ch2_sink_rinse", "ENV", "洗碗池流水", "第二章阿梨家開始沖碗時短暫播放", "OTH", ["AMB"], {"dur": [0.4, 12.0], "kw": ["faucet", "sink", "water"]}),
     ("switch", "ENV", "開關", "撥動機關開關、電源開關", "MEC", [], {"hint": ["switch_lever_button"]}),
     ("gate", "ENV", "閘門", "閘門與升降梯移動", "MEC", [], {"hint": ["gate_shutter"]}),
     ("power_down", "ENV", "斷電", "區域停電、探照無人機被打下", "ELC", [], {"hint": ["emp_power_down_up"]}),

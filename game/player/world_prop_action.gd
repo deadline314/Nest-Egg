@@ -412,12 +412,12 @@ func after_frame(rig: CharacterRig) -> void:
 		if is_instance_valid(_disk):
 			_disk.show()
 			_update_held(reaction, 1.0)
-		Sfx.play(&"step_wet", -14.0)  # 碗離開水面的水聲
+		_play_place_cue("lift_sound", &"step_wet", -14.0)
 	elif phase == "place":
 		contacts_completed += 1
 		if is_instance_valid(_disk):
 			_disk.hide()
-		Sfx.play(&"switch", -14.0)
+		_play_place_cue("place_sound", &"switch", -14.0)
 	_index += 1
 	if _index >= _sequence.size():
 		done = true
@@ -427,13 +427,27 @@ func after_frame(rig: CharacterRig) -> void:
 
 func _enter_phase() -> void:
 	phase = _sequence[_index]["id"]
-	if phase == "lower":
+	if phase == "scrub":
+		_play_place_cue("rinse_sound")
+	elif phase == "lower":
 		var source := _source.get_ref() as NpcActor if _source != null else null
 		if is_instance_valid(source):
 			source.present_pose(StringName(_spec["pose"]))
 	_elapsed = 0.0
 	_phase_started = false
 	_duration = maxf(0.1, absf(_station.x - _start_position.x) / APPROACH_SPEED * 1.5) if phase == "approach" else float(_sequence[_index]["time"])
+
+
+func _play_place_cue(key: String, fallback: StringName = &"", fallback_db := 0.0) -> void:
+	var authored: Variant = _spec.get(key)
+	if authored is String:
+		var sound := StringName(authored)
+		if Sfx.has_named(sound):
+			Sfx.play_named(sound)
+			return
+	if authored != null:
+		push_warning("[WorldPropAction] %s 的 %s 找不到音效：%s" % [_scene, key, authored])
+	Sfx.play_named(fallback, fallback_db)
 
 
 func _goal(player: Player, reaction: PropReaction) -> Vector2:
