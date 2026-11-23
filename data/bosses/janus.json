@@ -57,6 +57,13 @@
     "seed": 271,
     "crack_misses": 3,
     "comm_hits": 6,
-    "pin_offset": [-12, -22]
+    "pin_offset": [-12, -22],
+    "hints": {
+      "shield_cracked": {"ja": "盾枠が割れた。正面からも攻撃が通る。", "en": "Shield frame cracked. Front hits can land."},
+      "comms_broken": {"ja": "通信機が壊れた。もう増援は来ない。", "en": "Comms destroyed. No more reinforcements."},
+      "protected": {"ja": "本人は保護対象。オレンジ色の外部部品を狙う。", "en": "The man is protected. Aim at orange outer parts."},
+      "halted": {"ja": "作業架台が止まった。背後から整備ピンを抜く。", "en": "The frame stopped. Pull the service pin from behind."},
+      "pull_pin": {"ja": "{interact} 整備ピンを抜く", "en": "{interact} Pull the service pin"}
+    }
   }
 }

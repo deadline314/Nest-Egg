@@ -26,6 +26,7 @@ func run() -> void:
 	await check_defeatable_on_every_difficulty(ALL)
 	preload("res://tests/helpers/janus_config_checks.gd").run(self)
 	_test_janus_data()
+	_test_janus_world_guidance()
 	await _test_janus_wakes_after_intro()
 	await _test_janus_person_protected()
 	await _test_janus_shield_cracks()
@@ -245,6 +246,29 @@ func _test_janus_data() -> void:
 
 
 ## 登場劇情看過、玩家走近才醒；血條名稱是門禁裝置穩定度。
+func _test_janus_world_guidance() -> void:
+	var config := JanusConfig.load_for(&"janus")
+	check(JanusConfig.hint_for(config, "shield_cracked", "en") == "Shield frame cracked. Front hits can land."
+			and JanusConfig.hint_for(config, "shield_cracked", "ja") == "盾枠が割れた。正面からも攻撃が通る。", "shield_cracked has the authored combat guidance")
+	check(JanusConfig.hint_for(config, "shield_cracked", "zh") == "盾架裂開了——正面也打得動了", "shield_cracked keeps the original Chinese guide")
+	check(JanusConfig.hint_for(config, "comms_broken", "en") == "Comms destroyed. No more reinforcements."
+			and JanusConfig.hint_for(config, "comms_broken", "ja") == "通信機が壊れた。もう増援は来ない。", "comms_broken has the authored combat guidance")
+	check(JanusConfig.hint_for(config, "comms_broken", "zh") == "通訊器壞了，不會再叫增援", "comms_broken keeps the original Chinese guide")
+	check(JanusConfig.hint_for(config, "protected", "en") == "The man is protected. Aim at orange outer parts."
+			and JanusConfig.hint_for(config, "protected", "ja") == "本人は保護対象。オレンジ色の外部部品を狙う。", "protected has the authored combat guidance")
+	check(JanusConfig.hint_for(config, "protected", "zh") == "人物是保護區——只打橙色的外部部件", "protected keeps the original Chinese guide")
+	check(JanusConfig.hint_for(config, "halted", "en") == "The frame stopped. Pull the service pin from behind."
+			and JanusConfig.hint_for(config, "halted", "ja") == "作業架台が止まった。背後から整備ピンを抜く。", "halted has the authored combat guidance")
+	check(JanusConfig.hint_for(config, "halted", "zh") == "工作架停住了——到他背後拔維修插銷", "halted keeps the original Chinese guide")
+	check(JanusConfig.hint_for(config, "pull_pin", "en") == "{interact} Pull the service pin"
+			and JanusConfig.hint_for(config, "pull_pin", "ja") == "{interact} 整備ピンを抜く", "pull_pin has the authored combat guidance")
+	check(JanusConfig.hint_for(config, "pull_pin", "zh") == "{interact} 拔維修插銷", "pull_pin keeps the original Chinese guide")
+	var legacy: Dictionary = {}
+	check(JanusConfig.hint_for(legacy, "pull_pin", "ja").contains("{interact}"), "older boss data keeps the pin's active binding")
+	check(JanusConfig.hint_for(config, "pull_pin", "unsupported") == JanusConfig.hint_for(config, "pull_pin", "zh"),
+			"unsupported languages use the original instruction")
+
+
 func _test_janus_wakes_after_intro() -> void:
 	var janus := await _spawn_janus(JANUS_TILE - 8.0, false)
 	check(janus._frame_texture != null and janus.rig != null, "the work frame and person load as independent artwork")

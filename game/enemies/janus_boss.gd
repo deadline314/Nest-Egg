@@ -281,7 +281,7 @@ func _crack_shield() -> void:
 	Fx.sparks(_part_point(SHIELD), Palette.WARNING, 14, 200.0, 0.4, Vector2(facing, -0.5), 1.4)
 	Sfx.play(&"block", 0.0, 0.0, 0, 0.7)
 	Feel.shake_strength(4.0, 0.25)
-	EventBus.toast_requested.emit("盾架裂開了——正面也打得動了")
+	EventBus.toast_requested.emit(JanusConfig.hint_for(config, "shield_cracked", Story.language))
 	_refresh_parts()
 
 
@@ -291,7 +291,7 @@ func _break_comm() -> void:
 	Fx.sparks(_part_point(COMM), Palette.CYAN, 16, 220.0, 0.45, Vector2(-facing, -0.6), 1.6)
 	Fx.flash_light(_part_point(COMM), Palette.CYAN, 90.0, 1.5, 0.25)
 	Sfx.play(&"explosion_small", -4.0)
-	EventBus.toast_requested.emit("通訊器壞了，不會再叫增援")
+	EventBus.toast_requested.emit(JanusConfig.hint_for(config, "comms_broken", Story.language))
 	if fsm.is_in(&"windup") and StringName(_move().get("kind", &"")) == &"call_backup":
 		fsm.transition(&"recover")
 	_refresh_parts()
@@ -310,7 +310,7 @@ func _on_blocked(info: DamageInfo) -> void:
 	Fx.sparks(at, Color(0.7, 0.72, 0.76), 3, 90.0, 0.15, Vector2(-facing, -0.3))
 	if not _hinted_block:
 		_hinted_block = true
-		EventBus.toast_requested.emit("人物是保護區——只打橙色的外部部件")
+		EventBus.toast_requested.emit(JanusConfig.hint_for(config, "protected", Story.language))
 
 
 # ---------------------------------------------------------------------------
@@ -505,7 +505,7 @@ func _halt(perform: bool) -> void:
 		fsm.transition(&"halted")
 	_refresh_parts()
 	_pin_prompt = WorldPrompt.new()
-	_pin_prompt.text = "{interact} 拔維修插銷"
+	_pin_prompt.text = JanusConfig.hint_for(config, "pull_pin", Story.language)
 	_pin_prompt.radius = PIN_REACH.x + 8.0
 	_pin_prompt.interaction_owner = self
 	# 提示放在他頭頂上方：插銷就在背後，放在插銷旁會和站在那裡的主角重疊、被擠到旁邊。
@@ -517,7 +517,7 @@ func _halt(perform: bool) -> void:
 		EventBus.boss_health_changed.emit(0, health.max_health)
 		Fx.sparks(_center(), Palette.CYAN, 12, 160.0, 0.4, Vector2(0, -1))
 		Sfx.play(&"gate", -4.0)
-		EventBus.toast_requested.emit("工作架停住了——到他背後拔維修插銷")
+		EventBus.toast_requested.emit(JanusConfig.hint_for(config, "halted", Story.language))
 
 
 func _halted_tick(_delta: float) -> void:
