@@ -18,6 +18,7 @@ var issues := PackedStringArray()
 ## Definitions share this run lifetime; every UI receives its own mutable copy.
 var _source_catalog: QuestCatalog
 var _catalog_paths: Array[String] = []
+var _chapter_catalogs: Dictionary[StringName, QuestCatalog] = {}
 
 
 static func for_run() -> QuestMapState:
@@ -33,6 +34,7 @@ static func invalidate_catalog() -> void:
 	if _shared != null:
 		_shared._source_catalog = null
 		_shared._catalog_paths.clear()
+		_shared._chapter_catalogs.clear()
 
 
 func catalog_copy(paths: Array[String] = Story.CHAPTER_PATHS) -> QuestCatalog:
@@ -45,9 +47,23 @@ func catalog_copy(paths: Array[String] = Story.CHAPTER_PATHS) -> QuestCatalog:
 			return loaded  # Rejected loads remain retryable, with their original path issues.
 		_source_catalog = loaded
 		_catalog_paths = paths.duplicate()
+	return _copy_catalog(_source_catalog)
+
+
+func catalog_for_chapter(chapter: StringName, maps: QuestMapIndex) -> QuestCatalog:
+	if not _chapter_catalogs.has(chapter):
+		var loaded := QuestCatalog.new()
+		loaded.load_story_sources(Story.CHAPTER_PATHS, chapter, "", maps)
+		if not loaded.issues.is_empty():
+			return loaded
+		_chapter_catalogs[chapter] = loaded
+	return _copy_catalog(_chapter_catalogs[chapter])
+
+
+static func _copy_catalog(source: QuestCatalog) -> QuestCatalog:
 	var result := QuestCatalog.new()
-	result.quests.assign(_source_catalog.quests.duplicate(true))
-	result.issues = _source_catalog.issues.duplicate()
+	result.quests.assign(source.quests.duplicate(true))
+	result.issues = source.issues.duplicate()
 	return result
 
 
@@ -134,7 +150,7 @@ func restore(raw: Variant, catalog: QuestCatalog, maps: QuestMapIndex, notify :=
 		issues.append("navigation.version: 格式不符，改用預設導覽狀態。")
 	else:
 		var id: Variant = raw.get("pinned_id", "")
-		if id is String and (id.is_empty() or not catalog.find(id).is_empty()):
+		if id is String and (id.is_empty() or (catalog != null and not catalog.find(id).is_empty())):
 			pinned_id = id
 		else:
 			issues.append("navigation.pinned_id: 找不到任務，改為追蹤主線。")

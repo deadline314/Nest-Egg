@@ -2,6 +2,9 @@ class_name QuestMapIndex
 extends RefCounted
 ## 從真實 LevelData / LevelLayout 建立只讀索引與路線，不載入關卡節點。
 
+const LevelCatalog := preload("res://core/navigation/level_resource_index.gd")
+const AREA_DIRECTORY := LevelCatalog.DIRECTORY
+
 static var _chapters: Dictionary = {}
 
 
@@ -13,6 +16,35 @@ static func for_chapter(chapter: StringName) -> QuestMapIndex:
 	return _chapters[chapter]
 
 
+## Save validation only needs authored geometry for the areas the slot refers to.
+static func for_navigation_restore(raw: Variant, chapters: Array[StringName]) -> QuestMapIndex:
+	var index := QuestMapIndex.new()
+	if not raw is Dictionary or raw.get("version") != QuestMapState.VERSION or not raw.get("layout_revisions", {}) is Dictionary:
+		return index
+	var paths: Dictionary[String, bool] = {}
+	var explored: Variant = raw.get("explored", {})
+	if explored is Dictionary:
+		for path: Variant in explored:
+			if path is String and explored[path] is Dictionary:
+				paths[path] = true
+	var activated: Variant = raw.get("activated", {})
+	if activated is Dictionary:
+		for key: Variant in activated:
+			if key is String:
+				paths[key.get_slice("@", 0)] = true
+	if paths.is_empty():
+		return index
+	# Visit the authored directory, so arbitrary slot references cannot expand the load.
+	for file: String in ResourceLoader.list_directory(AREA_DIRECTORY):
+		var path := AREA_DIRECTORY.path_join(file)
+		if not file.ends_with(".tres") or not paths.has(path):
+			continue
+		var data := RunSaveCodec.resource(path, "level", AREA_DIRECTORY + "/") as LevelData
+		if data != null and chapters.has(data.chapter):
+			index.add_area(data)
+	return index
+
+
 var areas: Dictionary = {}
 var checkpoint_keys := PackedStringArray()
 var parse_count := 0
@@ -21,9 +53,9 @@ var parse_count := 0
 func load_chapter(chapter: StringName) -> void:
 	areas.clear()
 	checkpoint_keys.clear()
-	for resource in ResourceCatalog.load_dir("res://data/levels", LevelData, "QuestMap"):
-		var data := resource as LevelData
-		if data.chapter == chapter:
+	for path in LevelCatalog.chapter_paths(chapter):
+		var data := LevelCatalog.load_level(path)
+		if data != null and data.chapter == chapter:
 			add_area(data)
 
 

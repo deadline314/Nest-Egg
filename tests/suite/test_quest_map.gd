@@ -19,6 +19,8 @@ func run() -> void:
 	_test_real_maps(maps)
 	_test_area_languages()
 	_test_state(catalog, maps)
+	_test_sparse_restore(catalog, maps)
+	_test_saved_area_revision_index()
 	await _test_terrain_cache(catalog, maps)
 	await _test_ui(catalog, maps)
 	await _test_world_chapter_titles(catalog)
@@ -26,6 +28,52 @@ func run() -> void:
 	_test_display_defaults()
 	await _test_story_language()
 	await _test_radio_objective_handoff()
+
+
+func _test_sparse_restore(catalog: QuestCatalog, chapter: QuestMapIndex) -> void:
+	var explored := {PAWN: {"0,0": true, "99999,0": true}, "res://data/levels/missing_for_restore.tres": {"0,0": true}}
+	var used: Dictionary = {}
+	var checkpoint := ""
+	for key: String in chapter.checkpoint_keys:
+		if key.begins_with(WAREHOUSE + "@"):
+			checkpoint = key
+			break
+	check(not checkpoint.is_empty(), "the test uses a real checkpoint in a different saved area")
+	used[checkpoint] = true
+	used[WAREHOUSE + "@99999,99999"] = true
+	var snapshot := {"version": QuestMapState.VERSION, "pinned_id": "", "explored": explored, "activated": used}
+	var supported: Array[StringName] = [&"ch1_kasa", &"ch2_heron", &"ch3_clearwater"]
+	var cached_chapters := QuestMapIndex._chapters.keys()
+	var sparse := QuestMapIndex.for_navigation_restore(snapshot, supported)
+	check(sparse.parse_count == 2 and sparse.areas.has(PAWN) and sparse.areas.has(WAREHOUSE)
+			and QuestMapIndex._chapters.keys() == cached_chapters, "only saved areas are parsed without populating chapter caches")
+	var full_state := QuestMapState.new()
+	var sparse_state := QuestMapState.new()
+	full_state.restore(snapshot, catalog, chapter, false)
+	sparse_state.restore(snapshot, catalog, sparse, false)
+	check(sparse_state.snapshot() == full_state.snapshot() and sparse_state.issues == full_state.issues,
+			"valid explored cells and checkpoints survive with the same rejection of invalid coordinates")
+	snapshot["layout_revisions"] = "corrupt"
+	check(QuestMapIndex.for_navigation_restore(snapshot, supported).parse_count == 0,
+			"an unusable navigation section does not load any authored areas")
+
+
+func _test_saved_area_revision_index() -> void:
+	var saved := RunSnapshot.capture(PAWN, {"health": 4})
+	var areas := {
+		"retired_fixture_area": {"consumed": {}, "damage": {}, "world": {}},
+		"ch1_warehouse": {"consumed": {}, "damage": {}, "world": {}, "layout_revision": 3},
+	}
+	saved["state"]["area_states"] = areas
+	var catalog = preload("res://core/navigation/level_resource_index.gd")
+	check(catalog.saved_paths(areas, ROOF) == PackedStringArray([ROOF, WAREHOUSE]),
+			"only authored saved areas and the saved checkpoint are selected in their original order")
+	check(str(RunSnapshot.prepare(saved).get("error", "")).contains("area/layout_revision"),
+			"validation still rejects an unsupported layout revision in a different saved area")
+	areas["ch1_warehouse"].erase("layout_revision")
+	var valid := RunSnapshot.prepare(saved)
+	check(valid.has("data") and valid["data"]["state"]["area_states"].has("retired_fixture_area"),
+			"previously saved areas without a current authored resource remain intact")
 
 
 func _test_run_catalog_reuse() -> void:
@@ -82,9 +130,26 @@ func _test_run_catalog_reuse() -> void:
 	var saved := RunSnapshot.capture(PAWN, {})
 	RunSnapshot.apply(saved, false)
 	var restored := QuestMapState.for_run()
-	var restored_definitions := restored.get("_source_catalog") as QuestCatalog
-	var restored_copy := restored.call(&"catalog_copy") as QuestCatalog
-	check(not is_same(restored, fresh) and restored_definitions != null and is_same(restored_definitions, restored.get("_source_catalog")) and restored_copy.issues.is_empty(), "real run restore warms the same navigation owner that the following HUD will reuse")
+	check(not is_same(restored, fresh) and restored.get("_source_catalog") == null
+			and restored.get("_chapter_catalogs").is_empty(), "an unpinned save restores without loading a quest catalog")
+	var maps := QuestMapIndex.for_chapter(&"ch1_kasa")
+	var current := restored.catalog_for_chapter(&"ch1_kasa", maps)
+	var other_copy := restored.catalog_for_chapter(&"ch1_kasa", maps)
+	check(current.issues.is_empty() and not current.quests.is_empty() and current.quests == original.filter(
+			func(quest: Dictionary) -> bool: return quest["chapter"] == "ch1_kasa"),
+			"the current chapter catalog preserves the complete canonical definitions for that chapter")
+	current.quests[0]["steps"][0]["title"] = "UI mutation fixture"
+	check(current.quests != other_copy.quests and restored.get("_chapter_catalogs").size() == 1
+			and restored.get("_source_catalog") == null, "chapter consumers reuse definitions with isolated mutable copies")
+	saved["navigation"]["pinned_id"] = "sq7_ahan_tape"
+	RunSnapshot.apply(saved.duplicate(true), false)
+	restored = QuestMapState.for_run()
+	check(restored.pinned_id == "sq7_ahan_tape" and restored.get("_source_catalog") == null
+			and restored.get("_chapter_catalogs").is_empty(), "a valid quest in another chapter remains pinned without loading unrelated quests")
+	saved["navigation"]["pinned_id"] = "missing_quest"
+	RunSnapshot.apply(saved, false)
+	restored = QuestMapState.for_run()
+	check(restored.pinned_id.is_empty() and not restored.issues.is_empty(), "an unrecognized pin falls back to main quest tracking")
 
 
 func _test_guidance_catalog_injection() -> void:
@@ -111,12 +176,10 @@ func _visible_quest_text(root: Node) -> PackedStringArray:
 ## Real source, row/detail factories and live HUD: language never rewrites quest facts.
 func _test_story_language() -> void:
 	var previous_language := Story.language
-	var level := await start_level(load(PAWN) as LevelData)
+	var level := await start_level(load("res://data/levels/ch3_clinic.tres") as LevelData)
 	var old_flags := GameState.world_flags.duplicate(true)
 	GameState.set_flag(&"ch3_clinic_access", true, false)
 	var guidance: QuestGuidance = level.hud.quest_guidance
-	guidance.level.data = guidance.level.data.duplicate()
-	guidance.level.data.chapter = &"ch3_clearwater"
 	guidance.state.pin("sq7_ahan_tape", guidance.catalog)
 	var catalog := guidance.catalog
 	var raw_before := JSON.stringify(catalog.quests)
@@ -124,7 +187,9 @@ func _test_story_language() -> void:
 	var quest := catalog.find("sq7_ahan_tape")
 	var maps := QuestMapIndex.for_chapter(&"ch3_clearwater")
 	var blocked: Dictionary = {}
-	for candidate in catalog.quests:
+	var blocked_maps := QuestMapIndex.for_chapter(&"ch1_kasa")
+	var blocked_catalog := guidance.state.catalog_for_chapter(&"ch1_kasa", blocked_maps)
+	for candidate in blocked_catalog.quests:
 		if candidate.has("blocked_reason") and candidate.has("suggestion") and QuestCatalog.status(candidate, GameState.world_flags) == "blocked":
 			blocked = candidate
 			break
@@ -162,11 +227,19 @@ func _test_story_language() -> void:
 		check(guidance._label.text == "◎ " + expected_step, "live objective HUD uses %s text from the same quest" % language)
 		check(guidance._row.tooltip_text.begins_with(expected_step), "the full %s objective remains available when the HUD line is ellipsized" % language)
 		if not blocked.is_empty():
-			screen._select(str(blocked["id"]))
-			var blocked_text := _visible_quest_text(screen)
+			var blocked_screen := QuestMapScreen.new()
+			blocked_screen.catalog = blocked_catalog
+			blocked_screen.maps = blocked_maps
+			blocked_screen.state = guidance.state
+			blocked_screen.chapter = "ch1_kasa"
+			blocked_screen.player_path = PAWN
+			runner.get_tree().root.add_child(blocked_screen)
+			blocked_screen._select(str(blocked["id"]))
+			var blocked_text := _visible_quest_text(blocked_screen)
 			for field in ["blocked_reason", "suggestion"]:
 				var expected := str(blocked[field] if language == "zh" else blocked[field + "_" + language])
 				check(blocked_text.has(expected), "blocked quest %s uses %s text" % [field, language])
+			blocked_screen.free()
 		screen._select("sq7_ahan_tape")
 		for button: Button in screen._list.find_children("*", "Button", true, false):
 			if button.get_meta(&"quest_id", "") == "sq7_ahan_tape":

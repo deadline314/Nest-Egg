@@ -2,6 +2,8 @@ class_name MapLayoutMigration
 extends RefCounted
 ## Authored map revision 1→2 only. Work on copies before installing any save state.
 
+const LevelCatalog := preload("res://core/navigation/level_resource_index.gd")
+
 const MAX_CELLS := 4096
 const MAX_COORDINATE := 4096
 
@@ -141,11 +143,12 @@ static func runtime(raw: Dictionary, data: LevelData, layout: LevelLayout = null
 static func prepare_run(snapshot: Dictionary, current: LevelData) -> Dictionary:
 	var state: Dictionary = snapshot["state"]
 	var areas: Dictionary = state["area_states"]
-	for resource in ResourceCatalog.load_dir("res://data/levels", LevelData, "MapMigration"):
-		var data := resource as LevelData
-		var id := String(data.id)
-		if not areas.has(id) and state.get("checkpoint_level_path", "") != data.resource_path:
+	var checkpoint_path: String = state.get("checkpoint_level_path", "")
+	for path in LevelCatalog.saved_paths(areas, checkpoint_path):
+		var data := current if current != null and current.resource_path == path else LevelCatalog.load_level(path)
+		if data == null:
 			continue
+		var id := String(data.id)
 		var definition := read(data)
 		if definition.has("error"):
 			return definition
@@ -156,7 +159,7 @@ static func prepare_run(snapshot: Dictionary, current: LevelData) -> Dictionary:
 			return moved
 		if areas.has(id) or definition["revision"] > 1:
 			areas[id] = moved["data"]
-		if version != definition["revision"] and state.get("checkpoint_level_path", "") == data.resource_path:
+		if version != definition["revision"] and checkpoint_path == path:
 			var restored := checkpoint(state["checkpoint_world"], RunSaveCodec.vector(state.get("checkpoint_position")), definition, LevelBuilder.parse(data))
 			if restored.has("error"):
 				return restored

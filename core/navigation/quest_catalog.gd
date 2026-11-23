@@ -7,23 +7,39 @@ var issues := PackedStringArray()
 static var _translation_reports: Dictionary[String, bool] = {}
 
 
-func load_story_sources(paths: Array[String] = Story.CHAPTER_PATHS) -> void:
+func load_story_sources(paths: Array[String] = Story.CHAPTER_PATHS, chapter := &"", quest_id := "", maps: QuestMapIndex = null) -> void:
 	quests.clear()
 	issues.clear()
+	var layouts: Dictionary[String, LevelLayout] = {}
+	if maps != null:
+		for level_path: String in maps.areas:
+			layouts[level_path] = maps.areas[level_path]["layout"]
 	for path in paths:
 		var json := JSON.new()
 		if json.parse(FileAccess.get_file_as_string(path)) != OK or not json.data is Dictionary:
 			issues.append("%s: 無法讀取故事資料。" % path)
 			continue
-		read_source(json.data, path)
+		if chapter == &"" or _source_chapter(json.data) == chapter:
+			_read_source(json.data, path, layouts, quest_id)
 
 
 func read_source(source: Dictionary, path: String) -> void:
+	_read_source(source, path, {})
+
+
+static func _source_chapter(source: Dictionary) -> String:
+	var metadata: Variant = source.get("chapter")
+	return str(metadata.get("id", source.get("for_chapter", "")) if metadata is Dictionary else source.get("for_chapter", ""))
+
+
+func _read_source(source: Dictionary, path: String, layouts: Dictionary[String, LevelLayout], quest_id := "") -> void:
 	var raw: Variant = source.get("quests", [])
 	if not raw is Array:
 		issues.append("%s.quests: 必須是陣列。" % path)
 		return
 	for i in raw.size():
+		if not quest_id.is_empty() and (not raw[i] is Dictionary or raw[i].get("id") != quest_id):
+			continue
 		var at := "%s.quests[%d]" % [path, i]
 		if not raw[i] is Dictionary:
 			issues.append("%s: 必須是物件。" % at)
@@ -65,14 +81,14 @@ func read_source(source: Dictionary, path: String) -> void:
 				elif step["title"].length() > 28:
 					issues.append("%s.steps[%d].title: 目標超過一行的 28 字預算。" % [at, j])
 					valid = false
-				elif not valid_location(step.get("location")):
+				elif not _valid_location(step.get("location"), layouts):
 					issues.append("%s.steps[%d].location: 找不到真實區域或有效格座標。" % [at, j])
 					valid = false
 		if quests.any(func(q: Dictionary) -> bool: return q.get("id") == quest.get("id")):
 			issues.append("%s.id: 任務編號重複。" % at)
 			valid = false
 		if valid:
-			quest["chapter"] = str(source.get("chapter", {}).get("id", source.get("for_chapter", "")))
+			quest["chapter"] = _source_chapter(source)
 			quest["kind"] = quest.get("kind", "main")
 			quest["source"] = at
 			for j in quest["steps"].size():
@@ -103,18 +119,21 @@ static func display_text(record: Dictionary, field: String) -> String:
 
 
 static func valid_location(raw: Variant) -> bool:
+	return _valid_location(raw, {})
+
+
+static func _valid_location(raw: Variant, layouts: Dictionary[String, LevelLayout]) -> bool:
 	if not raw is Dictionary or not raw.get("level") is String or not raw.get("cell") is Array:
 		return false
 	var cell: Array = raw["cell"]
 	if cell.size() != 2 or not cell.all(func(n: Variant) -> bool: return (n is int or n is float) and is_finite(float(n)) and float(n) == floorf(float(n))):
 		return false
-	if not ResourceLoader.exists(raw["level"]):
-		return false
-	var data := load(raw["level"]) as LevelData
-	if data == null:
-		return false
-	var layout := LevelBuilder.parse(data)
-	return cell[0] >= 0 and cell[1] >= 0 and cell[0] < layout.width and cell[1] < layout.height and layout.cell(int(cell[0]), int(cell[1])) != "#"
+	var path: String = raw["level"]
+	if not layouts.has(path):
+		var data := load(path) as LevelData if ResourceLoader.exists(path) else null
+		layouts[path] = LevelBuilder.parse(data) if data != null else null
+	var layout: LevelLayout = layouts[path]
+	return layout != null and cell[0] >= 0 and cell[1] >= 0 and cell[0] < layout.width and cell[1] < layout.height and layout.cell(int(cell[0]), int(cell[1])) != "#"
 
 
 func find(id: String) -> Dictionary:

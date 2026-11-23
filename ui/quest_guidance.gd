@@ -47,9 +47,9 @@ func _ready() -> void:
 		set_process(false)
 		return
 	state = QuestMapState.for_run()
-	if catalog == null:
-		catalog = state.catalog_copy()
 	maps = QuestMapIndex.for_chapter(level.data.chapter)
+	if catalog == null:
+		catalog = state.catalog_for_chapter(level.data.chapter, maps)
 	_row = SlantBanner.new("", Palette.CYAN)
 	_row.fill_strength = 0.14
 	_row.position = Vector2(145, 52)
