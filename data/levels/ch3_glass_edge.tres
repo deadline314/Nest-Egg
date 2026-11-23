@@ -14,6 +14,7 @@ id = &"edge_lift"
 target_level = "res://data/levels/ch3_gate_hall.tres"
 target_portal = &"gate_lift"
 prompt = "{interact} 搭邊緣電梯下去"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Take the edge lift down", "ja": "{interact} 縁のエレベーターで下りる"})
 width = 32
 height = 56
 style = "door"
@@ -22,7 +23,9 @@ style = "door"
 script = ExtResource("2_portal_data")
 id = &"edge_homes"
 locked_text = "住宅內區需要正式參觀證，今天只開展示接待。"
+localized_locked_text = Dictionary[String, String]({"en": "You need a visitor pass for the residential wing. Only reception is open today.", "ja": "住宅区画には見学証が必要です。今日は展示受付のみ開いています。"})
 prompt = "{interact} 住宅內區"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Residential wing", "ja": "{interact} 住宅の内部区画"})
 style = "door"
 
 [sub_resource type="Resource" id="Resource_2"]
@@ -31,6 +34,7 @@ id = &"edge_show"
 target_level = "res://data/levels/ch3_showroom.tres"
 target_portal = &"show_edge"
 prompt = "{interact} 進晴岸展示接待"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Enter the Far Shore reception", "ja": "{interact} 晴岸の展示受付に入る"})
 style = "door"
 
 [sub_resource type="Resource" id="Resource_3"]
@@ -39,6 +43,7 @@ id = &"edge_hall"
 target_level = "res://data/levels/ch3_office_hall.tres"
 target_portal = &"hall_edge"
 prompt = "{interact} 走候梯迴廊"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Take the lift corridor", "ja": "{interact} エレベーター前の回廊へ"})
 style = "door"
 
 [sub_resource type="Resource" id="Resource_4"]

@@ -18,6 +18,7 @@ id = &"pump_plaza"
 target_level = "res://data/levels/ch3_plaza.tres"
 target_portal = &"plaza_pump"
 prompt = "{interact} 回廣場"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Return to the plaza", "ja": "{interact} 広場へ戻る"})
 width = 28
 height = 44
 style = "road"
@@ -29,7 +30,9 @@ target_level = "res://data/levels/ch3_plaza.tres"
 target_portal = &"plaza_ladder"
 requires_flag = &"ch3_outer_ladder_down"
 locked_text = "外梯收在廣場那一側，貨梯接通後從控制箱旁放下來。"
+localized_locked_text = Dictionary[String, String]({"en": "Power the freight lift, then lower the ladder from the plaza control box.", "ja": "貨物リフトの電源を戻し、広場の操作盤のそばから外はしごを下ろす。"})
 prompt = "{interact} 走外梯回廣場貨梯"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Take the outside ladder back to the plaza", "ja": "{interact} 外はしごで広場の貨物リフトへ戻る"})
 style = "door"
 
 [sub_resource type="Resource" id="Resource_2"]
@@ -39,7 +42,9 @@ target_level = "res://data/levels/ch3_mezzanine.tres"
 target_portal = &"mezz_shaft"
 requires_flag = &"ch3_freight_ready"
 locked_text = "豎井的防水閘和貨梯連動，先把水排掉、讓貨梯接通。"
+localized_locked_text = Dictionary[String, String]({"en": "Drain the water and restore freight lift power to open the shaft.", "ja": "排水して貨物リフトの電源を戻すと縦坑が開く。"})
 prompt = "{interact} 爬維修豎井到夾層"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Climb the service shaft to the mezzanine", "ja": "{interact} 保守用の縦坑を上って中二階へ"})
 width = 24
 height = 44
 style = "door"

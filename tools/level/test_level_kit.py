@@ -140,6 +140,18 @@ class HeightTests(unittest.TestCase):
         self.assertEqual(seen, set(AREA_NAMES))
 
 
+    def test_portal_language_keeps_binding_and_missing_copy(self):
+        from portal_translations import localized_lock, localized_prompt
+
+        action = localized_prompt("{interact} 上屋頂")
+        self.assertEqual(action, {"en": "{interact} Go to the rooftop", "ja": "{interact} 屋上へ上がる"})
+        self.assertEqual(localized_prompt("上屋頂"), {})
+        self.assertEqual(localized_prompt("{interact} 測試門"), {})
+        self.assertEqual(localized_lock("未翻譯的鎖。"), {})
+        self.assertEqual(localized_lock("地下室正在漏水，請別開門。")["en"],
+                         "The basement is leaking. Keep the door shut.")
+
+
 class RouteTests(unittest.TestCase):
     def setUp(self):
         self.area = kit.Area('test', 'Test', 30, 20)

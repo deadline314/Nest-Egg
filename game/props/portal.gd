@@ -8,6 +8,11 @@ signal used(portal: Portal)
 
 const PROMPT_LOCKED_RADIUS := 56.0
 const LOCKED_TOAST_COOLDOWN := 1.2
+const CINEMATIC_PREVIEW_COPY := {
+	"zh": "前方將播放劇情。",
+	"en": "A story scene plays ahead.",
+	"ja": "この先でイベントが始まります。",
+}
 ## 門貼圖上狀態燈燈座的位置與大小（占門寬、門高的比例）：對應 cel_fixtures.py 的 door()。
 const DOOR_LAMP := Rect2(0.0, 0.5 / 48.0, 4.0 / 28.0, 2.0 / 48.0)
 ## 梯子貼圖上扶手外緣的位置（占梯寬的比例）：對應 cel_fixtures.py 的 ladder()。
@@ -59,7 +64,7 @@ func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
 	_prompt = WorldPrompt.new()
-	_prompt.text = data.default_prompt()
+	_prompt.text = data.default_prompt(Story.language)
 	_prompt.radius = maxf(PROMPT_LOCKED_RADIUS, data.width * 0.5 + 24.0)
 	_prompt.reach_check = interaction_available
 	_prompt.interaction_owner = self
@@ -75,7 +80,7 @@ func _ready() -> void:
 			push_error("[Portal] %s 的電影預告 %s 必須對應目標區域的正式intro：%s" % [data.id, data.cinematic_preview_scene, data.target_level])
 		else:
 			_cinematic_notice = WorldPrompt.new()
-			_cinematic_notice.text = "前方將播放劇情。"
+			_cinematic_notice.text = CINEMATIC_PREVIEW_COPY.get(Story.language, CINEMATIC_PREVIEW_COPY[StoryLocale.SOURCE_LANGUAGE])
 			_cinematic_notice.offset = Vector2(-20, -data.height - 10)
 			_cinematic_notice.reach_check = func() -> bool:
 				return preview_available() and not _player_in_range and Story.framing.selected_target() == self
@@ -128,9 +133,11 @@ func interaction_available() -> bool:
 ## 嘗試使用：可通行就發出 used，否則顯示鎖住的提示。回傳是否通行。
 func try_use() -> bool:
 	if not is_open():
-		if _toast_left <= 0.0 and not data.locked_text.is_empty():
-			_toast_left = LOCKED_TOAST_COOLDOWN
-			EventBus.toast_requested.emit(data.locked_text)
+		if _toast_left <= 0.0:
+			var reason := data.locked_text_for(Story.language)
+			if not reason.is_empty():
+				_toast_left = LOCKED_TOAST_COOLDOWN
+				EventBus.toast_requested.emit(reason)
 		if data.mode == PortalData.Mode.INTERACT and _rattle_left <= 0.0:
 			# 門把轉不動：門框晃一下、喀一聲，附近的人轉頭看
 			_rattle_left = RATTLE_TIME

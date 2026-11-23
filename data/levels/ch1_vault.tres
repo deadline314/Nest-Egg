@@ -24,7 +24,9 @@ target_level = "res://data/levels/ch1_handoff.tres"
 target_portal = &"handoff_arrival"
 requires_flag = &"ledger_disk_obtained"
 locked_text = "資料盤還在保險箱，取出後再走上層通道。"
+localized_locked_text = Dictionary[String, String]({"en": "Take the data disc from the safe before using the upper route.", "ja": "先に金庫からデータディスクを取り、上層通路へ進む。"})
 prompt = "{interact} 上層通道：前往館外交接櫃"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Take the upper route to the handover locker", "ja": "{interact} 上層通路で引き渡しロッカーへ"})
 style = "door"
 
 [sub_resource type="Resource" id="Resource_1"]
@@ -44,7 +46,9 @@ target_level = "res://data/levels/ch1_street.tres"
 target_portal = &"street_vault"
 requires_flag = &"ledger_disk_obtained"
 locked_text = "先拿到倉庫的資料盤，維修通道才會開放。"
+localized_locked_text = Dictionary[String, String]({"en": "Recover the warehouse data disc to open the maintenance passage.", "ja": "倉庫のデータディスクを回収すると保守通路が開く。"})
 prompt = "{interact} 走維修通道"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Take the maintenance passage", "ja": "{interact} 保守通路へ"})
 width = 24
 height = 56
 style = "door"

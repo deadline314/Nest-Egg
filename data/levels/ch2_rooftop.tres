@@ -14,6 +14,7 @@ id = &"roof_stairs"
 target_level = "res://data/levels/ch2_pawnshop.tres"
 target_portal = &"pawn_stairs"
 prompt = "{interact} 下樓"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Go downstairs", "ja": "{interact} 階段を下りる"})
 width = 24
 height = 44
 style = "hidden"

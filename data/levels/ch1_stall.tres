@@ -14,7 +14,9 @@ target_level = "res://data/levels/ch1_pawnshop_dawn.tres"
 target_portal = &"pawn_front"
 requires_flag = &"ch1_supper_done"
 locked_text = "先和阿梨說好去留與今晚的帳；不需要先知道地址。"
+localized_locked_text = Dictionary[String, String]({"en": "Settle tonight's bill and talk about staying or leaving with Pear.", "ja": "梨と今夜の勘定を済ませ、残るか出るかを話す。"})
 prompt = "{interact} 回當舖"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Return to the pawnshop", "ja": "{interact} 質屋へ戻る"})
 cinematic_preview_scene = &"ch1_c14_home"
 style = "door"
 

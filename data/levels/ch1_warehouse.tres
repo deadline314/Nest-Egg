@@ -32,6 +32,7 @@ id = &"wh_street"
 target_level = "res://data/levels/ch1_street.tres"
 target_portal = &"street_warehouse"
 prompt = "{interact} 回街道"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Return to the street", "ja": "{interact} 通りへ戻る"})
 width = 28
 height = 48
 style = "door"

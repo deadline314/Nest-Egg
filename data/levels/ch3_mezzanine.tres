@@ -16,6 +16,7 @@ id = &"mezz_lift"
 target_level = "res://data/levels/ch3_plaza.tres"
 target_portal = &"plaza_lift"
 prompt = "{interact} 搭貨梯回廣場"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Take the freight lift back to the plaza", "ja": "{interact} 貨物リフトで広場へ戻る"})
 width = 32
 height = 56
 style = "door"
@@ -26,6 +27,7 @@ id = &"mezz_clinic"
 target_level = "res://data/levels/ch3_clinic.tres"
 target_portal = &"clinic_mezz"
 prompt = "{interact} 進夾層診所"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Enter the Mezzanine Clinic", "ja": "{interact} 中二階の診療所に入る"})
 style = "door"
 
 [sub_resource type="Resource" id="Resource_2"]
@@ -35,7 +37,9 @@ target_level = "res://data/levels/ch3_gate_hall.tres"
 target_portal = &"gate_care"
 requires_flag = &"ch3_care_passage_open"
 locked_text = "護理通道的外門從門禁大廳那一側鎖著。"
+localized_locked_text = Dictionary[String, String]({"en": "The care passage is locked from the Access Hall side.", "ja": "看護通路は入退館ホール側から施錠されている。"})
 prompt = "{interact} 走護理通道外段到門禁大廳"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Take the outer care passage to the Access Hall", "ja": "{interact} 外側の看護通路で入退館ホールへ"})
 style = "door"
 
 [sub_resource type="Resource" id="Resource_3"]
@@ -45,7 +49,9 @@ target_level = "res://data/levels/ch3_pump.tres"
 target_portal = &"pump_shaft"
 requires_flag = &"ch3_freight_ready"
 locked_text = "豎井的防水閘和貨梯連動，先把水排掉、讓貨梯接通。"
+localized_locked_text = Dictionary[String, String]({"en": "Drain the water and restore freight lift power to open the shaft.", "ja": "排水して貨物リフトの電源を戻すと縦坑が開く。"})
 prompt = "{interact} 沿維修豎井下到泵室管線廊"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Climb down the service shaft to the pump room", "ja": "{interact} 保守用の縦坑を下りてポンプ室へ"})
 width = 24
 height = 44
 style = "door"

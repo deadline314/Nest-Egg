@@ -14,6 +14,7 @@ var _toasts: Array[String] = []
 
 func run() -> void:
 	_test_portal_data()
+	_test_localized_portal_data()
 	_test_flags()
 	_test_fixture_parse()
 	await _test_entry_and_walk()
@@ -86,6 +87,39 @@ func _test_portal_data() -> void:
 	bad.width = 2
 	bad.locked_text = ""
 	check(bad.validate().size() >= 2, "a portal without id and with a missing target is reported: %s" % [bad.validate()])
+
+
+func _test_localized_portal_data() -> void:
+	var generic := PortalData.new()
+	check(generic.default_prompt("en") == "{interact} Enter"
+			and generic.default_prompt("ja") == "{interact} 入る", "ordinary doors translate their default action")
+	check(generic.locked_text_for("en") == "This door won't open."
+			and generic.locked_text_for("ja") == "この扉は開かない。", "ordinary locked doors translate their default reason")
+	generic.prompt = "{interact} 進測試門"
+	generic.locked_text = "舊門鎖住。"
+	generic.localized_prompts["en"] = "{interact} Enter test door"
+	generic.localized_locked_text["ja"] = " "
+	check(generic.default_prompt("ja") == "{interact} Enter test door"
+			and generic.default_prompt("zh") == generic.prompt, "custom door prompts fall back through English to the source")
+	check(generic.locked_text_for("ja") == generic.locked_text
+			and generic.locked_text_for("invalid") == generic.locked_text, "untranslated legacy lock reasons remain playable")
+	for chapter: StringName in [&"ch1_kasa", &"ch2_heron", &"ch3_clearwater"]:
+		var maps := QuestMapIndex.for_chapter(chapter)
+		for area: Dictionary in maps.areas.values():
+			for marker: Dictionary in area["markers"]:
+				var portal := marker.get("resource") as PortalData
+				if portal == null:
+					continue
+				var location := "%s/%s" % [area["data"].id, portal.id]
+				if not portal.prompt.is_empty():
+					check(portal.default_prompt("zh") == portal.prompt and portal.localized_prompts.has_all(["ja", "en"])
+							and portal.default_prompt("en").begins_with("{interact} ")
+							and portal.default_prompt("ja").begins_with("{interact} "),
+							"%s keeps its authored prompt and live binding in both translations" % location)
+				if portal.locked_text != PortalData.DEFAULT_LOCKED_TEXT:
+					check(portal.locked_text_for("zh") == portal.locked_text and portal.localized_locked_text.has_all(["ja", "en"])
+							and not portal.locked_text_for("ja").is_empty() and not portal.locked_text_for("en").is_empty(),
+							"%s keeps its authored lock reason in both translations" % location)
 
 
 func _test_flags() -> void:

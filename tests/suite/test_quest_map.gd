@@ -319,8 +319,9 @@ func _test_area_languages() -> void:
 	check(maps.marker_text(edge, unlocked, "en") == "Leads to Rooftop."
 			and maps.marker_text(edge, unlocked, "ja") == "ここから屋上へ移動できます。",
 			"the route description names the actual destination in each locale")
-	check(maps.marker_text(edge, {}, "en") == portal.locked_text,
-			"area translations retain the portal's locked explanation")
+	check(maps.marker_text(edge, {}, "zh") == portal.locked_text
+			and maps.marker_text(edge, {}, "en") == portal.locked_text_for("en"),
+			"each locale retains the same real portal's locked explanation")
 
 
 func _test_real_maps(maps: QuestMapIndex) -> void:

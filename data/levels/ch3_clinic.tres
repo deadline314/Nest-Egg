@@ -18,6 +18,7 @@ id = &"clinic_mezz"
 target_level = "res://data/levels/ch3_mezzanine.tres"
 target_portal = &"mezz_clinic"
 prompt = "{interact} 回夾層通道"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Return to the mezzanine passage", "ja": "{interact} 中二階の通路へ戻る"})
 style = "door"
 
 [sub_resource type="Resource" id="Resource_1"]
@@ -27,7 +28,9 @@ target_level = "res://data/levels/ch3_gate_hall.tres"
 target_portal = &"gate_clinic"
 requires_flag = &"ch3_report_reconciled"
 locked_text = "門禁大廳要夾層證。先在閱覽桌把三份公開資料核對完。"
+localized_locked_text = Dictionary[String, String]({"en": "Check the three public records at the reading desk for a mezzanine pass.", "ja": "閲覧机で三つの公開資料を照合し、中二階の通行証を取る。"})
 prompt = "{interact} 往門禁大廳"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Go to the Access Hall", "ja": "{interact} 入退館ホールへ"})
 style = "door"
 
 [sub_resource type="Resource" id="Resource_2"]

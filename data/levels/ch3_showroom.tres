@@ -17,6 +17,7 @@ id = &"show_edge"
 target_level = "res://data/levels/ch3_glass_edge.tres"
 target_portal = &"edge_show"
 prompt = "{interact} 回玻璃邊緣"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Return to Glass Edge", "ja": "{interact} ガラスの縁へ戻る"})
 style = "door"
 
 [sub_resource type="Resource" id="Resource_1"]
@@ -26,7 +27,9 @@ target_level = "res://data/levels/ch3_office_hall.tres"
 target_portal = &"hall_show"
 requires_flag = &"ch3_clearwater_tour_done"
 locked_text = "先在接待桌確認看房，林小姐會告訴您取件格在哪裡。"
+localized_locked_text = Dictionary[String, String]({"en": "Check in at reception. Ms. Lin will show you where to collect the receipt.", "ja": "受付で見学を申し込むと、林さんが受け取り棚の場所を教えてくれる。"})
 prompt = "{interact} 往候梯迴廊取回執"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Pick up the receipt in the lift corridor", "ja": "{interact} エレベーター前の回廊で控えを受け取る"})
 style = "door"
 
 [sub_resource type="Resource" id="Resource_2"]

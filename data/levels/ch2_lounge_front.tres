@@ -15,6 +15,7 @@ id = &"lounge_gate"
 target_level = "res://data/levels/ch2_market_gate.tres"
 target_portal = &"gate_lounge"
 prompt = "{interact} 回市集入口"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Return to the market entrance", "ja": "{interact} 市場入口へ戻る"})
 width = 28
 height = 44
 style = "road"

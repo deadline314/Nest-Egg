@@ -15,6 +15,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 from scenery_placement import prepare_props
 from npc_prompt_translations import localized_prompt
 from area_name_translations import AREA_NAMES
+from portal_translations import localized_lock, localized_prompt as localized_portal_prompt
 from level_kit import Grid, RouteState, PLAYER_JUMP_TILES, HEADROOM  # noqa: E402
 
 ROOT = os.path.join(os.path.dirname(__file__), '..', '..')
@@ -1485,10 +1486,16 @@ def write_level(area, theme_key=None, level_id=None, map_name=None, persist=True
                 body.append(f'requires_flag = &"{p["requires"]}"')
             if p.get('locked'):
                 body.append(f'locked_text = "{p["locked"]}"')
+                translations = localized_lock(p["locked"])
+                if translations:
+                    body.append(f'localized_locked_text = Dictionary[String, String]({json.dumps(translations, ensure_ascii=False)})')
             if p['mode']:
                 body.append(f'mode = {p["mode"]}')
             if p.get('prompt'):
                 body.append(f'prompt = "{p["prompt"]}"')
+                translations = localized_portal_prompt(p["prompt"])
+                if translations:
+                    body.append(f'localized_prompts = Dictionary[String, String]({json.dumps(translations, ensure_ascii=False)})')
             if p.get('preview'):
                 body.append(f'cinematic_preview_scene = &"{p["preview"]}"')
             if p.get('w'):

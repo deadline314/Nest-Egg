@@ -16,7 +16,9 @@ target_level = "res://data/levels/ch3_mezzanine.tres"
 target_portal = &"mezz_care"
 requires_flag = &"ch3_care_passage_open"
 locked_text = "護理通道的外門還鎖著，門禁工作架停下來才會打開。"
+localized_locked_text = Dictionary[String, String]({"en": "Stop the gate rig to open the outer care passage.", "ja": "門の作業フレームを止めると看護通路の外扉が開く。"})
 prompt = "{interact} 走護理通道外段回夾層"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Take the outer care passage back to the mezzanine", "ja": "{interact} 外側の看護通路で中二階へ戻る"})
 style = "door"
 
 [sub_resource type="Resource" id="Resource_1"]
@@ -25,6 +27,7 @@ id = &"gate_clinic"
 target_level = "res://data/levels/ch3_clinic.tres"
 target_portal = &"clinic_gate"
 prompt = "{interact} 回診所櫃檯"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Return to the clinic desk", "ja": "{interact} 診療所の受付へ戻る"})
 style = "door"
 
 [sub_resource type="Resource" id="Resource_2"]
@@ -34,7 +37,9 @@ target_level = "res://data/levels/ch3_glass_edge.tres"
 target_portal = &"edge_lift"
 requires_flag = &"ch3_janus_aftercare_done"
 locked_text = "門禁工作架還擋著邊緣電梯，先讓守門人停下來。"
+localized_locked_text = Dictionary[String, String]({"en": "Stop the Gatekeeper to open the edge lift.", "ja": "門番を止めると縁のエレベーターが開く。"})
 prompt = "{interact} 搭邊緣電梯上去"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Take the edge lift up", "ja": "{interact} 縁のエレベーターで上がる"})
 width = 32
 height = 56
 style = "door"

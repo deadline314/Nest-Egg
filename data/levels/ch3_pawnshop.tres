@@ -18,14 +18,18 @@ target_level = "res://data/levels/ch3_plaza.tres"
 target_portal = &"plaza_street"
 requires_flag = &"ch3_departure_done"
 locked_text = "先和老 K 吃完早飯，確認今天要出門。"
+localized_locked_text = Dictionary[String, String]({"en": "Finish breakfast and tell Old K you're leaving.", "ja": "朝食を済ませて、老Kに出かけると伝える。"})
 prompt = "{interact} 出門去廣場貨梯"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Go to the plaza freight lift", "ja": "{interact} 広場の貨物リフトへ"})
 style = "door"
 
 [sub_resource type="Resource" id="Resource_1"]
 script = ExtResource("2_portal_data")
 id = &"pawn_basement"
 locked_text = "地下室的門鎖著，老 K 說裡面在漏水。"
+localized_locked_text = Dictionary[String, String]({"en": "The basement is locked. Old K says there's a leak.", "ja": "地下室は施錠中。老Kによると中で水が漏れている。"})
 prompt = "{interact} 地下室"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Basement", "ja": "{interact} 地下室"})
 width = 32
 height = 48
 style = "hidden"

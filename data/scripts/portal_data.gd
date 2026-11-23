@@ -4,6 +4,10 @@ extends Resource
 ## 只放資料就能新增連接：目標區域與目標出入口用路徑和 id 指定，不需要改程式。
 ## 沒有目標區域的出入口是「鎖死的門」（擺設）：互動只會顯示 locked_text。
 
+const DEFAULT_LOCKED_TEXT := "這扇門打不開。"
+const DEFAULT_PROMPTS := {"zh": "{interact} 進入", "en": "{interact} Enter", "ja": "{interact} 入る"}
+const DEFAULT_LOCKS := {"zh": DEFAULT_LOCKED_TEXT, "en": "This door won't open.", "ja": "この扉は開かない。"}
+
 enum Mode {
 	## 走近按互動鍵才進入（室內的門、梯子）。
 	INTERACT,
@@ -20,12 +24,14 @@ enum Mode {
 @export var mode: Mode = Mode.INTERACT
 ## 互動提示（可用 {interact} 佔位符）；空白時用預設。一句話講重點，例如「{interact} 回家」。
 @export var prompt: String = ""
+@export var localized_prompts: Dictionary[String, String] = {}
 ## 明確指定穿過本門後必然播放的目標區域intro；僅預告，不改通行／觸發語義。
 @export var cinematic_preview_scene: StringName = &""
 ## 需要的旗標（GameState.set_flag）；空白＝一直可以通行。
 @export var requires_flag: StringName = &""
 ## 鎖住（缺旗標或沒有目標）時顯示的提示。
-@export var locked_text: String = "這扇門打不開。"
+@export var locked_text: String = DEFAULT_LOCKED_TEXT
+@export var localized_locked_text: Dictionary[String, String] = {}
 ## 外觀：門的寬高（像素）與發光顏色的種類（door：暖色門框；ladder：梯子；road：街口，沒有門框；hidden：什麼都不畫，互動範圍落在擺設本身的門上，例如屋頂的樓梯間）。
 @export var width: int = 24
 @export var height: int = 44
@@ -36,8 +42,14 @@ func is_locked_door() -> bool:
 	return target_level.is_empty()
 
 
-func default_prompt() -> String:
-	return prompt if not prompt.is_empty() else "{interact} 進入"
+func default_prompt(language := StoryLocale.SOURCE_LANGUAGE) -> String:
+	var source: String = DEFAULT_PROMPTS.get(language, DEFAULT_PROMPTS[StoryLocale.SOURCE_LANGUAGE]) if prompt.is_empty() else prompt
+	return StoryLocale.optional_text(localized_prompts, language, source)
+
+
+func locked_text_for(language: String) -> String:
+	var source: String = DEFAULT_LOCKS.get(language, DEFAULT_LOCKED_TEXT) if locked_text == DEFAULT_LOCKED_TEXT else locked_text
+	return StoryLocale.optional_text(localized_locked_text, language, source)
 
 
 func validate() -> PackedStringArray:

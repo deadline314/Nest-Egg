@@ -116,11 +116,11 @@ func marker_text(marker: Dictionary, flags: Dictionary, language := StoryLocale.
 	if resource is PortalData:
 		var portal := resource as PortalData
 		if portal.is_locked_door() or (portal.requires_flag != &"" and not QuestCatalog.flag_set(flags, String(portal.requires_flag))):
-			return portal.locked_text
+			return portal.locked_text_for(language)
 		var target: LevelData = areas.get(portal.target_level, {}).get("data")
 		if target != null:
 			return _marker_copy(["從這裡前往%s。", "ここから%sへ移動できます。", "Leads to %s."], language) % target.display_name_for(language)
-		return str(marker["text"])
+		return InputBindings.format(portal.default_prompt(language))
 	if resource is ShopData:
 		return _marker_copy(["在%s購買補給或查看服務。", "%sで物資やサービスを確認できます。", "Browse supplies and services at %s."], language) % resource.display_name
 	if resource is MechanismData and resource.kind == MechanismData.Kind.GATE and resource.hint.is_empty():
