@@ -452,7 +452,10 @@ func _test_janus_halt_and_pin() -> void:
 	check(janus.pin_reachable(), "standing behind him the pin can be pulled")
 	janus.pull_pin()
 	check(toggled.has(&"ch3_janus_down"), "pulling the pin opens ch3_janus_down")
-	await physics_frames(int(2.0 * Engine.physics_ticks_per_second))
+	# The shutdown uses a process tween while combat may still apply hit stop.
+	var fade_deadline := Time.get_ticks_msec() + 6000
+	while is_instance_valid(janus) and Time.get_ticks_msec() < fade_deadline:
+		await runner.get_tree().process_frame
 	check(not is_instance_valid(janus), "the rig powers down and hands over to the seated gatekeeper")
 	EventBus.mechanism_toggled.disconnect(on_toggle)
 	await end_level(level)

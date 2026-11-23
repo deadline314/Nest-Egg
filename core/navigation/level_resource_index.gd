@@ -2,6 +2,8 @@ extends RefCounted
 ## 索引只保存關卡路徑。存讀檔與 HUD 依需求載入資源，避免反覆讀取其他章節的素材。
 
 const DIRECTORY := "res://data/levels"
+const MANIFEST := "res://data/navigation/level_index.json"
+const FORMAT := 1
 
 static var _indexed := false
 static var _files: PackedStringArray
@@ -33,18 +35,64 @@ static func load_level(path: String) -> LevelData:
 	return data
 
 
+static func authored_manifest() -> Dictionary:
+	var levels: Array[Dictionary] = []
+	for resource in ResourceCatalog.load_dir(DIRECTORY, LevelData, "LevelCatalog"):
+		var data := resource as LevelData
+		levels.append({"id": String(data.id), "chapter": String(data.chapter),
+				"file": data.resource_path.get_file(), "sha256": FileAccess.get_sha256(data.resource_path)})
+	return {"version": FORMAT, "levels": levels}
+
+
 static func _refresh() -> void:
 	var files := ResourceLoader.list_directory(DIRECTORY)
 	files.sort()
 	if _indexed and files == _files:
 		return
+	_files = files
 	_areas.clear()
 	_chapters.clear()
-	for resource in ResourceCatalog.load_dir(DIRECTORY, LevelData, "LevelCatalog"):
-		var data := resource as LevelData
-		_areas[data.id] = data.resource_path
-		var paths: PackedStringArray = _chapters.get(data.chapter, PackedStringArray())
-		paths.append(data.resource_path)
-		_chapters[data.chapter] = paths
-	_files = files
+	var manifest := _read_manifest(files)
+	if manifest.is_empty():
+		push_warning("[LevelCatalog] %s 已過期或無法讀取，直接驗證關卡資料。" % MANIFEST)
+		manifest = authored_manifest()
+	for entry: Dictionary in manifest["levels"]:
+		var path := DIRECTORY.path_join(entry["file"])
+		_areas[StringName(entry["id"])] = path
+		var chapter := StringName(entry["chapter"])
+		var paths: PackedStringArray = _chapters.get(chapter, PackedStringArray())
+		paths.append(path)
+		_chapters[chapter] = paths
 	_indexed = true
+
+
+static func _read_manifest(files: PackedStringArray) -> Dictionary:
+	var manifest := load(MANIFEST) as JSON if ResourceLoader.exists(MANIFEST) else null
+	if manifest == null or not manifest.data is Dictionary:
+		return {}
+	var raw: Dictionary = manifest.data
+	if raw.get("version") != FORMAT or not raw.get("levels") is Array:
+		return {}
+	var authored_files: Dictionary[String, bool] = {}
+	for file in files:
+		if file.ends_with(".tres"):
+			authored_files[file] = true
+	var ids: Dictionary[String, bool] = {}
+	var levels: Array[Dictionary] = []
+	var editor := OS.has_feature("editor")
+	for item: Variant in raw["levels"]:
+		if not item is Dictionary or not item.get("file") is String or not item.get("id") is String or not item.get("chapter") is String:
+			return {}
+		var file: String = item["file"]
+		var id: String = item["id"]
+		if id.is_empty() or item["chapter"].is_empty() or ids.has(id):
+			return {}
+		ids[id] = true
+		if not authored_files.erase(file):
+			if editor or files.has(file):
+				return {}
+			continue  # An exported edition may omit unshipped areas.
+		if editor and FileAccess.get_sha256(DIRECTORY.path_join(file)) != item.get("sha256", ""):
+			return {}
+		levels.append(item)
+	return {"levels": levels} if authored_files.is_empty() else {}

@@ -21,6 +21,7 @@ func run() -> void:
 	_test_state(catalog, maps)
 	_test_sparse_restore(catalog, maps)
 	_test_saved_area_revision_index()
+	_test_level_manifest_matches()
 	await _test_terrain_cache(catalog, maps)
 	await _test_ui(catalog, maps)
 	await _test_world_chapter_titles(catalog)
@@ -56,6 +57,14 @@ func _test_sparse_restore(catalog: QuestCatalog, chapter: QuestMapIndex) -> void
 	snapshot["layout_revisions"] = "corrupt"
 	check(QuestMapIndex.for_navigation_restore(snapshot, supported).parse_count == 0,
 			"an unusable navigation section does not load any authored areas")
+
+
+func _test_level_manifest_matches() -> void:
+	var index = preload("res://core/navigation/level_resource_index.gd")
+	var shipped := load(index.MANIFEST) as JSON
+	check(shipped != null and shipped.data is Dictionary and shipped.data.get("version") == index.FORMAT
+			and shipped.data.get("levels") == index.authored_manifest()["levels"],
+			"the lightweight level index matches authored resources; regenerate with tools/build_level_index.tscn")
 
 
 func _test_saved_area_revision_index() -> void:

@@ -15,6 +15,7 @@ static var channel_handler: Callable
 
 const ENCOUNTER_SNAPSHOT = preload("res://game/level/encounter_snapshot.gd")
 const PLAYER_TUNING_PATH := "res://data/player/player_tuning.tres"
+const ENTRY_BUILD_SLICE_USEC := 6000
 const DEATH_SCREEN_DELAY := 1.1
 const ORDINARY_DEATH_SCREEN_DELAY := 0.7
 const VICTORY_DELAY := 2.8
@@ -89,12 +90,18 @@ var _portals: Dictionary[StringName, Portal] = {}
 var _resume: Dictionary = {}
 ## True only after the entire live scene and resume state have been installed.
 var _initialization_complete := false
+var _slice_entry := false
+var _building_entry := false
+var _entry_slice_started := 0
 var _death_entry: Dictionary = {}
 var _death_cause: StringName = &""
 
 
-func configure(p_data: LevelData) -> void:
+## While Main's transition keeps the world paused, slice entry construction at
+## safe phase boundaries; embedded levels retain synchronous initialization.
+func configure(p_data: LevelData, slice_entry := false) -> void:
 	data = p_data
+	_slice_entry = slice_entry
 
 
 func configure_resume(snapshot: Dictionary) -> void:
@@ -120,7 +127,27 @@ func authored_floor_below(world_point: Vector2, max_distance := 320.0) -> Vector
 	return surface
 
 
+func is_building_entry() -> bool:
+	return _building_entry
+
+
 func _ready() -> void:
+	_building_entry = true
+	if _slice_entry:
+		await get_tree().process_frame  # 顯示轉場的載入文字後，才開始建立關卡。
+	_entry_slice_started = Time.get_ticks_usec()
+	await _build_entry()
+	_building_entry = false
+
+
+func _entry_checkpoint() -> void:
+	if not _slice_entry or Time.get_ticks_usec() - _entry_slice_started < ENTRY_BUILD_SLICE_USEC:
+		return
+	await get_tree().process_frame
+	_entry_slice_started = Time.get_ticks_usec()
+
+
+func _build_entry() -> void:
 	_layout = LevelBuilder.parse(data)
 	if not _layout.is_valid():
 		push_error("[Level] 關卡資料無效，返回主選單。")
@@ -172,10 +199,7 @@ func _ready() -> void:
 				process_mode = Node.PROCESS_MODE_DISABLED
 				menu_requested.emit.call_deferred()
 				return
-	if data.complete_on_flag != &"":
-		GameState.flag_changed.connect(_on_completion_flag)
-		if GameState.has_flag(data.complete_on_flag):
-			_on_completion_flag.call_deferred(data.complete_on_flag, true)
+	await _entry_checkpoint()
 	_persistent = data.persistent_world
 	if _resume.get("dead", false):
 		died = true
@@ -218,18 +242,21 @@ func _ready() -> void:
 	_world.add_child(back_wall)
 	back_wall.setup(_layout, hash(data.id), data.environment)
 	_scenery_walls = back_wall.geometry
+	await _entry_checkpoint()
 
 	var scenery_start := _world.get_child_count()
-	_spawn_decor()
+	await _spawn_decor()
 	_lower_scenery(scenery_start, WorldLayers.DECOR)
+	await _entry_checkpoint()
 	# 牆上的影子畫在背牆與牆面裝飾之上、擺設與角色之下。
 	var wall_shadows := WallShadows.new()
 	wall_shadows.name = "WallShadows"
 	wall_shadows.setup(_scenery_walls.support_rects)
 	_world.add_child(wall_shadows)
 	scenery_start = _world.get_child_count()
-	_spawn_props()
+	await _spawn_props()
 	_lower_scenery(scenery_start, WorldLayers.PROPS)
+	await _entry_checkpoint()
 
 	var terrain := Terrain.new()
 	terrain.name = "Terrain"
@@ -242,6 +269,7 @@ func _ready() -> void:
 		ghosts.name = "GhostPlatforms"
 		_world.add_child(ghosts)
 		ghosts.build(_layout)
+	await _entry_checkpoint()
 
 	_entities = Node2D.new()
 	_entities.name = "Entities"
@@ -268,8 +296,11 @@ func _ready() -> void:
 	_foreground.tile_size = _layout.tile_size
 	add_child(_foreground)
 
+	if _slice_entry:
+		await QuestMapIndex.prepare_chapter(data.chapter, _entry_checkpoint)
 	hud = Hud.new()
 	add_child(hud)
+	await _entry_checkpoint()
 
 	_power_grid = PowerGrid.new()
 	_power_grid.name = "PowerGrid"
@@ -277,9 +308,12 @@ func _ready() -> void:
 	add_child(_power_grid)
 	_power_grid.zone_changed.connect(func(_zone: StringName, _powered: bool) -> void: _rebuild_lighting_events())
 
-	_spawn_static_entities()
-	_spawn_cinematic_entries()
+	await _spawn_static_entities()
+	await _entry_checkpoint()
+	await _spawn_cinematic_entries()
+	await _entry_checkpoint()
 	_spawn_player()
+	await _entry_checkpoint()
 	# 從檢查點重生：還原被打破的箱子、開關、閘門與電力（要在光影設定之前，事件才會正確）。
 	WorldState.restore(get_tree(), _resume.get("world", {}) if not _resume.is_empty() else (_area.get("world", {}) if _persistent else GameState.checkpoint_world))
 	_rebuild_lighting_events()
@@ -299,6 +333,7 @@ func _ready() -> void:
 	_lighting.snap()
 	_light_budget = LightBudget.new()
 	add_child(_light_budget)
+	await _entry_checkpoint()
 
 	camera = LevelCamera.new()
 	add_child(camera)
@@ -310,6 +345,7 @@ func _ready() -> void:
 		process_mode = Node.PROCESS_MODE_DISABLED
 		menu_requested.emit.call_deferred()
 		return
+	await _entry_checkpoint()
 
 	_tokens = AttackTokens.new(data.attack_caps)
 	AttackTokens.active = _tokens
@@ -334,6 +370,7 @@ func _ready() -> void:
 	_pause_menu.skip_requested.connect(_skip_area)
 	_pause_menu.retry_requested.connect(_request_retry)
 	_pause_menu.menu_requested.connect(_request_menu)
+	await _entry_checkpoint()
 
 	_inventory = InventoryScreen.new()
 	_inventory.configure(player)
@@ -348,6 +385,10 @@ func _ready() -> void:
 		EventBus.mechanism_toggled.connect(_on_channel_toggled)  # 關卡釋放時自動斷線
 	# 玩家在這個區域的時候，背景預載鄰居與接下來的過場舞台（下次進場不用當場解碼貼圖）。
 	_initialization_complete = true
+	if data.complete_on_flag != &"":
+		GameState.flag_changed.connect(_on_completion_flag)
+		if GameState.has_flag(data.complete_on_flag):
+			_on_completion_flag.call_deferred(data.complete_on_flag, true)
 	if _arena_triggered and not _boss_spawned and not _resume.get("ending", false) and not _resume.get("dead", false):
 		_resume_pending_boss.call_deferred()
 	AssetPrefetch.warm_neighbors.call_deferred(data)
@@ -559,6 +600,7 @@ func _spawn_static_entities() -> void:
 	var lit_lamps_by_zone := {}
 	var buzzing: Array[Lamp] = []
 	for i in _layout.lamps.size():
+		await _entry_checkpoint()
 		var lamp := Lamp.new()
 		lamp.position = _layout.lamps[i] + Vector2(0, 2)
 		# 風格由所在區段決定；沒有區段時維持霓虹三原色交錯。
@@ -593,6 +635,7 @@ func _spawn_static_entities() -> void:
 		sign.position = hint["position"]
 		_entities.add_child(sign)
 	for spawn in _layout.spawns:
+		await _entry_checkpoint()
 		var resource: Resource = spawn["resource"]
 		var key := _spawn_key(spawn)
 		var trackable := resource is EnemyData or resource is WeaponData or resource is ConsumableData or resource is StoryItemData or resource is CreditPileData
@@ -635,6 +678,7 @@ func _lower_scenery(from_child: int, z: int) -> void:
 ## 招牌、看板、排氣孔等裝飾（畫在地形與角色之後方）。
 func _spawn_decor() -> void:
 	for entry in _layout.decor:
+		await _entry_checkpoint()
 		if entry["kind"] in ["neon_sign", "neon_sign_h", "billboard"] and not _scenery_walls.covers(ScenerySupport.decor_rect(entry, data)):
 			push_warning("[Level] %s 裝飾 %s 格 %s 沒有完整牆面支撐，已略過" % [data.id, entry["kind"], entry["cell"]])
 			continue
@@ -678,6 +722,7 @@ func _spawn_props() -> void:
 	var dirs := _prop_dirs()
 	var entries := data.load_props()
 	for entry in entries:
+		await _entry_checkpoint()
 		var prop := PropLibrary.find_in(StringName(str(entry["id"])), dirs)
 		if prop == null:
 			continue
@@ -757,6 +802,7 @@ func _create_entity(resource: Resource) -> Node2D:
 
 func _spawn_cinematic_entries() -> void:
 	for entry in data.cinematic_entries:
+		await _entry_checkpoint()
 		if entry == null or entry.cell.x < 0 or entry.cell.y < 0 or entry.cell.x >= _layout.width or entry.cell.y >= _layout.height:
 			push_error("[Level] %s 的電影入口位置無效，已略過。" % data.id)
 			continue

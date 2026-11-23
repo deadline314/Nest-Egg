@@ -5,6 +5,57 @@ const FIRST := "res://data/levels/ch1_pawnshop.tres"
 const DISK := &"ch1_data_disk"
 
 
+static func run_sliced_entry(s: TestSuite, directory: String) -> void:
+	var old_instant := Transition.instant
+	var old_skip := Story.auto_skip
+	Story.auto_skip = true
+	GameState.start_new_run(GameState.difficulties[1])
+	Progression.restore({"credits": 731})
+	var store := RunSaveStore.new(directory.path_join("sliced_entry.json"))
+	store.validator = RunSnapshot.prepare
+	var saved := RunSnapshot.capture(FIRST, {"health": 4, "position": [100, 160]})
+	if not store.write(saved, true):
+		s.check(false, "sliced entry fixture writes a valid slot")
+		Story.auto_skip = old_skip
+		return
+	var main: Node = load("res://game/main.gd").new()
+	main.set("_run_store", store)
+	s.runner.get_tree().root.add_child(main)
+	Transition.instant = false
+	var publication: Array[bool] = []
+	var observe := func(credits: int, _delta: int) -> void:
+		var level := main.get("_screen") as Level
+		publication.append(credits == 731 and level != null and level.is_initialized()
+				and is_instance_valid(level.player) and GameplayLock.is_locked())
+	Progression.credits_changed.connect(observe)
+	var slot_digest := FileAccess.get_sha256(store.path)
+	main.call("_on_continue_requested")
+	var inspected := false
+	var elapsed := Time.get_ticks_msec() + 6000
+	while Time.get_ticks_msec() < elapsed and Transition.is_active():
+		await s.runner.get_tree().process_frame
+		var level := main.get("_screen") as Level
+		if not inspected and level != null and level.is_building_entry():
+			inspected = true
+			s.check(not level.is_initialized() and publication.is_empty() and GameplayLock.is_locked(),
+					"covered entry yields with input locked and no partially published save state")
+			main.call("_save_run")
+			main.call("_on_continue_requested")
+			s.check(FileAccess.get_sha256(store.path) == slot_digest, "partial entry cannot write or reopen the current slot")
+	s.check(inspected and publication == [true], "only the complete player and world are published during a sliced resume")
+	var loaded := main.get("_screen") as Level
+	s.check(loaded != null and loaded.is_initialized() and loaded.data.resource_path == FIRST
+			and not Transition.is_active(), "sliced resume reveals the exact target area")
+	Progression.credits_changed.disconnect(observe)
+	Transition.abort()
+	Transition.instant = old_instant
+	Story.reset_active_presentation(&"sliced_entry_test")
+	Story.auto_skip = old_skip
+	main.queue_free()
+	await s.frames(3)
+	GameState.start_new_run(GameState.difficulties[1])
+
+
 static func run(s: TestSuite) -> void:
 	GameState.story_autosave = false
 	GameState.start_new_run(GameState.difficulties[1])

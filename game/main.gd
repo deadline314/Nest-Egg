@@ -142,9 +142,15 @@ func _swap_screen(screen: Node) -> void:
 	Fx.reset_time()
 	_screen = screen
 	add_child(screen)
-	if screen is Level and not screen.is_initialized():
-		_restore_publish_pending = false
-		return  # Failed initialization emits menu_requested; never publish or save its partial scene.
+	var level := screen as Level
+	if level != null:
+		while is_instance_valid(level) and level.is_building_entry() and not _quitting:
+			await get_tree().process_frame
+		if _quitting or not is_instance_valid(level) or _screen != level:
+			return
+		if not level.is_initialized():
+			_restore_publish_pending = false
+			return  # Failed entry requests the menu without publishing or saving partial state.
 	# Level._ready 已裝齊玩家、世界及續玩資料，通知才可離開 Main。
 	if _restore_publish_pending:
 		_restore_publish_pending = false
@@ -335,7 +341,7 @@ func _load_level(kind := Transition.Kind.IRIS, caption := "", hold := 0.0) -> vo
 		_show_main_menu()
 		return
 	var level := Level.new()
-	level.configure(data)
+	level.configure(data, not Transition.instant)
 	if not _resume_runtime.is_empty():
 		level.configure_resume(_resume_runtime)
 		_resume_runtime = {}
@@ -344,6 +350,8 @@ func _load_level(kind := Transition.Kind.IRIS, caption := "", hold := 0.0) -> vo
 	level.menu_requested.connect(_show_main_menu, CONNECT_DEFERRED)
 	level.completed.connect(_on_level_completed.bind(data, weakref(level)), CONNECT_DEFERRED)
 	level.area_requested.connect(_on_area_requested, CONNECT_DEFERRED)
+	if caption.is_empty():
+		caption = StoryLocale.optional_text({"ja": "読み込み中…", "en": "Loading…"}, Story.language, "載入中…")
 	_switch_to(level, kind, Vector2(0.5, 0.5), caption, hold)
 
 
@@ -455,7 +463,10 @@ func _publishing_results() -> bool:
 
 
 func _route_pending() -> bool:
-	return _publishing_results() or _quitting or _publishing_restore or is_instance_valid(_destination_save_prompt) or (is_instance_valid(_pending_screen) and not _pending_screen.is_inside_tree())
+	return (_publishing_results() or _quitting or _publishing_restore
+			or is_instance_valid(_destination_save_prompt)
+			or (is_instance_valid(_pending_screen) and not _pending_screen.is_inside_tree())
+			or (_screen is Level and _screen.is_building_entry()))
 
 
 func _bind_navigation() -> void:
@@ -523,7 +534,7 @@ func _save_run(route_source := false) -> void:
 	if not _active_run or _destination_pending or _restore_publish_pending or _publishing_restore or not is_instance_valid(_screen) or not _screen is Level:
 		return
 	var level := _screen as Level
-	if not level.is_inside_tree() or level.is_queued_for_deletion():
+	if not level.is_inside_tree() or level.is_queued_for_deletion() or not level.is_initialized():
 		return
 	if level.data.resource_path != _level_path:
 		return  # 轉場期間已保存新區入口，不拿舊畫面的座標覆蓋。

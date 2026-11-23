@@ -45,18 +45,30 @@ static func for_navigation_restore(raw: Variant, chapters: Array[StringName]) ->
 	return index
 
 
+## Build against the same data as synchronous callers and publish only a complete index.
+static func prepare_chapter(chapter: StringName, checkpoint: Callable) -> void:
+	if _chapters.has(chapter):
+		return
+	var index := QuestMapIndex.new()
+	await index.load_chapter(chapter, checkpoint)
+	if not _chapters.has(chapter):
+		_chapters[chapter] = index
+
+
 var areas: Dictionary = {}
 var checkpoint_keys := PackedStringArray()
 var parse_count := 0
 
 
-func load_chapter(chapter: StringName) -> void:
+func load_chapter(chapter: StringName, checkpoint := Callable()) -> void:
 	areas.clear()
 	checkpoint_keys.clear()
 	for path in LevelCatalog.chapter_paths(chapter):
 		var data := LevelCatalog.load_level(path)
 		if data != null and data.chapter == chapter:
 			add_area(data)
+		if checkpoint.is_valid():
+			await checkpoint.call()
 
 
 func add_area(data: LevelData) -> void:
