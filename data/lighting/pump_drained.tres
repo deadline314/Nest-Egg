@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="LightingProfile" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/lighting_profile.gd" id="1_script"]
+[ext_resource type="Script" path="res://data/scripts/lamp_style.gd" id="2_lamp"]
+
+[sub_resource type="Resource" id="LampStyle_1"]
+script = ExtResource("2_lamp")
+colors = PackedColorArray(0.3,1.0,0.85,1)
+energy = 1.4
+radius = 180.0
+flicker_chance = 0.06
+dead_chance = 0.3
+pulse_hz = 0.0
+fixtures = PackedStringArray("cage_worklight", "hazard_strobe", "tube_batten")
+
+[resource]
+script = ExtResource("1_script")
+id = &"pump_room"
+ambient_color = Color(0.155,0.225,0.23,1)
+background_tint = Color(0.85,0.97,0.95,1)
+fog_color = Color(0.32,0.45,0.37,1)
+fog_density = 0.43
+glow_threshold = 1.2
+glow_intensity = 0.85
+saturation = 0.6
+contrast = 1.18
+shadow_tint = Color(0.97,1.05,0.99,1)
+highlight_tint = Color(0.92,1.06,1.04,1)
+vignette = 0.59
+grain = 0.0
+aberration = 0.003
+lamp_style = SubResource("LampStyle_1")
+neon_colors = PackedColorArray(0.3,1.0,0.8,1)
+neon_energy = 0.55
+character_floor = 0.36
+creature_floor = 0.75
+rim_color = Color(0.70,0.98,0.72,1)
+rim_energy = 0.4

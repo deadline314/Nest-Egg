@@ -7,6 +7,8 @@ extends Resource
 @export var start_tile: int = 0
 @export var end_tile: int = 0
 @export var profile: LightingProfile
+## Optional story result the player must have reached for this look.
+@export var requires_flag: StringName = &""
 @export var fade_in: float = 1.0
 @export var fade_out: float = 1.5
 

@@ -540,7 +540,7 @@ func _update_lighting_events(fade_override := -1.0) -> void:
 	for event in _lighting_event_list:
 		if event == null or event.profile == null:
 			continue
-		var inside := event.contains_tile(tile)
+		var inside := event.contains_tile(tile) and (event.requires_flag == &"" or GameState.has_flag(event.requires_flag))
 		if inside and not _active_lighting_events.has(event.id):
 			_active_lighting_events[event.id] = true
 			EventBus.lighting_override_requested.emit(event.id, event.profile, event.fade_in if fade_override < 0.0 else maxf(0.01, fade_override))

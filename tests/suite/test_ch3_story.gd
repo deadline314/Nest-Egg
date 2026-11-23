@@ -24,7 +24,43 @@ func run() -> void:
 	_test_office_movement()
 	_test_level_hooks()
 	Checks.check_staging(self, "chapter 3", "ch3", 9)
+	await _test_pump_drain_lighting()
 	await _test_chapter_end()
+
+
+func _test_pump_drain_lighting() -> void:
+	GameState.start_new_run(GameState.difficulties[1])
+	var data: LevelData = _datas["pump"]
+	var event: LightingEvent
+	for candidate in data.lighting_events:
+		if candidate.id == &"pump_drained":
+			event = candidate
+			break
+	check(event != null and event.requires_flag == &"ch3_pump_low", "the pump light waits for the authored drain result")
+	if event == null:
+		return
+	var level := Level.new()
+	level.configure(data)
+	runner.get_tree().root.add_child(level)
+	await frames(4)
+	var player := level.player
+	player.global_position.x = (event.start_tile + 1) * data.tile_size
+	level._update_lighting_events(0.0)
+	level._lighting.snap()
+	check(not level._lighting.has_override(event.id), "position alone never changes the high-water look")
+	GameState.set_flag(&"ch3_pump_low")
+	level._update_lighting_events(0.0)
+	level._lighting.snap()
+	check(level._lighting.has_override(event.id) and is_equal_approx(level._lighting.current.fog_density, event.profile.fog_density),
+			"the low-water result switches to the clearer ambient look")
+	player.global_position.x = (event.start_tile - 1) * data.tile_size
+	level._update_lighting_events(0.0)
+	level._lighting.snap()
+	check(not level._active_lighting_events.has(event.id) and is_equal_approx(level._lighting.current.fog_density, data.lighting_zones[0].profile.fog_density),
+			"the original entrance remains outside the drained light")
+	level.queue_free()
+	await frames(4)
+	GameState.start_new_run(GameState.difficulties[1])
 
 
 ## 劇情依進度挑段落。

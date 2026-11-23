@@ -557,7 +557,8 @@ def main():
     kit.write_level(by_id['pawnshop'], show_card=True, complete_on_flag='&"ch3_shore_closed"')
     sunlit = {'glass_edge', 'showroom', 'office_hall'}
     for a in areas[1:]:
-        kit.write_level(a, **({'rain': 'false'} if a.id in sunlit else {}))
+        lighting_events = [('pump_drained', 12, a.w - 2, 'pump_drained', 'ch3_pump_low')] if a.id == 'pump' else ()
+        kit.write_level(a, lighting_events=lighting_events, **({'rain': 'false'} if a.id in sunlit else {}))
 
 
 if __name__ == '__main__':

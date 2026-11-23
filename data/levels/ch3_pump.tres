@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=16 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=19 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Resource" path="res://data/props/credits_small.tres" id="2_credits_small"]
@@ -11,6 +11,8 @@
 [ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="9_lighting_zone"]
 [ext_resource type="Resource" path="res://data/lighting/pump_room.tres" id="10_pump_room"]
 [ext_resource type="Resource" path="res://data/environment/themes/ch3_pump.tres" id="11_ch3_pump"]
+[ext_resource type="Script" path="res://data/scripts/lighting_event.gd" id="12_lighting_event"]
+[ext_resource type="Resource" path="res://data/lighting/pump_drained.tres" id="13_pump_drained"]
 
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("6_portal_data")
@@ -55,6 +57,14 @@ start_tile = 0
 blend_tiles = 12
 profile = ExtResource("10_pump_room")
 
+[sub_resource type="Resource" id="Resource_4"]
+script = ExtResource("12_lighting_event")
+id = &"pump_drained"
+start_tile = 12
+end_tile = 78
+profile = ExtResource("13_pump_drained")
+requires_flag = &"ch3_pump_low"
+
 [resource]
 script = ExtResource("1_level_data")
 id = &"ch3_pump"
@@ -80,5 +90,6 @@ show_chapter_card = false
 environment = ExtResource("11_ch3_pump")
 layout_path = "res://data/levels/ch3_pump_map.json"
 lighting_zones = Array[ExtResource("9_lighting_zone")]([SubResource("Resource_3")])
+lighting_events = Array[ExtResource("12_lighting_event")]([SubResource("Resource_4")])
 story_triggers = PackedStringArray("ch3_b_c02_upper_route")
 death_credit_cap = 250

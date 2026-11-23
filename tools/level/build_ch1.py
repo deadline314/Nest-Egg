@@ -1463,7 +1463,7 @@ STORY = {
 }
 
 
-def write_level(area, theme_key=None, level_id=None, map_name=None, persist=True, **opts):
+def write_level(area, theme_key=None, level_id=None, map_name=None, persist=True, lighting_events=(), **opts):
     """輸出一個區域的地圖、環境主題與 LevelData。level_id／map_name 不同於區域 id 時共用地圖（天亮的當舖）。"""
     level_id = level_id or area.id
     map_name = map_name or area.id
@@ -1524,6 +1524,15 @@ def write_level(area, theme_key=None, level_id=None, map_name=None, persist=True
            f'environment = ExtResource("{theme}")',
            f'layout_path = "res://data/levels/{PREFIX}_{map_name}_map.json"',
            'lighting_zones = Array[ExtResource("%s")]([%s])' % (zone_script, ', '.join(f'SubResource("{z}")' for z in zone_ids))]
+    if lighting_events:
+        event_script = w.ext('res://data/scripts/lighting_event.gd', 'Script')
+        events = []
+        for ident, start, end, profile, condition in lighting_events:
+            event_profile = w.ext(f'res://data/lighting/{profile}.tres')
+            events.append(w.sub([f'script = ExtResource("{event_script}")', f'id = &"{ident}"',
+                                 f'start_tile = {start}', f'end_tile = {end}',
+                                 f'profile = ExtResource("{event_profile}")', f'requires_flag = &"{condition}"']))
+        res.append(f'lighting_events = Array[ExtResource("{event_script}")]([' + ', '.join(f'SubResource("{event}")' for event in events) + '])')
     localized = AREA_NAMES.get(display_name)
     if localized:
         res.insert(3, f'localized_names = Dictionary[String, String]({json.dumps(localized, ensure_ascii=False)})')
