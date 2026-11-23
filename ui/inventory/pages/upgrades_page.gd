@@ -128,7 +128,10 @@ func _entry_for(weapon: WeaponData, upgrade: WeaponUpgradeData) -> InventoryEntr
 ## 改裝前後的數值對照（已改裝時只顯示目前數值）。
 func _preview(weapon: WeaponData, upgrade: WeaponUpgradeData, owned: bool) -> PackedStringArray:
 	var lines := PackedStringArray()
-	lines.append("持有　¥%d" % Progression.credits)
+	lines.append(Labels.get_text(&"credits") % Progression.credits)
+	if upgrade.effect == WeaponUpgradeData.Effect.MELEE_TECHNIQUE:
+		lines.append_array(_technique_preview(weapon, upgrade, owned))
+		return lines
 	var base := WeaponTuning.base_of(weapon)
 	var after: WeaponData = weapon if owned else WeaponTuning.apply(base, _owned_with(weapon, upgrade))
 	match upgrade.effect:
@@ -139,6 +142,24 @@ func _preview(weapon: WeaponData, upgrade: WeaponUpgradeData, owned: bool) -> Pa
 		WeaponUpgradeData.Effect.RELOAD:
 			lines.append(_diff("換彈", "%.2f 秒" % weapon.reload_time, "%.2f 秒" % after.reload_time, owned))
 	return lines
+
+
+func _technique_preview(weapon: WeaponData, upgrade: WeaponUpgradeData, owned: bool) -> PackedStringArray:
+	var moves := MeleeData.set_of(weapon)
+	var matches := upgrade.id == moves.extension_upgrade()
+	var current := moves.combo(owned and matches)
+	var preview := current if owned else moves.combo(matches)
+	return PackedStringArray([
+		_technique_value(&"technique_moves", str(current.size()), str(preview.size())),
+		_technique_value(&"technique_dps",
+			"%.1f" % moves.damage_per_second(current), "%.1f" % moves.damage_per_second(preview)),
+		_technique_value(&"technique_reach",
+			str(roundi(moves.max_range(current))), str(roundi(moves.max_range(preview)))),
+	])
+
+
+func _technique_value(key: StringName, before: String, after: String) -> String:
+	return _diff(Labels.get_text(key), before, after, before == after)
 
 
 func _owned_with(weapon: WeaponData, upgrade: WeaponUpgradeData) -> Array[WeaponUpgradeData]:

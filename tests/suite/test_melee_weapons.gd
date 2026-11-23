@@ -690,13 +690,24 @@ func _test_growth_contract() -> void:
 		if upgrade == null:
 			continue
 		check(upgrade.applies_to(weapon) and not upgrade.applies_to(load("res://data/weapons/pistol.tres")) and not upgrade.applies_to(_weapon(WEAPONS[(WEAPONS.find(id) + 1) % WEAPONS.size()])), "%s technique applies only to its own weapon" % id)
+		var page := UpgradesPage.new()
+		var offer := page._entry_for(weapon, upgrade)
+		var base_sequence := set.combo()
+		var extended := set.combo(true)
+		check(offer.detail_stats.size() == 4 and offer.detail_stats[1].ends_with(
+			"%d → %d" % [base_sequence.size(), extended.size()]), "%s upgrade previews the real extra move" % id)
 		var before := Progression.credits
 		check(Progression.buy_upgrade(weapon, upgrade) and Progression.credits == before - upgrade.cost, "%s purchase pays the exact catalog price" % id)
 		check(not Progression.buy_upgrade(weapon, upgrade) and Progression.credits == before - upgrade.cost, "%s duplicate purchase is rejected without spending" % id)
 		var tuned := Progression.tuned(weapon)
 		check(tuned.fire_interval == weapon.fire_interval and tuned.magazine_size == weapon.magazine_size, "%s unlock is not a passive damage/charge buff" % id)
-		var page := UpgradesPage.new()
 		var entry := page._entry_for(tuned, upgrade)
+		check(entry.detail_stats.size() == 4
+			and entry.detail_stats[1].ends_with(str(extended.size()))
+			and entry.detail_stats[2].ends_with("%.1f" % set.damage_per_second(extended))
+			and entry.detail_stats[3].ends_with(str(roundi(set.max_range(extended))))
+			and not " ".join(entry.detail_stats).contains("→"),
+			"%s installed technique previews the same stats as the expanded playable chain" % id)
 		page.free() # 型錄描述檢查不留下未進 tree 的 UI 節點。
 		check(entry.dimmed and not entry.action_enabled and entry.detail_body.contains("按住") and entry.detail_body.contains("護盾"), "%s existing upgrade card explains optional input and energy" % id)
 	var prices := EconomyReport.price_list()
