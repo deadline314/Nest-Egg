@@ -26,6 +26,7 @@ func run() -> void:
 	await _test_fullscreen_setting()
 	await _test_story_language_preference()
 	await _test_death_screen()
+	await _test_death_language()
 	await _test_victory_screen()
 	await _test_release_victory_layout()
 	await preload("res://tests/helpers/controller_screen_checks.gd").run(self)
@@ -484,6 +485,34 @@ func _test_death_screen() -> void:
 	await frames(2)
 
 
+func _test_death_language() -> void:
+	var previous_lang := Story.language
+	var previous_checkpoint := GameState.has_checkpoint
+	var previous_motion := Settings.get_reduce_ui_motion()
+	Settings.set_reduce_ui_motion(true)
+	for entry: Array in [
+			["en", false, true, "Restart area", "Start this area again."],
+			["en", true, true, "Retry from checkpoint", "Return to your last checkpoint."],
+			["ja", false, false, "エリアの最初から再開", "現在のエリアを最初からやり直します。"],
+			["zh", true, true, "從檢查點重來", "回到最近的檢查點"]]:
+		Story.language = entry[0]
+		GameState.has_checkpoint = entry[1]
+		var screen := DeathScreen.new()
+		screen.setup({}, entry[2])
+		runner.add_child(screen)
+		await frames(4)
+		var retry := screen.get_viewport().gui_get_focus_owner() as Button
+		var hint := screen.find_child("FocusHintBar", true, false) as FocusHintBar
+		check(retry != null and retry.text == entry[3] and retry.tooltip_text == entry[4],
+				"the death action names the actual available retry destination in " + entry[0])
+		check(hint != null and hint.text() == entry[4], "death focus uses the same explanation as Hover")
+		screen.queue_free()
+		await frames(2)
+	Story.language = previous_lang
+	GameState.has_checkpoint = previous_checkpoint
+	Settings.set_reduce_ui_motion(previous_motion)
+
+
 func _test_victory_screen() -> void:
 	var screen := VictoryScreen.new()
 	screen.chapter = &"chapter_01"
@@ -524,10 +553,17 @@ func _test_release_victory_layout() -> void:
 				runner.add_child(screen)
 				await frames(4)
 				var teaser := screen._rows.back() as Label
-				var expected := str(Story.chapter_info(chapter_id).get("teaser", "")) + "　" + VictoryScreen.EDITION_END_TEXT
+				var notices := {"zh": "本版本收錄到這裡，進度已保存。", "en": "This edition ends here. Your progress is saved.",
+					"ja": "このエディションはここまでです。進行状況を保存しました。"}
+				var separator := " " if locale == "en" else "　"
+				var expected := str(Story.chapter_info(chapter_id).get("teaser", "")) + separator + str(notices[locale])
 				var bounds := screen.get_global_rect()
 				check(teaser.text == expected and teaser.get_visible_line_count() == teaser.get_line_count() and bounds.encloses(teaser.get_global_rect()), "release ending retains the complete %s %s teaser and edition notice at %.0f%%" % [chapter_id, locale, text_scale * 100])
 				check(screen._buttons.all(func(button: Button) -> bool: return bounds.encloses(button.get_global_rect()) and not button.disabled), "release ending keeps both actions visible and usable for %s %s at %.0f%%" % [chapter_id, locale, text_scale * 100])
+				var actions := {"zh": ["再玩一次", "回主選單"], "en": ["Play again", "Main menu"],
+					"ja": ["もう一度遊ぶ", "メインメニューへ"]}
+				check(screen._buttons[0].text == actions[locale][0] and screen._buttons[1].text == actions[locale][1],
+					"release ending actions match the chosen language")
 				screen.queue_free()
 				await frames(2)
 	CampaignEdition.override_current(edition)

@@ -5,7 +5,6 @@ extends Node
 ## 新遊戲的第一個區域的預設值；實際起點以 data/release/campaign.json 為準（CampaignEdition.first_level）。
 ## 舊的雨夜關卡在 data/levels/level_01.tres 保留給既有測試與開發用，只有開發版可進入。
 const FIRST_LEVEL := CampaignEdition.DEFAULT_FIRST_LEVEL
-const RETRY_CAPTION := "NEST 回溯紀錄 #%d"
 const RETRY_HOLD := 0.22
 const SAVE_FAILURE_TOAST := "存檔未成功，原進度仍保留。"
 const SAVE_FAILURE_TRANSLATIONS: Dictionary[String, String] = {
@@ -341,7 +340,7 @@ func _on_retry_requested(level: Level) -> void:
 		Progression.restore(restore_progression)
 	_clear_cinematic()
 	if is_instance_valid(level) and level.died:
-		_load_level(Transition.Kind.GLITCH, RETRY_CAPTION % GameState.deaths, RETRY_HOLD)
+		_load_level(Transition.Kind.GLITCH, DeathScreen.record_title(GameState.deaths), RETRY_HOLD)
 	else:
 		_load_level(Transition.Kind.IRIS)
 

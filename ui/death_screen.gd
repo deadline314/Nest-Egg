@@ -13,7 +13,21 @@ const NOISE_TIME := 0.45
 const BRIEF_MANDATORY_MAX := 1.2
 const CARD_OPEN_TIME := 0.28
 const CARD_WIDTH := 380.0
-const RECORD_TITLE := "NEST 回溯紀錄 #%d"
+const COPY := {
+	"record": ["NEST 回溯紀錄 #%d", "NEST 復元記録 #%d", "NEST Restoration Log #%d"],
+	"failed": ["任務失敗", "任務失敗", "Mission failed"],
+	"retry": ["從檢查點重來", "チェックポイントから再開", "Retry from checkpoint"],
+	"retry_hint": ["回到最近的檢查點", "最後のチェックポイントに戻ります。", "Return to your last checkpoint."],
+	"restart": ["重新開始關卡", "エリアの最初から再開", "Restart area"],
+	"restart_hint": ["從目前區域的開頭重新開始", "現在のエリアを最初からやり直します。", "Start this area again."],
+	"menu": ["回主選單", "メインメニューへ", "Main menu"],
+	"menu_hint": ["可在主選單查看所有敗北圖鑑", "メインメニューから敗北図鑑を開けます。", "Open the defeat codex from the main menu."],
+	"codex": ["敗北圖鑑 No.%02d", "敗北図鑑 No.%02d", "Defeat Codex No.%02d"],
+	"new": ["NEW　新解鎖", "新規解放", "New entry"],
+	"tip": ["攻略　%s", "攻略　%s", "Tip: %s"],
+	"out_of_lives": ["殘機用盡，將從關卡開頭重新開始。", "残機が尽きました。エリアの最初から再開します。", "No lives left. Restart from the beginning of the area."],
+	"sequence_pending": ["復原程序正在啟動。", "復元を開始します。", "Starting restoration."],
+}
 
 var _card: Dictionary = {}
 var _can_continue := true
@@ -28,6 +42,15 @@ var _hint_slot: Control
 var _sequence_left := 0.0
 var _brief_left := 0.0
 
+
+
+static func _text(key: String) -> String:
+	var index := maxi(0, StoryLocale.LANGUAGES.find(Story.language))
+	return COPY[key][index]
+
+
+static func record_title(deaths: int) -> String:
+	return _text("record") % deaths
 
 
 func setup(card: Dictionary, can_continue: bool) -> void:
@@ -48,22 +71,27 @@ func _ready() -> void:
 	var center := CenterContainer.new()
 	center.set_anchors_preset(Control.PRESET_FULL_RECT)
 	root.add_child(center)
-	var column := VBoxContainer.new()
+	# Recovery text needs its own surface above transient gameplay notices.
+	var recovery := UiPanel.new("", Palette.DANGER)
+	center.add_child(recovery)
+	var column := recovery.body
 	column.add_theme_constant_override(&"separation", 8)
 	column.custom_minimum_size = Vector2(CARD_WIDTH, 0)
-	center.add_child(column)
 
-	column.add_child(UiKit.label(RECORD_TITLE % GameState.deaths, UiKit.FS_TITLE, Palette.DANGER, HORIZONTAL_ALIGNMENT_CENTER))
-	column.add_child(UiKit.label("任務失敗", UiKit.FS_BODY, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_CENTER))
+	column.add_child(UiKit.label(record_title(GameState.deaths), UiKit.FS_TITLE, Palette.DANGER, HORIZONTAL_ALIGNMENT_CENTER))
+	column.add_child(UiKit.label(_text("failed"), UiKit.FS_BODY, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_CENTER))
 	var note := Story.death_note()
 	if not note.is_empty():
-		column.add_child(UiKit.label(note, UiKit.FS_BODY, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_CENTER))
+		var note_label := UiKit.label(note, UiKit.FS_BODY, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_CENTER)
+		note_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		column.add_child(note_label)
 
 	var file := _make_file_card()
 	column.add_child(file)
-	var retry_text := "從檢查點重來" if _can_continue else "重新開始關卡"
-	var retry := UiKit.button(retry_text, retry_requested.emit, "立即再挑戰")
-	var menu := UiKit.button("回主選單", menu_requested.emit, "可在主選單查看所有敗北圖鑑")
+	var checkpoint_available := _can_continue and GameState.has_checkpoint
+	var retry_key := "retry" if checkpoint_available else "restart"
+	var retry := UiKit.button(_text(retry_key), retry_requested.emit, _text(retry_key + "_hint"))
+	var menu := UiKit.button(_text("menu"), menu_requested.emit, _text("menu_hint"))
 	var buttons := HBoxContainer.new()
 	buttons.alignment = BoxContainer.ALIGNMENT_CENTER
 	buttons.add_theme_constant_override(&"separation", 8)
@@ -100,9 +128,9 @@ func _ready() -> void:
 
 
 func _make_file_card() -> Control:
-	var panel := UiPanel.new("敗北圖鑑 No.%02d" % int(_card.get("number", 0)), Palette.WARNING)
+	var panel := UiPanel.new(_text("codex") % int(_card.get("number", 0)), Palette.WARNING)
 	if bool(_card.get("is_new", false)):
-		panel.body.add_child(UiKit.label("NEW　新解鎖", UiKit.FS_BODY, Palette.NEON_YELLOW))
+		panel.body.add_child(UiKit.label(_text("new"), UiKit.FS_BODY, Palette.NEON_YELLOW))
 	panel.body.add_child(UiKit.label(str(_card.get("title", "???")), UiKit.FS_TITLE, Palette.UI_TEXT))
 	var text := UiKit.label(str(_card.get("text", "")), UiKit.FS_BODY, Palette.UI_MUTED)
 	text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -110,11 +138,11 @@ func _make_file_card() -> Control:
 	var hint_text := str(_card.get("hint", ""))
 	if not hint_text.is_empty():
 		panel.body.add_child(UiDivider.new())
-		var hint := UiKit.label("攻略　" + hint_text, UiKit.FS_BODY, Palette.CYAN)
+		var hint := UiKit.label(_text("tip") % hint_text, UiKit.FS_BODY, Palette.CYAN)
 		hint.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		panel.body.add_child(hint)
 	if not _can_continue:
-		panel.body.add_child(UiKit.label("殘機用盡，將從關卡開頭重新開始。", UiKit.FS_BODY, Palette.DANGER))
+		panel.body.add_child(UiKit.label(_text("out_of_lives"), UiKit.FS_BODY, Palette.DANGER))
 	return panel
 
 
@@ -184,7 +212,7 @@ func _advance_sequence() -> void:
 	else:
 		var speaker := Story.speaker(str(step.get("speaker", "system")))
 		var prefix := str(speaker.get("name", "")) + "：" if kind == "line" else ""
-		_sequence_label.text = prefix + str(step.get("text", "復原程序正在啟動。"))
+		_sequence_label.text = prefix + str(step.get("text", _text("sequence_pending")))
 		_sequence_label.show()
 		var sound := StringName(str(step.get("sfx", "")))
 		if sound != &"":

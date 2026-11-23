@@ -438,8 +438,9 @@ func _test_death_screen() -> void:
 		check(notes.size() == (1 if deaths >= 3 else 0), "death %d: the small note appears from three deaths on" % deaths)
 		runner.get_tree().root.remove_child(screen)
 		screen.free()
-	var caption := str((load("res://game/main.gd") as GDScript).get_script_constant_map().get("RETRY_CAPTION", ""))
-	check(caption.contains("NEST 回溯紀錄"), "the retry transition caption uses the same name: %s" % caption)
+	# The recovery screen and the real retry transition use this shared title.
+	var caption := DeathScreen.record_title(12)
+	check(caption == "NEST 回溯紀錄 #12", "the shared recovery title retains the correct record number")
 	# 真的死一次：死亡畫面顯示本輪累計的次數。
 	GameState.start_new_run(GameState.difficulties[1])
 	var level := await start_level(load(LEVEL_1) as LevelData)
