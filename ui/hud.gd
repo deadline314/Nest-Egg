@@ -41,6 +41,21 @@ const HOLD_RULES: Array[String] = [
 	"出招中先按 {melee} 會接下一段；衝刺快冷卻完時先按 {dash} 會排隊。",
 ]
 
+const HOLD_RULE_TRANSLATIONS := {
+	"ja": [
+		"{jump} を長く押すと高く、早く放すと低く跳びます。",
+		"{move_down} を押したまま {move_left}／{move_right} でしゃがみ移動します。",
+		"{shoot} を押し続けると連射し、{block} を押す間は盾を構えます。",
+		"攻撃中の {melee} は次の攻撃を予約します。冷却終了直前の {dash} も予約できます。",
+	],
+	"en": [
+		"Hold {jump} to jump higher. Release early for a shorter jump.",
+		"Hold {move_down} and use {move_left}/{move_right} to crouch-walk.",
+		"Hold {shoot} to fire repeatedly. Hold {block} to keep the shield up.",
+		"Press {melee} during an attack to queue the next strike. Press {dash} just before it recharges to queue it.",
+	],
+}
+
 var vitals_tag: VitalsTag
 var crosshair: Crosshair
 var ammo_ring: AmmoRing
@@ -264,7 +279,7 @@ static func controls_hint() -> String:
 ## 按住與連按的規則，已換成目前裝置的按鍵名稱。
 static func hold_rules() -> String:
 	var lines := PackedStringArray()
-	for rule in HOLD_RULES:
+	for rule: String in HOLD_RULE_TRANSLATIONS.get(Story.language, HOLD_RULES):
 		lines.append(InputBindings.format(rule))
 	return "\n".join(lines)
 

@@ -11,6 +11,35 @@ const LABEL_WIDTH := 120.0
 const ROW_INDENT := 6.0
 static var _indent_box: StyleBoxEmpty
 const BINDING_WIDTH := 92.0
+const COPY := {
+	"settings": ["設定", "設定", "Settings"],
+	"audio": ["音量", "音量", "Audio"],
+	"display": ["顯示", "表示", "Display"],
+	"reset": ["恢復預設", "初期設定に戻す", "Reset defaults"],
+	"reset_hint": ["只重設目前分頁", "表示中の項目だけを初期設定に戻します。", "Reset the current tab only."],
+	"back": ["返回", "戻る", "Back"],
+	"back_hint": ["設定已自動儲存", "設定は自動的に保存されます。", "Changes are saved automatically."],
+	"saved": ["設定自動儲存。劇情語言於下次啟動套用。", "設定は自動保存です。言語は再起動後に反映されます。", "Changes save automatically. Restart to apply the language."],
+	"keys": ["按鍵", "キー設定", "Bindings"],
+	"controller": ["手把", "コントローラー", "Controller"],
+	"hold": ["按住與連按", "長押しと先行入力", "Hold and queue"],
+	"aim_deadzone": ["瞄準死區", "照準のデッドゾーン", "Aim deadzone"],
+	"aim_deadzone_hint": ["忽略右搖桿中心的微小偏移。", "右スティックのわずかなずれを無視します。", "Ignore small movements near the right stick’s center."],
+	"invert": ["反轉瞄準上下", "上下の照準反転", "Invert vertical aim"],
+	"invert_hint": ["反轉右搖桿上下瞄準方向。", "右スティックで照準する上下方向を反転します。", "Reverse vertical aiming on the right stick."],
+	"vibration": ["震動強度", "振動の強さ", "Vibration"],
+	"vibration_hint": ["調整射擊、受擊與格擋震動；0為關閉。", "射撃・被弾・ガードの振動を調整します。0 で無効になります。", "Adjust the rumble for shots, hits and blocks. Set 0 to turn it off."],
+	"note": ["{inventory_prev_tab}/{inventory_next_tab} 切換分頁。右搖桿或 Page Up／Down 捲動。改鍵時短按 %s 綁定，長按取消。",
+		"{inventory_prev_tab}/{inventory_next_tab} で切り替え、右スティックか Page Up／Down でスクロールします。割り当て時は %s を短く押すと登録、長押しで取り消し。",
+		"{inventory_prev_tab}/{inventory_next_tab} switches tabs. Scroll with the right stick or Page Up/Down. When rebinding, tap %s to assign it or hold it to cancel."],
+	"waiting": ["按下…", "入力待ち…", "Waiting…"],
+	"capture_pad": ["按新手把按鈕；%s短按綁定、長按0.6秒取消；Esc取消。",
+		"新しいボタンを押します。%s は短く押すと登録、0.6 秒長押しで取り消し。Esc でも取り消せます。",
+		"Press a controller button. Tap %s to assign it. Hold it for 0.6 s or press Esc to cancel."],
+	"capture_key": ["按新按鍵或滑鼠鍵；Esc或%s取消，Backspace清除。",
+		"キーかマウスボタンを押します。Esc または %s で取り消し、Backspace で解除。",
+		"Press a key or mouse button. Esc or %s cancels. Backspace clears the binding."],
+}
 
 var _tabs: TabContainer
 var _status: Label
@@ -78,7 +107,7 @@ func _ready() -> void:
 	layout.offset_bottom = -12
 	layout.add_theme_constant_override(&"separation", 6)
 	add_child(layout)
-	layout.add_child(UiKit.label("設定", UiKit.FS_TITLE, Palette.CYAN))
+	layout.add_child(UiKit.label(_text("settings"), UiKit.FS_TITLE, Palette.CYAN))
 	layout.add_child(UiDivider.new())
 
 	_tabs = TabContainer.new()
@@ -91,6 +120,8 @@ func _ready() -> void:
 	_tabs.add_child(_build_bindings_tab())
 	_tabs.add_child(_build_display_tab())
 	_tabs.add_child(_build_controller_tab())
+	for index in _tabs.get_tab_count():
+		_tabs.set_tab_title(index, _text(["audio", "keys", "display", "controller"][index]))
 
 	_status = UiKit.label("", 10, Palette.UI_MUTED)
 	layout.add_child(_status)
@@ -98,15 +129,15 @@ func _ready() -> void:
 	var buttons := HBoxContainer.new()
 	buttons.add_theme_constant_override(&"separation", 8)
 	layout.add_child(buttons)
-	buttons.add_child(UiKit.button("恢復預設", _reset_current_tab, "只重設目前分頁"))
-	var back := UiKit.button("返回", close, "設定已自動儲存")
+	buttons.add_child(UiKit.button(_text("reset"), _reset_current_tab, _text("reset_hint")))
+	var back := UiKit.button(_text("back"), close, _text("back_hint"))
 	buttons.add_child(back)
 
 	_bind_hints(_tabs)
 	InputBindings.bindings_changed.connect(_refresh_bindings)
 	InputBindings.controller_options_changed.connect(_sync_controller_options)
 	_refresh_bindings()
-	_set_status("設定自動儲存。劇情語言於下次啟動套用。")
+	_set_status(_text("saved"))
 	_focus_first.call_deferred()
 
 
@@ -507,7 +538,7 @@ func _build_bindings_tab() -> Control:
 func _hold_rules_block() -> Control:
 	var block := VBoxContainer.new()
 	block.add_theme_constant_override(&"separation", 2)
-	var title := UiKit.label("按住與連按", 11, Palette.CYAN)
+	var title := UiKit.label(_text("hold"), 11, Palette.CYAN)
 	_indent(title)
 	block.add_child(title)
 	var rules := UiKit.label("", 11, Palette.UI_MUTED)
@@ -527,15 +558,15 @@ func _build_controller_tab() -> Control:
 	box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	box.add_theme_constant_override(&"separation", 10)
 	scroll.add_child(box)
-	box.add_child(_controller_row("aim_deadzone", "瞄準死區", "忽略右搖桿中心的微小偏移。", 10, 60))
+	box.add_child(_controller_row("aim_deadzone", _text("aim_deadzone"), _text("aim_deadzone_hint"), 10, 60))
 	_controller_invert = CheckButton.new()
-	_controller_invert.text = "反轉瞄準上下"
-	_controller_invert.tooltip_text = "反轉右搖桿上下瞄準方向。"
+	_controller_invert.text = _text("invert")
+	_controller_invert.tooltip_text = _text("invert_hint")
 	_controller_invert.focus_mode = Control.FOCUS_ALL
 	_controller_invert.button_pressed = InputBindings.get_invert_aim_y()
 	_controller_invert.toggled.connect(InputBindings.set_invert_aim_y)
 	box.add_child(_controller_invert)
-	box.add_child(_controller_row("vibration_strength", "震動強度", "調整射擊、受擊與格擋震動；0為關閉。", 0, 100))
+	box.add_child(_controller_row("vibration_strength", _text("vibration"), _text("vibration_hint"), 0, 100))
 	_controller_note = UiKit.label("", 11, Palette.UI_MUTED)
 	_controller_note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	box.add_child(_controller_note)
@@ -593,8 +624,13 @@ func _binding_key(action: StringName, slot: int) -> String:
 	return "%s:%d" % [action, slot]
 
 
+func _text(key: String) -> String:
+	var language := Story.language
+	return COPY[key][1 if language == "ja" else 2 if language == "en" else 0]
+
+
 func _refresh_bindings() -> void:
-	_controller_note.text = InputBindings.format("{inventory_prev_tab}/{inventory_next_tab}切換分頁；手把改鍵時%s短按可綁、長按取消。") % InputBindings.joy_label(&"ui_cancel")
+	_controller_note.text = InputBindings.format(_text("note")) % InputBindings.joy_label(&"ui_cancel")
 	var rules := Hud.hold_rules()
 	for label in _hold_rule_labels:
 		label.text = rules
@@ -609,12 +645,12 @@ func _refresh_bindings() -> void:
 func _refresh_capture_prompt() -> void:
 	if not _capturing:
 		return
-	_binding_buttons[_binding_key(_capture_action, _capture_slot)].text = "按下…"
+	_binding_buttons[_binding_key(_capture_action, _capture_slot)].text = _text("waiting")
 	var cancel_button := InputBindings.joy_label(&"ui_cancel")
 	if _capture_slot == JOY_SLOT:
-		_set_status("按新手把按鈕；%s短按綁定、長按0.6秒取消；Esc取消。" % cancel_button, Palette.WARNING)
+		_set_status(_text("capture_pad") % cancel_button, Palette.WARNING)
 	else:
-		_set_status("按新按鍵或滑鼠鍵；Esc或%s取消，Backspace清除。" % cancel_button, Palette.WARNING)
+		_set_status(_text("capture_key") % cancel_button, Palette.WARNING)
 
 
 func _begin_capture(action: StringName, slot: int) -> void:
@@ -645,6 +681,16 @@ func _input(event: InputEvent) -> void:
 			var step := -1 if event.is_action_pressed(&"inventory_prev_tab") else 1
 			_tabs.current_tab = posmod(_tabs.current_tab + step, _tabs.get_tab_count())
 			get_viewport().set_input_as_handled()
+		else:
+			var direction := 0
+			if event.is_action_pressed(&"aim_down") or event.is_action_pressed(&"ui_page_down"):
+				direction = 1
+			elif event.is_action_pressed(&"aim_up") or event.is_action_pressed(&"ui_page_up"):
+				direction = -1
+			if direction != 0:
+				var scroll := _tabs.get_tab_control(_tabs.current_tab) as ScrollContainer
+				if ScrollCue.step(scroll, direction):
+					get_viewport().set_input_as_handled()
 		return
 	if event is InputEventAction:
 		# 類比導航轉出的邏輯事件不能移走改鍵視窗焦點。

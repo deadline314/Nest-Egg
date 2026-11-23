@@ -15,6 +15,7 @@ static func run(suite: TestSuite) -> void:
 	await _check_bag(suite)
 	await _check_codex(suite)
 	await _check_hold_rules(suite)
+	await _check_input_copy_languages(suite)
 	InputBindings._set_device(was_gamepad, device)
 	await suite.frames(1)
 
@@ -229,6 +230,30 @@ static func _check_hold_rules(suite: TestSuite) -> void:
 	InputBindings.set_code(&"jump", 0, original)
 	settings.queue_free()
 	await suite.frames(2)
+
+
+static func _check_input_copy_languages(suite: TestSuite) -> void:
+	var previous_language := Story.language
+	var previous_key := InputBindings.get_code(&"jump", 0)
+	InputBindings._set_device(false, -1)
+	InputBindings.set_code(&"jump", 0, KEY_K)
+	for locale in ["en", "ja"]:
+		Story.set_language(locale)
+		var settings := SettingsScreen.new()
+		suite.runner.add_child(settings)
+		await suite.frames(3)
+		var judge := "Hold K" if locale == "en" else "K を長く"
+		suite.check(settings._hold_rule_labels.all(func(label: Label) -> bool: return label.text.begins_with(judge)),
+			"%s controls help shows the rebound key in both places" % locale)
+		suite.check(settings._controller_invert.text == ("Invert vertical aim" if locale == "en" else "上下の照準反転"),
+			"%s labels the original controller setting" % locale)
+		settings._begin_capture(&"jump", SettingsScreen.JOY_SLOT)
+		suite.check(settings._status.text.contains(InputBindings.joy_label(&"ui_cancel")) and settings._status.text.contains("0.6"),
+			"%s controller capture explains the same hold threshold and cancel button" % locale)
+		settings.queue_free()
+		await suite.frames(3)
+	InputBindings.set_code(&"jump", 0, previous_key)
+	Story.set_language(previous_language)
 
 
 ## 圖鑑：手把方向鍵移動焦點，B 關閉。
