@@ -3,7 +3,7 @@ extends Node
 const IDS := ["dagger", "blade", "maul", "glaive", "whip"]
 const OFFSETS := [20.0, 24.0, 24.0, 50.0, 72.0]
 const TARGETS := ["grunt", "collector_brute", "watchdog"]
-var output := "res://pm/Nest-Egg/attachments/NE-236-measurements.json"
+var output := "user://verification/weapon-balance.json"
 var samples: Array[Dictionary] = []
 var upgraded := false
 
@@ -18,6 +18,14 @@ func _ready() -> void:
 
 
 func _run() -> void:
+	var directory := output.get_base_dir()
+	var directory_error := OK if directory.is_empty() else DirAccess.make_dir_recursive_absolute(directory)
+	if directory_error == OK and not directory.is_empty() and not DirAccess.dir_exists_absolute(directory):
+		directory_error = ERR_CANT_CREATE
+	if directory_error != OK:
+		push_error("[weapon_balance_probe] Cannot create %s: %s" % [directory, error_string(directory_error)])
+		get_tree().quit(1)
+		return
 	Story.auto_skip = true
 	# headless 沒有繪製可見區域，與正式測試相同地停用畫面外的 activation culling。
 	Enemy.activation_culling_enabled = false
@@ -29,13 +37,23 @@ func _run() -> void:
 				await _sample(i, target, difficulty, false)
 	for i in IDS.size():
 		await _sample(i, "grunt", 1, true)
-	DirAccess.make_dir_recursive_absolute(output.get_base_dir())
+	await AudioRelease.settle(get_tree())
 	var file := FileAccess.open(output, FileAccess.WRITE)
+	if file == null:
+		push_error("[weapon_balance_probe] Cannot open %s: %s" % [output, error_string(FileAccess.get_open_error())])
+		get_tree().quit(1)
+		return
 	file.store_string(JSON.stringify({"engine": Engine.get_version_info().string, "hz": Engine.physics_ticks_per_second,
 		"method": "6s 60Hz Input.action_press/release polling taps every 8 ticks; target pinned at documented offset, real damage/reaction/charge; miss at +180px; wall-clock hitstop included",
 		"upgraded": upgraded, "samples": samples}, "\t") + "\n")
+	file.flush()
+	var saved := file.get_error()
 	file.close()
-	print("BALANCE_SAMPLES ", samples.size(), " ", output)
+	if saved != OK:
+		push_error("[weapon_balance_probe] Cannot save %s: %s" % [output, error_string(saved)])
+		get_tree().quit(1)
+		return
+	print("BALANCE_SAMPLES ", samples.size(), " ", ProjectSettings.globalize_path(output))
 	get_tree().quit()
 
 

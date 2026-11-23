@@ -3,16 +3,31 @@ extends Node
 const ViewportCapture := preload("res://tools/viewport_capture.gd")
 
 func _ready() -> void:
-	var out := "res://pm/Nest-Egg/images"
+	var out := "user://verification/scenery-stages"
 	var only := ""
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--out="):
 			out = arg.trim_prefix("--out=")
 		if arg.begins_with("--only="):
 			only = arg.trim_prefix("--only=")
-	DirAccess.make_dir_recursive_absolute(out)
+	var ids := StageLibrary.ids()
+	if not only.is_empty() and not ids.has(StringName(only)):
+		push_error("[stage_capture] Unknown stage: %s" % only)
+		get_tree().quit(1)
+		return
+	var directory_error := DirAccess.make_dir_recursive_absolute(out)
+	if directory_error == OK and not DirAccess.dir_exists_absolute(out):
+		directory_error = ERR_CANT_CREATE
+	if directory_error != OK:
+		push_error("[stage_capture] Cannot create %s: %s" % [out, error_string(directory_error)])
+		get_tree().quit(1)
+		return
+	if DisplayServer.get_name() == "headless":
+		push_error("[stage_capture] A rendering viewport is required.")
+		get_tree().quit(1)
+		return
 	add_child(LightKit.create_environment())
-	for id in StageLibrary.ids():
+	for id in ids:
 		if not only.is_empty() and String(id) != only:
 			continue
 		var stage := StageLibrary.build(id)
@@ -27,9 +42,13 @@ func _ready() -> void:
 		for i in 30:
 			await get_tree().process_frame
 		await RenderingServer.frame_post_draw
-		var path := "%s/BG-19-stage-%s.png" % [out, id]
-		ViewportCapture.image(get_viewport()).save_png(path)
-		print("[stage_capture] " + path)
+		var path := out.path_join("BG-19-stage-%s.png" % id)
+		var saved := ViewportCapture.image(get_viewport()).save_png(path)
+		if saved != OK:
+			push_error("[stage_capture] Cannot save %s: %s" % [path, error_string(saved)])
+			get_tree().quit(1)
+			return
+		print("[stage_capture] " + ProjectSettings.globalize_path(path))
 		stage.queue_free()
 		ambient.queue_free()
 		for i in 3:
