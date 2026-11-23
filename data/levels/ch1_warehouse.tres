@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=29 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=31 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Resource" path="res://data/throwables/crate_small.tres" id="2_crate_small"]
@@ -23,8 +23,9 @@
 [ext_resource type="Resource" path="res://data/enemies/watchdog.tres" id="21_watchdog"]
 [ext_resource type="Resource" path="res://data/npcs/ch1_pump_service.tres" id="22_ch1_pump_service"]
 [ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="23_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/warehouse_interior.tres" id="24_warehouse_interior"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch1_warehouse.tres" id="25_ch1_warehouse"]
+[ext_resource type="Resource" path="res://data/lighting/warehouse_quay.tres" id="24_warehouse_quay"]
+[ext_resource type="Resource" path="res://data/lighting/warehouse_interior.tres" id="25_warehouse_interior"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch1_warehouse.tres" id="26_ch1_warehouse"]
 
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("7_portal_data")
@@ -51,7 +52,13 @@ style = "road"
 script = ExtResource("23_lighting_zone")
 start_tile = 0
 blend_tiles = 12
-profile = ExtResource("24_warehouse_interior")
+profile = ExtResource("24_warehouse_quay")
+
+[sub_resource type="Resource" id="Resource_3"]
+script = ExtResource("23_lighting_zone")
+start_tile = 19
+blend_tiles = 10
+profile = ExtResource("25_warehouse_interior")
 
 [resource]
 script = ExtResource("1_level_data")
@@ -88,11 +95,12 @@ hints = PackedStringArray("留意大廳深處的看門狗，死亡後牠仍會�
 chapter = &"ch1_kasa"
 persistent_world = true
 show_chapter_card = false
-environment = ExtResource("25_ch1_warehouse")
+environment = ExtResource("26_ch1_warehouse")
 layout_path = "res://data/levels/ch1_warehouse_map.json"
-lighting_zones = Array[ExtResource("23_lighting_zone")]([SubResource("Resource_2")])
+lighting_zones = Array[ExtResource("23_lighting_zone")]([SubResource("Resource_2"), SubResource("Resource_3")])
 durable_channel_results = true
 channel_scenes = Dictionary[StringName, StringName]({&"watchdog_gate": &"ch1_c11_watchdog"})
 channel_done_flags = Dictionary[StringName, StringName]({&"watchdog_gate": &"watchdog_defeated", &"flood_c": &"ch1_flood_gate_open"})
 story_triggers = PackedStringArray("ch1_g07_dog", "ch1_g10_pit", "ch1_g10_pit2", "ch1_g10_cross")
+restrained_view_columns = Vector2i(3, 19)
 death_credit_cap = 250

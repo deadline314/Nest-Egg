@@ -96,6 +96,9 @@ const MAX_CHANNEL_RESULT_FLAGS := 64
 @export var environment: EnvironmentTheme
 @export_group("Atmosphere")
 @export var rain := true
+## Horizontal span in authored columns where the camera reveals less of the hall.
+## The zero vector disables this framing.
+@export var restrained_view_columns := Vector2i.ZERO
 ## 沒有光影區段時使用的霧顏色（有 lighting_zones 時由各區段的光影設定決定）。
 @export var fog_color := Color(0.55, 0.45, 0.85, 1.0)
 @export_group("Lighting")

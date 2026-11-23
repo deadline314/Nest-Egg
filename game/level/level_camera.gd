@@ -28,6 +28,9 @@ const LEDGE_MIN_DROP := 24.0
 const LEDGE_MARGIN := 12.0
 ## 背後的敵人和主角高度差超過這個值就不算（在別層樓）。
 const REAR_SCAN_HEIGHT := 160.0
+const RESTRAINED_VIEW_MARGIN := 80.0
+const RESTRAINED_MAX_LOOK_REDUCTION := 38.0
+const RESTRAINED_THREAT_RANGE := 300.0
 
 ## 目前用的構圖數值；換一組（例如依情境）直接指定即可，下一個物理影格生效。
 var tuning: CameraTuning = CameraTuning.profile()
@@ -46,6 +49,8 @@ var _fall_look := 0.0
 var _anchor_y := 0.0
 ## 背後交戰中的敵人要留在畫面裡所需的距離（世界像素，0＝背後沒有威脅）。
 var _rear_room := 0.0
+var _restrained_view := Vector2.ZERO
+var _engaged_nearby := false
 ## 畫面裡有敵人站在較高處時鏡頭要上抬的量（世界像素）：目標與目前值。
 var _lift_goal := 0.0
 var _lift := 0.0
@@ -92,6 +97,16 @@ func set_bounds(bounds: Rect2) -> void:
 	limit_top = int(bounds.position.y)
 	limit_right = int(bounds.end.x)
 	limit_bottom = int(bounds.end.y)
+
+
+func set_restrained_view(columns: Vector2i, tile: int, layout_width: int, resource_path: String) -> void:
+	_restrained_view = Vector2.ZERO
+	if columns == Vector2i.ZERO:
+		return
+	if columns.x < 0 or columns.y <= columns.x or columns.y > layout_width or tile <= 0:
+		push_warning("[LevelCamera] %s/restrained_view_columns: invalid interval %s" % [resource_path, columns])
+		return
+	_restrained_view = Vector2(columns) * tile
 
 
 ## 鎖住左界（頭目戰），鏡頭平滑推進。
@@ -249,9 +264,17 @@ static func base_zoom() -> float:
 ## 前瞻的目標距離：平常是 look_ahead；背後有交戰中的敵人時縮小，讓牠和一點邊距留在畫面裡。
 func _look_goal() -> float:
 	if _rear_room <= 0.0:
-		return tuning.look_ahead
+		return maxf(0.0, tuning.look_ahead - _restrained_look())
 	var aim_forward := maxf(0.0, _aim_look.x * _facing())
 	return clampf(_rear_forward_room() - aim_forward, 0.0, tuning.look_ahead)
+
+
+func _restrained_look() -> float:
+	if _restrained_view == Vector2.ZERO or _engaged_nearby or not is_instance_valid(target) or Settings.get_reduce_ui_motion():
+		return 0.0
+	var x := target.global_position.x
+	var distance_from_edge := minf(x - _restrained_view.x, _restrained_view.y - x)
+	return RESTRAINED_MAX_LOOK_REDUCTION * smoothstep(0.0, RESTRAINED_VIEW_MARGIN, distance_from_edge)
 
 
 func _rear_forward_room() -> float:
@@ -264,6 +287,7 @@ func _rear_forward_room() -> float:
 func _scan_threats() -> void:
 	_rear_room = 0.0
 	_lift_goal = 0.0
+	_engaged_nearby = false
 	if not is_instance_valid(target) or not is_inside_tree():
 		return
 	var facing := _facing()
@@ -276,9 +300,11 @@ func _scan_threats() -> void:
 		if enemy == null or enemy.is_dying():
 			continue
 		var delta := enemy.global_position - origin
-		if tuning.rear_watch_range > 0.0 and enemy.is_engaged():
+		if (tuning.rear_watch_range > 0.0 or _restrained_view != Vector2.ZERO) and enemy.is_engaged() and absf(delta.y) <= REAR_SCAN_HEIGHT:
+			if _restrained_view != Vector2.ZERO and absf(delta.x) <= RESTRAINED_THREAT_RANGE:
+				_engaged_nearby = true
 			var behind := -delta.x * facing
-			if behind > 0.0 and behind <= tuning.rear_watch_range and absf(delta.y) <= REAR_SCAN_HEIGHT:
+			if behind > 0.0 and behind <= tuning.rear_watch_range:
 				_rear_room = maxf(_rear_room, behind + tuning.rear_margin)
 		var rise := -delta.y
 		if tuning.above_max_lift > 0.0 and rise > 0.0 and rise <= tuning.above_watch_range and absf(delta.x) <= view.x + tuning.look_ahead:

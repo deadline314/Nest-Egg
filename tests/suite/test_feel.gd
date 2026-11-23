@@ -18,6 +18,7 @@ func run() -> void:
 	await _test_camera()
 	_test_camera_tuning()
 	_test_camera_retreat()
+	await _test_restrained_warehouse_view()
 	await _test_camera_rear_threat()
 	await _test_camera_ledge_peek()
 	await _test_sound_events()
@@ -218,6 +219,36 @@ func _test_camera_tuning() -> void:
 	for key: String in CameraTuning.FIELDS:
 		var spec: Array = CameraTuning.FIELDS[key]
 		check(float(spec[1]) <= float(spec[0]) and float(spec[0]) <= float(spec[2]), "default %s is inside its own range" % key)
+
+
+func _test_restrained_warehouse_view() -> void:
+	var warehouse := load("res://data/levels/ch1_warehouse.tres") as LevelData
+	var layout := LevelBuilder.parse(warehouse)
+	var camera := LevelCamera.new()
+	var dummy := Node2D.new()
+	var reduce_motion := Settings.get_reduce_ui_motion()
+	Settings.set_reduce_ui_motion(false)
+	var span := warehouse.restrained_view_columns
+	camera.target = dummy
+	camera.set_restrained_view(span, layout.tile_size, layout.width, warehouse.resource_path)
+	dummy.position.x = span.x * layout.tile_size
+	check(is_equal_approx(camera._look_goal(), camera.tuning.look_ahead), "camera reveal blends in from the entry edge")
+	dummy.position.x = (span.x + span.y) * layout.tile_size * 0.5
+	var restrained := camera._look_goal()
+	check(restrained < camera.tuning.look_ahead - 20.0, "warehouse threshold delays the horizontal reveal")
+	camera._engaged_nearby = true
+	check(is_equal_approx(camera._look_goal(), camera.tuning.look_ahead), "nearby engaged enemies restore the full forward view")
+	camera._engaged_nearby = false
+	Settings.set_reduce_ui_motion(true)
+	check(is_equal_approx(camera._look_goal(), camera.tuning.look_ahead), "reduced motion retains the usual camera framing")
+	Settings.set_reduce_ui_motion(reduce_motion)
+	dummy.position.x = span.y * layout.tile_size
+	check(is_equal_approx(camera._look_goal(), camera.tuning.look_ahead), "normal framing returns past the threshold")
+	check(warehouse.lighting_zones.size() == 2 and warehouse.lighting_zones[0].profile.id == warehouse.lighting_zones[1].profile.id,
+			"visual shift leaves the warehouse audio zone active")
+	dummy.free()
+	camera.free()
+	await frames(1)
 
 
 func _test_camera_retreat() -> void:

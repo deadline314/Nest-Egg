@@ -338,6 +338,7 @@ func _build_entry() -> void:
 	camera = LevelCamera.new()
 	add_child(camera)
 	camera.set_bounds(Rect2(Vector2.ZERO, _layout.pixel_size()))
+	camera.set_restrained_view(data.restrained_view_columns, _layout.tile_size, _layout.width, data.resource_path)
 	camera.target = player
 	camera.snap_to_target()
 	# 恢復arena會鎖camera；須在玩家與鏡頭完成初始化後領回runtime。

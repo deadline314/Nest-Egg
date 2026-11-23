@@ -30,7 +30,6 @@ TILE = 16
 # ---------------------------------------------------------------------------
 RES = {
     '⒧': 'res://data/npcs/ch1_ledger_box.tres',
-    '⒫': 'res://data/npcs/ch1_pump_service.tres',
     # 敵人
     'g': 'res://data/enemies/sweeper.tres',
     'k': 'res://data/enemies/collector_gunner.tres',
@@ -908,7 +907,9 @@ def build_warehouse_full():
     a.trigger(135, 'ch1_g10_cross')
     a.prop('dock_warehouse__floor_switch_plate', 121, y=22, dx=-3)
     a.prop('dock_warehouse__water_pump', 86, react='pump_case_service')
-    a.stand(86, '⒫')
+    # The same glyph belongs to different actors in later chapters.
+    DYN_RES['ⓟ'] = 'res://data/npcs/ch1_pump_service.tres'
+    a.stand(86, 'ⓟ')
     a.prop('dock_warehouse__float_drum_crate', 106, y=10)
     a.encounter('坑對岸', 134, 140, [(137, 'g'), (140, 'g')])
     # 保險箱 x=142～166：鎖場，迷你頭目 B（督察），資料盤在裡面
@@ -1011,7 +1012,8 @@ def _build_warehouse_pair_v1():
     cut = 142
     front = slice_area(full, 'warehouse', '碼頭倉庫', 0, cut, 0, 24)
     back = slice_area(full, 'vault', '倉庫深處', cut, 244, 22, 0)
-    front.zone(0, 'warehouse_interior')
+    front.zone(0, 'warehouse_quay')
+    front.zone(19, 'warehouse_interior', blend=10)
     back.zone(0, 'warehouse_interior')
     front.stand(front.w - 4, 'U')
     front.hint(front.w - 9, '進入前方的倉庫深處，保險箱旁有守衛。')
@@ -1819,7 +1821,7 @@ def main():
     write_level(by_id['rooftop'])
     write_level(by_id['street'])
     write_level(by_id['booth_alley'])
-    write_level(by_id['warehouse'])
+    write_level(by_id['warehouse'], restrained_view_columns='Vector2i(3, 19)')
     write_level(by_id['vault'])
     write_level(by_id['handoff'])
     write_level(by_id['lounge'])
