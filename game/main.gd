@@ -16,6 +16,34 @@ const AREA_SAVE_FAILURE_TRANSLATIONS: Dictionary[String, String] = {
 	"en": "Could not save this area. Try again. Your last save is intact.",
 }
 
+const SAVE_MENU_NOTICES := {
+	"unsupported": [
+		"此版本無法讀取存檔。原檔已保留，請使用相容的遊戲版本。",
+		"このセーブは読み込めません。元のデータは残っています。対応するバージョンを使ってください。",
+		"This version cannot read your save. It was kept. Use a compatible game version.",
+	],
+	"unreadable": [
+		"存檔讀取失敗，原檔已保留。可開始新遊戲。",
+		"セーブを読み込めませんでした。元のデータは残っています。新しく始めることもできます。",
+		"Could not read your save. It was kept. You can start a new game.",
+	],
+	"backup": [
+		"已從備份恢復進度，可以繼續遊戲。",
+		"バックアップから復元しました。ゲームを再開できます。",
+		"Your backup was recovered. You can continue.",
+	],
+	"new_run": [
+		"已恢復先前確認的新遊戲，可以繼續遊戲。",
+		"開始した新しいゲームを復元しました。続きから再開できます。",
+		"Your new game was recovered. You can continue.",
+	],
+	"legacy": [
+		"舊版只保存故事，無法繼續整輪。可開始新遊戲，原故事檔會保留。",
+		"旧版はストーリーのみを保存します。元のデータを残したまま、新しく始められます。",
+		"The old save contains story progress only. You can start a new game and keep it.",
+	],
+}
+
 var _result_completion: Node
 var _world_item_completion: Node
 var _training_completion: Node
@@ -168,21 +196,30 @@ func _read_continue() -> Dictionary:
 func _save_notice(lineage: Dictionary) -> String:
 	var notices: Array = _continue_data.get("notices", [])
 	if _run_store.unknown_version:
-		var detail := _run_store.player_issue()
-		return detail if detail.contains("版本") else "存檔版本較新，請更新遊戲或明確覆寫。"
+		if _run_store.required_edition != null:
+			return _edition_save_notice(_run_store.required_edition, false)
+		return _save_menu_text("unsupported")
 	if not _import_path.is_empty():
 		return _edition_save_notice(lineage["edition"], true)
 	if lineage.has("newer"):
 		return _edition_save_notice(lineage["newer"], false)
-	if not _run_store.issues.is_empty():
-		if _continue_data.is_empty():
-			return "存檔讀取失敗（%s），原檔已保留；可開始新遊戲。" % _run_store.player_issue()
-		return "已從備份恢復進度，可以繼續遊戲。"
+	match _run_store.read_recovery:
+		RunSaveStore.ReadRecovery.BACKUP:
+			return _save_menu_text("backup")
+		RunSaveStore.ReadRecovery.NEW_RUN:
+			return _save_menu_text("new_run")
+	if not _run_store.issues.is_empty() and _continue_data.is_empty():
+		return _save_menu_text("unreadable")
 	if not notices.is_empty():
 		return notices[0]
 	if _continue_data.is_empty() and FileAccess.file_exists(GameState.STORY_SAVE_PATH):
-		return "舊版只保存故事，無法繼續整輪；可開始新遊戲，原故事檔會保留。"
+		return _save_menu_text("legacy")
 	return ""
+
+
+static func _save_menu_text(key: String) -> String:
+	var language := maxi(0, StoryLocale.LANGUAGES.find(Story.language))
+	return SAVE_MENU_NOTICES[key][language]
 
 
 static func _edition_save_notice(edition: CampaignEdition, can_resume: bool) -> String:

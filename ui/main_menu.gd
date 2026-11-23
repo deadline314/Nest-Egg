@@ -177,12 +177,15 @@ func _build_main_page() -> void:
 	list.resized.connect(func() -> void: _hint.position.y = list.position.y + list.size.y + 8)
 	_hint.position.y = list.position.y + list.size.y + 8
 	if not save_notice.is_empty():
-		var notice := UiKit.label(save_notice, UiKit.FS_BODY, Palette.UI_MUTED)
-		# 先開自動換行再定尺寸；反過來的話 Label 會先撐到整行文字寬，長說明超出畫面。
+		var notice_panel := PanelContainer.new()
+		notice_panel.theme_type_variation = &"TooltipPanel"
+		notice_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		notice_panel.position = Vector2(310, 225)
+		notice_panel.custom_minimum_size.x = 300.0
+		_main_page.add_child(notice_panel)
+		var notice := UiKit.label(save_notice)
 		notice.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		notice.position = Vector2(310, 250)
-		notice.size = Vector2(300, 64)
-		_main_page.add_child(notice)
+		notice_panel.add_child(notice)
 
 	_menu_legend = _add_legend(_main_page)
 	_menu_legend.position = Vector2(38, 334)

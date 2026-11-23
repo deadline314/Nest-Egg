@@ -47,7 +47,7 @@ static func prepare(raw: Dictionary) -> Dictionary:
 	if not edition.includes_level(level):
 		# 較新累積版本寫的存檔：不降級、不覆寫，說明該用哪個版本。
 		return {"error": "存檔停在%s，本版本只到%s；請用「%s」繼續，原檔保留。" % [edition.chapter_title(level.chapter), edition.chapter_title(edition.through), origin.title()],
-			"unknown_version": true, "newer_edition": true}
+			"unknown_version": true, "newer_edition": true, "required_edition": origin if origin.includes_level(level) else null}
 	for key in ["state", "progression", "story", "navigation", "runtime"]:
 		if not raw.get(key) is Dictionary:
 			return {"error": "run/%s缺漏或型別不符，不能套用半份存檔" % key}

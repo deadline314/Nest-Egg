@@ -130,6 +130,7 @@ func run() -> void:
 	file.close()
 	check(store.read()["progression"]["credits"] == 0, "corrupt primary restores previous complete backup")
 	check(not store.issues.is_empty() and store.issues[-1].contains(store.path), "backup recovery names real path")
+	check(store.read_recovery == RunSaveStore.ReadRecovery.BACKUP, "an intact fallback reports backup recovery")
 	check(store.write(valid), "repair keeps valid backup and writes complete primary")
 	file = FileAccess.open(store.path, FileAccess.WRITE)
 	file.store_string('{"version":999}')
@@ -198,10 +199,12 @@ func run() -> void:
 		if phase >= 3:
 			DirAccess.rename_absolute(absolute + ".freshbak", absolute + ".bak")
 		check(interrupted.read()["progression"]["credits"] == 99, "marked rename window recovers new round rather than archived old round: %d" % phase)
+		check(interrupted.read_recovery == RunSaveStore.ReadRecovery.NEW_RUN, "pending confirmed new run has its own recovery notice")
 		file = FileAccess.open(interrupted.path, FileAccess.WRITE)
 		file.store_string("{}")
 		file.close()
 		check(interrupted.read()["progression"]["credits"] == 99 and not FileAccess.file_exists(interrupted.path + ".newrun"), "recovery resolves marker and retains matching new-round backup: %d" % phase)
+		check(interrupted.read_recovery == RunSaveStore.ReadRecovery.BACKUP, "a later backup read does not inherit a stale confirmed new-run notice")
 	var future_pending := RunSaveStore.new(directory.path_join("unknown_transaction.json"))
 	future_pending.validator = RunSnapshot.prepare
 	check(future_pending.write(valid, true), "future transaction fixture begins with valid slot")

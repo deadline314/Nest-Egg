@@ -5,9 +5,13 @@ extends RefCounted
 ## 開發版的槽；實際預設槽依目前累積版本（CampaignEdition.slot_path），各版本各自一個目錄。
 const DEFAULT_PATH := "user://runs/demo-0.1/slot-1.json"
 const MAX_EDITION_DIRS := 32
+
+enum ReadRecovery { NONE, BACKUP, NEW_RUN }
 var path: String
 var issues := PackedStringArray()
 var unknown_version := false
+var read_recovery := ReadRecovery.NONE
+var required_edition: CampaignEdition
 var validator: Callable
 var overwrite_authorized := false
 
@@ -77,10 +81,14 @@ func exists() -> bool:
 func read() -> Dictionary:
 	issues.clear()
 	unknown_version = false
+	read_recovery = ReadRecovery.NONE
+	required_edition = null
 	if FileAccess.file_exists(path + ".newrun"):
 		var recovery := _recover_new_run()
 		unknown_version = recovery.get("unknown_version", false)
+		required_edition = recovery.get("required_edition") as CampaignEdition
 		if recovery.has("data"):
+			read_recovery = ReadRecovery.NEW_RUN
 			issues.append("%s：恢復已確認但被中斷的新輪存檔。" % path)
 			return recovery["data"]
 		_failure(path + ".newrun", recovery.get("error", "新輪交易無法恢復，原件保留"))
@@ -92,10 +100,12 @@ func read() -> Dictionary:
 		unknown_version = unknown_version or result.get("unknown_version", false)
 		if result.has("data"):
 			if candidate != path:
+				read_recovery = ReadRecovery.BACKUP
 				issues.append("%s：主檔無效，使用完整備份續玩。" % path)
 			return result["data"]
 		issues.append("%s：%s" % [candidate, result.get("error", "讀取失敗")])
 		if result.get("unknown_version", false):
+			required_edition = result.get("required_edition") as CampaignEdition
 			return {}  # 較新主檔不降級到舊備份並持續覆寫。
 	return {}
 
@@ -275,7 +285,8 @@ func _recover_new_run() -> Dictionary:
 	for suffix: String in ["", ".bak"]:
 		var existing := _read_file(path + suffix) if FileAccess.file_exists(path + suffix) else {}
 		if existing.get("unknown_version", false):
-			return {"error": "%s版本較新，新輪恢復未覆寫原件" % [path + suffix], "unknown_version": true}
+			return {"error": "%s版本較新，新輪恢復未覆寫原件" % [path + suffix],
+				"unknown_version": true, "required_edition": existing.get("required_edition")}
 	var checksum: String = parsed["checksum"]
 	var candidate := ""
 	var recovered: Dictionary = {}

@@ -51,6 +51,21 @@ static func run(s: TestSuite) -> void:
 	legacy["level"] = LEGACY
 	var newer := RunSnapshot.prepare(legacy)
 	s.check(newer.get("newer_edition", false) and newer.get("unknown_version", false) and str(newer.get("error")).contains("原檔保留"), "save standing in a chapter outside this edition is protected, not loaded")
+	s.check(newer.get("required_edition") == null, "a release that does not contain the level is never offered as a compatible version")
+	var later_save := saved.duplicate(true)
+	later_save["release"] = ch2.id
+	later_save["level"] = "res://data/levels/ch2_pawnshop.tres"
+	var later_path := ROOT.path_join("named-version.json")
+	_write_text(later_path, RunSaveCodec.encode(later_save))
+	var later_store := RunSaveStore.new(later_path)
+	later_store.validator = RunSnapshot.prepare
+	var original_later_hash := FileAccess.get_sha256(later_path)
+	s.check(later_store.read().is_empty() and later_store.unknown_version
+			and later_store.required_edition != null and later_store.required_edition.id == ch2.id
+			and FileAccess.get_sha256(later_path) == original_later_hash, "slot reports the edition that can open a known later chapter without modifying the original")
+	_write_text(later_path, RunSaveCodec.encode(saved))
+	s.check(not later_store.read().is_empty() and not later_store.unknown_version and later_store.required_edition == null,
+			"reading a current slot clears the previous version suggestion")
 	var from_dev := saved.duplicate(true)
 	from_dev["release"] = "demo-0.1"
 	s.check(RunSnapshot.prepare(from_dev).has("data"), "development save inside the edition's chapters still continues")
