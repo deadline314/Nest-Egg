@@ -13,6 +13,7 @@ func run() -> void:
 	await _test_game_boots_to_menu()
 	await _test_main_menu()
 	await _test_title_language()
+	await _test_overwrite_prompt_language()
 	await preload("res://tests/helpers/radio_prompt_checks.gd").run(self)
 	await preload("res://tests/helpers/destination_prompt_checks.gd").run(self)
 	await _test_codex()
@@ -752,3 +753,26 @@ func _test_hd_portrait() -> void:
 	await frames(3)
 	check(is_instance_valid(missing), "a missing character does not crash the page")
 	missing.queue_free()
+
+
+func _test_overwrite_prompt_language() -> void:
+	var previous_language := Story.language
+	for entry: Array in [
+		["zh", "保留原進度", "覆寫並出發", "返回難度選擇，保留原存檔。"],
+		["ja", "現在のセーブを保持", "上書きして開始", "セーブを保持して難易度選択に戻ります。"],
+		["en", "Keep save", "Replace and start", "Return to difficulty selection and keep your save."],
+	]:
+		Story.language = entry[0]
+		var prompt := RunOverwritePrompt.new()
+		runner.add_child(prompt)
+		await frames(3)
+		var buttons := prompt.find_children("*", "Button", true, false)
+		check(buttons.size() == 2, "save overwrite has a safe action and a separate destructive action")
+		var replace := buttons[1] as Button
+		check(prompt.cancel_button.text == entry[1] and replace.text == entry[2]
+				and prompt.cancel_button.tooltip_text == entry[3], "save consent and focus help are readable in " + entry[0])
+		check(runner.get_viewport().gui_get_focus_owner() == prompt.cancel_button
+				and not replace.tooltip_text.is_empty(), "the non-destructive action remains the default")
+		prompt.queue_free()
+		await frames(2)
+	Story.language = previous_language
