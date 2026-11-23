@@ -710,6 +710,43 @@ func _test_ch2_connections(catalog: QuestCatalog) -> void:
 		check(button.tooltip_text == portal.locked_text_for(Story.language), "the map uses the same reason as the live door")
 		await _key(KEY_ENTER)
 		check(screen._map_path == LOADING, "confirming a blocked door leaves the player on the origin map")
+	var gate_filter := _find_legend_button(screen, "gate")
+	var exit_filter := _find_legend_button(screen, "exit")
+	check(gate_filter != null and gate_filter.button_pressed and exit_filter != null and exit_filter.button_pressed,
+			"area marker categories start visible")
+	if gate_filter != null:
+		var terrain := screen._canvas._texture
+		var rect := screen._canvas._map_rect
+		var saved_navigation := screen.state.snapshot()
+		gate_filter.grab_focus()
+		await _key(KEY_ENTER)
+		check(_find_map_marker(screen._canvas, local_key) == null and _find_map_marker(screen._canvas, "marker:player") != null,
+				"hiding gates removes the discovered locked portal and keeps the player visible")
+		check(gate_filter.has_focus() and screen._status.text == gate_filter.tooltip_text and not gate_filter.button_pressed,
+				"the filter keeps keyboard focus and updates its action hint")
+		check(screen._canvas._texture == terrain and screen._canvas._map_rect == rect and screen.state.snapshot() == saved_navigation,
+				"changing marker visibility leaves terrain, center and saved discovery unchanged")
+		screen.show_page("world")
+		await frames(2)
+		check(not _find_legend_button(screen, "blocked").toggle_mode, "world legend describes route states without filtering them")
+		screen.go_back()
+		await frames(3)
+		gate_filter = _find_legend_button(screen, "gate")
+		check(not gate_filter.button_pressed and _find_map_marker(screen._canvas, local_key) == null,
+				"returning to the area keeps the active marker filter")
+	var original_scale := Settings.get_ui_text_scale()
+	Settings.set_ui_text_scale(1.2)
+	screen._build()
+	await frames(4)
+	gate_filter = _find_legend_button(screen, "gate")
+	if gate_filter != null:
+		gate_filter.grab_focus()
+		await frames(3)
+		check(screen._body.get_global_rect().grow(0.5).encloses(gate_filter.get_global_rect()),
+				"focusing the last filter at 120% scrolls it fully into view")
+	Settings.set_ui_text_scale(original_scale)
+	screen._build()
+	await frames(4)
 	var centers := {LOADING: Vector2.ZERO, MARKET: Vector2.ONE}
 	var pair := [LOADING, MARKET]
 	check(screen._canvas._world_connection_states(centers)[pair] == QuestMapCanvas.WORLD_BLOCKED,
@@ -732,7 +769,16 @@ func _test_ch2_connections(catalog: QuestCatalog) -> void:
 	check(screen._canvas._world_connection_states(centers)[pair] == QuestMapCanvas.WORLD_OPEN,
 			"unlocking the discovered route updates the world link")
 	button = _find_map_marker(screen._canvas, local_key)
-	check(button != null and button.text == QuestMapCanvas.SYMBOLS["exit"], "the same bridge marker becomes a link on unlock")
+	check(button != null and button.text == QuestMapCanvas.SYMBOLS["exit"], "a new open link appears even when gates are hidden")
+	exit_filter = _find_legend_button(screen, "exit")
+	if exit_filter != null:
+		exit_filter.grab_focus()
+		await _joy(JOY_BUTTON_A)
+		check(_find_map_marker(screen._canvas, local_key) == null and not exit_filter.button_pressed,
+				"gamepad confirmation hides the open entrance")
+		await _joy(JOY_BUTTON_A)
+		button = _find_map_marker(screen._canvas, local_key)
+		check(button != null and exit_filter.button_pressed, "restoring open entrances returns the discovered bridge")
 	if button != null:
 		button.grab_focus()
 		await _joy(JOY_BUTTON_A)
@@ -755,6 +801,13 @@ func _test_ch2_connections(catalog: QuestCatalog) -> void:
 	screen.queue_free()
 	await frames(2)
 	GameState.world_flags = old_flags
+
+
+func _find_legend_button(screen: QuestMapScreen, kind: String) -> Button:
+	for button in screen._buttons:
+		if button.get_meta(&"nav_key", "") == "legend:" + kind:
+			return button
+	return null
 
 
 func _portal_marker_key(maps: QuestMapIndex, path: String, id: StringName) -> String:

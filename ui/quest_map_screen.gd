@@ -64,6 +64,7 @@ var _completed := false
 var _selected := ""
 var _display_language := ""
 var _map_path := ""
+var _hidden_marker_kinds: Dictionary[String, bool] = {}
 var _history: Array[Dictionary] = []
 var _body: Control
 var _footer: HBoxContainer
@@ -609,8 +610,17 @@ func _build_map(map_zoom: float, pan_center: Vector2) -> void:
 	var info := VBoxContainer.new()
 	info.custom_minimum_size.x = INFO_WIDTH
 	info.add_theme_constant_override(&"separation", 3)
-	columns.add_child(info)
 	var world_mode := _page == "world"
+	if world_mode:
+		columns.add_child(info)
+	else:
+		var sidebar := ScrollContainer.new()
+		sidebar.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+		sidebar.follow_focus = true
+		info.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		columns.add_child(sidebar)
+		sidebar.add_child(info)
+		ScrollCue.attach(sidebar)
 	var showing_source := not reference_location.is_empty()
 	var source_copy: Dictionary = SOURCE_MAP_COPY.get(_display_language, SOURCE_MAP_COPY["zh"])
 	var area_caption := _text(["目前區域", "現在のエリア", "Current area"]) if _map_path == player_path else _text(["查看中的區域", "表示中のエリア", "Viewing area"])
@@ -655,7 +665,9 @@ func _build_map(map_zoom: float, pan_center: Vector2) -> void:
 				tool.toggled.connect(func(_pressed: bool) -> void: _update_pan_hint())
 				tool.gui_input.connect(_on_pan_input)
 				tool.focus_exited.connect(func() -> void: tool.set_pressed_no_signal(false))
-	info.add_child(FlatStyle.section(_text(["圖例", "凡例", "Legend"])))
+	var filter_markers := not world_mode and not showing_source
+	var legend_heading := ["圖例篩選", "表示切替", "Map filters"] if filter_markers else ["圖例", "凡例", "Legend"]
+	info.add_child(FlatStyle.section(_text(legend_heading)))
 	if world_mode:
 		for item: Array in WORLD_LEGEND:
 			_add_map_legend(info, item[0], item[1], item[2], _text(item[3]), _text(item[4]))
@@ -664,7 +676,9 @@ func _build_map(map_zoom: float, pan_center: Vector2) -> void:
 			var source_marker: bool = showing_source and item[0] == "goal"
 			var text: String = source_copy["marker"] if source_marker else _text(item[1])
 			var tip: String = source_copy["hint"] if source_marker else _text(item[2])
-			_add_map_legend(info, item[0], QuestMapCanvas.SYMBOLS[item[0]], QuestMapCanvas.COLORS[item[0]], text, tip)
+			var kind: String = item[0]
+			var can_hide := filter_markers and kind != "player" and kind != "goal"
+			_add_map_legend(info, kind, QuestMapCanvas.SYMBOLS[kind], QuestMapCanvas.COLORS[kind], text, tip, can_hide)
 	var frame := PanelContainer.new()
 	frame.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var frame_box := StyleBoxFlat.new()
@@ -681,6 +695,8 @@ func _build_map(map_zoom: float, pan_center: Vector2) -> void:
 	_canvas.player_position = player_position
 	_canvas.world_mode = world_mode
 	_canvas.allow_portal_links = not showing_source
+	if filter_markers:
+		_canvas.hidden_marker_kinds = _hidden_marker_kinds
 	_canvas.language = _display_language
 	_canvas.zoom = map_zoom
 	_canvas.pan_center = pan_center
@@ -705,7 +721,7 @@ func _build_map(map_zoom: float, pan_center: Vector2) -> void:
 	_canvas.queue_refresh()
 
 
-func _add_map_legend(info: Container, id: String, symbol: String, color: Color, title: String, tip: String) -> void:
+func _add_map_legend(info: Container, id: String, symbol: String, color: Color, title: String, tip: String, can_hide := false) -> void:
 	var button := UiKit.button("　 " + title, Callable(), tip)
 	button.set_meta(&"nav_key", "legend:" + id)
 	FlatStyle.chip(button)
@@ -715,6 +731,23 @@ func _add_map_legend(info: Container, id: String, symbol: String, color: Color, 
 	button.add_child(glyph)
 	info.add_child(button)
 	_buttons.append(button)
+	if not can_hide:
+		return
+	button.toggle_mode = true
+	button.set_pressed_no_signal(not _hidden_marker_kinds.has(id))
+	var update_display := func(shown: bool) -> void:
+		glyph.add_theme_color_override(&"font_color", color if shown else Palette.UI_LINE_OFF)
+		var copy := ["隱藏%s標記。", "%sのマーカーを隠します。", "Hide %s markers."] if shown else ["顯示%s標記。", "%sのマーカーを表示します。", "Show %s markers."]
+		button.tooltip_text = _text(copy) % title
+	update_display.call(button.button_pressed)
+	button.toggled.connect(func(shown: bool) -> void:
+		if shown:
+			_hidden_marker_kinds.erase(id)
+		else:
+			_hidden_marker_kinds[id] = true
+		update_display.call(shown)
+		_status.text = button.tooltip_text
+		_canvas.refresh())
 
 
 func _world_for_area(data: LevelData) -> Dictionary:

@@ -39,6 +39,7 @@ var flags: Dictionary = {}
 var world: Dictionary = {}
 var world_mode := false
 var allow_portal_links := true
+var hidden_marker_kinds: Dictionary[String, bool] = {}
 var latest_checkpoint_position := Vector2.INF
 var language := StoryLocale.SOURCE_LANGUAGE
 ## 世界地圖的區域名稱是否折成兩行（欄寬放不下一行時）。
@@ -204,11 +205,14 @@ func _region_map() -> void:
 		var can_open_map := false
 		if portal != null:
 			if not QuestMapIndex.portal_is_open(portal, flags):
-				symbol = SYMBOLS["gate"]
-				color = COLORS["gate"]
+				kind = "gate"
+				symbol = SYMBOLS[kind]
+				color = COLORS[kind]
 			elif allow_portal_links and not destination.is_empty():
 				can_open_map = true
 				text = _text(["查看%s的地圖。", "%sの地図を開きます。", "View the map for %s."]) % destination
+		if hidden_marker_kinds.has(kind):
+			continue
 		if not _view.grow(1).has_point(point):
 			if not destination.is_empty():
 				_edge_label(point, destination, color)
