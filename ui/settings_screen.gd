@@ -147,6 +147,7 @@ var _cancel_hold_pressed := false
 var _capturing := false
 var _capture_action: StringName = &""
 var _capture_slot := 0
+var _capture_error := ""
 
 
 func _ready() -> void:
@@ -223,7 +224,8 @@ func _bind_hints(node: Node) -> void:
 
 
 func _show_control_hint(control: Control) -> void:
-	_set_status(control.tooltip_text)
+	if not _capturing:
+		_set_status(control.tooltip_text)
 
 
 func close() -> void:
@@ -733,6 +735,9 @@ func _refresh_capture_prompt() -> void:
 	if not _capturing:
 		return
 	_binding_buttons[_binding_key(_capture_action, _capture_slot)].text = _text("waiting")
+	if not _capture_error.is_empty():
+		_set_status(_capture_error, Palette.DANGER)
+		return
 	var cancel_button := InputBindings.joy_label(&"ui_cancel")
 	if _capture_slot == JOY_SLOT:
 		_set_status(_text("capture_pad") % cancel_button, Palette.WARNING)
@@ -752,6 +757,7 @@ func _cancel_capture() -> void:
 	if not _capturing:
 		return
 	_capturing = false
+	_capture_error = ""
 	_cancel_hold_pressed = false
 	_cancel_hold.stop()
 	_refresh_bindings()
@@ -808,7 +814,8 @@ func _input(event: InputEvent) -> void:
 func _capture_joy(button: int) -> void:
 	var reason := InputBindings.joy_binding_error(_capture_action, button)
 	if not reason.is_empty():
-		_set_status(reason, Palette.DANGER)
+		_capture_error = reason
+		_refresh_capture_prompt()
 		return
 	_finish_capture(InputBindings.set_joy_button(_capture_action, button))
 
@@ -824,7 +831,8 @@ func _capture_code(code: int) -> void:
 		return
 	var reason := InputBindings.key_binding_error(_capture_action, _capture_slot, code)
 	if not reason.is_empty():
-		_set_status(reason, Palette.DANGER)
+		_capture_error = reason
+		_refresh_capture_prompt()
 		return
 	_finish_capture(InputBindings.set_code(_capture_action, _capture_slot, code))
 
@@ -832,6 +840,7 @@ func _capture_code(code: int) -> void:
 func _finish_capture(swapped: StringName) -> void:
 	var action := _capture_action
 	_capturing = false
+	_capture_error = ""
 	_cancel_hold_pressed = false
 	_cancel_hold.stop()
 	_refresh_bindings()

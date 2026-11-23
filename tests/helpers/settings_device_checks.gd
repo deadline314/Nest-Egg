@@ -10,6 +10,7 @@ static func run(suite: TestSuite) -> void:
 	suite.runner.add_child(settings)
 	await suite.frames(4)
 	suite.check(await _exercise(suite, settings), "all settings device/capture stages complete")
+	await _capture_feedback(suite, settings)
 	await _quality_hints(suite, settings)
 	InputBindings.set_joy_button(&"jump", joy[&"jump"])
 	InputBindings.set_code(&"jump", 0, codes[&"jump"][0])
@@ -127,6 +128,38 @@ static func _tap(suite: TestSuite, event: InputEvent) -> void:
 static func _send(event: InputEvent) -> void:
 	Input.parse_input_event(event)
 	Input.flush_buffered_events()
+
+
+static func _capture_feedback(suite: TestSuite, settings: SettingsScreen) -> void:
+	if not await _begin(suite, settings, 0, false):
+		return
+	var focus: Control = suite.runner.get_viewport().gui_get_focus_owner()
+	var key: Button = settings._binding_buttons[settings._binding_key(&"jump", 1)]
+	var pad: Button = settings._binding_buttons[settings._binding_key(&"jump", SettingsScreen.JOY_SLOT)]
+	var instruction := settings._status.text
+	await _hover(suite, key)
+	suite.check(settings._capturing and focus.has_focus() and settings._status.text == instruction,
+			"hover cannot overwrite the active keyboard capture instructions")
+	await _key(suite, KEY_2)
+	var error := settings._status.text
+	suite.check(error != instruction and settings._capturing, "reserved key leaves capture active and explains the refusal")
+	await _hover(suite, pad)
+	await _joy(suite, JOY_BUTTON_RIGHT_SHOULDER)
+	suite.check(settings._capturing and focus.has_focus() and settings._status.text == error
+			and InputBindings.using_gamepad, "mouse hover and controller detection preserve the active refusal")
+	await _key(suite, KEY_ESCAPE)
+	await _hover(suite, key)
+	suite.check(not settings._capturing and settings._status.text == key.tooltip_text,
+			"hover resumes after capture is canceled")
+
+
+static func _hover(suite: TestSuite, control: Control) -> void:
+	var motion := InputEventMouseMotion.new()
+	motion.position = control.get_global_rect().get_center()
+	motion.global_position = motion.position
+	motion.relative = Vector2(9, 0)
+	suite.runner.get_viewport().push_input(motion, true)
+	await suite.frames(3)
 
 
 static func _quality_hints(suite: TestSuite, settings: SettingsScreen) -> void:
