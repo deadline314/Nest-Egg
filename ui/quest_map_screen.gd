@@ -30,6 +30,18 @@ const LEGEND := [
 	["pickup", ["拾取點", "アイテム", "Pickup"], ["探索附近後可查看拾取地點。", "探索すると入手場所を確認できます。", "Explore nearby to reveal pickups."]],
 	["gate", ["閘門", "ゲート", "Gate"], ["選擇閘門圖示查看通行條件。", "アイコンを選ぶと通行条件を確認できます。", "Select a gate to see its requirement."]],
 ]
+const WORLD_LEGEND := [
+	["player", "▲", QuestMapCanvas.COLORS["player"], ["你的位置", "現在地", "You are here"],
+		["主角目前在這個區域。", "現在いるエリアです。", "This is your current area."]],
+	["goal", "◎", QuestMapCanvas.COLORS["goal"], ["追蹤目標", "追跡中の目標", "Tracked goal"],
+		["追蹤中的目標位於這個區域。", "追跡中の目標があるエリアです。", "The tracked goal is in this area."]],
+	["open", "━", QuestMapCanvas.WORLD_OPEN, ["可通行", "通行可能", "Open"],
+		["至少一處已發現的出入口可以通行。", "発見した出入口の少なくとも一つを通れます。", "At least one discovered entrance is open."]],
+	["blocked", "┉", QuestMapCanvas.WORLD_BLOCKED, ["受阻", "通行不可", "Blocked"],
+		["已發現的出入口目前受阻。", "発見した出入口は通れません。", "The discovered entrances are blocked."]],
+	["unknown", "…", QuestMapCanvas.WORLD_UNKNOWN, ["尚未確認", "未確認", "Unconfirmed"],
+		["先在區域內靠近出入口。", "エリア内で出入口を探します。", "Explore the area to discover its entrances."]],
+]
 const SOURCE_MAP_COPY := {
 	"zh": {"center": "回到來源", "marker": "文件來源", "hint": "取得這份文件的地點。", "zoom": "放大來源周圍的地圖。"},
 	"ja": {"center": "入手先に戻る", "marker": "入手先", "hint": "この書類を入手した場所。", "zoom": "入手先の周辺を拡大。"},
@@ -644,19 +656,15 @@ func _build_map(map_zoom: float, pan_center: Vector2) -> void:
 				tool.gui_input.connect(_on_pan_input)
 				tool.focus_exited.connect(func() -> void: tool.set_pressed_no_signal(false))
 	info.add_child(FlatStyle.section(_text(["圖例", "凡例", "Legend"])))
-	for item: Array in LEGEND:
-		var source_marker: bool = showing_source and item[0] == "goal"
-		var text: String = source_copy["marker"] if source_marker else _text(item[1])
-		var tip: String = source_copy["hint"] if source_marker else _text(item[2])
-		var button := UiKit.button("　 " + text, Callable(), tip)
-		button.set_meta(&"nav_key", "legend:" + str(item[0]))
-		FlatStyle.chip(button)
-		button.alignment = HORIZONTAL_ALIGNMENT_LEFT
-		var glyph := UiKit.caption(QuestMapCanvas.SYMBOLS[item[0]], QuestMapCanvas.COLORS[item[0]])
-		glyph.position = Vector2(5, 1)
-		button.add_child(glyph)
-		info.add_child(button)
-		_buttons.append(button)
+	if world_mode:
+		for item: Array in WORLD_LEGEND:
+			_add_map_legend(info, item[0], item[1], item[2], _text(item[3]), _text(item[4]))
+	else:
+		for item: Array in LEGEND:
+			var source_marker: bool = showing_source and item[0] == "goal"
+			var text: String = source_copy["marker"] if source_marker else _text(item[1])
+			var tip: String = source_copy["hint"] if source_marker else _text(item[2])
+			_add_map_legend(info, item[0], QuestMapCanvas.SYMBOLS[item[0]], QuestMapCanvas.COLORS[item[0]], text, tip)
 	var frame := PanelContainer.new()
 	frame.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var frame_box := StyleBoxFlat.new()
@@ -695,6 +703,18 @@ func _build_map(map_zoom: float, pan_center: Vector2) -> void:
 	_status.text = _text(["未探索處只顯示外框。選擇圖示查看說明。", "未探索の場所は輪郭だけ表示されます。アイコンで詳細を確認できます。", "Unexplored places show an outline. Select an icon for details."])
 	_canvas.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	_canvas.queue_refresh()
+
+
+func _add_map_legend(info: Container, id: String, symbol: String, color: Color, title: String, tip: String) -> void:
+	var button := UiKit.button("　 " + title, Callable(), tip)
+	button.set_meta(&"nav_key", "legend:" + id)
+	FlatStyle.chip(button)
+	button.alignment = HORIZONTAL_ALIGNMENT_LEFT
+	var glyph := UiKit.caption(symbol, color)
+	glyph.position = Vector2(5, 1)
+	button.add_child(glyph)
+	info.add_child(button)
+	_buttons.append(button)
 
 
 func _world_for_area(data: LevelData) -> Dictionary:

@@ -710,6 +710,18 @@ func _test_ch2_connections(catalog: QuestCatalog) -> void:
 		check(button.tooltip_text == portal.locked_text_for(Story.language), "the map uses the same reason as the live door")
 		await _key(KEY_ENTER)
 		check(screen._map_path == LOADING, "confirming a blocked door leaves the player on the origin map")
+	var centers := {LOADING: Vector2.ZERO, MARKET: Vector2.ONE}
+	var pair := [LOADING, MARKET]
+	check(screen._canvas._world_connection_states(centers)[pair] == QuestMapCanvas.WORLD_BLOCKED,
+			"the world chart marks the discovered bridge as blocked before the refresh")
+	var grid := screen._canvas._world_grid()
+	screen._canvas.player_path = MARKET
+	check(screen._canvas._world_grid() == grid, "the chapter chart keeps exact coordinates while crossing to the other area")
+	var known_map := screen._canvas.state
+	screen._canvas.state = QuestMapState.new()
+	check(screen._canvas._world_connection_states(centers)[pair] == QuestMapCanvas.WORLD_UNKNOWN,
+	        "unknown routes retain distinct styling")
+	screen._canvas.state = known_map
 	GameState.world_flags["ch2_sc1_open"] = "open"
 	var live_portal := Portal.new()
 	live_portal.data = local_marker["resource"]
@@ -717,6 +729,8 @@ func _test_ch2_connections(catalog: QuestCatalog) -> void:
 	live_portal.free()
 	screen._build()
 	await frames(4)
+	check(screen._canvas._world_connection_states(centers)[pair] == QuestMapCanvas.WORLD_OPEN,
+			"unlocking the discovered route updates the world link")
 	button = _find_map_marker(screen._canvas, local_key)
 	check(button != null and button.text == QuestMapCanvas.SYMBOLS["exit"], "the same bridge marker becomes a link on unlock")
 	if button != null:

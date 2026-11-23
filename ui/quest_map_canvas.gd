@@ -12,6 +12,9 @@ signal connection_selected(path: String, landing: StringName)
 signal refreshed
 const SYMBOLS := {"player": "▲", "exit": "↔", "checkpoint": "◆", "shop": "＄", "pickup": "＋", "goal": "◎", "gate": "▣"}
 const COLORS := {"player": Palette.CYAN, "exit": Palette.UI_TEXT, "checkpoint": Palette.NEON_YELLOW, "shop": Palette.NEON_YELLOW, "pickup": Palette.CYAN, "goal": Palette.MAGENTA, "gate": Palette.DANGER}
+const WORLD_OPEN := Color(Palette.CYAN_DIM, 0.95)
+const WORLD_BLOCKED := Color(Palette.DANGER, 0.9)
+const WORLD_UNKNOWN := Color(Palette.UI_LINE_OFF, 0.9)
 const EDGE := Color(0.37, 0.84, 0.93)
 const ROCK := Color(0.07, 0.22, 0.27)
 const PAD := 10.0
@@ -374,18 +377,12 @@ func _world_map() -> void:
 	for level_path: String in grid:
 		centers[level_path] = Vector2(PAD, top) + (Vector2(grid[level_path] - lo) + Vector2(0.5, 0.5)) * step
 		occupied[grid[level_path]] = true
-	var drawn: Dictionary = {}
-	for level_path: String in centers:
-		for edge in maps.edges(level_path):
-			var target: String = edge["resource"].target_level
-			var pair := [level_path, target]
-			pair.sort()
-			if not centers.has(target) or drawn.has(str(pair)):
-				continue
-			drawn[str(pair)] = true
-			_lines.append(_world_route(grid[level_path], grid[target], centers[level_path], centers[target], step, occupied, drawn.size()))
-			var known := state.explored.has(level_path) and state.explored.has(target)
-			_line_colors.append(Color(Palette.CYAN_DIM, 0.85) if known else Color(Palette.UI_LINE_OFF, 0.9))
+	var states := _world_connection_states(centers)
+	for key: Array in states:
+		var a: String = key[0]
+		var b: String = key[1]
+		_lines.append(_world_route(grid[a], grid[b], centers[a], centers[b], step, occupied, _lines.size() + 1))
+		_line_colors.append(states[key])
 	for level_path: String in centers:
 		var data: LevelData = maps.areas[level_path]["data"]
 		var known: bool = state.explored.has(level_path)
@@ -407,6 +404,25 @@ func _world_map() -> void:
 			button.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		_world_node_style(button, current, target, known)
 		button.pressed.connect(area_selected.emit.bind(level_path))
+
+
+## Only discovered portals contribute to the link's color. A second route can
+## open the same area pair while a different entrance remains blocked.
+func _world_connection_states(centers: Dictionary) -> Dictionary:
+	var result: Dictionary = {}
+	for origin: String in centers:
+		for edge in maps.edges(origin):
+			var portal := edge["resource"] as PortalData
+			var target := portal.target_level
+			if target == origin or not centers.has(target):
+				continue
+			var pair := [origin, target] if origin < target else [target, origin]
+			var previous: Color = result.get(pair, WORLD_UNKNOWN)
+			if previous != WORLD_OPEN and state.knows(origin, edge["cell"]):
+				result[pair] = WORLD_OPEN if QuestMapIndex.portal_is_open(portal, flags) else WORLD_BLOCKED
+			else:
+				result[pair] = previous
+	return result
 
 
 ## 世界地圖的連線：同一列或同一欄、中間沒有其他區域時直接連；否則沿區域之間的空隙走直角
@@ -442,7 +458,12 @@ func _world_grid() -> Dictionary:
 		return {}
 	var grid: Dictionary = {}
 	var taken: Dictionary = {}
-	var start: String = player_path if maps.areas.has(player_path) else paths[0]
+	var start: String = paths[0]
+	for level_path: String in paths:
+		var level: LevelData = maps.areas[level_path]["data"]
+		if level.show_chapter_card:
+			start = level_path
+			break
 	var queue: Array[String] = []
 	var pending: Array = [start] + paths
 	while not pending.is_empty():
@@ -657,7 +678,14 @@ func _fit_marker(button: Button, center: Vector2, dimensions: Vector2) -> void:
 
 func _draw() -> void:
 	for i in _lines.size():
-		draw_polyline(_lines[i], _line_colors[i] if i < _line_colors.size() else Color(Palette.CYAN_DIM, 0.7), 1)
+		var color := _line_colors[i]
+		if color == WORLD_OPEN:
+			draw_polyline(_lines[i], color, 2.0)
+		else:
+			var points := _lines[i]
+			var length := 6.0 if color == WORLD_BLOCKED else 2.0
+			for index in range(1, points.size()):
+				draw_dashed_line(points[index - 1], points[index], color, 1.0, length)
 	if _texture == null:
 		return
 	# 區域外框：未探索的地方只看得到範圍，不洩漏地形與秘密。
