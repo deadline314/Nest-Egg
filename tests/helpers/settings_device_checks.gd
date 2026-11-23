@@ -18,6 +18,7 @@ static func run(suite: TestSuite) -> void:
 	await suite.frames(3)
 	InputBindings.clear_held_inputs()
 	InputBindings._set_device(previous_gamepad, previous_device)
+	await _localized_av_copy(suite)
 
 
 static func _exercise(suite: TestSuite, settings: SettingsScreen) -> bool:
@@ -151,3 +152,26 @@ static func _quality_hints(suite: TestSuite, settings: SettingsScreen) -> void:
 	suite.check(settings._status.text == settings._quality_option.tooltip_text and settings._status.text == LightQuality.DESCRIPTIONS[tier], "quality hover and focus share the current description, not its construction-time copy")
 	Settings.set_light_quality(before)
 	settings._tabs.current_tab = tab_before
+
+static func _localized_av_copy(suite: TestSuite) -> void:
+	var previous_language := Story.language
+	var previous_master := Settings.get_volume(&"Master")
+	Settings.set_volume(&"Master", 0.0)
+	for entry: Array in [["en", "Muted", "Fullscreen", "Low", "Restart to apply."],
+			["ja", "ミュート", "フルスクリーン", "低", "再起動後に反映されます。"]]:
+		Story.language = entry[0]
+		var screen := SettingsScreen.new()
+		suite.runner.add_child(screen)
+		await suite.frames(3)
+		suite.check(screen._slider_values[&"Master"].text == entry[1]
+				and not screen._sliders[&"Master"].tooltip_text.is_empty(), "audio mute and hints use " + entry[0])
+		screen._tabs.current_tab = 2
+		await suite.frames(3)
+		var tier := LightQuality.Tier.LOW
+		var index := screen._quality_option.get_item_index(tier)
+		suite.check(screen._fullscreen.text == entry[2] and screen._quality_option.get_item_text(index) == entry[3]
+				and screen._story_language_option.tooltip_text == entry[4], "display captions and original option IDs use " + entry[0])
+		screen.close()
+		await suite.frames(3)
+	Story.language = previous_language
+	Settings.set_volume(&"Master", previous_master)

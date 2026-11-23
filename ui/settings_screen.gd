@@ -12,6 +12,64 @@ const ROW_INDENT := 6.0
 static var _indent_box: StyleBoxEmpty
 const BINDING_WIDTH := 92.0
 const COPY := {
+	"audio_master_label": ["主音量", "マスター", "Master"],
+	"audio_master_hint": ["所有聲音的整體音量", "すべての音の音量を調整します。", "Overall volume."],
+	"audio_music_label": ["音樂", "音楽", "Music"],
+	"audio_music_hint": ["各場景的背景音樂", "背景音楽の音量を調整します。", "Background music volume."],
+	"audio_sfx_label": ["音效", "効果音", "Sound effects"],
+	"audio_sfx_hint": ["射擊、爆炸、介面等音效", "射撃、爆発、操作音などの音量です。", "Shots, explosions and interface sounds."],
+	"audio_ambience_label": ["環境音", "環境音", "Ambience"],
+	"audio_ambience_hint": ["雨聲、風聲、機械嗡鳴等場景底噪", "雨、風、機械の音などの音量です。", "Rain, wind and machinery."],
+	"muted": ["靜音", "ミュート", "Muted"],
+	"fullscreen": ["全螢幕", "フルスクリーン", "Fullscreen"],
+	"fullscreen_hint": ["維持畫面比例。按 F11 切換。", "画面比率を保ちます。F11 で切り替え。", "Keep the aspect ratio. Press F11 to switch."],
+	"story_language": ["劇情語言", "シナリオ言語", "Story language"],
+	"language_hint": ["重新啟動後套用。", "再起動後に反映されます。", "Restart to apply."],
+	"language_saved": ["已儲存。重新啟動後套用。", "保存しました。再起動後に反映されます。", "Saved. Restart to apply."],
+	"hud": ["HUD 自動隱藏", "HUD を自動で隠す", "Auto-hide HUD"],
+	"hud_hint": ["閒置時淡出生命與護盾，受傷或格擋時顯示。", "待機中は体力とシールドを隠し、被弾・ガード時に表示します。", "Fade health and shield while idle. Show them on a hit or block."],
+	"quest_objective": ["顯示任務目標列", "現在の目標を表示", "Show quest objective"],
+	"quest_objective_hint": ["顯示追蹤中的目標，閒置時淡出。", "追跡中の目標を表示し、待機中は薄くします。", "Show the tracked goal and fade it while idle."],
+	"quest_arrows": ["顯示目標方向箭頭", "目標への矢印を表示", "Show objective arrows"],
+	"quest_arrows_hint": ["目標在畫面外時指向目標，跨區時指向出口。", "画面外の目標を指します。別エリアなら出口を指します。", "Point to off-screen goals or the exit to their area."],
+	"brightness": ["亮度", "明るさ", "Brightness"],
+	"brightness_hint": ["調整暗處亮度。50% 為預設。", "暗い場所の明るさを調整します。初期値は 50% です。", "Adjust dark areas. The default is 50%."],
+	"quality": ["光影品質", "照明品質", "Lighting quality"],
+	"quality_hint": ["降低光影品質可減少繪製負擔。", "品質を下げると描画負荷が軽くなります。", "Lower this setting to reduce rendering load."],
+	"quality_high": ["高", "高", "High"],
+	"quality_high_hint": ["", "すべての照明効果を使います。", "Use all lighting effects."],
+	"quality_medium": ["中", "中", "Medium"],
+	"quality_medium_hint": ["", "光源と影を減らし、粒状効果と色収差を無効にします。", "Use fewer lights and shadows. Disable grain and color fringing."],
+	"quality_low": ["低", "低", "Low"],
+	"quality_low_hint": ["", "基本照明と影一つを使い、体積光と法線マップを無効にします。", "Use basic lights and one shadow. Disable volumetrics and normal maps."],
+	"reduce_flashes": ["減少閃光", "閃光を減らす", "Reduce flashes"],
+	"reduce_flashes_hint": ["減弱命中、爆炸與閃電的光。閃電只閃一次。", "被弾・爆発・雷の閃光を弱め、雷の点滅を一回にします。", "Dim hit, explosion and lightning flashes. Lightning flashes once."],
+	"reduce_motion": ["減少介面動態", "UI の動きを減らす", "Reduce UI motion"],
+	"reduce_motion_hint": ["關閉選單滑入、數字跳動與空槍時的準星晃動。", "メニューのスライド、数字の演出、空撃ち時の照準揺れを止めます。", "Disable menu slides, animated numbers and dry-fire reticle shake."],
+	"afterimages": ["衝刺殘影", "ダッシュの残像", "Dash afterimages"],
+	"afterimages_hint": ["關閉後隱藏殘影，衝刺動作照常。", "オフにすると残像だけが消えます。", "Hide the afterimages while keeping the dash animation."],
+	"smooth_font": ["平滑字型", "滑らかな文字", "Smooth font"],
+	"smooth_font_hint": ["開啟使用平滑字型，關閉使用像素字。", "オンで滑らかな文字、オフでドット文字を使います。", "Switch between smooth and pixel fonts."],
+	"text_scale": ["介面文字", "UI の文字", "UI text size"],
+	"text_normal": ["標準（100%）", "標準（100%）", "Standard (100%)"],
+	"text_large": ["放大（120%）", "拡大（120%）", "Large (120%)"],
+	"text_scale_hint": ["只改變介面文字大小。", "UI の文字だけを拡大します。", "Scale interface text only."],
+	"skip_scenes": ["略過過場動畫", "カットシーンをスキップ", "Skip cutscenes"],
+	"skip_scenes_hint": ["自動略過過場與劇情對話。", "カットシーンと会話を自動でスキップします。", "Automatically skip cutscenes and story dialogue."],
+	"feel_shake": ["畫面震動", "画面の揺れ", "Screen shake"],
+	"feel_shake_hint": ["調整震動強度。0% 仍保留少量鏡頭後座。", "揺れの強さを調整します。0% でもカメラの反動は少し残ります。", "Adjust impact shake. At 0%, some camera recoil remains."],
+	"feel_hitstop": ["命中停頓", "ヒットストップ", "Hit stop"],
+	"feel_hitstop_hint": ["調整命中時的短暫停頓。0% 關閉。", "命中時の一瞬の停止を調整します。0% で無効。", "Adjust the brief pause on impact. Set 0% to turn it off."],
+	"feel_particles": ["粒子", "パーティクル", "Particles"],
+	"feel_particles_hint": ["調整火花與碎片的數量。", "火花や破片の量を調整します。", "Adjust the amount of sparks and debris."],
+	"zoom": ["縮放脈衝", "命中時のズーム", "Impact zoom"],
+	"zoom_hint": ["命中時輕微縮放。畫面震動為 0% 時停用。", "命中時に少し拡大します。画面の揺れが 0% の場合は無効です。", "Briefly zoom on impact. Off when screen shake is 0%."],
+	"damage_numbers": ["傷害數字", "ダメージ表示", "Damage numbers"],
+	"damage_numbers_hint": ["標出弱點、重擊及格擋的傷害。", "弱点への攻撃、強打、ガード時のダメージを表示します。", "Show damage on weak-point hits, heavy hits and blocks."],
+	"reset_audio": ["音量已恢復預設。", "音量を初期設定に戻しました。", "Audio restored to defaults."],
+	"reset_bindings": ["按鍵已恢復預設。", "キー設定を初期設定に戻しました。", "Bindings restored to defaults."],
+	"reset_display": ["顯示已恢復預設。", "表示を初期設定に戻しました。", "Display restored to defaults."],
+	"reset_controller": ["手把選項已恢復預設。", "コントローラーを初期設定に戻しました。", "Controller restored to defaults."],
 	"settings": ["設定", "設定", "Settings"],
 	"audio": ["音量", "音量", "Audio"],
 	"display": ["顯示", "表示", "Display"],
@@ -39,6 +97,12 @@ const COPY := {
 	"capture_key": ["按新按鍵或滑鼠鍵；Esc或%s取消，Backspace清除。",
 		"キーかマウスボタンを押します。Esc または %s で取り消し、Backspace で解除。",
 		"Press a key or mouse button. Esc or %s cancels. Backspace clears the binding."],
+}
+
+const QUALITY_COPY := {
+	LightQuality.Tier.LOW: "quality_low",
+	LightQuality.Tier.MEDIUM: "quality_medium",
+	LightQuality.Tier.HIGH: "quality_high",
 }
 
 var _tabs: TabContainer
@@ -175,8 +239,9 @@ func _build_audio_tab() -> Control:
 		var bus: StringName = entry["bus"]
 		var row := HBoxContainer.new()
 		row.add_theme_constant_override(&"separation", 10)
-		row.tooltip_text = entry["tooltip"]
-		var name_label := UiKit.label(entry["label"], 12)
+		var tooltip := _audio_text(bus, "hint", entry["tooltip"])
+		row.tooltip_text = tooltip
+		var name_label := UiKit.label(_audio_text(bus, "label", entry["label"]), 12)
 		name_label.custom_minimum_size = Vector2(LABEL_WIDTH, 0)
 		_indent(name_label)
 		row.add_child(name_label)
@@ -187,7 +252,7 @@ func _build_audio_tab() -> Control:
 		slider.custom_minimum_size = Vector2(260, 16)
 		slider.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		slider.focus_mode = Control.FOCUS_ALL
-		slider.tooltip_text = entry["tooltip"]
+		slider.tooltip_text = tooltip
 		slider.value = roundf(Settings.get_volume(bus) * 100.0)
 		slider.value_changed.connect(_on_volume_changed.bind(bus))
 		row.add_child(slider)
@@ -201,6 +266,11 @@ func _build_audio_tab() -> Control:
 	return box
 
 
+func _audio_text(bus: StringName, field: String, fallback: String) -> String:
+	var key := "audio_%s_%s" % [String(bus).to_lower(), field]
+	return _text(key) if COPY.has(key) else fallback
+
+
 func _on_volume_changed(value: float, bus: StringName) -> void:
 	Settings.set_volume(bus, value / 100.0)
 	_update_volume_label(bus)
@@ -211,7 +281,7 @@ func _on_volume_changed(value: float, bus: StringName) -> void:
 func _update_volume_label(bus: StringName) -> void:
 	if _slider_values.has(bus):
 		var value := Settings.get_volume(bus)
-		_slider_values[bus].text = "靜音" if value <= 0.001 else "%d%%" % roundi(value * 100.0)
+		_slider_values[bus].text = _text("muted") if value <= 0.001 else "%d%%" % roundi(value * 100.0)
 
 
 # ---------------------------------------------------------------------------
@@ -229,8 +299,8 @@ func _build_display_tab() -> Control:
 	box.add_theme_constant_override(&"separation", 4)
 	scroll.add_child(box)
 	_fullscreen = CheckButton.new()
-	_fullscreen.text = "全螢幕"
-	_fullscreen.tooltip_text = "填滿整個螢幕，畫面等比放到最大；F11 隨時切換"
+	_fullscreen.text = _text("fullscreen")
+	_fullscreen.tooltip_text = _text("fullscreen_hint")
 	_fullscreen.focus_mode = Control.FOCUS_ALL
 	_fullscreen.button_pressed = Settings.get_fullscreen()
 	_fullscreen.toggled.connect(func(on: bool) -> void:
@@ -241,30 +311,30 @@ func _build_display_tab() -> Control:
 	Settings.display_changed.connect(_sync_fullscreen)
 	tree_exiting.connect(func() -> void: Settings.display_changed.disconnect(_sync_fullscreen))
 	_hud_auto_hide = CheckButton.new()
-	_hud_auto_hide.text = "HUD 自動隱藏"
-	_hud_auto_hide.tooltip_text = "開啟後生命與護盾會在閒置時淡出，受傷或格擋時顯示；關閉後持續顯示。"
+	_hud_auto_hide.text = _text("hud")
+	_hud_auto_hide.tooltip_text = _text("hud_hint")
 	_hud_auto_hide.focus_mode = Control.FOCUS_ALL
 	_hud_auto_hide.button_pressed = Settings.get_hud_auto_hide()
 	_hud_auto_hide.toggled.connect(func(on: bool) -> void:
 		Settings.set_hud_auto_hide(on)
 		Sfx.play(&"ui_confirm", -6.0, 0.0))
 	box.add_child(_hud_auto_hide)
-	for entry in [["quest_objective", "顯示任務目標列", "顯示追蹤中的一句話目標，閒置時淡出。"], ["quest_arrows", "顯示目標方向箭頭", "目標在螢幕外時顯示箭頭，跨區時指向出口。"]]:
+	for key: String in ["quest_objective", "quest_arrows"]:
 		var toggle := CheckButton.new()
-		toggle.text = entry[1]
-		toggle.tooltip_text = entry[2]
-		var raw: Variant = Settings.get_value(Settings.DISPLAY_SECTION, entry[0], true)
+		toggle.text = _text(key)
+		toggle.tooltip_text = _text(key + "_hint")
+		var raw: Variant = Settings.get_value(Settings.DISPLAY_SECTION, key, true)
 		toggle.button_pressed = raw if raw is bool else true
 		toggle.toggled.connect(func(on: bool) -> void:
-			Settings.set_value(Settings.DISPLAY_SECTION, entry[0], on)
+			Settings.set_value(Settings.DISPLAY_SECTION, key, on)
 			Settings.display_changed.emit())
 		box.add_child(toggle)
-		_quest_toggles[entry[0]] = toggle
+		_quest_toggles[key] = toggle
 	box.add_child(_build_brightness_row())
 	box.add_child(_build_quality_row())
 	_reduce_flashes = CheckButton.new()
-	_reduce_flashes.text = "減少閃光"
-	_reduce_flashes.tooltip_text = "降低命中、爆炸與閃電的亮度。閃電只閃一次。"
+	_reduce_flashes.text = _text("reduce_flashes")
+	_reduce_flashes.tooltip_text = _text("reduce_flashes_hint")
 	_reduce_flashes.focus_mode = Control.FOCUS_ALL
 	_reduce_flashes.button_pressed = Settings.get_reduce_flashes()
 	_reduce_flashes.toggled.connect(func(on: bool) -> void:
@@ -272,8 +342,8 @@ func _build_display_tab() -> Control:
 		Sfx.play(&"ui_confirm", -6.0, 0.0))
 	box.add_child(_reduce_flashes)
 	_reduce_ui_motion = CheckButton.new()
-	_reduce_ui_motion.text = "減少介面動態"
-	_reduce_ui_motion.tooltip_text = "關閉選單滑入、數字跳動與空槍時的準星晃動。"
+	_reduce_ui_motion.text = _text("reduce_motion")
+	_reduce_ui_motion.tooltip_text = _text("reduce_motion_hint")
 	_reduce_ui_motion.focus_mode = Control.FOCUS_ALL
 	_reduce_ui_motion.button_pressed = Settings.get_reduce_ui_motion()
 	_reduce_ui_motion.toggled.connect(func(on: bool) -> void:
@@ -281,8 +351,8 @@ func _build_display_tab() -> Control:
 		Sfx.play(&"ui_confirm", -6.0, 0.0))
 	box.add_child(_reduce_ui_motion)
 	_dash_silhouettes = CheckButton.new()
-	_dash_silhouettes.text = "衝刺殘影"
-	_dash_silhouettes.tooltip_text = "關閉衝刺殘影，角色動作照常"
+	_dash_silhouettes.text = _text("afterimages")
+	_dash_silhouettes.tooltip_text = _text("afterimages_hint")
 	_dash_silhouettes.focus_mode = Control.FOCUS_ALL
 	_dash_silhouettes.button_pressed = Settings.get_dash_silhouettes()
 	_dash_silhouettes.toggled.connect(func(on: bool) -> void:
@@ -292,8 +362,8 @@ func _build_display_tab() -> Control:
 	Settings.display_changed.connect(_sync_dash_silhouettes)
 	tree_exiting.connect(func() -> void: Settings.display_changed.disconnect(_sync_dash_silhouettes))
 	_smooth_font = CheckButton.new()
-	_smooth_font.text = "平滑字型"
-	_smooth_font.tooltip_text = "開啟後立即改用平滑黑體，關閉後改用像素字。"
+	_smooth_font.text = _text("smooth_font")
+	_smooth_font.tooltip_text = _text("smooth_font_hint")
 	_smooth_font.focus_mode = Control.FOCUS_ALL
 	_smooth_font.button_pressed = Settings.get_ui_font() == "smooth"
 	_smooth_font.toggled.connect(func(on: bool) -> void:
@@ -301,22 +371,22 @@ func _build_display_tab() -> Control:
 		Sfx.play(&"ui_confirm", -6.0, 0.0))
 	box.add_child(_smooth_font)
 	var text_row := HBoxContainer.new()
-	var text_label := UiKit.label("介面文字")
+	var text_label := UiKit.label(_text("text_scale"))
 	text_label.custom_minimum_size.x = LABEL_WIDTH
 	_indent(text_label)
 	text_row.add_child(text_label)
 	_text_scale_option = OptionButton.new()
-	_text_scale_option.add_item("標準（100%）", 100)
-	_text_scale_option.add_item("放大（120%）", 120)
-	_text_scale_option.tooltip_text = "只放大介面文字，圖示與遊戲畫面保持原尺寸。"
+	_text_scale_option.add_item(_text("text_normal"), 100)
+	_text_scale_option.add_item(_text("text_large"), 120)
+	_text_scale_option.tooltip_text = _text("text_scale_hint")
 	_text_scale_option.select(1 if Settings.get_ui_text_scale() > 1.1 else 0)
 	_text_scale_option.item_selected.connect(func(index: int) -> void:
 		Settings.set_ui_text_scale(float(_text_scale_option.get_item_id(index)) / 100.0))
 	text_row.add_child(_text_scale_option)
 	box.add_child(text_row)
 	_skip_cutscenes = CheckButton.new()
-	_skip_cutscenes.text = "略過過場動畫"
-	_skip_cutscenes.tooltip_text = "開啟：每次都直接略過過場動畫與劇情對話；已看過的演出重來時本來就不會重播"
+	_skip_cutscenes.text = _text("skip_scenes")
+	_skip_cutscenes.tooltip_text = _text("skip_scenes_hint")
 	_skip_cutscenes.focus_mode = Control.FOCUS_ALL
 	_skip_cutscenes.button_pressed = Settings.get_skip_cutscenes()
 	_skip_cutscenes.toggled.connect(func(on: bool) -> void:
@@ -324,10 +394,14 @@ func _build_display_tab() -> Control:
 		Sfx.play(&"ui_confirm", -6.0, 0.0))
 	box.add_child(_skip_cutscenes)
 	for entry: Array in FEEL_ROWS:
-		box.add_child(_build_feel_row(entry[0], entry[1], entry[2]))
+		var copy_key := "feel_" + String(entry[0])
+		if COPY.has(copy_key):
+			box.add_child(_build_feel_row(entry[0], _text(copy_key), _text(copy_key + "_hint")))
+		else:
+			box.add_child(_build_feel_row(entry[0], entry[1], entry[2]))
 	_zoom_pulse = CheckButton.new()
-	_zoom_pulse.text = "縮放脈衝"
-	_zoom_pulse.tooltip_text = "命中時畫面微微縮放；畫面震動調到 0% 時一律關閉"
+	_zoom_pulse.text = _text("zoom")
+	_zoom_pulse.tooltip_text = _text("zoom_hint")
 	_zoom_pulse.focus_mode = Control.FOCUS_ALL
 	_zoom_pulse.button_pressed = Settings.get_zoom_pulse()
 	_zoom_pulse.toggled.connect(func(on: bool) -> void:
@@ -335,8 +409,8 @@ func _build_display_tab() -> Control:
 		Sfx.play(&"ui_confirm", -6.0, 0.0))
 	box.add_child(_zoom_pulse)
 	_damage_numbers = CheckButton.new()
-	_damage_numbers.text = "傷害數字"
-	_damage_numbers.tooltip_text = "打中弱點、重擊或被擋時顯示數字；預設關閉，一般命中看準星的標記就好"
+	_damage_numbers.text = _text("damage_numbers")
+	_damage_numbers.tooltip_text = _text("damage_numbers_hint")
 	_damage_numbers.focus_mode = Control.FOCUS_ALL
 	_damage_numbers.button_pressed = Settings.get_damage_numbers()
 	_damage_numbers.toggled.connect(func(on: bool) -> void:
@@ -403,8 +477,8 @@ func _update_feel_label(key: String) -> void:
 func _build_quality_row() -> Control:
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override(&"separation", 10)
-	row.tooltip_text = "光影品質：機器跑不順時調低；每一檔的差異見選項說明"
-	var name_label := UiKit.label("光影品質", 12)
+	row.tooltip_text = _text("quality_hint")
+	var name_label := UiKit.label(_text("quality"), 12)
 	name_label.custom_minimum_size = Vector2(LABEL_WIDTH, 0)
 	_indent(name_label)
 	row.add_child(name_label)
@@ -412,13 +486,19 @@ func _build_quality_row() -> Control:
 	_quality_option.focus_mode = Control.FOCUS_ALL
 	_quality_option.custom_minimum_size = Vector2(120, 0)
 	for tier in [LightQuality.Tier.HIGH, LightQuality.Tier.MEDIUM, LightQuality.Tier.LOW]:
-		_quality_option.add_item(LightQuality.NAMES[tier], tier)
-		_quality_option.set_item_tooltip(_quality_option.item_count - 1, LightQuality.DESCRIPTIONS[tier])
-	_quality_option.tooltip_text = LightQuality.DESCRIPTIONS[Settings.get_light_quality()]
+		_quality_option.add_item(_text(QUALITY_COPY[tier]), tier)
+		_quality_option.set_item_tooltip(_quality_option.item_count - 1, _quality_hint(tier))
+	_quality_option.tooltip_text = _quality_hint(Settings.get_light_quality())
 	_select_quality_item()
 	_quality_option.item_selected.connect(_on_quality_selected)
 	row.add_child(_quality_option)
 	return row
+
+
+func _quality_hint(tier: int) -> String:
+	if Story.language != "ja" and Story.language != "en":
+		return LightQuality.DESCRIPTIONS[tier]
+	return _text(QUALITY_COPY[tier] + "_hint")
 
 
 func _select_quality_item() -> void:
@@ -428,25 +508,25 @@ func _select_quality_item() -> void:
 func _on_quality_selected(index: int) -> void:
 	var tier := _quality_option.get_item_id(index)
 	Settings.set_light_quality(tier)
-	_quality_option.tooltip_text = LightQuality.DESCRIPTIONS[tier]
-	_set_status("光影品質「%s」：%s" % [LightQuality.NAMES[tier], LightQuality.DESCRIPTIONS[tier]], Palette.CYAN)
+	_quality_option.tooltip_text = _quality_hint(tier)
+	_set_status(_quality_option.tooltip_text, Palette.CYAN)
 
 
 func _build_story_language_row() -> Control:
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override(&"separation", 8)
-	var label := UiKit.label("劇情語言 / Story language")
+	var label := UiKit.label(_text("story_language"))
 	_indent(label)
 	row.add_child(label)
 	_story_language_option = OptionButton.new()
 	_story_language_option.focus_mode = Control.FOCUS_ALL
-	_story_language_option.tooltip_text = "重新啟動後套用。 / Restart to apply."
+	_story_language_option.tooltip_text = _text("language_hint")
 	for caption: String in ["繁體中文", "日本語", "English"]:
 		_story_language_option.add_item(caption)
 	_sync_story_language_selection()
 	_story_language_option.item_selected.connect(func(index: int) -> void:
 		if Settings.set_story_language(StoryLocale.LANGUAGES[index]):
-			_set_status("已儲存。重新啟動後套用。 / Saved. Restart to apply.", Palette.CYAN))
+			_set_status(_text("language_saved"), Palette.CYAN))
 	row.add_child(_story_language_option)
 	return row
 
@@ -456,11 +536,11 @@ func _sync_story_language_selection() -> void:
 
 
 func _build_brightness_row() -> Control:
-	var tooltip := "調整暗場的明暗；預設（50%）就是設計的壓抑程度，覺得太暗可以調高"
+	var tooltip := _text("brightness_hint")
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override(&"separation", 10)
 	row.tooltip_text = tooltip
-	var name_label := UiKit.label("亮度", 12)
+	var name_label := UiKit.label(_text("brightness"), 12)
 	name_label.custom_minimum_size = Vector2(LABEL_WIDTH, 0)
 	_indent(name_label)
 	row.add_child(name_label)
@@ -763,15 +843,15 @@ func _reset_current_tab() -> void:
 		for bus: StringName in _sliders.keys():
 			_sliders[bus].set_value_no_signal(roundf(Settings.get_volume(bus) * 100.0))
 			_update_volume_label(bus)
-		_set_status("音量已恢復預設。", Palette.CYAN)
+		_set_status(_text("reset_audio"), Palette.CYAN)
 	elif _tabs.current_tab == 1:
 		InputBindings.reset_to_defaults()
-		_set_status("按鍵已恢復預設。", Palette.CYAN)
+		_set_status(_text("reset_bindings"), Palette.CYAN)
 	elif _tabs.current_tab == 3:
 		InputBindings.set_aim_deadzone(InputBindings.AIM_DEADZONE_DEFAULT)
 		InputBindings.set_invert_aim_y(false)
 		InputBindings.set_vibration_strength(1.0)
-		_set_status("手把選項已恢復預設。", Palette.CYAN)
+		_set_status(_text("reset_controller"), Palette.CYAN)
 	else:
 		Settings.reset_display()
 		_sync_story_language_selection()
@@ -793,8 +873,8 @@ func _reset_current_tab() -> void:
 		for key: String in _feel_sliders.keys():
 			_feel_sliders[key].set_value_no_signal(roundf(Settings.get_feel_scale(key) * 100.0))
 			_update_feel_label(key)
-		_quality_option.tooltip_text = LightQuality.DESCRIPTIONS[Settings.get_light_quality()]
-		_set_status("顯示已恢復預設。", Palette.CYAN)
+		_quality_option.tooltip_text = _quality_hint(Settings.get_light_quality())
+		_set_status(_text("reset_display"), Palette.CYAN)
 
 
 func _set_status(text: String, color := Palette.UI_MUTED) -> void:
