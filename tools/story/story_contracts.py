@@ -276,6 +276,19 @@ PURE_STEPS = {"scene", "letterbox", "camera", "actor", "pose", "move", "face", "
 EFFECT_FIELDS = {"when", "requires_flag", "unless_flag", "requires_item", "requires_held_item", "unless_held_item", "requires_transferred_item", "results", "set_flags", "transfer_items", "then", "on_failure", "target", "default", "completion_policy"}
 DISPLAY_FIELDS = {"text", "explanation", "title", "subtitle", "end_title", "teaser", "release_note", "end_card", "background", "reward", "blocked_reason", "suggestion", "prompt", "sub"}
 CONTAINERS = {"steps", "else_steps", "options", "routes"}
+STAGING_BRANCH_FIELDS = {"do", "when", "requires_flag", "unless_flag", "requires_item", "steps", "else_steps"}
+STAGING_BRANCH_STEPS = ("move", "face", "reach", "prop", "prop_move", "prop_hold", "prop_release", "prop_visible", "sfx", "wait")
+
+
+def _is_staging_branch(raw):
+    if raw.get("do") != "branch" or raw.keys() - STAGING_BRANCH_FIELDS:
+        return False
+    steps, otherwise = raw.get("steps", []), raw.get("else_steps", [])
+    if not isinstance(steps, list) or not isinstance(otherwise, list) or not (steps or otherwise):
+        return False
+    return all(isinstance(step, dict) and step.get("do") in STAGING_BRANCH_STEPS
+               and not step.keys() & (EFFECT_FIELDS | CONTAINERS)
+               for side in (steps, otherwise) for step in side)
 
 
 def effect_projection(raw):
@@ -283,6 +296,8 @@ def effect_projection(raw):
         return [value for child in raw if (value := effect_projection(child)) != {}]
     if not isinstance(raw, dict):
         return copy.deepcopy(raw)
+    if _is_staging_branch(raw):
+        return {}
     if raw.get("do") in PURE_STEPS:
         out = {key:copy.deepcopy(raw[key]) for key in EFFECT_FIELDS if key in raw}
         for key in CONTAINERS:

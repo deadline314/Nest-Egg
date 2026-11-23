@@ -18,6 +18,7 @@ import rent_window_staging
 import ledger_dispute_staging
 import medic_transport_staging
 import booth_return_staging
+import collection_receipt_staging
 import market_pass_staging
 import roof_watcher_staging
 import roof_tea_staging
@@ -86,6 +87,7 @@ class Cast:
     pose_reason: str | None = None
     pose_support: str | None = None
     scale: float | None = None   # 沒給就用舞台的演員縮放（同一舞台身高不同的人才另外給）
+    ground: float | None = None  # 可走動的另一條地面線。坐姿起點另用 floor。
 
 
 @dataclass(frozen=True)
@@ -115,9 +117,12 @@ class Stage:
             kind = member.kind or member.ident
             ground = self.floor if member.floor is None else member.floor
             scale = self.scale if member.scale is None else member.scale
-            steps.append(stage_actor(member.ident, kind, member.x, ground, facing=member.facing, scale=scale,
-                                     speaker=kind, pose=member.pose, weapon="", pose_reason=member.pose_reason,
-                                     pose_support=member.pose_support))
+            step = stage_actor(member.ident, kind, member.x, ground, facing=member.facing, scale=scale,
+                               speaker=kind, pose=member.pose, weapon="", pose_reason=member.pose_reason,
+                               pose_support=member.pose_support)
+            if member.ground is not None:
+                step["ground"] = member.ground
+            steps.append(step)
         return steps
 
 
@@ -230,13 +235,17 @@ BOOTH = Stage(
 # 量自立繪：攤位在水面倒影後方，前景濕路面 y≈304～354；演員站在 330，利息站在收款桌後一點（322），桌子畫在他前面。
 COLLECTION_FLOOR = 330
 COLLECTION_BEHIND = 322
+COLLECTION_CLERK_X = 430
+_COLLECTION_DESK = prop_layer("neon_market", "neon_market__debt_desk", 380, COLLECTION_FLOOR, 2.0, front=True)
+_COLLECTION_RECEIPT_LAYERS, COLLECTION_RECEIPT_STAMP = collection_receipt_staging.scene(
+    _COLLECTION_DESK, COLLECTION_CLERK_X, COLLECTION_BEHIND)
 COLLECTION = Stage(
     "ch2_collection_desk", floor=COLLECTION_FLOOR, scale=2.0, shot=(330, 226, 1.2), floors=(COLLECTION_BEHIND,),
     layers=({"kind": "gradient", "top": "#0a0614", "bottom": "#1a1024", "parallax": 0.0},
             background("neon_market", modulate="#c8c0d0"),
             {"kind": "glow", "pos": [420, 250], "radius": 160, "color": "#ff8a6a", "intensity": 0.6, "additive": True, "alpha": 0.25,
              "pulse": 0.06, "pulse_depth": 0.2},
-            prop_layer("neon_market", "neon_market__debt_desk", 380, COLLECTION_FLOOR, 2.0, front=True)))
+            _COLLECTION_DESK) + _COLLECTION_RECEIPT_LAYERS)
 
 
 

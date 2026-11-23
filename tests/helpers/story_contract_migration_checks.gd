@@ -30,6 +30,17 @@ static func run(s) -> void:
 			s.check(catalog._legacy_match(id,actual,scenes,sources), "original legacy effect stays on its existing writer: " + id)
 			if first.is_empty(): first = id; origin = actual
 	s.check(count == 30, "only the thirty independently inventoried prior NPC effects are compatibility candidates")
+	var sealed := {"mode": "animated"}
+	var branch := {"do": "branch", "when": {"flag": "ali_advance_40", "equals": 40},
+		"steps": [{"do": "prop_visible", "id": "paper", "visible": true}, {"do": "sfx", "id": "mat_wood"}],
+		"else_steps": [{"do": "wait", "time": 0.2}]}
+	var staged := {"mode": "animated", "steps": [branch]}
+	s.check(catalog._same_effects(staged, sealed), "a conditional stage cue preserves the sealed route projection")
+	for step: Dictionary in [{"do": "choice", "options": [{"id": "continue", "target": "different_scene"}]},
+			{"do": "world_action", "id": "receipt"}, {"do": "prop_visible", "id": "paper", "set_flags": {"extra": true}}]:
+		var unsafe := staged.duplicate(true)
+		unsafe["steps"][0]["else_steps"].append(step)
+		s.check(not catalog._same_effects(unsafe, sealed), "an effect-bearing branch stays in the projection")
 	s.check(not catalog._legacy_match("test_bad_cutscene_new_legacy",origin,scenes,sources), "new scene ID cannot declare itself legacy")
 	var changed := scenes.duplicate(true)
 	changed[first]["results"].append({"kind":"flag","id":"test_bad_cutscene_added_power","value":true})

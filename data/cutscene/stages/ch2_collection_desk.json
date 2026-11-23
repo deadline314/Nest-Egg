@@ -51,6 +51,57 @@
    "filter": "linear",
    "source_width": 296,
    "depth": "front"
+  },
+  {
+   "kind": "sprite",
+   "id": "collection_paid_receipt",
+   "path": "res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_8.png",
+   "pos": [
+    401.5,
+    271.3072916666667
+   ],
+   "scale": 0.19791666666666666,
+   "source_width": 96,
+   "filter": "linear",
+   "depth": "front",
+   "visible": false,
+   "glow": false,
+   "lighting": "physical"
+  },
+  {
+   "kind": "sprite",
+   "id": "collection_receipt_mark",
+   "path": "res://art/environment/scene_props/rent_window_contacts/contract_mark.png",
+   "pos": [
+    0,
+    0
+   ],
+   "scale": 0.19791666666666666,
+   "source_width": 96,
+   "filter": "linear",
+   "depth": "front",
+   "parent_prop": "collection_paid_receipt",
+   "anchor": [
+    0,
+    0
+   ],
+   "visible": false
+  },
+  {
+   "kind": "sprite",
+   "id": "collection_receipt_stamp",
+   "path": "res://art/environment/scene_props/rent_window_contacts/stamp.png",
+   "pos": [
+    419.3673469387755,
+    260.94897959183675
+   ],
+   "scale": 0.3673469387755102,
+   "source_width": 49,
+   "filter": "linear",
+   "depth": "front",
+   "visible": false,
+   "glow": false,
+   "lighting": "physical"
   }
  ],
  "floors": [

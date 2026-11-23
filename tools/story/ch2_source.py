@@ -30,6 +30,7 @@ import roof_watcher_staging  # noqa: E402
 import roof_tea_staging  # noqa: E402
 from ch2_stages import BOOTH, COLLECTION, LEDGER, LEDGER_DISPUTE, PAWNSHOP, RENT_WINDOW, MEDIC_LEDGER, MARKET_PASS, Cast, Stage  # noqa: E402
 from ch2_stages import LEDGER_CONTROLS, LEDGER_XIAOWEI, ledger_xiaowei_actor  # noqa: E402
+from ch2_stages import COLLECTION_BEHIND, COLLECTION_CLERK_X, COLLECTION_RECEIPT_STAMP  # noqa: E402
 import ledger_dispute_staging  # noqa: E402
 
 # 屋頂使用原場景與原茶座。早晚共用同樣的站位與比例。
@@ -912,7 +913,8 @@ class Frame:
 
 
 _PAWNSHOP_CAST = (Cast("k", towel_staging.K_X, 1, kind="old_k", scale=3.6), Cast("rin", 325, -1, scale=3.4))
-_COLLECTION_CAST = (Cast("rin", 230, 1), Cast("ali", 300, 1), Cast("vig", 430, -1, floor=322))
+_COLLECTION_CAST = (Cast("rin", 230, 1), Cast("ali", 300, 1), Cast("vig", COLLECTION_CLERK_X, -1, floor=COLLECTION_BEHIND))
+_COLLECTION_WORK_CAST = (*_COLLECTION_CAST[:-1], replace(_COLLECTION_CAST[-1], ground=COLLECTION_BEHIND))
 _LEDGER_CAST = (Cast("rin", 250, 1), Cast("yong", 440, -1), Cast("xiaowei", 490, -1))
 _TOWEL_RESTS = ((0, tuple(towel_staging.rest_steps())),)
 FORMAL_FRAMES = {
@@ -929,8 +931,11 @@ FORMAL_FRAMES = {
     "ch2_t_s01_reaction_left": Frame(PAWNSHOP, _PAWNSHOP_CAST, cues=_TOWEL_RESTS),
     **{ident: Frame(COLLECTION, _COLLECTION_CAST, ident in {"ch2_t_s06_open", "ch2_t_s06_ali_paid_revisit"}) for ident in (
         "ch2_t_s06_open", "ch2_t_s06_pay_confirm", "ch2_t_s06_open_again", "ch2_t_s06_short", "ch2_t_s06_paid", "ch2_t_s06_ask",
-        "ch2_t_s06_invite", "ch2_t_s06_invite_left", "ch2_t_s06_invite_stayed", "ch2_t_s06_close",
+        "ch2_t_s06_invite_left", "ch2_t_s06_invite_stayed", "ch2_t_s06_close",
         "ch2_t_s06_ali_paid_revisit", "ch2_t_s06_ask_late", "ch2_t_s06_later")},
+    "ch2_t_s06_invite": Frame(COLLECTION, _COLLECTION_WORK_CAST,
+        cues=((0, (dict(do="branch", when=flag("ali_advance_40", 40), steps=list(COLLECTION_RECEIPT_STAMP),
+                       else_steps=[]),)),)),
     "ch2_t_s11_intro": Frame(LEDGER_DISPUTE, (
         Cast("egret", 161, 1), Cast("rin", ledger_dispute_staging.RIN_X, 1), Cast("yong", 409, -1)),
         True, ((1, ledger_dispute_staging.place_papers(LEDGER_DISPUTE.floor)),)),

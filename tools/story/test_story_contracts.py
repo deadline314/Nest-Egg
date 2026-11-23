@@ -47,6 +47,24 @@ class StoryContracts(unittest.TestCase):
         self.assertEqual(scene["results"], [{"kind": "flag", "id": "ch2_sc1_open", "value": True}])
         self.assertFalse(any(step.get("do") == "world_action" for step in self.chapter["scenes"]["ch2_t_s09_lever_revisit"]["steps"]))
 
+    def test_stage_only_branch_keeps_the_original_route_projection(self):
+        sealed = {"mode": "animated"}
+        branch = {"do": "branch", "when": {"flag": "ali_advance_40", "equals": 40},
+                  "steps": [{"do": "prop_visible", "id": "paper", "visible": True}, {"do": "sfx", "id": "mat_wood"}],
+                  "else_steps": [{"do": "wait", "time": 0.2}]}
+        scene = dict(sealed, steps=[branch])
+        self.assertTrue(contracts.same_effects(scene, sealed))
+        from_unsafe = (
+            {"do": "choice", "options": [{"id": "continue", "target": "different_scene"}]},
+            {"do": "world_action", "id": "receipt"},
+            {"do": "prop_visible", "id": "paper", "set_flags": {"extra": True}},
+        )
+        for step in from_unsafe:
+            changed = copy.deepcopy(scene)
+            changed["steps"][0]["else_steps"].append(step)
+            with self.subTest(step=step):
+                self.assertFalse(contracts.same_effects(changed, sealed))
+
     def _load_changed(self, mutate):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

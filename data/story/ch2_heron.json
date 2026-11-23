@@ -4496,7 +4496,172 @@
      "facing": -1,
      "scale": 2.0,
      "weapon": "",
-     "speaker": "vig"
+     "speaker": "vig",
+     "ground": 322
+    },
+    {
+     "do": "branch",
+     "when": {
+      "flag": "ali_advance_40",
+      "equals": 40
+     },
+     "steps": [
+      {
+       "do": "prop_visible",
+       "id": "collection_paid_receipt",
+       "visible": true
+      },
+      {
+       "do": "prop_visible",
+       "id": "collection_receipt_stamp",
+       "visible": true
+      },
+      {
+       "do": "move",
+       "id": "vig",
+       "to": [
+        412,
+        322
+       ],
+       "time": 0.34,
+       "wait": true
+      },
+      {
+       "do": "reach",
+       "id": "vig",
+       "hand": "front",
+       "contact": [
+        79.5,
+        37.5
+       ],
+       "angle": 1.7,
+       "time": 0.26,
+       "wait": true,
+       "space": "prop",
+       "prop": "collection_receipt_stamp",
+       "to": [
+        23.5,
+        12.5
+       ]
+      },
+      {
+       "do": "prop_hold",
+       "id": "collection_receipt_stamp",
+       "actor": "vig",
+       "hand": "front",
+       "point": [
+        23.5,
+        12.5
+       ]
+      },
+      {
+       "do": "reach",
+       "id": "vig",
+       "hand": "front",
+       "contact": [
+        79.5,
+        37.5
+       ],
+       "angle": 1.7,
+       "time": 0.26,
+       "wait": true,
+       "to": [
+        411.0,
+        259.858524659864
+       ]
+      },
+      {
+       "do": "reach",
+       "id": "vig",
+       "hand": "front",
+       "contact": [
+        79.5,
+        37.5
+       ],
+       "angle": 1.7,
+       "time": 0.17,
+       "wait": true,
+       "to": [
+        411.0,
+        265.858524659864
+       ]
+      },
+      {
+       "do": "sfx",
+       "id": "mat_wood",
+       "volume": -12.0,
+       "jitter": 0.0
+      },
+      {
+       "do": "prop_visible",
+       "id": "collection_receipt_mark",
+       "visible": true
+      },
+      {
+       "do": "wait",
+       "time": 0.2
+      },
+      {
+       "do": "reach",
+       "id": "vig",
+       "hand": "front",
+       "contact": [
+        79.5,
+        37.5
+       ],
+       "angle": 1.7,
+       "time": 0.16,
+       "wait": true,
+       "to": [
+        411.0,
+        259.858524659864
+       ]
+      },
+      {
+       "do": "reach",
+       "id": "vig",
+       "hand": "front",
+       "contact": [
+        79.5,
+        37.5
+       ],
+       "angle": 1.7,
+       "time": 0.26,
+       "wait": true,
+       "to": [
+        428.0,
+        265.5408163265306
+       ]
+      },
+      {
+       "do": "prop_release",
+       "id": "collection_receipt_stamp"
+      },
+      {
+       "do": "reach",
+       "id": "vig",
+       "hand": "front",
+       "release": true,
+       "time": 0.26,
+       "wait": true
+      },
+      {
+       "do": "move",
+       "id": "vig",
+       "to": [
+        430,
+        322
+       ],
+       "time": 0.34,
+       "wait": true
+      },
+      {
+       "do": "face",
+       "id": "vig",
+       "dir": -1
+      }
+     ],
+     "else_steps": []
     },
     {
      "do": "say",

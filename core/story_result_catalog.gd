@@ -536,6 +536,27 @@ static func _projection_equal(actual: Variant, expected: Variant) -> bool:
 const PURE_STEPS := ["scene","letterbox","camera","actor","pose","move","face","remove","say","narrate","title","fx","sfx","wait","fade"]
 const EFFECT_FIELDS := ["when","requires_flag","unless_flag","requires_item","requires_held_item","unless_held_item","requires_transferred_item","results","set_flags","transfer_items","then","on_failure","target","default","completion_policy"]
 const CONTAINERS := ["steps","else_steps","options","routes"]
+const STAGING_BRANCH_FIELDS := ["do", "when", "requires_flag", "unless_flag", "requires_item", "steps", "else_steps"]
+const STAGING_BRANCH_STEPS := ["move", "face", "reach", "prop", "prop_move", "prop_hold", "prop_release", "prop_visible", "sfx", "wait"]
+
+static func _is_staging_branch(raw: Dictionary) -> bool:
+	if raw.get("do") != "branch":
+		return false
+	for key: Variant in raw:
+		if key not in STAGING_BRANCH_FIELDS:
+			return false
+	var steps: Variant = raw.get("steps", [])
+	var otherwise: Variant = raw.get("else_steps", [])
+	if not steps is Array or not otherwise is Array or (steps.is_empty() and otherwise.is_empty()):
+		return false
+	for side: Array in [steps, otherwise]:
+		for step: Variant in side:
+			if not step is Dictionary or step.get("do") not in STAGING_BRANCH_STEPS:
+				return false
+			for key: Variant in step:
+				if key in EFFECT_FIELDS or key in CONTAINERS:
+					return false
+	return true
 
 static func _copy(raw: Variant) -> Variant:
 	return raw.duplicate(true) if raw is Dictionary or raw is Array else raw
@@ -548,6 +569,7 @@ static func _effects(raw: Variant) -> Variant:
 			if not (value is Dictionary and value.is_empty()): values.append(value)
 		return values
 	if not raw is Dictionary: return raw
+	if _is_staging_branch(raw): return {}
 	var out := {}
 	if raw.get("do") in PURE_STEPS:
 		for key: String in EFFECT_FIELDS:
