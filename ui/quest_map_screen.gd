@@ -25,7 +25,7 @@ const LEGEND := [
 	["player", ["你的位置", "現在地", "You are here"], ["主角目前在這裡。", "ここが現在地です。", "Your current position."]],
 	["goal", ["追蹤目標", "追跡中の目標", "Tracked goal"], ["前往這裡完成追蹤中的步驟。", "追跡中の目標はここです。", "Go here for the tracked step."]],
 	["exit", ["出入口", "出入口", "Exit"], ["從出入口前往其他區域。", "別のエリアに移動します。", "Leads to another area."]],
-	["checkpoint", ["復原點", "復帰地点", "Checkpoint"], ["啟用後可從這裡重新開始。", "有効にするとここから再開できます。", "Activate to restart here."]],
+	["checkpoint", ["復原點", "復帰地点", "Checkpoint"], ["實心代表曾備份。到電話亭可再次備份。", "塗りつぶしはバックアップ済みです。電話で再度保存できます。", "A filled marker means you backed up here."]],
 	["shop", ["商店", "店", "Shop"], ["在商店查看補給與服務。", "物資やサービスを確認できます。", "Browse supplies and services."]],
 	["pickup", ["拾取點", "アイテム", "Pickup"], ["探索附近後可查看拾取地點。", "探索すると入手場所を確認できます。", "Explore nearby to reveal pickups."]],
 	["gate", ["閘門", "ゲート", "Gate"], ["選擇閘門圖示查看通行條件。", "アイコンを選ぶと通行条件を確認できます。", "Select a gate to see its requirement."]],
@@ -629,6 +629,9 @@ func _build_map(map_zoom: float) -> void:
 	_canvas.zoom = map_zoom
 	_canvas.flags = GameState.world_flags
 	_canvas.world = _world_for_area(data)
+	var backup_area := GameState.checkpoint_level_path if not GameState.checkpoint_level_path.is_empty() else player_path
+	if GameState.has_checkpoint and backup_area == _map_path:
+		_canvas.latest_checkpoint_position = GameState.checkpoint_position
 	var quest := catalog.find(_selected) if not _selected.is_empty() else state.target(catalog, chapter, GameState.world_flags)
 	var step := QuestCatalog.current_step(quest, GameState.world_flags)
 	if step.is_empty() and not quest.is_empty():

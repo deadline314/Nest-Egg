@@ -89,10 +89,18 @@ func knows(path: String, cell: Vector2i) -> bool:
 
 
 func activate(path: String, position: Vector2, tile: int) -> void:
-	var key := "%s@%d,%d" % [path, int(position.x / tile), int(position.y / tile)]
+	var key := _checkpoint_key(path, position, tile)
 	if not activated.has(key):
 		activated[key] = true
 		_touch()
+
+
+func used_checkpoint(path: String, position: Vector2, tile: int) -> bool:
+	return activated.get(_checkpoint_key(path, position, tile), false) == true
+
+
+static func _checkpoint_key(path: String, position: Vector2, tile: int) -> String:
+	return "%s@%d,%d" % [path, int(position.x / tile), int(position.y / tile)]
 
 
 func snapshot() -> Dictionary:

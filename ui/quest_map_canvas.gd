@@ -34,6 +34,7 @@ var goal_name := ""
 var flags: Dictionary = {}
 var world: Dictionary = {}
 var world_mode := false
+var latest_checkpoint_position := Vector2.INF
 var language := StoryLocale.SOURCE_LANGUAGE
 ## 世界地圖的區域名稱是否折成兩行（欄寬放不下一行時）。
 var _wrap_names := false
@@ -163,18 +164,32 @@ func _region_map() -> void:
 		var kind := str(marker["kind"])
 		var point: Vector2 = _map_rect.position + marker["position"] / layout.tile_size * factor
 		var text := maps.marker_text(marker, flags, language)
-		if kind == "gate":
+		var symbol := str(SYMBOLS.get(kind, "·"))
+		var color: Color = COLORS.get(kind, Palette.CYAN)
+		if kind == "checkpoint":
+			var position: Vector2 = marker["position"]
+			if latest_checkpoint_position.distance_squared_to(position) < 1.0:
+				text = _text(["最後一次備份在這裡。", "最後にここでバックアップしました。", "Your latest backup is here."])
+				color = Palette.CYAN
+			elif state.used_checkpoint(path, position, layout.tile_size):
+				text = _text(["你曾在這裡備份。", "ここでバックアップしたことがあります。", "You backed up here before."])
+			else:
+				symbol = "◇"
+				color = Palette.UI_MUTED
+		elif kind == "gate":
 			var resource := marker["resource"] as MechanismData
 			var open: bool = world.get("gate@%d,%d" % [cell.x, cell.y], resource.arena_gate) == true
 			if open:
 				text = _text(["這道閘門目前可以通行。", "このゲートは通れます。", "This gate is open."])
 				kind = "exit"
+				symbol = SYMBOLS[kind]
+				color = COLORS[kind]
 		var destination := _destination_name(marker) if kind == "exit" else ""
 		if not _view.grow(1).has_point(point):
 			if not destination.is_empty():
 				_edge_label(point, destination, Palette.UI_TEXT)
 			continue
-		var button := _button("marker:%d" % index, SYMBOLS.get(kind, "·"), text, point, MARKER, COLORS.get(kind, Palette.CYAN))
+		var button := _button("marker:%d" % index, symbol, text, point, MARKER, color)
 		button.pressed.connect(marker_selected.emit.bind(text))
 		if not destination.is_empty():
 			var arrow := "← %s" % destination if point.x < _view.get_center().x else "%s →" % destination

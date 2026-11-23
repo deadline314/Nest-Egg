@@ -516,6 +516,7 @@ func _test_ui(catalog: QuestCatalog, maps: QuestMapIndex) -> void:
 	await _test_journal_language(screen)
 	await _test_map_language(screen)
 	await _test_remote_gates(screen)
+	await _test_checkpoint_marker(screen)
 	await _test_map_recenter(screen)
 	await _test_tab_history(screen)
 	await _test_completed_pin_label(screen)
@@ -948,6 +949,47 @@ func _test_remote_gates(screen: QuestMapScreen) -> void:
 		"malformed remote world data safely uses the authored gate default")
 	GameState.area_states = previous_area
 	screen.world = previous_world
+	screen.go_back()
+	await _ui_frames(4)
+
+
+func _test_checkpoint_marker(screen: QuestMapScreen) -> void:
+	var before_checkpoint := GameState.has_checkpoint
+	var before_area := GameState.checkpoint_level_path
+	var before_position := GameState.checkpoint_position
+	var layout: LevelLayout = screen.maps.areas[WAREHOUSE]["layout"]
+	var markers: Array[Dictionary] = screen.maps.areas[WAREHOUSE]["markers"]
+	var index := markers.find_custom(func(marker: Dictionary) -> bool: return marker.get("kind") == "checkpoint")
+	check(index >= 0, "the original warehouse map contains a checkpoint")
+	if index < 0:
+		return
+	var marker := markers[index]
+	var origin: Vector2 = marker["position"]
+	const KEY_FORMAT := "marker:%d"
+	screen.state.reveal(WAREHOUSE, [marker["cell"]])
+	GameState.has_checkpoint = false
+	screen._jump_to_map(WAREHOUSE)
+	await _ui_frames(4)
+	var button := _find_map_marker(screen._canvas, KEY_FORMAT % index)
+	check(button != null and button.text == "◇", "an unused warehouse booth appears as an outline")
+	screen.state.activate(WAREHOUSE, origin, layout.tile_size)
+	check(screen.state.used_checkpoint(WAREHOUSE, origin, layout.tile_size), "booth reading uses the exact existing backup key")
+	screen._build()
+	await _ui_frames(4)
+	button = _find_map_marker(screen._canvas, KEY_FORMAT % index)
+	check(button != null and button.text == "◆" and button.tooltip_text == "你曾在這裡備份。",
+		"a used booth is filled and distinguishes a previous backup")
+	GameState.has_checkpoint = true
+	GameState.checkpoint_level_path = WAREHOUSE
+	GameState.checkpoint_position = origin
+	screen._build()
+	await _ui_frames(4)
+	button = _find_map_marker(screen._canvas, KEY_FORMAT % index)
+	check(button != null and button.tooltip_text == "最後一次備份在這裡。",
+		"the actual latest backup is identified on its area map")
+	GameState.checkpoint_position = before_position
+	GameState.checkpoint_level_path = before_area
+	GameState.has_checkpoint = before_checkpoint
 	screen.go_back()
 	await _ui_frames(4)
 
