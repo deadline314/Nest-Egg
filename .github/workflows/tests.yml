@@ -37,6 +37,8 @@ jobs:
       actions: read
     steps:
       - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github
 
       # 排程觸發時，如果這個提交已經有成功的測試，就不用再跑一次。
       - name: Skip when nothing changed since the last green run
@@ -50,6 +52,13 @@ jobs:
             echo "skip=true" >> "$GITHUB_OUTPUT"
             echo "Nothing changed since the last green run ($last)."
           fi
+
+      # 票據附件由 Git 保存。測試只展開遊戲、素材和工具所在的目錄。
+      - name: Check out test sources
+        if: steps.gate.outputs.skip != 'true'
+        shell: bash
+        run: |
+          git ls-tree -d --name-only HEAD | sed '/^pm$/d' | git sparse-checkout set --cone --stdin
 
       - name: Test local evidence retention
         if: steps.gate.outputs.skip != 'true'

@@ -7,3 +7,9 @@
 預設目錄為 `work/evidence`。本機驗收另放在專用磁碟時，用 `git config --local nestegg.evidenceRoot "D:/NestEggVerification"` 指定。支援用 `--root` 單次指定另一個專用目錄。
 
 手動預覽用 `python tools/evidence_retention.py`。確認結果後可用 `python tools/evidence_retention.py --apply` 直接執行。日常 `tools/run_tests_changed.sh` 會沿用相同規則自動清理。清理失敗會列出原因，受影響測試會繼續執行。
+
+## GitHub Actions 測試的工作目錄
+
+測試工作先以 Git 的稀疏檢出取得根目錄檔案與工作流程。排程確認目前提交已有綠燈時，到這裡即可結束。需要跑測試時，再依實際提交展開 pm/ 以外的目錄。這只影響 CI 暫存的工作目錄，票據及正式附件仍由 Git 保存。發行與需要逐票讀取證據的工具繼續使用完整檢出。
+
+[動作的稀疏檢出設定](https://github.com/actions/checkout/blob/v4/README.md#fetch-only-the-root-files-and-github-and-src-folder) · [Git cone 模式規則](https://git-scm.com/docs/git-sparse-checkout#_cone_pattern_set)
