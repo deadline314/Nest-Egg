@@ -513,6 +513,7 @@ func _test_ui(catalog: QuestCatalog, maps: QuestMapIndex) -> void:
 	await _test_journal_input(screen, false)
 	await _test_journal_input(screen, true)
 	await _test_journal_language(screen)
+	await _test_map_language(screen)
 	await _test_map_recenter(screen)
 	await _test_tab_history(screen)
 	await _test_completed_pin_label(screen)
@@ -907,6 +908,54 @@ func _test_journal_language(screen: QuestMapScreen) -> void:
 	Story.set_language(old_language)
 	await frames(4)
 
+
+func _test_map_language(screen: QuestMapScreen) -> void:
+	var previous := Story.language
+	screen._jump_to_map(PAWN)
+	await frames(3)
+	var area := screen._map_path
+	screen._zoom(2.0)
+	screen._buttons[2].grab_focus()
+	Story.set_language("en")
+	for frame in 4:
+		await runner.get_tree().process_frame
+	var center := screen._buttons[2]
+	check(center.text == "Center on player" and center.has_focus() and center.tooltip_text == screen._status.text,
+		"area map localizes and retains recenter focus and its hint (%s, %s, %s)" % [center.text, center.has_focus(), screen._status.text])
+	check(screen._canvas.zoom == 2.0 and screen._map_path == area, "area location and zoom survive a language change")
+	var player := _find_map_marker(screen._canvas, "marker:player")
+	check(player != null and player.tooltip_text == "Your current position.", "area map localizes the player marker in %s" % area)
+	screen.show_page("world", false)
+	await frames(3)
+	var node := _find_map_marker(screen._canvas, "area:" + PAWN)
+	check(node != null and node.tooltip_text.begins_with("Open the map for "), "world map localizes its area marker hint")
+	if node != null:
+		node.grab_focus()
+		Story.set_language("ja")
+		for frame in 4:
+			await runner.get_tree().process_frame
+		node = _find_map_marker(screen._canvas, "area:" + PAWN)
+		check(node != null and node.has_focus() and node.tooltip_text == screen._status.text and node.tooltip_text.contains("の地図を開きます。"),
+			"world map restores the same area marker and its Japanese focus hint")
+		await _joy(JOY_BUTTON_A)
+		await frames(3)
+		check(screen._page == "region" and screen._map_path == PAWN, "localized world node still opens its exact area with controller confirm")
+		await _joy(JOY_BUTTON_B)
+		await frames(3)
+		node = _find_map_marker(screen._canvas, "area:" + PAWN)
+		check(screen._page == "world" and node != null and node.has_focus(), "return restores the original world node")
+	Story.set_language(previous)
+	screen.show_page("quests", false)
+	for frame in 4:
+		await runner.get_tree().process_frame
+
+
+func _find_map_marker(canvas: QuestMapCanvas, key: String) -> Button:
+	if canvas != null:
+		for marker in canvas._markers:
+			if marker.get_meta(&"nav_key", "") == key:
+				return marker
+	return null
 
 func _test_journal_input(screen: QuestMapScreen, controller: bool) -> void:
 	screen._history.clear()

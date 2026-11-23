@@ -34,6 +34,7 @@ var goal_name := ""
 var flags: Dictionary = {}
 var world: Dictionary = {}
 var world_mode := false
+var language := StoryLocale.SOURCE_LANGUAGE
 ## 世界地圖的區域名稱是否折成兩行（欄寬放不下一行時）。
 var _wrap_names := false
 var zoom := 1.0
@@ -84,6 +85,8 @@ func refresh() -> void:
 	if not is_inside_tree() or maps == null or state == null or size.x < 1 or size.y < 1:
 		return
 	_built_size = size
+	var owner := get_viewport().gui_get_focus_owner() as Button
+	var focus_key := str(owner.get_meta(&"nav_key", "")) if owner != null and owner.get_parent() == self else ""
 	for button in _markers:
 		remove_child(button)
 		button.queue_free()
@@ -100,6 +103,11 @@ func refresh() -> void:
 		_world_map()
 	elif maps.areas.has(path):
 		_region_map()
+	if not focus_key.is_empty():
+		for button in _markers:
+			if button.get_meta(&"nav_key") == focus_key:
+				button.grab_focus()
+				break
 	queue_redraw()
 	refreshed.emit()
 
@@ -146,41 +154,43 @@ func _region_map() -> void:
 	_map_rect = Rect2(origin, display)
 	if display.x > avail.x + 0.5:
 		_overview = Rect2(PAD, size.y - PAD - OVERVIEW_H, avail.x, OVERVIEW_H)
-	for marker: Dictionary in area["markers"]:
+	var markers: Array[Dictionary] = area["markers"]
+	for index in markers.size():
+		var marker := markers[index]
 		var cell: Vector2i = marker["cell"]
 		if not state.knows(path, cell) or marker["kind"] == "secret_wall":
 			continue
 		var kind := str(marker["kind"])
 		var point: Vector2 = _map_rect.position + marker["position"] / layout.tile_size * factor
-		var text := maps.marker_text(marker, flags)
+		var text := maps.marker_text(marker, flags, language)
 		if kind == "gate":
 			var resource := marker["resource"] as MechanismData
 			var open: bool = world.get("gate@%d,%d" % [cell.x, cell.y], resource.arena_gate) == true
 			if open:
-				text = "這道閘門目前可以通行。"
+				text = _text(["這道閘門目前可以通行。", "このゲートは通れます。", "This gate is open."])
 				kind = "exit"
 		var destination := _destination_name(marker) if kind == "exit" else ""
 		if not _view.grow(1).has_point(point):
 			if not destination.is_empty():
 				_edge_label(point, destination, Palette.UI_TEXT)
 			continue
-		var button := _button(SYMBOLS.get(kind, "·"), text, point, MARKER, COLORS.get(kind, Palette.CYAN))
+		var button := _button("marker:%d" % index, SYMBOLS.get(kind, "·"), text, point, MARKER, COLORS.get(kind, Palette.CYAN))
 		button.pressed.connect(marker_selected.emit.bind(text))
 		if not destination.is_empty():
 			var arrow := "← %s" % destination if point.x < _view.get_center().x else "%s →" % destination
 			_label(arrow, point + Vector2(0, -MARKER.y), Color("bfe9f5"))
 	if path == player_path:
-		_button("▲", "主角目前在這裡。", _map_rect.position + player_position / layout.tile_size * factor, MARKER, Palette.CYAN)
+		_button("marker:player", "▲", _text(["主角目前在這裡。", "ここが現在地です。", "Your current position."]), _map_rect.position + player_position / layout.tile_size * factor, MARKER, Palette.CYAN)
 	if goal.get("level", "") == path:
 		var cell: Array = goal.get("cell", [0, 0])
 		var point := _map_rect.position + Vector2(cell[0] + 0.5, cell[1] + 1.0) * factor
 		if _view.grow(1).has_point(point):
-			var text := "前往這裡完成追蹤中的步驟。" if goal_name.is_empty() else goal_name
-			var marker := _button("◎", text, point, MARKER, Palette.MAGENTA)
+			var text := _text(["前往這裡完成追蹤中的步驟。", "追跡中の目標はここです。", "Go here for the tracked step."]) if goal_name.is_empty() else goal_name
+			var marker := _button("marker:goal", "◎", text, point, MARKER, Palette.MAGENTA)
 			if not goal_name.is_empty():
 				marker.pressed.connect(marker_selected.emit.bind(text))
 		else:
-			_edge_label(point, "◎ 目標", Palette.MAGENTA)
+			_edge_label(point, _text(["◎ 目標", "◎ 目標", "◎ Goal"]), Palette.MAGENTA)
 
 
 func _cell_size(cells: Vector2, avail: Vector2) -> float:
@@ -296,9 +306,12 @@ func _world_map() -> void:
 			if key.begins_with(level_path + "@"):
 				activated_here = true
 		var label := ("▲ " if current else "◎ " if target else "") + data.display_name + (" ◆" if activated_here else "")
-		var tooltip := "前往%s的區域地圖。%s%s" % [data.display_name, "你已經探索過這裡。" if known else "這裡尚未探索。", "已啟用復原點；目前沒有傳送功能。" if activated_here else ""]
+		var tooltip := _text(["開啟%s的地圖。", "%sの地図を開きます。", "Open the map for %s."]) % data.display_name
+		tooltip += _text([" 已探索。", " 探索済み。", " Visited."] if known else [" 尚未探索。", " 未探索。", " Unexplored."])
+		if activated_here:
+			tooltip += _text([" 復原點已啟用，無傳送功能。", " 復帰地点は有効です。転送はできません。", " Checkpoint active. No fast travel."])
 		var accent := Palette.MAGENTA if target else Palette.CYAN if current or known else Palette.UI_MUTED
-		var button := _button(label, tooltip, centers[level_path], node, accent)
+		var button := _button("area:" + level_path, label, tooltip, centers[level_path], node, accent)
 		if _wrap_names:
 			button.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		_world_node_style(button, current, target, known)
@@ -512,8 +525,13 @@ func _label(text: String, center: Vector2, color: Color) -> Label:
 	return label
 
 
-func _button(label: String, tip: String, center: Vector2, dimensions: Vector2, accent: Color) -> Button:
+func _text(copy: Array) -> String:
+	return copy[1] if language == "ja" else copy[2] if language == "en" else copy[0]
+
+
+func _button(key: String, label: String, tip: String, center: Vector2, dimensions: Vector2, accent: Color) -> Button:
 	var button := UiKit.button(label, Callable(), tip)
+	button.set_meta(&"nav_key", key)
 	button.add_theme_color_override(&"font_color", accent)
 	if dimensions.x < 20:
 		for state_name in ["normal", "hover", "pressed", "focus"]:

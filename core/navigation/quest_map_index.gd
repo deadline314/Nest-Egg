@@ -111,15 +111,33 @@ func next_exit(from: String, to: String, flags: Dictionary, allow_locked := fals
 	return next_exit(from, to, flags, true) if not allow_locked else {}
 
 
-func marker_text(marker: Dictionary, flags: Dictionary) -> String:
+func marker_text(marker: Dictionary, flags: Dictionary, language := StoryLocale.SOURCE_LANGUAGE) -> String:
 	var resource: Resource = marker.get("resource")
 	if resource is PortalData:
 		var portal := resource as PortalData
 		if portal.is_locked_door() or (portal.requires_flag != &"" and not QuestCatalog.flag_set(flags, String(portal.requires_flag))):
 			return portal.locked_text
 		var target: LevelData = areas.get(portal.target_level, {}).get("data")
-		return "從這裡前往%s。" % target.display_name if target != null else str(marker["text"])
+		if target != null:
+			return _marker_copy(["從這裡前往%s。", "ここから%sへ移動できます。", "Leads to %s."], language) % target.display_name
+		return str(marker["text"])
+	if resource is ShopData:
+		return _marker_copy(["在%s購買補給或查看服務。", "%sで物資やサービスを確認できます。", "Browse supplies and services at %s."], language) % resource.display_name
+	if resource is MechanismData and resource.kind == MechanismData.Kind.GATE and resource.hint.is_empty():
+		return _marker_copy(["查看%s的開啟條件。", "%sを開ける条件を確認できます。", "Check the requirement to open %s."], language) % resource.display_name
+	match marker.get("kind", ""):
+		"checkpoint":
+			return _marker_copy(["在這裡啟用復原點。", "ここで復帰地点を有効にできます。", "Activate the checkpoint here."], language)
+		"pickup":
+			if resource == null:
+				return _marker_copy(["在這裡拾取回復道具。", "ここで回復アイテムを入手できます。", "Pick up a healing item here."], language)
+			var name: String = _marker_copy(["信用點", "クレジット", "credits"], language) if resource is CreditPileData else resource.display_name
+			return _marker_copy(["在這裡拾取%s。", "ここで%sを入手できます。", "Pick up %s here."], language) % name
 	return InputBindings.format(str(marker["text"]))
+
+
+static func _marker_copy(copy: Array, language: String) -> String:
+	return copy[1] if language == "ja" else copy[2] if language == "en" else copy[0]
 
 
 ## 探索只揭露玩家周圍可見的格子，實心地形與未破壞的秘密牆會遮擋視線。

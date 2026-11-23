@@ -21,7 +21,15 @@ const PAGE_TIPS := {
 	"region": ["查看目前區域及已探索的地點。", "現在地と探索済みの場所を確認します。", "View this area and explored locations."],
 	"world": ["查看區域之間的真實出入口連接。", "各エリアを結ぶ出入口を確認します。", "See how areas connect."],
 }
-const LEGEND := [["player", "你的位置", "主角目前在這裡。"], ["goal", "追蹤目標", "前往這裡完成追蹤中的步驟。"], ["exit", "出入口", "從出入口前往其他區域。"], ["checkpoint", "復原點", "啟用後可從這裡重新開始。"], ["shop", "商店", "在商店查看補給與服務。"], ["pickup", "拾取點", "探索附近後可查看拾取地點。"], ["gate", "閘門", "選擇閘門圖示查看通行條件。"]]
+const LEGEND := [
+	["player", ["你的位置", "現在地", "You are here"], ["主角目前在這裡。", "ここが現在地です。", "Your current position."]],
+	["goal", ["追蹤目標", "追跡中の目標", "Tracked goal"], ["前往這裡完成追蹤中的步驟。", "追跡中の目標はここです。", "Go here for the tracked step."]],
+	["exit", ["出入口", "出入口", "Exit"], ["從出入口前往其他區域。", "別のエリアに移動します。", "Leads to another area."]],
+	["checkpoint", ["復原點", "復帰地点", "Checkpoint"], ["啟用後可從這裡重新開始。", "有効にするとここから再開できます。", "Activate to restart here."]],
+	["shop", ["商店", "店", "Shop"], ["在商店查看補給與服務。", "物資やサービスを確認できます。", "Browse supplies and services."]],
+	["pickup", ["拾取點", "アイテム", "Pickup"], ["探索附近後可查看拾取地點。", "探索すると入手場所を確認できます。", "Explore nearby to reveal pickups."]],
+	["gate", ["閘門", "ゲート", "Gate"], ["選擇閘門圖示查看通行條件。", "アイコンを選ぶと通行条件を確認できます。", "Select a gate to see its requirement."]],
+]
 const SOURCE_MAP_COPY := {
 	"zh": {"center": "回到來源", "marker": "文件來源", "hint": "取得這份文件的地點。", "zoom": "放大來源周圍的地圖。"},
 	"ja": {"center": "入手先に戻る", "marker": "入手先", "hint": "この書類を入手した場所。", "zoom": "入手先の周辺を拡大。"},
@@ -121,8 +129,9 @@ func _process(_delta: float) -> void:
 	var owned_focus := owner != null and is_ancestor_of(owner)
 	var focus_key := _focus_text() if owned_focus else ""
 	var scroll := _detail_scroll.scroll_vertical if is_instance_valid(_detail_scroll) else 0
+	var map_zoom := _canvas.zoom if is_instance_valid(_canvas) else 1.0
 	_refresh_footer()
-	_build(owned_focus)
+	_build(owned_focus, map_zoom)
 	if owned_focus:
 		_restore_focus.call_deferred(focus_key)
 	if is_instance_valid(_detail_scroll):
@@ -221,7 +230,7 @@ func go_back() -> void:
 		queue_free()
 
 
-func _build(focus_first := true) -> void:
+func _build(focus_first := true, map_zoom := 1.0) -> void:
 	for child in _body.get_children():
 		_body.remove_child(child)
 		child.queue_free()
@@ -240,7 +249,7 @@ func _build(focus_first := true) -> void:
 	if _page == "quests":
 		_build_quests()
 	else:
-		_build_map()
+		_build_map(map_zoom)
 	_bind_hints(self)
 	if focus_first and not _buttons.is_empty():
 		_focus_first.call_deferred()
@@ -540,7 +549,7 @@ func _jump_to_map(path: String) -> void:
 # 地圖頁
 # ---------------------------------------------------------------------------
 
-func _build_map() -> void:
+func _build_map(map_zoom: float) -> void:
 	var data: LevelData = maps.areas.get(_map_path, {}).get("data")
 	var columns := HBoxContainer.new()
 	UiKit.fill_parent(columns)
@@ -552,14 +561,15 @@ func _build_map() -> void:
 	columns.add_child(info)
 	var world_mode := _page == "world"
 	var showing_source := not reference_location.is_empty()
-	var source_copy: Dictionary = SOURCE_MAP_COPY.get(Story.language, SOURCE_MAP_COPY["zh"])
-	var area_caption := "目前區域" if _map_path == player_path else "查看中的區域"
+	var source_copy: Dictionary = SOURCE_MAP_COPY.get(_display_language, SOURCE_MAP_COPY["zh"])
+	var area_caption := _text(["目前區域", "現在のエリア", "Current area"]) if _map_path == player_path else _text(["查看中的區域", "表示中のエリア", "Viewing area"])
 	if world_mode:
-		area_caption = "本章區域"
+		area_caption = _text(["本章區域", "この章のエリア", "Chapter areas"])
 		if not chapter.is_empty():
 			area_caption = str(Story.chapter_info(StringName(chapter)).get("title", area_caption))
 	info.add_child(UiKit.caption(area_caption, Palette.CYAN))
-	var heading := UiKit.heading("世界地圖" if world_mode else data.display_name if data != null else "尚未載入區域")
+	var heading_text := data.display_name if data != null else _text(["尚未載入區域", "エリア未読込", "Area unavailable"])
+	var heading := UiKit.heading(_text(PAGE_NAMES["world"]) if world_mode else heading_text)
 	heading.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	# 自動換行的標題先知道欄寬；否則第一次排版以零寬逐字換行，地圖會在同一格多重建一次。
 	heading.custom_minimum_size.x = INFO_WIDTH
@@ -572,19 +582,27 @@ func _build_map() -> void:
 		tools.add_theme_constant_override(&"h_separation", 2)
 		tools.add_theme_constant_override(&"v_separation", 2)
 		info.add_child(tools)
-		var zoom_hint: String = source_copy["zoom"] if showing_source else "放大區域地圖，中心對準玩家位置。"
-		var center := [source_copy["center"], _here, source_copy["hint"]] if showing_source else ["回到所在區域", _here, "顯示主角目前所在的區域。"]
-		for entry: Array in [["放大", _zoom.bind(2.0), zoom_hint], ["縮小", _zoom.bind(0.5), "縮小區域地圖，查看更遠的路。"], center]:
-			var tool := UiKit.button(entry[0], entry[1], entry[2])
+		var zoom_hint: String = source_copy["zoom"] if showing_source else _text(["放大地圖中心。", "地図の中心を拡大します。", "Zoom in around the map center."])
+		var center_label: String = source_copy["center"] if showing_source else _text(["回到所在區域", "現在地に戻る", "Center on player"])
+		var center_hint: String = source_copy["hint"] if showing_source else _text(["顯示主角目前所在的區域。", "現在いるエリアを表示します。", "Show your current area."])
+		var controls := [
+			["zoom_in", _text(["放大", "拡大", "Zoom in"]), _zoom.bind(2.0), zoom_hint],
+			["zoom_out", _text(["縮小", "縮小", "Zoom out"]), _zoom.bind(0.5), _text(["縮小地圖以查看周圍。", "地図を縮小して周辺を表示します。", "Zoom out to see farther."])],
+			["center", center_label, _here, center_hint],
+		]
+		for entry: Array in controls:
+			var tool := UiKit.button(entry[1], entry[2], entry[3])
+			tool.set_meta(&"nav_key", "map:" + str(entry[0]))
 			FlatStyle.chip(tool)
 			tools.add_child(tool)
 			_buttons.append(tool)
-	info.add_child(FlatStyle.section("圖例"))
+	info.add_child(FlatStyle.section(_text(["圖例", "凡例", "Legend"])))
 	for item: Array in LEGEND:
 		var source_marker: bool = showing_source and item[0] == "goal"
-		var text: String = source_copy["marker"] if source_marker else item[1]
-		var tip: String = source_copy["hint"] if source_marker else item[2]
+		var text: String = source_copy["marker"] if source_marker else _text(item[1])
+		var tip: String = source_copy["hint"] if source_marker else _text(item[2])
 		var button := UiKit.button("　 " + text, Callable(), tip)
+		button.set_meta(&"nav_key", "legend:" + str(item[0]))
 		FlatStyle.chip(button)
 		button.alignment = HORIZONTAL_ALIGNMENT_LEFT
 		var glyph := UiKit.caption(QuestMapCanvas.SYMBOLS[item[0]], QuestMapCanvas.COLORS[item[0]])
@@ -607,6 +625,8 @@ func _build_map() -> void:
 	_canvas.player_path = player_path
 	_canvas.player_position = player_position
 	_canvas.world_mode = world_mode
+	_canvas.language = _display_language
+	_canvas.zoom = map_zoom
 	_canvas.flags = GameState.world_flags
 	_canvas.world = world
 	var quest := catalog.find(_selected) if not _selected.is_empty() else state.target(catalog, chapter, GameState.world_flags)
@@ -619,7 +639,7 @@ func _build_map() -> void:
 	_canvas.area_selected.connect(_jump_to_map)
 	_canvas.refreshed.connect(func() -> void: stats.text = _map_stats(world_mode))
 	frame.add_child(_canvas)
-	_status.text = "未探索處只顯示外框；選擇圖示可以閱讀說明。"
+	_status.text = _text(["未探索處只顯示外框。選擇圖示查看說明。", "未探索の場所は輪郭だけ表示されます。アイコンで詳細を確認できます。", "Unexplored places show an outline. Select an icon for details."])
 	_canvas.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	_canvas.queue_refresh()
 
@@ -630,8 +650,8 @@ func _map_stats(world_mode: bool) -> String:
 		for path: String in maps.areas:
 			if state.explored.has(path):
 				visited += 1
-		return "去過 %d／%d 個區域" % [visited, maps.areas.size()]
-	return "已探索 %d%%" % roundi(_canvas.explored_ratio * 100.0) if _canvas != null else ""
+		return _text(["去過 %d／%d 個區域", "%d／%d エリア訪問", "%d/%d areas visited"]) % [visited, maps.areas.size()]
+	return _text(["已探索 %d%%", "探索率 %d%%", "%d%% explored"]) % roundi(_canvas.explored_ratio * 100.0) if _canvas != null else ""
 
 
 func _zoom(factor: float) -> void:
