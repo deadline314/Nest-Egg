@@ -512,6 +512,7 @@ func _test_ui(catalog: QuestCatalog, maps: QuestMapIndex) -> void:
 	check(screen._page == "quests", "controller LB switches back to quests")
 	await _test_journal_input(screen, false)
 	await _test_journal_input(screen, true)
+	await _test_journal_language(screen)
 	await _test_map_recenter(screen)
 	await _test_tab_history(screen)
 	await _test_completed_pin_label(screen)
@@ -882,6 +883,29 @@ func _test_map_recenter(screen: QuestMapScreen) -> void:
 		check(owner != null and screen._status.text == "顯示主角目前所在的區域。", "recenter preserves the activated control's hint from %s" % area)
 		screen.go_back()
 		await frames(3)
+
+
+func _test_journal_language(screen: QuestMapScreen) -> void:
+	var old_language := Story.language
+	var old_pin := screen.state.pinned_id
+	screen.state.pinned_id = ""
+	screen._build()
+	await frames(3)
+	var selected := screen._selected
+	var pin := screen._actions.get_child(0) as Button
+	pin.grab_focus()
+	for language in ["en", "ja"]:
+		Story.set_language(language)
+		await frames(4)
+		pin = screen._actions.get_child(0) as Button
+		var title := "Track quest" if language == "en" else "追跡する"
+		check(pin.text == title and screen.get_viewport().gui_get_focus_owner() == pin, "%s localization preserves the tracking action focus" % language)
+		check(screen._status.text == pin.tooltip_text and screen._selected == selected, "%s preserves the focused hint and selected quest" % language)
+		var tab := screen._tabs.get_child(1) as Button
+		check(tab.text == ("Quests" if language == "en" else "クエスト"), "%s localizes the task tab" % language)
+	screen.state.pinned_id = old_pin
+	Story.set_language(old_language)
+	await frames(4)
 
 
 func _test_journal_input(screen: QuestMapScreen, controller: bool) -> void:

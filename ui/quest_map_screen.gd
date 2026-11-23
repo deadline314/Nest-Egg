@@ -7,10 +7,20 @@ extends Control
 signal closed
 const LIST_WIDTH := 200.0
 const INFO_WIDTH := 116.0
-const FILTERS := [["進行中", "active"], ["已完成", "completed"], ["全部", "all"], ["主線", "main"], ["支線", "side"]]
+const FILTERS := {
+	"active": [["進行中", "進行中", "Active"], ["顯示進行中的任務。", "進行中のクエストを表示します。", "Show active quests."]],
+	"completed": [["已完成", "完了", "Done"], ["顯示已完成的任務。", "完了したクエストを表示します。", "Show completed quests."]],
+	"all": [["全部", "すべて", "All"], ["顯示全部任務。", "すべてのクエストを表示します。", "Show all quest types."]],
+	"main": [["主線", "メイン", "Main"], ["顯示主線任務。", "メインクエストを表示します。", "Show main quests."]],
+	"side": [["支線", "サブ", "Side"], ["顯示支線任務。", "サブクエストを表示します。", "Show side quests."]],
+}
 const PAGES := ["quests", "region", "world"]
-const PAGE_NAMES := {"quests": "任務", "region": "區域地圖", "world": "世界地圖"}
-const PAGE_TIPS := {"quests": "查看任務步驟與釘選目標。", "region": "查看目前區域及已探索的地點。", "world": "查看區域之間的真實出入口連接。"}
+const PAGE_NAMES := {"quests": ["任務", "クエスト", "Quests"], "region": ["區域地圖", "エリア", "Area"], "world": ["世界地圖", "全体", "World"]}
+const PAGE_TIPS := {
+	"quests": ["查看任務步驟與釘選目標。", "手順を確認して目的を追跡できます。", "Review steps and track a quest."],
+	"region": ["查看目前區域及已探索的地點。", "現在地と探索済みの場所を確認します。", "View this area and explored locations."],
+	"world": ["查看區域之間的真實出入口連接。", "各エリアを結ぶ出入口を確認します。", "See how areas connect."],
+}
 const LEGEND := [["player", "你的位置", "主角目前在這裡。"], ["goal", "追蹤目標", "前往這裡完成追蹤中的步驟。"], ["exit", "出入口", "從出入口前往其他區域。"], ["checkpoint", "復原點", "啟用後可從這裡重新開始。"], ["shop", "商店", "在商店查看補給與服務。"], ["pickup", "拾取點", "探索附近後可查看拾取地點。"], ["gate", "閘門", "選擇閘門圖示查看通行條件。"]]
 const SOURCE_MAP_COPY := {
 	"zh": {"center": "回到來源", "marker": "文件來源", "hint": "取得這份文件的地點。", "zoom": "放大來源周圍的地圖。"},
@@ -36,6 +46,7 @@ var _display_language := ""
 var _map_path := ""
 var _history: Array[Dictionary] = []
 var _body: Control
+var _footer: HBoxContainer
 var _status: Label
 var _canvas: QuestMapCanvas
 var _list: VBoxContainer
@@ -110,6 +121,7 @@ func _process(_delta: float) -> void:
 	var owned_focus := owner != null and is_ancestor_of(owner)
 	var focus_key := _focus_text() if owned_focus else ""
 	var scroll := _detail_scroll.scroll_vertical if is_instance_valid(_detail_scroll) else 0
+	_refresh_footer()
 	_build(owned_focus)
 	if owned_focus:
 		_restore_focus.call_deferred(focus_key)
@@ -127,7 +139,7 @@ func _exit_tree() -> void:
 func _build_header() -> Control:
 	var header := HBoxContainer.new()
 	header.custom_minimum_size.y = 20
-	_title = UiKit.caption("導覽終端", Palette.CYAN)
+	_title = UiKit.caption("", Palette.CYAN)
 	_title.custom_minimum_size.x = 150
 	_title.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	header.add_child(_title)
@@ -144,17 +156,27 @@ func _build_header() -> Control:
 
 
 func _build_footer() -> Control:
-	var footer := HBoxContainer.new()
-	footer.custom_minimum_size.y = 14
-	footer.add_theme_constant_override(&"separation", 10)
+	_footer = HBoxContainer.new()
+	_footer.custom_minimum_size.y = 14
+	_footer.add_theme_constant_override(&"separation", 10)
 	_status = UiKit.caption("")
 	_status.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_status.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	_status.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-	footer.add_child(_status)
-	footer.add_child(FlatStyle.prompt(&"ui_accept", "選擇", Callable(), "確認目前選取的項目。"))
-	footer.add_child(FlatStyle.prompt(&"ui_cancel", "返回", go_back, "返回上一層畫面。"))
-	return footer
+	_footer.add_child(_status)
+	_refresh_footer()
+	return _footer
+
+
+func _refresh_footer() -> void:
+	for index in range(_footer.get_child_count() - 1, 0, -1):
+		var prompt := _footer.get_child(index)
+		_footer.remove_child(prompt)
+		prompt.queue_free()
+	_footer.add_child(FlatStyle.prompt(&"ui_accept", _text(["選擇", "選択", "Select"]), Callable(),
+		_text(["確認目前選取的項目。", "選んでいる項目を決定します。", "Select the focused item."])))
+	_footer.add_child(FlatStyle.prompt(&"ui_cancel", _text(["返回", "戻る", "Back"]), go_back,
+		_text(["返回上一層畫面。", "前の画面へ戻ります。", "Return to the previous screen."])))
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -211,7 +233,9 @@ func _build(focus_first := true) -> void:
 	_detail_scroll = null
 	_scroll_note = null
 	_detail_head = null
-	_title.text = "導覽終端　%s" % PAGE_NAMES.get(_page, "")
+	_title.text = _text(["導覽終端", "ナビ端末", "Navigation"])
+	if PAGE_NAMES.has(_page):
+		_title.text += "　" + _text(PAGE_NAMES[_page])
 	_build_tabs()
 	if _page == "quests":
 		_build_quests()
@@ -236,7 +260,8 @@ func _build_tabs() -> void:
 	prev.set_meta(&"prompt_action", &"inventory_prev_tab")
 	_tabs.add_child(prev)
 	for page: String in PAGES:
-		var tab := UiKit.button(PAGE_NAMES[page], show_page.bind(page), PAGE_TIPS[page])
+		var tab := UiKit.button(_text(PAGE_NAMES[page]), show_page.bind(page), _text(PAGE_TIPS[page]))
+		tab.set_meta(&"nav_key", "page:" + page)
 		FlatStyle.tab(tab, page == _page)
 		_tabs.add_child(tab)
 	var next := FlatStyle.keycap(InputBindings.primary_label(&"inventory_next_tab"))
@@ -262,9 +287,11 @@ func _build_quests() -> void:
 	columns.add_child(_build_detail_column())
 	var quests := catalog.list_for(chapter, _kind, _completed, GameState.world_flags)
 	if quests.is_empty():
-		_wrapped(_list, "目前沒有已完成的任務。" if _completed else "目前尚無可追蹤的任務。", Palette.UI_MUTED)
-		_wrapped(_details, "開啟區域地圖，查看你走過的路與出入口。")
-		_status.text = "使用方向鍵或搖桿選擇，按確認鍵開啟，按返回鍵回上一層。"
+		var empty_text := _text(["目前沒有已完成的任務。", "完了したクエストはありません。", "You have no completed quests."]) if _completed \
+			else _text(["目前尚無可追蹤的任務。", "追跡できるクエストはありません。", "You have no quests to track."])
+		_wrapped(_list, empty_text, Palette.UI_MUTED)
+		_wrapped(_details, _text(["開啟區域地圖，查看你走過的路與出入口。", "エリアマップで通った道や出入口を確認できます。", "Open the area map to see explored paths and exits."]))
+		_status.text = _text(["使用方向鍵或搖桿選擇，按確認鍵開啟，按返回鍵回上一層。", "方向キーかスティックで項目を選びます。", "Use the arrow keys or stick to move."])
 		return
 	if not quests.any(func(q: Dictionary) -> bool: return q["id"] == _selected):
 		_selected = quests[0]["id"]
@@ -272,7 +299,7 @@ func _build_quests() -> void:
 	for quest in quests:
 		if _kind == "all" and quest["kind"] != group:
 			group = quest["kind"]
-			_list.add_child(FlatStyle.section("主線" if group == "main" else "支線"))
+			_list.add_child(FlatStyle.section(_text(FILTERS["main" if group == "main" else "side"][0])))
 		_list.add_child(_quest_row(quest))
 	_select(_selected)
 
@@ -288,17 +315,17 @@ func _build_list_column() -> Control:
 	left.add_child(filters)
 	var counts := _counts()
 	var group: HBoxContainer = null
-	for entry: Array in FILTERS:
-		var key: String = entry[1]
+	for key: String in FILTERS:
+		var entry: Array = FILTERS[key]
 		if group == null or key == "all":
 			group = HBoxContainer.new()
 			group.add_theme_constant_override(&"separation", 2)
 			filters.add_child(group)
 		var on := (_completed if key == "completed" else not _completed if key == "active" else _kind == key)
-		var text: String = entry[0]
+		var text := _text(entry[0])
 		if key in ["active", "completed"]:
 			text = "%s %d" % [text, counts[key]]
-		var button := UiKit.button(text, _filter.bind(key), "顯示%s任務。" % entry[0])
+		var button := UiKit.button(text, _filter.bind(key), _text(entry[1]))
 		button.toggle_mode = true
 		button.button_pressed = on
 		FlatStyle.chip(button, on)
@@ -348,7 +375,8 @@ func _quest_row(quest: Dictionary) -> Button:
 	var status := QuestCatalog.status(quest, GameState.world_flags)
 	var symbol := "✓" if status == "completed" else "▣" if status == "blocked" else "◆" if quest["kind"] == "main" else "◇"
 	var localized_title := QuestCatalog.display_text(quest, "title")
-	var button := UiKit.button("%s %s" % [symbol, localized_title], _select.bind(quest["id"], true), "查看%s的步驟與地點。" % localized_title)
+	var tooltip := _text(["查看%s的步驟與地點。", "「%s」の手順と目的地を確認します。", "View steps for “%s”."]) % localized_title
+	var button := UiKit.button("%s %s" % [symbol, localized_title], _select.bind(quest["id"], true), tooltip)
 	FlatStyle.row(button, quest["id"] == _selected)
 	button.clip_text = true
 	button.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
@@ -364,7 +392,7 @@ func _quest_row(quest: Dictionary) -> Button:
 	var labels: Array[Label] = [meta]
 	var colors: Array[Color] = [Palette.UI_MUTED]
 	if state.pinned_id == quest["id"] and status != "completed":
-		var pinned := UiKit.caption("追蹤中", Palette.MAGENTA, HORIZONTAL_ALIGNMENT_RIGHT)
+		var pinned := UiKit.caption(_text(["追蹤中", "追跡中", "Tracking"]), Palette.MAGENTA, HORIZONTAL_ALIGNMENT_RIGHT)
 		button.add_child(pinned)
 		pinned.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT, Control.PRESET_MODE_MINSIZE)
 		pinned.grow_horizontal = Control.GROW_DIRECTION_BEGIN
@@ -421,10 +449,13 @@ func _select(id: String, focus_details := false) -> void:
 		return
 	var status := QuestCatalog.status(quest, GameState.world_flags)
 	var pinned := state.pinned_id == id and status != "completed"
-	var kind_text := "主線任務" if quest["kind"] == "main" else "支線任務"
-	var status_text: String = {"completed": "已完成", "blocked": "暫時卡住"}.get(status, "進行中")
+	var kind_text := _text(["主線任務", "メインクエスト", "Main quest"]) if quest["kind"] == "main" \
+		else _text(["支線任務", "サブクエスト", "Side quest"])
+	var status_text := _text(FILTERS["completed"][0]) if status == "completed" else _text(FILTERS["active"][0])
+	if status == "blocked":
+		status_text = _text(["暫時卡住", "進行不可", "Blocked"])
 	if pinned:
-		status_text += "　·　追蹤中"
+		status_text += "　·　" + _text(["追蹤中", "追跡中", "Tracking"])
 	_detail_head.add_child(UiKit.caption("%s　／　%s" % [kind_text, status_text], Palette.MAGENTA if pinned else Palette.CYAN))
 	var title := UiKit.heading(QuestCatalog.display_text(quest, "title"))
 	title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -433,21 +464,21 @@ func _select(id: String, focus_details := false) -> void:
 	if step.is_empty():
 		step = quest["steps"].back()
 	var location: Dictionary = step["location"]
-	_detail_head.add_child(UiKit.caption("◎ 目的地：%s" % _area_name(location["level"])))
+	_detail_head.add_child(UiKit.caption(_text(["◎ 目的地：%s", "◎ 目的地：%s", "◎ Destination: %s"]) % _area_name(location["level"])))
 	if status == "blocked":
 		_details.add_child(SlantBanner.new(QuestCatalog.display_text(quest, "blocked_reason"), Palette.WARNING))
 		_wrapped(_details, QuestCatalog.display_text(quest, "suggestion"))
 	elif status != "completed":
 		# 現在要做的那一件事用斜切橫幅（範本 B），一眼看到下一步。
 		_details.add_child(SlantBanner.new("▶ " + QuestCatalog.display_text(step, "title"), Palette.MAGENTA if pinned else Palette.CYAN))
-	_details.add_child(FlatStyle.section("背景"))
+	_details.add_child(FlatStyle.section(_text(["背景", "背景", "Background"])))
 	_wrapped(_details, QuestCatalog.display_text(quest, "background"), Color(Palette.UI_TEXT, 0.85))
 	var steps: Array = quest["steps"]
 	var done := 0
 	for entry: Dictionary in steps:
 		if QuestCatalog.flag_set(GameState.world_flags, str(entry["complete_flag"])):
 			done += 1
-	_details.add_child(FlatStyle.section("目標　%d／%d" % [done, steps.size()]))
+	_details.add_child(FlatStyle.section(_text(["目標　%d／%d", "目標　%d／%d", "Objectives %d/%d"]) % [done, steps.size()]))
 	for entry: Dictionary in steps:
 		var complete: bool = QuestCatalog.flag_set(GameState.world_flags, str(entry["complete_flag"]))
 		var current := not complete and entry == step
@@ -455,19 +486,26 @@ func _select(id: String, focus_details := false) -> void:
 		var color := Color(Palette.UI_MUTED, 0.7) if complete else Palette.CYAN if current else Palette.UI_MUTED
 		_wrapped(_details, prefix + QuestCatalog.display_text(entry, "title"), color)
 	if not QuestCatalog.display_text(quest, "reward").is_empty():
-		_details.add_child(FlatStyle.section("獎勵"))
+		_details.add_child(FlatStyle.section(_text(["獎勵", "報酬", "Reward"])))
 		_reward = _wrapped(_details, QuestCatalog.display_text(quest, "reward"), Palette.NEON_YELLOW)
 	_detail_scroll.scroll_vertical = 0
 	if status != "completed":
-		var pin := UiKit.button("取消釘選" if pinned else "釘選這項任務", _pin.bind(id), "讓目標列與方向箭頭追蹤這項任務。")
+		var pin_text := _text(["取消釘選", "追跡を解除", "Stop tracking"]) if pinned else _text(["釘選這項任務", "追跡する", "Track quest"])
+		var pin_tip := _text(["恢復自動追蹤任務。", "クエストの自動追跡に戻します。", "Use automatic quest tracking again."]) if pinned \
+			else _text(["讓目標列與方向箭頭追蹤這項任務。", "このクエストを目標表示に設定します。", "Show this quest and its direction in the HUD."])
+		var pin := UiKit.button(pin_text, _pin.bind(id), pin_tip)
+		pin.set_meta(&"nav_key", "action:pin")
 		FlatStyle.chip(pin)
 		_actions.add_child(pin)
 	var data: LevelData = maps.areas.get(location["level"], {}).get("data")
 	if data != null:
-		var jump := UiKit.button("前往%s的地圖" % data.display_name, _jump_to_map.bind(location["level"]), "查看選中任務的目的地，返回後回到任務細節。")
+		var jump_text := _text(["前往%s的地圖" % data.display_name, "地図を開く", "Open map"])
+		var jump := UiKit.button(jump_text, _jump_to_map.bind(location["level"]),
+			_text(["查看選中任務的目的地。", "選んだクエストの目的地を地図で確認します。", "Open the selected quest’s destination on the map."]))
+		jump.set_meta(&"nav_key", "action:destination")
 		FlatStyle.chip(jump)
 		_actions.add_child(jump)
-	_scroll_note = UiKit.caption("右搖桿／PageDown 往下讀")
+	_scroll_note = UiKit.caption(_text(["右搖桿／PageDown 往下讀", "右スティック／Page Downでスクロール", "Right stick / Page Down to scroll"]))
 	_scroll_note.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	_scroll_note.visible = _details_overflow
 	_actions.add_child(_scroll_note)
@@ -488,7 +526,7 @@ func _pin(id: String) -> void:
 	state.pin("" if state.pinned_id == id else id, catalog)
 	# 追蹤狀態也顯示在清單列上，重建清單後焦點回到釘選按鈕。
 	_build()
-	_restore_focus.call_deferred("取消釘選" if state.pinned_id == id else "釘選這項任務")
+	_restore_focus.call_deferred("action:pin")
 
 
 func _jump_to_map(path: String) -> void:
@@ -616,6 +654,10 @@ func _here() -> void:
 # ---------------------------------------------------------------------------
 # 共用
 # ---------------------------------------------------------------------------
+
+func _text(choices: Array) -> String:
+	return choices[1] if _display_language == "ja" else choices[2] if _display_language == "en" else choices[0]
+
 
 func _area_name(path: String) -> String:
 	var data: LevelData = maps.areas.get(path, {}).get("data") if maps != null else null
