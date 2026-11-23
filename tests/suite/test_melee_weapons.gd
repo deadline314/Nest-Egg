@@ -39,6 +39,7 @@ func run() -> void:
 	_test_attack_poses()
 	_test_loadout()
 	await _test_reflective_held_materials()
+	_test_sweep_bounds()
 	await _test_reach_and_dead_zone()
 	await _test_single_hit_and_windows()
 	await _test_charge()
@@ -60,6 +61,36 @@ func run() -> void:
 	await _test_whiff_and_reduced_feedback()
 	await _test_multi_target_hitstop()
 	AimInput.using_gamepad = false
+
+
+func _test_sweep_bounds() -> void:
+	var box := Hurtbox.new()
+	runner.add_child(box)
+	box.setup(Combat.Team.ENEMY, null, Vector2(8, 4))
+	var sweep = preload("res://core/melee_contact_sweep.gd").new()
+	sweep._valid = true
+	sweep.previous = PackedVector2Array([Vector2(-12, -1), Vector2(-12, 1), Vector2(-12, 0)])
+	sweep.current = PackedVector2Array([Vector2(12, -1), Vector2(12, 1), Vector2(12, 0)])
+	var crossed: Vector2 = sweep.contact(box)
+	check(crossed.is_finite() and box.contains_point(crossed), "a weapon passing through a target between frames still hits")
+	check(not (sweep.contact(box, 0.0, 0.1) as Vector2).is_finite()
+			and not (sweep.contact(box, 0.9, 1.0) as Vector2).is_finite(), "clipped attack windows exclude both false endpoints")
+	var edge := Vector2(4, 2)
+	sweep.current.fill(edge)
+	sweep.previous.fill(edge)
+	check(sweep.contact(box) == edge, "an exact contact at the corner remains inclusive")
+	box.transform = Transform2D(0.4, Vector2(-1.1, 0.8), -0.25, Vector2(57, -18))
+	var center := box.center()
+	sweep.current.fill(center)
+	sweep.previous.fill(center)
+	check(sweep.contact(box) == center, "moved, mirrored and skewed parts are checked in their current position")
+	box.transform = Transform2D(Vector2.RIGHT, Vector2(1.0, 0.00000001), Vector2.ZERO)
+	check(not box.contact_bounds().has_area(), "near-singular bounds defer to the detailed contact calculation")
+	box.remove_child(box._shape_node)
+	box._shape_node.free()
+	box._shape_node = null
+	check(not (sweep.contact(box) as Vector2).is_finite(), "a lost collision shape fails safely")
+	box.queue_free()
 
 
 func _weapon(id: String) -> WeaponData:

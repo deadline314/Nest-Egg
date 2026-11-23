@@ -66,6 +66,9 @@ func capture(weapon: WeaponData, xf: Transform2D, facing: int, rope: SoftWhip, c
 func contact(box: Hurtbox, from_fraction := 0.0, to_fraction := 1.0) -> Vector2:
 	if not _valid:
 		return Vector2.INF
+	var bounds := box.contact_bounds()
+	var has_bounds := bounds.has_area()
+	var far_edge := bounds.end
 	for i in range(0, current.size(), 3):
 		var a := previous[i].lerp(current[i], to_fraction)
 		var b := previous[i + 1].lerp(current[i + 1], to_fraction)
@@ -73,6 +76,12 @@ func contact(box: Hurtbox, from_fraction := 0.0, to_fraction := 1.0) -> Vector2:
 		var pa := previous[i].lerp(current[i], from_fraction)
 		var pb := previous[i + 1].lerp(current[i + 1], from_fraction)
 		var pc := previous[i + 2].lerp(current[i + 2], from_fraction)
+		if has_bounds:
+			var near := a.min(b).min(c).min(pa).min(pb).min(pc)
+			var far := a.max(b).max(c).max(pa).max(pb).max(pc)
+			if near.is_finite() and far.is_finite() and (near.x > far_edge.x or far.x < bounds.position.x
+					or near.y > far_edge.y or far.y < bounds.position.y):
+				continue
 		var point := box.triangle_contact(a, b, c)
 		if point.is_finite():
 			return point

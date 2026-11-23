@@ -205,6 +205,24 @@ func contains_point(point: Vector2, margin := 0.0) -> bool:
 	return absf(local.x) <= _shape.size.x * 0.5 + margin and absf(local.y) <= _shape.size.y * 0.5 + margin
 
 
+## Conservative world bounds for a batch of weapon contacts. Empty bounds disable the prefilter.
+func contact_bounds() -> Rect2:
+	if _shape_node == null or _shape == null:
+		return Rect2()
+	var transform := _shape_node.global_transform
+	var squared_scale := transform.x.length_squared() + transform.y.length_squared()
+	var determinant := absf(transform.determinant())
+	if not transform.is_finite() or not is_finite(determinant) or determinant <= squared_scale * 0.000001:
+		return Rect2()
+	var bounds := transform * Rect2(-_shape.size * 0.5, _shape.size)
+	if not bounds.position.is_finite() or not bounds.end.is_finite() or not bounds.has_area():
+		return Rect2()
+	# Leave room for floating-point differences between world bounds and inverse point transforms.
+	var magnitude := bounds.position.abs().max(bounds.end.abs())
+	var rounding_margin := maxf(magnitude.x, magnitude.y) * (squared_scale / determinant) * 0.000002
+	return bounds.grow(maxf(0.001, rounding_margin))
+
+
 ## Actual contact with a world-space triangle; INF means no overlap. No shape queries or allocations.
 ## Used by weapon silhouettes and their previous-to-current physics sweeps.
 func triangle_contact(a: Vector2, b: Vector2, c: Vector2) -> Vector2:
