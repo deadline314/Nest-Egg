@@ -6,9 +6,11 @@
 script = ExtResource("1_script")
 id = &"technique_blade"
 display_name = "突進斬"
+localized_names = Dictionary[String, String]({"en": "Lunge Slash", "ja": "踏み込み斬り"})
 effect = 3
 optional_purchase = true
 cost = 100
 melee_weapon_id = &"melee_blade"
 description = "3→可選4段：收招後再點按突進斬，護盾 −18，收招 0.42 秒；按住維持首招"
+localized_descriptions = Dictionary[String, String]({"en": "Tap again after recovery for a lunge. Costs 18 guard, with 0.42 s recovery. Hold for the opening strike.", "ja": "硬直後にもう一度押すと踏み込み斬り。ガード18消費、硬直0.42秒。長押しは初段。"})
 order = 10

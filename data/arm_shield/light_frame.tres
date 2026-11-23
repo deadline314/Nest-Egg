@@ -6,8 +6,10 @@
 script = ExtResource("1_script")
 id = &"light_frame"
 display_name = "輕量骨架"
+localized_names = Dictionary[String, String]({"en": "Light Frame", "ja": "軽量フレーム"})
 effect = 4
 amount = 0.25
 cost = 110
 description = "舉著盾也走得快，移動速度從 35% 提高到 60%"
+localized_descriptions = Dictionary[String, String]({"en": "Raises movement speed while guarding from 35% to 60%.", "ja": "ガード中の移動速度が35%から60%に上昇。"})
 order = 5

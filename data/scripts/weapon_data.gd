@@ -79,6 +79,7 @@ const NUMERIC_LIMITS := {
 @export var bloom_per_shot: float = 0.15
 ## HUD 與武器欄顯示的簡短代號。
 @export var short_name: String = ""
+@export var localized_short_names: Dictionary[String, String] = {}
 ## 彈種圖示 id（art/ammo/<id>.png）：HUD、背包用來顯示這把武器的子彈。留空時依武器類型使用預設圖示。
 @export var ammo_icon: StringName = &""
 ## 角色手上武器的外觀（art/weapons/weapons.json 的 id）。
@@ -87,6 +88,11 @@ const NUMERIC_LIMITS := {
 
 func display_name_for(language: String) -> String:
 	return StoryLocale.optional_text(localized_names, language, display_name)
+
+
+func short_name_for(language: String) -> String:
+	var original := short_name if not short_name.is_empty() else display_name_for(language)
+	return StoryLocale.optional_text(localized_short_names, language, original)
 
 
 func description_for(language: String) -> String:

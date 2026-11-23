@@ -80,6 +80,11 @@ func _test_inventory_entry() -> void:
 	var resource := load("res://data/weapons/pistol.tres") as WeaponData
 	check(resource.display_name_for("en") == "P-9 Pistol" and resource.display_name_for("ja") == "P-9 ピストル",
 			"formal carried weapons supply localized names")
+	check(resource.short_name_for("en") == "P-9", "a shared weapon code remains the short HUD name")
+	for name in ["melee/melee_blade", "melee/melee_dagger", "melee/melee_glaive", "melee/melee_maul", "melee/melee_whip", "mech_cannon"]:
+		var weapon := load("res://data/weapons/%s.tres" % name) as WeaponData
+		check(weapon != null and weapon.localized_short_names.has("ja") and weapon.localized_short_names.has("en"),
+			"%s has authored short labels for HUD and mods" % name)
 	check(resource.description_for("unknown") == resource.description,
 			"unknown language keeps the authored weapon description")
 	var legacy := WeaponData.new()

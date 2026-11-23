@@ -31,13 +31,23 @@ const AMOUNT_RANGE := {
 
 @export var id: StringName = &"arm_shield_part"
 @export var display_name: String = "臂盾零件"
+@export var localized_names: Dictionary[String, String] = {}
 @export var effect: Effect = Effect.PARRY_WINDOW
 @export var amount: float = 0.0
 @export var cost: int = 100
 ## 一句話說明這個零件做什麼（改裝頁的說明與提示）。
 @export var description: String = ""
+@export var localized_descriptions: Dictionary[String, String] = {}
 ## 排序（小的在前）。
 @export var order: int = 0
+
+
+func display_name_for(language: String) -> String:
+	return StoryLocale.optional_text(localized_names, language, display_name)
+
+
+func description_for(language: String) -> String:
+	return StoryLocale.optional_text(localized_descriptions, language, description)
 
 
 func validate() -> PackedStringArray:

@@ -6,8 +6,10 @@
 script = ExtResource("1_script")
 id = &"cushion_pad"
 display_name = "緩衝襯墊"
+localized_names = Dictionary[String, String]({"en": "Cushion Pad", "ja": "緩衝パッド"})
 effect = 2
 amount = 0.3
 cost = 160
 description = "防禦量上限多 30%，被打穿後的硬直縮短 30%"
+localized_descriptions = Dictionary[String, String]({"en": "Raises guard capacity by 30% and shortens guard-break stun by 30%.", "ja": "ガード上限が30%増え、ガード崩れの硬直を30%短縮。"})
 order = 3

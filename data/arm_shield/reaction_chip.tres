@@ -6,8 +6,10 @@
 script = ExtResource("1_script")
 id = &"reaction_chip"
 display_name = "反應晶片"
+localized_names = Dictionary[String, String]({"en": "Reaction Chip", "ja": "反応チップ"})
 effect = 0
 amount = 0.05
 cost = 120
 description = "完美格擋的時間窗加長 0.05 秒，盾緣多一條指示燈，窗口內亮起"
+localized_descriptions = Dictionary[String, String]({"en": "Extends the parry window by 0.05 s. The shield rim lights up during it.", "ja": "パリィ受付時間が0.05秒延び、受付中は盾の縁が光る。"})
 order = 1

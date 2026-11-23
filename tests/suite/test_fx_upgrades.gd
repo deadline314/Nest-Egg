@@ -925,7 +925,10 @@ func _test_arm_shield_purchase_and_save() -> void:
 	var at := page._targets.size() + Progression.arm_shield_catalog().find(part)
 	check(at < entries.size() and entries[at].title.contains(part.display_name) and entries[at].detail_stats.size() >= 2 and entries[at].detail_stats[1].contains("→"),
 			"the workbench lists the part after the weapon upgrades with a before → after preview")
-	check(not entries[at].action_enabled and entries[at].hint == part.description, "an unaffordable part is shown with its one-sentence hint")
+	check(not entries[at].action_enabled and entries[at].hint == entries[at].detail_stats[1]
+		and entries[at].detail_body == part.description, "the part previews its main effect and retains the full description")
+	check(entries[at].title == part.display_name and not entries[at].detail_tag.is_empty(),
+		"the part name has its own line and the shield category is in the detail tag")
 	Progression.add_credits(part.cost)
 	entries = page._build_entries()
 	check(page._activate_entry(at) and Progression.credits == 0 and Progression.has_arm_shield_part(part.id), "buying from the workbench charges the exact price")

@@ -6,9 +6,11 @@
 script = ExtResource("1_script")
 id = &"technique_whip"
 display_name = "回甩"
+localized_names = Dictionary[String, String]({"en": "Return Lash", "ja": "返し振り"})
 effect = 3
 optional_purchase = true
 cost = 100
 melee_weapon_id = &"melee_whip"
 description = "1→可選2段：收招後再點按回甩，護盾 −16，收招 0.50 秒；按住維持首招"
+localized_descriptions = Dictionary[String, String]({"en": "Tap again after recovery for a return lash. Costs 16 guard, with 0.50 s recovery. Hold for the opening strike.", "ja": "硬直後にもう一度押すと返し振り。ガード16消費、硬直0.50秒。長押しは初段。"})
 order = 10

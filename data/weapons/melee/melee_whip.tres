@@ -19,6 +19,7 @@ fire_sound = &"melee_swing"
 camera_kick = 0.0
 ejects_casing = false
 short_name = "鞭"
+localized_short_names = Dictionary[String, String]({"en": "Whip", "ja": "ムチ"})
 ammo_icon = &"energy"
 visual_id = ""
 melee_profile = "mono_whip"

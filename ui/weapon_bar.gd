@@ -117,5 +117,5 @@ class _Row:
 		else:
 			draw_texture_rect(AmmoIcons.for_weapon(weapon, state), Rect2(Vector2(28, 2), AmmoIcons.CELL), false, tint)
 		var color := weapon.color if active else Palette.UI_MUTED
-		draw_string(font, Vector2(54, 13), weapon.short_name if not weapon.short_name.is_empty() else weapon.display_name,
+		draw_string(font, Vector2(54, 13), weapon.short_name_for(Story.language),
 				HORIZONTAL_ALIGNMENT_LEFT, 70, UiKit.FS_BODY, color)

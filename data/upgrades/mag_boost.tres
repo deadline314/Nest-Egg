@@ -6,8 +6,10 @@
 script = ExtResource("1_script")
 id = &"mag_boost"
 display_name = "擴充彈匣"
+localized_names = Dictionary[String, String]({"en": "Extended Mag", "ja": "拡張弾倉"})
 effect = 0
 amount = 0.5
 cost = 120
 description = "彈匣容量 +50%，少換幾次彈"
+localized_descriptions = Dictionary[String, String]({"en": "Increases magazine capacity by 50%.", "ja": "弾倉容量が50%増加。"})
 order = 0

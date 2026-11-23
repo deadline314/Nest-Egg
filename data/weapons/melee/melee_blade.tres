@@ -19,6 +19,7 @@ fire_sound = &"melee_swing"
 camera_kick = 0.0
 ejects_casing = false
 short_name = "長刀"
+localized_short_names = Dictionary[String, String]({"en": "Blade", "ja": "長刀"})
 ammo_icon = &"energy"
 visual_id = ""
 melee_profile = "thermal_blade"

@@ -6,9 +6,11 @@
 script = ExtResource("1_script")
 id = &"technique_dagger"
 display_name = "回切"
+localized_names = Dictionary[String, String]({"en": "Return Cut", "ja": "返し斬り"})
 effect = 3
 optional_purchase = true
 cost = 80
 melee_weapon_id = &"melee_dagger"
 description = "3→可選4段：收招後再點按回切，護盾 −8，收招 0.22 秒；按住維持首招"
+localized_descriptions = Dictionary[String, String]({"en": "Tap again after recovery for a return cut. Costs 8 guard, with 0.22 s recovery. Hold for the opening strike.", "ja": "硬直後にもう一度押すと返し斬り。ガード8消費、硬直0.22秒。長押しは初段。"})
 order = 10

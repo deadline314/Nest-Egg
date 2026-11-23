@@ -6,8 +6,10 @@
 script = ExtResource("1_script")
 id = &"quick_reload"
 display_name = "快速換彈"
+localized_names = Dictionary[String, String]({"en": "Quick Reload", "ja": "クイックリロード"})
 effect = 2
 amount = 0.25
 cost = 100
 description = "換彈時間縮短 25%"
+localized_descriptions = Dictionary[String, String]({"en": "Reduces reload time by 25%.", "ja": "リロード時間を25%短縮。"})
 order = 2

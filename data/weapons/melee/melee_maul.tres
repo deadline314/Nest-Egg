@@ -19,6 +19,7 @@ fire_sound = &"melee_swing"
 camera_kick = 0.0
 ejects_casing = false
 short_name = "液壓錘"
+localized_short_names = Dictionary[String, String]({"en": "Maul", "ja": "油圧槌"})
 ammo_icon = &"energy"
 visual_id = ""
 melee_profile = "hydraulic_maul"

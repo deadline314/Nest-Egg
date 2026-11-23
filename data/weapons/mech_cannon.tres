@@ -27,5 +27,6 @@ muzzle_fx_interval = 0.0
 screen_shake_time = 0.16
 muzzle_light_energy = 2.2
 ejects_casing = true
+localized_short_names = Dictionary[String, String]({"en": "Cannon", "ja": "重砲"})
 visual_id = "rifle"
 ammo_icon = &"mech"

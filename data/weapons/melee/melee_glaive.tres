@@ -19,6 +19,7 @@ fire_sound = &"melee_swing"
 camera_kick = 0.0
 ejects_casing = false
 short_name = "戰戟"
+localized_short_names = Dictionary[String, String]({"en": "Glaive", "ja": "戦戟"})
 ammo_icon = &"energy"
 visual_id = ""
 melee_profile = "ion_glaive"

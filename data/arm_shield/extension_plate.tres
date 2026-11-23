@@ -6,8 +6,10 @@
 script = ExtResource("1_script")
 id = &"extension_plate"
 display_name = "延伸片"
+localized_names = Dictionary[String, String]({"en": "Extension Plate", "ja": "拡張プレート"})
 effect = 1
 amount = 30.0
 cost = 140
 description = "盾面加寬，擋得住的角度從 120° 加大到 150°"
+localized_descriptions = Dictionary[String, String]({"en": "Widens the guard angle from 120° to 150°.", "ja": "ガード範囲を120°から150°に拡大。"})
 order = 2

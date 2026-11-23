@@ -6,9 +6,11 @@
 script = ExtResource("1_script")
 id = &"technique_maul"
 display_name = "蓄力砸擊"
+localized_names = Dictionary[String, String]({"en": "Charged Smash", "ja": "溜め叩き"})
 effect = 3
 optional_purchase = true
 cost = 140
 melee_weapon_id = &"melee_maul"
 description = "2→可選3段：收招後再點按蓄力砸擊，護盾 −30，收招 0.78 秒；按住維持首招，每揮另耗一格電量"
+localized_descriptions = Dictionary[String, String]({"en": "Tap again after recovery for a smash. Costs 30 guard, with 0.78 s recovery. Hold for the opener. Each swing uses one charge.", "ja": "硬直後にもう一度押すと溜め叩き。ガード30消費、硬直0.78秒。長押しは初段。ひと振りで電力1消費。"})
 order = 10

@@ -6,8 +6,10 @@
 script = ExtResource("1_script")
 id = &"heat_sink"
 display_name = "散熱鰭片"
+localized_names = Dictionary[String, String]({"en": "Heat Sink", "ja": "放熱フィン"})
 effect = 3
 amount = 0.5
 cost = 130
 description = "擋完後防禦量更快開始回復，回復速度快 50%"
+localized_descriptions = Dictionary[String, String]({"en": "Guard starts recovering sooner and recovers 50% faster.", "ja": "ガード回復が早く始まり、回復速度が50%上昇。"})
 order = 4

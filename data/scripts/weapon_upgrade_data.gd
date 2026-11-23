@@ -16,11 +16,13 @@ enum Effect {
 
 @export var id: StringName = &"upgrade"
 @export var display_name: String = "改裝"
+@export var localized_names: Dictionary[String, String] = {}
 @export var effect: Effect = Effect.MAGAZINE
 @export_range(0.0, 0.9) var amount: float = 0.5
 @export var cost: int = 100
 ## 一句話說明（背包 tooltip）。
 @export var description: String = ""
+@export var localized_descriptions: Dictionary[String, String] = {}
 ## 排序（小的在前）。
 @export var order: int = 0
 @export var melee_weapon_id: StringName = &""
@@ -40,6 +42,14 @@ func applies_to(weapon: WeaponData) -> bool:
 		Effect.SPREAD:
 			return weapon.spread_degrees > 0.0 or weapon.random_spread_degrees > 0.0
 	return false
+
+
+func display_name_for(language: String) -> String:
+	return StoryLocale.optional_text(localized_names, language, display_name)
+
+
+func description_for(language: String) -> String:
+	return StoryLocale.optional_text(localized_descriptions, language, description)
 
 
 func validate() -> PackedStringArray:

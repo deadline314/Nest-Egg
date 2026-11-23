@@ -6,8 +6,10 @@
 script = ExtResource("1_script")
 id = &"deflect_coat"
 display_name = "偏折塗層"
+localized_names = Dictionary[String, String]({"en": "Deflection Coat", "ja": "反射コート"})
 effect = 5
 amount = 0.0
 cost = 180
 description = "一般格擋擋下的子彈也會彈回去，不只完美格擋"
+localized_descriptions = Dictionary[String, String]({"en": "Standard blocks also reflect bullets.", "ja": "通常ガードでも弾を跳ね返す。"})
 order = 6

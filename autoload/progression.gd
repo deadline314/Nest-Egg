@@ -16,6 +16,8 @@ const ABILITY_DIR := "res://data/abilities"
 const ARM_SHIELD_DIR := "res://data/arm_shield"
 const SNAPSHOT_VERSION := 1
 const MAX_CREDITS := 99999
+
+enum UpgradeBlock { NONE, MISSING, INCOMPATIBLE, OWNED, SHORT_CREDITS }
 enum PawnBlock { NONE, NOT_ACCEPTED, TICKET_LIMIT, WALLET_FULL, NO_TICKET, SHORT_CREDITS }
 ## 典當：當價 = 售價 × PAWN_RATE；贖回 = 當價 × (1 + PAWN_INTEREST)（進位）。同時最多 MAX_PAWNED 張當票，
 ## 這樣典當不能變成「無限換錢」，也一定比直接買貴一點點的反面：當了再贖是週轉，不是賺錢。
@@ -362,22 +364,31 @@ func owned_upgrades(weapon: WeaponData) -> Array[WeaponUpgradeData]:
 	return result
 
 
-## 回傳不能買的原因（空字串代表可以買）。
-func upgrade_block_reason(weapon: WeaponData, upgrade: WeaponUpgradeData) -> String:
+func upgrade_block(weapon: WeaponData, upgrade: WeaponUpgradeData) -> UpgradeBlock:
 	if weapon == null or upgrade == null:
-		return "沒有這項改裝"
+		return UpgradeBlock.MISSING
 	if not upgrade.applies_to(WeaponTuning.base_of(weapon)):
-		return "這把武器用不到這項改裝"
+		return UpgradeBlock.INCOMPATIBLE
 	if has_upgrade(weapon, upgrade.id):
-		return "已經改裝過了"
+		return UpgradeBlock.OWNED
 	if not can_afford(upgrade.cost):
-		return "信用點不足（還差 %d）" % (upgrade.cost - credits)
+		return UpgradeBlock.SHORT_CREDITS
+	return UpgradeBlock.NONE
+
+
+## 舊呼叫端仍可取得原本的中文理由。
+func upgrade_block_reason(weapon: WeaponData, upgrade: WeaponUpgradeData) -> String:
+	match upgrade_block(weapon, upgrade):
+		UpgradeBlock.MISSING: return "沒有這項改裝"
+		UpgradeBlock.INCOMPATIBLE: return "這把武器用不到這項改裝"
+		UpgradeBlock.OWNED: return "已經改裝過了"
+		UpgradeBlock.SHORT_CREDITS: return "信用點不足（還差 %d）" % (upgrade.cost - credits)
 	return ""
 
 
 ## 購買改裝。成功時扣款並通知武器欄重新計算數值。
 func buy_upgrade(weapon: WeaponData, upgrade: WeaponUpgradeData) -> bool:
-	if not upgrade_block_reason(weapon, upgrade).is_empty():
+	if upgrade_block(weapon, upgrade) != UpgradeBlock.NONE:
 		return false
 	if not spend(upgrade.cost):
 		return false
@@ -432,20 +443,27 @@ func owned_arm_shield_parts() -> Array[ArmShieldPartData]:
 	return result
 
 
-## 回傳不能買的原因（空字串代表可以買）。
-func arm_shield_block_reason(part: ArmShieldPartData) -> String:
+func arm_shield_block(part: ArmShieldPartData) -> UpgradeBlock:
 	if part == null or find_arm_shield_part(part.id) == null:
-		return "沒有這個零件"
+		return UpgradeBlock.MISSING
 	if has_arm_shield_part(part.id):
-		return "已經裝上了"
+		return UpgradeBlock.OWNED
 	if not can_afford(part.cost):
-		return "信用點不足（還差 %d）" % (part.cost - credits)
+		return UpgradeBlock.SHORT_CREDITS
+	return UpgradeBlock.NONE
+
+
+func arm_shield_block_reason(part: ArmShieldPartData) -> String:
+	match arm_shield_block(part):
+		UpgradeBlock.MISSING: return "沒有這個零件"
+		UpgradeBlock.OWNED: return "已經裝上了"
+		UpgradeBlock.SHORT_CREDITS: return "信用點不足（還差 %d）" % (part.cost - credits)
 	return ""
 
 
 ## 購買零件：成功時扣款、立刻生效並通知（與武器改裝同一個訊號，介面與玩家會重新計算）。
 func buy_arm_shield_part(part: ArmShieldPartData) -> bool:
-	if not arm_shield_block_reason(part).is_empty():
+	if arm_shield_block(part) != UpgradeBlock.NONE:
 		return false
 	if not spend(part.cost):
 		return false

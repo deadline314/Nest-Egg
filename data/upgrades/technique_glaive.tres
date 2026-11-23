@@ -6,9 +6,11 @@
 script = ExtResource("1_script")
 id = &"technique_glaive"
 display_name = "交叉掃"
+localized_names = Dictionary[String, String]({"en": "Cross Sweep", "ja": "交差薙ぎ"})
 effect = 3
 optional_purchase = true
 cost = 120
 melee_weapon_id = &"melee_glaive"
 description = "2→可選3段：收招後再點按交叉掃，護盾 −20，收招 0.48 秒；按住維持首招"
+localized_descriptions = Dictionary[String, String]({"en": "Tap again after recovery for a cross sweep. Costs 20 guard, with 0.48 s recovery. Hold for the opening strike.", "ja": "硬直後にもう一度押すと交差薙ぎ。ガード20消費、硬直0.48秒。長押しは初段。"})
 order = 10
