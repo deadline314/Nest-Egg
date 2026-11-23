@@ -12,7 +12,7 @@ func configure(p_weapon: WeaponData) -> void:
 func hint_text() -> String:
 	if weapon == null:
 		return ""
-	return "%s：%s" % [weapon.display_name, weapon.description] if not weapon.description.is_empty() else weapon.display_name
+	return _describe(weapon.display_name_for(Story.language), weapon.description_for(Story.language))
 
 
 func _ready() -> void:
@@ -25,7 +25,7 @@ func _ready() -> void:
 
 func _apply(player: Player) -> bool:
 	player.loadout.equip(weapon)
-	EventBus.toast_requested.emit("取得 %s" % weapon.display_name)
+	EventBus.pickup_notice_requested.emit(_pickup_text("picked") % weapon.display_name_for(Story.language))
 	return true
 
 

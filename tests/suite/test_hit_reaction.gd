@@ -267,8 +267,13 @@ func _test_player_hurt_direction() -> void:
 			player.hurtbox.receive(info)
 			var context := "player facing %d hit from relative side %d" % [facing, side]
 			check(player.facing == facing and player.health.current == 5 and player._visual._input.hurt_dir == float(side), context)
-			await physics_frames(8)
-			check(player._visual.rig.animator._hurt_dir == float(side), context + " reaches the animator")
+			# A hit can queue a wall-clock stop across several physics ticks.
+			for frame in 120:
+				if not player._visual._input.hurt:
+					break
+				await physics_frames(1)
+			check(not player._visual._input.hurt and player._visual.rig.animator._hurt_dir == float(side),
+					context + " reaches the animator")
 	AimInput.set_virtual_gamepad(player, false)
 	AimInput.restore_direction(Vector2.RIGHT)
 	await end_level(level)

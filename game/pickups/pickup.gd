@@ -4,6 +4,12 @@ extends Area2D
 ## 道具基底：玩家（或玩家駕駛的載具）碰到即觸發 _apply()；回傳 false 代表不需要（例如滿血），道具保留。
 ## 子類別覆寫：_apply(player)、_draw_icon()、hint_text()
 
+const NOTICE_COPY := {
+	"zh": {"picked": "取得 %s", "count": "（%d/%d）", "full": "%s 已達上限 %d", "separator": "："},
+	"ja": {"picked": "%sを入手", "count": "（%d/%d）", "full": "%sは所持上限です（%d）。", "separator": "："},
+	"en": {"picked": "Picked up %s", "count": " (%d/%d)", "full": "%s at carrying limit (%d).", "separator": ": "},
+}
+
 const BOB_SPEED := 3.0
 const BOB_HEIGHT := 2.0
 ## 玩家停留在道具上時（例如原本滿血後受傷）重新嘗試拾取的間隔。
@@ -69,6 +75,16 @@ func _ready() -> void:
 
 func hint_text() -> String:
 	return ""
+
+
+static func _pickup_text(key: String) -> String:
+	return NOTICE_COPY.get(Story.language, NOTICE_COPY[StoryLocale.SOURCE_LANGUAGE])[key]
+
+
+static func _describe(title: String, description: String) -> String:
+	if description.is_empty():
+		return title
+	return title + _pickup_text("separator") + description
 
 
 ## 拾取特效的顏色與種類（PickupFx.KINDS）；子類別依道具覆寫。

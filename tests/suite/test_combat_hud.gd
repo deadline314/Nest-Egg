@@ -11,6 +11,7 @@ func run() -> void:
 	await _test_credits_tag()
 	await _test_credit_counter_accessibility()
 	await _test_banner_kinds()
+	await _test_localized_pickups()
 	await _test_tooltips()
 	await _test_cyber_motion()
 	await _test_reload_prompt_clearance()
@@ -307,6 +308,41 @@ func _check_pickup_feed(hud: Hud) -> void:
 		await runner.get_tree().process_frame
 	await frames(1)
 	check(feed.lines().is_empty() and not feed.is_processing(), "時間到後全部淡出，閒置時不再每影格更新")
+
+
+func _test_localized_pickups() -> void:
+	var previous := Story.language
+	Story.language = "en"
+	var level := await start_level(PropsSuite.level_data())
+	var player := level.player
+	var origin := player.global_position
+	var rifle := WeaponPickup.new()
+	rifle.configure(load("res://data/weapons/rifle.tres"))
+	rifle.position = level._entities.to_local(origin + Vector2(32, 0))
+	level._entities.add_child(rifle)
+	check(rifle.hint_text() == "K-7 Assault Rifle: Fast, precise fire at any range.",
+			"the world pickup uses the same localized weapon name and description")
+	player.global_position = rifle.global_position
+	await frames(6)
+	var hud := level.hud
+	check(player.loadout.find_slot(&"rifle") >= 0, "real overlapping bodies still award the weapon")
+	check(hud.pickup_feed.lines().has("Picked up K-7 Assault Rifle")
+			and hud.toast_banner._label.text != "Picked up K-7 Assault Rifle", "localized acquisitions still use the pickup feed")
+
+	var item := load("res://data/consumables/med_injector.tres") as ConsumableData
+	for index in range(player.consumables.count(item.id), item.max_carry):
+		if not player.consumables.add(item):
+			break
+	var injector := ConsumablePickup.new()
+	injector.configure(item)
+	injector.position = level._entities.to_local(player.global_position)
+	level._entities.add_child(injector)
+	await frames(8)
+	check(is_instance_valid(injector) and not injector.is_queued_for_deletion() and injector._full_notified
+			and hud.toast_banner._label.text == "Med injector at carrying limit (%d)." % item.max_carry,
+			"a full inventory still leaves the pickup in place and gives the localized reason")
+	Story.language = previous
+	await end_level(level)
 
 
 func _test_tooltips() -> void:

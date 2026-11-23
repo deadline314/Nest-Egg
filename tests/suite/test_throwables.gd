@@ -42,19 +42,26 @@ func _test_pickup_prompt_target() -> void:
 	var unsettled := _place(PIPE, 10.0, FLOOR_Y - 15.0)
 	unsettled.set_physics_process(false)
 	await physics_frames(4)
+	await _wait_for_prompt_frame()
 	check(near._prompt._player_near(), "the actual nearest pickup offers its interaction")
 	check(not other._prompt._player_near(), "a second nearby pickup does not compete with the actual interaction target")
 	check(not unsettled._prompt._player_near(), "an unsettled object never invites a pickup that the real handler rejects")
 	place_player(9.0)
 	await physics_frames(2)
+	await _wait_for_prompt_frame()
 	check(other._prompt._player_near() and not near._prompt._player_near(), "moving to the other object transfers the prompt to the actual pickup target")
 	await _press(&"interact")
-	var prompt_frame := Engine.get_process_frames()
-	while Engine.get_process_frames() == prompt_frame:
-		await runner.get_tree().process_frame
+	await _wait_for_prompt_frame()
 	check(level.player.carry.held == other and not near._prompt._player_near(), "the real interact key picks the advertised object and suppresses other pickup invitations")
 	check(other._prompt._player_near() and other._prompt.text == "{interact} 放下", "the held object offers the drop action")
 	await end_level(level)
+
+
+## Prompt arbitration caches one result per process frame, including catch-up physics ticks.
+func _wait_for_prompt_frame() -> void:
+	var prompt_frame := Engine.get_process_frames()
+	while Engine.get_process_frames() == prompt_frame:
+		await runner.get_tree().process_frame
 
 
 func _test_drop_near_switch() -> void:

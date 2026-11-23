@@ -52,6 +52,8 @@ signal camera_zoom_pulse(amount: float, duration: float)
 signal screen_pulse(kind: StringName)
 signal camera_kick(offset: Vector2)
 signal toast_requested(text: String)
+## 獲得物品使用拾取紀錄，分類與顯示語言無關。
+signal pickup_notice_requested(text: String)
 ## Withdraw only this message; a newer unrelated banner must remain visible.
 signal toast_dismiss_requested(expected_text: String)
 

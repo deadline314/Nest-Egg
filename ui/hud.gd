@@ -209,6 +209,7 @@ func _ready() -> void:
 	EventBus.boss_defeated.connect(_on_boss_defeated)
 	EventBus.boss_bar_closed.connect(boss_bar.close)
 	EventBus.toast_requested.connect(show_toast)
+	EventBus.pickup_notice_requested.connect(_show_pickup_notice)
 	EventBus.toast_dismiss_requested.connect(toast_banner.dismiss_text)
 	EventBus.lives_changed.connect(_on_lives_changed)
 	InputBindings.bindings_changed.connect(_refresh_controls)
@@ -425,10 +426,17 @@ func _process(delta: float) -> void:
 ## 取得類放進左上角的拾取紀錄（不擋戰鬥畫面）；檢查點、警告與其他提示用畫面中央的橫幅。
 func show_toast(text: String) -> void:
 	var kind := _toast_kind(text)
-	if kind == UiBanner.Kind.ITEM and pickup_feed != null:
-		pickup_feed.push(text)
+	if kind == UiBanner.Kind.ITEM:
+		_show_pickup_notice(text)
 		return
 	toast_banner.show_text(text, kind, TOAST_TIME)
+
+
+func _show_pickup_notice(text: String) -> void:
+	if pickup_feed != null:
+		pickup_feed.push(text)
+	else:
+		toast_banner.show_text(text, UiBanner.Kind.ITEM, TOAST_TIME)
 
 
 static func _toast_kind(text: String) -> UiBanner.Kind:

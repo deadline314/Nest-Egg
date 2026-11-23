@@ -123,7 +123,11 @@ static func run(suite: TestSuite) -> void:
 	suite.check(not hud._controls_card.visible, "暫停頁打開時背景的操作提示收起")
 	suite.check(is_equal_approx(hud._controls_read_time, read_left), "暫停期間不消耗提示的閱讀時間")
 	pause.close()
-	await suite.frames(2)
+	# HUD visibility updates in _process, including when physics catches up in one frame.
+	for frame in 12:
+		if hud._controls_card.visible:
+			break
+		await suite.runner.get_tree().process_frame
 	suite.check(hud._controls_card.visible, "關閉暫停頁後操作提示回來")
 	await suite.end_level(level)
 
