@@ -628,7 +628,7 @@ func _build_map(map_zoom: float) -> void:
 	_canvas.language = _display_language
 	_canvas.zoom = map_zoom
 	_canvas.flags = GameState.world_flags
-	_canvas.world = world
+	_canvas.world = _world_for_area(data)
 	var quest := catalog.find(_selected) if not _selected.is_empty() else state.target(catalog, chapter, GameState.world_flags)
 	var step := QuestCatalog.current_step(quest, GameState.world_flags)
 	if step.is_empty() and not quest.is_empty():
@@ -642,6 +642,17 @@ func _build_map(map_zoom: float) -> void:
 	_status.text = _text(["未探索處只顯示外框。選擇圖示查看說明。", "未探索の場所は輪郭だけ表示されます。アイコンで詳細を確認できます。", "Unexplored places show an outline. Select an icon for details."])
 	_canvas.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	_canvas.queue_refresh()
+
+
+func _world_for_area(data: LevelData) -> Dictionary:
+	if _map_path == player_path:
+		return world
+	if data == null or not data.persistent_world:
+		return {}
+	# Gate keys are local tile coordinates. A remote view uses only that area's state.
+	var area: Variant = GameState.area_states.get(String(data.id))
+	var saved_world: Variant = area.get("world") if area is Dictionary else null
+	return saved_world if saved_world is Dictionary else {}
 
 
 func _map_stats(world_mode: bool) -> String:

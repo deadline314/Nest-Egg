@@ -5,6 +5,7 @@ extends TestSuite
 const FIXTURE := "res://tests/fixtures/navigation/catalog.json"
 const PAWN := "res://data/levels/ch1_pawnshop.tres"
 const ROOF := "res://data/levels/ch1_rooftop.tres"
+const WAREHOUSE := "res://data/levels/ch1_warehouse.tres"
 
 
 func run() -> void:
@@ -514,6 +515,7 @@ func _test_ui(catalog: QuestCatalog, maps: QuestMapIndex) -> void:
 	await _test_journal_input(screen, true)
 	await _test_journal_language(screen)
 	await _test_map_language(screen)
+	await _test_remote_gates(screen)
 	await _test_map_recenter(screen)
 	await _test_tab_history(screen)
 	await _test_completed_pin_label(screen)
@@ -897,7 +899,7 @@ func _test_journal_language(screen: QuestMapScreen) -> void:
 	pin.grab_focus()
 	for language in ["en", "ja"]:
 		Story.set_language(language)
-		await frames(4)
+		await _ui_frames(4)
 		pin = screen._actions.get_child(0) as Button
 		var title := "Track quest" if language == "en" else "追跡する"
 		check(pin.text == title and screen.get_viewport().gui_get_focus_owner() == pin, "%s localization preserves the tracking action focus" % language)
@@ -906,7 +908,48 @@ func _test_journal_language(screen: QuestMapScreen) -> void:
 		check(tab.text == ("Quests" if language == "en" else "クエスト"), "%s localizes the task tab" % language)
 	screen.state.pinned_id = old_pin
 	Story.set_language(old_language)
-	await frames(4)
+	await _ui_frames(4)
+
+
+func _test_remote_gates(screen: QuestMapScreen) -> void:
+	var previous_area := GameState.area_states.duplicate(true)
+	var previous_world := screen.world
+	var markers: Array[Dictionary] = screen.maps.areas[WAREHOUSE]["markers"]
+	var gate_index := markers.find_custom(func(marker: Dictionary) -> bool:
+		return marker.get("kind") == "gate" and marker["resource"].id == &"ch1_gate_a")
+	check(gate_index >= 0, "the actual warehouse map has the flood gate")
+	if gate_index < 0:
+		return
+	var marker := markers[gate_index]
+	var cell: Vector2i = marker["cell"]
+	var state_key := "gate@%d,%d" % [cell.x, cell.y]
+	var marker_key := "marker:%d" % gate_index
+	screen.state.reveal(WAREHOUSE, [cell])
+	screen.world = {state_key: true}
+	GameState.area_states.erase("ch1_warehouse")
+	screen._jump_to_map(WAREHOUSE)
+	await _ui_frames(4)
+	var button := _find_map_marker(screen._canvas, marker_key)
+	check(button != null and button.text == QuestMapCanvas.SYMBOLS["gate"],
+		"a live gate at the same cell in another area cannot open the remote map gate")
+	check(not GameState.area_states.has("ch1_warehouse"), "viewing the warehouse map does not create a saved area")
+	GameState.area_state(&"ch1_warehouse")["world"][state_key] = true
+	screen.world = {state_key: false}
+	screen._build()
+	await _ui_frames(4)
+	button = _find_map_marker(screen._canvas, marker_key)
+	check(button != null and button.text == QuestMapCanvas.SYMBOLS["exit"] and button.tooltip_text == "這道閘門目前可以通行。",
+		"an opened flood gate stays open on the remote warehouse map")
+	GameState.area_states["ch1_warehouse"]["world"] = "invalid-world-snapshot"
+	screen._build()
+	await _ui_frames(4)
+	button = _find_map_marker(screen._canvas, marker_key)
+	check(button != null and button.text == QuestMapCanvas.SYMBOLS["gate"],
+		"malformed remote world data safely uses the authored gate default")
+	GameState.area_states = previous_area
+	screen.world = previous_world
+	screen.go_back()
+	await _ui_frames(4)
 
 
 func _test_map_language(screen: QuestMapScreen) -> void:
@@ -917,8 +960,7 @@ func _test_map_language(screen: QuestMapScreen) -> void:
 	screen._zoom(2.0)
 	screen._buttons[2].grab_focus()
 	Story.set_language("en")
-	for frame in 4:
-		await runner.get_tree().process_frame
+	await _ui_frames(4)
 	var center := screen._buttons[2]
 	check(center.text == "Center on player" and center.has_focus() and center.tooltip_text == screen._status.text,
 		"area map localizes and retains recenter focus and its hint (%s, %s, %s)" % [center.text, center.has_focus(), screen._status.text])
@@ -932,8 +974,7 @@ func _test_map_language(screen: QuestMapScreen) -> void:
 	if node != null:
 		node.grab_focus()
 		Story.set_language("ja")
-		for frame in 4:
-			await runner.get_tree().process_frame
+		await _ui_frames(4)
 		node = _find_map_marker(screen._canvas, "area:" + PAWN)
 		check(node != null and node.has_focus() and node.tooltip_text == screen._status.text and node.tooltip_text.contains("の地図を開きます。"),
 			"world map restores the same area marker and its Japanese focus hint")
@@ -946,8 +987,7 @@ func _test_map_language(screen: QuestMapScreen) -> void:
 		check(screen._page == "world" and node != null and node.has_focus(), "return restores the original world node")
 	Story.set_language(previous)
 	screen.show_page("quests", false)
-	for frame in 4:
-		await runner.get_tree().process_frame
+	await _ui_frames(4)
 
 
 func _find_map_marker(canvas: QuestMapCanvas, key: String) -> Button:
@@ -956,6 +996,12 @@ func _find_map_marker(canvas: QuestMapCanvas, key: String) -> Button:
 			if marker.get_meta(&"nav_key", "") == key:
 				return marker
 	return null
+
+# Story reloads can accumulate physics ticks before the next layout update.
+func _ui_frames(count: int) -> void:
+	for frame in count:
+		await runner.get_tree().process_frame
+
 
 func _test_journal_input(screen: QuestMapScreen, controller: bool) -> void:
 	screen._history.clear()
