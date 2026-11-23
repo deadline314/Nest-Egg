@@ -12,7 +12,7 @@ func tab_tooltip() -> String:
 
 
 func _empty_text() -> String:
-	return "沒有武器。"
+	return Labels.get_text(&"weapon_empty")
 
 
 func _initial_selection() -> int:
@@ -36,31 +36,34 @@ func _entry_for_slot(loadout: Loadout, slot: int) -> InventoryEntry:
 	entry.card_icon_scale = 1
 	entry.detail_icon_scale = 2
 	if weapon == null:
-		entry.title = "空欄位 %d" % (slot + 1)
-		entry.subtitle = "撿到武器會放在這裡"
+		entry.title = Labels.get_text(&"weapon_slot_empty") % (slot + 1)
+		entry.subtitle = Labels.get_text(&"weapon_slot_prompt")
 		entry.accent = Palette.UI_MUTED
 		entry.dimmed = true
-		entry.hint = "撿到武器後放在這裡；最多攜帶 %d 把" % Loadout.MAX_SLOTS
-		entry.detail_tag = "欄位 %d" % (slot + 1)
-		entry.detail_body = "這個欄位還是空的。關卡中撿到的武器會依序放進來。"
+		entry.hint = Labels.get_text(&"weapon_slot_help") % Loadout.MAX_SLOTS
+		entry.detail_tag = Labels.get_text(&"weapon_slot_number") % (slot + 1)
+		entry.detail_body = entry.hint
 		return entry
 	var is_active := slot == loadout.active_slot
-	entry.title = weapon.display_name
+	entry.title = weapon.display_name_for(Story.language)
 	entry.accent = weapon.color
 	entry.icon = ItemIcons.for_weapon(weapon)
 	entry.detail_icon = ItemIcons.for_weapon_hd(weapon)
 	entry.ammo_icon = AmmoIcons.for_weapon(weapon)
-	entry.subtitle = "%s　%s" % [_ammo_text(loadout, slot, weapon), _kind_text(weapon)]
+	var kind := _kind_text(weapon)
+	var ammo := _ammo_text(loadout, slot, weapon)
+	entry.subtitle = kind if ammo.is_empty() else "%s　%s" % [ammo, kind]
 	if is_active:
-		entry.badge = "手上"
+		entry.badge = Labels.get_text(&"weapon_active_badge")
 		entry.badge_color = Palette.CYAN
-	entry.detail_tag = "%s・欄位 %d" % [_kind_text(weapon), slot + 1]
+	entry.detail_tag = Labels.get_text(&"weapon_slot_kind") % [kind, slot + 1]
 	entry.detail_stats = _stats(loadout, slot, weapon)
-	entry.detail_body = weapon.description
-	entry.hint = weapon.description
-	entry.action_label = "目前手上武器" if is_active else "設為手上武器"
+	entry.detail_body = weapon.description_for(Story.language)
+	entry.hint = entry.detail_body
+	entry.action_label = Labels.get_text(&"weapon_active" if is_active else &"weapon_equip")
 	entry.action_enabled = loadout.can_select(slot)
-	entry.action_hint = "已經拿在手上" if is_active else ("彈藥用完了，無法換上" if not entry.action_enabled else "關閉背包後直接使用這把武器")
+	var hint := &"weapon_active_help" if is_active else (&"weapon_equip_help" if entry.action_enabled else &"weapon_ammo_missing_help")
+	entry.action_hint = Labels.get_text(hint)
 	return entry
 
 
@@ -70,12 +73,12 @@ func _stats(loadout: Loadout, slot: int, weapon: WeaponData) -> PackedStringArra
 		return _melee_stats(loadout, slot, weapon)
 	if weapon.has_magazine():
 		var reserve := loadout.reserve_in(slot)
-		lines.append("彈匣　%d ／ %d" % [loadout.mag_in(slot), weapon.magazine_size])
-		lines.append("備彈　%s" % ("∞" if reserve < 0 else str(reserve)))
-		lines.append("換%s　%.1f 秒" % ["電池" if weapon.is_energy else "彈", weapon.reload_time])
+		lines.append(Labels.get_text(&"weapon_magazine") % [loadout.mag_in(slot), weapon.magazine_size])
+		lines.append(Labels.get_text(&"weapon_reserve") % ("∞" if reserve < 0 else str(reserve)))
+		lines.append(Labels.get_text(&"weapon_reload_energy" if weapon.is_energy else &"weapon_reload") % weapon.reload_time)
 	else:
-		lines.append("彈藥　∞（不需換彈）")
-	lines.append("射速　%.1f 發／秒" % (1.0 / maxf(0.01, weapon.fire_interval)))
+		lines.append(Labels.get_text(&"weapon_no_reload"))
+	lines.append(Labels.get_text(&"weapon_fire_rate") % (1.0 / maxf(0.01, weapon.fire_interval)))
 	return lines
 
 
@@ -84,30 +87,30 @@ func _melee_stats(loadout: Loadout, slot: int, weapon: WeaponData) -> PackedStri
 	var set := MeleeData.set_of(weapon)
 	var sequence := set.combo(Progression.has_upgrade(weapon, set.extension_upgrade()))
 	var lines := PackedStringArray()
-	lines.append("連段　%d 招" % sequence.size())
-	lines.append("傷害　%.1f／秒" % set.damage_per_second(sequence))
-	lines.append("距離　%d" % roundi(set.max_range(sequence)))
+	lines.append(Labels.get_text(&"weapon_combo") % sequence.size())
+	lines.append(Labels.get_text(&"weapon_dps") % set.damage_per_second(sequence))
+	lines.append(Labels.get_text(&"weapon_reach") % roundi(set.max_range(sequence)))
 	if weapon.has_magazine():
-		lines.append("電量　%d ／ %d（每揮 %d）" % [loadout.mag_in(slot), weapon.magazine_size, maxi(1, weapon.ammo_per_shot)])
-		lines.append("充電　%.1f 秒" % weapon.reload_time)
+		lines.append(Labels.get_text(&"weapon_charge") % [loadout.mag_in(slot), weapon.magazine_size, maxi(1, weapon.ammo_per_shot)])
+		lines.append(Labels.get_text(&"weapon_recharge") % weapon.reload_time)
 	else:
-		lines.append("電量　不消耗")
+		lines.append(Labels.get_text(&"weapon_no_charge"))
 	return lines
 
 
 func _ammo_text(loadout: Loadout, slot: int, weapon: WeaponData) -> String:
 	if weapon.is_melee() and not weapon.has_magazine():
-		return "近戰"
+		return ""
 	if not weapon.has_magazine():
-		return "彈藥 ∞"
+		return Labels.get_text(&"weapon_ammo_infinite")
 	var reserve := loadout.reserve_in(slot)
 	return "%d／%s" % [loadout.mag_in(slot), "∞" if reserve < 0 else str(reserve)]
 
 
 func _kind_text(weapon: WeaponData) -> String:
 	if weapon.is_melee():
-		return "近戰"
-	return "能量" if weapon.is_energy else "實彈"
+		return Labels.get_text(&"weapon_melee")
+	return Labels.get_text(&"weapon_energy" if weapon.is_energy else &"weapon_ballistic")
 
 
 func _activate_entry(index: int) -> bool:
@@ -116,14 +119,15 @@ func _activate_entry(index: int) -> bool:
 	var loadout := context.player.loadout
 	var weapon := loadout.weapon_in(index)
 	if weapon == null:
-		context.say("這個欄位是空的", true)
+		context.say(Labels.get_text(&"weapon_slot_warning"), true)
 		return false
+	var weapon_name := weapon.display_name_for(Story.language)
 	if index == loadout.active_slot:
-		context.say("%s 已經在手上" % weapon.display_name)
+		context.say(Labels.get_text(&"weapon_active_notice") % weapon_name)
 		return false
 	loadout.select(index)
 	if loadout.active_slot != index:
-		context.say("%s 沒有彈藥了" % weapon.display_name, true)
+		context.say(Labels.get_text(&"weapon_no_ammo_notice") % weapon_name, true)
 		return false
-	context.say("已換成 %s" % weapon.display_name)
+	context.say(Labels.get_text(&"weapon_equipped_notice") % weapon_name)
 	return true

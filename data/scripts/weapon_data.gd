@@ -34,6 +34,8 @@ const NUMERIC_LIMITS := {
 @export var is_energy: bool = false
 ## 一句話說明，用於拾取提示與 HUD tooltip（講重點）。
 @export var description: String = ""
+@export var localized_names: Dictionary[String, String] = {}
+@export var localized_descriptions: Dictionary[String, String] = {}
 
 @export_group("Melee")
 ## 近戰武器：非空字串代表這是近戰武器，值是 data/melee/<id>.json 的檔名（招式組：前搖、出招、後搖、判定、傷害…）。空字串＝槍械。
@@ -81,6 +83,14 @@ const NUMERIC_LIMITS := {
 @export var ammo_icon: StringName = &""
 ## 角色手上武器的外觀（art/weapons/weapons.json 的 id）。
 @export var visual_id: String = "rifle"
+
+
+func display_name_for(language: String) -> String:
+	return StoryLocale.optional_text(localized_names, language, display_name)
+
+
+func description_for(language: String) -> String:
+	return StoryLocale.optional_text(localized_descriptions, language, description)
 
 
 func has_magazine() -> bool:

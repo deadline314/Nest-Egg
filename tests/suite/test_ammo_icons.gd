@@ -77,6 +77,14 @@ func _test_weapon_bar() -> void:
 
 
 func _test_inventory_entry() -> void:
+	var resource := load("res://data/weapons/pistol.tres") as WeaponData
+	check(resource.display_name_for("en") == "P-9 Pistol" and resource.display_name_for("ja") == "P-9 ピストル",
+			"formal carried weapons supply localized names")
+	check(resource.description_for("unknown") == resource.description,
+			"unknown language keeps the authored weapon description")
+	var legacy := WeaponData.new()
+	legacy.description = "舊武器說明"
+	check(legacy.description_for("en") == legacy.description, "legacy weapon data falls back to its original copy")
 	var level := await start_level(PropsSuite.level_data())
 	var page := WeaponsPage.new()
 	page.context = InventoryContext.new(level.player)

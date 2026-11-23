@@ -51,16 +51,26 @@ func _test_framing_real_time() -> void:
 	runner.add_child(owner)
 	Story.framing.clear_preview()
 	var token := Story.framing.acquire(owner)
-	await runner.get_tree().create_timer(0.4, true, false, true).timeout
+	await _wait_real_time(400000)
 	check(is_equal_approx(Story.framing.amount, 1.0), "framing fully opens in real time at120fps during slow motion")
 	Story.framing.release(token)
-	await runner.get_tree().create_timer(0.4, true, false, true).timeout
+	await _wait_real_time(400000)
 	check(is_zero_approx(Story.framing.amount) and Story.framing.scope_count() == 0, "framing fully closes in real time at120fps during slow motion")
 	Engine.time_scale = previous_scale
 	Engine.max_fps = previous_fps
 	Settings.set_reduce_ui_motion(previous_motion)
 	owner.queue_free()
 	await frames(2)
+
+
+func _wait_real_time(microseconds: int) -> void:
+	# The framing tween uses wall time. SceneTreeTimer counts engine process delta.
+	var deadline := Time.get_ticks_usec() + microseconds
+	var tree := runner.get_tree()
+	while Time.get_ticks_usec() < deadline:
+		await tree.process_frame
+	# This signal fires before the tween's owner processes the current frame.
+	await tree.process_frame
 
 
 func _test_cinematic_framing() -> void:

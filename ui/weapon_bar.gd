@@ -95,7 +95,7 @@ class _Row:
 
 	func _get_tooltip(_at_position: Vector2) -> String:
 		if weapon != null:
-			return weapon.description
+			return weapon.description_for(Story.language)
 		return InputBindings.format(WeaponBar.EMPTY_SLOT_HELP.get(Story.language, WeaponBar.EMPTY_SLOT_HELP[StoryLocale.SOURCE_LANGUAGE]))
 
 	func _draw() -> void:
