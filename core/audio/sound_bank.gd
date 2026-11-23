@@ -47,7 +47,7 @@ func _load_entry(id: String) -> void:
 	var failed := PackedStringArray()
 	for file: Variant in files:
 		var file_path := str(file)
-		var stream := load(file_path) as AudioStream if ResourceLoader.exists(file_path) else null
+		var stream := _load_stream(file_path)
 		if stream == null:
 			failed.append(file_path)
 			AudioData.report("bank:%s:%s" % [id, file_path], "[%s] 音效「%s」的檔案無法載入：%s（%s），改用其他變體或合成音" % [TAG, id, file_path, path])
@@ -58,6 +58,34 @@ func _load_entry(id: String) -> void:
 	_load_speed_entry(id, failed)
 	if not failed.is_empty():
 		_failed[StringName(id)] = failed
+
+
+## A source checkout can be launched while the editor is rebuilding an imported Ogg.
+static func _load_stream(file_path: String) -> AudioStream:
+	var recognized := ResourceLoader.exists(file_path)
+	if not OS.has_feature("editor") or file_path.get_extension().to_lower() != "ogg" or ResourceLoader.has_cached(file_path):
+		return load(file_path) as AudioStream if recognized else null
+
+	var metadata := ConfigFile.new()
+	var read_metadata := metadata.load(file_path + ".import") == OK
+	var imported := str(metadata.get_value("remap", "path", "")) if read_metadata else ""
+	if recognized and (imported.is_empty() or FileAccess.file_exists(imported)):
+		return load(file_path) as AudioStream
+	if not FileAccess.file_exists(file_path):
+		return null
+
+	var raw := AudioStreamOggVorbis.load_from_file(file_path)
+	if raw == null:
+		return null
+	if read_metadata:
+		raw.loop = bool(metadata.get_value("params", "loop", raw.loop))
+		raw.loop_offset = float(metadata.get_value("params", "loop_offset", raw.loop_offset))
+		raw.bpm = float(metadata.get_value("params", "bpm", raw.bpm))
+		raw.beat_count = int(metadata.get_value("params", "beat_count", raw.beat_count))
+		raw.bar_beats = int(metadata.get_value("params", "bar_beats", raw.bar_beats))
+	AudioData.report("ogg-import:" + file_path,
+		"[SoundBank] Ogg 匯入快取未就緒，暫用原檔：%s" % file_path, false)
+	return raw
 
 
 ## 載入加速變體；缺檔或格式不對時記錄 id、倍率與路徑，那一級退回原速（其他級照常）。
@@ -78,7 +106,7 @@ func _load_speed_entry(id: String, failed: PackedStringArray) -> void:
 		var loaded: Array[AudioStream] = []
 		for file: Variant in list:
 			var file_path := str(file)
-			var stream := load(file_path) as AudioStream if ResourceLoader.exists(file_path) else null
+			var stream := _load_stream(file_path)
 			if stream == null:
 				failed.append(file_path)
 				AudioData.report("bank:%s:%s" % [id, file_path], "[%s] 音效「%s」的 %s 倍加速檔無法載入：%s（%s），這一級退回原速" % [TAG, id, key, file_path, path])

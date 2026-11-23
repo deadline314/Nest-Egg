@@ -14,6 +14,7 @@ func run() -> void:
 	_test_readability_audio_mapping()
 	_test_licenses()
 	_test_bank_loading()
+	_test_pending_ogg_import()
 	_test_bank_validation()
 	await _test_speed_variants()
 	await _test_sfx_uses_files()
@@ -169,6 +170,36 @@ func _test_bank_loading() -> void:
 	var missing := SoundBank.new()
 	missing.load_bank(FIXTURES + "test_audio_missing_bank.json", true)
 	check(missing.ids().is_empty() and not missing.has_files(&"hit"), "a missing bank file leaves an empty bank instead of crashing")
+
+
+func _test_pending_ogg_import() -> void:
+	if not OS.has_feature("editor"):
+		return
+	var path := "user://test_audio_missing_import.ogg"
+	var source := "res://audio/sfx/ch2_sink_rinse_01.ogg"
+	var source_data := FileAccess.get_file_as_bytes(source)
+	check(not source_data.is_empty(), "the test uses the shipped kitchen sound")
+	var file := FileAccess.open(path, FileAccess.WRITE)
+	if file == null or not file.store_buffer(source_data):
+		check(false, "the fallback test can write its isolated source")
+		return
+	file.close()
+	var sidecar := ConfigFile.new()
+	sidecar.set_value("remap", "importer", "oggvorbisstr")
+	sidecar.set_value("remap", "type", "AudioStreamOggVorbis")
+	sidecar.set_value("remap", "path", path + ".oggvorbisstr")
+	sidecar.set_value("params", "loop", true)
+	sidecar.set_value("params", "loop_offset", 0.1)
+	sidecar.set_value("params", "bpm", 60.0)
+	sidecar.set_value("params", "beat_count", 3)
+	sidecar.set_value("params", "bar_beats", 3)
+	check(sidecar.save(path + ".import") == OK and ResourceLoader.exists(path)
+			and not FileAccess.file_exists(path + ".oggvorbisstr"), "the import is registered but its compiled stream is missing")
+	var stream := SoundBank._load_stream(path) as AudioStreamOggVorbis
+	check(stream != null and stream.get_length() > 0.0, "the kitchen sound plays from its raw Ogg until import finishes")
+	check(stream != null and stream.loop and is_equal_approx(stream.loop_offset, 0.1)
+			and is_equal_approx(stream.bpm, 60.0) and stream.beat_count == 3 and stream.bar_beats == 3,
+			"the raw Ogg keeps the configured loop and beat settings")
 
 
 ## 射速加快時的音效（NE-182）：加速變體的載入與選級、資料檢查、真實武器的加速檔、上一發尾音的收尾。
