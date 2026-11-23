@@ -1796,7 +1796,9 @@ def main():
     by_id = {a.id: a for a in areas}
     write_level(by_id['prologue'], display_name='巢蛋當舖（試貨）', skip_portal='&"prologue_exit"',
                 skip_flags='PackedStringArray("ch1_prologue_skipped", "ch1_prologue_exit")', skip_label='"略過序章"',
-                skip_note='"略過後直接回店裡吃晚飯，第一個目標照樣交給你；已經練過的動作會保留，沒練過的在暫停選單的操作說明裡。"')
+                skip_note='"略過後直接回店裡吃晚飯，第一個目標照樣交給你；已經練過的動作會保留，沒練過的在暫停選單的操作說明裡。"',
+                skip_label_i18n='Dictionary[String, String]({"ja": "序章をスキップ", "en": "Skip prologue"})',
+                skip_note_i18n='Dictionary[String, String]({"ja": "店に戻って夕食をとり、最初の目標を受け取ります。練習済みの操作は保持されます。残りはポーズ画面で確認できます。", "en": "Return to the shop for supper and get your first objective. Completed practice is kept. Review the other controls in the pause menu."})')
     write_level(by_id['pawnshop'], show_card=True, display_name='當舖')
     write_level(by_id['rooftop'])
     write_level(by_id['street'])

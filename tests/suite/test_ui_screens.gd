@@ -17,6 +17,7 @@ func run() -> void:
 	await _test_codex()
 	await preload("res://tests/helpers/codex_replay_checks.gd").run(self)
 	await _test_pause_info()
+	await _test_pause_language()
 	await _test_pause_settings_overlay()
 	await _test_main_menu_overlays()
 	await _test_difficulty_cards_never_overlap()
@@ -188,6 +189,47 @@ func _test_pause_info() -> void:
 	GameState.deaths = 0
 	await frames(2)
 
+
+func _test_pause_language() -> void:
+	var original := Story.language
+	var menu := PauseMenu.new()
+	var training := load("res://data/levels/ch1_prologue.tres") as LevelData
+	menu.skip_label = training.skip_label
+	menu.skip_note = training.skip_note
+	menu.skip_label_i18n = training.skip_label_i18n
+	menu.skip_note_i18n = training.skip_note_i18n
+	runner.add_child(menu)
+	menu.open()
+	await frames(3)
+	var focused := menu._map_button
+	focused.grab_focus()
+	Story.set_language("en")
+	await frames(4)
+	check(menu._menu_panel._title_label.text == "Paused" and focused.text == "Map" and focused.has_focus(),
+		"English pause labels retain the original map focus")
+	check(menu._status_label.text.contains("Play time") and menu._controls_label.text.contains("Jump "),
+		"English pause progress and controls are localized")
+	check((focused.tooltip_text.begins_with("View ") or focused.tooltip_text.begins_with("Open ")) and
+		menu._menu_hints.text() == focused.tooltip_text, "English map focus hint follows the active device")
+	menu._ask_skip()
+	await frames(3)
+	check(menu._skip_confirm._title_label.text == "Skip prologue" and menu._skip_keep.has_focus() and
+		menu._skip_note_label.text.begins_with("Return to the shop"),
+		"English prologue confirmation reads authored facts and prioritizes the safe action")
+	Story.set_language("ja")
+	await frames(4)
+	check(menu._skip_confirm._title_label.text == "序章をスキップ" and menu._skip_keep.has_focus() and
+		menu._skip_note_label.text.begins_with("店に戻って") and
+		menu._skip_hints.text() == menu._skip_keep.tooltip_text,
+		"Japanese updates the open confirmation without losing the safe focus")
+	menu._cancel_skip()
+	await frames(3)
+	check(menu._skip_button.has_focus() and menu._skip_button.text == "序章をスキップ" and menu._map_button.text == "地図",
+		"Returning to pause preserves the localized skip focus")
+	menu.close()
+	menu.queue_free()
+	Story.set_language(original)
+	await frames(3)
 
 ## 暫停選單開設定（NE-173）：設定蓋滿畫面、底下的選單隱藏且不能聚焦，關閉後焦點回到「設定」按鈕。
 func _test_pause_settings_overlay() -> void:

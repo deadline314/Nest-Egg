@@ -8,26 +8,30 @@ const TOAST_TIME := 2.2
 const CONTROLS_HINT_TIME := 5.0
 const HUD_TEXT := {
 	"zh": {
-		"quick_controls": "{pause} 開啟操作說明", "lives": "殘機 ×%d", "lives_help": "殘機用完會從關卡開頭重來",
+		"quick_controls": "{pause} 開啟操作說明",
+		"full_controls": "移動 {move_left}/{move_right}　跳 {jump}　射擊 {shoot}　格擋 {block}　衝刺 {dash}　近戰／終結 {melee}　換彈 {reload}　換武器 {weapon_next}／1～4　搭乘 {interact}　背包 {inventory}　暫停 {pause}",
+		 "lives": "殘機 ×%d", "lives_help": "殘機用完會從關卡開頭重來",
 		"items_help": "按 {inventory} 開啟背包來使用消耗品。",
 		"quick_item_help": "按 {use_item} 使用快速道具，其餘在背包使用。",
 		"cyber_help": "就緒時按 {ability}，電量隨時間與擊敗敵人回復。",
 	},
 	"ja": {
-		"quick_controls": "{pause} 操作ガイド", "lives": "残機 ×%d", "lives_help": "残機がなくなると、エリアの入口からやり直します。",
+		"quick_controls": "{pause} 操作ガイド",
+		"full_controls": "移動 {move_left}/{move_right}　ジャンプ {jump}　射撃 {shoot}　ガード {block}　ダッシュ {dash}　近接／フィニッシュ {melee}　リロード {reload}　武器切替 {weapon_next}／1～4　乗る {interact}　所持品 {inventory}　ポーズ {pause}",
+		 "lives": "残機 ×%d", "lives_help": "残機がなくなると、エリアの入口からやり直します。",
 		"items_help": "{inventory} でインベントリを開いて消耗品を使います。",
 		"quick_item_help": "クイックアイテムは {use_item}、その他はインベントリで使います。",
 		"cyber_help": "準備ができたら {ability} で発動し、時間経過や敵撃破で充電します。",
 	},
 	"en": {
-		"quick_controls": "{pause} Controls", "lives": "Lives ×%d", "lives_help": "When lives run out, restart the area.",
+		"quick_controls": "{pause} Controls",
+		"full_controls": "Move {move_left}/{move_right}　Jump {jump}　Shoot {shoot}　Block {block}　Dash {dash}　Melee / finish {melee}　Reload {reload}　Switch weapon {weapon_next}／1～4　Mount {interact}　Inventory {inventory}　Pause {pause}",
+		 "lives": "Lives ×%d", "lives_help": "When lives run out, restart the area.",
 		"items_help": "Open Inventory with {inventory} to use consumables.",
 		"quick_item_help": "Use {use_item} for the quick item and Inventory for the others.",
 		"cyber_help": "Press {ability} when ready, then recharge over time or by defeating enemies.",
 	},
 }
-## {動作} 會換成玩家目前設定的按鍵（見 InputBindings.format）。
-const CONTROLS_TEMPLATE := "移動 {move_left}/{move_right}　跳 {jump}　射擊 {shoot}　格擋 {block}　衝刺 {dash}　近戰／終結 {melee}　換彈 {reload}　換武器 {weapon_next}／1～4　搭乘 {interact}　背包 {inventory}　暫停 {pause}"
 ## 按住與連按的規則（NE-229），一行一件事；設定的「按鍵」「手把」分頁顯示，按鍵名稱跟著目前裝置與改鍵。
 ## 對應的判定：放開跳躍會截短跳躍、按住射擊依射速連射、按住格擋持續舉盾、近戰與衝刺有輸入緩衝（data/feel/input.json）。
 const HOLD_RULES: Array[String] = [
@@ -251,7 +255,7 @@ func _dismiss_controls() -> void:
 
 
 static func controls_hint() -> String:
-	var template := CONTROLS_TEMPLATE
+	var template := _hud_text("full_controls")
 	if InputBindings.using_gamepad:
 		template = template.replace("／1～4", "")
 	return InputBindings.format(template)

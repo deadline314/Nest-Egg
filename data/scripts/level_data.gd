@@ -60,6 +60,8 @@ const MAX_CHANNEL_RESULT_FLAGS := 64
 @export var skip_flags: PackedStringArray = PackedStringArray()
 @export var skip_label: String = ""
 @export var skip_note: String = ""
+@export var skip_label_i18n: Dictionary[String, String] = {}
+@export var skip_note_i18n: Dictionary[String, String] = {}
 ## 地圖上 & 字元由左至右對應的劇情場景 id。
 @export var story_triggers: PackedStringArray = PackedStringArray()
 ## 本區域剛成立的劇情交易收據可附帶一次回復。讀檔及已存在的收據不再回復。

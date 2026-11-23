@@ -9,6 +9,35 @@ signal skip_requested
 
 ## 長按略過按鈕多久直接略過（秒）；短按改開確認畫面（XAG107：長按要有單次確認的替代方式）。
 const SKIP_HOLD := 1.0
+const COPY := {
+	"title": ["暫停", "ポーズ", "Paused"],
+	"progress": ["目前進度", "現在の進行状況", "Run progress"],
+	"controls": ["操作", "操作", "Controls"],
+	"resume": ["繼續", "再開", "Resume"],
+	"resume_hint": ["回到遊戲", "ゲームに戻ります。", "Return to the game."],
+	"quests": ["任務", "クエスト", "Quests"],
+	"quests_hint": ["查看任務步驟並釘選目標。", "手順を確認して目標を追跡します。", "Review steps and track a quest."],
+	"quests_keyboard": ["查看任務並釘選目標；快捷鍵 {quests}。", "{quests} でクエストを開けます。", "Open quests with {quests}."],
+	"map": ["地圖", "地図", "Map"],
+	"map_hint": ["查看目前區域與世界地圖。", "エリアと全体の地図を確認します。", "View the area and world maps."],
+	"map_keyboard": ["查看區域與世界地圖；快捷鍵 {map}。", "{map} で地図を開けます。", "Open the map with {map}."],
+	"settings": ["設定", "設定", "Settings"],
+	"settings_hint": ["音量、按鍵、顯示", "音量、操作、表示を調整します。", "Adjust sound, controls and display."],
+	"codex": ["圖鑑", "図鑑", "Codex"],
+	"codex_hint": ["查看敗北紀錄，重看本輪看過的故事", "敗北記録や今回見た物語を確認します。", "Review defeats and replay seen stories."],
+	"retry": ["從檢查點重來", "復帰地点から再開", "Retry checkpoint"],
+	"retry_hint": ["回到最後的檢查點，武器保留", "武器を保持して最後の復帰地点に戻ります。", "Return to the last checkpoint with your weapons."],
+	"menu": ["回主選單", "メインメニューに戻る", "Main menu"],
+	"menu_hint": ["返回主選單；會嘗試保存進度", "進行状況の保存を試みてメニューに戻ります。", "Return to the menu and try to save progress."],
+	"time": ["遊玩時間　%s", "プレイ時間　%s", "Play time  %s"],
+	"deaths": ["回溯次數　%d", "リトライ　%d", "Retries  %d"],
+	"credits": ["信用點　　%d", "クレジット　%d", "Credits  %d"],
+	"skip_hint": ["短按確認，長按直接略過。", "短く押すと確認、長押しでスキップ。", "Press to review, hold to skip."],
+	"keep": ["繼續練習", "練習を続ける", "Keep practicing"],
+	"keep_hint": ["返回暫停選單。", "ポーズ画面に戻ります。", "Return to the pause menu."],
+	"skip_confirm": ["確認%s", "%s", "%s"],
+	"skip_confirm_hint": ["略過這一段。", "この区間をスキップします。", "Skip this section."],
+}
 
 static var _navigation_warmed := false
 
@@ -21,10 +50,17 @@ var chapter: StringName = &"chapter_01"
 var skip_label := ""
 ## 確認畫面上的一句說明：略過後去哪裡、保留什麼。
 var skip_note := ""
+var skip_label_i18n: Dictionary[String, String] = {}
+var skip_note_i18n: Dictionary[String, String] = {}
 
 var _root: Control
-var _menu_panel: Control
-var _info_panel: Control
+var _menu_panel: UiPanel
+var _info_panel: UiPanel
+var _locale := ""
+var _locale_index := 0
+var _actions: Dictionary[String, Button] = {}
+var _controls_heading: Label
+var _menu_hints: FocusHintBar
 var _resume_button: Button
 var _controls_label: Label
 var _status_label: Label
@@ -33,7 +69,11 @@ var _settings: SettingsScreen
 var _codex: CodexScreen
 var _quest_button: Button
 var _map_button: Button
-var _skip_confirm: Control
+var _skip_confirm: UiPanel
+var _skip_note_label: Label
+var _skip_keep: Button
+var _skip_action: Button
+var _skip_hints: FocusHintBar
 var _skip_button: Button
 var _skip_held := -1.0
 var _skip_hold_done := false
@@ -43,36 +83,37 @@ func _ready() -> void:
 	layer = UiLayers.PAUSE
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_root = UiKit.full_rect_root(self)
+	_set_display_language()
 	var shade := SceneBackdrop.new()
 	# Keep the pause modal's existing click barrier over the frozen world.
 	shade.mouse_filter = Control.MOUSE_FILTER_STOP
 	_root.add_child(shade)
 
-	var menu := UiPanel.new("暫停")
+	var menu := UiPanel.new(_text("title"))
 	# 右上留給計時器，放大文字時也保留完整進度面板。
 	menu.position = Vector2(36, 28)
 	menu.custom_minimum_size = Vector2(190, 0)
 	_root.add_child(menu)
 	_menu_panel = menu
-	_resume_button = UiKit.button("繼續", close, "回到遊戲")
+	_resume_button = _add_action("resume", close)
 	menu.body.add_child(_resume_button)
-	_quest_button = UiKit.button("任務", _open_navigation.bind("quests"))
-	_map_button = UiKit.button("地圖", _open_navigation.bind("region"))
+	_quest_button = _add_action("quests", _open_navigation.bind("quests"))
+	_map_button = _add_action("map", _open_navigation.bind("region"))
 	menu.body.add_child(_quest_button)
 	menu.body.add_child(_map_button)
-	menu.body.add_child(UiKit.button("設定", _open_settings, "音量、按鍵、顯示"))
-	menu.body.add_child(UiKit.button("圖鑑", _open_codex, "查看敗北紀錄，重看本輪看過的故事"))
+	menu.body.add_child(_add_action("settings", _open_settings))
+	menu.body.add_child(_add_action("codex", _open_codex))
 	if not skip_label.is_empty():
 		menu.body.add_theme_constant_override(&"separation", 5)
-		_skip_button = UiKit.button(skip_label, _on_skip_pressed, "長按直接%s；短按會再確認一次。" % skip_label)
+		_skip_button = UiKit.button(_skip_text(), _on_skip_pressed, _text("skip_hint"))
 		_skip_button.button_down.connect(_on_skip_down)
 		_skip_button.button_up.connect(_reset_skip_hold)
 		_skip_button.focus_exited.connect(_reset_skip_hold)
 		menu.body.add_child(_skip_button)
-	menu.body.add_child(UiKit.button("從檢查點重來", _on_retry, "回到最後的檢查點，武器保留"))
-	menu.body.add_child(UiKit.button("回主選單", _on_menu, "返回主選單；會嘗試保存進度"))
+	menu.body.add_child(_add_action("retry", _on_retry))
+	menu.body.add_child(_add_action("menu", _on_menu))
 
-	var info := UiPanel.new("目前進度", Palette.NEON_YELLOW)
+	var info := UiPanel.new(_text("progress"), Palette.NEON_YELLOW)
 	info.position = Vector2(250, 28)
 	info.custom_minimum_size = Vector2(354, 0)
 	_root.add_child(info)
@@ -80,11 +121,13 @@ func _ready() -> void:
 	_status_label = UiKit.label("", UiKit.FS_BODY, Palette.UI_TEXT)
 	info.body.add_child(_status_label)
 	info.body.add_child(UiDivider.new())
-	info.body.add_child(UiKit.label("操作", UiKit.FS_BODY, Palette.CYAN))
+	_controls_heading = UiKit.label(_text("controls"), UiKit.FS_BODY, Palette.CYAN)
+	info.body.add_child(_controls_heading)
 	_controls_label = UiKit.label("", UiKit.FS_BODY, Palette.UI_MUTED)
+	_controls_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	info.body.add_child(_controls_label)
 	# 鍵盤與手把移動焦點時，在底部顯示同一句說明。
-	FocusHintBar.attach(_root, FocusHintBar.Placement.BELOW, menu)
+	_menu_hints = FocusHintBar.attach(_root, FocusHintBar.Placement.BELOW, menu)
 	_root.visible = false
 	InputBindings.bindings_changed.connect(_on_bindings_changed)
 	_on_bindings_changed()
@@ -135,9 +178,43 @@ func _warm_text(root: Control) -> void:
 	RenderingServer.free_rid(canvas)
 
 
+func _text(key: String) -> String:
+	return COPY[key][_locale_index]
+
+
+func _set_display_language() -> void:
+	_locale = Story.language
+	_locale_index = 1 if _locale == "ja" else 2 if _locale == "en" else 0
+
+
+func _add_action(key: String, callback: Callable) -> Button:
+	var button := UiKit.button(_text(key), callback, _text(key + "_hint"))
+	_actions[key] = button
+	return button
+
+
+func _refresh_language() -> void:
+	if _locale == Story.language:
+		return
+	_set_display_language()
+	_menu_panel.set_title(_text("title"))
+	_info_panel.set_title(_text("progress"))
+	_controls_heading.text = _text("controls")
+	for key: String in _actions:
+		var button: Button = _actions[key]
+		button.text = _text(key)
+		button.tooltip_text = _text(key + "_hint")
+	if is_instance_valid(_skip_button):
+		_skip_button.text = _skip_text()
+		_skip_button.tooltip_text = _text("skip_hint")
+	_refresh_skip_copy()
+	_on_bindings_changed()
+	_menu_hints.refresh_visible_hint()
+
+
 func _on_bindings_changed() -> void:
-	_quest_button.tooltip_text = "查看任務步驟並釘選目標。" if InputBindings.using_gamepad else InputBindings.format("查看任務並釘選目標；快捷鍵 {quests}。")
-	_map_button.tooltip_text = "查看目前區域與世界地圖。" if InputBindings.using_gamepad else InputBindings.format("查看區域與世界地圖；快捷鍵 {map}。")
+	_quest_button.tooltip_text = _text("quests_hint") if InputBindings.using_gamepad else InputBindings.format(_text("quests_keyboard"))
+	_map_button.tooltip_text = _text("map_hint") if InputBindings.using_gamepad else InputBindings.format(_text("map_keyboard"))
 	if _root.visible:
 		_refresh_info()
 
@@ -168,6 +245,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func open() -> void:
 	if not GameplayLock.menu_allowed():
 		return
+	_refresh_language()
 	Fx.reset_time()
 	# 經過 GameplayLock：重要通訊凍結時開關選單，世界仍維持凍結到讀完。
 	GameplayLock.set_base_paused(true)
@@ -207,9 +285,9 @@ func _refresh_info() -> void:
 	var info := Story.chapter_info(chapter)
 	var lines: Array[String] = [
 		str(info.get("title", "")),
-		"遊玩時間　%s" % UiKit.format_time(GameState.run_time),
-		"回溯次數　%d" % GameState.deaths,
-		"信用點　　%d" % Progression.credits,
+		_text("time") % UiKit.format_time(GameState.run_time),
+		_text("deaths") % GameState.deaths,
+		_text("credits") % Progression.credits,
 	]
 	_status_label.text = "\n".join(lines)
 	_controls_label.text = _controls_text()
@@ -219,10 +297,11 @@ func _refresh_info() -> void:
 func _controls_text() -> String:
 	var items := Hud.controls_hint().split("　", false)
 	var lines := PackedStringArray()
+	var spacing := "      " if _locale == "en" else "　　　"
 	for i in range(0, items.size(), 2):
 		var pair := items[i]
 		if i + 1 < items.size():
-			pair += "　　　" + items[i + 1]
+			pair += spacing + items[i + 1]
 		lines.append(pair)
 	return "\n".join(lines)
 
@@ -249,23 +328,41 @@ func _open_codex() -> void:
 func _ask_skip() -> void:
 	if is_instance_valid(_skip_confirm):
 		return
-	var panel := UiPanel.new(skip_label, Palette.NEON_YELLOW)
+	var panel := UiPanel.new(_skip_text(), Palette.NEON_YELLOW)
 	panel.position = Vector2(250, 48)
 	panel.custom_minimum_size = Vector2(354, 0)
-	var note := UiKit.label(skip_note, UiKit.FS_BODY, Palette.UI_TEXT)
-	note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	note.custom_minimum_size = Vector2(330, 0)
-	panel.body.add_child(note)
-	var keep := UiKit.button("繼續練習", _cancel_skip, "返回暫停選單。")
-	panel.body.add_child(keep)
-	panel.body.add_child(UiKit.button("確認" + skip_label, _confirm_skip, "略過這一段。"))
+	_skip_note_label = UiKit.label("", UiKit.FS_BODY, Palette.UI_TEXT)
+	_skip_note_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_skip_note_label.custom_minimum_size = Vector2(330, 0)
+	panel.body.add_child(_skip_note_label)
+	_skip_keep = UiKit.button("", _cancel_skip)
+	_skip_action = UiKit.button("", _confirm_skip)
+	panel.body.add_child(_skip_keep)
+	panel.body.add_child(_skip_action)
 	panel.add_to_group(FocusHintBar.OWN_HINTS_GROUP)
-	FocusHintBar.attach(panel, FocusHintBar.Placement.INLINE, panel.body)
+	_skip_hints = FocusHintBar.attach(panel, FocusHintBar.Placement.INLINE, panel.body)
 	_root.add_child(panel)
 	_skip_confirm = panel
+	_refresh_skip_copy()
 	_menu_panel.visible = false
 	_info_panel.visible = false
-	keep.grab_focus()
+	_skip_keep.grab_focus()
+
+
+func _skip_text() -> String:
+	return StoryLocale.optional_text(skip_label_i18n, _locale, skip_label)
+
+
+func _refresh_skip_copy() -> void:
+	if not is_instance_valid(_skip_confirm):
+		return
+	_skip_confirm.set_title(_skip_text())
+	_skip_note_label.text = StoryLocale.optional_text(skip_note_i18n, _locale, skip_note)
+	_skip_keep.text = _text("keep")
+	_skip_keep.tooltip_text = _text("keep_hint")
+	_skip_action.text = _text("skip_confirm") % _skip_text()
+	_skip_action.tooltip_text = _text("skip_confirm_hint")
+	_skip_hints.refresh_visible_hint()
 
 
 func _on_skip_down() -> void:
@@ -276,12 +373,15 @@ func _on_skip_down() -> void:
 func _reset_skip_hold() -> void:
 	_skip_held = -1.0
 	if is_instance_valid(_skip_button):
-		_skip_button.text = skip_label
+		_skip_button.text = _skip_text()
 
 
 ## 長按時按鈕上顯示進度；滿了就直接略過，不再跳確認。
 func _process(delta: float) -> void:
-	if _skip_held < 0.0 or not _root.visible:
+	if not _root.visible:
+		return
+	_refresh_language()
+	if _skip_held < 0.0:
 		return
 	_skip_held += delta
 	if _skip_held >= SKIP_HOLD:
@@ -289,7 +389,7 @@ func _process(delta: float) -> void:
 		_reset_skip_hold()
 		_confirm_skip()
 		return
-	_skip_button.text = "%s…%d%%" % [skip_label, int(_skip_held / SKIP_HOLD * 100.0)]
+	_skip_button.text = "%s…%d%%" % [_skip_text(), int(_skip_held / SKIP_HOLD * 100.0)]
 
 
 func _on_skip_pressed() -> void:

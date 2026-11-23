@@ -328,6 +328,8 @@ func _ready() -> void:
 	if data.skip_portal != &"":
 		_pause_menu.skip_label = data.skip_label
 		_pause_menu.skip_note = data.skip_note
+		_pause_menu.skip_label_i18n = data.skip_label_i18n
+		_pause_menu.skip_note_i18n = data.skip_note_i18n
 	add_child(_pause_menu)
 	_pause_menu.skip_requested.connect(_skip_area)
 	_pause_menu.retry_requested.connect(_request_retry)

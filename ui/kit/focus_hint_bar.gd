@@ -59,7 +59,7 @@ func _ready() -> void:
 	get_viewport().gui_focus_changed.connect(_on_focus_changed)
 	_scope.visibility_changed.connect(_refresh)
 	# Read the tooltip after the screen has updated its binding text.
-	InputBindings.bindings_changed.connect(_refresh_visible_hint, CONNECT_DEFERRED)
+	InputBindings.bindings_changed.connect(refresh_visible_hint, CONNECT_DEFERRED)
 	if is_instance_valid(_anchor) and placement == Placement.BELOW:
 		# 面板滑入或改版面時跟著移動；只在面板實際移動時觸發，不每影格計算。
 		_anchor.item_rect_changed.connect(func() -> void:
@@ -82,7 +82,7 @@ func _on_focus_changed(control: Control) -> void:
 	_refresh()
 
 
-func _refresh_visible_hint() -> void:
+func refresh_visible_hint() -> void:
 	if is_visible_in_tree():
 		_refresh()
 
