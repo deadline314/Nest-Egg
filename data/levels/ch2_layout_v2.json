@@ -41,7 +41,10 @@
          "requires_flag": "", "prompt": "{interact} 從後窗進阿梨的小廚房", "style": "door", "w": 24, "h": 44},
         {"id": "market_canopy", "glyph": "⇢", "cell": [136, 23], "target_level": "ch2_loading", "target_portal": "loading_canopy",
          "requires_flag": "ch2_market_contact_done", "prompt": "{interact} 沿雨棚走到貨道上層",
-         "locked": "先到代收處問清楚這筆代收款，再去後面查帳。", "style": "road", "w": 28, "h": 44}
+         "locked": "先到代收處問清楚這筆代收款，再去後面查帳。", "style": "road", "w": 28, "h": 44},
+        {"id": "market_service_lounge", "glyph": "↱", "cell": [128, 23], "target_level": "ch2_lounge_front", "target_portal": "lounge_service_market",
+         "requires_flag": "ch2_audit_submitted", "prompt": "{interact} 走員工通道到復原館",
+         "locked": "先在復原館的委託終端送出查核資料，員工通道才會開放。", "style": "hidden", "w": 32, "h": 68}
       ],
       "capability_targets": {"89,15": {"ability": "air_jump", "flag": "ledger_disk_obtained"}}
     },

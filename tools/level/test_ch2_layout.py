@@ -52,13 +52,14 @@ class ChapterTwoLayoutTests(unittest.TestCase):
 
     def test_new_doors_are_reciprocal_and_keep_the_story_gate(self):
         ports = {}
-        areas = {ident: self.build(ident) for ident in (*TALL, 'ali_home')}
+        areas = {ident: self.build(ident) for ident in (*TALL, 'ali_home', 'lounge_front')}
         for area in areas.values():
             for y, row in enumerate(area.grid.rows()):
                 for x, char in enumerate(row):
                     if char in kit.PORTALS:
                         ports[kit.PORTALS[char]['id']] = (area, x, y, kit.PORTALS[char])
         pairs = {'street_upper': 'gate_upper', 'market_roof': 'home_roof', 'market_canopy': 'loading_canopy'}
+        pairs['market_service_lounge'] = 'lounge_service_market'
         for one, two in pairs.items():
             for ident, other in ((one, two), (two, one)):
                 area, x, y, port = ports[ident]
@@ -72,6 +73,9 @@ class ChapterTwoLayoutTests(unittest.TestCase):
         self.assertEqual(ports['market_sc1'][3]['requires'], 'ch2_sc1_open')
         self.assertEqual(ports['loading_sc1'][3]['requires'], 'ch2_sc1_open')
         self.assertEqual(ports['gate_family'][3]['requires'], 'ch2_egret_transport_done')
+        for ident in ('market_service_lounge', 'lounge_service_market'):
+            self.assertEqual(ports[ident][3]['requires'], 'ch2_audit_submitted')
+            self.assertTrue(ports[ident][3]['locked'])
 
     def test_high_rewards_need_the_air_jump(self):
         for ident, cell in (('harbor_street', (27, 15)), ('market_gate', (47, 21)), ('market', (89, 15)), ('loading', (61, 20))):
@@ -85,7 +89,7 @@ class ChapterTwoLayoutTests(unittest.TestCase):
 
     def test_upper_routes_are_reachable_with_the_ordinary_jump(self):
         goals = {'harbor_street': [('upper', (61, 23))], 'market_gate': [('upper', (3, 25))],
-                 'market': [('roof', (116, 23)), ('canopy', (136, 23))], 'loading': [('canopy', (14, 28))]}
+                 'market': [('roof', (116, 23)), ('canopy', (136, 23)), ('staff', (128, 23))], 'loading': [('canopy', (14, 28))]}
         for ident, targets in goals.items():
             with self.subTest(area=ident):
                 area = self.build(ident)

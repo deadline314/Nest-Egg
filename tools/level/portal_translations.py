@@ -26,6 +26,8 @@ PROMPTS = {
     "市集": ("Market", "市場"),
     "往候梯迴廊取回執": ("Pick up the receipt in the lift corridor", "エレベーター前の回廊で控えを受け取る"),
     "往市集": ("Go to the market", "市場へ"),
+    "走員工通道到復原館": ("Use the staff passage to Restoration Hall", "職員通路から復元館へ"),
+    "從員工通道回雨棚上層": ("Use the staff passage back to the upper canopy", "職員通路から雨よけの上層に戻る"),
     "往復原館": ("Go to Restoration Hall", "復元館へ"),
     "往門禁大廳": ("Go to the Access Hall", "入退館ホールへ"),
     "往雨棚背面的貨道": ("Take the loading passage behind the canopy", "雨よけ裏の搬入口へ"),
@@ -67,6 +69,7 @@ PROMPTS = {
 }
 
 LOCKS = {
+    "先在復原館的委託終端送出查核資料，員工通道才會開放。": ("Submit the audit at Restoration Hall's commission terminal to unlock the staff passage.", "復元館の依頼端末で監査資料を送信すると、職員通路が開きます。"),
     "住宅內區需要正式參觀證，今天只開展示接待。": ("You need a visitor pass for the residential wing. Only reception is open today.", "住宅区画には見学証が必要です。今日は展示受付のみ開いています。"),
     "先上屋頂，鷺在茶座等你拿查核證。": ("Get the inspection pass from Egret on the rooftop tea terrace first.", "先に屋上の茶席で鷺から査察証を受け取る。"),
     "先到代收處問清楚這筆代收款，再去後面查帳。": ("Ask the collection desk about the payment before checking the accounts.", "帳簿を調べる前に、集金所でこの支払いについて聞く。"),

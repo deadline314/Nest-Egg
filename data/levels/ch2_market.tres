@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=20 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=21 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Resource" path="res://data/props/credits_small.tres" id="2_credits_small"]
@@ -61,6 +61,20 @@ style = "door"
 
 [sub_resource type="Resource" id="Resource_4"]
 script = ExtResource("3_portal_data")
+id = &"market_service_lounge"
+target_level = "res://data/levels/ch2_lounge_front.tres"
+target_portal = &"lounge_service_market"
+requires_flag = &"ch2_audit_submitted"
+locked_text = "先在復原館的委託終端送出查核資料，員工通道才會開放。"
+localized_locked_text = Dictionary[String, String]({"en": "Submit the audit at Restoration Hall's commission terminal to unlock the staff passage.", "ja": "復元館の依頼端末で監査資料を送信すると、職員通路が開きます。"})
+prompt = "{interact} 走員工通道到復原館"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Use the staff passage to Restoration Hall", "ja": "{interact} 職員通路から復元館へ"})
+width = 32
+height = 68
+style = "hidden"
+
+[sub_resource type="Resource" id="Resource_5"]
+script = ExtResource("3_portal_data")
 id = &"market_roof"
 target_level = "res://data/levels/ch2_ali_home.tres"
 target_portal = &"home_roof"
@@ -70,7 +84,7 @@ width = 24
 height = 44
 style = "door"
 
-[sub_resource type="Resource" id="Resource_5"]
+[sub_resource type="Resource" id="Resource_6"]
 script = ExtResource("3_portal_data")
 id = &"market_canopy"
 target_level = "res://data/levels/ch2_loading.tres"
@@ -84,7 +98,7 @@ width = 28
 height = 44
 style = "road"
 
-[sub_resource type="Resource" id="Resource_6"]
+[sub_resource type="Resource" id="Resource_7"]
 script = ExtResource("10_lighting_zone")
 start_tile = 0
 blend_tiles = 12
@@ -103,8 +117,9 @@ legend = Dictionary[String, Resource]({
 "Ⅵ": SubResource("Resource_1"),
 "Ⅶ": SubResource("Resource_2"),
 "Ⅷ": SubResource("Resource_3"),
-"⇠": SubResource("Resource_4"),
-"⇢": SubResource("Resource_5"),
+"↱": SubResource("Resource_4"),
+"⇠": SubResource("Resource_5"),
+"⇢": SubResource("Resource_6"),
 "Ⓑ": ExtResource("4_ch2_banyan"),
 "Ⓝ": ExtResource("5_ch2_notice_screen"),
 "Ⓥ": ExtResource("6_ch2_vig"),
@@ -118,6 +133,6 @@ persistent_world = true
 show_chapter_card = false
 environment = ExtResource("12_ch2_market")
 layout_path = "res://data/levels/ch2_market_map.json"
-lighting_zones = Array[ExtResource("10_lighting_zone")]([SubResource("Resource_6")])
+lighting_zones = Array[ExtResource("10_lighting_zone")]([SubResource("Resource_7")])
 story_triggers = PackedStringArray()
 death_credit_cap = 250

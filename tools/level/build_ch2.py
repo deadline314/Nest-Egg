@@ -123,6 +123,9 @@ PORTALS = {
     '⇥': dict(id='home_roof', to=AREA('market'), target='market_roof', mode=0, prompt='{interact} 從後窗爬到雨棚上', style='door', w=24, h=44),
     # 復原館外
     'ⅴ': dict(id='lounge_gate', to=AREA('market_gate'), target='gate_lounge', mode=0, prompt='{interact} 回市集入口', style='road', w=28, h=44),
+    '↰': dict(id='lounge_service_market', to=AREA('market'), target='market_service_lounge', mode=0,
+              prompt='{interact} 從員工通道回雨棚上層', locked="先在復原館的委託終端送出查核資料，員工通道才會開放。",
+              requires='ch2_audit_submitted', style='door', w=32, h=68),
 }
 
 THEMES = {
@@ -131,7 +134,7 @@ THEMES = {
     'rooftop': ('rooftop', ['apartment', 'brick_block'], None, 0.22, 'sky_storm', ['rooftop']),
     'harbor_street': ('asphalt', ['shopfront', 'apartment', 'shutter_block'], None, 0.22, 'sky_storm', ['harbor_street', 'anchor_phone_booth']),
     'market_gate': ('asphalt', ['shopfront', 'shutter_block'], None, 0.22, 'sky_storm', ['neon_market', 'anchor_phone_booth', 'harbor_street']),
-    'market': ('asphalt', ['shopfront', 'apartment'], None, 0.22, 'sky_storm', ['neon_market', 'harbor_street', 'accounting_lobby']),
+    'market': ('asphalt', ['shopfront', 'apartment'], None, 0.22, 'sky_storm', ['neon_market', 'harbor_street', 'accounting_lobby', 'rooftop']),
     'ali_home': ('concrete', ['apartment'], 'brick', 0.0, 'sky_storm', ['ali_kitchen']),
     'loading': ('concrete', ['warehouse', 'shutter_block'], None, 0.22, 'sky_storm', ['dock_warehouse', 'neon_market', 'harbor_street']),
     'ledger_front': ('concrete', ['warehouse'], 'hangar_wall', 0.0, 'sky_storm', ['yong_hideout', 'accounting_lobby', 'anchor_phone_booth']),
@@ -440,6 +443,7 @@ def build_lounge_front():
     a.prop('revival_lounge__round_table_stools', 30)
     a.stand(33, 'ⓢ')
     a.stand(44, 'ⓠ')
+    a.stand(53, '↰')
     # 客人簿（BG-40）：攤開的客人簿放在矮桌上，旁邊一盞落地紙燈，互動點就在桌前。
     a.prop('guest_book_room__guest_book_table', 43)
     a.prop('guest_book_room__paper_floor_lamp', 47)
@@ -447,7 +451,7 @@ def build_lounge_front():
     a.lamp(16, 14)
     a.lamp(34, 14)
     a.zone(0, 'lounge_front')
-    a.features = {'landmark': '委託終端（x=16）'}
+    a.features = {'landmark': '委託終端（x=16）', 'loop': '送出查核資料後，可從東側員工通道回到公眾攤道上層'}
     return a
 
 
@@ -470,7 +474,8 @@ def build_market_gate():
 
 def build_market():
     a = kit._v2_area(_build_market_v1())
-    a.features.update(loop='雨棚上層連到阿梨家的後窗，也接到貨道上層（問過代收處後開放）',
+    a.prop('rooftop__stairwell_hut', 126, y=23)
+    a.features.update(loop='雨棚上層連到阿梨家的後窗，也接到貨道上層（問過代收處後開放）。提交查核後可從員工通道往復原館',
                       reward='公告屏上方第 15 列信用點：空中再躍', vertical='攤道地面與雨棚兩層',
                       rest='阿梨的小廚房在回環上，零戰鬥')
     return a
@@ -494,7 +499,7 @@ def route_checks(a):
         'market_gate': [(normal, [('patroller', (18, 35)), ('upper', (3, 25)), ('booth', (92, 35)), ('market', (117, 35))],
                          [('reward', (47, 21))]),
                         (late, [('reward', (47, 21))], [])],
-        'market': [(normal, [('vig', (30, 35)), ('roof', (116, 23)), ('canopy', (136, 23)), ('cargo', (137, 35))],
+        'market': [(normal, [('vig', (30, 35)), ('roof', (116, 23)), ('canopy', (136, 23)), ('cargo', (137, 35)), ('service', (128, 23))],
                     [('reward', (89, 15))]),
                    (late, [('reward', (89, 15))], [])],
         'loading': [(normal, [('canopy', (14, 28)), ('lever', (92, 28)), ('ledger', (146, 35))], [('reward', (61, 20))]),
