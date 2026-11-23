@@ -6,6 +6,7 @@ var resume_button: Button
 var _legend: Label
 var _title: Label
 var _message: Label
+var _controller_available := false
 
 
 func _ready() -> void:
@@ -28,7 +29,7 @@ func _ready() -> void:
 	_title = UiKit.label(copy("手把已斷線", "接続が切れました", "Controller disconnected"), UiKit.FS_TITLE, Palette.UI_TEXT)
 	_title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	panel.body.add_child(_title)
-	_message = UiKit.label(copy("重新接上手把，或改用鍵盤與滑鼠。準備好再繼續。", "コントローラーを再接続するか、キーボードとマウスを使ってください。準備ができてから再開できます。", "Reconnect your controller, or use keyboard and mouse. Continue when you are ready."), UiKit.FS_BODY)
+	_message = UiKit.label(copy("重新接上手把，或改用鍵盤與滑鼠。", "コントローラーを再接続するか、キーボードとマウスを使ってください。", "Reconnect your controller, or use keyboard and mouse."), UiKit.FS_BODY)
 	_message.custom_minimum_size.x = 352
 	_message.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	panel.body.add_child(_message)
@@ -43,6 +44,7 @@ func _ready() -> void:
 	_legend.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	panel.body.add_child(_legend)
 	InputBindings.bindings_changed.connect(_refresh_legend)
+	InputBindings.device_changed.connect(_on_device_changed)
 	_refresh_legend()
 	_focus_resume.call_deferred()
 
@@ -53,12 +55,23 @@ func _focus_resume() -> void:
 
 
 func set_connected(connected: bool) -> void:
+	_controller_available = connected
 	_title.text = copy("手把可用", "コントローラーを使えます", "Controller available") if connected else copy("手把已斷線", "接続が切れました", "Controller disconnected")
-	_message.text = copy("按確認後繼續遊戲，也可使用鍵盤與滑鼠。", "確認してから再開します。キーボードとマウスも使えます。", "Confirm to continue. Keyboard and mouse are also available.") if connected else copy("重新接上手把，或改用鍵盤與滑鼠。準備好再繼續。", "コントローラーを再接続するか、キーボードとマウスを使ってください。準備ができてから再開できます。", "Reconnect your controller, or use keyboard and mouse. Continue when you are ready.")
+	_message.visible = not connected
+	_refresh_legend()
 
 
 func _refresh_legend() -> void:
-	_legend.text = InputBindings.format(copy("{ui_accept} 確認後繼續", "{ui_accept} で再開", "{ui_accept} to continue"))
+	var keyboard := InputBindings.code_label(InputBindings.UI_ACTIONS[&"ui_accept"][0])
+	if _controller_available:
+		var pad := InputBindings.joy_label(&"ui_accept")
+		_legend.text = copy("%s 或 %s 繼續", "%s または %s で再開", "%s or %s to continue") % [pad, keyboard]
+	else:
+		_legend.text = copy("%s 確認後繼續", "%s で再開", "%s to continue") % keyboard
+
+
+func _on_device_changed(_gamepad: bool, _device: int) -> void:
+	_refresh_legend()
 
 
 static func copy(zh: String, ja: String, en: String) -> String:

@@ -374,6 +374,10 @@ func _test_controller_interruption() -> void:
 	InputBindings._on_joy_connection_changed(998, false)
 	check(prompt._title.text == available_text and InputBindings.is_controller_interrupted(),
 		"unplugging the last added pad keeps recovery ready when another is still connected")
+	var pad_confirm := InputBindings.joy_label(&"ui_accept")
+	var keyboard_confirm := InputBindings.code_label(InputBindings.UI_ACTIONS[&"ui_accept"][0])
+	check(prompt._legend.text.contains(pad_confirm) and prompt._legend.text.contains(keyboard_confirm),
+		"recovery labels both confirm inputs before a player chooses which to use")
 	InputBindings._on_joy_connection_changed(997, false)
 	InputBindings._on_joy_connection_changed(999, true)
 	check(InputBindings.is_controller_interrupted(), "reconnecting alone does not resume gameplay")
