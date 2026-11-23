@@ -8,6 +8,14 @@ const FIRST_LEVEL := CampaignEdition.DEFAULT_FIRST_LEVEL
 const RETRY_CAPTION := "NEST 回溯紀錄 #%d"
 const RETRY_HOLD := 0.22
 const SAVE_FAILURE_TOAST := "存檔未成功，原進度仍保留。"
+const SAVE_FAILURE_TRANSLATIONS: Dictionary[String, String] = {
+	"ja": "保存できませんでした。前回のセーブは残っています。",
+	"en": "Save failed. Your last save is intact.",
+}
+const AREA_SAVE_FAILURE_TRANSLATIONS: Dictionary[String, String] = {
+	"ja": "エリアの進行状況を保存できませんでした。もう一度お試しください。",
+	"en": "Could not save this area. Try again. Your last save is intact.",
+}
 
 var _result_completion: Node
 var _world_item_completion: Node
@@ -494,10 +502,11 @@ func _save_run(route_source := false) -> void:
 		snapshot["cinematic"] = _cinematic
 		snapshot["cinematic_context"] = _cinematic_context.duplicate(true)
 	var saved := _run_store.write(snapshot)
+	var warning := StoryLocale.optional_text(SAVE_FAILURE_TRANSLATIONS, Story.language, SAVE_FAILURE_TOAST)
 	if not saved:
-		EventBus.toast_requested.emit(SAVE_FAILURE_TOAST)
+		EventBus.toast_requested.emit(warning)
 	else:
-		EventBus.toast_dismiss_requested.emit(SAVE_FAILURE_TOAST)
+		EventBus.toast_dismiss_requested.emit(warning)
 
 
 func _save_destination(runtime: Dictionary, destination_path := "", state_changes: Dictionary = {}, progression: Variant = null) -> bool:
@@ -509,7 +518,8 @@ func _save_destination(runtime: Dictionary, destination_path := "", state_change
 		_show_main_menu()
 		return false
 	if not _run_store.write(prepared["data"]):
-		EventBus.toast_requested.emit("區域進度尚未保存，請稍後再試；原存檔仍保留。")
+		EventBus.toast_requested.emit(StoryLocale.optional_text(AREA_SAVE_FAILURE_TRANSLATIONS, Story.language,
+			"區域進度尚未保存，請稍後再試；原存檔仍保留。"))
 		return false
 	# Only an accepted destination can replace routing metadata or its caller's
 	# runtime. Queued saves must now keep the old screen from overwriting it.
