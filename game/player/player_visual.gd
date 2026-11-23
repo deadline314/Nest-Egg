@@ -47,6 +47,8 @@ var rig: CharacterRig
 var _input := RigInput.new()
 var _time := 0.0
 var _fire_flash := 0.0
+var _fire_origin := Vector2.ZERO
+var _fire_direction := Vector2.RIGHT
 var _drew_effects := false
 ## 進行中的揮砍軌跡：{age, trail（資料）, facing}；最多同時兩條，亮度有上限，不走粒子預算。
 var _trails: Array[Dictionary] = []
@@ -268,9 +270,11 @@ func consume_footfalls() -> int:
 	return rig.animator.consume_footfalls() if rig != null and rig.is_valid() and rig.animator != null else 0
 
 
-func notify_fired(color: Color) -> void:
+func notify_fired(color: Color, muzzle: Vector2, direction: Vector2) -> void:
 	_fire_flash = FIRE_FLASH_TIME
 	_fire_color = color
+	_fire_origin = muzzle
+	_fire_direction = direction
 	_input.recoil = 1.0
 
 
@@ -617,9 +621,11 @@ func _draw() -> void:
 	_draw_materialize()
 	if _fire_flash > 0.0:
 		var t := _fire_flash / FIRE_FLASH_TIME
-		var tip := to_local(muzzle_global())
+		# The gun and the aim can already have changed after the shot.
+		var tip := to_local(_fire_origin)
+		var end := to_local(_fire_origin + _fire_direction * 9.0 * t)
 		draw_circle(tip, 2.5 + 3.0 * t, LightKit.glow(_fire_color, 3.0))
-		draw_line(tip, tip + player.aim_dir * 9.0 * t, LightKit.glow(Palette.WHITE, 3.0), 2.0)
+		draw_line(tip, end, LightKit.glow(Palette.WHITE, 3.0), 2.0)
 	for entry in _trails:
 		_draw_trail(entry)
 	_draw_shield()

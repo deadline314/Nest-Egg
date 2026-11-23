@@ -17,6 +17,7 @@ func run() -> void:
 	await _test_controller_ui_flow()
 	await _test_shot_uses_current_aim()
 	await _test_shot_releases_guard_pose()
+	await _test_last_round_flash()
 	await _test_dash_buffer()
 	await _test_air_jump()
 
@@ -167,6 +168,41 @@ func _test_shot_uses_current_aim() -> void:
 			and projectile.velocity.x < 0.0 and muzzle.x < player.global_position.x
 			and old_muzzle.x > player.global_position.x,
 			"the first shot leaves the barrel on the new side before recoil")
+	AimInput.set_virtual_gamepad(player, false)
+	AimInput.restore_direction(previous_direction)
+	await end_level(level)
+
+
+func _test_last_round_flash() -> void:
+	var level := await start_level(PropsSuite.level_data())
+	var player := level.player
+	var previous_direction := AimInput._last_stick_dir
+	var pistol := preload("res://data/weapons/pistol.tres")
+	var railgun := preload("res://data/weapons/railgun.tres")
+	player.loadout.reset(pistol)
+	var slot := player.loadout.equip(railgun)
+	player.loadout.set_ammo(slot, 1, 0)
+	AimInput.set_virtual_gamepad(player, true)
+	AimInput.restore_direction(Vector2.RIGHT)
+	await physics_frames(16)
+	var projectile: Projectile = ProjectilePool._free.back() if not ProjectilePool._free.is_empty() else null
+	player._try_fire()
+	check(player.loadout.active_weapon() == pistol and player.loadout.mag_in(slot) == 0,
+			"the last railgun round still returns to the pistol")
+	check(projectile != null and projectile.active and projectile.spec == railgun.projectile,
+			"the last round is still emitted from the railgun")
+	var visual := player._visual
+	check(projectile != null and visual._fire_flash > 0.0
+			and visual._fire_origin.is_equal_approx(projectile.global_position)
+			and visual._fire_direction.is_equal_approx(Vector2.RIGHT),
+			"the visible flash shares the launched round's original barrel and direction")
+	AimInput.restore_direction(Vector2.LEFT)
+	player._update_aim(0.0)
+	visual.firing_muzzle()
+	check(projectile != null and player.muzzle_position().distance_to(projectile.global_position) > 10.0
+			and visual._fire_origin.is_equal_approx(projectile.global_position)
+			and visual._fire_direction.is_equal_approx(Vector2.RIGHT),
+			"switching weapons and turning before draw cannot move or redirect the last flash")
 	AimInput.set_virtual_gamepad(player, false)
 	AimInput.restore_direction(previous_direction)
 	await end_level(level)

@@ -756,8 +756,9 @@ func _try_fire() -> void:
 	if not is_finite(aim_bloom) or aim_bloom < 0.0 or aim_bloom > 1.0:
 		push_error("[WeaponSystem] %s/Player/aim_bloom outside finite 0–1; refusing before shot costs/feedback" % weapon.id)
 		return
+	var direction := aim_dir
 	var muzzle := _visual.firing_muzzle() if _visual != null else muzzle_position()
-	if not WeaponSystem.can_fire(weapon, muzzle, aim_dir, Combat.Team.PLAYER, 1.0, aim_bloom * AIM_BLOOM_MAX_DEGREES, rate):
+	if not WeaponSystem.can_fire(weapon, muzzle, direction, Combat.Team.PLAYER, 1.0, aim_bloom * AIM_BLOOM_MAX_DEGREES, rate):
 		return
 	var dry := loadout.is_dry() and loadout.reserve_in(loadout.active_slot) == 0
 	if not loadout.consume_ammo():
@@ -768,18 +769,18 @@ func _try_fire() -> void:
 		melee.end(false)
 	_fire_cooldown_left = weapon.fire_interval / rate
 	InputFeel.resolve(&"shoot")
-	WeaponSystem.fire(weapon, muzzle, aim_dir, Combat.Team.PLAYER, 1.0, aim_bloom * AIM_BLOOM_MAX_DEGREES)
+	WeaponSystem.fire(weapon, muzzle, direction, Combat.Team.PLAYER, 1.0, aim_bloom * AIM_BLOOM_MAX_DEGREES)
 	aim_bloom = minf(1.0, aim_bloom + weapon.bloom_per_shot)
 	# 射擊手感：槍口閃光 + 光源 + 鏡頭反向後座 + 彈殼 + 音效。
-	WeaponSystem.muzzle_feedback(weapon, muzzle, aim_dir)
+	WeaponSystem.muzzle_feedback(weapon, muzzle, direction)
 	_weapon_light.fired()
 	if weapon.ejects_casing:
 		Fx.casing(aim_origin(), facing)
 	# 射速加快（超頻等）時射擊音效跟著加快、音高不變（NE-182）；射速升級只要改 fire_rate_scale，不必另外處理音效。
 	Sfx.play(weapon.fire_sound, -6.0, 0.06, 0, LOW_AMMO_PITCH if _is_low_ammo(weapon) else 1.0, rate)
 	if weapon.recoil > 0.0:
-		velocity -= aim_dir * weapon.recoil * (1.0 if not is_on_floor() else 0.3)
-	_visual.notify_fired(weapon.color)
+		velocity -= direction * weapon.recoil * (1.0 if not is_on_floor() else 0.3)
+	_visual.notify_fired(weapon.color, muzzle, direction)
 	InputBindings.vibrate(0.18, 0.08, 0.05)
 
 
