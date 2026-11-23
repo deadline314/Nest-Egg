@@ -560,8 +560,9 @@ func pull_pin() -> void:
 	Feel.play(&"boss_death")
 	EventBus.boss_bar_closed.emit()
 	EventBus.mechanism_toggled.emit(pattern.gate_channel, true)
-	if not pattern.unlock_text.is_empty():
-		EventBus.toast_requested.emit(pattern.unlock_text)
+	var message := pattern.unlock_message_for(Story.language)
+	if not message.is_empty():
+		EventBus.toast_requested.emit(message)
 	var tween := create_tween()
 	tween.tween_interval(0.4)
 	tween.tween_property(self, ^"modulate:a", 0.0, FADE_TIME)

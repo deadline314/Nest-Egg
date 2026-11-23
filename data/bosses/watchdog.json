@@ -3,7 +3,7 @@
   "wake_range": 260,
   "leash": {"length": 120, "retreat": 1.0},
   "poses": {"yanked": "leap_windup", "phase_shift": "phase_shift", "intro": "intro"},
-  "defeat": {"gate_channel": "watchdog_gate", "unlock_text": "隔牆升起了"},
+  "defeat": {"gate_channel": "watchdog_gate", "unlock_text": "隔牆升起了", "unlock_text_ja": "仕切りが上がった。", "unlock_text_en": "The partition lifted."},
   "moves": {
     "lunge": {"kind": "lunge", "telegraph": 0.7, "recover": 0.5, "weight": 1.0, "pose_windup": "leap_windup", "pose_act": "leap",
       "params": {"speed": 330, "max_distance": 176, "overshoot": 20, "stagger": 1.4, "yank_push": 160}},
@@ -21,9 +21,9 @@
   "phases": [
     {"until": 0.6, "moves": ["lunge", "burst", "bark"], "speed": 1.0, "armored": true, "leashed": true},
     {"until": 0.3, "moves": ["lunge", "bark", "missiles"], "speed": 1.1, "armored": true, "leashed": true, "weapon": "", "hide_parts": ["turret"],
-      "enter_toast": "槍臂壞了——小心肩上的飛彈"},
+      "enter_toast": "槍臂壞了——小心肩上的飛彈", "enter_toast_ja": "銃腕が壊れた。肩のミサイルに注意。", "enter_toast_en": "Gun arm broken. Watch for shoulder missiles."},
     {"until": 0.0, "moves": ["lunge_twice", "bark", "missiles", "pounce"], "speed": 1.25, "armored": true, "leashed": false, "weapon": "", "hide_parts": ["turret"],
-      "enter_toast": "鍊子斷了！牠不再受地盤限制"}
+      "enter_toast": "鍊子斷了！牠不再受地盤限制", "enter_toast_ja": "鎖が切れた。もう縄張りには縛られない。", "enter_toast_en": "The chain broke. It can leave its territory."}
   ],
   "habits": {
     "close_range": 48,

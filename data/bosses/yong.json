@@ -28,21 +28,21 @@
   "phase_sets": {
     "revived": [
       {"until": 0.0, "moves": ["slam", "slam_combo", "paper_fan"], "speed": 0.8, "damage_bonus": 1, "recover_scale": 1.5,
-        "enter_toast": "他站起來了——動作變慢，但每一棍更重"}
+        "enter_toast": "他站起來了——動作變慢，但每一棍更重", "enter_toast_ja": "立ち上がった。動きは遅いが、一撃が重い。", "enter_toast_en": "He's back up. Expect slower, heavier strikes."}
     ],
     "subdue": [
       {"until": 0.0, "moves": ["slam", "slam_combo", "paper_fan", "rush_pad"], "speed": 1.0,
-        "enter_toast": "制伏他：先打斷棍柄的鎖扣（橙色）"}
+        "enter_toast": "制伏他：先打斷棍柄的鎖扣（橙色）", "enter_toast_ja": "まず棍の柄にあるオレンジ色の留め具を壊す。", "enter_toast_en": "Break the orange latch on the baton grip."}
     ],
     "subdue_revived": [
       {"until": 0.0, "moves": ["slam", "slam_combo", "paper_fan"], "speed": 0.8, "damage_bonus": 1, "recover_scale": 1.5,
-        "enter_toast": "制伏他：先打斷棍柄的鎖扣（橙色）"}
+        "enter_toast": "制伏他：先打斷棍柄的鎖扣（橙色）", "enter_toast_ja": "まず棍の柄にあるオレンジ色の留め具を壊す。", "enter_toast_en": "Break the orange latch on the baton grip."}
     ],
     "disarmed": [
-      {"until": 0.0, "moves": ["jab"], "speed": 1.0, "enter_toast": "棍子掉了——等他短拳撲空，上前拔出儲能匣"}
+      {"until": 0.0, "moves": ["jab"], "speed": 1.0, "enter_toast": "棍子掉了——等他短拳撲空，上前拔出儲能匣", "enter_toast_ja": "短い突きが空振りしたら、蓄電カートリッジを抜く。", "enter_toast_en": "When his jab misses, pull the power cell."}
     ],
     "disarmed_revived": [
-      {"until": 0.0, "moves": ["jab"], "speed": 0.8, "damage_bonus": 1, "recover_scale": 1.5, "enter_toast": "棍子掉了——等他短拳撲空，上前拔出儲能匣"}
+      {"until": 0.0, "moves": ["jab"], "speed": 0.8, "damage_bonus": 1, "recover_scale": 1.5, "enter_toast": "棍子掉了——等他短拳撲空，上前拔出儲能匣", "enter_toast_ja": "短い突きが空振りしたら、蓄電カートリッジを抜く。", "enter_toast_en": "When his jab misses, pull the power cell."}
     ]
   },
   "habits": {

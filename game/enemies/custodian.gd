@@ -6,6 +6,10 @@ extends "res://game/enemies/warden_boss.gd"
 
 const GATE_CHANNEL := &"custodian_gate"
 const WAKE_RANGE := 260.0
+const UNLOCK_TRANSLATIONS: Dictionary[String, String] = {
+	"ja": "中継駅への門のロックが解除された。",
+	"en": "The transfer station gate is unlocked.",
+}
 
 var _awake := false
 
@@ -89,4 +93,4 @@ func _gate_channel() -> StringName:
 
 
 func _unlock_text() -> String:
-	return "通往轉運站的閘門已解鎖"
+	return StoryLocale.optional_text(UNLOCK_TRANSLATIONS, Story.language, "通往轉運站的閘門已解鎖")

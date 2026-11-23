@@ -351,6 +351,33 @@ func _test_tooltips() -> void:
 	await frames(3)
 	check(hud.credits_tag.tooltip_text != "", "信用點有說明")
 	check(hud.boss_bar.tooltip_text != "", "頭目血條有說明")
+	hud.boss_bar.set_ratio(55.0 / 100.0)
+	check(hud.boss_bar._displayed_percent() == 55, "a mathematically whole percentage does not round up a second time")
+	hud.boss_bar.set_ratio(0.551)
+	check(hud.boss_bar._displayed_percent() == 56, "a genuine fractional percentage still rounds up")
+	hud.boss_bar.set_ratio(0.001)
+	check(hud.boss_bar._displayed_percent() == 1, "a living boss shows at least one percent")
+	hud.boss_bar.set_ratio(0.0)
+	check(hud.boss_bar._displayed_percent() == 0, "an empty bar shows zero")
+	var original := Story.language
+	var help := {
+		"zh": ["改裝武器", "頭目轉階"],
+		"ja": ["武器を改造", "次の段階"],
+		"en": ["upgrade weapons", "phase changes"],
+	}
+	for language: String in help:
+		Story.set_language(language)
+		check(hud.credits_tag.get_tooltip().contains(help[language][0]), "%s credit hover explains how to spend credits" % language)
+		check(hud.boss_bar.get_tooltip().contains(help[language][1]), "%s boss hover explains phase marks" % language)
+	hud.boss_bar.set_phase_marks(PackedFloat64Array())
+	Story.set_language("en")
+	check(hud.boss_bar.get_tooltip() == "Shows the amount remaining in this phase.",
+			"without thresholds the boss bar describes the current stage remaining")
+	var original_help := hud.credits_tag.tooltip_text
+	hud.credits_tag.tooltip_text = "Custom help"
+	check(hud.credits_tag.get_tooltip() == "Custom help", "an explicitly supplied credit hint takes precedence")
+	hud.credits_tag.tooltip_text = original_help
+	Story.set_language(original)
 	check(hud.cyber_gauge.mouse_filter == Control.MOUSE_FILTER_PASS, "義體電量可以顯示說明")
 	for slot in hud.weapon_bar.row_count():
 		check(hud.weapon_bar.get_child(slot).get_tooltip() != "", "武器欄第 %d 列有說明" % (slot + 1))

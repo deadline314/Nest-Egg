@@ -16,6 +16,7 @@ func run() -> void:
 	await _test_watchdog_flow()
 	await _test_inspector_restores_visual_armor()
 	_test_watchdog_pattern_data()
+	_test_boss_display_language()
 	_test_framework_extensions()
 	await _test_watchdog_habits()
 	await _test_watchdog_leash_yank()
@@ -103,6 +104,44 @@ func _test_inspector_restores_visual_armor() -> void:
 
 const DOG_TILE := 52.0
 const PISTOL_SHOT := "res://data/projectiles/pistol_shot.tres"
+
+
+func _test_boss_display_language() -> void:
+	var expected := {
+		"watchdog": ["Watchdog", "番犬"], "yong": ["Rash", "勇"], "janus": ["Gatekeeper", "門番"],
+		"warden": ["Warden", "監督官 WARDEN"], "reclaimer": ["Reclaimer", "回収員 RECLAIMER"],
+		"custodian": ["Custodian", "看守長"],
+	}
+	for id: String in expected:
+		var enemy := load("res://data/enemies/%s.tres" % id) as EnemyData
+		check(enemy.display_name_for("en") == expected[id][0] and enemy.display_name_for("ja") == expected[id][1],
+				"%s has the expected English and Japanese health bar names" % id)
+		check(enemy.display_name_for("zh") == enemy.display_name and enemy.display_name_for("unsupported") == enemy.display_name,
+				"%s preserves the authored name and unsupported-language fallback" % id)
+	var janus := BossPattern.load_for(&"janus")
+	check(janus.bar_name_for("ja", "門番") == "門禁装置の安定度" and janus.bar_name_for("en", "Gatekeeper") == "Gate frame stability",
+			"Janus names the machine instead of the person")
+	var watchdog := BossPattern.load_for(&"watchdog")
+	check(watchdog.bar_name_for("en", "Watchdog") == "Watchdog", "the unlabelled pattern uses its translated enemy name")
+	check(watchdog.unlock_message_for("en") == "The partition lifted." and watchdog.unlock_message_for("ja") == "仕切りが上がった。",
+			"the original watchdog notice follows the active locale")
+	check(janus.unlock_message_for("en").contains("The gate opened.") and janus.unlock_message_for("ja").contains("門が開いた"),
+			"Janus's completed repair pin uses the gate notice in both locales")
+	check(BossPattern.phase_message_for(watchdog.phases[1], "en").contains("shoulder missiles")
+			and BossPattern.phase_message_for(watchdog.phases[2], "ja").contains("鎖が切れた"),
+			"the two watchdog transitions explain their new attacks in the active language")
+	check(BossPattern.phase_message_for(janus.phases[1], "en").contains("scanner reaches farther"),
+			"the original scanner stage explains what changed")
+	var yong := BossPattern.load_for(&"yong")
+	check(BossPattern.phase_message_for(yong.phase_list("subdue")[0], "en").contains("orange latch")
+			and BossPattern.phase_message_for(yong.phase_list("disarmed")[0], "ja").contains("蓄電カートリッジ"),
+			"both of Yong's subdue stages describe the actual interaction")
+	check(BossPattern.phase_message_for(watchdog.phases[0], "en").is_empty()
+			and BossPattern.phase_message_for(watchdog.phases[1], "zh") == watchdog.phases[1]["enter_toast"],
+			"quiet phases stay quiet and Traditional Chinese keeps the authored warning")
+	var damaged := BossPattern.parse({"bar_name": "原名", "bar_name_ja": 3, "bar_name_en": "Fallback"}, "boss-language-fixture", true)
+	check(damaged.bar_name_for("ja", "") == "Fallback" and damaged.errors[0].contains("bar_name_ja"),
+			"invalid optional translations report their field and keep a readable fallback")
 
 
 func _test_watchdog_pattern_data() -> void:

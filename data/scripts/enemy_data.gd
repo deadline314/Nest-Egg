@@ -5,6 +5,7 @@ extends Resource
 
 @export var id: StringName = &"enemy"
 @export var display_name: String = "敵人"
+@export var localized_names: Dictionary[String, String] = {}
 ## 行為腳本，必須繼承 Enemy。
 @export var behavior: Script
 @export var is_boss: bool = false
@@ -118,6 +119,10 @@ extends Resource
 @export var light_mark: Vector2 = Vector2.ZERO
 ## 哪些狀態算「還沒發現主角」（光維持平常的亮度）。空的＝用 relaxed_states。頭目類的狀態名稱不一樣時填這裡（例如睡著的 dormant）。
 @export var light_calm_states: PackedStringArray = []
+
+
+func display_name_for(language: String) -> String:
+	return StoryLocale.optional_text(localized_names, language, display_name)
 
 
 func find_projectile(source: StringName) -> ProjectileSpec:

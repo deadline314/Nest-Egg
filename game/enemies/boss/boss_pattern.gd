@@ -12,11 +12,13 @@ const BANDS: Array[String] = ["close", "mid", "far", "after_yank", "marked", "pa
 const DEFAULT_SET := "default"
 const MIN_TELEGRAPH := 0.5
 const FALLBACK_MOVE := &"burst"
+const EMPTY_TRANSLATIONS: Dictionary[String, String] = {}
 
 ## 資料宣告、由 PatternBoss 子類別實作的招式種類（例如守門人的盾擊）；子類別沒實作時 PatternBoss 會記錄錯誤並略過那招。
 var custom_kinds: Array[StringName] = []
 ## 頭目血條上的名稱；空白時用 EnemyData.display_name（例如守門人的血條是「門禁裝置穩定度」，不是人的生命）。
 var bar_name := ""
+var _bar_names: Dictionary[String, String] = {}
 ## 招式 id → {kind, telegraph, recover, weight, repeat, pose_windup, pose_act, params}
 var moves: Dictionary = {}
 ## 依血量排列：{until, moves, speed, armored, leashed, weapon, hide_parts, enter_toast, event, damage_bonus, recover_scale, summon}
@@ -52,6 +54,7 @@ var wake_range := 0.0
 ## 擊敗後解開的機關頻道與提示；頻道空白代表結束關卡（boss_defeated）。
 var gate_channel: StringName = &""
 var unlock_text := ""
+var _unlock_messages: Dictionary[String, String] = {}
 ## 部位 id → 硬直時是否關閉（例如被扯回時槍臂垂下，不擋住背部）。
 var parts_close_in_stagger: Dictionary = {}
 ## 部位 id → 從第幾階段起不存在（例如槍臂被打壞後藏起來、打不到）；0＝一直都在。
@@ -110,6 +113,7 @@ func _apply(source: Dictionary, where: String) -> void:
 	else:
 		_error(where, "custom_kinds 不是陣列，略過")
 	bar_name = str(source.get("bar_name", ""))
+	_bar_names = _read_localized_copy(source, "bar_name", where)
 	_read_moves(source.get("moves", {}), where)
 	phases = _read_phase_list(source.get("phases", []), where, "phases")
 	phase_sets[DEFAULT_SET] = phases
@@ -160,6 +164,7 @@ func _apply(source: Dictionary, where: String) -> void:
 	if defeat is Dictionary:
 		gate_channel = StringName(str((defeat as Dictionary).get("gate_channel", "")))
 		unlock_text = str((defeat as Dictionary).get("unlock_text", ""))
+		_unlock_messages = _read_localized_copy(defeat, "unlock_text", where + ".defeat")
 
 
 func _read_moves(source: Variant, where: String) -> void:
@@ -216,6 +221,7 @@ func _read_phase_list(source: Variant, where: String, label: String) -> Array[Di
 				"weapon": (entry as Dictionary).get("weapon", null),
 				"hide_parts": hidden,
 				"enter_toast": str((entry as Dictionary).get("enter_toast", "")),
+				"enter_toast_translations": _read_localized_copy(entry, "enter_toast", "%s/%s[%d]" % [where, label, i]),
 				# 進入這個階段時交給頭目腳本的事件（例如血量門檻的劇情暫停）；空白代表沒有。
 				"event": str((entry as Dictionary).get("event", "")),
 				# 招式傷害加成（整數，加在招式自己的傷害上）與收招時間倍率（越大硬直越長）。
@@ -225,7 +231,7 @@ func _read_phase_list(source: Variant, where: String, label: String) -> Array[Di
 			})
 	if list.is_empty():
 		list.append({"until": 0.0, "moves": _all_moves(), "speed": 1.0, "armored": false, "leashed": false, "weapon": null,
-				"hide_parts": PackedStringArray(), "enter_toast": "", "event": "", "damage_bonus": 0, "recover_scale": 1.0, "summon": {}})
+				"hide_parts": PackedStringArray(), "enter_toast": "", "enter_toast_translations": EMPTY_TRANSLATIONS, "event": "", "damage_bonus": 0, "recover_scale": 1.0, "summon": {}})
 	for i in list.size():
 		if (list[i]["moves"] as Array).is_empty():
 			_error(where, "%s[%d] 沒有可用招式，補上全部招式" % [label, i])
@@ -291,6 +297,33 @@ func phase_for(ratio: float, set_name := DEFAULT_SET) -> int:
 		if ratio > float(list[i]["until"]):
 			return i
 	return list.size() - 1
+
+
+func bar_name_for(language: String, fallback: String) -> String:
+	return StoryLocale.optional_text(_bar_names, language, bar_name if not bar_name.is_empty() else fallback)
+
+
+func unlock_message_for(language: String) -> String:
+	return StoryLocale.optional_text(_unlock_messages, language, unlock_text)
+
+
+static func phase_message_for(phase_data: Dictionary, language: String) -> String:
+	var translations: Dictionary[String, String] = phase_data.get("enter_toast_translations", EMPTY_TRANSLATIONS)
+	return StoryLocale.optional_text(translations, language, str(phase_data.get("enter_toast", "")))
+
+
+func _read_localized_copy(source: Dictionary, field: String, where: String) -> Dictionary[String, String]:
+	var translations: Dictionary[String, String] = {}
+	for language in ["ja", "en"]:
+		var key := StoryLocale.field_key(field, language)
+		if not source.has(key):
+			continue
+		var value: Variant = source[key]
+		if value is String:
+			translations[language] = value
+		else:
+			_error(where, "%s 必須是文字，改用原文或備援語言" % key)
+	return translations
 
 
 ## 戰鬥中的有效門檻。略過重複、逆序和滿血門檻，最後階段的 0 表示結束。

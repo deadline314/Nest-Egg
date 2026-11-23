@@ -5,6 +5,12 @@ extends Control
 const SIZE := Vector2(110, 16)
 const COUNT_TIME := 0.45
 const FLASH_TIME := 0.25
+const DEFAULT_HELP := "撿拾或擊敗敵人取得信用點，用來改裝武器。"
+const HELP: Dictionary[String, String] = {
+	"ja": "拾うか敵を倒してクレジットを獲得し、武器を改造できます。",
+	"en": "Collect or earn credits from enemies to upgrade weapons.",
+}
+
 
 var _value := 0
 var _shown := 0.0
@@ -16,12 +22,18 @@ func _init() -> void:
 	custom_minimum_size = SIZE
 	size = SIZE
 	mouse_filter = Control.MOUSE_FILTER_PASS
-	tooltip_text = "信用點：撿取與擊敗敵人取得，在背包改裝武器"
+	tooltip_text = DEFAULT_HELP
 	set_process(false)
 
 
 func _ready() -> void:
 	Settings.display_changed.connect(_sync_display)
+
+
+func _get_tooltip(_at_position: Vector2) -> String:
+	if tooltip_text != DEFAULT_HELP:
+		return tooltip_text
+	return StoryLocale.optional_text(HELP, Story.language, DEFAULT_HELP)
 
 
 func value() -> int:

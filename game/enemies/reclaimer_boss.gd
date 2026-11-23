@@ -68,7 +68,7 @@ func _setup_states() -> void:
 	fsm.add(&"rail_windup", _rail_windup_tick, _rail_windup_enter)
 	fsm.add(&"phase_shift", _phase_shift_tick, _phase_shift_enter)
 	fsm.start(&"intro")
-	EventBus.boss_started.emit(data.display_name, health.max_health)
+	EventBus.boss_started.emit(data.display_name_for(Story.language), health.max_health)
 	Feel.play(&"boss_intro")
 	_build_rails.call_deferred()
 

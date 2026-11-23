@@ -12,6 +12,7 @@ behavior = ExtResource("2_behavior")
 projectile = ExtResource("3_proj")
 summon = ExtResource("4_summon")
 display_name = "阿勇"
+localized_names = Dictionary[String, String]({"en": "Rash", "ja": "勇"})
 attack_category = &"melee"
 hit_material = &"armor"
 body_size = Vector2(20, 52)

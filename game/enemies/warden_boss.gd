@@ -69,7 +69,7 @@ func _start_state() -> StringName:
 
 
 func _announce() -> void:
-	EventBus.boss_started.emit(data.display_name, health.max_health)
+	EventBus.boss_started.emit(data.display_name_for(Story.language), health.max_health)
 	Feel.play(&"boss_intro")
 
 

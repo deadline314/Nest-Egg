@@ -191,7 +191,7 @@ func _wake() -> void:
 	if _awake or is_queued_for_deletion():
 		return
 	_awake = true
-	_show_boss_bar(pattern.bar_name if not pattern.bar_name.is_empty() else data.display_name)
+	_show_boss_bar(pattern.bar_name_for(Story.language, data.display_name_for(Story.language)))
 	Feel.play(&"boss_intro")
 	if mark != null:
 		mark.start()
@@ -729,8 +729,9 @@ func _apply_phase(index: int, perform: bool) -> void:
 	_refresh_parts()
 	if perform:
 		Fx.burst(_center(), Palette.WARNING, 24, 240.0, 0.5)
-		if not str(config["enter_toast"]).is_empty():
-			EventBus.toast_requested.emit(str(config["enter_toast"]))
+		var message := BossPattern.phase_message_for(config, Story.language)
+		if not message.is_empty():
+			EventBus.toast_requested.emit(message)
 		if not str(config["event"]).is_empty() and _on_phase_event(StringName(str(config["event"]))):
 			return  # 子類別接手（例如劇情暫停），不播一般的階段轉換
 		if fsm.is_in(&"act") and StringName(_move().get("kind", &"")) == &"pounce":
@@ -963,8 +964,9 @@ func _finish_death() -> void:
 	else:
 		EventBus.boss_bar_closed.emit()
 		EventBus.mechanism_toggled.emit(pattern.gate_channel, true)
-		if not pattern.unlock_text.is_empty():
-			EventBus.toast_requested.emit(pattern.unlock_text)
+		var message := pattern.unlock_message_for(Story.language)
+		if not message.is_empty():
+			EventBus.toast_requested.emit(message)
 	queue_free()
 
 

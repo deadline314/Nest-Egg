@@ -2,9 +2,11 @@
   "_doc": "守門人 JANUS 的打法（NE-271）。格式見 design/15-combat-feel/BOSS_FIGHTS.md 第 5 節；custom_kinds 由 game/enemies/janus_boss.gd 實作；gatekeeper 段是守門人自己的機制（遺忘迴圈、盾裂、通訊器、存檔旗標）。部位大小與位置在 data/enemies/janus.tres 的 hurt_parts。",
   "custom_kinds": ["shield_bash", "scan_sweep", "call_backup"],
   "bar_name": "門禁裝置穩定度",
+  "bar_name_ja": "門禁装置の安定度",
+  "bar_name_en": "Gate frame stability",
   "wake_range": 260,
   "poses": {"intro": "shield_rusher.brace", "phase_shift": "heavy_gunner.vent", "yanked": "shield_rusher.stagger_back"},
-  "defeat": {"gate_channel": "ch3_janus_down", "unlock_text": "門禁工作架斷電了，閘門退開"},
+  "defeat": {"gate_channel": "ch3_janus_down", "unlock_text": "門禁工作架斷電了，閘門退開", "unlock_text_ja": "門番の作業架台が停止し、門が開いた。", "unlock_text_en": "The gate frame powered off. The gate opened."},
   "moves": {
     "shield_bash": {"kind": "shield_bash", "telegraph": 1.0, "recover": 0.5, "weight": 1.3, "repeat": true, "pose_windup": "shield_rusher.brace", "pose_act": "shield_rusher.skid",
       "params": {"distance": 84, "speed": 330, "damage": 2, "stagger": 1.4, "front_range": 150}},
@@ -22,7 +24,7 @@
   "phases": [
     {"until": 0.5, "moves": ["shield_bash", "scan_low", "scan_high", "call_backup"], "speed": 1.0, "armored": true},
     {"until": 0.0, "moves": ["shield_bash", "scan_wide_low", "scan_wide_high", "call_backup"], "speed": 1.0, "armored": true,
-      "enter_toast": "掃描臂放大了——掃得更遠，蓄力也慢一拍"}
+      "enter_toast": "掃描臂放大了——掃得更遠，蓄力也慢一拍", "enter_toast_ja": "走査範囲が広がり、溜めが長くなった。", "enter_toast_en": "The scanner reaches farther but charges more slowly."}
   ],
   "habits": {
     "close_range": 56,

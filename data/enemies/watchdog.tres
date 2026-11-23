@@ -13,6 +13,7 @@ behavior = ExtResource("2_behavior")
 projectile = ExtResource("3_proj")
 extra_projectiles = Array[ExtResource("4_spec_script")]([ExtResource("5_extra1")])
 display_name = "看門狗"
+localized_names = Dictionary[String, String]({"en": "Watchdog", "ja": "番犬"})
 attack_category = &"melee"
 hit_material = &"armor"
 body_size = Vector2(50, 60)

@@ -229,7 +229,7 @@ func _start_revived(perform: bool) -> void:
 	health.floor_health = _hp_at(float(_hook("latch_ratio", 0.35)))
 	use_phase_set("revived", perform)
 	if perform:
-		_show_boss_bar(data.display_name)
+		_show_boss_bar(data.display_name_for(Story.language))
 
 
 ## 血量碰到這個階段的門檻時接下一步（保留路倒下、鷺關上暫停閂、制伏進度打完）。
@@ -310,7 +310,7 @@ func _enter_subdue(set_name: String, perform: bool) -> void:
 	set_tag("subdue", true)
 	use_phase_set(set_name, perform)
 	if _awake:
-		_show_boss_bar(_hook_text("subdue_name", data.display_name))
+		_show_boss_bar(_hook_text("subdue_name", data.display_name_for(Story.language)))
 
 
 func _on_lock_hit(_info: DamageInfo) -> void:
@@ -393,7 +393,7 @@ func _boss_bar_phase_marks() -> PackedFloat64Array:
 func _wake() -> void:
 	super._wake()
 	if stage == "subdue":
-		_show_boss_bar(_hook_text("subdue_name", data.display_name))
+		_show_boss_bar(_hook_text("subdue_name", data.display_name_for(Story.language)))
 
 
 func _on_player_died(_cause: StringName) -> void:

@@ -16,6 +16,7 @@ projectile = ExtResource("3_proj")
 extra_projectiles = Array[ExtResource("4_spec_script")]([ExtResource("5_extra0"), ExtResource("5_extra1")])
 summon = ExtResource("6_summon")
 display_name = "監管者 WARDEN"
+localized_names = Dictionary[String, String]({"en": "Warden", "ja": "監督官 WARDEN"})
 is_boss = true
 attack_category = &"melee"
 hit_material = &"armor"

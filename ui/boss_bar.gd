@@ -11,6 +11,17 @@ const CLOSE_TIME := 0.3
 const BAR_TOP := 16.0
 const BAR_HEIGHT := 7.0
 const DEFAULT_PHASE_MARKS: PackedFloat64Array = [0.5]
+const DEFAULT_HELP := "刻度標示頭目轉階的血量。"
+const HELP: Dictionary[String, String] = {
+	"ja": "目盛りはボスの次の段階に移る体力を示します。",
+	"en": "Ticks mark the boss's phase changes.",
+}
+
+const NO_MARKS_HELP: Dictionary[String, String] = {
+	"ja": "今の段階の残りを示します。",
+	"en": "Shows the amount remaining in this phase.",
+}
+
 
 ## 舊頭目用 50% 刻度，資料化頭目在開場時立即提供真正門檻。
 var phase_marks := DEFAULT_PHASE_MARKS
@@ -27,7 +38,7 @@ func _init() -> void:
 	custom_minimum_size = SIZE
 	size = SIZE
 	mouse_filter = Control.MOUSE_FILTER_PASS
-	tooltip_text = "頭目的血量；刻度是進入下一階段的位置"
+	tooltip_text = DEFAULT_HELP
 	visible = false
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	pivot_offset = SIZE * 0.5
@@ -45,12 +56,27 @@ func _ready() -> void:
 	Settings.display_changed.connect(_sync_display)
 
 
+func _get_tooltip(_at_position: Vector2) -> String:
+	if tooltip_text != DEFAULT_HELP:
+		return tooltip_text
+	if phase_marks.is_empty():
+		return StoryLocale.optional_text(NO_MARKS_HELP, Story.language, "顯示目前階段剩餘量。")
+	return StoryLocale.optional_text(HELP, Story.language, DEFAULT_HELP)
+
+
 func is_open() -> bool:
 	return visible
 
 
 func ratio() -> float:
 	return _ratio
+
+
+func _displayed_percent() -> int:
+	if _ratio <= 0.0:
+		return 0
+	# A whole percent can land a few bits above its integer boundary.
+	return maxi(1, ceili(_ratio * 100.0 - 1.0e-9))
 
 
 ## 頭目登場：從中間往兩側展開。
@@ -151,7 +177,7 @@ func _draw() -> void:
 	# 名牌：小菱形 + 名稱；右側是血量百分比。
 	draw_colored_polygon(PackedVector2Array([Vector2(2, 7), Vector2(7, 2), Vector2(12, 7), Vector2(7, 12)]), Palette.DANGER)
 	draw_string(font, Vector2(18, 12), _name, HORIZONTAL_ALIGNMENT_LEFT, -1, UiKit.FS_BODY, LightKit.glow(Palette.DANGER, 1.4))
-	var percent := "%d%%" % ceili(_ratio * 100.0)
+	var percent := "%d%%" % _displayed_percent()
 	draw_string(font, Vector2(SIZE.x - 4.0 - font.get_string_size(percent, HORIZONTAL_ALIGNMENT_LEFT, -1, UiKit.FS_BODY).x, 12), percent,
 			HORIZONTAL_ALIGNMENT_LEFT, -1, UiKit.FS_BODY, Palette.UI_MUTED)
 	# 外框與階段刻度。

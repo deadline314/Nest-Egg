@@ -10,6 +10,7 @@ id = &"reclaimer"
 behavior = ExtResource("2_behavior")
 projectile = ExtResource("3_proj")
 display_name = "回收員 RECLAIMER"
+localized_names = Dictionary[String, String]({"en": "Reclaimer", "ja": "回収員 RECLAIMER"})
 is_boss = true
 attack_category = &"melee"
 hit_material = &"metal"
