@@ -193,8 +193,8 @@ func _test_hook() -> void:
 	check(await wait_state(enemy, &"reel", 120), "a hook that hits pulls the player in")
 	check(player.is_pulled() and hp - player.health.current == 1, "being hooked costs one health and starts the pull (%d)" % (hp - player.health.current))
 	var x0 := player.global_position.x
-	await physics_frames(10)
-	check(player.global_position.x > x0 + 4.0, "the pull moves the player toward the hook owner")
+	var active_steps := await _wait_for_pull_steps(player, 10)
+	check(active_steps and player.global_position.x > x0 + 4.0, "the pull moves the player toward the hook owner")
 	# 打斷鎖鏈：鎖鏈中段的受擊框被打中就解除，鉤子的主人暈眩。
 	var link: Hurtbox = enemy.get("_link")
 	check(link != null and is_instance_valid(link), "the chain has a hurtbox while reeling")
@@ -223,6 +223,19 @@ func _test_hook() -> void:
 	check(hp - player.health.current <= 2 and hp - player.health.current >= 1, "a full hook-and-stab costs at most two health (%d)" % (hp - player.health.current))
 	check(not player.is_pulled(), "the pull ends after the stab")
 	await _finish(enemy)
+
+
+## SceneTree still reports frames while hitstop suspends the pulled player.
+func _wait_for_pull_steps(player: Player, steps: int) -> bool:
+	var deadline := Time.get_ticks_msec() + 1000
+	var remaining := player._pull_left
+	var observed := 0
+	while player.is_pulled() and observed < steps and Time.get_ticks_msec() < deadline:
+		await physics_frames(1)
+		if player.is_pulled() and player._pull_left < remaining:
+			remaining = player._pull_left
+			observed += 1
+	return observed == steps
 
 
 func _test_hook_blocked_by_wall() -> void:
