@@ -38,6 +38,12 @@ func _test_data() -> void:
 	BossPattern.clear_cache()
 	var pattern := BossPattern.load_for(&"yong")
 	check(pattern.errors.is_empty(), "yong's boss data loads without errors: %s" % [pattern.errors])
+	for key: String in ["box_hint", "box_prompt", "pull_prompt"]:
+		for language: String in StoryLocale.LANGUAGES:
+			var field := key if language == StoryLocale.SOURCE_LANGUAGE else StoryLocale.field_key(key, language)
+			var authored: Variant = pattern.hooks.get(field)
+			check(authored is String and authored.contains("{interact}"),
+				"Yong's %s guide keeps the live interact binding for %s" % [key, language])
 	var baton := RigLibrary.optional_texture(str(pattern.hooks.get("baton_art", "")))
 	check(baton != null and baton.get_size() == Vector2(96, 20), "the configured baton texture matches the authored grip canvas")
 	for set_name in ["subdue", "subdue_revived", "disarmed", "disarmed_revived", "revived"]:
@@ -260,7 +266,26 @@ func _test_cut_route() -> void:
 	check(str(yong.get("stage")) == "subdue" and yong.has_tag("subdue") and yong.is_part_open(&"baton_lock"), "the health bar becomes subdue progress and the baton lock opens")
 	check(GameState.get_flag(&"yong_revival_done") != true, "the cut route never revives yong")
 	await _subdue_and_pull(yong, player)
+	await _test_retired_hold_hint(level)
 	await end_level(level)
+
+
+func _test_retired_hold_hint(level: Level) -> void:
+	var point := BossHoldPoint.new()
+	point.enabled = true
+	level.add_child(point)
+	point._progress = 0.2
+	var notices: Array[String] = []
+	var record := func(text: String) -> void:
+		if text in ["操作被打斷了", "操作が中断された。", "Operation interrupted."]:
+			notices.append(text)
+	EventBus.toast_requested.connect(record)
+	point._on_player_damaged(null)
+	level.remove_child(point)
+	await frames(2)
+	EventBus.toast_requested.disconnect(record)
+	check(notices.is_empty(), "an interrupted hold cannot display its deferred hint after leaving the scene")
+	point.free()
 
 
 func _subdue_and_pull(yong: PatternBoss, player: Player) -> void:

@@ -11,6 +11,10 @@ signal interrupted
 const RING_RADIUS := 9.0
 ## 進度環離地的高度（在玩家頭上方）。
 const RING_HEIGHT := 66.0
+const INTERRUPTED_TEXT: Dictionary[String, String] = {
+	"ja": "操作が中断された。",
+	"en": "Operation interrupted.",
+}
 
 var hold := 1.5
 var reach := Vector2(26, 40)
@@ -102,8 +106,16 @@ func _on_player_damaged(_info: DamageInfo) -> void:
 	if enabled and _progress > 0.0:
 		_progress = 0.0
 		interrupted.emit()
-		EventBus.toast_requested.emit("操作被打斷了")
+		_show_interruption.call_deferred()
 		queue_redraw()
+
+
+func _show_interruption() -> void:
+	# A damage event can also announce the first interest mark. Show the
+	# interruption after its listeners and keep the mark's radio line.
+	if is_inside_tree() and not is_queued_for_deletion() and enabled and not done \
+			and is_instance_valid(_player) and _player.is_inside_tree() and not _player.is_dead():
+		EventBus.toast_requested.emit(StoryLocale.optional_text(INTERRUPTED_TEXT, Story.language, "操作被打斷了"))
 
 
 func _draw() -> void:

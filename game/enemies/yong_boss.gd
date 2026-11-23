@@ -58,6 +58,19 @@ func _setup_states() -> void:
 func _hook(key: String, fallback: Variant = "") -> Variant:
 	return _hooks.get(key, fallback)
 
+func _hook_text(key: String, fallback := "") -> String:
+	var raw: Variant = _hook(key, fallback)
+	var source: String = raw if raw is String else fallback
+	var translations: Dictionary[String, String] = {}
+	for language: String in ["ja", "en"]:
+		var line: Variant = _hook(StoryLocale.field_key(key, language))
+		if line is String:
+			translations[language] = line
+	var localized := StoryLocale.optional_text(translations, Story.language, source)
+	if source.contains("{interact}") and not localized.contains("{interact}"):
+		return source
+	return localized
+
 
 func _flag(key: String) -> Variant:
 	return GameState.get_flag(StringName(str(_hook(key))), null)
@@ -178,7 +191,7 @@ func _start_cut(perform: bool) -> void:
 	if _box != null:
 		_box.enabled = true
 	if perform:
-		EventBus.toast_requested.emit(str(_hook("box_hint")))
+		EventBus.toast_requested.emit(_hook_text("box_hint"))
 		fsm.transition(&"idle")
 
 
@@ -191,7 +204,7 @@ func _on_box_completed() -> void:
 	_enter_subdue("subdue", true)
 	if durable:
 		EventBus.mechanism_toggled.emit(StringName(str(_hook("isolation_channel"))), true)
-	EventBus.toast_requested.emit(str(_hook("box_done_toast")))
+	EventBus.toast_requested.emit(_hook_text("box_done_toast"))
 
 
 func _has_durable_world_owner() -> bool:
@@ -230,7 +243,7 @@ func _on_route_health(current: int, _maximum: int) -> void:
 		_play_latch()
 	elif stage == "subdue" and current <= 1 and not _disarmed and not _exhaust_hinted:
 		_exhaust_hinted = true
-		EventBus.toast_requested.emit("先打斷棍柄的鎖扣")
+		EventBus.toast_requested.emit(_hook_text("lock_retry_toast", "先打斷棍柄的鎖扣"))
 
 
 ## 保留路：真正倒下（不是普通擊敗），播復原，回來時是第二階段。
@@ -298,7 +311,7 @@ func _enter_subdue(set_name: String, perform: bool) -> void:
 	set_tag("subdue", true)
 	use_phase_set(set_name, perform)
 	if _awake:
-		EventBus.boss_started.emit(str(_hook("subdue_name", data.display_name)), health.max_health)
+		EventBus.boss_started.emit(_hook_text("subdue_name", data.display_name), health.max_health)
 		EventBus.boss_health_changed.emit(health.current, health.max_health)
 
 
@@ -349,7 +362,7 @@ func _subdued_enter() -> void:
 	Fx.burst(_center(), Palette.WHITE, 18, 160.0, 0.4)
 	Feel.play(&"boss_death")
 	EventBus.boss_bar_closed.emit()
-	EventBus.toast_requested.emit("制伏了——儲能匣拔出來，裝甲停了")
+	EventBus.toast_requested.emit(_hook_text("subdued_toast", "制伏了——儲能匣拔出來，裝甲停了"))
 	var channel := StringName(str(_hook("done_channel")))
 	if channel != &"":
 		EventBus.mechanism_toggled.emit(channel, true)
@@ -376,7 +389,7 @@ func is_subdued() -> bool:
 func _wake() -> void:
 	super._wake()
 	if stage == "subdue":
-		EventBus.boss_started.emit(str(_hook("subdue_name", data.display_name)), health.max_health)
+		EventBus.boss_started.emit(_hook_text("subdue_name", data.display_name), health.max_health)
 		EventBus.boss_health_changed.emit(health.current, health.max_health)
 
 
@@ -401,14 +414,14 @@ func _build_hold_points() -> void:
 	var parent := get_parent() as Node2D
 	_box = BossHoldPoint.new()
 	_box.name = "YongIsolationBox"
-	_box.setup(float(_hook("box_hold", 1.5)), str(_hook("box_prompt")), "box")
+	_box.setup(float(_hook("box_hold", 1.5)), _hook_text("box_prompt"), "box")
 	_box.completed.connect(_on_box_completed)
 	if parent != null:
 		parent.add_child.call_deferred(_box)
 		_place_box.call_deferred()
 	_pull = BossHoldPoint.new()
 	_pull.name = "YongPowerCell"
-	_pull.setup(float(_hook("pull_hold", 0.6)), str(_hook("pull_prompt")), "none")
+	_pull.setup(float(_hook("pull_hold", 0.6)), _hook_text("pull_prompt"), "none")
 	_pull.follow = self
 	_pull.completed.connect(_on_pull_completed)
 	add_child(_pull)
