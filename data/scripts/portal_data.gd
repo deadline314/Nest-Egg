@@ -42,6 +42,11 @@ func is_locked_door() -> bool:
 	return target_level.is_empty()
 
 
+## Both the map and the live portal ask the same condition. Story values can be scalar.
+func can_travel(flag_value: Variant) -> bool:
+	return not is_locked_door() and (requires_flag == &"" or (true if flag_value else false))
+
+
 func default_prompt(language := StoryLocale.SOURCE_LANGUAGE) -> String:
 	var source: String = DEFAULT_PROMPTS.get(language, DEFAULT_PROMPTS[StoryLocale.SOURCE_LANGUAGE]) if prompt.is_empty() else prompt
 	return StoryLocale.optional_text(localized_prompts, language, source)

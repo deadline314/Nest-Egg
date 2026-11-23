@@ -117,9 +117,7 @@ func is_armed() -> bool:
 
 ## 現在能不能通行（旗標滿足、有目標）。
 func is_open() -> bool:
-	if data == null or data.is_locked_door():
-		return false
-	return data.requires_flag == &"" or GameState.has_flag(data.requires_flag)
+	return data != null and data.can_travel(GameState.get_flag(data.requires_flag, false))
 
 
 func preview_available() -> bool:

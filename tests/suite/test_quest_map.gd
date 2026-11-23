@@ -25,6 +25,7 @@ func run() -> void:
 	await _test_terrain_cache(catalog, maps)
 	await _test_ui(catalog, maps)
 	await _test_world_chapter_titles(catalog)
+	await _test_ch2_connections(catalog)
 	await _test_runtime()
 	_test_display_defaults()
 	await _test_story_language()
@@ -668,6 +669,87 @@ func _test_world_chapter_titles(catalog: QuestCatalog) -> void:
 			_check_pawnshop_label(screen._canvas)
 		screen.queue_free()
 		await frames(2)
+
+
+func _test_ch2_connections(catalog: QuestCatalog) -> void:
+	const LOADING := "res://data/levels/ch2_loading.tres"
+	const MARKET := "res://data/levels/ch2_market.tres"
+	var old_flags := GameState.world_flags
+	GameState.world_flags = {}
+	var maps := QuestMapIndex.for_chapter(&"ch2_heron")
+	var local_key := _portal_marker_key(maps, LOADING, &"loading_sc1")
+	var remote_key := _portal_marker_key(maps, MARKET, &"market_sc1")
+	var pairs_exist := not local_key.is_empty() and not remote_key.is_empty()
+	check(pairs_exist, "the real second-chapter shortcut has both authored ends")
+	if not pairs_exist:
+		GameState.world_flags = old_flags
+		return
+	var local_marker: Dictionary = maps.areas[LOADING]["markers"][int(local_key.get_slice(":", 1))]
+	var remote_marker: Dictionary = maps.areas[MARKET]["markers"][int(remote_key.get_slice(":", 1))]
+	var screen := QuestMapScreen.new()
+	screen.catalog = catalog
+	screen.maps = maps
+	screen.state = QuestMapState.new()
+	screen.chapter = "ch2_heron"
+	screen.player_path = LOADING
+	screen.player_position = local_marker["position"]
+	screen.state.reveal(LOADING, [local_marker["cell"]])
+	screen.start_page = "region"
+	runner.get_tree().root.add_child(screen)
+	screen.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
+	screen.size = Vector2(640, 360)
+	await frames(4)
+	var button := _find_map_marker(screen._canvas, local_key)
+	check(button != null and button.text == QuestMapCanvas.SYMBOLS["gate"], "the closed bridge is shown as blocked")
+	var current := _find_map_marker(screen._canvas, "marker:player")
+	check(current != null and button != null and not current.get_rect().intersects(button.get_rect()),
+			"standing at the shortcut keeps both the player icon and the exit focus visible")
+	if button != null:
+		button.grab_focus()
+		var portal := local_marker["resource"] as PortalData
+		check(button.tooltip_text == portal.locked_text_for(Story.language), "the map uses the same reason as the live door")
+		await _key(KEY_ENTER)
+		check(screen._map_path == LOADING, "confirming a blocked door leaves the player on the origin map")
+	GameState.world_flags["ch2_sc1_open"] = "open"
+	var live_portal := Portal.new()
+	live_portal.data = local_marker["resource"]
+	check(live_portal.is_open(), "live portal also accepts the same scalar flag")
+	live_portal.free()
+	screen._build()
+	await frames(4)
+	button = _find_map_marker(screen._canvas, local_key)
+	check(button != null and button.text == QuestMapCanvas.SYMBOLS["exit"], "the same bridge marker becomes a link on unlock")
+	if button != null:
+		button.grab_focus()
+		await _joy(JOY_BUTTON_A)
+		await frames(3)
+		check(screen._map_path == MARKET and _find_map_marker(screen._canvas, remote_key) == null, "following the bridge does not uncover the far entrance")
+		await _joy(JOY_BUTTON_B)
+		await frames(3)
+		check(screen._map_path == LOADING and screen.get_viewport().gui_get_focus_owner() == _find_map_marker(screen._canvas, local_key), "return restores the original exit focus")
+		screen.state.reveal(MARKET, [remote_marker["cell"]])
+		await _key(KEY_ENTER)
+		await frames(4)
+		var far_end := _find_map_marker(screen._canvas, remote_key)
+		check(screen._map_path == MARKET and far_end != null and far_end.has_focus(), "a known far entrance opens centered and focused")
+		if far_end != null:
+			var history_size := screen._history.size()
+			await _key(KEY_ENTER)
+			await frames(4)
+			check(screen._map_path == LOADING and screen._history.size() == history_size - 1,
+					"crossing the same map link back reuses the prior view")
+	screen.queue_free()
+	await frames(2)
+	GameState.world_flags = old_flags
+
+
+func _portal_marker_key(maps: QuestMapIndex, path: String, id: StringName) -> String:
+	var markers: Array[Dictionary] = maps.areas[path]["markers"]
+	for index in markers.size():
+		var portal := markers[index].get("resource") as PortalData
+		if portal != null and portal.id == id:
+			return "marker:%d" % index
+	return ""
 
 
 func _check_pawnshop_label(canvas: QuestMapCanvas) -> void:

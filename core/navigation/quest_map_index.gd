@@ -144,7 +144,7 @@ func next_exit(from: String, to: String, flags: Dictionary, allow_locked := fals
 		var path: String = queue.pop_front()
 		for marker in edges(path):
 			var portal := marker["resource"] as PortalData
-			if not allow_locked and portal.requires_flag != &"" and not QuestCatalog.flag_set(flags, String(portal.requires_flag)):
+			if not allow_locked and not portal_is_open(portal, flags):
 				continue
 			if first.has(portal.target_level):
 				continue
@@ -155,11 +155,16 @@ func next_exit(from: String, to: String, flags: Dictionary, allow_locked := fals
 	return next_exit(from, to, flags, true) if not allow_locked else {}
 
 
+static func portal_is_open(portal: PortalData, flags: Dictionary) -> bool:
+	var key := String(portal.requires_flag)
+	return portal.can_travel(flags.get(key, GameState.flag_defaults.get(key, false)))
+
+
 func marker_text(marker: Dictionary, flags: Dictionary, language := StoryLocale.SOURCE_LANGUAGE) -> String:
 	var resource: Resource = marker.get("resource")
 	if resource is PortalData:
 		var portal := resource as PortalData
-		if portal.is_locked_door() or (portal.requires_flag != &"" and not QuestCatalog.flag_set(flags, String(portal.requires_flag))):
+		if not portal_is_open(portal, flags):
 			return portal.locked_text_for(language)
 		var target: LevelData = areas.get(portal.target_level, {}).get("data")
 		if target != null:

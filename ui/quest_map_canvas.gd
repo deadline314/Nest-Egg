@@ -7,6 +7,7 @@ extends Control
 
 signal marker_selected(text: String)
 signal area_selected(path: String)
+signal connection_selected(path: String, landing: StringName)
 ## 每次重建標記之後發出（畫面用來更新探索百分比等統計）。
 signal refreshed
 const SYMBOLS := {"player": "▲", "exit": "↔", "checkpoint": "◆", "shop": "＄", "pickup": "＋", "goal": "◎", "gate": "▣"}
@@ -34,6 +35,7 @@ var goal_name := ""
 var flags: Dictionary = {}
 var world: Dictionary = {}
 var world_mode := false
+var allow_portal_links := true
 var latest_checkpoint_position := Vector2.INF
 var language := StoryLocale.SOURCE_LANGUAGE
 ## 世界地圖的區域名稱是否折成兩行（欄寬放不下一行時）。
@@ -194,20 +196,32 @@ func _region_map() -> void:
 				kind = "exit"
 				symbol = SYMBOLS[kind]
 				color = COLORS[kind]
-		var destination := _destination_name(marker) if kind == "exit" else ""
+		var portal := marker.get("resource") as PortalData
+		var destination := _destination_name(marker) if portal != null else ""
+		var can_open_map := false
+		if portal != null:
+			if not QuestMapIndex.portal_is_open(portal, flags):
+				symbol = SYMBOLS["gate"]
+				color = COLORS["gate"]
+			elif allow_portal_links and not destination.is_empty():
+				can_open_map = true
+				text = _text(["查看%s的地圖。", "%sの地図を開きます。", "View the map for %s."]) % destination
 		if not _view.grow(1).has_point(point):
 			if not destination.is_empty():
-				_edge_label(point, destination, Palette.UI_TEXT)
+				_edge_label(point, destination, color)
 			continue
 		var button := _button("marker:%d" % index, symbol, text, point, MARKER, color)
-		button.pressed.connect(marker_selected.emit.bind(text))
+		if can_open_map:
+			button.pressed.connect(connection_selected.emit.bind(portal.target_level, portal.target_portal))
+		else:
+			button.pressed.connect(marker_selected.emit.bind(text))
 		if not destination.is_empty():
 			var arrow := "← %s" % destination if point.x < _view.get_center().x else "%s →" % destination
-			_label(arrow, point + Vector2(0, -MARKER.y), Color("bfe9f5"))
+			_label(arrow, point + Vector2(0, -MARKER.y), color)
 	if path == player_path:
 		var point := _map_rect.position + player_position / layout.tile_size * factor
 		if _view.grow(1).has_point(point):
-			_button("marker:player", "▲", _text(["主角目前在這裡。", "ここが現在地です。", "Your current position."]), point, MARKER, Palette.CYAN)
+			_button("marker:player", "▲", _text(["主角目前在這裡。", "ここが現在地です。", "Your current position."]), _player_marker_point(point), MARKER, Palette.CYAN)
 	if goal.get("level", "") == path:
 		var cell: Array = goal.get("cell", [0, 0])
 		var point := _map_rect.position + Vector2(cell[0] + 0.5, cell[1] + 1.0) * factor
@@ -218,6 +232,26 @@ func _region_map() -> void:
 				marker.pressed.connect(marker_selected.emit.bind(text))
 		else:
 			_edge_label(point, _text(["◎ 目標", "◎ 目標", "◎ Goal"]), Palette.MAGENTA)
+
+
+## Keep the player marker next to the entrance when both occupy the same cells.
+func _player_marker_point(origin: Vector2) -> Vector2:
+	if _marker_point_free(origin):
+		return origin
+	for offset in [Vector2(0, 14), Vector2(14, 0), Vector2(-14, 0), Vector2(0, -14)]:
+		var point: Vector2 = origin + offset
+		if _view.grow(-MARKER.x * 0.5).has_point(point) and _marker_point_free(point):
+			return point
+	return origin
+
+
+func _marker_point_free(point: Vector2) -> bool:
+	var bounds := Rect2(point - MARKER * 0.5, MARKER)
+	for marker in _markers:
+		# The normal deferred fit runs after the markers are built. Use their intended dimensions.
+		if bounds.intersects(Rect2(marker.position, MARKER)):
+			return false
+	return true
 
 
 func pan(direction: Vector2) -> bool:

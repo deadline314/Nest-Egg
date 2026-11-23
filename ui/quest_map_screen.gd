@@ -558,6 +558,32 @@ func _jump_to_map(path: String) -> void:
 	_build()
 
 
+func _jump_to_connection(path: String, landing: StringName) -> void:
+	if path == _map_path or not maps.areas.has(path):
+		return
+	for index in range(_history.size() - 1, -1, -1):
+		if _history[index]["page"] == "region" and _history[index]["map_path"] == path:
+			_history.resize(index + 1)
+			go_back()
+			return
+	var center := Vector2.INF
+	var focus_key := ""
+	var markers: Array[Dictionary] = maps.areas[path]["markers"]
+	for index in markers.size():
+		var marker := markers[index]
+		var portal := marker.get("resource") as PortalData
+		if portal != null and portal.id == landing and state.knows(path, marker["cell"]):
+			center = Vector2(marker["cell"]) + Vector2(0.5, 1.0)
+			focus_key = "marker:%d" % index
+			break
+	_remember_page()
+	_map_path = path
+	_page = "region"
+	_build(true, 1.0, center)
+	if not focus_key.is_empty():
+		_restore_focus.call_deferred(focus_key)
+
+
 # ---------------------------------------------------------------------------
 # 地圖頁
 # ---------------------------------------------------------------------------
@@ -646,6 +672,7 @@ func _build_map(map_zoom: float, pan_center: Vector2) -> void:
 	_canvas.player_path = player_path
 	_canvas.player_position = player_position
 	_canvas.world_mode = world_mode
+	_canvas.allow_portal_links = not showing_source
 	_canvas.language = _display_language
 	_canvas.zoom = map_zoom
 	_canvas.pan_center = pan_center
@@ -662,6 +689,7 @@ func _build_map(map_zoom: float, pan_center: Vector2) -> void:
 	_canvas.goal_name = reference_label
 	_canvas.marker_selected.connect(func(text: String) -> void: _status.text = text)
 	_canvas.area_selected.connect(_jump_to_map)
+	_canvas.connection_selected.connect(_jump_to_connection)
 	_canvas.refreshed.connect(func() -> void: stats.text = _map_stats(world_mode))
 	frame.add_child(_canvas)
 	_status.text = _text(["未探索處只顯示外框。選擇圖示查看說明。", "未探索の場所は輪郭だけ表示されます。アイコンで詳細を確認できます。", "Unexplored places show an outline. Select an icon for details."])
