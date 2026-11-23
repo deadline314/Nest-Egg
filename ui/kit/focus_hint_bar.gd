@@ -60,6 +60,7 @@ func _ready() -> void:
 	_scope.visibility_changed.connect(_refresh)
 	# Read the tooltip after the screen has updated its binding text.
 	InputBindings.bindings_changed.connect(refresh_visible_hint, CONNECT_DEFERRED)
+	InputBindings.device_changed.connect(_on_device_changed, CONNECT_DEFERRED)
 	if is_instance_valid(_anchor) and placement == Placement.BELOW:
 		# 面板滑入或改版面時跟著移動；只在面板實際移動時觸發，不每影格計算。
 		_anchor.item_rect_changed.connect(func() -> void:
@@ -73,8 +74,22 @@ func text() -> String:
 
 
 func _input(event: InputEvent) -> void:
-	if visible and event is InputEventMouseMotion:
-		hide()
+	if event is InputEventMouseMotion:
+		if visible:
+			hide()
+		return
+	if not visible and event.is_pressed() and not event.is_echo() and (event is InputEventKey or event is InputEventJoypadButton):
+		_restore_hidden_hint()
+
+
+func _on_device_changed(gamepad: bool, device: int) -> void:
+	if gamepad and InputBindings.active_device == device:
+		_restore_hidden_hint()
+
+
+func _restore_hidden_hint() -> void:
+	if not visible and _focused != null and _scope.is_visible_in_tree():
+		_refresh()
 
 
 func _on_focus_changed(control: Control) -> void:

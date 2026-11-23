@@ -32,9 +32,45 @@ static func _check_pause(suite: TestSuite) -> void:
 	suite.check(bar.text() == pause._quest_button.tooltip_text and not bar.text().is_empty(), "說明跟著焦點換成「任務」的說明")
 	var motion := InputEventMouseMotion.new()
 	motion.position = Vector2(4, 4)
+	motion.relative = Vector2(4, 0)
 	suite.runner.get_viewport().push_input(motion, true)
 	await suite.frames(1)
 	suite.check(bar.text().is_empty(), "改用滑鼠時收起底部說明（滑鼠有原生說明）")
+	var keyboard := InputEventKey.new()
+	keyboard.keycode = KEY_SHIFT
+	keyboard.pressed = true
+	suite.runner.get_viewport().push_input(keyboard, true)
+	await suite.frames(2)
+	suite.check(pause._quest_button.has_focus() and bar.text() == pause._quest_button.tooltip_text,
+			"keyboard input restores the same focused hint without moving focus")
+	keyboard = keyboard.duplicate()
+	keyboard.pressed = false
+	suite.runner.get_viewport().push_input(keyboard, true)
+	suite.runner.get_viewport().push_input(motion, true)
+	await suite.frames(2)
+	var stick := InputEventJoypadMotion.new()
+	stick.device = 999
+	stick.axis = JOY_AXIS_RIGHT_X
+	stick.axis_value = 0.8
+	suite.runner.get_viewport().push_input(stick, true)
+	await suite.frames(2)
+	suite.check(pause._quest_button.has_focus() and bar.text() == pause._quest_button.tooltip_text and InputBindings.using_gamepad,
+			"meaningful controller input restores the focused hint on the same button")
+	stick = stick.duplicate()
+	stick.axis_value = 0.0
+	suite.runner.get_viewport().push_input(stick, true)
+	suite.runner.get_viewport().push_input(motion, true)
+	await suite.frames(2)
+	stick = stick.duplicate()
+	stick.axis_value = 0.8
+	suite.runner.get_viewport().push_input(stick, true)
+	suite.runner.get_viewport().push_input(motion, true)
+	await suite.frames(2)
+	suite.check(bar.text().is_empty() and not InputBindings.using_gamepad,
+			"the latest pointer event keeps the hint hidden despite a queued pad update")
+	stick = stick.duplicate()
+	stick.axis_value = 0.0
+	suite.runner.get_viewport().push_input(stick, true)
 	await _joy(suite, JOY_BUTTON_DPAD_UP)
 	suite.check(bar.text() == pause._resume_button.tooltip_text, "再用手把移動焦點時說明重新出現")
 	pause._open_settings()
