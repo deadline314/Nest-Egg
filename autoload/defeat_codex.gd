@@ -6,6 +6,7 @@ const CARDS_PATH := "res://data/codex/defeat_cards.json"
 const SAVE_PATH := "user://codex.cfg"
 const SAVE_SECTION := "unlocked"
 const FALLBACK_ID := &"unknown"
+const CARD_FIELDS := ["title", "text", "hint"]
 
 var _cards: Dictionary[StringName, Dictionary] = {}
 var _order: Array[StringName] = []
@@ -27,7 +28,14 @@ func _load_cards() -> void:
 			for entry in entries:
 				_register_card(entry)
 	if not _cards.has(FALLBACK_ID):
-		_register_card({"id": FALLBACK_ID, "title": "未知的敗因", "text": "連自己都不知道發生了什麼事。", "hint": "保持移動，注意預兆。"})
+		_register_card({
+			"id": FALLBACK_ID,
+			"title": "未知的敗因", "text": "連自己都不知道發生了什麼事。", "hint": "保持移動，注意預兆。",
+			"title_en": "Unknown Cause", "text_en": "Even you aren't sure what happened.",
+			"hint_en": "Keep moving and watch for attack tells.",
+			"title_ja": "不明な敗因", "text_ja": "自分でも何が起きたのかわからない。",
+			"hint_ja": "動き続け、攻撃の前兆に気を配る。",
+		})
 
 
 func _register_card(entry: Variant) -> void:
@@ -39,13 +47,36 @@ func _register_card(entry: Variant) -> void:
 	if _cards.has(id):
 		push_warning("[DefeatCodex] 卡片 id 重複：%s" % id)
 		return
-	_cards[id] = {
+	var card := {
 		"id": id,
 		"title": str(dict.get("title", "???")),
 		"text": str(dict.get("text", "")),
 		"hint": str(dict.get("hint", "")),
 	}
+	var translations: Dictionary = {}
+	for field: String in CARD_FIELDS:
+		var values: Dictionary[String, String] = {}
+		for language: String in StoryLocale.LANGUAGES:
+			if language == StoryLocale.SOURCE_LANGUAGE:
+				continue
+			var value: Variant = dict.get("%s_%s" % [field, language])
+			if value is String and not value.strip_edges().is_empty():
+				values[language] = value
+		if not values.is_empty():
+			translations[field] = values
+	card["translations"] = translations
+	_cards[id] = card
 	_order.append(id)
+
+
+func _display_card(id: StringName, language: String) -> Dictionary:
+	var definition := _cards[id]
+	var result := {"id": id}
+	var translations: Dictionary = definition["translations"]
+	for field: String in CARD_FIELDS:
+		var source: String = definition[field]
+		result[field] = StoryLocale.optional_text(translations[field], language, source) if translations.has(field) else source
+	return result
 
 
 func _load_progress() -> void:
@@ -95,24 +126,24 @@ func has_card(id: StringName) -> bool:
 
 
 ## 解鎖死因對應的卡片並回傳卡片內容（附 is_new 欄位）。
-func unlock(cause: StringName) -> Dictionary:
+func unlock(cause: StringName, language := StoryLocale.SOURCE_LANGUAGE) -> Dictionary:
 	var id := cause if _cards.has(cause) else FALLBACK_ID
 	var is_new := not _unlocked.has(id)
 	if is_new:
 		_unlocked[id] = true
 		_save_progress()
 	EventBus.codex_card_unlocked.emit(id, is_new)
-	var card: Dictionary = _cards[id].duplicate()
+	var card := _display_card(id, language)
 	card["is_new"] = is_new
 	card["number"] = _order.find(id) + 1
 	return card
 
 
 ## 依定義順序回傳所有卡片（附 unlocked 與 number 欄位）。
-func get_all_cards() -> Array[Dictionary]:
+func get_all_cards(language := StoryLocale.SOURCE_LANGUAGE) -> Array[Dictionary]:
 	var result: Array[Dictionary] = []
 	for i in _order.size():
-		var card: Dictionary = _cards[_order[i]].duplicate()
+		var card := _display_card(_order[i], language)
 		card["unlocked"] = _unlocked.has(_order[i])
 		card["number"] = i + 1
 		result.append(card)

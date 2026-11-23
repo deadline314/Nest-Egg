@@ -13,6 +13,7 @@ const NOISE_TIME := 0.45
 const BRIEF_MANDATORY_MAX := 1.2
 const CARD_OPEN_TIME := 0.28
 const CARD_WIDTH := 380.0
+const VERTICAL_INSET := 6.0
 const COPY := {
 	"record": ["NEST 回溯紀錄 #%d", "NEST 復元記録 #%d", "NEST Restoration Log #%d"],
 	"failed": ["任務失敗", "任務失敗", "Mission failed"],
@@ -36,6 +37,7 @@ var sequence_index := -1
 var sequence_complete := true
 var _sequence_label: Label
 var _sequence_card: Control
+var _file_scroll: ScrollContainer
 var _sequence_buttons: Control
 ## 按鈕說明的固定列（NE-229）；死亡序列播完、按鈕出現時一起出現。
 var _hint_slot: Control
@@ -70,6 +72,8 @@ func _ready() -> void:
 
 	var center := CenterContainer.new()
 	center.set_anchors_preset(Control.PRESET_FULL_RECT)
+	center.offset_top = VERTICAL_INSET
+	center.offset_bottom = -VERTICAL_INSET
 	root.add_child(center)
 	# Recovery text needs its own surface above transient gameplay notices.
 	var recovery := UiPanel.new("", Palette.DANGER)
@@ -87,7 +91,13 @@ func _ready() -> void:
 		column.add_child(note_label)
 
 	var file := _make_file_card()
-	column.add_child(file)
+	_file_scroll = ScrollContainer.new()
+	_file_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	_file_scroll.mouse_filter = Control.MOUSE_FILTER_STOP
+	file.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_file_scroll.add_child(file)
+	column.add_child(_file_scroll)
+	ScrollCue.attach(_file_scroll)
 	var checkpoint_available := _can_continue and GameState.has_checkpoint
 	var retry_key := "retry" if checkpoint_available else "restart"
 	var retry := UiKit.button(_text(retry_key), retry_requested.emit, _text(retry_key + "_hint"))
@@ -108,6 +118,13 @@ func _ready() -> void:
 	FocusHintBar.attach(root, FocusHintBar.Placement.INLINE, hint_slot)
 	_hint_slot = hint_slot
 
+	# Recompute only after geometry or content changes, preserving space outside the file.
+	var fit := _fit_file_height.bind(center, recovery, file)
+	center.resized.connect(fit)
+	recovery.minimum_size_changed.connect(fit)
+	file.minimum_size_changed.connect(fit)
+	_file_scroll.visibility_changed.connect(fit)
+	fit.call_deferred()
 	_play_noise_in(root)
 	if sequence.get("steps") is Array and not sequence.steps.is_empty():
 		_sequence_label = UiKit.label("", UiKit.FS_BODY, Palette.CYAN, HORIZONTAL_ALIGNMENT_CENTER)
@@ -116,7 +133,7 @@ func _ready() -> void:
 		column.move_child(_sequence_label, 2)
 		_sequence_card = file
 		_sequence_buttons = buttons
-		file.hide()
+		_file_scroll.hide()
 		buttons.hide()
 		hint_slot.hide()
 		sequence_complete = false
@@ -127,11 +144,23 @@ func _ready() -> void:
 		retry.grab_focus.call_deferred()
 
 
+func _fit_file_height(frame: Control, recovery: Control, file: Control) -> void:
+	if not _file_scroll.visible:
+		return
+	var fixed_height := recovery.get_combined_minimum_size().y - _file_scroll.get_combined_minimum_size().y
+	var affordable := maxf(0.0, frame.size.y - fixed_height)
+	var height := minf(affordable, file.get_combined_minimum_size().y)
+	if not is_equal_approx(_file_scroll.custom_minimum_size.y, height):
+		_file_scroll.custom_minimum_size.y = height
+
+
 func _make_file_card() -> Control:
 	var panel := UiPanel.new(_text("codex") % int(_card.get("number", 0)), Palette.WARNING)
 	if bool(_card.get("is_new", false)):
 		panel.body.add_child(UiKit.label(_text("new"), UiKit.FS_BODY, Palette.NEON_YELLOW))
-	panel.body.add_child(UiKit.label(str(_card.get("title", "???")), UiKit.FS_TITLE, Palette.UI_TEXT))
+	var title := UiKit.label(str(_card.get("title", "???")), UiKit.FS_TITLE, Palette.UI_TEXT)
+	title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	panel.body.add_child(title)
 	var text := UiKit.label(str(_card.get("text", "")), UiKit.FS_BODY, Palette.UI_MUTED)
 	text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	panel.body.add_child(text)
@@ -207,7 +236,7 @@ func _advance_sequence() -> void:
 	var kind := str(step.get("kind", "line"))
 	if kind == "card":
 		_sequence_label.hide()
-		_sequence_card.show()
+		_file_scroll.show()
 		_open_card(_sequence_card)
 	else:
 		var speaker := Story.speaker(str(step.get("speaker", "system")))
@@ -222,7 +251,7 @@ func _advance_sequence() -> void:
 func _finish_sequence() -> void:
 	sequence_complete = true
 	_sequence_label.hide()
-	_sequence_card.show()
+	_file_scroll.show()
 	_show_sequence_actions()
 
 
@@ -248,6 +277,11 @@ func _process(delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if _file_scroll.visible:
+		var direction := 1 if event.is_action_pressed(&"aim_down") or event.is_action_pressed(&"ui_page_down") else -1 if event.is_action_pressed(&"aim_up") or event.is_action_pressed(&"ui_page_up") else 0
+		if direction != 0 and ScrollCue.step(_file_scroll, direction):
+			get_viewport().set_input_as_handled()
+			return
 	if sequence_complete or not bool(sequence.get("skippable", false)):
 		return
 	if event.is_action_pressed(&"ui_accept") or event.is_action_pressed(&"ui_cancel") or event.is_action_pressed(&"interact"):

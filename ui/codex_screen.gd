@@ -75,7 +75,8 @@ func _ready() -> void:
 	body.add_theme_constant_override(&"separation", 10)
 	layout.add_child(body)
 	_defeat_body = body
-	body.add_child(_build_wall())
+	var cards := DefeatCodex.get_all_cards(Story.language)
+	body.add_child(_build_wall(cards))
 	body.add_child(_build_detail())
 	_replay_page = ReplayPage.new()
 	_replay_page.replay_requested.connect(_start_replay)
@@ -91,9 +92,8 @@ func _ready() -> void:
 	var back := UiKit.button(ReplayPage.copy("返回", "戻る", "Back"), _close)
 	back.custom_minimum_size = Vector2(120, 0)
 	layout.add_child(back)
-	var all_cards := DefeatCodex.get_all_cards()
-	if not all_cards.is_empty():
-		_show_detail(all_cards[0])
+	if not cards.is_empty():
+		_show_detail(cards[0])
 	var focus_target := _first_card if _first_card != null else back
 	focus_target.grab_focus.call_deferred()
 	_tabs[0].button_pressed = true
@@ -157,7 +157,7 @@ func _exit_tree() -> void:
 		Story.stop_replay()
 
 
-func _build_wall() -> Control:
+func _build_wall(cards: Array[Dictionary]) -> Control:
 	var scroll := ScrollContainer.new()
 	scroll.follow_focus = true
 	# Layout changes keep focus visible; user scrolling must retain its chosen position.
@@ -171,7 +171,7 @@ func _build_wall() -> Control:
 	grid.add_theme_constant_override(&"h_separation", 6)
 	grid.add_theme_constant_override(&"v_separation", 6)
 	scroll.add_child(grid)
-	for card in DefeatCodex.get_all_cards():
+	for card: Dictionary in cards:
 		var node := _make_card(card)
 		grid.add_child(node)
 		if _first_card == null:
@@ -207,7 +207,7 @@ func _apply_wall_focus_layout(scroll: ScrollContainer, view_size: Vector2, minim
 
 
 func _build_detail() -> Control:
-	var panel := UiPanel.new("詳情", Palette.WARNING)
+	var panel := UiPanel.new(ReplayPage.copy("詳情", "詳細", "Details"), Palette.WARNING)
 	panel.custom_minimum_size = Vector2(DETAIL_WIDTH, 0)
 	panel.body.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_detail_scroll = ScrollContainer.new()
@@ -242,12 +242,14 @@ func _make_card(card: Dictionary) -> UiCard:
 	node.content.add_theme_constant_override(&"separation", 1)
 	node.add_text(number, UiKit.FS_BODY, Palette.WARNING if unlocked else Palette.UI_MUTED)
 	var title := str(card.get("title", "")) if unlocked else "？？？"
-	node.add_text(title, UiKit.FS_BODY, Palette.UI_TEXT if unlocked else Palette.TERRAIN_TOP)
+	var caption := node.add_text(title, UiKit.FS_BODY, Palette.UI_TEXT if unlocked else Palette.TERRAIN_TOP)
+	caption.clip_text = true
+	caption.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	if not unlocked:
 		node.modulate = Color(1, 1, 1, 0.55)
 	node.focus_entered.connect(_show_detail.bind(card))
 	node.mouse_entered.connect(_show_detail.bind(card))
-	node.tooltip_text = ("攻略：" + str(card.get("hint", ""))) if unlocked else "以這種方式失敗一次即可解鎖"
+	node.tooltip_text = str(card.get("hint", "")) if unlocked else _unlock_hint()
 	return node
 
 
@@ -258,11 +260,16 @@ func _show_detail(card: Dictionary) -> void:
 	if unlocked:
 		_detail_title.text = str(card.get("title", ""))
 		_detail_text.text = str(card.get("text", ""))
-		_detail_hint.text = "攻略　" + str(card.get("hint", ""))
+		var hint := str(card.get("hint", ""))
+		_detail_hint.text = ReplayPage.copy("攻略　%s", "攻略　%s", "Tip   %s") % hint if not hint.is_empty() else ""
 	else:
 		_detail_title.text = "？？？"
-		_detail_text.text = "尚未解鎖。"
-		_detail_hint.text = "以這種方式失敗一次即可解鎖。"
+		_detail_text.text = ReplayPage.copy("尚未解鎖。", "未解放。", "Locked.")
+		_detail_hint.text = _unlock_hint()
+
+
+func _unlock_hint() -> String:
+	return ReplayPage.copy("以這種方式失敗一次即可解鎖。", "この敗因で一度倒れると解放されます。", "Unlocks the first time this defeats you.")
 
 
 func _unhandled_input(event: InputEvent) -> void:

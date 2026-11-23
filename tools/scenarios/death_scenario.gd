@@ -25,7 +25,7 @@ static func run(host: Node) -> void:
 
 
 static func _death_screens(host: Node, level: Level) -> void:
-	var card := DefeatCodex.unlock(&"grunt_shot")
+	var card := DefeatCodex.unlock(&"grunt_shot", Story.language)
 	for deaths in [1, 3, 30]:
 		GameState.deaths = deaths
 		var screen := DeathScreen.new()

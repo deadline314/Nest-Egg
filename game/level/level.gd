@@ -1056,7 +1056,7 @@ func _on_player_died(cause: StringName) -> void:
 	_finished = true
 	died = true
 	_close_menus()
-	var card := DefeatCodex.unlock(cause)
+	var card := DefeatCodex.unlock(cause, Story.language)
 	var can_continue := GameState.register_death()
 	_death_can_continue = can_continue
 	# 特殊的死亡場景（第一次死亡的診間）：不扣復原費（劇情必死）、不經過死亡畫面，直接播完再重生。
@@ -1369,7 +1369,7 @@ func _resume_death() -> void:
 			return
 	var screen := DeathScreen.new()
 	screen.sequence = Story.death_sequence(data.chapter)
-	screen.setup(DefeatCodex.unlock(_death_cause),_death_can_continue)
+	screen.setup(DefeatCodex.unlock(_death_cause, Story.language), _death_can_continue)
 	screen.retry_requested.connect(_request_retry)
 	screen.menu_requested.connect(_request_menu)
 	add_child(screen)

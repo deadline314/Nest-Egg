@@ -16,6 +16,7 @@ func run() -> void:
 	await preload("res://tests/helpers/radio_prompt_checks.gd").run(self)
 	await preload("res://tests/helpers/destination_prompt_checks.gd").run(self)
 	await _test_codex()
+	await _test_defeat_card_language()
 	await preload("res://tests/helpers/codex_replay_checks.gd").run(self)
 	await _test_pause_info()
 	await _test_pause_language()
@@ -129,6 +130,77 @@ func _test_title_language() -> void:
 	Settings.set_ui_text_scale(previous_scale)
 	Settings.set_reduce_ui_motion(previous_motion)
 	Story.language = previous_language
+
+
+func _test_defeat_card_language() -> void:
+	var old_unlocks := DefeatCodex.unlocked_ids()
+	var old_persist := DefeatCodex.persist
+	var old_language := Story.language
+	DefeatCodex.persist = false
+	DefeatCodex.restore_unlocked([])
+	var definition := JSON.parse_string(FileAccess.get_file_as_string(DefeatCodex.CARDS_PATH)) as Dictionary
+	var source_cards := DefeatCodex.get_all_cards()
+	check(DefeatCodex.get_all_cards("invalid") == source_cards, "unknown archive language preserves the source cards")
+	for language: String in ["en", "ja"]:
+		Story.language = language
+		var cards := DefeatCodex.get_all_cards(language)
+		check(cards.size() == definition["cards"].size(), "every authored defeat remains listed in " + language)
+		for index in cards.size():
+			var source_card := source_cards[index]
+			var expected: Dictionary = definition["cards"][index]
+			var card := cards[index]
+			check(card["id"] == source_card["id"] and card["number"] == source_card["number"]
+					and card["title"] == expected.get("title_" + language, "")
+					and card["text"] == expected.get("text_" + language, "")
+					and card["hint"] == expected.get("hint_" + language, ""),
+					"localized card preserves the identity, text and strategy for %s/%s" % [card["id"], language])
+		var unlocked := DefeatCodex.unlock(&"grunt_shot", language)
+		var codex := CodexScreen.new()
+		runner.add_child(codex)
+		await frames(3)
+		check(codex._detail_title.text == unlocked["title"] and codex._detail_text.text == unlocked["text"]
+				and codex._first_card.tooltip_text == unlocked["hint"],
+				"the actual archive detail and Hover use the same strategy as the death unlock in " + language)
+		check(DefeatCodex.unlocked_ids() == [&"grunt_shot"] and unlocked["number"] == source_cards[0]["number"],
+				"translation does not change the real unlock or the saved card ID")
+		codex.queue_free()
+		await frames(2)
+	Story.language = "en"
+	await _check_localized_recovery_card(DefeatCodex.unlock(&"yong_baton", "en"))
+	DefeatCodex.restore_unlocked(old_unlocks)
+	DefeatCodex.persist = old_persist
+	Story.language = old_language
+
+
+func _check_localized_recovery_card(card: Dictionary) -> void:
+	var previous_scale := Settings.get_ui_text_scale()
+	var previous_motion := Settings.get_reduce_ui_motion()
+	Settings.set_ui_text_scale(1.2)
+	Settings.set_reduce_ui_motion(true)
+	var screen := DeathScreen.new()
+	screen.setup(card, true)
+	runner.add_child(screen)
+	await frames(8)
+	var view := screen.get_viewport().get_visible_rect()
+	var focused := screen.get_viewport().gui_get_focus_owner() as Button
+	check(focused != null and view.encloses(focused.get_global_rect())
+			and view.encloses(screen._hint_slot.get_global_rect()),
+			"the longer localized card leaves the focused retry and its help on screen")
+	var scroll := screen._file_scroll
+	var bar := scroll.get_v_scroll_bar()
+	check(bar.max_value > bar.page, "the full Rash tactic can be scrolled at 120%")
+	var first := scroll.scroll_vertical
+	var down := InputEventAction.new()
+	down.action = &"ui_page_down"
+	down.pressed = true
+	screen._unhandled_input(down)
+	await frames(2)
+	check(scroll.scroll_vertical > first and focused != null and focused.has_focus(),
+			"scrolling through the tactic keeps the recovery choice focused")
+	screen.queue_free()
+	await frames(2)
+	Settings.set_ui_text_scale(previous_scale)
+	Settings.set_reduce_ui_motion(previous_motion)
 
 
 func _test_codex() -> void:
