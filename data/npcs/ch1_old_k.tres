@@ -60,5 +60,6 @@ rig_id = "old_k"
 loop = &"wipe_hands"
 facing = -1
 prompt = "{interact} 和老 K 說話"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Talk to Old K", "ja": "{interact} 老Kと話す"})
 talks = Array[ExtResource("2_npc_talk")]([SubResource("Resource_0"), SubResource("Resource_1"), SubResource("Resource_2"), SubResource("Resource_3")])
 reactions = Array[ExtResource("3_npc_reaction")]([SubResource("Resource_4"), SubResource("Resource_5"), SubResource("Resource_6"), SubResource("Resource_7"), SubResource("Resource_8")])

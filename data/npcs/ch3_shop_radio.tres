@@ -17,4 +17,5 @@ kind = 1
 loop = &""
 facing = 1
 prompt = "{interact} 接店內的通訊"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Answer the shop call", "ja": "{interact} 店内の通信に応答する"})
 talks = Array[ExtResource("2_npc_talk")]([SubResource("Resource_0")])

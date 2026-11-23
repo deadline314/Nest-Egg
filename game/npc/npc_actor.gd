@@ -86,7 +86,7 @@ func _ready() -> void:
 		if data.kind == NpcData.Kind.PERSON or _actor != null:
 			ContactShadow.attach(self, FIGURE_HALF_WIDTH)
 	_prompt = WorldPrompt.new()
-	_prompt.text = data.prompt_text()
+	_prompt.text = data.prompt_text(Story.language)
 	_prompt.radius = PROMPT_RADIUS
 	_prompt.offset = PROMPT_OFFSET
 	_prompt.reach_check = _prompt_available

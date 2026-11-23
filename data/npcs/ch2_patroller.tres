@@ -16,4 +16,5 @@ rig_id = "ch2_patroller"
 loop = &"glance"
 facing = -1
 prompt = "{interact} 出示查核證"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Show the inspection pass", "ja": "{interact} 査察証を見せる"})
 talks = Array[ExtResource("2_npc_talk")]([SubResource("Resource_0")])

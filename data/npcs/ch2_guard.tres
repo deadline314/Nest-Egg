@@ -18,4 +18,5 @@ pose = &"rest"
 loop = &""
 facing = 1
 prompt = "{interact} 查看倚著牆的守衛"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Check the guard by the wall", "ja": "{interact} 壁にもたれた警備員を調べる"})
 talks = Array[ExtResource("2_npc_talk")]([SubResource("Resource_0")])

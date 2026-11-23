@@ -17,4 +17,5 @@ spawn_unless_flag = &"ch1_prologue_jump_done"
 loop = &"wipe_hands"
 facing = 1
 prompt = "{interact} 和老 K 說話"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Talk to Old K", "ja": "{interact} 老Kと話す"})
 talks = Array[ExtResource("2_npc_talk")]([SubResource("Resource_0")])

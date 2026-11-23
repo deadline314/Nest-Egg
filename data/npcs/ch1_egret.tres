@@ -33,5 +33,6 @@ pose = &"lean"
 loop = &"yawn"
 facing = -1
 prompt = "{interact} 聽鷺說差事"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Hear Egret's job details", "ja": "{interact} 鷺から依頼の話を聞く"})
 talks = Array[ExtResource("2_npc_talk")]([SubResource("Resource_0")])
 reactions = Array[ExtResource("3_npc_reaction")]([SubResource("Resource_1"), SubResource("Resource_2"), SubResource("Resource_3")])

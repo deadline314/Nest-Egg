@@ -18,4 +18,5 @@ spawn_requires_flag = &"ch1_recording_heard"
 loop = &""
 facing = 1
 prompt = "{interact} 用耳機問燈錄音的事"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Ask Wick about the recording", "ja": "{interact} イヤホンで灯に録音のことを聞く"})
 talks = Array[ExtResource("2_npc_talk")]([SubResource("Resource_0")])

@@ -17,4 +17,5 @@ spawn_unless_flag = &"ch2_audit_submitted"
 loop = &"read_note"
 facing = 1
 prompt = "{interact} 和阿梨說話"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Talk to Pear", "ja": "{interact} 梨と話す"})
 talks = Array[ExtResource("2_npc_talk")]([SubResource("Resource_0")])

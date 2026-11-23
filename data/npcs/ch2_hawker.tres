@@ -16,4 +16,5 @@ rig_id = "ch2_hawker"
 loop = &"sort_gear"
 facing = -1
 prompt = "{interact} 和小販說話"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Talk to the hawker", "ja": "{interact} 物売りと話す"})
 talks = Array[ExtResource("2_npc_talk")]([SubResource("Resource_0")])

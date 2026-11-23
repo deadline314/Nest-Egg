@@ -16,4 +16,5 @@ rig_id = "vig"
 loop = &"tablet"
 facing = -1
 prompt = "{interact} 和利息說話"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Talk to Vig", "ja": "{interact} 利息と話す"})
 talks = Array[ExtResource("2_npc_talk")]([SubResource("Resource_0")])

@@ -18,4 +18,5 @@ spawn_requires_flag = &"m3_available"
 loop = &""
 facing = 1
 prompt = "{interact} 翻貨架上的未署名記錄"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Read the unsigned record on the shelf", "ja": "{interact} 棚の無署名記録を読む"})
 talks = Array[ExtResource("2_npc_talk")]([SubResource("Resource_0")])

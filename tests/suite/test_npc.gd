@@ -385,6 +385,12 @@ func _test_data() -> void:
 		if npc == null:
 			continue
 		check(npc.validate().is_empty(), "npc valid: %s %s" % [file, npc.validate()])
+		if file.begins_with("ch") and not npc.prompt.is_empty():
+			check(npc.prompt_text("zh") == npc.prompt, "original prompt remains the source: " + file)
+			for language: String in ["en", "ja"]:
+				var translated := npc.prompt_text(language)
+				check(translated.begins_with("{interact} ") and translated != npc.prompt
+					and npc.localized_prompts.has(language), "localized trigger names the real action: %s %s" % [file, language])
 		check(npc.pick_talk(0, Story.was_seen) >= 0, "npc has a first conversation: %s" % file)
 		for talk in npc.talks:
 			check(Story.has_scene(talk.scene), "npc talk scene exists: %s -> %s" % [file, talk.scene])

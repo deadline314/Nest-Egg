@@ -13,6 +13,27 @@ import build_ch1 as kit
 from level_kit import Grid, RouteState
 
 
+class NpcPromptTests(unittest.TestCase):
+    def test_authored_prompts_have_each_supported_translation(self):
+        import build_ch2
+        import build_ch3
+        from npc_prompt_translations import localized_prompt
+
+        for chapter in (kit, build_ch2, build_ch3):
+            for identity, npc in chapter.NPCS.items():
+                with self.subTest(npc=identity):
+                    localized = localized_prompt(npc["prompt"])
+                    self.assertEqual(set(localized), {"en", "ja"})
+                    for prompt in localized.values():
+                        self.assertTrue(prompt.startswith("{interact} "))
+                        self.assertNotEqual(prompt, npc["prompt"])
+
+    def test_unknown_prompt_can_use_the_authoring_fallback(self):
+        from npc_prompt_translations import localized_prompt
+
+        self.assertEqual(localized_prompt("{interact} 暫時的新提示"), {})
+
+
 class HeightTests(unittest.TestCase):
     def test_revision_scalar_and_cell_mapping_keep_existing_list_format(self):
         grid = Grid(3, 2)

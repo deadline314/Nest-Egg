@@ -17,4 +17,5 @@ kind = 1
 loop = &""
 facing = 1
 prompt = "{interact} 在委託終端上傳證據"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Upload evidence at the job terminal", "ja": "{interact} 依頼端末に証拠をアップロードする"})
 talks = Array[ExtResource("2_npc_talk")]([SubResource("Resource_0")])

@@ -16,4 +16,5 @@ rig_id = "zhi"
 loop = &"read_note"
 facing = -1
 prompt = "{interact} 和芷姐說話"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Talk to Sister Zhi", "ja": "{interact} 芷さんと話す"})
 talks = Array[ExtResource("2_npc_talk")]([SubResource("Resource_0")])

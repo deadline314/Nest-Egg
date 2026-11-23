@@ -20,4 +20,5 @@ pose_before = &"idle"
 loop = &"glance"
 facing = 1
 prompt = "{interact} 看看守門人"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Check the Gatekeeper", "ja": "{interact} 門番の様子を見る"})
 talks = Array[ExtResource("2_npc_talk")]([SubResource("Resource_0")])

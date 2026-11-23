@@ -6,6 +6,9 @@ extends Resource
 ## 可交談的人物，或由玩家調查的場景目標。調查目標可用固定骨架表現沒有回應的人。
 enum Kind { PERSON, OBJECT }
 
+const PERSON_PROMPT := {"zh": "{interact} 和%s說話", "ja": "{interact} %sと話す", "en": "{interact} Talk to %s"}
+const OBJECT_PROMPT := {"zh": "{interact} 看一下%s", "ja": "{interact} %sを調べる", "en": "{interact} Inspect %s"}
+
 @export var id: StringName = &"npc"
 @export var kind: Kind = Kind.PERSON
 @export var display_name: String = "路人"
@@ -28,6 +31,7 @@ enum Kind { PERSON, OBJECT }
 @export var facing: int = -1
 ## 互動提示（一句重點，可用 {interact}）；空白時用「{interact} 和<名字>說話」。
 @export var prompt: String = ""
+@export var localized_prompts: Dictionary[String, String] = {}
 ## 出現條件：這個旗標成立才在地圖上出現（空白＝不限）；例如阿梨下班後才在門外麵攤。
 @export var spawn_requires_flag: StringName = &""
 ## 消失條件：這個旗標成立就不在地圖上（空白＝不限）；例如阿梨收店後館內就沒有她。
@@ -46,10 +50,11 @@ func should_spawn(flag_reader: Callable = Callable()) -> bool:
 	return spawn_unless_flag == &"" or not bool(reader.call(spawn_unless_flag))
 
 
-func prompt_text() -> String:
+func prompt_text(language: String = StoryLocale.SOURCE_LANGUAGE) -> String:
 	if not prompt.is_empty():
-		return prompt
-	return "{interact} 看一下%s" % display_name if kind == Kind.OBJECT else "{interact} 和%s說話" % display_name
+		return StoryLocale.optional_text(localized_prompts, language, prompt)
+	var templates := OBJECT_PROMPT if kind == Kind.OBJECT else PERSON_PROMPT
+	return templates.get(language, templates[StoryLocale.SOURCE_LANGUAGE]) % display_name
 
 
 ## 依已談過的次數與劇情進度挑出這次要說的一段（符合條件的最後一段）。回傳在 talks 中的位置，沒有可用的回傳 -1。

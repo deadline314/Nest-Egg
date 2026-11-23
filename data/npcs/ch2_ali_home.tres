@@ -22,4 +22,5 @@ rig_id = "ali"
 loop = &"stir"
 facing = -1
 prompt = "{interact} 敲門找阿梨"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Knock for Pear", "ja": "{interact} 梨の部屋をノックする"})
 talks = Array[ExtResource("2_npc_talk")]([SubResource("Resource_0"), SubResource("Resource_1")])

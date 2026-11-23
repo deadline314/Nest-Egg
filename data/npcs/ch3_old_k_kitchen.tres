@@ -17,4 +17,5 @@ spawn_requires_flag = &"ch3_trade_overheard"
 loop = &"stir"
 facing = -1
 prompt = "{interact} 和老 K 吃飯"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Eat with Old K", "ja": "{interact} 老Kと食事する"})
 talks = Array[ExtResource("2_npc_talk")]([SubResource("Resource_0")])

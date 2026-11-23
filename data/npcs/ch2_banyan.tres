@@ -17,4 +17,5 @@ pause_work_near_player = true
 loop = &"stir"
 facing = 1
 prompt = "{interact} 和榕伯說話"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Talk to Old Banyan", "ja": "{interact} 榕じいと話す"})
 talks = Array[ExtResource("2_npc_talk")]([SubResource("Resource_0")])

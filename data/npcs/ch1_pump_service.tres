@@ -19,4 +19,5 @@ spawn_unless_flag = &"ch1_pump_case_reset"
 loop = &""
 facing = 1
 prompt = "{interact} 查看抽水機外殼"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Inspect the pump casing", "ja": "{interact} ポンプの外装を調べる"})
 talks = Array[ExtResource("2_npc_talk")]([SubResource("Resource_0")])

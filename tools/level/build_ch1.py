@@ -13,6 +13,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(__file__))
 from scenery_placement import prepare_props
+from npc_prompt_translations import localized_prompt
 from level_kit import Grid, RouteState, PLAYER_JUMP_TILES, HEADROOM  # noqa: E402
 
 ROOT = os.path.join(os.path.dirname(__file__), '..', '..')
@@ -1260,8 +1261,11 @@ def write_npc_files():
             lines += [f'pose_before_flag = &"{n["pose_before_flag"]}"', f'pose_before = &"{n["pose_before"]}"']
         if n.get('pause_work_near_player'):
             lines.append('pause_work_near_player = true')
-        lines += [f'loop = &"{n["loop"]}"', f'facing = {n["facing"]}', f'prompt = {json.dumps(n["prompt"], ensure_ascii=False)}',
-                  f'talks = Array[ExtResource("{talk_script}")]([' + ', '.join(f'SubResource("{x}")' for x in subs) + '])']
+        lines += [f'loop = &"{n["loop"]}"', f'facing = {n["facing"]}', f'prompt = {json.dumps(n["prompt"], ensure_ascii=False)}']
+        translations = localized_prompt(n["prompt"])
+        if translations:
+            lines.append(f'localized_prompts = Dictionary[String, String]({json.dumps(translations, ensure_ascii=False)})')
+        lines.append(f'talks = Array[ExtResource("{talk_script}")]([' + ', '.join(f'SubResource("{x}")' for x in subs) + '])')
         if reaction_subs:
             lines.append(f'reactions = Array[ExtResource("{reaction_script}")]([' + ', '.join(f'SubResource("{x}")' for x in reaction_subs) + '])')
         with open(os.path.join(NPC_DIR, f'{ident}.tres'), 'w', encoding='utf-8') as f:

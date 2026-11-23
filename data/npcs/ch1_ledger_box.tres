@@ -18,4 +18,5 @@ spawn_unless_flag = &"ch1_supper_done"
 loop = &""
 facing = 1
 prompt = "{interact} 查看帳冊箱的鎖"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Check the ledger box lock", "ja": "{interact} 帳簿箱の鍵を調べる"})
 talks = Array[ExtResource("2_npc_talk")]([SubResource("Resource_0")])

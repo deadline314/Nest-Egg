@@ -17,4 +17,5 @@ pose = &"lean"
 loop = &"yawn"
 facing = -1
 prompt = "{interact} 和鷺說話"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Talk to Egret", "ja": "{interact} 鷺と話す"})
 talks = Array[ExtResource("2_npc_talk")]([SubResource("Resource_0")])
