@@ -114,6 +114,7 @@ func run() -> void:
 	check(Progression.credits == 0 and Progression.total_pawned() == 0, "standalone progression restore handles nonfinite scalars")
 	GameState.restore_story_progress({"deaths": INF})
 	check(GameState.deaths == 0, "standalone story death count handles infinity")
+	_test_primary_validation(valid)
 	var store := RunSaveStore.new(directory.path_join("unit.json"))
 	store.validator = RunSnapshot.prepare
 	check(store.write(valid, true), "first complete snapshot writes")
@@ -243,3 +244,30 @@ func run() -> void:
 	await preload("res://tests/helpers/world_item_repair_boundary_checks.gd").run(self, directory)
 	await preload("res://tests/helpers/terminal_repair_boundary_checks.gd").run(self, directory)
 	GameState.start_new_run(GameState.difficulties[1])
+
+
+func _test_primary_validation(seed: Dictionary) -> void:
+	var store := RunSaveStore.new(directory.path_join("primary_stamp.json"))
+	store.validator = RunSnapshot.prepare
+	check(store.write(seed, true), "transaction test installs a complete initial slot")
+	var validations := [0]
+	store.validator = func(raw: Dictionary) -> Dictionary:
+		validations[0] += 1
+		return RunSnapshot.prepare(raw)
+	var draft := seed.duplicate(true)
+	draft["progression"]["credits"] = 811
+	check(store.write(draft) and validations[0] == 2,
+			"normal writes validate the unchanged previous primary and the new draft exactly once each")
+	var previous_backup := FileAccess.get_sha256(store.path + ".bak")
+	var future := '{"version":999}'
+	store.validator = func(raw: Dictionary) -> Dictionary:
+		if raw["progression"]["credits"] == 912:
+			var changed := FileAccess.open(store.path, FileAccess.WRITE)
+			changed.store_string(future)
+			changed.close()
+		return RunSnapshot.prepare(raw)
+	draft["progression"]["credits"] = 912
+	check(not store.write(draft) and store.unknown_version, "a different future primary installed during verification is protected")
+	check(FileAccess.get_file_as_string(store.path) == future and FileAccess.get_sha256(store.path + ".bak") == previous_backup,
+			"the concurrently installed primary and its original backup remain unchanged")
+	store.validator = Callable()

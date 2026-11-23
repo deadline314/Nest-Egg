@@ -74,6 +74,8 @@ var _runtime_save_queued := false
 var _pending_screen: Node
 var _quitting := false
 var _destination_pending := false
+var _route_preparing := false
+var _route_generation := 0
 var _restore_publish_pending := false
 var _publishing_restore := false
 var _destination_save_prompt: Control
@@ -150,7 +152,8 @@ func _swap_screen(screen: Node) -> void:
 			return
 		if not level.is_initialized():
 			_restore_publish_pending = false
-			return  # Failed entry requests the menu without publishing or saving partial state.
+			await _open_main_menu()
+			return  # A failed entry never publishes or saves partial state.
 	# Level._ready 已裝齊玩家、世界及續玩資料，通知才可離開 Main。
 	if _restore_publish_pending:
 		_restore_publish_pending = false
@@ -163,6 +166,10 @@ func _swap_screen(screen: Node) -> void:
 func _show_main_menu() -> void:
 	if _route_pending():
 		return
+	await _open_main_menu()
+
+
+func _open_main_menu() -> void:
 	_save_run()
 	_active_run = false
 	Story.reset_active_presentation(&"menu")
@@ -183,7 +190,7 @@ func _show_main_menu() -> void:
 	menu.continue_requested.connect(_on_continue_requested, CONNECT_DEFERRED)
 	menu.start_requested.connect(_on_start_requested, CONNECT_DEFERRED)
 	menu.quit_requested.connect(_quit, CONNECT_DEFERRED)
-	_switch_to(menu, Transition.Kind.SCAN)
+	await _switch_to(menu, Transition.Kind.SCAN)
 
 
 ## 本版本自己的存檔優先；沒有時才找較舊累積版本的存檔接續（原檔保留）。
@@ -244,6 +251,10 @@ static func _edition_save_notice(edition: CampaignEdition, can_resume: bool) -> 
 func _on_start_requested(difficulty: DifficultyData) -> void:
 	if _route_pending():
 		return
+	await _cover_route(Transition.Kind.SCAN, _start_run.bind(difficulty))
+
+
+func _start_run(difficulty: DifficultyData) -> void:
 	_active_run = false
 	GameState.story_autosave = false
 	GameState.start_new_run(difficulty)
@@ -256,15 +267,22 @@ func _on_start_requested(difficulty: DifficultyData) -> void:
 	# 選單已明確確認覆寫；新輪先落起點，載入失敗不復活舊輪。
 	if not _run_store.write(RunSnapshot.capture(_level_path, {"loadout": {}, "world": {}, "position": [-1, -1], "health": difficulty.player_max_health}), true):
 		EventBus.toast_requested.emit("新遊戲尚未保存，原檔已保留；會再嘗試保存。")
-	_load_level(Transition.Kind.SCAN)
+	if await _route_frame():
+		await _load_level(Transition.Kind.SCAN)
 
 
 func _on_continue_requested() -> void:
 	if _route_pending():
 		return
+	await _cover_route(Transition.Kind.SCAN, _continue_run)
+
+
+func _continue_run() -> void:
 	var data: Dictionary = _read_continue().get("data", {})
 	if data.is_empty():
-		_show_main_menu()
+		await _open_main_menu()
+		return
+	if not await _route_frame():
 		return
 	if not _import_path.is_empty():
 		push_warning("[RunSave] 從其他累積版本接續：%s；原檔不修改，之後保存到 %s" % [_import_path, _run_store.path])
@@ -290,11 +308,11 @@ func _on_continue_requested() -> void:
 	if next != null:
 		# 較舊累積版本在章末保存；本版本收錄下一章時從下一章入口接續，不重看結算。
 		GameState.carry_over(_resume_runtime.get("loadout", {}))
-		_enter_next_level(next, _resume_runtime)
+		await _enter_next_level(next, _resume_runtime)
 	elif _chapter_complete:
-		_show_victory(terminal.chapter)
+		await _show_victory(terminal.chapter)
 	else:
-		_load_level(Transition.Kind.SCAN)
+		await _load_level(Transition.Kind.SCAN)
 
 
 ## 下一個區域：存在、型別正確且屬於本版本收錄的章節才接續；否則視為本版本的章末。
@@ -325,12 +343,17 @@ func _enter_next_level(next: LevelData, runtime: Dictionary) -> void:
 	runtime["position"] = [-1, -1]
 	runtime["health"] = GameState.difficulty.player_max_health
 	if not _save_destination(runtime, next.resource_path, state_changes):
-		_show_destination_failure(_enter_next_level.bind(next, runtime), false, "chapter")
+		_show_destination_failure(_retry_chapter_route.bind(next, runtime), false, "chapter")
 		return
 	_chapter_complete = false
 	GameState.enter_level()
 	_resume_runtime = runtime if _restore_publish_pending else {}
-	_load_level(Transition.Kind.ELEVATOR)
+	if await _route_frame():
+		await _load_level(Transition.Kind.ELEVATOR)
+
+
+func _retry_chapter_route(next: LevelData, runtime: Dictionary) -> void:
+	await _cover_route(Transition.Kind.ELEVATOR, _enter_next_level.bind(next, runtime))
 
 
 func _load_level(kind := Transition.Kind.IRIS, caption := "", hold := 0.0) -> void:
@@ -338,7 +361,7 @@ func _load_level(kind := Transition.Kind.IRIS, caption := "", hold := 0.0) -> vo
 	if data == null:
 		push_error("[Main] 無法載入關卡：%s" % _level_path)
 		_restore_publish_pending = false
-		_show_main_menu()
+		await _open_main_menu()
 		return
 	var level := Level.new()
 	level.configure(data, not Transition.instant)
@@ -347,17 +370,29 @@ func _load_level(kind := Transition.Kind.IRIS, caption := "", hold := 0.0) -> vo
 		_resume_runtime = {}
 	level.critical_save_requested.connect(_save_run)
 	level.retry_requested.connect(_on_retry_requested.bind(level), CONNECT_DEFERRED)
-	level.menu_requested.connect(_show_main_menu, CONNECT_DEFERRED)
+	level.menu_requested.connect(_on_level_menu_requested.bind(weakref(level)), CONNECT_DEFERRED)
 	level.completed.connect(_on_level_completed.bind(data, weakref(level)), CONNECT_DEFERRED)
 	level.area_requested.connect(_on_area_requested, CONNECT_DEFERRED)
-	if caption.is_empty():
-		caption = StoryLocale.optional_text({"ja": "読み込み中…", "en": "Loading…"}, Story.language, "載入中…")
-	_switch_to(level, kind, Vector2(0.5, 0.5), caption, hold)
+	await _switch_to(level, kind, Vector2(0.5, 0.5), _loading_caption(caption), hold)
+
+
+func _on_level_menu_requested(origin: WeakRef) -> void:
+	if origin.get_ref() == _screen:
+		_show_main_menu()
 
 
 ## 死亡後重來用雜訊溶解並標示回溯編號；暫停選單的「從檢查點重來」用光圈。
 func _on_retry_requested(level: Level) -> void:
-	if _route_pending() or (is_instance_valid(level) and level.channel_result_pending):
+	if _route_pending() or not is_instance_valid(level) or level.channel_result_pending:
+		return
+	var kind := Transition.Kind.GLITCH if level.died else Transition.Kind.IRIS
+	var caption := DeathScreen.record_title(GameState.deaths) if level.died else ""
+	var hold := RETRY_HOLD if level.died else 0.0
+	await _cover_route(kind, _retry_run.bind(level, kind, caption, hold), caption, hold)
+
+
+func _retry_run(level: Level, kind: Transition.Kind, caption: String, hold: float) -> void:
+	if not is_instance_valid(level):
 		return
 	Story.reset_active_presentation(&"retry")
 	# 檢查點在別的區域（區域組）：回到那個區域；舊式關卡的檢查點一定在同一關。
@@ -384,10 +419,8 @@ func _on_retry_requested(level: Level) -> void:
 	if restore_progression is Dictionary:
 		Progression.restore(restore_progression)
 	_clear_cinematic()
-	if is_instance_valid(level) and level.died:
-		_load_level(Transition.Kind.GLITCH, DeathScreen.record_title(GameState.deaths), RETRY_HOLD)
-	else:
-		_load_level(Transition.Kind.IRIS)
+	if await _route_frame():
+		await _load_level(kind, caption, hold)
 
 
 ## 穿過出入口：載入目標區域（玩家出現在 GameState.pending_portal 指定的出入口）。
@@ -395,6 +428,10 @@ func _on_area_requested(level_path: String) -> void:
 	if is_instance_valid(_channel_completion) and _channel_completion.defer_area(level_path): return
 	if _route_pending():
 		return
+	await _cover_route(Transition.Kind.FADE, _commit_area_route.bind(level_path))
+
+
+func _commit_area_route(level_path: String) -> void:
 	# 撤回未完成演出的暫定效果，再保存新區入口；入口Portal由實際路由保留。
 	var portal := GameState.pending_portal
 	Story.reset_active_presentation(&"route")
@@ -407,6 +444,8 @@ func _on_area_requested(level_path: String) -> void:
 	# The source slot describes the current room, not the destination portal.
 	GameState.pending_portal = &""
 	_save_run(true)
+	if not await _route_frame():
+		return
 	GameState.pending_portal = portal
 	# 保存目標入口而不是舊區位置；切換中關閉也能進新區。
 	var runtime := (_screen as Level).run_snapshot() if _screen is Level else {}
@@ -417,7 +456,8 @@ func _on_area_requested(level_path: String) -> void:
 			GameState.pending_portal = portal
 			_on_area_requested(level_path), true, "area")
 		return
-	_load_level(Transition.Kind.FADE)
+	if await _route_frame():
+		await _load_level(Transition.Kind.FADE)
 
 
 ## 過關：有下一關就接續（帶著成長與裝備），否則進入結算畫面。下一關讀不到時退回結算，不會卡住。
@@ -436,15 +476,24 @@ func _on_level_completed(data: LevelData, source_ref: WeakRef = null) -> void:
 		return
 	var next := _next_level(data)
 	if next != null:
-		_save_run()
-		_enter_next_level(next, (_screen as Level).run_snapshot())
+		await _cover_route(Transition.Kind.ELEVATOR, _handoff_chapter.bind(next, source))
 	else:
-		var completed := RunSnapshot.capture(_level_path, source.run_snapshot(), "", true)
-		if not _run_store.write(completed):
-			_show_destination_failure(_on_level_completed.bind(data, weakref(source)), false, "ending")
-			return
-		_chapter_complete = true
-		_show_victory(data.chapter)
+		await _cover_route(Transition.Kind.BLINDS, _finish_chapter.bind(data, source))
+
+
+func _handoff_chapter(next: LevelData, source: Level) -> void:
+	_save_run()
+	if await _route_frame():
+		await _enter_next_level(next, source.run_snapshot())
+
+
+func _finish_chapter(data: LevelData, source: Level) -> void:
+	var completed := RunSnapshot.capture(_level_path, source.run_snapshot(), "", true)
+	if not _run_store.write(completed):
+		_show_destination_failure(_on_level_completed.bind(data, weakref(source)), false, "ending")
+		return
+	_chapter_complete = true
+	await _show_victory(data.chapter)
 
 
 func _show_victory(chapter: StringName) -> void:
@@ -452,7 +501,7 @@ func _show_victory(chapter: StringName) -> void:
 	screen.chapter = chapter
 	screen.replay_requested.connect(_on_start_requested.bind(GameState.difficulty), CONNECT_DEFERRED)
 	screen.menu_requested.connect(_show_main_menu, CONNECT_DEFERRED)
-	_switch_to(screen, Transition.Kind.BLINDS)
+	await _switch_to(screen, Transition.Kind.BLINDS)
 
 
 func _publishing_results() -> bool:
@@ -462,8 +511,43 @@ func _publishing_results() -> bool:
 	return false
 
 
+## All route preparation runs behind the same transition, including durable
+## writes. Nested screen installation is awaited before the cover can reopen.
+func _cover_route(kind: Transition.Kind, prepare: Callable, caption := "", hold := 0.0) -> void:
+	_route_generation += 1
+	var generation := _route_generation
+	_route_preparing = true
+	await Transition.play(kind, _prepare_route.bind(prepare, generation), -1.0, Vector2(0.5, 0.5), _loading_caption(caption), hold)
+	_finish_route_preparation(generation)
+
+
+func _prepare_route(prepare: Callable, generation: int) -> void:
+	if await _route_frame():
+		await prepare.call()
+	_finish_route_preparation(generation)
+
+
+func _finish_route_preparation(generation: int) -> void:
+	if generation == _route_generation and _route_preparing:
+		_route_preparing = false
+		_queue_save()
+
+
+func _route_frame() -> bool:
+	var covered := Transition.is_active()
+	if covered:
+		await get_tree().process_frame
+	return not _quitting and (not covered or Transition.is_active())
+
+
+static func _loading_caption(caption: String) -> String:
+	if not caption.is_empty():
+		return caption
+	return StoryLocale.optional_text({"ja": "読み込み中…", "en": "Loading…"}, Story.language, "載入中…")
+
+
 func _route_pending() -> bool:
-	return (_publishing_results() or _quitting or _publishing_restore
+	return (_publishing_results() or _quitting or _publishing_restore or _route_preparing
 			or is_instance_valid(_destination_save_prompt)
 			or (is_instance_valid(_pending_screen) and not _pending_screen.is_inside_tree())
 			or (_screen is Level and _screen.is_building_entry()))
@@ -515,7 +599,7 @@ func _queue_save() -> void:
 		return
 	if _story_save_blocked():
 		return
-	if not _active_run or _save_queued or _restore_publish_pending or _publishing_restore:
+	if not _active_run or _save_queued or _restore_publish_pending or _publishing_restore or _route_preparing:
 		return
 	_save_queued = true
 	_flush_save.call_deferred()
@@ -523,7 +607,8 @@ func _queue_save() -> void:
 
 func _flush_save() -> void:
 	_save_queued = false
-	_save_run()
+	if not _route_preparing:
+		_save_run()
 
 
 func _save_run(route_source := false) -> void:
@@ -562,7 +647,7 @@ func _save_destination(runtime: Dictionary, destination_path := "", state_change
 	var prepared := preload("res://core/run_destination.gd").prepare(RunSnapshot.capture(path, runtime), path, state_changes, progression)
 	if prepared.has("error"):
 		push_warning("[RunSave] run/level 目的地無效：%s，原存檔保留並返回選單" % path)
-		_show_main_menu()
+		_open_main_menu()
 		return false
 	if not _run_store.write(prepared["data"]):
 		EventBus.toast_requested.emit(StoryLocale.optional_text(AREA_SAVE_FAILURE_TRANSLATIONS, Story.language,

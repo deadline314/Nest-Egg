@@ -1,6 +1,7 @@
 extends Node
 ## Runs the real Main routes with a fresh save under an explicit output directory.
 ## godot --path . res://tools/route_frame_time_probe.tscn -- --out=<absolute> --tag=<run> [--capture]
+## --visible-budget-ms=<positive number> checks input to cover on the selected native setup.
 const LEVEL_DIR := "res://data/levels/"
 const CAPTURE := preload("res://tools/viewport_capture.gd")
 
@@ -11,6 +12,7 @@ var _phase := ""
 var _active_capture := false
 var _last_usec := 0
 var _slot_path := ""
+var _visible_budget_ms := 0.0
 var _frames: Array[Array] = []
 var _routes: Array[Dictionary] = []
 
@@ -24,6 +26,11 @@ func _ready() -> void:
 			_tag = arg.trim_prefix("--tag=")
 		elif arg == "--capture":
 			_active_capture = true
+		elif arg.begins_with("--visible-budget-ms="):
+			_visible_budget_ms = arg.trim_prefix("--visible-budget-ms=").to_float()
+			if not is_finite(_visible_budget_ms) or _visible_budget_ms <= 0.0 or DisplayServer.get_name() == "headless":
+				_fail("the visible frame budget requires a positive value and a native renderer")
+				return
 	if not _out.is_absolute_path() or not _tag.is_valid_filename() or DirAccess.make_dir_recursive_absolute(_out) != OK:
 		_fail("--out requires an absolute directory and --tag a new file name")
 		return
@@ -100,11 +107,31 @@ func _run() -> void:
 	if file == null:
 		_fail("cannot write metrics")
 		return
-	file.store_string(JSON.stringify({"routes": _routes, "frames": _frames}))
+	var visible := _visible_frame_maxima()
+	file.store_string(JSON.stringify({"routes": _routes, "frames": _frames, "visible_max_ms": visible}))
 	file.close()
+	var status := 0
+	if _visible_budget_ms > 0.0:
+		for phase: String in visible:
+			if visible[phase] > _visible_budget_ms:
+				push_error("%s exceeded the visible frame budget: %.1f > %.1f ms" % [phase, visible[phase], _visible_budget_ms])
+				status = 2
 	print("ROUTE_COMPLETE ", _routes.size(), " points, ", _frames.size(), " frames, device ",
 			RenderingServer.get_video_adapter_name())
-	_main.call("_quit")
+	_main.call("_quit", status)
+
+
+func _visible_frame_maxima() -> Dictionary[String, float]:
+	var covers: Dictionary[String, float] = {}
+	for event: Dictionary in _routes:
+		if event["phase"] != "startup" and event["event"] == "covered":
+			covers[event["phase"]] = event["at"]
+	var result: Dictionary[String, float] = {}
+	for frame: Array in _frames:
+		var phase: String = frame[0]
+		if covers.has(phase) and frame[1] <= covers[phase]:
+			result[phase] = maxf(result.get(phase, 0.0), frame[2])
+	return result
 
 
 func _portal(phase: String, target: String) -> bool:

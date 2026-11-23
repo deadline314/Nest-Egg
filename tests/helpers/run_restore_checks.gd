@@ -28,6 +28,14 @@ static func run_sliced_entry(s: TestSuite, directory: String) -> void:
 		publication.append(credits == 731 and level != null and level.is_initialized()
 				and is_instance_valid(level.player) and GameplayLock.is_locked())
 	Progression.credits_changed.connect(observe)
+	var cover_seen := [false]
+	var first_validation: Array[bool] = []
+	var on_cover := func() -> void: cover_seen[0] = true
+	Transition.covered.connect(on_cover)
+	store.validator = func(raw: Dictionary) -> Dictionary:
+		if first_validation.is_empty():
+			first_validation.append(cover_seen[0] and GameplayLock.is_locked())
+		return RunSnapshot.prepare(raw)
 	var slot_digest := FileAccess.get_sha256(store.path)
 	main.call("_on_continue_requested")
 	var inspected := false
@@ -43,6 +51,8 @@ static func run_sliced_entry(s: TestSuite, directory: String) -> void:
 			main.call("_on_continue_requested")
 			s.check(FileAccess.get_sha256(store.path) == slot_digest, "partial entry cannot write or reopen the current slot")
 	s.check(inspected and publication == [true], "only the complete player and world are published during a sliced resume")
+	s.check(first_validation == [true], "continue covers the screen before reading and validating the saved run")
+	Transition.covered.disconnect(on_cover)
 	var loaded := main.get("_screen") as Level
 	s.check(loaded != null and loaded.is_initialized() and loaded.data.resource_path == FIRST
 			and not Transition.is_active(), "sliced resume reveals the exact target area")

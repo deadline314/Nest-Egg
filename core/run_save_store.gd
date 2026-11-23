@@ -110,7 +110,7 @@ func read() -> Dictionary:
 	return {}
 
 
-func _read_file(candidate: String) -> Dictionary:
+func _read_file(candidate: String, fingerprint := false) -> Dictionary:
 	var file := FileAccess.open(candidate, FileAccess.READ)
 	if file == null:
 		return {"error": "無法開啟（%s）" % FileAccess.get_open_error()}
@@ -121,7 +121,9 @@ func _read_file(candidate: String) -> Dictionary:
 	file.close()
 	var decoded := RunSaveCodec.decode(text)
 	if decoded.has("data") and validator.is_valid():
-		return validator.call(decoded["data"])
+		decoded = validator.call(decoded["data"])
+	if fingerprint:
+		decoded["content_checksum"] = text.sha256_text()
 	return decoded
 
 
@@ -143,7 +145,7 @@ func write(data: Dictionary, confirmed_overwrite := false) -> bool:
 			var archival := DirAccess.rename_absolute(marker_path, marker_path + ".previous")
 			if archival != OK:
 				return _failure(path + ".newrun", "無法保留舊交易標記（%s）" % archival)
-	var primary := _read_file(path) if FileAccess.file_exists(path) else {}
+	var primary := _read_file(path, true) if FileAccess.file_exists(path) else {}
 	if primary.get("unknown_version", false):
 		unknown_version = true
 	elif not primary.has("data") and FileAccess.file_exists(path + ".bak") and _read_file(path + ".bak").get("unknown_version", false):
@@ -170,8 +172,16 @@ func write(data: Dictionary, confirmed_overwrite := false) -> bool:
 		return _failure(temp, "寫入或驗證失敗（%s），原檔保留" % verified.get("error", error))
 	if overwrite_authorized:
 		return _install_new_run(absolute)
-	# 只有完整有效的舊主檔能輪替備份；損毀主檔不污染可恢復備份。
-	var old_valid := FileAccess.file_exists(path) and _read_file(path).has("data")
+	# 只有完整有效的舊主檔能輪替備份。檔案相同時沿用本次校驗，
+	# 另一程序若已換掉主檔，再檢查新檔及其版本。
+	var old_valid := false
+	if FileAccess.file_exists(path):
+		if primary.get("content_checksum", "") != FileAccess.get_sha256(path):
+			primary = _read_file(path)
+			if primary.get("unknown_version", false):
+				unknown_version = true
+				return _failure(path, "存檔已另外更新為未知版本；新主檔及原備份保留")
+		old_valid = primary.has("data")
 	if old_valid:
 		if FileAccess.file_exists(path + ".bak"):
 			error = DirAccess.remove_absolute(absolute + ".bak")
