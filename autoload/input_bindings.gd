@@ -213,10 +213,10 @@ var active_device := -1
 var _axis_values: Dictionary[int, Dictionary] = {}
 const RecoveryPrompt := preload("res://ui/controller_recovery_prompt.gd")
 const DISCONNECT_NOTICE: Dictionary[String, String] = {
-	"en": "Controller disconnected. Use the keyboard.",
-	"ja": "接続が切れました。キーボードを使用してください。",
+	"en": "Controller disconnected. Use keyboard.",
+	"ja": "接続切れ。キーボードで操作。",
 }
-const DISCONNECT_NOTICE_ZH := "手把已斷線，可使用鍵盤繼續操作。"
+const DISCONNECT_NOTICE_ZH := "手把已斷線，請改用鍵盤。"
 const DISCONNECT_NOTICE_SECONDS := 2.2
 
 var _disconnect_token := 0
@@ -832,9 +832,10 @@ func _show_disconnect_notice() -> void:
 		_disconnect_notice = UiBanner.new()
 		_disconnect_notice.mouse_behavior_recursive = Control.MOUSE_BEHAVIOR_DISABLED
 		_disconnect_notice.position.y = 3.0
+		_disconnect_notice.slide_distance = 0.0
 		_disconnect_notice.expired.connect(_dismiss_disconnect_notice)
 		layer.add_child(_disconnect_notice)
-	_disconnect_notice.center_x = get_viewport().get_visible_rect().size.x * 0.5
+	_disconnect_notice.right_x = get_viewport().get_visible_rect().end.x - 8.0
 	var message := StoryLocale.optional_text(DISCONNECT_NOTICE, Story.language, DISCONNECT_NOTICE_ZH)
 	_disconnect_notice.show_text(message, UiBanner.Kind.INFO, DISCONNECT_NOTICE_SECONDS)
 

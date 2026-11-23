@@ -389,19 +389,21 @@ func _test_paused_controller_notice() -> void:
 	pause.open()
 	await frames(3)
 	var copy := {
-		"zh": "手把已斷線，可使用鍵盤繼續操作。",
-		"ja": "接続が切れました。キーボードを使用してください。",
-		"en": "Controller disconnected. Use the keyboard.",
+		"zh": "手把已斷線，請改用鍵盤。",
+		"ja": "接続切れ。キーボードで操作。",
+		"en": "Controller disconnected. Use keyboard.",
 	}
 	var same_banner: UiBanner
 	for language: String in copy:
 		Story.set_language(language)
+		pause._actions["menu"].grab_focus()
 		InputBindings._set_device(true, 519)
 		Input.action_press(&"shoot")
 		await frames(2)
 		var focused := runner.get_viewport().gui_get_focus_owner()
 		InputBindings._on_joy_connection_changed(519, false)
 		var notice: UiBanner = InputBindings._disconnect_notice
+		await frames(2)
 		if same_banner == null:
 			same_banner = notice
 		check(notice == same_banner and notice._label.text == copy[language],
@@ -412,6 +414,9 @@ func _test_paused_controller_notice() -> void:
 		check(runner.get_tree().paused and runner.get_viewport().gui_get_focus_owner() == focused
 				and not InputBindings.is_controller_interrupted() and not Input.is_action_pressed(&"shoot"),
 				"the open pause keeps focus while lost device inputs are released")
+		check(pause._menu_hints.is_visible_in_tree()
+				and not pause._menu_hints.get_global_rect().intersects(notice.get_global_rect()),
+				"the localised fallback does not cover the longest pause focus help")
 	InputBindings._dismiss_disconnect_notice()
 	check(InputBindings._disconnect_notice == null and not PromptLayout._obstacles.has(same_banner),
 			"dismissal releases the global notice and its prompt layout obstacle")

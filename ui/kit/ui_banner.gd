@@ -12,6 +12,9 @@ const SLIDE_TIME := 0.18
 
 ## >= 0 時，橫幅水平置中於這個 x 座標（HUD 把它設在畫面中央）。
 var center_x := -1.0
+## 設定右緣時優先使用右對齊，保留同列左側的說明。
+var right_x := -1.0
+var slide_distance := SLIDE
 
 var _label: Label
 var _tween: Tween
@@ -63,7 +66,7 @@ func show_text(text: String, kind: Kind = Kind.INFO, hold: float = 2.0) -> void:
 		return
 	_home_x = position.x
 	_recenter()
-	_travel = 0.0 if Settings.get_reduce_ui_motion() else SLIDE
+	_travel = 0.0 if Settings.get_reduce_ui_motion() else slide_distance
 	_set_slide_offset(-_travel)
 	modulate.a = 0.0
 	_tween = create_tween().set_parallel(true)
@@ -94,7 +97,9 @@ func _refresh_bound_text() -> void:
 
 func _recenter() -> void:
 	reset_size()
-	if center_x >= 0.0:
+	if right_x >= 0.0:
+		_home_x = roundf(right_x - size.x)
+	elif center_x >= 0.0:
 		_home_x = roundf(center_x - size.x * 0.5)
 
 
