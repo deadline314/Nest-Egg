@@ -7,6 +7,15 @@ const DEFAULT_PATH := "user://runs/demo-0.1/slot-1.json"
 const MAX_EDITION_DIRS := 32
 
 enum ReadRecovery { NONE, BACKUP, NEW_RUN }
+enum WriteStatus { SAVED, FAILED, CANCELLED }
+
+class WritePlan extends RefCounted:
+	var primary: Dictionary
+	var absolute: String
+	var temporary: String
+
+var _write_generation := 0
+var _deferred_draft := ""
 var path: String
 var issues := PackedStringArray()
 var unknown_version := false
@@ -128,6 +137,66 @@ func _read_file(candidate: String, fingerprint := false) -> Dictionary:
 
 
 func write(data: Dictionary, confirmed_overwrite := false) -> bool:
+	cancel_deferred_write()
+	var plan := _begin_write(confirmed_overwrite, path + ".tmp")
+	if plan == null:
+		return false
+	var encoded := _encode_write(data)
+	return not encoded.is_empty() and _write_draft(plan, encoded) and _verify_and_promote(plan)
+
+
+## Gameplay autosaves yield between CPU/file phases. A critical write can discard
+## the unpublished draft and commit immediately using the same write operations.
+func write_in_frames(data: Dictionary, tree: SceneTree, may_write := Callable()) -> WriteStatus:
+	if overwrite_authorized or FileAccess.file_exists(path + ".newrun"):
+		return WriteStatus.SAVED if write(data) else WriteStatus.FAILED
+	cancel_deferred_write()
+	issues.clear()
+	var encoded := _encode_write(data)
+	if encoded.is_empty():
+		return WriteStatus.FAILED
+	var generation := _write_generation
+	var slot := path
+	await tree.process_frame
+	if not _still_writing(generation, slot, may_write):
+		return WriteStatus.CANCELLED
+	_deferred_draft = "%s.autosave-%d-%d.tmp" % [path, OS.get_process_id(), get_instance_id()]
+	var plan := _begin_write(false, _deferred_draft)
+	if plan == null:
+		return WriteStatus.FAILED
+	await tree.process_frame
+	if not _still_writing(generation, slot, may_write):
+		return WriteStatus.CANCELLED
+	if not _write_draft(plan, encoded):
+		return WriteStatus.FAILED
+	await tree.process_frame
+	if not _still_writing(generation, slot, may_write):
+		return WriteStatus.CANCELLED
+	if not _verify_and_promote(plan):
+		return WriteStatus.FAILED
+	_deferred_draft = ""
+	return WriteStatus.SAVED
+
+
+func cancel_deferred_write() -> void:
+	_write_generation += 1
+	if not _deferred_draft.is_empty() and FileAccess.file_exists(_deferred_draft):
+		var error := DirAccess.remove_absolute(ProjectSettings.globalize_path(_deferred_draft))
+		if error != OK:
+			push_warning("[RunSave] 無法移除已取消的自動存檔 %s（%s）。" % [_deferred_draft, error])
+	_deferred_draft = ""
+
+
+func _still_writing(generation: int, slot: String, may_write: Callable) -> bool:
+	if generation != _write_generation:
+		return false
+	if path == slot and (may_write.is_null() or (may_write.is_valid() and may_write.call())):
+		return true
+	cancel_deferred_write()
+	return false
+
+
+func _begin_write(confirmed_overwrite: bool, temporary: String) -> WritePlan:
 	issues.clear()
 	# 一次明確新遊戲授權保留到首次成功；IO失敗不要求重新確認。
 	overwrite_authorized = overwrite_authorized or confirmed_overwrite
@@ -136,42 +205,68 @@ func write(data: Dictionary, confirmed_overwrite := false) -> bool:
 		if not recovery.get("installed", false):
 			unknown_version = recovery.get("unknown_version", false)
 			if not confirmed_overwrite:
-				return _failure(path + ".newrun", recovery.get("error", "尚未完成新輪恢復，原件保留"))
+				_failure(path + ".newrun", recovery.get("error", "尚未完成新輪恢復，原件保留"))
+				return null
 			var marker_path := ProjectSettings.globalize_path(path + ".newrun")
 			if FileAccess.file_exists(path + ".newrun.previous"):
 				var removal := DirAccess.remove_absolute(marker_path + ".previous")
 				if removal != OK:
-					return _failure(path + ".newrun.previous", "無法保留舊交易標記（%s）" % removal)
+					_failure(path + ".newrun.previous", "無法保留舊交易標記（%s）" % removal)
+					return null
 			var archival := DirAccess.rename_absolute(marker_path, marker_path + ".previous")
 			if archival != OK:
-				return _failure(path + ".newrun", "無法保留舊交易標記（%s）" % archival)
+				_failure(path + ".newrun", "無法保留舊交易標記（%s）" % archival)
+				return null
 	var primary := _read_file(path, true) if FileAccess.file_exists(path) else {}
 	if primary.get("unknown_version", false):
 		unknown_version = true
 	elif not primary.has("data") and FileAccess.file_exists(path + ".bak") and _read_file(path + ".bak").get("unknown_version", false):
 		unknown_version = true
 	if unknown_version and not overwrite_authorized:
-		return _failure(path, "未知版本保留；請明確選擇新遊戲覆寫")
+		_failure(path, "未知版本保留；請明確選擇新遊戲覆寫")
+		return null
+	var plan := WritePlan.new()
+	plan.primary = primary
+	plan.absolute = ProjectSettings.globalize_path(path)
+	plan.temporary = temporary
+	return plan
+
+
+func _encode_write(data: Dictionary) -> String:
 	var encoded := RunSaveCodec.encode(data)
 	if encoded.is_empty() or encoded.to_utf8_buffer().size() > RunSaveCodec.MAX_BYTES:
-		return _failure(path, "整輪資料無效或超過大小上限，原檔保留")
-	var absolute := ProjectSettings.globalize_path(path)
-	var error := DirAccess.make_dir_recursive_absolute(absolute.get_base_dir())
+		_failure(path, "整輪資料無效或超過大小上限，原檔保留")
+		return ""
+	return encoded
+
+
+func _write_draft(plan: WritePlan, encoded: String) -> bool:
+	var error := DirAccess.make_dir_recursive_absolute(plan.absolute.get_base_dir())
 	if error != OK:
 		return _failure(path, "無法建立存檔目錄（%s）" % error)
-	var temp := path + ".tmp"
-	var file := FileAccess.open(temp, FileAccess.WRITE)
+	var file := FileAccess.open(plan.temporary, FileAccess.WRITE)
 	if file == null:
-		return _failure(temp, "無法寫入（%s）" % FileAccess.get_open_error())
+		return _failure(plan.temporary, "無法寫入（%s）" % FileAccess.get_open_error())
 	file.store_string(encoded)
 	file.flush()
 	error = file.get_error()
 	file.close()
-	var verified := _read_file(temp)
-	if error != OK or not verified.has("data"):
-		return _failure(temp, "寫入或驗證失敗（%s），原檔保留" % verified.get("error", error))
+	if error != OK:
+		return _failure(plan.temporary, "寫入失敗（%s），原檔保留" % error)
+	return true
+
+
+func _verify_and_promote(plan: WritePlan) -> bool:
+	var verified := _read_file(plan.temporary)
+	if not verified.has("data"):
+		return _failure(plan.temporary, "驗證失敗（%s），原檔保留" % verified.get("error", "未知錯誤"))
+	var absolute := plan.absolute
 	if overwrite_authorized:
 		return _install_new_run(absolute)
+	if FileAccess.file_exists(path + ".newrun"):
+		return _failure(path, "偵測到其他新輪交易，保留原檔及暫存檔")
+	var primary := plan.primary
+	var error: Error
 	# 只有完整有效的舊主檔能輪替備份。檔案相同時沿用本次校驗，
 	# 另一程序若已換掉主檔，再檢查新檔及其版本。
 	var old_valid := false
@@ -197,7 +292,7 @@ func write(data: Dictionary, confirmed_overwrite := false) -> bool:
 		error = DirAccess.rename_absolute(absolute, absolute + ".invalid")
 		if error != OK:
 			return _failure(path, "無法保留損毀原件（%s）" % error)
-	error = DirAccess.rename_absolute(absolute + ".tmp", absolute)
+	error = DirAccess.rename_absolute(ProjectSettings.globalize_path(plan.temporary), absolute)
 	if error != OK:
 		if old_valid:
 			var rollback := DirAccess.rename_absolute(absolute + ".bak", absolute)
@@ -582,6 +677,7 @@ func preflight_existing_write(prepared: PreparedExistingWrite) -> Dictionary:
 
 
 func commit_existing_write(prepared: PreparedExistingWrite) -> DurableWriteOutcome:
+	cancel_deferred_write()
 	var outcome := DurableWriteOutcome.new()
 	var checked := preflight_existing_write(prepared)
 	if prepared != null and prepared._owner_id == get_instance_id():

@@ -1,7 +1,7 @@
 extends Node
 ## Runs the real Main routes with a fresh save under an explicit output directory.
 ## godot --path . res://tools/route_frame_time_probe.tscn -- --out=<absolute> --tag=<run> [--capture]
-## --visible-budget-ms=<positive number> checks input to cover on the selected native setup.
+## --visible-budget-ms checks input to cover; --autosave-budget-ms adds real movement and saves.
 const LEVEL_DIR := "res://data/levels/"
 const CAPTURE := preload("res://tools/viewport_capture.gd")
 
@@ -13,6 +13,8 @@ var _active_capture := false
 var _last_usec := 0
 var _slot_path := ""
 var _visible_budget_ms := 0.0
+var _autosave_budget_ms := 0.0
+var _autosave: Dictionary = {}
 var _frames: Array[Array] = []
 var _routes: Array[Dictionary] = []
 
@@ -28,8 +30,11 @@ func _ready() -> void:
 			_active_capture = true
 		elif arg.begins_with("--visible-budget-ms="):
 			_visible_budget_ms = arg.trim_prefix("--visible-budget-ms=").to_float()
-			if not is_finite(_visible_budget_ms) or _visible_budget_ms <= 0.0 or DisplayServer.get_name() == "headless":
-				_fail("the visible frame budget requires a positive value and a native renderer")
+			if not _valid_budget(_visible_budget_ms):
+				return
+		elif arg.begins_with("--autosave-budget-ms="):
+			_autosave_budget_ms = arg.trim_prefix("--autosave-budget-ms=").to_float()
+			if not _valid_budget(_autosave_budget_ms):
 				return
 	if not _out.is_absolute_path() or not _tag.is_valid_filename() or DirAccess.make_dir_recursive_absolute(_out) != OK:
 		_fail("--out requires an absolute directory and --tag a new file name")
@@ -71,6 +76,8 @@ func _run() -> void:
 	_main.call("_on_start_requested", GameState.difficulties[1])
 	if not await _level("ch1_prologue"):
 		return
+	if _autosave_budget_ms > 0.0 and not await _drive_autosaves():
+		return
 	if not await _portal("pawnshop", "ch1_pawnshop"):
 		return
 	if not await _portal("street", "ch1_street"):
@@ -108,7 +115,8 @@ func _run() -> void:
 		_fail("cannot write metrics")
 		return
 	var visible := _visible_frame_maxima()
-	file.store_string(JSON.stringify({"routes": _routes, "frames": _frames, "visible_max_ms": visible}))
+	file.store_string(JSON.stringify({"routes": _routes, "frames": _frames, "visible_max_ms": visible,
+			"autosave": _autosave}))
 	file.close()
 	var status := 0
 	if _visible_budget_ms > 0.0:
@@ -116,9 +124,59 @@ func _run() -> void:
 			if visible[phase] > _visible_budget_ms:
 				push_error("%s exceeded the visible frame budget: %.1f > %.1f ms" % [phase, visible[phase], _visible_budget_ms])
 				status = 2
+	if _autosave_budget_ms > 0.0 and _autosave["max_ms"] > _autosave_budget_ms:
+		push_error("Autosave run exceeded the frame budget: %.1f > %.1f ms" % [_autosave["max_ms"], _autosave_budget_ms])
+		status = 2
 	print("ROUTE_COMPLETE ", _routes.size(), " points, ", _frames.size(), " frames, device ",
 			RenderingServer.get_video_adapter_name())
 	_main.call("_quit", status)
+
+
+func _valid_budget(value: float) -> bool:
+	if not is_finite(value) or value <= 0.0 or DisplayServer.get_name() == "headless":
+		_fail("frame budgets require a positive value and a native renderer")
+		return false
+	return true
+
+
+func _drive_autosaves() -> bool:
+	var level := _main.get("_screen") as Level
+	var until := Time.get_ticks_msec() + 6000
+	while Time.get_ticks_msec() < until and GameplayLock.is_locked():
+		await get_tree().process_frame
+	if GameplayLock.is_locked():
+		_fail("prologue stayed locked before the autosave probe")
+		return false
+	_phase = "autosave"
+	_point("request")
+	var from := _frames.size()
+	var previous := FileAccess.get_sha256(_slot_path)
+	var saved := 0
+	var distance := 0.0
+	for leg in 6:
+		var start := level.player.position.x
+		var move := &"move_right" if leg % 2 == 0 else &"move_left"
+		Input.action_press(move)
+		await get_tree().create_timer(0.9, true, true).timeout
+		Input.action_release(move)
+		if not is_instance_valid(level) or level != _main.get("_screen"):
+			_fail("prologue changed during the autosave probe")
+			return false
+		distance += absf(level.player.position.x - start)
+		var checksum := FileAccess.get_sha256(_slot_path)
+		if not checksum.is_empty() and checksum != previous:
+			saved += 1
+			previous = checksum
+	var maximum := 0.0
+	for index in range(from, _frames.size()):
+		maximum = maxf(maximum, _frames[index][2])
+	_autosave = {"max_ms": maximum, "saved": saved, "distance": distance}
+	_point("ready")
+	print("AUTOSAVE ", JSON.stringify(_autosave))
+	if saved == 0 or distance < 16.0:
+		_fail("movement did not produce a completed prologue autosave")
+		return false
+	return true
 
 
 func _visible_frame_maxima() -> Dictionary[String, float]:

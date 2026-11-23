@@ -126,3 +126,80 @@ static func run(s: TestSuite) -> void:
 	s.check(cancelled.size() == 1 and cancelled[0]["marker"] == "old" and cancelled[0]["credits"] == 731, "standalone story restore cancels the old presentation before replacing flags")
 	Story.presentation_cancelled.disconnect(on_cancel)
 	GameState.start_new_run(GameState.difficulties[1])
+
+static func run_deferred_writes(s: TestSuite, directory: String) -> void:
+	GameState.start_new_run(GameState.difficulties[1])
+	var store := RunSaveStore.new(directory.path_join("deferred_write.json"))
+	store.validator = RunSnapshot.prepare
+	var baseline := RunSnapshot.capture(FIRST, {"health": 4, "position": [100, 160]})
+	baseline["progression"]["credits"] = 401
+	s.check(store.write(baseline, true), "deferred write fixture establishes a valid primary")
+	var unchanged := FileAccess.get_sha256(store.path)
+	var statuses: Array[RunSaveStore.WriteStatus] = []
+	var draft := baseline.duplicate(true)
+	draft["progression"]["credits"] = 402
+	_record_deferred(store, draft, s.runner.get_tree(), statuses)
+	draft["progression"]["credits"] = 999
+	s.check(await _wait_draft(s, store) and FileAccess.get_sha256(store.path) == unchanged,
+			"a staged autosave leaves the previous primary untouched until verified")
+	await _wait_deferred_status(s, statuses)
+	s.check(statuses == [RunSaveStore.WriteStatus.SAVED] and store.read()["progression"]["credits"] == 402
+			and FileAccess.get_sha256(store.path + ".bak") == unchanged,
+			"the staged bytes are immutable and complete backup rotation happens only after validation")
+	statuses.clear()
+	draft["progression"]["credits"] = 403
+	_record_deferred(store, draft, s.runner.get_tree(), statuses)
+	s.check(await _wait_draft(s, store), "a competing autosave has reached temporary storage")
+	var pending := store.get("_deferred_draft") as String
+	draft["progression"]["credits"] = 404
+	s.check(store.write(draft), "a synchronous critical save can commit during a staged autosave")
+	await _wait_deferred_status(s, statuses)
+	s.check(statuses == [RunSaveStore.WriteStatus.CANCELLED] and not FileAccess.file_exists(pending)
+			and store.read()["progression"]["credits"] == 404,
+			"a canceled autosave cannot overwrite the critical save or retain its temporary file")
+	statuses.clear()
+	var live := [true]
+	draft["progression"]["credits"] = 405
+	_record_deferred(store, draft, s.runner.get_tree(), statuses, func() -> bool: return live[0])
+	s.check(await _wait_draft(s, store), "an abandoned route has a staged autosave to cancel")
+	pending = store.get("_deferred_draft") as String
+	live[0] = false
+	await _wait_deferred_status(s, statuses)
+	s.check(statuses == [RunSaveStore.WriteStatus.CANCELLED] and not FileAccess.file_exists(pending)
+			and store.read()["progression"]["credits"] == 404,
+			"a changed live route cancels publication without changing the previous primary")
+	statuses.clear()
+	draft["progression"]["credits"] = 406
+	_record_deferred(store, draft, s.runner.get_tree(), statuses)
+	s.check(await _wait_draft(s, store), "an ordinary draft can coexist with preparation of a durable story result")
+	draft["progression"]["credits"] = 407
+	var prepared := store.prepare_existing_write(draft)
+	s.check(prepared.has("data"), "the established story writer prepares against the active primary")
+	if prepared.has("data"):
+		s.check(store.commit_existing_write(prepared["data"]).committed, "the durable result commits with its existing atomic writer")
+	await _wait_deferred_status(s, statuses)
+	s.check(statuses == [RunSaveStore.WriteStatus.CANCELLED] and store.read()["progression"]["credits"] == 407,
+			"an ordinary draft cannot overwrite a later durable story result")
+	GameState.start_new_run(GameState.difficulties[1])
+
+
+static func _record_deferred(store: RunSaveStore, draft: Dictionary, tree: SceneTree,
+		statuses: Array[RunSaveStore.WriteStatus], allowed := Callable()) -> void:
+	var status: RunSaveStore.WriteStatus = await store.write_in_frames(draft, tree, allowed)
+	statuses.append(status)
+
+
+static func _wait_draft(s: TestSuite, store: RunSaveStore) -> bool:
+	for frame in 8:
+		var pending: String = store.get("_deferred_draft")
+		if not pending.is_empty() and FileAccess.file_exists(pending):
+			return true
+		await s.runner.get_tree().process_frame
+	return false
+
+
+static func _wait_deferred_status(s: TestSuite, statuses: Array[RunSaveStore.WriteStatus]) -> void:
+	for frame in 12:
+		if not statuses.is_empty():
+			return
+		await s.runner.get_tree().process_frame

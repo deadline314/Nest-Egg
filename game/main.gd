@@ -60,6 +60,8 @@ var _level_path := FIRST_LEVEL
 var _run_store := RunSaveStore.new()
 var _active_run := false
 var _save_queued := false
+var _writing_autosave := false
+var _autosave_queued := false
 var _continue_data: Dictionary = {}
 ## 本版本還沒有存檔時，可接續的較舊累積版本存檔路徑（只讀，之後寫進本版本自己的槽）。
 var _import_path := ""
@@ -517,6 +519,7 @@ func _cover_route(kind: Transition.Kind, prepare: Callable, caption := "", hold 
 	_route_generation += 1
 	var generation := _route_generation
 	_route_preparing = true
+	_run_store.cancel_deferred_write()
 	await Transition.play(kind, _prepare_route.bind(prepare, generation), -1.0, Vector2(0.5, 0.5), _loading_caption(caption), hold)
 	_finish_route_preparation(generation)
 
@@ -566,7 +569,7 @@ func _queue_runtime_save() -> void:
 	_runtime_save_queued = true
 	get_tree().create_timer(1.0, true, false, true).timeout.connect(func() -> void:
 		_runtime_save_queued = false
-		_queue_save())
+		_queue_movement_autosave())
 
 
 func _result_owners() -> Array[Node]:
@@ -605,27 +608,72 @@ func _queue_save() -> void:
 	_flush_save.call_deferred()
 
 
+## Movement, exploration and routine player-state changes share one deferred
+## draft. Story and explicit saves still use the immediate durability path.
+func _queue_movement_autosave() -> void:
+	if _save_queued or _autosave_queued or _route_preparing or _quitting or not _can_capture_save():
+		return
+	if get_tree().paused or Story.is_cinematic_active():
+		_queue_save()
+		return
+	_autosave_queued = true
+	if not _writing_autosave:
+		_flush_autosave.call_deferred()
+
+
 func _flush_save() -> void:
 	_save_queued = false
 	if not _route_preparing:
 		_save_run()
 
 
+func _flush_autosave() -> void:
+	if not _autosave_queued or _writing_autosave:
+		return
+	_autosave_queued = false
+	if _save_queued or _route_preparing or _quitting:
+		return
+	var snapshot := _snapshot_for_save()
+	if snapshot.is_empty():
+		return
+	var owner: WeakRef = weakref(_screen)
+	_writing_autosave = true
+	var status: RunSaveStore.WriteStatus = await _run_store.write_in_frames(snapshot, get_tree(), _can_finish_autosave.bind(owner))
+	_writing_autosave = false
+	if status != RunSaveStore.WriteStatus.CANCELLED:
+		_report_run_save(status == RunSaveStore.WriteStatus.SAVED)
+	if _autosave_queued:
+		_flush_autosave.call_deferred()
+
+
+func _can_finish_autosave(owner: WeakRef) -> bool:
+	return (not _quitting and not _route_preparing and not _save_queued
+			and not get_tree().paused and owner.get_ref() == _screen and _can_capture_save())
+
+
 func _save_run(route_source := false) -> void:
-	if is_instance_valid(_destination_save_prompt):
-		return
-	if _story_save_blocked():
-		return
+	var snapshot := _snapshot_for_save(route_source)
+	if not snapshot.is_empty():
+		_autosave_queued = false
+		_report_run_save(_run_store.write(snapshot))
+
+
+func _can_capture_save() -> bool:
+	if is_instance_valid(_destination_save_prompt) or _story_save_blocked():
+		return false
 	if not _active_run or _destination_pending or _restore_publish_pending or _publishing_restore or not is_instance_valid(_screen) or not _screen is Level:
-		return
+		return false
 	var level := _screen as Level
-	if not level.is_inside_tree() or level.is_queued_for_deletion() or not level.is_initialized():
-		return
-	if level.data.resource_path != _level_path:
-		return  # 轉場期間已保存新區入口，不拿舊畫面的座標覆蓋。
-	var runtime := level.run_snapshot()
+	# 轉場已存新區入口時，不用舊畫面的座標覆蓋。
+	return level.is_inside_tree() and not level.is_queued_for_deletion() and level.is_initialized() and level.data.resource_path == _level_path
+
+
+func _snapshot_for_save(route_source := false) -> Dictionary:
+	if not _can_capture_save():
+		return {}
+	var runtime := (_screen as Level).run_snapshot()
 	if runtime.is_empty():
-		return
+		return {}
 	if route_source: runtime["ending"] = false
 	var snapshot := RunSnapshot.capture(_level_path, runtime, _cinematic, _chapter_complete, _cinematic_context)
 	if _cinematic != "" and not _cinematic_entry.is_empty():
@@ -633,7 +681,10 @@ func _save_run(route_source := false) -> void:
 		snapshot = _cinematic_entry.duplicate(true)
 		snapshot["cinematic"] = _cinematic
 		snapshot["cinematic_context"] = _cinematic_context.duplicate(true)
-	var saved := _run_store.write(snapshot)
+	return snapshot
+
+
+func _report_run_save(saved: bool) -> void:
 	var warning := StoryLocale.optional_text(SAVE_FAILURE_TRANSLATIONS, Story.language, SAVE_FAILURE_TOAST)
 	if not saved:
 		EventBus.toast_requested.emit(warning)
@@ -764,6 +815,7 @@ func _clear_destination_failure(stay := true) -> void:
 
 
 func _exit_tree() -> void:
+	_run_store.cancel_deferred_write()
 	_clear_destination_failure()
 
 
@@ -805,6 +857,7 @@ func _quit(exit_code := 0) -> void:
 		return
 	_quitting = true
 	AudioRelease.begin_shutdown()
+	_run_store.cancel_deferred_write()
 	_save_run()
 	_clear_destination_failure()
 	_active_run = false
