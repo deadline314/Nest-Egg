@@ -718,6 +718,7 @@ func _test_prop_reaction() -> void:
 	GameState.set_flag(taken, false, false)
 	var holder := Node2D.new()
 	runner.add_child(holder)
+	_check_pump_panel_lamp(holder)
 	var size := Vector2(19.5, 57.0)
 	var reaction := PropReaction.attach(holder, "handoff_cabinet", size)
 	check(reaction != null, "the handoff cabinet reaction is defined")
@@ -837,6 +838,34 @@ func _test_prop_reaction() -> void:
 	GameState.set_flag(delivered, had_delivered, false)
 	GameState.set_flag(taken, had_taken, false)
 	PropReaction.clear_cache()
+
+
+func _check_pump_panel_lamp(holder: Node2D) -> void:
+	var isolated := &"ch3_wet_branch_isolated"
+	var powered := &"ch3_lift_powered"
+	var had_isolated := GameState.has_flag(isolated)
+	var had_powered := GameState.has_flag(powered)
+	GameState.set_flag(isolated, false, false)
+	GameState.set_flag(powered, false, false)
+	var closed := load("res://data/environment/scene_props/sluice_hall/sluice_hall__branch_panel_closed.tres") as PropData
+	var panel := PropNode.new()
+	panel.setup(closed, Vector2.ZERO)
+	holder.add_child(panel)
+	var reaction := PropReaction.attach(panel, "pump_branch_panel", closed.size)
+	check(reaction != null, "the authored pump panel owns a reaction")
+	if reaction != null:
+		check(not reaction.is_swapped() and reaction._lamp_color().is_equal_approx(Color("#ffb23f")),
+			"before isolation the panel stays closed and amber")
+		GameState.set_flag(isolated, true, false)
+		check(reaction.is_swapped() and reaction._lamp_color().is_equal_approx(Color("#448ada"))
+			and not reaction.is_processing(), "an isolated branch shows a steady blue light without claiming the main is powered")
+		GameState.set_flag(powered, true, false)
+		check(reaction.is_swapped() and reaction._lamp_color().is_equal_approx(Color("#36a06d"))
+			and not reaction.is_processing(), "only main power shows a steady green light")
+		check(is_equal_approx(reaction._lamp_at.y, 18.0), "the indicator sits on the existing casing display")
+		panel.queue_free()
+	GameState.set_flag(isolated, had_isolated, false)
+	GameState.set_flag(powered, had_powered, false)
 
 
 ## 滴水（BG-25）：出水口在承接面上方才有效；水滴由上往下、越落越快，落到水面後濺開再等下一滴；
