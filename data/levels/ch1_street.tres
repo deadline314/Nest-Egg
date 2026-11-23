@@ -108,6 +108,7 @@ profile = ExtResource("23_street_harbor")
 script = ExtResource("1_level_data")
 id = &"ch1_street"
 display_name = "港區街道"
+localized_names = Dictionary[String, String]({"en": "Harbor Street", "ja": "港の通り"})
 tile_size = 16
 height = 56
 legend = Dictionary[String, Resource]({

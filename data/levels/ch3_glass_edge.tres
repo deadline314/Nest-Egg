@@ -51,6 +51,7 @@ profile = ExtResource("6_sunlit_edge")
 script = ExtResource("1_level_data")
 id = &"ch3_glass_edge"
 display_name = "玻璃邊緣"
+localized_names = Dictionary[String, String]({"en": "Glass Edge", "ja": "ガラスの縁"})
 tile_size = 16
 height = 24
 legend = Dictionary[String, Resource]({

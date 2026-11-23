@@ -116,6 +116,30 @@ class HeightTests(unittest.TestCase):
             self.assertIn('tower: 24x48', output.getvalue())
 
 
+    def test_localized_area_names_use_formal_sources(self):
+        from area_name_translations import AREA_NAMES
+
+        level_dir = Path(__file__).resolve().parents[2] / "data" / "levels"
+        seen = set()
+        for level_path in sorted(level_dir.glob("ch[123]_*.tres")):
+            fields = {}
+            for line in level_path.read_text(encoding="utf-8").splitlines():
+                if line.startswith(("display_name = ", "localized_names = ")):
+                    name, _, value = line.partition(" = ")
+                    fields[name] = value
+            if "display_name" not in fields:
+                continue
+            name = json.loads(fields["display_name"])
+            with self.subTest(level=level_path.name):
+                self.assertIn(name, AREA_NAMES)
+                value = fields["localized_names"]
+                self.assertTrue(value.startswith("Dictionary[String, String](") and value.endswith(")"))
+                self.assertEqual(json.loads(value[len("Dictionary[String, String]("):-1]), AREA_NAMES[name])
+                self.assertEqual(set(AREA_NAMES[name]), {"en", "ja"})
+            seen.add(name)
+        self.assertEqual(seen, set(AREA_NAMES))
+
+
 class RouteTests(unittest.TestCase):
     def setUp(self):
         self.area = kit.Area('test', 'Test', 30, 20)

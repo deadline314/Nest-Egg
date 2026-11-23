@@ -14,6 +14,7 @@ import sys
 sys.path.insert(0, os.path.dirname(__file__))
 from scenery_placement import prepare_props
 from npc_prompt_translations import localized_prompt
+from area_name_translations import AREA_NAMES
 from level_kit import Grid, RouteState, PLAYER_JUMP_TILES, HEADROOM  # noqa: E402
 
 ROOT = os.path.join(os.path.dirname(__file__), '..', '..')
@@ -1503,7 +1504,8 @@ def write_level(area, theme_key=None, level_id=None, map_name=None, persist=True
         prof = w.ext(f'res://data/lighting/{profile}.tres')
         zone_ids.append(w.sub([f'script = ExtResource("{zone_script}")', f'start_tile = {start}', f'blend_tiles = {blend}', f'profile = ExtResource("{prof}")']))
     theme = w.ext(theme_path)
-    res = [f'script = ExtResource("{w.script_id}")', f'id = &"{PREFIX}_{level_id}"', f'display_name = "{opts.pop("display_name", area.name)}"',
+    display_name = opts.pop("display_name", area.name)
+    res = [f'script = ExtResource("{w.script_id}")', f'id = &"{PREFIX}_{level_id}"', f'display_name = {json.dumps(display_name, ensure_ascii=False)}',
            'tile_size = 16', f'height = {area.h}',
            'legend = Dictionary[String, Resource]({\n' + ',\n'.join(legend) + '\n})' if legend else 'legend = Dictionary[String, Resource]({})',
            'hints = PackedStringArray(' + ', '.join(json.dumps(h, ensure_ascii=False) for h in area.hints) + ')',
@@ -1513,6 +1515,9 @@ def write_level(area, theme_key=None, level_id=None, map_name=None, persist=True
            f'environment = ExtResource("{theme}")',
            f'layout_path = "res://data/levels/{PREFIX}_{map_name}_map.json"',
            'lighting_zones = Array[ExtResource("%s")]([%s])' % (zone_script, ', '.join(f'SubResource("{z}")' for z in zone_ids))]
+    localized = AREA_NAMES.get(display_name)
+    if localized:
+        res.insert(3, f'localized_names = Dictionary[String, String]({json.dumps(localized, ensure_ascii=False)})')
     story = STORY.get(level_id, {})
     if story.get('health_rewards'):
         rewards = ', '.join(f'&{json.dumps(key)}: {amount}' for key, amount in story['health_rewards'].items())

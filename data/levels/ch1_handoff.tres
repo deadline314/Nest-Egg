@@ -39,6 +39,7 @@ profile = ExtResource("5_market")
 script = ExtResource("1_level_data")
 id = &"ch1_handoff"
 display_name = "復原館外交接櫃"
+localized_names = Dictionary[String, String]({"en": "Restoration Hall Handover Locker", "ja": "復元館外の引き渡しロッカー"})
 tile_size = 16
 height = 24
 legend = Dictionary[String, Resource]({

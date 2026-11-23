@@ -40,6 +40,7 @@ profile = ExtResource("6_warehouse_interior")
 script = ExtResource("1_level_data")
 id = &"ch2_ledger_front"
 display_name = "北棟二樓前室"
+localized_names = Dictionary[String, String]({"en": "North Building Anteroom", "ja": "北棟二階の前室"})
 tile_size = 16
 height = 24
 legend = Dictionary[String, Resource]({

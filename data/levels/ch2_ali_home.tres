@@ -37,6 +37,7 @@ profile = ExtResource("5_residential")
 script = ExtResource("1_level_data")
 id = &"ch2_ali_home"
 display_name = "阿梨的小廚房"
+localized_names = Dictionary[String, String]({"en": "Pear's Kitchen", "ja": "梨の台所"})
 tile_size = 16
 height = 24
 legend = Dictionary[String, Resource]({

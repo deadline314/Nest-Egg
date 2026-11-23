@@ -76,6 +76,7 @@ profile = ExtResource("12_hangar")
 script = ExtResource("1_level_data")
 id = &"ch2_loading"
 display_name = "雨棚背面與裝卸間"
+localized_names = Dictionary[String, String]({"en": "Canopy and Loading Room", "ja": "雨よけの裏と荷さばき室"})
 tile_size = 16
 height = 40
 legend = Dictionary[String, Resource]({

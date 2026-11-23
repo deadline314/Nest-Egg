@@ -246,7 +246,7 @@ func _destination_name(marker: Dictionary) -> String:
 	var portal := marker.get("resource") as PortalData
 	if portal == null or not maps.areas.has(portal.target_level):
 		return ""
-	return (maps.areas[portal.target_level]["data"] as LevelData).display_name
+	return (maps.areas[portal.target_level]["data"] as LevelData).display_name_for(language)
 
 
 ## 畫面外的出口或目標：貼在視窗左右邊緣，寫出名稱與方向。
@@ -271,7 +271,7 @@ func _world_map() -> void:
 	var name_width := 0.0
 	for level_path: String in grid:
 		var data: LevelData = maps.areas[level_path]["data"]
-		name_width = maxf(name_width, UiKit.font().get_string_size("▲ %s ◆" % data.display_name, HORIZONTAL_ALIGNMENT_LEFT, -1, UiKit.caption_size()).x)
+		name_width = maxf(name_width, UiKit.font().get_string_size("▲ %s ◆" % data.display_name_for(language), HORIZONTAL_ALIGNMENT_LEFT, -1, UiKit.caption_size()).x)
 	var single_column := minf(name_width + 14.0, WORLD_NODE.x) + 8.0
 	# 兩行：每行約一半，再留一個字的餘量（中文不一定剛好對半斷開）。
 	var double_column := ceilf(name_width * 0.5) + UiKit.caption_size() + 14.0 + 8.0
@@ -320,8 +320,9 @@ func _world_map() -> void:
 		for key: String in state.activated:
 			if key.begins_with(level_path + "@"):
 				activated_here = true
-		var label := ("▲ " if current else "◎ " if target else "") + data.display_name + (" ◆" if activated_here else "")
-		var tooltip := _text(["開啟%s的地圖。", "%sの地図を開きます。", "Open the map for %s."]) % data.display_name
+		var area_name := data.display_name_for(language)
+		var label := ("▲ " if current else "◎ " if target else "") + area_name + (" ◆" if activated_here else "")
+		var tooltip := _text(["開啟%s的地圖。", "%sの地図を開きます。", "Open the map for %s."]) % area_name
 		tooltip += _text([" 已探索。", " 探索済み。", " Visited."] if known else [" 尚未探索。", " 未探索。", " Unexplored."])
 		if activated_here:
 			tooltip += _text([" 復原點已啟用，無傳送功能。", " 復帰地点は有効です。転送はできません。", " Checkpoint active. No fast travel."])

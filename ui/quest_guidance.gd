@@ -6,6 +6,12 @@ var catalog: QuestCatalog
 var maps := QuestMapIndex.new()
 var state: QuestMapState
 var level: Level
+const SYMBOLS := ["→", "↘", "↓", "↙", "←", "↖", "↑", "↗"]
+const COPY := {
+	"zh": {"target": "開啟任務目錄可以釘選目標，地圖會標出目的地。", "route": "前往%s"},
+	"ja": {"target": "クエスト一覧で目標を固定すると、地図に目的地が表示されます。", "route": " %sへ"},
+	"en": {"target": "Pin a quest to mark its destination on the map.", "route": " To %s"},
+}
 const PULSE_SCALE := 1.12
 ## 武器欄右緣（640×360 設計座標）；方向箭頭在這個範圍內時不壓到武器欄。
 const WEAPON_BAR_RIGHT := 160.0
@@ -49,7 +55,7 @@ func _ready() -> void:
 	_row.position = Vector2(145, 52)
 	_row.custom_minimum_size = Vector2(350, 0)
 	_row.mouse_filter = Control.MOUSE_FILTER_PASS
-	_row.tooltip_text = "開啟任務目錄可以釘選目標，地圖會標出目的地。"
+	_row.tooltip_text = _text("target")
 	add_child(_row)
 	_label = _row.label
 	_label.autowrap_mode = TextServer.AUTOWRAP_OFF
@@ -58,7 +64,6 @@ func _ready() -> void:
 	_row.resized.connect(func() -> void: _row.pivot_offset = Vector2(0, _row.size.y * 0.5))
 	_arrow = UiKit.label("", UiKit.FS_BODY, Palette.MAGENTA)
 	_arrow.mouse_filter = Control.MOUSE_FILTER_PASS
-	_arrow.tooltip_text = "依箭頭前往追蹤中的目標；跨區時先走向出口。"
 	_arrow.add_theme_constant_override(&"outline_size", 3)
 	_arrow.add_theme_color_override(&"font_outline_color", Color(0.01, 0.02, 0.04))
 	add_child(_arrow)
@@ -145,7 +150,8 @@ func _refresh_target() -> void:
 	if _label != null:
 		var objective := QuestCatalog.display_text(step, "title") if not step.is_empty() else ""
 		_label.text = "◎ " + objective if not objective.is_empty() else ""
-		_row.tooltip_text = objective + "\n\n開啟任務目錄可以釘選目標，地圖會標出目的地。" if not objective.is_empty() else "開啟任務目錄可以釘選目標，地圖會標出目的地。"
+		var note := _text("target")
+		_row.tooltip_text = objective + "\n\n" + note if not objective.is_empty() else note
 		_row.accent = Palette.MAGENTA if not state.pinned_id.is_empty() else Palette.CYAN
 
 
@@ -190,8 +196,8 @@ func _place_arrow() -> bool:
 			return false
 		position = exit["position"]
 		var target: LevelData = maps.areas[path]["data"]
-		caption = "前往%s" % target.display_name
-		hint = maps.marker_text(exit, GameState.world_flags)
+		caption = _text("route") % target.display_name_for(Story.language)
+		hint = maps.marker_text(exit, GameState.world_flags, Story.language)
 	var screen := level.get_viewport().get_canvas_transform() * position
 	var bounds := Rect2(Vector2(18, 88), Vector2(604, 244))
 	if bounds.has_point(screen) and path == level.data.resource_path:
@@ -200,8 +206,7 @@ func _place_arrow() -> bool:
 	var direction := (screen - center).normalized()
 	var scale := minf(bounds.size.x * 0.5 / maxf(absf(direction.x), 0.001), bounds.size.y * 0.5 / maxf(absf(direction.y), 0.001))
 	var edge := center + direction * scale
-	var symbols := ["→", "↘", "↓", "↙", "←", "↖", "↑", "↗"]
-	var caption_text: String = symbols[posmod(roundi(direction.angle() / (PI / 4)), 8)] + caption
+	var caption_text: String = SYMBOLS[posmod(roundi(direction.angle() / (PI / 4)), 8)] + caption
 	# A shifted caption yields at its last displayed position, too.
 	var previous_rect := (get_viewport().get_canvas_transform().affine_inverse() * _arrow.get_global_transform_with_canvas()) * Rect2(Vector2.ZERO, _arrow.size.max(_arrow.get_minimum_size()))
 	if _arrow.text == caption_text and PromptLayout.covers(previous_rect.grow(2.0)):
@@ -241,6 +246,10 @@ func _place_arrow() -> bool:
 		_arrow.position = candidate
 		return true
 	return false
+
+
+func _text(key: String) -> String:
+	return COPY.get(Story.language, COPY[StoryLocale.SOURCE_LANGUAGE])[key]
 
 
 func _enabled(key: String) -> bool:

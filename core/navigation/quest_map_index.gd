@@ -119,7 +119,7 @@ func marker_text(marker: Dictionary, flags: Dictionary, language := StoryLocale.
 			return portal.locked_text
 		var target: LevelData = areas.get(portal.target_level, {}).get("data")
 		if target != null:
-			return _marker_copy(["從這裡前往%s。", "ここから%sへ移動できます。", "Leads to %s."], language) % target.display_name
+			return _marker_copy(["從這裡前往%s。", "ここから%sへ移動できます。", "Leads to %s."], language) % target.display_name_for(language)
 		return str(marker["text"])
 	if resource is ShopData:
 		return _marker_copy(["在%s購買補給或查看服務。", "%sで物資やサービスを確認できます。", "Browse supplies and services at %s."], language) % resource.display_name

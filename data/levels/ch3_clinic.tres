@@ -40,6 +40,7 @@ profile = ExtResource("10_clinic_ward")
 script = ExtResource("1_level_data")
 id = &"ch3_clinic"
 display_name = "夾層診所"
+localized_names = Dictionary[String, String]({"en": "Mezzanine Clinic", "ja": "中二階の診療所"})
 tile_size = 16
 height = 24
 legend = Dictionary[String, Resource]({

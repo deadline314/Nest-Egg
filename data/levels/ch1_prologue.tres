@@ -49,6 +49,7 @@ profile = ExtResource("19_pawnshop_warm")
 script = ExtResource("1_level_data")
 id = &"ch1_prologue"
 display_name = "巢蛋當舖（試貨）"
+localized_names = Dictionary[String, String]({"en": "Nest Egg Pawnshop (Trial)", "ja": "ネスト・エッグ質屋（試用）"})
 tile_size = 16
 height = 24
 legend = Dictionary[String, Resource]({

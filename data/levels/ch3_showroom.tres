@@ -51,6 +51,7 @@ profile = ExtResource("8_showroom_day")
 script = ExtResource("1_level_data")
 id = &"ch3_showroom"
 display_name = "晴岸樣品房"
+localized_names = Dictionary[String, String]({"en": "Far Shore Show Flat", "ja": "晴岸のモデルルーム"})
 tile_size = 16
 height = 24
 legend = Dictionary[String, Resource]({

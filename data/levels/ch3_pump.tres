@@ -54,6 +54,7 @@ profile = ExtResource("10_pump_room")
 script = ExtResource("1_level_data")
 id = &"ch3_pump"
 display_name = "集水槽與泵室"
+localized_names = Dictionary[String, String]({"en": "Sump and Pump Room", "ja": "集水槽とポンプ室"})
 tile_size = 16
 height = 40
 legend = Dictionary[String, Resource]({

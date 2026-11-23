@@ -17,6 +17,7 @@ func run() -> void:
 	var maps := QuestMapIndex.new()
 	maps.load_chapter(&"ch1_kasa")
 	_test_real_maps(maps)
+	_test_area_languages()
 	_test_state(catalog, maps)
 	await _test_terrain_cache(catalog, maps)
 	await _test_ui(catalog, maps)
@@ -288,6 +289,38 @@ func _test_catalog(catalog: QuestCatalog) -> void:
 	check(source.issues.is_empty(), "current story files remain readable")
 	# 這是觀察缺口，不是「任務主流程通過」；穩定資料合入後更新此測試。
 	print("[QuestMap] Current story quest count: %d; chapter walkthrough requires Session 3 sources." % source.quests.size())
+
+
+## The names live in the formal areas, alongside unchanged topology and lock state.
+func _test_area_languages() -> void:
+	var count := 0
+	for chapter: StringName in [&"ch1_kasa", &"ch2_heron", &"ch3_clearwater"]:
+		var index := QuestMapIndex.for_chapter(chapter)
+		for record: Dictionary in index.areas.values():
+			var area := record["data"] as LevelData
+			count += 1
+			check(area.display_name_for("zh") == area.display_name and area.display_name_for("invalid") == area.display_name
+					and area.display_name_for("en") != area.display_name and area.display_name_for("ja") != area.display_name,
+					"formal area preserves source and provides both translated names: %s" % area.resource_path)
+	check(count == 30, "all thirty formal areas contribute to the three chapter layouts")
+	var older := LevelData.new()
+	older.display_name = "原地名"
+	check(older.display_name_for("en") == "原地名", "older areas retain their source name without translations")
+	older.localized_names["en"] = "Original area"
+	older.localized_names["ja"] = " "
+	check(older.display_name_for("ja") == "Original area", "empty Japanese area name falls back to English")
+	var maps := QuestMapIndex.for_chapter(&"ch1_kasa")
+	var edge := maps.next_exit(PAWN, ROOF, {})
+	var portal := edge.get("resource") as PortalData
+	check(portal != null and portal.target_level == ROOF, "localized map keeps the same real route")
+	if portal == null:
+		return
+	var unlocked := {str(portal.requires_flag): true}
+	check(maps.marker_text(edge, unlocked, "en") == "Leads to Rooftop."
+			and maps.marker_text(edge, unlocked, "ja") == "ここから屋上へ移動できます。",
+			"the route description names the actual destination in each locale")
+	check(maps.marker_text(edge, {}, "en") == portal.locked_text,
+			"area translations retain the portal's locked explanation")
 
 
 func _test_real_maps(maps: QuestMapIndex) -> void:

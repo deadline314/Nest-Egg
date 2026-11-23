@@ -402,10 +402,10 @@ func _begin_intro() -> void:
 	if _entry_portal != &"":
 		# 穿過出入口進來：只標示區域名稱，不重播章節標題。
 		if data.announce_area and not data.display_name.is_empty():
-			EventBus.toast_requested.emit(data.display_name)
+			EventBus.toast_requested.emit(data.display_name_for(Story.language))
 	elif data.show_chapter_card and _resume.is_empty():
 		var info := Story.chapter_info(data.chapter)
-		_show_chapter_card(str(info.get("title", data.display_name)), str(info.get("subtitle", "")), false)
+		_show_chapter_card(str(info.get("title", data.display_name_for(Story.language))), str(info.get("subtitle", "")), false)
 	if _finished:
 		return
 	if data.complete_after_intro:

@@ -60,6 +60,7 @@ profile = ExtResource("8_transfer")
 script = ExtResource("1_level_data")
 id = &"ch3_mezzanine"
 display_name = "夾層通道"
+localized_names = Dictionary[String, String]({"en": "Mezzanine Passage", "ja": "中二階の通路"})
 tile_size = 16
 height = 40
 legend = Dictionary[String, Resource]({

@@ -57,6 +57,7 @@ profile = ExtResource("8_pawnshop_warm")
 script = ExtResource("1_level_data")
 id = &"ch2_pawnshop"
 display_name = "當舖（早上）"
+localized_names = Dictionary[String, String]({"en": "Pawnshop (Morning)", "ja": "質屋（朝）"})
 tile_size = 16
 height = 24
 legend = Dictionary[String, Resource]({

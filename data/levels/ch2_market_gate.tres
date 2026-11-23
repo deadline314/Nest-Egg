@@ -75,6 +75,7 @@ profile = ExtResource("9_market_gate")
 script = ExtResource("1_level_data")
 id = &"ch2_market_gate"
 display_name = "市集入口"
+localized_names = Dictionary[String, String]({"en": "Market Entrance", "ja": "市場入口"})
 tile_size = 16
 height = 40
 legend = Dictionary[String, Resource]({

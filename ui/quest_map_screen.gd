@@ -125,6 +125,7 @@ func _process(_delta: float) -> void:
 	if _display_language == Story.language:
 		return
 	_display_language = Story.language
+	_area_caption.text = _area_name(player_path)
 	var owner := get_viewport().gui_get_focus_owner()
 	var owned_focus := owner != null and is_ancestor_of(owner)
 	var focus_key := _focus_text() if owned_focus else ""
@@ -508,7 +509,7 @@ func _select(id: String, focus_details := false) -> void:
 		_actions.add_child(pin)
 	var data: LevelData = maps.areas.get(location["level"], {}).get("data")
 	if data != null:
-		var jump_text := _text(["前往%s的地圖" % data.display_name, "地図を開く", "Open map"])
+		var jump_text := _text(["前往%s的地圖" % data.display_name_for(_display_language), "地図を開く", "Open map"])
 		var jump := UiKit.button(jump_text, _jump_to_map.bind(location["level"]),
 			_text(["查看選中任務的目的地。", "選んだクエストの目的地を地図で確認します。", "Open the selected quest’s destination on the map."]))
 		jump.set_meta(&"nav_key", "action:destination")
@@ -568,7 +569,7 @@ func _build_map(map_zoom: float) -> void:
 		if not chapter.is_empty():
 			area_caption = str(Story.chapter_info(StringName(chapter)).get("title", area_caption))
 	info.add_child(UiKit.caption(area_caption, Palette.CYAN))
-	var heading_text := data.display_name if data != null else _text(["尚未載入區域", "エリア未読込", "Area unavailable"])
+	var heading_text := data.display_name_for(_display_language) if data != null else _text(["尚未載入區域", "エリア未読込", "Area unavailable"])
 	var heading := UiKit.heading(_text(PAGE_NAMES["world"]) if world_mode else heading_text)
 	heading.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	# 自動換行的標題先知道欄寬；否則第一次排版以零寬逐字換行，地圖會在同一格多重建一次。
@@ -695,7 +696,7 @@ func _text(choices: Array) -> String:
 
 func _area_name(path: String) -> String:
 	var data: LevelData = maps.areas.get(path, {}).get("data") if maps != null else null
-	return data.display_name if data != null else ""
+	return data.display_name_for(_display_language) if data != null else ""
 
 
 static func _wrapped(parent: Control, text: String, color := Palette.UI_TEXT) -> Label:

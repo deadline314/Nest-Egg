@@ -29,6 +29,7 @@ profile = ExtResource("7_alley_calm")
 script = ExtResource("1_level_data")
 id = &"ch1_booth_alley"
 display_name = "電話亭巷"
+localized_names = Dictionary[String, String]({"en": "Phone Booth Alley", "ja": "電話ボックス横丁"})
 tile_size = 16
 height = 24
 legend = Dictionary[String, Resource]({

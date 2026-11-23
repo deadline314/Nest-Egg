@@ -63,6 +63,7 @@ profile = ExtResource("9_plaza")
 script = ExtResource("1_level_data")
 id = &"ch3_plaza"
 display_name = "廣場貨梯"
+localized_names = Dictionary[String, String]({"en": "Plaza Freight Lift", "ja": "広場の貨物リフト"})
 tile_size = 16
 height = 40
 legend = Dictionary[String, Resource]({
