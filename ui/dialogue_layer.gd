@@ -500,12 +500,15 @@ func _layout_radio() -> void:
 ## Share the actual world/HUD reservations, including the complete entrance path.
 ## Moving the home must not restart the original slide or fade clocks.
 func _position_radio() -> void:
+	var viewport := get_viewport()
+	if viewport == null or _radio_root == null:
+		return
 	var origin := Vector2(maxf(_safe_rect.position.x + 8, RADIO_HOME.x), maxf(RADIO_HOME.y, _safe_rect.position.y + 8))
 	var extent := _radio_root.size.max(_radio_root.get_combined_minimum_size())
 	if _front_freezes() and not _radio_continue.visible:
 		extent.y += _radio_continue.get_combined_minimum_size().y + 2.0
 	var slide := 0.0 if Settings.get_reduce_ui_motion() else _radio_slide_distance
-	var to_world := get_viewport().get_canvas_transform().affine_inverse() * get_final_transform()
+	var to_world := viewport.get_canvas_transform().affine_inverse() * get_final_transform()
 	var best_cost := INF
 	_radio_home = origin
 	PromptLayout.collect_obstacles_except(null, _radio_obstacles)

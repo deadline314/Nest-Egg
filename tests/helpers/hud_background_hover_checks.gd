@@ -104,6 +104,9 @@ static func run(suite: TestSuite) -> void:
 	suite.check(DialogueLayer.radio_visible() and hud.hover_guard.blocked, "離樹案例先見證真的可見來源與守門")
 	other.get_parent().remove_child(other)
 	suite.check(not DialogueLayer.radio_visible() and not hud.hover_guard.blocked, "可見來源離開場景樹立即解除守門")
+	Story.framing.reset()
+	suite.check(not other._laying_out and not hud.hover_guard.blocked,
+		"同影格重設畫幅可略過已離樹的通訊，且不囤積背景守門")
 	other.queue_free()
 
 	# 4. 用新 HUD 驗操作提示卡；上面的 Hover 等待不能花掉這個案例的閱讀時間。
