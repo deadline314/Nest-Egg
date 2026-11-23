@@ -19,6 +19,7 @@ func run() -> void:
 	await preload("res://tests/helpers/codex_replay_checks.gd").run(self)
 	await _test_pause_info()
 	await _test_pause_language()
+	await _test_pause_retry_copy()
 	await _test_pause_settings_overlay()
 	await _test_main_menu_overlays()
 	await _test_difficulty_cards_never_overlap()
@@ -276,6 +277,42 @@ func _test_pause_language() -> void:
 	menu.queue_free()
 	Story.set_language(original)
 	await frames(3)
+
+func _test_pause_retry_copy() -> void:
+	var original_language := Story.language
+	var original_checkpoint := GameState.has_checkpoint
+	Story.language = "en"
+	GameState.has_checkpoint = false
+	var menu := PauseMenu.new()
+	runner.add_child(menu)
+	menu.open()
+	await frames(4)
+	var retry := menu._actions["retry"]
+	retry.grab_focus()
+	await frames(2)
+	check(retry.text == "Restart area" and menu._menu_hints.text() == retry.tooltip_text,
+			"fresh run pause shows actual area restart with accessible guidance")
+	Story.language = "ja"
+	await frames(4)
+	check(retry.has_focus() and retry.text == "エリアの最初から再開" and menu._menu_hints.text() == retry.tooltip_text,
+			"changing the language preserves the same area restart focus")
+	menu.close()
+	GameState.has_checkpoint = true
+	menu.open()
+	await frames(4)
+	check(retry.text == "復帰地点から再開" and retry.tooltip_text.contains("武器"),
+			"reopening the same pause menu after a checkpoint names the saved destination")
+	retry.grab_focus()
+	await frames(2)
+	check(menu._menu_hints.text() == retry.tooltip_text
+			and menu._menu_hints.get_global_rect().end.x <= menu._info_panel.get_global_rect().position.x,
+			"checkpoint help remains clear of the neighboring controls")
+	menu.close()
+	menu.queue_free()
+	Story.language = original_language
+	GameState.has_checkpoint = original_checkpoint
+	await frames(3)
+
 
 ## 暫停選單開設定（NE-173）：設定蓋滿畫面、底下的選單隱藏且不能聚焦，關閉後焦點回到「設定」按鈕。
 func _test_pause_settings_overlay() -> void:

@@ -26,7 +26,9 @@ const COPY := {
 	"codex": ["圖鑑", "図鑑", "Codex"],
 	"codex_hint": ["查看敗北紀錄，重看本輪看過的故事", "敗北記録や今回見た物語を確認します。", "Review defeats and replay seen stories."],
 	"retry": ["從檢查點重來", "復帰地点から再開", "Retry checkpoint"],
-	"retry_hint": ["回到最後的檢查點，武器保留", "武器を保持して最後の復帰地点に戻ります。", "Return to the last checkpoint with your weapons."],
+	"retry_hint": ["保留檢查點保存的武器。", "セーブ時の武器を引き継ぎます。", "Keep the weapons saved there."],
+	"restart": ["重新開始區域", "エリアの最初から再開", "Restart area"],
+	"restart_hint": ["尚未啟用檢查點。", "チェックポイントがありません。", "No checkpoint yet."],
 	"menu": ["回主選單", "メインメニューに戻る", "Main menu"],
 	"menu_hint": ["返回主選單；會嘗試保存進度", "進行状況の保存を試みてメニューに戻ります。", "Return to the menu and try to save progress."],
 	"time": ["遊玩時間　%s", "プレイ時間　%s", "Play time  %s"],
@@ -209,7 +211,15 @@ func _refresh_language() -> void:
 		_skip_button.tooltip_text = _text("skip_hint")
 	_refresh_skip_copy()
 	_on_bindings_changed()
+	_refresh_retry_copy()
 	_menu_hints.refresh_visible_hint()
+
+
+func _refresh_retry_copy() -> void:
+	var key := "retry" if GameState.has_checkpoint else "restart"
+	var button := _actions["retry"]
+	button.text = _text(key)
+	button.tooltip_text = _text(key + "_hint")
 
 
 func _on_bindings_changed() -> void:
@@ -246,6 +256,7 @@ func open() -> void:
 	if not GameplayLock.menu_allowed():
 		return
 	_refresh_language()
+	_refresh_retry_copy()
 	Fx.reset_time()
 	# 經過 GameplayLock：重要通訊凍結時開關選單，世界仍維持凍結到讀完。
 	GameplayLock.set_base_paused(true)
