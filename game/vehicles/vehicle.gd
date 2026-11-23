@@ -3,6 +3,12 @@ extends CharacterBody2D
 ## 可騎乘兵器：獨立血量與武器、完全不同的操作手感（重、慢、火力強）。
 ## 被擊毀時彈出駕駛並給予無敵時間；殘骸數秒後消失。原點位於腳底。
 
+const COPY := {
+	"board": ["{interact} 搭乘 %s", "{interact} %s に乗る", "{interact} Board %s"],
+	"mounted": ["搭乘 %s（{interact} 離開）", "%s に搭乗。{interact} で降りる。", "Aboard %s. {interact} to exit."],
+	"destroyed": ["%s 已損毀", "%s は大破しました。", "%s destroyed."],
+}
+
 const MAX_FALL_SPEED := 520.0
 ## 剛上車的短暫時間內忽略互動鍵，避免同一次按鍵立刻下車。
 const MOUNT_INPUT_GRACE := 0.25
@@ -77,12 +83,18 @@ func _ready() -> void:
 	add_child(_light)
 
 	_prompt = WorldPrompt.new()
-	_prompt.text = "{interact} 搭乘 %s" % data.display_name
+	_prompt.text = _interaction_text("board")
 	_prompt.reach_check = interaction_available
 	_prompt.interaction_owner = self
 	_prompt.offset = Vector2(0, -size.y - 14.0)
 	add_child(_prompt)
 	Story.framing.register_target(self)
+
+
+func _interaction_text(key: String) -> String:
+	var language := Story.language
+	var template: String = COPY[key][1 if language == "ja" else 2 if language == "en" else 0]
+	return template % data.display_name_for(language)
 
 
 func preview_available() -> bool:
@@ -107,7 +119,7 @@ func mount(player: Player) -> void:
 	_light.energy = 0.7
 	EventBus.vehicle_mounted.emit(self)
 	EventBus.vehicle_health_changed.emit(health.current, health.max_health)
-	EventBus.toast_requested.emit(InputBindings.format("搭乘 %s（{interact} 離開）" % data.display_name))
+	EventBus.toast_requested.emit(_interaction_text("mounted"))
 	Sfx.play(&"pickup", -6.0)
 
 
@@ -238,7 +250,7 @@ func _explode_and_eject() -> void:
 	collision_layer = 0
 	hurtbox.enabled = false
 	_prompt.enabled = false
-	EventBus.toast_requested.emit("%s 已損毀" % data.display_name)
+	EventBus.toast_requested.emit(_interaction_text("destroyed"))
 	var tween := create_tween()
 	tween.tween_interval(WRECK_LIFETIME)
 	tween.tween_property(self, "modulate:a", 0.0, 0.6)

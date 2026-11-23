@@ -4,6 +4,7 @@ extends Resource
 
 @export var id: StringName = &"vehicle"
 @export var display_name: String = "載具"
+@export var localized_names: Dictionary[String, String] = {}
 @export var weapon: WeaponData
 @export var color: Color = Color(0.56, 0.72, 0.78)
 @export var body_size: Vector2 = Vector2(26, 30)
@@ -13,3 +14,7 @@ extends Resource
 @export var acceleration: float = 900.0
 @export var jump_velocity: float = 280.0
 @export var gravity: float = 900.0
+
+
+func display_name_for(language: String) -> String:
+	return StoryLocale.optional_text(localized_names, language, display_name)

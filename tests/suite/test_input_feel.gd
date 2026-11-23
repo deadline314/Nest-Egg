@@ -589,6 +589,8 @@ func _vehicle_press() -> void:
 
 
 func _test_vehicle_hitstop_interaction() -> void:
+	var language := Story.language
+	Story.language = "en"
 	var level := await start_level(load("res://data/levels/level_01.tres") as LevelData)
 	for node in level.find_children("*", "", true, false):
 		if node is Enemy:
@@ -601,8 +603,11 @@ func _test_vehicle_hitstop_interaction() -> void:
 			break
 	check(vehicle != null, "hitstop input uses a real authored vehicle")
 	if vehicle == null:
+		Story.language = language
 		await end_level(level)
 		return
+	check(vehicle._prompt._display_text == "%s Board Bulwark MK-II" % InputBindings.primary_label(&"interact"),
+			"the real vehicle uses its localized name and current boarding key")
 	Fx.thaw_all()
 	player.global_position = vehicle.global_position + Vector2(-8, -2)
 	player.velocity = Vector2.ZERO
@@ -610,6 +615,16 @@ func _test_vehicle_hitstop_interaction() -> void:
 	var until: int = Fx._frozen[player][0]
 	await _vehicle_press()
 	check(player.state == Player.State.MOUNTED and vehicle.driver == player, "polling interaction mounts the real vehicle while its player is locally stopped")
+	check(level.hud._gauges.vehicle_visible and level.hud._gauges.vehicle_label == "Mech", "active vehicle durability uses the selected locale")
+	var banner := level.hud.toast_banner
+	check(banner._label.text == "Aboard Bulwark MK-II. %s to exit." % InputBindings.primary_label(&"interact"),
+			"mounting displays the actual dismount action in English")
+	var used_gamepad := InputBindings.using_gamepad
+	var active_device := InputBindings.active_device
+	InputBindings._set_device(not used_gamepad, 999 if not used_gamepad else -1)
+	check(banner._label.text == "Aboard Bulwark MK-II. %s to exit." % InputBindings.primary_label(&"interact"),
+			"the already visible dismount banner updates when the input device changes")
+	InputBindings._set_device(used_gamepad, active_device)
 	check(player.process_mode == Node.PROCESS_MODE_DISABLED and Fx._frozen.has(player) and int(Fx._frozen[player][0]) == until, "accepting the command preserves the actor stop and its original deadline")
 	if player.state != Player.State.MOUNTED:
 		player.mount_vehicle(vehicle)  # Setup for the independent exit case; the failed mount above remains failed.
@@ -659,6 +674,7 @@ func _test_vehicle_hitstop_interaction() -> void:
 	check(player.state == Player.State.NORMAL and vehicle.driver == null, "local stop preserves the authored mount distance")
 	Fx.thaw_all()
 	Input.action_release(&"interact")
+	Story.language = language
 	await end_level(level)
 
 

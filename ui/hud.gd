@@ -9,6 +9,7 @@ const CONTROLS_HINT_TIME := 5.0
 const HUD_TEXT := {
 	"zh": {
 		"quick_controls": "{pause} 開啟操作說明",
+		"vehicle_gauge": "機甲",
 		"full_controls": "移動 {move_left}/{move_right}　跳 {jump}　射擊 {shoot}　格擋 {block}　衝刺 {dash}　近戰／終結 {melee}　換彈 {reload}　換武器 {weapon_next}／1～4　搭乘 {interact}　背包 {inventory}　暫停 {pause}",
 		 "lives": "殘機 ×%d", "lives_help": "殘機用完會從關卡開頭重來",
 		"items_help": "按 {inventory} 開啟背包來使用消耗品。",
@@ -17,6 +18,7 @@ const HUD_TEXT := {
 	},
 	"ja": {
 		"quick_controls": "{pause} 操作ガイド",
+		"vehicle_gauge": "機体",
 		"full_controls": "移動 {move_left}/{move_right}　ジャンプ {jump}　射撃 {shoot}　ガード {block}　ダッシュ {dash}　近接／フィニッシュ {melee}　リロード {reload}　武器切替 {weapon_next}／1～4　乗る {interact}　所持品 {inventory}　ポーズ {pause}",
 		 "lives": "残機 ×%d", "lives_help": "残機がなくなると、エリアの入口からやり直します。",
 		"items_help": "{inventory} でインベントリを開いて消耗品を使います。",
@@ -25,6 +27,7 @@ const HUD_TEXT := {
 	},
 	"en": {
 		"quick_controls": "{pause} Controls",
+		"vehicle_gauge": "Mech",
 		"full_controls": "Move {move_left}/{move_right}　Jump {jump}　Shoot {shoot}　Block {block}　Dash {dash}　Melee / finish {melee}　Reload {reload}　Switch weapon {weapon_next}／1～4　Mount {interact}　Inventory {inventory}　Pause {pause}",
 		 "lives": "Lives ×%d", "lives_help": "When lives run out, restart the area.",
 		"items_help": "Open Inventory with {inventory} to use consumables.",
@@ -467,6 +470,7 @@ func _on_consumables_changed(bag: ConsumableBag) -> void:
 
 
 func _on_vehicle_mounted(_vehicle: Node2D) -> void:
+	_gauges.vehicle_label = _hud_text("vehicle_gauge")
 	_gauges.vehicle_visible = true
 	_gauges.queue_redraw()
 
@@ -498,6 +502,7 @@ class _Gauges:
 	extends Control
 
 	var vehicle_visible := false
+	var vehicle_label := ""
 	var vehicle_ratio := 1.0
 
 	func _draw() -> void:
@@ -508,4 +513,4 @@ class _Gauges:
 			draw_rect(Rect2(12, 22, 90, 5), Color(Palette.UI_PANEL, 0.9))
 			draw_rect(Rect2(12, 22, 90 * vehicle_ratio, 5), LightKit.glow(Palette.WARNING, 1.4))
 			draw_rect(Rect2(12, 22, 90, 5), Palette.TERRAIN_TOP, false, 1.0)
-			draw_string(UiKit.font(), Vector2(106, 28), "機甲", HORIZONTAL_ALIGNMENT_LEFT, -1, 9, Palette.WARNING)
+			draw_string(UiKit.font(), Vector2(106, 28), vehicle_label, HORIZONTAL_ALIGNMENT_LEFT, -1, 9, Palette.WARNING)
