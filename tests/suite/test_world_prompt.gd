@@ -6,6 +6,7 @@ extends TestSuite
 func run() -> void:
 	_test_solver()
 	_test_bounded_solver()
+	_test_edge_row_fallback()
 	_test_leader_geometry()
 	_test_chapter_one_hint_language()
 	await _test_leader_world_transform()
@@ -62,6 +63,35 @@ func _test_bounded_solver() -> void:
 		var shown := Rect2(rects[i].position + nudges[i], rects[i].size)
 		valid = valid and bounds.encloses(shown) and not shown.intersects(obstacles[0].grow(PromptLayout.OBSTACLE_MARGIN))
 	check(valid, "crowded top-edge prompts find free positions inside both screen edges")
+
+
+func _test_edge_row_fallback() -> void:
+	# The original booth-alley camera at 120% UI scale has a gap above both signs
+	# between the normal rows. Both invitations and the central character must fit.
+	var bounds := Rect2(102.33347, 187.2303, 325.3334, 179.5)
+	var rects: Array[Rect2] = [Rect2(281.66687, 230, 146, 63), Rect2(293.66687, 209, 134, 40)]
+	var obstacles: Array[Rect2] = [
+		Rect2(350.6316, 227.0928, 36.97919, 20.3125),
+		Rect2(323.5313, 268.1436, 10.9375, 10.9375),
+		Rect2(344.3816, 244.2803, 42.70837, 8.333328),
+		Rect2(373.3335, 187.397, 52.08334, 11.97917),
+		Rect2(368.1252, 194.6886, 57.29169, 8.333328),
+		Rect2(104.5835, 323.8553, 68.75002, 40.625),
+		Rect2(384.075, 257.2928, 33.84998, 71.56247),
+	]
+	var nudges := PromptLayout.solve(rects, obstacles, PromptLayout.GAP, bounds)
+	check(PromptLayout._fits == PackedByteArray([1, 1]), "crowded safe edges have room for both the booth and its tutorial")
+	var tutorial := Rect2(rects[0].position + nudges[0], rects[0].size)
+	var booth := Rect2(rects[1].position + nudges[1], rects[1].size)
+	var clear := bounds.encloses(tutorial) and bounds.encloses(booth) and not tutorial.intersects(booth)
+	for obstacle in obstacles:
+		clear = clear and not booth.intersects(obstacle.grow(PromptLayout.OBSTACLE_MARGIN))
+	check(clear and is_equal_approx(booth.position.y, bounds.position.y), "the actual edge gap preserves the reading surfaces and both cards")
+	PromptLayout.solve(rects, obstacles, PromptLayout.GAP, bounds, true)
+	check(PromptLayout._fits == PackedByteArray([1, 0]), "callers requesting a fixed row never move vertically")
+	var no_room: Array[Rect2] = [bounds]
+	PromptLayout.solve(rects, no_room, PromptLayout.GAP, bounds)
+	check(PromptLayout._fits == PackedByteArray([0, 0]), "an edge cannot cover an occupied viewport")
 
 
 func _test_long_text() -> void:

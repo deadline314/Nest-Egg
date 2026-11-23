@@ -134,37 +134,54 @@ static func _insert_sorted(prompt: WorldPrompt) -> void:
 ## 每個提示從「原位」開始，找移動代價最小的空位：往上疊一格的代價與橫向移動同單位，
 ## 所以一般是上下錯開，遇到人物擋在上方時改成往旁邊讓開。結果是每個提示的位移（x 橫向、y 往上為負），放在 _nudges 並回傳。
 static func solve(rects: Array[Rect2], obstacles: Array[Rect2], gap := GAP, bounds := Rect2(), stay_on_row := false) -> PackedVector2Array:
+	var bounded := bounds.has_area()
+	var rows := 1 if stay_on_row else (MAX_STACK * 2 + 1 if bounded else MAX_STACK + 1)
+	var edge_rows := 2 if bounded and not stay_on_row else 0
 	_nudges.resize(rects.size())
 	_fits.resize(rects.size())
 	_fits.fill(0)
 	_placed.clear()
 	for i in rects.size():
 		var rect := rects[i]
-		var best := Vector2.ZERO if bounds.has_area() else Vector2(0.0, -MAX_STACK * (rect.size.y + gap))
+		var best := Vector2.ZERO if bounded else Vector2(0.0, -MAX_STACK * (rect.size.y + gap))
 		var best_cost := INF
-		var rows := MAX_STACK * 2 + 1 if bounds.has_area() else MAX_STACK + 1
-		for step in (1 if stay_on_row else rows):
-			var row := int((step + 1) / 2) if bounds.has_area() else step
-			var dy := row * (rect.size.y + gap) * (1.0 if bounds.has_area() and step > 0 and step % 2 == 0 else -1.0)
-			if absf(dy) >= best_cost:
+		_collect_shifts(rect, obstacles, gap)
+		if bounded:
+			_shifts.append(bounds.position.x - rect.position.x)
+			_shifts.append(bounds.end.x - rect.end.x)
+		for step in rows + edge_rows:
+			if step == rows and best_cost < INF:
 				break
-			_collect_shifts(rect, obstacles, gap)
-			if bounds.has_area():
-				_shifts.append(bounds.position.x - rect.position.x)
-				_shifts.append(bounds.end.x - rect.end.x)
+			var dy := _row_offset(step, rows, rect, gap, bounds)
+			if absf(dy) >= best_cost:
+				if step < rows:
+					break
+				continue
 			for dx in _shifts:
 				var cost := absf(dx) + absf(dy)
 				var candidate := Rect2(rect.position + Vector2(dx, dy), rect.size)
-				if bounds.has_area() and not bounds.encloses(candidate):
+				if bounded and not bounds.encloses(candidate):
 					continue
 				if cost < best_cost and not _is_blocked(candidate, obstacles, gap):
 					best = Vector2(dx, dy)
 					best_cost = cost
 					_fits[i] = 1
 		_nudges[i] = best
-		if not bounds.has_area() or _fits[i] != 0:
+		if not bounded or _fits[i] != 0:
 			_placed.append(Rect2(rect.position + best, rect.size))
 	return _nudges
+
+
+## Regular rows preserve the normal spacing. When they all fail, try the two safe screen edges.
+static func _row_offset(step: int, rows: int, rect: Rect2, gap: float, bounds: Rect2) -> float:
+	if step == rows:
+		return bounds.position.y - rect.position.y
+	if step > rows:
+		return bounds.end.y - rect.end.y
+	var bounded := bounds.has_area()
+	var row := int((step + 1) / 2) if bounded else step
+	var down := bounded and step > 0 and step % 2 == 0
+	return row * (rect.size.y + gap) * (1.0 if down else -1.0)
 
 
 ## 候選的橫向位移：原位，以及貼在每個已放好的提示與障礙左右兩側。
