@@ -293,6 +293,20 @@ func phase_for(ratio: float, set_name := DEFAULT_SET) -> int:
 	return list.size() - 1
 
 
+## 戰鬥中的有效門檻。略過重複、逆序和滿血門檻，最後階段的 0 表示結束。
+func health_phase_marks(set_name := DEFAULT_SET) -> PackedFloat64Array:
+	var marks := PackedFloat64Array()
+	var previous := 1.0
+	for phase_data in phase_list(set_name):
+		var threshold := float(phase_data["until"])
+		if threshold <= 0.0:
+			break
+		if threshold < previous:
+			marks.append(threshold)
+			previous = threshold
+	return marks
+
+
 ## 部位在這個階段、這招（預兆或出招中的招式 id，沒有就空白）、是否硬直時、頭目掛著的標籤下應該打開。
 func part_open(id: StringName, phase: int, staggered: bool, move: StringName = &"", tags := PackedStringArray()) -> bool:
 	if is_part_gone(id, phase):

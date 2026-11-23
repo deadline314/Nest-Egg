@@ -205,6 +205,7 @@ func _ready() -> void:
 	EventBus.vehicle_dismounted.connect(_on_vehicle_dismounted)
 	EventBus.vehicle_health_changed.connect(_on_vehicle_health_changed)
 	EventBus.boss_started.connect(_on_boss_started)
+	EventBus.boss_phase_marks_changed.connect(boss_bar.set_phase_marks)
 	EventBus.boss_health_changed.connect(_on_boss_health_changed)
 	EventBus.boss_defeated.connect(_on_boss_defeated)
 	EventBus.boss_bar_closed.connect(boss_bar.close)
@@ -494,6 +495,7 @@ func _on_vehicle_health_changed(current: int, maximum: int) -> void:
 
 
 func _on_boss_started(display_name: String, max_health: int) -> void:
+	boss_bar.set_phase_marks(BossBar.DEFAULT_PHASE_MARKS)
 	boss_bar.open(display_name, 1.0 if max_health > 0 else 0.0)
 
 

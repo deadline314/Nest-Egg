@@ -1,7 +1,7 @@
 class_name BossBar
 extends Control
 ## 頭目血條：名牌 + 分段血條 + 階段刻度。登場時從中間往兩側展開，跨過階段刻度時閃一下。
-## 只認比例（0 到 1）與名稱，不持有頭目物件。階段刻度預設在一半血量（兩個頭目都是 50% 進入第二階段）。
+## 接收比例、名稱與階段刻度，無須持有頭目物件。
 
 const SIZE := Vector2(320, 30)
 const SEGMENTS := 24
@@ -10,9 +10,10 @@ const FLASH_TIME := 0.35
 const CLOSE_TIME := 0.3
 const BAR_TOP := 16.0
 const BAR_HEIGHT := 7.0
+const DEFAULT_PHASE_MARKS: PackedFloat64Array = [0.5]
 
-## 階段刻度位置（血量比例）。
-var phase_marks: PackedFloat32Array = PackedFloat32Array([0.5])
+## 舊頭目用 50% 刻度，資料化頭目在開場時立即提供真正門檻。
+var phase_marks := DEFAULT_PHASE_MARKS
 
 var _bar: SegmentBar
 var _name := ""
@@ -90,6 +91,16 @@ func close() -> void:
 	_tween = create_tween()
 	_tween.tween_property(self, "modulate:a", 0.0, CLOSE_TIME)
 	_tween.tween_callback(func() -> void: visible = false)
+
+
+func set_phase_marks(marks: PackedFloat64Array) -> void:
+	if phase_marks == marks:
+		return
+	phase_marks = marks
+	_crossed.clear()
+	_flash = 0.0
+	set_process(false)
+	queue_redraw()
 
 
 func set_ratio(value: float) -> void:

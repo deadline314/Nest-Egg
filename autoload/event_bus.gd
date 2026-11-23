@@ -33,6 +33,7 @@ signal dry_fired
 signal reload_completed
 
 signal boss_started(display_name: String, max_health: int)
+signal boss_phase_marks_changed(marks: PackedFloat64Array)
 signal boss_health_changed(current: int, maximum: int)
 signal boss_defeated
 ## 迷你頭目被擊敗：只收起頭目血條，不會結束關卡（boss_defeated 才會）。

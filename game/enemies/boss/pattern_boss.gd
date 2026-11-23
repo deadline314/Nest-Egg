@@ -134,6 +134,8 @@ func use_phase_set(set_name: String, perform := true) -> void:
 	if phase_set != set_name:
 		RigLibrary.report_once("pattern_boss_set:%s:%s" % [data.id, set_name], "[PatternBoss] %s 沒有階段組「%s」，改用 default" % [data.id, set_name])
 	_apply_phase(pattern.phase_for(_health_ratio(), phase_set), perform)
+	if _awake:
+		EventBus.boss_phase_marks_changed.emit(_boss_bar_phase_marks())
 
 
 func has_tag(tag: String) -> bool:
@@ -168,6 +170,16 @@ func is_awake() -> bool:
 # 睡著、登場、待機
 # ---------------------------------------------------------------------------
 
+func _boss_bar_phase_marks() -> PackedFloat64Array:
+	return pattern.health_phase_marks(phase_set)
+
+
+func _show_boss_bar(display_name: String) -> void:
+	EventBus.boss_started.emit(display_name, health.max_health)
+	EventBus.boss_phase_marks_changed.emit(_boss_bar_phase_marks())
+	EventBus.boss_health_changed.emit(health.current, health.max_health)
+
+
 func _dormant_tick(_delta: float) -> void:
 	velocity.x = 0.0
 	if _can_see_target(pattern.wake_range, 140.0):
@@ -179,8 +191,7 @@ func _wake() -> void:
 	if _awake or is_queued_for_deletion():
 		return
 	_awake = true
-	EventBus.boss_started.emit(pattern.bar_name if not pattern.bar_name.is_empty() else data.display_name, health.max_health)
-	EventBus.boss_health_changed.emit(health.current, health.max_health)
+	_show_boss_bar(pattern.bar_name if not pattern.bar_name.is_empty() else data.display_name)
 	Feel.play(&"boss_intro")
 	if mark != null:
 		mark.start()

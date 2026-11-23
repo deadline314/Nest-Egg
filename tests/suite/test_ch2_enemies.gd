@@ -239,6 +239,7 @@ func _damage_to(boss: PatternBoss, hp: int) -> void:
 func _test_cut_route() -> void:
 	await open_level(YONG_TILE - 20.0)
 	var yong := await _spawn_yong()
+	check(level.hud.boss_bar.phase_marks.size() == 1 and is_equal_approx(level.hud.boss_bar.phase_marks[0], 0.25), "Yong opens with the authored choice threshold")
 	var player := level.player
 	await _damage_to(yong, 1)
 	check(yong.health.current == ceili(yong.health.max_health * 0.25) and not yong.is_dying(), "yong cannot be pushed past 25%% before the choice (%d)" % yong.health.current)
@@ -264,6 +265,7 @@ func _test_cut_route() -> void:
 	check(GameState.get_flag(&"yong_link_isolated") == true and GameState.get_flag(&"yong_link_revoked") == true, "holding the box for 1.5 s permanently revokes the link")
 	yong.set_physics_process(true)
 	check(str(yong.get("stage")) == "subdue" and yong.has_tag("subdue") and yong.is_part_open(&"baton_lock"), "the health bar becomes subdue progress and the baton lock opens")
+	check(level.hud.boss_bar.phase_marks.is_empty(), "subdue progress has no false health transition marks")
 	check(GameState.get_flag(&"yong_revival_done") != true, "the cut route never revives yong")
 	await _subdue_and_pull(yong, player)
 	await _test_retired_hold_hint(level)
@@ -333,6 +335,8 @@ func _test_keep_route() -> void:
 	check(GameState.get_flag(&"yong_revival_done") == true and str(yong.get("stage")) == "revived", "the keep route: yong truly falls once and revives")
 	check(yong.phase_set == "revived" and float(yong.current_phase()["speed"]) < 1.0 and int(yong.current_phase()["damage_bonus"]) >= 1,
 			"phase two is slower and each hit is heavier")
+	var latch_ratio := float(yong.health.floor_health) / float(yong.health.max_health)
+	check(level.hud.boss_bar.phase_marks.size() == 1 and is_equal_approx(level.hud.boss_bar.phase_marks[0], latch_ratio), "the revived bar marks the true pause latch floor")
 	check(yong.health.current == ceili(yong.health.max_health * 0.6), "he comes back at 60%% (%d)" % yong.health.current)
 	await _damage_to(yong, 1)
 	for i in 400:
@@ -340,6 +344,7 @@ func _test_keep_route() -> void:
 			break
 		await physics_frames(1)
 	check(GameState.get_flag(&"yong_link_isolated") == true and yong.phase_set == "subdue_revived", "egret's pause latch switches the bar to subdue progress")
+	check(level.hud.boss_bar.phase_marks.is_empty(), "switching to subdue clears the latch mark from the bar")
 	check(GameState.get_flag(&"yong_link_revoked") != true, "the keep route keeps the link eligibility")
 	await _subdue_and_pull(yong, player)
 	await end_level(level)

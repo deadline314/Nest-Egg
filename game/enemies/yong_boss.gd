@@ -229,8 +229,7 @@ func _start_revived(perform: bool) -> void:
 	health.floor_health = _hp_at(float(_hook("latch_ratio", 0.35)))
 	use_phase_set("revived", perform)
 	if perform:
-		EventBus.boss_started.emit(data.display_name, health.max_health)
-		EventBus.boss_health_changed.emit(health.current, health.max_health)
+		_show_boss_bar(data.display_name)
 
 
 ## 血量碰到這個階段的門檻時接下一步（保留路倒下、鷺關上暫停閂、制伏進度打完）。
@@ -311,8 +310,7 @@ func _enter_subdue(set_name: String, perform: bool) -> void:
 	set_tag("subdue", true)
 	use_phase_set(set_name, perform)
 	if _awake:
-		EventBus.boss_started.emit(_hook_text("subdue_name", data.display_name), health.max_health)
-		EventBus.boss_health_changed.emit(health.current, health.max_health)
+		_show_boss_bar(_hook_text("subdue_name", data.display_name))
 
 
 func _on_lock_hit(_info: DamageInfo) -> void:
@@ -385,12 +383,17 @@ func is_subdued() -> bool:
 	return stage == "done"
 
 
+func _boss_bar_phase_marks() -> PackedFloat64Array:
+	if stage == "revived":
+		return PackedFloat64Array([float(health.floor_health) / float(maxi(1, health.max_health))])
+	return super._boss_bar_phase_marks()
+
+
 ## 醒來：已經在制伏中（重試）時，血條直接用「制伏進度」的名字。
 func _wake() -> void:
 	super._wake()
 	if stage == "subdue":
-		EventBus.boss_started.emit(_hook_text("subdue_name", data.display_name), health.max_health)
-		EventBus.boss_health_changed.emit(health.current, health.max_health)
+		_show_boss_bar(_hook_text("subdue_name", data.display_name))
 
 
 func _on_player_died(_cause: StringName) -> void:

@@ -283,9 +283,12 @@ func _test_watchdog_phases() -> void:
 		if part.part_id == &"gun_arm":
 			gun = part
 	check(gun != null and gun.enabled and dog.is_leashed(), "phase one: gun arm is a target and the chain holds")
+	var bar := level.hud.boss_bar
+	check(bar.phase_marks.size() == 2 and is_equal_approx(bar.phase_marks[0], 0.6) and is_equal_approx(bar.phase_marks[1], 0.3), "the real watchdog HUD shows the combat data’s 60 and 30 percent thresholds")
 	dog.hurtbox.receive(hit(int(dog.health.max_health * 0.45), true))
 	await physics_frames(2)
 	check(dog.phase == 1 and dog.fsm.is_in(&"phase_shift"), "losing 45%% health breaks the gun arm with a pause (phase %d, %s)" % [dog.phase + 1, dog.fsm.current])
+	check(bar._crossed.has(0) and not bar._crossed.has(1), "only the first HUD threshold has crossed at 55 percent")
 	check(not gun.enabled and not (dog.current_phase()["moves"] as Array).has(&"burst"), "the broken gun arm stops the burst")
 	await physics_frames(2)
 	var turret := dog.creature.joint_of("turret") if dog.creature != null else null
@@ -294,6 +297,7 @@ func _test_watchdog_phases() -> void:
 	dog.hurtbox.receive(hit(int(dog.health.max_health * 0.3), true))
 	await physics_frames(2)
 	check(dog.phase == 2 and not dog.is_leashed() and dog.current_phase()["armored"], "below 30% the chain snaps; the armour still deflects body shots")
+	check(bar._crossed.has(1) and is_equal_approx(bar.ratio(), float(dog.health.current) / dog.health.max_health), "the second tick and HUD health update with the snapped chain")
 	await wait_state(dog, &"idle", 120)
 	# 第三階段：連撲撲完會失衡，背部電源打開。
 	place_player(dog.global_position.x / 16.0 + 6.0)
