@@ -39,6 +39,8 @@ var language := StoryLocale.SOURCE_LANGUAGE
 ## 世界地圖的區域名稱是否折成兩行（欄寬放不下一行時）。
 var _wrap_names := false
 var zoom := 1.0
+## An unset manual center keeps the existing player/goal framing.
+var pan_center := Vector2.INF
 var builds := 0
 ## 目前區域已探索的可通行格子比例（0～1），隨貼圖一起快取。
 var explored_ratio := 0.0
@@ -50,6 +52,8 @@ static var _cache_maps: WeakRef
 static var _cache_parse_count := -1
 var _texture: Texture2D
 var _map_rect := Rect2()
+var _map_cells := Vector2.ZERO
+var _cell_pixels := 0.0
 var _view := Rect2()
 var _overview := Rect2()
 var _lines: Array[PackedVector2Array] = []
@@ -100,6 +104,8 @@ func refresh() -> void:
 	_line_colors.clear()
 	_texture = null
 	_overview = Rect2()
+	_map_cells = Vector2.ZERO
+	_cell_pixels = 0.0
 	if world_mode:
 		_world_map()
 	elif maps.areas.has(path):
@@ -146,6 +152,10 @@ func _region_map() -> void:
 	elif goal.get("level", "") == path:
 		var goal_cell: Array = goal.get("cell", [0, 0])
 		focus = Vector2(goal_cell[0], goal_cell[1])
+	if pan_center.is_finite():
+		focus = pan_center
+	_map_cells = cells
+	_cell_pixels = factor
 	var display := cells * factor
 	var origin := _view.position + (avail - display) * 0.5
 	if display.x > avail.x:
@@ -195,7 +205,9 @@ func _region_map() -> void:
 			var arrow := "← %s" % destination if point.x < _view.get_center().x else "%s →" % destination
 			_label(arrow, point + Vector2(0, -MARKER.y), Color("bfe9f5"))
 	if path == player_path:
-		_button("marker:player", "▲", _text(["主角目前在這裡。", "ここが現在地です。", "Your current position."]), _map_rect.position + player_position / layout.tile_size * factor, MARKER, Palette.CYAN)
+		var point := _map_rect.position + player_position / layout.tile_size * factor
+		if _view.grow(1).has_point(point):
+			_button("marker:player", "▲", _text(["主角目前在這裡。", "ここが現在地です。", "Your current position."]), point, MARKER, Palette.CYAN)
 	if goal.get("level", "") == path:
 		var cell: Array = goal.get("cell", [0, 0])
 		var point := _map_rect.position + Vector2(cell[0] + 0.5, cell[1] + 1.0) * factor
@@ -206,6 +218,35 @@ func _region_map() -> void:
 				marker.pressed.connect(marker_selected.emit.bind(text))
 		else:
 			_edge_label(point, _text(["◎ 目標", "◎ 目標", "◎ Goal"]), Palette.MAGENTA)
+
+
+func pan(direction: Vector2) -> bool:
+	if _cell_pixels <= 0.0:
+		return false
+	var center := (_view.get_center() - _map_rect.position) / _cell_pixels
+	return _pan_to(center + direction * _view.size / _cell_pixels * 0.35)
+
+
+func _pan_to(point: Vector2) -> bool:
+	var half_view := (_view.size / _cell_pixels * 0.5).min(_map_cells * 0.5)
+	var centered := point.clamp(half_view, _map_cells - half_view)
+	if centered.is_equal_approx((_view.get_center() - _map_rect.position) / _cell_pixels):
+		return false
+	pan_center = centered
+	refresh()
+	return true
+
+
+func _get_tooltip(at_position: Vector2) -> String:
+	return _text(["點選縮圖以跳到該處。", "縮図を選んでその場所へ移動します。", "Select the overview to inspect that location."]) if _overview.has_point(at_position) else ""
+
+
+func _gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT \
+			and _overview.has_point(event.position) and _cell_pixels > 0.0:
+		var map_fraction: Vector2 = (event.position - _overview.position) / _overview.size
+		_pan_to(map_fraction * _map_cells)
+		accept_event()
 
 
 func _cell_size(cells: Vector2, avail: Vector2) -> float:
@@ -592,6 +633,7 @@ func _draw() -> void:
 		# 整區縮圖與目前視窗框：寬區域一眼看到全貌、主角與目標的相對位置。
 		draw_rect(_overview, Color(0.0, 0.015, 0.03, 0.95))
 		draw_texture_rect(_texture, _overview, false, Color(1, 1, 1, 0.8))
-		var scale_x := _overview.size.x / maxf(1.0, _map_rect.size.x)
-		var window := Rect2(_overview.position.x + (_view.position.x - _map_rect.position.x) * scale_x, _overview.position.y - 1, _view.size.x * scale_x, _overview.size.y + 2)
+		var scale_factor := _overview.size / _map_rect.size
+		var visible_map := _view.intersection(_map_rect)
+		var window := Rect2(_overview.position + (visible_map.position - _map_rect.position) * scale_factor, visible_map.size * scale_factor)
 		draw_rect(window, Color(Palette.UI_TEXT, 0.7), false, 1)

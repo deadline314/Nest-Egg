@@ -57,6 +57,7 @@ var _body: Control
 var _footer: HBoxContainer
 var _status: Label
 var _canvas: QuestMapCanvas
+var _pan_button: Button
 var _list: VBoxContainer
 var _details: VBoxContainer
 ## 任務細節的操作（釘選、前往地圖）固定在細節下方，不跟著內文捲走或被裁掉一半。
@@ -132,7 +133,7 @@ func _process(_delta: float) -> void:
 	var scroll := _detail_scroll.scroll_vertical if is_instance_valid(_detail_scroll) else 0
 	var map_zoom := _canvas.zoom if is_instance_valid(_canvas) else 1.0
 	_refresh_footer()
-	_build(owned_focus, map_zoom)
+	_build(owned_focus, map_zoom, _canvas.pan_center if is_instance_valid(_canvas) else Vector2.INF)
 	if owned_focus:
 		_restore_focus.call_deferred(focus_key)
 	if is_instance_valid(_detail_scroll):
@@ -191,7 +192,11 @@ func _refresh_footer() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed(&"ui_cancel") or event.is_action_pressed(&"pause"):
-		go_back()
+		if is_instance_valid(_pan_button) and _pan_button.button_pressed:
+			_pan_button.set_pressed_no_signal(false)
+			_update_pan_hint()
+		else:
+			go_back()
 		get_viewport().set_input_as_handled()
 	elif reference_location.is_empty() and (event.is_action_pressed(&"inventory_next_tab") or event.is_action_pressed(&"inventory_prev_tab")):
 		var offset := 1 if event.is_action_pressed(&"inventory_next_tab") else -1
@@ -213,7 +218,7 @@ func show_page(page: String, remember := true) -> void:
 				_history.resize(index + 1)
 				go_back()
 				return
-		_history.append({"page": _page, "map_path": _map_path, "selected": _selected, "focus_text": _focus_text()})
+		_remember_page()
 	_page = page
 	_build()
 
@@ -224,19 +229,26 @@ func go_back() -> void:
 		_page = previous["page"]
 		_map_path = previous["map_path"]
 		_selected = previous["selected"]
-		_build()
-		_restore_focus.call_deferred(str(previous.get("focus_text", "")))
+		_build(true, previous["map_zoom"], previous["pan_center"])
+		_restore_focus.call_deferred(str(previous["focus_text"]))
 	else:
 		closed.emit()
 		queue_free()
 
 
-func _build(focus_first := true, map_zoom := 1.0) -> void:
+func _remember_page() -> void:
+	_history.append({"page": _page, "map_path": _map_path, "selected": _selected, "focus_text": _focus_text(),
+		"map_zoom": _canvas.zoom if is_instance_valid(_canvas) else 1.0,
+		"pan_center": _canvas.pan_center if is_instance_valid(_canvas) else Vector2.INF})
+
+
+func _build(focus_first := true, map_zoom := 1.0, pan_center := Vector2.INF) -> void:
 	for child in _body.get_children():
 		_body.remove_child(child)
 		child.queue_free()
 	_buttons.clear()
 	_canvas = null
+	_pan_button = null
 	_details = null
 	_actions = null
 	_reward = null
@@ -250,7 +262,7 @@ func _build(focus_first := true, map_zoom := 1.0) -> void:
 	if _page == "quests":
 		_build_quests()
 	else:
-		_build_map(map_zoom)
+		_build_map(map_zoom, pan_center)
 	_bind_hints(self)
 	if focus_first and not _buttons.is_empty():
 		_focus_first.call_deferred()
@@ -540,7 +552,7 @@ func _pin(id: String) -> void:
 
 
 func _jump_to_map(path: String) -> void:
-	_history.append({"page": _page, "map_path": _map_path, "selected": _selected, "focus_text": _focus_text()})
+	_remember_page()
 	_map_path = path
 	_page = "region"
 	_build()
@@ -550,7 +562,7 @@ func _jump_to_map(path: String) -> void:
 # 地圖頁
 # ---------------------------------------------------------------------------
 
-func _build_map(map_zoom: float) -> void:
+func _build_map(map_zoom: float, pan_center: Vector2) -> void:
 	var data: LevelData = maps.areas.get(_map_path, {}).get("data")
 	var columns := HBoxContainer.new()
 	UiKit.fill_parent(columns)
@@ -590,6 +602,8 @@ func _build_map(map_zoom: float) -> void:
 			["zoom_in", _text(["放大", "拡大", "Zoom in"]), _zoom.bind(2.0), zoom_hint],
 			["zoom_out", _text(["縮小", "縮小", "Zoom out"]), _zoom.bind(0.5), _text(["縮小地圖以查看周圍。", "地図を縮小して周辺を表示します。", "Zoom out to see farther."])],
 			["center", center_label, _here, center_hint],
+			["pan", _text(["平移", "移動", "Pan"]), Callable(),
+				_text(["啟用後用方向鍵平移地圖。", "有効にして方向ボタンで地図を移動します。", "Activate to pan with the direction buttons."])],
 		]
 		for entry: Array in controls:
 			var tool := UiKit.button(entry[1], entry[2], entry[3])
@@ -597,6 +611,12 @@ func _build_map(map_zoom: float) -> void:
 			FlatStyle.chip(tool)
 			tools.add_child(tool)
 			_buttons.append(tool)
+			if entry[0] == "pan":
+				_pan_button = tool
+				tool.toggle_mode = true
+				tool.toggled.connect(func(_pressed: bool) -> void: _update_pan_hint())
+				tool.gui_input.connect(_on_pan_input)
+				tool.focus_exited.connect(func() -> void: tool.set_pressed_no_signal(false))
 	info.add_child(FlatStyle.section(_text(["圖例", "凡例", "Legend"])))
 	for item: Array in LEGEND:
 		var source_marker: bool = showing_source and item[0] == "goal"
@@ -628,6 +648,7 @@ func _build_map(map_zoom: float) -> void:
 	_canvas.world_mode = world_mode
 	_canvas.language = _display_language
 	_canvas.zoom = map_zoom
+	_canvas.pan_center = pan_center
 	_canvas.flags = GameState.world_flags
 	_canvas.world = _world_for_area(data)
 	var backup_area := GameState.checkpoint_level_path if not GameState.checkpoint_level_path.is_empty() else player_path
@@ -669,6 +690,22 @@ func _map_stats(world_mode: bool) -> String:
 	return _text(["已探索 %d%%", "探索率 %d%%", "%d%% explored"]) % roundi(_canvas.explored_ratio * 100.0) if _canvas != null else ""
 
 
+func _on_pan_input(event: InputEvent) -> void:
+	if not _pan_button.button_pressed or not _pan_button.has_focus() or not is_instance_valid(_canvas):
+		return
+	var direction := Vector2(
+		int(event.is_action_pressed(&"ui_right", true)) - int(event.is_action_pressed(&"ui_left", true)),
+		int(event.is_action_pressed(&"ui_down", true)) - int(event.is_action_pressed(&"ui_up", true)))
+	if direction != Vector2.ZERO:
+		_canvas.pan(direction)
+		_pan_button.accept_event()
+
+
+func _update_pan_hint() -> void:
+	_status.text = _text(["用方向鍵平移。再按確認或返回結束。", "方向ボタンで移動。決定か戻るで終了。", "Pan with directions. Confirm or go back to stop."]) \
+		if _pan_button.button_pressed else _pan_button.tooltip_text
+
+
 func _zoom(factor: float) -> void:
 	_canvas.zoom = clampf(_canvas.zoom * factor, 1, 4)
 	_canvas.refresh()
@@ -678,6 +715,7 @@ func _here() -> void:
 	var path := str(reference_location.get("level", player_path))
 	if _map_path == path:
 		_canvas.zoom = 1.0
+		_canvas.pan_center = Vector2.INF
 		_canvas.refresh()
 		return
 	var focus_key := _focus_text()

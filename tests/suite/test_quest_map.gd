@@ -634,6 +634,7 @@ func _test_ui(catalog: QuestCatalog, maps: QuestMapIndex) -> void:
 	await _test_remote_gates(screen)
 	await _test_checkpoint_marker(screen)
 	await _test_map_recenter(screen)
+	await _test_map_pan(screen)
 	await _test_tab_history(screen)
 	await _test_completed_pin_label(screen)
 	screen.queue_free()
@@ -1003,6 +1004,46 @@ func _test_map_recenter(screen: QuestMapScreen) -> void:
 		check(owner != null and screen._status.text == "顯示主角目前所在的區域。", "recenter preserves the activated control's hint from %s" % area)
 		screen.go_back()
 		await frames(3)
+
+
+func _test_map_pan(screen: QuestMapScreen) -> void:
+	screen._jump_to_map(WAREHOUSE)
+	await frames(3)
+	var canvas := screen._canvas
+	var before := canvas._map_rect.position.x
+	var terrain := canvas.builds
+	var zoom := canvas.zoom
+	var pan := screen._pan_button
+	pan.grab_focus()
+	await _key(KEY_ENTER)
+	await _key(KEY_RIGHT)
+	check(pan.button_pressed and canvas._map_rect.position.x < before, "keyboard arrows inspect the far end of the warehouse")
+	check(canvas.builds == terrain and pan.has_focus(), "panning reuses terrain and retains focus")
+	var center := canvas.pan_center
+	await _joy(JOY_BUTTON_B)
+	check(not pan.button_pressed and screen._page == "region", "controller back leaves pan mode before leaving the map")
+	await _joy(JOY_BUTTON_A)
+	await _joy(JOY_BUTTON_DPAD_LEFT)
+	check(canvas.pan_center.x < center.x, "controller d-pad pans in the opposite direction")
+	await _key(KEY_ESCAPE)
+	var left := canvas.pan_center
+	var click := InputEventMouseButton.new()
+	click.position = canvas._overview.position + canvas._overview.size * Vector2(0.9, 0.5)
+	click.button_index = MOUSE_BUTTON_LEFT
+	click.pressed = true
+	canvas._gui_input(click)
+	check(canvas.pan_center.x > left.x and canvas.builds == terrain, "overview click moves the existing cached map")
+	center = canvas.pan_center
+	screen.show_page("world")
+	await frames(3)
+	screen.go_back()
+	await frames(3)
+	check(screen._canvas.pan_center == center and screen._canvas.zoom == zoom, "returning from the world restores the examined position")
+	screen._here()
+	await frames(3)
+	check(screen._map_path == PAWN and not screen._canvas.pan_center.is_finite(), "recenter returns to the player without a stale pan")
+	screen.go_back()
+	await frames(3)
 
 
 func _test_journal_language(screen: QuestMapScreen) -> void:
