@@ -14,6 +14,7 @@ func run() -> void:
 	_test_generic_face_button_labels()
 	_test_localized_controller_directions()
 	await _test_controller_flow()
+	await _test_paused_controller_notice()
 	await _test_controller_ui_flow()
 	await _test_shot_uses_current_aim()
 	await _test_shot_releases_guard_pose()
@@ -379,6 +380,44 @@ func _test_controller_aim() -> void:
 	layer.transform = Transform2D.IDENTITY
 	layer.queue_free()
 	node.queue_free()
+
+
+func _test_paused_controller_notice() -> void:
+	var original := Story.language
+	var level := await start_level(PropsSuite.level_data())
+	var pause := level._pause_menu
+	pause.open()
+	await frames(3)
+	var copy := {
+		"zh": "手把已斷線，可使用鍵盤繼續操作。",
+		"ja": "接続が切れました。キーボードを使用してください。",
+		"en": "Controller disconnected. Use the keyboard.",
+	}
+	var same_banner: UiBanner
+	for language: String in copy:
+		Story.set_language(language)
+		InputBindings._set_device(true, 519)
+		Input.action_press(&"shoot")
+		await frames(2)
+		var focused := runner.get_viewport().gui_get_focus_owner()
+		InputBindings._on_joy_connection_changed(519, false)
+		var notice: UiBanner = InputBindings._disconnect_notice
+		if same_banner == null:
+			same_banner = notice
+		check(notice == same_banner and notice._label.text == copy[language],
+				"%s reuses the localized device banner with the open menu" % language)
+		check((notice.get_parent() as CanvasLayer).layer > pause.layer
+				and notice.mouse_behavior_recursive == Control.MOUSE_BEHAVIOR_DISABLED,
+				"the banner is visible above the modal without intercepting pointer input")
+		check(runner.get_tree().paused and runner.get_viewport().gui_get_focus_owner() == focused
+				and not InputBindings.is_controller_interrupted() and not Input.is_action_pressed(&"shoot"),
+				"the open pause keeps focus while lost device inputs are released")
+	InputBindings._dismiss_disconnect_notice()
+	check(InputBindings._disconnect_notice == null and not PromptLayout._obstacles.has(same_banner),
+			"dismissal releases the global notice and its prompt layout obstacle")
+	Story.set_language(original)
+	pause.close()
+	await end_level(level)
 
 
 func _test_controller_interruption() -> void:

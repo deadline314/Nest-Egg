@@ -212,10 +212,17 @@ var using_gamepad := false
 var active_device := -1
 var _axis_values: Dictionary[int, Dictionary] = {}
 const RecoveryPrompt := preload("res://ui/controller_recovery_prompt.gd")
+const DISCONNECT_NOTICE: Dictionary[String, String] = {
+	"en": "Controller disconnected. Use the keyboard.",
+	"ja": "接続が切れました。キーボードを使用してください。",
+}
+const DISCONNECT_NOTICE_ZH := "手把已斷線，可使用鍵盤繼續操作。"
+const DISCONNECT_NOTICE_SECONDS := 2.2
 
 var _disconnect_token := 0
 var _recovery_layer: CanvasLayer
 var _recovery_prompt: Control
+var _disconnect_notice: UiBanner
 var _recovery_focus: WeakRef
 var _connected_joypads: Dictionary[int, bool] = {}
 var _interrupted_player: WeakRef
@@ -813,7 +820,32 @@ func _on_joy_connection_changed(device: int, connected: bool) -> void:
 		_show_recovery_prompt()
 		controller_interrupted_changed.emit(true)
 	else:
-		EventBus.toast_requested.emit("手把已斷線，可使用鍵盤繼續操作。")
+		_show_disconnect_notice()
+
+
+## Menus may not own a gameplay HUD. This banner reads above them without taking focus.
+func _show_disconnect_notice() -> void:
+	if not is_instance_valid(_disconnect_notice):
+		var layer := CanvasLayer.new()
+		layer.layer = UiLayers.CONTROLLER_NOTICE
+		add_child(layer)
+		_disconnect_notice = UiBanner.new()
+		_disconnect_notice.mouse_behavior_recursive = Control.MOUSE_BEHAVIOR_DISABLED
+		_disconnect_notice.position.y = 3.0
+		_disconnect_notice.expired.connect(_dismiss_disconnect_notice)
+		layer.add_child(_disconnect_notice)
+	_disconnect_notice.center_x = get_viewport().get_visible_rect().size.x * 0.5
+	var message := StoryLocale.optional_text(DISCONNECT_NOTICE, Story.language, DISCONNECT_NOTICE_ZH)
+	_disconnect_notice.show_text(message, UiBanner.Kind.INFO, DISCONNECT_NOTICE_SECONDS)
+
+
+func _dismiss_disconnect_notice() -> void:
+	if not is_instance_valid(_disconnect_notice):
+		return
+	var layer := _disconnect_notice.get_parent()
+	_disconnect_notice = null
+	remove_child(layer)
+	layer.queue_free()
 
 
 ## 連線恢復本身不自動開跑；確認事件會被吞掉，避免同一次按鍵跳躍或射擊。
@@ -830,6 +862,7 @@ func resume_after_disconnect() -> void:
 
 
 func _show_recovery_prompt() -> void:
+	_dismiss_disconnect_notice()
 	var focused := get_viewport().gui_get_focus_owner()
 	_recovery_focus = weakref(focused) if focused != null else null
 	_recovery_layer = CanvasLayer.new()

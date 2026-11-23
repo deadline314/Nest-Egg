@@ -3,6 +3,8 @@ extends PanelContainer
 ## 橫幅：從側邊滑入、停留、滑出。取得物品、檢查點、警告共用。
 ## 再次呼叫 show_text 會直接接手目前的橫幅，不會堆疊。
 
+signal expired
+
 enum Kind { INFO, ITEM, WARNING }
 
 const SLIDE := 28.0
@@ -70,6 +72,7 @@ func show_text(text: String, kind: Kind = Kind.INFO, hold: float = 2.0) -> void:
 	_tween.chain().tween_interval(hold)
 	_tween.chain().tween_method(_set_slide_offset, 0.0, _travel, SLIDE_TIME).set_ease(Tween.EASE_IN)
 	_tween.parallel().tween_property(self, "modulate:a", 0.0, SLIDE_TIME)
+	_tween.finished.connect(expired.emit)
 	PromptLayout.invalidate()
 
 

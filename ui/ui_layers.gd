@@ -12,4 +12,5 @@ const FRAMING := 59
 const DIALOGUE := 60
 const INVENTORY := 61
 const PAUSE := 70
+const CONTROLLER_NOTICE := 75
 const TRANSITION := 100
