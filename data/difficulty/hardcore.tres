@@ -11,6 +11,10 @@ localized_names = Dictionary[String, String]({
 "ja": "ハードコア"
 })
 description = "生命少、殘機有限、敵人更兇猛，檢查點不回血"
+localized_descriptions = Dictionary[String, String]({
+"en": "Less health, limited lives, faster enemies, and no checkpoint healing.",
+"ja": "体力と残機が少なく、敵の攻撃が速い。チェックポイントで回復しない。"
+})
 player_max_health = 4
 lives = 3
 enemy_cooldown_multiplier = 0.8

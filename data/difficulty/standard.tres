@@ -11,6 +11,10 @@ localized_names = Dictionary[String, String]({
 "ja": "標準"
 })
 description = "設計者預期的體驗"
+localized_descriptions = Dictionary[String, String]({
+"en": "The intended balance of combat and exploration.",
+"ja": "戦闘と探索の基本バランス。"
+})
 player_max_health = 6
 lives = -1
 enemy_cooldown_multiplier = 1.0

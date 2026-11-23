@@ -17,6 +17,39 @@ const CAMERA_SWAY := 56.0
 const CAMERA_PERIOD := 48.0
 const MENU_WIDTH := 168.0
 const CARD_SIZE := Vector2(184, 194)
+const COPY := {
+	"subtitle": ["巢中之卵", "巣の卵", ""],
+	"resume": ["繼續遊戲", "続きから", "Continue"],
+	"resume_hint": ["恢復上次保存的整輪進度", "最後に保存した進行状況を再開", "Restore your last campaign save."],
+	"start": ["開始任務", "任務を開始", "New game"],
+	"start_hint": ["選擇難度，從序章開始", "難易度を選び、序章から始めます。", "Choose a difficulty and start the prologue."],
+	"codex": ["圖鑑", "図鑑", "Codex"],
+	"codex_hint": ["查看敗北紀錄，重看本輪看過的故事", "敗北記録を読み、見た場面を再生します。", "View defeat records and replay unlocked scenes."],
+	"settings": ["設定", "設定", "Settings"],
+	"settings_hint": ["音量、按鍵、顯示", "音量・操作・表示を調整します。", "Adjust audio, controls and display."],
+	"quit": ["離開", "終了", "Quit"],
+	"quit_hint": ["關閉遊戲", "ゲームを終了します。", "Close the game."],
+	"developer": ["開發工具（F5）", "開発ツール（F5）", "Developer tools (F5)"],
+	"developer_hint": ["音效與打擊感等開發工具", "音響や打撃感の調整ツール。", "Open sound, combat and other development tools."],
+	"difficulty": ["選擇難度", "難易度を選択", "Choose a difficulty"],
+	"difficulty_hint": ["開始後不能中途更換；通關後可以用別的難度重玩。", "開始後は難易度を変更できません。クリア後は別の難易度を選べます。", "Difficulty stays fixed for this run."],
+	"confirm": ["出發", "出発", "Start"],
+	"confirm_hint": ["以選擇的難度開始序章", "選んだ難易度で序章を始めます。", "Start the prologue on this difficulty."],
+	"back": ["返回", "戻る", "Back"],
+	"back_hint": ["回到主選單", "メインメニューに戻ります。", "Return to the main menu."],
+	"menu_controls": ["{ui_up}/{ui_down} 選擇　{ui_accept} 確認", "{ui_up}/{ui_down} 選択　{ui_accept} 決定", "{ui_up}/{ui_down} Move   {ui_accept} Select"],
+	"difficulty_controls": ["{ui_left}/{ui_right} 選難度　{ui_accept} 確認　{ui_cancel} 返回",
+		"{ui_left}/{ui_right} 難易度を選択　{ui_accept} 決定　{ui_cancel} 戻る",
+		"{ui_left}/{ui_right} Difficulty   {ui_accept} Select   {ui_cancel} Back"],
+	"unlimited": ["無限", "無制限", "Unlimited"],
+	"health_lives": ["生命 %d　殘機 %s", "体力 %d　残機 %s", "HP %d   Lives %s"],
+	"pace": ["敵人節奏　%s", "敵の攻撃間隔　%s", "Enemy attacks: %s"],
+	"pace_slow": ["慢", "長め", "Slow"],
+	"pace_fast": ["快", "短め", "Fast"],
+	"pace_standard": ["標準", "標準", "Standard"],
+	"heals": ["檢查點回血　有", "チェックポイント回復あり", "Checkpoint healing: On"],
+	"no_heal": ["檢查點回血　沒有", "チェックポイント回復なし", "Checkpoint healing: Off"],
+}
 ## 開發工具按鈕離右下角的距離（右、下）；下方留給版本字樣。
 const DEV_BUTTON_MARGIN := Vector2(12, 30)
 
@@ -31,7 +64,8 @@ var _confirm_button: Button
 var _dev_button: Button
 var _cards: Array[UiCard] = []
 var _time := 0.0
-var _legends: Array[Label] = []
+var _menu_legend: Label
+var _difficulty_legend: Label
 
 
 func _ready() -> void:
@@ -111,7 +145,7 @@ func _build_main_page() -> void:
 	var title := UiKit.label("NEST EGG", UiKit.FS_DISPLAY, LightKit.glow(Palette.CYAN, 1.6))
 	title.position = Vector2(36, 40)
 	_main_page.add_child(title)
-	var subtitle := UiKit.label("巢中之卵", UiKit.FS_BODY, Palette.UI_MUTED)
+	var subtitle := UiKit.label(_text("subtitle"), UiKit.FS_BODY, Palette.UI_MUTED)
 	subtitle.position = Vector2(38, 84)
 	_main_page.add_child(subtitle)
 	var rule := UiDivider.new()
@@ -126,22 +160,13 @@ func _build_main_page() -> void:
 	_main_page.add_child(list)
 	var entries: Array[Button] = []
 	if continue_available:
-		var resume_label := "繼續遊戲"
-		var resume_hint := "恢復上次保存的整輪進度"
-		match Story.language:
-			"ja":
-				resume_label = "続きから"
-				resume_hint = "最後に保存した進行状況を再開"
-			"en":
-				resume_label = "Continue"
-				resume_hint = "Restore your last campaign save"
-		_continue_button = _menu_button(resume_label, continue_requested.emit, resume_hint)
+		_continue_button = _menu_button(_text("resume"), continue_requested.emit, _text("resume_hint"))
 		entries.append(_continue_button)
-	_start_button = _menu_button("開始任務", _open_difficulty, "選擇難度，從序章開始")
+	_start_button = _menu_button(_text("start"), _open_difficulty, _text("start_hint"))
 	entries.append(_start_button)
-	entries.append(_menu_button("圖鑑", _open_codex, "查看敗北紀錄，重看本輪看過的故事"))
-	entries.append(_menu_button("設定", _open_settings, "音量、按鍵、顯示"))
-	entries.append(_menu_button("離開", quit_requested.emit, "關閉遊戲"))
+	entries.append(_menu_button(_text("codex"), _open_codex, _text("codex_hint")))
+	entries.append(_menu_button(_text("settings"), _open_settings, _text("settings_hint")))
+	entries.append(_menu_button(_text("quit"), quit_requested.emit, _text("quit_hint")))
 	for b in entries:
 		list.add_child(b)
 
@@ -159,7 +184,8 @@ func _build_main_page() -> void:
 		notice.size = Vector2(300, 64)
 		_main_page.add_child(notice)
 
-	_add_legend(_main_page)
+	_menu_legend = _add_legend(_main_page)
+	_menu_legend.position = Vector2(38, 334)
 	# 發行版標出收錄範圍，玩家一眼知道這份程式玩到哪一章；存檔也依此分開保存。
 	var edition := CampaignEdition.current()
 	var version_text := VERSION_TEXT if edition.development else "%s　%s" % [edition.version if not edition.version.is_empty() else VERSION_TEXT, edition.title(Story.language)]
@@ -182,7 +208,7 @@ func _build_main_page() -> void:
 func _build_dev_entry() -> void:
 	if not DevMenu.is_available():
 		return
-	_dev_button = UiKit.button("開發工具（F5）", DevMenu.open, "音效實驗室、打擊感實驗室等開發用工具；只有編輯器與除錯版有")
+	_dev_button = UiKit.button(_text("developer"), DevMenu.open, _text("developer_hint"))
 	# 貼著右下角、向左上長：按鈕的最小尺寸由主題決定，不用自己算寬度才不會被切掉。
 	_dev_button.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
 	_dev_button.grow_horizontal = Control.GROW_DIRECTION_BEGIN
@@ -217,17 +243,21 @@ func _build_difficulty_page() -> void:
 	shade.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_difficulty_page.add_child(shade)
 
-	var heading := UiKit.label("選擇難度", UiKit.FS_TITLE, Palette.CYAN)
+	var heading := UiKit.label(_text("difficulty"), UiKit.FS_TITLE, Palette.CYAN)
 	heading.position = Vector2(36, 28)
 	_difficulty_page.add_child(heading)
-	var sub := UiKit.label("開始後不能中途更換；通關後可以用別的難度重玩。", UiKit.FS_BODY, Palette.UI_MUTED)
+	var sub := UiKit.label(_text("difficulty_hint"), UiKit.FS_BODY, Palette.UI_MUTED)
 	sub.position = Vector2(38, 60)
 	_difficulty_page.add_child(sub)
 
+	var body := VBoxContainer.new()
+	body.position = Vector2(36, 86)
+	body.add_theme_constant_override(&"separation", 6)
+	_difficulty_page.add_child(body)
+
 	var row := HBoxContainer.new()
-	row.position = Vector2(36, 92)
 	row.add_theme_constant_override(&"separation", 10)
-	_difficulty_page.add_child(row)
+	body.add_child(row)
 	var group := ButtonGroup.new()
 	for difficulty in GameState.difficulties:
 		var card := _make_difficulty_card(difficulty, group)
@@ -235,28 +265,31 @@ func _build_difficulty_page() -> void:
 		_cards.append(card)
 
 	var buttons := HBoxContainer.new()
-	buttons.position = Vector2(36, 292)
 	buttons.add_theme_constant_override(&"separation", 10)
-	_difficulty_page.add_child(buttons)
-	_confirm_button = UiKit.button("出發", _on_start, "以選擇的難度開始第一章")
+	body.add_child(buttons)
+	_confirm_button = UiKit.button(_text("confirm"), _on_start, _text("confirm_hint"))
 	_confirm_button.custom_minimum_size = Vector2(150, 26)
 	buttons.add_child(_confirm_button)
-	var back := UiKit.button("返回", _on_back, "回到主選單")
+	var back := UiKit.button(_text("back"), _on_back, _text("back_hint"))
 	back.custom_minimum_size = Vector2(110, 26)
 	buttons.add_child(back)
-	_add_legend(_difficulty_page)
+	_difficulty_legend = _add_legend(body)
 
 
-func _add_legend(page: Control) -> void:
+static func _text(key: String) -> String:
+	var index := maxi(0, StoryLocale.LANGUAGES.find(Story.language))
+	return COPY[key][index]
+
+
+func _add_legend(page: Control) -> Label:
 	var legend := UiKit.label("", UiKit.FS_BODY, Palette.UI_MUTED)
-	legend.position = Vector2(38, 334)
 	page.add_child(legend)
-	_legends.append(legend)
+	return legend
 
 
 func _refresh_legends() -> void:
-	for legend in _legends:
-		legend.text = InputBindings.format("{ui_up}/{ui_down} 選擇　{ui_accept} 確認　{ui_cancel} 返回")
+	_menu_legend.text = InputBindings.format(_text("menu_controls"))
+	_difficulty_legend.text = InputBindings.format(_text("difficulty_controls"))
 
 
 func _make_difficulty_card(difficulty: DifficultyData, group: ButtonGroup) -> UiCard:
@@ -264,18 +297,19 @@ func _make_difficulty_card(difficulty: DifficultyData, group: ButtonGroup) -> Ui
 	card.toggle_mode = true
 	card.button_group = group
 	card.button_pressed = difficulty == _selected
-	card.tooltip_text = difficulty.description
-	card.add_text(difficulty.display_name, UiKit.FS_TITLE, Palette.CYAN if difficulty == _selected else Palette.UI_TEXT)
-	card.add_text(difficulty.description, UiKit.FS_BODY, Palette.UI_MUTED, true)
+	var description := difficulty.description_for(Story.language)
+	card.tooltip_text = description
+	card.add_text(difficulty.display_name_for(Story.language), UiKit.FS_TITLE, Palette.CYAN if difficulty == _selected else Palette.UI_TEXT)
+	card.add_text(description, UiKit.FS_BODY, Palette.UI_MUTED, true)
 	var spacer := Control.new()
 	spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	spacer.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	card.content.add_child(spacer)
 	card.content.add_child(UiDivider.new())
-	var lives := "無限" if not difficulty.has_limited_lives() else "%d" % difficulty.lives
-	card.add_text("生命 %d　殘機 %s" % [difficulty.player_max_health, lives])
-	card.add_text("敵人節奏　%s" % _pace_text(difficulty.enemy_cooldown_multiplier))
-	card.add_text("檢查點回血　%s" % ("有" if difficulty.checkpoint_heals else "沒有"))
+	var lives := "%d" % difficulty.lives if difficulty.has_limited_lives() else _text("unlimited")
+	card.add_text(_text("health_lives") % [difficulty.player_max_health, lives])
+	card.add_text(_text("pace") % _pace_text(difficulty.enemy_cooldown_multiplier))
+	card.add_text(_text("heals" if difficulty.checkpoint_heals else "no_heal"))
 	card.pressed.connect(_select_difficulty.bind(difficulty))
 	return card
 
@@ -283,10 +317,10 @@ func _make_difficulty_card(difficulty: DifficultyData, group: ButtonGroup) -> Ui
 ## 敵人冷卻倍率轉成一個字：倍率越大敵人越慢。
 static func _pace_text(cooldown_multiplier: float) -> String:
 	if cooldown_multiplier >= 1.2:
-		return "慢"
+		return _text("pace_slow")
 	if cooldown_multiplier <= 0.9:
-		return "快"
-	return "標準"
+		return _text("pace_fast")
+	return _text("pace_standard")
 
 
 func _select_difficulty(difficulty: DifficultyData) -> void:

@@ -11,6 +11,10 @@ localized_names = Dictionary[String, String]({
 "ja": "アシスト"
 })
 description = "生命多、敵人攻擊慢，適合第一次接觸動作遊戲"
+localized_descriptions = Dictionary[String, String]({
+"en": "More health and slower enemies. Good for your first action game.",
+"ja": "体力が多く、敵の攻撃が遅め。アクションゲームが初めての方向け。"
+})
 player_max_health = 10
 lives = -1
 enemy_cooldown_multiplier = 1.4

@@ -12,6 +12,7 @@ func frames(count: int) -> void:
 func run() -> void:
 	await _test_game_boots_to_menu()
 	await _test_main_menu()
+	await _test_title_language()
 	await preload("res://tests/helpers/radio_prompt_checks.gd").run(self)
 	await preload("res://tests/helpers/destination_prompt_checks.gd").run(self)
 	await _test_codex()
@@ -82,6 +83,50 @@ func _test_main_menu() -> void:
 	menu.queue_free()
 	await frames(2)
 	GameState.difficulty = GameState.difficulties[1]
+
+
+func _test_title_language() -> void:
+	var previous_language := Story.language
+	var previous_scale := Settings.get_ui_text_scale()
+	var previous_motion := Settings.get_reduce_ui_motion()
+	var previous_pad := InputBindings.using_gamepad
+	var previous_device := InputBindings.active_device
+	Settings.set_ui_text_scale(1.2)
+	Settings.set_reduce_ui_motion(true)
+	for entry: Array in [["zh", "開始任務", "硬核", "檢查點回血　沒有"],
+			["ja", "任務を開始", "ハードコア", "チェックポイント回復なし"],
+			["en", "New game", "Hardcore", "Checkpoint healing: Off"]]:
+		Story.language = entry[0]
+		InputBindings._set_device(false)
+		var menu := MainMenu.new()
+		menu.continue_available = true
+		runner.add_child(menu)
+		await frames(4)
+		menu._start_button.grab_focus()
+		check(menu._start_button.text == entry[1] and menu._hint.text == menu._start_button.tooltip_text,
+				"new game action and focus hint use the title language " + entry[0])
+		menu._open_difficulty()
+		await frames(6)
+		var card := menu._cards.back() as UiCard
+		var last := card.content.get_child(card.content.get_child_count() - 1) as Label
+		var title := card.content.get_child(0) as Label
+		var description := card.content.get_child(1) as Label
+		check(title.text == entry[2] and last.text == entry[3] and description.text == card.tooltip_text,
+				"visible difficulty and its hover use the same locale and authored settings " + entry[0])
+		InputBindings._set_device(true, 999)
+		check(menu._difficulty_legend.text.contains(InputBindings.primary_label(&"ui_left"))
+				and menu._menu_legend.text.contains(InputBindings.primary_label(&"ui_up")),
+				"title legends follow the active device and correctly distinguish horizontal and vertical pages")
+		check(card.get_global_rect().end.x <= menu._ui.size.x + 0.5
+				and card.get_global_rect().end.y <= menu._confirm_button.get_global_rect().position.y + 0.5
+				and last.get_global_rect().end.x <= card.get_global_rect().end.x + 0.5,
+				"localized card, stats and action buttons fit at 120 percent " + entry[0])
+		menu.queue_free()
+		await frames(2)
+	InputBindings._set_device(previous_pad, previous_device)
+	Settings.set_ui_text_scale(previous_scale)
+	Settings.set_reduce_ui_motion(previous_motion)
+	Story.language = previous_language
 
 
 func _test_codex() -> void:
