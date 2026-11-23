@@ -171,6 +171,23 @@ func _test_widgets() -> void:
 	await frames(2)
 	check(not banner.is_showing() and banner.prompt_obstacle_rect().has_area() == false, "撤回後原Tween不會讓橫幅或版面占位復活")
 
+	var original := InputBindings.get_code(&"interact", 0)
+	var old_gamepad := InputBindings.using_gamepad
+	var old_device := InputBindings.active_device
+	InputBindings._set_device(false)
+	var instruction := "{interact} 放下"
+	banner.show_text(instruction, UiBanner.Kind.INFO, 1.0)
+	var tween := banner._tween
+	check(banner._label.text == InputBindings.format(instruction), "橫幅直接顯示目前的鍵盤按鍵")
+	InputBindings._set_device(true, 0)
+	check(banner._label.text == InputBindings.format(instruction) and banner._tween == tween, "手把接手時更新按鍵並保留橫幅時間")
+	InputBindings._set_device(false)
+	InputBindings.set_code(&"interact", 0, KEY_KP_7)
+	check(banner._label.text == InputBindings.format(instruction) and banner._tween == tween, "改鍵更新同一個橫幅")
+	check(banner.dismiss_text(instruction) and banner._label.text.is_empty(), "改鍵後仍可用原訊息撤回自己的橫幅")
+	InputBindings.set_code(&"interact", 0, original)
+	InputBindings._set_device(old_gamepad, old_device)
+
 	var hint := UiHint.new()
 	root.add_child(hint)
 	hint.set_text("按 E 檢查")

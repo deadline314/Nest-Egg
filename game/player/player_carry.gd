@@ -17,6 +17,10 @@ const THROW_POSE_TIME := 0.25
 const POSE_LIFT := &"rin.carry_lift"
 const POSE_HOLD := &"rin.carry_hold"
 const POSE_THROW := &"rin.carry_throw"
+const PICKUP_HINTS: Dictionary[String, String] = {
+	"ja": "{shoot} 照準方向に投げる、{interact} 置く",
+	"en": "{shoot} Throw toward the reticle. {interact} Put down.",
+}
 
 var player: Player
 var phase: Phase = Phase.NONE
@@ -143,7 +147,7 @@ func pick(item: Throwable) -> void:
 	set_physics_process(true)
 	if not _hinted:
 		_hinted = true
-		_pickup_hint = InputBindings.format("{shoot} 往準星丟出，{interact} 放下")
+		_pickup_hint = StoryLocale.optional_text(PICKUP_HINTS, Story.language, "{shoot} 往準星丟出，{interact} 放下")
 		EventBus.toast_requested.emit(_pickup_hint)
 
 

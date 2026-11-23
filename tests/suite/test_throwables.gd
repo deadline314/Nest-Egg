@@ -380,6 +380,19 @@ func _test_data() -> void:
 	check(light.throw_speed > heavy.throw_speed and light.gravity < heavy.gravity and light.carry_speed_scale > heavy.carry_speed_scale,
 			"weight matters: the barrel flies slower, drops faster and slows the carrier")
 
+	for id: String in ["crate_small", "pipe", "concrete_chunk", "fuel_barrel"]:
+		var item := load("%s/%s.tres" % [DIR, id]) as ThrowableData
+		for language: String in ["ja", "en"]:
+			var hint := item.hint_for(language)
+			check(hint != item.hint and hint.contains("{interact}"), "%s retains the pickup binding in %s" % [id, language])
+	var custom := ThrowableData.new()
+	check(custom.hint_for("ja") == custom.hint, "legacy throwable without a translation uses its source hint")
+	custom.localized_hints["ja"] = "拾う"
+	check(custom.hint_for("ja") == custom.hint, "a translation without the required action keeps the source binding")
+	custom.localized_hints["en"] = "{interact} Pick up"
+	custom.hint = ""
+	check(custom.hint_for("en").is_empty(), "an intentionally disabled pickup hint stays disabled")
+
 
 func _place(path: String, x_tile: float, y := FLOOR_Y) -> Throwable:
 	var item := Throwable.new()
@@ -763,8 +776,10 @@ func _test_gamepad_events() -> void:
 	check(InputBindings.using_gamepad, "a real gamepad button switches prompts to the gamepad")
 	var shoot_label := InputBindings.primary_label(&"shoot")
 	var interact_label := InputBindings.primary_label(&"interact")
-	check(shoot_label.contains("RT") and toasts.size() == 1 and toasts[0].contains(shoot_label) and toasts[0].contains(interact_label)
-			and not toasts[0].contains("{"), "the one-line carry hint names the gamepad buttons (%s)" % [toasts])
+	var displayed := level.hud.toast_banner._label.text
+	check(toasts.size() == 1, "picking up the pipe requests the carry hint once")
+	check(shoot_label.contains("RT") and displayed.contains(shoot_label) and displayed.contains(interact_label)
+			and not displayed.contains("{"), "the displayed carry hint names the gamepad buttons (%s)" % displayed)
 	check(InputBindings.format(pipe.data.hint).contains(interact_label), "the pick-up prompt names the gamepad interact button")
 	_joy_axis(JOY_AXIS_RIGHT_X, 1.0)
 	_joy_axis(JOY_AXIS_RIGHT_Y, -0.12)

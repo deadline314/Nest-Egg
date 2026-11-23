@@ -106,7 +106,12 @@ static func run(suite: TestSuite) -> void:
 	suite.check(not DialogueLayer.radio_visible() and not hud.hover_guard.blocked, "可見來源離開場景樹立即解除守門")
 	other.queue_free()
 
-	# 4. 操作提示卡：暫停頁打開時收起，關閉後依情境回來，閱讀時間不被暫停吃掉。
+	# 4. 用新 HUD 驗操作提示卡；上面的 Hover 等待不能花掉這個案例的閱讀時間。
+	await suite.frames(2)  # 讓另一個通訊層先釋放，再重設原關卡的演出。
+	await suite.end_level(level)
+	level = await suite.start_level(PropsSuite.level_data())
+	hud = level.hud
+	pause = level._pause_menu
 	await suite.frames(2)
 	suite.check(hud._controls_card.visible, "新遊戲的操作提示正常顯示（前置條件）")
 	var read_left: float = hud._controls_read_time

@@ -8,6 +8,10 @@ id = &"concrete_chunk"
 display_name = "水泥塊"
 look = 3
 hint = "{interact} 撿起水泥塊"
+localized_hints = Dictionary[String, String]({
+"en": "{interact} Pick up concrete",
+"ja": "{interact} コンクリート片を拾う"
+})
 size = Vector2(9, 8)
 color = Color(0.46, 0.47, 0.5, 1.0)
 throw_speed = 380.0

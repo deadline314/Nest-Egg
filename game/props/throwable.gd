@@ -17,6 +17,10 @@ const GROUND_FRICTION := 900.0
 const MAX_FALL_SPEED := 700.0
 const MAX_FLIGHT_TIME := 4.0
 const PROMPT_RADIUS := 26.0
+const DROP_HINTS: Dictionary[String, String] = {
+	"ja": "{interact} 置く",
+	"en": "{interact} Put down",
+}
 
 var data: ThrowableData
 var state: State = State.REST
@@ -75,9 +79,10 @@ func _ready() -> void:
 		add_child(hurtbox)
 		hurtbox.setup(Combat.Team.ENEMY, health, data.size + Vector2(4, 4), Vector2(0, -data.size.y * 0.5))
 		hurtbox.hit_material = &"metal" if data.look in [ThrowableData.Look.BARREL, ThrowableData.Look.PIPE] else &"wood"
-	if not data.hint.is_empty():
+	var pickup_hint := data.hint_for(Story.language)
+	if not pickup_hint.is_empty():
 		_prompt = WorldPrompt.new()
-		_prompt.text = data.hint
+		_prompt.text = pickup_hint
 		_prompt.radius = PROMPT_RADIUS
 		_prompt.offset = Vector2(0, -data.size.y - 10.0)
 		_prompt.reach_check = _pickup_prompt_reachable
@@ -132,7 +137,7 @@ func pick_up(carrier: PlayerCarry = null) -> void:
 		_prompt.enabled = carrier != null
 		_prompt.interaction_owner = carrier
 		if carrier != null:
-			_prompt.text = "{interact} 放下"
+			_prompt.text = StoryLocale.optional_text(DROP_HINTS, Story.language, "{interact} 放下")
 			_prompt.reach_check = carrier.interaction_available
 
 
@@ -300,7 +305,7 @@ func _to_rest() -> void:
 	_spin = 0.0
 	_set_targetable(true)
 	if _prompt != null:
-		_prompt.text = data.hint
+		_prompt.text = data.hint_for(Story.language)
 		_prompt.reach_check = _pickup_prompt_reachable
 		_prompt.interaction_owner = self
 		_prompt.enabled = true

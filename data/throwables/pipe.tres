@@ -8,6 +8,10 @@ id = &"pipe"
 display_name = "鐵管"
 look = 2
 hint = "{interact} 撿起鐵管"
+localized_hints = Dictionary[String, String]({
+"en": "{interact} Pick up pipe",
+"ja": "{interact} 鉄パイプを拾う"
+})
 size = Vector2(20, 5)
 color = Color(0.5, 0.53, 0.58, 1.0)
 throw_speed = 400.0

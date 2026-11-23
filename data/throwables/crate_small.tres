@@ -8,6 +8,10 @@ id = &"crate_small"
 display_name = "小木箱"
 look = 0
 hint = "{interact} 撿起木箱"
+localized_hints = Dictionary[String, String]({
+"en": "{interact} Pick up crate",
+"ja": "{interact} 木箱を拾う"
+})
 size = Vector2(12, 11)
 color = Color(0.58, 0.44, 0.28, 1.0)
 throw_speed = 460.0

@@ -20,6 +20,7 @@ enum Look {
 @export var look: Look = Look.CRATE
 ## 靠近時的一句提示，{interact} 會換成實際按鍵；空白代表不顯示。
 @export var hint: String = "{interact} 撿起"
+@export var localized_hints: Dictionary[String, String] = {}
 ## 大小（像素），原點在底邊中點。
 @export var size: Vector2 = Vector2(12, 12)
 @export var color: Color = Color(0.55, 0.42, 0.28, 1.0)
@@ -50,6 +51,15 @@ enum Look {
 @export var explosion_radius: float = 0.0
 @export var explosion_damage: int = 3
 @export_range(0.0, 2.0) var fuse: float = 0.6
+
+
+func hint_for(language: String) -> String:
+	if hint.is_empty():
+		return ""
+	var translated := StoryLocale.optional_text(localized_hints, language, hint)
+	if hint.contains("{interact}") and not translated.contains("{interact}"):
+		return hint
+	return translated
 
 
 func is_explosive() -> bool:

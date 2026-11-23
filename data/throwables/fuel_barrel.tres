@@ -8,6 +8,10 @@ id = &"fuel_barrel"
 display_name = "油桶"
 look = 1
 hint = "{interact} 舉起油桶：丟出去撞到就炸，被子彈打中會先燒一下再炸"
+localized_hints = Dictionary[String, String]({
+"en": "{interact} Lift barrel. It explodes on impact when thrown, or lights its fuse when shot.",
+"ja": "{interact} 燃料ドラム缶を持つ。投げると衝突で爆発し、撃つと導火線に火がつく。"
+})
 size = Vector2(13, 18)
 color = Color(0.6, 0.18, 0.15, 1.0)
 throw_speed = 300.0

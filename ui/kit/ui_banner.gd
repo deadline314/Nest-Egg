@@ -15,6 +15,8 @@ var _label: Label
 var _tween: Tween
 var _home_x: float = 0.0
 var _travel := SLIDE
+var _slide_offset := 0.0
+var _text_template := ""
 
 
 func _init() -> void:
@@ -28,6 +30,7 @@ func _init() -> void:
 
 func _ready() -> void:
 	PromptLayout.add_obstacle(self, prompt_obstacle_rect)
+	InputBindings.bindings_changed.connect(_refresh_bound_text)
 
 
 ## Reserve the complete horizontal animation envelope, including its first fade-in frame.
@@ -49,37 +52,64 @@ func show_text(text: String, kind: Kind = Kind.INFO, hold: float = 2.0) -> void:
 	box.scanlines = 0.1
 	box.margins(14, 4, 14, 4)
 	add_theme_stylebox_override(&"panel", box)
-	_label.text = text
+	_text_template = text
+	_label.text = _display_text()
 	_label.add_theme_color_override(&"font_color", Palette.UI_TEXT if kind == Kind.INFO else accent)
 	if _tween != null and _tween.is_valid():
 		_tween.kill()
 	if not is_inside_tree():
 		return
-	reset_size()
-	if center_x >= 0.0:
-		position.x = roundf(center_x - size.x * 0.5)
 	_home_x = position.x
+	_recenter()
 	_travel = 0.0 if Settings.get_reduce_ui_motion() else SLIDE
-	position.x = _home_x - _travel
+	_set_slide_offset(-_travel)
 	modulate.a = 0.0
 	_tween = create_tween().set_parallel(true)
-	_tween.tween_property(self, "position:x", _home_x, SLIDE_TIME).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	_tween.tween_method(_set_slide_offset, -_travel, 0.0, SLIDE_TIME).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	_tween.tween_property(self, "modulate:a", 1.0, SLIDE_TIME)
 	_tween.chain().tween_interval(hold)
-	_tween.chain().tween_property(self, "position:x", _home_x + _travel, SLIDE_TIME).set_ease(Tween.EASE_IN)
+	_tween.chain().tween_method(_set_slide_offset, 0.0, _travel, SLIDE_TIME).set_ease(Tween.EASE_IN)
 	_tween.parallel().tween_property(self, "modulate:a", 0.0, SLIDE_TIME)
 	PromptLayout.invalidate()
 
 
-## Exact ownership guard: a delayed withdrawal cannot hide a newer message.
+func _display_text() -> String:
+	return InputBindings.format(_text_template) if _text_template.contains("{") else _text_template
+
+
+func _refresh_bound_text() -> void:
+	if not _text_template.contains("{") or _tween == null or not _tween.is_valid():
+		return
+	var text := _display_text()
+	if _label.text == text:
+		return
+	_label.text = text
+	_recenter()
+	_set_slide_offset(_slide_offset)
+	PromptLayout.invalidate()
+
+
+func _recenter() -> void:
+	reset_size()
+	if center_x >= 0.0:
+		_home_x = roundf(center_x - size.x * 0.5)
+
+
+func _set_slide_offset(offset: float) -> void:
+	_slide_offset = offset
+	position.x = _home_x + offset
+
+
+## Compare the original message so a binding change cannot prevent withdrawal.
 func dismiss_text(expected_text: String) -> bool:
-	if expected_text.is_empty() or _label.text != expected_text:
+	if expected_text.is_empty() or _text_template != expected_text:
 		return false
 	if _tween != null and _tween.is_valid():
 		_tween.kill()
 	_tween = null
+	_text_template = ""
 	_label.text = ""
-	position.x = _home_x
+	_set_slide_offset(0.0)
 	modulate.a = 0.0
 	PromptLayout.invalidate()
 	return true
