@@ -10,6 +10,13 @@ const REACH := Vector2(52.0, 48.0)
 const PROMPT_FIRST := "{interact} 撥號備份"
 const PROMPT_AGAIN := "{interact} 再撥一次（補滿彈藥）"
 const SLOGAN := "再來一次，沒關係。"
+const COPY := {
+	"first": [PROMPT_FIRST, "{interact} 電話をかけて復帰地点を記録", "{interact} Dial to set checkpoint"],
+	"again": [PROMPT_AGAIN, "{interact} かけ直して弾薬を補充", "{interact} Redial to refill ammo"],
+	"voice": [SLOGAN, "もう一度でいい。大丈夫。", "Try again, it's fine."],
+	"set": ["已備份", "復帰地点を記録しました。", "Checkpoint set."],
+	"refilled": ["已備份，彈藥補滿", "復帰地点を記録し、弾薬を補充しました。", "Checkpoint set. Ammo refilled."],
+}
 ## 通話過程中各個時間點（占動作進度 0~1 的比例）：拿起話筒、三聲撥號音、話筒裡的錄音、掛上、備份完成。
 const T_PICKUP := 0.26
 const T_DIAL: Array[float] = [0.42, 0.5, 0.58]
@@ -66,7 +73,7 @@ func _ready() -> void:
 	_light.position = Vector2(0, -30)
 	add_child(_light)
 	_prompt = WorldPrompt.new()
-	_prompt.text = PROMPT_FIRST
+	_prompt.text = _text("first")
 	_prompt.radius = REACH.x * 0.5 + 6.0
 	_prompt.reach_check = interaction_available
 	_prompt.interaction_owner = self
@@ -179,7 +186,7 @@ func _tick_call(delta: float) -> void:
 	if not _voiced and p >= T_VOICE:
 		_voiced = true
 		Sfx.play(&"phone_voice", -4.0)
-		EventBus.toast_requested.emit(SLOGAN)
+		EventBus.toast_requested.emit(_text("voice"))
 	if not _hung and p >= T_HANGUP:
 		_hung = true
 		_handset_out = false
@@ -206,17 +213,21 @@ func _complete_call(player: Player) -> void:
 			player.health.heal(player.health.max_health)
 	player.loadout.refill_all()
 	GameState.set_checkpoint(global_position, player.checkpoint_snapshot(), WorldState.capture(get_tree()), Progression.snapshot())
-	EventBus.toast_requested.emit("已備份" if first else "已備份，彈藥補滿")
+	EventBus.toast_requested.emit(_text("set" if first else "refilled"))
 
 
 func _set_active(with_effects: bool) -> void:
 	activated = true
-	_prompt.text = PROMPT_AGAIN
+	_prompt.text = _text("again")
 	_apply_state()
 	if with_effects:
 		Fx.burst(global_position + Vector2(0, -30), Palette.CYAN, 14, 130.0)
 		Fx.flash_light(global_position + Vector2(0, -30), Palette.CYAN, 140.0, 2.0, 0.5)
 		Sfx.play(&"ui_confirm", -4.0)
+
+
+func _text(key: String) -> String:
+	return COPY[key][maxi(0, StoryLocale.LANGUAGES.find(Story.language))]
 
 
 func _apply_state() -> void:

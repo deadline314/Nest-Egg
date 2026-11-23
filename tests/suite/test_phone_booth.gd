@@ -14,6 +14,7 @@ func run() -> void:
 	await _test_dial_with_the_interact_key()
 	await _test_call_timeline_and_weapon_swap()
 	await _test_completion_and_second_call()
+	await _test_checkpoint_language()
 	await _test_call_can_be_interrupted()
 	await _test_respawn_shows_activated()
 	await _test_cannot_dial_in_the_air()
@@ -137,6 +138,46 @@ func _test_call_timeline_and_weapon_swap() -> void:
 	await physics_frames(90)
 	check(str(player._visual.rig.weapon_def().get("file", "")) == str(RigLibrary.weapon(str(rifle.visual_id)).get("file", "x")), "the newly selected weapon is in hand after the call")
 	await end_level(level)
+
+
+func _test_checkpoint_language() -> void:
+	var old_language := Story.language
+	for words: Array in [
+			["en", "{interact} Dial to set checkpoint", "{interact} Redial to refill ammo",
+					"Try again, it's fine.", "Checkpoint set.", "Checkpoint set. Ammo refilled."],
+			["ja", "{interact} 電話をかけて復帰地点を記録", "{interact} かけ直して弾薬を補充",
+					"もう一度でいい。大丈夫。", "復帰地点を記録しました。", "復帰地点を記録し、弾薬を補充しました。"]]:
+		Story.language = words[0]
+		await open_level(10.0)
+		_clear_enemies()
+		var booth := _booth(level)
+		place_player(BOOTH_TILE - 1.0)
+		await physics_frames(12)
+		var obtained: Array[String] = []
+		var listener := func(message: String) -> void: obtained.append(message)
+		EventBus.toast_requested.connect(listener)
+		check(booth._prompt.text == words[1] and booth.can_dial(),
+				"the real phone starts with the translated action in " + words[0])
+		check(booth.start_call(level.player), "the real phone can make its first call in " + words[0])
+		for frame in 135:
+			if not booth.is_calling():
+				break
+			await physics_frames(1)
+		check(booth.activated and booth._prompt.text == words[2] and GameState.checkpoint_applies(level.data.resource_path)
+				and obtained.has(words[3]) and obtained.has(words[4]),
+				"the call records the checkpoint and announces the first result in " + words[0])
+		await physics_frames(8)
+		obtained.clear()
+		check(booth.start_call(level.player), "the active phone accepts another call in " + words[0])
+		for frame in 135:
+			if not booth.is_calling():
+				break
+			await physics_frames(1)
+		check(obtained.has(words[3]) and obtained.has(words[5]),
+				"the second call names the recorded checkpoint and ammo refill in " + words[0])
+		EventBus.toast_requested.disconnect(listener)
+		await end_level(level)
+	Story.language = old_language
 
 
 func _test_completion_and_second_call() -> void:
