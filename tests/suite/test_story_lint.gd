@@ -387,8 +387,12 @@ func _test_readability() -> void:
 
 func _test_player_text_catalog() -> void:
 	var entries := PlayerTextAudit.catalog()
-	for fragment in ["data/story/ch1_kasa.json", "data/story/chapter_02.json", "data/levels/ch1_warehouse.tres", "data/story_items/doc_nest_log.tres", "data/weapons/pistol.tres", "ui/settings_screen.gd", "ui/inventory/pages/upgrades_page.gd", "game/props/flood_pit.gd", "ui/quest_map_screen.gd", "ui/quest_guidance.gd", "core/navigation/quest_map_index.gd"]:
+	for fragment in ["data/story/ch1_kasa.json", "data/story/chapter_02.json", "data/levels/ch1_warehouse.tres", "data/story_items/doc_nest_log.tres", "data/weapons/pistol.tres", "ui/settings_screen.gd", "ui/inventory/inventory_labels.gd", "game/props/flood_pit.gd", "ui/quest_map_screen.gd", "ui/quest_guidance.gd", "core/navigation/quest_map_index.gd"]:
 		check(entries.any(func(entry: Dictionary) -> bool: return str(entry.id).contains(fragment)), "catalog covers %s" % fragment)
+	var workbench_copy: Array = preload("res://ui/inventory/inventory_labels.gd").TEXT[&"mods_empty"]
+	check(entries.any(func(entry: Dictionary) -> bool:
+		return str(entry.id).begins_with("res://ui/inventory/inventory_labels.gd:") and entry.text == workbench_copy[0]),
+		"the workbench's actual empty-state guidance is present in the text audit")
 	check(PlayerTextAudit.lint(entries).is_empty(), "all current player text passes live readability scan")
 	for field in ["ja", "en", "sub"]:
 		check(entries.any(func(entry: Dictionary) -> bool: return str(entry.id).ends_with("/" + field)), "catalog includes existing translations and chapter subtitles: %s" % field)
