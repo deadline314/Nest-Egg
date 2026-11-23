@@ -19,6 +19,8 @@ var _base_radius := 0.0
 var _base_energy := 0.0
 var _swing_gain := 1.0
 var _along := 0.0
+var _sent_energy := NAN
+var _sent_scale := NAN
 
 
 func _ready() -> void:
@@ -37,7 +39,9 @@ func follow(visual: PlayerVisual, delta: float) -> void:
 	var active := weapon != null and _base_radius > 0.0
 	if active:
 		var hold := visual.melee_hold()
-		global_position = hold.origin + hold.x * _along
+		var point := hold.origin + hold.x * _along
+		if point != global_position:
+			global_position = point
 	var swinging := active and visual.player.is_melee_swinging()
 	var gain := 1.0 + (_swing_gain - 1.0) * Settings.flash_scale() if swinging else 1.0
 	var blend := 1.0 - exp(-FADE * delta)
@@ -47,9 +51,17 @@ func follow(visual: PlayerVisual, delta: float) -> void:
 		if _light.enabled:
 			_light.enabled = false
 		return
-	_light.enabled = true
-	_light.energy = _base_energy * _level * _boost
-	_light.texture_scale = maxf(0.05, _base_radius * minf(_boost, SWING_RADIUS) * 2.0 / LightKit.TEXTURE_SIZE)
+	if not _light.enabled:
+		_light.enabled = true
+	var energy := _base_energy * _level * _boost
+	var texture_scale := maxf(0.05, _base_radius * minf(_boost, SWING_RADIUS) * 2.0 / LightKit.TEXTURE_SIZE)
+	# PointLight2D sends every setter to RenderingServer, even when its value repeats.
+	if energy != _sent_energy:
+		_sent_energy = energy
+		_light.energy = energy
+	if texture_scale != _sent_scale:
+		_sent_scale = texture_scale
+		_light.texture_scale = texture_scale
 
 
 ## 現在的亮度（0＝沒有刃光）與光源（測試與量測用）。

@@ -35,12 +35,14 @@ func follow(visual: PlayerVisual, delta: float) -> void:
 	var target := 0.0
 	if wanted == _sound and not _sound.is_empty() and _player.stream != null:
 		target = SWING_DUCK if visual.player.is_melee_swinging() else 1.0
+	var previous_gain := _gain
 	_gain = move_toward(_gain, target, delta * (FADE_IN if target > _gain else FADE_OUT))
 	if _gain <= SILENT:
 		if _player.playing:
 			_player.stop()
 		return
-	_player.volume_db = BASE_DB + linear_to_db(_gain)
+	if _gain != previous_gain or not _player.playing:
+		_player.volume_db = BASE_DB + linear_to_db(_gain)
 	if not _player.playing:
 		_player.play()
 
