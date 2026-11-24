@@ -424,6 +424,45 @@ func _test_cyber_motion() -> void:
 	await end_level(level)
 
 
+func _check_consumable_feedback(level: Level, language: String) -> void:
+	var player := level.player
+	var bag := player.consumables
+	var hud := level.hud
+	var med := ConsumableBag.find(&"med_injector")
+	var cell := ConsumableBag.find(&"shield_cell")
+	var messages := {
+		"zh": ["生命已滿", "沒有醫療針", "回復 1 格生命", "格擋值已滿"],
+		"ja": ["ライフは満タンです", "回復注射を持っていません", "ライフを1回復", "ガード値は満タンです"],
+		"en": ["Health is full", "No Med injector carried", "restored 1 health", "Guard is full"],
+	}
+	var quick := InputEventAction.new()
+	quick.action = &"use_item"
+	quick.pressed = true
+	player._unhandled_input(quick)
+	check(hud.toast_banner._label.text == messages[language][0] and bag.count(med.id) == 1,
+		"%s quick use warns at full health without consuming the item" % language)
+	bag.take(med.id)
+	player._unhandled_input(quick)
+	check(hud.toast_banner._label.text == messages[language][1], "%s quick use labels empty stock" % language)
+	bag.add(med)
+	var page := ConsumablesPage.new()
+	page.context = InventoryContext.new(player)
+	var result: Array[String] = []
+	page.context.message.connect(func(text: String, _warning: bool) -> void: result.append(text))
+	player.health.current = player.health.max_health - 1
+	check(page._activate_entry(ConsumableBag.catalog().find(med)) and bag.count(med.id) == 0
+		and result.size() == 1 and result.back().contains(messages[language][2]),
+		"%s inventory reports one actual point of healing and spends one item" % language)
+	player.guard = player.guard_max()
+	var cell_index := ConsumableBag.catalog().find(cell)
+	check(not page._activate_entry(cell_index) and bag.count(cell.id) == 1 and result.back() == messages[language][3],
+		"%s full guard remains stocked and explains why it cannot be used" % language)
+	player._guard_lockout_left = 0.1
+	check(page._activate_entry(cell_index) and bag.count(cell.id) == 0 and not player.is_guard_broken(),
+		"%s an item can still clear a guard break when the guard gauge is full" % language)
+	page.free()
+
+
 func _test_localized_hud_help() -> void:
 	var original := Story.language
 	var original_guard_hint := Player._block_hint_shown
@@ -472,6 +511,7 @@ func _test_localized_hud_help() -> void:
 		check(hud.cyber_gauge.tooltip_text.contains(locales[language][4]) and hud.cyber_gauge.tooltip_text.contains(InputBindings.primary_label(&"ability")),
 				"%s HUD explains cyber charge and the current activation binding" % language)
 		var player := level.player
+		_check_consumable_feedback(level, language)
 		InputBindings._set_device(false, -1)
 		Player._block_hint_shown = false
 		player.is_blocking = true

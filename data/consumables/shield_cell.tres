@@ -6,9 +6,9 @@
 script = ExtResource("1_script")
 id = &"shield_cell"
 display_name = "護盾電池"
-description = "護盾立即充滿，並解除破防。"
+description = "格擋值立即充滿，並解除破防。"
 localized_names = Dictionary[String, String]({"en": "Shield cell", "ja": "シールドセル"})
-localized_descriptions = Dictionary[String, String]({"en": "Refills shield and clears break.", "ja": "シールド全回復、崩れ解除。"})
+localized_descriptions = Dictionary[String, String]({"en": "Refills guard and clears guard break.", "ja": "ガード値を全回復し、ガード崩れを解除。"})
 color = Color(0.45, 0.95, 1.0, 1.0)
 order = 1
 max_carry = 2

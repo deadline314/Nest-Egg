@@ -6,19 +6,13 @@ extends CardListPage
 const TEXT := {
 	"zh": {"title": "消耗品", "help": "查看攜帶的消耗品並直接使用", "empty": "沒有可用的消耗品。",
 		"count": "持有 %d／%d", "count_detail": "持有　%d ／ %d", "quick": "・快速鍵 %s",
-		"use": "使用", "use_item": "使用一個%s", "pick_up": "沒有存貨，到關卡中撿取",
-		"healed": "使用 %s，回復 %d 格生命", "restored": "使用 %s，護盾已充滿", "out": "沒有%s",
-		"health_full": "生命已滿", "shield_full": "護盾已滿"},
+		"use": "使用", "use_item": "使用一個%s", "pick_up": "沒有存貨，到關卡中撿取"},
 	"ja": {"title": "消耗品", "help": "所持している消耗品を確認して使う", "empty": "使える消耗品がありません。",
 		"count": "所持 %d／%d", "count_detail": "所持　%d ／ %d", "quick": "・クイックキー %s",
-		"use": "使う", "use_item": "%sを1個使う", "pick_up": "ステージで拾うと使えます",
-		"healed": "%sでライフを%d回復した", "restored": "%sでシールドを全回復した", "out": "%sを持っていません",
-		"health_full": "ライフは満タンです", "shield_full": "シールドは満タンです"},
+		"use": "使う", "use_item": "%sを1個使う", "pick_up": "ステージで拾うと使えます"},
 	"en": {"title": "Supplies", "help": "View and use carried consumables", "empty": "No consumables available.",
 		"count": "Carried %d/%d", "count_detail": "Carried %d / %d", "quick": " · Quick key %s",
-		"use": "Use", "use_item": "Use one %s", "pick_up": "Pick one up during a run",
-		"healed": "%s restored %d health", "restored": "%s fully restored the shield", "out": "No %s carried",
-		"health_full": "Health is full", "shield_full": "Shield is full"},
+		"use": "Use", "use_item": "Use one %s", "pick_up": "Pick one up during a run"},
 }
 
 
@@ -100,20 +94,4 @@ func _activate_entry(index: int) -> bool:
 	if not context.is_valid():
 		return false
 	var item := ConsumableBag.catalog()[index]
-	if context.player.use_consumable(item.id):
-		context.say(_success_text(item))
-		return true
-	context.say(_failure_text(item), true)
-	return false
-
-
-func _success_text(item: ConsumableData) -> String:
-	if item.heal_amount > 0:
-		return _text("healed") % [item.display_name_for(Story.language), item.heal_amount]
-	return _text("restored") % item.display_name_for(Story.language)
-
-
-func _failure_text(item: ConsumableData) -> String:
-	if context.player.consumables.count(item.id) <= 0:
-		return _text("out") % item.display_name_for(Story.language)
-	return _text("health_full") if item.heal_amount > 0 else _text("shield_full")
+	return context.player.use_consumable(item.id, context.say)

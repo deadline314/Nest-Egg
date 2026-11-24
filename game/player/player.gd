@@ -413,8 +413,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			EventBus.toast_requested.emit(cyber.block_reason())
 	elif event.is_action_pressed(&"use_item"):
 		var quick := consumables.quick_use_item()
-		if quick != null and not use_consumable(quick.id):
-			EventBus.toast_requested.emit("沒有%s" % quick.display_name if consumables.count(quick.id) <= 0 else "生命已滿")
+		if quick != null:
+			use_consumable(quick.id, _report_quick_item_result)
 	else:
 		for slot in Loadout.MAX_SLOTS:
 			if event.is_action_pressed(StringName("weapon_slot_%d" % (slot + 1))):
@@ -1389,21 +1389,25 @@ func checkpoint_snapshot() -> Dictionary:
 	return snapshot
 
 
-## 使用一個消耗品。沒有存貨、或效果用不上（滿血、護盾已滿）時回傳 false，不會浪費。
-func use_consumable(id: StringName) -> bool:
+func _report_quick_item_result(text: String, is_warning: bool) -> void:
+	if is_warning:
+		EventBus.toast_requested.emit(text)
+
+
+## 使用一個消耗品。可選的回呼收到當前語言的結果與警告狀態。
+func use_consumable(id: StringName, report: Callable = Callable()) -> bool:
 	var item := ConsumableBag.find(id)
-	if item == null or consumables.count(id) <= 0 or state == State.DEAD:
+	if item == null or state == State.DEAD:
 		return false
-	var useful := false
-	if item.heal_amount > 0 and health.current < health.max_health:
-		useful = true
-	if item.restores_guard and (guard < guard_max() or _guard_lockout_left > 0.0):
-		useful = true
-	if not useful:
+	var has_stock := consumables.count(id) > 0
+	var can_heal := item.heal_amount > 0 and health.current < health.max_health
+	var can_restore_guard := item.restores_guard and (guard < guard_max() or is_guard_broken())
+	if not has_stock or not (can_heal or can_restore_guard):
+		if report.is_valid():
+			report.call(item.unavailable_text(Story.language, has_stock), true)
 		return false
 	consumables.take(id)
-	if item.heal_amount > 0:
-		health.heal(item.heal_amount)
+	var healed := health.heal(item.heal_amount) if item.heal_amount > 0 else 0
 	if item.restores_guard:
 		guard = guard_max()
 		_guard_lockout_left = 0.0
@@ -1412,6 +1416,8 @@ func use_consumable(id: StringName) -> bool:
 	Fx.burst(global_position + Vector2(0, -24), item.color, 14, 90.0, 0.45)
 	Fx.flash_light(global_position + Vector2(0, -24), item.color, 70.0, 1.4, 0.25)
 	Sfx.play(&"pickup", -4.0)
+	if report.is_valid():
+		report.call(item.used_text(Story.language, healed, can_restore_guard), false)
 	return true
 
 
