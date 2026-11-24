@@ -18,6 +18,7 @@ func run() -> void:
 	await _test_projectile_sweeps()
 	await _test_player_fx()
 	await _test_shield_presentation()
+	_test_plate_contact()
 	await _test_shield_attachment()
 	await _test_shield_outcomes()
 	await _test_shield_rules_unchanged()
@@ -216,6 +217,33 @@ func _test_shield_presentation() -> void:
 	await end_level(level)
 
 
+## 擋判按來襲角度判定，回饋另落在實際零件的有效長度內。
+func _test_plate_contact() -> void:
+	var surface := ShieldSurface.new()
+	var wrist := Vector2(13.0, -32.0)
+	var at := Vector2(28.0, -22.0)
+	check(surface.position_on_surface(at, wrist, Vector2.RIGHT, 1, 1.0) == wrist,
+			"an immediate parry starts at the latched wrist before the plate has unfolded")
+	for tier in 3:
+		if tier == 1:
+			surface.parts.append(&"extension_plate")
+		elif tier == 2:
+			surface.parts.append(&"deflect_coat")
+		for face: int in [1, -1]:
+			var aim := Vector2(face, -0.22).normalized()
+			surface.update(0.12, true, false, aim, 165.0)
+			var mount := Vector2(wrist.x * face, wrist.y)
+			var pose := surface._plate_transform(mount, aim, face, 1.0)
+			var axes := pose.affine_inverse()
+			var low := axes * surface.position_on_surface(pose * Vector2(-80.0, 30.0), mount, aim, face, 1.0)
+			var high := axes * surface.position_on_surface(pose * Vector2(80.0, -30.0), mount, aim, face, 1.0)
+			var middle := axes * surface.position_on_surface(pose * Vector2(3.0, 30.0), mount, aim, face, 1.0)
+			var tips := [20.5, 27.0, 36.6]
+			check(low.is_equal_approx(Vector2(-10.0, 0.0)) and high.is_equal_approx(Vector2(tips[tier], 0.0))
+					and middle.is_equal_approx(Vector2(3.0, 0.0)),
+					"tier %d facing %d projects the impact to the plate and clamps it to the exposed ends (%s / %s / %s)" % [tier, face, low, middle, high])
+
+
 ## 盾由前臂義體投射（NE-239）：每把武器、上下瞄準、站／跑／跳、兩個面向，手腕都貼在身體旁（不漂浮），
 ## 投射線從手腕連到盾面內緣、長度不超過盾半徑的 1.5 倍。盾的圓心是實際防禦判定的身體中心，不為了貼手而移動。
 ## 用真正的按鍵舉盾與移動、手把右搖桿瞄準。
@@ -290,6 +318,10 @@ func _test_shield_outcomes() -> void:
 	check(heard == [&"block"], "a normal block plays only the block sound, once: %s" % [heard])
 	check(is_equal_approx(player.guard, guard_before - cost), "one shot settles the guard cost exactly once (%.1f -> %.1f)" % [guard_before, player.guard])
 	check(visual._shield.impact_direction.is_equal_approx(-incoming), "the impact mark sits where the shot came from (%s)" % visual._shield.impact_direction)
+	var shown := visual._shield.impact_position
+	var directional_mark := Vector2(0, -Player.BODY_SIZE.y * 0.5) - incoming * ShieldSurface.RADIUS
+	check(shown.is_finite() and shown.distance_to(directional_mark) > 4.0,
+			"the real projectile's block flash moves off the old body-centred arc and onto the plate (%s)" % shown)
 	check(player.global_position.x < x_before, "a block pushes the player back from the hit")
 	Input.action_release(&"block")
 	await physics_frames(40)

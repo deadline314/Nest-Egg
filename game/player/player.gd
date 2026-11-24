@@ -1215,7 +1215,8 @@ func _guard(info: DamageInfo) -> Hurtbox.Guard:
 	if not is_blocking or state != State.NORMAL:
 		return Hurtbox.Guard.NONE
 	# 來襲方向：子彈用飛行方向（反向），接觸攻擊用相對身體中心的位置。
-	var incoming := info.origin - (global_position + Vector2(0, -BODY_SIZE.y * 0.5))
+	var center := global_position + Vector2(0, -BODY_SIZE.y * 0.5)
+	var incoming := info.origin - center
 	if info.is_projectile and info.knockback.length_squared() > 0.0001:
 		incoming = -info.knockback
 	if incoming.length_squared() > 1.0 and rad_to_deg(absf(incoming.angle_to(aim_dir))) > guard_stats.block_arc_degrees() * 0.5:
@@ -1225,18 +1226,20 @@ func _guard(info: DamageInfo) -> Hurtbox.Guard:
 		return Hurtbox.Guard.BLOCK
 	if not info.is_projectile:
 		_contact_block_left = CONTACT_BLOCK_INTERVAL
-	var shield_point := ShieldSurface.contact(global_position + Vector2(0, -BODY_SIZE.y * 0.5), incoming, aim_dir)
+	var directional_point := ShieldSurface.contact(center, incoming, aim_dir)
+	var impact := _visual.guard_impact_world(directional_point)
+	var approach := directional_point - center
 	if is_parry_window():
-		_on_parry(info, shield_point)
+		_on_parry(info, impact, approach)
 		return Hurtbox.Guard.REFLECT if info.is_projectile else Hurtbox.Guard.BLOCK
-	_on_block(info, shield_point)
+	_on_block(info, impact, approach)
 	# 偏折塗層：一般格擋擋下的子彈也彈回去（這一下把盾打破時不彈）。
 	if info.is_projectile and guard_stats.deflect_on_block and is_blocking:
 		return Hurtbox.Guard.REFLECT
 	return Hurtbox.Guard.BLOCK
 
 
-func _on_parry(info: DamageInfo, at: Vector2) -> void:
+func _on_parry(info: DamageInfo, at: Vector2, approach := Vector2.ZERO) -> void:
 	# 接觸攻擊無法反彈，改為讓攻擊者暈眩（例如盾衛犬的衝撞）。
 	if not info.is_projectile:
 		var enemy := info.get_attacker() as Enemy
@@ -1248,13 +1251,13 @@ func _on_parry(info: DamageInfo, at: Vector2) -> void:
 	PlayerFx.parry(at, aim_dir)
 	Fx.flash_light(at, Palette.CYAN, 110.0, 2.6, 0.25)
 	Sfx.play(&"parry", -2.0, 0.03)
-	_visual.notify_parry(at)
+	_visual.notify_parry(at, approach)
 	InputBindings.vibrate(0.5, 0.35, 0.12)
 	EventBus.player_parried.emit(at)
 
 
 ## 一般格擋：扣盾量、往後推一點，接觸點冒白色火花與格擋聲。這一下把盾打破時只播破防的回饋（不疊兩套聲音與火花）。
-func _on_block(info: DamageInfo, at: Vector2) -> void:
+func _on_block(info: DamageInfo, at: Vector2, approach := Vector2.ZERO) -> void:
 	if not _block_hint_shown:
 		_block_hint_shown = true
 		EventBus.toast_requested.emit("剛舉盾的一瞬間被打中＝完美格擋，可反彈子彈")
@@ -1267,9 +1270,9 @@ func _on_block(info: DamageInfo, at: Vector2) -> void:
 		return
 	Feel.play(&"player_block", {"dir": Vector2(-aim_dir.x, 0.0), "origin": at})
 	Fx.impact(at, aim_dir, Palette.WHITE, 6)
-	PlayerFx.block(at, info.origin - at)
+	PlayerFx.block(at, -approach if approach.length_squared() > 0.0001 else info.origin - at)
 	Sfx.play(&"block", -4.0)
-	_visual.notify_block(at)
+	_visual.notify_block(at, approach)
 	InputBindings.vibrate(0.15, 0.3, 0.09)
 	_emit_guard()
 

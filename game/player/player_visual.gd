@@ -296,14 +296,23 @@ func _soft_squash(full: Vector2) -> Vector2:
 	return Vector2.ONE + (full - Vector2.ONE) * SQUASH_SCALE
 
 
-func notify_parry(at := Vector2.INF) -> void:
+func notify_parry(at := Vector2.INF, incoming := Vector2.ZERO) -> void:
 	_parry_flash = PARRY_FLASH_TIME
-	_shield.notify_impact(at - (player.global_position + Vector2(0, -Player.BODY_SIZE.y * 0.5)) if at.is_finite() and player != null else _shield.direction)
+	_notify_guard_impact(at, incoming)
 
 
-func notify_block(at := Vector2.INF) -> void:
+func notify_block(at := Vector2.INF, incoming := Vector2.ZERO) -> void:
 	_block_flash = BLOCK_FLASH_TIME
-	_shield.notify_impact(at - (player.global_position + Vector2(0, -Player.BODY_SIZE.y * 0.5)) if at.is_finite() and player != null else _shield.direction)
+	_notify_guard_impact(at, incoming)
+
+
+func _notify_guard_impact(at: Vector2, incoming: Vector2) -> void:
+	if at.is_finite() and incoming.is_finite() and incoming.length_squared() > 0.0001:
+		_shield.notify_impact(incoming, to_local(at))
+	else:
+		# Tools that stage a flash can still use the default directional cue.
+		var approach := at - (player.global_position + Vector2(0, -Player.BODY_SIZE.y * 0.5)) if at.is_finite() and player != null else _shield.direction
+		_shield.notify_impact(approach)
 
 
 func notify_dash() -> void:
@@ -651,19 +660,29 @@ func shield_wrist_local() -> Vector2:
 	return to_local(player.global_position + Vector2(player.facing * 6.0, -Player.BODY_SIZE.y * 0.6))
 
 
-## 折疊偏折板裝在手臂上，碰撞回饋沿用以身體為中心的格擋判定。
+func _guard_forearm(wrist: Vector2) -> Vector2:
+	if rig != null and rig.is_valid():
+		var elbow := rig.bone(&"arm_back_lower")
+		if elbow != null:
+			return to_local(elbow.global_position).direction_to(wrist)
+	return player.aim_dir
+
+
+## Get the visual contact before recoil changes the shared plate transform.
+func guard_impact_world(at: Vector2) -> Vector2:
+	var wrist := shield_wrist_local()
+	var contact := _shield.position_on_surface(to_local(at), wrist, _guard_forearm(wrist), player.facing,
+			Settings.get_feel_scale("shake"))
+	return to_global(contact)
+
+
 func _draw_shield() -> void:
 	var center := to_local(player.global_position + Vector2(0, -Player.BODY_SIZE.y * 0.5))
 	var ratio := clampf(player.guard / maxf(player.guard_max(), 0.001), 0.0, 1.0)
 	var left := clampf(1.0 - player._block_time / maxf(player.parry_window_length(), 0.001), 0.0, 1.0)
 	var wrist := shield_wrist_local()
-	var forearm := player.aim_dir
-	if rig != null and rig.is_valid():
-		var elbow := rig.bone(&"arm_back_lower")
-		if elbow != null:
-			forearm = to_local(elbow.global_position).direction_to(wrist)
 	var motion_scale := Settings.get_feel_scale("shake")
-	_shield.paint_emitter(self, wrist, center, ratio, forearm, player.facing, motion_scale)
+	_shield.paint_emitter(self, wrist, center, ratio, _guard_forearm(wrist), player.facing, motion_scale)
 	_shield.paint(self, center, ratio, player.is_parry_window(), left, _block_flash, _parry_flash,
 		Settings.flash_scale(), motion_scale)
 

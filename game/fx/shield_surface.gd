@@ -100,8 +100,8 @@ static func contact(center: Vector2, incoming: Vector2, aim: Vector2) -> Vector2
 	return center + along * RADIUS
 
 
-func notify_impact(incoming: Vector2) -> void:
-	super.notify_impact(incoming)
+func notify_impact(incoming: Vector2, at := Vector2.INF) -> void:
+	super.notify_impact(incoming, at)
 	_impact_left = IMPACT_TIME
 
 
@@ -115,6 +115,35 @@ func slide_offsets() -> Vector2:
 			nose_travel * smoothstep(0.58, 1.0, extension))
 
 
+func _forearm_angle(forearm: Vector2) -> float:
+	return forearm.angle() if forearm.is_finite() and forearm.length_squared() > 0.01 else direction.angle()
+
+
+func _plate_transform(wrist: Vector2, forearm: Vector2, facing: int, motion_scale: float) -> Transform2D:
+	var fold := smoothstep(0.0, 0.68, extension)
+	var thickness := 0.82 if parts.has(PART_LIGHT_FRAME) else 1.0
+	var side := -1.0 if facing < 0 else 1.0
+	var pitch := clampf(atan2(direction.y, absf(direction.x)), -1.2, 1.2)
+	var kick := _impact_left / IMPACT_TIME * motion_scale * (0.07 if parts.has(PART_CUSHION) else 0.13)
+	var release := break_left / BREAK_TIME * motion_scale * 0.28
+	var open_angle := -PI * 0.5 + side * (0.24 + pitch * 0.68 - kick + release)
+	var angle := lerp_angle(_forearm_angle(forearm) + PI, open_angle, fold)
+	return Transform2D(angle, Vector2(lerpf(0.66, 1.0, fold), side * thickness), 0.0, wrist)
+
+
+func position_on_surface(at: Vector2, wrist: Vector2, forearm: Vector2, facing: int, motion_scale: float) -> Vector2:
+	if not at.is_finite() or not wrist.is_finite():
+		return at
+	if extension <= 0.0:
+		return wrist
+	var stages := slide_offsets()
+	var tip := stages.x + (3.8 + stages.y + NOSE.end.x if stages.y > 0.0 else SLIDER.end.x)
+	var pose := _plate_transform(wrist, forearm, facing, motion_scale)
+	# Leave a margin to account for the transparent chamfers at both ends.
+	var x := clampf((pose.affine_inverse() * at).x, ROOT.position.x + 1.0, tip - 1.0)
+	return pose * Vector2(x, 0.0)
+
+
 ## The axle follows the actual wrist while the plate pivots across the shot.
 ## Each moving rail shares the same local x axis and overlaps its socket.
 func paint_emitter(canvas: CanvasItem, wrist: Vector2, _center: Vector2, guard_ratio: float,
@@ -125,22 +154,15 @@ func paint_emitter(canvas: CanvasItem, wrist: Vector2, _center: Vector2, guard_r
 	var stages := slide_offsets()
 	var alloy := parts.has(PART_DEFLECT)
 	var cushioned := parts.has(PART_CUSHION)
-	var thickness := 0.82 if parts.has(PART_LIGHT_FRAME) else 1.0
-	var hand_angle := forearm.angle() if forearm.is_finite() and forearm.length_squared() > 0.01 else direction.angle()
 	var side := -1.0 if facing < 0 else 1.0
-	var pitch := clampf(atan2(direction.y, absf(direction.x)), -1.2, 1.2)
 	var strike := _impact_left / IMPACT_TIME
-	var kick := strike * motion_scale * (0.07 if cushioned else 0.13)
-	var release := break_left / BREAK_TIME * motion_scale * 0.28
-	var open_angle := -PI * 0.5 + side * (0.24 + pitch * 0.68 - kick + release)
-	var angle := lerp_angle(hand_angle + PI, open_angle, fold)
 	var tint := Color(0.83, 0.97, 1.0) if alloy else Color.WHITE
-	canvas.draw_set_transform(wrist, hand_angle, Vector2(1.0, side))
+	canvas.draw_set_transform(wrist, _forearm_angle(forearm), Vector2(1.0, side))
 	_paint_piece(canvas, _cuff, CUFF)
 	if cushioned:
 		var compression := 1.0 - strike * motion_scale * 0.65
 		canvas.draw_rect(Rect2(-6.8, -2.35, 2.0 * compression, 0.9), CUSHION)
-	canvas.draw_set_transform(wrist, angle, Vector2(lerpf(0.66, 1.0, fold), side * thickness))
+	canvas.draw_set_transform_matrix(_plate_transform(wrist, forearm, facing, motion_scale))
 	if stages.y > 0.0:
 		var nose_x := stages.x + stages.y + 3.8
 		_paint_piece(canvas, _nose, Rect2(NOSE.position + Vector2(nose_x, 0), NOSE.size), tint)
@@ -201,7 +223,7 @@ func paint(canvas: CanvasItem, center: Vector2, guard_ratio: float, parry_window
 	if parry_flash > 0.0 or block_flash > 0.0:
 		var perfect := parry_flash > 0.0
 		var t := minf(parry_flash / 0.25 if perfect else block_flash / 0.1, 1.0)
-		var point := center + impact_direction * RADIUS
+		var point := impact_position if impact_position.is_finite() else center + impact_direction * RADIUS
 		var side := impact_direction.orthogonal()
 		var color := Color(LightKit.glow(LAMP if perfect else EDGE, 1.0 + 0.5 * flash_scale), t)
 		canvas.draw_line(point - side * 2.0, point + side * 2.0, color, 1.0)

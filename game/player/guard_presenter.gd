@@ -24,14 +24,21 @@ var extension := 0.0
 var break_left := 0.0
 var direction := Vector2.RIGHT
 var impact_direction := Vector2.RIGHT
+var impact_position := Vector2.INF
 
 
 func update(_delta: float, _active: bool, _broken: bool, _aim: Vector2, _arc_degrees: float) -> void:
 	pass
 
 
-func notify_impact(incoming: Vector2) -> void:
+func notify_impact(incoming: Vector2, at := Vector2.INF) -> void:
 	impact_direction = incoming.normalized() if incoming.is_finite() and incoming.length_squared() > 0.0001 else direction
+	impact_position = at
+
+
+## 將受擊提示定位在義體表面。格擋方向仍使用實際來襲方向。
+func position_on_surface(at: Vector2, _wrist: Vector2, _forearm: Vector2, _facing: int, _motion_scale: float) -> Vector2:
+	return at
 
 
 func has_visible_effects(parry_flash: float) -> bool:
