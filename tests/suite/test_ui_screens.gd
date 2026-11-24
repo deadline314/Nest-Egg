@@ -12,6 +12,7 @@ func frames(count: int) -> void:
 func run() -> void:
 	await _test_game_boots_to_menu()
 	await _test_main_menu()
+	await _test_title_mixed_input()
 	await _test_title_language()
 	await _test_overwrite_prompt_language()
 	await preload("res://tests/helpers/radio_prompt_checks.gd").run(self)
@@ -87,6 +88,58 @@ func _test_main_menu() -> void:
 	menu.queue_free()
 	await frames(2)
 	GameState.difficulty = GameState.difficulties[1]
+
+
+func _test_title_mixed_input() -> void:
+	var previous_motion := Settings.get_reduce_ui_motion()
+	var previous_pad := InputBindings.using_gamepad
+	var previous_device := InputBindings.active_device
+	Settings.set_reduce_ui_motion(true)
+	var menu := MainMenu.new()
+	runner.add_child(menu)
+	await frames(4)
+	var hovered := menu._menu_list.get_child(1) as Button
+	var pointer := InputEventMouseMotion.new()
+	pointer.position = hovered.get_global_rect().get_center()
+	pointer.global_position = pointer.position
+	pointer.relative = Vector2(10, 2)
+	runner.get_viewport().push_input(pointer, true)
+	await frames(2)
+	check(menu._hint.text == hovered.tooltip_text and menu._start_button.has_focus(),
+		"the pointer reads an option without stealing keyboard focus")
+	var keyboard := InputEventKey.new()
+	keyboard.keycode = KEY_UP
+	keyboard.physical_keycode = KEY_UP
+	keyboard.pressed = true
+	runner.get_viewport().push_input(keyboard, true)
+	await frames(2)
+	check(menu._start_button.has_focus() and menu._hint.text == menu._start_button.tooltip_text,
+		"keyboard input clears stale hover even when focus is already at the top")
+	keyboard = keyboard.duplicate()
+	keyboard.pressed = false
+	runner.get_viewport().push_input(keyboard, true)
+	pointer = pointer.duplicate()
+	pointer.position += Vector2.ONE
+	pointer.global_position = pointer.position
+	runner.get_viewport().push_input(pointer, true)
+	await frames(2)
+	check(menu._hint.text == hovered.tooltip_text, "moving within the same row restores the pointer preview")
+	var confirm := InputEventJoypadButton.new()
+	confirm.device = 999
+	confirm.button_index = JOY_BUTTON_A
+	confirm.pressed = true
+	runner.get_viewport().push_input(confirm, true)
+	await frames(2)
+	check(menu._hint.text == menu._start_button.tooltip_text, "controller press restores the actual focus description")
+	confirm = confirm.duplicate()
+	confirm.pressed = false
+	runner.get_viewport().push_input(confirm, true)
+	await frames(2)
+	check(menu._difficulty_page.visible, "controller confirm launches the focused action")
+	menu.queue_free()
+	await frames(2)
+	Settings.set_reduce_ui_motion(previous_motion)
+	InputBindings._set_device(previous_pad, previous_device)
 
 
 func _test_title_language() -> void:

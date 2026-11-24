@@ -115,6 +115,18 @@ func _process(delta: float) -> void:
 	_camera.position.x = 320.0 + sin(_time * TAU / CAMERA_PERIOD) * CAMERA_SWAY
 
 
+func _input(event: InputEvent) -> void:
+	if _main_page == null or not _main_page.is_visible_in_tree() or _menu_hover == null:
+		return
+	if event is InputEventMouse:
+		return
+	if event.is_action_pressed(&"ui_accept") or event.is_action_pressed(&"ui_up") or event.is_action_pressed(&"ui_down") \
+			or event.is_action_pressed(&"ui_left") or event.is_action_pressed(&"ui_right") \
+			or event.is_action_pressed(&"ui_focus_next") or event.is_action_pressed(&"ui_focus_prev"):
+		_menu_hover = null
+		_move_menu_marker(false)
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	if _difficulty_page.visible and event.is_action_pressed(&"ui_cancel"):
 		_show_page(_main_page)
@@ -234,8 +246,7 @@ func _build_dev_entry() -> void:
 	_dev_button.grow_vertical = Control.GROW_DIRECTION_BEGIN
 	_dev_button.offset_right = -DEV_BUTTON_MARGIN.x
 	_dev_button.offset_bottom = -DEV_BUTTON_MARGIN.y
-	_dev_button.focus_entered.connect(_set_hint.bind(_dev_button.tooltip_text))
-	_dev_button.mouse_entered.connect(_set_hint.bind(_dev_button.tooltip_text))
+	_bind_menu_highlight(_dev_button)
 	_main_page.add_child(_dev_button)
 
 
@@ -255,19 +266,25 @@ func _menu_button(text: String, on_pressed: Callable, tooltip: String) -> Button
 	for side in [SIDE_LEFT, SIDE_TOP, SIDE_RIGHT, SIDE_BOTTOM]:
 		active.set_content_margin(side, idle.get_margin(side))
 	b.add_theme_stylebox_override(&"normal", idle)
-	b.add_theme_stylebox_override(&"hover", active)
+	b.add_theme_stylebox_override(&"hover", idle)
 	b.add_theme_stylebox_override(&"pressed", active)
 	b.add_theme_stylebox_override(&"focus", idle)
 	b.add_theme_color_override(&"font_hover_color", MENU_INK)
 	b.add_theme_color_override(&"font_focus_color", MENU_INK)
-	b.focus_entered.connect(_focus_action.bind(b))
-	b.mouse_entered.connect(_hover_action.bind(b))
-	b.mouse_exited.connect(_leave_action.bind(b))
+	_bind_menu_highlight(b)
 	return b
 
 
-func _set_hint(text: String) -> void:
-	_hint.text = text
+func _bind_menu_highlight(button: Button) -> void:
+	button.focus_entered.connect(_focus_action.bind(button))
+	button.mouse_entered.connect(_hover_action.bind(button))
+	button.mouse_exited.connect(_leave_action.bind(button))
+	button.gui_input.connect(_restore_pointer_highlight.bind(button))
+
+
+func _restore_pointer_highlight(event: InputEvent, button: Button) -> void:
+	if event is InputEventMouseMotion and _menu_hover != button:
+		_hover_action(button)
 
 
 func _new_rail(ink: Color) -> ColorRect:
@@ -313,14 +330,17 @@ func _move_menu_marker(animate: bool) -> void:
 	if not is_instance_valid(button) or _hint == null:
 		return
 	_hint.text = button.tooltip_text
+	if _marker_tween != null:
+		_marker_tween.kill()
+		_marker_tween = null
+	if button.get_parent() != _menu_list:
+		_menu_marker.hide()
+		return
 	var target := _menu_list.position.y + button.position.y + 4.0
 	var should_move := animate and _menu_marker.visible and not Settings.get_reduce_ui_motion()
 	_menu_marker.position.x = _menu_rail.position.x
 	_menu_marker.size = Vector2(2, maxf(1.0, button.size.y - 8.0))
 	_menu_marker.show()
-	if _marker_tween != null:
-		_marker_tween.kill()
-		_marker_tween = null
 	if should_move:
 		_marker_tween = create_tween()
 		_marker_tween.tween_property(_menu_marker, "position:y", target, 0.12).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
