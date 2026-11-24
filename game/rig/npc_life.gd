@@ -64,8 +64,16 @@ var fidgets := 0
 func setup(skin: String, defaults: Dictionary, overrides: Dictionary, gestures: Dictionary = {}) -> void:
 	_skin = skin
 	_gestures = gestures
+	var gesture_poses: Variant = overrides.get("gesture_poses", {})
+	if gesture_poses is Dictionary:
+		if not gesture_poses.is_empty():
+			_gestures = _with_gesture_poses(gestures, gesture_poses)
+	else:
+		RigLibrary.report_once("npc-gesture-poses:" + skin, "[NpcLife] art/motion/%s.json npc.life.gesture_poses must be an object." % skin)
 	_cfg = defaults.duplicate(true)
 	for key: Variant in overrides.keys():
+		if key == "gesture_poses":
+			continue
 		if typeof(overrides[key]) == TYPE_DICTIONARY and typeof(_cfg.get(key)) == TYPE_DICTIONARY:
 			(_cfg[key] as Dictionary).merge(overrides[key], true)
 		else:
@@ -96,6 +104,31 @@ func setup(skin: String, defaults: Dictionary, overrides: Dictionary, gestures: 
 	_beat_next = 0.3
 	_nod_next = _next_in("listen", "nod_every", 2.5)
 	_fidget_next = _next_in("fidget", "every", 6.0)
+
+
+## Apply per-rig angles once, retaining the shared cue's timing and valid postures.
+func _with_gesture_poses(gestures: Dictionary, overrides: Dictionary) -> Dictionary:
+	var result := gestures.duplicate()
+	for key: Variant in overrides:
+		var base: Variant = gestures.get(key)
+		var angles: Variant = overrides[key]
+		if not base is Dictionary or not angles is Dictionary:
+			RigLibrary.report_once("npc-gesture:%s:%s" % [_skin, key], "[NpcLife] art/motion/%s.json npc.life.gesture_poses.%s must name an existing gesture and contain bone angles." % [_skin, key])
+			continue
+		var entry: Dictionary = base.duplicate()
+		var base_pose: Variant = entry.get("pose")
+		if not base_pose is Dictionary:
+			continue
+		var pose: Dictionary = base_pose.duplicate()
+		for bone: Variant in angles:
+			var angle: Variant = angles[bone]
+			if typeof(angle) in [TYPE_FLOAT, TYPE_INT] and is_finite(float(angle)) and absf(float(angle)) <= PI:
+				pose[bone] = float(angle)
+			else:
+				RigLibrary.report_once("npc-gesture:%s:%s:%s" % [_skin, key, bone], "[NpcLife] art/motion/%s.json npc.life.gesture_poses.%s.%s must be a finite angle in ±π." % [_skin, key, bone])
+		entry["pose"] = pose
+		result[key] = entry
+	return result
 
 
 ## 這個角色的飄動軌道（測試與稽核用）：每個元素有 bone、p1、p2。

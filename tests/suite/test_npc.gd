@@ -910,7 +910,27 @@ func _test_awareness() -> void:
 	await physics_frames(2)
 	check(awareness.is_cowering() and npc._actor.pose == &"squat", "three shots in a few seconds: the npc ducks and covers")
 	check(npc._actor._input.npc_loop == &"", "and stops working")
-	await physics_frames(int((NpcAwareness.COWER_QUIET + 0.5) * 60.0))
+	var rig := npc._actor.rig
+	var steepest_wrist := 0.0
+	var farthest_palm := 0.0
+	var hold_samples := 0
+	var ticks := int((NpcAwareness.COWER_QUIET + 1.0) * 60.0)
+	for tick in ticks:
+		await physics_frames(1)
+		var crown := rig.bone(&"head").to_global(Vector2(3.3, -6.0))
+		for side: String in ["front", "back"]:
+			var elbow := rig.bone(StringName("arm_%s_lower" % side)).global_position
+			var hand := rig.bone(StringName("hand_" + side))
+			var wrist := hand.global_position
+			var palm := hand.to_global(Vector2(2.6, 0.0))
+			steepest_wrist = maxf(steepest_wrist, absf((wrist - elbow).angle_to(palm - wrist)))
+			if tick >= 32 and tick < 70 and awareness.is_cowering():
+				farthest_palm = maxf(farthest_palm, palm.distance_to(crown))
+				hold_samples += 1
+	check(hold_samples >= 30 and farthest_palm < 10.0,
+			"both palms protect Old K's head through the held pose (samples %d, distance %.2f)" % [hold_samples, farthest_palm])
+	check(steepest_wrist <= deg_to_rad(65.0),
+			"the painted palm follows its forearm through ducking and recovery (largest bend %.1f degrees)" % rad_to_deg(steepest_wrist))
 	check(not awareness.is_cowering() and npc._actor.pose == data.pose, "after it is quiet again the npc stands back up")
 	check(npc._actor._input.npc_loop == &"wipe_hands", "and goes back to work")
 	await physics_frames(int(NpcAwareness.LOOK_HOLD * 60.0))
