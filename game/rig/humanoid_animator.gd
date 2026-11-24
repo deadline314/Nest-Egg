@@ -1422,7 +1422,8 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 		if guard_pose < 1.0:
 			# Blend from the solved regular wrist, keeping the same two-bone reach limits.
 			_forward_kinematics()
-			var weight := smoothstep(0.0, 1.0, guard_pose)
+			# Moderate the cubic peak while keeping the same raise and fold duration.
+			var weight := lerpf(guard_pose, smoothstep(0.0, 1.0, guard_pose), 0.40)
 			var regular_wrist: Vector2 = _global_pos[&"hand_back"]
 			guard_wrist = regular_wrist.lerp(guard_wrist, weight)
 			guard_angle = lerp_angle(_global_angle[&"hand_back"], guard_angle, weight)

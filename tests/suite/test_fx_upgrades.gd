@@ -1027,8 +1027,14 @@ func _test_melee_guard_clearance() -> void:
 			for pitch: float in [-0.98, 0.0, 0.78]:
 				_press_stick(Vector2(facing * cos(pitch), sin(pitch)))
 				await physics_frames(3)
+				var previous := visual.shield_wrist_local()
+				var largest_step := 0.0
 				Input.action_press(&"block")
-				await physics_frames(12)
+				for frame in 12:
+					await physics_frames(1)
+					var wrist_at := visual.shield_wrist_local()
+					largest_step = maxf(largest_step, previous.distance_to(wrist_at))
+					previous = wrist_at
 				await frames(2)
 				var has_weapon := visual.shows_melee_weapon()
 				var surface := visual._shield as ShieldSurface
@@ -1043,8 +1049,15 @@ func _test_melee_guard_clearance() -> void:
 				var palm := visual.rig.bone(&"hand_front").to_global(visual.rig.hand_grip_offset(&"hand_front"))
 				if not player.is_blocking or has_weapon != (weapon != null) or (has_weapon and palm.distance_to(visual.melee_hold().origin) > 0.05) or crossing != null:
 					failures.append("%s facing %d pitch %.2f: guard=%s held=%s cross=%s" % [weapon.id if weapon != null else "unarmed", facing, pitch, player.is_blocking, has_weapon, crossing])
+				previous = visual.shield_wrist_local()
 				Input.action_release(&"block")
-				await physics_frames(9)
+				for frame in 9:
+					await physics_frames(1)
+					var wrist_at := visual.shield_wrist_local()
+					largest_step = maxf(largest_step, previous.distance_to(wrist_at))
+					previous = wrist_at
+				if largest_step > 6.0 or visual._input.shield_forward:
+					failures.append("%s facing %d pitch %.2f: wrist step %.2f" % [weapon.id if weapon != null else "unarmed", facing, pitch, largest_step])
 	check(failures.is_empty(), "the deflector clears held melee gear in all checked poses: %s" % [failures.slice(0, 8)])
 	_press_stick(Vector2.ZERO)
 	AimInput.set_virtual_gamepad(player, false)
