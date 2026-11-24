@@ -8,6 +8,14 @@ enum State { NORMAL, DASH, FINISHER, MOUNTED, STAGGERED, DEAD, PHONE }
 const PHONE_DURATION := 1.1
 ## 角色聲音設定（data/audio/character_sounds.json）裡玩家的 id。
 const PLAYER_SOUND_ID := &"player"
+const GUARD_TIMING_TEXT: Dictionary[String, String] = {
+	"ja": "着弾直前に {block} でガードすると、弾を跳ね返せます。",
+	"en": "Press {block} just before impact to reflect bullets.",
+}
+const GUARD_BROKEN_TEXT: Dictionary[String, String] = {
+	"ja": "ガードが崩れた。",
+	"en": "Guard broken.",
+}
 ## 腳步：每走多少像素一步、低於多慢不算走路、音量範圍（dB）與蹲著再減多少。
 const STEP_DISTANCE := 24.0
 const STEP_MIN_SPEED := 30.0
@@ -1275,7 +1283,7 @@ func _on_parry(info: DamageInfo, at: Vector2, approach := Vector2.ZERO) -> void:
 func _on_block(info: DamageInfo, at: Vector2, approach := Vector2.ZERO) -> void:
 	if not _block_hint_shown:
 		_block_hint_shown = true
-		EventBus.toast_requested.emit("在攻擊命中前按下格擋，可以反彈子彈")
+		EventBus.toast_requested.emit(StoryLocale.optional_text(GUARD_TIMING_TEXT, Story.language, "命中前一刻按 {block}，可反彈子彈。"))
 	guard -= maxf(1.0, float(info.amount)) * tuning.guard_cost_per_damage
 	_guard_regen_delay_left = guard_stats.guard_regen_delay()
 	velocity.x -= aim_dir.x * 90.0
@@ -1306,7 +1314,7 @@ func _guard_break(at := Vector2.INF) -> void:
 	Fx.burst(at if at.is_finite() else aim_origin(), Palette.CYAN, 18, 160.0, 0.4)
 	Sfx.play(&"guard_break", -3.0, 0.03)
 	InputBindings.vibrate(0.6, 0.5, 0.2)
-	EventBus.toast_requested.emit("護盾破防")
+	EventBus.toast_requested.emit(StoryLocale.optional_text(GUARD_BROKEN_TEXT, Story.language, "破防！"))
 
 
 func _emit_guard() -> void:

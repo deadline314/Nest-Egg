@@ -9,6 +9,10 @@ extends Enemy
 ## 生命低於一半進入第二階段：節奏加快、招式增加。
 
 const INTRO_TIME := 1.4
+const OVERDRIVE_TEXT: Dictionary[String, String] = {
+	"ja": "%sが暴走状態に入った。",
+	"en": "%s entered overdrive.",
+}
 const BURST_INTERVAL := 0.12
 const LEAP_VELOCITY := 400.0
 const MAX_LEAP_SPEED := 280.0
@@ -268,7 +272,12 @@ func _phase_shift_enter() -> void:
 	_start_telegraph(PHASE_SHIFT_TIME)
 	Feel.play(&"boss_phase_shift")
 	Fx.flash_light(_center(), Palette.DANGER, 200.0, 2.5, 0.8)
-	EventBus.toast_requested.emit("監管者進入暴走狀態")
+	_announce_overdrive()
+
+
+func _announce_overdrive() -> void:
+	var language := Story.language
+	EventBus.toast_requested.emit(StoryLocale.optional_text(OVERDRIVE_TEXT, language, "%s進入暴走狀態。") % data.display_name_for(language))
 
 
 func _phase_shift_tick(_delta: float) -> void:

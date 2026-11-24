@@ -426,8 +426,16 @@ func _test_cyber_motion() -> void:
 
 func _test_localized_hud_help() -> void:
 	var original := Story.language
+	var original_guard_hint := Player._block_hint_shown
+	var was_gamepad := InputBindings.using_gamepad
+	var previous_device := InputBindings.active_device
 	var item_names := {"zh": ["醫療針", "護盾電池"],
 		"ja": ["回復注射", "シールドセル"], "en": ["Med injector", "Shield cell"]}
+	var guard_messages := {
+		"zh": ["可反彈子彈。", "破防！"],
+		"ja": ["弾を跳ね返せます。", "ガードが崩れた。"],
+		"en": ["reflect bullets.", "Guard broken."],
+	}
 	var locales := {
 		"zh": ["開啟操作說明", "殘機 ×3", "快速道具", "消耗品", "擊敗敵人"],
 		"ja": ["操作ガイド", "残機 ×3", "クイックアイテム", "消耗品", "敵撃破"],
@@ -463,7 +471,27 @@ func _test_localized_hud_help() -> void:
 				"%s HUD says how to use the current quick item" % language)
 		check(hud.cyber_gauge.tooltip_text.contains(locales[language][4]) and hud.cyber_gauge.tooltip_text.contains(InputBindings.primary_label(&"ability")),
 				"%s HUD explains cyber charge and the current activation binding" % language)
+		var player := level.player
+		InputBindings._set_device(false, -1)
+		Player._block_hint_shown = false
+		player.is_blocking = true
+		player._block_time = player.parry_window_length() + 1.0
+		var shot := DamageInfo.create(1, Combat.Team.ENEMY, &"guard_copy", -player.aim_dir)
+		shot.is_projectile = true
+		check(player._guard(shot) == Hurtbox.Guard.BLOCK and player.is_blocking, "an ordinary hit starts the guard hint")
+		var label := hud.toast_banner._label
+		var keyboard_label := InputBindings.primary_label(&"block")
+		check(label.text.contains(guard_messages[language][0]) and label.text.contains(keyboard_label),
+				"%s guard advice uses the current keyboard and mouse binding" % language)
+		InputBindings._set_device(true, 0)
+		check(label.text.contains(InputBindings.primary_label(&"block")) and not label.text.contains(keyboard_label),
+				"%s an already visible guard hint updates after switching device" % language)
+		player.guard = 1.0
+		check(player._guard(shot) == Hurtbox.Guard.BLOCK and player.is_guard_broken() and label.text == guard_messages[language][1],
+				"%s localizes break feedback at the actual guard break" % language)
+		InputBindings._set_device(was_gamepad, previous_device)
 		await end_level(level)
+	Player._block_hint_shown = original_guard_hint
 	Story.set_language(original)
 
 

@@ -17,6 +17,7 @@ func run() -> void:
 	await _test_inspector_restores_visual_armor()
 	_test_watchdog_pattern_data()
 	_test_boss_display_language()
+	await _test_boss_combat_notices()
 	_test_framework_extensions()
 	await _test_watchdog_habits()
 	await _test_watchdog_leash_yank()
@@ -104,6 +105,35 @@ func _test_inspector_restores_visual_armor() -> void:
 
 const DOG_TILE := 52.0
 const PISTOL_SHOT := "res://data/projectiles/pistol_shot.tres"
+
+
+func _test_boss_combat_notices() -> void:
+	await open_level(9.0)
+	var original := Story.language
+	var notices: Array[String] = []
+	var record := func(text: String) -> void: notices.append(text)
+	var dog := spawn(WATCHDOG_PATH, DOG_TILE) as PatternBoss
+	var warden := spawn("res://data/enemies/warden.tres", DOG_TILE + 3.0)
+	var reclaimer := spawn("res://data/enemies/reclaimer.tres", DOG_TILE + 6.0)
+	var hit := DamageInfo.create(1, Combat.Team.PLAYER, &"boss_copy")
+	for language: String in ["zh", "ja", "en"]:
+		Story.set_language(language)
+		notices.clear()
+		EventBus.toast_requested.connect(record)
+		dog._armor_hinted = false
+		dog._on_blocked(hit)
+		dog._on_blocked(hit)
+		warden._phase_shift_enter()
+		reclaimer._phase_shift_enter()
+		EventBus.toast_requested.disconnect(record)
+		var expected := {"zh": "發橙光的部位", "ja": "橙色に光る部位", "en": "glowing orange parts"}
+		check(notices.size() == 3 and notices[0].contains(expected[language]),
+				"%s emits a usable armor hint exactly once" % language)
+		check(notices.size() == 3 and notices[1].begins_with(warden.data.display_name_for(language))
+				and notices[2].begins_with(reclaimer.data.display_name_for(language)),
+				"%s phase notices use the same names as the boss bars" % language)
+	Story.set_language(original)
+	await end_level(level)
 
 
 func _test_boss_display_language() -> void:

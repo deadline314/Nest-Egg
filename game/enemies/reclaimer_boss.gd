@@ -8,6 +8,10 @@ extends Enemy
 ## 數值：ability_speed = 衝刺速度，ability_time = 衝刺後硬直秒數，ability_damage = 衝刺與電軌傷害，ability_radius = 電軌區段寬度。
 
 const INTRO_TIME := 1.4
+const OVERLOAD_TEXT: Dictionary[String, String] = {
+	"ja": "%sが過負荷状態に入った。",
+	"en": "%s entered overload.",
+}
 const PHASE_SHIFT_TIME := 1.2
 const DASH_OVERSHOOT := 70.0
 const DASH_MAX_TIME := 1.4
@@ -325,7 +329,8 @@ func _phase_shift_enter() -> void:
 	_start_telegraph(PHASE_SHIFT_TIME)
 	Feel.play(&"boss_phase_shift")
 	Fx.flash_light(_center(), Palette.WARNING, 200.0, 2.5, 0.8)
-	EventBus.toast_requested.emit("回收員進入過載狀態")
+	var language := Story.language
+	EventBus.toast_requested.emit(StoryLocale.optional_text(OVERLOAD_TEXT, language, "%s進入過載狀態。") % data.display_name_for(language))
 	for rail in _rails:
 		rail.disarm()
 

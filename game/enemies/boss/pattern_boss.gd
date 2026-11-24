@@ -22,6 +22,18 @@ const POUNCE_MIN_AIR := 0.2
 const MISSILE_SOURCE := &"boss_missile"
 const MISSILE_COLOR := Color(1.0, 0.45, 0.2)
 const CHAIN_LINKS := 18
+const OPEN_POWER_TEXT: Dictionary[String, String] = {
+	"ja": "背中の電源部が露出した。",
+	"en": "Rear power unit exposed.",
+}
+const INTERRUPT_TEXT: Dictionary[String, String] = {
+	"ja": "攻撃を中断させた。",
+	"en": "Attack interrupted.",
+}
+const ARMOR_TEXT: Dictionary[String, String] = {
+	"ja": "装甲に阻まれた。橙色に光る部位を狙おう。",
+	"en": "Armor blocked the hit. Aim for the glowing orange parts.",
+}
 ## 蓄力重擊：出招（往前踏、判定）最長的時間。
 const SLAM_MAX_TIME := 0.6
 ## 蓄力重擊往前踏時，離玩家多近就停（像素，從身體前緣算）。
@@ -675,7 +687,7 @@ func _yanked_enter() -> void:
 		Fx.sparks(_chain_end(), Palette.WARNING, 10, 220.0, 0.3, Vector2(-facing, -0.4), 0.8, 300.0)
 		if not _hinted_back:
 			_hinted_back = true
-			EventBus.toast_requested.emit("背部電源露出了！")
+			EventBus.toast_requested.emit(StoryLocale.optional_text(OPEN_POWER_TEXT, Story.language, "背部電源露出。"))
 	_refresh_parts()
 
 
@@ -861,7 +873,7 @@ func _on_part_hit(info: DamageInfo) -> void:
 	_break_hits = 0
 	_telegraph_left = 0.0
 	_interrupted = true
-	EventBus.toast_requested.emit("打斷了！")
+	EventBus.toast_requested.emit(StoryLocale.optional_text(INTERRUPT_TEXT, Story.language, "已打斷攻擊。"))
 	Feel.shake_strength(3.0, 0.2)
 	fsm.transition(&"yanked")
 
@@ -875,7 +887,7 @@ func _on_blocked(info: DamageInfo) -> void:
 	super._on_blocked(info)
 	if not _armor_hinted:
 		_armor_hinted = true
-		EventBus.toast_requested.emit("裝甲擋下了——瞄準發橙光的部位")
+		EventBus.toast_requested.emit(StoryLocale.optional_text(ARMOR_TEXT, Story.language, "裝甲擋住了。瞄準發橙光的部位。"))
 
 
 

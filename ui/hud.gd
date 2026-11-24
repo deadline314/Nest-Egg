@@ -36,11 +36,11 @@ const HUD_TEXT := {
 	},
 }
 ## 按住與連按的規則（NE-229），一行一件事；設定的「按鍵」「手把」分頁顯示，按鍵名稱跟著目前裝置與改鍵。
-## 對應的判定：放開跳躍會截短跳躍、按住射擊依射速連射、按住格擋持續舉盾、近戰與衝刺有輸入緩衝（data/feel/input.json）。
+## 放開跳躍會截短跳躍，射擊與格擋能持續按住，近戰與衝刺有輸入緩衝（data/feel/input.json）。
 const HOLD_RULES: Array[String] = [
 	"按住 {jump} 跳得更高，提早放開就跳得低。",
 	"按住 {move_down}，用 {move_left}／{move_right} 蹲行。",
-	"按住 {shoot} 依射速連射；按住 {block} 持續舉盾。",
+	"按住 {shoot} 連射。按住 {block} 維持正面格擋。",
 	"出招中先按 {melee} 會接下一段；衝刺快冷卻完時先按 {dash} 會排隊。",
 ]
 
@@ -48,13 +48,13 @@ const HOLD_RULE_TRANSLATIONS := {
 	"ja": [
 		"{jump} を長く押すと高く、早く放すと低く跳びます。",
 		"{move_down} を押したまま {move_left}／{move_right} でしゃがみ移動します。",
-		"{shoot} を押し続けると連射し、{block} を押す間は盾を構えます。",
+		"{shoot} を長押しして連射。{block} を長押しして正面をガード。",
 		"攻撃中の {melee} は次の攻撃を予約します。冷却終了直前の {dash} も予約できます。",
 	],
 	"en": [
 		"Hold {jump} to jump higher. Release early for a shorter jump.",
 		"Hold {move_down} and use {move_left}/{move_right} to crouch-walk.",
-		"Hold {shoot} to fire repeatedly. Hold {block} to keep the shield up.",
+		"Hold {shoot} to fire repeatedly. Hold {block} to guard attacks from the front.",
 		"Press {melee} during an attack to queue the next strike. Press {dash} just before it recharges to queue it.",
 	],
 }

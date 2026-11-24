@@ -73,7 +73,7 @@ func _phase_shift_enter() -> void:
 	velocity.x = 0.0
 	_start_telegraph(PHASE_SHIFT_TIME)
 	Fx.flash_light(_center(), Palette.DANGER, 120.0, 1.6, 0.6)
-	EventBus.toast_requested.emit("%s進入暴走狀態" % data.display_name)
+	_announce_overdrive()
 
 
 ## 擊敗：連續小爆炸，然後解開閘門、收起血條（不發出 boss_defeated，關卡繼續）。
