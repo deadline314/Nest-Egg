@@ -13,6 +13,7 @@ func run() -> void:
 	_test_data_references_real_bones()
 	await _test_poses()
 	await _test_poses_touch_the_ground()
+	await _test_whole_cast_cover()
 	await _test_talking_and_listening()
 	await _test_loops()
 	await _test_fallbacks()
@@ -114,6 +115,51 @@ func _test_poses_touch_the_ground() -> void:
 			check(foot_angle <= 0.35, "%s %s: the foot lies flat (%.2f rad)" % [skin, pose, foot_angle])
 			holder.queue_free()
 	await frames(1)
+
+
+func _test_whole_cast_cover() -> void:
+	var skins: Dictionary[String, bool] = {}
+	for resource in ResourceCatalog.load_dir("res://data/npcs", NpcData, "NpcAnimationSuite"):
+		var npc := resource as NpcData
+		if not npc.rig_id.is_empty():
+			skins[npc.rig_id] = true
+	check(skins.has("egret") and skins.has("old_k"), "the cover audit includes the real NPC cast")
+	for skin: String in skins:
+		var rig := CharacterRig.new()
+		runner.get_tree().root.add_child(rig)
+		if not rig.setup(skin, "npc"):
+			check(false, "NPC rig unavailable for cover: " + skin)
+			rig.free()
+			continue
+		var animator := rig.animator as NpcAnimator
+		var input := RigInput.new()
+		input.two_handed = false
+		for facing_value: int in [1, -1]:
+			input.facing = facing_value
+			input.aim_dir = Vector2(facing_value, 0)
+			input.npc_pose = &"lean" if facing_value == 1 else &"sit"
+			for frame in 40:
+				rig.animate(1.0 / 60.0, input)
+			check(animator.play_gesture(&"cover_head"), "%s can start covering from a resting posture" % skin)
+			input.npc_pose = &"crouch"
+			for frame in 54:
+				rig.animate(1.0 / 60.0, input)
+			var head := rig.bone(&"head").global_position
+			for side: String in ["front", "back"]:
+				var elbow := rig.bone(StringName("arm_%s_lower" % side))
+				var wrist := rig.bone(StringName("hand_%s" % side))
+				var length := wrist.position.length()
+				check(absf(wrapf(elbow.rotation, -PI, PI)) <= 2.40,
+					"%s %s cover keeps its elbow within a human folding range" % [skin, side])
+				check(wrist.global_position.distance_to(head) <= length * rig.body_scale() * 1.25,
+					"%s %s wrist remains near its head while covering" % [skin, side])
+			animator.release_gesture()
+			input.npc_pose = &"stand"
+			for frame in 60:
+				rig.animate(1.0 / 60.0, input)
+			check(animator._head_cover == 0.0, "%s releases the cover pose and stands normally" % skin)
+		rig.queue_free()
+		await frames(2)
 
 
 func _test_talking_and_listening() -> void:
@@ -371,7 +417,7 @@ func _test_motion_data_bones() -> void:
 			used[str(bone)] = "transitions"
 	check(used.size() > 8, "gestures and transitions use the arm, head and chest bones")
 	for skin in NPC_SKINS:
-		var bones: Array[String] = ["_hip_x", "_hip_y"]
+		var bones: Array[String] = ["_hip_x", "_hip_y", String(NpcLife.HEAD_COVER_CHANNEL)]
 		for bone: Dictionary in RigLibrary.load_json(str(RigLibrary.character(skin).get("rig", ""))).get("bones", []):
 			bones.append(str(bone["name"]))
 		for name: String in used.keys():

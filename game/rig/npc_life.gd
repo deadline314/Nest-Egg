@@ -1,5 +1,6 @@
 class_name NpcLife
 extends RefCounted
+
 ## NPC 的生命感層（NE-206）：在 NPC 動畫器算好的基本姿勢上，再疊四種「人在待著」的東西，全部由資料驅動
 ## （art/rigs/npc_animations.json 的 life 是預設，art/motion/<角色>.json 的 npc.life 逐項蓋過，給每個人自己的節奏）：
 ##  - drift：各骨頭各自一條兩個正弦疊起來的緩慢飄動，週期由「角色＋骨頭」決定（不同步、不重複），像沒在動又沒停；
@@ -13,6 +14,7 @@ extends RefCounted
 ##  - follow：頭、軀幹、前臂用有點欠阻尼的二階彈簧追目標角度，停下來時有一點餘勢與過衝。
 ## 亂數由角色名稱決定種子：同一個角色每次都一樣（測試可重現），不同角色不同步。
 
+const HEAD_COVER_CHANNEL := &"_head_cover"
 const MAX_STEP := 1.0 / 60.0
 
 var _rng := RandomNumberGenerator.new()
@@ -279,11 +281,14 @@ func step(delta: float, context: Dictionary) -> Dictionary:
 		_fidget_next = _time + _next_in("fidget", "every", 6.0) * (2.0 if listening else 1.0)
 	_hands_out = _hands.step(delta)
 	for bone: StringName in _hands_out.keys():
-		bones[bone] = float(bones.get(bone, 0.0)) + float(_hands_out[bone]) * living
+		if bone != HEAD_COVER_CHANNEL:
+			bones[bone] = float(bones.get(bone, 0.0)) + float(_hands_out[bone]) * living
 	var head_out := _head.step(delta)
 	for bone: StringName in head_out.keys():
 		bones[bone] = float(bones.get(bone, 0.0)) + float(head_out[bone])
-	return {"bones": bones, "hip_x": hip_x, "hip_y": hip_y, "breath_rate": rate, "breath_extra": extra}
+	# A contact blend is a gesture envelope, independent of breathing and drift amplitude.
+	return {"bones": bones, "hip_x": hip_x, "hip_y": hip_y, "breath_rate": rate, "breath_extra": extra,
+		"head_cover": clampf(float(_hands_out.get(HEAD_COVER_CHANNEL, 0.0)), 0.0, 1.0)}
 
 
 ## 從 section（beat／fidget）的 vocab 依權重挑一個這個姿勢能用的手勢並開始播放；連續兩次盡量不同。回傳有沒有開始。

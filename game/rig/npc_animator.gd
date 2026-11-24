@@ -8,6 +8,11 @@ extends HumanoidAnimator
 
 ## 遠側手臂的姿勢角度在這個範圍內算「垂著」（弧度）。
 const FAR_ARM_HANGING := 0.4
+## Wrist offsets from the head joint in forearm lengths, near side first.
+const COVER_OFFSETS := [Vector2(0.53, -0.27), Vector2(0.17, -0.47)]
+const COVER_PALM_ANGLES := [-1.28, -1.72]
+const COVER_MAX_FLEX := 2.35
+const COVER_WRIST_FLEX := 0.55
 const DATA_PATH := "res://art/rigs/npc_animations.json"
 const FADE_SPEED := 5.0
 const GATE_EDGE := 0.25
@@ -58,6 +63,7 @@ var _feet_w := 0.0
 var _w_talk := 0.0
 var _w_listen := 0.0
 var _w_wave := 0.0
+var _head_cover := 0.0
 ## 生命感層（NE-206）：飄動、呼吸變化、重心轉移、轉頭、說話的手勢與彈簧餘勢。第一次用到才建立。
 var _life: NpcLife
 var _breath_phase := 0.0
@@ -86,6 +92,7 @@ var _cycle_amp := 1.0
 
 
 func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> Dictionary:
+	_head_cover = 0.0
 	_use_npc = _is_npc_state(input)
 	if not _use_npc:
 		_show_pose_parts(&"")
@@ -123,6 +130,7 @@ func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> 
 		var life := _life.step(delta, {"posture": input.npc_pose, "talking": input.talking, "listening": input.listening, "busy": busy,
 				"thigh": _rig.rest(&"leg_front_lower").length()})
 		_add_bones(pose, life["bones"], 1.0)
+		_head_cover = life["head_cover"]
 		pose[&"_hip_x"] = float(pose[&"_hip_x"]) + float(life["hip_x"])
 		pose[&"_hip_y"] = float(pose[&"_hip_y"]) + float(life["hip_y"])
 		breath_rate = float(life["breath_rate"])
@@ -442,8 +450,36 @@ static func breath_curve(phase: float) -> float:
 func _solve_arms(input: RigInput, aim_angle: float) -> void:
 	if _use_npc:
 		_rig.weapon_root().visible = false
+		if _head_cover > 0.001 and _global_pos.has(&"head"):
+			_place_cover_hands()
 		return
 	super._solve_arms(input, aim_angle)
+
+
+func _place_cover_hands() -> void:
+	var head: Vector2 = _global_pos[&"head"]
+	for side in ARM_CHAINS.size():
+		var chain: Array = ARM_CHAINS[side]
+		if not (_global_pos.has(chain[0]) and _rig.has_bone(chain[1]) and _rig.has_bone(chain[2])):
+			continue
+		var shoulder: Vector2 = _global_pos[chain[0]]
+		var upper := _rig.rest(chain[1]).length()
+		var lower := _rig.rest(chain[2]).length()
+		if minf(upper, lower) <= 0.01:
+			continue
+		var offset: Vector2 = COVER_OFFSETS[side]
+		var wrist := head + offset * lower
+		var direction := wrist - shoulder
+		# Leave space for the glove and obey the elbow's closing limit on short-necked rigs.
+		var min_reach := sqrt(upper * upper + lower * lower + 2.0 * upper * lower * cos(COVER_MAX_FLEX))
+		var distance := clampf(direction.length(), min_reach, (upper + lower) * 0.96)
+		if direction.is_zero_approx():
+			direction = Vector2(1.0, -1.0)
+		wrist = shoulder + direction.normalized() * distance
+		if place_hand(&"front" if side == 0 else &"back", wrist, COVER_PALM_ANGLES[side], _head_cover, Vector2.ZERO):
+			var hand := _rig.bone(chain[2])
+			var flex := angle_difference(HAND_FOLLOWS_FOREARM, hand.rotation)
+			hand.rotation = HAND_FOLLOWS_FOREARM + clampf(flex, -COVER_WRIST_FLEX, COVER_WRIST_FLEX)
 
 
 ## 是否由 NPC 動畫處理：沒在走動、沒蹲下（人形的蹲）、沒格擋、沒倒下、沒受傷、沒握武器、沒往上下瞄準。
