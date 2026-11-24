@@ -943,6 +943,12 @@ func _test_arm_shield_catalog() -> void:
 func _test_guard_arm_transition() -> void:
 	await open_level(20.0)
 	var player := level.player
+	var support_hand: Dictionary = {}
+	for entry: Dictionary in player._visual.rig._hand_grips:
+		if entry["bone"] == &"hand_back":
+			support_hand = entry
+			break
+	check(not support_hand.is_empty(), "Rin has an authored clenched support-hand sprite")
 	AimInput.set_virtual_gamepad(player, true)
 	for weapon_id: String in ["pistol", "rifle"]:
 		var weapon := load("res://data/weapons/%s.tres" % weapon_id) as WeaponData
@@ -963,6 +969,10 @@ func _test_guard_arm_transition() -> void:
 					worst = maxf(worst, wrist.distance_to(previous))
 					previous = wrist
 				check(player.is_blocking == held, "%s guard input still reaches its intended state" % weapon_id)
+				if not support_hand.is_empty():
+					var hand: Sprite2D = support_hand["sprite"]
+					check(hand.visible and hand.texture == support_hand["grip_texture"],
+							"%s %s selects the support-hand sprite for guard=%s" % [weapon_id, direction, held])
 			check(worst < 6.0, "%s %s guard raises and lowers without a snapping wrist (%.2f px)" % [weapon_id, direction, worst])
 			var ammo := player.loadout.mag_in(player.loadout.active_slot)
 			Input.action_press(&"block")
@@ -980,6 +990,17 @@ func _test_guard_arm_transition() -> void:
 					and absf(visual.rig.weapon_root().rotation) < 0.01 and visual._fire_direction.is_equal_approx(direction),
 					"%s %s fires one aimed round as soon as guard is released" % [weapon_id, direction])
 			await physics_frames(14)
+	player.loadout.reset(null)
+	if not support_hand.is_empty():
+		var hand: Sprite2D = support_hand["sprite"]
+		await physics_frames(12)
+		check(hand.texture == support_hand["open_texture"], "the unarmed support hand rests open")
+		Input.action_press(&"block")
+		await physics_frames(12)
+		check(hand.visible and hand.texture == support_hand["grip_texture"], "the unarmed guard keeps its clenched support hand visible")
+		Input.action_release(&"block")
+		await physics_frames(12)
+		check(hand.texture == support_hand["open_texture"], "the unarmed support hand opens after release")
 	_press_stick(Vector2.ZERO)
 	AimInput.set_virtual_gamepad(player, false)
 	await end_level(level)

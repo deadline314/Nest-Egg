@@ -500,6 +500,7 @@ func _physics_process(delta: float) -> void:
 		_input.guard_firearm_weight = 0.0
 	_input.shield_forward = _guard_arm_weight > 0.0
 	_input.shield_pose_weight = _guard_arm_weight
+	_input.hand_grip_back = _input.shield_forward
 	_input.dashing = player.state == Player.State.DASH
 	_input.staggered = player.state == Player.State.STAGGERED
 	_input.dead = player.state == Player.State.DEAD
