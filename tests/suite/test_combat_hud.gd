@@ -542,11 +542,11 @@ func _test_radio_card() -> void:
 	# 卡片在自己的畫面更新裡跟上講者的顏色：等到它更新過（機器忙的時候幾個物理影格可能擠在同一個畫面影格）。
 	for i in 60:
 		await frames(1)
-		if card._cell_box.border.is_equal_approx(Color("ffd23f")):
+		if card.name_label.get_theme_color(&"font_color").is_equal_approx(Color("ffd23f")):
 			break
 	check(layer._radio_name.text == "老K", "名牌只寫講者的名字（%s）" % layer._radio_name.text)
-	check(card._cell_box.border.is_equal_approx(Color("ffd23f")) and card._box.bracket.a > 0.0 and card._plate_box.border != RadioCard.EDGE,
-			"頭像框、角標與名牌的邊用講者的顏色")
+	check(card.name_label.get_theme_color(&"font_color").is_equal_approx(Color("ffd23f")) and card.accent.color.is_equal_approx(Color("ffd23f")) and card._box.bracket.a == 0.0,
+			"講者的名字與細直條同色，外框維持低對比")
 	check(card.radio_speaking(), "字還在出現時訊號格是「講話中」")
 	var early := card.size.y
 	check(layer.radio_hold_ratio() < 0.0, "字還在出現時不顯示停留線")
@@ -571,12 +571,12 @@ func _test_radio_card() -> void:
 	layer.enqueue_radio(&"test_card_short", short_line)
 	for i in 60:
 		await frames(1)
-		if card._cell_box.border.is_equal_approx(Color("9aa7b4")) and card.size.y < tall - 4.0:
+		if card.name_label.get_theme_color(&"font_color").is_equal_approx(Color("9aa7b4")) and card.size.y < tall - 4.0:
 			break
 	check(card.size.y < tall - 4.0, "長句之後接短句，面板縮回去（%.0f → %.0f）" % [tall, card.size.y])
 	check(not card.portrait.visible and card._cell.visible and is_equal_approx(card._cell.size.x, RadioCard.PORTRAIT_SIZE),
 			"沒有頭像的講者：頭像格還在（畫只有聲音的波形），不留空框")
-	check(card._cell_box.border.is_equal_approx(Color("9aa7b4")), "換講者時顏色跟著換")
+	check(card.name_label.get_theme_color(&"font_color").is_equal_approx(Color("9aa7b4")), "換講者時顏色跟著換")
 	layer.cancel_radio()
 	Story.auto_skip = old_skip
 	await end_level(level)

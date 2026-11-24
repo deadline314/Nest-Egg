@@ -3,7 +3,7 @@ extends PanelContainer
 ## 通訊對話框的外觀（NE-274）。純外觀：不排隊、不計時、不碰劇情；對話層把講者顏色、頭像、名字與內文塞進來就好。
 ##
 ## 組成（由左到右）：講者顏色的直條、方形頭像格、名牌＋訊號格、內文；底部一條細線表示這一句還會停多久。
-## - 講者的顏色用在直條、頭像框、面板的四個角標、名牌的邊與訊號格，同一個人永遠同一個顏色（不只靠顏色：還有名字與頭像）。
+## - 講者顏色出現在直條、名字與訊號格，頭像底留在同一種中性色。
 ## - 「這是通訊」用訊號格表示（講話時跳動、講完降到底），不再寫「通訊」兩個字。
 ## - 頭像格固定是方形，內文變兩行時不跟著拉長；沒有頭像的講者顯示「只有聲音」的波形，不留空框。
 ## - 面板一出現就是這一句需要的高度（逐字顯示時不會中途長高），長句之後接短句會縮回去。
@@ -12,10 +12,9 @@ extends PanelContainer
 ## 對話層只要認得這幾個節點：accent（直條，設它的 color 就是設講者顏色）、portrait、name_label、column（內文加在這裡）。
 
 const PORTRAIT_SIZE := 40.0
-const ACCENT_WIDTH := 3.0
+const ACCENT_WIDTH := 2.0
 const GAP := 7.0
 const BODY := Color("0d1820")
-const EDGE := Color("36505f")
 const CELL := Color("081017")
 const METER_BARS := 5
 
@@ -27,10 +26,7 @@ var column: VBoxContainer
 var hold_source := Callable()
 
 var _box: ChamferBox
-var _cell_box: ChamferBox
-var _plate_box: ChamferBox
 var _cell: Control
-var _plate: PanelContainer
 var _overlay: Control
 var _meter: Control
 var _text: Label
@@ -41,9 +37,8 @@ var _hold := -1.0
 
 func _init() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_box = ChamferBox.make(BODY, EDGE, 5, 2)
+	_box = UiTheme.surface(Color.TRANSPARENT, BODY, 5)
 	_box.margins(7, 6, 10, 7)
-	_box.scanlines = 0.05
 	add_theme_stylebox_override(&"panel", _box)
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override(&"separation", int(GAP))
@@ -64,16 +59,8 @@ func _init() -> void:
 	header.add_theme_constant_override(&"separation", 6)
 	header.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	column.add_child(header)
-	_plate = PanelContainer.new()
-	var plate := _plate
-	plate.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_plate_box = ChamferBox.make(Color("14252f"), EDGE, 2, 1)
-	_plate_box.margins(5, 0, 6, 0)
-	_plate_box.bevel = false
-	plate.add_theme_stylebox_override(&"panel", _plate_box)
-	header.add_child(plate)
 	name_label = UiKit.label("", UiKit.FS_BODY, Palette.CYAN)
-	plate.add_child(name_label)
+	header.add_child(name_label)
 	_meter = Control.new()
 	_meter.custom_minimum_size = Vector2(METER_BARS * 3 - 1, 9)
 	_meter.size_flags_vertical = Control.SIZE_SHRINK_CENTER
@@ -94,9 +81,7 @@ func _build_cell(row: HBoxContainer) -> void:
 	_cell.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 	_cell.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_cell.clip_contents = true
-	_cell_box = ChamferBox.make(CELL, Palette.CYAN, 3, 2)
-	_cell_box.margins(2, 2, 2, 2)
-	_cell.add_theme_stylebox_override(&"panel", _cell_box)
+	_cell.add_theme_stylebox_override(&"panel", DialogueMaterial.portrait_backing())
 	row.add_child(_cell)
 	portrait = TextureRect.new()
 	portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
@@ -137,14 +122,7 @@ func _process(delta: float) -> void:
 ## 講者換人：直條以外用到講者顏色的地方一起換。
 func _tint(color: Color) -> void:
 	_speaker = color
-	_cell_box.border = color
-	_box.bracket = Color(color, 0.9)
-	_plate_box.border = EDGE.lerp(color, 0.55)
-	_plate_box.fill = Color("14252f").lerp(color, 0.08)
-	# 面板樣式改了顏色不會自己重畫。
-	_cell.queue_redraw()
-	_plate.queue_redraw()
-	queue_redraw()
+	name_label.add_theme_color_override(&"font_color", color)
 
 
 ## 內文從兩行變回一行時，把面板縮回去（獨立擺放的面板不會自己縮）。

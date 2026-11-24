@@ -154,7 +154,7 @@ static func _radio_identity_after_authored_reading(suite: TestSuite) -> void:
 	suite.check(not level.hud._framing_edge_root.visible and Story.framing.scope_count() == 0, "actual object reading hides the conflicting timer header without adding cinematic bars")
 	var cinematic_portrait := layer._portrait
 	var reading_title := layer._reading_title
-	var reading_style := layer._name_plate.get_theme_stylebox(&"panel")
+	var reading_style := layer._dialogue_panel.get_theme_stylebox(&"panel")
 	Story.reset_active_presentation(&"leave")
 	await suite.frames(3)
 	# Cancel releases reading; a nearby, genuinely available movie entrance may
@@ -176,7 +176,7 @@ static func _radio_identity_after_authored_reading(suite: TestSuite) -> void:
 		layer.radio_finished.connect(observer)
 		layer.enqueue_radio(&"radio_market_mei", lines)
 		suite.check(layer._radio_name.text == str(first.name) and not layer._radio_name.text.contains(reading_title), "radio identifies its own authored speaker, never the preceding object")
-		suite.check(layer._portrait == cinematic_portrait and layer._name_plate.get_theme_stylebox(&"panel") == reading_style, "radio cannot replace cinematic portrait or reading nameplate")
+		suite.check(layer._portrait == cinematic_portrait and layer._dialogue_panel.get_theme_stylebox(&"panel") == reading_style, "radio cannot replace the cinematic portrait or reading panel")
 		var texture := RigLibrary.optional_texture(str(first.portrait)) if not str(first.portrait).is_empty() else null
 		suite.check(layer._radio_portrait.texture == texture and layer._radio_portrait.visible == (texture != null), "radio updates its own portrait visibility from its own actual texture")
 		suite.check(layer._radio_queue.size() == lines.size() and finished.is_empty(), "enqueue preserves all authored lines and does not finish early")

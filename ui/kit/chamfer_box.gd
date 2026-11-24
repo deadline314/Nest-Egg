@@ -13,6 +13,7 @@ var notch: int = 4
 var corners: int = Corner.ALL
 ## 角落小括號（亮色）；alpha 為 0 表示不畫。
 var bracket: Color = Color(0, 0, 0, 0)
+var rail := Color.TRANSPARENT
 var scanlines: float = 0.0
 var dashed: bool = false
 ## 頁籤用：不畫下邊線，讓選取中的頁籤與面板相連。
@@ -115,16 +116,22 @@ func _draw(canvas: RID, rect: Rect2) -> void:
 		return
 	var pts := _outline(rect)
 	# 輪廓是封閉折線（最後一點等於第一點），填色用的多邊形要去掉重複點。
-	var fill_pts := pts.duplicate()
-	fill_pts.remove_at(fill_pts.size() - 1)
-	RenderingServer.canvas_item_add_polygon(canvas, fill_pts, PackedColorArray([fill]))
+	if fill.a > 0.0:
+		var fill_pts := pts.duplicate()
+		fill_pts.remove_at(fill_pts.size() - 1)
+		RenderingServer.canvas_item_add_polygon(canvas, fill_pts, PackedColorArray([fill]))
 	if bevel and fill.a > 0.0:
 		_draw_bevel(canvas, rect)
 	if glow.a > 0.0:
 		_draw_glow(canvas, rect)
 	if scanlines > 0.0:
 		_draw_scanlines(canvas, rect)
-	_draw_border(canvas, pts)
+	if border_width > 0 and border.a > 0.0:
+		_draw_border(canvas, pts)
+	if rail.a > 0.0 and rect.size.x > 16.0:
+		var start := rect.position.round() + Vector2(6.0 + (notch if corners & Corner.TL else 0), 0.5)
+		var length := minf(24.0, rect.size.x * 0.2)
+		RenderingServer.canvas_item_add_line(canvas, start, start + Vector2(length, 0.0), rail, 1.0)
 	if bracket.a > 0.0:
 		_draw_brackets(canvas, rect)
 

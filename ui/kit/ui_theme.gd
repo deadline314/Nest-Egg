@@ -4,12 +4,12 @@ extends RefCounted
 ## 只在 UiKit 第一次要主題時呼叫一次。
 
 const SLIDER_H := 14
-const PANEL_BODY := Color(0.045, 0.075, 0.11, 0.98)
-const PANEL_EDGE := Color("45596c")
-const BUTTON_IDLE := Color("1a2a38")
-const BUTTON_HOVER := Color("263e4f")
-const BUTTON_SELECTED := Color("174555")
-const BUTTON_EDGE := Color("455e70")
+const PANEL_BODY := Color("111920f7")
+const PANEL_EDGE := Color("3c4c59")
+const BUTTON_IDLE := Color("18222c")
+const BUTTON_HOVER := Color("293a45")
+const BUTTON_SELECTED := Color("244550")
+const BUTTON_EDGE := Color("374956")
 
 
 static func build(font: Font, base_size: int) -> Theme:
@@ -37,17 +37,17 @@ static func build(font: Font, base_size: int) -> Theme:
 	t.set_constant(&"h_separation", &"Button", 6)
 
 	# 面板與提示框
-	var panel := ChamferBox.make(PANEL_BODY, PANEL_EDGE, 6)
-	panel.bracket = Palette.CYAN
+	var panel := surface(Palette.CYAN)
 	panel.margins(14, 10, 14, 10)
 	t.set_stylebox(&"panel", &"PanelContainer", panel)
-	var tip := ChamferBox.make(Color(0.07, 0.10, 0.14, 0.99), Palette.CYAN_DIM, 4)
+	var tip := surface(Palette.CYAN_DIM, Color("18222b"), 4)
 	tip.margins(8, 4, 8, 4)
 	t.set_stylebox(&"panel", &"TooltipPanel", tip)
 	t.set_color(&"font_color", &"TooltipLabel", Palette.UI_TEXT)
 	t.set_font_size(&"font_size", &"TooltipLabel", base_size)
 	t.set_color(&"font_color", &"Label", Palette.UI_TEXT)
 
+	_menu_actions(t)
 	_tabs(t)
 	_sliders(t)
 	_toggles(t)
@@ -55,8 +55,34 @@ static func build(font: Font, base_size: int) -> Theme:
 	return t
 
 
+static func surface(accent: Color, body := PANEL_BODY, cut := 6) -> ChamferBox:
+	var box := ChamferBox.make(body, PANEL_EDGE, cut)
+	box.corners = ChamferBox.Corner.TR | ChamferBox.Corner.BL
+	box.bevel = false
+	box.rail = Color(accent, accent.a * 0.74)
+	return box
+
+
+static func _menu_actions(theme: Theme) -> void:
+	var kind := &"MenuAction"
+	theme.set_type_variation(kind, &"Button")
+	var quiet := _button_box(Color.TRANSPARENT, Color.TRANSPARENT)
+	var active := surface(Palette.CYAN, Color("223440f5"), 4)
+	active.margins(16, 5, 12, 5)
+	var focus := surface(Palette.CYAN, Color("223440f5"), 4)
+	focus.rail = Palette.WHITE
+	focus.margins(16, 5, 12, 5)
+	theme.set_stylebox(&"normal", kind, quiet)
+	theme.set_stylebox(&"hover", kind, active)
+	theme.set_stylebox(&"pressed", kind, active)
+	theme.set_stylebox(&"focus", kind, focus)
+	theme.set_color(&"font_focus_color", kind, Palette.WHITE)
+
+
 static func _button_box(bg: Color, line: Color, wide_line := false) -> ChamferBox:
 	var box := ChamferBox.make(bg, line, 4, 2 if wide_line else 1)
+	box.corners = ChamferBox.Corner.TR | ChamferBox.Corner.BL
+	box.bevel = false
 	box.margins(16, 5, 12, 5)
 	return box
 

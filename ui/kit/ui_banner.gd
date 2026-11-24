@@ -52,9 +52,7 @@ func prompt_obstacle_rect() -> Rect2:
 
 func show_text(text: String, kind: Kind = Kind.INFO, hold: float = 2.0) -> void:
 	var accent := _accent(kind)
-	var box := ChamferBox.make(Color(0.03, 0.06, 0.09, 0.92), accent, 4)
-	box.bracket = accent
-	box.scanlines = 0.1
+	var box := UiTheme.surface(accent, UiTheme.PANEL_BODY, 4)
 	box.margins(14, 4, 14, 4)
 	add_theme_stylebox_override(&"panel", box)
 	_text_template = text

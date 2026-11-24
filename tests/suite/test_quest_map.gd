@@ -234,7 +234,7 @@ func _test_story_language() -> void:
 		var expected_step := str(step["title"] if language == "zh" else step["title_" + language])
 		check(texts.has("▶ " + expected_step), "current and checklist steps use %s text" % language)
 		guidance._refresh_target()
-		check(guidance._label.text == "◎ " + expected_step, "live objective HUD uses %s text from the same quest" % language)
+		check(guidance._label.text == expected_step, "live objective HUD uses %s text from the same quest" % language)
 		check(guidance._row.tooltip_text.begins_with(expected_step), "the full %s objective remains available when the HUD line is ellipsized" % language)
 		if not blocked.is_empty():
 			var blocked_screen := QuestMapScreen.new()
@@ -267,7 +267,7 @@ func _test_story_language() -> void:
 		check(screen._selected == "sq7_ahan_tape" and screen._focus_text() == focus_key and screen._history.size() == history_size and guidance.state.pinned_id == "sq7_ahan_tape",
 				"live language refresh preserves selection, stable focus, history and pin")
 		await runner.get_tree().create_timer(0.22).timeout
-		check(guidance._label.text == "◎ " + str(step["title_" + next_language]), "normal HUD polling follows a live language switch")
+		check(guidance._label.text == str(step["title_" + next_language]), "normal HUD polling follows a live language switch")
 		check(JSON.stringify(catalog.quests) == raw_before and JSON.stringify(GameState.world_flags) == flags_before,
 				"language %s preserves all original quest fields and progress bytes" % language)
 		var outside := Button.new()
@@ -330,7 +330,7 @@ func _check_objective_width(label: Label, catalog: QuestCatalog) -> void:
 			var overflow := PackedStringArray()
 			for quest: Dictionary in catalog.quests:
 				for step: Dictionary in quest["steps"]:
-					var text := "◎ " + QuestCatalog.display_text(step, "title")
+					var text := QuestCatalog.display_text(step, "title")
 					var width := font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x
 					if width > label.size.x:
 						overflow.append(str(step["complete_flag"]))

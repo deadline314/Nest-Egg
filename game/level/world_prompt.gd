@@ -244,8 +244,9 @@ func _draw() -> void:
 	if not _layout_allowed or _alpha <= 0.0 or _display_text.is_empty() or _font == null or _presentation_blocked():
 		return
 	var rect := Rect2(_box.position + _nudge, _box.size)
-	draw_rect(rect, Color(Palette.UI_PANEL, _alpha))
-	draw_rect(rect, Color(Palette.CYAN_DIM, _alpha), false, 1.0)
+	draw_rect(rect, Color(UiTheme.PANEL_BODY, _alpha * 0.97))
+	draw_line(rect.position + Vector2(0, 1), rect.position + Vector2(0, rect.size.y - 1), Color(Palette.CYAN, _alpha * 0.75), 1.0)
+	draw_line(Vector2(rect.position.x, rect.end.y), rect.end, Color(UiTheme.PANEL_EDGE, _alpha), 1.0)
 	if _paragraph != null:
 		_paragraph.draw(get_canvas_item(), rect.position + PADDING, Color(Palette.UI_TEXT, _alpha))
 		return
@@ -254,7 +255,7 @@ func _draw() -> void:
 		if segment["cap"]:
 			var cap := Rect2(rect.position + PADDING + Vector2(segment["x"], segment["y"]), Vector2(segment["w"], _line_height))
 			draw_rect(cap, Color(CAP_FILL, _alpha))
-			draw_rect(cap, Color(CAP_EDGE, _alpha), false, 1.0)
+			draw_line(Vector2(cap.position.x, cap.end.y), cap.end, Color(CAP_EDGE, _alpha), 1.0)
 			origin.x += CAP_PADDING.x
 		draw_string(_font, origin, segment["text"], HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size, Color(Palette.UI_TEXT, _alpha))
 

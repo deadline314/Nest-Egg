@@ -51,7 +51,6 @@ func _ready() -> void:
 	if catalog == null:
 		catalog = state.catalog_for_chapter(level.data.chapter, maps)
 	_row = SlantBanner.new("", Palette.CYAN)
-	_row.fill_strength = 0.14
 	_row.position = Vector2(145, 52)
 	_row.custom_minimum_size = Vector2(350, 0)
 	_row.mouse_filter = Control.MOUSE_FILTER_PASS
@@ -149,7 +148,7 @@ func _refresh_target() -> void:
 			_pulse_row.call_deferred()
 	if _label != null:
 		var objective := QuestCatalog.display_text(step, "title") if not step.is_empty() else ""
-		_label.text = "◎ " + objective if not objective.is_empty() else ""
+		_label.text = objective
 		var note := _text("target")
 		_row.tooltip_text = objective + "\n\n" + note if not objective.is_empty() else note
 		_row.accent = Palette.MAGENTA if not state.pinned_id.is_empty() else Palette.CYAN

@@ -8,8 +8,7 @@ var _title_label: Label
 
 
 func _init(title: String = "", accent: Color = Palette.CYAN) -> void:
-	var box := ChamferBox.make(UiTheme.PANEL_BODY, UiTheme.PANEL_EDGE, 6)
-	box.bracket = accent
+	var box := UiTheme.surface(accent)
 	box.margins(14, 10, 14, 10)
 	add_theme_stylebox_override(&"panel", box)
 	var column := VBoxContainer.new()

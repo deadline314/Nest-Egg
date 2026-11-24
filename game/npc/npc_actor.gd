@@ -20,6 +20,12 @@ const PRESENCE_FADE := 0.6
 const BUBBLE_GAP := 4.0
 const LABEL_GAP := 4.0
 const BUBBLE_SIZE := Vector2(16, 10)
+static var _bubble_shape := PackedVector2Array([
+	Vector2(0, 2), Vector2(2, 0), Vector2(14, 0), Vector2(16, 2),
+	Vector2(16, 7), Vector2(14, 9), Vector2(9, 9), Vector2(6, 11),
+	Vector2(6, 9), Vector2(2, 9), Vector2(0, 7),
+])
+const BUBBLE_SIGNAL := Color("edc881")
 ## 其他提示文字要避開的人物範圍的半寬（高度到對話泡泡頂為止）。
 const FIGURE_HALF_WIDTH := 12.0
 const BUBBLE_BOB := 1.5
@@ -417,13 +423,14 @@ func _draw() -> void:
 		draw_rect(Rect2(-6, -34, 12, 34), Color(Palette.UI_PANEL, 0.9))
 		draw_rect(Rect2(-6, -34, 12, 34), Palette.CYAN_DIM, false, 1.0)
 	if talk_count == 0:
-		var bob := sin(_time * 3.0) * BUBBLE_BOB
-		var glow := LightKit.glow(Palette.NEON_YELLOW, 1.6)
-		var box := Rect2(_bubble_pos + Vector2(-BUBBLE_SIZE.x * 0.5, -BUBBLE_SIZE.y * 0.8 + bob), BUBBLE_SIZE)
-		draw_rect(box, Color(Palette.UI_PANEL, 0.9))
-		draw_rect(box, glow, false, 1.0)
+		var bob := 0.0 if Settings.get_reduce_ui_motion() else sin(_time * 3.0) * BUBBLE_BOB
+		draw_set_transform(_bubble_pos + Vector2(-BUBBLE_SIZE.x * 0.5, -BUBBLE_SIZE.y * 0.8 + bob))
+		draw_colored_polygon(_bubble_shape, UiTheme.PANEL_BODY)
+		draw_polyline(_bubble_shape, Color("59606a"), 0.65)
+		draw_line(_bubble_shape[-1], _bubble_shape[0], Color("59606a"), 0.65)
 		for i in 3:
-			draw_circle(box.position + Vector2(4.0 + i * 4.0, 5.0), 0.8, glow)
+			draw_circle(Vector2(4.0 + i * 4.0, 4.5), 0.78, BUBBLE_SIGNAL)
+		draw_set_transform(Vector2.ZERO)
 
 
 ## 可調查物：一個緩緩呼吸的青色菱形記號。

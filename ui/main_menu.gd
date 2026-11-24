@@ -15,7 +15,7 @@ var _continue_button: Button
 const VERSION_TEXT := "DEMO 0.1"
 const CAMERA_SWAY := 56.0
 const CAMERA_PERIOD := 48.0
-const MENU_WIDTH := 168.0
+const MENU_WIDTH := 184.0
 const CARD_SIZE := Vector2(184, 194)
 const COPY := {
 	"subtitle": ["巢中之卵", "巣の卵", ""],
@@ -119,8 +119,8 @@ func _unhandled_input(event: InputEvent) -> void:
 func _make_shade() -> Control:
 	# 左側暗色漸層：讓文字在亮的背景上也讀得清楚。
 	var gradient := Gradient.new()
-	gradient.colors = PackedColorArray([Color(0.02, 0.03, 0.06, 0.92), Color(0.02, 0.03, 0.06, 0.0)])
-	gradient.offsets = PackedFloat32Array([0.0, 1.0])
+	gradient.colors = PackedColorArray([Color("090e16fa"), Color("0c141ce8"), Color("10162400")])
+	gradient.offsets = PackedFloat32Array([0.0, 0.44, 1.0])
 	var tex := GradientTexture2D.new()
 	tex.gradient = gradient
 	tex.fill_from = Vector2(0, 0)
@@ -142,16 +142,17 @@ func _build_main_page() -> void:
 	_main_page.set_anchors_preset(Control.PRESET_FULL_RECT)
 	_ui.add_child(_main_page)
 
-	var title := UiKit.label("NEST EGG", UiKit.FS_DISPLAY, LightKit.glow(Palette.CYAN, 1.6))
+	var title := UiKit.label("NEST EGG", UiKit.FS_DISPLAY, Color("f3eedf"))
 	title.position = Vector2(36, 40)
 	_main_page.add_child(title)
 	var subtitle := UiKit.label(_text("subtitle"), UiKit.FS_BODY, Palette.UI_MUTED)
 	subtitle.position = Vector2(38, 84)
 	_main_page.add_child(subtitle)
-	var rule := UiDivider.new()
-	rule.position = Vector2(36, 104)
-	rule.custom_minimum_size = Vector2(MENU_WIDTH, 7)
-	rule.size = Vector2(MENU_WIDTH, 7)
+	var rule := ColorRect.new()
+	rule.color = Palette.CYAN_DIM
+	rule.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	rule.position = Vector2(38, 108)
+	rule.size = Vector2(48, 1)
 	_main_page.add_child(rule)
 
 	var list := VBoxContainer.new()
@@ -225,6 +226,8 @@ func _build_dev_entry() -> void:
 
 func _menu_button(text: String, on_pressed: Callable, tooltip: String) -> Button:
 	var b := UiKit.button(text, on_pressed, tooltip)
+	b.theme_type_variation = &"MenuAction"
+	b.alignment = HORIZONTAL_ALIGNMENT_LEFT
 	b.custom_minimum_size = Vector2(MENU_WIDTH, 26)
 	b.focus_entered.connect(_set_hint.bind(tooltip))
 	b.mouse_entered.connect(_set_hint.bind(tooltip))

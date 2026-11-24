@@ -211,7 +211,7 @@ func _measure(layer: DialogueLayer, who: String, image: Image, readable: bool) -
 		"text_clipped": clipped, "lines": text.get_line_count(), "contrast": snappedf(ratio, 0.01), "contrast_checked": readable,
 		"font_state": _font_state([layer._radio_name, text, layer._radio_continue]), "cell_size": [card._cell.size.x, card._cell.size.y],
 		"portrait_visible": card.portrait.visible, "voice_waveform": not card.portrait.visible and card._cell.visible,
-		"speaker_color": card.accent.color.to_html(), "frame_color": card._cell_box.border.to_html(),
+		"speaker_color": card.accent.color.to_html(), "name_color": card.name_label.get_theme_color(&"font_color").to_html(),
 		"visible_ratio": text.visible_ratio, "hold_ratio": layer.radio_hold_ratio(), "hold_seconds": layer._radio_hold,
 		"paused": get_tree().paused, "opacity": root.modulate.a, "image_size": [image.get_width(), image.get_height()],
 		"contrast_probe": [probe.x, probe.y], "ink": [ink.r, ink.g, ink.b], "ground": [ground.r, ground.g, ground.b]}
@@ -220,7 +220,7 @@ func _measure(layer: DialogueLayer, who: String, image: Image, readable: bool) -
 		_failures += 1
 	if not bool(record["font_state"]["font_sizes_match"]) or not card._cell.size.is_equal_approx(Vector2.ONE * RadioCard.PORTRAIT_SIZE):
 		_fail("真實字級或方形頭像尺寸不符：" + who)
-	if get_tree().paused or card.accent.color != card._cell_box.border or (who == "unknown" and not bool(record["voice_waveform"])):
+	if get_tree().paused or card.accent.color != card.name_label.get_theme_color(&"font_color") or (who == "unknown" and not bool(record["voice_waveform"])):
 		_fail("通訊暫停、講者顏色或無頭像波形不符：" + who)
 	print("DIALOGUE_BOX:", JSON.stringify(record))
 	return record

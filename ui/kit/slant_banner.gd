@@ -7,11 +7,15 @@ const SLANT := 8.0
 
 var accent := Palette.CYAN:
 	set(value):
+		if accent == value:
+			return
 		accent = value
 		queue_redraw()
-## 底色濃度：資訊頁 0.3；HUD 上要低干擾，用較淡的值。HDR 2D 在線性色彩混色，半透明會比數字看起來亮。
-var fill_strength := 0.3:
+## 橫幅使用石墨色，只有左側短線繼承狀態色。
+var fill_strength := 0.86:
 	set(value):
+		if is_equal_approx(fill_strength, value):
+			return
 		fill_strength = value
 		queue_redraw()
 var label: Label
@@ -37,7 +41,7 @@ func _draw() -> void:
 	var w := size.x
 	var h := size.y
 	var points := PackedVector2Array([Vector2(0, 0), Vector2(w, 0), Vector2(w - SLANT, h), Vector2(0, h)])
-	var strong := Color(accent, fill_strength)
-	var faint := Color(accent, fill_strength * 0.15)
+	var strong := Color(UiTheme.PANEL_BODY, fill_strength)
+	var faint := Color(UiTheme.PANEL_BODY, fill_strength * 0.70)
 	draw_polygon(points, PackedColorArray([strong, faint, faint, strong]))
-	draw_rect(Rect2(0, 0, 2, h), accent)
+	draw_rect(Rect2(0, 4, 1.0, maxf(0.0, h - 8.0)), Color(accent, 0.82))

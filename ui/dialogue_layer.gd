@@ -51,7 +51,6 @@ var _radio_hold := 0.0
 var _radio_wait := 0.0
 var _radio_active := false
 var _time := 0.0
-var _name_plate: Panel
 var _portrait_plate: Panel
 var _dialogue_kind := "dialogue"
 var _reading_title := ""
@@ -187,7 +186,6 @@ func _show_line() -> void:
 	var line := _cinematic_lines[_cinematic_index]
 	_name.text = DialogueMaterial.header(_dialogue_kind, _reading_title if not _reading_title.is_empty() else str(line["name"]))
 	_name.add_theme_color_override(&"font_color", line["color"])
-	_name_plate.add_theme_stylebox_override(&"panel", DialogueMaterial.nameplate(_dialogue_kind))
 	_text.text = line["text"]
 	_text.visible_ratio = 0.0
 	_portrait.texture = _portrait_texture(line["portrait"])
@@ -412,13 +410,9 @@ func _build_cinematic() -> void:
 	_cinematic_root.add_child(_dialogue_panel)
 	_skip = UiKit.label(UiKit.cinematic_skip_hint(Story.language), UiKit.FS_BODY, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_RIGHT)
 	_cinematic_root.add_child(_skip)
-	_name_plate = Panel.new()
-	_name_plate.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_name_plate.add_theme_stylebox_override(&"panel", DialogueMaterial.nameplate("dialogue"))
-	_cinematic_root.add_child(_name_plate)
 	_portrait_plate = Panel.new()
 	_portrait_plate.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_portrait_plate.add_theme_stylebox_override(&"panel", DialogueMaterial.nameplate("dialogue"))
+	_portrait_plate.add_theme_stylebox_override(&"panel", DialogueMaterial.portrait_backing())
 	_cinematic_root.add_child(_portrait_plate)
 	_portrait = TextureRect.new()
 	_portrait.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
@@ -463,9 +457,6 @@ func _layout_cinematic(rect: Rect2) -> void:
 	_name.position = Vector2(left, top + 7)
 	_name.size = Vector2(maxf(0, width - 128), 18)
 	_name.clip_text = true
-	var name_width := _name.get_theme_font(&"font").get_string_size(_name.text, HORIZONTAL_ALIGNMENT_LEFT, -1, _name.get_theme_font_size(&"font_size")).x
-	_name_plate.position = _name.position - Vector2(6, 2)
-	_name_plate.size = Vector2(minf(name_width + 12, maxf(0, width - 116)), 22)
 	_portrait_plate.visible = _portrait.visible
 	_portrait_plate.position = _portrait.position - Vector2(2, 2)
 	_portrait_plate.size = _portrait.size + Vector2(4, 4)
