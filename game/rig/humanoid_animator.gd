@@ -59,7 +59,7 @@ const DEFAULT_MOTION := {
 	"dash": {"forward": {"chest": 0.38, "legs": [-1.0, 0.6, 0.85, 1.0]}, "back": {"chest": -0.22, "legs": [0.5, 0.9, -0.7, 0.4]}, "hip_drop": 0.0},
 	"land": {"gain": 0.0, "stiffness": 220.0, "damping": 16.0, "drop": 0.0, "chest": 0.0, "legs": [-0.8, 1.3, 0.1, 0.9]},
 	"impulse": {"jump": 0.0, "land": 0.0, "dash": 0.0, "hurt": 0.0, "stop": 0.0},
-	"block": {"chest": 0.1, "legs": [-0.4, 0.5, 0.5, 0.2], "plant_feet": false},
+	"block": {"chest": 0.1, "legs": [-0.4, 0.5, 0.5, 0.2], "plant_feet": false, "firearm_stow": {}},
 	"hurt": {"stagger_chest": -0.35, "kick": 0.3},
 	"look": {"chest": 0.12, "neck": 0.12, "head": 0.3, "head_min": -0.35, "head_max": 0.3},
 	"npc": {"stand": {}, "talk_speed": 1.0, "talk_amp": 1.0, "life": {}},
@@ -112,6 +112,7 @@ const WALK_DUTY := 0.55
 var _rig: CharacterRig
 var _angles: Dictionary[StringName, float] = {}
 var _hip_offset := Vector2.ZERO
+var _guard_firearm_stow: Dictionary = {}
 var _phase := 0.0
 var _time := 0.0
 var _recoil := 0.0
@@ -196,6 +197,7 @@ func _init(rig: CharacterRig) -> void:
 		_angles[bone_name] = HAND_FOLLOWS_FOREARM if bone_name in [&"hand_front", &"hand_back"] else 0.0
 	_forward_kinematics()
 	_ground_y = _lowest_foot_y()
+	_guard_firearm_stow = _motion["block"]["firearm_stow"]
 	_dash_sole = _motion["dash"].get("sole", PackedVector2Array())
 	var sole_bottom := -INF
 	for point in _dash_sole:
@@ -241,6 +243,14 @@ static func _load_motion(skin_id: String) -> Dictionary:
 		else:
 			RigLibrary.report_once("motion.crouch.hip:" + skin_id, "[HumanoidAnimator] %s: crouch.hip %s；使用原本的零旋轉。" % [path, problem])
 			merged["crouch"]["hip"] = 0.0
+	var block: Variant = data.get("block")
+	if block is Dictionary and block.has("firearm_stow"):
+		var stow: Variant = block["firearm_stow"]
+		if _valid_firearm_stow(stow):
+			merged["block"]["firearm_stow"] = stow
+		else:
+			RigLibrary.report_once("motion.block.firearm_stow:" + skin_id, "[HumanoidAnimator] %s: block.firearm_stow requires finite grip [x, y], angle and brace_height." % path)
+			merged["block"]["firearm_stow"] = {}
 	var dash: Variant = data.get("dash")
 	if dash is Dictionary and dash.has("sole"):
 		var sole := _dash_sole_points(dash["sole"])
@@ -249,6 +259,23 @@ static func _load_motion(skin_id: String) -> Dictionary:
 		else:
 			merged["dash"]["sole"] = sole
 	return merged
+
+
+## 空字典保留原姿勢。握點和支撐高度以骨盆為參考，槍口角度用弧度。
+static func _valid_firearm_stow(value: Variant) -> bool:
+	if not value is Dictionary:
+		return false
+	if value.is_empty():
+		return true
+	var grip: Variant = value.get("grip")
+	if not grip is Array or grip.size() != 2:
+		return false
+	var numbers: Array = [grip[0], grip[1], value.get("angle"), value.get("brace_height")]
+	for number: Variant in numbers:
+		if typeof(number) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(number)):
+			return false
+	return absf(grip[0]) <= 20.0 and absf(grip[1]) <= 20.0 and float(numbers[2]) >= 0.0 \
+			and float(numbers[2]) <= PI * 0.5 and float(numbers[3]) > 0.0 and float(numbers[3]) <= 35.0
 
 
 ## 鞋輪廓取腳骨的區域座標，供地面衝刺以原站姿鞋底高度為界。
@@ -1326,10 +1353,18 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 		_set_rotation(&"arm_front_lower", hang[1])
 		_set_rotation(&"hand_front", HAND_FOLLOWS_FOREARM)
 	else:
+		var gun_angle := aim_angle
+		var gun_grip := grip
+		if input.guard_firearm_weight > 0.0 and not _guard_firearm_stow.is_empty():
+			var weight := smoothstep(0.0, 1.0, input.guard_firearm_weight)
+			var pelvis: Vector2 = _global_pos.get(&"hip", anchor_point)
+			var stowed := pelvis + RigLibrary.vec2(_guard_firearm_stow["grip"])
+			gun_angle = lerp_angle(aim_angle, float(_guard_firearm_stow["angle"]), weight)
+			gun_grip = _fit_guard_grip(grip.lerp(stowed, weight), gun_angle)
 		weapon_root.visible = true
-		weapon_root.position = grip
-		weapon_root.rotation = aim_angle
-		_reach_arm(&"arm_front_upper", &"arm_front_lower", &"hand_front", grip - _rig.hand_grip_offset(&"hand_front").rotated(aim_angle), aim_angle)
+		weapon_root.position = gun_grip
+		weapon_root.rotation = gun_angle
+		_reach_arm(&"arm_front_upper", &"arm_front_lower", &"hand_front", gun_grip - _rig.hand_grip_offset(&"hand_front").rotated(gun_angle), gun_angle)
 
 	var guard_pose := clampf(input.shield_pose_weight, 0.0, 1.0) if input.shield_forward else 0.0
 	if guard_pose < 1.0:
@@ -1356,6 +1391,10 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 	if guard_pose > 0.0 and _rig.has_bone(&"hand_back"):
 		var shoulder: Vector2 = _global_pos.get(&"arm_back_upper", anchor_point)
 		var guard_wrist := shoulder + aim * 12.7 + Vector2(0, 2)
+		if not weapon.is_empty() and not _guard_firearm_stow.is_empty():
+			# Keep the plate above the lowered gun when defending downwards.
+			var pelvis: Vector2 = _global_pos.get(&"hip", anchor_point)
+			guard_wrist.y = minf(guard_wrist.y, pelvis.y - float(_guard_firearm_stow["brace_height"]))
 		var guard_angle := aim_angle * 0.3
 		if guard_pose < 1.0:
 			# Blend from the solved regular wrist, keeping the same two-bone reach limits.
@@ -1372,6 +1411,22 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 			_rig.bone(bone_name).rotation = lerp_angle(_rig.bone(bone_name).rotation, float(action_arms[bone_name]), w)
 		weapon_root.position = weapon_root.position.lerp(action_hand, w)
 		weapon_root.rotation = lerp_angle(weapon_root.rotation, action_weapon_angle, w)
+
+
+## Keep the firearm on the actual palm even when an extreme pose reaches the
+## arm's limit. The wrist must lie in the two-bone chain's reachable annulus.
+func _fit_guard_grip(grip: Vector2, angle: float) -> Vector2:
+	if not (_global_pos.has(&"arm_front_upper") and _rig.has_bone(&"arm_front_lower") and _rig.has_bone(&"hand_front")):
+		return grip
+	var shoulder: Vector2 = _global_pos[&"arm_front_upper"]
+	var palm_offset := _rig.hand_grip_offset(&"hand_front").rotated(angle)
+	var wrist_offset := grip - palm_offset - shoulder
+	var upper := _rig.rest(&"arm_front_lower").length()
+	var lower := _rig.rest(&"hand_front").length()
+	var distance := wrist_offset.length()
+	var limit := clampf(distance, absf(upper - lower) + 0.01, upper + lower - 0.01)
+	var direction := wrist_offset / distance if distance > 0.001 else Vector2.DOWN
+	return shoulder + direction * limit + palm_offset
 
 
 ## If retracting along the aim stops at a folded elbow, lift the gun and let the

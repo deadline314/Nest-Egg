@@ -48,6 +48,8 @@ var melee_body := Vector3.ZERO
 var shield_forward := false
 ## Presentation-only blend for the rear arm as the plate folds.
 var shield_pose_weight := 1.0
+## 前手將槍口收向腰側的權重。可獨立回到瞄準以便立即開火。
+var guard_firearm_weight := 0.0
 ## 本影格受到攻擊（觸發一次退縮動作）。
 var hurt := false
 ## 受擊退縮的幅度倍率（輕擊小、畏縮大）。

@@ -282,6 +282,15 @@ func _test_shield_attachment() -> void:
 					worst = maxf(worst, reach)
 					if not player.is_blocking or reach > 0.01 or absf(from_body.x) > 22.0 or absf(from_body.y) > 36.0:
 						failures.append("%s face %d aim %s %s: reach %.1f wrist %s" % [weapon.id, int(face), dir, motion, reach, from_body])
+					if not weapon.is_melee():
+						var rig := visual.rig
+						var gun := rig.weapon_root()
+						var hip := rig.to_local(rig.bone(&"hip").global_position)
+						var palm := rig.bone(&"hand_front").to_global(rig.hand_grip_offset(&"hand_front"))
+						var grip_error := palm.distance_to(gun.global_position)
+						if not gun.visible or absf(gun.position.y - hip.y) > 6.0 or gun.rotation < 0.4 or grip_error > 0.05:
+							failures.append("%s face %d aim %s %s: guard gun pos %s hip %s angle %.2f grip error %.2f" %
+									[weapon.id, int(face), dir, motion, gun.position, hip, gun.rotation, grip_error])
 					for action: StringName in [&"block", &"move_left", &"move_right", &"jump"]:
 						Input.action_release(action)
 					await physics_frames(20)
@@ -954,6 +963,22 @@ func _test_guard_arm_transition() -> void:
 					previous = wrist
 				check(player.is_blocking == held, "%s guard input still reaches its intended state" % weapon_id)
 			check(worst < 6.0, "%s %s guard raises and lowers without a snapping wrist (%.2f px)" % [weapon_id, direction, worst])
+			var ammo := player.loadout.mag_in(player.loadout.active_slot)
+			Input.action_press(&"block")
+			await physics_frames(10)
+			Input.action_press(&"shoot")
+			await physics_frames(2)
+			check(player.is_blocking and player.loadout.mag_in(player.loadout.active_slot) == ammo,
+					"%s still keeps the trigger locked while guarding" % weapon_id)
+			Input.action_release(&"block")
+			await physics_frames(1)
+			await physics_frames(1)
+			Input.action_release(&"shoot")
+			var visual: PlayerVisual = player._visual
+			check(player.loadout.mag_in(player.loadout.active_slot) == ammo - 1 and visual._input.guard_firearm_weight == 0.0
+					and absf(visual.rig.weapon_root().rotation) < 0.01 and visual._fire_direction.is_equal_approx(direction),
+					"%s %s fires one aimed round as soon as guard is released" % [weapon_id, direction])
+			await physics_frames(14)
 	_press_stick(Vector2.ZERO)
 	AimInput.set_virtual_gamepad(player, false)
 	await end_level(level)

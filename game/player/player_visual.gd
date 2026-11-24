@@ -238,6 +238,8 @@ func muzzle_global() -> Vector2:
 func firing_muzzle() -> Vector2:
 	if rig != null and rig.is_valid() and not rig.weapon_def().is_empty() and player.aim_dir.is_finite() and not player.is_reloading():
 		_sync_aim_pose(player.aim_dir)
+		# Publish the aimed muzzle before the first shot after releasing guard.
+		_input.guard_firearm_weight = 0.0
 		rig.refresh_weapon_aim(_input)
 	return muzzle_global()
 
@@ -489,9 +491,13 @@ func _physics_process(delta: float) -> void:
 		aim = aim.slerp(Vector2(player.facing * 0.6, 0.8), lower)
 	_sync_aim_pose(aim)
 	_input.run_speed = player.tuning.run_speed
-	_guard_arm_weight = move_toward(_guard_arm_weight, 1.0 if player.is_blocking else 0.0, delta / GUARD_ARM_BLEND_TIME)
+	var guard_target := 1.0 if player.is_blocking else 0.0
+	var guard_step := delta / GUARD_ARM_BLEND_TIME
+	_guard_arm_weight = move_toward(_guard_arm_weight, guard_target, guard_step)
+	_input.guard_firearm_weight = move_toward(_input.guard_firearm_weight, guard_target, guard_step)
 	if player.melee.is_active():
 		_guard_arm_weight = 0.0
+		_input.guard_firearm_weight = 0.0
 	_input.shield_forward = _guard_arm_weight > 0.0
 	_input.shield_pose_weight = _guard_arm_weight
 	_input.dashing = player.state == Player.State.DASH
