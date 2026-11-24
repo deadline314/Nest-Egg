@@ -976,23 +976,31 @@ func _test_lamp_fixtures() -> void:
 	check(bare.fixture_id == &"" and bare._light != null and bare._art == null, "不存在的燈具款式退回只有光的安全預設")
 	bare.queue_free()
 	# 停電：燈具的發光部位跟著熄滅、本體變暗；復電後恢復。
+	var previous_power := LightKit.lamp_power
+	LightKit.lamp_power = 1.0
 	var powered := Lamp.new()
 	powered.ceiling_y = -40.0
 	powered.use_fixture(&"highbay_pendant")
-	runner.get_tree().root.add_child(powered)
-	await frames(2)
+	var tree := runner.get_tree()
+	tree.root.add_child(powered)
+	# Lamp._process 在繪製更新執行。兩個物理步可能落在同一次更新前。
+	await tree.process_frame
+	await tree.process_frame
 	var lit_glow := powered._glow != null and powered._glow.visible
 	# 光跟著燈具走：顏色以燈具為主（工礦吊燈是暖色，不是區段預設的青色），光池是區段基準乘上燈具的比例。
 	var pendant := LampFixtures.fixture(&"highbay_pendant")
 	check(powered.light_color.r > powered.light_color.b and is_equal_approx(powered.light_radius, powered.radius * float(pendant["radius"]))
 			and is_equal_approx(powered._light.energy, powered.energy * float(pendant["energy"])), "光的顏色、光池與亮度跟著燈具走")
 	LightKit.lamp_power = 0.0
-	await frames(2)
+	await tree.process_frame
+	await tree.process_frame
 	check(lit_glow and not powered._glow.visible and powered._art.self_modulate.r < 0.99, "停電時燈具的發光部位熄滅、本體變暗")
 	LightKit.lamp_power = 1.0
-	await frames(2)
+	await tree.process_frame
+	await tree.process_frame
 	check(powered._glow.visible, "復電後燈具的發光部位恢復")
 	powered.queue_free()
+	LightKit.lamp_power = previous_power
 	# 每份光影設定的燈風格只用存在的款式。
 	for file in DirAccess.get_files_at("res://data/lighting"):
 		if file.ends_with(".tres"):
