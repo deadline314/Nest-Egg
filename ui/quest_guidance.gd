@@ -8,21 +8,23 @@ var state: QuestMapState
 var level: Level
 const SYMBOLS := ["→", "↘", "↓", "↙", "←", "↖", "↑", "↗"]
 const COPY := {
-	"zh": {"target": "開啟任務目錄可以釘選目標，地圖會標出目的地。", "route": "前往%s"},
-	"ja": {"target": "クエスト一覧で目標を固定すると、地図に目的地が表示されます。", "route": " %sへ"},
-	"en": {"target": "Pin a quest to mark its destination on the map.", "route": " To %s"},
+	"zh": {"target": "在任務目錄釘選目標，地圖會標出目的地。", "route": "前往%s",
+		"main": "主線任務", "side": "支線任務", "pinned": "已釘選"},
+	"ja": {"target": "クエストをピン留めすると地図に目的地が表示されます。", "route": " %sへ",
+		"main": "メインクエスト", "side": "サブクエスト", "pinned": "ピン留め"},
+	"en": {"target": "Pin a quest to mark its destination on the map.", "route": " To %s",
+		"main": "Main objective", "side": "Side objective", "pinned": "Pinned objective"},
 }
-const PULSE_SCALE := 1.12
+const TRACKER_WIDTH := 208.0
+const REVEAL_TIME := 0.16
 ## 武器欄右緣（640×360 設計座標）；方向箭頭在這個範圍內時不壓到武器欄。
 const WEAPON_BAR_RIGHT := 160.0
-const PULSE_TIME := 0.35
-## 目標列讓位給世界提示時淡出／淡入的時間（秒）。
+## 目標列恢復顯示時的淡入時間（秒）。
 const YIELD_FADE := 0.15
 
-## 目標列與任務頁的「目前步驟」同一種斜切橫幅；換目標時本身短暫放大，不再另外彈一條中央提示。
-## 目前因為世界提示壓到而淡出讓位（測試與工具讀它）。
+## 目前是否讓位給閱讀或戰鬥資訊（測試與工具讀它）。
 var yielding := false
-var _row: SlantBanner
+var _row: ObjectiveRow
 var _label: Label
 var _pulse: Tween
 var _arrow_obstacles: Array[Rect2] = []
@@ -50,23 +52,27 @@ func _ready() -> void:
 	maps = QuestMapIndex.for_chapter(level.data.chapter)
 	if catalog == null:
 		catalog = state.catalog_for_chapter(level.data.chapter, maps)
-	_row = SlantBanner.new("", Palette.CYAN)
-	_row.position = Vector2(145, 52)
-	_row.custom_minimum_size = Vector2(350, 0)
-	_row.mouse_filter = Control.MOUSE_FILTER_PASS
+	_row = ObjectiveRow.new()
+	_row.position = Vector2(12, 28)
+	_row.custom_minimum_size = Vector2(TRACKER_WIDTH, 0)
 	_row.tooltip_text = _text("target")
 	add_child(_row)
+	PromptLayout.add_obstacle(_row, row_world_rect)
 	_label = _row.label
-	_label.autowrap_mode = TextServer.AUTOWRAP_OFF
-	_label.clip_text = true
-	_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-	_row.resized.connect(func() -> void: _row.pivot_offset = Vector2(0, _row.size.y * 0.5))
-	_arrow = UiKit.label("", UiKit.FS_BODY, Palette.MAGENTA)
+	_arrow = UiKit.label("", UiKit.FS_CAPTION, Palette.UI_TEXT)
 	_arrow.mouse_filter = Control.MOUSE_FILTER_PASS
-	_arrow.add_theme_constant_override(&"outline_size", 3)
-	_arrow.add_theme_color_override(&"font_outline_color", Color(0.01, 0.02, 0.04))
+	var route_plate := StyleBoxFlat.new()
+	route_plate.bg_color = Color(UiTheme.PANEL_BODY, 0.95)
+	route_plate.border_color = Color(Palette.MAGENTA, 0.65)
+	route_plate.border_width_left = 1
+	route_plate.content_margin_left = 5
+	route_plate.content_margin_right = 5
+	route_plate.content_margin_top = 2
+	route_plate.content_margin_bottom = 2
+	_arrow.add_theme_stylebox_override(&"normal", route_plate)
 	add_child(_arrow)
 	state.changed.connect(_refresh_target)
+	Settings.display_changed.connect(_apply_motion_preference)
 	EventBus.checkpoint_reached.connect(func(position: Vector2) -> void: state.activate(level.data.resource_path, position, level.data.tile_size))
 	_refresh_target()
 	EventBus.radio_visibility_changed.connect(_on_radio_visibility_changed)
@@ -92,8 +98,9 @@ func _process(delta: float) -> void:
 		_arrow.hide()
 		_set_pointer_covered(true)
 		return
-	# A reading surface takes its pixels immediately; fade only when returning.
-	yielding = _row.visible and PromptLayout.covers(row_world_rect())
+	# 閱讀與戰鬥資訊立刻取得顯示優先權，任務欄回來時才淡入。
+	var row_rect := row_world_rect()
+	yielding = row_rect.has_area() and (PromptLayout.covers(row_rect) or _combat_hud_intersects(row_rect))
 	_set_pointer_covered(DialogueLayer.radio_visible() or yielding)
 	var target_alpha := 0.0 if yielding else (1.0 if _idle < 5 or not Settings.get_hud_auto_hide() else 0.4)
 	_row.modulate.a = target_alpha if yielding or Settings.get_reduce_ui_motion() else move_toward(_row.modulate.a, target_alpha, delta / YIELD_FADE)
@@ -126,6 +133,12 @@ func row_world_rect() -> Rect2:
 	return get_viewport().get_canvas_transform().affine_inverse() * _row.get_global_rect().grow(2.0)
 
 
+func _combat_hud_intersects(row_rect: Rect2) -> bool:
+	var hud := level.hud
+	return row_rect.intersects(hud.vitals_tag.prompt_obstacle_rect()) \
+		or row_rect.intersects(hud.ammo_tray.prompt_obstacle_rect())
+
+
 func _sample() -> void:
 	var position := level.player.global_position + Vector2(0, -8)
 	var cell := Vector2i(position / level.data.tile_size)
@@ -140,7 +153,9 @@ func _sample() -> void:
 func _refresh_target() -> void:
 	_target = state.target(catalog, String(level.data.chapter), GameState.world_flags)
 	var step := QuestCatalog.current_step(_target, GameState.world_flags)
-	var key := str(step.get("complete_flag", "")) + state.pinned_id
+	var quest_id := str(_target.get("id", ""))
+	var pinned := not quest_id.is_empty() and quest_id == state.pinned_id
+	var key := "%s/%s/%s" % [quest_id, step.get("complete_flag", ""), pinned]
 	if key != _goal_key:
 		_goal_key = key
 		_idle = 0
@@ -148,26 +163,38 @@ func _refresh_target() -> void:
 			_pulse_row.call_deferred()
 	if _label != null:
 		var objective := QuestCatalog.display_text(step, "title") if not step.is_empty() else ""
-		_label.text = objective
+		if _label.text != objective:
+			_label.text = objective
 		var note := _text("target")
-		_row.tooltip_text = objective + "\n\n" + note if not objective.is_empty() else note
-		_row.accent = Palette.MAGENTA if not state.pinned_id.is_empty() else Palette.CYAN
+		var hover := objective + "\n\n" + note if not objective.is_empty() else note
+		if _row.tooltip_text != hover:
+			_row.tooltip_text = hover
+		var category := "pinned" if pinned else str(_target.get("kind", "main"))
+		_row.set_category(_text(category), Palette.MAGENTA if pinned else Palette.CYAN)
 
 
-## 換目標時目標列放大再回到原尺寸並亮一下；減少介面動態時只亮不縮放。
+## Only the contents and accent animate, inside a fixed reading rectangle.
 func _pulse_row() -> void:
-	if _row == null or not _row.is_inside_tree() or yielding:
+	if _row == null or not _row.is_inside_tree():
 		return
+	_stop_reveal()
+	if yielding or Settings.get_reduce_ui_motion():
+		return
+	_row.reveal = 0.0
+	_pulse = create_tween()
+	_pulse.tween_property(_row, "reveal", 1.0, REVEAL_TIME).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+
+
+func _stop_reveal() -> void:
 	if _pulse != null:
 		_pulse.kill()
-	_row.modulate = Color(1.3, 1.3, 1.3, _row.modulate.a)
-	_pulse = create_tween().set_parallel(true)
-	# Pulse brightness without taking alpha ownership from reading handoff.
-	for channel: String in ["r", "g", "b"]:
-		_pulse.tween_property(_row, "modulate:" + channel, 1.0, PULSE_TIME)
-	if not Settings.get_reduce_ui_motion():
-		_row.scale = Vector2.ONE * PULSE_SCALE
-		_pulse.tween_property(_row, "scale", Vector2.ONE, PULSE_TIME).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		_pulse = null
+	_row.reveal = 1.0
+
+
+func _apply_motion_preference() -> void:
+	if Settings.get_reduce_ui_motion():
+		_stop_reveal()
 
 
 func _update_arrow() -> void:
@@ -254,3 +281,61 @@ func _text(key: String) -> String:
 func _enabled(key: String) -> bool:
 	var raw: Variant = Settings.get_value(Settings.DISPLAY_SECTION, key, true)
 	return raw if raw is bool else true
+
+
+## Compact edge tracker built from the same typography and palette as the journal.
+class ObjectiveRow extends MarginContainer:
+	var label: Label
+	var _category: Label
+	var _copy: VBoxContainer
+	var _accent := Palette.CYAN
+	var reveal := 1.0:
+		set(value):
+			reveal = value
+			if _copy != null:
+				_copy.modulate.a = lerpf(0.65, 1.0, reveal)
+			queue_redraw()
+
+	func _init() -> void:
+		mouse_filter = Control.MOUSE_FILTER_PASS
+		add_theme_constant_override(&"margin_left", 19)
+		add_theme_constant_override(&"margin_right", 12)
+		add_theme_constant_override(&"margin_top", 5)
+		add_theme_constant_override(&"margin_bottom", 6)
+		_copy = VBoxContainer.new()
+		_copy.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		_copy.add_theme_constant_override(&"separation", 2)
+		add_child(_copy)
+		_category = UiKit.label("", UiKit.FS_CAPTION, _accent)
+		_category.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		_copy.add_child(_category)
+		label = UiKit.label("", UiKit.FS_BODY, Palette.WHITE)
+		label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		label.max_lines_visible = 3
+		label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+		_copy.add_child(label)
+
+	func _ready() -> void:
+		resized.connect(queue_redraw)
+
+	func set_category(title: String, accent: Color) -> void:
+		if _category.text != title:
+			_category.text = title
+		if _accent != accent:
+			_accent = accent
+			_category.add_theme_color_override(&"font_color", _accent)
+			queue_redraw()
+
+	func _draw() -> void:
+		var cut := 7.0
+		var base := PackedVector2Array([Vector2.ZERO, Vector2(size.x, 0), Vector2(size.x, size.y - cut),
+			Vector2(size.x - cut, size.y), Vector2(0, size.y)])
+		draw_colored_polygon(base, Color(UiTheme.PANEL_BODY, 0.96))
+		draw_line(Vector2(0, 0.5), Vector2(size.x, 0.5), Color(UiTheme.PANEL_EDGE, 0.75))
+		draw_line(Vector2(size.x, size.y - cut), Vector2(size.x - cut, size.y), Color(UiTheme.PANEL_EDGE, 0.8))
+		draw_rect(Rect2(0, 0, 1, size.y * lerpf(0.33, 1.0, reveal)), Color(_accent, 0.86))
+		var center := Vector2(9.5, _category.position.y + _copy.position.y + _category.size.y * 0.5)
+		var mark := PackedVector2Array([center + Vector2(0, -3), center + Vector2(3, 0), center + Vector2(0, 3),
+			center + Vector2(-3, 0), center + Vector2(0, -3)])
+		draw_polyline(mark, _accent, 1.0, true)

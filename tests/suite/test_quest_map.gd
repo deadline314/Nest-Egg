@@ -331,8 +331,8 @@ func _check_objective_width(label: Label, catalog: QuestCatalog) -> void:
 			for quest: Dictionary in catalog.quests:
 				for step: Dictionary in quest["steps"]:
 					var text := QuestCatalog.display_text(step, "title")
-					var width := font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x
-					if width > label.size.x:
+					var paragraph := WorldPrompt.TEXT_LAYOUT.paragraph(text, font, font_size, label.size.x)
+					if paragraph.get_line_count() > label.max_lines_visible:
 						overflow.append(str(step["complete_flag"]))
 			check(overflow.is_empty(), "%s objectives fit the HUD with the %s font at 120%%: %s" % [language, style, ", ".join(overflow)])
 	Settings.set_ui_font(original_font)
@@ -1025,7 +1025,7 @@ func _test_pause_navigation(level: Level) -> void:
 	check(not pause._root.visible and not runner.get_tree().paused, "a second return closes pause and resumes gameplay")
 
 
-## 世界提示（訓練站、告示）壓到 HUD 目標列時，目標列淡出讓位、提示框留在原處；提示收起後目標列回來（序章實際畫面曾疊字）。
+## 一般互動提示錯開左上任務欄；閱讀優先權由另一個立即讓位案例驗收。
 func _check_prompt_avoids_objective(level: Level) -> void:
 	var guidance: QuestGuidance = level.hud.quest_guidance
 	var row := Rect2()
@@ -1056,26 +1056,12 @@ func _check_prompt_avoids_objective(level: Level) -> void:
 		if published:
 			break
 	check(published, "prompt layout publishes and converges to its own target before sampling")
-	var faded := false
-	for i in 120:
-		await _prompt_ui_frame()
-		if prompt.is_showing() and guidance._row.modulate.a < 0.05:
-			faded = true
-			break
 	var placed := Rect2(prompt.base_rect().position + prompt._nudge, prompt.base_rect().size)
-	check(faded and guidance.yielding, "a world prompt over the objective row makes the row fade out")
-	check(guidance._row.mouse_filter == Control.MOUSE_FILTER_IGNORE, "the faded objective row no longer catches the mouse tooltip")
-	var observation_row := guidance.row_world_rect()
-	check(placed.intersects(observation_row), "the prompt itself stays in place instead of being pushed off screen")
+	check(prompt.is_showing() and not placed.intersects(guidance.row_world_rect()), "the world prompt stays readable beside the tracked objective")
+	check(not guidance.yielding and guidance._row.mouse_filter == Control.MOUSE_FILTER_PASS,
+		"ordinary prompts keep the objective visible and its hover usable")
 	holder.queue_free()
-	var back := false
-	for i in 120:
-		await _prompt_ui_frame()
-		if not guidance.yielding and guidance._row.modulate.a > 0.35:
-			back = true
-			break
-	check(back, "the objective row comes back once the prompt is gone")
-
+	await _prompt_ui_frame()
 
 ## process_frame 在節點更新前發出；零時 timer 在本輪所有 Node._process 後才回來。
 func _prompt_ui_frame() -> void:
@@ -1469,7 +1455,18 @@ func _check_reading_yield_timing(level: Level) -> void:
 		return
 	guidance.yielding = false
 	guidance._row.modulate.a = 1.0
+	var previous_motion := Settings.get_reduce_ui_motion()
+	Settings.set_reduce_ui_motion(false)
 	guidance._pulse_row()
+	var reveal := guidance._pulse
+	check(guidance._row.reveal == 0.0 and guidance.row_world_rect() == row, "the tracked step animates inside a fixed dock")
+	guidance._refresh_target()
+	check(guidance._pulse == reveal, "repeated polling of the same objective does not restart its transition")
+	Settings.set_reduce_ui_motion(true)
+	check(guidance._pulse == null and guidance._row.reveal == 1.0, "reduced motion immediately settles the objective")
+	Settings.set_reduce_ui_motion(false)
+	guidance._pulse_row()
+	Settings.set_reduce_ui_motion(previous_motion)
 	var surface := Node.new()
 	level.add_child(surface)
 	PromptLayout.add_obstacle(surface, func() -> Rect2: return row, true)
