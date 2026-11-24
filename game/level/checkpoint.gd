@@ -142,7 +142,7 @@ func _snap_beside(player: Player, face: int) -> void:
 	if absf(target.x - player.global_position.x) < 1.0:
 		return
 	if not player.test_move(player.global_transform, target - player.global_position):
-		player.global_position = target
+		player.teleport_to(target)
 
 
 func is_calling() -> bool:

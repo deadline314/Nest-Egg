@@ -16,6 +16,7 @@ func run() -> void:
 	await _test_global_hitstop()
 	await _test_slowmo()
 	await _test_camera()
+	_test_player_camera_interpolation()
 	_test_camera_tuning()
 	_test_camera_retreat()
 	await _test_restrained_warehouse_view()
@@ -249,6 +250,37 @@ func _test_restrained_warehouse_view() -> void:
 	dummy.free()
 	camera.free()
 	await frames(1)
+
+
+func _test_player_camera_interpolation() -> void:
+	var tree := runner.get_tree()
+	var had_interpolation := tree.is_physics_interpolation_enabled()
+	var previous_mode := tree.root.physics_interpolation_mode
+	var old_ticks := Engine.physics_ticks_per_second
+	var player := Player.new()
+	var prop := Node2D.new()
+	var camera := LevelCamera.new()
+	tree.root.add_child(player)
+	tree.root.add_child(prop)
+	camera.follow_player(player)
+	tree.root.add_child(camera)
+	check(tree.is_physics_interpolation_enabled() and camera.is_physics_interpolated_and_enabled()
+		and player.is_physics_interpolated_and_enabled(), "camera and player interpolate at their normal physics rate")
+	check(camera.process_callback == Camera2D.CAMERA2D_PROCESS_PHYSICS and Engine.physics_ticks_per_second == old_ticks,
+		"interpolation preserves physics callbacks and simulation rate")
+	if not had_interpolation:
+		check(not prop.is_physics_interpolated_and_enabled(), "enabling camera interpolation leaves unrelated props unchanged")
+	player.teleport_to(Vector2(120.0, 48.0))
+	camera.snap_to_target()
+	check(player.global_position == Vector2(120.0, 48.0) and camera.global_position.is_equal_approx(camera._desired_position()),
+		"instant repositioning and camera snap publish the new position immediately")
+	check(camera.get_screen_center_position().distance_to(camera.global_position) < 0.25,
+		"snapping discards the old smoothed screen center before the next physics tick")
+	camera.free()
+	prop.free()
+	player.free()
+	tree.set_physics_interpolation_enabled(had_interpolation)
+	tree.root.physics_interpolation_mode = previous_mode
 
 
 func _test_camera_retreat() -> void:

@@ -67,9 +67,26 @@ var _presentation_point := Vector2.ZERO
 var _presentation_mode: ProcessMode
 
 
+## Keep simulation at its existing physics rate and smooth only the player and
+## their camera. Other objects retain their current render/update policies.
+func follow_player(player: Player) -> void:
+	var tree := player.get_tree()
+	if not tree.is_physics_interpolation_enabled():
+		tree.root.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
+		tree.set_physics_interpolation_enabled(true)
+	target = player
+	player.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_ON
+	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_ON
+
+
+func _init() -> void:
+	# Publish the interpolated canvas before screen-space HUD and text use it.
+	process_priority = -10
+	process_callback = Camera2D.CAMERA2D_PROCESS_PHYSICS
+
+
 func _ready() -> void:
 	zoom = Vector2.ONE * tuning.zoom
-	process_callback = Camera2D.CAMERA2D_PROCESS_PHYSICS
 	position_smoothing_enabled = true
 	position_smoothing_speed = tuning.smoothing_speed
 	limit_smoothed = true
@@ -128,7 +145,14 @@ func snap_to_target() -> void:
 	_look = _facing() * _look_goal()
 	_fall_look = 0.0
 	global_position = _desired_position()
+	target.reset_physics_interpolation()
+	# With interpolation active, reset_smoothing alone can reuse the last
+	# rendered camera position. Rebuild both samples from the destination first.
+	var smoothing := position_smoothing_enabled
+	position_smoothing_enabled = false
+	reset_physics_interpolation()
 	reset_smoothing()
+	position_smoothing_enabled = smoothing
 	# A resumed conversation may pause before the next physics camera callback.
 	# Publish the snapped view now so its background is already the current area.
 	force_update_scroll()

@@ -966,7 +966,7 @@ func _start_finisher(target: Enemy) -> void:
 	# 瞬移到目標身旁；被牆擋住就留在原地。
 	var destination := target.global_position + Vector2(-facing * 14.0, 0.0)
 	if not test_move(global_transform, destination - global_position):
-		global_position = destination
+		teleport_to(destination)
 	target.execute_finisher()
 	_visual.notify_finisher()
 	Feel.play(&"player_finisher", {"targets": [self, target], "freeze": tuning.finisher_hitstop})
@@ -1066,13 +1066,19 @@ func _start_drop_through() -> void:
 	position.y += 2.0
 
 
+## Skip the presentation trail when gameplay relocates the player instantly.
+func teleport_to(destination: Vector2) -> void:
+	global_position = destination
+	reset_physics_interpolation()
+
+
 func _handle_pit() -> void:
 	var info := DamageInfo.create(tuning.pit_damage, Combat.Team.ENEMY, &"pit")
 	info.ignore_invulnerability = true
 	info.origin = global_position
 	health.take_damage(info)
 	if state != State.DEAD:
-		global_position = _last_safe_position
+		teleport_to(_last_safe_position)
 		velocity = Vector2.ZERO
 		health.grant_invulnerability(tuning.hurt_invulnerability)
 
@@ -1121,7 +1127,7 @@ func dismount_vehicle(ejected: bool) -> void:
 	mounted_vehicle = null
 	if is_instance_valid(vehicle):
 		vehicle.release_driver()
-		global_position = vehicle.global_position
+		teleport_to(vehicle.global_position)
 	state = State.NORMAL
 	_remount_cooldown_left = REMOUNT_COOLDOWN
 	collision_layer = Layers.PLAYER
