@@ -19,12 +19,39 @@ static func run(s: TestSuite) -> void:
 		var stats := AssetPrefetch.stats()
 		s.check(stats["cached"] <= AssetPrefetch.MAX_CACHED and stats["estimated_bytes"] <= AssetPrefetch.MAX_CACHE_BYTES, "authored scope preserves existing cache count and byte budgets: " + area)
 	AssetPrefetch.clear()
+	await _scheduled_neighbors(s)
+	AssetPrefetch.clear()
 	s.check(await _drain(s), "scope regression leaves no queued or native inflight requests")
+
+
+static func _scheduled_neighbors(s: TestSuite) -> void:
+	var street := load("res://data/levels/ch1_street.tres") as LevelData
+	var pawnshop := load("res://data/levels/ch1_pawnshop.tres") as LevelData
+	var count := AssetPrefetch.warm_neighbors(pawnshop)
+	var immediate := AssetPrefetch._requested.keys()
+	AssetPrefetch.clear()
+	s.check(await _drain(s), "immediate neighbor work drains before testing scheduled discovery")
+	AssetPrefetch.schedule_neighbors(street)
+	s.check(AssetPrefetch.stats().discovering_neighbors and AssetPrefetch.stats().queued == 0,
+		"level entry schedules discovery before queueing neighbor textures")
+	await s.runner.get_tree().process_frame
+	await s.runner.get_tree().process_frame
+	s.check(AssetPrefetch.stats().discovering_neighbors, "cold street neighbor discovery spans multiple frames")
+	AssetPrefetch.schedule_neighbors(pawnshop)
+	var deadline := Time.get_ticks_msec() + 10000
+	while AssetPrefetch.stats().discovering_neighbors and Time.get_ticks_msec() < deadline:
+		await s.runner.get_tree().process_frame
+	s.check(not AssetPrefetch.stats().discovering_neighbors and count > 0 and AssetPrefetch._requested.keys() == immediate,
+		"replacement scope queues exactly the same paths in the same order as immediate discovery")
+	AssetPrefetch.schedule_neighbors(street)
+	AssetPrefetch.clear()
+	s.check(await _drain(s) and AssetPrefetch.stats().cached == 0, "clearing a scheduled search leaves no cached or pending neighbors")
+
 
 static func _drain(s: TestSuite) -> bool:
 	var deadline := Time.get_ticks_msec() + 30000
 	while Time.get_ticks_msec() < deadline:
-		var stats := AssetPrefetch.stats()
-		if stats["queued"] == 0 and stats["inflight"] == 0: return true
+		if not AssetPrefetch.has_pending():
+			return true
 		await s.runner.get_tree().process_frame
 	return false

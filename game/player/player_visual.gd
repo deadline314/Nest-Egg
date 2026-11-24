@@ -70,6 +70,7 @@ var _fire_color := Palette.CYAN
 var _finisher_flash := 0.0
 var _parry_flash := 0.0
 var _guard_break_pose_left := 0.0
+var _parry_pose_left := 0.0
 var _block_flash := 0.0
 var _squash := Vector2.ONE
 var _ghost_timer := 0.0
@@ -325,12 +326,14 @@ func _soft_squash(full: Vector2) -> Vector2:
 
 func notify_parry(at := Vector2.INF, incoming := Vector2.ZERO) -> void:
 	_parry_flash = PARRY_FLASH_TIME
+	_parry_pose_left = PARRY_FLASH_TIME
 	_notify_guard_impact(at, incoming)
 
 
 func notify_guard_break() -> void:
 	_guard_break_pose_left = GUARD_BREAK_POSE_TIME
 	_parry_flash = 0.0
+	_parry_pose_left = 0.0
 
 
 func notify_block(at := Vector2.INF, incoming := Vector2.ZERO) -> void:
@@ -365,6 +368,7 @@ func begin_materialize() -> void:
 	_reset_secondary_motion()
 	_guard_break_pose_left = 0.0
 	_parry_flash = 0.0
+	_parry_pose_left = 0.0
 	_materialize_left = MATERIALIZE_TIME
 
 
@@ -527,7 +531,10 @@ func _physics_process(delta: float) -> void:
 	var retreat := 1.0 - smoothstep(0.38, 1.0, break_progress)
 	var guard_target := 1.0 if player.is_blocking else retreat
 	_guard_break_pose_left = maxf(0.0, _guard_break_pose_left - delta)
-	var parry_progress := 1.0 - _parry_flash / PARRY_FLASH_TIME
+	# Advance pose time with the rig. An idle frame can finish the contact flash
+	# before the following physics frame, including while the renderer catches up.
+	var parry_progress := 1.0 - _parry_pose_left / PARRY_FLASH_TIME
+	_parry_pose_left = maxf(0.0, _parry_pose_left - delta)
 	# Brief forward correction on a parry, inward recovery after a broken guard.
 	var parry_motion := smoothstep(0.0, 0.18, parry_progress) * (1.0 - smoothstep(0.23, 0.98, parry_progress))
 	_input.shield_reaction = parry_motion if player.is_blocking else (

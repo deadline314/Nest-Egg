@@ -56,9 +56,9 @@ func sample(label: String) -> void:
 
 func drain() -> void:
 	var deadline := Time.get_ticks_msec() + 30000
-	while AssetPrefetch.stats()["queued"] + AssetPrefetch.stats()["inflight"] > 0 and Time.get_ticks_msec() < deadline:
+	while AssetPrefetch.has_pending() and Time.get_ticks_msec() < deadline:
 		await get_tree().process_frame
-	verify(AssetPrefetch.stats()["queued"] + AssetPrefetch.stats()["inflight"] == 0, "service drains before deadline")
+	verify(not AssetPrefetch.has_pending(), "service drains before deadline")
 
 func _raw(collect: bool) -> void:
 	verify(ResourceLoader.load_threaded_request(TEXTURE) == OK, "native request accepted")

@@ -39,6 +39,7 @@ static var _retiring: Array[Texture2D] = []
 static var _retiring_bytes := 0
 static var _generation := 0
 static var _scope := ""
+static var _neighbor_warmup: NeighborWarmup
 static var _pump: Node
 static var _install_pending := false
 static var _sent_total := 0
@@ -83,6 +84,53 @@ class Pump extends Node:
 		AssetPrefetch._shutdown()
 
 
+## 先收集路徑，再分批查可用變體和入列。待掃描的路徑不持有貼圖。
+class NeighborWarmup:
+	var targets := PackedStringArray()
+	var backdrop: Dictionary[String, bool] = {}
+	var candidates: Dictionary[String, bool] = {}
+	var paths: Array[String] = []
+	var retained := PackedStringArray()
+	var target_index := 0
+	var path_index := 0
+	var accepted := 0
+	var queue_full := false
+
+	func _init(data: LevelData) -> void:
+		var seen: Dictionary[String, bool] = {}
+		for resource in data.legend.values():
+			if resource is PortalData and not resource.target_level.is_empty() and not seen.has(resource.target_level):
+				seen[resource.target_level] = true
+				targets.append(resource.target_level)
+		if data.environment != null:
+			for layer: BackdropLayer in data.environment.backdrop:
+				if layer != null:
+					AssetPrefetch._add_candidates(backdrop, layer.texture)
+			if data.environment.sky != null:
+				AssetPrefetch._add_candidates(backdrop, data.environment.sky.texture)
+
+	func collect_target() -> void:
+		var neighbor := AssetPrefetch._resolve_level(targets[target_index])
+		target_index += 1
+		if neighbor != null:
+			AssetPrefetch._collect_level_candidates(neighbor, candidates)
+
+	func queue_paths(deadline: int) -> bool:
+		while path_index < paths.size() and Time.get_ticks_usec() < deadline:
+			var path := paths[path_index]
+			path_index += 1
+			if path.begins_with("res://art/environment/backdrop/") and not backdrop.has(path):
+				continue
+			# 候選可包含不存在的變體。已有引用的貼圖仍須保留。
+			retained.append(path)
+			if accepted >= MAX_REQUESTS_PER_CALL or queue_full:
+				continue
+			match AssetPrefetch._queue_path(path, candidates[path]):
+				OK: accepted += 1
+				ERR_OUT_OF_MEMORY: queue_full = true
+		return path_index == paths.size()
+
+
 ## 預載一個區域；主選單使用此入口建立新範圍，釋放上一輪額外快取。
 static func warm_level(data: Variant) -> int:
 	var level := _resolve_level(data)
@@ -104,37 +152,50 @@ static func _resolve_level(data: Variant) -> LevelData:
 	return null
 
 
-## 鄰居共用同一範圍，不讓逐個鄰居互相清除。
+## 診斷工具可立即填滿佇列。遊戲進場使用 schedule_neighbors。
 static func warm_neighbors(data: LevelData) -> int:
 	if data == null:
 		return 0
+	_begin_neighbors(data)
+	var warmup := _neighbor_warmup
+	while warmup.target_index < warmup.targets.size():
+		warmup.collect_target()
+	warmup.paths = warmup.candidates.keys()
+	warmup.queue_paths(9223372036854775807)
+	_finish_neighbors()
+	_refresh_pump()
+	if is_instance_valid(_pump) and _pump.is_inside_tree():
+		_dispatch()
+	return warmup.accepted
+
+
+static func schedule_neighbors(data: LevelData) -> void:
+	if data != null:
+		_begin_neighbors(data)
+		_refresh_pump()
+
+
+static func _begin_neighbors(data: LevelData) -> void:
 	_select_scope("neighbors:%s:%s" % [data.resource_path, data.id], false)
-	var wanted := PackedStringArray()
-	var targets: Dictionary[String, bool] = {}
-	for resource in data.legend.values():
-		if resource is PortalData and not (resource as PortalData).target_level.is_empty():
-			targets[(resource as PortalData).target_level] = true
-	for path in targets:
-		var neighbor := _resolve_level(path)
-		if neighbor != null:
-			wanted.append_array(level_texture_paths(neighbor))
-	# 鄰居的天空與遠景只保留目前主題也會用到的圖（含同名法線／發光變體）。
-	var current := PackedStringArray()
-	if data.environment != null:
-		for layer: BackdropLayer in data.environment.backdrop:
-			if layer != null:
-				_add_with_variants(current, layer.texture)
-		if data.environment.sky != null:
-			_add_with_variants(current, data.environment.sky.texture)
-	var retained := PackedStringArray()
-	for path: String in wanted:
-		if not path.begins_with("res://art/environment/backdrop/") or current.has(path):
-			retained.append(path)
-	wanted = retained
+	_neighbor_warmup = NeighborWarmup.new(data)
+
+
+static func _discover_neighbors() -> void:
+	var warmup := _neighbor_warmup
+	if warmup.target_index < warmup.targets.size():
+		# 一格只處理一份 LevelData，避免把相鄰區域的冷資料疊在一起。
+		warmup.collect_target()
+		return
+	if warmup.paths.is_empty():
+		warmup.paths = warmup.candidates.keys()
+	if warmup.queue_paths(Time.get_ticks_usec() + MAIN_SOFT_BUDGET_US):
+		_finish_neighbors()
+
+
+static func _finish_neighbors() -> void:
 	# 閒置區域不固定持有過場舞台；播放中的 CutscenePlayer 自己持有。
-	# 只留這個區域的鄰居所需資產：前幾個區域留下來的預載不再佔著記憶體（BG-32）。
-	_retain_only(wanted)
-	return request(wanted)
+	_retain_only(_neighbor_warmup.retained)
+	_neighbor_warmup = null
 
 
 ## 把預載裡不在 paths 的貼圖放掉（場景自己還在用的不受影響）。
@@ -163,31 +224,38 @@ static func request(paths: PackedStringArray) -> int:
 	for path in paths:
 		if accepted >= MAX_REQUESTS_PER_CALL:
 			break
-		if path.is_empty():
-			continue
-		var active_slot := _active_paths.find(path)
-		if active_slot >= 0:
-			_active_epochs[active_slot] = _generation
-			continue
-		if _requested.has(path):
-			if _cache.has(path):
-				var texture := _cache[path]
-				_cache.erase(path)
-				_cache[path] = texture
-			continue
-		if not ResourceLoader.exists(path):
-			push_warning("[AssetPrefetch] 找不到要預載的貼圖：%s" % path)
-			continue
-		if _queued.size() >= MAX_QUEUED:
-			push_warning("[AssetPrefetch] 待載已達 %d，略過本次剩餘貼圖（首項：%s）。" % [MAX_QUEUED, path])
-			break
-		_requested[path] = true
-		_queued[path] = true
-		accepted += 1
+		match _queue_path(path, true):
+			OK: accepted += 1
+			ERR_OUT_OF_MEMORY: break
 	_refresh_pump()
 	if is_instance_valid(_pump) and _pump.is_inside_tree():
 		_dispatch()
 	return accepted
+
+
+static func _queue_path(path: String, required: bool) -> Error:
+	if path.is_empty():
+		return ERR_SKIP
+	var active_slot := _active_paths.find(path)
+	if active_slot >= 0:
+		_active_epochs[active_slot] = _generation
+		return ERR_SKIP
+	if _requested.has(path):
+		if _cache.has(path):
+			var texture := _cache[path]
+			_cache.erase(path)
+			_cache[path] = texture
+		return ERR_SKIP
+	if not ResourceLoader.exists(path):
+		if required:
+			push_warning("[AssetPrefetch] 找不到要預載的貼圖：%s" % path)
+		return ERR_SKIP
+	if _queued.size() >= MAX_QUEUED:
+		push_warning("[AssetPrefetch] 待載已達 %d，略過本次剩餘貼圖（首項：%s）。" % [MAX_QUEUED, path])
+		return ERR_OUT_OF_MEMORY
+	_requested[path] = true
+	_queued[path] = true
+	return OK
 
 
 static func _select_scope(key: String, release_cache: bool) -> void:
@@ -203,6 +271,7 @@ static func clear() -> void:
 static func _reset_scope(key: String, release_cache: bool) -> void:
 	_generation += 1
 	_scope = key
+	_neighbor_warmup = null
 	_queued.clear()
 	_warm_sent.clear()
 	_warm_mutex.lock()
@@ -234,6 +303,7 @@ static func stats() -> Dictionary:
 	for path in _active_paths:
 		active += 0 if path.is_empty() else 1
 	return {"queued": _queued.size(), "inflight": active, "inflight_limit": inflight_limit(),
+		"discovering_neighbors": _neighbor_warmup != null,
 		"cached": _cache.size(), "retiring": _retiring.size(),
 		"estimated_bytes": _cache_bytes + _retiring_bytes, "requested_total": _sent_total,
 		"collected_total": _collected_total, "failed_total": _failed_total,
@@ -280,8 +350,12 @@ static func inflight_limit() -> int:
 	return MAX_INFLIGHT if _strategy == STRATEGY_THREADED_NATIVE else 1
 
 
+static func has_pending() -> bool:
+	return _neighbor_warmup != null or not _queued.is_empty() or _active_paths.count("") < MAX_INFLIGHT
+
+
 static func _refresh_pump() -> void:
-	var working := not _queued.is_empty() or _active_paths.count("") < MAX_INFLIGHT
+	var working := has_pending()
 	if working and not is_instance_valid(_pump) and not _install_pending:
 		_install_pending = true
 		_install_pump.call_deferred()
@@ -291,7 +365,7 @@ static func _refresh_pump() -> void:
 
 static func _install_pump() -> void:
 	_install_pending = false
-	if is_instance_valid(_pump) or (_queued.is_empty() and _active_paths.count("") == MAX_INFLIGHT):
+	if is_instance_valid(_pump) or not has_pending():
 		return
 	var tree := Engine.get_main_loop() as SceneTree
 	if tree != null:
@@ -334,6 +408,10 @@ static func _dispatch() -> void:
 
 ## 固定四槽逆序檢查；沒有每影格 keys() 或整佇列副本。
 static func _poll() -> void:
+	if _neighbor_warmup != null:
+		_discover_neighbors()
+		_refresh_pump()
+		return
 	if uses_main_thread():
 		_poll_main_thread()
 		_refresh_pump()
@@ -551,6 +629,7 @@ static func _remember(path: String, texture: Texture2D) -> void:
 
 ## 只在整棵 SceneTree 退出時等自己最多四個請求；遊戲中的 clear 不等待。
 static func _shutdown() -> void:
+	_neighbor_warmup = null
 	_queued.clear()
 	_warm_join()
 	_warm_sent.clear()
@@ -575,37 +654,48 @@ static func _shutdown() -> void:
 ## 一個區域用到的貼圖：場景擺設（含法線與發光層）、環境主題的地形材質、立面、室內牆面、背景與天空、敵人的角色零件。
 static func level_texture_paths(data: LevelData) -> PackedStringArray:
 	var paths := PackedStringArray()
+	var candidates: Dictionary[String, bool] = {}
+	_collect_level_candidates(data, candidates)
+	for path: String in candidates:
+		if candidates[path] or ResourceLoader.exists(path):
+			paths.append(path)
+	return paths
+
+
+static func _collect_level_candidates(data: LevelData, candidates: Dictionary[String, bool]) -> void:
 	var theme := data.environment
 	if theme != null:
 		var dirs := theme.prop_dirs()
 		for entry in data.load_props():
 			var prop := PropLibrary.find_in(StringName(str(entry["id"])), dirs)
 			if prop != null:
-				_add_with_variants(paths, prop.texture)
+				_add_candidates(candidates, prop.texture)
 		for zone in theme.zones:
 			if zone == null:
 				continue
 			if zone.material != null:
 				for path in [zone.material.body, zone.material.top, zone.material.side]:
-					_add_with_variants(paths, path)
+					_add_candidates(candidates, path)
 			for facade in zone.facades:
 				if facade != null:
 					for list in [facade.ground, facade.body, facade.cap]:
 						for path in list:
-							_add_with_variants(paths, path)
-			_add_with_variants(paths, zone.interior)
+							_add_candidates(candidates, path)
+			_add_candidates(candidates, zone.interior)
 		for layer in theme.backdrop:
 			if layer != null:
-				_add_with_variants(paths, layer.texture)
+				_add_candidates(candidates, layer.texture)
 		if theme.sky != null:
-			_add_with_variants(paths, theme.sky.texture)
+			_add_candidates(candidates, theme.sky.texture)
 	var skins: Dictionary[String, bool] = {}
 	for resource in data.legend.values():
 		if resource is EnemyData and not (resource as EnemyData).rig_skin.is_empty():
 			skins[(resource as EnemyData).rig_skin] = true
 	for skin in skins:
-		_add_rig_parts(paths, skin)
-	return paths
+		var dir := RigLibrary.character_dir(skin).path_join("parts")
+		for file in DirAccess.get_files_at(dir):
+			if file.ends_with(".png") or file.ends_with(".webp"):
+				candidates[dir.path_join(file)] = true
 
 
 ## 一個場景（含接續的下一段）用到的舞台貼圖。
@@ -638,11 +728,15 @@ static func _add_stage(paths: PackedStringArray, stage_id: StringName) -> void:
 						_add_with_variants(paths, state["path"])
 
 
-static func _add_rig_parts(paths: PackedStringArray, skin: String) -> void:
-	var dir := RigLibrary.character_dir(skin).path_join("parts")
-	for file in DirAccess.get_files_at(dir):
-		if file.ends_with(".png") or file.ends_with(".webp"):
-			paths.append(dir.path_join(file))
+## True 表示作者直接指定的貼圖，缺失才記錄。法線和發光層是可選的。
+static func _add_candidates(candidates: Dictionary[String, bool], path: String) -> void:
+	if path.is_empty() or candidates.get(path, false):
+		return
+	candidates[path] = true
+	for suffix in ["_n", "_glow"]:
+		var variant := _variant_path(path, suffix)
+		if not candidates.has(variant):
+			candidates[variant] = false
 
 
 ## 貼圖本身，加上同名的法線（_n）與發光（_glow）層。
@@ -650,11 +744,11 @@ static func _add_with_variants(paths: PackedStringArray, path: String) -> void:
 	if path.is_empty():
 		return
 	paths.append(path)
-	var base := path.get_basename()
-	var ext := path.get_extension()
-	var normal := "%s_n.%s" % [base, ext]
-	if ResourceLoader.exists(normal):
-		paths.append(normal)
-	var glow := "%s_glow.%s" % [base, ext]
-	if ResourceLoader.exists(glow):
-		paths.append(glow)
+	for suffix in ["_n", "_glow"]:
+		var variant := _variant_path(path, suffix)
+		if ResourceLoader.exists(variant):
+			paths.append(variant)
+
+
+static func _variant_path(path: String, suffix: String) -> String:
+	return "%s%s.%s" % [path.get_basename(), suffix, path.get_extension()]

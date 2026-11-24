@@ -392,7 +392,7 @@ func _build_entry() -> void:
 			_on_completion_flag.call_deferred(data.complete_on_flag, true)
 	if _arena_triggered and not _boss_spawned and not _resume.get("ending", false) and not _resume.get("dead", false):
 		_resume_pending_boss.call_deferred()
-	AssetPrefetch.warm_neighbors.call_deferred(data)
+	AssetPrefetch.schedule_neighbors(data)
 	# 換到這個區域之後、以及離開它之後，把沒有人在用的環境貼圖放掉（BG-32）。
 	TextureRelease.request()
 	tree_exited.connect(TextureRelease.request)

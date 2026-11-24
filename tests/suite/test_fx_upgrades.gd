@@ -1079,6 +1079,8 @@ func _test_guard_contact_reactions() -> void:
 		hit.origin = player.aim_origin() + direction * 100.0
 		hit.is_projectile = true
 		check(player._guard(hit) == Hurtbox.Guard.REFLECT, "a parry still reflects")
+		# A long visual update can finish the flash before physics advances the rig.
+		visual._process(visual.PARRY_FLASH_TIME)
 		var forward := 0.0
 		for frame in 25:
 			await physics_frames(1)
