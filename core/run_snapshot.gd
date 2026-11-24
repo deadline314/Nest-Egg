@@ -22,7 +22,7 @@ static func capture(level_path: String, runtime: Dictionary, cinematic := "", co
 		"runtime": runtime, "cinematic": cinematic, "cinematic_context": Story.presentation_context(context), "chapter_complete": completed}
 
 
-static func prepare(raw: Dictionary) -> Dictionary:
+static func prepare(raw: Dictionary, active_level: LevelData = null, active_layout: LevelLayout = null) -> Dictionary:
 	var errors := RunSaveCodec.validate_tree(raw)
 	if not errors.is_empty():
 		return {"error": errors[0]}
@@ -170,7 +170,7 @@ static func prepare(raw: Dictionary) -> Dictionary:
 	runtime = result["runtime"]
 	if migration.get("relocated", false):
 		notices.append("地圖已更新，從原區域的安全入口續玩；既有進度與已取得內容保留。")
-	var dynamic := _dynamic(runtime, level)
+	var dynamic := _dynamic(runtime, level, active_layout if level == active_level else null)
 	if dynamic.has("error"):
 		return dynamic
 	runtime.merge(dynamic, true)
@@ -367,8 +367,8 @@ static func _world(raw: Dictionary) -> Dictionary:
 	return result
 
 
-static func _dynamic(runtime: Dictionary, level: LevelData = null) -> Dictionary:
-	var membership := ENCOUNTER_SNAPSHOT.prepare(runtime, level)
+static func _dynamic(runtime: Dictionary, level: LevelData = null, layout: LevelLayout = null) -> Dictionary:
+	var membership := ENCOUNTER_SNAPSHOT.prepare(runtime, level, layout)
 	if membership.has("error"):
 		return membership
 	var result := {"loose": [], "enemies": [], "encounters": {}}

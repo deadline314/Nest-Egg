@@ -111,7 +111,7 @@ func _ready() -> void:
 	_channel_completion = preload("res://game/channel_completion.gd").new()
 	_channel_completion.main = self
 	add_child(_channel_completion)
-	_run_store.validator = RunSnapshot.prepare
+	_run_store.validator = _prepare_run_snapshot
 	GameState.run_save_requested.connect(_queue_save)
 	Progression.credits_changed.connect(func(_value: int, _delta: int) -> void: _queue_save())
 	Progression.upgrades_changed.connect(_queue_save)
@@ -656,6 +656,14 @@ func _save_run(route_source := false) -> void:
 	if not snapshot.is_empty():
 		_autosave_queued = false
 		_report_run_save(_run_store.write(snapshot))
+
+
+## Reuse the active area's authored layout. Cold and cross-area reads still parse their own layout.
+func _prepare_run_snapshot(raw: Dictionary) -> Dictionary:
+	var level := _screen as Level
+	if is_instance_valid(level) and level.is_initialized():
+		return RunSnapshot.prepare(raw, level.data, level._layout)
+	return RunSnapshot.prepare(raw)
 
 
 func _can_capture_save() -> bool:

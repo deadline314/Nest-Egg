@@ -20,7 +20,7 @@ static func encode(data: Dictionary) -> String:
 
 
 static func decode(text: String) -> Dictionary:
-	if text.to_utf8_buffer().size() > MAX_BYTES or not nesting_safe(text):
+	if not _bounded_envelope(text):
 		return {"error": "檔案超過大小或巢狀上限"}
 	var json := JSON.new()
 	if json.parse(text) != OK or not json.data is Dictionary:
@@ -49,25 +49,40 @@ static func valid_version(value: Variant) -> bool:
 
 ## 在 JSON.parse 前檢查容器深度；忽略字串內括號及跳脫字元。
 static func nesting_safe(text: String) -> bool:
+	return _nesting_bytes_safe(text.to_utf8_buffer())
+
+
+static func _bounded_envelope(text: String) -> bool:
+	var bytes := text.to_utf8_buffer()
+	return bytes.size() <= MAX_BYTES and _nesting_bytes_safe(bytes)
+
+
+## JSON delimiters and escapes are ASCII; UTF-8 continuation bytes cannot match them.
+static func _nesting_bytes_safe(bytes: PackedByteArray) -> bool:
+	const QUOTE := 34
+	const ESCAPE := 92
+	const ARRAY_OPEN := 91
+	const ARRAY_CLOSE := 93
+	const OBJECT_OPEN := 123
+	const OBJECT_CLOSE := 125
 	var depth := 0
 	var quoted := false
 	var escaped := false
-	for i in text.length():
-		var c := text[i]
+	for byte in bytes:
 		if quoted:
 			if escaped:
 				escaped = false
-			elif c == "\\":
+			elif byte == ESCAPE:
 				escaped = true
-			elif c == "\"":
+			elif byte == QUOTE:
 				quoted = false
-		elif c == "\"":
+		elif byte == QUOTE:
 			quoted = true
-		elif c == "{" or c == "[":
+		elif byte == OBJECT_OPEN or byte == ARRAY_OPEN:
 			depth += 1
 			if depth > MAX_DEPTH:
 				return false
-		elif c == "}" or c == "]":
+		elif byte == OBJECT_CLOSE or byte == ARRAY_CLOSE:
 			depth -= 1
 			if depth < 0:
 				return false

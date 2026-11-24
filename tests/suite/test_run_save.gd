@@ -18,6 +18,7 @@ func run() -> void:
 	var valid := RunSnapshot.capture(FIRST, {"position": [100, 160], "health": 4, "world": {}, "loadout": {}})
 	print("[RunSaveSuite] initial preparation: %s" % RunSnapshot.prepare(valid).get("error", "OK"))
 	check(RunSnapshot.prepare(valid).has("data"), "valid whole-run schema prepares before applying")
+	_test_active_layout_validation(valid)
 	var detached_main: Node = load("res://game/main.gd").new()
 	var freed_level := Level.new()
 	detached_main.set("_screen", freed_level)
@@ -57,6 +58,9 @@ func run() -> void:
 	check(AimInput._last_stick_dir == Vector2.LEFT and not AimInput.using_gamepad, "restore aim normalizes without switching device")
 	AimInput.restore_direction(Vector2(NAN, 0))
 	check(AimInput._last_stick_dir == Vector2.LEFT, "nonfinite restore direction leaves existing input unchanged")
+	var unicode := {"title": "當鋪「夜」雨傘 🦉", "braces": "[{}]", "escape": '前後"\\'}
+	check(RunSaveCodec.decode(RunSaveCodec.encode(unicode)).get("data") == unicode,
+		"UTF-8 text, literal delimiters and escaped quotes round-trip")
 	var encoded := RunSaveCodec.encode(valid)
 	check(RunSaveCodec.decode(encoded).has("data"), "checksum envelope round-trips JSON data")
 	check(not RunSaveCodec.decode(encoded.left(encoded.length() / 2)).has("data"), "truncated envelope rejected")
@@ -272,3 +276,16 @@ func _test_primary_validation(seed: Dictionary) -> void:
 	check(FileAccess.get_file_as_string(store.path) == future and FileAccess.get_sha256(store.path + ".bak") == previous_backup,
 			"the concurrently installed primary and its original backup remain unchanged")
 	store.validator = Callable()
+
+
+func _test_active_layout_validation(valid: Dictionary) -> void:
+	var snapshot := valid.duplicate(true)
+	snapshot["runtime"]["encounter_members_version"] = 1
+	var data := load(FIRST) as LevelData
+	var loaded_layout := LevelBuilder.parse(data)
+	var cold := RunSnapshot.prepare(snapshot)
+	check(cold.has("data") and RunSnapshot.prepare(snapshot, data, loaded_layout) == cold,
+		"a live area's layout and a cold parse produce the same validated encounter data")
+	var other := load("res://data/levels/ch1_street.tres") as LevelData
+	check(RunSnapshot.prepare(snapshot, other, LevelLayout.new()) == cold,
+		"a cross-area snapshot cannot use a different active level's layout")
