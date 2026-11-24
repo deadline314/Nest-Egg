@@ -312,10 +312,12 @@ func _check_pickup_feed(hud: Hud) -> void:
 	# Feed visibility is published by _process; physics ticks can finish before any UI update.
 	await runner.get_tree().create_timer(0.0, true, false, true).timeout
 	check(feed.visible and feed.lines().size() == PickupFeed.MAX_ROWS, "通訊結束後拾取紀錄回來")
-	var deadline := Time.get_ticks_msec() + int((PickupFeed.HOLD + 1.5) * 1000.0)
-	while Time.get_ticks_msec() < deadline and not feed.lines().is_empty():
-		await runner.get_tree().process_frame
-	await frames(1)
+	# The feed uses process delta. Advance to the actual fade boundary rather
+	# than inferring it from elapsed wall time on a busy test machine.
+	var latest := feed.get_child(feed.get_child_count() - 1) as PickupFeed._Row
+	feed._process(maxf(0.0, latest.left - PickupFeed.FADE * 0.5))
+	check(latest.visible and latest.modulate.a > 0.0 and latest.modulate.a < 1.0, "停留結束後仍顯示淡出中的拾取文字")
+	feed._process(PickupFeed.FADE)
 	check(feed.lines().is_empty() and not feed.is_processing(), "時間到後全部淡出，閒置時不再每影格更新")
 
 
