@@ -87,7 +87,7 @@ var interaction_action: WorldPropAction
 ## 格擋動畫的混合獨立於防禦判定。
 const GUARD_ARM_BLEND_TIME := 0.10
 var _guard_arm_weight := 0.0
-var _shield: GuardPresenter = ShieldSurface.new()
+var _shield: GuardPresenter = preload("res://game/fx/forearm_guard.gd").new()
 
 
 func _enter_tree() -> void:
@@ -541,6 +541,7 @@ func _physics_process(delta: float) -> void:
 		_input.shield_reaction = 0.0
 	_input.shield_forward = _guard_arm_weight > 0.0
 	_input.shield_pose_weight = _guard_arm_weight
+	_input.forearm_brace = true
 	_input.hand_grip_back = _input.shield_forward
 	_input.dashing = player.state == Player.State.DASH
 	_input.staggered = player.state == Player.State.STAGGERED
@@ -700,7 +701,7 @@ func _draw() -> void:
 		draw_arc(Vector2(0, -body_center_height()), 26.0 * (1.5 - t), 0.0, TAU, 28, Color(LightKit.glow(Palette.WHITE, 2.0), t), 2.0)
 
 
-## 折疊偏折板固定在後手前臂靠近手腕處（本地座標）。
+## 防護脈衝從支撐臂靠近手腕的外側發出（本地座標）。
 func shield_wrist_local() -> Vector2:
 	if rig != null and rig.is_valid():
 		var hand := rig.bone(&"hand_back")
@@ -718,7 +719,7 @@ func _guard_forearm(wrist: Vector2) -> Vector2:
 	return player.aim_dir
 
 
-## Get the visual contact before recoil changes the shared plate transform.
+## Capture the forearm contact before the recoil pose moves it.
 func guard_impact_world(at: Vector2) -> Vector2:
 	var wrist := shield_wrist_local()
 	var contact := _shield.position_on_surface(to_local(at), wrist, _guard_forearm(wrist), player.facing,

@@ -298,7 +298,7 @@ func _test_shield_attachment() -> void:
 					await physics_frames(20)
 	_press_stick(Vector2.ZERO)
 	AimInput.set_virtual_gamepad(player, false)
-	check(failures.is_empty(), "the deflector stays mounted on the rear forearm for every weapon, aim, motion and facing (worst offset %.2f): %s" % [worst, failures.slice(0, 4)])
+	check(failures.is_empty(), "the guard remains anchored to the rear forearm for every weapon, aim, motion and facing (worst offset %.2f): %s" % [worst, failures.slice(0, 4)])
 	await end_level(level)
 
 
@@ -332,7 +332,7 @@ func _test_shield_outcomes() -> void:
 	var shown := visual._shield.impact_position
 	var directional_mark := Vector2(0, -Player.BODY_SIZE.y * 0.5) - incoming * ShieldSurface.RADIUS
 	check(shown.is_finite() and shown.distance_to(directional_mark) > 4.0,
-			"the real projectile's block flash moves off the old body-centred arc and onto the plate (%s)" % shown)
+			"the real projectile's block flash moves off the old body-centred arc and onto the forearm (%s)" % shown)
 	check(player.global_position.x < x_before, "a block pushes the player back from the hit")
 	Input.action_release(&"block")
 	await physics_frames(40)
@@ -1037,11 +1037,10 @@ func _test_melee_guard_clearance() -> void:
 					previous = wrist_at
 				await frames(2)
 				var has_weapon := visual.shows_melee_weapon()
-				var surface := visual._shield as ShieldSurface
 				var mount := visual.shield_wrist_local()
-				var pose := surface._plate_transform(mount, visual._guard_forearm(mount), facing, Settings.get_feel_scale("shake"))
-				var tail := pose * Vector2(ShieldSurface.ROOT.position.x, 0.0)
-				var end := pose * Vector2(ShieldSurface.SLIDER.end.x + surface.slide_offsets().x, 0.0)
+				var axis := visual._guard_forearm(mount)
+				var tail := mount - axis * 5.6
+				var end := mount
 				var held := visual.melee_held()
 				var grip := visual.to_local(visual.melee_hold().origin)
 				var tip := visual.to_local(held.tip_point())
@@ -1058,7 +1057,7 @@ func _test_melee_guard_clearance() -> void:
 					previous = wrist_at
 				if largest_step > 6.0 or visual._input.shield_forward:
 					failures.append("%s facing %d pitch %.2f: wrist step %.2f" % [weapon.id if weapon != null else "unarmed", facing, pitch, largest_step])
-	check(failures.is_empty(), "the deflector clears held melee gear in all checked poses: %s" % [failures.slice(0, 8)])
+	check(failures.is_empty(), "the reinforced forearm clears held melee gear in all checked poses: %s" % [failures.slice(0, 8)])
 	_press_stick(Vector2.ZERO)
 	AimInput.set_virtual_gamepad(player, false)
 	await end_level(level)
@@ -1154,8 +1153,8 @@ func _test_arm_shield_rules() -> void:
 		var block_speed := absf(player.velocity.x)
 		Input.action_release(&"move_right")
 		outcomes[tier] = {"window": window, "blocked_68": blocked, "hurt_68": hurt, "reflected": reflected, "speed": block_speed,
-			"guard_max": player.guard_max(), "arc_drawn": visual._shield._arc_degrees, "parts": visual._shield.parts.size(),
-			"blocked_78": blocked_78, "slides": visual._shield.slide_offsets()}
+			"guard_max": player.guard_max(), "arc_drawn": visual._shield.arc_degrees, "parts": visual._shield.parts.size(),
+			"blocked_78": blocked_78, "emitter_span": visual._shield.emitter_span()}
 		Input.action_release(&"block")
 		_press_stick(Vector2.ZERO)
 		AimInput.set_virtual_gamepad(player, false)
@@ -1169,8 +1168,8 @@ func _test_arm_shield_rules() -> void:
 	check(extended["blocked_68"] and not extended["hurt_68"] and full["blocked_68"], "both extended plates block the same shot")
 	check(not bare["blocked_78"] and not extended["blocked_78"] and full["blocked_78"], "only the coated extension blocks a shot at 78 degrees")
 	check([bare["arc_drawn"], extended["arc_drawn"], full["arc_drawn"]] == [120.0, 150.0, 165.0], "the edge cues show the same angle as each fitted assembly")
-	check([bare["slides"], extended["slides"], full["slides"]] == [Vector2(7.5, 0), Vector2(14, 0), Vector2(14, 10)],
-			"the standard slide, extension and coated nose have distinct travel")
+	check([bare["emitter_span"], extended["emitter_span"], full["emitter_span"]] == [5.6, 7.0, 7.0],
+			"the range upgrade lengthens the forearm emitter and coated gear keeps that extension")
 	check(not bare["reflected"] and not extended["reflected"] and full["reflected"], "only the deflect coat sends a normally blocked shot back")
 	check(float(full["window"]) > float(bare["window"]) + 0.04, "the reaction chip lengthens the perfect window (%.3f → %.3f s)" % [bare["window"], full["window"]])
 	check(float(full["speed"]) > float(bare["speed"]) * 1.4, "the light frame lets her move faster behind the shield (%.0f → %.0f px/s)" % [bare["speed"], full["speed"]])

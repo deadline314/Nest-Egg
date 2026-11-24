@@ -1,6 +1,6 @@
 extends Enemy
-## 盾衛犬（盾牌衝鋒）
-## 行為：正面能量盾會彈開子彈與近戰。發現玩家後原地蓄力，接著高速衝撞。
+## 天穹鎮暴員（盾牌衝鋒）
+## 正面伸縮板會擋開子彈與近戰。發現玩家後原地蓄力，接著高速衝撞。
 ##       撞到牆會暈眩並「盾牌失效」；衝過頭則煞車轉身。
 ## 應對：跳過或用衝刺（無敵）穿越 → 從背後攻擊，或誘導牠撞牆再輸出；爆炸與終結技無視盾牌。
 
@@ -9,9 +9,32 @@ const DAZE_TIME := 1.8
 const REST_TIME := 0.6
 
 var _cooldown := 0.0
+var _plate := ShieldSurface.new()
+
+
+func _physics_process(delta: float) -> void:
+	super._physics_process(delta)
+	var active := _guard_active()
+	_plate.update(delta, active, not active, Vector2(float(facing), 0.0), 180.0)
+	if is_dying():
+		queue_redraw()
+
+
+func _rig_state(input: RigInput) -> void:
+	input.shield_pose_weight = _plate.extension
+	input.hand_grip_back = _plate.extension > 0.0
+
+
+func _guard_active() -> bool:
+	return not is_dying() and not is_stunned() and not fsm.is_in(&"dazed")
 
 
 func _setup_states() -> void:
+	if rig != null:
+		var carried := rig.contact_surface(&"riot_shield")
+		if carried != null:
+			carried.hide()
+	_plate.parts = [ShieldSurface.PART_EXTENSION, ShieldSurface.PART_DEFLECT]
 	fsm.add(&"patrol", _patrol_tick)
 	fsm.add(&"windup", _windup_tick, _windup_enter)
 	fsm.add(&"charge", _charge_tick, _charge_enter, _charge_exit)
@@ -27,7 +50,7 @@ func _on_stunned() -> void:
 
 ## 正面（面向方向）來的攻擊會被格擋；暈眩時盾牌失效。
 func _guard(info: DamageInfo) -> Hurtbox.Guard:
-	if fsm.is_in(&"dazed") or is_stunned():
+	if not _guard_active():
 		return Hurtbox.Guard.NONE
 	var from_side := signf(info.origin.x - global_position.x)
 	return Hurtbox.Guard.BLOCK if from_side == float(facing) else Hurtbox.Guard.NONE
@@ -35,7 +58,14 @@ func _guard(info: DamageInfo) -> Hurtbox.Guard:
 
 func _on_blocked(info: DamageInfo) -> void:
 	super._on_blocked(info)
-	Fx.impact(_center() + Vector2(facing * data.body_size.x * 0.6, 0), Vector2(facing, -0.3), Palette.CYAN, 5)
+	var origin := to_local(_center() + Vector2(facing * data.body_size.x * 0.6, 0))
+	var elbow := anchor_node(&"arm_back_lower")
+	var hand := anchor_node(&"hand_back")
+	var wrist := _plate_wrist(hand, elbow)
+	var axis := (wrist - to_local(elbow.global_position)) if elbow != null else Vector2(float(facing), 0.0)
+	var mark := _plate.position_on_surface(origin, wrist, axis, facing, Settings.get_feel_scale("shake"))
+	_plate.notify_impact(Vector2(float(facing), 0.0), mark)
+	Fx.impact(to_global(mark), Vector2(facing, -0.3), Palette.WARNING, 5)
 
 
 func _patrol_tick(delta: float) -> void:
@@ -115,11 +145,19 @@ func _draw_body(color: Color) -> void:
 	draw_rect(Rect2(-w * 0.5, -h, w, 3), color.lightened(0.25))
 	var eye := LightKit.glow(Palette.DANGER, 3.0 if is_telegraphing() else 1.5)
 	draw_circle(Vector2(f * (w * 0.3), -h + 5), 1.6, eye)
-	# 能量盾：面向側的發光弧形；暈眩時閃爍熄滅。
-	var dazed := fsm.is_in(&"dazed")
-	if not dazed or int(_anim_time * 12.0) % 2 == 0:
-		var shield := LightKit.glow(Palette.CYAN, 0.6 if dazed else 2.2)
-		shield.a = 0.35 if dazed else 0.9
-		var center := Vector2(f * (w * 0.5 + 2.0), -h * 0.5)
-		var start := -PI * 0.5 if f > 0.0 else PI * 0.5
-		draw_arc(center, h * 0.6, start, start + PI * f, 10, shield, 2.0)
+
+
+func _plate_wrist(hand: Node2D, elbow: Node2D) -> Vector2:
+	if hand != null and elbow != null:
+		return to_local(hand.global_position.lerp(elbow.global_position, 0.22))
+	return Vector2(facing * data.body_size.x * 0.55, -data.body_size.y * 0.65)
+
+
+func _draw_overlay() -> void:
+	if _plate.extension <= 0.0:
+		return
+	var hand := anchor_node(&"hand_back")
+	var elbow := anchor_node(&"arm_back_lower")
+	var wrist := _plate_wrist(hand, elbow)
+	var axis := (wrist - to_local(elbow.global_position)) if elbow != null else Vector2(float(facing), 0.0)
+	_plate.paint_emitter(self, wrist, to_local(_center()), 1.0, axis, facing, Settings.get_feel_scale("shake"))

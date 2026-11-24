@@ -46,7 +46,8 @@ var melee_path_weapon := 0.0
 var melee_body := Vector3.ZERO
 ## 後手向前舉盾（鎮暴員）。
 var shield_forward := false
-## Presentation-only blend for the rear arm as the plate folds.
+## Presentation-only blend for the rear guard arm.
+var forearm_brace := false
 var shield_pose_weight := 1.0
 ## Positive after a parry, negative while recovering from a broken guard.
 var shield_reaction := 0.0

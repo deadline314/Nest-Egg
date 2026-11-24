@@ -1275,7 +1275,7 @@ func _on_parry(info: DamageInfo, at: Vector2, approach := Vector2.ZERO) -> void:
 func _on_block(info: DamageInfo, at: Vector2, approach := Vector2.ZERO) -> void:
 	if not _block_hint_shown:
 		_block_hint_shown = true
-		EventBus.toast_requested.emit("剛舉盾的一瞬間被打中＝完美格擋，可反彈子彈")
+		EventBus.toast_requested.emit("在攻擊命中前按下格擋，可以反彈子彈")
 	guard -= maxf(1.0, float(info.amount)) * tuning.guard_cost_per_damage
 	_guard_regen_delay_left = guard_stats.guard_regen_delay()
 	velocity.x -= aim_dir.x * 90.0

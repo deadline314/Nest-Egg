@@ -1411,14 +1411,17 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 	if guard_pose > 0.0 and _rig.has_bone(&"hand_back"):
 		var shoulder: Vector2 = _global_pos.get(&"arm_back_upper", anchor_point)
 		var guard_wrist := shoulder + aim * 12.7 + Vector2(0, 2)
-		if (not weapon.is_empty() or input.melee_grip) and not _guard_firearm_stow.is_empty():
+		if input.forearm_brace:
+			# Keep the elbow under the load and carry the longitudinal force along the forearm.
+			guard_wrist = shoulder + Vector2(6.5 + 2.5 * absf(aim.x), 4.8 + clampf(aim.y, -1.0, 1.0) * 5.0)
+		if (input.melee_grip or (not input.forearm_brace and not weapon.is_empty())) and not _guard_firearm_stow.is_empty():
 			# Keep the plate clear of the equipment carried by the other hand.
 			var pelvis: Vector2 = _global_pos.get(&"hip", anchor_point)
 			guard_wrist.y = minf(guard_wrist.y, pelvis.y - float(_guard_firearm_stow["brace_height"]))
 		var response := _parry_reaction if input.shield_reaction >= 0.0 else _break_reaction
 		var impulse := response * absf(input.shield_reaction)
 		guard_wrist += Vector2(impulse.x, impulse.y)
-		var guard_angle := aim_angle * 0.3 + impulse.z
+		var guard_angle := (aim_angle * 0.34 - 0.45 if input.forearm_brace else aim_angle * 0.3) + impulse.z
 		if guard_pose < 1.0:
 			# Blend from the solved regular wrist, keeping the same two-bone reach limits.
 			_forward_kinematics()
@@ -1428,6 +1431,9 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 			guard_wrist = regular_wrist.lerp(guard_wrist, weight)
 			guard_angle = lerp_angle(_global_angle[&"hand_back"], guard_angle, weight)
 		_reach_arm(&"arm_back_upper", &"arm_back_lower", &"hand_back", guard_wrist, guard_angle)
+		if input.forearm_brace:
+			var wrist := _rig.bone(&"hand_back")
+			wrist.rotation = lerp_angle(wrist.rotation, HAND_FOLLOWS_FOREARM, guard_pose)
 	_rig.second_hand_on_weapon = not input.shield_forward and _second_hand_reaches(input, weapon)
 	if not action_arms.is_empty():
 		var w := smoothstep(0.0, 1.0, _action_w)
