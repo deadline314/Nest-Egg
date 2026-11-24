@@ -59,7 +59,7 @@ const DEFAULT_MOTION := {
 	"dash": {"forward": {"chest": 0.38, "legs": [-1.0, 0.6, 0.85, 1.0]}, "back": {"chest": -0.22, "legs": [0.5, 0.9, -0.7, 0.4]}, "hip_drop": 0.0},
 	"land": {"gain": 0.0, "stiffness": 220.0, "damping": 16.0, "drop": 0.0, "chest": 0.0, "legs": [-0.8, 1.3, 0.1, 0.9]},
 	"impulse": {"jump": 0.0, "land": 0.0, "dash": 0.0, "hurt": 0.0, "stop": 0.0},
-	"block": {"chest": 0.1, "legs": [-0.4, 0.5, 0.5, 0.2], "plant_feet": false, "firearm_stow": {}},
+	"block": {"chest": 0.1, "legs": [-0.4, 0.5, 0.5, 0.2], "plant_feet": false, "firearm_stow": {}, "reactions": {}},
 	"hurt": {"stagger_chest": -0.35, "kick": 0.3},
 	"look": {"chest": 0.12, "neck": 0.12, "head": 0.3, "head_min": -0.35, "head_max": 0.3},
 	"npc": {"stand": {}, "talk_speed": 1.0, "talk_amp": 1.0, "life": {}},
@@ -113,6 +113,8 @@ var _rig: CharacterRig
 var _angles: Dictionary[StringName, float] = {}
 var _hip_offset := Vector2.ZERO
 var _guard_firearm_stow: Dictionary = {}
+var _parry_reaction := Vector3.ZERO
+var _break_reaction := Vector3.ZERO
 var _phase := 0.0
 var _time := 0.0
 var _recoil := 0.0
@@ -198,6 +200,9 @@ func _init(rig: CharacterRig) -> void:
 	_forward_kinematics()
 	_ground_y = _lowest_foot_y()
 	_guard_firearm_stow = _motion["block"]["firearm_stow"]
+	var guard_reactions: Dictionary = _motion["block"]["reactions"]
+	_parry_reaction = _read_guard_reaction(guard_reactions.get("parry"), "parry", rig.skin_id)
+	_break_reaction = _read_guard_reaction(guard_reactions.get("break"), "break", rig.skin_id)
 	_dash_sole = _motion["dash"].get("sole", PackedVector2Array())
 	var sole_bottom := -INF
 	for point in _dash_sole:
@@ -262,6 +267,21 @@ static func _load_motion(skin_id: String) -> Dictionary:
 
 
 ## 空字典保留原姿勢。握點和支撐高度以骨盆為參考，槍口角度用弧度。
+static func _read_guard_reaction(value: Variant, field: String, skin_id: String) -> Vector3:
+	if value == null:
+		return Vector3.ZERO
+	if value is Array and value.size() == 3:
+		for i in 3:
+			var v: Variant = value[i]
+			if (not v is float and not v is int) or not is_finite(float(v)) or absf(float(v)) > (PI * 0.5 if i == 2 else 12.0):
+				break
+			if i == 2:
+				return Vector3(float(value[0]), float(value[1]), float(v))
+	RigLibrary.report_once("motion.block.reactions.%s:%s" % [field, skin_id],
+			"[HumanoidAnimator] %s: block.reactions.%s requires finite [x, y, angle], using neutral guard." % [MOTION_PATH % skin_id, field])
+	return Vector3.ZERO
+
+
 static func _valid_firearm_stow(value: Variant) -> bool:
 	if not value is Dictionary:
 		return false
@@ -1395,7 +1415,10 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 			# Keep the plate clear of the equipment carried by the other hand.
 			var pelvis: Vector2 = _global_pos.get(&"hip", anchor_point)
 			guard_wrist.y = minf(guard_wrist.y, pelvis.y - float(_guard_firearm_stow["brace_height"]))
-		var guard_angle := aim_angle * 0.3
+		var response := _parry_reaction if input.shield_reaction >= 0.0 else _break_reaction
+		var impulse := response * absf(input.shield_reaction)
+		guard_wrist += Vector2(impulse.x, impulse.y)
+		var guard_angle := aim_angle * 0.3 + impulse.z
 		if guard_pose < 1.0:
 			# Blend from the solved regular wrist, keeping the same two-bone reach limits.
 			_forward_kinematics()

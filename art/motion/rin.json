@@ -128,6 +128,7 @@
  "block": {
   "plant_feet": true,
   "firearm_stow": {"grip": [3.3, -1.0], "angle": 0.78, "brace_height": 18.5},
+  "reactions": {"parry": [3.5, -2.8, -0.24], "break": [-5.4, 5.3, 0.44]},
   "chest": 0.035,
   "legs": [
    -0.4,

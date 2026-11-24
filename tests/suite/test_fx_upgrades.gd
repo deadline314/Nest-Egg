@@ -26,6 +26,7 @@ func run() -> void:
 	await _test_guard_footing()
 	await _test_guard_arm_transition()
 	await _test_melee_guard_clearance()
+	await _test_guard_contact_reactions()
 	await _test_block_input_parity()
 	_test_arm_shield_catalog()
 	await _test_arm_shield_rules()
@@ -1048,6 +1049,44 @@ func _test_melee_guard_clearance() -> void:
 	_press_stick(Vector2.ZERO)
 	AimInput.set_virtual_gamepad(player, false)
 	await end_level(level)
+
+
+## Both real guard outcomes drive a transient arm pose without changing the rules.
+func _test_guard_contact_reactions() -> void:
+	for facing: int in [1, -1]:
+		await open_level(20.0)
+		var player := level.player
+		var visual := player._visual
+		AimInput.set_virtual_gamepad(player, true)
+		var direction := Vector2(facing, 0.0)
+		_press_stick(direction)
+		await physics_frames(3)
+		Input.action_press(&"block")
+		await physics_frames(3)
+		var hit := DamageInfo.create(12, Combat.Team.ENEMY, &"guard_contact_pose", -direction * 100.0)
+		hit.origin = player.aim_origin() + direction * 100.0
+		hit.is_projectile = true
+		check(player._guard(hit) == Hurtbox.Guard.REFLECT, "a parry still reflects")
+		var forward := 0.0
+		for frame in 25:
+			await physics_frames(1)
+			forward = maxf(forward, visual._input.shield_reaction)
+		check(forward > 0.75 and player.is_blocking, "the parry presents a short forward reaction while holding guard")
+		await physics_frames(18)
+		player.guard = 1.0
+		check(player._guard(hit) == Hurtbox.Guard.BLOCK and player.is_guard_broken(), "depleted guard still breaks and locks out immediately")
+		var back := 0.0
+		for frame in 26:
+			await physics_frames(1)
+			back = minf(back, visual._input.shield_reaction)
+		check(back < -0.75 and not player.is_blocking, "broken guard presents an inward recovery without reviving the guard")
+		Input.action_release(&"block")
+		await physics_frames(15)
+		check(is_zero_approx(visual._input.shield_reaction) and not visual._input.shield_forward,
+				"recovery ends at the regular weapon pose")
+		_press_stick(Vector2.ZERO)
+		AimInput.set_virtual_gamepad(player, false)
+		await end_level(level)
 
 
 ## 用真的子彈核對每級的防禦角度、消耗、反彈與移動。

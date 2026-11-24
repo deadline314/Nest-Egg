@@ -1286,6 +1286,7 @@ func _guard_break(at := Vector2.INF) -> void:
 	_guard_regen_delay_left = tuning.guard_break_lockout
 	state = State.STAGGERED
 	_stagger_left = guard_stats.guard_break_stun()
+	_visual.notify_guard_break()
 	Feel.play(&"player_guard_break")
 	Fx.burst(at if at.is_finite() else aim_origin(), Palette.CYAN, 18, 160.0, 0.4)
 	Sfx.play(&"guard_break", -3.0, 0.03)
