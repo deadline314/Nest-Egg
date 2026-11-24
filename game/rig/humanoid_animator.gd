@@ -1380,10 +1380,17 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 	if weapon.is_empty():
 		# 沒有武器：雙手自然下垂、隨步伐輕擺（不是伸出去握著空氣）。
 		weapon_root.visible = false
-		var hang := _arm_hang()
-		_set_rotation(&"arm_front_upper", hang[0] + sin(_phase) * _arm_swing(input))
-		_set_rotation(&"arm_front_lower", hang[1])
-		_set_rotation(&"hand_front", HAND_FOLLOWS_FOREARM)
+		if input.melee_grip and input.melee_ready.is_finite() and _global_pos.has(&"arm_front_upper"):
+			var shoulder: Vector2 = _global_pos[&"arm_front_upper"]
+			var sway := sin(_phase) * _arm_swing(input)
+			var offset := Vector2(input.melee_ready.x + sway, input.melee_ready.y).rotated(_global_angle.get(&"chest", 0.0))
+			var wrist := shoulder + offset - _rig.hand_grip_offset(&"hand_front").rotated(input.melee_ready.z)
+			_reach_arm(&"arm_front_upper", &"arm_front_lower", &"hand_front", wrist, input.melee_ready.z)
+		else:
+			var hang := _arm_hang()
+			_set_rotation(&"arm_front_upper", hang[0] + sin(_phase) * _arm_swing(input))
+			_set_rotation(&"arm_front_lower", hang[1])
+			_set_rotation(&"hand_front", HAND_FOLLOWS_FOREARM)
 	else:
 		if firearm_weight > 0.0 and not _guard_firearm_stow.is_empty():
 			var pelvis: Vector2 = _global_pos.get(&"hip", anchor_point)
@@ -1422,7 +1429,7 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 		var guard_wrist := shoulder + aim * 12.7 + Vector2(0, 2)
 		if input.forearm_brace:
 			# Keep the elbow under the load and carry the longitudinal force along the forearm.
-			guard_wrist = shoulder + Vector2(6.5 + 2.5 * absf(aim.x), 3.7 + aim.y * 4.8)
+			guard_wrist = shoulder + Vector2(7.8 + 1.6 * absf(aim.x), 1.7 + aim.y * 3.4)
 		if (input.melee_grip or (not input.forearm_brace and not weapon.is_empty())) and not _guard_firearm_stow.is_empty():
 			# Keep the plate clear of the equipment carried by the other hand.
 			var pelvis: Vector2 = _global_pos.get(&"hip", anchor_point)
@@ -1686,7 +1693,10 @@ func _apply_action(delta: float, input: RigInput, target: Dictionary) -> void:
 	else:
 		_action_skip_ik = bool(def.get("skip_ik", false))
 		_action_weapon_angle = float(def["weapon_angle"]) if def.has("weapon_angle") else NAN
-		_action_w = move_toward(_action_w, 1.0, float(def.get("blend", 12.0)) * delta)
+		if input.melee_clip_weight >= 0.0:
+			_action_w = input.melee_clip_weight
+		else:
+			_action_w = move_toward(_action_w, 1.0, float(def.get("blend", 12.0)) * delta)
 		_action_pose = _sample_action(def, clampf(input.action_t, 0.0, 1.0), input.action)
 	if _action_w <= 0.0:
 		return

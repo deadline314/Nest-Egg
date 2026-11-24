@@ -457,8 +457,16 @@ func second_hand_reach() -> float:
 ## 近戰招式的武器路徑與身體動作（NE-277）：路徑的權重在進出招式時漸變（約 0.05 秒），收招後放回原本的拿法。
 func _update_melee_path(delta: float) -> PackedFloat32Array:
 	var path := player.melee.path_now() if player.holds_melee_weapon() and _phone_t < 0.0 and _input.action != &"" else PackedFloat32Array()
-	# 進招式第一格就完全照路徑（路徑的起點就是平常的拿法，不會跳；快的招式前搖只有幾格，慢慢混會看不到預兆），收招後才慢慢放回。
-	_input.melee_path_w = 1.0 if not path.is_empty() else move_toward(_input.melee_path_w, 0.0, delta * MELEE_PATH_BLEND)
+	_input.melee_clip_weight = -1.0
+	if path.is_empty():
+		_input.melee_path_w = move_toward(_input.melee_path_w, 0.0, delta * MELEE_PATH_BLEND)
+	else:
+		_input.melee_path_w = 1.0
+		if _input.melee_ready.is_finite():
+			var progress := player.melee_pose_progress()
+			# 命中階段完整沿用招式路徑，前搖和尾段各自接回持武姿勢。
+			_input.melee_path_w = smoothstep(0.0, MeleeModule.POSE_ACTIVE_FROM, progress) * (1.0 - smoothstep(0.86, 1.0, progress))
+			_input.melee_clip_weight = _input.melee_path_w
 	if not path.is_empty():
 		_input.melee_path_angle = path[0]
 		_input.melee_path_reach = path[1]
@@ -543,8 +551,9 @@ func _physics_process(delta: float) -> void:
 	_input.dead = player.state == Player.State.DEAD
 	_update_phone(delta)
 	_update_melee_pose()
-	var melee_path := _update_melee_path(delta)
 	_input.melee_grip = shows_melee_weapon()
+	_input.melee_ready = MeleeData.set_of(player.loadout.active_weapon()).ready_pose() if _input.melee_grip else Vector3.INF
+	var melee_path := _update_melee_path(delta)
 	# 雙手武器：另一隻手握的點用上一格武器的位置（武器要等骨架動完才知道在哪）。
 	_input.melee_second = _input.melee_grip and _melee_held.has_second_grip()
 	if _input.melee_second:
@@ -553,7 +562,7 @@ func _physics_process(delta: float) -> void:
 	rig.animate(delta, _input)
 	if _weapon_mechanism != null:
 		_weapon_mechanism.update_reload(0.0 if _input.dead else progress)
-	_melee_held.update(delta, melee_path)
+	_melee_held.update(delta, melee_path, _input.melee_path_w, _input.melee_ready.z)
 	if _input.melee_second and not _input.shield_forward and (player.melee.two_handed_now() or not player.melee.is_active()):
 		# 雙手招式：武器這一格的位置定了，後手才去握桿（每一格兩隻手都在武器上，不晚一格）。
 		# 長柄武器的後手可以沿著桿子滑：握在桿上離後肩最近、搆得到的那一點（手臂短，伸直刺擊時固定的握點會搆不到）。
@@ -587,7 +596,8 @@ func _update_guard_pose(delta: float) -> void:
 	_guard_arm_weight = move_toward(_guard_arm_weight, guard_target, guard_step)
 	_input.guard_firearm_weight = move_toward(_input.guard_firearm_weight, guard_target, guard_step)
 	if player.melee.is_active():
-		_guard_arm_weight = 0.0
+		var handoff := 1.0 - smoothstep(0.0, 0.39, player.melee_pose_progress())
+		_guard_arm_weight = minf(_guard_arm_weight, handoff)
 		_input.guard_firearm_weight = 0.0
 		_input.shield_reaction = 0.0
 		_input.shield_absorption = 0.0

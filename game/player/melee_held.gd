@@ -94,7 +94,7 @@ func setup(visual: PlayerVisual) -> void:
 
 
 ## 每個物理影格在骨架動完之後呼叫：更新握點、武器的角度與要不要畫。
-func update(delta: float, path: PackedFloat32Array) -> void:
+func update(delta: float, path: PackedFloat32Array, path_weight := 1.0, ready_angle := NAN) -> void:
 	_shown = _visual.shows_melee_weapon()
 	visible = _shown
 	if not _shown:
@@ -116,13 +116,16 @@ func update(delta: float, path: PackedFloat32Array) -> void:
 	# 一律換到「朝右」的空間裡算角度，朝左時左右對調。
 	var arm_angle := Vector2(along.x * facing, along.y).angle()
 	var in_move := not player.melee_pose().is_empty()
-	# 有武器路徑的招式（NE-277）：武器朝路徑的方向，手去握它；沒有路徑的招式照舊以前臂為準。
+	var swing_direction := arm_angle
 	if not path.is_empty():
-		arm_angle = path[0] + path[2]
-		_swing_blend = 1.0  # 有路徑的招式從第一格就朝路徑（起點就是拿法）；角度仍由彈簧去追，保留拖曳與跟隨
-	_swing_blend = move_toward(_swing_blend, 1.0 if in_move else 0.0, delta * BLEND_SPEED)
+		swing_direction = path[0] + path[2]
+		_swing_blend = path_weight
+	else:
+		_swing_blend = move_toward(_swing_blend, 1.0 if in_move else 0.0, delta * BLEND_SPEED)
 	var carry := float(_spec["carry"]) + float(_spec["couple"]) * angle_difference(PI * 0.5, arm_angle)
-	var target := lerp_angle(carry, arm_angle + float(_spec["swing"]), smoothstep(0.0, 1.0, _swing_blend))
+	if is_finite(ready_angle):
+		carry = ready_angle
+	var target := lerp_angle(carry, swing_direction + float(_spec["swing"]), smoothstep(0.0, 1.0, _swing_blend))
 	if not _settled or facing != _facing:
 		_second_along = NAN
 		# 剛拿出來、或轉身：直接到位，不要掃過半圈。

@@ -28,6 +28,9 @@ var recoil := 0.0
 var two_handed := true
 ## 前手握著近戰武器的握把（武器由別的節點畫）：前手換成握拳的手，握點生效。
 var melee_grip := false
+## Carry target relative to the leading shoulder, followed by weapon angle.
+var melee_ready := Vector3.INF
+var melee_clip_weight := -1.0  # 負值沿用動作原本的混合速度。
 ## 餐具／道具等明確握持意圖，只切換已登記的握持手件，不啟動武器或攻擊。
 var hand_grip_front := false
 var hand_grip_back := false

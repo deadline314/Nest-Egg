@@ -32,6 +32,7 @@ const DEFAULT_ATTACK := {"windup": 0.05, "active": 0.06, "recovery": 0.16, "canc
 
 var path := ""
 var _data: Dictionary = {}
+var _ready_pose := Vector3.INF
 var _loaded := false
 var _load_errors := PackedStringArray()
 
@@ -52,10 +53,19 @@ func _ensure_loaded() -> void:
 		_data = {"combo": ["light"], "combo_window": 0.5, "attacks": {"light": DEFAULT_ATTACK.duplicate(true)}}
 		return
 	_data = json.data
+	var ready: Variant = _data.get("ready")
+	_ready_pose = Vector3.INF
+	if ready != null:
+		if ready is Array and ready.size() == 3 and _number(ready[0]) and _number(ready[1]) and _number(ready[2]) \
+				and absf(ready[0]) <= 12.0 and ready[1] >= 3.0 and ready[1] <= 14.0 and absf(ready[2]) <= PI:
+			_ready_pose = Vector3(ready[0], ready[1], ready[2])
+		else:
+			push_warning("[MeleeSet] %s/ready invalid; using the standard carry pose" % path)
 
 
 func reload() -> void:
 	_loaded = false
+	_ready_pose = Vector3.INF
 	_data = {}
 	_load_errors.clear()
 	_ensure_loaded()
@@ -94,6 +104,12 @@ func extension_attack() -> String:
 func idle_sound() -> StringName:
 	_ensure_loaded()
 	return StringName(str(_data.get("idle_sound", "")))
+
+
+## Local carry offset from the shoulder and blade direction (x, y, angle).
+func ready_pose() -> Vector3:
+	_ensure_loaded()
+	return _ready_pose
 
 
 ## Visible damaging portion along the weapon's local x axis, in world pixels from the grip.
@@ -174,7 +190,7 @@ static func definition_problems(raw: Variant, source: String) -> PackedStringArr
 	if not raw is Dictionary or not raw.get("attacks") is Dictionary:
 		return PackedStringArray([source + "/attacks must be an object"])
 	for key: Variant in raw:
-		if not key is String or (key not in ["combo", "combo_window", "attacks", "extension", "idle_sound", "hold", "contact_span"] and not key.begins_with("_")):
+		if not key is String or (key not in ["combo", "combo_window", "attacks", "extension", "idle_sound", "hold", "contact_span", "ready"] and not key.begins_with("_")):
 			errors.append("%s/%s unknown field" % [source, key])
 	if raw.has("contact_span"):
 		var span: Variant = raw["contact_span"]
