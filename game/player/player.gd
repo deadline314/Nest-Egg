@@ -182,6 +182,8 @@ var _window_scale := 1.0
 static var _block_hint_shown := false
 const PARRY_WINDOW_MIN := 0.14
 const PARRY_WINDOW_MAX := 0.22
+var _render_previous_position := Vector2.ZERO
+var _render_sample_tick := -1
 var _guard_regen_delay_left := 0.0
 var _guard_lockout_left := 0.0
 var _phone_left := 0.0
@@ -415,6 +417,8 @@ func _unhandled_input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	if GameplayLock.is_locked() or get_tree().paused:
 		return
+	_render_previous_position = global_position
+	_render_sample_tick = Engine.get_physics_frames()
 	# 自己的光依場景亮度自動調暗，白色頭髮不被泛光吃掉（LightKit.player_light_for，NE-213）。
 	_light.energy = move_toward(_light.energy, LightKit.player_light_energy, LIGHT_EASE * delta)
 	_tick_timers(delta)
@@ -1066,9 +1070,20 @@ func _start_drop_through() -> void:
 	position.y += 2.0
 
 
+## Screen-space followers need the same physics samples as the rendered player.
+## Godot exposes the interpolated transform getter only for 3D.
+func presentation_position() -> Vector2:
+	var current := global_position
+	if _render_sample_tick != Engine.get_physics_frames() or not is_physics_interpolated_and_enabled():
+		return current
+	return _render_previous_position.lerp(current, Engine.get_physics_interpolation_fraction())
+
+
 ## Skip the presentation trail when gameplay relocates the player instantly.
 func teleport_to(destination: Vector2) -> void:
 	global_position = destination
+	_render_previous_position = destination
+	_render_sample_tick = -1
 	reset_physics_interpolation()
 
 

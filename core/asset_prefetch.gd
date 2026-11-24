@@ -65,6 +65,7 @@ static var _warm_files_total := 0
 static var _warm_waits_total := 0
 static var _warm_timeouts_total := 0
 static var _busy_skips_total := 0
+static var _recovery_skips_total := 0
 static var _frame_average := 0.0
 static var _frame_last := 0.0
 ## 測試用：-1＝依環境決定（有畫面才暖身）、0＝關、1＝開。
@@ -244,6 +245,7 @@ static func stats() -> Dictionary:
 		"main_over_budget_total": _main_over_budget_total,
 		"warm_files_total": _warm_files_total, "warm_waits_total": _warm_waits_total,
 		"warm_timeouts_total": _warm_timeouts_total, "busy_skips_total": _busy_skips_total,
+		"recovery_skips_total": _recovery_skips_total,
 		"main_assets_per_frame_limit": 1 if uses_main_thread() else 0,
 		"main_soft_budget_us": MAIN_SOFT_BUDGET_US if uses_main_thread() else 0}
 
@@ -382,6 +384,11 @@ static func _poll_main_thread() -> void:
 	var path := _first_path(_queued)
 	var warming := _warming()
 	if warming:
+		# A single texture upload cannot be interrupted on RD. When it exceeds
+		# the budget, preserve the next frame for gameplay before resuming the queue.
+		if _needs_recovery(frame):
+			_recovery_skips_total += 1
+			return
 		# 上一格已經比平常慢很多，這一格不再加一張。
 		if _frame_average > 0.0 and _frame_last > _frame_average * BUSY_FRAME_RATIO:
 			_busy_skips_total += 1
@@ -432,6 +439,10 @@ static func _poll_main_thread() -> void:
 
 
 ## 主線策略而且有畫面時才暖身：無頭執行沒有停頓的問題，維持原本「排到就載」的行為。
+static func _needs_recovery(frame: int) -> bool:
+	return frame == _main_last_frame + 1 and _main_last_work_us > MAIN_SOFT_BUDGET_US
+
+
 static func _warming() -> bool:
 	if _warm_override >= 0:
 		return _warm_override == 1

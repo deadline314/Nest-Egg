@@ -37,6 +37,15 @@ func _test_tray_follows_loadout() -> void:
 	await frames(3)
 	_test_head_bounds(player)
 	_test_route_reset(level)
+	var start := player.global_position
+	player._render_previous_position = start - Vector2(4, 0)
+	player._render_sample_tick = Engine.get_physics_frames()
+	var fraction := Engine.get_physics_interpolation_fraction()
+	check(player.presentation_position().is_equal_approx(player._render_previous_position.lerp(start, fraction)),
+			"the ammo follower uses the same fraction between physics samples as the actor")
+	player.teleport_to(start + Vector2(20, 0))
+	check(player.presentation_position().is_equal_approx(player.global_position), "an instant move never leaves an interpolated HUD trail")
+	player.teleport_to(start)
 	check(tray.icon_count() == 10, "手槍 12 發也是一排十顆")
 	player.loadout.equip(load("res://data/weapons/rifle.tres") as WeaponData)
 	await frames(2)
@@ -325,34 +334,34 @@ func _test_head_bounds(player: Player) -> void:
 	var expected := canvas * Rect2(player.global_position + HudPlacement.HEAD_OFFSET - Vector2(10, 10), Vector2(20, 20))
 	var visual := player._visual
 	var rig := visual.rig
-	var actual := cache.screen_rect(player, canvas)
+	var actual := cache.screen_rect(player, canvas, player.global_position)
 	check(actual.has_area(), "頭部界取真正可見Sprite而非同名骨頭")
 	player._visual = null
-	var missing_visual := cache.screen_rect(player, canvas)
+	var missing_visual := cache.screen_rect(player, canvas, player.global_position)
 	player._visual = visual
 	check(missing_visual.is_equal_approx(expected), "視覺暫不可用時安全回到保守頭部界")
 	var empty := CharacterRig.new()
 	visual.add_child(empty)
 	visual.rig = empty
-	var missing_head := cache.screen_rect(player, canvas)
+	var missing_head := cache.screen_rect(player, canvas, player.global_position)
 	visual.rig = rig
 	empty.free()
 	check(missing_head.is_equal_approx(expected), "換成沒有頭部的rig時不沿用舊Sprite")
-	check(cache.screen_rect(player, canvas).is_equal_approx(actual), "恢復原rig時重新解析頭部而非沿用缺件fallback")
+	check(cache.screen_rect(player, canvas, player.global_position).is_equal_approx(actual), "恢復原rig時重新解析頭部而非沿用缺件fallback")
 	var head := rig.contact_part(&"head")
 	var texture := head.texture
 	head.texture = null
-	var missing_texture := cache.screen_rect(player, canvas)
+	var missing_texture := cache.screen_rect(player, canvas, player.global_position)
 	head.texture = texture
 	check(missing_texture.is_equal_approx(expected), "頭部貼圖缺失時有安全fallback")
 	var parent := head.get_parent()
 	var index := head.get_index()
 	parent.remove_child(head)
-	var outside := cache.screen_rect(player, canvas)
+	var outside := cache.screen_rect(player, canvas, player.global_position)
 	parent.add_child(head)
 	parent.move_child(head, index)
 	check(outside.is_equal_approx(expected), "頭部離tree時不使用已失效的drawable位置")
-	check(cache.screen_rect(player, canvas).is_equal_approx(actual), "頭部回到原rig後恢復真正drawable界")
+	check(cache.screen_rect(player, canvas, player.global_position).is_equal_approx(actual), "頭部回到原rig後恢復真正drawable界")
 
 
 ## Unit fixture only: no physics step occurs while the actor is relocated.

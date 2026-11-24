@@ -131,7 +131,8 @@ func _tick_effects(delta: float) -> void:
 func _follow(player: Player, delta: float) -> void:
 	var wanted_side := -float(player.facing)
 	var canvas := get_viewport().get_canvas_transform()
-	var head := canvas * (player.global_position + HEAD_OFFSET)
+	var visual_origin := player.presentation_position()
+	var head := canvas * (visual_origin + HEAD_OFFSET)
 	var width := _content_width() + PAD * 2.0
 	var height := PAD + PIP_H + 3.0 + GUARD_H + PAD
 	var view_width := get_viewport_rect().size.x
@@ -142,9 +143,9 @@ func _follow(player: Player, delta: float) -> void:
 	var descent := font.get_descent(9)
 	var line := font.get_ascent(9) + descent + 2.0
 	var band := maxf(maxf(AmmoTray.ICON.y, AmmoIcons.CELL.y), font.get_ascent(9) + 2.0) + HudPlacement.ROW_GAP + height
-	var actual_head := _placement.screen_rect(player, canvas)
-	_placement.update_guide(actual_head, canvas * player.global_position, delta, descent, line, band + HudPlacement.EDGE_MARGIN, FOLLOW_SHARPNESS, view_width, canvas * player.muzzle_position())
-	var muzzle := canvas * player.muzzle_position()
+	var actual_head := _placement.screen_rect(player, canvas, visual_origin)
+	var muzzle := canvas * (player.muzzle_position() + visual_origin - player.global_position)
+	_placement.update_guide(actual_head, canvas * visual_origin, delta, descent, line, band + HudPlacement.EDGE_MARGIN, FOLLOW_SHARPNESS, view_width, muzzle)
 	var vertical_side := _placement.aim_side(player, actual_head, muzzle, view_width)
 	if vertical_side != 0.0:
 		wanted_side = vertical_side

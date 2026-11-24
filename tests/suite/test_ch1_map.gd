@@ -823,6 +823,7 @@ func _test_prefetch() -> void:
 	check(AssetPrefetch.stats()["queued"] == 0 and AssetPrefetch.stats()["inflight"] == 0 and AssetPrefetch.stats()["cached"] == 0, "clear drains only the active burst without decoding the discarded queue")
 
 	await _test_main_thread_prefetch()
+	_test_prefetch_frame_recovery()
 	await _test_prefetch_file_warming()
 	await _test_prefetch_budget_deferral()
 
@@ -968,6 +969,19 @@ class PrefetchSizedTexture extends Texture2D:
 
 ## 檔案暖身：主線策略在有畫面時，貼圖先由背景執行緒讀進檔案快取，主線才載入（不在遊戲那一格等磁碟）；
 ## 背景沒回應時逾時照舊由主線載，佇列不會卡住；換範圍會把暖身紀錄一起清掉。這裡用真的貼圖與真的背景工作。
+func _test_prefetch_frame_recovery() -> void:
+	var prior_frame := AssetPrefetch._main_last_frame
+	var prior_cost := AssetPrefetch._main_last_work_us
+	AssetPrefetch._main_last_frame = 100
+	AssetPrefetch._main_last_work_us = AssetPrefetch.MAIN_SOFT_BUDGET_US
+	check(not AssetPrefetch._needs_recovery(101), "texture work within budget can continue the next frame")
+	AssetPrefetch._main_last_work_us += 1
+	check(AssetPrefetch._needs_recovery(101) and not AssetPrefetch._needs_recovery(102),
+			"a budget overrun reserves exactly the following frame")
+	AssetPrefetch._main_last_frame = prior_frame
+	AssetPrefetch._main_last_work_us = prior_cost
+
+
 func _test_prefetch_file_warming() -> void:
 	var old_strategy: int = AssetPrefetch.stats().strategy
 	AssetPrefetch.clear()

@@ -202,7 +202,8 @@ func _process(delta: float) -> void:
 
 func _follow(player: Player, delta: float) -> void:
 	var to_screen := get_viewport().get_canvas_transform()
-	var anchor: Vector2 = to_screen * (player.global_position + Vector2(0, -34))
+	var visual_origin := player.presentation_position()
+	var anchor := to_screen * (visual_origin + Vector2(0, -34))
 	var aim: Vector2 = to_screen * player.aim_point
 	if absf(aim.x - anchor.x) > 8.0:
 		_side = -1.0 if aim.x > anchor.x else 1.0
@@ -210,11 +211,11 @@ func _follow(player: Player, delta: float) -> void:
 	var wanted_above := HudPlacement.above_target(anchor.x, -float(player.facing), view_width)
 	if _placement.should_reset(player, to_screen, anchor, SNAP_DISTANCE):
 		_has_pos = false
-	var head := _placement.screen_rect(player, to_screen)
+	var head := _placement.screen_rect(player, to_screen, visual_origin)
 	var tag_height := VitalsTag.PAD * 2.0 + VitalsTag.PIP_H + 3.0 + VitalsTag.GUARD_H
 	var band := maxf(maxf(ICON.y, AmmoIcons.CELL.y), _obstacle_ascent + 2.0) + HudPlacement.ROW_GAP + tag_height
-	_placement.update_guide(head, to_screen * player.global_position, delta, _obstacle_descent, _obstacle_ascent + _obstacle_descent + 2.0, band + HudPlacement.EDGE_MARGIN, FOLLOW_SHARPNESS, view_width, to_screen * player.muzzle_position())
-	var muzzle := to_screen * player.muzzle_position()
+	var muzzle := to_screen * (player.muzzle_position() + visual_origin - player.global_position)
+	_placement.update_guide(head, to_screen * visual_origin, delta, _obstacle_descent, _obstacle_ascent + _obstacle_descent + 2.0, band + HudPlacement.EDGE_MARGIN, FOLLOW_SHARPNESS, view_width, muzzle)
 	var vertical_side := _placement.aim_side(player, head, muzzle, view_width)
 	if vertical_side != 0.0:
 		_side = vertical_side

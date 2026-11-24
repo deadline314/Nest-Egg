@@ -178,12 +178,14 @@ class FollowState:
 		_anchor = anchor
 		return reset
 
-	func screen_rect(player: Player, canvas: Transform2D) -> Rect2:
+	func screen_rect(player: Player, canvas: Transform2D, visual_origin := Vector2.INF) -> Rect2:
 		if not is_instance_valid(player):
 			_rig = null
 			_head = null
 			return Rect2()
-		var fallback := canvas * Rect2(player.global_position + HudPlacement.HEAD_OFFSET - Vector2(10, 10), Vector2(20, 20))
+		if not visual_origin.is_finite():
+			visual_origin = player.global_position
+		var fallback := canvas * Rect2(visual_origin + HudPlacement.HEAD_OFFSET - Vector2(10, 10), Vector2(20, 20))
 		if not player.is_inside_tree() or player.is_dead():
 			_rig = null
 			_head = null
@@ -202,4 +204,6 @@ class FollowState:
 			return fallback
 		# The complete texture rect includes transparent edges, so this is a
 		# conservative drawable bound, not a claimed exact opaque alpha mask.
-		return (canvas * _head.global_transform * _head.get_rect()).grow(1.0)
+		var part_pose := _head.global_transform
+		part_pose.origin += visual_origin - player.global_position
+		return (canvas * part_pose * _head.get_rect()).grow(1.0)

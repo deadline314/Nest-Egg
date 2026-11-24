@@ -3,8 +3,9 @@ extends Node
 ## 記錄每一格和上一格實際隔了多久。回答「玩起來卡不卡、卡在哪一關、卡在哪幾格」，不是量單一系統。
 ## 用法（原生 Forward+；量的時候不要同時跑別的重工作）：
 ##   godot --path . res://tools/frame_time_probe.tscn -- --out=<絕對資料夾> [--level=ch1_street,ch1_warehouse]
-##     [--seconds=20] [--tag=<名稱>] [--idle]
+##     [--seconds=20] [--tag=<名稱>] [--idle] [--entry]
 ##   --idle：主角站著不動（只量場景本身），和預設的「邊跑邊打」對照。
+##   --entry：使用正式轉場的分段建置，記錄建置期間兩個畫面之間的最大間隔。
 ##   --vsync：不關垂直同步，照玩家實際的設定跑（看的是畫面更新穩不穩：每一格隔幾毫秒的分佈 pacing）。
 ##   --off=lights,shadows,glow,enemies,weather,props,hud：關掉某一類東西再量，和全開的結果相減就是那一類的成本
 ##     （lights＝所有 2D 光源、shadows＝只關光源的陰影、glow＝泛光與後製、enemies＝敵人不行動也不畫、
@@ -31,6 +32,7 @@ var _seconds := 20.0
 var _idle := false
 var _off: PackedStringArray = []
 var _vsync := false
+var _sliced_entry := false
 var _recording := false
 var _last_usec := 0
 var _samples := PackedFloat32Array()
@@ -49,6 +51,8 @@ func _ready() -> void:
 			_seconds = maxf(3.0, float(arg.trim_prefix("--seconds=")))
 		elif arg.begins_with("--tag="):
 			_tag = arg.trim_prefix("--tag=")
+		elif arg == "--entry":
+			_sliced_entry = true
 		elif arg == "--idle":
 			_idle = true
 		elif arg == "--vsync":
@@ -97,8 +101,15 @@ func _play(level_id: String, path: String) -> Dictionary:
 	var load_start := Time.get_ticks_usec()
 	GameState.start_new_run(GameState.difficulties[1])
 	var level := Level.new()
-	level.configure(load(path) as LevelData)
+	level.configure(load(path) as LevelData, _sliced_entry)
 	add_child(level)
+	var entry_max_usec := 0
+	var last_frame := load_start
+	while level.is_building_entry():
+		await get_tree().process_frame
+		var now := Time.get_ticks_usec()
+		entry_max_usec = maxi(entry_max_usec, now - last_frame)
+		last_frame = now
 	await get_tree().process_frame
 	await get_tree().process_frame
 	var load_ms := float(Time.get_ticks_usec() - load_start) / 1000.0
@@ -128,9 +139,12 @@ func _play(level_id: String, path: String) -> Dictionary:
 			"warmed_files": int(prefetch_after.get("warm_files_total", 0)) - int(prefetch_before.get("warm_files_total", 0)),
 			"waited_frames": int(prefetch_after.get("warm_waits_total", 0)) - int(prefetch_before.get("warm_waits_total", 0)),
 			"warm_timeouts": int(prefetch_after.get("warm_timeouts_total", 0)) - int(prefetch_before.get("warm_timeouts_total", 0)),
+			"recovery_skips": int(prefetch_after.get("recovery_skips_total", 0)) - int(prefetch_before.get("recovery_skips_total", 0)),
 			"busy_skips": int(prefetch_after.get("busy_skips_total", 0)) - int(prefetch_before.get("busy_skips_total", 0))}
 	print("PREFETCH %s %s" % [level_id, JSON.stringify(result["prefetch"])])
 	result["load_ms"] = snappedf(load_ms, 0.1)
+	if _sliced_entry:
+		result["entry_max_ms"] = snappedf(float(entry_max_usec) / 1000.0, 0.1)
 	result["warmup_max_ms"] = warmup["max_ms"]
 	result["nodes"] = int(Performance.get_monitor(Performance.OBJECT_NODE_COUNT))
 	result["draw_calls"] = int(RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TOTAL_DRAW_CALLS_IN_FRAME))
@@ -144,6 +158,7 @@ func _play(level_id: String, path: String) -> Dictionary:
 	level.queue_free()
 	for i in 6:
 		await get_tree().process_frame
+	await AudioRelease.settle(get_tree())
 	return result
 
 
