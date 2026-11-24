@@ -198,6 +198,12 @@ func _still_writing(generation: int, slot: String, may_write: Callable) -> bool:
 
 func _begin_write(confirmed_overwrite: bool, temporary: String) -> WritePlan:
 	issues.clear()
+	# The durable transaction still owns the slot's canonical draft path. An obstruction
+	# there also blocks routine writes, even though each autosave has a private draft.
+	var durable_draft := path + ".tmp"
+	if temporary != durable_draft and DirAccess.dir_exists_absolute(ProjectSettings.globalize_path(durable_draft)):
+		_failure(durable_draft, "暫存路徑是目錄，原存檔保留")
+		return null
 	# 一次明確新遊戲授權保留到首次成功；IO失敗不要求重新確認。
 	overwrite_authorized = overwrite_authorized or confirmed_overwrite
 	if FileAccess.file_exists(path + ".newrun"):
