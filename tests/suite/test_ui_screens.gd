@@ -107,6 +107,11 @@ func _test_title_language() -> void:
 		runner.add_child(menu)
 		await frames(4)
 		menu._start_button.grab_focus()
+		check(menu._menu_marker.visible and menu._marker_tween == null
+				and is_equal_approx(menu._menu_marker.position.y, menu._menu_list.position.y + menu._start_button.position.y + 4.0),
+				"reduced motion moves the focus rail directly to the active row")
+		check(menu._hint.get_global_rect().end.y <= menu._menu_legend.get_global_rect().position.y,
+				"at 120 percent with Continue, focus help has its own row " + entry[0])
 		check(menu._start_button.text == entry[1] and menu._hint.text == menu._start_button.tooltip_text,
 				"new game action and focus hint use the title language " + entry[0])
 		menu._open_difficulty()

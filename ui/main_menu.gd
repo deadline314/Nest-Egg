@@ -1,6 +1,6 @@
 class_name MainMenu
 extends Control
-## 主選單：雨夜沉港的緩慢搖鏡 + 左側選單依序滑入；「開始任務」進入三張難度卡片。
+## 主選單的城市慢鏡、固定導覽列和難度選擇。
 ## 每個選項都有一句重點說明（游標或焦點移上去時顯示在選單下方，同時是 tooltip）。
 
 signal start_requested(difficulty: DifficultyData)
@@ -15,7 +15,10 @@ var _continue_button: Button
 const VERSION_TEXT := "DEMO 0.1"
 const CAMERA_SWAY := 56.0
 const CAMERA_PERIOD := 48.0
-const MENU_WIDTH := 184.0
+const MENU_WIDTH := 194.0
+const MENU_INK := Color("e9e2ce")
+const MENU_DIVIDER := Color("688e91")
+const ACTIVE_RAIL := Color("9bd9d8")
 const CARD_SIZE := Vector2(184, 194)
 const COPY := {
 	"subtitle": ["巢中之卵", "巣の卵", ""],
@@ -60,6 +63,12 @@ var _main_page: Control
 var _difficulty_page: Control
 var _hint: Label
 var _start_button: Button
+var _menu_list: VBoxContainer
+var _menu_rail: ColorRect
+var _menu_marker: ColorRect
+var _menu_focus: Button
+var _menu_hover: Button
+var _marker_tween: Tween
 var _confirm_button: Button
 var _dev_button: Button
 var _cards: Array[UiCard] = []
@@ -92,6 +101,7 @@ func _ready() -> void:
 	_build_main_page()
 	_build_difficulty_page()
 	InputBindings.bindings_changed.connect(_refresh_legends)
+	Settings.display_changed.connect(_sync_menu_motion)
 	_refresh_legends()
 	_show_page(_main_page)
 	(_continue_button if _continue_button != null else _start_button).grab_focus.call_deferred()
@@ -119,7 +129,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func _make_shade() -> Control:
 	# 左側暗色漸層：讓文字在亮的背景上也讀得清楚。
 	var gradient := Gradient.new()
-	gradient.colors = PackedColorArray([Color("090e16fa"), Color("0c141ce8"), Color("10162400")])
+	gradient.colors = PackedColorArray([Color("0b1016fa"), Color("121b24df"), Color("10162400")])
 	gradient.offsets = PackedFloat32Array([0.0, 0.44, 1.0])
 	var tex := GradientTexture2D.new()
 	tex.gradient = gradient
@@ -142,23 +152,27 @@ func _build_main_page() -> void:
 	_main_page.set_anchors_preset(Control.PRESET_FULL_RECT)
 	_ui.add_child(_main_page)
 
-	var title := UiKit.label("NEST EGG", UiKit.FS_DISPLAY, Color("f3eedf"))
+	var title := UiKit.label("NEST EGG", UiKit.FS_DISPLAY, MENU_INK)
 	title.position = Vector2(36, 40)
 	_main_page.add_child(title)
 	var subtitle := UiKit.label(_text("subtitle"), UiKit.FS_BODY, Palette.UI_MUTED)
 	subtitle.position = Vector2(38, 84)
 	_main_page.add_child(subtitle)
 	var rule := ColorRect.new()
-	rule.color = Palette.CYAN_DIM
+	rule.color = MENU_DIVIDER
 	rule.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	rule.position = Vector2(38, 108)
-	rule.size = Vector2(48, 1)
+	rule.size = Vector2(56, 1)
 	_main_page.add_child(rule)
 
-	var list := VBoxContainer.new()
-	list.position = Vector2(36, 124)
-	list.add_theme_constant_override(&"separation", 6)
-	_main_page.add_child(list)
+	_menu_list = VBoxContainer.new()
+	_menu_list.position = Vector2(38, 124)
+	_menu_list.add_theme_constant_override(&"separation", 3)
+	_main_page.add_child(_menu_list)
+	_menu_rail = _new_rail(MENU_DIVIDER.darkened(0.35))
+	_menu_marker = _new_rail(ACTIVE_RAIL)
+	_menu_marker.hide()
+	_menu_list.sort_children.connect(_layout_menu_rail)
 	var entries: Array[Button] = []
 	if continue_available:
 		_continue_button = _menu_button(_text("resume"), continue_requested.emit, _text("resume_hint"))
@@ -169,14 +183,14 @@ func _build_main_page() -> void:
 	entries.append(_menu_button(_text("settings"), _open_settings, _text("settings_hint")))
 	entries.append(_menu_button(_text("quit"), quit_requested.emit, _text("quit_hint")))
 	for b in entries:
-		list.add_child(b)
+		_menu_list.add_child(b)
 
 	_hint = UiKit.label("", UiKit.FS_BODY, Palette.UI_MUTED)
 	_hint.position = Vector2(38, 288)
 	_hint.size = Vector2(260, 16)
 	_main_page.add_child(_hint)
-	list.resized.connect(func() -> void: _hint.position.y = list.position.y + list.size.y + 8)
-	_hint.position.y = list.position.y + list.size.y + 8
+	_hint.position.y = 291
+	_layout_menu_rail.call_deferred()
 	if not save_notice.is_empty():
 		var notice_panel := PanelContainer.new()
 		notice_panel.theme_type_variation = &"TooltipPanel"
@@ -205,7 +219,7 @@ func _build_main_page() -> void:
 	version.offset_bottom = -8
 	_build_dev_entry()
 
-	UiMotion.stagger_in([title, subtitle, rule] + entries, 0.06, 24.0)
+	UiMotion.stagger_in([title, subtitle, rule], 0.04, 8.0)
 
 
 ## 編輯器與除錯版才有的開發工具入口：不依賴 F5 能不能送到遊戲視窗（編輯器可能先攔走 F5）。
@@ -225,17 +239,92 @@ func _build_dev_entry() -> void:
 
 
 func _menu_button(text: String, on_pressed: Callable, tooltip: String) -> Button:
-	var b := UiKit.button(text, on_pressed, tooltip)
+	var b := UiKit.button(text, on_pressed, tooltip) as UiButton
+	b.show_marker = false
 	b.theme_type_variation = &"MenuAction"
 	b.alignment = HORIZONTAL_ALIGNMENT_LEFT
 	b.custom_minimum_size = Vector2(MENU_WIDTH, 26)
-	b.focus_entered.connect(_set_hint.bind(tooltip))
-	b.mouse_entered.connect(_set_hint.bind(tooltip))
+	var idle := StyleBoxEmpty.new()
+	idle.content_margin_left = 16.0
+	idle.content_margin_right = 12.0
+	idle.content_margin_top = 5.0
+	idle.content_margin_bottom = 5.0
+	var active := StyleBoxFlat.new()
+	active.bg_color = Color("2947546b")
+	for side in [SIDE_LEFT, SIDE_TOP, SIDE_RIGHT, SIDE_BOTTOM]:
+		active.set_content_margin(side, idle.get_margin(side))
+	b.add_theme_stylebox_override(&"normal", idle)
+	b.add_theme_stylebox_override(&"hover", active)
+	b.add_theme_stylebox_override(&"pressed", active)
+	b.add_theme_stylebox_override(&"focus", idle)
+	b.add_theme_color_override(&"font_hover_color", MENU_INK)
+	b.add_theme_color_override(&"font_focus_color", MENU_INK)
+	b.focus_entered.connect(_focus_action.bind(b))
+	b.mouse_entered.connect(_hover_action.bind(b))
+	b.mouse_exited.connect(_leave_action.bind(b))
 	return b
 
 
 func _set_hint(text: String) -> void:
 	_hint.text = text
+
+
+func _new_rail(ink: Color) -> ColorRect:
+	var rail := ColorRect.new()
+	rail.color = ink
+	rail.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_main_page.add_child(rail)
+	return rail
+
+
+func _focus_action(button: Button) -> void:
+	_menu_focus = button
+	_menu_hover = null
+	_move_menu_marker(true)
+
+
+func _hover_action(button: Button) -> void:
+	_menu_hover = button
+	_move_menu_marker(true)
+
+
+func _leave_action(button: Button) -> void:
+	if _menu_hover == button:
+		_menu_hover = null
+		_move_menu_marker(true)
+
+
+func _layout_menu_rail() -> void:
+	_menu_rail.position = _menu_list.position + Vector2(-2, 0)
+	_menu_rail.size = Vector2(1, _menu_list.size.y)
+	if _hint != null:
+		_hint.position.y = _menu_rail.position.y + _menu_rail.size.y + 8.0
+	_move_menu_marker(false)
+
+
+func _sync_menu_motion() -> void:
+	if Settings.get_reduce_ui_motion():
+		_move_menu_marker(false)
+
+
+func _move_menu_marker(animate: bool) -> void:
+	var button := _menu_hover if is_instance_valid(_menu_hover) else _menu_focus
+	if not is_instance_valid(button) or _hint == null:
+		return
+	_hint.text = button.tooltip_text
+	var target := _menu_list.position.y + button.position.y + 4.0
+	var should_move := animate and _menu_marker.visible and not Settings.get_reduce_ui_motion()
+	_menu_marker.position.x = _menu_rail.position.x
+	_menu_marker.size = Vector2(2, maxf(1.0, button.size.y - 8.0))
+	_menu_marker.show()
+	if _marker_tween != null:
+		_marker_tween.kill()
+		_marker_tween = null
+	if should_move:
+		_marker_tween = create_tween()
+		_marker_tween.tween_property(_menu_marker, "position:y", target, 0.12).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	else:
+		_menu_marker.position.y = target
 
 
 func _build_difficulty_page() -> void:
