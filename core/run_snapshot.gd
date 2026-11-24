@@ -22,7 +22,8 @@ static func capture(level_path: String, runtime: Dictionary, cinematic := "", co
 		"runtime": runtime, "cinematic": cinematic, "cinematic_context": Story.presentation_context(context), "chapter_complete": completed}
 
 
-static func prepare(raw: Dictionary, active_level: LevelData = null, active_layout: LevelLayout = null) -> Dictionary:
+static func prepare(raw: Dictionary, active_level: LevelData = null, active_layout: LevelLayout = null,
+		definitions: MapLayoutMigration.Definitions = null) -> Dictionary:
 	var errors := RunSaveCodec.validate_tree(raw)
 	if not errors.is_empty():
 		return {"error": errors[0]}
@@ -164,7 +165,7 @@ static func prepare(raw: Dictionary, active_level: LevelData = null, active_layo
 	for key in ["register_checkpoint", "free"]:
 		if runtime["death_entry"].has(key):
 			runtime["death_entry"][key] = runtime["death_entry"][key] == true
-	var migration := MapLayoutMigration.prepare_run(result, level)
+	var migration := MapLayoutMigration.prepare_run(result, level, active_layout if level == active_level else null, definitions)
 	if migration.has("error"):
 		return migration
 	runtime = result["runtime"]

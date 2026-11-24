@@ -509,6 +509,7 @@ func _durable_declared_version(component: Dictionary, supported: int, where: Str
 ## Fixed owner proofs; no arbitrary validator, producer registry or live install.
 class _DurableProof:
 	var catalog := Progression.InstallCatalog.new()
+	var map_definitions := MapLayoutMigration.Definitions.new()
 	var level: LevelData
 	var layout: LevelLayout
 
@@ -532,7 +533,7 @@ func _durable_prepare_snapshot(raw: Variant, proof: _DurableProof) -> Dictionary
 			var loadout: Variant = entry[0].get(entry[1], {})
 			if loadout is Dictionary and loadout.has("ammo") and not loadout.has("mag"):
 				return {"error": "durable/" + entry[2] + ": requires_legacy_loadout_migration"}
-	var checked := RunSnapshot.prepare(raw, proof.level, proof.layout)
+	var checked := RunSnapshot.prepare(raw, proof.level, proof.layout, proof.map_definitions)
 	if checked.has("error"):
 		return checked
 	var data: Dictionary = checked["data"]

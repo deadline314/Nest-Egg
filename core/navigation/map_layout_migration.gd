@@ -8,6 +8,20 @@ const MAX_CELLS := 4096
 const MAX_COORDINATE := 4096
 
 
+## Shared only while validating a save transaction. Keep authored migration
+## metadata, rather than retaining offscreen LevelData and its scene resources.
+class Definitions:
+	var _by_path: Dictionary[String, Dictionary] = {}
+
+	func for_area(path: String, current: LevelData) -> Dictionary:
+		if _by_path.has(path):
+			return _by_path[path]
+		var data := current if current != null and current.resource_path == path else LevelCatalog.load_level(path)
+		var entry := {"id": String(data.id), "definition": MapLayoutMigration.read(data)} if data != null else {}
+		_by_path[path] = entry
+		return entry
+
+
 static func read(data: LevelData) -> Dictionary:
 	if data == null or data.layout_path.is_empty():
 		return {"revision": 1}
@@ -70,7 +84,10 @@ static func area(raw: Dictionary, definition: Dictionary) -> Dictionary:
 
 
 static func runtime(raw: Dictionary, data: LevelData, layout: LevelLayout = null) -> Dictionary:
-	var definition := read(data)
+	return _prepare_runtime(raw, data, layout, read(data))
+
+
+static func _prepare_runtime(raw: Dictionary, data: LevelData, layout: LevelLayout, definition: Dictionary) -> Dictionary:
 	if definition.has("error"):
 		return definition
 	var version: Variant = raw.get("layout_revision", 1)
@@ -140,16 +157,18 @@ static func runtime(raw: Dictionary, data: LevelData, layout: LevelLayout = null
 	return {"data": result, "relocated": true}
 
 
-static func prepare_run(snapshot: Dictionary, current: LevelData) -> Dictionary:
+static func prepare_run(snapshot: Dictionary, current: LevelData, layout: LevelLayout = null, definitions: Definitions = null) -> Dictionary:
+	if definitions == null:
+		definitions = Definitions.new()
 	var state: Dictionary = snapshot["state"]
 	var areas: Dictionary = state["area_states"]
 	var checkpoint_path: String = state.get("checkpoint_level_path", "")
 	for path in LevelCatalog.saved_paths(areas, checkpoint_path):
-		var data := current if current != null and current.resource_path == path else LevelCatalog.load_level(path)
-		if data == null:
+		var entry := definitions.for_area(path, current)
+		if entry.is_empty():
 			continue
-		var id := String(data.id)
-		var definition := read(data)
+		var id: String = entry["id"]
+		var definition: Dictionary = entry["definition"]
 		if definition.has("error"):
 			return definition
 		var previous: Dictionary = areas.get(id, {"consumed": {}, "damage": {}, "world": state["checkpoint_world"]})
@@ -160,18 +179,22 @@ static func prepare_run(snapshot: Dictionary, current: LevelData) -> Dictionary:
 		if areas.has(id) or definition["revision"] > 1:
 			areas[id] = moved["data"]
 		if version != definition["revision"] and checkpoint_path == path:
-			var restored := checkpoint(state["checkpoint_world"], RunSaveCodec.vector(state.get("checkpoint_position")), definition, LevelBuilder.parse(data))
+			var data := current if current != null and current.resource_path == path else LevelCatalog.load_level(path)
+			var target_layout := layout if data == current and layout != null else LevelBuilder.parse(data)
+			var restored := checkpoint(state["checkpoint_world"], RunSaveCodec.vector(state.get("checkpoint_position")), definition, target_layout)
 			if restored.has("error"):
 				return restored
 			state["checkpoint_world"] = restored["world"]
 			var at: Vector2 = restored["position"]
 			state["checkpoint_position"] = [at.x, at.y]
-	var migrated := runtime(snapshot["runtime"], current)
+	var definition := read(current) if current == null or current.resource_path.is_empty() \
+		else definitions.for_area(current.resource_path, current)["definition"] as Dictionary
+	var migrated := _prepare_runtime(snapshot["runtime"], current, layout, definition)
 	if migrated.has("error"):
 		return migrated
 	snapshot["runtime"] = migrated["data"]
 	if migrated.get("relocated", false) and snapshot.get("cinematic_context") is Dictionary:
-		snapshot["cinematic_context"] = _presentation_context(snapshot["cinematic_context"], read(current))
+		snapshot["cinematic_context"] = _presentation_context(snapshot["cinematic_context"], definition)
 	return {"relocated": migrated.get("relocated", false)}
 
 

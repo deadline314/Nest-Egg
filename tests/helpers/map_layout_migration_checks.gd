@@ -52,7 +52,18 @@ static func run(suite: TestSuite) -> void:
 		suite.check(MapLayoutMigration.runtime(ready, data, layout).get("data") == ready, "runtime preparation is idempotent")
 		suite.check(not preload("res://game/level/encounter_snapshot.gd").prepare(ready, data, layout).has("error"), "strict encounter membership still validates the migrated real spawn")
 	var pending := {"state": {"area_states": {}, "checkpoint_world": {}, "checkpoint_level_path": ""}, "runtime": runtime.duplicate(true), "cinematic_context": runtime["cinematic_context"].duplicate(true)}
+	var cached_pending := pending.duplicate(true)
+	var definitions := MapLayoutMigration.Definitions.new()
 	var pending_result := MapLayoutMigration.prepare_run(pending, data)
+	var using_cached := MapLayoutMigration.prepare_run(cached_pending, data, layout, definitions)
+	suite.check(pending_result == using_cached and pending == cached_pending,
+		"transaction metadata and a reusable active layout preserve legacy destination migration")
+	var invalid_cached := cached_pending.duplicate(true)
+	invalid_cached["runtime"]["layout_revision"] = 3
+	suite.check(MapLayoutMigration.prepare_run(invalid_cached, data, layout, definitions).has("error"),
+		"validated map metadata does not accept a different snapshot with a future layout revision")
+	suite.check(not MapLayoutMigration.prepare_run(cached_pending, data, layout, definitions).has("error")
+		and cached_pending == pending, "successive source and candidate validations do not translate the same save twice")
 	suite.check(not pending_result.has("error") and pending["cinematic_context"]["source_id"] == "npc:doctor@3,50" and pending["cinematic_context"]["talk_index"] == 1, "whole-run pending NPC origin follows the revised map before strict source authentication")
 	suite.check(not MapLayoutMigration.prepare_run(pending, data).has("error") and pending["cinematic_context"]["source_id"] == "npc:doctor@3,50", "whole-run pending origin is translated only once")
 	var entry := runtime.duplicate(true)
