@@ -13,6 +13,7 @@ const SQUASH_RECOVERY := 14.0
 const SQUASH_SCALE := 0.3
 const PARRY_FLASH_TIME := 0.25
 const BLOCK_FLASH_TIME := 0.1
+const GUARD_ABSORPTION_TIME := 0.16
 const GUARD_BREAK_POSE_TIME := 0.29
 const GHOST_LIFETIME := DashSilhouettePool.LIFETIME
 const MAX_GHOSTS := DashSilhouettePool.CAPACITY
@@ -70,7 +71,9 @@ var _fire_color := Palette.CYAN
 var _finisher_flash := 0.0
 var _parry_flash := 0.0
 var _guard_break_pose_left := 0.0
+var _guard_break_pose_weight := 0.0
 var _parry_pose_left := 0.0
+var _absorption_pose_left := 0.0
 var _block_flash := 0.0
 var _squash := Vector2.ONE
 var _ghost_timer := 0.0
@@ -86,7 +89,8 @@ var _interaction_input := RigInput.new()
 var _prior_process_mode: ProcessMode
 var interaction_action: WorldPropAction
 ## 格擋動畫的混合獨立於防禦判定。
-const GUARD_ARM_BLEND_TIME := 0.10
+const GUARD_RAISE_TIME := 0.10
+const GUARD_RETURN_TIME := 0.14
 var _guard_arm_weight := 0.0
 var _shield: GuardPresenter = preload("res://game/fx/forearm_guard.gd").new()
 
@@ -327,17 +331,22 @@ func _soft_squash(full: Vector2) -> Vector2:
 func notify_parry(at := Vector2.INF, incoming := Vector2.ZERO) -> void:
 	_parry_flash = PARRY_FLASH_TIME
 	_parry_pose_left = PARRY_FLASH_TIME
+	_absorption_pose_left = 0.0
 	_notify_guard_impact(at, incoming)
 
 
 func notify_guard_break() -> void:
 	_guard_break_pose_left = GUARD_BREAK_POSE_TIME
+	_guard_break_pose_weight = maxf(_guard_arm_weight, 0.30)
 	_parry_flash = 0.0
 	_parry_pose_left = 0.0
+	_absorption_pose_left = 0.0
 
 
 func notify_block(at := Vector2.INF, incoming := Vector2.ZERO) -> void:
 	_block_flash = BLOCK_FLASH_TIME
+	# Successive hits blend back from the current compression instead of resetting it.
+	_absorption_pose_left = GUARD_ABSORPTION_TIME * (1.0 - 0.18 * _input.shield_absorption)
 	_notify_guard_impact(at, incoming)
 
 
@@ -369,6 +378,7 @@ func begin_materialize() -> void:
 	_guard_break_pose_left = 0.0
 	_parry_flash = 0.0
 	_parry_pose_left = 0.0
+	_absorption_pose_left = 0.0
 	_materialize_left = MATERIALIZE_TIME
 
 
@@ -527,29 +537,7 @@ func _physics_process(delta: float) -> void:
 		aim = aim.slerp(Vector2(player.facing * 0.6, 0.8), lower)
 	_sync_aim_pose(aim)
 	_input.run_speed = player.tuning.run_speed
-	var break_progress := 1.0 - _guard_break_pose_left / GUARD_BREAK_POSE_TIME
-	var retreat := 1.0 - smoothstep(0.38, 1.0, break_progress)
-	var guard_target := 1.0 if player.is_blocking else retreat
-	_guard_break_pose_left = maxf(0.0, _guard_break_pose_left - delta)
-	# Advance pose time with the rig. An idle frame can finish the contact flash
-	# before the following physics frame, including while the renderer catches up.
-	var parry_progress := 1.0 - _parry_pose_left / PARRY_FLASH_TIME
-	_parry_pose_left = maxf(0.0, _parry_pose_left - delta)
-	# Brief forward correction on a parry, inward recovery after a broken guard.
-	var parry_motion := smoothstep(0.0, 0.18, parry_progress) * (1.0 - smoothstep(0.23, 0.98, parry_progress))
-	_input.shield_reaction = parry_motion if player.is_blocking else (
-			-smoothstep(0.0, 0.18, break_progress) * retreat)
-	var guard_step := delta / GUARD_ARM_BLEND_TIME
-	_guard_arm_weight = move_toward(_guard_arm_weight, guard_target, guard_step)
-	_input.guard_firearm_weight = move_toward(_input.guard_firearm_weight, guard_target, guard_step)
-	if player.melee.is_active():
-		_guard_arm_weight = 0.0
-		_input.guard_firearm_weight = 0.0
-		_input.shield_reaction = 0.0
-	_input.shield_forward = _guard_arm_weight > 0.0
-	_input.shield_pose_weight = _guard_arm_weight
-	_input.forearm_brace = true
-	_input.hand_grip_back = _input.shield_forward
+	_update_guard_pose(delta)
 	_input.dashing = player.state == Player.State.DASH
 	_input.staggered = player.state == Player.State.STAGGERED
 	_input.dead = player.state == Player.State.DEAD
@@ -580,6 +568,33 @@ func _physics_process(delta: float) -> void:
 	_input.dash_started = false
 	# Real collision and synchronous hitstop must observe this published weapon pose.
 	player.melee.after_visible_pose()
+
+
+func _update_guard_pose(delta: float) -> void:
+	# All pose envelopes advance on the rig clock, independently of contact flashes.
+	var break_progress := 1.0 - _guard_break_pose_left / GUARD_BREAK_POSE_TIME
+	var retreat := 1.0 - smoothstep(0.28, 0.88, break_progress)
+	var guard_target := 1.0 if player.is_blocking else retreat * _guard_break_pose_weight
+	_guard_break_pose_left = maxf(0.0, _guard_break_pose_left - delta)
+	var parry_progress := 1.0 - _parry_pose_left / PARRY_FLASH_TIME
+	_parry_pose_left = maxf(0.0, _parry_pose_left - delta)
+	var parry_motion := smoothstep(0.0, 0.18, parry_progress) * (1.0 - smoothstep(0.23, 0.98, parry_progress))
+	_input.shield_reaction = parry_motion if player.is_blocking else -smoothstep(0.0, 0.18, break_progress) * retreat
+	var absorption := 1.0 - _absorption_pose_left / GUARD_ABSORPTION_TIME
+	_absorption_pose_left = maxf(0.0, _absorption_pose_left - delta)
+	_input.shield_absorption = smoothstep(0.0, 0.18, absorption) * (1.0 - smoothstep(0.25, 1.0, absorption))
+	var guard_step := delta / (GUARD_RAISE_TIME if player.is_blocking else GUARD_RETURN_TIME)
+	_guard_arm_weight = move_toward(_guard_arm_weight, guard_target, guard_step)
+	_input.guard_firearm_weight = move_toward(_input.guard_firearm_weight, guard_target, guard_step)
+	if player.melee.is_active():
+		_guard_arm_weight = 0.0
+		_input.guard_firearm_weight = 0.0
+		_input.shield_reaction = 0.0
+		_input.shield_absorption = 0.0
+	_input.shield_forward = _guard_arm_weight > 0.0
+	_input.shield_pose_weight = _guard_arm_weight
+	_input.forearm_brace = true
+	_input.hand_grip_back = _input.shield_forward
 
 
 func _process(delta: float) -> void:

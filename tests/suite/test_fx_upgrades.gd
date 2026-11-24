@@ -1063,7 +1063,7 @@ func _test_melee_guard_clearance() -> void:
 	await end_level(level)
 
 
-## Both real guard outcomes drive a transient arm pose without changing the rules.
+## The regular block, parry and break each drive a distinct rig response.
 func _test_guard_contact_reactions() -> void:
 	for facing: int in [1, -1]:
 		await open_level(20.0)
@@ -1075,7 +1075,7 @@ func _test_guard_contact_reactions() -> void:
 		await physics_frames(3)
 		Input.action_press(&"block")
 		await physics_frames(3)
-		var hit := DamageInfo.create(12, Combat.Team.ENEMY, &"guard_contact_pose", -direction * 100.0)
+		var hit := DamageInfo.create(1, Combat.Team.ENEMY, &"guard_contact_pose", -direction * 100.0)
 		hit.origin = player.aim_origin() + direction * 100.0
 		hit.is_projectile = true
 		check(player._guard(hit) == Hurtbox.Guard.REFLECT, "a parry still reflects")
@@ -1087,6 +1087,23 @@ func _test_guard_contact_reactions() -> void:
 			forward = maxf(forward, visual._input.shield_reaction)
 		check(forward > 0.75 and player.is_blocking, "the parry presents a short forward reaction while holding guard")
 		await physics_frames(18)
+		var shoulder := visual.rig.bone(&"arm_back_upper")
+		var wrist := visual.rig.bone(&"hand_back")
+		var brace_reach := (wrist.global_position - shoulder.global_position).dot(direction)
+		var before_block := player.guard
+		check(player._guard(hit) == Hurtbox.Guard.BLOCK and player.guard < before_block and player.is_blocking,
+				"ordinary contact spends guard while leaving the brace raised")
+		visual._process(visual.BLOCK_FLASH_TIME)
+		var absorption := 0.0
+		var compressed_reach := brace_reach
+		for frame in 28:
+			await physics_frames(1)
+			if visual._input.shield_absorption > absorption:
+				absorption = visual._input.shield_absorption
+				compressed_reach = (wrist.global_position - shoulder.global_position).dot(direction)
+		check(absorption > 0.8 and compressed_reach < brace_reach - 1.0 and player.is_blocking,
+				"the supporting elbow visibly compresses towards the body on a regular block")
+		check(is_zero_approx(visual._input.shield_absorption), "ordinary absorption settles back to the held guard")
 		player.guard = 1.0
 		check(player._guard(hit) == Hurtbox.Guard.BLOCK and player.is_guard_broken(), "depleted guard still breaks and locks out immediately")
 		var back := 0.0

@@ -51,6 +51,8 @@ var forearm_brace := false
 var shield_pose_weight := 1.0
 ## Positive after a parry, negative while recovering from a broken guard.
 var shield_reaction := 0.0
+## Compression of the supporting elbow immediately after an ordinary block.
+var shield_absorption := 0.0
 ## 前手將槍口收向腰側的權重。可獨立回到瞄準以便立即開火。
 var guard_firearm_weight := 0.0
 ## 本影格受到攻擊（觸發一次退縮動作）。

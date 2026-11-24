@@ -115,6 +115,7 @@ var _hip_offset := Vector2.ZERO
 var _guard_firearm_stow: Dictionary = {}
 var _parry_reaction := Vector3.ZERO
 var _break_reaction := Vector3.ZERO
+var _absorb_reaction := Vector3.ZERO
 var _phase := 0.0
 var _time := 0.0
 var _recoil := 0.0
@@ -203,6 +204,7 @@ func _init(rig: CharacterRig) -> void:
 	var guard_reactions: Dictionary = _motion["block"]["reactions"]
 	_parry_reaction = _read_guard_reaction(guard_reactions.get("parry"), "parry", rig.skin_id)
 	_break_reaction = _read_guard_reaction(guard_reactions.get("break"), "break", rig.skin_id)
+	_absorb_reaction = _read_guard_reaction(guard_reactions.get("absorb"), "absorb", rig.skin_id)
 	_dash_sole = _motion["dash"].get("sole", PackedVector2Array())
 	var sole_bottom := -INF
 	for point in _dash_sole:
@@ -619,8 +621,14 @@ func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> 
 		pose[&"chest"] = float(pose[&"chest"]) + _land_x * float((m["land"] as Dictionary)["chest"])  # 落地吸收：身體前傾
 	var block: Dictionary = m["block"]
 	var hurt: Dictionary = m["hurt"]
+	if input.forearm_brace and input.shield_forward:
+		var weight := smoothstep(0.0, 1.0, input.shield_pose_weight)
+		pose[&"chest"] += (float(block["chest"]) + _absorb_reaction.z * input.shield_absorption) * weight
+		if input.on_floor:
+			pose[&"_hip_y"] += maxf(0.0, _absorb_reaction.y) * input.shield_absorption * weight * 0.5
 	if input.blocking:
-		pose[&"chest"] = float(pose.get(&"chest", 0.0)) + float(block["chest"])
+		if not input.forearm_brace:
+			pose[&"chest"] += float(block["chest"])
 		if input.on_floor and not input.crouching and not bool(block["plant_feet"]):
 			_set_legs_from(pose, block["legs"])
 	if input.staggered:
@@ -1317,7 +1325,9 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 	var anchor: Array = _rig.weapon_anchor()
 	var anchor_bone: StringName = anchor[0]
 	var anchor_point: Vector2 = _global_pos.get(anchor_bone, Vector2.ZERO) + (anchor[1] as Vector2).rotated(_global_angle.get(anchor_bone, 0.0))
-	var reach: float = anchor[2] * (0.7 if input.blocking else 1.0) - _recoil * float((_motion["recoil"] as Dictionary)["reach"])
+	var firearm_weight := smoothstep(0.0, 1.0, input.guard_firearm_weight)
+	var reach_scale := lerpf(1.0, 0.7, firearm_weight) if input.forearm_brace else (0.7 if input.blocking else 1.0)
+	var reach: float = anchor[2] * reach_scale - _recoil * float((_motion["recoil"] as Dictionary)["reach"])
 	var aim := Vector2.RIGHT.rotated(aim_angle)
 	var lift := 0.0
 	if not weapon.is_empty():
@@ -1365,6 +1375,8 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 	if lift > 0.001:
 		grip = _lift_crouched_grip(input, weapon, grip, aim_angle, lift)
 
+	var gun_angle := aim_angle
+	var gun_grip := grip
 	if weapon.is_empty():
 		# 沒有武器：雙手自然下垂、隨步伐輕擺（不是伸出去握著空氣）。
 		weapon_root.visible = false
@@ -1373,14 +1385,11 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 		_set_rotation(&"arm_front_lower", hang[1])
 		_set_rotation(&"hand_front", HAND_FOLLOWS_FOREARM)
 	else:
-		var gun_angle := aim_angle
-		var gun_grip := grip
-		if input.guard_firearm_weight > 0.0 and not _guard_firearm_stow.is_empty():
-			var weight := smoothstep(0.0, 1.0, input.guard_firearm_weight)
+		if firearm_weight > 0.0 and not _guard_firearm_stow.is_empty():
 			var pelvis: Vector2 = _global_pos.get(&"hip", anchor_point)
 			var stowed := pelvis + RigLibrary.vec2(_guard_firearm_stow["grip"])
-			gun_angle = lerp_angle(aim_angle, float(_guard_firearm_stow["angle"]), weight)
-			gun_grip = _fit_guard_grip(grip.lerp(stowed, weight), gun_angle)
+			gun_angle = lerp_angle(aim_angle, float(_guard_firearm_stow["angle"]), firearm_weight)
+			gun_grip = _fit_guard_grip(grip.lerp(stowed, firearm_weight), gun_angle)
 		weapon_root.visible = true
 		weapon_root.position = gun_grip
 		weapon_root.rotation = gun_angle
@@ -1390,7 +1399,7 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 	if guard_pose < 1.0:
 		if input.two_handed and not weapon.is_empty():
 			var offset := (RigLibrary.vec2(weapon.get("foregrip")) - RigLibrary.vec2(weapon.get("grip"))) * _rig.weapon_scale()
-			_reach_arm(&"arm_back_upper", &"arm_back_lower", &"hand_back", grip + (offset - _rig.hand_grip_offset(&"hand_back")).rotated(aim_angle), aim_angle)
+			_reach_arm(&"arm_back_upper", &"arm_back_lower", &"hand_back", gun_grip + (offset - _rig.hand_grip_offset(&"hand_back")).rotated(gun_angle), gun_angle)
 		elif _second_hand_reaches(input, weapon):
 			# 雙手的近戰武器：後手握在桿子上（搆得到才握，不拉長手臂）。
 			_reach_arm(&"arm_back_upper", &"arm_back_lower", &"hand_back",
@@ -1413,13 +1422,13 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 		var guard_wrist := shoulder + aim * 12.7 + Vector2(0, 2)
 		if input.forearm_brace:
 			# Keep the elbow under the load and carry the longitudinal force along the forearm.
-			guard_wrist = shoulder + Vector2(6.5 + 2.5 * absf(aim.x), 4.8 + clampf(aim.y, -1.0, 1.0) * 5.0)
+			guard_wrist = shoulder + Vector2(6.5 + 2.5 * absf(aim.x), 3.7 + aim.y * 4.8)
 		if (input.melee_grip or (not input.forearm_brace and not weapon.is_empty())) and not _guard_firearm_stow.is_empty():
 			# Keep the plate clear of the equipment carried by the other hand.
 			var pelvis: Vector2 = _global_pos.get(&"hip", anchor_point)
 			guard_wrist.y = minf(guard_wrist.y, pelvis.y - float(_guard_firearm_stow["brace_height"]))
 		var response := _parry_reaction if input.shield_reaction >= 0.0 else _break_reaction
-		var impulse := response * absf(input.shield_reaction)
+		var impulse := response * absf(input.shield_reaction) + _absorb_reaction * input.shield_absorption
 		guard_wrist += Vector2(impulse.x, impulse.y)
 		var guard_angle := (aim_angle * 0.34 - 0.45 if input.forearm_brace else aim_angle * 0.3) + impulse.z
 		if guard_pose < 1.0:

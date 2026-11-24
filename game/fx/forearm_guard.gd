@@ -8,6 +8,7 @@ const SIGNAL := Color("9cdae1")
 const AMBER := Color("e4ac73")
 const CASING := Color("334651")
 const CERAMIC := Color("afbec2")
+const RECESS := Color("202c36")
 const PART_REACTION := &"reaction_chip"
 const PART_RANGE := &"extension_plate"
 const PART_DAMPER := &"cushion_pad"
@@ -18,6 +19,8 @@ const PART_REFLECT := &"deflect_coat"
 var arc_degrees := 120.0
 var _active := false
 var _broken := false
+var _shell := PackedVector2Array()
+var _shell_size := Vector2.ZERO
 
 
 func update(delta: float, active: bool, broken: bool, aim: Vector2, coverage: float) -> void:
@@ -55,17 +58,27 @@ func paint_emitter(canvas: CanvasItem, wrist: Vector2, _center: Vector2, guard_r
 		return wrist
 	var angle := forearm.angle() if forearm.is_finite() and forearm.length_squared() > 0.0001 else direction.angle()
 	var side := -1.0 if facing < 0 else 1.0
-	var frame_height := 2.1 if parts.has(PART_FRAME) else 2.65
+	var frame_height := 1.65 if parts.has(PART_FRAME) else 2.15
 	var color := SIGNAL if guard_ratio > 0.3 else AMBER
 	var length := emitter_span()
+	var dimensions := Vector2(length, frame_height)
+	if _shell_size != dimensions:
+		_shell_size = dimensions
+		_shell = PackedVector2Array([
+			Vector2(-length, -1.0), Vector2(-length + 0.85, -frame_height),
+			Vector2(-0.7, -frame_height), Vector2(0.75, -0.95),
+			Vector2(0.75, 0.95), Vector2(-0.7, frame_height),
+			Vector2(-length + 0.85, frame_height), Vector2(-length, 1.0)])
 	canvas.draw_set_transform(wrist, angle, Vector2(1.0, side))
-	canvas.draw_rect(Rect2(-length, -frame_height, length, frame_height * 2.0), Color(CASING, extension))
-	canvas.draw_line(Vector2(-length + 0.7, -frame_height), Vector2(-0.6, -frame_height), Color(CERAMIC, extension), 0.65)
-	canvas.draw_line(Vector2(-length + 1.2, -0.85), Vector2(-0.7, -0.85),
-			Color(color, extension * (0.92 if parts.has(PART_REFLECT) else 0.58)), 0.8)
+	canvas.draw_colored_polygon(_shell, Color(CASING, extension))
+	canvas.draw_line(Vector2(-length + 0.8, frame_height - 0.35), Vector2(-0.7, frame_height - 0.35), Color(RECESS, extension), 0.65)
+	canvas.draw_line(Vector2(-length + 1.0, -frame_height + 0.25), Vector2(-0.75, -frame_height + 0.25), Color(CERAMIC, 0.85 * extension), 0.55)
+	canvas.draw_line(Vector2(-length + 1.1, -0.35), Vector2(-0.85, -0.35),
+			Color(color, extension * (0.92 if parts.has(PART_REFLECT) else 0.58)), 0.65)
 	if parts.has(PART_VENT):
 		for i in 3:
-			canvas.draw_line(Vector2(-4.8 + float(i) * 1.3, 1.65), Vector2(-4.0 + float(i) * 1.3, 0.5), Color(CERAMIC, 0.75 * extension), 0.6)
+			var vent := -4.7 + float(i) * 1.22
+			canvas.draw_line(Vector2(vent, 1.35), Vector2(vent + 0.43, 0.45), Color(CERAMIC, 0.75 * extension), 0.5)
 	if parts.has(PART_DAMPER):
 		canvas.draw_line(Vector2(-length, frame_height + 0.2), Vector2(-0.9, frame_height + 0.2), Color(AMBER, 0.70 * extension), 0.8)
 	canvas.draw_set_transform(Vector2.ZERO)
