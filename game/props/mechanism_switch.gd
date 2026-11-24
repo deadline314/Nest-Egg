@@ -48,9 +48,10 @@ func _ready() -> void:
 	add_child(shape_node)
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
-	if not data.hint.is_empty():
+	var hint := _hint_text()
+	if not hint.is_empty():
 		_prompt = WorldPrompt.new()
-		_prompt.text = data.hint
+		_prompt.text = hint
 		_prompt.radius = PROMPT_RADIUS
 		_prompt.reach_check = interaction_available
 		_prompt.interaction_owner = self
@@ -83,8 +84,20 @@ func toggle() -> void:
 	active = not active
 	_sync_art()
 	_apply(active, false)
+	_refresh_prompt()
 	Fx.burst(global_position + Vector2(0, -REACH.y * 0.6), data.color, 8, 90.0, 0.3)
 	Sfx.play(&"switch", -3.0)
+
+
+func _hint_text() -> String:
+	return data.hint_for(Story.language)
+
+
+func _refresh_prompt() -> void:
+	if _prompt != null:
+		var hint := _hint_text()
+		if _prompt.text != hint:
+			_prompt.text = hint
 
 
 ## 切換後的效果。silent = true 時是還原檢查點，不要播效果或發訊號。
@@ -115,6 +128,7 @@ func restore_state(state: Variant) -> void:
 		active = wanted
 		_sync_art()
 		_apply(active, true)
+		_refresh_prompt()
 		queue_redraw()
 
 

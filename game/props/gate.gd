@@ -52,9 +52,10 @@ func _ready() -> void:
 	occluder.occluder = polygon
 	LightKit.mark_shadow_occluder(occluder)
 	add_child(occluder)
-	if not data.hint.is_empty():
+	var hint := data.hint_for(Story.language)
+	if not hint.is_empty():
 		_prompt = WorldPrompt.new()
-		_prompt.text = data.hint
+		_prompt.text = hint
 		_prompt.radius = 64.0
 		_prompt.offset = Vector2(0, -_size.y - 10.0)
 		add_child(_prompt)

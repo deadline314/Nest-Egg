@@ -23,8 +23,10 @@ enum Kind {
 @export var id: StringName = &"mechanism"
 @export var kind: Kind = Kind.SWITCH
 @export var display_name: String = "機關"
+@export var localized_names: Dictionary[String, String] = {}
 ## 靠近時顯示的一句提示（可用 {interact}）。
 @export var hint: String = ""
+@export var localized_hints: Dictionary[String, String] = {}
 @export var color: Color = Color(1.0, 0.76, 0.29, 1.0)
 ## 開關與閘門的連動頻道（也用於電力開關的區域 id）。
 @export var channel: StringName = &""
@@ -51,6 +53,8 @@ enum Kind {
 ## 鎖場開始與結束時顯示的一句話（空白＝不顯示）；結束句建議講重點，例如「通道打開了」。
 @export var start_text: String = ""
 @export var clear_text: String = ""
+@export var localized_start_text: Dictionary[String, String] = {}
+@export var localized_clear_text: Dictionary[String, String] = {}
 ## 鎖場開始時播出的氣泡短句場景（空白＝沒有）。
 @export var start_scene: StringName = &""
 @export_group("Power")
@@ -59,6 +63,22 @@ enum Kind {
 ## 斷電時套用的光影；空白則用 blackout。
 @export var blackout_profile: LightingProfile
 
+
+
+func display_name_for(language: String) -> String:
+	return StoryLocale.optional_text(localized_names, language, display_name)
+
+
+func hint_for(language: String) -> String:
+	return StoryLocale.optional_text(localized_hints, language, hint)
+
+
+func start_text_for(language: String) -> String:
+	return StoryLocale.optional_text(localized_start_text, language, start_text)
+
+
+func clear_text_for(language: String) -> String:
+	return StoryLocale.optional_text(localized_clear_text, language, clear_text)
 
 
 ## 舊的一般遭遇門：沒有封路用途，遊戲中不建立、地圖不標示、鎖門稽核也不要求說明。

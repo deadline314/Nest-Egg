@@ -51,9 +51,10 @@ func _ready() -> void:
 	shape_node.position = Vector2(0, PLATFORM_THICKNESS * 0.5)
 	add_child(shape_node)
 	_art = FixtureArt.attach(self, &"lift_deck", Vector2(-_width * 0.5, 0), Vector2(_width, PLATFORM_THICKNESS))
-	if not data.hint.is_empty():
+	var hint := data.hint_for(Story.language)
+	if not hint.is_empty():
 		_prompt = WorldPrompt.new()
-		_prompt.text = data.hint
+		_prompt.text = hint
 		_prompt.radius = 70.0
 		_prompt.offset = Vector2(0, -34.0)
 		add_child(_prompt)

@@ -16,6 +16,7 @@ const GRUNT_PATH := "res://data/enemies/grunt.tres"
 
 func run() -> void:
 	_test_data()
+	_test_mechanism_translations()
 	await _test_fixture_states()
 	await _test_breakables()
 	await _test_barrel_explosion()
@@ -23,6 +24,19 @@ func run() -> void:
 	await _test_lift()
 	await _test_power_and_lighting()
 	await _test_checkpoint_restore()
+
+
+func _test_mechanism_translations() -> void:
+	var legacy := MechanismData.new()
+	legacy.hint = "舊提示"
+	check(legacy.hint_for("ja") == "舊提示" and legacy.start_text_for("en").is_empty(),
+		"legacy hints fall back to source and silent events stay silent")
+	legacy.localized_hints["en"] = "Fallback"
+	check(legacy.hint_for("ja") == "Fallback" and legacy.hint_for("zh") == "舊提示",
+		"an absent Japanese translation falls back to English while Chinese uses its source")
+	var warehouse := load("res://data/props/ch1_enc_warehouse_walkway.tres") as MechanismData
+	check(warehouse.start_text_for("en").begins_with("Guards") and warehouse.clear_text_for("ja") == "通路はひとまず安全だ。",
+		"warehouse encounter has localized warnings and clear messages")
 
 
 ## Formal views follow real health/power/motion; presentation cannot change collision or restoration.
@@ -291,6 +305,8 @@ func _test_lift() -> void:
 
 
 func _test_power_and_lighting() -> void:
+	var previous_language := Story.language
+	Story.language = "en"
 	var level := await start_level(level_data())
 	var power_switch := _find_at(level, PowerSwitch, 56) as PowerSwitch
 	var fence := _find_all(level, LaserFence)[0] as LaserFence
@@ -299,7 +315,20 @@ func _test_power_and_lighting() -> void:
 	check(power_switch != null and fence != null and grid != null, "power switch, fence and grid exist")
 	if power_switch == null or fence == null or grid == null:
 		await end_level(level)
+		Story.language = previous_language
 		return
+	var notices: Array[String] = []
+	var record := func(text: String) -> void: notices.append(text)
+	EventBus.toast_requested.connect(record)
+	var using_gamepad := InputBindings.using_gamepad
+	var device_before := InputBindings.active_device
+	InputBindings._set_device(false, -1)
+	check(power_switch._prompt._display_text.begins_with(InputBindings.primary_label(&"interact") + " Cut power"),
+		"powered switch uses the localized action and the keyboard binding")
+	InputBindings._set_device(true, 0)
+	check(power_switch._prompt._display_text.begins_with(InputBindings.primary_label(&"interact") + " Cut power"),
+		"the visible power prompt refreshes when the active device changes")
+	InputBindings._set_device(using_gamepad, device_before)
 	check(grid.has_zone(power_switch.data.channel), "power switch registers its zone")
 	check(PowerGrid.is_powered(fence), "fence is powered at the start")
 	level.player.global_position = power_switch.global_position + Vector2(0, -2)
@@ -307,6 +336,8 @@ func _test_power_and_lighting() -> void:
 	await runner._press_action(&"interact")
 	await frames(6)
 	check(not grid.is_zone_powered(power_switch.data.channel), "interact cuts the power")
+	check(power_switch._prompt.text.begins_with("{interact} Restore power") and notices.has("Power cut. Lights and security are offline."),
+		"after the interaction the hover offers restoration and the toast reports the outage")
 	check(not PowerGrid.is_powered(fence) and not fence.is_on(), "cut power switches the laser fence off")
 	check(not PowerGrid.is_powered(lift) or lift.global_position.x < 48 * 16.0, "lift in the cut zone loses power")
 	check(level._lighting.has_override(&"power_%s" % power_switch.data.channel), "cut power darkens the area (lighting override)")
@@ -318,7 +349,15 @@ func _test_power_and_lighting() -> void:
 	check(PowerGrid.is_powered(fence), "restored power turns the fence back on")
 	await physics_frames(int((PowerGrid.BLACKOUT_FADE_OUT + 0.4) * 60.0))
 	check(not level._lighting.has_override(&"power_%s" % power_switch.data.channel), "restored power clears the blackout")
+	check(power_switch._prompt.text.begins_with("{interact} Cut power") and notices.has("Power restored."),
+		"restoring power changes the hover back and reports the restoration")
+	var before_restore := notices.size()
+	power_switch.restore_state(true)
+	check(power_switch._prompt.text.begins_with("{interact} Restore power") and notices.size() == before_restore,
+		"checkpoint restoration refreshes the resulting hover silently")
+	EventBus.toast_requested.disconnect(record)
 	await end_level(level)
+	Story.language = previous_language
 
 
 func _test_checkpoint_restore() -> void:

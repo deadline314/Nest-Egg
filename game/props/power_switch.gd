@@ -4,6 +4,20 @@ extends MechanismSwitch
 ## 區域範圍由 MechanismData.power_range_tiles 決定；啟動時向電力網登記。
 
 
+const RESTORE_HINT: Dictionary[String, String] = {
+	"en": "{interact} Restore power and rearm security.",
+	"ja": "{interact} 電源を復旧：照明と警備が再起動する",
+}
+const POWER_CUT: Dictionary[String, String] = {
+	"en": "Power cut. Lights and security are offline.",
+	"ja": "電源を遮断。照明と警備が停止した。",
+}
+const POWER_RESTORED: Dictionary[String, String] = {
+	"en": "Power restored.",
+	"ja": "電源が復旧した。",
+}
+
+
 func _ready() -> void:
 	super._ready()
 	if data == null:
@@ -15,13 +29,21 @@ func _ready() -> void:
 	grid.register_zone(data.channel, cell.x - data.power_range_tiles.x, cell.x + data.power_range_tiles.y + 1, data.blackout_profile)
 
 
+func _hint_text() -> String:
+	if active:
+		return StoryLocale.optional_text(RESTORE_HINT, Story.language, "{interact} 恢復供電：照明與保全重新啟動")
+	return super._hint_text()
+
+
 func _apply(is_active: bool, silent: bool) -> void:
 	var grid := PowerGrid.of(self)
 	if grid == null:
 		return
 	grid.set_zone_powered(data.channel, not is_active, silent)
 	if not silent:
-		EventBus.toast_requested.emit("電力已切斷：區域熄燈、保全停擺" if is_active else "電力恢復")
+		var notice := StoryLocale.optional_text(POWER_CUT, Story.language, "電力已切斷：區域熄燈、保全停擺") if is_active \
+			else StoryLocale.optional_text(POWER_RESTORED, Story.language, "電力恢復")
+		EventBus.toast_requested.emit(notice)
 		Sfx.play(&"power_down" if is_active else &"power_up", -2.0)
 
 

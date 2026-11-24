@@ -81,8 +81,9 @@ func begin() -> void:
 	EventBus.mechanism_toggled.emit(data.channel, true)
 	if data.lock_combat_area:
 		Sfx.play(&"gate", -3.0)
-	if not data.start_text.is_empty():
-		EventBus.toast_requested.emit(data.start_text)
+	var notice := data.start_text_for(Story.language)
+	if not notice.is_empty():
+		EventBus.toast_requested.emit(notice)
 	if data.start_scene != &"":
 		Story.play(data.start_scene)
 	set_physics_process(true)
@@ -143,8 +144,10 @@ func _finish(forced: bool) -> void:
 	EventBus.mechanism_toggled.emit(data.channel, false)
 	if data.lock_combat_area:
 		Sfx.play(&"gate", -3.0)
-	if not forced and not data.clear_text.is_empty():
-		EventBus.toast_requested.emit(data.clear_text)
+	if not forced:
+		var notice := data.clear_text_for(Story.language)
+		if not notice.is_empty():
+			EventBus.toast_requested.emit(notice)
 
 
 ## Snapshot-local IDs for the actual living members, including those outside the zone.

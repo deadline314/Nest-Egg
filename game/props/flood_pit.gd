@@ -14,7 +14,14 @@ const HEAD_HEIGHT := 40.0
 const DROWN_SOURCE := &"flood"
 const WATER_Z := 9
 const RAFT_THICKNESS := 6.0
-const PROMPT_TEXT := "踩住坑底踏板，讓閘門保持開啟。"
+const PLATE_HINT: Dictionary[String, String] = {
+	"en": "Step on the plate to open the gate. The water will rise.",
+	"ja": "踏み板で水門が開き、水位が上がる。",
+}
+const FLOOD_WARNING: Dictionary[String, String] = {
+	"en": "The gate opened. Water is rising.",
+	"ja": "水門が開いた。水位が上昇している。",
+}
 
 var data: MechanismData
 var cell := Vector2i.ZERO
@@ -68,7 +75,9 @@ func _build_plate() -> void:
 	area.body_exited.connect(_on_plate_exited)
 	add_child(area)
 	_prompt = WorldPrompt.new()
-	_prompt.text = PROMPT_TEXT
+	var hint := data.hint_for(Story.language)
+	_prompt.text = hint if not hint.is_empty() else StoryLocale.optional_text(
+		PLATE_HINT, Story.language, "踩下踏板會開啟水閘，水位也會上升。")
 	_prompt.radius = 44.0
 	_prompt.offset = Vector2(0, -PLATE_HEIGHT - 52.0)
 	add_child(_prompt)
@@ -108,7 +117,7 @@ func trigger() -> void:
 	triggered = true
 	_prompt.enabled = false
 	EventBus.mechanism_toggled.emit(data.channel, true)
-	EventBus.toast_requested.emit("水閘開了，水在漲")
+	EventBus.toast_requested.emit(StoryLocale.optional_text(FLOOD_WARNING, Story.language, "水閘開了，水在漲"))
 	Sfx.play(&"gate", -2.0)
 	Feel.play(&"gate_open")
 
