@@ -94,6 +94,8 @@ func _arm_preview(part: ArmShieldPartData, owned: bool) -> PackedStringArray:
 		ArmShieldPartData.Effect.LIGHT_FRAME:
 			lines.append(_diff(Labels.get_text(&"mods_guard_speed"), "%d%%" % roundi(before.block_speed_multiplier() * 100.0), "%d%%" % roundi(after.block_speed_multiplier() * 100.0), owned))
 		ArmShieldPartData.Effect.DEFLECT:
+			if not is_equal_approx(before.block_arc_degrees(), after.block_arc_degrees()) or (owned and before.has_part(&"extension_plate")):
+				lines.append(_diff(Labels.get_text(&"mods_arc"), "%d°" % roundi(before.block_arc_degrees()), "%d°" % roundi(after.block_arc_degrees()), owned))
 			lines.append(_diff(Labels.get_text(&"mods_blocked_bullet"), _block_result(before.deflect_on_block), _block_result(after.deflect_on_block), owned))
 	return lines
 

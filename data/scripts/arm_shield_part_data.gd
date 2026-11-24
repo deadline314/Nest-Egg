@@ -38,6 +38,8 @@ const AMOUNT_RANGE := {
 ## 一句話說明這個零件做什麼（改裝頁的說明與提示）。
 @export var description: String = ""
 @export var localized_descriptions: Dictionary[String, String] = {}
+## 額外偏折角，只在有延伸片時啟用（限偏折塗層）。
+@export var coated_extension_bonus: float = 0.0
 ## 排序（小的在前）。
 @export var order: int = 0
 
@@ -63,6 +65,9 @@ func validate() -> PackedStringArray:
 		var range: Vector2 = AMOUNT_RANGE[effect]
 		if not is_finite(amount) or amount < range.x or amount > range.y:
 			problems.append("%s：amount %.3f 超出 %s 的合理範圍 %.2f～%.2f" % [where, amount, Effect.keys()[effect], range.x, range.y])
+	if not is_finite(coated_extension_bonus) or coated_extension_bonus < 0.0 or coated_extension_bonus > 30.0 \
+			or (effect != Effect.DEFLECT and coated_extension_bonus != 0.0):
+		problems.append("%s：coated_extension_bonus 必須為 0，或是偏折塗層的 0～30 度" % where)
 	if cost < 1 or cost > 100000:
 		problems.append("%s：cost 必須在 1～100000" % where)
 	if description.strip_edges().is_empty():

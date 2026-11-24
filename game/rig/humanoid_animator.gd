@@ -1331,31 +1331,41 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 		weapon_root.rotation = aim_angle
 		_reach_arm(&"arm_front_upper", &"arm_front_lower", &"hand_front", grip - _rig.hand_grip_offset(&"hand_front").rotated(aim_angle), aim_angle)
 
-	if input.shield_forward:
+	var guard_pose := clampf(input.shield_pose_weight, 0.0, 1.0) if input.shield_forward else 0.0
+	if guard_pose < 1.0:
+		if input.two_handed and not weapon.is_empty():
+			var offset := (RigLibrary.vec2(weapon.get("foregrip")) - RigLibrary.vec2(weapon.get("grip"))) * _rig.weapon_scale()
+			_reach_arm(&"arm_back_upper", &"arm_back_lower", &"hand_back", grip + (offset - _rig.hand_grip_offset(&"hand_back")).rotated(aim_angle), aim_angle)
+		elif _second_hand_reaches(input, weapon):
+			# 雙手的近戰武器：後手握在桿子上（搆得到才握，不拉長手臂）。
+			_reach_arm(&"arm_back_upper", &"arm_back_lower", &"hand_back",
+					input.melee_second_target - _rig.hand_grip_offset(&"hand_back").rotated(input.melee_second_angle), input.melee_second_angle)
+		else:
+			# 空著的後手自然下垂、隨步伐輕擺。
+			var far_hang := _far_arm_hang()
+			var far_swing := sin(_phase + PI) * _arm_swing(input)
+			if far_hang == _far_arm_tuck:  # 藏在身體後面的手，擺動也不探出去（只露出一隻沒有前臂的手，比不擺更糟）
+				far_swing = clampf(far_swing, -_far_arm_swing_limit, _far_arm_swing_limit)
+				# 跑步時上身前傾、肩膀跟著往前：依現在的肩與髖重算，手才留在髖的正後方
+				var far_reach := _rig.rest(&"arm_back_lower").length() + _rig.rest(&"hand_back").length()
+				var far_forward := float(_global_pos[&"leg_front_upper"].x) - float(_global_pos[&"arm_back_upper"].x)
+				far_hang.x = -asin(clampf(far_forward / far_reach, -0.6, 0.6)) - FAR_ARM_ELBOW * 0.5 - float(_global_angle.get(_rig.parent_of(&"arm_back_upper"), 0.0))
+			_set_rotation(&"arm_back_upper", far_hang.x + far_swing)
+			_set_rotation(&"arm_back_lower", far_hang.y)
+			_set_rotation(&"hand_back", HAND_FOLLOWS_FOREARM)
+	if guard_pose > 0.0 and _rig.has_bone(&"hand_back"):
 		var shoulder: Vector2 = _global_pos.get(&"arm_back_upper", anchor_point)
-		# 後臂依瞄準方向抬起，留一點彎曲承受衝擊。
-		_reach_arm(&"arm_back_upper", &"arm_back_lower", &"hand_back", shoulder + aim * 12.7 + Vector2(0, 2), aim_angle * 0.3)
-	elif input.two_handed and not weapon.is_empty():
-		var offset := (RigLibrary.vec2(weapon.get("foregrip")) - RigLibrary.vec2(weapon.get("grip"))) * _rig.weapon_scale()
-		_reach_arm(&"arm_back_upper", &"arm_back_lower", &"hand_back", grip + (offset - _rig.hand_grip_offset(&"hand_back")).rotated(aim_angle), aim_angle)
-	elif _second_hand_reaches(input, weapon):
-		# 雙手的近戰武器：後手握在桿子上（搆得到才握，不拉長手臂）。
-		_reach_arm(&"arm_back_upper", &"arm_back_lower", &"hand_back",
-				input.melee_second_target - _rig.hand_grip_offset(&"hand_back").rotated(input.melee_second_angle), input.melee_second_angle)
-	else:
-		# 空著的後手自然下垂、隨步伐輕擺。
-		var far_hang := _far_arm_hang()
-		var far_swing := sin(_phase + PI) * _arm_swing(input)
-		if far_hang == _far_arm_tuck:  # 藏在身體後面的手，擺動也不探出去（只露出一隻沒有前臂的手，比不擺更糟）
-			far_swing = clampf(far_swing, -_far_arm_swing_limit, _far_arm_swing_limit)
-			# 跑步時上身前傾、肩膀跟著往前：依現在的肩與髖重算，手才留在髖的正後方
-			var far_reach := _rig.rest(&"arm_back_lower").length() + _rig.rest(&"hand_back").length()
-			var far_forward := float(_global_pos[&"leg_front_upper"].x) - float(_global_pos[&"arm_back_upper"].x)
-			far_hang.x = -asin(clampf(far_forward / far_reach, -0.6, 0.6)) - FAR_ARM_ELBOW * 0.5 - float(_global_angle.get(_rig.parent_of(&"arm_back_upper"), 0.0))
-		_set_rotation(&"arm_back_upper", far_hang.x + far_swing)
-		_set_rotation(&"arm_back_lower", far_hang.y)
-		_set_rotation(&"hand_back", HAND_FOLLOWS_FOREARM)
-	_rig.second_hand_on_weapon = _second_hand_reaches(input, weapon)
+		var guard_wrist := shoulder + aim * 12.7 + Vector2(0, 2)
+		var guard_angle := aim_angle * 0.3
+		if guard_pose < 1.0:
+			# Blend from the solved regular wrist, keeping the same two-bone reach limits.
+			_forward_kinematics()
+			var weight := smoothstep(0.0, 1.0, guard_pose)
+			var regular_wrist: Vector2 = _global_pos[&"hand_back"]
+			guard_wrist = regular_wrist.lerp(guard_wrist, weight)
+			guard_angle = lerp_angle(_global_angle[&"hand_back"], guard_angle, weight)
+		_reach_arm(&"arm_back_upper", &"arm_back_lower", &"hand_back", guard_wrist, guard_angle)
+	_rig.second_hand_on_weapon = not input.shield_forward and _second_hand_reaches(input, weapon)
 	if not action_arms.is_empty():
 		var w := smoothstep(0.0, 1.0, _action_w)
 		for bone_name: StringName in action_arms.keys():
@@ -1487,7 +1497,7 @@ func _forward_chain(chain: Array) -> void:
 
 ## 後手要不要去握近戰武器的桿子：有要求、手上不是槍、而且那一點在手臂搆得到的範圍裡（留一點彎度，手肘不打直）。
 func _second_hand_reaches(input: RigInput, weapon: Dictionary) -> bool:
-	if not input.melee_second or not weapon.is_empty() or input.dead or input.shield_forward:
+	if not input.melee_second or not weapon.is_empty() or input.dead:
 		return false
 	if not (_rig.has_bone(&"arm_back_upper") and _rig.has_bone(&"arm_back_lower") and _rig.has_bone(&"hand_back")):
 		return false

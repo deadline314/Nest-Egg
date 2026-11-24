@@ -21,6 +21,7 @@ var deflect_on_block := false
 var parts: Array[StringName] = []
 var _parry_bonus := 0.0
 var _arc_bonus := 0.0
+var _coated_extension_bonus := 0.0
 var _guard_scale := 1.0
 var _break_stun_scale := 1.0
 var _regen_delay_scale := 1.0
@@ -59,6 +60,7 @@ static func build(p_tuning: PlayerTuning, installed: Array) -> GuardStats:
 				stats._speed_bonus += part.amount
 			ArmShieldPartData.Effect.DEFLECT:
 				stats.deflect_on_block = true
+				stats._coated_extension_bonus += part.coated_extension_bonus
 	return stats
 
 
@@ -74,7 +76,7 @@ func parry_window() -> float:
 
 ## 擋得住的扇形總角度（度）。
 func block_arc_degrees() -> float:
-	return minf(BLOCK_ARC_MAX, tuning.block_arc_degrees + _arc_bonus) if _arc_bonus > 0.0 else tuning.block_arc_degrees
+	return minf(BLOCK_ARC_MAX, tuning.block_arc_degrees + _arc_bonus + _coated_extension_bonus) if _arc_bonus > 0.0 else tuning.block_arc_degrees
 
 
 func guard_max() -> float:

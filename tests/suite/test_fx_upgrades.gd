@@ -23,6 +23,7 @@ func run() -> void:
 	await _test_shield_rules_unchanged()
 	await _test_shield_landing_frames()
 	await _test_guard_footing()
+	await _test_guard_arm_transition()
 	await _test_block_input_parity()
 	_test_arm_shield_catalog()
 	await _test_arm_shield_rules()
@@ -161,6 +162,18 @@ func _test_projectile_trails() -> void:
 
 func _test_shield_presentation() -> void:
 	var surface := ShieldSurface.new()
+	check(ShieldSurface._cuff != null and ShieldSurface._carriage != null and ShieldSurface._root != null
+			and ShieldSurface._slider != null and ShieldSurface._nose != null, "the game resolves every imported deflector piece")
+	surface.parts.assign([&"extension_plate", &"deflect_coat"])
+	surface.update(0.02, true, false, Vector2.RIGHT, 165.0)
+	check(surface.slide_offsets() == Vector2.ZERO, "the pivot starts opening before the slides travel")
+	surface.update(0.02, true, false, Vector2.RIGHT, 165.0)
+	check(surface.slide_offsets().x > 0.0 and surface.slide_offsets().y == 0.0, "the inner rail moves before the upgraded nose")
+	surface.update(0.04, true, false, Vector2.RIGHT, 165.0)
+	check(surface.slide_offsets().is_equal_approx(Vector2(14.0, 10.0)), "the coated extension fully deploys both nested slides")
+	surface.update(0.12, false, false, Vector2.RIGHT, 165.0)
+	check(surface.slide_offsets() == Vector2.ZERO, "releasing the guard retracts both slides")
+	surface.parts.clear()
 	surface.update(0.04, true, false, Vector2.RIGHT, 120.0)
 	check(surface.extension > 0.0 and surface.extension < 1.0, "shield raises progressively without delaying guard")
 	check(is_equal_approx(surface._rim[0].angle(), -PI / 3.0) and is_equal_approx(surface._rim[-1].angle(), PI / 3.0), "shield endpoints match the real 120 degree defence cone")
@@ -884,18 +897,47 @@ func _test_arm_shield_catalog() -> void:
 	check(not broken.validate().is_empty(), "a part without its one-sentence explanation is rejected")
 
 
-## 實際格擋：延伸片讓原本擋不到的斜角擋得住，盾面跟著變寬；偏折塗層讓一般格擋也彈回子彈；
-## 反應晶片加長完美窗口；輕量骨架讓舉盾走得快；緩衝襯墊提高上限。沒裝零件時原本的規則不變。
+## 開始和結束格擋時，前臂支點應連續移動。
+func _test_guard_arm_transition() -> void:
+	await open_level(20.0)
+	var player := level.player
+	AimInput.set_virtual_gamepad(player, true)
+	for weapon_id: String in ["pistol", "rifle"]:
+		var weapon := load("res://data/weapons/%s.tres" % weapon_id) as WeaponData
+		player.loadout.reset(weapon)
+		for direction: Vector2 in [Vector2.RIGHT, Vector2.LEFT]:
+			_press_stick(direction)
+			await physics_frames(12)
+			var previous := player._visual.shield_wrist_local()
+			var worst := 0.0
+			for held: bool in [true, false]:
+				if held:
+					Input.action_press(&"block")
+				else:
+					Input.action_release(&"block")
+				for frame in 12:
+					await physics_frames(1)
+					var wrist := player._visual.shield_wrist_local()
+					worst = maxf(worst, wrist.distance_to(previous))
+					previous = wrist
+				check(player.is_blocking == held, "%s guard input still reaches its intended state" % weapon_id)
+			check(worst < 6.0, "%s %s guard raises and lowers without a snapping wrist (%.2f px)" % [weapon_id, direction, worst])
+	_press_stick(Vector2.ZERO)
+	AimInput.set_virtual_gamepad(player, false)
+	await end_level(level)
+
+
+## 用真的子彈核對每級的防禦角度、消耗、反彈與移動。
 func _test_arm_shield_rules() -> void:
 	var spec := load("res://data/projectiles/grunt_shot.tres") as ProjectileSpec
 	var outcomes := {}
-	for with_parts: bool in [false, true]:
+	for tier in 3:
 		await open_level(20.0)
 		var player := level.player
 		var visual: PlayerVisual = player._visual
-		if with_parts:
-			Progression.add_credits(5000)
-			for part in Progression.arm_shield_catalog():
+		Progression.add_credits(5000)
+		for part in Progression.arm_shield_catalog():
+			if tier == 2 or (tier == 1 and part.id == &"extension_plate"):
 				check(Progression.buy_arm_shield_part(part), "buying %s succeeds" % part.id)
 		var window := player.parry_window_length()
 		AimInput.set_virtual_gamepad(player, true)
@@ -920,26 +962,41 @@ func _test_arm_shield_rules() -> void:
 			await physics_frames(1)
 			if is_instance_valid(front) and front.visible and front.team == Combat.Team.PLAYER:
 				reflected = true
+		var edge := Vector2.RIGHT.rotated(deg_to_rad(-78.0))
+		chest = player.global_position + Vector2(0, -Player.BODY_SIZE.y * 0.5)
+		guard_before = player.guard
+		ProjectilePool.spawn(spec, chest + edge * 36.0, -edge, Combat.Team.ENEMY)
+		await physics_frames(20)
+		var blocked_78 := player.guard < guard_before - 0.5
+		var beyond := DamageInfo.create(1, Combat.Team.ENEMY, &"wide_deflector_boundary",
+				-Vector2.RIGHT.rotated(deg_to_rad(83.0)) * 100.0)
+		beyond.is_projectile = true
+		check(player._guard(beyond) == Hurtbox.Guard.NONE, "83 degrees is outside tier %d's guard" % tier)
 		player.velocity = Vector2.ZERO
 		_press_stick(Vector2(1.0, 0.0))
 		Input.action_press(&"move_right")
 		await physics_frames(30)
 		var block_speed := absf(player.velocity.x)
 		Input.action_release(&"move_right")
-		outcomes[with_parts] = {"window": window, "blocked_68": blocked, "hurt_68": hurt, "reflected": reflected, "speed": block_speed,
-			"guard_max": player.guard_max(), "arc_drawn": visual._shield._arc_degrees, "parts": visual._shield.parts.size()}
+		outcomes[tier] = {"window": window, "blocked_68": blocked, "hurt_68": hurt, "reflected": reflected, "speed": block_speed,
+			"guard_max": player.guard_max(), "arc_drawn": visual._shield._arc_degrees, "parts": visual._shield.parts.size(),
+			"blocked_78": blocked_78, "slides": visual._shield.slide_offsets()}
 		Input.action_release(&"block")
 		_press_stick(Vector2.ZERO)
 		AimInput.set_virtual_gamepad(player, false)
 		await physics_frames(2)
 		await end_level(level)
-	var bare: Dictionary = outcomes[false]
-	var full: Dictionary = outcomes[true]
+	var bare: Dictionary = outcomes[0]
+	var extended: Dictionary = outcomes[1]
+	var full: Dictionary = outcomes[2]
 	print("NE269_RULES ", JSON.stringify(outcomes))
 	check(not bare["blocked_68"] and bare["hurt_68"], "without parts a shot 68° off the aim gets past the 120° shield")
-	check(full["blocked_68"] and not full["hurt_68"], "with the extension plate the same shot is blocked")
-	check(is_equal_approx(float(bare["arc_drawn"]), 120.0) and is_equal_approx(float(full["arc_drawn"]), 150.0), "the drawn shield widens with the blockable angle (%.0f° → %.0f°)" % [bare["arc_drawn"], full["arc_drawn"]])
-	check(not bare["reflected"] and full["reflected"], "only the deflect coat sends a normally blocked shot back")
+	check(extended["blocked_68"] and not extended["hurt_68"] and full["blocked_68"], "both extended plates block the same shot")
+	check(not bare["blocked_78"] and not extended["blocked_78"] and full["blocked_78"], "only the coated extension blocks a shot at 78 degrees")
+	check([bare["arc_drawn"], extended["arc_drawn"], full["arc_drawn"]] == [120.0, 150.0, 165.0], "the edge cues show the same angle as each fitted assembly")
+	check([bare["slides"], extended["slides"], full["slides"]] == [Vector2(7.5, 0), Vector2(14, 0), Vector2(14, 10)],
+			"the standard slide, extension and coated nose have distinct travel")
+	check(not bare["reflected"] and not extended["reflected"] and full["reflected"], "only the deflect coat sends a normally blocked shot back")
 	check(float(full["window"]) > float(bare["window"]) + 0.04, "the reaction chip lengthens the perfect window (%.3f → %.3f s)" % [bare["window"], full["window"]])
 	check(float(full["speed"]) > float(bare["speed"]) * 1.4, "the light frame lets her move faster behind the shield (%.0f → %.0f px/s)" % [bare["speed"], full["speed"]])
 	check(float(full["guard_max"]) > float(bare["guard_max"]) * 1.25, "the cushion pad raises the guard ceiling (%.0f → %.0f)" % [bare["guard_max"], full["guard_max"]])
@@ -971,6 +1028,9 @@ func _test_arm_shield_purchase_and_save() -> void:
 	check(is_equal_approx(player.guard_stats.block_arc_degrees(), player.tuning.block_arc_degrees + part.amount), "the fitted part takes effect immediately")
 	entries = page._build_entries()
 	check(entries[at].badge == "已裝上" and not entries[at].action_enabled, "a fitted part is marked and cannot be bought twice")
+	var coat := Progression.find_arm_shield_part(&"deflect_coat")
+	var coating_entry := entries[page._targets.size() + Progression.arm_shield_catalog().find(coat)]
+	check(coating_entry.hint.contains("150°") and coating_entry.hint.contains("165°"), "the upgrade hover previews the extra coverage with an installed extension")
 	page.free()
 	var saved := Progression.snapshot()
 	check(saved.get("arm_shield", []) == ["extension_plate"], "the save lists the fitted part")

@@ -46,6 +46,8 @@ var melee_path_weapon := 0.0
 var melee_body := Vector3.ZERO
 ## 後手向前舉盾（鎮暴員）。
 var shield_forward := false
+## Presentation-only blend for the rear arm as the plate folds.
+var shield_pose_weight := 1.0
 ## 本影格受到攻擊（觸發一次退縮動作）。
 var hurt := false
 ## 受擊退縮的幅度倍率（輕擊小、畏縮大）。

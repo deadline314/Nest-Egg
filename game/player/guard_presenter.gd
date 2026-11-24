@@ -8,7 +8,7 @@ extends RefCounted
 ##       broken      Player.is_guard_broken()：被打穿後的鎖定期（不能再舉）；由假變真的那一格就是「破盾」。
 ##       aim         Player.aim_dir：擋的方向（扇形的中心）。
 ##       arc_degrees PlayerTuning.block_arc_degrees：擋得住的扇形總角度；描在畫面上的方向界線對應這個角度。
-##   paint_emitter(canvas, wrist, center, guard_ratio)：畫出固定在後手前臂的機械結構（shield_wrist_local）。
+##   paint_emitter(canvas, wrist, center, guard_ratio, forearm, facing)：以前臂方向畫固定座，並在同一個腕點展開。
 ##   paint(canvas, center, guard_ratio, parry_window, window_left, block_flash, parry_flash, flash_scale, motion_scale)
 ##       guard_ratio  防禦量 0～1（低的時候要看得出快被打穿）。
 ##       parry_window Player.is_parry_window()：現在擋下就是完美格擋；window_left 是這個窗口還剩幾成（連按時窗口會縮短）。
@@ -39,7 +39,8 @@ func has_visible_effects(parry_flash: float) -> bool:
 
 
 ## 回傳機構的安裝錨點。
-func paint_emitter(_canvas: CanvasItem, _wrist: Vector2, center: Vector2, _guard_ratio: float) -> Vector2:
+func paint_emitter(_canvas: CanvasItem, _wrist: Vector2, center: Vector2, _guard_ratio: float,
+		_forearm := Vector2.RIGHT, _facing := 1, _motion_scale := 1.0) -> Vector2:
 	return center
 
 

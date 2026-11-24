@@ -76,7 +76,9 @@ var _secondary_scene: StringName = &""
 var _interaction_input := RigInput.new()
 var _prior_process_mode: ProcessMode
 var interaction_action: WorldPropAction
-## 格擋的呈現（介面見 GuardPresenter）：現在是方向光盾，NE-269 的臂盾做好後換掉這一行。
+## 格擋動畫的混合獨立於防禦判定。
+const GUARD_ARM_BLEND_TIME := 0.10
+var _guard_arm_weight := 0.0
 var _shield: GuardPresenter = ShieldSurface.new()
 
 
@@ -478,7 +480,11 @@ func _physics_process(delta: float) -> void:
 		aim = aim.slerp(Vector2(player.facing * 0.6, 0.8), lower)
 	_sync_aim_pose(aim)
 	_input.run_speed = player.tuning.run_speed
-	_input.shield_forward = player.is_blocking
+	_guard_arm_weight = move_toward(_guard_arm_weight, 1.0 if player.is_blocking else 0.0, delta / GUARD_ARM_BLEND_TIME)
+	if player.melee.is_active():
+		_guard_arm_weight = 0.0
+	_input.shield_forward = _guard_arm_weight > 0.0
+	_input.shield_pose_weight = _guard_arm_weight
 	_input.dashing = player.state == Player.State.DASH
 	_input.staggered = player.state == Player.State.STAGGERED
 	_input.dead = player.state == Player.State.DEAD
@@ -493,7 +499,7 @@ func _physics_process(delta: float) -> void:
 		_input.melee_second_angle = _melee_held.angle()
 	rig.animate(delta, _input)
 	_melee_held.update(delta, melee_path)
-	if _input.melee_second and (player.melee.two_handed_now() or not player.melee.is_active()):
+	if _input.melee_second and not _input.shield_forward and (player.melee.two_handed_now() or not player.melee.is_active()):
 		# 雙手招式：武器這一格的位置定了，後手才去握桿（每一格兩隻手都在武器上，不晚一格）。
 		# 長柄武器的後手可以沿著桿子滑：握在桿上離後肩最近、搆得到的那一點（手臂短，伸直刺擊時固定的握點會搆不到）。
 		var shoulder := rig.bone(&"arm_back_upper").global_position if rig.has_bone(&"arm_back_upper") else _melee_held.second_grip()
@@ -650,9 +656,16 @@ func _draw_shield() -> void:
 	var center := to_local(player.global_position + Vector2(0, -Player.BODY_SIZE.y * 0.5))
 	var ratio := clampf(player.guard / maxf(player.guard_max(), 0.001), 0.0, 1.0)
 	var left := clampf(1.0 - player._block_time / maxf(player.parry_window_length(), 0.001), 0.0, 1.0)
-	_shield.paint_emitter(self, shield_wrist_local(), center, ratio)
+	var wrist := shield_wrist_local()
+	var forearm := player.aim_dir
+	if rig != null and rig.is_valid():
+		var elbow := rig.bone(&"arm_back_lower")
+		if elbow != null:
+			forearm = to_local(elbow.global_position).direction_to(wrist)
+	var motion_scale := Settings.get_feel_scale("shake")
+	_shield.paint_emitter(self, wrist, center, ratio, forearm, player.facing, motion_scale)
 	_shield.paint(self, center, ratio, player.is_parry_window(), left, _block_flash, _parry_flash,
-		Settings.flash_scale(), Settings.get_feel_scale("shake"))
+		Settings.flash_scale(), motion_scale)
 
 
 ## 手上現在有沒有畫出近戰武器。撥號和搬運姿勢會占用手部。

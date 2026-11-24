@@ -1,42 +1,70 @@
 class_name ShieldSurface
 extends GuardPresenter
-## Mechanical forearm plates and directional feedback. Gameplay owns the angle, timing and damage.
+## Telescoping forearm plate and cues for the live guard angle.
 
 const RADIUS := 28.0
 const RAISE_TIME := 0.08
 const LOWER_TIME := 0.12
 const BREAK_TIME := 0.22
+const IMPACT_TIME := 0.16
 const SEGMENTS := 12
 const ARC_MIN := 0.0
 const ARC_MAX := 360.0
 const CASE := Color("21242a")
-const STEEL := Color("4c5260")
-const INSIDE := Color("343a43")
+const STEEL := Color("59616c")
 const EDGE := Color("9c896c")
 const LAMP := Color("ebbc70")
-const PAINT := Color("a87739")
-const LOW_ENERGY := Color("d27156")
 const HOT_EDGE := Color("be624c")
-const CUSHION := Color("714a3f")
-const COATING := Color("a589a9")
-const SIDES: Array[float] = [-1.0, 1.0]
-const HEAT_FINS: Array[float] = [-2.0, 0.0, 2.0]
+const CUSHION := Color("936547")
+const SIGNAL := Color("91d3df")
 const BREAK_POINTS: Array[int] = [3, 6, 9]
 const AIM_LIMITS: Array[int] = [0, SEGMENTS]
-static var _plate_outline := PackedVector2Array([Vector2(-2, -5), Vector2(3, -6), Vector2(7, -4), Vector2(8, 2), Vector2(5, 5), Vector2(-1, 5)])
-static var _plate_skin := PackedVector2Array([Vector2(-0.7, -4), Vector2(3, -4.7), Vector2(6, -3.4), Vector2(6.7, 1.6), Vector2(4.5, 3.8), Vector2(0, 3.8)])
-static var _bevel := PackedVector2Array([Vector2(3, -4.7), Vector2(6, -3.4), Vector2(6.7, 1.6), Vector2(4.5, 3.8), Vector2(4.6, -1.5)])
-
-var _active := false
-var _broken := false
-var _arc_degrees := -1.0
-var _rim := PackedVector2Array()
 const PART_REACTION := &"reaction_chip"
 const PART_EXTENSION := &"extension_plate"
 const PART_CUSHION := &"cushion_pad"
 const PART_HEAT_SINK := &"heat_sink"
 const PART_LIGHT_FRAME := &"light_frame"
 const PART_DEFLECT := &"deflect_coat"
+
+# The negative x margins are the tongues hidden by the neighbouring parts.
+const CUFF := Rect2(-8.2, -2.4, 10.0, 4.8)
+const CARRIAGE := Rect2(-1.7, -1.4, 7.2, 2.8)
+const ROOT := Rect2(-11.0, -2.4, 25.0, 4.8)
+const SLIDER := Rect2(-4.0, -1.75, 18.0, 3.5)
+const NOSE := Rect2(-3.2, -1.45, 13.0, 2.9)
+
+var _active := false
+var _broken := false
+var _arc_degrees := -1.0
+var _rim := PackedVector2Array()
+var _impact_left := 0.0
+
+# All guards share the same immutable textures. Resolve once at level setup
+# so the first press never starts an import or opens the resource on disk.
+static var _cuff: Texture2D
+static var _carriage: Texture2D
+static var _root: Texture2D
+static var _slider: Texture2D
+static var _nose: Texture2D
+static var _loaded := false
+
+
+func _init() -> void:
+	if _loaded:
+		return
+	_loaded = true
+	_cuff = _load_part("res://art/equipment/forearm_deflector/cuff.png")
+	_carriage = _load_part("res://art/equipment/forearm_deflector/carriage.png")
+	_root = _load_part("res://art/equipment/forearm_deflector/root.png")
+	_slider = _load_part("res://art/equipment/forearm_deflector/slider.png")
+	_nose = _load_part("res://art/equipment/forearm_deflector/nose.png")
+
+
+static func _load_part(path: String) -> Texture2D:
+	var texture := ResourceLoader.load(path, "Texture2D") as Texture2D if ResourceLoader.exists(path, "Texture2D") else null
+	if texture == null:
+		push_warning("[ShieldSurface] Missing deflector artwork: %s" % path)
+	return texture
 
 
 func update(delta: float, active: bool, broken: bool, aim: Vector2, arc_degrees: float) -> void:
@@ -45,6 +73,7 @@ func update(delta: float, active: bool, broken: bool, aim: Vector2, arc_degrees:
 	if broken and not _broken and _active:
 		break_left = BREAK_TIME
 	break_left = maxf(0.0, break_left - maxf(0.0, delta))
+	_impact_left = maxf(0.0, _impact_left - maxf(0.0, delta))
 	extension = move_toward(extension, 1.0 if active else 0.0, maxf(0.0, delta) / (RAISE_TIME if active else LOWER_TIME))
 	_active = active
 	_broken = broken
@@ -71,51 +100,78 @@ static func contact(center: Vector2, incoming: Vector2, aim: Vector2) -> Vector2
 	return center + along * RADIUS
 
 
-## The mount stays on the forearm as the leaves fold out around it.
-func paint_emitter(canvas: CanvasItem, wrist: Vector2, _center: Vector2, guard_ratio: float) -> Vector2:
-	if extension <= 0.0 or break_left > 0.0 or not wrist.is_finite():
+func notify_impact(incoming: Vector2) -> void:
+	super.notify_impact(incoming)
+	_impact_left = IMPACT_TIME
+
+
+## Full guard uses the existing directional defence. These distances describe
+## the two nested slides and can be read by the pose checks without drawing.
+func slide_offsets() -> Vector2:
+	var extended := parts.has(PART_EXTENSION)
+	var slider_travel := 14.0 if extended else 7.5
+	var nose_travel := 10.0 if extended and parts.has(PART_DEFLECT) else 0.0
+	return Vector2(slider_travel * smoothstep(0.26, 0.88, extension),
+			nose_travel * smoothstep(0.58, 1.0, extension))
+
+
+## The axle follows the actual wrist while the plate pivots across the shot.
+## Each moving rail shares the same local x axis and overlaps its socket.
+func paint_emitter(canvas: CanvasItem, wrist: Vector2, _center: Vector2, guard_ratio: float,
+		forearm := Vector2.RIGHT, facing := 1, motion_scale := 1.0) -> Vector2:
+	if extension <= 0.0 or not wrist.is_finite():
 		return wrist
-	var deployment := smoothstep(0.0, 1.0, extension)
-	var side := direction.orthogonal()
-	var span := (8.7 if parts.has(PART_EXTENSION) else 6.3) * deployment
-	var thickness := 0.71 if parts.has(PART_LIGHT_FRAME) else 0.87
-	var base_angle := direction.angle()
-	canvas.draw_set_transform(wrist, base_angle, Vector2.ONE)
-	canvas.draw_rect(Rect2(-4.5, -2.8, 6.9, 5.6), CASE)
-	canvas.draw_rect(Rect2(-3.5, -1.8, 4.0, 3.6), STEEL)
-	canvas.draw_line(Vector2(-4.5, 0.8), Vector2(-1.4, 0.8), INSIDE, 1.0)
-	for side_sign in SIDES:
-		var hinge := wrist + direction * deployment * 2.0 + side * (span * side_sign)
-		canvas.draw_set_transform(Vector2.ZERO)
-		canvas.draw_line(wrist, hinge + direction * 1.5, CASE, 2.2)
-		canvas.draw_line(wrist, hinge + direction * 1.5, EDGE.darkened(0.4), 0.65)
-		canvas.draw_set_transform(hinge, base_angle + side_sign * 0.32 * (1.0 - deployment), Vector2(thickness, lerpf(0.34, 0.97, deployment)))
-		_paint_plate(canvas, STEEL.darkened(0.10 if side_sign < 0.0 else 0.23))
-		canvas.draw_circle(Vector2(0.3, 0.8), 0.65, EDGE.darkened(0.25))
-	var plate_scale := lerpf(0.55, 1.0, deployment)
-	canvas.draw_set_transform(wrist + direction * (3.0 * deployment), base_angle, Vector2(thickness, 1.0) * plate_scale)
-	_paint_plate(canvas, STEEL)
-	canvas.draw_line(Vector2(1.6, -2.6), Vector2(3.1, -3.0), PAINT, 1.25)
-	canvas.draw_line(Vector2(1.9, -0.6), Vector2(3.4, -1.0), PAINT, 1.25)
-	canvas.draw_rect(Rect2(5.1, 0.2, 1.2, 2.7), LAMP if guard_ratio > 0.33 else LOW_ENERGY)
-	if parts.has(PART_CUSHION):
-		canvas.draw_line(Vector2(-2.7, -3.3), Vector2(-2.7, 4.3), CUSHION, 1.9)
+	var fold := smoothstep(0.0, 0.68, extension)
+	var stages := slide_offsets()
+	var alloy := parts.has(PART_DEFLECT)
+	var cushioned := parts.has(PART_CUSHION)
+	var thickness := 0.82 if parts.has(PART_LIGHT_FRAME) else 1.0
+	var hand_angle := forearm.angle() if forearm.is_finite() and forearm.length_squared() > 0.01 else direction.angle()
+	var side := -1.0 if facing < 0 else 1.0
+	var pitch := clampf(atan2(direction.y, absf(direction.x)), -1.2, 1.2)
+	var strike := _impact_left / IMPACT_TIME
+	var kick := strike * motion_scale * (0.07 if cushioned else 0.13)
+	var release := break_left / BREAK_TIME * motion_scale * 0.28
+	var open_angle := -PI * 0.5 + side * (0.24 + pitch * 0.68 - kick + release)
+	var angle := lerp_angle(hand_angle + PI, open_angle, fold)
+	var tint := Color(0.83, 0.97, 1.0) if alloy else Color.WHITE
+	canvas.draw_set_transform(wrist, hand_angle, Vector2(1.0, side))
+	_paint_piece(canvas, _cuff, CUFF)
+	if cushioned:
+		var compression := 1.0 - strike * motion_scale * 0.65
+		canvas.draw_rect(Rect2(-6.8, -2.35, 2.0 * compression, 0.9), CUSHION)
+	canvas.draw_set_transform(wrist, angle, Vector2(lerpf(0.66, 1.0, fold), side * thickness))
+	if stages.y > 0.0:
+		var nose_x := stages.x + stages.y + 3.8
+		_paint_piece(canvas, _nose, Rect2(NOSE.position + Vector2(nose_x, 0), NOSE.size), tint)
+	_paint_piece(canvas, _slider, Rect2(SLIDER.position + Vector2(stages.x, 0), SLIDER.size), tint)
+	_paint_piece(canvas, _root, ROOT, tint)
 	if parts.has(PART_HEAT_SINK):
-		for i in HEAT_FINS:
-			canvas.draw_line(Vector2(7, i), Vector2(8.8, i), EDGE, 0.8)
-	if parts.has(PART_DEFLECT):
-		canvas.draw_line(Vector2(4.0, -3.6), Vector2(6.0, -2.1), COATING, 0.8)
+		# The vents lift in sequence as the slide locks.
+		for fin in 3:
+			var x := 4.6 + fin * 2.0
+			var lift := smoothstep(0.36 + fin * 0.11, 0.68 + fin * 0.11, extension)
+			canvas.draw_line(Vector2(x, 1.35), Vector2(x - lift * motion_scale, 2.1 + lift * 0.9), EDGE, 0.62)
+	if alloy:
+		var charge := maxf(0.36, strike * Settings.flash_scale())
+		var rail_tip := stages.x + (stages.y + 11.0 if stages.y > 0.0 else 10.0)
+		var groove := Color(SIGNAL, charge * fold)
+		canvas.draw_line(Vector2(4.5, -0.2), Vector2(maxf(4.5, rail_tip), -0.2), groove, 0.68)
+		if stages.y > 0.0:
+			canvas.draw_line(Vector2(rail_tip - 3.0, -0.74), Vector2(rail_tip, -0.74), groove, 0.67)
+	_paint_piece(canvas, _carriage, CARRIAGE)
+	var led := LAMP if guard_ratio > 0.33 else HOT_EDGE
+	canvas.draw_rect(Rect2(1.3, 0.5, 1.2, 0.62), Color(led, 0.9 * fold))
 	canvas.draw_set_transform(Vector2.ZERO)
 	return wrist
 
 
-func _paint_plate(canvas: CanvasItem, color: Color) -> void:
-	canvas.draw_colored_polygon(_plate_outline, CASE)
-	canvas.draw_colored_polygon(_plate_skin, color)
-	canvas.draw_colored_polygon(_bevel, INSIDE)
-	canvas.draw_line(Vector2(0, -4), Vector2(3, -4.7), EDGE, 0.7)
-	canvas.draw_rect(Rect2(0.1, 1.9, 1.1, 1.1), CASE)
-	canvas.draw_line(Vector2(4.7, 0.7), Vector2(5.8, 1.0), Color(EDGE, 0.66), 0.55)
+func _paint_piece(canvas: CanvasItem, texture: Texture2D, rect: Rect2, tint := Color.WHITE) -> void:
+	if texture != null:
+		canvas.draw_texture_rect(texture, rect, false, tint)
+	else:
+		canvas.draw_rect(rect, CASE)
+		canvas.draw_rect(rect.grow(-0.38), STEEL * tint)
 
 
 func paint(canvas: CanvasItem, center: Vector2, guard_ratio: float, parry_window: bool,
@@ -138,7 +194,9 @@ func paint(canvas: CanvasItem, center: Vector2, guard_ratio: float, parry_window
 			var point := _rim[index]
 			canvas.draw_line(point * 0.86, point * 0.94, Color(warm, tick_alpha), 0.9)
 		if parry_window and parts.has(PART_REACTION):
-			canvas.draw_circle(_rim[SEGMENTS >> 1] * 0.9, 1.2, Color(warm, tick_alpha))
+			var scan := (1.0 - window_left) * motion_scale
+			var marker := _rim[SEGMENTS >> 1] * (0.86 + 0.11 * scan)
+			canvas.draw_line(marker - Vector2(0, 1.6), marker + Vector2(0, 1.6), Color(SIGNAL, tick_alpha * flash_scale), 0.9)
 	canvas.draw_set_transform(Vector2.ZERO)
 	if parry_flash > 0.0 or block_flash > 0.0:
 		var perfect := parry_flash > 0.0
@@ -149,3 +207,9 @@ func paint(canvas: CanvasItem, center: Vector2, guard_ratio: float, parry_window
 		canvas.draw_line(point - side * 2.0, point + side * 2.0, color, 1.0)
 		if perfect:
 			canvas.draw_line(point, point + impact_direction * 4.0, color, 0.9)
+		if parts.has(PART_DEFLECT):
+			var sweep := 1.0 - t
+			var back := point + impact_direction * (1.0 + 5.0 * sweep * motion_scale)
+			var pulse := Color(LightKit.glow(SIGNAL, 1.0 + 0.3 * flash_scale), t * flash_scale)
+			canvas.draw_line(back, back + impact_direction * 4.5 + side * 2.0, pulse, 0.72)
+			canvas.draw_line(back, back + impact_direction * 4.5 - side * 2.0, pulse, 0.72)
