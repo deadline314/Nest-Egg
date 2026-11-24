@@ -188,6 +188,7 @@ func _campaign() -> void:
 	AssetPrefetch.clear()
 	await drain()
 	sample("campaign-exit")
+	await AudioRelease.settle(get_tree())
 
 
 func _settle_spawn(level: Level) -> void:
