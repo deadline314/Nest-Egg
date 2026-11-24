@@ -44,6 +44,7 @@ func _draw() -> void:
 			var origin := Vector2(CELL.x * i, CELL.y * row)
 			var center := origin + Vector2(26, 48)
 			draw_rect(Rect2(center + Vector2(-6, -14), Vector2(12, 28)), Color(0.25, 0.27, 0.32))  # 身體的位置
+			presenter.paint_emitter(self, center + Vector2(13, -7), center, 1.0)
 			presenter.paint(self, center, 1.0, row == 1, 0.8, 0.0, 0.0, 1.0, 1.0)
 			if row == 0:
 				draw_string(font, origin + Vector2(4, 10), str(_columns[i]["label"]), HORIZONTAL_ALIGNMENT_LEFT, CELL.x - 6, 8, Color.WHITE)

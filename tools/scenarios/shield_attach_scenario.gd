@@ -1,6 +1,6 @@
 class_name ShieldAttachScenario
 extends ScenarioBase
-## 截圖情境（NE-239）：用真正的按鍵舉盾、手把右搖桿瞄準，拍不同武器、上中下瞄準與跳躍時，盾由前手手腕投射的樣子。
+## 截圖情境（NE-239）：用真正的按鍵舉盾、手把右搖桿瞄準，拍不同武器、上中下瞄準與跳躍時，後臂的折疊偏折板是否一直接在前臂。
 ## 用法：godot res://tools/screenshot.tscn -- --out=/絕對路徑 --scenario=shield_attach
 
 const LIGHTING := "res://data/lighting/neutral.tres"

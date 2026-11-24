@@ -1,25 +1,36 @@
 class_name ShieldSurface
 extends GuardPresenter
-## Directional field presentation (the GuardPresenter used until NE-269's arm shield). Gameplay owns the angle, timing and damage.
-## Geometry is rebuilt only when the block angle changes; no particles or nodes.
+## Mechanical forearm plates and directional feedback. Gameplay owns the angle, timing and damage.
 
 const RADIUS := 28.0
 const RAISE_TIME := 0.08
 const LOWER_TIME := 0.12
 const BREAK_TIME := 0.22
 const SEGMENTS := 12
-const INK := Color(0.035, 0.075, 0.105, 0.95)
 const ARC_MIN := 0.0
 const ARC_MAX := 360.0
+const CASE := Color("21242a")
+const STEEL := Color("4c5260")
+const INSIDE := Color("343a43")
+const EDGE := Color("9c896c")
+const LAMP := Color("ebbc70")
+const PAINT := Color("a87739")
+const LOW_ENERGY := Color("d27156")
+const HOT_EDGE := Color("be624c")
+const CUSHION := Color("714a3f")
+const COATING := Color("a589a9")
+const SIDES: Array[float] = [-1.0, 1.0]
+const HEAT_FINS: Array[float] = [-2.0, 0.0, 2.0]
+const BREAK_POINTS: Array[int] = [3, 6, 9]
+const AIM_LIMITS: Array[int] = [0, SEGMENTS]
+static var _plate_outline := PackedVector2Array([Vector2(-2, -5), Vector2(3, -6), Vector2(7, -4), Vector2(8, 2), Vector2(5, 5), Vector2(-1, 5)])
+static var _plate_skin := PackedVector2Array([Vector2(-0.7, -4), Vector2(3, -4.7), Vector2(6, -3.4), Vector2(6.7, 1.6), Vector2(4.5, 3.8), Vector2(0, 3.8)])
+static var _bevel := PackedVector2Array([Vector2(3, -4.7), Vector2(6, -3.4), Vector2(6.7, 1.6), Vector2(4.5, 3.8), Vector2(4.6, -1.5)])
 
 var _active := false
 var _broken := false
 var _arc_degrees := -1.0
 var _rim := PackedVector2Array()
-var _film := PackedVector2Array()
-## 臂盾零件的外觀（NE-269）：緩衝襯墊的內層、散熱鰭片的外緣短線。幾何跟著角度重建，不每格配置。
-var _inner := PackedVector2Array()
-var _fins := PackedVector2Array()
 const PART_REACTION := &"reaction_chip"
 const PART_EXTENSION := &"extension_plate"
 const PART_CUSHION := &"cushion_pad"
@@ -45,17 +56,10 @@ func update(delta: float, active: bool, broken: bool, aim: Vector2, arc_degrees:
 
 func _build_geometry() -> void:
 	_rim.resize(SEGMENTS + 1)
-	_film.resize((SEGMENTS + 1) * 2)
-	_inner.resize(SEGMENTS + 1)
-	_fins.resize(SEGMENTS + 1)
 	var half_arc := deg_to_rad(_arc_degrees * 0.5)
 	for i in SEGMENTS + 1:
 		var unit := Vector2.RIGHT.rotated(lerpf(-half_arc, half_arc, float(i) / SEGMENTS))
 		_rim[i] = unit * RADIUS
-		_film[i] = unit * RADIUS
-		_film[(SEGMENTS + 1) * 2 - 1 - i] = unit * (RADIUS - 5.0)
-		_inner[i] = unit * (RADIUS - 7.0)
-		_fins[i] = unit * (RADIUS + 3.0)
 
 
 ## Contact feedback shares the shield's body-centred geometry, without changing
@@ -67,83 +71,81 @@ static func contact(center: Vector2, incoming: Vector2, aim: Vector2) -> Vector2
 	return center + along * RADIUS
 
 
-## 投射線：盾由前臂義體投射——從手腕到盾面內緣中點畫一條細線與小節點，隨展開淡入；破盾時不畫。
-## 只是呈現，不改防禦角度、距離或窗口。回傳盾面內緣中點（測試用來量手腕到盾面的距離）。
-func paint_emitter(canvas: CanvasItem, wrist: Vector2, center: Vector2, guard_ratio: float) -> Vector2:
-	var anchor := center + direction * (RADIUS - 5.0) * lerpf(0.88, 1.0, extension)
+## The mount stays on the forearm as the leaves fold out around it.
+func paint_emitter(canvas: CanvasItem, wrist: Vector2, _center: Vector2, guard_ratio: float) -> Vector2:
 	if extension <= 0.0 or break_left > 0.0 or not wrist.is_finite():
-		return anchor
-	var tint := Palette.CYAN.lerp(Palette.DANGER, 1.0 - clampf(guard_ratio, 0.0, 1.0))
-	canvas.draw_line(wrist, anchor, Color(LightKit.glow(tint, 1.3), 0.55 * extension), 1.0)
-	canvas.draw_circle(wrist, 1.3, Color(LightKit.glow(tint, 1.8), 0.85 * extension))
-	return anchor
+		return wrist
+	var deployment := smoothstep(0.0, 1.0, extension)
+	var side := direction.orthogonal()
+	var span := (8.7 if parts.has(PART_EXTENSION) else 6.3) * deployment
+	var thickness := 0.71 if parts.has(PART_LIGHT_FRAME) else 0.87
+	var base_angle := direction.angle()
+	canvas.draw_set_transform(wrist, base_angle, Vector2.ONE)
+	canvas.draw_rect(Rect2(-4.5, -2.8, 6.9, 5.6), CASE)
+	canvas.draw_rect(Rect2(-3.5, -1.8, 4.0, 3.6), STEEL)
+	canvas.draw_line(Vector2(-4.5, 0.8), Vector2(-1.4, 0.8), INSIDE, 1.0)
+	for side_sign in SIDES:
+		var hinge := wrist + direction * deployment * 2.0 + side * (span * side_sign)
+		canvas.draw_set_transform(Vector2.ZERO)
+		canvas.draw_line(wrist, hinge + direction * 1.5, CASE, 2.2)
+		canvas.draw_line(wrist, hinge + direction * 1.5, EDGE.darkened(0.4), 0.65)
+		canvas.draw_set_transform(hinge, base_angle + side_sign * 0.32 * (1.0 - deployment), Vector2(thickness, lerpf(0.34, 0.97, deployment)))
+		_paint_plate(canvas, STEEL.darkened(0.10 if side_sign < 0.0 else 0.23))
+		canvas.draw_circle(Vector2(0.3, 0.8), 0.65, EDGE.darkened(0.25))
+	var plate_scale := lerpf(0.55, 1.0, deployment)
+	canvas.draw_set_transform(wrist + direction * (3.0 * deployment), base_angle, Vector2(thickness, 1.0) * plate_scale)
+	_paint_plate(canvas, STEEL)
+	canvas.draw_line(Vector2(1.6, -2.6), Vector2(3.1, -3.0), PAINT, 1.25)
+	canvas.draw_line(Vector2(1.9, -0.6), Vector2(3.4, -1.0), PAINT, 1.25)
+	canvas.draw_rect(Rect2(5.1, 0.2, 1.2, 2.7), LAMP if guard_ratio > 0.33 else LOW_ENERGY)
+	if parts.has(PART_CUSHION):
+		canvas.draw_line(Vector2(-2.7, -3.3), Vector2(-2.7, 4.3), CUSHION, 1.9)
+	if parts.has(PART_HEAT_SINK):
+		for i in HEAT_FINS:
+			canvas.draw_line(Vector2(7, i), Vector2(8.8, i), EDGE, 0.8)
+	if parts.has(PART_DEFLECT):
+		canvas.draw_line(Vector2(4.0, -3.6), Vector2(6.0, -2.1), COATING, 0.8)
+	canvas.draw_set_transform(Vector2.ZERO)
+	return wrist
+
+
+func _paint_plate(canvas: CanvasItem, color: Color) -> void:
+	canvas.draw_colored_polygon(_plate_outline, CASE)
+	canvas.draw_colored_polygon(_plate_skin, color)
+	canvas.draw_colored_polygon(_bevel, INSIDE)
+	canvas.draw_line(Vector2(0, -4), Vector2(3, -4.7), EDGE, 0.7)
+	canvas.draw_rect(Rect2(0.1, 1.9, 1.1, 1.1), CASE)
+	canvas.draw_line(Vector2(4.7, 0.7), Vector2(5.8, 1.0), Color(EDGE, 0.66), 0.55)
 
 
 func paint(canvas: CanvasItem, center: Vector2, guard_ratio: float, parry_window: bool,
 		window_left: float, block_flash: float, parry_flash: float, flash_scale: float, motion_scale: float) -> void:
 	if _rim.is_empty() or not has_visible_effects(parry_flash):
 		return
-	var remaining := clampf(guard_ratio, 0.0, 1.0)
-	var strength := clampf(flash_scale, 0.0, 1.0)
-	var motion := clampf(motion_scale, 0.0, 1.0)
-	var alpha := maxf(extension, minf(parry_flash / 0.25, 1.0))
-	var recoil := minf(block_flash / 0.1, 1.0) * 1.5 * motion
-	var expansion := lerpf(0.88, 1.0, extension) - recoil / RADIUS
-	canvas.draw_set_transform(center, direction.angle(), Vector2.ONE * expansion)
-	var tint := Palette.CYAN.lerp(Palette.DANGER, 1.0 - remaining)
-	# Narrow transparent film keeps both character and incoming threats visible.
-	if break_left <= 0.0:
-		var light_frame := parts.has(PART_LIGHT_FRAME)
-		if _arc_degrees > 0.01 and _arc_degrees < 359.99:
-			canvas.draw_colored_polygon(_film, Color(tint, (0.06 if light_frame else 0.1) * alpha))
-		# 緩衝襯墊：盾背多一層暗色內襯。
-		if parts.has(PART_CUSHION):
-			canvas.draw_polyline(_inner, Color(INK, alpha * 0.9), 2.6, false)
-			canvas.draw_polyline(_inner, Color(tint.darkened(0.35), alpha * 0.8), 1.0, false)
-		# 散熱鰭片：盾緣外側一排短鰭。
-		if parts.has(PART_HEAT_SINK):
-			for i in range(1, SEGMENTS, 2):
-				canvas.draw_line(_rim[i], _fins[i], Color(Palette.WHITE.darkened(0.35), alpha * 0.8), 1.0)
-		# 輕量骨架：盾框變薄。
-		canvas.draw_polyline(_rim, Color(INK, alpha), 1.8 if light_frame else 3.4, false)
-		var powered := maxi(1, ceili(remaining * SEGMENTS))
-		for i in SEGMENTS:
-			var lit := i < powered
-			var edge := LightKit.glow(tint, 1.2 + 0.25 * strength) if lit else tint.darkened(0.55)
-			canvas.draw_line(_rim[i], _rim[i + 1], Color(edge, alpha * (1.0 if lit else 0.45)), (0.9 if light_frame else 1.4) if lit else 0.8)
-		# Both end caps survive low effects and colour blindness.
-		var cap_depth := 0.74 if parts.has(PART_EXTENSION) else 0.86  # 延伸片：兩端多一截加長片
-		for side in 2:
-			var index := side * SEGMENTS
-			var cap := _rim[index]
-			canvas.draw_line(cap * cap_depth, cap, Color(Palette.WHITE, alpha * 0.85), 1.5)
-		# 偏折塗層：盾面中段一道反光。
-		if parts.has(PART_DEFLECT):
-			var from := int(SEGMENTS / 3.0)
-			for i in range(from, SEGMENTS - from):
-				canvas.draw_line(_rim[i] * 0.9, _rim[i + 1] * 0.9, Color(LightKit.glow(Palette.NEON_PURPLE, 1.2), alpha * 0.85), 1.3)
-		# 反應晶片：盾緣正中一排指示燈，完美格擋窗口內亮起。
-		if parts.has(PART_REACTION):
-			var middle := int(SEGMENTS / 2.0)
-			var lamp := Color(LightKit.glow(Palette.WHITE, 1.5), alpha) if parry_window else Color(tint.darkened(0.5), alpha * 0.8)
-			for i in range(middle - 1, middle + 2):
-				canvas.draw_circle(_rim[i] * 0.9, 0.9, lamp)
-		if parry_window:
-			var timer_radius := 1.0 + (1.0 + 4.0 * clampf(window_left, 0.0, 1.0) * motion) / RADIUS
-			canvas.draw_set_transform(center, direction.angle(), Vector2.ONE * timer_radius)
-			canvas.draw_polyline(_rim, Color(Palette.WHITE, alpha * 0.75), 1.0, false)
-	else:
+	var warm := LAMP.lerp(HOT_EDGE, 1.0 - clampf(guard_ratio, 0.0, 1.0))
+	canvas.draw_set_transform(center, direction.angle())
+	if break_left > 0.0:
 		var t := break_left / BREAK_TIME
-		# Three small forward fragments; never a full-screen flash or back bubble.
-		for i in range(0, SEGMENTS, 4):
-			var offset := _rim[i + 2].normalized() * (1.0 - t) * 7.0 * motion
-			canvas.draw_line(_rim[i] + offset, _rim[i + 3] + offset, Color(Palette.DANGER, t), 1.3)
-	canvas.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+		for i in BREAK_POINTS:
+			var offset := _rim[i].normalized() * (1.0 - t) * 5.0 * motion_scale
+			canvas.draw_line(_rim[i] * 0.77 + offset, _rim[i] * 0.87 + offset, Color(warm, t), 1.0)
+	elif extension > 0.0:
+		# Two short ticks preserve the existing defence angle without sweeping a bright arc.
+		var tick_alpha := 0.54 * extension
+		if parry_window:
+			tick_alpha = 0.72 + window_left * 0.18 * flash_scale
+		for index in AIM_LIMITS:
+			var point := _rim[index]
+			canvas.draw_line(point * 0.86, point * 0.94, Color(warm, tick_alpha), 0.9)
+		if parry_window and parts.has(PART_REACTION):
+			canvas.draw_circle(_rim[SEGMENTS >> 1] * 0.9, 1.2, Color(warm, tick_alpha))
+	canvas.draw_set_transform(Vector2.ZERO)
 	if parry_flash > 0.0 or block_flash > 0.0:
 		var perfect := parry_flash > 0.0
 		var t := minf(parry_flash / 0.25 if perfect else block_flash / 0.1, 1.0)
-		var at := center + impact_direction * RADIUS
-		var perpendicular := impact_direction.orthogonal()
-		var half_size := 3.0 if perfect else 1.7
-		canvas.draw_line(at - perpendicular * half_size, at + perpendicular * half_size,
-			Color(LightKit.glow(Palette.WHITE, 1.6), t * lerpf(0.65, 1.0, strength)), 1.5)
+		var point := center + impact_direction * RADIUS
+		var side := impact_direction.orthogonal()
+		var color := Color(LightKit.glow(LAMP if perfect else EDGE, 1.0 + 0.5 * flash_scale), t)
+		canvas.draw_line(point - side * 2.0, point + side * 2.0, color, 1.0)
+		if perfect:
+			canvas.draw_line(point, point + impact_direction * 4.0, color, 0.9)

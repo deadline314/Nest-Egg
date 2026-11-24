@@ -22,6 +22,7 @@ func run() -> void:
 	await _test_shield_outcomes()
 	await _test_shield_rules_unchanged()
 	await _test_shield_landing_frames()
+	await _test_guard_footing()
 	await _test_block_input_parity()
 	_test_arm_shield_catalog()
 	await _test_arm_shield_rules()
@@ -235,18 +236,17 @@ func _test_shield_attachment() -> void:
 					await frames(2)
 					var center := visual.to_local(player.global_position + Vector2(0, -Player.BODY_SIZE.y * 0.5))
 					var wrist := visual.shield_wrist_local()
-					var anchor := center + visual._shield.direction * (ShieldSurface.RADIUS - 5.0) * lerpf(0.88, 1.0, visual._shield.extension)
-					var reach := wrist.distance_to(anchor)
+					var reach := wrist.distance_to(_expected_deflector_mount(visual))
 					var from_body := wrist - center
 					worst = maxf(worst, reach)
-					if not player.is_blocking or reach > ShieldSurface.RADIUS * 1.5 or absf(from_body.x) > 22.0 or absf(from_body.y) > 36.0:
+					if not player.is_blocking or reach > 0.01 or absf(from_body.x) > 22.0 or absf(from_body.y) > 36.0:
 						failures.append("%s face %d aim %s %s: reach %.1f wrist %s" % [weapon.id, int(face), dir, motion, reach, from_body])
 					for action: StringName in [&"block", &"move_left", &"move_right", &"jump"]:
 						Input.action_release(action)
 					await physics_frames(20)
 	_press_stick(Vector2.ZERO)
 	AimInput.set_virtual_gamepad(player, false)
-	check(failures.is_empty(), "the shield stays attached to the front wrist for every weapon, aim, motion and facing (worst reach %.1f): %s" % [worst, failures.slice(0, 4)])
+	check(failures.is_empty(), "the deflector stays mounted on the rear forearm for every weapon, aim, motion and facing (worst offset %.2f): %s" % [worst, failures.slice(0, 4)])
 	await end_level(level)
 
 
@@ -368,10 +368,10 @@ func _test_shield_landing_frames() -> void:
 				after_landing = 0
 			var center := visual.to_local(player.global_position + Vector2(0, -Player.BODY_SIZE.y * 0.5))
 			var wrist := visual.shield_wrist_local()
-			var anchor := center + visual._shield.direction * (ShieldSurface.RADIUS - 5.0) * lerpf(0.88, 1.0, visual._shield.extension)
+			var reach := wrist.distance_to(_expected_deflector_mount(visual))
 			var from_body := wrist - center
-			if wrist.distance_to(anchor) > ShieldSurface.RADIUS * 1.5 or absf(from_body.x) > 22.0 or absf(from_body.y) > 36.0:
-				failures.append("face %d frame %d floor %s: reach %.1f wrist %s" % [int(face), i, on_floor, wrist.distance_to(anchor), from_body])
+			if reach > 0.01 or absf(from_body.x) > 22.0 or absf(from_body.y) > 36.0:
+				failures.append("face %d frame %d floor %s: reach %.1f wrist %s" % [int(face), i, on_floor, reach, from_body])
 			if after_landing >= 0:
 				after_landing += 1
 				landed_frames += 1
@@ -382,8 +382,44 @@ func _test_shield_landing_frames() -> void:
 		await physics_frames(20)
 	AimInput.set_virtual_gamepad(player, false)
 	check(landed_frames >= 16, "both jumps were followed through their landing (%d frames)" % landed_frames)
-	check(failures.is_empty(), "the shield stays on the wrist on every frame of the jump and landing: %s" % [failures.slice(0, 4)])
+	check(failures.is_empty(), "the deflector stays on the forearm on every frame of the jump and landing: %s" % [failures.slice(0, 4)])
 	await end_level(level)
+
+
+func _test_guard_footing() -> void:
+	await open_level(20.0)
+	var player := level.player
+	var animator: HumanoidAnimator = player._visual.rig.animator
+	AimInput.set_virtual_gamepad(player, true)
+	for facing: int in [1, -1]:
+		place_player(20.0)
+		_press_stick(Vector2(facing, 0.0))
+		Input.action_press(&"block")
+		await physics_frames(25)
+		check(player.is_blocking and player.is_on_floor(), "guard footing sampled in a grounded hold")
+		for foot in [&"foot_front", &"foot_back"]:
+			var depth := animator.foot_contact_depth(foot)
+			check(absf(depth) <= 0.5, "both soles rest on the ground in a held guard: %s facing %d depth %.3f" % [foot, facing, depth])
+		var direction := &"move_right" if facing > 0 else &"move_left"
+		Input.action_press(direction)
+		await physics_frames(12)
+		check(absf(player.velocity.x) > 10.0 and player.is_blocking, "guarded movement keeps its real gait")
+		Input.action_release(direction)
+		await physics_frames(28)
+		for foot in [&"foot_front", &"foot_back"]:
+			var depth := animator.foot_contact_depth(foot)
+			check(absf(depth) <= 0.5, "the two-foot brace returns after moving: %s facing %d depth %.3f" % [foot, facing, depth])
+		Input.action_release(&"block")
+		await physics_frames(10)
+	_press_stick(Vector2.ZERO)
+	AimInput.set_virtual_gamepad(player, false)
+	await end_level(level)
+
+
+func _expected_deflector_mount(visual: PlayerVisual) -> Vector2:
+	var hand := visual.rig.bone(&"hand_back").global_position
+	var elbow := visual.rig.bone(&"arm_back_lower").global_position
+	return visual.to_local(hand.lerp(elbow, 0.22))
 
 
 func _press_stick(direction: Vector2) -> void:

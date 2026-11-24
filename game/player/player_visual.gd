@@ -478,6 +478,7 @@ func _physics_process(delta: float) -> void:
 		aim = aim.slerp(Vector2(player.facing * 0.6, 0.8), lower)
 	_sync_aim_pose(aim)
 	_input.run_speed = player.tuning.run_speed
+	_input.shield_forward = player.is_blocking
 	_input.dashing = player.state == Player.State.DASH
 	_input.staggered = player.state == Player.State.STAGGERED
 	_input.dead = player.state == Player.State.DEAD
@@ -634,16 +635,17 @@ func _draw() -> void:
 		draw_arc(Vector2(0, -body_center_height()), 26.0 * (1.5 - t), 0.0, TAU, 28, Color(LightKit.glow(Palette.WHITE, 2.0), t), 2.0)
 
 
-## 盾的投射點：前手手腕（本地座標）；沒有骨架時用胸口前方。
+## 折疊偏折板固定在後手前臂靠近手腕處（本地座標）。
 func shield_wrist_local() -> Vector2:
 	if rig != null and rig.is_valid():
-		var hand := rig.bone(&"hand_front")
-		if hand != null:
-			return to_local(hand.global_position)
+		var hand := rig.bone(&"hand_back")
+		var elbow := rig.bone(&"arm_back_lower")
+		if hand != null and elbow != null:
+			return to_local(hand.global_position.lerp(elbow.global_position, 0.22))
 	return to_local(player.global_position + Vector2(player.facing * 6.0, -Player.BODY_SIZE.y * 0.6))
 
 
-## 義體方向護盾：與實際方向判定共用身體中心；動畫不改防禦窗口。
+## 折疊偏折板裝在手臂上，碰撞回饋沿用以身體為中心的格擋判定。
 func _draw_shield() -> void:
 	var center := to_local(player.global_position + Vector2(0, -Player.BODY_SIZE.y * 0.5))
 	var ratio := clampf(player.guard / maxf(player.guard_max(), 0.001), 0.0, 1.0)

@@ -59,7 +59,7 @@ const DEFAULT_MOTION := {
 	"dash": {"forward": {"chest": 0.38, "legs": [-1.0, 0.6, 0.85, 1.0]}, "back": {"chest": -0.22, "legs": [0.5, 0.9, -0.7, 0.4]}, "hip_drop": 0.0},
 	"land": {"gain": 0.0, "stiffness": 220.0, "damping": 16.0, "drop": 0.0, "chest": 0.0, "legs": [-0.8, 1.3, 0.1, 0.9]},
 	"impulse": {"jump": 0.0, "land": 0.0, "dash": 0.0, "hurt": 0.0, "stop": 0.0},
-	"block": {"chest": 0.1, "legs": [-0.4, 0.5, 0.5, 0.2]},
+	"block": {"chest": 0.1, "legs": [-0.4, 0.5, 0.5, 0.2], "plant_feet": false},
 	"hurt": {"stagger_chest": -0.35, "kick": 0.3},
 	"look": {"chest": 0.12, "neck": 0.12, "head": 0.3, "head_min": -0.35, "head_max": 0.3},
 	"npc": {"stand": {}, "talk_speed": 1.0, "talk_amp": 1.0, "life": {}},
@@ -363,7 +363,9 @@ func update(delta: float, input: RigInput) -> void:
 	_kneel(delta, input)
 	var floor_pose := input.on_floor and not input.dead and not input.dashing
 	var ground_idle := bool(_motion["grounding"])
-	var can_pin := floor_pose and ground_idle and not input.crouching and _idle_on and not input.blocking and not input.staggered
+	# A braced guard uses the same planted targets when still and the normal stance/swing cycle when moving.
+	var can_pin := floor_pose and ground_idle and not input.crouching and _idle_on and not input.staggered \
+			and (not input.blocking or bool(_motion["block"]["plant_feet"]))
 	_gait_w = move_toward(_gait_w, 1.0 if _gait_on and floor_pose else 0.0, GAIT_BLEND_SPEED * delta)
 	_idle_pin_w = move_toward(_idle_pin_w, 1.0 if can_pin else 0.0, GAIT_BLEND_SPEED * delta)
 	_gait_amp_now = lerpf(_gait_amp_now, _gait_amp if _gait_on else 0.0, 1.0 - exp(-10.0 * delta))
@@ -439,15 +441,16 @@ func _painted_sole_offset(angle: float) -> float:
 
 ## Signed depth of the lowest painted sole. Rigs without a sole outline use their ankle reference.
 func foot_floor_depth() -> float:
-	var painted := not _dash_sole.is_empty()
-	var floor_y := _dash_floor if painted else _ground_y
-	var bottom := -INF
-	for chain: Array in LEG_CHAINS:
-		var foot: StringName = chain[2]
-		if _global_pos.has(foot):
-			var offset := _painted_sole_offset(_global_angle[foot]) if painted else 0.0
-			bottom = maxf(bottom, _global_pos[foot].y + offset)
-	return bottom - floor_y
+	return maxf(foot_contact_depth(&"foot_front"), foot_contact_depth(&"foot_back"))
+
+
+## Signed depth for one foot so a lifted heel cannot pass on the opposite sole's contact.
+func foot_contact_depth(foot: StringName) -> float:
+	if not _global_pos.has(foot):
+		return -INF
+	if _dash_sole.is_empty():
+		return _global_pos[foot].y - _ground_y
+	return _global_pos[foot].y + _painted_sole_offset(_global_angle[foot]) - _dash_floor
 
 
 ## 姿勢算完後的貼地修正；NPC 子類別以自己的坐、蹲與站姿放腳。
@@ -571,7 +574,7 @@ func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> 
 	var hurt: Dictionary = m["hurt"]
 	if input.blocking:
 		pose[&"chest"] = float(pose.get(&"chest", 0.0)) + float(block["chest"])
-		if input.on_floor and not input.crouching:
+		if input.on_floor and not input.crouching and not bool(block["plant_feet"]):
 			_set_legs_from(pose, block["legs"])
 	if input.staggered:
 		pose[&"chest"] = float(hurt["stagger_chest"])
@@ -1330,8 +1333,8 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 
 	if input.shield_forward:
 		var shoulder: Vector2 = _global_pos.get(&"arm_back_upper", anchor_point)
-		# 盾牌貼圖是直立的，手部角度只跟著準星微幅傾斜。
-		_reach_arm(&"arm_back_upper", &"arm_back_lower", &"hand_back", shoulder + aim * 13.0 + Vector2(0, 2), aim_angle * 0.3)
+		# 後臂依瞄準方向抬起，留一點彎曲承受衝擊。
+		_reach_arm(&"arm_back_upper", &"arm_back_lower", &"hand_back", shoulder + aim * 12.7 + Vector2(0, 2), aim_angle * 0.3)
 	elif input.two_handed and not weapon.is_empty():
 		var offset := (RigLibrary.vec2(weapon.get("foregrip")) - RigLibrary.vec2(weapon.get("grip"))) * _rig.weapon_scale()
 		_reach_arm(&"arm_back_upper", &"arm_back_lower", &"hand_back", grip + (offset - _rig.hand_grip_offset(&"hand_back")).rotated(aim_angle), aim_angle)

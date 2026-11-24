@@ -19,6 +19,7 @@ class LegacyField extends Node2D:
 
 
 func _ready() -> void:
+	get_window().set_flag(Window.FLAG_NO_FOCUS, true)
 	var profile := OS.get_environment("NE239_CAPTURE_PROFILE").replace("\\", "/").simplify_path()
 	var actual := ProjectSettings.globalize_path("user://").replace("\\", "/").simplify_path()
 	if profile.is_empty() or not actual.to_lower().begins_with(profile.to_lower() + "/"):
@@ -78,6 +79,7 @@ func _run() -> void:
 				actor.aim_dir = Vector2.LEFT if cell == 4 and side == 0 else (Vector2.UP if cell == 3 and side == 0 else (Vector2.DOWN if cell == 3 else Vector2.RIGHT))
 				actor.facing = -1 if actor.aim_dir.x < 0 else 1
 				actor._visual._input.blocking = true
+				actor._visual._input.shield_forward = not (cell == 0 and side == 0)
 				actor._visual._input.on_floor = true
 				actor._visual._input.aim_dir = actor.aim_dir
 				actor._visual._input.facing = actor.facing
@@ -148,7 +150,7 @@ func _combat_capture() -> void:
 	for frame in 30:
 		await get_tree().physics_frame
 	var actor := level.player
-	actor.global_position = Vector2(65 * 16 + 8, level._layout.floor_below(65, 17) - 2)
+	actor.teleport_to(Vector2(65 * 16 + 8, level._layout.floor_below(65, 17) - 2))
 	actor.velocity = Vector2.ZERO
 	AimInput.set_virtual_gamepad(actor, true)
 	Input.action_press(&"aim_right")
