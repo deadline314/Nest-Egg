@@ -33,6 +33,12 @@ static func run(s: TestSuite, directory: String) -> void:
 	gate._player = level.player
 	s.check(context._run_store.write(RunSnapshot.capture(VAULT, level.run_snapshot()), true), "pickup repair fixture establishes valid original whole-run bytes")
 	var original := FileAccess.get_file_as_bytes(context._run_store.path)
+	var snapshot := RunSnapshot.capture(VAULT, level.run_snapshot())
+	var using_live_layout := context._run_store.prepare_existing_write(snapshot, level)
+	var using_saved_layout := context._run_store.prepare_existing_write(snapshot)
+	s.check(using_live_layout.has("data") and using_saved_layout.has("data")
+			and using_live_layout["data"].snapshot() == using_saved_layout["data"].snapshot(),
+			"the active layout produces the same canonical durable pickup as reloading the level")
 	var credits := Progression.credits
 	Progression.credits = -1 # Unrelated malformed live owner, no acquisition injection.
 	var invalid_live := var_to_bytes([GameState._install_source(), Story._install_source(), StoryItems.snapshot(), Progression.snapshot()])

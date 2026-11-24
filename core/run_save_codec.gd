@@ -90,46 +90,64 @@ static func _nesting_bytes_safe(bytes: PackedByteArray) -> bool:
 
 
 static func validate_tree(raw: Variant, node_limit := MAX_NODES) -> PackedStringArray:
-	# 呼叫端可收緊預算，但不能放寬正式上限；測試不必配置20萬節點。
-	node_limit = clampi(node_limit, 1, MAX_NODES)
-	var errors := PackedStringArray()
-	var pending: Array = [[raw, 0, "run"]]
+	var validator := _TreeValidator.new()
+	validator.limit = clampi(node_limit, 1, MAX_NODES)
+	if validator.visit(raw, 0):
+		return PackedStringArray()
+	var where := "run"
+	for key: Variant in validator.path:
+		where = _diagnostic_path(where, str(key))
+	return PackedStringArray(["%s：%s" % [where, validator.message]])
+
+
+## Save trees have a small fixed depth. Keep the current path in place and
+## format it only if validation fails.
+class _TreeValidator:
+	var limit := 0
 	var count := 0
-	while not pending.is_empty():
-		var entry: Array = pending.pop_back()
+	var path: Array = []
+	var message := ""
+
+	func fail(reason: String) -> bool:
+		message = reason
+		return false
+
+	func visit(value: Variant, depth: int) -> bool:
 		count += 1
-		if count > node_limit or int(entry[1]) > MAX_DEPTH:
-			errors.append("%s：資料數量或深度超過上限" % entry[2])
-			break
-		var value: Variant = entry[0]
-		var where: String = entry[2]
+		if count > limit or depth > RunSaveCodec.MAX_DEPTH:
+			return fail("資料數量或深度超過上限")
 		match typeof(value):
 			TYPE_NIL, TYPE_BOOL:
-				pass
+				return true
 			TYPE_INT, TYPE_FLOAT:
-				if not is_finite(float(value)) or absf(float(value)) > MAX_NUMBER:
-					errors.append("%s：數值不是有界有限值" % where)
+				return (is_finite(float(value)) and absf(float(value)) <= RunSaveCodec.MAX_NUMBER) or fail("數值不是有界有限值")
 			TYPE_STRING, TYPE_STRING_NAME:
-				# 既有故事物品使用 StringName；JSON 將它寫為普通字串。
-				if String(value).length() > MAX_TEXT:
-					errors.append("%s：文字超過上限" % where)
+				return String(value).length() <= RunSaveCodec.MAX_TEXT or fail("文字超過上限")
 			TYPE_ARRAY, TYPE_DICTIONARY:
-				if value.size() > MAX_CONTAINER:
-					errors.append("%s：容器超過上限" % where)
-					break
-				if count + pending.size() + value.size() > node_limit:
-					errors.append("%s：資料數量超過上限" % where)
-					break
-				for key: Variant in value.size() if value is Array else value:
-					if value is Dictionary and (typeof(key) not in [TYPE_STRING, TYPE_STRING_NAME] or String(key).length() > MAX_TEXT):
-						errors.append("%s：無效欄位名稱" % where)
-						break
-					pending.append([value[key], int(entry[1]) + 1, _diagnostic_path(where, str(key))])
-			_:
-				errors.append("%s：不接受物件或引擎型別" % where)
-		if not errors.is_empty():
-			break
-	return errors
+				return visit_container(value, depth)
+		return fail("不接受物件或引擎型別")
+
+	func visit_container(value: Variant, depth: int) -> bool:
+		var size: int = value.size()
+		if size > RunSaveCodec.MAX_CONTAINER:
+			return fail("容器超過上限")
+		if count + size > limit:
+			return fail("資料數量超過上限")
+		if value is Dictionary:
+			for key: Variant in value:
+				if typeof(key) not in [TYPE_STRING, TYPE_STRING_NAME] or String(key).length() > RunSaveCodec.MAX_TEXT:
+					return fail("無效欄位名稱")
+				path.append(key)
+				if not visit(value[key], depth + 1):
+					return false
+				path.pop_back()
+		else:
+			for i in size:
+				path.append(i)
+				if not visit(value[i], depth + 1):
+					return false
+				path.pop_back()
+		return true
 
 
 static func _diagnostic_path(parent: String, key: String) -> String:

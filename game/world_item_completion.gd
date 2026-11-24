@@ -101,13 +101,10 @@ func _attempt() -> void:
 func _commit(source: Dictionary) -> Dictionary:
 	var level: Level = source["level"]
 	var candidate := RunSnapshot.capture(main.get("_level_path"), level.run_snapshot(), "", main.get("_chapter_complete"))
-	var original := RunSnapshot.prepare(candidate)
-	if original.has("error"):
-		return original
-	var decoded := RunSaveCodec.decode(RunSaveCodec.encode(original["data"]))
+	var decoded := RunSaveCodec.decode(RunSaveCodec.encode(candidate))
 	if decoded.has("error"):
 		return decoded
-	original = RunSnapshot.prepare(decoded["data"])
+	var original := RunSnapshot.prepare(decoded["data"], level.data, level._layout)
 	if original.has("error"):
 		return original
 	for pair: Array in [[original["data"]["story"]["items"], StoryItems.snapshot()], [original["data"]["story"]["flags"], GameState.world_flags], [original["data"]["progression"], Progression.snapshot()]]:
@@ -133,7 +130,7 @@ func _commit(source: Dictionary) -> Dictionary:
 	var store: RunSaveStore = main.get("_run_store")
 	if store.overwrite_authorized and not store.write(original["data"]):
 		return {"error": "initial save: " + "; ".join(store.issues)}
-	var prepared := store.prepare_existing_write(candidate)
+	var prepared := store.prepare_existing_write(candidate, level)
 	if prepared.has("error"):
 		return prepared
 	var write: RunSaveStore.PreparedExistingWrite = prepared["data"]

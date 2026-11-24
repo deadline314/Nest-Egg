@@ -13,7 +13,7 @@ static func commit(main: Node, level: Level, results: Dictionary, scene_id: Stri
 	# another live owner (item custody, economy, or legacy flags).
 	var decoded := RunSaveCodec.decode(RunSaveCodec.encode(candidate))
 	if decoded.has("error"): return decoded
-	var original := RunSnapshot.prepare(decoded["data"])
+	var original := RunSnapshot.prepare(decoded["data"], level.data, level._layout)
 	if original.has("error"): return original
 	for pair: Array in [[original["data"]["story"]["items"], StoryItems.snapshot()], [original["data"]["story"]["flags"], GameState.world_flags], [original["data"]["progression"], Progression.snapshot()]]:
 		if JSON.parse_string(JSON.stringify(pair[0])) != JSON.parse_string(JSON.stringify(pair[1])):
@@ -41,7 +41,7 @@ static func commit(main: Node, level: Level, results: Dictionary, scene_id: Stri
 	var store: RunSaveStore = main.get("_run_store")
 	if store.overwrite_authorized and not store.write(original["data"]):
 		return {"error": "initial save: " + "; ".join(store.issues)}
-	var prepared := store.prepare_existing_write(candidate)
+	var prepared := store.prepare_existing_write(candidate, level)
 	if prepared.has("error"): return prepared
 	var write: RunSaveStore.PreparedExistingWrite = prepared["data"]
 	var normalized := write.snapshot()

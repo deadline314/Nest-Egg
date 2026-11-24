@@ -243,7 +243,7 @@ func _prepare_and_commit(scene: Dictionary, continuation: StringName = &"", choi
 			return {"error": "terminal result has a duplicate automatic item producer"}
 	var context := Story.current_presentation_context() if continuation != &"" else {}
 	var candidate := RunSnapshot.capture(main.get("_level_path"), level.run_snapshot(), String(continuation), main.get("_chapter_complete"), context)
-	var original := RunSnapshot.prepare(candidate)
+	var original := RunSnapshot.prepare(candidate, level.data, level._layout)
 	if original.has("error"):
 		return original
 	# Compare both sides through the writer's exact JSON + second validation
@@ -309,7 +309,7 @@ func _prepare_and_commit(scene: Dictionary, continuation: StringName = &"", choi
 			baseline = RunSnapshot.capture(main.get("_level_path"), level.run_snapshot())
 		if not store.write(baseline):
 			return {"error": "initial save: " + "; ".join(store.issues)}
-	var prepared := store.prepare_existing_write(candidate)
+	var prepared := store.prepare_existing_write(candidate, level)
 	if prepared.has("error"):
 		return prepared
 	var write: RunSaveStore.PreparedExistingWrite = prepared["data"]

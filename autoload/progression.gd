@@ -55,8 +55,15 @@ class PreparedInstall extends RefCounted:
 	var ledger: StoryTransactionLedger
 
 
+## Valid only for a single synchronous install proof. Each snapshot is still
+## proved against the same authored data without rebuilding the catalogs.
+class InstallCatalog extends RefCounted:
+	var weapons: Dictionary = {}
+	var ledger_context: Dictionary = {}
+
+
 ## Strict additive interface; legacy restore's repair/notification policy stays unchanged.
-func prepare_install(raw: Variant) -> Dictionary:
+func prepare_install(raw: Variant, catalog: InstallCatalog = null) -> Dictionary:
 	var errors := RunSaveCodec.validate_tree(raw)
 	if not errors.is_empty():
 		return {"error": errors[0]}
@@ -76,13 +83,15 @@ func prepare_install(raw: Variant) -> Dictionary:
 		return {"error": "install/progression containers invalid"}
 	var prepared := PreparedInstall.new()
 	prepared.credits = int(raw["credits"])
-	var weapon_catalog := WeaponCatalog.load_all()
-	if not weapon_catalog.issues.is_empty():
-		return {"error": "install/progression weapon catalog: " + weapon_catalog.issues[0]}
-	var weapons := weapon_catalog.weapons
-	var weapon_ids: Dictionary = {}
-	for weapon: WeaponData in weapons:
-		weapon_ids[String(weapon.id)] = weapon
+	if catalog == null:
+		catalog = InstallCatalog.new()
+	if catalog.weapons.is_empty():
+		var weapon_catalog := WeaponCatalog.load_all()
+		if not weapon_catalog.issues.is_empty():
+			return {"error": "install/progression weapon catalog: " + weapon_catalog.issues[0]}
+		for weapon: WeaponData in weapon_catalog.weapons:
+			catalog.weapons[String(weapon.id)] = weapon
+	var weapon_ids := catalog.weapons
 	for weapon: Variant in raw.get("upgrades", {}):
 		if not weapon is String or not weapon_ids.has(weapon) or not raw["upgrades"][weapon] is Array:
 			return {"error": "install/progression/upgrades unknown weapon or invalid list: %s" % weapon}
@@ -122,13 +131,15 @@ func prepare_install(raw: Variant) -> Dictionary:
 	var checked := StoryTransactionLedger.validate_snapshot(ledger)
 	if not checked["valid"]:
 		return {"error": checked["issues"][0], "unknown_version": not checked["supported"]}
-	var definitions: Dictionary = {}
-	for resource: StoryTransactionData in ResourceCatalog.load_dir("res://data/story_transactions", StoryTransactionData, "StoryInstall"):
-		var description := resource.descriptor()
-		if description.has("error") or definitions.has(String(resource.id)):
-			return {"error": "install/progression canonical transaction resources invalid"}
-		definitions[String(resource.id)] = description
-	var proof := StoryConditionTree.verify_ledger({"ledger": ledger}, {"ledger_locked": false, "transaction_definitions": definitions})
+	if catalog.ledger_context.is_empty():
+		var definitions: Dictionary = {}
+		for resource: StoryTransactionData in ResourceCatalog.load_dir("res://data/story_transactions", StoryTransactionData, "StoryInstall"):
+			var description := resource.descriptor()
+			if description.has("error") or definitions.has(String(resource.id)):
+				return {"error": "install/progression canonical transaction resources invalid"}
+			definitions[String(resource.id)] = description
+		catalog.ledger_context = {"ledger_locked": false, "transaction_definitions": definitions}
+	var proof := StoryConditionTree.verify_ledger({"ledger": ledger}, catalog.ledger_context)
 	if not proof["valid"]:
 		return {"error": "install/progression " + proof["error"]}
 	prepared.ledger = StoryTransactionLedger.new()

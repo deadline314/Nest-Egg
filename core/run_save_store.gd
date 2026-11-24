@@ -507,7 +507,18 @@ func _durable_declared_version(component: Dictionary, supported: int, where: Str
 
 
 ## Fixed owner proofs; no arbitrary validator, producer registry or live install.
-func _durable_prepare_snapshot(raw: Variant) -> Dictionary:
+class _DurableProof:
+	var catalog := Progression.InstallCatalog.new()
+	var level: LevelData
+	var layout: LevelLayout
+
+	func _init(live: Level) -> void:
+		if is_instance_valid(live) and live.is_initialized():
+			level = live.data
+			layout = live._layout
+
+
+func _durable_prepare_snapshot(raw: Variant, proof: _DurableProof) -> Dictionary:
 	var errors := RunSaveCodec.validate_tree(raw)
 	if not errors.is_empty():
 		return {"error": errors[0]}
@@ -521,7 +532,7 @@ func _durable_prepare_snapshot(raw: Variant) -> Dictionary:
 			var loadout: Variant = entry[0].get(entry[1], {})
 			if loadout is Dictionary and loadout.has("ammo") and not loadout.has("mag"):
 				return {"error": "durable/" + entry[2] + ": requires_legacy_loadout_migration"}
-	var checked := RunSnapshot.prepare(raw)
+	var checked := RunSnapshot.prepare(raw, proof.level, proof.layout)
 	if checked.has("error"):
 		return checked
 	var data: Dictionary = checked["data"]
@@ -537,7 +548,7 @@ func _durable_prepare_snapshot(raw: Variant) -> Dictionary:
 		if version.has("error"):
 			return version
 	for component: Dictionary in [data["progression"], data["state"]["checkpoint_progress"], data["state"]["level_start_progress"]]:
-		var progression := Progression.prepare_install(component)
+		var progression := Progression.prepare_install(component, proof.catalog)
 		if progression.has("error"):
 			return progression
 	var custody := StoryItems.prepare_install(story["items"])
@@ -592,7 +603,7 @@ func _durable_file_profile(candidate: String) -> Dictionary:
 	return {"exists": true, "length": length, "checksum": hash.finish().hex_encode(), "text": text}
 
 
-func _durable_profile(absolute: String, prove: bool) -> Dictionary:
+func _durable_profile(absolute: String, proof: _DurableProof = null) -> Dictionary:
 	if overwrite_authorized or _durable_busy:
 		return {"error": "durable/store overwrite-authorized or busy"}
 	var directory := DirAccess.open(absolute.get_base_dir())
@@ -609,11 +620,11 @@ func _durable_profile(absolute: String, prove: bool) -> Dictionary:
 			return found
 		if suffix.is_empty() and not found["exists"]:
 			return {"error": "durable/base slot has no supported primary"}
-		if prove and found["exists"]:
+		if proof != null and found["exists"]:
 			var decoded := RunSaveCodec.decode(found["text"])
 			if decoded.has("error"):
 				return {"error": "durable/source " + suffix + ": " + decoded["error"], "unknown_version": decoded.get("unknown_version", false)}
-			var prepared := _durable_prepare_snapshot(decoded["data"])
+			var prepared := _durable_prepare_snapshot(decoded["data"], proof)
 			if prepared.has("error"):
 				return {"error": "durable/source " + suffix + ": " + prepared["error"], "unknown_version": prepared.get("unknown_version", false)}
 		found.erase("text")
@@ -621,14 +632,16 @@ func _durable_profile(absolute: String, prove: bool) -> Dictionary:
 	return {"data": profile}
 
 
-func prepare_existing_write(raw: Variant) -> Dictionary:
+func prepare_existing_write(raw: Variant, level: Level = null) -> Dictionary:
 	var absolute := ProjectSettings.globalize_path(path).simplify_path()
 	if not absolute.is_absolute_path() or absolute.get_file().is_empty():
 		return {"error": "durable/path must resolve to an absolute slot"}
-	var source := _durable_profile(absolute, true)
+	# Saved snapshots only reuse this layout when the authored level matches.
+	var proof := _DurableProof.new(level)
+	var source := _durable_profile(absolute, proof)
 	if source.has("error"):
 		return source
-	var checked := _durable_prepare_snapshot(raw)
+	var checked := _durable_prepare_snapshot(raw, proof)
 	if checked.has("error"):
 		return checked
 	# Normalize through the actual JSON boundary, then prove the exact returned
@@ -637,7 +650,7 @@ func prepare_existing_write(raw: Variant) -> Dictionary:
 	var decoded := RunSaveCodec.decode(encoded)
 	if decoded.has("error"):
 		return decoded
-	checked = _durable_prepare_snapshot(decoded["data"])
+	checked = _durable_prepare_snapshot(decoded["data"], proof)
 	if checked.has("error"):
 		return checked
 	encoded = RunSaveCodec.encode(checked["data"])
@@ -674,7 +687,7 @@ func preflight_existing_write(prepared: PreparedExistingWrite) -> Dictionary:
 		return {"error": "durable/prepared data damaged"}
 	if prepared._encoded.to_utf8_buffer().size() > RunSaveCodec.MAX_BYTES or _durable_seal(prepared) != prepared._seal:
 		return {"error": "durable/prepared content changed"}
-	var source := _durable_profile(prepared._absolute, false)
+	var source := _durable_profile(prepared._absolute)
 	if source.has("error"):
 		return source
 	if source["data"] != prepared._profile:

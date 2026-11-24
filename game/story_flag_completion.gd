@@ -157,7 +157,7 @@ func _commit(id: StringName, scene: Dictionary, level: Level) -> Dictionary:
 	# writer; no radio result becomes live or completed if this bootstrap fails.
 	if store.overwrite_authorized and not store.write(baseline):
 		return {"error": "initial save: " + "; ".join(store.issues)}
-	var prepared := store.prepare_existing_write(candidate)
+	var prepared := store.prepare_existing_write(candidate, level)
 	if prepared.has("error"):
 		return prepared
 	var write: RunSaveStore.PreparedExistingWrite = prepared["data"]
@@ -165,7 +165,7 @@ func _commit(id: StringName, scene: Dictionary, level: Level) -> Dictionary:
 	# Empty checkpoint/loadout dictionaries are valid live defaults that every
 	# save encodes in full. Compare run state under that same canonical encoding;
 	# never mistake filling those defaults for a new result changing the owner.
-	var prior := RunSnapshot.prepare(unchanged)
+	var prior := RunSnapshot.prepare(unchanged, level.data, level._layout)
 	if prior.has("error"):
 		return prior
 	# Item and wallet migrations still require the original whole-run restore.
