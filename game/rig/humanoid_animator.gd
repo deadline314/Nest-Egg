@@ -1391,8 +1391,8 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 	if guard_pose > 0.0 and _rig.has_bone(&"hand_back"):
 		var shoulder: Vector2 = _global_pos.get(&"arm_back_upper", anchor_point)
 		var guard_wrist := shoulder + aim * 12.7 + Vector2(0, 2)
-		if not weapon.is_empty() and not _guard_firearm_stow.is_empty():
-			# Keep the plate above the lowered gun when defending downwards.
+		if (not weapon.is_empty() or input.melee_grip) and not _guard_firearm_stow.is_empty():
+			# Keep the plate clear of the equipment carried by the other hand.
 			var pelvis: Vector2 = _global_pos.get(&"hip", anchor_point)
 			guard_wrist.y = minf(guard_wrist.y, pelvis.y - float(_guard_firearm_stow["brace_height"]))
 		var guard_angle := aim_angle * 0.3

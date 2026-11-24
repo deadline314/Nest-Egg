@@ -25,6 +25,7 @@ func run() -> void:
 	await _test_shield_landing_frames()
 	await _test_guard_footing()
 	await _test_guard_arm_transition()
+	await _test_melee_guard_clearance()
 	await _test_block_input_parity()
 	_test_arm_shield_catalog()
 	await _test_arm_shield_rules()
@@ -979,6 +980,50 @@ func _test_guard_arm_transition() -> void:
 					and absf(visual.rig.weapon_root().rotation) < 0.01 and visual._fire_direction.is_equal_approx(direction),
 					"%s %s fires one aimed round as soon as guard is released" % [weapon_id, direction])
 			await physics_frames(14)
+	_press_stick(Vector2.ZERO)
+	AimInput.set_virtual_gamepad(player, false)
+	await end_level(level)
+
+
+## 格擋時拿著長柄、短刃或軟鞭，板身與武器不能交叉。
+func _test_melee_guard_clearance() -> void:
+	await open_level(20.0)
+	var player := level.player
+	var visual: PlayerVisual = player._visual
+	AimInput.set_virtual_gamepad(player, true)
+	var weapons: Array[WeaponData] = [null]
+	for file: String in DirAccess.get_files_at("res://data/weapons/melee"):
+		if file.ends_with(".tres"):
+			var weapon := load("res://data/weapons/melee/" + file) as WeaponData
+			if weapon != null and weapon.is_melee():
+				weapons.append(weapon)
+	check(weapons.size() >= 6, "every shipped melee weapon and the empty-hand guard are covered")
+	var failures: Array[String] = []
+	for weapon in weapons:
+		player.loadout.reset(weapon)
+		for facing: int in [1, -1]:
+			for pitch: float in [-0.98, 0.0, 0.78]:
+				_press_stick(Vector2(facing * cos(pitch), sin(pitch)))
+				await physics_frames(3)
+				Input.action_press(&"block")
+				await physics_frames(12)
+				await frames(2)
+				var has_weapon := visual.shows_melee_weapon()
+				var surface := visual._shield as ShieldSurface
+				var mount := visual.shield_wrist_local()
+				var pose := surface._plate_transform(mount, visual._guard_forearm(mount), facing, Settings.get_feel_scale("shake"))
+				var tail := pose * Vector2(ShieldSurface.ROOT.position.x, 0.0)
+				var end := pose * Vector2(ShieldSurface.SLIDER.end.x + surface.slide_offsets().x, 0.0)
+				var held := visual.melee_held()
+				var grip := visual.to_local(visual.melee_hold().origin)
+				var tip := visual.to_local(held.tip_point())
+				var crossing: Variant = Geometry2D.segment_intersects_segment(grip, tip, tail, end) if has_weapon else null
+				var palm := visual.rig.bone(&"hand_front").to_global(visual.rig.hand_grip_offset(&"hand_front"))
+				if not player.is_blocking or has_weapon != (weapon != null) or (has_weapon and palm.distance_to(visual.melee_hold().origin) > 0.05) or crossing != null:
+					failures.append("%s facing %d pitch %.2f: guard=%s held=%s cross=%s" % [weapon.id if weapon != null else "unarmed", facing, pitch, player.is_blocking, has_weapon, crossing])
+				Input.action_release(&"block")
+				await physics_frames(9)
+	check(failures.is_empty(), "the deflector clears held melee gear in all checked poses: %s" % [failures.slice(0, 8)])
 	_press_stick(Vector2.ZERO)
 	AimInput.set_virtual_gamepad(player, false)
 	await end_level(level)
