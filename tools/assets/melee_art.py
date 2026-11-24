@@ -230,6 +230,9 @@ def main() -> int:
     for entry in cfg["weapons"]:
         if args.only and entry["id"] not in args.only:
             continue
+        if entry.get("derived"):
+            print(f"preserved {entry['id']}: rebuild with {entry['derived']}")
+            continue
         result = process(cfg, entry, args.no_gen, args.regen)
         if result is None:
             failures += 1

@@ -283,11 +283,30 @@ def melee_icon_owners():
     return owners
 
 
+def field_weapon_icons():
+    source = os.path.join(ROOT, 'art_src', 'equipment', 'field_weapons', 'source.json')
+    if not os.path.isfile(source):
+        return set()
+    with open(source, encoding='utf-8') as document:
+        outputs = json.load(document)['output_sizes']
+    if not isinstance(outputs, dict):
+        raise ValueError(f'{source}: output_sizes must list the registered asset paths')
+    return {name for name in ICONS if all(f'art/items/icons/{name}{suffix}.png' in outputs for suffix in SIZES)}
+
+
 def main(names):
     owners = melee_icon_owners()
+    field_icons = field_weapon_icons()
     os.makedirs(ICON_DIR, exist_ok=True)
     os.makedirs(WORLD_DIR, exist_ok=True)
     for name in names or ICONS:
+        if name in field_icons:
+            for suffix in SIZES:
+                path = os.path.join(ICON_DIR, f'{name}{suffix}.png')
+                if not os.path.isfile(path):
+                    raise FileNotFoundError(f'{path}: rebuild with art_src/equipment/field_weapons/split.py')
+            print(f'preserved {name}: registered field weapon artwork')
+            continue
         if name in owners:
             for suffix in SIZES:
                 path = os.path.join(ICON_DIR, f'{name}{suffix}.png')

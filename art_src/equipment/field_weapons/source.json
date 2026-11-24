@@ -1,0 +1,369 @@
+{
+  "provider": "OpenAI Image Generation",
+  "atlases": {
+    "standard": {
+      "artifact": "97a58afd-d1b5-43a2-8fc3-caf22ded4fcd",
+      "seed": null,
+      "size": [
+        1024,
+        1536
+      ],
+      "sha256": "fb092f6efbd01094820d46644bdeabc73fdb6391f4e5c55666d131672c13620b",
+      "prompt": "Production transparent RGBA game sprite atlas for Nest Egg, a rainy Taiwanese industrial cyberpunk sidescroller. Exact native transparency between sprites and around canvas. Hand-painted game style, muted dark neutral gunmetal, deep blocked shadows, compressed highlights, inked edges, real visible chipped matte paint, tarnished brass and rubbed steel. Match existing lead character's navy fabric, amber equipment, steel cybernetic bracer laser-scratched surfaces. Readable silhouettes at a 15-36 world-pixel object scale. Give each object a center row on a tall sheet, with generous gutters. Every view is true FLAT 2D ORTHOGRAPHIC SIDE PROFILE, level horizontal aiming directly to the RIGHT, zero perspective, no text, no watermark, no separate bullets, no shadows in transparent area, no background, no hands, no mockup. Each muzzle is a clear dark tiny bore or flat distinguishable right end, each grip is visibly possible to hold, usually 1/3 of length from the left, and a distinct foregrip zone lies near 60% width. The closed receiver silhouette should leave elbow/hand space at lower edge. Keep tiny dim flat emissive inlays compatible with masks to be added by game. A small number of bolts and intentional solid contrast, no clutter. All objects are fictional imaginary game art. EXACTLY FIVE Objects arranged in vertical rows, from top to bottom:\n1. Compact rescue pistol, short chunky satin graphite upper slide and low angled bronze-dark grip, no stock, one clipped yellow status pip, edge-worn asymmetrical plate, body silhouette 2:1.\n2. Compact submachine gun, collapsed short stock and squared receiver, steel-blue stamped shell, downward slim magazine, pale ochre tiny warning dash, silhouette 2.6:1.\n3. Port security assault rifle, longer stock, ribbed receiver, boxed inline teal accent just under the handguard, carbon dark grip and magazine, slim ringed forward cylinder, muzzle end obvious, silhouette 3:1.\n4. Pump shotgun, long lower twin tubes and broad fluted brown-magnesium foregrip, copper breech and squared skeletal heel, one amber recessed dot, silhouette 3:1.\n5. Precision sniper, very long narrow cylindrical receiver with a low asymmetric inset sight rail and thin solid stock, muted pearl highlights, separated pole-like barrel until the blunt right brake, about 4:1. Objects must fully fit each row with plentiful transparent spaces."
+    },
+    "industrial": {
+      "artifact": "dbd0118a-6698-4e86-858d-c8a715c26193",
+      "seed": null,
+      "size": [
+        1024,
+        1536
+      ],
+      "sha256": "257b99bc472747e6d609076e0a8dcb7b3680f6255058913edbf89f87194fddd5",
+      "prompt": "Production transparent RGBA game sprite atlas for Nest Egg, a rainy Taiwanese industrial cyberpunk sidescroller. Exact native transparency between sprites and around canvas. Hand-painted game style, muted dark neutral gunmetal, deep blocked shadows, compressed highlights, inked edges, real visible chipped matte paint, tarnished brass and rubbed steel. Match existing lead character's navy fabric, amber equipment, steel cybernetic bracer laser-scratched surfaces. Readable silhouettes at a 15-36 world-pixel object scale. Give each object a center row on a tall sheet, with generous gutters. Every view is true FLAT 2D ORTHOGRAPHIC SIDE PROFILE, level horizontal aiming directly to the RIGHT, zero perspective, no text, no watermark, no separate bullets, no shadows in transparent area, no background, no hands, no mockup. Each muzzle is a clear dark tiny bore or flat distinguishable right end, each grip is visibly possible to hold, usually 1/3 of length from the left, and a distinct foregrip zone lies near 60% width. The closed receiver silhouette should leave elbow/hand space at lower edge. Keep tiny dim flat emissive inlays compatible with masks to be added by game. A small number of bolts and intentional solid contrast, no clutter. All objects are fictional imaginary game art. EXACTLY FIVE objects in rows. These are more futuristic fictional weapons, design as industrial tools repurposed by port security. Top to bottom:\n1. Rail accelerator, long straight slab with two dark graphite parallel rails around a narrow violet ceramic strip, distinct muzzle split at right, stock and black trigger grip at x about 27%, 3.6:1.\n2. Laser cutter carbine, graphite with off-white ceramic heat cladding, narrow orange heat channel in the middle, forked emitter profile and squared front optic, 3:1.\n3. Compact launcher, large simple roundish block barrel and squared bore at right, ribbed steel and muted mustard safety markings, rear battery around left grip, 2.8:1.\n4. Rotary cannon, clear stacked barrel cluster horizontally at right, substantial motor housing at left and vent plates, small red ceramic accent, low rear and secondary center grips, outline 2.8:1.\n5. Heat projector, dark rectangular unit with visible enclosed copper cooling fins and black warmth-shield cylinder at right, subdued copper and sulfur-yellow warning paint, body ratio 2.9:1. Keep each piece separated and entirely within canvas."
+    },
+    "melee": {
+      "artifact": "38c8c167-8b71-47bd-a7fd-4fcf4db3c80b",
+      "seed": null,
+      "size": [
+        1536,
+        1024
+      ],
+      "sha256": "4aa11c87edee22478fd3d825e9d5ab40277c0859cf572aef5a9b4d8b338a22c0",
+      "prompt": "Native transparent RGBA game sprite sheet for the same Nest Egg port at night. FIVE separately isolated fictional melee equipment sprites, all long axes perfectly horizontal, grip on LEFT and striking end on RIGHT; real side-view, no perspective, no shadow, industrial dark iron and chipped gunmetal, hand-painted ink edge and cel-like shading, saturated color only as a slim embedded inlay, no neon halo, no hands, people, text or scenery. Use full generous blank rows and different clean silhouettes. Top-to-bottom:\n1. mono dagger, short grip with dark navy wrap and compact futuristic knife edge, chiselled brushed dull silver blade with tiny blue line, clear asymmetric silhouette.\n2. thermal long blade, long flat blunt-backed blade with varied hardened steel sections and slim rose red seam, compact simple black industrial grip. No separate sheath.\n3. ion glaive polearm, straight graphite shaft extending well to left of grip and slim blue-gold futuristic spearhead on far right, exceptionally long strong shaft.\n4. hydraulic maul, long straight graphite shaft extending well to left and one chunky wholly attached dark rectangular gold/black hydraulic hammer head at far right, safety warning ceramic, silhouette instantly recognizable.\n5. compact cybernetic mono-filament whip GRIP ONLY, short ribbed spool handle with transverse cuff at left and a small ring-shaped emitter at right, faint wine-red enamel. The rope is added by the game, only the handle. ZERO floating debris. Artwork high readability at small size."
+    },
+    "batons": {
+      "artifact": "aa58b476-877e-4fc1-b930-8dd6d56194e2",
+      "seed": null,
+      "size": [
+        2172,
+        724
+      ],
+      "sha256": "b99a0f0a80e630f53871cfdea27d539295a21916c9036d3c07aa34436f8c8b23",
+      "prompt": "For the same gritty rainy cyberpunk side-scroller as Nest Egg, create exactly two distinct isolated 2D pixel-painted hard-surface game sprites, two horizontal rows with plenty of space between them on transparent RGBA. Both item drawings horizontal, true side profile, grip on left, hitting end facing right, no perspective. Top row: Yong's intimidating long blackened iron debt collector baton, broad forged scuffed gunmetal tip, subtle old rust on the striking head, two tungsten rings, dark rubber handle bound with worn umber tape. Bottom row: a distinctly shorter escort security baton, dark blue graphite shaft, high visibility ochre diagonal service ID stripes near the head, round enclosed shock contacts dim angrily red, compact ridged rubber grip. Industrial used metal details, crisp ochre weathered edges, readable silhouette in warm brick interiors, clarity at a 72px wide game sprite. Completely transparent everywhere outside silhouette including both rows and margin. No type, no reference grid, no floor, no spill glow, no textures outside of the actual item silhouette."
+    },
+    "lab_housings": {
+      "artifact": "fd0a3543-a4e9-4429-9575-c983c9df4a84",
+      "seed": null,
+      "size": [
+        1536,
+        1024
+      ],
+      "sha256": "e15181f47c9d0d5478d50e0c0df10abdaa97f54cd6d6382dddf7aa281cc7d91b",
+      "prompt": "Transparent 2D game sprite atlas of eight tiny futuristic lab instrument casings, just industrial design accessories for a laboratory diagnostic device. True flat side view all pointing toward the right, two columns four rows, generous gutters. Palette: crisp beveled gunmetal graphite, anodized blue-black titanium, clean white ceramic, restrained mint cyan and violet glass. Beautiful cyberpunk urban high technology, precise finish, no scratches, no rust and no dirt. Each single silhouette has a sharp matte contour and is separate with generous clear alpha on all sides. Reading order from top left: white ceramic removable rectangular power cassette with cool cyan stacked indicators; dark graphite taller rectangular power cassette with double mint illuminated windows; long narrow titanium diagnostic rail with a small mint glass insert; long narrow striped graphite servo rail with two violet capsule pads; short vented three-finned silver cooling sleeve; short polished geometric dual-slot blue-black cooling sleeve; small exposed copper-to-mint magnetic contact plate; narrow dark glass sensor panel with straight cyan waveform. Shapes high contrast and visible when scaled down to small icon sizes. No physical scene, explosion, body, lettering, text, floor or backdrop. Completely transparent RGBA."
+    }
+  },
+  "output_sizes": {
+    "art/items/icons/mono_dagger.png": [
+      32,
+      32
+    ],
+    "art/items/icons/mono_dagger_hd.png": [
+      384,
+      384
+    ],
+    "art/items/icons/pistol.png": [
+      32,
+      32
+    ],
+    "art/items/icons/pistol_hd.png": [
+      384,
+      384
+    ],
+    "art/items/weapons/laser.png": [
+      64,
+      24
+    ],
+    "art/items/weapons/launcher.png": [
+      64,
+      24
+    ],
+    "art/items/weapons/minigun.png": [
+      64,
+      24
+    ],
+    "art/items/weapons/pistol.png": [
+      64,
+      24
+    ],
+    "art/items/weapons/railgun.png": [
+      64,
+      24
+    ],
+    "art/items/weapons/rifle.png": [
+      64,
+      24
+    ],
+    "art/items/weapons/shotgun.png": [
+      64,
+      24
+    ],
+    "art/items/weapons/smg.png": [
+      64,
+      24
+    ],
+    "art/items/world/laser.png": [
+      96,
+      96
+    ],
+    "art/items/world/laser_glow.png": [
+      96,
+      96
+    ],
+    "art/items/world/launcher.png": [
+      96,
+      96
+    ],
+    "art/items/world/launcher_glow.png": [
+      96,
+      96
+    ],
+    "art/items/world/melee_blade.png": [
+      96,
+      96
+    ],
+    "art/items/world/melee_blade_glow.png": [
+      96,
+      96
+    ],
+    "art/items/world/melee_dagger.png": [
+      96,
+      96
+    ],
+    "art/items/world/melee_dagger_glow.png": [
+      96,
+      96
+    ],
+    "art/items/world/melee_glaive.png": [
+      96,
+      96
+    ],
+    "art/items/world/melee_glaive_glow.png": [
+      96,
+      96
+    ],
+    "art/items/world/melee_maul.png": [
+      96,
+      96
+    ],
+    "art/items/world/melee_maul_glow.png": [
+      96,
+      96
+    ],
+    "art/items/world/melee_whip.png": [
+      96,
+      96
+    ],
+    "art/items/world/melee_whip_glow.png": [
+      96,
+      96
+    ],
+    "art/items/world/pistol.png": [
+      96,
+      96
+    ],
+    "art/items/world/pistol_glow.png": [
+      96,
+      96
+    ],
+    "art/items/world/railgun.png": [
+      96,
+      96
+    ],
+    "art/items/world/railgun_glow.png": [
+      96,
+      96
+    ],
+    "art/items/world/rifle.png": [
+      96,
+      96
+    ],
+    "art/items/world/rifle_glow.png": [
+      96,
+      96
+    ],
+    "art/items/world/shotgun.png": [
+      96,
+      96
+    ],
+    "art/items/world/shotgun_glow.png": [
+      96,
+      96
+    ],
+    "art/items/world/smg.png": [
+      96,
+      96
+    ],
+    "art/items/world/smg_glow.png": [
+      96,
+      96
+    ],
+    "art/weapons/ch2_escort_baton.png": [
+      72,
+      16
+    ],
+    "art/weapons/flamethrower.png": [
+      208,
+      80
+    ],
+    "art/weapons/flamethrower_glow.png": [
+      208,
+      80
+    ],
+    "art/weapons/flamethrower_n.png": [
+      208,
+      80
+    ],
+    "art/weapons/laser.png": [
+      224,
+      72
+    ],
+    "art/weapons/laser_glow.png": [
+      224,
+      72
+    ],
+    "art/weapons/laser_n.png": [
+      224,
+      72
+    ],
+    "art/weapons/launcher.png": [
+      216,
+      80
+    ],
+    "art/weapons/launcher_glow.png": [
+      216,
+      80
+    ],
+    "art/weapons/launcher_n.png": [
+      216,
+      80
+    ],
+    "art/weapons/melee/melee_blade.png": [
+      232,
+      24
+    ],
+    "art/weapons/melee/melee_blade_glow.png": [
+      232,
+      24
+    ],
+    "art/weapons/melee/melee_dagger.png": [
+      160,
+      14
+    ],
+    "art/weapons/melee/melee_dagger_glow.png": [
+      160,
+      14
+    ],
+    "art/weapons/melee/melee_glaive.png": [
+      520,
+      30
+    ],
+    "art/weapons/melee/melee_glaive_glow.png": [
+      520,
+      30
+    ],
+    "art/weapons/melee/melee_maul.png": [
+      264,
+      85
+    ],
+    "art/weapons/melee/melee_maul_glow.png": [
+      264,
+      85
+    ],
+    "art/weapons/melee/melee_whip.png": [
+      80,
+      10
+    ],
+    "art/weapons/melee/melee_whip_glow.png": [
+      80,
+      10
+    ],
+    "art/weapons/minigun.png": [
+      256,
+      96
+    ],
+    "art/weapons/minigun_glow.png": [
+      256,
+      96
+    ],
+    "art/weapons/minigun_n.png": [
+      256,
+      96
+    ],
+    "art/weapons/pistol.png": [
+      104,
+      56
+    ],
+    "art/weapons/pistol_glow.png": [
+      104,
+      56
+    ],
+    "art/weapons/pistol_n.png": [
+      104,
+      56
+    ],
+    "art/weapons/railgun.png": [
+      240,
+      72
+    ],
+    "art/weapons/railgun_glow.png": [
+      240,
+      72
+    ],
+    "art/weapons/railgun_n.png": [
+      240,
+      72
+    ],
+    "art/weapons/rifle.png": [
+      208,
+      72
+    ],
+    "art/weapons/rifle_glow.png": [
+      208,
+      72
+    ],
+    "art/weapons/rifle_n.png": [
+      208,
+      72
+    ],
+    "art/weapons/shotgun.png": [
+      192,
+      72
+    ],
+    "art/weapons/shotgun_glow.png": [
+      192,
+      72
+    ],
+    "art/weapons/shotgun_n.png": [
+      192,
+      72
+    ],
+    "art/weapons/smg.png": [
+      160,
+      64
+    ],
+    "art/weapons/smg_glow.png": [
+      160,
+      64
+    ],
+    "art/weapons/smg_n.png": [
+      160,
+      64
+    ],
+    "art/weapons/sniper.png": [
+      280,
+      72
+    ],
+    "art/weapons/sniper_glow.png": [
+      280,
+      72
+    ],
+    "art/weapons/sniper_n.png": [
+      280,
+      72
+    ],
+    "art/weapons/yong_baton.png": [
+      96,
+      20
+    ]
+  }
+}

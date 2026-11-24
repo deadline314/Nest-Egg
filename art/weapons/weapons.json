@@ -1,215 +1,225 @@
 {
-  "description": "武器外觀定義。單位為貼圖像素；texture_scale 換算成世界像素。grip＝前手握把（武器旋轉中心）、foregrip＝後手扶握處、muzzle＝槍口（子彈生成點）。槍口朝右。",
+  "description": "武器外觀定義。單位為貼圖像素；可個別覆寫的 texture_scale 換算成世界像素。grip＝前手握把（武器旋轉中心）、foregrip＝後手扶握處、muzzle＝槍口（子彈生成點）。槍口朝右。",
   "texture_scale": 0.25,
   "weapons": {
     "rifle": {
       "file": "rifle.png",
       "glow": "rifle_glow.png",
       "size": [
-        104,
-        36
+        208,
+        72
       ],
       "grip": [
-        30,
-        22
+        60,
+        44
       ],
       "foregrip": [
-        64,
-        20
+        128,
+        40
       ],
       "muzzle": [
-        102,
-        14
+        204,
+        28
       ],
+      "texture_scale": 0.125,
       "style": "rifle"
     },
     "shotgun": {
       "file": "shotgun.png",
       "glow": "shotgun_glow.png",
       "size": [
-        96,
-        36
+        192,
+        72
       ],
       "grip": [
-        28,
-        22
+        56,
+        44
       ],
       "foregrip": [
-        60,
-        21
+        120,
+        42
       ],
       "muzzle": [
-        94,
-        15
+        188,
+        30
       ],
+      "texture_scale": 0.125,
       "style": "shotgun"
     },
     "railgun": {
       "file": "railgun.png",
       "glow": "railgun_glow.png",
       "size": [
-        120,
-        36
+        240,
+        72
       ],
       "grip": [
-        32,
-        22
+        64,
+        44
       ],
       "foregrip": [
-        70,
-        20
+        140,
+        40
       ],
       "muzzle": [
-        118,
-        15
+        236,
+        30
       ],
+      "texture_scale": 0.125,
       "style": "railgun"
     },
     "smg": {
       "file": "smg.png",
       "glow": "smg_glow.png",
       "size": [
-        80,
-        32
+        160,
+        64
       ],
       "grip": [
-        24,
-        20
+        48,
+        40
       ],
       "foregrip": [
-        48,
-        18
+        96,
+        36
       ],
       "muzzle": [
-        78,
-        12
+        156,
+        24
       ],
+      "texture_scale": 0.125,
       "style": "smg"
     },
     "launcher": {
       "file": "launcher.png",
       "glow": "launcher_glow.png",
       "size": [
-        108,
-        40
+        216,
+        80
       ],
       "grip": [
-        34,
-        26
+        68,
+        52
       ],
       "foregrip": [
-        66,
-        24
+        132,
+        48
       ],
       "muzzle": [
-        106,
-        14
+        212,
+        28
       ],
+      "texture_scale": 0.125,
       "style": "launcher"
     },
     "pistol": {
       "file": "pistol.png",
       "glow": "pistol_glow.png",
       "size": [
-        52,
-        28
+        104,
+        56
       ],
       "grip": [
-        14,
-        18
+        28,
+        36
       ],
       "foregrip": [
-        14,
-        18
+        28,
+        36
       ],
       "muzzle": [
-        50,
-        9
+        100,
+        18
       ],
+      "texture_scale": 0.125,
       "style": "pistol"
     },
     "minigun": {
       "file": "minigun.png",
       "glow": "minigun_glow.png",
       "size": [
-        128,
-        48
+        256,
+        96
       ],
       "grip": [
-        36,
-        30
+        72,
+        60
       ],
       "foregrip": [
-        72,
-        28
+        144,
+        56
       ],
       "muzzle": [
-        126,
-        22
+        252,
+        44
       ],
+      "texture_scale": 0.125,
       "style": "minigun"
     },
     "laser": {
       "file": "laser.png",
       "glow": "laser_glow.png",
       "size": [
-        112,
-        36
+        224,
+        72
       ],
       "grip": [
-        32,
-        22
+        64,
+        44
       ],
       "foregrip": [
-        66,
-        20
+        132,
+        40
       ],
       "muzzle": [
-        110,
-        15
+        220,
+        30
       ],
+      "texture_scale": 0.125,
       "style": "laser"
     },
     "sniper": {
       "file": "sniper.png",
       "glow": "sniper_glow.png",
       "size": [
-        140,
-        36
+        280,
+        72
       ],
       "grip": [
-        34,
-        22
+        68,
+        44
       ],
       "foregrip": [
-        76,
-        20
+        152,
+        40
       ],
       "muzzle": [
-        138,
-        14
+        276,
+        28
       ],
+      "texture_scale": 0.125,
       "style": "sniper"
     },
     "flamethrower": {
       "file": "flamethrower.png",
       "glow": "flamethrower_glow.png",
       "size": [
-        104,
-        40
+        208,
+        80
       ],
       "grip": [
-        30,
-        26
+        60,
+        52
       ],
       "foregrip": [
-        62,
-        24
+        124,
+        48
       ],
       "muzzle": [
-        102,
-        17
+        204,
+        34
       ],
+      "texture_scale": 0.125,
       "style": "flamethrower"
     },
     "handset": {

@@ -674,6 +674,12 @@ func set_weapon(visual_id: String) -> void:
 	var base_dir := RigLibrary.WEAPONS_PATH.get_base_dir()
 	var size := RigLibrary.vec2(_weapon_def.get("size"), Vector2(64, 24))
 	_weapon_scale = float(RigLibrary.weapons().get("texture_scale", 0.25))
+	if _weapon_def.has("texture_scale"):
+		var scale_override: Variant = _weapon_def["texture_scale"]
+		if (scale_override is float or scale_override is int) and is_finite(float(scale_override)) and float(scale_override) > 0.0:
+			_weapon_scale = float(scale_override)
+		else:
+			push_warning("[CharacterRig] weapons.json/%s.texture_scale 必須是有限正數，沿用預設解析度" % visual_id)
 	_weapon_sprite.texture = LitTextures.load_texture(base_dir.path_join(str(_weapon_def.get("file", ""))), Vector2i(size))
 	_weapon_sprite.offset = -RigLibrary.vec2(_weapon_def.get("grip"))
 	_weapon_sprite.scale = Vector2.ONE * _weapon_scale
