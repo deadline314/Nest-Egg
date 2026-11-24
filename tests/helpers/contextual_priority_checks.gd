@@ -99,7 +99,7 @@ static func _reading_priority(suite: TestSuite) -> void:
 	suite.check(radio_done == [&"priority_fixture"] and DialogueLayer.radio_visible(), "normal radio completes once; fading panel still owns the reading space")
 	card._process(0.0)
 	suite.check(not card._root.visible, "card never flashes through radio's fade-out tail")
-	await suite.runner.get_tree().create_timer(0.3).timeout
+	await _wait_for_presentation(suite, func() -> bool: return not DialogueLayer.radio_visible())
 	suite.check(not DialogueLayer.radio_visible(), "finished panel releases priority after actual fade callback")
 	card._process(0.0)
 	reachable[0] = false
@@ -113,7 +113,8 @@ static func _reading_priority(suite: TestSuite) -> void:
 	bubbles._process(MapBubbles.HOLD_MAX + 0.5)
 	bubbles._process(MapBubbles.HOLD_MAX + 0.5)
 	suite.check(bubble_done == [&"priority_bubbles"], "bubble completion occurs once after actual resumed display")
-	await suite.runner.get_tree().create_timer(1.5).timeout
+	await _wait_for_presentation(suite, func() -> bool: return card_done[0] > 0)
+	await suite.frames(2)
 	suite.check(card_done[0] == 1, "restored chapter card completes once after its remaining tween")
 	var cancel_lines: Array[Dictionary] = [line.duplicate(true)]
 	cancel_lines[0]["delay"] = 0.0
@@ -131,6 +132,14 @@ static func _reading_priority(suite: TestSuite) -> void:
 	suite.check(DialogueLayer._radio_layers.size() == owners, "tree exit removes weak owner registration")
 	suite.check(GameState.world_flags == original_flags and Story.progress_snapshot() == original_progress,
 		"presentation arbitration never writes story flags or completion progress")
+
+
+## A fixed timer can expire before a tween callback on a long frame.
+## Observe actual visibility or completion, with a bounded failure path.
+static func _wait_for_presentation(suite: TestSuite, finished: Callable) -> void:
+	var deadline := Time.get_ticks_msec() + 5000
+	while not finished.call() and Time.get_ticks_msec() < deadline:
+		await suite.runner.get_tree().process_frame
 
 
 static func _actual_player_obstacle(suite: TestSuite) -> void:
