@@ -66,10 +66,15 @@ func _test_wrapped_bubble_bounds() -> void:
 	var first: Rect2 = host._active[0].get("rect", Rect2())
 	var second: Rect2 = host._active[1].get("rect", Rect2())
 	check(first.has_area() and second.has_area() and not first.intersects(second), "adjacent speakers keep both simultaneous bubbles separate")
-	camera.zoom = Vector2(4, 4)
+	# Reserve the viewport explicitly. A fixed zoom cannot guarantee saturation
+	# across fonts because both bubbles and the invitation reflow.
+	var obstruction := Node2D.new()
+	stage.add_child(obstruction)
+	PromptLayout.add_obstacle(obstruction, func() -> Rect2: return WorldPrompt.TEXT_LAYOUT.world_rect(runner.get_viewport()))
 	await frames(2)
 	prompt._process(1.0)
 	check(prompt.enabled and not prompt.is_showing() and prompt._alpha == 0.0, "a view with no free space hides the invitation without disabling its interaction")
+	obstruction.queue_free()
 	host.queue_free()
 	await frames(2)
 	prompt._process(1.0)

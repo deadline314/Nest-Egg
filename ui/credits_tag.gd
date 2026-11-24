@@ -72,7 +72,7 @@ func _process(delta: float) -> void:
 
 
 func _draw() -> void:
-	var font := UiKit.font()
+	var font := UiKit.special_font(&"readout")
 	var text := "%d" % roundi(_shown)
 	var text_width := font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, UiKit.FS_BODY).x
 	var color := Palette.NEON_YELLOW.lerp(_flash_color, _flash)

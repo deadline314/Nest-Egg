@@ -139,6 +139,7 @@ func _ready() -> void:
 	add_child(ammo_tray)
 
 	_timer_label = UiKit.label("00:00.00", 11, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_RIGHT)
+	_timer_label.add_theme_font_override(&"font", UiKit.special_font(&"readout"))
 	_timer_label.position = Vector2(528, 8)
 	_timer_label.size = Vector2(100, 16)
 	root.add_child(_timer_label)

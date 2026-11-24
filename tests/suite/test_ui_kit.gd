@@ -73,6 +73,8 @@ func _test_item_icon_density() -> void:
 
 func _test_font() -> void:
 	var previous := Settings.get_ui_font()
+	UiKit.set_font_language("zh")
+	Settings.set_ui_font("smooth")
 	var font := UiKit.font()
 	check(font is FontVariation, "公開的字型是一層 FontVariation（切換樣式時所有使用者一起換）")
 	var base := (font as FontVariation).base_font
@@ -84,12 +86,32 @@ func _test_font() -> void:
 	Settings.set_ui_font("smooth")
 	check(Settings.get_ui_font() == "smooth" and UiKit.font_style() == "smooth", "預設是平滑字型")
 	var smooth_base := (UiKit.font() as FontVariation).base_font
-	check((smooth_base as FontFile).resource_path.contains("NotoSansTC") or (smooth_base as FontFile).data.size() > 500000, "平滑樣式用思源黑體子集")
+	check(smooth_base.get_font_name() == "Nest Egg Sans TC", "繁中平滑樣式使用 Nest Egg Sans TC")
+	for letter in "鷺凜聽擊倉護頭，×":
+		check(smooth_base.has_char(letter.unicode_at(0)), "主要繁中文字形可直接讀取：" + letter)
+	var display := UiKit.special_font(&"display") as FontVariation
+	var numbers := UiKit.special_font(&"readout") as FontVariation
+	var wordmark := "NEST EGG"
+	var title_width := display.get_string_size(wordmark, HORIZONTAL_ALIGNMENT_LEFT, -1, 33).x
+	var body_width := font.get_string_size(wordmark, HORIZONTAL_ALIGNMENT_LEFT, -1, 33).x
+	check(display.base_font.get_font_name().begins_with("IBM Plex Sans Cond") and title_width < body_width,
+		"主標題使用窄版字型")
+	check(numbers.base_font.get_font_name().contains("Mono"), "讀數使用等寬字型")
+	var digits := numbers.get_string_size("0011", HORIZONTAL_ALIGNMENT_LEFT, -1, 13).x
+	check(is_equal_approx(digits, numbers.get_string_size("8877", HORIZONTAL_ALIGNMENT_LEFT, -1, 13).x), "數值變動時讀數寬度固定")
+	UiKit.set_font_language("ja")
+	var japanese := (font as FontVariation).base_font
+	check(japanese.get_font_name() == "Nest Egg Sans JP" and japanese.has_char("撃".unicode_at(0)), "日文使用有在地字形的同一家族")
+	check(UiKit.special_font(&"display") == display and display.base_font.get_fallbacks()[0] == japanese,
+		"切換語言保留已顯示的標題字型物件並同步備援")
+	UiKit.set_font_language("zh")
 	var label := Label.new()
 	label.add_theme_font_override(&"font", UiKit.font())
 	var smooth_width := label.get_theme_font(&"font").get_string_size("水位又上來了", HORIZONTAL_ALIGNMENT_LEFT, -1, UiKit.FS_BODY).x
 	Settings.set_ui_font("pixel")
 	check(UiKit.font_style() == "pixel" and (UiKit.font() as FontVariation).base_font != smooth_base, "切到像素字之後底層字型換掉")
+	check(numbers.base_font == display.base_font and display.base_font == (font as FontVariation).base_font,
+		"像素模式保留統一樣式，標題與讀數一同切換")
 	var pixel_width := label.get_theme_font(&"font").get_string_size("水位又上來了", HORIZONTAL_ALIGNMENT_LEFT, -1, UiKit.FS_BODY).x
 	check(smooth_width <= pixel_width + 0.01, "平滑字型的中文不比像素字寬（原本排得下的版面不會爆：%.0f vs %.0f）" % [smooth_width, pixel_width])
 	Settings.set_value(Settings.DISPLAY_SECTION, "ui_font", "no_such_style")
@@ -98,6 +120,8 @@ func _test_font() -> void:
 	Settings.set_ui_font(previous)
 	Settings.reset_display()
 	check(Settings.get_ui_font() == UiKit.DEFAULT_FONT_STYLE, "恢復顯示預設也會把字型改回預設")
+	UiKit.set_font_language(Story.language)
+	check(FileAccess.file_exists("res://art/fonts/OFL-IBM-Plex.txt"), "字型套件附上開放授權")
 
 
 func _test_sizes() -> void:

@@ -3,13 +3,18 @@ extends RefCounted
 ## UI 共用工具：主題、字型、常用控制項。所有畫面共用同一份主題，確保風格一致且只建立一次。
 ## Tooltip 原則：一句話講重點（做什麼／怎麼用），不寫廢話。
 
-## 介面字型樣式（NE-215）：smooth＝思源黑體（Noto Sans TC，只含專案用到的字加常用符號的子集，SIL OFL），
-## pixel＝Cubic 11 像素字。設定畫面的「平滑字型」可切換；新增樣式只在這裡加一筆。
+## 平滑樣式依遊戲語言使用繁中或日文內文字型；像素樣式沿用 Cubic 11。
 const FONT_STYLES := {
-	"smooth": {"path": "res://art/fonts/NotoSansTC-Regular-subset.ttf", "pixel": false},
+	"smooth": {"path": "res://art/fonts/NestEggSansTC-Regular.ttf", "pixel": false},
 	"pixel": {"path": "res://art/fonts/Cubic_11.ttf", "pixel": true},
 }
 const DEFAULT_FONT_STYLE := "smooth"
+const JAPANESE_BODY_PATH := "res://art/fonts/NestEggSansJP-Regular.ttf"
+const BODY_FALLBACK_PATH := "res://art/fonts/NotoSansTC-Regular-subset.ttf"
+const SPECIAL_FONT_PATHS := {
+	&"display": "res://art/fonts/IBMPlexSansCondensed-SemiBold.ttf",
+	&"readout": "res://art/fonts/IBMPlexMono-Medium.ttf",
+}
 ## 舊名稱：像素字檔（測試與工具引用）。
 const FONT_PATH := "res://art/fonts/Cubic_11.ttf"
 ## 系統備援字型（專案字體載入失敗，或遇到字體沒有的字時使用）。
@@ -36,6 +41,9 @@ static var _theme: Theme
 static var style_override := ""
 ## 公開的字型是一層 FontVariation：切換樣式時只換它的 base_font，所有已經拿著它的控制項、繪圖節點立刻跟著換。
 static var _font: FontVariation
+static var _special_fonts: Dictionary[StringName, FontVariation] = {}
+static var _font_language := "zh"
+static var _system_fallback: SystemFont
 
 
 static func font() -> Font:
@@ -43,6 +51,26 @@ static func font() -> Font:
 		_font = FontVariation.new()
 		_font.base_font = _load_font(font_style())
 	return _font
+
+
+## 標題與數字沿用同一個可切換的字型物件，既有標籤不必重建。
+static func special_font(role: StringName) -> Font:
+	if not SPECIAL_FONT_PATHS.has(role):
+		return font()
+	if not _special_fonts.has(role):
+		var variant := FontVariation.new()
+		variant.base_font = _special_base(role)
+		_special_fonts[role] = variant
+	return _special_fonts[role]
+
+
+static func set_font_language(language: String) -> void:
+	var selected := "ja" if language == "ja" else "zh"
+	if _font_language == selected:
+		return
+	_font_language = selected
+	if _font != null and font_style() == DEFAULT_FONT_STYLE:
+		apply_font_style()
 
 
 ## 目前的字型樣式（設定裡沒有或寫錯時用預設）。
@@ -58,24 +86,57 @@ static func apply_font_style() -> void:
 	font()
 	# Labels may reshape synchronously while their cached glyphs still use the old RID.
 	# Keep that font alive until the text-size refresh has finished.
-	var _previous_base := _font.base_font
+	var previous_bases: Array[Font] = [_font.base_font]
 	_font.base_font = _load_font(font_style())
+	for role in _special_fonts:
+		previous_bases.append(_special_fonts[role].base_font)
+		_special_fonts[role].base_font = _special_base(role)
 	# 說明小字依字體樣式換字級（像素字體改用內文字級才銳利）。
 	apply_text_scale()
 
 
-## 先用專案字體；載入失敗時記錄並退回系統字型。系統字型同時掛為專案字體的備援，缺字不顯示方塊。
+static func _system_font() -> SystemFont:
+	if _system_fallback == null:
+		_system_fallback = SystemFont.new()
+		_system_fallback.font_names = PackedStringArray(FONT_NAMES)
+		_system_fallback.antialiasing = TextServer.FONT_ANTIALIASING_GRAY
+	return _system_fallback
+
+
+## 新字型缺字時先找同包的備援，最後才用系統字型。
 static func _load_font(style: String) -> Font:
-	var system_font := SystemFont.new()
-	system_font.font_names = PackedStringArray(FONT_NAMES)
-	system_font.antialiasing = TextServer.FONT_ANTIALIASING_GRAY
 	var entry: Dictionary = FONT_STYLES.get(style, FONT_STYLES[DEFAULT_FONT_STYLE])
-	var project_font := _load_project_font(str(entry["path"]), bool(entry["pixel"]))
-	if project_font == null:
-		push_warning("UiKit: 專案字體載入失敗（%s），改用系統字型。" % entry["path"])
+	var pixel: bool = entry["pixel"]
+	var path: String = JAPANESE_BODY_PATH if not pixel and _font_language == "ja" else entry["path"]
+	var face := _load_project_font(path, pixel)
+	var system_font := _system_font()
+	if pixel:
+		if face != null:
+			face.fallbacks = [system_font]
+			return face
+		push_warning("UiKit: 像素字型載入失敗（%s），使用系統字型。" % path)
 		return system_font
-	project_font.fallbacks = [system_font]
-	return project_font
+	var fallback := _load_project_font(BODY_FALLBACK_PATH, false)
+	if fallback != null:
+		fallback.fallbacks = [system_font]
+	if face == null:
+		push_warning("UiKit: 內文字型載入失敗（%s），使用備援字型。" % path)
+		return fallback if fallback != null else system_font
+	face.fallbacks = [fallback] if fallback != null else [system_font]
+	return face
+
+
+static func _special_base(role: StringName) -> Font:
+	var body := (font() as FontVariation).base_font
+	if font_style() == "pixel":
+		return body
+	var path: String = SPECIAL_FONT_PATHS[role]
+	var face := _load_project_font(path, false)
+	if face == null:
+		push_warning("UiKit: 字型載入失敗（%s），使用內文字型。" % path)
+		return body
+	face.fallbacks = [body]
+	return face
 
 
 static func _load_project_font(path: String, pixel: bool) -> FontFile:

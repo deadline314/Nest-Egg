@@ -153,6 +153,7 @@ func _build_main_page() -> void:
 	_ui.add_child(_main_page)
 
 	var title := UiKit.label("NEST EGG", UiKit.FS_DISPLAY, MENU_INK)
+	title.add_theme_font_override(&"font", UiKit.special_font(&"display"))
 	title.position = Vector2(36, 40)
 	_main_page.add_child(title)
 	var subtitle := UiKit.label(_text("subtitle"), UiKit.FS_BODY, Palette.UI_MUTED)

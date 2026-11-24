@@ -170,6 +170,8 @@ func _install_prepared(prepared: PreparedInstall) -> void:
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	language = _initial_language()
+	UiKit.set_font_language(language)
 	framing = CinematicFraming.new()
 	add_child(framing)
 	_layer = DialogueLayer.new()
@@ -184,7 +186,6 @@ func _ready() -> void:
 		_refresh_bubble_admission()
 		for scene in outcomes.scenes_for_event(&"checkpoint"):
 			play(scene))
-	language = _initial_language()
 	load_all()
 	if FileAccess.file_exists(GameState.STORY_SAVE_PATH):
 		GameState.load_story_progress()
@@ -213,6 +214,7 @@ func set_language(code: String) -> bool:
 	if code == language:
 		return true
 	language = code
+	UiKit.set_font_language(language)
 	load_all()
 	return true
 

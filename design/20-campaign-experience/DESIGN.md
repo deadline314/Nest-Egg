@@ -115,3 +115,9 @@
 ### 標題畫面導覽
 
 城市畫面保留視覺空間。左側從遊戲名、導覽到操作說明依序閱讀，列的位置固定。游標或手把變更焦點時，側線上的短標記移到該列，說明立即更新；減少動態時標記直接到位。保留繼續、新遊戲、圖鑑、設定與離開原本的操作。
+
+### 遊戲字體
+
+一般介面、任務與對話使用由 IBM Plex Sans 衍生的 Nest Egg Sans，依繁中及日文各自的標準字形排版，英文沿用繁中版所含的拉丁字母。地圖圖示與少見字使用同包備援，再由平台補字。主標題採 IBM Plex Sans Condensed SemiBold，遊玩時間與信用點採 IBM Plex Mono Medium。保留整體像素樣式與現有文字放大。
+
+字型來源為 [IBM Plex 固定版本](https://github.com/IBM/plex/tree/ba3013d72a8419a22c758cc51c44e04ac7ea565b)，SIL OFL 1.1 隨專案分發。內文子集使用新的家族名，依遊戲文字及既有符號範圍建立。使用 fontTools 4.61.1 執行 `python tools/ui/build_body_fonts.py <兩個原始 Regular TTF 所在資料夾>` 即可重建。來源位於套件 `plex-sans-tc` 與 `plex-sans-jp` 的 `fonts/complete/ttf/hinted`，兩個特用字型直接採用同版本檔案。
