@@ -28,6 +28,11 @@ var _row: ObjectiveRow
 var _label: Label
 var _pulse: Tween
 var _arrow_obstacles: Array[Rect2] = []
+var _route_from := ""
+var _route_to := ""
+var _route_flags: Dictionary = {}
+var _route_exit: Dictionary = {}
+var _route_valid := false
 var _arrow: Label
 var _time := 0.0
 var _idle := 0.0
@@ -72,6 +77,7 @@ func _ready() -> void:
 	_arrow.add_theme_stylebox_override(&"normal", route_plate)
 	add_child(_arrow)
 	state.changed.connect(_refresh_target)
+	GameState.flag_changed.connect(_on_route_flag_changed)
 	Settings.display_changed.connect(_apply_motion_preference)
 	EventBus.checkpoint_reached.connect(func(position: Vector2) -> void: state.activate(level.data.resource_path, position, level.data.tile_size))
 	_refresh_target()
@@ -151,6 +157,9 @@ func _sample() -> void:
 
 
 func _refresh_target() -> void:
+	# Restores may replace the flag table without notifying each individual key.
+	if _route_valid and GameState.world_flags != _route_flags:
+		_route_valid = false
 	_target = state.target(catalog, String(level.data.chapter), GameState.world_flags)
 	var step := QuestCatalog.current_step(_target, GameState.world_flags)
 	var quest_id := str(_target.get("id", ""))
@@ -197,6 +206,21 @@ func _apply_motion_preference() -> void:
 		_stop_reveal()
 
 
+func _on_route_flag_changed(_flag: StringName, _value: Variant) -> void:
+	_route_valid = false
+
+
+func _first_exit(path: String) -> Dictionary:
+	var from := level.data.resource_path
+	if not _route_valid or _route_from != from or _route_to != path:
+		_route_from = from
+		_route_to = path
+		_route_flags = GameState.world_flags.duplicate()
+		_route_exit = maps.next_exit(from, path, _route_flags)
+		_route_valid = true
+	return _route_exit
+
+
 func _update_arrow() -> void:
 	_arrow.visible = _place_arrow()
 
@@ -217,7 +241,7 @@ func _place_arrow() -> bool:
 		position = Vector2(cell[0] + 0.5, cell[1] + 1.0) * level.data.tile_size
 		hint = QuestCatalog.display_text(step, "title")
 	else:
-		var exit := maps.next_exit(level.data.resource_path, path, GameState.world_flags)
+		var exit := _first_exit(path)
 		if exit.is_empty():
 			return false
 		position = exit["position"]

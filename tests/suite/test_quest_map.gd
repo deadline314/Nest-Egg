@@ -933,6 +933,7 @@ func _test_runtime() -> void:
 	await _test_pause_navigation(level)
 	await _check_fixed_hud_reading_space(level)
 	await _check_caption_avoids_actor(level)
+	_check_destination_route_cache(level)
 	await _check_destination_reading_priority(level)
 	await _check_reading_yield_timing(level)
 	await _check_prompt_avoids_objective(level)
@@ -1477,6 +1478,48 @@ func _check_reading_yield_timing(level: Level) -> void:
 	check(guidance._row.modulate.a == 0.0, "an already-running objective pulse never restores alpha through a reading surface")
 	surface.queue_free()
 	await frames(2)
+
+
+class CountingRouteIndex extends QuestMapIndex:
+	var queries := 0
+
+	func next_exit(from: String, to: String, flags: Dictionary, allow_locked := false) -> Dictionary:
+		queries += 1
+		return super.next_exit(from, to, flags, allow_locked)
+
+
+func _check_destination_route_cache(level: Level) -> void:
+	var guidance := level.hud.quest_guidance
+	var original := guidance.maps
+	var maps := CountingRouteIndex.new()
+	maps.areas = original.areas
+	guidance.maps = maps
+	guidance._on_route_flag_changed(&"", false)
+	var first := guidance._first_exit(WAREHOUSE)
+	var original_count := maps.queries
+	check(first == original.next_exit(level.data.resource_path, WAREHOUSE, GameState.world_flags) and not first.is_empty(),
+		"the cache shares the real route graph")
+	for frame in 120:
+		guidance._first_exit(WAREHOUSE)
+	check(maps.queries == original_count, "120 HUD updates do not search an unchanged route again")
+	var old_flags := GameState.world_flags.duplicate()
+	# Use a probe-only flag to exercise live publication without opening a story gate.
+	GameState.set_flag(&"quest_route_probe", true, false)
+	var updated := guidance._first_exit(WAREHOUSE)
+	check(maps.queries > original_count and updated == original.next_exit(level.data.resource_path, WAREHOUSE, GameState.world_flags),
+		"a live flag change invalidates the route before the next update")
+	var after_signal := maps.queries
+	GameState.world_flags = old_flags
+	guidance._refresh_target()
+	check(guidance._first_exit(WAREHOUSE) == first and maps.queries > after_signal,
+		"a wholesale flag restore also invalidates the previous route")
+	var after_restore := maps.queries
+	guidance._first_exit("res://data/levels/missing_for_route.tres")
+	var after_missing := maps.queries
+	check(after_missing > after_restore and guidance._first_exit("res://data/levels/missing_for_route.tres").is_empty()
+		and maps.queries == after_missing, "negative routes are also cached until the destination changes")
+	guidance.maps = original
+	guidance._on_route_flag_changed(&"", false)
 
 
 func _check_destination_reading_priority(level: Level) -> void:
