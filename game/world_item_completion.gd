@@ -114,6 +114,7 @@ func _commit(source: Dictionary) -> Dictionary:
 	var proof := Bundle._capture_source()
 	if proof.has("error"):
 		return proof
+	var seal: Bundle.SourceSeal = proof["data"]
 	var item := _pickup.item
 	var first_acquisition := not StoryItems.owns(item.id)
 	if first_acquisition:
@@ -146,12 +147,12 @@ func _commit(source: Dictionary) -> Dictionary:
 	for flag: String in game["data"].flags:
 		if GameState.get_flag(StringName(flag)) != game["data"].flags[flag]:
 			changed.append(flag)
-	if Bundle._capture_source().get("data") != proof["data"] or _source(_pickup, _player).is_empty():
+	if not seal.matches() or _source(_pickup, _player).is_empty():
 		return {"error": "live pickup source changed before durable write"}
 	var outcome := store.commit_existing_write(write)
 	if not outcome.committed:
 		return {"error": "; ".join(outcome.issues), "reload_original": outcome.requires_recovery}
-	if outcome.requires_recovery or Bundle._capture_source().get("data") != proof["data"] or _source(_pickup, _player).is_empty():
+	if outcome.requires_recovery or not seal.matches() or _source(_pickup, _player).is_empty():
 		return {"committed": true, "recovery": true}
 	# No callbacks, fallible operations or owner replacement between assignments.
 	StoryItems._install_prepared(items["data"])

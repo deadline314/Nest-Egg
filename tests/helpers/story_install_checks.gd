@@ -57,7 +57,32 @@ static func _projection() -> Dictionary:
 		"area_states": GameState.area_states.duplicate(true), "completed": Story.progress_snapshot()}
 
 
+static func _check_source_seal(s: TestSuite) -> void:
+	const ID := "temporary_source_seal"
+	var payload := {"items": [null, 12], "enabled": true}
+	Story._scenes[ID] = payload
+	var captured := Bundle._capture_source()
+	s.check(captured.has("data"), "a source seal captures the bounded authored tree")
+	if captured.has("data"):
+		var seal: Bundle.SourceSeal = captured["data"]
+		s.check(seal.matches(), "an unchanged owner matches its detached source")
+		payload["items"][1] = 12.0
+		s.check(not seal.matches(), "the source seal detects a scalar type change")
+		payload["items"][1] = 12
+		Story._scenes[ID] = {"enabled": true, "items": [null, 12]}
+		s.check(not seal.matches(), "the exact source encoding detects reordered fields")
+		Story._scenes[ID] = payload
+		var invalid := Node.new()
+		payload["items"][0] = invalid
+		invalid.free()
+		s.check(not seal.matches(), "the structural comparison rejects a freed object in place of null")
+		payload["items"][0] = null
+		s.check(seal.matches(), "restoring the exact source validates again")
+	Story._scenes.erase(ID)
+
+
 static func run(s: TestSuite) -> void:
+	_check_source_seal(s)
 	var defaults := GameState.flag_defaults.duplicate(true)
 	GameState.story_autosave = false
 	GameState.register_flag_defaults({"install_test_bool": false, "install_test_count": 0}, "tests/story_install")

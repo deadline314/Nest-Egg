@@ -59,6 +59,7 @@ class PreparedInstall extends RefCounted:
 ## proved against the same authored data without rebuilding the catalogs.
 class InstallCatalog extends RefCounted:
 	var weapons: Dictionary = {}
+	var upgrades: Dictionary = {}
 	var ledger_context: Dictionary = {}
 
 
@@ -85,21 +86,24 @@ func prepare_install(raw: Variant, catalog: InstallCatalog = null) -> Dictionary
 	prepared.credits = int(raw["credits"])
 	if catalog == null:
 		catalog = InstallCatalog.new()
-	if catalog.weapons.is_empty():
+	var saved_upgrades: Dictionary = raw.get("upgrades", {})
+	if not saved_upgrades.is_empty() and catalog.weapons.is_empty():
 		var weapon_catalog := WeaponCatalog.load_all()
 		if not weapon_catalog.issues.is_empty():
 			return {"error": "install/progression weapon catalog: " + weapon_catalog.issues[0]}
 		for weapon: WeaponData in weapon_catalog.weapons:
 			catalog.weapons[String(weapon.id)] = weapon
-	var weapon_ids := catalog.weapons
-	for weapon: Variant in raw.get("upgrades", {}):
-		if not weapon is String or not weapon_ids.has(weapon) or not raw["upgrades"][weapon] is Array:
+		for upgrade: WeaponUpgradeData in weapon_catalog.upgrades:
+			catalog.upgrades[String(upgrade.id)] = upgrade
+	for weapon: Variant in saved_upgrades:
+		if not weapon is String or not catalog.weapons.has(weapon) or not saved_upgrades[weapon] is Array:
 			return {"error": "install/progression/upgrades unknown weapon or invalid list: %s" % weapon}
 		var ids: Array = []
-		for id: Variant in raw["upgrades"][weapon]:
-			if not id is String or find_upgrade(StringName(id)) == null or ids.has(StringName(id)):
+		for id: Variant in saved_upgrades[weapon]:
+			var upgrade: WeaponUpgradeData = catalog.upgrades.get(id) if id is String else null
+			if upgrade == null or ids.has(StringName(id)):
 				return {"error": "install/progression/upgrades unknown or repeated upgrade: %s/%s" % [weapon, id]}
-			if not find_upgrade(StringName(id)).applies_to(weapon_ids[weapon]):
+			if not upgrade.applies_to(catalog.weapons[weapon]):
 				return {"error": "install/progression/upgrades does not apply to this weapon"}
 			ids.append(StringName(id))
 		if not ids.is_empty():

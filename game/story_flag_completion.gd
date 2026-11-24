@@ -128,6 +128,7 @@ func _commit(id: StringName, scene: Dictionary, level: Level) -> Dictionary:
 	var source := Bundle._capture_source()
 	if source.has("error"):
 		return source
+	var seal: Bundle.SourceSeal = source["data"]
 	var unchanged := candidate.duplicate(true)
 	var baseline := candidate.duplicate(true)
 	if cinematic:
@@ -179,7 +180,7 @@ func _commit(id: StringName, scene: Dictionary, level: Level) -> Dictionary:
 		return game
 	if story.has("error"):
 		return story
-	if Bundle._capture_source().get("data") != source["data"]:
+	if not seal.matches():
 		return {"error": "live source changed before durable write"}
 	var changed: Array[String] = []
 	for flag: String in (game["data"].flags as Dictionary):
@@ -189,7 +190,7 @@ func _commit(id: StringName, scene: Dictionary, level: Level) -> Dictionary:
 	if not outcome.committed:
 		return {"reload_original": outcome.requires_recovery, "error": "; ".join(outcome.issues)}
 	# A committed outcome is irrevocable, even if a future platform callback changed live state.
-	if outcome.requires_recovery or Bundle._capture_source().get("data") != source["data"]:
+	if outcome.requires_recovery or not seal.matches():
 		return {"committed": true, "recovery": true}
 	GameState._install_prepared_flags(game["data"])
 	Story._install_prepared(story["data"])

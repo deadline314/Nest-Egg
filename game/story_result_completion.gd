@@ -262,6 +262,7 @@ func _prepare_and_commit(scene: Dictionary, continuation: StringName = &"", choi
 	var source := Bundle._capture_source()
 	if source.has("error"):
 		return source
+	var seal: Bundle.SourceSeal = source["data"]
 	var planned := _plan(scene, candidate, continuation, choice)
 	if not planned.get("valid", false):
 		return {"error": planned.get("error", "invalid result plan"), "status": planned.get("status", "")}
@@ -329,7 +330,7 @@ func _prepare_and_commit(scene: Dictionary, continuation: StringName = &"", choi
 	for flag: String in game["data"].flags:
 		if GameState.get_flag(StringName(flag)) != game["data"].flags[flag]:
 			changed.append(flag)
-	if Bundle._capture_source().get("data") != source["data"] or not _source_unchanged(level,npc,death):
+	if not seal.matches() or not _source_unchanged(level,npc,death):
 		return {"error": "live source changed before durable terminal write"}
 	if health_gain > 0 and (not is_instance_valid(health) or health.current != health_before or health.preview_heal(health_gain) != health_gain):
 		return {"error": "live player health changed before durable terminal write"}
@@ -337,7 +338,7 @@ func _prepare_and_commit(scene: Dictionary, continuation: StringName = &"", choi
 	var outcome := store.commit_existing_write(write)
 	if not outcome.committed:
 		return {"error": "; ".join(outcome.issues), "reload_original": outcome.requires_recovery}
-	if outcome.requires_recovery or Bundle._capture_source().get("data") != source["data"] or not _source_unchanged(level,npc,death):
+	if outcome.requires_recovery or not seal.matches() or not _source_unchanged(level,npc,death):
 		return {"committed": true, "recovery": true}
 	if health_gain > 0 and (not is_instance_valid(health) or health.current != health_before or health.preview_heal(health_gain) != health_gain):
 		return {"committed": true, "recovery": true}

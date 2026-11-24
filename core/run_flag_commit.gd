@@ -21,6 +21,7 @@ static func commit(main: Node, level: Level, results: Dictionary, scene_id: Stri
 	candidate = original["data"].duplicate(true)
 	var proof := Bundle._capture_source()
 	if proof.has("error"): return proof
+	var seal: Bundle.SourceSeal = proof["data"]
 	var flags: Dictionary = candidate["story"]["flags"]
 	flags.merge(results, true)
 	var facts := func(kind: StringName, key: StringName) -> Variant:
@@ -54,12 +55,12 @@ static func commit(main: Node, level: Level, results: Dictionary, scene_id: Stri
 	var changed: Array[String] = []
 	for key: String in game["data"].flags:
 		if GameState.get_flag(StringName(key)) != game["data"].flags[key]: changed.append(key)
-	if Bundle._capture_source().get("data") != proof["data"] or not valid_source.call():
+	if not seal.matches() or not valid_source.call():
 		return {"error": "live flag result source changed before durable write"}
 	var outcome := store.commit_existing_write(write)
 	if not outcome.committed:
 		return {"error": "; ".join(outcome.issues), "reload_original": outcome.requires_recovery}
-	if outcome.requires_recovery or Bundle._capture_source().get("data") != proof["data"] or not valid_source.call():
+	if outcome.requires_recovery or not seal.matches() or not valid_source.call():
 		return {"committed": true, "recovery": true}
 	GameState._install_prepared_flags(game["data"])
 	return {"committed": true, "changed": changed, "state": game["data"], "snapshot": normalized}

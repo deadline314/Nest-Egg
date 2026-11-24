@@ -95,13 +95,12 @@ static func validate_tree(raw: Variant, node_limit := MAX_NODES) -> PackedString
 	if validator.visit(raw, 0):
 		return PackedStringArray()
 	var where := "run"
-	for key: Variant in validator.path:
-		where = _diagnostic_path(where, str(key))
+	for i in range(validator.path.size() - 1, -1, -1):
+		where = _diagnostic_path(where, str(validator.path[i]))
 	return PackedStringArray(["%s：%s" % [where, validator.message]])
 
 
-## Save trees have a small fixed depth. Keep the current path in place and
-## format it only if validation fails.
+## Save trees have a small fixed depth. Produce the path while unwinding a failure.
 class _TreeValidator:
 	var limit := 0
 	var count := 0
@@ -135,18 +134,16 @@ class _TreeValidator:
 			return fail("資料數量超過上限")
 		if value is Dictionary:
 			for key: Variant in value:
-				if typeof(key) not in [TYPE_STRING, TYPE_STRING_NAME] or String(key).length() > RunSaveCodec.MAX_TEXT:
+				if (not key is String and not key is StringName) or String(key).length() > RunSaveCodec.MAX_TEXT:
 					return fail("無效欄位名稱")
-				path.append(key)
 				if not visit(value[key], depth + 1):
+					path.append(key)
 					return false
-				path.pop_back()
 		else:
 			for i in size:
-				path.append(i)
 				if not visit(value[i], depth + 1):
+					path.append(i)
 					return false
-				path.pop_back()
 		return true
 
 

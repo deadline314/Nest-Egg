@@ -12,7 +12,7 @@ var _progression: ProgressionOwner.PreparedInstall
 var _items: ItemsOwner.PreparedInstall
 var _game: GameOwner.PreparedInstall
 var _story: StoryOwner.PreparedInstall
-var _source: PackedByteArray
+var _source: SourceSeal
 var _consumed := false
 
 
@@ -106,17 +106,49 @@ static func _prepare(state: Variant, progression: Variant, story: Variant, diffi
 	return {"data": bundle}
 
 
+## A proof owns a validated, detached tree and its ordered binary encoding.
+## Structural equality rejects a changed shape before serializing live data.
+class SourceSeal:
+	var _tree: Dictionary
+	var _bytes: PackedByteArray
+
+	func _init(source: Dictionary) -> void:
+		_tree = source.duplicate(true)
+		_bytes = var_to_bytes(source)
+
+	func error_if_stale() -> String:
+		if Progression._story_transaction_busy:
+			return "install/source story transaction is busy"
+		var current := StoryInstallBundle._source_state()
+		# The initial tree has bounded depth and size. Native structural equality
+		# checks the current types and shape before the exact byte comparison.
+		if current == _tree and var_to_bytes(current) == _bytes:
+			return ""
+		var errors := RunSaveCodec.validate_tree(current)
+		if not errors.is_empty():
+			return "install/source " + errors[0]
+		return "install/source stale; prepare again from the current run"
+
+	func matches() -> bool:
+		return error_if_stale().is_empty()
+
+
+static func _source_state() -> Dictionary:
+	return {"game": GameState._install_source(), "progression": Progression.snapshot(),
+		"items": StoryItems.snapshot(), "story": Story._install_source()}
+
+
 static func _capture_source() -> Dictionary:
 	if Progression._story_transaction_busy:
 		return {"error": "install/source story transaction is busy"}
-	var source := {"game": GameState._install_source(), "progression": Progression.snapshot(),
-		"items": StoryItems.snapshot(), "story": Story._install_source()}
+	var source := _source_state()
 	var errors := RunSaveCodec.validate_tree(source)
 	if not errors.is_empty():
 		return {"error": "install/source " + errors[0]}
-	# Finite bounded trees only. Variant bytes retain scalar types and dictionary
-	# order, giving a conservative content guard without missing direct writes.
-	return {"data": var_to_bytes(source)}
+	var seal := SourceSeal.new(source)
+	if seal._bytes.is_empty():
+		return {"error": "install/source could not encode the bounded owner tree"}
+	return {"data": seal}
 
 
 ## Recheck before durable write, and again immediately before installation.
@@ -124,11 +156,11 @@ static func _capture_source() -> Dictionary:
 func preflight() -> Dictionary:
 	if _consumed:
 		return {"error": "install/bundle already consumed"}
-	var source := _capture_source()
-	if source.has("error"):
-		return source
-	if source["data"] != _source:
-		return {"error": "install/source stale; prepare again from the current run"}
+	if _source == null:
+		return {"error": "install/source missing"}
+	var stale := _source.error_if_stale()
+	if not stale.is_empty():
+		return {"error": stale}
 	return {"ready": true}
 
 
@@ -149,4 +181,5 @@ func install_silent() -> Dictionary:
 	_items = null
 	_game = null
 	_story = null
+	_source = null
 	return installed
