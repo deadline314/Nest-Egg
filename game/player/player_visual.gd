@@ -36,6 +36,12 @@ const SECOND_HAND_BEND := 0.72
 ## 後手的握點離後肩至少「手臂全長的這個比例」：再近手肘就折到底，關節的網格會變得太窄。
 const SECOND_HAND_NEAREST := 0.5
 ## 拿東西時收起了武器外觀，放下後要放回。
+const FirearmMechanism := preload("res://game/rig/firearm_mechanism.gd")
+
+var _weapon_visual_id := ""
+var _weapon_visual_mods := 0
+var _weapon_mechanism: FirearmMechanism
+
 var _carry_hid_weapon := false
 ## 近戰武器平時的發光亮度、出招瞬間的亮度（有上限，HDR 泛光下不過曝）。
 const MELEE_GLOW := 1.3
@@ -126,6 +132,9 @@ func _ready() -> void:
 	add_child(rig)
 	if not rig.setup(SKIN_ID):
 		push_error("[PlayerVisual] 主角骨架載入失敗，請確認 art/characters/%s。" % SKIN_ID)
+	if rig.weapon_root() != null:
+		_weapon_mechanism = FirearmMechanism.new()
+		_weapon_mechanism.setup(rig.weapon_root(), rig._weapon_sprite.material)
 	# 骨架畫在本節點的疊加特效之下。
 	rig.show_behind_parent = true
 	# 近戰武器排在骨架裡：比前手早畫、和前手同一層，所以在手臂前面、握拳的手指後面。
@@ -184,8 +193,22 @@ func shoulder_height(crouching: bool, fallback: float) -> float:
 
 
 func set_weapon_visual(visual_id: String) -> void:
-	if rig != null:
-		rig.set_weapon("" if _interacting else visual_id)
+	if rig == null:
+		return
+	var display_id := "" if _interacting else visual_id
+	var mods := WeaponTuning.visual_parts(player.loadout.active_weapon()) if player != null else 0
+	if display_id == _weapon_visual_id and mods == _weapon_visual_mods:
+		return
+	_weapon_visual_id = display_id
+	_weapon_visual_mods = mods
+	rig.set_weapon(display_id)
+	if _weapon_mechanism != null:
+		var grip := RigLibrary.vec2(rig.weapon_def().get("grip"))
+		var mechanism := _weapon_mechanism.present(display_id, grip, rig.weapon_scale(), mods)
+		if not mechanism.is_empty():
+			rig._weapon_sprite.texture = mechanism["body"]
+			rig._weapon_glow.texture = mechanism["glow"]
+			rig._weapon_glow.visible = rig._weapon_glow.texture != null
 
 
 ## 世界暫停後只推進空手呈現，讓跑步／蹲姿平順回到既有站姿；不推進玩家狀態機。
@@ -485,8 +508,8 @@ func _physics_process(delta: float) -> void:
 		return
 	_input.velocity = player.velocity
 	var aim := player.aim_dir
+	var progress := player.loadout.reload_progress()
 	if player.is_reloading():
-		var progress := player.loadout.reload_progress()
 		var lower := smoothstep(0.0, RELOAD_LOWER_END, progress) * (1.0 - smoothstep(RELOAD_RAISE_START, 1.0, progress))
 		aim = aim.slerp(Vector2(player.facing * 0.6, 0.8), lower)
 	_sync_aim_pose(aim)
@@ -514,6 +537,8 @@ func _physics_process(delta: float) -> void:
 		_input.melee_second_target = rig.to_local(_melee_held.second_grip())
 		_input.melee_second_angle = _melee_held.angle()
 	rig.animate(delta, _input)
+	if _weapon_mechanism != null:
+		_weapon_mechanism.update_reload(0.0 if _input.dead else progress)
 	_melee_held.update(delta, melee_path)
 	if _input.melee_second and not _input.shield_forward and (player.melee.two_handed_now() or not player.melee.is_active()):
 		# 雙手招式：武器這一格的位置定了，後手才去握桿（每一格兩隻手都在武器上，不晚一格）。

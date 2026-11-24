@@ -29,6 +29,7 @@ func run() -> void:
 	_test_snapshot()
 	await _test_pickups_and_checkpoint()
 	await _test_upgrades_page()
+	await _test_weapon_mechanisms()
 
 
 ## 沒有一把槍在每一項都最好（NE-236）：玩家的槍逐一比較射程、單發傷害、連射輸出、含換彈的持續輸出與貫穿，
@@ -692,3 +693,44 @@ func _test_upgrades_page() -> void:
 	check(installed[2] == "破盾硬直　0.42\u00a0秒", "installed cushion shows the actual duration with its unit")
 	page.free()
 	await end_level(level)
+
+
+func _test_weapon_mechanisms() -> void:
+	Progression.reset_run()
+	var level := await start_level(_level_data())
+	var player := level.player
+	var rifle := load(RIFLE_PATH) as WeaponData
+	player.loadout.equip(rifle)
+	var slot := player.loadout.find_slot(rifle.id)
+	player.loadout.select(slot)
+	await physics_frames(2)
+	var mechanism := player._visual._weapon_mechanism
+	check(mechanism.visible and mechanism._tier == 0, "rifle starts with all three stock assemblies")
+	Progression.add_credits(5000)
+	var surfaces: Array[Texture2D] = []
+	for part: Sprite2D in mechanism._parts:
+		surfaces.append(part.texture)
+	var upgrades: Array[StringName] = [MAG_ID, BARREL_ID, RELOAD_ID]
+	for i in upgrades.size():
+		check(Progression.buy_upgrade(rifle, _upgrade(upgrades[i])), "buying one weapon part succeeds")
+		check(mechanism._tier == i + 1, "the part purchase advances the rig tier immediately")
+		for j in mechanism._parts.size():
+			check((mechanism._parts[j].texture != surfaces[j]) == (j == i), "only the upgraded firearm part changes")
+		surfaces[i] = mechanism._parts[i].texture
+		var capacity := player.loadout.active_weapon().magazine_size
+		player.loadout.set_ammo(slot, capacity - 3, 24)
+		check(player.loadout.start_reload(), "partial magazine starts a reload")
+		var seconds := player.loadout.active_weapon().reload_time
+		await physics_frames(ceili(seconds * Engine.physics_ticks_per_second * 0.42))
+		check(mechanism._parts[0].position.distance_to(mechanism._sockets[0]) > 0.75, "the cell visibly travels during real reload")
+		check(player.loadout.mag_in(slot) == capacity - 3, "the new rounds arrive at the existing reload completion")
+		await physics_frames(ceili(seconds * Engine.physics_ticks_per_second))
+		check(player.loadout.mag_in(slot) == capacity and mechanism._parts[0].position.is_equal_approx(mechanism._sockets[0]), "the mechanism seats as the actual refill completes")
+	player.loadout.set_ammo(slot, 0, 20)
+	check(player.loadout.start_reload(), "an empty rifle starts its removal sequence")
+	await physics_frames(8)
+	player.loadout.select(Loadout.PRIMARY)
+	await physics_frames(3)
+	check(not player.is_reloading() and mechanism._progress == 0.0 and mechanism._tier == 0, "weapon switch cancels reload and closes the old mechanism")
+	await end_level(level)
+	Progression.reset_run()

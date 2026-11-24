@@ -4,6 +4,7 @@ extends RefCounted
 ## 沒有任何改裝時直接回傳原物件，不複製。
 
 const META_BASE := &"tuning_base"
+const META_PARTS := &"tuning_visual_parts"
 
 
 ## upgrades：該武器已有的 WeaponUpgradeData。
@@ -18,7 +19,10 @@ static func apply(base: WeaponData, upgrades: Array[WeaponUpgradeData]) -> Weapo
 		return base
 	var tuned := base.duplicate() as WeaponData
 	tuned.set_meta(META_BASE, base)
+	var visual_parts := 0
 	for upgrade in effective:
+		if upgrade.effect >= WeaponUpgradeData.Effect.MAGAZINE and upgrade.effect <= WeaponUpgradeData.Effect.RELOAD:
+			visual_parts |= 1 << int(upgrade.effect)
 		match upgrade.effect:
 			WeaponUpgradeData.Effect.MAGAZINE:
 				tuned.magazine_size = maxi(base.magazine_size + 1, roundi(base.magazine_size * (1.0 + upgrade.amount)))
@@ -27,6 +31,7 @@ static func apply(base: WeaponData, upgrades: Array[WeaponUpgradeData]) -> Weapo
 				tuned.random_spread_degrees = base.random_spread_degrees * (1.0 - upgrade.amount)
 			WeaponUpgradeData.Effect.RELOAD:
 				tuned.reload_time = maxf(0.2, base.reload_time * (1.0 - upgrade.amount))
+	tuned.set_meta(META_PARTS, visual_parts)
 	return tuned
 
 
@@ -35,3 +40,8 @@ static func base_of(weapon: WeaponData) -> WeaponData:
 	if weapon != null and weapon.has_meta(META_BASE):
 		return weapon.get_meta(META_BASE) as WeaponData
 	return weapon
+
+
+
+static func visual_parts(weapon: WeaponData) -> int:
+	return int(weapon.get_meta(META_PARTS, 0)) if weapon != null else 0
