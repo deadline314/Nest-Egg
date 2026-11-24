@@ -5,8 +5,8 @@ extends Control
 ## 彈量、備彈等數值仍在這裡維護（測試與其他介面讀取），只是不再畫彈匣計量與數字。
 
 const RADIUS := 14.0
-const ARC_FROM := -55.0
-const ARC_TO := 55.0
+const ARC_FROM := deg_to_rad(-55.0)
+const ARC_TO := deg_to_rad(55.0)
 const ARC_WIDTH := 2.5
 const LOW_RATIO := 0.25
 const NAME_TIME := 1.1
@@ -116,7 +116,10 @@ func _process(delta: float) -> void:
 
 
 func _sync_reload_state(loadout: Loadout) -> void:
-	_reloading = loadout != null and loadout.is_reloading()
+	var reloading := loadout != null and loadout.is_reloading()
+	if reloading and not _reloading:
+		_done_left = 0.0
+	_reloading = reloading
 	_reload_progress = loadout.reload_progress() if _reloading else 0.0
 
 
@@ -126,6 +129,7 @@ func _on_loadout_changed(loadout: Loadout) -> void:
 	var slot := loadout.active_slot if loadout != null else -1
 	var new_ammo := loadout.mag_in(slot) if weapon != null else 0
 	if new_id != _weapon_id:
+		_done_left = 0.0
 		# 有限彈藥武器打光後會自動切回主武器：顯示「EMPTY」。
 		var previous_slot := loadout.find_slot(_weapon_id) if loadout != null else -1
 		if _has_mag and previous_slot >= 0 and loadout.mag_in(previous_slot) == 0 and loadout.reserve_in(previous_slot) == 0:
@@ -154,16 +158,14 @@ func _draw() -> void:
 		return
 	var p := _point
 	if _has_mag and _reloading:
-		_draw_reload_arc(p, alpha)
+		_draw_reload_arc(p, _reload_progress, LightKit.glow(Palette.WHITE, 1.6), alpha)
 		var label_alpha := 1.0 if _reduce_pulses else 0.7 + 0.3 * sin(_time * 12.0)
 		_shadowed(p + RELOAD_TEXT_OFFSET, _reload_label(), RELOAD_TEXT_SIZE,
 				Color(LightKit.glow(Palette.WHITE, 1.5), label_alpha * alpha))
-	if _done_left > 0.0:
-		# 換彈完成：整圈亮一下。
-		var kd := _done_left / DONE_TIME
-		var radius := RADIUS if _reduce_motion else RADIUS + (1.0 - kd)
+	elif _has_mag and _done_left > 0.0:
+		# Keep the filled arc in place while changing its colour and fading it away.
 		var intensity := lerpf(1.0, 2.2, _flash_scale)
-		draw_arc(p, radius, 0.0, TAU, 32, Color(LightKit.glow(weapon_color, intensity), kd * alpha), ARC_WIDTH)
+		_draw_reload_arc(p, 1.0, LightKit.glow(weapon_color, intensity), _done_left / DONE_TIME * alpha)
 	elif _show_low_hint():
 		_shadowed(p + RELOAD_TEXT_OFFSET, _low_reload_hint, RELOAD_TEXT_SIZE,
 				Color(LightKit.glow(Palette.WARNING, 1.6), 0.8 * alpha))
@@ -183,10 +185,8 @@ func _shadowed(pos: Vector2, text: String, size: int, color: Color) -> void:
 
 
 ## 換彈進度弧：由下往上填滿。
-func _draw_reload_arc(p: Vector2, alpha: float) -> void:
-	var from := deg_to_rad(ARC_FROM)
-	var to := deg_to_rad(ARC_TO)
-	draw_arc(p, RADIUS, from, to, 24, Color(0, 0, 0, 0.5 * alpha), ARC_WIDTH + 2.0)
-	draw_arc(p, RADIUS, from, to, 24, Color(0.05, 0.08, 0.12, 0.7 * alpha), ARC_WIDTH)
-	if _reload_progress > 0.0:
-		draw_arc(p, RADIUS, to - (to - from) * _reload_progress, to, 24, Color(LightKit.glow(Palette.WHITE, 1.6), alpha), ARC_WIDTH)
+func _draw_reload_arc(p: Vector2, progress: float, fill: Color, alpha: float) -> void:
+	draw_arc(p, RADIUS, ARC_FROM, ARC_TO, 24, Color(0, 0, 0, 0.5 * alpha), ARC_WIDTH + 2.0)
+	draw_arc(p, RADIUS, ARC_FROM, ARC_TO, 24, Color(0.05, 0.08, 0.12, 0.7 * alpha), ARC_WIDTH)
+	if progress > 0.0:
+		draw_arc(p, RADIUS, lerpf(ARC_TO, ARC_FROM, progress), ARC_TO, 24, Color(fill, alpha), ARC_WIDTH)

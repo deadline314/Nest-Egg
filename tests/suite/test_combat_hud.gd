@@ -50,6 +50,15 @@ func _test_reload_prompt_clearance() -> void:
 		reserved = bounds_for_ring.call()
 		check(not reserved.has_area() and ring._reload_progress == 0.0,
 				"a full magazine clears the reload label and its prompt clearance before the next frame")
+		check(ring._done_left == 0.0, "refilling a cancelled reload does not show its completion")
+		loadout.set_ammo(slot, 2, -1)
+		check(loadout.start_reload() and loadout.tick(loadout.active_weapon().reload_time + 0.01),
+				"finishing a real reload emits completion")
+		check(not ring._reloading and ring._done_left == AmmoRing.DONE_TIME,
+				"completion replaces the progress cue immediately")
+		loadout.set_ammo(slot, 2, -1)
+		check(loadout.start_reload() and ring._done_left == 0.0,
+				"a new reload replaces the previous completion cue")
 	await end_level(level)
 
 
