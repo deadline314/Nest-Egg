@@ -537,7 +537,7 @@ func _select(id: String, focus_details := false) -> void:
 		jump.set_meta(&"nav_key", "action:destination")
 		FlatStyle.chip(jump)
 		_actions.add_child(jump)
-	_scroll_note = UiKit.caption(_scroll_instruction())
+	_scroll_note = UiKit.caption(ScrollCue.instruction(_display_language))
 	_scroll_note.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	_scroll_note.visible = _details_overflow
 	_actions.add_child(_scroll_note)
@@ -546,12 +546,6 @@ func _select(id: String, focus_details := false) -> void:
 	_bind_hints(_actions)
 	if focus_details:
 		_focus_details.call_deferred()
-
-
-func _scroll_instruction() -> String:
-	if InputBindings.using_gamepad:
-		return _text(["用右搖桿捲動", "右スティックでスクロール", "Scroll with the right stick"])
-	return _text(["用 PgUp 或 PgDn 捲動", "PgUp／PgDn でスクロール", "Scroll with PgUp or PgDn"])
 
 
 func _on_details_overflow(below: bool, above: bool) -> void:
@@ -843,7 +837,7 @@ func _bind_hints(node: Node) -> void:
 func _refresh_prompts() -> void:
 	FlatStyle.refresh_prompts(self)
 	if is_instance_valid(_scroll_note):
-		_scroll_note.text = _scroll_instruction()
+		_scroll_note.text = ScrollCue.instruction(_display_language)
 
 
 func _focus_first() -> void:

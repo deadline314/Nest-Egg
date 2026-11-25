@@ -87,9 +87,9 @@ const COPY := {
 	"invert_hint": ["反轉右搖桿上下瞄準方向。", "右スティックで照準する上下方向を反転します。", "Reverse vertical aiming on the right stick."],
 	"vibration": ["震動強度", "振動の強さ", "Vibration"],
 	"vibration_hint": ["調整射擊、受擊與格擋震動；0為關閉。", "射撃・被弾・ガードの振動を調整します。0 で無効になります。", "Adjust the rumble for shots, hits and blocks. Set 0 to turn it off."],
-	"note": ["{inventory_prev_tab}/{inventory_next_tab} 切換分頁。右搖桿或 Page Up／Down 捲動。改鍵時短按 %s 綁定，長按取消。",
-		"{inventory_prev_tab}/{inventory_next_tab} で切り替え、右スティックか Page Up／Down でスクロールします。割り当て時は %s を短く押すと登録、長押しで取り消し。",
-		"{inventory_prev_tab}/{inventory_next_tab} switches tabs. Scroll with the right stick or Page Up/Down. When rebinding, tap %s to assign it or hold it to cancel."],
+	"note": ["{inventory_prev_tab}/{inventory_next_tab} 切換分頁。%s。改鍵時短按 %s 綁定，長按取消。",
+		"{inventory_prev_tab}/{inventory_next_tab} で切り替え、%s。割り当て時は %s を短く押すと登録、長押しで取り消し。",
+		"{inventory_prev_tab}/{inventory_next_tab} switches tabs. %s. When rebinding, tap %s to assign it or hold it to cancel."],
 	"binding_action": ["動作", "アクション", "Action"],
 	"binding_key": ["鍵盤／滑鼠 %d", "キー／マウス %d", "Key / Mouse %d"],
 	"binding_key_hint": ["選取後輸入新按鍵。Backspace 清除。", "選択して新しいキーを押します。Backspace で解除。", "Select and press a key or mouse button. Backspace clears."],
@@ -719,7 +719,8 @@ func _text(key: String) -> String:
 
 
 func _refresh_bindings() -> void:
-	_controller_note.text = InputBindings.format(_text("note")) % InputBindings.joy_label(&"ui_cancel")
+	_controller_note.text = InputBindings.format(_text("note")) % [
+		ScrollCue.instruction(Story.language), InputBindings.joy_label(&"ui_cancel")]
 	var rules := Hud.hold_rules()
 	for label in _hold_rule_labels:
 		label.text = rules

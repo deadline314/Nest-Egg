@@ -14,6 +14,16 @@ const FADE_BANDS := 6
 const STEP_RATIO := 0.7
 const BOTTOM_TEXT := "▼"
 const TOP_TEXT := "▲"
+const KEYBOARD_INSTRUCTIONS: Dictionary[String, String] = {
+	"zh": "用 PgUp 或 PgDn 捲動",
+	"ja": "PgUp／PgDn でスクロール",
+	"en": "Scroll with PgUp or PgDn",
+}
+const CONTROLLER_INSTRUCTIONS: Dictionary[String, String] = {
+	"zh": "用右搖桿捲動",
+	"ja": "右スティックでスクロール",
+	"en": "Scroll with the right stick",
+}
 
 var more_below := false
 var more_above := false
@@ -45,6 +55,11 @@ static func of(scroll: ScrollContainer) -> ScrollCue:
 		if cue != null:
 			return cue
 	return null
+
+
+static func instruction(language: String) -> String:
+	var copy := CONTROLLER_INSTRUCTIONS if InputBindings.using_gamepad else KEYBOARD_INSTRUCTIONS
+	return StoryLocale.optional_text(copy, language, copy[StoryLocale.SOURCE_LANGUAGE])
 
 
 ## 捲動一頁的 STEP_RATIO；回傳是否真的移動（已在頂／底時為 false，呼叫端可讓焦點照常移動）。
