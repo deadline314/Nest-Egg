@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=15 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=16 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
@@ -35,6 +35,20 @@ height = 68
 style = "door"
 
 [sub_resource type="Resource" id="Resource_2"]
+script = ExtResource("2_portal_data")
+id = &"ward_lamp_bay"
+target_level = "res://data/levels/ch4_ward_lamp_bay.tres"
+target_portal = &"lamp_bay_ward"
+requires_flag = &"ch4_lamp_mic_requested"
+locked_text = "先在屋頂聽過燈的通訊，再帶話筒來。"
+localized_locked_text = Dictionary[String, String]({"en": "Listen to Lantern on the roof, then bring his microphone.", "ja": "屋上で灯の通信を聞いてからマイクを持ってくる。"})
+prompt = "{interact} 去病房東側床位"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Go to the east bay of the ward", "ja": "{interact} 病棟東側のベッドへ"})
+width = 32
+height = 68
+style = "door"
+
+[sub_resource type="Resource" id="Resource_3"]
 script = ExtResource("9_lighting_zone")
 start_tile = 0
 blend_tiles = 12
@@ -50,6 +64,7 @@ height = 24
 legend = Dictionary[String, Resource]({
 "Ⅳ": SubResource("Resource_0"),
 "Ⅴ": SubResource("Resource_1"),
+"⇢": SubResource("Resource_2"),
 "ⓒ": ExtResource("3_ch4_cabinet"),
 "ⓓ": ExtResource("4_ch4_desk_demo"),
 "ⓜ": ExtResource("5_ch4_ward_scarf"),
@@ -63,6 +78,6 @@ persistent_world = true
 show_chapter_card = false
 environment = ExtResource("11_ch4_nursing_ward")
 layout_path = "res://data/levels/ch4_nursing_ward_map.json"
-lighting_zones = Array[ExtResource("9_lighting_zone")]([SubResource("Resource_2")])
+lighting_zones = Array[ExtResource("9_lighting_zone")]([SubResource("Resource_3")])
 story_triggers = PackedStringArray()
 death_credit_cap = 250

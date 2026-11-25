@@ -12,6 +12,12 @@ const Prompt := preload("res://ui/radio_save_prompt.gd")
 const SEGMENTS := {
 	"ch1_b_dinner_food": "res://data/levels/ch1_pawnshop.tres",
 }
+# A catalog operation cannot grant a transfer capability on its own.
+const TRANSFERS := {
+	&"ch1_t_handoff_accept": {"item": "ch1_data_disk", "destination": "ch1_handoff_cabinet"},
+	&"ch4_t_lamp_bedside_record": {"item": "ch4_lamp_microphone", "destination": "ch4_lamp_bedside"},
+}
+
 var main: Node
 var _id: StringName
 var _request := 0
@@ -457,8 +463,9 @@ func _plan(scene: Dictionary, candidate: Dictionary, continuation: StringName = 
 		if kind == "item_acquire":
 			entry["capability"] = "scene_manual_item"
 		elif kind == "item_transfer":
-			if _id != &"ch1_t_handoff_accept" or raw["id"] != "ch1_data_disk" or raw.get("destination") != "ch1_handoff_cabinet":
-				return {"error": "transfer destination does not match the real handoff cabinet"}
+			var transfer: Dictionary = TRANSFERS.get(_id, {})
+			if transfer.is_empty() or raw["id"] != transfer["item"] or raw.get("destination") != transfer["destination"]:
+				return {"error": "item and destination must match a registered physical handoff"}
 			entry["capability"] = "item_transfer"
 			entry["destination"] = raw.get("destination", "")
 		producers[kind + ":" + raw["id"]] = [entry]

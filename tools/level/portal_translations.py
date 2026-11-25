@@ -1,6 +1,12 @@
 """Localized action labels and lock reasons for the formal chapter portals."""
 
 PROMPTS = {
+    "從維修樓梯上屋頂": ("Take the service stairs to the roof", "整備階段で屋上へ"),
+    "沿樓梯回原帳辦公室": ("Take the stairs back to the ledger office", "階段で原簿の事務室へ戻る"),
+    "下樓回清理線安全臺": ("Go downstairs to the sweep line safe platform", "階段で清掃線の安全台へ戻る"),
+    "從安全臺上屋頂": ("Take the safe-platform stairs to the roof", "安全台の階段で屋上へ"),
+    "去病房東側床位": ("Go to the east bay of the ward", "病棟東側のベッドへ"),
+    "回安養病房走廊": ("Return to the care ward corridor", "療養病棟の廊下へ戻る"),
     "回到最後一個週日": ("Revisit the last Sunday", "最後の日曜日を追体験する"),
     "確認進入清掃工作廊": ("Enter the cleanup gallery", "清掃作業廊に入る"),
     "退回工作帶": ("Return to the work lane", "清掃作業帯に戻る"),
@@ -93,6 +99,9 @@ PROMPTS = {
 }
 
 LOCKS = {
+    "先在辦公桌核對原帳，再從樓梯回程。": ("Check the original ledger at the desk first.", "先に机の原簿を確認する。"),
+    "先在舊廠辦公室核對原帳。": ("Check the original ledger in the factory office first.", "先に旧工場の事務室で原簿を確認する。"),
+    "先在屋頂聽過燈的通訊，再帶話筒來。": ("Listen to Lantern on the roof, then bring his microphone.", "屋上で灯の通信を聞いてからマイクを持ってくる。"),
     "先核對原帳，再到側門回放鷺的路線。": ("Verify the ledger first, then retrace Egret’s route at the side door.", "先に原簿を照合してから、側扉で鷺の足取りをたどってください。"),
     "先到工作帶另一端核對讀數。": ("Check the readings at the far end of the work lane first.", "先に作業帯の反対側で計測値を確認する。"),
     "等清理隊長撤出工作廊。": ("Wait until the cleanup captain leaves the gallery.", "清掃隊長が作業廊から撤退するのを待つ。"),

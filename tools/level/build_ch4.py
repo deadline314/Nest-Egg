@@ -6,6 +6,7 @@ import sys
 
 sys.dont_write_bytecode = True
 import build_ch1 as kit
+import ch4_roof_layout as roof
 
 CHAPTER = "ch4_hollow"
 GROUND = 20
@@ -48,6 +49,11 @@ STATIONS = {
     "archive_recorder": "盤帶錄音機",
 }
 GLYPHS = dict(zip(POINTS, "ⓞⓔⓣⓓⓥⓒⓢⓐⓑⓡⓦⓧⓘⓤⓟⓙⓩⓛⓕⓜ", strict=True))
+
+
+POINTS.update(roof.POINTS)
+STATIONS.update(roof.STATIONS)
+GLYPHS.update(roof.GLYPHS)
 
 
 def area_path(area):
@@ -115,6 +121,10 @@ THEMES = {
 }
 
 
+PORTALS.update(roof.PORTALS)
+THEMES.update(roof.THEMES)
+
+
 def _configure():
     kit.PREFIX = "ch4"
     kit.CHAPTER = CHAPTER
@@ -127,6 +137,8 @@ def _configure():
                             local_replay="res://game/cutscene/local_replay/last_sunday.tscn",
                             prompt="{interact} 回到最後一個週日", requires="ch4_original_ledger_saved",
                             locked="先核對原帳，再到側門回放鷺的路線。")
+    for glyph in ("⟱", "⇣"):
+        kit.PORTALS[glyph]["style"] = "hidden"
     prompts = {
         "original_ledger": "核對原帳",
         "archive_recorder": "查看第三十一版錄音",
@@ -148,6 +160,7 @@ def _configure():
         "egret_at_rail": "查看鷺的狀況",
         "office_release": "核對工作廊終端",
     }
+    prompts.update(roof.PROMPTS)
     kit.NPCS = {}
     kit.RES = {}
     for binding, glyph in GLYPHS.items():
@@ -157,6 +170,7 @@ def _configure():
                               loop=loop, facing=-1, kind=0 if binding in PEOPLE else 1,
                               prompt=f"{{interact}} {prompts[binding]}", talks=[(f"ch4_dispatch_{binding}", 0)])
         kit.RES[glyph] = f"res://data/npcs/{ident}.tres"
+    kit.NPCS["ch4_lamp_bedside"].update(spawn_requires_flag=roof.MIC_REQUESTED)
     kit.RES["Ƶ"] = "res://data/props/ch4_sweep_sample.tres"
     kit.NPCS["ch4_egret"].update(spawn_unless_flag="ch4_egret_departed")
     kit.NPCS["ch4_egret_at_rail"].update(spawn_requires_flag="ch4_atropos_midpoint_ready", spawn_unless_flag="ch4_egret_departed")
@@ -227,6 +241,7 @@ def _ward():
     area.prop("nursing_ward__bedside_radio", 42, y=15)
     area.prop("nursing_ward__nurse_cart", 53)
     area.prop("clinic__queue_number_display", 55, y=15, support="wall")
+    roof.install_ward_door(area)
     area.features = {"loop": "病房內廊回外櫃檯。", "landmark": "雨窗與棠的床位。", "vertical": "上層靠窗的收音座。"}
     return area
 
@@ -346,6 +361,7 @@ def _factory_safety():
     area.prop("factory_office__bulletin_board", 36, y=9, support="wall")
     for x in (9, 20, 31, 39):
         area.lamp(x, 5)
+    roof.install_safety_stairs(area)
     area.features = {"landmark": "黃標線旁的檢查點。", "loop": "上層員工門回裝卸帶，原路可回接線廊。"}
     return area
 
@@ -417,6 +433,7 @@ def _factory_office():
     area.prop("floor_marking", 30, y=GROUND - 1)
     for x in (10, 22, 34):
         area.lamp(x, 7)
+    roof.install_office_stairs(area)
     area.features = {"landmark": "停在下班時間的時鐘和月報板。"}
     return area
 
@@ -425,6 +442,7 @@ def main():
     _configure()
     areas = [_pawnshop(), _reception(), _ward(), _lounge(), _factory_approach(), _factory_loading(),
              _factory_relay(), _factory_safety(), _factory_work(), _factory_cleaning(), _factory_office()]
+    areas.extend((roof.build_roof(kit, GROUND), roof.build_ward_bay(kit, GROUND)))
     targets = set(GLYPHS.values()) | set(kit.PORTALS)
     for area in areas:
         for binding, (area_id, x, y) in POINTS.items():

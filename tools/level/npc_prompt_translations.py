@@ -1,6 +1,10 @@
 """Localizations for authored world prompts in the formal chapter builders."""
 
 TRANSLATIONS = {
+    '核對工作廊終端': ('Check the gallery terminal', '作業廊の端末を確認する'),
+    '查看鷺的狀況': ('Check on Egret', '鷺の様子を見る'),
+    "聽燈的通訊": ("Listen to Lantern's transmission", "灯の通信を聞く"),
+    "在床邊架好話筒": ("Set the microphone by the bed", "枕元にマイクを置く"),
     "核對原帳": ("Compare the original ledger", "元帳を照合する"),
     "查看第三十一版錄音": ("Inspect archive recording 31", "第31版の録音を調べる"),
     "操作床邊電台": ("Use the bedside radio", "ベッド脇の無線機を操作する"),

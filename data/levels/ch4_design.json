@@ -120,6 +120,23 @@
     "landmark": "停在下班時間的時鐘和月報板。"
    },
    "encounters": []
+  },
+  "factory_roof": {
+   "combat": false,
+   "group": "factory_roof",
+   "features": {
+    "landmark": "雨裡的天線與低亮度收訊箱。",
+    "loop": "辦公室樓梯上屋頂，另一座梯塔回安全臺。"
+   },
+   "encounters": []
+  },
+  "ward_lamp_bay": {
+   "combat": false,
+   "group": "ward_lamp_bay",
+   "features": {
+    "landmark": "隔簾旁能錄留言的床頭收音機。"
+   },
+   "encounters": []
   }
  },
  "curve": {

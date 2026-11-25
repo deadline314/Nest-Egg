@@ -90,7 +90,10 @@
   "ch4_original_ledger_saved": false,
   "ch4_archive_31_indexed": false,
   "ch4_archive_31_heard": false,
-  "ch4_linden_witnesses_noted": false
+  "ch4_linden_witnesses_noted": false,
+  "ch4_roof_radio_heard": false,
+  "ch4_lamp_mic_requested": false,
+  "ch4_lamp_message_recorded": false
  },
  "transactions": {},
  "derived_flags": {},
@@ -140,6 +143,70 @@
    "background_en": "The factory kept the original page for Batch Seventeen. The ward's collection slip identifies it.",
    "reward_ja": "原簿の写しを手元に持つ。",
    "reward_en": "Keep a copy of the original ledger."
+  },
+  {
+   "id": "ch4_roof_transmission",
+   "kind": "main",
+   "title": "上屋頂聽燈現在的聲音",
+   "background": "原帳辦公室的維修樓梯通到舊廠屋頂，天線收得到燈的通訊。",
+   "reward": "聽到電話亭那段舊錄音的來歷。",
+   "complete_flag": "ch4_roof_radio_heard",
+   "steps": [
+    {
+     "title": "從辦公室沿樓梯上屋頂，找天線旁的收訊箱。",
+     "complete_flag": "ch4_roof_radio_heard",
+     "location": {
+      "level": "res://data/levels/ch4_factory_roof.tres",
+      "cell": [
+       28,
+       19
+      ]
+     },
+     "title_ja": "事務室の階段を上がり、屋上のアンテナ横にある受信ボックスを探す。",
+     "title_en": "Take the office stairs to the rooftop and find the receiver by the antennas."
+    }
+   ],
+   "visible_flags": [
+    "ch4_original_ledger_saved"
+   ],
+   "title_ja": "屋上で灯の今の声を聞く",
+   "title_en": "Hear Lantern's voice on the rooftop",
+   "background_ja": "原簿の事務室にある整備階段から旧工場の屋上へ。アンテナで灯の通信を受信できる。",
+   "background_en": "The service stairs in the ledger office lead to the old factory rooftop. The antennas can pick up Lantern's signal.",
+   "reward_ja": "電話ボックスの古い録音の由来を聞く。",
+   "reward_en": "Learn where the booth's old recording came from."
+  },
+  {
+   "id": "ch4_lamp_bedside",
+   "kind": "side",
+   "title": "替燈把話筒帶到母親床邊",
+   "background": "燈想留下一段現在的聲音。公用病房最東邊有一張他的母親使用的床位。",
+   "reward": "在側窗那張床邊留下燈的錄音。",
+   "complete_flag": "ch4_lamp_message_recorded",
+   "steps": [
+    {
+     "title": "把話筒放到病房的側窗床邊，讓燈錄下留言。",
+     "complete_flag": "ch4_lamp_message_recorded",
+     "location": {
+      "level": "res://data/levels/ch4_ward_lamp_bay.tres",
+      "cell": [
+       18,
+       19
+      ]
+     },
+     "title_ja": "病棟の側窓のベッド脇にマイクを置き、灯の伝言を録音する。",
+     "title_en": "Set the microphone by the bed next to the ward's side window so Lantern can record a message."
+    }
+   ],
+   "visible_flags": [
+    "ch4_lamp_mic_requested"
+   ],
+   "title_ja": "灯のマイクを母親の枕元に届ける",
+   "title_en": "Bring Lantern's microphone to his mother's bedside",
+   "background_ja": "灯は今の声で母親に伝言を残したい。母親のベッドは療養病棟の東端にある。",
+   "background_en": "Lantern wants to leave his mother a message in his present voice. Her bed is at the far east end of the care ward.",
+   "reward_ja": "側窓のベッド脇に灯の録音を残す。",
+   "reward_en": "Leave Lantern's recording by the bed next to the side window."
   },
   {
    "id": "ch4_ward_visit",
@@ -2674,6 +2741,304 @@
    ],
    "dismissible": true
   },
+  "ch4_t_roof_transmission": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "電話亭說歡迎回來的那句，是我十二歲的時候錄的。他們說新版明天就換。",
+     "ja": "電話ボックスの「おかえり」は、十二歳のときに録ったんだ。新しいのは明日からって言われた。",
+     "en": "I was twelve when I recorded the booth's ‘welcome back.’ They said the new one would go live tomorrow."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我這一路都還聽得到你那一條。",
+     "ja": "ここまでずっと、君が録ったのを聞いてきた。",
+     "en": "I've heard your take all along the way."
+    },
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "我每次去問，他們都說明天。今天終端連我的錄音都沒播。",
+     "ja": "聞くたびに、明日だって。今日は端末が僕の録音すら流さなかった。",
+     "en": "Every time I asked, they said tomorrow. Today the terminal didn't even play my recording."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch4_original_ledger_saved",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch4_roof_radio_heard",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch4_roof_radio_heard",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch4_t_lamp_offer": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "你需要我做什麼？",
+     "ja": "私に何をしてほしい？",
+     "en": "What do you need me to do?"
+    },
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "如果妳願意再去一趟病房，可以替我把話筒放到我媽床邊嗎？我想錄一句現在的聲音。",
+     "ja": "病棟にもう一度行くなら、母さんの枕元にマイクを置いてくれない？ 今の声でひと言、残したいんだ。",
+     "en": "If you're going back to the ward, could you put a microphone by my mum's bed? I want to leave her a few words in my voice as it is now."
+    },
+    {
+     "do": "choice",
+     "text": "如果妳願意再去一趟病房，可以替我把話筒放到我媽床邊嗎？我想錄一句現在的聲音。",
+     "default": "later",
+     "options": [
+      {
+       "id": "take",
+       "text": "帶話筒去病房。",
+       "explanation": "側窗床位在病房走廊的東邊。",
+       "target": "ch4_t_lamp_accept",
+       "ja": "マイクを病棟に持っていく。",
+       "en": "Take the microphone to the ward.",
+       "explanation_ja": "側窓のベッドは病棟の東端にある。",
+       "explanation_en": "The bed by the side window is at the east end of the ward."
+      },
+      {
+       "id": "later",
+       "text": "等回去探房再帶。",
+       "explanation": "話筒可以留在屋頂收訊箱。",
+       "target": "ch4_t_lamp_later",
+       "ja": "次にお見舞いに行くときに持っていく。",
+       "en": "Pick it up on the next ward visit.",
+       "explanation_ja": "マイクは屋上の受信ボックスに置いておける。",
+       "explanation_en": "You can leave the microphone by the rooftop receiver."
+      }
+     ],
+     "cancel_choice_on_back": true,
+     "ja": "病棟にもう一度行くなら、母さんの枕元にマイクを置いてくれない？ 今の声でひと言、残したいんだ。",
+     "en": "If you're going back to the ward, could you put a microphone by my mum's bed? I want to leave her a few words in my voice as it is now."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch4_roof_radio_heard",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch4_lamp_mic_requested",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch4_t_lamp_accept": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "話筒我帶著。我會放到側窗那張床旁邊。",
+     "ja": "マイクは預かる。側窓のベッドのそばに置くよ。",
+     "en": "I'll take the microphone. I'll leave it by the bed next to the side window."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch4_roof_radio_heard",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch4_lamp_mic_requested",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "item_acquire",
+     "id": "ch4_lamp_microphone"
+    },
+    {
+     "kind": "flag",
+     "id": "ch4_lamp_mic_requested",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch4_t_lamp_later": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我先把原帳帶回去。下一次經過再問你。",
+     "ja": "先に原簿の写しを持ち帰る。次に寄ったとき、また聞くね。",
+     "en": "I'll take the ledger copy back first. Ask me again next time I'm here."
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch4_roof_radio_heard",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch4_lamp_mic_requested",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch4_t_lamp_route_reminder": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "我媽的床在走廊最東邊的側窗。到了再叫我。",
+     "ja": "母さんは廊下の東端、側窓のベッドだよ。着いたら呼んで。",
+     "en": "Mum's bed is by the side window at the east end of the corridor. Call me when you get there."
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch4_lamp_mic_requested",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch4_lamp_message_recorded",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch4_t_lamp_delivered_revisit": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "先把那句話留在她床邊。等她想聽的時候再播。",
+     "ja": "今は枕元に置いといて。母さんが聞きたくなったら流せばいい。",
+     "en": "Leave the message by her bed for now. She can play it whenever she wants to hear it."
+    }
+   ],
+   "when": {
+    "flag": "ch4_lamp_message_recorded",
+    "equals": true
+   }
+  },
+  "ch4_t_lamp_bedside_record": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "world_action",
+     "id": "ch4_lamp_recorder_press"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "話筒放穩了。你想說什麼都可以。",
+     "ja": "マイクを置いたよ。話したいことを、そのまま話して。",
+     "en": "The microphone's in place. Say whatever you want to say."
+    },
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "媽，我今天有吃飯。我明天再跟妳說我去哪裡。",
+     "ja": "母さん、今日はちゃんとご飯食べたよ。どこに行ったかは、明日話すね。",
+     "en": "Mum, I ate today. I'll tell you where I went tomorrow."
+    }
+   ],
+   "overlay": true,
+   "silence_music": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch4_lamp_mic_requested",
+      "equals": true
+     },
+     {
+      "item": "ch4_lamp_microphone"
+     },
+     {
+      "not": {
+       "flag": "ch4_lamp_message_recorded",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "item_transfer",
+     "id": "ch4_lamp_microphone",
+     "destination": "ch4_lamp_bedside"
+    },
+    {
+     "kind": "flag",
+     "id": "ch4_lamp_message_recorded",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch4_t_lamp_bedside_revisit": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "這段錄音就留在這裡，等她想聽的時候再播。",
+     "ja": "この録音はここに置いとくよ。母さんが聞きたいときに流せばいい。",
+     "en": "This recording can stay here until she's ready to hear it."
+    }
+   ],
+   "when": {
+    "flag": "ch4_lamp_message_recorded",
+    "equals": true
+   }
+  },
   "ch4_dispatch_old_k": {
    "mode": "dispatch",
    "routes": [
@@ -3457,6 +3822,121 @@
     {
      "when": {},
      "target": "ch4_b_ward_scarf"
+    }
+   ]
+  },
+  "ch4_dispatch_roof_lantern": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch4_original_ledger_saved",
+          "equals": true
+         },
+         {
+          "not": {
+           "flag": "ch4_roof_radio_heard",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch4_roof_radio_heard",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch4_t_roof_transmission"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch4_roof_radio_heard",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch4_lamp_mic_requested",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch4_t_lamp_offer"
+    },
+    {
+     "when": {
+      "flag": "ch4_lamp_message_recorded",
+      "equals": true
+     },
+     "target": "ch4_t_lamp_delivered_revisit"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch4_lamp_mic_requested",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch4_lamp_message_recorded",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch4_t_lamp_route_reminder"
+    }
+   ]
+  },
+  "ch4_dispatch_lamp_bedside": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch4_lamp_mic_requested",
+          "equals": true
+         },
+         {
+          "item": "ch4_lamp_microphone"
+         },
+         {
+          "not": {
+           "flag": "ch4_lamp_message_recorded",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch4_lamp_message_recorded",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch4_t_lamp_bedside_record"
+    },
+    {
+     "when": {
+      "flag": "ch4_lamp_message_recorded",
+      "equals": true
+     },
+     "target": "ch4_t_lamp_bedside_revisit"
     }
    ]
   },

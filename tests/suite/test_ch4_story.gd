@@ -9,7 +9,7 @@ const WAITING_ROOM := &"ch4_dispatch_egret"
 
 
 func run() -> void:
-	var areas := Checks.load_areas(self, "ch4", CHAPTER, ["pawnshop", "ward_reception", "nursing_ward", "revival_lounge", "factory_approach", "factory_loading", "factory_relay", "factory_safety", "factory_work", "factory_cleaning", "factory_office"])
+	var areas := Checks.load_areas(self, "ch4", CHAPTER, ["pawnshop", "ward_reception", "nursing_ward", "revival_lounge", "factory_approach", "factory_loading", "factory_relay", "factory_safety", "factory_work", "factory_cleaning", "factory_office", "factory_roof", "ward_lamp_bay"])
 	Checks.check_portals(self, "chapter 4", areas)
 	for area: LevelData in areas.values():
 		var actual: Array[Dictionary] = LevelBuilder.parse(area).spawns
@@ -46,6 +46,7 @@ func run() -> void:
 	_check_sweep(loading)
 	_check_work_lane(areas["factory_safety"], areas["factory_work"])
 	_check_boss_arena(areas["factory_safety"], areas["factory_work"], areas["factory_cleaning"], areas["factory_office"])
+	_check_roof_loop(areas)
 	GameState.start_new_run(GameState.difficulties[1])
 
 
@@ -165,3 +166,46 @@ func _check_boss_arena(safety: LevelData, work: LevelData, gallery: LevelData, o
 	check(Story.resolve_dispatch(release) != &"ch4_t_work_retreat", "the terminal stays inactive during phase two")
 	GameState.set_flag(&"ch4_atropos_retreat_ready", true)
 	check(Story.resolve_dispatch(release) == &"ch4_t_work_retreat", "the release needs withdrawal and the prior departure")
+
+func _check_roof_loop(areas: Dictionary) -> void:
+	var office := Checks.portal_by_id(areas["factory_office"], &"office_roof")
+	var return_stairs := Checks.portal_by_id(areas["factory_safety"], &"safety_roof")
+	var bypass := Checks.portal_by_id(areas["factory_roof"], &"roof_safety")
+	var bay := Checks.portal_by_id(areas["nursing_ward"], &"ward_lamp_bay")
+	var cupboard := &"ch4_lamp_bedside"
+	var radio := &"ch4_dispatch_roof_lantern"
+	var recorder := &"ch4_dispatch_lamp_bedside"
+	var microphone := &"ch4_lamp_microphone"
+	check(office != null and return_stairs != null and office.requires_flag == &"ch4_original_ledger_saved"
+		and return_stairs.requires_flag == office.requires_flag, "both roof entries depend only on the original ledger")
+	check(bypass != null and bypass.requires_flag.is_empty(), "the rooftop return does not depend on the optional favor")
+	check(bay != null and bay.requires_flag == &"ch4_lamp_mic_requested", "the separate bedside bay opens after accepting the microphone")
+	check(Story.resolve_dispatch(radio) == &"" and Story.resolve_dispatch(recorder) == &"", "the two new stations cannot produce an early result")
+	GameState.set_flag(&"ch4_original_ledger_saved", true)
+	check(Story.resolve_dispatch(radio) == &"ch4_t_roof_transmission", "the normal route supports the first transmission without optional scenes")
+	GameState.set_flag(&"ch4_roof_radio_heard", true)
+	check(Story.resolve_dispatch(radio) == &"ch4_t_lamp_offer" and not StoryItems.owns(microphone), "listening opens a separate optional offer")
+	GameState.set_flag(&"ch4_lamp_mic_requested", true)
+	check(Story.resolve_dispatch(recorder) == &"", "the bedside cannot record without custody of the microphone")
+	var item := StoryItems.find(microphone)
+	check(item != null and item.validate().is_empty() and not item.is_collectible(), "the microphone is a valid, manually granted item")
+	StoryItems.acquire(microphone)
+	check(Story.resolve_dispatch(recorder) == &"ch4_t_lamp_bedside_record", "the requested, held microphone enables the bedside recording")
+	var results: Array = Story._scenes.get("ch4_t_lamp_bedside_record", {}).get("results", [])
+	check(results.any(func(operation: Dictionary) -> bool:
+		return (operation.get("kind") == "item_transfer" and operation.get("id") == String(microphone)
+			and operation.get("destination") == String(cupboard))), "the terminal result transfers the microphone to its own physical bedside")
+	GameState.set_flag(&"ch4_lamp_message_recorded", true)
+	check(Story.resolve_dispatch(recorder) == &"ch4_t_lamp_bedside_revisit", "a recording cannot be awarded again")
+	var bedside := areas["ward_lamp_bay"] as LevelData
+	var layout := LevelBuilder.parse(bedside)
+	var definition := WorldPropAction.definition("ch4_lamp_recorder_press")
+	var prop := PropLibrary.find_in(&"nursing_ward__bedside_radio", bedside.environment.prop_dirs())
+	var placements: Array = bedside.load_props().filter(func(entry: Dictionary) -> bool:
+		return entry["id"] == String(prop.id)) if prop != null else []
+	check(prop != null and placements.size() == 1, "only the side-window radio supplies the recording anchor")
+	if placements.size() == 1 and prop != null:
+		var radio_rect: Rect2 = PropPlacement.resolve(placements[0], prop, layout).get("rect", Rect2())
+		var station := radio_rect.position + Vector2(definition["station"][0], definition["station"][1])
+		check(station.y == PropPlacement.ground_surface(layout, floori(station.x / layout.tile_size)),
+			"the recorder's hand action starts at an exact, load-bearing floor height")

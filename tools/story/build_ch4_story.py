@@ -8,6 +8,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools/level"))
 
 from build_ch4 import CHAPTER, POINTS  # noqa: E402
+import ch4_roof_story  # noqa: E402
 from ch4_office_evidence import add_office_evidence  # noqa: E402
 from ch4_factory_recording import add_factory_recording  # noqa: E402
 from ch1_closure import Binding, Option, ProductionSource, Quest, QuestStep, all_of, flag, grant, negate, say, set_flag  # noqa: E402
@@ -290,6 +291,7 @@ def build_spec():
     add_office_evidence(source, dispatch)
     add_factory_recording(source, dispatch)
     add_ward_letter(source, dispatch, CONSENT, COLLECTED)
+    ch4_roof_story.install(source, dispatch)
     route_back_to_choices(source, dispatch, "ch4")
     source.bindings.update({
         binding: Binding("npc" if binding in ("old_k", "egret", "ali", "egret_at_rail") else "object", CHAPTER,

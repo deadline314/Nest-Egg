@@ -1,6 +1,8 @@
 """Area names for the chapter builders and their in-game route labels."""
 
 AREA_NAMES = {
+    "廠房回程梯與屋頂": {"en":"Old Factory Rooftop","ja":"旧工場の屋上"},
+    "病房側窗床位": {"en":"Side-Window Bed","ja":"側窓のベッド"},
     "清掃工作廊": {"en": "Cleanup Gallery", "ja": "清掃作業廊"},
     "原帳辦公室": {"en": "Original Ledger Office", "ja": "原簿の事務室"},
     "清理工作帶": {"en": "Sweep Line Work Lane", "ja": "清掃作業帯"},

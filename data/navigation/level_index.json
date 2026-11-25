@@ -303,7 +303,7 @@
 			"height": 24.0,
 			"id": "ch4_factory_office",
 			"layout_path": "res://data/levels/ch4_factory_office_map.json",
-			"sha256": "f60df43d38a03386dad5d92e7c5ede2516811996fffab28a98e3f0959b1bdaa8",
+			"sha256": "d0405e03e6c629a691031171c41fa99e35b9fb55756da3ea3c335777ad6a2534",
 			"tile_size": 16.0
 		},
 		{
@@ -317,11 +317,20 @@
 		},
 		{
 			"chapter": "ch4_hollow",
+			"file": "ch4_factory_roof.tres",
+			"height": 24.0,
+			"id": "ch4_factory_roof",
+			"layout_path": "res://data/levels/ch4_factory_roof_map.json",
+			"sha256": "4e4f0db478ffc2374dd6120047c3e421af1262752cb26ccd53f0ea47e8b2d0c0",
+			"tile_size": 16.0
+		},
+		{
+			"chapter": "ch4_hollow",
 			"file": "ch4_factory_safety.tres",
 			"height": 24.0,
 			"id": "ch4_factory_safety",
 			"layout_path": "res://data/levels/ch4_factory_safety_map.json",
-			"sha256": "383123ec41241dece733ead22789311ac256eab7eba4903652a95c3c96c74ea8",
+			"sha256": "907f732bcf170ce04dc2876b744d8eedfa950cd193c17b8c5277bb37639d7f51",
 			"tile_size": 16.0
 		},
 		{
@@ -339,7 +348,7 @@
 			"height": 24.0,
 			"id": "ch4_nursing_ward",
 			"layout_path": "res://data/levels/ch4_nursing_ward_map.json",
-			"sha256": "a906d76b6567cda032e660505afa2cf04fac99cf0f20c4257de890a46e41e77e",
+			"sha256": "b95405d178de85442feefb9c8f6e0e9b86b7a0fd1f2a23f420dbe8b87aa50082",
 			"tile_size": 16.0
 		},
 		{
@@ -358,6 +367,15 @@
 			"id": "ch4_revival_lounge",
 			"layout_path": "res://data/levels/ch4_revival_lounge_map.json",
 			"sha256": "4691c4e257c8666b6ee506f7f7627c283c17488abcb7e0bf03f6052e0ab78e10",
+			"tile_size": 16.0
+		},
+		{
+			"chapter": "ch4_hollow",
+			"file": "ch4_ward_lamp_bay.tres",
+			"height": 24.0,
+			"id": "ch4_ward_lamp_bay",
+			"layout_path": "res://data/levels/ch4_ward_lamp_bay_map.json",
+			"sha256": "833b7d73b8de25d4500126921e68db15e11af3789bd122624f39e9d9e50636d1",
 			"tile_size": 16.0
 		},
 		{

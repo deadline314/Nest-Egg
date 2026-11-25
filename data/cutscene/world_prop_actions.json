@@ -6,14 +6,23 @@
     "prop": "handoff__commission_cabinet",
     "reaction": "handoff_cabinet",
     "kind": "insert",
-    "station": [-4, 57],
+    "station": [
+      -4,
+      57
+    ],
     "facing": 1,
     "anchor": "disk_slot",
     "item": "ch1_data_disk",
     "texture": "res://art/items/world/ch1_data_disk.png",
     "width": 5.0,
-    "grip": [5, 12],
-    "tip": [20, 12]
+    "grip": [
+      5,
+      12
+    ],
+    "tip": [
+      20,
+      12
+    ]
   },
   "handoff_take_paper": {
     "scene": "ch1_t_handoff_receipt",
@@ -22,7 +31,10 @@
     "prop": "handoff__commission_cabinet",
     "reaction": "handoff_cabinet",
     "kind": "take_paper",
-    "station": [24, 57],
+    "station": [
+      24,
+      57
+    ],
     "facing": -1
   },
   "pump_wheel_drain": {
@@ -32,11 +44,23 @@
     "prop": "sluice_hall__drain_wheel",
     "reaction": "drain_wheel",
     "kind": "turn",
-    "station": [-6, 42],
+    "station": [
+      -6,
+      42
+    ],
     "facing": 1,
-    "hub": [12.7, 2.4],
-    "radius": [11.0, 1.4],
-    "sweep": [180, 140],
+    "hub": [
+      12.7,
+      2.4
+    ],
+    "radius": [
+      11.0,
+      1.4
+    ],
+    "sweep": [
+      180,
+      140
+    ],
     "strokes": 2,
     "stall": 1.0
   },
@@ -47,11 +71,23 @@
     "prop": "sluice_hall__drain_wheel",
     "reaction": "drain_wheel",
     "kind": "turn",
-    "station": [-6, 42],
+    "station": [
+      -6,
+      42
+    ],
     "facing": 1,
-    "hub": [12.7, 2.4],
-    "radius": [11.0, 1.4],
-    "sweep": [140, 180],
+    "hub": [
+      12.7,
+      2.4
+    ],
+    "radius": [
+      11.0,
+      1.4
+    ],
+    "sweep": [
+      140,
+      180
+    ],
     "strokes": 1,
     "stall": 0.35
   },
@@ -60,11 +96,17 @@
     "level": "res://data/levels/ch3_gate_hall.tres",
     "source": "res://data/npcs/ch3_gatekeeper.tres",
     "kind": "support",
-    "station": [15, 0],
+    "station": [
+      15,
+      0
+    ],
     "facing": -1,
     "person_facing": -1,
     "bone": "arm_back_upper",
-    "contact": [-4, -4],
+    "contact": [
+      -4,
+      -4
+    ],
     "pose": "sit"
   },
   "ali_bowl_rack": {
@@ -74,19 +116,34 @@
     "source": "res://data/npcs/ch2_ali_home.tres",
     "prop": "ali_kitchen__sink_drying_rack",
     "kind": "place",
-    "station": [18, 40.5],
+    "station": [
+      18,
+      40.5
+    ],
     "facing": 1,
     "hand_angle": 40,
     "texture": "res://art/environment/scene_props/ali_kitchen_contacts/bowl.png",
     "width": 6.0,
-    "grip": [24, 30],
-    "pick": [16.5, 11.0],
-    "scrub": [1.2, 1.2],
+    "grip": [
+      24,
+      30
+    ],
+    "pick": [
+      16.5,
+      11.0
+    ],
+    "scrub": [
+      1.2,
+      1.2
+    ],
     "lift_sound": "",
     "rinse_sound": "ch2_sink_rinse",
     "place_sound": "ch2_roof_cup",
     "scrub_loops": 2,
-    "drop": [24.0, 9.0]
+    "drop": [
+      24.0,
+      9.0
+    ]
   },
   "ali_bowl_wet_end": {
     "scene": "ch2_t_s07_wash_wrong",
@@ -94,19 +151,34 @@
     "source": "res://data/npcs/ch2_ali_home.tres",
     "prop": "ali_kitchen__sink_drying_rack",
     "kind": "place",
-    "station": [18, 40.5],
+    "station": [
+      18,
+      40.5
+    ],
     "facing": 1,
     "hand_angle": 40,
     "texture": "res://art/environment/scene_props/ali_kitchen_contacts/bowl.png",
     "width": 6.0,
-    "grip": [24, 30],
-    "pick": [16.5, 11.0],
-    "scrub": [1.2, 1.2],
+    "grip": [
+      24,
+      30
+    ],
+    "pick": [
+      16.5,
+      11.0
+    ],
+    "scrub": [
+      1.2,
+      1.2
+    ],
     "lift_sound": "",
     "rinse_sound": "ch2_sink_rinse",
     "place_sound": "ch2_roof_cup",
     "scrub_loops": 1,
-    "drop": [25.5, 8.0]
+    "drop": [
+      25.5,
+      8.0
+    ]
   },
   "radio_tune_clear": {
     "scene": "ch2_t_s02_broadcast",
@@ -114,12 +186,24 @@
     "source": "res://data/npcs/ch2_radio.tres",
     "prop": "radio_workbench__radio_open_bench",
     "kind": "turn",
-    "station": [18, 30],
+    "station": [
+      18,
+      30
+    ],
     "facing": 1,
     "crouch": true,
-    "hub": [23.3, 15.6],
-    "radius": [1.7, 0.3],
-    "sweep": [180, 100],
+    "hub": [
+      23.3,
+      15.6
+    ],
+    "radius": [
+      1.7,
+      0.3
+    ],
+    "sweep": [
+      180,
+      100
+    ],
     "strokes": 1,
     "stall": 1.0
   },
@@ -129,12 +213,24 @@
     "source": "res://data/npcs/ch2_radio.tres",
     "prop": "radio_workbench__radio_open_bench",
     "kind": "turn",
-    "station": [18, 30],
+    "station": [
+      18,
+      30
+    ],
     "facing": 1,
     "crouch": true,
-    "hub": [23.3, 15.6],
-    "radius": [1.7, 0.3],
-    "sweep": [100, 180],
+    "hub": [
+      23.3,
+      15.6
+    ],
+    "radius": [
+      1.7,
+      0.3
+    ],
+    "sweep": [
+      100,
+      180
+    ],
     "strokes": 1,
     "stall": 0.4
   },
@@ -188,7 +284,10 @@
     "level": "res://data/levels/ch2_loading.tres",
     "source": "res://data/npcs/ch2_guard.tres",
     "kind": "inspect",
-    "station": [46, 0],
+    "station": [
+      46,
+      0
+    ],
     "crouch": true
   },
   "audit_terminal_submit": {
@@ -197,10 +296,16 @@
     "source": "res://data/npcs/ch2_terminal.tres",
     "prop": "revival_lounge__commission_terminal",
     "kind": "press",
-    "station": [-5.5, 48],
+    "station": [
+      -5.5,
+      48
+    ],
     "facing": 1,
     "crouch": true,
-    "button": [10.2, 23.35]
+    "button": [
+      10.2,
+      23.35
+    ]
   },
   "pump_case_reset": {
     "scene": "ch1_t_pump_reset",
@@ -228,5 +333,22 @@
     ],
     "strokes": 1,
     "stall": 1
+  },
+  "ch4_lamp_recorder_press": {
+    "scene": "ch4_t_lamp_bedside_record",
+    "level": "res://data/levels/ch4_ward_lamp_bay.tres",
+    "source": "res://data/npcs/ch4_lamp_bedside.tres",
+    "prop": "nursing_ward__bedside_radio",
+    "kind": "press",
+    "station": [
+      10,
+      51
+    ],
+    "facing": 1,
+    "hand_angle": -15,
+    "button": [
+      16.8,
+      10.5
+    ]
   }
 }

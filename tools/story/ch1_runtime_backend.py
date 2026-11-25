@@ -650,6 +650,18 @@ def apply_npc_contracts(scenes, source_path, author_source, entry_ids):
     try:
         records = story_contracts.load_records()
         story_contracts.apply_policies(scenes, source_path, records)
+        for ident, record in records.items():
+            if record["source"] != source_path or record["role"] != "boundary":
+                continue
+            segment = author_source.segments.get(ident)
+            if segment is None:
+                continue
+            for authored, operation in zip(segment.completion, scenes[ident].get("results", [])):
+                if operation["kind"] != "item_transfer" or "destination" in operation:
+                    continue
+                # Only an authored destination may be compared to the independent contract.
+                # Unregistered legacy transfers retain their existing result shape.
+                operation["destination"] = authored["destination"]
         story_contracts.validate_generated(scenes, source_path, records)
         story_contracts.validate_npc_declarations(scenes, source_path, author_source, records, entry_ids)
     except ValueError as error:

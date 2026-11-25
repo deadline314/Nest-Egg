@@ -813,6 +813,123 @@
           }
         ]
       }
+    },
+    {
+      "id": "ch4_t_roof_transmission",
+      "source": "res://data/story/ch4_hollow.json",
+      "npc": "res://data/npcs/ch4_roof_lantern.tres",
+      "levels": [
+        "res://data/levels/ch4_factory_roof.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "flag": "ch4_original_ledger_saved",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch4_roof_radio_heard",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch4_roof_radio_heard",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch4_t_lamp_accept",
+      "source": "res://data/story/ch4_hollow.json",
+      "npc": "res://data/npcs/ch4_roof_lantern.tres",
+      "levels": [
+        "res://data/levels/ch4_factory_roof.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "flag": "ch4_roof_radio_heard",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch4_lamp_mic_requested",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "item_acquire",
+            "id": "ch4_lamp_microphone"
+          },
+          {
+            "kind": "flag",
+            "id": "ch4_lamp_mic_requested",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch4_t_lamp_bedside_record",
+      "source": "res://data/story/ch4_hollow.json",
+      "npc": "res://data/npcs/ch4_lamp_bedside.tres",
+      "levels": [
+        "res://data/levels/ch4_ward_lamp_bay.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "flag": "ch4_lamp_mic_requested",
+              "equals": true
+            },
+            {
+              "item": "ch4_lamp_microphone"
+            },
+            {
+              "not": {
+                "flag": "ch4_lamp_message_recorded",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "item_transfer",
+            "id": "ch4_lamp_microphone",
+            "destination": "ch4_lamp_bedside"
+          },
+          {
+            "kind": "flag",
+            "id": "ch4_lamp_message_recorded",
+            "value": true
+          }
+        ]
+      }
     }
   ]
 }

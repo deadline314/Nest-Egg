@@ -1,0 +1,58 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
+[ext_resource type="Resource" path="res://data/npcs/ch4_roof_lantern.tres" id="3_ch4_roof_lantern"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="4_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/rooftop.tres" id="5_rooftop"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch4_factory_roof.tres" id="6_ch4_factory_roof"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("2_portal_data")
+id = &"roof_safety"
+target_level = "res://data/levels/ch4_factory_safety.tres"
+target_portal = &"safety_roof"
+prompt = "{interact} 下樓回清理線安全臺"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Go downstairs to the sweep line safe platform", "ja": "{interact} 階段で清掃線の安全台へ戻る"})
+width = 32
+height = 68
+style = "hidden"
+
+[sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("2_portal_data")
+id = &"roof_office"
+target_level = "res://data/levels/ch4_factory_office.tres"
+target_portal = &"office_roof"
+prompt = "{interact} 沿樓梯回原帳辦公室"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Take the stairs back to the ledger office", "ja": "{interact} 階段で原簿の事務室へ戻る"})
+width = 32
+height = 68
+style = "hidden"
+
+[sub_resource type="Resource" id="Resource_2"]
+script = ExtResource("4_lighting_zone")
+start_tile = 0
+blend_tiles = 12
+profile = ExtResource("5_rooftop")
+
+[resource]
+script = ExtResource("1_level_data")
+id = &"ch4_factory_roof"
+display_name = "廠房回程梯與屋頂"
+localized_names = Dictionary[String, String]({"en": "Old Factory Rooftop", "ja": "旧工場の屋上"})
+tile_size = 16
+height = 24
+legend = Dictionary[String, Resource]({
+"⇣": SubResource("Resource_0"),
+"ⓚ": ExtResource("3_ch4_roof_lantern"),
+"⟱": SubResource("Resource_1")
+})
+hints = PackedStringArray()
+chapter = &"ch4_hollow"
+persistent_world = true
+show_chapter_card = false
+environment = ExtResource("6_ch4_factory_roof")
+layout_path = "res://data/levels/ch4_factory_roof_map.json"
+lighting_zones = Array[ExtResource("4_lighting_zone")]([SubResource("Resource_2")])
+story_triggers = PackedStringArray()
+death_credit_cap = 250

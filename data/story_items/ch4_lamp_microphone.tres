@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="StoryItemData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"ch4_lamp_microphone"
+display_name = "燈的便攜話筒"
+description = "燈拜託凜把話筒放到母親的側窗床位旁。"
+chapter = &"ch4_hollow"
+trigger = 3
+order = 422
+source_actor = &"ch4_roof_lantern"
+icon = "recording"
