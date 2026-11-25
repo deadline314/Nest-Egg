@@ -76,4 +76,51 @@ static func run(s: TestSuite) -> void:
 			main._screen = null
 			main.free()
 			await s.end_level(level)
+	await _test_invalid_portal(s, directory)
 	Story.auto_skip = previous_auto
+
+static func _test_invalid_portal(s: TestSuite, directory: String) -> void:
+	var level := await s.start_level(load(FIRST))
+	Story.reset_active_presentation(&"test_setup")
+	var main := RouteMain.new()
+	main._screen = level
+	main._active_run = true
+	main._level_path = FIRST
+	main._run_store = RunSaveStore.new(directory.path_join("bad-portal-source.json"))
+	main._run_store.validator = RunSnapshot.prepare
+	var save := RunSnapshot.capture(FIRST, level.run_snapshot())
+	s.check(main._run_store.write(save, true), "portal rejection fixture has a durable source slot")
+	var bytes := FileAccess.get_file_as_bytes(main._run_store.path)
+	var portal := Portal.new()
+	var definition := PortalData.new()
+	definition.id = &"test_area_bad_destination"
+	definition.target_level = directory.path_join("test_area_bad_destination.tres")
+	definition.target_portal = &"another_area"
+	definition.locked_text = "這條路暫時無法通行。"
+	portal.data = definition
+	s.check(ResourceSaver.save(WeaponData.new(), definition.target_level) == OK,
+			"test destination exists but is not a campaign level")
+	GameState.pending_portal = &"previous_portal"
+	GameState.carried_health = 3
+	var before := var_to_bytes([GameState.pending_portal, GameState.carried_health, GameState.checkpoint_loadout])
+	var prior_controls := [level._pause_menu.allowed, level._inventory.allowed]
+	var requests: Array[String] = []
+	var toasts: Array[String] = []
+	var collect_toast := func(text: String) -> void: toasts.append(text)
+	EventBus.toast_requested.connect(collect_toast)
+	level.area_requested.connect(func(path: String) -> void:
+		requests.append(path)
+		main._on_area_requested(path))
+	level._on_portal_used(portal)
+	EventBus.toast_requested.disconnect(collect_toast)
+	s.check(requests == [definition.target_level] and main.loaded.is_empty(), "invalid destination is refused by the route before loading another level")
+	s.check(not level._finished and prior_controls == [level._pause_menu.allowed, level._inventory.allowed],
+			"refusing the destination restores the controls in the live area")
+	s.check(var_to_bytes([GameState.pending_portal, GameState.carried_health, GameState.checkpoint_loadout]) == before,
+			"refusing the destination restores the source portal and carried state")
+	s.check(FileAccess.get_file_as_bytes(main._run_store.path) == bytes and toasts.has(definition.locked_text),
+			"refusing the destination preserves the source save and reports the actual portal hint")
+	portal.free()
+	main._screen = null
+	main.free()
+	await s.end_level(level)

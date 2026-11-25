@@ -434,15 +434,25 @@ func _on_area_requested(level_path: String) -> void:
 
 
 func _commit_area_route(level_path: String) -> void:
+	# The previous area stays active until the destination has passed validation.
+	var target := RunSaveCodec.resource(level_path, "level", "res://data/levels/") as LevelData
+	var source := _screen as Level
+	if target == null:
+		if source != null:
+			source.reject_area_destination(level_path)
+		else:
+			push_error("[Main] 無法載入關卡：%s" % level_path)
+		return
+	if not CampaignEdition.current().includes_level(target):
+		if source != null:
+			source.cancel_area_route()
+		GameState.pending_portal = &""
+		EventBus.toast_requested.emit("這條路通往本版本未收錄的%s。" % CampaignEdition.current().chapter_title(target.chapter))
+		return
 	# 撤回未完成演出的暫定效果，再保存新區入口；入口Portal由實際路由保留。
 	var portal := GameState.pending_portal
 	Story.reset_active_presentation(&"route")
 	GameState.pending_portal = portal
-	var target := RunSaveCodec.resource(level_path, "level", "res://data/levels/") as LevelData
-	if target != null and not CampaignEdition.current().includes_level(target):
-		GameState.pending_portal = &""
-		EventBus.toast_requested.emit("這條路通往本版本未收錄的%s。" % CampaignEdition.current().chapter_title(target.chapter))
-		return
 	# The source slot describes the current room, not the destination portal.
 	GameState.pending_portal = &""
 	_save_run(true)

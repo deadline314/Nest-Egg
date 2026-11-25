@@ -45,6 +45,7 @@ var channel_sources: Array[Node] = []
 ## Only original authored map actors may settle durable NPC results.
 var npc_sources: Array[NpcActor] = []
 var _area_route_controls: Array[Dictionary] = []
+var _area_route_before: Dictionary = {}
 
 var _layout: LevelLayout
 var _world: Node2D
@@ -1251,10 +1252,13 @@ func _on_portal_used(portal: Portal) -> void:
 	if channel_result_pending or _finished or not is_instance_valid(player) or player.is_dead():
 		return
 	var target := portal.data.target_level
-	if not ResourceLoader.exists(target) or not (load(target) is LevelData):
-		push_error("[Level] %s 的出入口「%s」目標不是可載入的區域：%s" % [data.id, portal.data.id, target])
-		EventBus.toast_requested.emit(portal.data.locked_text)
+	var cached := ResourceLoader.get_cached_ref(target)
+	if not ResourceLoader.exists(target) or (cached != null and not cached is LevelData):
+		_report_invalid_portal(target, portal.data)
 		return
+	# Resolving an uncached destination belongs to Main's covered route.
+	_area_route_before = {"portal": portal.data, "pending_portal": GameState.pending_portal,
+		"carried_health": GameState.carried_health, "checkpoint_loadout": GameState.checkpoint_loadout}
 	_finished = true
 	_area_route_controls.clear()
 	for control: Node in [_pause_menu, _inventory] + get_tree().get_nodes_in_group(ShopScreen.OVERLAY_GROUP):
@@ -1276,6 +1280,22 @@ func cancel_area_route() -> void:
 		var control: Node = entry["node"].get_ref()
 		if is_instance_valid(control): control.allowed = entry["allowed"]
 	_area_route_controls.clear()
+	if not _area_route_before.is_empty():
+		GameState.pending_portal = _area_route_before["pending_portal"]
+		GameState.carried_health = _area_route_before["carried_health"]
+		GameState.checkpoint_loadout = _area_route_before["checkpoint_loadout"]
+		_area_route_before.clear()
+
+
+func reject_area_destination(path: String) -> void:
+	_report_invalid_portal(path, _area_route_before.get("portal") as PortalData)
+	cancel_area_route()
+
+
+func _report_invalid_portal(path: String, portal: PortalData) -> void:
+	var id := String(portal.id) if portal != null else "?"
+	push_error("[Level] %s 的出入口「%s」目標不是可載入的區域：%s" % [data.id, id, path])
+	EventBus.toast_requested.emit(portal.locked_text if portal != null else PortalData.DEFAULT_LOCKED_TEXT)
 
 
 ## 確認略過：真 Main 先保存結果；獨立預覽保留原本本地行為。
