@@ -390,6 +390,7 @@ func _build_entry() -> void:
 		EventBus.mechanism_toggled.connect(_on_channel_toggled)  # 關卡釋放時自動斷線
 	# 玩家在這個區域的時候，背景預載鄰居與接下來的過場舞台（下次進場不用當場解碼貼圖）。
 	_initialization_complete = true
+	hud.quest_guidance.sample_exploration()
 	if data.complete_on_flag != &"":
 		GameState.flag_changed.connect(_on_completion_flag)
 		if GameState.has_flag(data.complete_on_flag):

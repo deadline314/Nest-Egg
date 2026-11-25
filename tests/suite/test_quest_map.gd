@@ -973,7 +973,18 @@ func _check_filter_groups(screen: QuestMapScreen) -> void:
 
 
 func _test_runtime() -> void:
-	var level := await start_level(load(PAWN) as LevelData)
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(load(PAWN) as LevelData)
+	runner.get_tree().root.add_child(level)
+	# Opening before a process tick must still show the real starting area.
+	var screen := QuestMapScreen.for_level(level)
+	var start_cell := Vector2i((level.player.global_position + Vector2(0, -8)) / level.data.tile_size)
+	check(screen != null and screen.state.knows(PAWN, start_cell),
+			"the first map knows the starting position before an exploration tick")
+	if screen != null:
+		screen.free()
+	await frames(3)
 	await _test_pause_warmup(level)
 	await _test_pause_navigation(level)
 	await _check_fixed_hud_reading_space(level)

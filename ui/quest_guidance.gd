@@ -97,7 +97,7 @@ func _process(delta: float) -> void:
 		_idle += delta
 	if _time >= 0.2:
 		_time = 0
-		_sample()
+		sample_exploration()
 		_refresh_target()
 	_row.visible = _enabled("quest_objective") and not _target.is_empty() and not Story.is_cinematic_active() and not radio
 	if radio:
@@ -145,7 +145,11 @@ func _combat_hud_intersects(row_rect: Rect2) -> bool:
 		or row_rect.intersects(hud.ammo_tray.prompt_obstacle_rect())
 
 
-func _sample() -> void:
+## Run once the level is ready, then at the normal exploration cadence.
+func sample_exploration() -> void:
+	var path := level.data.resource_path
+	if not maps.areas.has(path):
+		return
 	var position := level.player.global_position + Vector2(0, -8)
 	var cell := Vector2i(position / level.data.tile_size)
 	var world := WorldState.capture(get_tree())
@@ -153,7 +157,7 @@ func _sample() -> void:
 	if cell != _sample_cell or world_hash != _world_hash:
 		_sample_cell = cell
 		_world_hash = world_hash
-		state.reveal(level.data.resource_path, maps.visible_cells(level.data.resource_path, position, world))
+		state.reveal(path, maps.visible_cells(path, position, world))
 
 
 func _refresh_target() -> void:
