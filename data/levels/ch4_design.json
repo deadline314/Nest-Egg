@@ -46,6 +46,51 @@
     "vertical": "固定地板與兩側階梯連成環路。"
    },
    "encounters": []
+  },
+  "factory_relay": {
+   "combat": true,
+   "group": "factory_relay",
+   "features": {
+    "landmark": "管線跨過分段的維修架。",
+    "loop": "兩側階梯連接上層，底層可不停步穿過。",
+    "vertical": "上層有探頭，地面有看守。",
+    "reward": "可抵達能回裝卸帶的安全臺。"
+   },
+   "encounters": [
+    {
+     "name": "下層巡查",
+     "lock": false,
+     "wave_zone": false,
+     "x0": 29,
+     "x1": 42,
+     "members": [
+      "清掃兵",
+      "切割者"
+     ],
+     "reinforcements": []
+    },
+    {
+     "name": "高處探頭",
+     "lock": false,
+     "wave_zone": false,
+     "x0": 58,
+     "x1": 73,
+     "members": [
+      "探照無人機",
+      "探照無人機"
+     ],
+     "reinforcements": []
+    }
+   ]
+  },
+  "factory_safety": {
+   "combat": false,
+   "group": "factory_safety",
+   "features": {
+    "landmark": "黃標線旁的檢查點。",
+    "loop": "上層員工門回裝卸帶，原路可回接線廊。"
+   },
+   "encounters": []
   }
  },
  "curve": {

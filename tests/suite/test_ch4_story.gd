@@ -9,7 +9,7 @@ const WAITING_ROOM := &"ch4_dispatch_egret"
 
 
 func run() -> void:
-	var areas := Checks.load_areas(self, "ch4", CHAPTER, ["pawnshop", "ward_reception", "nursing_ward", "revival_lounge", "factory_approach", "factory_loading"])
+	var areas := Checks.load_areas(self, "ch4", CHAPTER, ["pawnshop", "ward_reception", "nursing_ward", "revival_lounge", "factory_approach", "factory_loading", "factory_relay", "factory_safety"])
 	Checks.check_portals(self, "chapter 4", areas)
 	for area: LevelData in areas.values():
 		var actual: Array[Dictionary] = LevelBuilder.parse(area).spawns
@@ -17,8 +17,8 @@ func run() -> void:
 			if resource is PortalData:
 				check(actual.any(func(spawn: Dictionary) -> bool: return spawn["resource"] == resource),
 					"%s/%s is parsed as a live portal" % [area.id, resource.id])
-	Checks.check_entries(self, "chapter 4", areas, 12)
-	Checks.check_quest_markers(self, "chapter 4", "ch4", STORY, areas, 10)
+	Checks.check_entries(self, "chapter 4", areas, 14)
+	Checks.check_quest_markers(self, "chapter 4", "ch4", STORY, areas, 11)
 
 	GameState.start_new_run(GameState.difficulties[1])
 	check(Story.resolve_dispatch(CABINET) == &"ch4_t_visit_first", "the cabinet asks for consent before it is investigated")
@@ -41,6 +41,7 @@ func run() -> void:
 	var upper_door := Checks.portal_by_id(loading, &"loading_rail")
 	check(lower_door != null and lower_door.requires_flag == &"ch4_factory_batch_matched", "the loading door needs a matching batch")
 	check(upper_door != null and upper_door.requires_flag == &"ch4_loader_rail_released", "releasing the internal catch opens a separate return route")
+	_check_safe_platform(loading, areas["factory_relay"], areas["factory_safety"])
 	_check_sweep(loading)
 	GameState.start_new_run(GameState.difficulties[1])
 
@@ -61,3 +62,20 @@ func _check_sweep(loading: LevelData) -> void:
 	if matches.size() == 1:
 		var cover := matches[0] as BreakableData
 		check(cover.sweep_preview == &"ch4_t_demo_sweep" and cover.validate().is_empty(), "the demonstration owns one valid cover without drops or explosion")
+
+
+func _check_safe_platform(loading: LevelData, relay: LevelData, safety: LevelData) -> void:
+	var entrance := Checks.portal_by_id(loading, &"loading_relay")
+	var shortcut := Checks.portal_by_id(loading, &"loading_service")
+	check(entrance != null and entrance.requires_flag == &"ch4_demo_cover_cleared", "the active factory route asks for the safe rehearsal first")
+	check(shortcut != null and shortcut.requires_flag == &"ch4_safety_shortcut_open", "the staff shortcut opens only from the safe platform")
+	var hall := LevelBuilder.parse(relay)
+	var refuge := LevelBuilder.parse(safety)
+	check(hall.checkpoints.is_empty() and refuge.checkpoints.size() == 1, "the route puts its phone in the safe room")
+	var threats: Array[StringName] = []
+	for spawn: Dictionary in hall.spawns:
+		var enemy := spawn.get("resource") as EnemyData
+		if enemy != null:
+			threats.append(enemy.id)
+	check(threats.count(&"sweeper") == 1 and threats.count(&"slasher") == 1 and threats.count(&"searchlight_drone") == 2,
+			"the shared floor and upper catwalk contain two distinct patrol groups")

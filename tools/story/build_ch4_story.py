@@ -32,6 +32,8 @@ MATCHED = "ch4_factory_batch_matched"
 RAIL = "ch4_loader_rail_released"
 FLOOR = "ch4_fixed_ground_marked"
 SWEEP = "ch4_demo_cover_cleared"
+BRIEFED = "ch4_cleaning_briefing_read"
+SHORTCUT = "ch4_safety_shortcut_open"
 
 
 def _opening(source, dispatch):
@@ -202,9 +204,30 @@ def _sweep_demo(source, dispatch):
     ), when=flag(SWEEP), mode="animated")
 
 
+def _factory_safety(source, dispatch):
+    dispatch["safety_instruction"] = ["ch4_t_safety_instruction", "ch4_t_safety_replay"]
+    source.add("ch4_t_safety_instruction", "09", (
+        ("factory_pa", "這一班的原帳要留在辦公室。所有人退到黃線外，清理程序已經開始。"),
+        ("egret", "我從高處替妳看清掃線。"),
+        ("rin", "先等他離開黃線，我再過去。"),
+    ), when=negate(flag(BRIEFED)), mode="animated", completion=(set_flag(BRIEFED),))
+    source.add("ch4_t_safety_replay", "09", (
+        ("lamp", "黃線內是工作帶。這裡有檢查點，員工門可以返回裝卸帶。"),
+    ), when=flag(BRIEFED), mode="animated")
+    dispatch["safety_catch"] = ["ch4_t_safety_catch", "ch4_t_safety_open"]
+    source.add("ch4_t_safety_catch", "09", (
+        ("rin", "門栓放了。回裝卸帶可以直接走這條高架。"),
+    ), when=negate(flag(SHORTCUT)), mode="animated", completion=(set_flag(SHORTCUT),))
+    source.add("ch4_t_safety_open", "09", (
+        ("rin", "員工門通往裝卸帶的上層。"),
+    ), when=flag(SHORTCUT), mode="animated")
+
+
 def build_spec():
     source = ProductionSource(flag_defaults={})
     source.speakers = {
+        "factory_pa": {"name": "廠內廣播", "name_ja": "工場内放送", "name_en": "Factory PA",
+                       "color": "#e4bd91", "portrait": "res://art/portraits/system.png"},
         "linden": {"name": "棠", "name_ja": "棠", "name_en": "Linden",
                    "color": "#c0d3c8", "portrait": "res://art/portraits/linden.png"},
         "ward_demo": {"name": "護理示範", "name_ja": "看護手順", "name_en": "Ward demonstration",
@@ -220,6 +243,7 @@ def build_spec():
     _ward(source, dispatch)
     _factory_approach(source, dispatch)
     _sweep_demo(source, dispatch)
+    _factory_safety(source, dispatch)
     route_back_to_choices(source, dispatch, "ch4")
     source.bindings.update({
         binding: Binding("npc" if binding in ("old_k", "egret", "ali") else "object", CHAPTER,
@@ -258,6 +282,14 @@ def build_spec():
         "知道警示框和固定地面的位置。", SWEEP,
         (QuestStep("在裝卸帶試一次清掃線。", SWEEP, "sweep_console"),),
         visible_flags=(FLOOR,),
+    ))
+
+    source.quests.append(Quest(
+        "ch4_safety_approach", "main", "穿過接線廊抵達安全臺",
+        "工作帶前有一道黃線，可以在外側停下做準備。",
+        "確認黃色邊界，聽清楚隊長的廣播。", BRIEFED,
+        (QuestStep("穿過接線廊，在安全臺聽廣播。", BRIEFED, "safety_instruction"),),
+        visible_flags=(SWEEP,),
     ))
     return ChapterSpec(CHAPTER_INFO, source, "ch4", dispatch, POINTS)
 

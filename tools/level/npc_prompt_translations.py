@@ -1,6 +1,8 @@
 """Localizations for authored world prompts in the formal chapter builders."""
 
 TRANSLATIONS = {
+    "聽清理線廣播": ("Listen to the line announcement", "清掃線の放送を聞く"),
+    "放開員工門栓": ("Release the staff-door latch", "職員通路の錠を外す"),
     "試一次清掃線": ("Test the sweep line", "清掃線を試運転する"),
     "核對舊廠班表": ("Compare the shift list", "当番表を照合する"),
     "放開維修棘輪": ("Release the maintenance catch", "整備用の留め具を外す"),

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=13 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=15 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Resource" path="res://data/props/ch4_sweep_sample.tres" id="2_ch4_sweep_sample"]
@@ -36,6 +36,34 @@ height = 68
 style = "door"
 
 [sub_resource type="Resource" id="Resource_2"]
+script = ExtResource("3_portal_data")
+id = &"loading_relay"
+target_level = "res://data/levels/ch4_factory_relay.tres"
+target_portal = &"relay_loading"
+requires_flag = &"ch4_demo_cover_cleared"
+locked_text = "先在固定地面試跑一次清掃裝置。"
+localized_locked_text = Dictionary[String, String]({"en": "Test the sweep from fixed ground first.", "ja": "固定床から清掃装置を試運転する。"})
+prompt = "{interact} 往清理線前的安全臺"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Head to the safe platform", "ja": "{interact} 清掃線手前の安全台へ"})
+width = 32
+height = 68
+style = "door"
+
+[sub_resource type="Resource" id="Resource_3"]
+script = ExtResource("3_portal_data")
+id = &"loading_service"
+target_level = "res://data/levels/ch4_factory_safety.tres"
+target_portal = &"safety_service"
+requires_flag = &"ch4_safety_shortcut_open"
+locked_text = "員工門要從安全臺內側開啟。"
+localized_locked_text = Dictionary[String, String]({"en": "Unlatch the staff door from the safe platform.", "ja": "職員用の扉は安全台の内側から開ける。"})
+prompt = "{interact} 走高架員工捷徑"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Take the upper staff shortcut", "ja": "{interact} 上段の職員通路を通る"})
+width = 32
+height = 68
+style = "door"
+
+[sub_resource type="Resource" id="Resource_4"]
 script = ExtResource("7_lighting_zone")
 start_tile = 0
 blend_tiles = 12
@@ -52,9 +80,11 @@ legend = Dictionary[String, Resource]({
 "Ƶ": ExtResource("2_ch4_sweep_sample"),
 "Ⅻ": SubResource("Resource_0"),
 "Ⅽ": SubResource("Resource_1"),
+"Ⅾ": SubResource("Resource_2"),
 "ⓡ": ExtResource("4_ch4_rail_release"),
 "ⓦ": ExtResource("5_ch4_workbench"),
-"ⓧ": ExtResource("6_ch4_sweep_console")
+"ⓧ": ExtResource("6_ch4_sweep_console"),
+"⤒": SubResource("Resource_3")
 })
 hints = PackedStringArray()
 chapter = &"ch4_hollow"
@@ -62,6 +92,6 @@ persistent_world = true
 show_chapter_card = false
 environment = ExtResource("9_ch4_factory_loading")
 layout_path = "res://data/levels/ch4_factory_loading_map.json"
-lighting_zones = Array[ExtResource("7_lighting_zone")]([SubResource("Resource_2")])
+lighting_zones = Array[ExtResource("7_lighting_zone")]([SubResource("Resource_4")])
 story_triggers = PackedStringArray()
 death_credit_cap = 250

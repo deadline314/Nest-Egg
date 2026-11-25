@@ -20,6 +20,13 @@
   "teaser_en": "Return to the pawnshop to follow up on the original ledger."
  },
  "speakers": {
+  "factory_pa": {
+   "name": "廠內廣播",
+   "name_ja": "工場内放送",
+   "name_en": "Factory PA",
+   "color": "#e4bd91",
+   "portrait": "res://art/portraits/system.png"
+  },
   "linden": {
    "name": "棠",
    "name_ja": "棠",
@@ -47,7 +54,9 @@
   "ch4_factory_batch_matched": false,
   "ch4_loader_rail_released": false,
   "ch4_fixed_ground_marked": false,
-  "ch4_demo_cover_cleared": false
+  "ch4_demo_cover_cleared": false,
+  "ch4_cleaning_briefing_read": false,
+  "ch4_safety_shortcut_open": false
  },
  "transactions": {},
  "derived_flags": {},
@@ -256,6 +265,38 @@
    "background_en": "The old factory's sweep removes marked cover.",
    "reward_ja": "警告の枠と固定床の場所が分かる。",
    "reward_en": "Learn to distinguish the warning frame from fixed ground."
+  },
+  {
+   "id": "ch4_safety_approach",
+   "kind": "main",
+   "title": "穿過接線廊抵達安全臺",
+   "background": "工作帶前有一道黃線，可以在外側停下做準備。",
+   "reward": "確認黃色邊界，聽清楚隊長的廣播。",
+   "complete_flag": "ch4_cleaning_briefing_read",
+   "steps": [
+    {
+     "title": "穿過接線廊，在安全臺聽廣播。",
+     "complete_flag": "ch4_cleaning_briefing_read",
+     "location": {
+      "level": "res://data/levels/ch4_factory_safety.tres",
+      "cell": [
+       23,
+       19
+      ]
+     },
+     "title_ja": "配線通路を渡り、安全台で放送を聞く。",
+     "title_en": "Cross the service walk and listen to the announcement at the safe platform."
+    }
+   ],
+   "visible_flags": [
+    "ch4_demo_cover_cleared"
+   ],
+   "title_ja": "配線通路を通って安全台へ",
+   "title_en": "Reach the safe platform by the service walk",
+   "background_ja": "作業帯の手前に黄色い線がある。外側で立ち止まり、準備できる。",
+   "background_en": "There's a yellow line before the work lane. Stop outside it to prepare.",
+   "reward_ja": "黄色い境界を確認し、隊長の放送を聞く。",
+   "reward_en": "Mark the yellow boundary and listen to the captain's announcement."
   }
  ],
  "scenes": {
@@ -1345,6 +1386,108 @@
     "equals": true
    }
   },
+  "ch4_t_safety_instruction": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "factory_pa",
+     "text": "這一班的原帳要留在辦公室。所有人退到黃線外，清理程序已經開始。",
+     "ja": "今の当番の原簿は事務室に残す。全員、黄色い線の外へ。清掃を開始した。",
+     "en": "This shift's original ledger stays in the office. Everyone outside the yellow line. The sweep has started."
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "我從高處替妳看清掃線。",
+     "ja": "私は上から清掃線を見張る。",
+     "en": "I'll watch the sweep line from up high."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "先等他離開黃線，我再過去。",
+     "ja": "彼が黄色い線を離れたら渡る。",
+     "en": "I'll cross when he leaves the yellow line."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "ch4_cleaning_briefing_read",
+     "equals": true
+    }
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch4_cleaning_briefing_read",
+     "value": true
+    }
+   ],
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch4_t_safety_replay": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "黃線內是工作帶。這裡有檢查點，員工門可以返回裝卸帶。",
+     "ja": "黄色い線の内側は作業帯。ここにはチェックポイントがあり、職員用の扉から荷さばき場に戻れる。",
+     "en": "The work lane is inside the yellow line. There's a checkpoint here, and the staff door leads back to the loading bay."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch4_cleaning_briefing_read",
+    "equals": true
+   }
+  },
+  "ch4_t_safety_catch": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "門栓放了。回裝卸帶可以直接走這條高架。",
+     "ja": "錠を外した。荷さばき場へはこの足場から直接戻れる。",
+     "en": "The latch is free. This catwalk goes straight to the loading bay."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "ch4_safety_shortcut_open",
+     "equals": true
+    }
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch4_safety_shortcut_open",
+     "value": true
+    }
+   ],
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch4_t_safety_open": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "員工門通往裝卸帶的上層。",
+     "ja": "職員用の扉は荷さばき場の上段につながっている。",
+     "en": "The staff door leads to the upper loading bay."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch4_safety_shortcut_open",
+    "equals": true
+   }
+  },
   "ch4_dispatch_old_k": {
    "mode": "dispatch",
    "routes": [
@@ -1837,6 +1980,68 @@
       }
      },
      "target": "ch4_t_sweep_unready"
+    }
+   ]
+  },
+  "ch4_dispatch_safety_instruction": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "not": {
+         "flag": "ch4_cleaning_briefing_read",
+         "equals": true
+        }
+       },
+       {
+        "not": {
+         "flag": "ch4_cleaning_briefing_read",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch4_t_safety_instruction"
+    },
+    {
+     "when": {
+      "flag": "ch4_cleaning_briefing_read",
+      "equals": true
+     },
+     "target": "ch4_t_safety_replay"
+    }
+   ]
+  },
+  "ch4_dispatch_safety_catch": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "not": {
+         "flag": "ch4_safety_shortcut_open",
+         "equals": true
+        }
+       },
+       {
+        "not": {
+         "flag": "ch4_safety_shortcut_open",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch4_t_safety_catch"
+    },
+    {
+     "when": {
+      "flag": "ch4_safety_shortcut_open",
+      "equals": true
+     },
+     "target": "ch4_t_safety_open"
     }
    ]
   },

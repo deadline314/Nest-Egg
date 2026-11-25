@@ -388,6 +388,60 @@
           }
         ]
       }
+    },
+    {
+      "id": "ch4_t_safety_instruction",
+      "source": "res://data/story/ch4_hollow.json",
+      "npc": "res://data/npcs/ch4_safety_instruction.tres",
+      "levels": [
+        "res://data/levels/ch4_factory_safety.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "not": {
+            "flag": "ch4_cleaning_briefing_read",
+            "equals": true
+          }
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch4_cleaning_briefing_read",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch4_t_safety_catch",
+      "source": "res://data/story/ch4_hollow.json",
+      "npc": "res://data/npcs/ch4_safety_catch.tres",
+      "levels": [
+        "res://data/levels/ch4_factory_safety.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "not": {
+            "flag": "ch4_safety_shortcut_open",
+            "equals": true
+          }
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch4_safety_shortcut_open",
+            "value": true
+          }
+        ]
+      }
     }
   ]
 }

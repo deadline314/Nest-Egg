@@ -1,6 +1,12 @@
 """Localized action labels and lock reasons for the formal chapter portals."""
 
 PROMPTS = {
+    "往清理線前的安全臺": ("Head to the safe platform", "清掃線手前の安全台へ"),
+    "回舊廠裝卸帶": ("Return to the loading bay", "荷さばき場へ戻る"),
+    "進安全臺": ("Enter the safe platform", "安全台に入る"),
+    "回廠房接線廊": ("Return to the service walk", "配線通路へ戻る"),
+    "走高架員工捷徑": ("Take the upper staff shortcut", "上段の職員通路を通る"),
+    "沿員工捷徑回裝卸帶": ("Return via the staff shortcut", "職員通路で荷さばき場に戻る"),
     "沿連廊前往復原館": ("Walk to Restoration Hall", "連絡路で復元館へ向かう"),
     "前往舊廠房": ("Go to the old factory", "旧工場へ向かう"),
     "進舊廠裝卸帶": ("Enter the loading bay", "荷さばき場に入る"),
@@ -80,6 +86,9 @@ PROMPTS = {
 }
 
 LOCKS = {
+    "先在固定地面試跑一次清掃裝置。": ("Test the sweep from fixed ground first.", "固定床から清掃装置を試運転する。"),
+    "員工門要從安全臺內側開啟。": ("Unlatch the staff door from the safe platform.", "職員用の扉は安全台の内側から開ける。"),
+    "先放開安全臺的門栓。": ("Release the latch at the safe platform first.", "まず安全台の錠を外す。"),
     "先在床頭櫃拿到公用取件聯，再去復原館找阿梨。": ("Take the collection slip from the bedside cabinet, then meet Pear at Restoration Hall.", "枕元の棚で受取票を手に入れてから、復元館の梨に会う。"),
     "先找吧台旁的阿梨，問清楚舊廠換班的入口。": ("Ask Pear by the bar which factory entrance is used at shift change.", "バーにいる梨に、交代時に使う工場の入口を尋ねる。"),
     "比對公用取件聯與外門的班表，才能通過貨門。": ("Compare the collection slip with the shift list to open this door.", "受取票と当番表を照合すると、搬入口を通れる。"),
