@@ -16,6 +16,8 @@ const COPY := {
 		"main": "Main objective", "side": "Side objective", "pinned": "Pinned objective"},
 }
 const TRACKER_WIDTH := 208.0
+const TRACKER_POSITION := Vector2(12, 28)
+const FRAMING_MARGIN := 8.0
 const REVEAL_TIME := 0.16
 ## 武器欄右緣（640×360 設計座標）；方向箭頭在這個範圍內時不壓到武器欄。
 const WEAPON_BAR_RIGHT := 160.0
@@ -40,6 +42,7 @@ var _goal_key := ""
 var _target: Dictionary = {}
 var _sample_cell := Vector2i(-1, -1)
 var _world_hash := 0
+var _framing_bottom := INF
 
 
 func _ready() -> void:
@@ -58,7 +61,7 @@ func _ready() -> void:
 	if catalog == null:
 		catalog = state.catalog_for_chapter(level.data.chapter, maps)
 	_row = ObjectiveRow.new()
-	_row.position = Vector2(12, 28)
+	_row.position = TRACKER_POSITION
 	_row.custom_minimum_size = Vector2(TRACKER_WIDTH, 0)
 	_row.tooltip_text = _text("target")
 	add_child(_row)
@@ -76,6 +79,8 @@ func _ready() -> void:
 	route_plate.content_margin_bottom = 2
 	_arrow.add_theme_stylebox_override(&"normal", route_plate)
 	add_child(_arrow)
+	Story.framing.safe_rect_changed.connect(_layout_framing)
+	_layout_framing(Story.framing.safe_rect())
 	state.changed.connect(_refresh_target)
 	GameState.flag_changed.connect(_on_route_flag_changed)
 	Settings.display_changed.connect(_apply_motion_preference)
@@ -83,6 +88,11 @@ func _ready() -> void:
 	_refresh_target()
 	EventBus.radio_visibility_changed.connect(_on_radio_visibility_changed)
 	_on_radio_visibility_changed()
+
+
+func _layout_framing(rect: Rect2) -> void:
+	_row.position.y = maxf(TRACKER_POSITION.y, rect.position.y + FRAMING_MARGIN)
+	_framing_bottom = rect.end.y - FRAMING_MARGIN if rect.position.y > 0.0 else INF
 
 
 func _process(delta: float) -> void:
@@ -279,6 +289,9 @@ func _place_arrow() -> bool:
 		_arrow.size = extent
 	# 左下角是武器欄與彈藥，箭頭靠左時不往下壓到它們。
 	var bottom := 240.0 if edge.x < WEAPON_BAR_RIGHT else 322.0
+	bottom = minf(bottom, _framing_bottom - extent.y)
+	if bottom < 88.0:
+		return false
 	var origin := Vector2(clampf(edge.x - extent.x * 0.5, 12, 628 - extent.x), clampf(edge.y, 88, bottom))
 	var to_world := get_viewport().get_canvas_transform().affine_inverse() * get_global_transform_with_canvas()
 	var text_rect := to_world * Rect2(origin, extent)

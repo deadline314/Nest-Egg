@@ -1703,6 +1703,16 @@ func _test_radio_objective_handoff() -> void:
 	check(guidance._row.visible and not guidance._label.text.is_empty(), "radio handoff starts with a real visible quest objective")
 	var text := guidance._label.text
 	var idle := guidance._idle
+	var normal_y := guidance._row.position.y
+	Story.framing.amount = 1.0
+	var safe := Story.framing.safe_rect()
+	check(guidance._row.visible and guidance._row.get_global_rect().position.y >= safe.position.y
+			and guidance._row.get_global_rect().end.y <= safe.end.y,
+			"nearby cinematic preview keeps the objective fully below its upper bar")
+	Story.framing.amount = 0.0
+	check(is_equal_approx(guidance._row.position.y, normal_y)
+			and guidance._label.text == text and guidance._idle == idle,
+			"leaving preview returns the same objective to its original position without consuming its display time")
 	Story._scenes["test_objective_radio"] = {"mode": "radio", "freeze": true, "lines": [{"speaker": "mei", "text": "重要通訊。"}]}
 	check(Story.play(&"test_objective_radio", false), "objective handoff uses the actual radio presentation")
 	check(not guidance._row.visible and not guidance._arrow.visible and guidance._row.mouse_filter == Control.MOUSE_FILTER_IGNORE, "radio takes objective pixels immediately before paused callbacks")
