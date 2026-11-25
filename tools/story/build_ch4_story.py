@@ -12,7 +12,7 @@ from ch4_office_evidence import add_office_evidence  # noqa: E402
 from ch4_factory_recording import add_factory_recording  # noqa: E402
 from ch1_closure import Binding, Option, ProductionSource, Quest, QuestStep, all_of, flag, grant, negate, say, set_flag  # noqa: E402
 from build_ch1_story import sfx, wait  # noqa: E402
-from ch4_ward_letter import add_ward_letter  # noqa: E402
+from ch4_ward_letter import WARD_SCARF, add_ward_letter  # noqa: E402
 from chapter_compiler import ChapterSpec, route_back_to_choices, write_chapter, write_documents  # noqa: E402
 
 CHAPTER_INFO = {
@@ -354,6 +354,7 @@ def build_spec():
         visible_flags=(WORK_CROSSED,),
     ))
     return ChapterSpec(CHAPTER_INFO, source, "ch4", dispatch, POINTS,
+        dismissible_radio={WARD_SCARF},
         flag_defaults={"ch4_work_cover_erased": False, "ch4_arena_cover_erased": False, ATROPOS_MID: False, ATROPOS_RETREAT: False})
 
 

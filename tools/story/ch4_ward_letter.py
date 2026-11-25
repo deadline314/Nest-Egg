@@ -3,6 +3,7 @@ from ch1_closure import Option, all_of, flag, grant, negate, set_flag
 
 WITNESS_NOTE = "ch4_linden_witness_note"
 WITNESS_NOTED = "ch4_linden_witnesses_noted"
+WARD_SCARF = "ch4_b_ward_scarf"
 
 
 def add_ward_letter(source, dispatch, consent: str, collected: str):
@@ -36,8 +37,8 @@ def add_ward_letter(source, dispatch, consent: str, collected: str):
     ), when=unrecorded, mode="animated", cancel_on_skip=True,
                completion=(grant(WITNESS_NOTE), set_flag(WITNESS_NOTED)))
 
-    dispatch["ward_scarf"] = ["ch4_b_ward_scarf"]
-    source.add("ch4_b_ward_scarf", "15", (
+    dispatch["ward_scarf"] = [WARD_SCARF]
+    source.add(WARD_SCARF, "15", (
         ("rin", "圍巾的標籤只印了床位。"),
         ("rin", "先讓它留在掛勾上好了。"),
-    ), mode="bubbles")
+    ), mode="radio")

@@ -2657,7 +2657,7 @@
    "completion_policy": "main_terminal_results_v1"
   },
   "ch4_b_ward_scarf": {
-   "mode": "bubbles",
+   "mode": "radio",
    "lines": [
     {
      "speaker": "rin",
@@ -2671,7 +2671,8 @@
      "ja": "掛けたままにしておこう。",
      "en": "I’ll leave it on the hook."
     }
-   ]
+   ],
+   "dismissible": true
   },
   "ch4_dispatch_old_k": {
    "mode": "dispatch",

@@ -1,3 +1,4 @@
+# changed-test-inputs: data/npcs/*.tres data/story/*.json
 class_name NpcSuite
 extends TestSuite
 ## 場景人物（NE-45）：資料檢查、依次數與劇情挑選對話、對話演出（暫停、推進、結束）、獎勵只領一次、
