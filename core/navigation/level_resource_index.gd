@@ -12,16 +12,40 @@ static var _chapters: Dictionary[StringName, PackedStringArray] = {}
 static var _layouts: Dictionary[String, Dictionary] = {}
 
 
-static func saved_paths(areas: Dictionary, checkpoint: String) -> PackedStringArray:
-	var result := PackedStringArray()
-	if areas.is_empty() and checkpoint.is_empty():
+## Plain authored metadata for one save transaction. A new transaction passes
+## through the usual manifest and file-list checks before taking its own view.
+class SavedAreaIndex:
+	var _area_paths: Dictionary[StringName, String]
+	var _layout_fields: Dictionary[String, Dictionary]
+
+	func saved_paths(areas: Dictionary, checkpoint: String) -> PackedStringArray:
+		return _select_paths(_area_paths, areas, checkpoint)
+
+	func layout_fields(path: String) -> Dictionary:
+		return _layout_fields.get(path, {}).duplicate()
+
+	static func _select_paths(paths: Dictionary[StringName, String], areas: Dictionary, checkpoint: String) -> PackedStringArray:
+		var result := PackedStringArray()
+		for id: StringName in paths:
+			var path := paths[id]
+			if areas.has(String(id)) or path == checkpoint:
+				result.append(path)
 		return result
+
+
+static func saved_area_index() -> SavedAreaIndex:
 	_refresh()
-	for id: StringName in _areas:
-		var path := _areas[id]
-		if areas.has(String(id)) or path == checkpoint:
-			result.append(path)
-	return result
+	var index := SavedAreaIndex.new()
+	index._area_paths = _areas.duplicate()
+	index._layout_fields = _layouts.duplicate(true)
+	return index
+
+
+static func saved_paths(areas: Dictionary, checkpoint: String) -> PackedStringArray:
+	if areas.is_empty() and checkpoint.is_empty():
+		return PackedStringArray()
+	_refresh()
+	return SavedAreaIndex._select_paths(_areas, areas, checkpoint)
 
 
 static func chapter_paths(chapter: StringName) -> PackedStringArray:

@@ -1,5 +1,6 @@
 extends RefCounted
 
+const LevelCatalog := preload("res://core/navigation/level_resource_index.gd")
 const FIXTURE := "res://tests/fixtures/map_revision_2.tres"
 const TEST_PATH := "res://data/levels/ne297_test_only.tres"
 
@@ -58,6 +59,7 @@ static func run(suite: TestSuite) -> void:
 	var using_cached := MapLayoutMigration.prepare_run(cached_pending, data, layout, definitions)
 	suite.check(pending_result == using_cached and pending == cached_pending,
 		"transaction metadata and a reusable active layout preserve legacy destination migration")
+	_check_transaction_catalog(suite, definitions)
 	var invalid_cached := cached_pending.duplicate(true)
 	invalid_cached["runtime"]["layout_revision"] = 3
 	suite.check(MapLayoutMigration.prepare_run(invalid_cached, data, layout, definitions).has("error"),
@@ -84,6 +86,23 @@ static func run(suite: TestSuite) -> void:
 	await _rejection_is_atomic(suite, data, {}, true)
 	GameState.start_new_run(GameState.difficulties[1])
 	data.take_over_path("")
+
+
+static func _check_transaction_catalog(suite: TestSuite, definitions: MapLayoutMigration.Definitions) -> void:
+	const WAREHOUSE := "res://data/levels/ch1_warehouse.tres"
+	const ROOF := "res://data/levels/ch1_rooftop.tres"
+	var states := {"ch1_warehouse": {}}
+	suite.check(definitions.saved_paths(states, ROOF) == LevelCatalog.saved_paths(states, ROOF),
+		"transaction catalog uses the same saved area order as the live catalog")
+	states.clear()
+	suite.check(definitions.saved_paths(states, ROOF) == PackedStringArray([ROOF]),
+		"reused authored metadata reads each candidate's individual area table")
+	var index := LevelCatalog.saved_area_index()
+	var layout := index.layout_fields(WAREHOUSE)
+	var authored_height: Variant = layout.get("height")
+	layout["height"] = 0
+	suite.check(authored_height != null and index.layout_fields(WAREHOUSE).get("height") == authored_height,
+		"modifying a returned descriptor cannot change later validations in the transaction")
 
 
 static func _direct_level(suite: TestSuite, data: LevelData, old: Dictionary, runtime: Dictionary) -> void:

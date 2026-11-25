@@ -12,6 +12,17 @@ const MAX_COORDINATE := 4096
 ## metadata, rather than retaining offscreen LevelData and its scene resources.
 class Definitions:
 	var _by_path: Dictionary[String, Dictionary] = {}
+	var _index: LevelCatalog.SavedAreaIndex
+
+	func saved_paths(areas: Dictionary, checkpoint: String) -> PackedStringArray:
+		if areas.is_empty() and checkpoint.is_empty():
+			return PackedStringArray()
+		return _saved_area_index().saved_paths(areas, checkpoint)
+
+	func _saved_area_index() -> LevelCatalog.SavedAreaIndex:
+		if _index == null:
+			_index = LevelCatalog.saved_area_index()
+		return _index
 
 	func for_area(path: String, current: LevelData) -> Dictionary:
 		if _by_path.has(path):
@@ -20,14 +31,17 @@ class Definitions:
 		if current != null and current.resource_path == path:
 			entry = {"id": String(current.id), "definition": MapLayoutMigration.read(current)}
 		else:
-			entry = MapLayoutMigration.describe_area(path)
+			entry = MapLayoutMigration._describe_area(path, _saved_area_index().layout_fields(path))
 		_by_path[path] = entry
 		return entry
 
 
 ## Offscreen migration needs the live map document, not the area's scripts and assets.
 static func describe_area(path: String) -> Dictionary:
-	var fields := LevelCatalog.layout_fields(path)
+	return _describe_area(path, LevelCatalog.layout_fields(path))
+
+
+static func _describe_area(path: String, fields: Dictionary) -> Dictionary:
 	if not fields.is_empty():
 		var definition := _read_layout(fields["layout_path"], int(fields["height"]), int(fields["tile_size"]))
 		return {"id": fields["id"], "definition": definition}
@@ -182,7 +196,7 @@ static func prepare_run(snapshot: Dictionary, current: LevelData, layout: LevelL
 	var state: Dictionary = snapshot["state"]
 	var areas: Dictionary = state["area_states"]
 	var checkpoint_path: String = state.get("checkpoint_level_path", "")
-	for path in LevelCatalog.saved_paths(areas, checkpoint_path):
+	for path in definitions.saved_paths(areas, checkpoint_path):
 		var entry := definitions.for_area(path, current)
 		if entry.is_empty():
 			continue
