@@ -28,6 +28,7 @@ POINTS = {
     "egret_at_rail": ("factory_cleaning", 47, 13),
     "office_release": ("factory_cleaning", 77, GROUND - 1),
     "original_ledger": ("factory_office", 20, GROUND - 1),
+    "archive_recorder": ("factory_office", 34, GROUND - 1),
 }
 PEOPLE = {
     "old_k": ("老 K", "old_k", "wipe_hands"),
@@ -42,8 +43,9 @@ STATIONS = {
     "sweep_console": "清掃試車台",
     "safety_instruction": "安全臺喇叭", "safety_catch": "員工門栓", "work_observation": "清理線讀數", "office_release": "工作帶終端",
     "original_ledger": "讀取原帳",
+    "archive_recorder": "盤帶錄音機",
 }
-GLYPHS = dict(zip(POINTS, "ⓞⓔⓣⓓⓥⓒⓢⓐⓑⓡⓦⓧⓘⓤⓟⓙⓩⓛ", strict=True))
+GLYPHS = dict(zip(POINTS, "ⓞⓔⓣⓓⓥⓒⓢⓐⓑⓡⓦⓧⓘⓤⓟⓙⓩⓛⓕ", strict=True))
 
 
 def area_path(area):
@@ -103,7 +105,7 @@ THEMES = {
                          ["abandoned_factory", "factory_office"]),
     "factory_relay": ("steel_plate", ["warehouse"], "hangar_wall", 0.0, "sky_storm", ["abandoned_factory"]),
     "factory_cleaning": ("steel_plate", ["warehouse"], "hangar_wall", 0.0, "sky_storm", ["abandoned_factory", "factory_office"]),
-    "factory_office": ("facility_floor", ["facility_wall"], "facility_panel", 0.0, "sky_storm", ["factory_office"]),
+    "factory_office": ("facility_floor", ["facility_wall"], "facility_panel", 0.0, "sky_storm", ["factory_office", "recording_booth"]),
     "factory_work": ("steel_plate", ["warehouse"], "hangar_wall", 0.0, "sky_storm", ["abandoned_factory", "factory_office"]),
     "factory_safety": ("steel_plate", ["warehouse"], "facility_panel", 0.0, "sky_storm", ["abandoned_factory", "factory_office"]),
     "factory_loading": ("steel_plate", ["warehouse"], "hangar_wall", 0.0, "sky_storm",
@@ -121,11 +123,12 @@ def _configure():
     }
     prompts = {
         "original_ledger": "核對原帳",
+        "archive_recorder": "查看第三十一版錄音",
         "old_k": "和老 K 說話",
         "egret": "和鷺說話",
         "linden": "和棠說話",
         "desk_demo": "看桌緣示範",
-        "voice_demo": "看收音示範",
+        "voice_demo": "操作床邊電台",
         "cabinet": "操作床頭櫃",
         "staff_switch": "解鎖內廊的門",
         "ali": "和阿梨說話",
@@ -396,12 +399,12 @@ def _factory_office():
     area.ceiling(1, 40, 5)
     area.stand(4, "↧")
     area.stand(8, "P")
-    area.prop("factory_office__blinds_rain_window", 13, y=13, support="wall")
     area.prop("factory_office__desk_with_ledger", 20)
-    area.prop("factory_office__toppled_chair", 23)
-    area.prop("factory_office__filing_cabinet", 35)
     area.prop("factory_office__stopped_clock", 24, y=12, support="wall")
     area.prop("factory_office__bulletin_board", 28, y=14, support="wall")
+    area.prop("factory_office__filing_cabinet", 34)
+    area.prop("recording_booth__reel_recorder", 34, y=GROUND - 4, dx=-2, dy=6,
+              support="prop", support_id="factory_office__filing_cabinet", support_x=34)
     area.prop("floor_marking", 30, y=GROUND - 1)
     for x in (10, 22, 34):
         area.lamp(x, 7)

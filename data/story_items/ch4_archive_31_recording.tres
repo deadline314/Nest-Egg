@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"ch4_archive_31_recording"
+display_name = "天穹第三十一版逐字稿"
+description = "天穹電話亭的標語試錄收有一段未公開的片尾。"
+color = Color(0.78, 0.86, 0.92, 1.0)
+category = 0
+order = 403
+chapter = &"ch4_hollow"
+body = "今天也可以重新開始。汐聽得見我的聲音嗎？"
+trigger = 3
+source_actor = &"ch4_archive_recorder"
+icon = "recording"

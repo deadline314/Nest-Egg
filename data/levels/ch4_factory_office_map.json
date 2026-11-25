@@ -20,7 +20,7 @@
       "#........................................#",
       "#........................................#",
       "#........................................#",
-      "#...↧...P...........ⓛ....................#",
+      "#...↧...P...........ⓛ.............ⓕ......#",
       "##########################################",
       "##########################################",
       "##########################################",
@@ -28,12 +28,11 @@
     ]
   ],
   "props": [
-    {"id": "factory_office__blinds_rain_window", "x": 13, "y": 13, "support": "wall"},
     {"id": "factory_office__desk_with_ledger", "x": 20, "ground": true},
-    {"id": "factory_office__toppled_chair", "x": 23, "ground": true},
-    {"id": "factory_office__filing_cabinet", "x": 35, "ground": true},
     {"id": "factory_office__stopped_clock", "x": 24, "y": 12, "support": "wall"},
     {"id": "factory_office__bulletin_board", "x": 28, "y": 14, "support": "wall"},
+    {"id": "factory_office__filing_cabinet", "x": 34, "ground": true},
+    {"id": "recording_booth__reel_recorder", "x": 34, "y": 16, "dx": -2, "dy": 6, "support": "prop", "support_id": "factory_office__filing_cabinet", "support_x": 34},
     {"id": "floor_marking", "x": 30, "y": 19}
   ]
 }

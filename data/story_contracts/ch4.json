@@ -640,6 +640,136 @@
           }
         ]
       }
+    },
+    {
+      "id": "ch4_t_archive_index",
+      "source": "res://data/story/ch4_hollow.json",
+      "npc": "res://data/npcs/ch4_archive_recorder.tres",
+      "levels": [
+        "res://data/levels/ch4_factory_office.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "flag": "ch4_office_access",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch4_archive_31_indexed",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "item_acquire",
+            "id": "ch4_archive_31_index"
+          },
+          {
+            "kind": "flag",
+            "id": "ch4_archive_31_indexed",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch4_t_archive_play_office",
+      "source": "res://data/story/ch4_hollow.json",
+      "npc": "res://data/npcs/ch4_archive_recorder.tres",
+      "levels": [
+        "res://data/levels/ch4_factory_office.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "flag": "ch4_office_access",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch4_archive_31_heard",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "item_acquire",
+            "id": "ch4_archive_31_recording"
+          },
+          {
+            "kind": "flag",
+            "id": "ch4_archive_31_indexed",
+            "value": true
+          },
+          {
+            "kind": "flag",
+            "id": "ch4_archive_31_heard",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch4_t_archive_play_ward",
+      "source": "res://data/story/ch4_hollow.json",
+      "npc": "res://data/npcs/ch4_voice_demo.tres",
+      "levels": [
+        "res://data/levels/ch4_nursing_ward.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "all": [
+                {
+                  "flag": "ch4_archive_31_indexed",
+                  "equals": true
+                },
+                {
+                  "flag": "ch4_voice_demo_read",
+                  "equals": true
+                }
+              ]
+            },
+            {
+              "not": {
+                "flag": "ch4_archive_31_heard",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "item_acquire",
+            "id": "ch4_archive_31_recording"
+          },
+          {
+            "kind": "flag",
+            "id": "ch4_archive_31_heard",
+            "value": true
+          }
+        ]
+      }
     }
   ]
 }

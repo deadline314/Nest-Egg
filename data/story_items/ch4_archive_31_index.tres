@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"ch4_archive_31_index"
+display_name = "第三十一版登錄卡"
+description = "盤帶盒上保留的試錄版號，供日後補聽用。"
+color = Color(0.78, 0.86, 0.92, 1.0)
+category = 0
+order = 402
+chapter = &"ch4_hollow"
+body = "天穹電話亭標語試錄的版號為 31。舊廠辦公室的盤帶機和雨窗旁的床邊電台都可以播放字幕。"
+trigger = 3
+source_actor = &"ch4_archive_recorder"
+icon = "doc_stub"

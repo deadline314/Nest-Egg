@@ -2,6 +2,8 @@
 
 TRANSLATIONS = {
     "核對原帳": ("Compare the original ledger", "元帳を照合する"),
+    "查看第三十一版錄音": ("Inspect archive recording 31", "第31版の録音を調べる"),
+    "操作床邊電台": ("Use the bedside radio", "ベッド脇の無線機を操作する"),
     "核對白線的讀數": ("Check the sweep readings", "白線の測定値を確認する"),
     "聽清理線廣播": ("Listen to the line announcement", "清掃線の放送を聞く"),
     "放開員工門栓": ("Release the staff-door latch", "職員通路の錠を外す"),

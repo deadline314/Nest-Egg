@@ -47,6 +47,13 @@
    "name_en": "Ward demonstration",
    "color": "#c3d7e5",
    "portrait": "res://art/portraits/system.png"
+  },
+  "archive_tape": {
+   "name": "盤帶錄音",
+   "name_ja": "テープ録音",
+   "name_en": "Reel recording",
+   "color": "#d5c7a3",
+   "portrait": "res://art/portraits/system.png"
   }
  },
  "flag_defaults": {
@@ -73,7 +80,9 @@
   "ch4_egret_departed": false,
   "ch4_office_access": false,
   "ch4_original_ledger_read": false,
-  "ch4_original_ledger_saved": false
+  "ch4_original_ledger_saved": false,
+  "ch4_archive_31_indexed": false,
+  "ch4_archive_31_heard": false
  },
  "transactions": {},
  "derived_flags": {},
@@ -2054,6 +2063,379 @@
     ]
    }
   },
+  "ch4_t_archive_menu_office": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "盤帶盒寫著第三十一版。這卷用來試錄天穹電話亭的標語。",
+     "ja": "テープ箱には第31版とある。このテープは天穹の電話ボックスの標語を試し録りしたものだ。",
+     "en": "The reel box says Version 31. This is a test recording of the Skydome phone booth slogan."
+    },
+    {
+     "do": "choice",
+     "text": "盤帶盒寫著第三十一版。這卷用來試錄天穹電話亭的標語。",
+     "default": "leave",
+     "options": [
+      {
+       "id": "index",
+       "text": "只記下盤帶版號。",
+       "explanation": "日後可以在病房的床邊電台補聽。",
+       "when": {
+        "not": {
+         "flag": "ch4_archive_31_indexed",
+         "equals": true
+        }
+       },
+       "target": "ch4_t_archive_index",
+       "ja": "テープの版番号だけ控える。",
+       "en": "Write down the reel's version number.",
+       "explanation_ja": "あとで病棟のベッド脇の無線機でも確認できる。",
+       "explanation_en": "You can play it later on the ward's bedside radio."
+      },
+      {
+       "id": "play",
+       "text": "播放第三十一版的字幕。",
+       "explanation": "播完會留存逐字稿。",
+       "when": {
+        "not": {
+         "flag": "ch4_archive_31_heard",
+         "equals": true
+        }
+       },
+       "target": "ch4_t_archive_play_office",
+       "ja": "第31版の字幕を再生する。",
+       "en": "Play the Version 31 subtitles.",
+       "explanation_ja": "再生後に文字起こしが残る。",
+       "explanation_en": "Finish playback to keep the transcript."
+      },
+      {
+       "id": "replay",
+       "text": "重播第三十一版的字幕。",
+       "explanation": "再次播放原來的片尾。",
+       "when": {
+        "flag": "ch4_archive_31_heard",
+        "equals": true
+       },
+       "target": "ch4_t_archive_replay",
+       "ja": "第31版の字幕をもう一度見る。",
+       "en": "Replay the Version 31 subtitles.",
+       "explanation_ja": "元のエンディングを再生する。",
+       "explanation_en": "Play the original ending again."
+      },
+      {
+       "id": "leave",
+       "text": "先把播放器關上。",
+       "explanation": "之後還可以回來查看。",
+       "ja": "いったん再生機を閉じる。",
+       "en": "Close the player for now.",
+       "explanation_ja": "あとで戻って確認できる。",
+       "explanation_en": "You can return and play it later."
+      }
+     ],
+     "cancel_choice_on_back": true,
+     "ja": "テープ箱には第31版とある。このテープは天穹の電話ボックスの標語を試し録りしたものだ。",
+     "en": "The reel box says Version 31. This is a test recording of the Skydome phone booth slogan."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch4_office_access",
+    "equals": true
+   }
+  },
+  "ch4_t_archive_menu_ward": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "這台電台能播放記下的盤帶字幕，也保留護理收音示範。",
+     "ja": "この無線機で控えた版の字幕を見られる。看護用の録音手順も残っている。",
+     "en": "This radio can show subtitles for the reel you logged. The ward's recording demonstration is still available."
+    },
+    {
+     "do": "choice",
+     "text": "這台電台能播放記下的盤帶字幕，也保留護理收音示範。",
+     "default": "leave",
+     "options": [
+      {
+       "id": "play",
+       "text": "播放第三十一版的字幕。",
+       "explanation": "播完會留存逐字稿。",
+       "when": {
+        "not": {
+         "flag": "ch4_archive_31_heard",
+         "equals": true
+        }
+       },
+       "target": "ch4_t_archive_play_ward",
+       "ja": "第31版の字幕を再生する。",
+       "en": "Play the Version 31 subtitles.",
+       "explanation_ja": "再生後に文字起こしが残る。",
+       "explanation_en": "Finish playback to keep the transcript."
+      },
+      {
+       "id": "replay",
+       "text": "重播第三十一版的字幕。",
+       "explanation": "再次播放原來的片尾。",
+       "when": {
+        "flag": "ch4_archive_31_heard",
+        "equals": true
+       },
+       "target": "ch4_t_archive_replay",
+       "ja": "第31版の字幕をもう一度見る。",
+       "en": "Replay the Version 31 subtitles.",
+       "explanation_ja": "元のエンディングを再生する。",
+       "explanation_en": "Play the original ending again."
+      },
+      {
+       "id": "demo",
+       "text": "再看原本的收音示範。",
+       "explanation": "重看床頭櫃的收音步驟。",
+       "target": "ch4_t_voice_demo_replay",
+       "ja": "元の録音手順をもう一度確認する。",
+       "en": "Replay the original recording demonstration.",
+       "explanation_ja": "ベッド脇の収納を開ける録音手順を見直す。",
+       "explanation_en": "Review the recording step for the bedside locker."
+      },
+      {
+       "id": "leave",
+       "text": "先把播放器關上。",
+       "explanation": "之後還可以回來查看。",
+       "ja": "いったん再生機を閉じる。",
+       "en": "Close the player for now.",
+       "explanation_ja": "あとで戻って確認できる。",
+       "explanation_en": "You can return and play it later."
+      }
+     ],
+     "cancel_choice_on_back": true,
+     "ja": "この無線機で控えた版の字幕を見られる。看護用の録音手順も残っている。",
+     "en": "This radio can show subtitles for the reel you logged. The ward's recording demonstration is still available."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch4_archive_31_indexed",
+      "equals": true
+     },
+     {
+      "flag": "ch4_voice_demo_read",
+      "equals": true
+     }
+    ]
+   }
+  },
+  "ch4_t_archive_index": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "版號已記下。回病房後，還可以用雨窗旁的床邊電台補聽。",
+     "ja": "版番号を控えた。病棟に戻ったら、雨の窓辺にあるベッド脇の無線機でも確認できる。",
+     "en": "I've noted the version. I can play it on the ward's bedside radio by the rain-streaked window."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch4_office_access",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch4_archive_31_indexed",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "item_acquire",
+     "id": "ch4_archive_31_index"
+    },
+    {
+     "kind": "flag",
+     "id": "ch4_archive_31_indexed",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch4_t_archive_play_office": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "sfx",
+     "id": "ch2_radio_static",
+     "volume": -20
+    },
+    {
+     "do": "say",
+     "speaker": "archive_tape",
+     "text": "今天也可以重新開始。汐聽得見我的聲音嗎？",
+     "ja": "今日もやり直せる。汐、私の声は聞こえる？",
+     "en": "You can start again today. Xi, can you hear my voice?"
+    },
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "後半句沒有上架。我把它和版號一起留存。",
+     "ja": "後半は公開されていない。版番号と一緒に残しておく。",
+     "en": "That last line was never published. I'll save it with the version number."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "這個名字先只寫在錄音下面。",
+     "ja": "この名前は、今は録音の記録だけに書いておく。",
+     "en": "For now, keep that name in the recording notes."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch4_office_access",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch4_archive_31_heard",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "item_acquire",
+     "id": "ch4_archive_31_recording"
+    },
+    {
+     "kind": "flag",
+     "id": "ch4_archive_31_indexed",
+     "value": true
+    },
+    {
+     "kind": "flag",
+     "id": "ch4_archive_31_heard",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch4_t_archive_play_ward": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "sfx",
+     "id": "ch2_radio_static",
+     "volume": -20
+    },
+    {
+     "do": "say",
+     "speaker": "archive_tape",
+     "text": "今天也可以重新開始。汐聽得見我的聲音嗎？",
+     "ja": "今日もやり直せる。汐、私の声は聞こえる？",
+     "en": "You can start again today. Xi, can you hear my voice?"
+    },
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "後半句沒有上架。我把它和版號一起留存。",
+     "ja": "後半は公開されていない。版番号と一緒に残しておく。",
+     "en": "That last line was never published. I'll save it with the version number."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "這個名字先只寫在錄音下面。",
+     "ja": "この名前は、今は録音の記録だけに書いておく。",
+     "en": "For now, keep that name in the recording notes."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "ch4_archive_31_indexed",
+        "equals": true
+       },
+       {
+        "flag": "ch4_voice_demo_read",
+        "equals": true
+       }
+      ]
+     },
+     {
+      "not": {
+       "flag": "ch4_archive_31_heard",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "item_acquire",
+     "id": "ch4_archive_31_recording"
+    },
+    {
+     "kind": "flag",
+     "id": "ch4_archive_31_heard",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch4_t_archive_replay": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "sfx",
+     "id": "ch2_radio_static",
+     "volume": -20
+    },
+    {
+     "do": "say",
+     "speaker": "archive_tape",
+     "text": "今天也可以重新開始。汐聽得見我的聲音嗎？",
+     "ja": "今日もやり直せる。汐、私の声は聞こえる？",
+     "en": "You can start again today. Xi, can you hear my voice?"
+    },
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "後半句沒有上架。我把它和版號一起留存。",
+     "ja": "後半は公開されていない。版番号と一緒に残しておく。",
+     "en": "That last line was never published. I'll save it with the version number."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "這個名字先只寫在錄音下面。",
+     "ja": "この名前は、今は録音の記録だけに書いておく。",
+     "en": "For now, keep that name in the recording notes."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch4_archive_31_heard",
+    "equals": true
+   }
+  },
   "ch4_dispatch_old_k": {
    "mode": "dispatch",
    "routes": [
@@ -2227,6 +2609,21 @@
   "ch4_dispatch_voice_demo": {
    "mode": "dispatch",
    "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch4_archive_31_indexed",
+        "equals": true
+       },
+       {
+        "flag": "ch4_voice_demo_read",
+        "equals": true
+       }
+      ]
+     },
+     "target": "ch4_t_archive_menu_ward"
+    },
     {
      "when": {
       "not": {
@@ -2801,6 +3198,18 @@
       ]
      },
      "target": "ch4_t_ledger_needs_slip"
+    }
+   ]
+  },
+  "ch4_dispatch_archive_recorder": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "flag": "ch4_office_access",
+      "equals": true
+     },
+     "target": "ch4_t_archive_menu_office"
     }
    ]
   },
