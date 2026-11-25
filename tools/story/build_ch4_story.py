@@ -210,7 +210,7 @@ def _factory_safety(source, dispatch):
     source.add("ch4_t_safety_instruction", "09", (
         ("factory_pa", "這一班的原帳要留在辦公室。所有人退到黃線外，清理程序已經開始。"),
         ("egret", "我從高處替妳看清掃線。"),
-        ("rin", "先等他離開黃線，我再過去。"),
+        ("rin", "先等她離開黃線，我再過去。"),
     ), when=negate(flag(BRIEFED)), mode="animated", completion=(set_flag(BRIEFED),))
     source.add("ch4_t_safety_replay", "09", (
         ("lamp", "黃線內是工作帶。這裡有檢查點，員工門可以返回裝卸帶。"),
@@ -239,7 +239,7 @@ def build_spec():
     source = ProductionSource(flag_defaults={})
     source.speakers = {
         "factory_pa": {"name": "廠內廣播", "name_ja": "工場内放送", "name_en": "Factory PA",
-                       "color": "#e4bd91", "portrait": "res://art/portraits/system.png"},
+                       "color": "#e4bd91", "portrait": "res://art/portraits/atropos.png"},
         "linden": {"name": "棠", "name_ja": "棠", "name_en": "Linden",
                    "color": "#c0d3c8", "portrait": "res://art/portraits/linden.png"},
         "ward_demo": {"name": "護理示範", "name_ja": "看護手順", "name_en": "Ward demonstration",
