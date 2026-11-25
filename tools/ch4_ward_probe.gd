@@ -99,7 +99,7 @@ func _continue() -> void:
 	_check(GameState.has_flag(CONSENT) and GameState.has_flag(DESK) and GameState.has_flag(VOICE), "all investigation records survive the cold load")
 	_check(Story.resolve_dispatch(&"ch4_dispatch_desk_demo") == &"ch4_t_desk_demo_replay", "rereading a demonstration uses the read-only replay")
 	_check(Story.resolve_dispatch(&"ch4_dispatch_cabinet") == &"ch4_t_read_slip_again", "the completed cabinet offers read-only summary after reload")
-	await _talk(&"ch4_cabinet")
+	await _talk(&"ch4_cabinet", ["leave"])
 	_check(StoryItems.holds(SLIP), "rereading leaves the same document in the notebook")
 
 

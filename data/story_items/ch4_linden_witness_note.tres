@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"ch4_linden_witness_note"
+display_name = "棠同意抄下的名單"
+description = "凜依棠同意，抄下信裡能去詢問的四處。"
+color = Color(0.78, 0.86, 0.92, 1.0)
+category = 0
+order = 404
+chapter = &"ch4_hollow"
+body = "市集可以問榕伯，復原館可以找阿梨。當舖可以問老 K，病房可以找當天替棠辦入院的護理員。原信留在棠手邊。"
+trigger = 3
+source_actor = &"ch4_cabinet"
+icon = "doc_stub"

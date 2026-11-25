@@ -54,6 +54,13 @@
    "name_en": "Reel recording",
    "color": "#d5c7a3",
    "portrait": "res://art/portraits/system.png"
+  },
+  "ward_letter": {
+   "name": "凜讀信",
+   "name_ja": "手紙を読む凜",
+   "name_en": "Rin reading aloud",
+   "color": "#e2d5b8",
+   "portrait": "res://art/portraits/rin.png"
   }
  },
  "flag_defaults": {
@@ -82,7 +89,8 @@
   "ch4_original_ledger_read": false,
   "ch4_original_ledger_saved": false,
   "ch4_archive_31_indexed": false,
-  "ch4_archive_31_heard": false
+  "ch4_archive_31_heard": false,
+  "ch4_linden_witnesses_noted": false
  },
  "transactions": {},
  "derived_flags": {},
@@ -1085,6 +1093,39 @@
      "do": "say",
      "speaker": "rin",
      "text": "公用的取件聯已收進筆記。上層的東西留給棠。",
+     "ja": "公開用の票は手帳に入れた。上の段は棠の物だから触らない。",
+     "en": "The public slip is in my notes. I'll leave the top drawer for Linden."
+    },
+    {
+     "do": "choice",
+     "text": "公用的取件聯已收進筆記。上層的東西留給棠。",
+     "default": "leave",
+     "options": [
+      {
+       "id": "ask_letter",
+       "text": "問棠能不能讀上層的信。",
+       "explanation": "先徵得棠同意。",
+       "when": {
+        "flag": "ch4_linden_visit_confirmed",
+        "equals": true
+       },
+       "target": "ch4_t_ask_linden_letter",
+       "ja": "棠に、上の引き出しの手紙を読んでよいか聞く。",
+       "en": "Ask Linden about reading the letter in the upper drawer.",
+       "explanation_ja": "棠の許可を待つ。",
+       "explanation_en": "Ask for Linden’s permission first."
+      },
+      {
+       "id": "leave",
+       "text": "先把床頭櫃合上。",
+       "explanation": "回病房時可以再看。",
+       "ja": "いったんベッド脇の棚を閉じる。",
+       "en": "Close the bedside cabinet for now.",
+       "explanation_ja": "病棟へ戻ったらまた確かめられる。",
+       "explanation_en": "You can check it when you return."
+      }
+     ],
+     "cancel_choice_on_back": true,
      "ja": "公開用の票は手帳に入れた。上の段は棠の物だから触らない。",
      "en": "The public slip is in my notes. I'll leave the top drawer for Linden."
     }
@@ -2436,6 +2477,202 @@
     "equals": true
    }
   },
+  "ch4_t_ask_linden_letter": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "信封上寫著妳的名字。妳想自己看，還是要我念給妳聽？",
+     "ja": "封筒にあなたの名前がある。自分で読む？ それとも私が読もうか？",
+     "en": "Your name is on the envelope. Would you like to read it, or shall I read it to you?"
+    },
+    {
+     "do": "say",
+     "speaker": "linden",
+     "text": "我今天不想聽太多。妳先念她寫了要找哪些人。",
+     "ja": "今日はあまりたくさん聞けない。あの人が誰を訪ねてほしいと書いたか、そこだけ読んで。",
+     "en": "I can only listen to a little today. Just read me the names she wrote down."
+    },
+    {
+     "do": "choice",
+     "text": "我今天不想聽太多。妳先念她寫了要找哪些人。",
+     "default": "leave",
+     "options": [
+      {
+       "id": "read_aloud",
+       "text": "只念信裡的四個人。",
+       "explanation": "照棠同意的範圍讀信。",
+       "target": "ch4_t_read_linden_letter",
+       "ja": "手紙にある四人の名前だけ読む。",
+       "en": "Read only the four people named in the letter.",
+       "explanation_ja": "棠が聞きたい部分だけ読む。",
+       "explanation_en": "Read only what Linden agreed to hear."
+      },
+      {
+       "id": "leave",
+       "text": "先讓棠收著信。",
+       "explanation": "下次可以再問她。",
+       "ja": "今日は手紙を棠の手元に置く。",
+       "en": "Let Linden keep the letter for now.",
+       "explanation_ja": "次に来た時にまた聞ける。",
+       "explanation_en": "You can ask her on another visit."
+      }
+     ],
+     "cancel_choice_on_back": true,
+     "ja": "今日はあまりたくさん聞けない。あの人が誰を訪ねてほしいと書いたか、そこだけ読んで。",
+     "en": "I can only listen to a little today. Just read me the names she wrote down."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch4_linden_visit_confirmed",
+      "equals": true
+     },
+     {
+      "flag": "ch4_collection_slip_saved",
+      "equals": true
+     }
+    ]
+   }
+  },
+  "ch4_t_read_linden_letter": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ward_letter",
+     "text": "如果妳想聽我的事，可以找市集的榕伯、復原館的阿梨。",
+     "ja": "私のことを聞きたくなったら、市場の榕じいか、復原館の阿梨を訪ねて。",
+     "en": "If you want to hear about me, find Old Banyan at the market or Ali at the Restoration Bar."
+    },
+    {
+     "do": "say",
+     "speaker": "ward_letter",
+     "text": "也可以去當舖找老 K，或問那天替妳辦入院的護理員。",
+     "ja": "質屋の老Kか、あの日に入院の手続きをした看護師にも聞けるよ。",
+     "en": "You can also ask Old K at the pawnshop, or the nurse who admitted you that day."
+    },
+    {
+     "do": "say",
+     "speaker": "ward_letter",
+     "text": "我沒有要他們說一樣的事。",
+     "ja": "みんなに同じことを話してほしいわけじゃない。",
+     "en": "I don’t expect them to tell you the same story."
+    },
+    {
+     "do": "choice",
+     "text": "我沒有要他們說一樣的事。",
+     "default": "leave",
+     "options": [
+      {
+       "id": "note",
+       "text": "把四個地方抄進自己的筆記。",
+       "explanation": "信留在棠的床頭櫃。",
+       "when": {
+        "not": {
+         "flag": "ch4_linden_witnesses_noted",
+         "equals": true
+        }
+       },
+       "target": "ch4_t_note_linden_witnesses",
+       "ja": "四人を訪ねる場所を自分の手帳に書く。",
+       "en": "Copy the four places into your notebook.",
+       "explanation_ja": "手紙は棠のベッド脇の棚に置く。",
+       "explanation_en": "The letter stays in Linden’s bedside cabinet."
+      },
+      {
+       "id": "leave",
+       "text": "把信放回棠伸手拿得到的地方。",
+       "explanation": "下次回病房還能再問。",
+       "ja": "手紙を棠の手が届く場所に戻す。",
+       "en": "Return the letter where Linden can reach it.",
+       "explanation_ja": "次の面会でまた聞ける。",
+       "explanation_en": "You can ask again on another ward visit."
+      }
+     ],
+     "cancel_choice_on_back": true,
+     "ja": "みんなに同じことを話してほしいわけじゃない。",
+     "en": "I don’t expect them to tell you the same story."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch4_linden_visit_confirmed",
+      "equals": true
+     },
+     {
+      "flag": "ch4_collection_slip_saved",
+      "equals": true
+     }
+    ]
+   }
+  },
+  "ch4_t_note_linden_witnesses": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "地方都記好了。信放在妳伸手拿得到的地方。",
+     "ja": "場所はメモした。手紙は手が届くところに置いたよ。",
+     "en": "I’ve noted the places. The letter is where you can reach it."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch4_linden_visit_confirmed",
+      "equals": true
+     },
+     {
+      "flag": "ch4_collection_slip_saved",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch4_linden_witnesses_noted",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "item_acquire",
+     "id": "ch4_linden_witness_note"
+    },
+    {
+     "kind": "flag",
+     "id": "ch4_linden_witnesses_noted",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch4_b_ward_scarf": {
+   "mode": "bubbles",
+   "lines": [
+    {
+     "speaker": "rin",
+     "text": "圍巾的標籤只印了床位。",
+     "ja": "マフラーの札にはベッド番号だけ。",
+     "en": "There’s only a bed number on the scarf tag."
+    },
+    {
+     "speaker": "rin",
+     "text": "先讓它留在掛勾上好了。",
+     "ja": "掛けたままにしておこう。",
+     "en": "I’ll leave it on the hook."
+    }
+   ]
+  },
   "ch4_dispatch_old_k": {
    "mode": "dispatch",
    "routes": [
@@ -3210,6 +3447,15 @@
       "equals": true
      },
      "target": "ch4_t_archive_menu_office"
+    }
+   ]
+  },
+  "ch4_dispatch_ward_scarf": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {},
+     "target": "ch4_b_ward_scarf"
     }
    ]
   },

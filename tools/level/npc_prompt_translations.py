@@ -15,6 +15,7 @@ TRANSLATIONS = {
     "看桌緣示範": ("Watch the tapping demonstration", "机のたたき方を見る"),
     "看收音示範": ("Watch the voice demonstration", "集音の見本を見る"),
     "操作床頭櫃": ("Use the bedside cabinet", "枕元の棚を操作する"),
+    "查看掛勾上的舊圍巾": ("Inspect the scarf on the hook", "掛けたマフラーを調べる"),
     "解鎖內廊的門": ("Unlock the passage door", "内廊下の扉を解錠する"),
     "停在光裡": ("Stand in the light", "光の中で立ち止まる"),
     "出示查核證": ("Show the inspection pass", "査察証を見せる"),

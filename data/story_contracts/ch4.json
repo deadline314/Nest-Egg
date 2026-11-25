@@ -770,6 +770,49 @@
           }
         ]
       }
+    },
+    {
+      "id": "ch4_t_note_linden_witnesses",
+      "source": "res://data/story/ch4_hollow.json",
+      "npc": "res://data/npcs/ch4_cabinet.tres",
+      "levels": [
+        "res://data/levels/ch4_nursing_ward.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "flag": "ch4_linden_visit_confirmed",
+              "equals": true
+            },
+            {
+              "flag": "ch4_collection_slip_saved",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch4_linden_witnesses_noted",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "item_acquire",
+            "id": "ch4_linden_witness_note"
+          },
+          {
+            "kind": "flag",
+            "id": "ch4_linden_witnesses_noted",
+            "value": true
+          }
+        ]
+      }
     }
   ]
 }

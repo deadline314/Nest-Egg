@@ -29,6 +29,7 @@ POINTS = {
     "office_release": ("factory_cleaning", 77, GROUND - 1),
     "original_ledger": ("factory_office", 20, GROUND - 1),
     "archive_recorder": ("factory_office", 34, GROUND - 1),
+    "ward_scarf": ("nursing_ward", 35, 17),
 }
 PEOPLE = {
     "old_k": ("老 K", "old_k", "wipe_hands"),
@@ -37,6 +38,7 @@ PEOPLE = {
     "egret_at_rail": ("鷺", "egret", ""),
 }
 STATIONS = {
+    "ward_scarf": "病房的舊圍巾",
     "linden": "棠", "desk_demo": "桌緣示範", "voice_demo": "收音示範",
     "cabinet": "床頭櫃", "staff_switch": "內廊開門鍵",
     "shift_board": "舊廠班表", "rail_release": "維修棘輪", "workbench": "裝卸帶工作臺",
@@ -45,7 +47,7 @@ STATIONS = {
     "original_ledger": "讀取原帳",
     "archive_recorder": "盤帶錄音機",
 }
-GLYPHS = dict(zip(POINTS, "ⓞⓔⓣⓓⓥⓒⓢⓐⓑⓡⓦⓧⓘⓤⓟⓙⓩⓛⓕ", strict=True))
+GLYPHS = dict(zip(POINTS, "ⓞⓔⓣⓓⓥⓒⓢⓐⓑⓡⓦⓧⓘⓤⓟⓙⓩⓛⓕⓜ", strict=True))
 
 
 def area_path(area):
@@ -134,6 +136,7 @@ def _configure():
         "desk_demo": "看桌緣示範",
         "voice_demo": "操作床邊電台",
         "cabinet": "操作床頭櫃",
+        "ward_scarf": "查看掛勾上的舊圍巾",
         "staff_switch": "解鎖內廊的門",
         "ali": "和阿梨說話",
         "shift_board": "核對舊廠班表",
@@ -220,6 +223,7 @@ def _ward():
     area.prop("nursing_ward__ward_bed", 20)
     area.prop("nursing_ward__linden_seated", 26, dx=-4)
     area.prop("nursing_ward__bedside_locker", 31)
+    area.prop("nursing_ward__scarf", 35, y=17, dy=-9, support="wall")
     area.prop("nursing_ward__bedside_radio", 42, y=15)
     area.prop("nursing_ward__nurse_cart", 53)
     area.prop("clinic__queue_number_display", 55, y=15, support="wall")

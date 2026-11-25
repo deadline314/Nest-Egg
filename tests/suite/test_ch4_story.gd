@@ -35,6 +35,7 @@ func run() -> void:
 	GameState.set_flag(&"ch4_visit_signed", true)
 	check(Story.resolve_dispatch(WAITING_ROOM) == &"ch4_t_reception_return", "checking in replaces the signing prompt")
 	check(StoryItems.find(&"ch4_ward_collection_slip") != null, "the cabinet has a registered document")
+	_check_ward_letter(areas["nursing_ward"])
 	var approach := areas["factory_approach"] as LevelData
 	var loading := areas["factory_loading"] as LevelData
 	var lower_door := Checks.portal_by_id(approach, &"approach_loading")
@@ -47,6 +48,28 @@ func run() -> void:
 	_check_boss_arena(areas["factory_safety"], areas["factory_work"], areas["factory_cleaning"], areas["factory_office"])
 	GameState.start_new_run(GameState.difficulties[1])
 
+
+func _check_ward_letter(ward: LevelData) -> void:
+	var listen := &"ch4_t_read_linden_letter"
+	var copy := &"ch4_t_note_linden_witnesses"
+	var recorded := &"ch4_linden_witnesses_noted"
+	var consent := &"ch4_linden_visit_confirmed"
+	var collected := &"ch4_collection_slip_saved"
+	check(not Story.scene_available(listen) and not Story.scene_available(copy), "visit consent alone cannot expose the upper drawer")
+	GameState.set_flag(collected, true)
+	GameState.set_flag(consent, false)
+	check(not Story.scene_available(listen) and not Story.scene_available(copy), "an earlier public slip does not replace Linden’s permission")
+	GameState.set_flag(consent, true)
+	check(Story.scene_available(listen) and Story.scene_available(copy), "an authorized ward revisit can start with no factory progress")
+	GameState.set_flag(recorded, true)
+	check(Story.scene_available(listen) and not Story.scene_available(copy), "a copy remains readable without offering duplicate acquisition")
+	GameState.set_flag(collected, false)
+	GameState.set_flag(recorded, false)
+	var spawns: Array[Dictionary] = LevelBuilder.parse(ward).spawns
+	check(spawns.any(func(entry: Dictionary) -> bool:
+		var npc := entry.get("resource") as NpcData
+		return npc != null and npc.id == &"ch4_ward_scarf" and entry.get("cell") == Vector2i(35, 17)),
+		"the scarf has a distinct world interaction on the upper walkway")
 
 func _check_sweep(loading: LevelData) -> void:
 	var console := &"ch4_dispatch_sweep_console"

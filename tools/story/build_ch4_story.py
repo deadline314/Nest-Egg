@@ -12,6 +12,7 @@ from ch4_office_evidence import add_office_evidence  # noqa: E402
 from ch4_factory_recording import add_factory_recording  # noqa: E402
 from ch1_closure import Binding, Option, ProductionSource, Quest, QuestStep, all_of, flag, grant, negate, say, set_flag  # noqa: E402
 from build_ch1_story import sfx, wait  # noqa: E402
+from ch4_ward_letter import add_ward_letter  # noqa: E402
 from chapter_compiler import ChapterSpec, route_back_to_choices, write_chapter, write_documents  # noqa: E402
 
 CHAPTER_INFO = {
@@ -136,7 +137,10 @@ def _ward(source, dispatch):
     ), when=available, mode="animated", completion=(grant(DOCUMENT), set_flag(COLLECTED)))
     source.add("ch4_t_read_slip_again", "06", (
         ("rin", "公用的取件聯已收進筆記。上層的東西留給棠。"),
-    ), when=flag(COLLECTED), mode="animated")
+    ), when=flag(COLLECTED), options=(
+        Option("ask_letter", "問棠能不能讀上層的信。", "ch4_t_ask_linden_letter", "先徵得棠同意。", when=flag(CONSENT)),
+        Option("leave", "先把床頭櫃合上。", None, "回病房時可以再看。"),
+    ), cancel_choice_on_back=True)
 
     dispatch["staff_switch"] = ["ch4_t_open_staff", "ch4_t_staff_open"]
     source.add("ch4_t_open_staff", "06", (
@@ -285,6 +289,7 @@ def build_spec():
     _cleanup_battle(source, dispatch)
     add_office_evidence(source, dispatch)
     add_factory_recording(source, dispatch)
+    add_ward_letter(source, dispatch, CONSENT, COLLECTED)
     route_back_to_choices(source, dispatch, "ch4")
     source.bindings.update({
         binding: Binding("npc" if binding in ("old_k", "egret", "ali", "egret_at_rail") else "object", CHAPTER,
