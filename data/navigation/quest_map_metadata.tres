@@ -1,0 +1,3308 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_fuu4v"]
+[ext_resource type="Script" path="res://data/scripts/cinematic_entry_data.gd" id="2_jec1y"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="3_sfgi7"]
+[ext_resource type="Script" path="res://data/scripts/credit_pile_data.gd" id="4_kb2ry"]
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="5_4mrjh"]
+[ext_resource type="Script" path="res://data/scripts/npc_reaction.gd" id="6_teoua"]
+[ext_resource type="Script" path="res://data/scripts/npc_data.gd" id="7_04qia"]
+[ext_resource type="Script" path="res://data/scripts/npc_talk.gd" id="8_5fxaw"]
+[ext_resource type="Script" path="res://data/scripts/lighting_event.gd" id="9_tctf5"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="10_enijh"]
+[ext_resource type="Script" path="res://data/scripts/shop_data.gd" id="11_fqxrv"]
+[ext_resource type="Script" path="res://data/scripts/consumable_data.gd" id="12_tnruj"]
+[ext_resource type="Script" path="res://data/scripts/weapon_data.gd" id="13_rr1u8"]
+[ext_resource type="Script" path="res://data/scripts/breakable_data.gd" id="14_xqojo"]
+[ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="15_p6gj0"]
+[ext_resource type="Script" path="res://data/scripts/mechanism_data.gd" id="16_fvipl"]
+[ext_resource type="Script" path="res://core/navigation/quest_map_metadata.gd" id="17_hfrqh"]
+
+[sub_resource type="Resource" id="Resource_u4q3t"]
+script = ExtResource("3_sfgi7")
+id = &"booth_street"
+target_level = "res://data/levels/ch1_street.tres"
+target_portal = &"street_booth"
+mode = 1
+width = 20
+style = "road"
+
+[sub_resource type="Resource" id="Resource_r3n6p"]
+script = ExtResource("4_kb2ry")
+
+[sub_resource type="Resource" id="Resource_br5k3"]
+script = ExtResource("5_4mrjh")
+id = &"doc_rain_news"
+display_name = "港區日報：降雨量創新高"
+
+[sub_resource type="Resource" id="Resource_0yc65"]
+script = ExtResource("7_04qia")
+id = &"ch1_lamp_voice"
+
+[sub_resource type="Resource" id="Resource_0gtkn"]
+script = ExtResource("1_fuu4v")
+id = &"ch1_booth_alley"
+display_name = "電話亭巷"
+localized_names = Dictionary[String, String]({
+"en": "Phone Booth Alley",
+"ja": "電話ボックス横丁"
+})
+height = 24
+legend = Dictionary[String, Resource]({
+"J": SubResource("Resource_u4q3t"),
+"c": SubResource("Resource_r3n6p"),
+"p": SubResource("Resource_br5k3"),
+"ⓥ": SubResource("Resource_0yc65")
+})
+sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
+billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
+chapter = &"ch1_kasa"
+skip_flags = PackedStringArray()
+story_triggers = PackedStringArray()
+hints = PackedStringArray("按 {interact} 在電話亭備份，死了會從最近的電話亭醒來。")
+layout_path = "res://data/levels/ch1_booth_alley_map.json"
+
+[sub_resource type="Resource" id="Resource_dhek0"]
+script = ExtResource("3_sfgi7")
+id = &"handoff_lounge"
+target_level = "res://data/levels/ch1_lounge.tres"
+target_portal = &"lounge_handoff"
+prompt = "{interact} 進復原館"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Enter Restoration Hall",
+"ja": "{interact} 復元館に入る"
+})
+requires_flag = &"ch1_handoff_done"
+locked_text = "先在藍燈櫃交盤、取回執並保留摘要，再進店歇腳。"
+localized_locked_text = Dictionary[String, String]({
+"en": "Deliver the disc at the blue locker and keep the receipt and summary first.",
+"ja": "先に青いロッカーにディスクを入れ、控えと要約を受け取る。"
+})
+width = 28
+height = 72
+
+[sub_resource type="Resource" id="Resource_aqcuc"]
+script = ExtResource("3_sfgi7")
+id = &"handoff_arrival"
+target_level = "res://data/levels/ch1_vault.tres"
+target_portal = &"wh_upper"
+prompt = "{interact} 返回倉庫上層"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Return to the upper warehouse",
+"ja": "{interact} 倉庫の上層へ戻る"
+})
+style = "road"
+
+[sub_resource type="Resource" id="Resource_cx7uy"]
+script = ExtResource("7_04qia")
+id = &"ch1_handoff_cabinet"
+
+[sub_resource type="Resource" id="Resource_1us7s"]
+script = ExtResource("1_fuu4v")
+id = &"ch1_handoff"
+display_name = "復原館外交接櫃"
+localized_names = Dictionary[String, String]({
+"en": "Restoration Hall Handover Locker",
+"ja": "復元館外の引き渡しロッカー"
+})
+height = 24
+legend = Dictionary[String, Resource]({
+"↦": SubResource("Resource_dhek0"),
+"↳": SubResource("Resource_aqcuc"),
+"⌑": SubResource("Resource_cx7uy")
+})
+sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
+billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
+chapter = &"ch1_kasa"
+skip_flags = PackedStringArray()
+story_triggers = PackedStringArray("ch1_b_handoff")
+hints = PackedStringArray()
+layout_path = "res://data/levels/ch1_handoff_map.json"
+
+[sub_resource type="Resource" id="Resource_bahtr"]
+script = ExtResource("3_sfgi7")
+id = &"lounge_exit"
+target_level = "res://data/levels/ch1_stall.tres"
+mode = 1
+requires_flag = &"ch1_lounge_evening_done"
+locked_text = "先和阿梨說完今晚的話，再去門外麵攤。"
+localized_locked_text = Dictionary[String, String]({
+"en": "Finish talking with Pear before going to the noodle stall.",
+"ja": "麺屋に行く前に、梨と今夜の話を済ませる。"
+})
+width = 20
+style = "road"
+
+[sub_resource type="Resource" id="Resource_c78ax"]
+script = ExtResource("7_04qia")
+id = &"ch1_ali_lounge"
+
+[sub_resource type="Resource" id="Resource_2f7el"]
+script = ExtResource("3_sfgi7")
+id = &"lounge_handoff"
+target_level = "res://data/levels/ch1_handoff.tres"
+target_portal = &"handoff_lounge"
+prompt = "{interact} 回館外交接櫃"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Return to the handover locker",
+"ja": "{interact} 引き渡しロッカーへ戻る"
+})
+height = 72
+
+[sub_resource type="Resource" id="Resource_6y4v0"]
+script = ExtResource("1_fuu4v")
+id = &"ch1_lounge"
+display_name = "復原館"
+localized_names = Dictionary[String, String]({
+"en": "Restoration Hall",
+"ja": "復元館"
+})
+height = 24
+legend = Dictionary[String, Resource]({
+"G": SubResource("Resource_bahtr"),
+"Y": SubResource("Resource_c78ax"),
+"↩": SubResource("Resource_2f7el")
+})
+sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
+billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
+chapter = &"ch1_kasa"
+skip_flags = PackedStringArray()
+story_triggers = PackedStringArray("ch1_b_lounge")
+hints = PackedStringArray()
+layout_path = "res://data/levels/ch1_lounge_map.json"
+
+[sub_resource type="Resource" id="Resource_s30u0"]
+script = ExtResource("3_sfgi7")
+id = &"pawn_front"
+target_level = "res://data/levels/ch1_street.tres"
+target_portal = &"street_home"
+prompt = "{interact} 出門"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Go outside",
+"ja": "{interact} 外に出る"
+})
+requires_flag = &"ch1_heard_brief"
+locked_text = "先去屋頂：鷺在等你。"
+localized_locked_text = Dictionary[String, String]({
+"en": "Egret is waiting on the rooftop.",
+"ja": "鷺が屋上で待っている。"
+})
+
+[sub_resource type="Resource" id="Resource_nioft"]
+script = ExtResource("3_sfgi7")
+id = &"pawn_basement"
+prompt = "{interact} 地下室"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Basement",
+"ja": "{interact} 地下室"
+})
+locked_text = "地下室正在漏水，請別開門。"
+localized_locked_text = Dictionary[String, String]({
+"en": "The basement is leaking. Keep the door shut.",
+"ja": "地下室が水漏れ中です。扉は開けないでください。"
+})
+width = 32
+height = 48
+style = "hidden"
+
+[sub_resource type="Resource" id="Resource_v562i"]
+script = ExtResource("3_sfgi7")
+id = &"pawn_stairs"
+target_level = "res://data/levels/ch1_rooftop.tres"
+target_portal = &"roof_stairs"
+prompt = "{interact} 上屋頂"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Go to the rooftop",
+"ja": "{interact} 屋上へ上がる"
+})
+requires_flag = &"ch1_dinner_done"
+locked_text = "先吃晚飯。老 K 在等。"
+localized_locked_text = Dictionary[String, String]({
+"en": "Old K is waiting for you to have supper.",
+"ja": "老Kが夕食を用意して待っている。"
+})
+width = 20
+height = 152
+style = "ladder"
+
+[sub_resource type="Resource" id="Resource_0d6kh"]
+script = ExtResource("11_fqxrv")
+id = &"ch1_pawn"
+display_name = "當舖櫃台"
+
+[sub_resource type="Resource" id="Resource_yisa4"]
+script = ExtResource("4_kb2ry")
+
+[sub_resource type="Resource" id="Resource_gx4y1"]
+script = ExtResource("7_04qia")
+id = &"ch1_old_k"
+
+[sub_resource type="Resource" id="Resource_paic2"]
+script = ExtResource("5_4mrjh")
+id = &"doc_pawn_stub"
+display_name = "當票存根"
+
+[sub_resource type="Resource" id="Resource_vbexr"]
+script = ExtResource("13_rr1u8")
+id = &"melee_dagger"
+display_name = "單分子匕首"
+
+[sub_resource type="Resource" id="Resource_agnpl"]
+script = ExtResource("14_xqojo")
+id = &"ch1_crate"
+hint = "打破貨箱，取得裡面的零錢。"
+
+[sub_resource type="Resource" id="Resource_v5mju"]
+script = ExtResource("7_04qia")
+id = &"ch1_ledger_box"
+
+[sub_resource type="Resource" id="Resource_8uwcm"]
+script = ExtResource("7_04qia")
+id = &"ch1_umbrella_stand"
+
+[sub_resource type="Resource" id="Resource_evcwj"]
+script = ExtResource("7_04qia")
+id = &"ch1_label_fare"
+
+[sub_resource type="Resource" id="Resource_mvaki"]
+script = ExtResource("7_04qia")
+id = &"ch1_label_guitar"
+
+[sub_resource type="Resource" id="Resource_b4auf"]
+script = ExtResource("7_04qia")
+id = &"ch1_label_raincoat"
+
+[sub_resource type="Resource" id="Resource_vpt2v"]
+script = ExtResource("7_04qia")
+id = &"ch1_label_watch"
+
+[sub_resource type="Resource" id="Resource_3drkq"]
+script = ExtResource("1_fuu4v")
+id = &"ch1_pawnshop"
+display_name = "當舖"
+localized_names = Dictionary[String, String]({
+"en": "Pawnshop",
+"ja": "質屋"
+})
+height = 24
+legend = Dictionary[String, Resource]({
+"F": SubResource("Resource_s30u0"),
+"K": SubResource("Resource_nioft"),
+"S": SubResource("Resource_v562i"),
+"V": SubResource("Resource_0d6kh"),
+"c": SubResource("Resource_yisa4"),
+"n": SubResource("Resource_gx4y1"),
+"t": SubResource("Resource_paic2"),
+"u": SubResource("Resource_vbexr"),
+"x": SubResource("Resource_agnpl"),
+"⒧": SubResource("Resource_v5mju"),
+"⒰": SubResource("Resource_8uwcm"),
+"ⓕ": SubResource("Resource_evcwj"),
+"ⓖ": SubResource("Resource_mvaki"),
+"ⓡ": SubResource("Resource_b4auf"),
+"ⓦ": SubResource("Resource_vpt2v")
+})
+sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
+billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
+chapter = &"ch1_kasa"
+skip_flags = PackedStringArray()
+story_triggers = PackedStringArray("ch1_b_dinner")
+hints = PackedStringArray("按 {inventory} 打開背包，武器改裝、道具與文件都在裡面。", "換彈按 {reload}；從單向平台落下要按住 {move_down} 再按 {jump}。")
+layout_path = "res://data/levels/ch1_pawnshop_map.json"
+
+[sub_resource type="Resource" id="Resource_w0hku"]
+script = ExtResource("3_sfgi7")
+id = &"pawn_front"
+target_level = "res://data/levels/ch1_street.tres"
+target_portal = &"street_home"
+prompt = "{interact} 出門"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Go outside",
+"ja": "{interact} 外に出る"
+})
+requires_flag = &"ch1_heard_brief"
+locked_text = "先去屋頂：鷺在等你。"
+localized_locked_text = Dictionary[String, String]({
+"en": "Egret is waiting on the rooftop.",
+"ja": "鷺が屋上で待っている。"
+})
+
+[sub_resource type="Resource" id="Resource_0fiab"]
+script = ExtResource("3_sfgi7")
+id = &"pawn_basement"
+prompt = "{interact} 地下室"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Basement",
+"ja": "{interact} 地下室"
+})
+locked_text = "地下室正在漏水，請別開門。"
+localized_locked_text = Dictionary[String, String]({
+"en": "The basement is leaking. Keep the door shut.",
+"ja": "地下室が水漏れ中です。扉は開けないでください。"
+})
+width = 32
+height = 48
+style = "hidden"
+
+[sub_resource type="Resource" id="Resource_8imwp"]
+script = ExtResource("3_sfgi7")
+id = &"pawn_stairs"
+target_level = "res://data/levels/ch1_rooftop.tres"
+target_portal = &"roof_stairs"
+prompt = "{interact} 上屋頂"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Go to the rooftop",
+"ja": "{interact} 屋上へ上がる"
+})
+requires_flag = &"ch1_dinner_done"
+locked_text = "先吃晚飯。老 K 在等。"
+localized_locked_text = Dictionary[String, String]({
+"en": "Old K is waiting for you to have supper.",
+"ja": "老Kが夕食を用意して待っている。"
+})
+width = 20
+height = 152
+style = "ladder"
+
+[sub_resource type="Resource" id="Resource_8ws2x"]
+script = ExtResource("11_fqxrv")
+id = &"ch1_pawn"
+display_name = "當舖櫃台"
+
+[sub_resource type="Resource" id="Resource_py6yv"]
+script = ExtResource("4_kb2ry")
+
+[sub_resource type="Resource" id="Resource_8xffn"]
+script = ExtResource("7_04qia")
+id = &"ch1_old_k"
+
+[sub_resource type="Resource" id="Resource_muekp"]
+script = ExtResource("5_4mrjh")
+id = &"doc_pawn_stub"
+display_name = "當票存根"
+
+[sub_resource type="Resource" id="Resource_2h7we"]
+script = ExtResource("13_rr1u8")
+id = &"melee_dagger"
+display_name = "單分子匕首"
+
+[sub_resource type="Resource" id="Resource_ij6ix"]
+script = ExtResource("14_xqojo")
+id = &"ch1_crate"
+hint = "打破貨箱，取得裡面的零錢。"
+
+[sub_resource type="Resource" id="Resource_18fwf"]
+script = ExtResource("7_04qia")
+id = &"ch1_ledger_box"
+
+[sub_resource type="Resource" id="Resource_07jli"]
+script = ExtResource("7_04qia")
+id = &"ch1_umbrella_stand"
+
+[sub_resource type="Resource" id="Resource_a107j"]
+script = ExtResource("7_04qia")
+id = &"ch1_label_fare"
+
+[sub_resource type="Resource" id="Resource_iplo5"]
+script = ExtResource("7_04qia")
+id = &"ch1_label_guitar"
+
+[sub_resource type="Resource" id="Resource_0306w"]
+script = ExtResource("7_04qia")
+id = &"ch1_label_raincoat"
+
+[sub_resource type="Resource" id="Resource_iuc05"]
+script = ExtResource("7_04qia")
+id = &"ch1_label_watch"
+
+[sub_resource type="Resource" id="Resource_sfhkc"]
+script = ExtResource("1_fuu4v")
+id = &"ch1_pawnshop_dawn"
+display_name = "當舖（天亮）"
+localized_names = Dictionary[String, String]({
+"en": "Pawnshop (Dawn)",
+"ja": "質屋（夜明け）"
+})
+height = 24
+legend = Dictionary[String, Resource]({
+"F": SubResource("Resource_w0hku"),
+"K": SubResource("Resource_0fiab"),
+"S": SubResource("Resource_8imwp"),
+"V": SubResource("Resource_8ws2x"),
+"c": SubResource("Resource_py6yv"),
+"n": SubResource("Resource_8xffn"),
+"t": SubResource("Resource_muekp"),
+"u": SubResource("Resource_2h7we"),
+"x": SubResource("Resource_ij6ix"),
+"⒧": SubResource("Resource_18fwf"),
+"⒰": SubResource("Resource_07jli"),
+"ⓕ": SubResource("Resource_a107j"),
+"ⓖ": SubResource("Resource_iplo5"),
+"ⓡ": SubResource("Resource_0306w"),
+"ⓦ": SubResource("Resource_iuc05")
+})
+sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
+billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
+chapter = &"ch1_kasa"
+next_level = "res://data/levels/ch2_pawnshop.tres"
+skip_flags = PackedStringArray()
+story_triggers = PackedStringArray("ch1_b_dinner")
+hints = PackedStringArray("按 {inventory} 打開背包，武器改裝、道具與文件都在裡面。", "換彈按 {reload}；從單向平台落下要按住 {move_down} 再按 {jump}。")
+layout_path = "res://data/levels/ch1_pawnshop_map.json"
+
+[sub_resource type="Resource" id="Resource_eteqv"]
+script = ExtResource("3_sfgi7")
+id = &"prologue_exit"
+target_level = "res://data/levels/ch1_pawnshop.tres"
+target_portal = &"pawn_front"
+prompt = "{interact} 回店裡吃晚飯"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Go back to the shop for supper",
+"ja": "{interact} 店に戻って夕食をとる"
+})
+requires_flag = &"ch1_prologue_exit"
+locked_text = "先試完器材，再跟老 K 收尾。"
+localized_locked_text = Dictionary[String, String]({
+"en": "Finish testing the equipment, then talk to Old K.",
+"ja": "装備を一通り試してから老Kに話す。"
+})
+width = 28
+height = 56
+
+[sub_resource type="Resource" id="Resource_6hhvo"]
+
+[sub_resource type="Resource" id="Resource_2xpqt"]
+script = ExtResource("7_04qia")
+id = &"ch1_prologue_catalog"
+
+[sub_resource type="Resource" id="Resource_uowen"]
+script = ExtResource("7_04qia")
+id = &"ch1_prologue_service_sheet"
+
+[sub_resource type="Resource" id="Resource_v7sbr"]
+script = ExtResource("7_04qia")
+id = &"ch1_old_k_backyard"
+
+[sub_resource type="Resource" id="Resource_wjlbf"]
+script = ExtResource("7_04qia")
+id = &"ch1_old_k_counter"
+
+[sub_resource type="Resource" id="Resource_b8ncw"]
+script = ExtResource("7_04qia")
+id = &"ch1_old_k_prologue"
+
+[sub_resource type="Resource" id="Resource_3f20m"]
+script = ExtResource("1_fuu4v")
+id = &"ch1_prologue"
+display_name = "巢蛋當舖（試貨）"
+localized_names = Dictionary[String, String]({
+"en": "Nest Egg Pawnshop (Trial)",
+"ja": "ネスト・エッグ質屋（試用）"
+})
+height = 24
+legend = Dictionary[String, Resource]({
+"⇥": SubResource("Resource_eteqv"),
+"①": SubResource("Resource_6hhvo"),
+"②": SubResource("Resource_6hhvo"),
+"③": SubResource("Resource_6hhvo"),
+"④": SubResource("Resource_6hhvo"),
+"Ⓒ": SubResource("Resource_2xpqt"),
+"Ⓓ": SubResource("Resource_6hhvo"),
+"Ⓛ": SubResource("Resource_6hhvo"),
+"Ⓢ": SubResource("Resource_uowen"),
+"Ⓣ": SubResource("Resource_6hhvo"),
+"ⓑ": SubResource("Resource_v7sbr"),
+"ⓒ": SubResource("Resource_wjlbf"),
+"ⓚ": SubResource("Resource_b8ncw"),
+"◉": SubResource("Resource_6hhvo"),
+"◎": SubResource("Resource_6hhvo")
+})
+sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
+billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
+chapter = &"ch1_kasa"
+skip_flags = PackedStringArray()
+story_triggers = PackedStringArray()
+hints = PackedStringArray()
+layout_path = "res://data/levels/ch1_prologue_map.json"
+
+[sub_resource type="Resource" id="Resource_n2m82"]
+script = ExtResource("7_04qia")
+id = &"ch1_egret"
+
+[sub_resource type="Resource" id="Resource_p3xvx"]
+script = ExtResource("3_sfgi7")
+id = &"roof_stairs"
+target_level = "res://data/levels/ch1_pawnshop.tres"
+target_portal = &"pawn_stairs"
+prompt = "{interact} 下樓"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Go downstairs",
+"ja": "{interact} 階段を下りる"
+})
+style = "hidden"
+
+[sub_resource type="Resource" id="Resource_yys82"]
+script = ExtResource("4_kb2ry")
+
+[sub_resource type="Resource" id="Resource_us4va"]
+script = ExtResource("3_sfgi7")
+id = &"roof_maintenance"
+target_level = "res://data/levels/ch1_street.tres"
+target_portal = &"street_roof"
+prompt = "{interact} 走維修通道"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Take the maintenance passage",
+"ja": "{interact} 保守通路へ"
+})
+requires_flag = &"ledger_disk_obtained"
+locked_text = "先拿到倉庫的資料盤，維修通道才會開放。"
+localized_locked_text = Dictionary[String, String]({
+"en": "Recover the warehouse data disc to open the maintenance passage.",
+"ja": "倉庫のデータディスクを回収すると保守通路が開く。"
+})
+height = 56
+
+[sub_resource type="Resource" id="Resource_xbrxm"]
+script = ExtResource("1_fuu4v")
+id = &"ch1_rooftop"
+display_name = "屋頂"
+localized_names = Dictionary[String, String]({
+"en": "Rooftop",
+"ja": "屋上"
+})
+height = 56
+legend = Dictionary[String, Resource]({
+"E": SubResource("Resource_n2m82"),
+"T": SubResource("Resource_p3xvx"),
+"c": SubResource("Resource_yys82"),
+"↧": SubResource("Resource_us4va")
+})
+sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
+billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
+chapter = &"ch1_kasa"
+skip_flags = PackedStringArray()
+story_triggers = PackedStringArray("ch1_b_roof")
+hints = PackedStringArray("屋頂中間有一條縫，助跑後按 {jump} 跳過去。", "朝左看見對面的屋頂，再跳回去。")
+layout_path = "res://data/levels/ch1_rooftop_map.json"
+
+[sub_resource type="Resource" id="Resource_mq7hj"]
+script = ExtResource("7_04qia")
+id = &"ch1_ali_stall"
+
+[sub_resource type="Resource" id="Resource_yaeji"]
+script = ExtResource("3_sfgi7")
+id = &"stall_home"
+target_level = "res://data/levels/ch1_pawnshop_dawn.tres"
+target_portal = &"pawn_front"
+prompt = "{interact} 回當舖"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Return to the pawnshop",
+"ja": "{interact} 質屋へ戻る"
+})
+cinematic_preview_scene = &"ch1_c14_home"
+requires_flag = &"ch1_supper_done"
+locked_text = "先和阿梨說好去留與今晚的帳；不需要先知道地址。"
+localized_locked_text = Dictionary[String, String]({
+"en": "Settle tonight's bill and talk about staying or leaving with Pear.",
+"ja": "梨と今夜の勘定を済ませ、残るか出るかを話す。"
+})
+
+[sub_resource type="Resource" id="Resource_1tvsl"]
+script = ExtResource("1_fuu4v")
+id = &"ch1_stall"
+display_name = "宵夜麵攤"
+localized_names = Dictionary[String, String]({
+"en": "Late-Night Noodle Stall",
+"ja": "夜食の麺屋"
+})
+height = 24
+legend = Dictionary[String, Resource]({
+"Q": SubResource("Resource_mq7hj"),
+"Z": SubResource("Resource_yaeji")
+})
+sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
+billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
+chapter = &"ch1_kasa"
+skip_flags = PackedStringArray()
+story_triggers = PackedStringArray("ch1_b_stall")
+hints = PackedStringArray()
+layout_path = "res://data/levels/ch1_stall_map.json"
+
+[sub_resource type="Resource" id="Resource_625dt"]
+
+[sub_resource type="Resource" id="Resource_uee2s"]
+script = ExtResource("3_sfgi7")
+id = &"street_warehouse"
+target_level = "res://data/levels/ch1_warehouse.tres"
+target_portal = &"wh_street"
+prompt = "{interact} 碼頭倉庫"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Dock Warehouse",
+"ja": "{interact} 埠頭の倉庫"
+})
+width = 28
+height = 48
+
+[sub_resource type="Resource" id="Resource_m2rb1"]
+script = ExtResource("14_xqojo")
+id = &"ch1_secret_wall"
+look = 3
+hint = "牆上有裂縫：打破它，後面可能有東西"
+size_tiles = Vector2i(1, 3)
+
+[sub_resource type="Resource" id="Resource_wq1vc"]
+script = ExtResource("4_kb2ry")
+
+[sub_resource type="Resource" id="Resource_qq8km"]
+script = ExtResource("12_tnruj")
+id = &"shield_cell"
+display_name = "護盾電池"
+
+[sub_resource type="Resource" id="Resource_c3nsb"]
+script = ExtResource("5_4mrjh")
+id = &"doc_echo_flyer"
+display_name = "回音派傳單"
+
+[sub_resource type="Resource" id="Resource_daerf"]
+script = ExtResource("3_sfgi7")
+id = &"street_home"
+target_level = "res://data/levels/ch1_pawnshop.tres"
+target_portal = &"pawn_front"
+prompt = "{interact} 回當舖"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Return to the pawnshop",
+"ja": "{interact} 質屋へ戻る"
+})
+
+[sub_resource type="Resource" id="Resource_arwtu"]
+script = ExtResource("12_tnruj")
+id = &"med_injector"
+display_name = "醫療針"
+
+[sub_resource type="Resource" id="Resource_sjf6l"]
+script = ExtResource("3_sfgi7")
+id = &"street_booth"
+target_level = "res://data/levels/ch1_booth_alley.tres"
+target_portal = &"booth_street"
+prompt = "{interact} 電話亭巷"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Phone Booth Alley",
+"ja": "{interact} 電話ボックス横丁"
+})
+width = 28
+style = "road"
+
+[sub_resource type="Resource" id="Resource_pv6yj"]
+script = ExtResource("3_sfgi7")
+id = &"street_market"
+prompt = "{interact} 市集"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Market",
+"ja": "{interact} 市場"
+})
+locked_text = "收帳人封路。"
+localized_locked_text = Dictionary[String, String]({
+"en": "The debt collectors have blocked the road.",
+"ja": "取り立て屋が道をふさいでいる。"
+})
+width = 28
+style = "road"
+
+[sub_resource type="Resource" id="Resource_7dra4"]
+script = ExtResource("5_4mrjh")
+id = &"doc_collection_notice"
+display_name = "收帳通知單"
+
+[sub_resource type="Resource" id="Resource_rga60"]
+script = ExtResource("4_kb2ry")
+id = &"credits_large"
+
+[sub_resource type="Resource" id="Resource_3nxth"]
+script = ExtResource("16_fvipl")
+id = &"ch1_enc_street_plaza"
+kind = 5
+display_name = "遭遇：街心"
+
+[sub_resource type="Resource" id="Resource_bdldf"]
+script = ExtResource("16_fvipl")
+id = &"ch1_enc_street_blockade"
+kind = 5
+display_name = "遭遇：路障"
+
+[sub_resource type="Resource" id="Resource_pti8g"]
+script = ExtResource("3_sfgi7")
+id = &"street_roof"
+target_level = "res://data/levels/ch1_rooftop.tres"
+target_portal = &"roof_maintenance"
+prompt = "{interact} 走維修通道"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Take the maintenance passage",
+"ja": "{interact} 保守通路へ"
+})
+requires_flag = &"ledger_disk_obtained"
+locked_text = "先拿到倉庫的資料盤，維修通道才會開放。"
+localized_locked_text = Dictionary[String, String]({
+"en": "Recover the warehouse data disc to open the maintenance passage.",
+"ja": "倉庫のデータディスクを回収すると保守通路が開く。"
+})
+height = 56
+
+[sub_resource type="Resource" id="Resource_8sncd"]
+script = ExtResource("3_sfgi7")
+id = &"street_vault"
+target_level = "res://data/levels/ch1_vault.tres"
+target_portal = &"vault_street"
+prompt = "{interact} 走維修通道"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Take the maintenance passage",
+"ja": "{interact} 保守通路へ"
+})
+requires_flag = &"ledger_disk_obtained"
+locked_text = "先拿到倉庫的資料盤，維修通道才會開放。"
+localized_locked_text = Dictionary[String, String]({
+"en": "Recover the warehouse data disc to open the maintenance passage.",
+"ja": "倉庫のデータディスクを回収すると保守通路が開く。"
+})
+height = 56
+
+[sub_resource type="Resource" id="Resource_brq07"]
+script = ExtResource("1_fuu4v")
+id = &"ch1_street"
+display_name = "港區街道"
+localized_names = Dictionary[String, String]({
+"en": "Harbor Street",
+"ja": "港の通り"
+})
+height = 56
+legend = Dictionary[String, Resource]({
+"%": SubResource("Resource_625dt"),
+"D": SubResource("Resource_625dt"),
+"I": SubResource("Resource_625dt"),
+"N": SubResource("Resource_uee2s"),
+"X": SubResource("Resource_m2rb1"),
+"b": SubResource("Resource_625dt"),
+"c": SubResource("Resource_wq1vc"),
+"d": SubResource("Resource_625dt"),
+"e": SubResource("Resource_qq8km"),
+"f": SubResource("Resource_c3nsb"),
+"g": SubResource("Resource_625dt"),
+"h": SubResource("Resource_daerf"),
+"i": SubResource("Resource_arwtu"),
+"j": SubResource("Resource_sjf6l"),
+"k": SubResource("Resource_625dt"),
+"m": SubResource("Resource_pv6yj"),
+"o": SubResource("Resource_7dra4"),
+"q": SubResource("Resource_rga60"),
+"z": SubResource("Resource_625dt"),
+"α": SubResource("Resource_3nxth"),
+"γ": SubResource("Resource_bdldf"),
+"↟": SubResource("Resource_pti8g"),
+"↠": SubResource("Resource_8sncd")
+})
+sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
+billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
+chapter = &"ch1_kasa"
+skip_flags = PackedStringArray()
+story_triggers = PackedStringArray("ch1_b_street_in", "ch1_g06_lamp", "ch1_g06_tip_slide", "ch1_g06_tip_blade", "ch1_g06_tip_collector", "ch1_g06_clear")
+hints = PackedStringArray("街上有人發傳單、有人聊天，不是每個人都想打你。", "街角的巷子裡有電話亭，先去備份，死了才有地方醒來。", "前面有清掃兵，靠著箱子瞄準射擊，打完再縮回去。", "子彈到的瞬間才舉盾 {block}，就能把子彈反彈回去。", "敵人頭上出現青色菱形時，按 {melee} 終結他並補回彈藥。", "前面是碼頭倉庫，看門狗睡在大廳深處，走進去再決定要不要叫醒牠。", "往斜下方瞄準，先看清落點。")
+layout_path = "res://data/levels/ch1_street_map.json"
+
+[sub_resource type="Resource" id="Resource_b7hav"]
+script = ExtResource("3_sfgi7")
+id = &"wh_upper"
+target_level = "res://data/levels/ch1_handoff.tres"
+target_portal = &"handoff_arrival"
+prompt = "{interact} 上層通道：前往館外交接櫃"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Take the upper route to the handover locker",
+"ja": "{interact} 上層通路で引き渡しロッカーへ"
+})
+requires_flag = &"ledger_disk_obtained"
+locked_text = "資料盤還在保險箱，取出後再走上層通道。"
+localized_locked_text = Dictionary[String, String]({
+"en": "Take the data disc from the safe before using the upper route.",
+"ja": "先に金庫からデータディスクを取り、上層通路へ進む。"
+})
+
+[sub_resource type="Resource" id="Resource_spsgt"]
+script = ExtResource("3_sfgi7")
+id = &"vault_prev"
+target_level = "res://data/levels/ch1_warehouse.tres"
+target_portal = &"wh_vault"
+mode = 1
+width = 20
+style = "road"
+
+[sub_resource type="Resource" id="Resource_x6ei6"]
+script = ExtResource("14_xqojo")
+id = &"ch1_secret_wall"
+look = 3
+hint = "牆上有裂縫：打破它，後面可能有東西"
+size_tiles = Vector2i(1, 3)
+
+[sub_resource type="Resource" id="Resource_ply11"]
+script = ExtResource("4_kb2ry")
+
+[sub_resource type="Resource" id="Resource_4b4ke"]
+
+[sub_resource type="Resource" id="Resource_ytt6w"]
+script = ExtResource("12_tnruj")
+id = &"med_injector"
+display_name = "醫療針"
+
+[sub_resource type="Resource" id="Resource_khia8"]
+script = ExtResource("4_kb2ry")
+id = &"credits_large"
+
+[sub_resource type="Resource" id="Resource_dl4lq"]
+script = ExtResource("5_4mrjh")
+id = &"ch1_data_disk"
+display_name = "資料盤"
+
+[sub_resource type="Resource" id="Resource_xf06d"]
+script = ExtResource("16_fvipl")
+id = &"ch1_enc_warehouse_vault"
+kind = 5
+display_name = "遭遇：保險箱守衛"
+
+[sub_resource type="Resource" id="Resource_tqrmu"]
+script = ExtResource("16_fvipl")
+id = &"ch1_enc_warehouse_walkway"
+kind = 5
+display_name = "遭遇：上層走道"
+
+[sub_resource type="Resource" id="Resource_mubw8"]
+script = ExtResource("3_sfgi7")
+id = &"vault_street"
+target_level = "res://data/levels/ch1_street.tres"
+target_portal = &"street_vault"
+prompt = "{interact} 走維修通道"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Take the maintenance passage",
+"ja": "{interact} 保守通路へ"
+})
+requires_flag = &"ledger_disk_obtained"
+locked_text = "先拿到倉庫的資料盤，維修通道才會開放。"
+localized_locked_text = Dictionary[String, String]({
+"en": "Recover the warehouse data disc to open the maintenance passage.",
+"ja": "倉庫のデータディスクを回収すると保守通路が開く。"
+})
+height = 56
+
+[sub_resource type="Resource" id="Resource_hgvw2"]
+script = ExtResource("1_fuu4v")
+id = &"ch1_vault"
+display_name = "倉庫深處"
+localized_names = Dictionary[String, String]({
+"en": "Warehouse Inner Bay",
+"ja": "倉庫の奥"
+})
+height = 56
+legend = Dictionary[String, Resource]({
+"L": SubResource("Resource_b7hav"),
+"M": SubResource("Resource_spsgt"),
+"X": SubResource("Resource_x6ei6"),
+"c": SubResource("Resource_ply11"),
+"d": SubResource("Resource_4b4ke"),
+"g": SubResource("Resource_4b4ke"),
+"i": SubResource("Resource_ytt6w"),
+"k": SubResource("Resource_4b4ke"),
+"q": SubResource("Resource_khia8"),
+"y": SubResource("Resource_dl4lq"),
+"z": SubResource("Resource_4b4ke"),
+"ε": SubResource("Resource_xf06d"),
+"η": SubResource("Resource_tqrmu"),
+"↞": SubResource("Resource_mubw8")
+})
+sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
+billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
+chapter = &"ch1_kasa"
+skip_flags = PackedStringArray()
+story_triggers = PackedStringArray("ch1_g10_disk")
+hints = PackedStringArray("保險箱裡有一片資料盤，拿到後就能從上層通道離開。", "朝左上瞄準，看清踏板再跳。", "取得資料盤後，在空中再按 {jump} 跳上高台；失手會落回這個平台，可再試一次。")
+layout_path = "res://data/levels/ch1_vault_map.json"
+
+[sub_resource type="Resource" id="Resource_h55ix"]
+
+[sub_resource type="Resource" id="Resource_ah6st"]
+script = ExtResource("16_fvipl")
+id = &"ch1_switch_a"
+display_name = "水閘開關 A"
+hint = "{interact} 切換開關：閘 A"
+
+[sub_resource type="Resource" id="Resource_bmv26"]
+script = ExtResource("3_sfgi7")
+id = &"wh_street"
+target_level = "res://data/levels/ch1_street.tres"
+target_portal = &"street_warehouse"
+prompt = "{interact} 回街道"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Return to the street",
+"ja": "{interact} 通りへ戻る"
+})
+width = 28
+height = 48
+
+[sub_resource type="Resource" id="Resource_6h5sk"]
+script = ExtResource("16_fvipl")
+id = &"ch1_switch_b"
+display_name = "水閘開關 B"
+hint = "{interact} 切換開關：閘 B"
+
+[sub_resource type="Resource" id="Resource_wgc5d"]
+script = ExtResource("3_sfgi7")
+id = &"wh_vault"
+target_level = "res://data/levels/ch1_vault.tres"
+target_portal = &"vault_prev"
+mode = 1
+width = 20
+style = "road"
+
+[sub_resource type="Resource" id="Resource_nehd2"]
+script = ExtResource("16_fvipl")
+id = &"ch1_flood_pit"
+kind = 4
+display_name = "水坑"
+
+[sub_resource type="Resource" id="Resource_dgefn"]
+script = ExtResource("16_fvipl")
+id = &"ch1_gate_a"
+kind = 1
+display_name = "閘 A"
+hint = "閘 A：旁邊的開關控制它"
+
+[sub_resource type="Resource" id="Resource_wsy7h"]
+script = ExtResource("4_kb2ry")
+
+[sub_resource type="Resource" id="Resource_wfakn"]
+script = ExtResource("12_tnruj")
+id = &"med_injector"
+display_name = "醫療針"
+
+[sub_resource type="Resource" id="Resource_i47w8"]
+script = ExtResource("5_4mrjh")
+id = &"doc_dike_log"
+display_name = "水閘維修日誌：堤"
+
+[sub_resource type="Resource" id="Resource_8av78"]
+script = ExtResource("16_fvipl")
+id = &"ch1_gate_b"
+kind = 1
+display_name = "閘 B"
+hint = "閘 B：開關在高處的平台上"
+
+[sub_resource type="Resource" id="Resource_libxf"]
+script = ExtResource("16_fvipl")
+id = &"ch1_gate_c"
+kind = 1
+display_name = "閘 C"
+hint = "閘 C：開關是坑底的踏板"
+
+[sub_resource type="Resource" id="Resource_61r0r"]
+script = ExtResource("16_fvipl")
+id = &"ch1_gate_watchdog"
+kind = 1
+display_name = "隔牆"
+hint = "打倒看門狗，前方的隔牆才會升起。"
+
+[sub_resource type="Resource" id="Resource_n52rv"]
+script = ExtResource("7_04qia")
+id = &"ch1_pump_service"
+
+[sub_resource type="Resource" id="Resource_hdn1u"]
+script = ExtResource("1_fuu4v")
+id = &"ch1_warehouse"
+display_name = "碼頭倉庫"
+localized_names = Dictionary[String, String]({
+"en": "Dock Warehouse",
+"ja": "埠頭の倉庫"
+})
+height = 56
+legend = Dictionary[String, Resource]({
+"%": SubResource("Resource_h55ix"),
+"@": SubResource("Resource_h55ix"),
+"A": SubResource("Resource_ah6st"),
+"D": SubResource("Resource_h55ix"),
+"I": SubResource("Resource_h55ix"),
+"O": SubResource("Resource_bmv26"),
+"R": SubResource("Resource_6h5sk"),
+"U": SubResource("Resource_wgc5d"),
+"W": SubResource("Resource_nehd2"),
+"a": SubResource("Resource_dgefn"),
+"b": SubResource("Resource_h55ix"),
+"c": SubResource("Resource_wsy7h"),
+"d": SubResource("Resource_h55ix"),
+"g": SubResource("Resource_h55ix"),
+"i": SubResource("Resource_wfakn"),
+"k": SubResource("Resource_h55ix"),
+"l": SubResource("Resource_i47w8"),
+"r": SubResource("Resource_8av78"),
+"s": SubResource("Resource_libxf"),
+"v": SubResource("Resource_61r0r"),
+"w": SubResource("Resource_h55ix"),
+"ⓟ": SubResource("Resource_n52rv")
+})
+sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
+billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
+chapter = &"ch1_kasa"
+skip_flags = PackedStringArray()
+story_triggers = PackedStringArray("ch1_g07_dog", "ch1_g10_pit", "ch1_g10_pit2", "ch1_g10_cross")
+hints = PackedStringArray("留意大廳深處的看門狗，死亡後牠仍會保留部分傷勢。", "打倒看門狗，前方的隔牆才會升起。", "先在電話亭 B2 備份，再往倉庫裡走。", "按 {interact} 操作開關，控制同一頻道的閘門。", "留意牆上的水位刻度，前方水坑會漲水。", "進入前方的倉庫深處，保險箱旁有守衛。", "水梯要折返，先瞄向下一塊踏板。")
+layout_path = "res://data/levels/ch1_warehouse_map.json"
+
+[sub_resource type="Resource" id="Resource_072tp"]
+script = ExtResource("3_sfgi7")
+id = &"home_stairs"
+target_level = "res://data/levels/ch2_market.tres"
+target_portal = &"market_stairs"
+prompt = "{interact} 下後樓外梯"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Go down the rear stairs",
+"ja": "{interact} 裏棟の外階段を下りる"
+})
+height = 56
+
+[sub_resource type="Resource" id="Resource_7en17"]
+script = ExtResource("3_sfgi7")
+id = &"home_roof"
+target_level = "res://data/levels/ch2_market.tres"
+target_portal = &"market_roof"
+prompt = "{interact} 從後窗爬到雨棚上"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Climb out the back window onto the canopy",
+"ja": "{interact} 裏窓から雨よけに出る"
+})
+
+[sub_resource type="Resource" id="Resource_7n8os"]
+script = ExtResource("7_04qia")
+id = &"ch2_ali_home"
+
+[sub_resource type="Resource" id="Resource_um6xo"]
+script = ExtResource("1_fuu4v")
+id = &"ch2_ali_home"
+display_name = "阿梨的小廚房"
+localized_names = Dictionary[String, String]({
+"en": "Pear's Kitchen",
+"ja": "梨の台所"
+})
+height = 24
+legend = Dictionary[String, Resource]({
+"Ⅸ": SubResource("Resource_072tp"),
+"⇥": SubResource("Resource_7en17"),
+"Ⓐ": SubResource("Resource_7n8os")
+})
+sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
+billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
+chapter = &"ch2_heron"
+skip_flags = PackedStringArray()
+story_triggers = PackedStringArray()
+hints = PackedStringArray()
+layout_path = "res://data/levels/ch2_ali_home_map.json"
+
+[sub_resource type="Resource" id="Resource_5i6kn"]
+script = ExtResource("4_kb2ry")
+
+[sub_resource type="Resource" id="Resource_rxcs5"]
+script = ExtResource("3_sfgi7")
+id = &"street_home"
+target_level = "res://data/levels/ch2_pawnshop.tres"
+target_portal = &"pawn_front"
+prompt = "{interact} 回當舖"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Return to the pawnshop",
+"ja": "{interact} 質屋へ戻る"
+})
+
+[sub_resource type="Resource" id="Resource_rpn4n"]
+script = ExtResource("3_sfgi7")
+id = &"street_market"
+target_level = "res://data/levels/ch2_market_gate.tres"
+target_portal = &"gate_street"
+prompt = "{interact} 往市集"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Go to the market",
+"ja": "{interact} 市場へ"
+})
+width = 28
+style = "road"
+
+[sub_resource type="Resource" id="Resource_6ewqy"]
+script = ExtResource("3_sfgi7")
+id = &"street_upper"
+target_level = "res://data/levels/ch2_market_gate.tres"
+target_portal = &"gate_upper"
+prompt = "{interact} 沿雨棚走到市集入口上層"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Cross the canopy to the upper market entrance",
+"ja": "{interact} 雨よけ伝いに市場入口の上層へ"
+})
+width = 28
+style = "road"
+
+[sub_resource type="Resource" id="Resource_a7ann"]
+script = ExtResource("1_fuu4v")
+id = &"ch2_harbor_street"
+display_name = "港區街道（白天）"
+localized_names = Dictionary[String, String]({
+"en": "Harbor Street (Day)",
+"ja": "港の通り（昼）"
+})
+height = 40
+legend = Dictionary[String, Resource]({
+"c": SubResource("Resource_5i6kn"),
+"h": SubResource("Resource_rxcs5"),
+"m": SubResource("Resource_rpn4n"),
+"⇡": SubResource("Resource_6ewqy")
+})
+sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
+billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
+chapter = &"ch2_heron"
+skip_flags = PackedStringArray()
+story_triggers = PackedStringArray()
+hints = PackedStringArray("踩著雨棚往右走，可以從上層進市集入口。")
+layout_path = "res://data/levels/ch2_harbor_street_map.json"
+
+[sub_resource type="Resource" id="Resource_pchid"]
+script = ExtResource("3_sfgi7")
+id = &"front_loading"
+target_level = "res://data/levels/ch2_loading.tres"
+target_portal = &"loading_ledger"
+prompt = "{interact} 回裝卸間"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Return to the loading room",
+"ja": "{interact} 荷さばき室へ戻る"
+})
+width = 28
+height = 56
+
+[sub_resource type="Resource" id="Resource_noa1w"]
+script = ExtResource("3_sfgi7")
+id = &"front_office"
+target_level = "res://data/levels/ch2_ledger_office.tres"
+target_portal = &"office_front"
+prompt = "{interact} 進二樓帳房"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Enter the upstairs accounts office",
+"ja": "{interact} 二階の帳場に入る"
+})
+requires_flag = &"ch2_yong_intro_seen"
+locked_text = "先敲門，看阿勇要怎麼對這筆帳。"
+localized_locked_text = Dictionary[String, String]({
+"en": "Knock and see how Rash wants to settle the account.",
+"ja": "まず扉を叩き、勇にこの勘定の扱いを聞く。"
+})
+width = 28
+height = 56
+
+[sub_resource type="Resource" id="Resource_naubm"]
+script = ExtResource("7_04qia")
+id = &"ch2_isolation_diagram"
+
+[sub_resource type="Resource" id="Resource_u7nir"]
+script = ExtResource("7_04qia")
+id = &"ch2_ledger_door"
+
+[sub_resource type="Resource" id="Resource_ddtbl"]
+script = ExtResource("1_fuu4v")
+id = &"ch2_ledger_front"
+display_name = "北棟二樓前室"
+localized_names = Dictionary[String, String]({
+"en": "North Building Anteroom",
+"ja": "北棟二階の前室"
+})
+height = 24
+legend = Dictionary[String, Resource]({
+"ⅰ": SubResource("Resource_pchid"),
+"ⅱ": SubResource("Resource_noa1w"),
+"ⓘ": SubResource("Resource_naubm"),
+"ⓨ": SubResource("Resource_u7nir")
+})
+sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
+billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
+chapter = &"ch2_heron"
+skip_flags = PackedStringArray()
+story_triggers = PackedStringArray()
+hints = PackedStringArray()
+layout_path = "res://data/levels/ch2_ledger_front_map.json"
+
+[sub_resource type="Resource" id="Resource_u24gy"]
+script = ExtResource("3_sfgi7")
+id = &"office_front"
+target_level = "res://data/levels/ch2_ledger_front.tres"
+target_portal = &"front_office"
+prompt = "{interact} 回前室"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Return to the anteroom",
+"ja": "{interact} 前室へ戻る"
+})
+width = 28
+height = 56
+
+[sub_resource type="Resource" id="Resource_em5do"]
+script = ExtResource("3_sfgi7")
+id = &"office_family"
+target_level = "res://data/levels/ch2_market_gate.tres"
+target_portal = &"gate_family"
+prompt = "{interact} 走家屬出口到市集電話亭"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Take the family exit to the market phone booth",
+"ja": "{interact} 家族用出口から市場の電話ボックスへ"
+})
+requires_flag = &"ch2_egret_transport_done"
+locked_text = "先撐開家屬出口，讓人把鷺抬出去。"
+localized_locked_text = Dictionary[String, String]({
+"en": "Prop open the family exit so Egret can be carried out.",
+"ja": "鷺を運び出せるよう、家族用出口を開けておく。"
+})
+width = 28
+height = 56
+
+[sub_resource type="Resource" id="Resource_s42uw"]
+script = ExtResource("7_04qia")
+id = &"ch2_ledger_cabinet"
+
+[sub_resource type="Resource" id="Resource_oax8m"]
+script = ExtResource("7_04qia")
+id = &"ch2_xiaowei"
+
+[sub_resource type="Resource" id="Resource_b63mq"]
+
+[sub_resource type="Resource" id="Resource_3on4n"]
+script = ExtResource("1_fuu4v")
+id = &"ch2_ledger_office"
+display_name = "二樓帳房"
+localized_names = Dictionary[String, String]({
+"en": "Upstairs Accounts Office",
+"ja": "二階の帳場"
+})
+height = 24
+legend = Dictionary[String, Resource]({
+"ⅲ": SubResource("Resource_u24gy"),
+"ⅳ": SubResource("Resource_em5do"),
+"ⓜ": SubResource("Resource_s42uw"),
+"ⓟ": SubResource("Resource_oax8m"),
+"♚": SubResource("Resource_b63mq")
+})
+sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
+billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
+chapter = &"ch2_heron"
+skip_flags = PackedStringArray()
+story_triggers = PackedStringArray()
+hints = PackedStringArray()
+layout_path = "res://data/levels/ch2_ledger_office_map.json"
+
+[sub_resource type="Resource" id="Resource_s7cmo"]
+script = ExtResource("4_kb2ry")
+
+[sub_resource type="Resource" id="Resource_ro2lr"]
+script = ExtResource("3_sfgi7")
+id = &"loading_market"
+target_level = "res://data/levels/ch2_market.tres"
+target_portal = &"market_cargo"
+prompt = "{interact} 回公眾攤道"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Return to the Public Market Walk",
+"ja": "{interact} 公設市場通りへ戻る"
+})
+width = 28
+style = "road"
+
+[sub_resource type="Resource" id="Resource_3jmxt"]
+script = ExtResource("3_sfgi7")
+id = &"loading_sc1"
+target_level = "res://data/levels/ch2_market.tres"
+target_portal = &"market_sc1"
+prompt = "{interact} 走橋梯回代收處"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Take the bridge ladder back to the collection desk",
+"ja": "{interact} 橋のはしごで集金所へ戻る"
+})
+requires_flag = &"ch2_sc1_open"
+locked_text = "橋梯還收著，旁邊的拉桿可以放下來。"
+localized_locked_text = Dictionary[String, String]({
+"en": "Use the nearby lever to lower the bridge ladder.",
+"ja": "そばのレバーで橋のはしごを下ろせる。"
+})
+width = 32
+height = 56
+style = "hidden"
+
+[sub_resource type="Resource" id="Resource_mvtpx"]
+script = ExtResource("3_sfgi7")
+id = &"loading_ledger"
+target_level = "res://data/levels/ch2_ledger_front.tres"
+target_portal = &"front_loading"
+prompt = "{interact} 進北棟貨門"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Enter through the north building freight door",
+"ja": "{interact} 北棟の搬入扉から入る"
+})
+requires_flag = &"ch2_market_reconciled"
+locked_text = "貨門要核對過的卸貨批號，先在作業桌把三張紙對完。"
+localized_locked_text = Dictionary[String, String]({
+"en": "Match the three papers at the worktable to verify the freight batch.",
+"ja": "作業台で三枚の用紙を照合し、荷降ろしのロット番号を確認する。"
+})
+width = 28
+height = 56
+
+[sub_resource type="Resource" id="Resource_5lrw7"]
+script = ExtResource("3_sfgi7")
+id = &"loading_canopy"
+target_level = "res://data/levels/ch2_market.tres"
+target_portal = &"market_canopy"
+prompt = "{interact} 沿雨棚回公眾攤道上層"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Cross the canopy back to the upper market walk",
+"ja": "{interact} 雨よけ伝いに公設市場通りの上層へ戻る"
+})
+requires_flag = &"ch2_market_contact_done"
+locked_text = "先到代收處問清楚這筆代收款，再去後面查帳。"
+localized_locked_text = Dictionary[String, String]({
+"en": "Ask the collection desk about the payment before checking the accounts.",
+"ja": "帳簿を調べる前に、集金所でこの支払いについて聞く。"
+})
+width = 28
+style = "road"
+
+[sub_resource type="Resource" id="Resource_nyi7w"]
+script = ExtResource("7_04qia")
+id = &"ch2_drying_desk"
+
+[sub_resource type="Resource" id="Resource_tj2mb"]
+script = ExtResource("7_04qia")
+id = &"ch2_sc1_lever"
+
+[sub_resource type="Resource" id="Resource_wdeyc"]
+script = ExtResource("7_04qia")
+id = &"ch2_collection_book"
+
+[sub_resource type="Resource" id="Resource_18te6"]
+script = ExtResource("7_04qia")
+id = &"ch2_guard"
+
+[sub_resource type="Resource" id="Resource_s6ww1"]
+
+[sub_resource type="Resource" id="Resource_fqhxq"]
+script = ExtResource("1_fuu4v")
+id = &"ch2_loading"
+display_name = "雨棚背面與裝卸間"
+localized_names = Dictionary[String, String]({
+"en": "Canopy and Loading Room",
+"ja": "雨よけの裏と荷さばき室"
+})
+height = 40
+legend = Dictionary[String, Resource]({
+"c": SubResource("Resource_s7cmo"),
+"Ⅹ": SubResource("Resource_ro2lr"),
+"Ⅺ": SubResource("Resource_3jmxt"),
+"Ⅻ": SubResource("Resource_mvtpx"),
+"⇤": SubResource("Resource_5lrw7"),
+"ⓓ": SubResource("Resource_nyi7w"),
+"ⓙ": SubResource("Resource_tj2mb"),
+"ⓛ": SubResource("Resource_wdeyc"),
+"ⓧ": SubResource("Resource_18te6"),
+"♜": SubResource("Resource_s6ww1"),
+"♞": SubResource("Resource_s6ww1")
+})
+sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
+billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
+chapter = &"ch2_heron"
+skip_flags = PackedStringArray()
+story_triggers = PackedStringArray("ch2_s09_wire", "ch2_s09_hawker")
+hints = PackedStringArray()
+layout_path = "res://data/levels/ch2_loading_map.json"
+
+[sub_resource type="Resource" id="Resource_sruuw"]
+script = ExtResource("3_sfgi7")
+id = &"lounge_gate"
+target_level = "res://data/levels/ch2_market_gate.tres"
+target_portal = &"gate_lounge"
+prompt = "{interact} 回市集入口"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Return to the market entrance",
+"ja": "{interact} 市場入口へ戻る"
+})
+width = 28
+style = "road"
+
+[sub_resource type="Resource" id="Resource_2s35h"]
+script = ExtResource("3_sfgi7")
+id = &"lounge_service_market"
+target_level = "res://data/levels/ch2_market.tres"
+target_portal = &"market_service_lounge"
+prompt = "{interact} 從員工通道回雨棚上層"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Use the staff passage back to the upper canopy",
+"ja": "{interact} 職員通路から雨よけの上層に戻る"
+})
+requires_flag = &"ch2_audit_submitted"
+locked_text = "先在復原館的委託終端送出查核資料，員工通道才會開放。"
+localized_locked_text = Dictionary[String, String]({
+"en": "Submit the audit at Restoration Hall's commission terminal to unlock the staff passage.",
+"ja": "復元館の依頼端末で監査資料を送信すると、職員通路が開きます。"
+})
+width = 32
+height = 68
+
+[sub_resource type="Resource" id="Resource_waigc"]
+script = ExtResource("7_04qia")
+id = &"ch2_guest_entry"
+
+[sub_resource type="Resource" id="Resource_puj4p"]
+script = ExtResource("7_04qia")
+id = &"ch2_ali_lounge"
+
+[sub_resource type="Resource" id="Resource_py1tm"]
+script = ExtResource("7_04qia")
+id = &"ch2_terminal"
+
+[sub_resource type="Resource" id="Resource_h3coc"]
+script = ExtResource("1_fuu4v")
+id = &"ch2_lounge_front"
+display_name = "復原館外"
+localized_names = Dictionary[String, String]({
+"en": "Outside Restoration Hall",
+"ja": "復元館の外"
+})
+height = 24
+legend = Dictionary[String, Resource]({
+"ⅴ": SubResource("Resource_sruuw"),
+"↰": SubResource("Resource_2s35h"),
+"ⓠ": SubResource("Resource_waigc"),
+"ⓢ": SubResource("Resource_puj4p"),
+"ⓣ": SubResource("Resource_py1tm")
+})
+sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
+billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
+chapter = &"ch2_heron"
+skip_flags = PackedStringArray()
+story_triggers = PackedStringArray()
+hints = PackedStringArray()
+layout_path = "res://data/levels/ch2_lounge_front_map.json"
+
+[sub_resource type="Resource" id="Resource_7mhxi"]
+script = ExtResource("4_kb2ry")
+
+[sub_resource type="Resource" id="Resource_oundh"]
+script = ExtResource("3_sfgi7")
+id = &"market_gate"
+target_level = "res://data/levels/ch2_market_gate.tres"
+target_portal = &"gate_market"
+prompt = "{interact} 回市集入口"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Return to the market entrance",
+"ja": "{interact} 市場入口へ戻る"
+})
+width = 28
+style = "road"
+
+[sub_resource type="Resource" id="Resource_wg1sw"]
+script = ExtResource("3_sfgi7")
+id = &"market_stairs"
+target_level = "res://data/levels/ch2_ali_home.tres"
+target_portal = &"home_stairs"
+prompt = "{interact} 走後樓外梯"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Take the rear stairs",
+"ja": "{interact} 裏棟の外階段へ"
+})
+
+[sub_resource type="Resource" id="Resource_aykl0"]
+script = ExtResource("3_sfgi7")
+id = &"market_cargo"
+target_level = "res://data/levels/ch2_loading.tres"
+target_portal = &"loading_market"
+prompt = "{interact} 往雨棚背面的貨道"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Take the loading passage behind the canopy",
+"ja": "{interact} 雨よけ裏の搬入口へ"
+})
+requires_flag = &"ch2_market_contact_done"
+locked_text = "先到代收處問清楚這筆代收款，再去後面查帳。"
+localized_locked_text = Dictionary[String, String]({
+"en": "Ask the collection desk about the payment before checking the accounts.",
+"ja": "帳簿を調べる前に、集金所でこの支払いについて聞く。"
+})
+width = 28
+style = "road"
+
+[sub_resource type="Resource" id="Resource_7pgir"]
+script = ExtResource("3_sfgi7")
+id = &"market_sc1"
+target_level = "res://data/levels/ch2_loading.tres"
+target_portal = &"loading_sc1"
+prompt = "{interact} 走橋梯捷徑到裝卸間"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Take the bridge ladder to the loading room",
+"ja": "{interact} 橋のはしごで荷さばき室へ近道する"
+})
+requires_flag = &"ch2_sc1_open"
+locked_text = "橋梯收在上面，要從裝卸間那一側放下來。"
+localized_locked_text = Dictionary[String, String]({
+"en": "Lower the bridge ladder from the loading room side.",
+"ja": "荷さばき室側から橋のはしごを下ろす。"
+})
+
+[sub_resource type="Resource" id="Resource_4bnns"]
+script = ExtResource("3_sfgi7")
+id = &"market_service_lounge"
+target_level = "res://data/levels/ch2_lounge_front.tres"
+target_portal = &"lounge_service_market"
+prompt = "{interact} 走員工通道到復原館"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Use the staff passage to Restoration Hall",
+"ja": "{interact} 職員通路から復元館へ"
+})
+requires_flag = &"ch2_audit_submitted"
+locked_text = "先在復原館的委託終端送出查核資料，員工通道才會開放。"
+localized_locked_text = Dictionary[String, String]({
+"en": "Submit the audit at Restoration Hall's commission terminal to unlock the staff passage.",
+"ja": "復元館の依頼端末で監査資料を送信すると、職員通路が開きます。"
+})
+width = 32
+height = 68
+style = "hidden"
+
+[sub_resource type="Resource" id="Resource_fr3ua"]
+script = ExtResource("3_sfgi7")
+id = &"market_roof"
+target_level = "res://data/levels/ch2_ali_home.tres"
+target_portal = &"home_roof"
+prompt = "{interact} 從後窗進阿梨的小廚房"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Climb through the back window into Pear's kitchen",
+"ja": "{interact} 裏窓から梨の台所に入る"
+})
+
+[sub_resource type="Resource" id="Resource_gs2jj"]
+script = ExtResource("3_sfgi7")
+id = &"market_canopy"
+target_level = "res://data/levels/ch2_loading.tres"
+target_portal = &"loading_canopy"
+prompt = "{interact} 沿雨棚走到貨道上層"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Cross the canopy to the upper loading passage",
+"ja": "{interact} 雨よけ伝いに搬入口の上層へ"
+})
+requires_flag = &"ch2_market_contact_done"
+locked_text = "先到代收處問清楚這筆代收款，再去後面查帳。"
+localized_locked_text = Dictionary[String, String]({
+"en": "Ask the collection desk about the payment before checking the accounts.",
+"ja": "帳簿を調べる前に、集金所でこの支払いについて聞く。"
+})
+width = 28
+style = "road"
+
+[sub_resource type="Resource" id="Resource_rv4hq"]
+script = ExtResource("7_04qia")
+id = &"ch2_banyan"
+
+[sub_resource type="Resource" id="Resource_vw8h8"]
+script = ExtResource("7_04qia")
+id = &"ch2_notice_screen"
+
+[sub_resource type="Resource" id="Resource_smc56"]
+script = ExtResource("7_04qia")
+id = &"ch2_vig"
+
+[sub_resource type="Resource" id="Resource_rxpuw"]
+script = ExtResource("7_04qia")
+id = &"ch2_rent_window"
+
+[sub_resource type="Resource" id="Resource_1f3gl"]
+script = ExtResource("7_04qia")
+id = &"ch2_ali_market"
+
+[sub_resource type="Resource" id="Resource_82qc3"]
+script = ExtResource("7_04qia")
+id = &"ch2_hawker"
+
+[sub_resource type="Resource" id="Resource_kpqd6"]
+script = ExtResource("1_fuu4v")
+id = &"ch2_market"
+display_name = "公眾攤道"
+localized_names = Dictionary[String, String]({
+"en": "Public Market Walk",
+"ja": "公設市場通り"
+})
+height = 40
+legend = Dictionary[String, Resource]({
+"c": SubResource("Resource_7mhxi"),
+"Ⅴ": SubResource("Resource_oundh"),
+"Ⅵ": SubResource("Resource_wg1sw"),
+"Ⅶ": SubResource("Resource_aykl0"),
+"Ⅷ": SubResource("Resource_7pgir"),
+"↱": SubResource("Resource_4bnns"),
+"⇠": SubResource("Resource_fr3ua"),
+"⇢": SubResource("Resource_gs2jj"),
+"Ⓑ": SubResource("Resource_rv4hq"),
+"Ⓝ": SubResource("Resource_vw8h8"),
+"Ⓥ": SubResource("Resource_smc56"),
+"Ⓦ": SubResource("Resource_rxpuw"),
+"ⓐ": SubResource("Resource_1f3gl"),
+"ⓗ": SubResource("Resource_82qc3")
+})
+sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
+billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
+chapter = &"ch2_heron"
+skip_flags = PackedStringArray()
+story_triggers = PackedStringArray()
+hints = PackedStringArray("雨棚上層通往阿梨家的後窗與後面的貨道。")
+layout_path = "res://data/levels/ch2_market_map.json"
+
+[sub_resource type="Resource" id="Resource_cs2lu"]
+script = ExtResource("4_kb2ry")
+
+[sub_resource type="Resource" id="Resource_ft8pj"]
+script = ExtResource("3_sfgi7")
+id = &"gate_street"
+target_level = "res://data/levels/ch2_harbor_street.tres"
+target_portal = &"street_market"
+prompt = "{interact} 回港區街道"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Return to Harbor Street",
+"ja": "{interact} 港の通りへ戻る"
+})
+width = 28
+style = "road"
+
+[sub_resource type="Resource" id="Resource_ho1jn"]
+script = ExtResource("3_sfgi7")
+id = &"gate_market"
+target_level = "res://data/levels/ch2_market.tres"
+target_portal = &"market_gate"
+prompt = "{interact} 進公眾攤道"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Enter the Public Market Walk",
+"ja": "{interact} 公設市場通りに入る"
+})
+requires_flag = &"ch2_brief_done"
+locked_text = "公眾攤道要查核證，鷺在當舖屋頂等你。"
+localized_locked_text = Dictionary[String, String]({
+"en": "The market walk needs an inspection pass. Egret is on the pawnshop rooftop.",
+"ja": "公設市場通りには査察証が必要。鷺は質屋の屋上にいる。"
+})
+width = 28
+style = "road"
+
+[sub_resource type="Resource" id="Resource_r0fag"]
+script = ExtResource("3_sfgi7")
+id = &"gate_lounge"
+target_level = "res://data/levels/ch2_lounge_front.tres"
+target_portal = &"lounge_gate"
+prompt = "{interact} 往復原館"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Go to Restoration Hall",
+"ja": "{interact} 復元館へ"
+})
+width = 28
+style = "road"
+
+[sub_resource type="Resource" id="Resource_4w85e"]
+script = ExtResource("3_sfgi7")
+id = &"gate_family"
+target_level = "res://data/levels/ch2_ledger_office.tres"
+target_portal = &"office_family"
+prompt = "{interact} 走家屬出口回帳房"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Take the family exit back to the accounts office",
+"ja": "{interact} 家族用出口から帳場へ戻る"
+})
+requires_flag = &"ch2_egret_transport_done"
+locked_text = "家屬出口從帳房那一側鎖著。"
+localized_locked_text = Dictionary[String, String]({
+"en": "The family exit is locked from the accounts office side.",
+"ja": "家族用出口は帳場側から施錠されている。"
+})
+width = 28
+height = 56
+
+[sub_resource type="Resource" id="Resource_3elco"]
+script = ExtResource("3_sfgi7")
+id = &"gate_upper"
+target_level = "res://data/levels/ch2_harbor_street.tres"
+target_portal = &"street_upper"
+prompt = "{interact} 沿雨棚回港區街道"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Cross the canopy back to Harbor Street",
+"ja": "{interact} 雨よけ伝いに港の通りへ戻る"
+})
+width = 28
+style = "road"
+
+[sub_resource type="Resource" id="Resource_mqlvs"]
+script = ExtResource("7_04qia")
+id = &"ch2_egret_booth"
+
+[sub_resource type="Resource" id="Resource_j1q5s"]
+script = ExtResource("7_04qia")
+id = &"ch2_patroller"
+
+[sub_resource type="Resource" id="Resource_iffx2"]
+
+[sub_resource type="Resource" id="Resource_nwg5v"]
+script = ExtResource("1_fuu4v")
+id = &"ch2_market_gate"
+display_name = "市集入口"
+localized_names = Dictionary[String, String]({
+"en": "Market Entrance",
+"ja": "市場入口"
+})
+height = 40
+legend = Dictionary[String, Resource]({
+"c": SubResource("Resource_cs2lu"),
+"Ⅰ": SubResource("Resource_ft8pj"),
+"Ⅱ": SubResource("Resource_ho1jn"),
+"Ⅲ": SubResource("Resource_r0fag"),
+"Ⅳ": SubResource("Resource_4w85e"),
+"⇣": SubResource("Resource_3elco"),
+"Ⓔ": SubResource("Resource_mqlvs"),
+"Ⓖ": SubResource("Resource_j1q5s"),
+"♜": SubResource("Resource_iffx2"),
+"♞": SubResource("Resource_iffx2")
+})
+sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
+billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
+chapter = &"ch2_heron"
+skip_flags = PackedStringArray()
+story_triggers = PackedStringArray("ch2_b_booth_b3")
+hints = PackedStringArray()
+layout_path = "res://data/levels/ch2_market_gate_map.json"
+
+[sub_resource type="Resource" id="Resource_4trti"]
+script = ExtResource("3_sfgi7")
+id = &"pawn_front"
+target_level = "res://data/levels/ch2_harbor_street.tres"
+target_portal = &"street_home"
+prompt = "{interact} 出門"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Go outside",
+"ja": "{interact} 外に出る"
+})
+requires_flag = &"ch2_brief_done"
+locked_text = "先上屋頂，鷺在茶座等你拿查核證。"
+localized_locked_text = Dictionary[String, String]({
+"en": "Get the inspection pass from Egret on the rooftop tea terrace first.",
+"ja": "先に屋上の茶席で鷺から査察証を受け取る。"
+})
+
+[sub_resource type="Resource" id="Resource_oxlpi"]
+script = ExtResource("3_sfgi7")
+id = &"pawn_basement"
+prompt = "{interact} 地下室"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Basement",
+"ja": "{interact} 地下室"
+})
+locked_text = "地下室的門鎖著，老 K 說裡面在漏水。"
+localized_locked_text = Dictionary[String, String]({
+"en": "The basement is locked. Old K says there's a leak.",
+"ja": "地下室は施錠中。老Kによると中で水が漏れている。"
+})
+width = 32
+height = 48
+style = "hidden"
+
+[sub_resource type="Resource" id="Resource_2bhm2"]
+script = ExtResource("3_sfgi7")
+id = &"pawn_stairs"
+target_level = "res://data/levels/ch2_rooftop.tres"
+target_portal = &"roof_stairs"
+prompt = "{interact} 上屋頂"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Go to the rooftop",
+"ja": "{interact} 屋上へ上がる"
+})
+requires_flag = &"ch2_morning_settled"
+locked_text = "先和老 K 把昨晚的報酬對完。"
+localized_locked_text = Dictionary[String, String]({
+"en": "Check last night's payment with Old K first.",
+"ja": "先に老Kと昨夜の報酬を確認する。"
+})
+width = 20
+height = 152
+style = "ladder"
+
+[sub_resource type="Resource" id="Resource_b22hg"]
+script = ExtResource("11_fqxrv")
+id = &"ch1_pawn"
+display_name = "當舖櫃台"
+
+[sub_resource type="Resource" id="Resource_00xyv"]
+script = ExtResource("7_04qia")
+id = &"ch2_radio"
+
+[sub_resource type="Resource" id="Resource_k5l2n"]
+script = ExtResource("7_04qia")
+id = &"ch2_old_k"
+
+[sub_resource type="Resource" id="Resource_dc4mk"]
+script = ExtResource("1_fuu4v")
+id = &"ch2_pawnshop"
+display_name = "當舖（早上）"
+localized_names = Dictionary[String, String]({
+"en": "Pawnshop (Morning)",
+"ja": "質屋（朝）"
+})
+height = 24
+legend = Dictionary[String, Resource]({
+"F": SubResource("Resource_4trti"),
+"K": SubResource("Resource_oxlpi"),
+"S": SubResource("Resource_2bhm2"),
+"V": SubResource("Resource_b22hg"),
+"Ⓡ": SubResource("Resource_00xyv"),
+"ⓞ": SubResource("Resource_k5l2n")
+})
+sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
+billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
+chapter = &"ch2_heron"
+skip_flags = PackedStringArray()
+story_triggers = PackedStringArray()
+hints = PackedStringArray()
+layout_path = "res://data/levels/ch2_pawnshop_map.json"
+
+[sub_resource type="Resource" id="Resource_dd601"]
+script = ExtResource("3_sfgi7")
+id = &"roof_stairs"
+target_level = "res://data/levels/ch2_pawnshop.tres"
+target_portal = &"pawn_stairs"
+prompt = "{interact} 下樓"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Go downstairs",
+"ja": "{interact} 階段を下りる"
+})
+style = "hidden"
+
+[sub_resource type="Resource" id="Resource_2am84"]
+
+[sub_resource type="Resource" id="Resource_fgjuy"]
+script = ExtResource("7_04qia")
+id = &"ch2_egret"
+
+[sub_resource type="Resource" id="Resource_vv8mc"]
+script = ExtResource("1_fuu4v")
+id = &"ch2_rooftop"
+display_name = "屋頂茶座"
+localized_names = Dictionary[String, String]({
+"en": "Rooftop Tea Terrace",
+"ja": "屋上の茶席"
+})
+height = 24
+legend = Dictionary[String, Resource]({
+"T": SubResource("Resource_dd601"),
+"⑨": SubResource("Resource_2am84"),
+"ⓔ": SubResource("Resource_fgjuy")
+})
+sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
+billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
+chapter = &"ch2_heron"
+next_level = "res://data/levels/ch3_pawnshop.tres"
+skip_flags = PackedStringArray()
+story_triggers = PackedStringArray()
+hints = PackedStringArray()
+layout_path = "res://data/levels/ch2_rooftop_map.json"
+
+[sub_resource type="Resource" id="Resource_k4xct"]
+script = ExtResource("3_sfgi7")
+id = &"clinic_mezz"
+target_level = "res://data/levels/ch3_mezzanine.tres"
+target_portal = &"mezz_clinic"
+prompt = "{interact} 回夾層通道"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Return to the mezzanine passage",
+"ja": "{interact} 中二階の通路へ戻る"
+})
+
+[sub_resource type="Resource" id="Resource_ho15a"]
+script = ExtResource("3_sfgi7")
+id = &"clinic_gate"
+target_level = "res://data/levels/ch3_gate_hall.tres"
+target_portal = &"gate_clinic"
+prompt = "{interact} 往門禁大廳"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Go to the Access Hall",
+"ja": "{interact} 入退館ホールへ"
+})
+requires_flag = &"ch3_report_reconciled"
+locked_text = "門禁大廳要夾層證。先在閱覽桌把三份公開資料核對完。"
+localized_locked_text = Dictionary[String, String]({
+"en": "Check the three public records at the reading desk for a mezzanine pass.",
+"ja": "閲覧机で三つの公開資料を照合し、中二階の通行証を取る。"
+})
+
+[sub_resource type="Resource" id="Resource_7580k"]
+script = ExtResource("7_04qia")
+id = &"ch3_register_cabinet"
+
+[sub_resource type="Resource" id="Resource_jheq7"]
+script = ExtResource("7_04qia")
+id = &"ch3_deposit_drawer"
+
+[sub_resource type="Resource" id="Resource_4b746"]
+script = ExtResource("7_04qia")
+id = &"ch3_reading_desk"
+
+[sub_resource type="Resource" id="Resource_p0twf"]
+script = ExtResource("7_04qia")
+id = &"ch3_public_report"
+
+[sub_resource type="Resource" id="Resource_g57s1"]
+script = ExtResource("7_04qia")
+id = &"ch3_nursing_board"
+
+[sub_resource type="Resource" id="Resource_oorj2"]
+script = ExtResource("7_04qia")
+id = &"ch3_zhi"
+
+[sub_resource type="Resource" id="Resource_ncq6t"]
+script = ExtResource("1_fuu4v")
+id = &"ch3_clinic"
+display_name = "夾層診所"
+localized_names = Dictionary[String, String]({
+"en": "Mezzanine Clinic",
+"ja": "中二階の診療所"
+})
+height = 24
+legend = Dictionary[String, Resource]({
+"m": SubResource("Resource_k4xct"),
+"ⅰ": SubResource("Resource_ho15a"),
+"Ⓞ": SubResource("Resource_7580k"),
+"ⓓ": SubResource("Resource_jheq7"),
+"ⓔ": SubResource("Resource_4b746"),
+"ⓟ": SubResource("Resource_p0twf"),
+"ⓣ": SubResource("Resource_g57s1"),
+"ⓩ": SubResource("Resource_oorj2")
+})
+sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
+billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
+chapter = &"ch3_clearwater"
+skip_flags = PackedStringArray()
+story_triggers = PackedStringArray()
+hints = PackedStringArray()
+layout_path = "res://data/levels/ch3_clinic_map.json"
+
+[sub_resource type="Resource" id="Resource_e5lm5"]
+
+[sub_resource type="Resource" id="Resource_au11c"]
+script = ExtResource("3_sfgi7")
+id = &"gate_care"
+target_level = "res://data/levels/ch3_mezzanine.tres"
+target_portal = &"mezz_care"
+prompt = "{interact} 走護理通道外段回夾層"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Take the outer care passage back to the mezzanine",
+"ja": "{interact} 外側の看護通路で中二階へ戻る"
+})
+requires_flag = &"ch3_care_passage_open"
+locked_text = "護理通道的外門還鎖著，門禁工作架停下來才會打開。"
+localized_locked_text = Dictionary[String, String]({
+"en": "Stop the gate rig to open the outer care passage.",
+"ja": "門の作業フレームを止めると看護通路の外扉が開く。"
+})
+
+[sub_resource type="Resource" id="Resource_uk5qf"]
+script = ExtResource("3_sfgi7")
+id = &"gate_clinic"
+target_level = "res://data/levels/ch3_clinic.tres"
+target_portal = &"clinic_gate"
+prompt = "{interact} 回診所櫃檯"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Return to the clinic desk",
+"ja": "{interact} 診療所の受付へ戻る"
+})
+
+[sub_resource type="Resource" id="Resource_ghe0w"]
+script = ExtResource("3_sfgi7")
+id = &"gate_lift"
+target_level = "res://data/levels/ch3_glass_edge.tres"
+target_portal = &"edge_lift"
+prompt = "{interact} 搭邊緣電梯上去"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Take the edge lift up",
+"ja": "{interact} 縁のエレベーターで上がる"
+})
+requires_flag = &"ch3_janus_aftercare_done"
+locked_text = "門禁工作架還擋著邊緣電梯，先讓守門人停下來。"
+localized_locked_text = Dictionary[String, String]({
+"en": "Stop the Gatekeeper to open the edge lift.",
+"ja": "門番を止めると縁のエレベーターが開く。"
+})
+width = 32
+height = 56
+
+[sub_resource type="Resource" id="Resource_653er"]
+script = ExtResource("7_04qia")
+id = &"ch3_scanner_gate"
+
+[sub_resource type="Resource" id="Resource_6d48y"]
+script = ExtResource("7_04qia")
+id = &"ch3_gatekeeper"
+
+[sub_resource type="Resource" id="Resource_57u7k"]
+script = ExtResource("1_fuu4v")
+id = &"ch3_gate_hall"
+display_name = "門禁大廳"
+localized_names = Dictionary[String, String]({
+"en": "Access Hall",
+"ja": "入退館ホール"
+})
+height = 24
+legend = Dictionary[String, Resource]({
+"Ю": SubResource("Resource_e5lm5"),
+"Ⅷ": SubResource("Resource_au11c"),
+"ⅱ": SubResource("Resource_uk5qf"),
+"ⅲ": SubResource("Resource_ghe0w"),
+"Ⓖ": SubResource("Resource_653er"),
+"ⓙ": SubResource("Resource_6d48y")
+})
+sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
+billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
+chapter = &"ch3_clearwater"
+skip_flags = PackedStringArray()
+story_triggers = PackedStringArray()
+hints = PackedStringArray()
+layout_path = "res://data/levels/ch3_gate_hall_map.json"
+
+[sub_resource type="Resource" id="Resource_58aoi"]
+script = ExtResource("3_sfgi7")
+id = &"edge_lift"
+target_level = "res://data/levels/ch3_gate_hall.tres"
+target_portal = &"gate_lift"
+prompt = "{interact} 搭邊緣電梯下去"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Take the edge lift down",
+"ja": "{interact} 縁のエレベーターで下りる"
+})
+width = 32
+height = 56
+
+[sub_resource type="Resource" id="Resource_kjlw4"]
+script = ExtResource("3_sfgi7")
+id = &"edge_homes"
+prompt = "{interact} 住宅內區"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Residential wing",
+"ja": "{interact} 住宅の内部区画"
+})
+locked_text = "住宅內區需要正式參觀證，今天只開展示接待。"
+localized_locked_text = Dictionary[String, String]({
+"en": "You need a visitor pass for the residential wing. Only reception is open today.",
+"ja": "住宅区画には見学証が必要です。今日は展示受付のみ開いています。"
+})
+
+[sub_resource type="Resource" id="Resource_vnh46"]
+script = ExtResource("3_sfgi7")
+id = &"edge_show"
+target_level = "res://data/levels/ch3_showroom.tres"
+target_portal = &"show_edge"
+prompt = "{interact} 進晴岸展示接待"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Enter the Far Shore reception",
+"ja": "{interact} 晴岸の展示受付に入る"
+})
+
+[sub_resource type="Resource" id="Resource_s801f"]
+script = ExtResource("3_sfgi7")
+id = &"edge_hall"
+target_level = "res://data/levels/ch3_office_hall.tres"
+target_portal = &"hall_edge"
+prompt = "{interact} 走候梯迴廊"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Take the lift corridor",
+"ja": "{interact} エレベーター前の回廊へ"
+})
+
+[sub_resource type="Resource" id="Resource_jgsxu"]
+script = ExtResource("7_04qia")
+id = &"ch3_light_spot"
+
+[sub_resource type="Resource" id="Resource_uvky2"]
+script = ExtResource("7_04qia")
+id = &"ch3_telescope"
+
+[sub_resource type="Resource" id="Resource_h3mfd"]
+script = ExtResource("1_fuu4v")
+id = &"ch3_glass_edge"
+display_name = "玻璃邊緣"
+localized_names = Dictionary[String, String]({
+"en": "Glass Edge",
+"ja": "ガラスの縁"
+})
+height = 24
+legend = Dictionary[String, Resource]({
+"Ⅸ": SubResource("Resource_58aoi"),
+"ⅳ": SubResource("Resource_kjlw4"),
+"ⅴ": SubResource("Resource_vnh46"),
+"ⅵ": SubResource("Resource_s801f"),
+"Ⓟ": SubResource("Resource_jgsxu"),
+"Ⓠ": SubResource("Resource_uvky2")
+})
+sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
+billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
+chapter = &"ch3_clearwater"
+skip_flags = PackedStringArray()
+story_triggers = PackedStringArray()
+hints = PackedStringArray()
+layout_path = "res://data/levels/ch3_glass_edge_map.json"
+
+[sub_resource type="Resource" id="Resource_rkbuq"]
+script = ExtResource("4_kb2ry")
+
+[sub_resource type="Resource" id="Resource_kkaku"]
+
+[sub_resource type="Resource" id="Resource_cfsmi"]
+script = ExtResource("3_sfgi7")
+id = &"mezz_lift"
+target_level = "res://data/levels/ch3_plaza.tres"
+target_portal = &"plaza_lift"
+prompt = "{interact} 搭貨梯回廣場"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Take the freight lift back to the plaza",
+"ja": "{interact} 貨物リフトで広場へ戻る"
+})
+width = 32
+height = 56
+
+[sub_resource type="Resource" id="Resource_6u3o5"]
+script = ExtResource("3_sfgi7")
+id = &"mezz_clinic"
+target_level = "res://data/levels/ch3_clinic.tres"
+target_portal = &"clinic_mezz"
+prompt = "{interact} 進夾層診所"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Enter the Mezzanine Clinic",
+"ja": "{interact} 中二階の診療所に入る"
+})
+
+[sub_resource type="Resource" id="Resource_50ljs"]
+script = ExtResource("3_sfgi7")
+id = &"mezz_care"
+target_level = "res://data/levels/ch3_gate_hall.tres"
+target_portal = &"gate_care"
+prompt = "{interact} 走護理通道外段到門禁大廳"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Take the outer care passage to the Access Hall",
+"ja": "{interact} 外側の看護通路で入退館ホールへ"
+})
+requires_flag = &"ch3_care_passage_open"
+locked_text = "護理通道的外門從門禁大廳那一側鎖著。"
+localized_locked_text = Dictionary[String, String]({
+"en": "The care passage is locked from the Access Hall side.",
+"ja": "看護通路は入退館ホール側から施錠されている。"
+})
+
+[sub_resource type="Resource" id="Resource_hhcjq"]
+script = ExtResource("3_sfgi7")
+id = &"mezz_shaft"
+target_level = "res://data/levels/ch3_pump.tres"
+target_portal = &"pump_shaft"
+prompt = "{interact} 沿維修豎井下到泵室管線廊"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Climb down the service shaft to the pump room",
+"ja": "{interact} 保守用の縦坑を下りてポンプ室へ"
+})
+requires_flag = &"ch3_freight_ready"
+locked_text = "豎井的防水閘和貨梯連動，先把水排掉、讓貨梯接通。"
+localized_locked_text = Dictionary[String, String]({
+"en": "Drain the water and restore freight lift power to open the shaft.",
+"ja": "排水して貨物リフトの電源を戻すと縦坑が開く。"
+})
+
+[sub_resource type="Resource" id="Resource_5t1aj"]
+script = ExtResource("7_04qia")
+id = &"ch3_notice_terminal"
+
+[sub_resource type="Resource" id="Resource_xmok0"]
+script = ExtResource("1_fuu4v")
+id = &"ch3_mezzanine"
+display_name = "夾層通道"
+localized_names = Dictionary[String, String]({
+"en": "Mezzanine Passage",
+"ja": "中二階の通路"
+})
+height = 40
+legend = Dictionary[String, Resource]({
+"c": SubResource("Resource_rkbuq"),
+"Ж": SubResource("Resource_kkaku"),
+"Ш": SubResource("Resource_kkaku"),
+"Ⅲ": SubResource("Resource_cfsmi"),
+"Ⅳ": SubResource("Resource_6u3o5"),
+"Ⅶ": SubResource("Resource_50ljs"),
+"⇓": SubResource("Resource_hhcjq"),
+"ⓝ": SubResource("Resource_5t1aj")
+})
+sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
+billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
+chapter = &"ch3_clearwater"
+skip_flags = PackedStringArray()
+story_triggers = PackedStringArray()
+hints = PackedStringArray("公開報表的查核往右走。安養病房的來訪要洽護理櫃檯，廠房暫停通行。", "上方的維修豎井通到泵室管線廊，貨梯接通後才開。")
+layout_path = "res://data/levels/ch3_mezzanine_map.json"
+
+[sub_resource type="Resource" id="Resource_xc2es"]
+script = ExtResource("3_sfgi7")
+id = &"hall_show"
+target_level = "res://data/levels/ch3_showroom.tres"
+target_portal = &"show_hall"
+prompt = "{interact} 回樣品房"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Return to the show flat",
+"ja": "{interact} モデルルームへ戻る"
+})
+
+[sub_resource type="Resource" id="Resource_2pwwj"]
+script = ExtResource("3_sfgi7")
+id = &"hall_edge"
+target_level = "res://data/levels/ch3_glass_edge.tres"
+target_portal = &"edge_hall"
+prompt = "{interact} 沿候梯迴廊回玻璃邊緣"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Take the lift corridor back to Glass Edge",
+"ja": "{interact} エレベーター前の回廊でガラスの縁へ戻る"
+})
+
+[sub_resource type="Resource" id="Resource_sjbx6"]
+script = ExtResource("3_sfgi7")
+id = &"hall_office"
+prompt = "{interact} 辦公內門"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Inner office door",
+"ja": "{interact} オフィスの内扉"
+})
+locked_text = "辦公內門需要職員證，迴廊只到等候臺。"
+localized_locked_text = Dictionary[String, String]({
+"en": "The inner office needs a staff pass. The corridor only reaches the waiting desk.",
+"ja": "オフィスの内扉には職員証が必要。回廊は待合台まで。"
+})
+
+[sub_resource type="Resource" id="Resource_do1d0"]
+script = ExtResource("7_04qia")
+id = &"ch3_waiting_bench"
+
+[sub_resource type="Resource" id="Resource_wm05q"]
+script = ExtResource("7_04qia")
+id = &"ch3_petition_box"
+
+[sub_resource type="Resource" id="Resource_k4vpq"]
+script = ExtResource("1_fuu4v")
+id = &"ch3_office_hall"
+display_name = "天穹辦公接待廊"
+localized_names = Dictionary[String, String]({
+"en": "Skydome Reception Corridor",
+"ja": "天穹の受付廊下"
+})
+height = 24
+legend = Dictionary[String, Resource]({
+"Ⅺ": SubResource("Resource_xc2es"),
+"Ⅻ": SubResource("Resource_2pwwj"),
+"ⅷ": SubResource("Resource_sjbx6"),
+"Ⓦ": SubResource("Resource_do1d0"),
+"ⓧ": SubResource("Resource_wm05q")
+})
+sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
+billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
+chapter = &"ch3_clearwater"
+skip_flags = PackedStringArray()
+story_triggers = PackedStringArray()
+hints = PackedStringArray()
+layout_path = "res://data/levels/ch3_office_hall_map.json"
+
+[sub_resource type="Resource" id="Resource_v1hds"]
+script = ExtResource("3_sfgi7")
+id = &"pawn_front"
+target_level = "res://data/levels/ch3_plaza.tres"
+target_portal = &"plaza_street"
+prompt = "{interact} 出門去廣場貨梯"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Go to the plaza freight lift",
+"ja": "{interact} 広場の貨物リフトへ"
+})
+requires_flag = &"ch3_departure_done"
+locked_text = "先和老 K 吃完早飯，確認今天要出門。"
+localized_locked_text = Dictionary[String, String]({
+"en": "Finish breakfast and tell Old K you're leaving.",
+"ja": "朝食を済ませて、老Kに出かけると伝える。"
+})
+
+[sub_resource type="Resource" id="Resource_h0aor"]
+script = ExtResource("3_sfgi7")
+id = &"pawn_basement"
+prompt = "{interact} 地下室"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Basement",
+"ja": "{interact} 地下室"
+})
+locked_text = "地下室的門鎖著，老 K 說裡面在漏水。"
+localized_locked_text = Dictionary[String, String]({
+"en": "The basement is locked. Old K says there's a leak.",
+"ja": "地下室は施錠中。老Kによると中で水が漏れている。"
+})
+width = 32
+height = 48
+style = "hidden"
+
+[sub_resource type="Resource" id="Resource_nd77v"]
+script = ExtResource("7_04qia")
+id = &"ch3_old_k_kitchen"
+
+[sub_resource type="Resource" id="Resource_0xnf2"]
+script = ExtResource("7_04qia")
+id = &"ch3_shop_radio"
+
+[sub_resource type="Resource" id="Resource_fa4dp"]
+script = ExtResource("7_04qia")
+id = &"ch3_unsigned_record"
+
+[sub_resource type="Resource" id="Resource_iixw3"]
+script = ExtResource("7_04qia")
+id = &"ch3_old_k"
+
+[sub_resource type="Resource" id="Resource_ogpun"]
+script = ExtResource("1_fuu4v")
+id = &"ch3_pawnshop"
+display_name = "當舖（週日）"
+localized_names = Dictionary[String, String]({
+"en": "Pawnshop (Sunday)",
+"ja": "質屋（日曜）"
+})
+height = 24
+legend = Dictionary[String, Resource]({
+"F": SubResource("Resource_v1hds"),
+"K": SubResource("Resource_h0aor"),
+"Ⓜ": SubResource("Resource_nd77v"),
+"Ⓡ": SubResource("Resource_0xnf2"),
+"ⓜ": SubResource("Resource_fa4dp"),
+"ⓞ": SubResource("Resource_iixw3")
+})
+sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
+billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
+chapter = &"ch3_clearwater"
+skip_flags = PackedStringArray()
+story_triggers = PackedStringArray()
+hints = PackedStringArray()
+layout_path = "res://data/levels/ch3_pawnshop_map.json"
+
+[sub_resource type="Resource" id="Resource_2radr"]
+script = ExtResource("3_sfgi7")
+id = &"plaza_lift"
+target_level = "res://data/levels/ch3_mezzanine.tres"
+target_portal = &"mezz_lift"
+prompt = "{interact} 搭貨梯上夾層"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Take the freight lift up to the mezzanine",
+"ja": "{interact} 貨物リフトで中二階へ上がる"
+})
+requires_flag = &"ch3_freight_ready"
+locked_text = "貨梯的安全聯鎖還沒解除。先到泵室把水排掉，再回控制箱叫車廂。"
+localized_locked_text = Dictionary[String, String]({
+"en": "Drain the pump room, then call the freight lift from the control box.",
+"ja": "ポンプ室を排水し、操作盤から貨物リフトを呼ぶ。"
+})
+width = 32
+height = 56
+style = "hidden"
+
+[sub_resource type="Resource" id="Resource_ylbsi"]
+script = ExtResource("4_kb2ry")
+
+[sub_resource type="Resource" id="Resource_0focs"]
+script = ExtResource("3_sfgi7")
+id = &"plaza_street"
+target_level = "res://data/levels/ch3_pawnshop.tres"
+target_portal = &"pawn_front"
+prompt = "{interact} 回當舖"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Return to the pawnshop",
+"ja": "{interact} 質屋へ戻る"
+})
+
+[sub_resource type="Resource" id="Resource_p0acn"]
+script = ExtResource("4_kb2ry")
+
+[sub_resource type="Resource" id="Resource_ivw2w"]
+script = ExtResource("3_sfgi7")
+id = &"plaza_pump"
+target_level = "res://data/levels/ch3_pump.tres"
+target_portal = &"pump_plaza"
+prompt = "{interact} 走下路到泵室"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Take the lower path to the pump room",
+"ja": "{interact} 下の通路でポンプ室へ"
+})
+width = 28
+style = "road"
+
+[sub_resource type="Resource" id="Resource_3ti5o"]
+script = ExtResource("3_sfgi7")
+id = &"plaza_ladder"
+target_level = "res://data/levels/ch3_pump.tres"
+target_portal = &"pump_ladder"
+prompt = "{interact} 走外梯到泵室上橋"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Take the outside ladder to the pump room bridge",
+"ja": "{interact} 外はしごでポンプ室の上の橋へ"
+})
+requires_flag = &"ch3_outer_ladder_down"
+locked_text = "外梯還收著，貨梯接通以後才能從這一側放下來。"
+localized_locked_text = Dictionary[String, String]({
+"en": "Restore freight lift power to lower the outside ladder from here.",
+"ja": "貨物リフトの電源を戻せば、ここから外はしごを下ろせる。"
+})
+height = 56
+style = "hidden"
+
+[sub_resource type="Resource" id="Resource_kwik1"]
+script = ExtResource("7_04qia")
+id = &"ch3_control_box"
+
+[sub_resource type="Resource" id="Resource_o04fd"]
+script = ExtResource("7_04qia")
+id = &"ch3_water_gauge"
+
+[sub_resource type="Resource" id="Resource_yr0cf"]
+script = ExtResource("7_04qia")
+id = &"ch3_outer_ladder"
+
+[sub_resource type="Resource" id="Resource_mrs8o"]
+script = ExtResource("1_fuu4v")
+id = &"ch3_plaza"
+display_name = "廣場貨梯"
+localized_names = Dictionary[String, String]({
+"en": "Plaza Freight Lift",
+"ja": "広場の貨物リフト"
+})
+height = 40
+legend = Dictionary[String, Resource]({
+"L": SubResource("Resource_2radr"),
+"c": SubResource("Resource_ylbsi"),
+"h": SubResource("Resource_0focs"),
+"¢": SubResource("Resource_p0acn"),
+"Ⅰ": SubResource("Resource_ivw2w"),
+"Ⅴ": SubResource("Resource_3ti5o"),
+"Ⓗ": SubResource("Resource_kwik1"),
+"Ⓘ": SubResource("Resource_o04fd"),
+"ⓢ": SubResource("Resource_yr0cf")
+})
+sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
+billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
+chapter = &"ch3_clearwater"
+skip_flags = PackedStringArray()
+story_triggers = PackedStringArray()
+hints = PackedStringArray("維修盒：水位降到低線後再領。", "沿纜輪維修道往上走，看得到貨梯、外梯和泵室的入口。")
+layout_path = "res://data/levels/ch3_plaza_map.json"
+
+[sub_resource type="Resource" id="Resource_0kdak"]
+script = ExtResource("4_kb2ry")
+
+[sub_resource type="Resource" id="Resource_iv0aq"]
+script = ExtResource("4_kb2ry")
+
+[sub_resource type="Resource" id="Resource_e1qgv"]
+
+[sub_resource type="Resource" id="Resource_yx0gr"]
+script = ExtResource("3_sfgi7")
+id = &"pump_plaza"
+target_level = "res://data/levels/ch3_plaza.tres"
+target_portal = &"plaza_pump"
+prompt = "{interact} 回廣場"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Return to the plaza",
+"ja": "{interact} 広場へ戻る"
+})
+width = 28
+style = "road"
+
+[sub_resource type="Resource" id="Resource_idqof"]
+script = ExtResource("3_sfgi7")
+id = &"pump_ladder"
+target_level = "res://data/levels/ch3_plaza.tres"
+target_portal = &"plaza_ladder"
+prompt = "{interact} 走外梯回廣場貨梯"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Take the outside ladder back to the plaza",
+"ja": "{interact} 外はしごで広場の貨物リフトへ戻る"
+})
+requires_flag = &"ch3_outer_ladder_down"
+locked_text = "外梯收在廣場那一側，貨梯接通後從控制箱旁放下來。"
+localized_locked_text = Dictionary[String, String]({
+"en": "Power the freight lift, then lower the ladder from the plaza control box.",
+"ja": "貨物リフトの電源を戻し、広場の操作盤のそばから外はしごを下ろす。"
+})
+
+[sub_resource type="Resource" id="Resource_tyrfg"]
+script = ExtResource("3_sfgi7")
+id = &"pump_shaft"
+target_level = "res://data/levels/ch3_mezzanine.tres"
+target_portal = &"mezz_shaft"
+prompt = "{interact} 爬維修豎井到夾層"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Climb the service shaft to the mezzanine",
+"ja": "{interact} 保守用の縦坑を上って中二階へ"
+})
+requires_flag = &"ch3_freight_ready"
+locked_text = "豎井的防水閘和貨梯連動，先把水排掉、讓貨梯接通。"
+localized_locked_text = Dictionary[String, String]({
+"en": "Drain the water and restore freight lift power to open the shaft.",
+"ja": "排水して貨物リフトの電源を戻すと縦坑が開く。"
+})
+
+[sub_resource type="Resource" id="Resource_y15mw"]
+script = ExtResource("7_04qia")
+id = &"ch3_drain_wheel"
+
+[sub_resource type="Resource" id="Resource_adoc1"]
+script = ExtResource("7_04qia")
+id = &"ch3_branch_panel"
+
+[sub_resource type="Resource" id="Resource_7pnad"]
+script = ExtResource("1_fuu4v")
+id = &"ch3_pump"
+display_name = "集水槽與泵室"
+localized_names = Dictionary[String, String]({
+"en": "Sump and Pump Room",
+"ja": "集水槽とポンプ室"
+})
+height = 40
+legend = Dictionary[String, Resource]({
+"c": SubResource("Resource_0kdak"),
+"¢": SubResource("Resource_iv0aq"),
+"Ж": SubResource("Resource_e1qgv"),
+"Ш": SubResource("Resource_e1qgv"),
+"Ⅱ": SubResource("Resource_yx0gr"),
+"Ⅵ": SubResource("Resource_idqof"),
+"⇑": SubResource("Resource_tyrfg"),
+"Ⓙ": SubResource("Resource_y15mw"),
+"Ⓚ": SubResource("Resource_adoc1")
+})
+sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
+billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
+chapter = &"ch3_clearwater"
+skip_flags = PackedStringArray()
+story_triggers = PackedStringArray("ch3_b_c02_upper_route")
+hints = PackedStringArray("維修備料：水位降到低線後再領。", "管線廊的維修豎井通到夾層，貨梯接通後才開。")
+layout_path = "res://data/levels/ch3_pump_map.json"
+
+[sub_resource type="Resource" id="Resource_uulrg"]
+script = ExtResource("3_sfgi7")
+id = &"show_edge"
+target_level = "res://data/levels/ch3_glass_edge.tres"
+target_portal = &"edge_show"
+prompt = "{interact} 回玻璃邊緣"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Return to Glass Edge",
+"ja": "{interact} ガラスの縁へ戻る"
+})
+
+[sub_resource type="Resource" id="Resource_iflki"]
+script = ExtResource("3_sfgi7")
+id = &"show_hall"
+target_level = "res://data/levels/ch3_office_hall.tres"
+target_portal = &"hall_show"
+prompt = "{interact} 往候梯迴廊取回執"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Pick up the receipt in the lift corridor",
+"ja": "{interact} エレベーター前の回廊で控えを受け取る"
+})
+requires_flag = &"ch3_clearwater_tour_done"
+locked_text = "先在接待桌確認看房，林小姐會告訴您取件格在哪裡。"
+localized_locked_text = Dictionary[String, String]({
+"en": "Check in at reception. Ms. Lin will show you where to collect the receipt.",
+"ja": "受付で見学を申し込むと、林さんが受け取り棚の場所を教えてくれる。"
+})
+
+[sub_resource type="Resource" id="Resource_c2ux3"]
+script = ExtResource("7_04qia")
+id = &"ch3_window_morning"
+
+[sub_resource type="Resource" id="Resource_c666f"]
+script = ExtResource("7_04qia")
+id = &"ch3_window_quiet"
+
+[sub_resource type="Resource" id="Resource_384wq"]
+script = ExtResource("7_04qia")
+id = &"ch3_window_late"
+
+[sub_resource type="Resource" id="Resource_obhqy"]
+script = ExtResource("7_04qia")
+id = &"ch3_lin"
+
+[sub_resource type="Resource" id="Resource_cgb6x"]
+script = ExtResource("1_fuu4v")
+id = &"ch3_showroom"
+display_name = "晴岸樣品房"
+localized_names = Dictionary[String, String]({
+"en": "Far Shore Show Flat",
+"ja": "晴岸のモデルルーム"
+})
+height = 24
+legend = Dictionary[String, Resource]({
+"Ⅹ": SubResource("Resource_uulrg"),
+"ⅶ": SubResource("Resource_iflki"),
+"Ⓐ": SubResource("Resource_c2ux3"),
+"Ⓑ": SubResource("Resource_c666f"),
+"Ⓤ": SubResource("Resource_384wq"),
+"ⓛ": SubResource("Resource_obhqy")
+})
+sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
+billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
+chapter = &"ch3_clearwater"
+skip_flags = PackedStringArray()
+story_triggers = PackedStringArray()
+hints = PackedStringArray()
+layout_path = "res://data/levels/ch3_showroom_map.json"
+
+[sub_resource type="Resource" id="Resource_2hkrv"]
+script = ExtResource("7_04qia")
+id = &"night_worker"
+
+[sub_resource type="Resource" id="Resource_u7tun"]
+script = ExtResource("7_04qia")
+id = &"ah_po"
+
+[sub_resource type="Resource" id="Resource_7k3pb"]
+
+[sub_resource type="Resource" id="Resource_44wm3"]
+script = ExtResource("13_rr1u8")
+id = &"melee_dagger"
+display_name = "單分子匕首"
+
+[sub_resource type="Resource" id="Resource_fdcxq"]
+script = ExtResource("13_rr1u8")
+id = &"melee_blade"
+display_name = "熱能長刀"
+
+[sub_resource type="Resource" id="Resource_5jj72"]
+script = ExtResource("13_rr1u8")
+id = &"melee_maul"
+display_name = "液壓錘"
+
+[sub_resource type="Resource" id="Resource_5apuw"]
+script = ExtResource("13_rr1u8")
+id = &"melee_glaive"
+display_name = "離子戰戟"
+
+[sub_resource type="Resource" id="Resource_lrjm1"]
+script = ExtResource("13_rr1u8")
+id = &"melee_whip"
+display_name = "單分子鞭"
+
+[sub_resource type="Resource" id="Resource_f4sx7"]
+script = ExtResource("13_rr1u8")
+id = &"launcher"
+display_name = "震爆榴彈發射器"
+
+[sub_resource type="Resource" id="Resource_3cupv"]
+script = ExtResource("13_rr1u8")
+id = &"laser"
+display_name = "貫穿光束"
+
+[sub_resource type="Resource" id="Resource_j3i7q"]
+script = ExtResource("13_rr1u8")
+id = &"rifle"
+display_name = "K-7 突擊步槍"
+
+[sub_resource type="Resource" id="Resource_o2krs"]
+script = ExtResource("13_rr1u8")
+id = &"spread"
+display_name = "碎骨霰彈槍"
+
+[sub_resource type="Resource" id="Resource_3p5sp"]
+script = ExtResource("13_rr1u8")
+id = &"smg"
+display_name = "蜂鳴衝鋒槍"
+
+[sub_resource type="Resource" id="Resource_vlihw"]
+script = ExtResource("13_rr1u8")
+id = &"railgun"
+display_name = "電磁軌道砲"
+
+[sub_resource type="Resource" id="Resource_675go"]
+script = ExtResource("4_kb2ry")
+
+[sub_resource type="Resource" id="Resource_yftj7"]
+script = ExtResource("12_tnruj")
+id = &"shield_cell"
+display_name = "護盾電池"
+
+[sub_resource type="Resource" id="Resource_q572w"]
+script = ExtResource("5_4mrjh")
+id = &"doc_sky_flyer"
+display_name = "天穹宣傳單"
+
+[sub_resource type="Resource" id="Resource_iwqme"]
+script = ExtResource("12_tnruj")
+id = &"med_injector"
+display_name = "醫療針"
+
+[sub_resource type="Resource" id="Resource_rqwqw"]
+script = ExtResource("4_kb2ry")
+id = &"credits_large"
+
+[sub_resource type="Resource" id="Resource_o5gdx"]
+script = ExtResource("5_4mrjh")
+id = &"rec_old_k_voicemail"
+display_name = "老K的語音留言"
+
+[sub_resource type="Resource" id="Resource_5ohd6"]
+script = ExtResource("14_xqojo")
+id = &"cracked_wall"
+look = 3
+hint = "牆上有裂縫：打破它，後面可能有東西"
+size_tiles = Vector2i(1, 4)
+
+[sub_resource type="Resource" id="Resource_513ps"]
+script = ExtResource("5_4mrjh")
+id = &"doc_cargo_manifest"
+display_name = "貨運清單"
+
+[sub_resource type="Resource" id="Resource_q6bxe"]
+script = ExtResource("11_fqxrv")
+
+[sub_resource type="Resource" id="Resource_1vbr1"]
+script = ExtResource("1_fuu4v")
+id = &"level_01"
+display_name = "第一章　雨夜"
+height = 24
+legend = Dictionary[String, Resource]({
+"A": SubResource("Resource_u7tun"),
+"D": SubResource("Resource_44wm3"),
+"E": SubResource("Resource_fdcxq"),
+"F": SubResource("Resource_5jj72"),
+"G": SubResource("Resource_f4sx7"),
+"I": SubResource("Resource_5apuw"),
+"J": SubResource("Resource_lrjm1"),
+"L": SubResource("Resource_3cupv"),
+"M": SubResource("Resource_7k3pb"),
+"R": SubResource("Resource_j3i7q"),
+"S": SubResource("Resource_o2krs"),
+"T": SubResource("Resource_7k3pb"),
+"U": SubResource("Resource_3p5sp"),
+"V": SubResource("Resource_vlihw"),
+"W": SubResource("Resource_2hkrv"),
+"X": SubResource("Resource_7k3pb"),
+"[": SubResource("Resource_7k3pb"),
+"b": SubResource("Resource_7k3pb"),
+"c": SubResource("Resource_675go"),
+"d": SubResource("Resource_7k3pb"),
+"e": SubResource("Resource_yftj7"),
+"f": SubResource("Resource_q572w"),
+"g": SubResource("Resource_7k3pb"),
+"i": SubResource("Resource_iwqme"),
+"m": SubResource("Resource_7k3pb"),
+"q": SubResource("Resource_rqwqw"),
+"r": SubResource("Resource_7k3pb"),
+"t": SubResource("Resource_7k3pb"),
+"v": SubResource("Resource_o5gdx"),
+"x": SubResource("Resource_5ohd6"),
+"y": SubResource("Resource_513ps"),
+"z": SubResource("Resource_q6bxe")
+})
+decor = Dictionary[String, String]({
+"$": "neon_sign",
+"%": "neon_sign_h",
+"@": "billboard",
+"~": "steam_vent"
+})
+sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
+billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
+next_level = "res://data/levels/level_02.tres"
+skip_flags = PackedStringArray()
+story_triggers = PackedStringArray("radio_start", "radio_roof", "radio_market", "radio_market_mei", "radio_shield", "radio_forecast", "radio_mech", "radio_facility", "cut_c8_arm_noise", "radio_last")
+hints = PackedStringArray("移動 {move_left}/{move_right}，跳躍 {jump}（按久跳更高）", "滑鼠瞄準，{shoot} 射擊；{weapon_next} 或 1～4 換武器", "按住 {block} 舉盾；子彈到的瞬間舉盾＝完美反彈", "{move_down}＋{jump} 從平台落下；{dash} 衝刺時無敵", "監視蜂在頭頂：往斜上方瞄準射擊", "敵人頭上出現青色菱形：按 {melee} 終結，回補彈藥", "鎮暴員正面擋子彈：跳過或衝刺穿越，打背後", "按 {interact} 搭乘機甲：爆炸彈頭無視盾牌", "打爆自爆蟲，爆炸會波及牠的同伴")
+layout_path = "res://data/levels/level_01_map.json"
+
+[sub_resource type="Resource" id="Resource_15okj"]
+
+[sub_resource type="Resource" id="Resource_0h675"]
+script = ExtResource("7_04qia")
+id = &"height_marks"
+
+[sub_resource type="Resource" id="Resource_r3nt2"]
+script = ExtResource("7_04qia")
+id = &"nurse"
+
+[sub_resource type="Resource" id="Resource_bv13g"]
+script = ExtResource("7_04qia")
+id = &"resident"
+
+[sub_resource type="Resource" id="Resource_3yq2a"]
+script = ExtResource("7_04qia")
+id = &"repairman_chen"
+
+[sub_resource type="Resource" id="Resource_dumfg"]
+script = ExtResource("16_fvipl")
+id = &"gate_custodian"
+kind = 1
+display_name = "轉運站閘門"
+hint = "轉運站閘門：打倒看守長才會打開"
+
+[sub_resource type="Resource" id="Resource_bqa5n"]
+script = ExtResource("5_4mrjh")
+id = &"doc_shaft_memo"
+display_name = "升降井維護備忘"
+
+[sub_resource type="Resource" id="Resource_gx2ex"]
+script = ExtResource("13_rr1u8")
+id = &"laser"
+display_name = "貫穿光束"
+
+[sub_resource type="Resource" id="Resource_n3k17"]
+script = ExtResource("5_4mrjh")
+id = &"doc_power_log"
+display_name = "電力室值班記錄"
+
+[sub_resource type="Resource" id="Resource_o10gr"]
+script = ExtResource("5_4mrjh")
+id = &"doc_nest_log"
+display_name = "NEST 實驗日誌"
+
+[sub_resource type="Resource" id="Resource_aqj7t"]
+script = ExtResource("5_4mrjh")
+id = &"doc_resident_notice"
+display_name = "夾層區居民通知"
+
+[sub_resource type="Resource" id="Resource_bfvsw"]
+script = ExtResource("13_rr1u8")
+id = &"spread"
+display_name = "碎骨霰彈槍"
+
+[sub_resource type="Resource" id="Resource_fv4gs"]
+script = ExtResource("13_rr1u8")
+id = &"rifle"
+display_name = "K-7 突擊步槍"
+
+[sub_resource type="Resource" id="Resource_atayr"]
+script = ExtResource("13_rr1u8")
+id = &"smg"
+display_name = "蜂鳴衝鋒槍"
+
+[sub_resource type="Resource" id="Resource_r2ppk"]
+script = ExtResource("5_4mrjh")
+id = &"rec_wataru_2"
+display_name = "航的語音留言・二"
+
+[sub_resource type="Resource" id="Resource_bn2dc"]
+script = ExtResource("5_4mrjh")
+id = &"rec_wataru_1"
+display_name = "航的語音留言・一"
+
+[sub_resource type="Resource" id="Resource_yrrku"]
+script = ExtResource("14_xqojo")
+id = &"crate"
+hint = "打破貨箱，尋找裡面的補給。"
+
+[sub_resource type="Resource" id="Resource_ixn2n"]
+script = ExtResource("4_kb2ry")
+
+[sub_resource type="Resource" id="Resource_2oi6r"]
+script = ExtResource("12_tnruj")
+id = &"shield_cell"
+display_name = "護盾電池"
+
+[sub_resource type="Resource" id="Resource_7065b"]
+script = ExtResource("16_fvipl")
+id = &"lift_tall"
+kind = 0
+display_name = "升降梯"
+hint = "搭乘升降梯上樓，前往維修走道。"
+
+[sub_resource type="Resource" id="Resource_7r41l"]
+script = ExtResource("16_fvipl")
+id = &"gate_a"
+kind = 1
+display_name = "閘門"
+hint = "閘門：找到同色的開關才能打開"
+
+[sub_resource type="Resource" id="Resource_eaxtd"]
+script = ExtResource("12_tnruj")
+id = &"med_injector"
+display_name = "醫療針"
+
+[sub_resource type="Resource" id="Resource_xo2dv"]
+script = ExtResource("16_fvipl")
+id = &"gate_b"
+kind = 1
+display_name = "閘門"
+hint = "藍色閘門：找到藍色的開關才能打開"
+
+[sub_resource type="Resource" id="Resource_vdraq"]
+script = ExtResource("16_fvipl")
+id = &"switch_b"
+display_name = "藍色閘門開關"
+hint = "{interact} 切換開關：打開藍色的閘門"
+
+[sub_resource type="Resource" id="Resource_kcf0o"]
+script = ExtResource("14_xqojo")
+id = &"barrel"
+look = 1
+hint = "油桶：打爆會連敵人帶你一起炸，保持距離"
+size_tiles = Vector2i(1, 2)
+
+[sub_resource type="Resource" id="Resource_fyu8i"]
+script = ExtResource("16_fvipl")
+id = &"power_switch"
+kind = 3
+display_name = "電力開關"
+hint = "{interact} 切斷電源：這一區熄燈，雷射與砲台停擺"
+
+[sub_resource type="Resource" id="Resource_bg1jp"]
+script = ExtResource("4_kb2ry")
+id = &"credits_large"
+
+[sub_resource type="Resource" id="Resource_xlqf3"]
+script = ExtResource("16_fvipl")
+id = &"lift"
+kind = 0
+display_name = "升降梯"
+hint = "站上升降梯，它會自動上下往返。"
+
+[sub_resource type="Resource" id="Resource_x346k"]
+script = ExtResource("14_xqojo")
+id = &"glass_wall"
+look = 2
+hint = "強化玻璃：多打幾發就會碎"
+size_tiles = Vector2i(1, 4)
+
+[sub_resource type="Resource" id="Resource_mhoom"]
+script = ExtResource("14_xqojo")
+id = &"cracked_wall"
+look = 3
+hint = "牆上有裂縫：打破它，後面可能有東西"
+size_tiles = Vector2i(1, 4)
+
+[sub_resource type="Resource" id="Resource_llqvn"]
+script = ExtResource("16_fvipl")
+id = &"switch_a"
+display_name = "閘門開關"
+hint = "{interact} 切換開關：打開同色的閘門"
+
+[sub_resource type="Resource" id="Resource_8vfah"]
+script = ExtResource("11_fqxrv")
+
+[sub_resource type="Resource" id="Resource_0g7gu"]
+script = ExtResource("1_fuu4v")
+id = &"level_02"
+display_name = "第二章　天空的代價"
+height = 24
+legend = Dictionary[String, Resource]({
+"+": SubResource("Resource_15okj"),
+"<": SubResource("Resource_15okj"),
+">": SubResource("Resource_15okj"),
+"A": SubResource("Resource_3yq2a"),
+"D": SubResource("Resource_bqa5n"),
+"E": SubResource("Resource_15okj"),
+"F": SubResource("Resource_gx2ex"),
+"G": SubResource("Resource_bv13g"),
+"I": SubResource("Resource_r3nt2"),
+"J": SubResource("Resource_n3k17"),
+"K": SubResource("Resource_o10gr"),
+"L": SubResource("Resource_0h675"),
+"M": SubResource("Resource_15okj"),
+"N": SubResource("Resource_aqj7t"),
+"O": SubResource("Resource_15okj"),
+"Q": SubResource("Resource_bfvsw"),
+"R": SubResource("Resource_fv4gs"),
+"S": SubResource("Resource_15okj"),
+"U": SubResource("Resource_atayr"),
+"V": SubResource("Resource_r2ppk"),
+"W": SubResource("Resource_bn2dc"),
+"X": SubResource("Resource_15okj"),
+"Y": SubResource("Resource_15okj"),
+"Z": SubResource("Resource_15okj"),
+"a": SubResource("Resource_yrrku"),
+"b": SubResource("Resource_15okj"),
+"c": SubResource("Resource_ixn2n"),
+"e": SubResource("Resource_2oi6r"),
+"f": SubResource("Resource_7065b"),
+"h": SubResource("Resource_7r41l"),
+"i": SubResource("Resource_eaxtd"),
+"j": SubResource("Resource_xo2dv"),
+"k": SubResource("Resource_15okj"),
+"l": SubResource("Resource_vdraq"),
+"m": SubResource("Resource_dumfg"),
+"n": SubResource("Resource_15okj"),
+"o": SubResource("Resource_kcf0o"),
+"p": SubResource("Resource_fyu8i"),
+"q": SubResource("Resource_bg1jp"),
+"s": SubResource("Resource_15okj"),
+"u": SubResource("Resource_xlqf3"),
+"v": SubResource("Resource_15okj"),
+"w": SubResource("Resource_x346k"),
+"x": SubResource("Resource_mhoom"),
+"y": SubResource("Resource_llqvn"),
+"z": SubResource("Resource_8vfah"),
+"λ": SubResource("Resource_15okj"),
+"μ": SubResource("Resource_15okj"),
+"ν": SubResource("Resource_15okj"),
+"ξ": SubResource("Resource_15okj")
+})
+decor = Dictionary[String, String]({
+"$": "neon_sign",
+"%": "neon_sign_h",
+"@": "billboard"
+})
+sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
+billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
+chapter = &"chapter_02"
+skip_flags = PackedStringArray()
+story_triggers = PackedStringArray("c2_radio_start", "c2_radio_barrel", "c2_radio_k1", "cut_c5_memory", "c2_reclaimer_glass", "c2_radio_cloak", "c2_radio_wall", "c2_radio_corridor", "cut_c9_alarm", "c2_curtain", "c2_radio_power", "c2_radio_medic", "c2_radio_k2", "c2_radio_captain", "c2_radio_last")
+hints = PackedStringArray("升降井口：先沿著這裡走，電梯會把你帶到更高的地方", "敵人身邊的油桶：先打爆它", "站在燈下，迷彩獵手就會現形；隱形時留意閃爍的空氣", "有路卻看不見？往有燈的地方走，燈照到的地方路才會浮現")
+layout_path = "res://data/levels/level_02_map.json"
+
+[resource]
+script = ExtResource("17_hfrqh")
+version = 1
+levels = Dictionary[String, ExtResource("1_fuu4v")]({
+"res://data/levels/ch1_booth_alley.tres": SubResource("Resource_0gtkn"),
+"res://data/levels/ch1_handoff.tres": SubResource("Resource_1us7s"),
+"res://data/levels/ch1_lounge.tres": SubResource("Resource_6y4v0"),
+"res://data/levels/ch1_pawnshop.tres": SubResource("Resource_3drkq"),
+"res://data/levels/ch1_pawnshop_dawn.tres": SubResource("Resource_sfhkc"),
+"res://data/levels/ch1_prologue.tres": SubResource("Resource_3f20m"),
+"res://data/levels/ch1_rooftop.tres": SubResource("Resource_xbrxm"),
+"res://data/levels/ch1_stall.tres": SubResource("Resource_1tvsl"),
+"res://data/levels/ch1_street.tres": SubResource("Resource_brq07"),
+"res://data/levels/ch1_vault.tres": SubResource("Resource_hgvw2"),
+"res://data/levels/ch1_warehouse.tres": SubResource("Resource_hdn1u"),
+"res://data/levels/ch2_ali_home.tres": SubResource("Resource_um6xo"),
+"res://data/levels/ch2_harbor_street.tres": SubResource("Resource_a7ann"),
+"res://data/levels/ch2_ledger_front.tres": SubResource("Resource_ddtbl"),
+"res://data/levels/ch2_ledger_office.tres": SubResource("Resource_3on4n"),
+"res://data/levels/ch2_loading.tres": SubResource("Resource_fqhxq"),
+"res://data/levels/ch2_lounge_front.tres": SubResource("Resource_h3coc"),
+"res://data/levels/ch2_market.tres": SubResource("Resource_kpqd6"),
+"res://data/levels/ch2_market_gate.tres": SubResource("Resource_nwg5v"),
+"res://data/levels/ch2_pawnshop.tres": SubResource("Resource_dc4mk"),
+"res://data/levels/ch2_rooftop.tres": SubResource("Resource_vv8mc"),
+"res://data/levels/ch3_clinic.tres": SubResource("Resource_ncq6t"),
+"res://data/levels/ch3_gate_hall.tres": SubResource("Resource_57u7k"),
+"res://data/levels/ch3_glass_edge.tres": SubResource("Resource_h3mfd"),
+"res://data/levels/ch3_mezzanine.tres": SubResource("Resource_xmok0"),
+"res://data/levels/ch3_office_hall.tres": SubResource("Resource_k4vpq"),
+"res://data/levels/ch3_pawnshop.tres": SubResource("Resource_ogpun"),
+"res://data/levels/ch3_plaza.tres": SubResource("Resource_mrs8o"),
+"res://data/levels/ch3_pump.tres": SubResource("Resource_7pnad"),
+"res://data/levels/ch3_showroom.tres": SubResource("Resource_cgb6x"),
+"res://data/levels/level_01.tres": SubResource("Resource_1vbr1"),
+"res://data/levels/level_02.tres": SubResource("Resource_0g7gu")
+})
+digests = Dictionary[String, String]({
+"res://data/consumables/med_injector.tres": "0464a1745471706110f2e332dc022765a61177afdb3f3f0116984d8e66e50bb8",
+"res://data/consumables/shield_cell.tres": "deb22cb97db469eb406aeff6abb0751c9727bce6697ddaa4ec4e3d37d862d83b",
+"res://data/enemies/bomber.tres": "024c4b083d3b3ac43086a77ababf353c201e2044a60a32c8d611a7595785e560",
+"res://data/enemies/ch1_inspector.tres": "ed33c305c5e4fc015bc48674dc18337b9f4d1861a22a2763c164f45069d2759b",
+"res://data/enemies/ch2_bill_thrower.tres": "7811d82563d80eb98becab8391e83cca34a880f865d600c7b81036a642fdbc8e",
+"res://data/enemies/ch2_escort.tres": "0c4f61f7654dd4621784d74c907b27b63124d0937032620980a5d77cdf65c590",
+"res://data/enemies/collector_brute.tres": "01d6f068dca969175a8dd7ec99f81f89762306702fe4752991fe871452ac9d29",
+"res://data/enemies/collector_gunner.tres": "b77a0eeb261fe9a2342879afac3a552e98041ed91e88c1edcce5d2fc30a76aeb",
+"res://data/enemies/custodian.tres": "16c878688a7ede7c3befc74dfd68ee1bc48fa778563c5c7f06ea6b7409a220e8",
+"res://data/enemies/drone.tres": "34cd18c5a191ad29a8271d61ea1d74309fd471740431b185020c3e8de03d2374",
+"res://data/enemies/elite_grunt.tres": "73415134da75cfd198af8f66042ee1e06d14d6222bc4409170f2f0395e8262be",
+"res://data/enemies/flamer.tres": "83c4b96ca088d953d2bf05f60f3247d74b3fbffe3603db9494dbe99bb76cbd3f",
+"res://data/enemies/grunt.tres": "df3430f123abcaf56d238de570cac4e2bec3926c536f03f4d1882a7927eaa025",
+"res://data/enemies/heavy_gunner.tres": "4f571c1db951d67ff5f60a743f35cf049edc23e422b48f6d4b2920ab6623a045",
+"res://data/enemies/insulation_inspector.tres": "7d9d0eb57f9f9078106537378bdc88fc70de30367b56edffef10e2ed42657387",
+"res://data/enemies/janus.tres": "4c501f5aa3605adc6b0710429057460f2fa15228b082d82f2a4c4f4d1746c108",
+"res://data/enemies/mimic.tres": "8a59d936a10d6288aba86ae5199d6a18f5ef0fcddb0579447c84efd9d4d5da96",
+"res://data/enemies/mortar.tres": "582c35ade3fc6214d13b62009a1dc82741afd4fa9c26b54275b78c1c10551571",
+"res://data/enemies/pump_inspector.tres": "390e1cd47dd3adf93b035f0db8489b33cb5448e7a8432108a812ab5bec3431a8",
+"res://data/enemies/rail_cannon.tres": "755273b4c4d145b7200b60ac55016d4fdabee2ce1b7b0256f8fe8cf546143da4",
+"res://data/enemies/reclaimer.tres": "fbc2ff754bf6f17e61f8cd30b4fb191e7d6da61e7ce37b3555e7bd3ffa61e98a",
+"res://data/enemies/repair_drone.tres": "a9bb2cb69892289a8d0e23610417700991a161655a454295f503a5da4fbcd5ff",
+"res://data/enemies/searchlight_drone.tres": "f6f3cc38c7ae674e46c2a56076ba9d4f839fa2b930970ed679c00d38998fcc3c",
+"res://data/enemies/shaft_bat.tres": "18dd54137c9081ec5b1db62c1115520970e4ba8834df8bd2645e29350058fa2c",
+"res://data/enemies/shield_rusher.tres": "ee357583b7f55b6910af80692d9b08be2b1db54b2a2070957e69442c7f5bc5a3",
+"res://data/enemies/shock_hound.tres": "6ec9144b796c428069a4fd2e230613541702d556d04222e9f1b3e685aa70febb",
+"res://data/enemies/slasher.tres": "1e56acf9c02f9e8f0387a69837fbc75b615d44572f3a14a2428ae3ef1cf77a4f",
+"res://data/enemies/sniper.tres": "c1e53b700a5ec8cfe1e222f103319bb9e2852379ebfae25c20a1cda5efc101c1",
+"res://data/enemies/stalker.tres": "4e38f648cfa9fbee862aec6b86f38680f1c8fb78f9df07172177bd9c2652324c",
+"res://data/enemies/strike/chain_hook.tres": "31635a87a86b257cf6043063692dfd555e3cc19b5b68c701bcddffe278f9f008",
+"res://data/enemies/strike/chainsaw_arm.tres": "bf88e9848ea308e820ade8fa93d4f5ebe3bb79acac66f081d06491edfbecfa71",
+"res://data/enemies/strike/hydraulic_claw.tres": "c5f4a3f1d45cf64e9448eda7da65b131b03ed3a84881b881579a48097403df49",
+"res://data/enemies/strike/plasma_whip.tres": "ffab595230fd2069000fe3024f3c3c0d5318a727be43c2ab0b1dd7be1d099acb",
+"res://data/enemies/sweeper.tres": "c00cd83109ded7be58584b720912085655f50840bb364d0306c19c1081a768ac",
+"res://data/enemies/tangle_wire.tres": "26bd7345925759c37d515b8505ae2fd70060c3045caab1847045f4d31fc56d95",
+"res://data/enemies/turret.tres": "6b750bf1d944620d00e53561924aea0994781ac1a11fe0df94364f1c7d12124f",
+"res://data/enemies/wall_gecko.tres": "cf1dbd41e2a771189f5606f0916e77acb91388bcf807ead69bd7b50440ca2914",
+"res://data/enemies/warden.tres": "f948897bc6c2619bdeeacf3a99590167c92706bb058110ade6d8ecd3933e46e7",
+"res://data/enemies/watchdog.tres": "87cdaf3a19a2809f388cd46824587c03dbfbb9d35a49a189ee3934a4c4d602cd",
+"res://data/enemies/yong.tres": "154283d88ccef1f3075eeea1d61ba09a1bcc8fbb4e20a8d7eed5bcb3635c4424",
+"res://data/levels/ch1_booth_alley.tres": "15d774f20001087d81e2683fe63beb4473537586a8d8cb1a57d2809dc2c801f9",
+"res://data/levels/ch1_handoff.tres": "3d0c9978522a9f0b0f9c91d794808ed1df7c4938cdebbcee51591d564d42c44c",
+"res://data/levels/ch1_lounge.tres": "cd4ae42c43506296c23cc73ed4bd8a6ed85a6b591843a184414aa3d5c46950b0",
+"res://data/levels/ch1_pawnshop.tres": "1d5b6996ee22998745d678e4fbd740bd00a09be15e5fea47e486a6acb2f48310",
+"res://data/levels/ch1_pawnshop_dawn.tres": "cd07c3fcb1c92f001815ff702754e112783e0156b283528822e5ac6586cd9e12",
+"res://data/levels/ch1_prologue.tres": "f34a42f31a1a53fbb6ca6885f10acff7b5bd41aff5a47fdddea7a66948271c54",
+"res://data/levels/ch1_rooftop.tres": "5a563460286a3ca43094c8c8da94c63232daee3448f3a1a9ec1728a0a68655c1",
+"res://data/levels/ch1_stall.tres": "c8f9b84e70e47b2392085db5a6ffcbd8090374b4d740434b5713cc0e90678cb6",
+"res://data/levels/ch1_street.tres": "d392944bdb057b1f5cb2a02d93c5b5f0b2f700c3e2dc52ff741d35b654236b47",
+"res://data/levels/ch1_vault.tres": "17ea469a8e6fb8fb5f58c36e31409f8adaeba4ab7a479304825ff25080f4da7e",
+"res://data/levels/ch1_warehouse.tres": "41a5a18c6eb27d5bf94e379152451ca3d225c2038f5a82bb84e3778f93e5fe79",
+"res://data/levels/ch2_ali_home.tres": "afcc17be922a00a813d6f0ebc543ff72ce049fbc1e95ce0af67c98d2903cfc28",
+"res://data/levels/ch2_harbor_street.tres": "5b518b012d01bb2b79f22e73845653e3bb7a955053db9b2da9bfd04c1af562f7",
+"res://data/levels/ch2_ledger_front.tres": "dc7cbed7976c7da61f9b8bd19f2fb89207113164274606e9f0b1fe6a15d5eabc",
+"res://data/levels/ch2_ledger_office.tres": "ecea6ab9434a6a13f241128b3179e51299f52480e710140eda7cb75599309894",
+"res://data/levels/ch2_loading.tres": "f855ad759aba3f7f04ced43d62629e084d7cdda5b76fc88e920262f9a2c83668",
+"res://data/levels/ch2_lounge_front.tres": "c6910a5a00dbe1dc46a4f121390136c184ae4d4d7b2ba215eda1f086a8ddcf4f",
+"res://data/levels/ch2_market.tres": "3341dd129b68606373714d535e696e81fb756814a453a2040915720ff8942ac3",
+"res://data/levels/ch2_market_gate.tres": "3f719dbe7b0134d93e1590ee93d86b32dd0c9b0bccdaf7abea7f2295f7c11075",
+"res://data/levels/ch2_pawnshop.tres": "64e56a242834dba40cea12d7e4f8820c88b970b62e89f7bde6531f65be31c1f2",
+"res://data/levels/ch2_rooftop.tres": "a6201d13122063e8aa39317cfebc3624af1f0b22f15af142ba0955623bc0e1ab",
+"res://data/levels/ch3_clinic.tres": "1adf447aafa7b7d0abfd26d01ffd71912f99c65e4a274f969aa8dfea8eabba07",
+"res://data/levels/ch3_gate_hall.tres": "a20abe75d519708a5940929d18475f1de828c81731d2218fa35e6d5209b278dd",
+"res://data/levels/ch3_glass_edge.tres": "957ce11b4acd6c0a7d7bf28cddf781e0f7ae974483e404f4f4a9c957180424d9",
+"res://data/levels/ch3_mezzanine.tres": "aa0269e03e0320a1c62e5b60a67485778644bb37b761cfbc43c6bb3b25ade150",
+"res://data/levels/ch3_office_hall.tres": "0754d6402f3f5f83d5b61039cd8e49ef9df29daf280aa7ebb1c2d89162fd188f",
+"res://data/levels/ch3_pawnshop.tres": "6e3fc7cf55238125bbc8c52f09ef9ba87bdaa1f211980da685798edda042b37a",
+"res://data/levels/ch3_plaza.tres": "04b7c5dddb570368a2663a58de1c8f5ba2240c2cda580b4b94a6fac7ae08a0fe",
+"res://data/levels/ch3_pump.tres": "b6f80ee980510e2569e6af04497dbdf69bfa4d0f8442e1192f8fe0190f614e0d",
+"res://data/levels/ch3_showroom.tres": "d0f8fab766ec01863ef82f5c3b533cfd7a55ca563c70f736661196aeaeb04812",
+"res://data/levels/level_01.tres": "c582d2bd9b2c821059489076e4186099891f5e37c9e3a3797a00437074d1b0ba",
+"res://data/levels/level_02.tres": "5db4c22f5a17686b01d4874865fe1096b5e8d55f9b00c28f6c4d84171184b28d",
+"res://data/npcs/ah_po.tres": "3cd6782fbfc78e4c50f5ebfb8a38fcad6f5abe0f59c5f99d30123fe69811a282",
+"res://data/npcs/ch1_ali_lounge.tres": "1e22efdd50ea25d1bf741f8054d669c0686233c57547f443c26a4e70709db973",
+"res://data/npcs/ch1_ali_stall.tres": "eb9610a14f0b7e06ad2b92bc001dac4bdb438995cb2d44fb5a4e9160bb211002",
+"res://data/npcs/ch1_egret.tres": "b29f0287fe1cc6521a01a3e0b1baf6f63b883e5a9b74874cce263b00f79547ad",
+"res://data/npcs/ch1_handoff_cabinet.tres": "e9385d8bf73e9805cb504640a8b6b8a0b87e5a403076456be85c6b4076872287",
+"res://data/npcs/ch1_label_fare.tres": "09a9984b03c2d687dcdfa67e7e69a2053fc3886cf9e20cfcf0f5c13ba5444ebe",
+"res://data/npcs/ch1_label_guitar.tres": "80a962a00a952796a2f19508249a7ce44e7ac69760a28ebdf2db662c02b803b4",
+"res://data/npcs/ch1_label_raincoat.tres": "485151c0fc91bf0419718ee9756cfdf509d721dac676dbc6288909d733b5e7de",
+"res://data/npcs/ch1_label_watch.tres": "5857388e84e5e527230264937d0e63dca5785f68adb9de687f10e11065ed1fbc",
+"res://data/npcs/ch1_lamp_voice.tres": "8890cef3891437162cf94c8b1be128b6cfd14454e4611c496ef93a1f0baa5284",
+"res://data/npcs/ch1_ledger_box.tres": "42dd57e3f5378013d1b5131ef2a587fd1b67e818f009544b965427276f159f7a",
+"res://data/npcs/ch1_old_k.tres": "e07e7fbccd1fa333f7423676704249123604b7a0ad3baae725045945d959dbb0",
+"res://data/npcs/ch1_old_k_backyard.tres": "ac3a884f7a9d509dd57cdc21c23032aacb828bf8375a72ad7716c67e4b287a63",
+"res://data/npcs/ch1_old_k_counter.tres": "2cd07035dd1f3e300ed83794b77a1dced552565a627d7a6719e2c061d24d811d",
+"res://data/npcs/ch1_old_k_prologue.tres": "d38c134ba0ff0c991366eb27d3a94093d39b671dd9b7d8533d567d08b62e4bab",
+"res://data/npcs/ch1_prologue_catalog.tres": "079f84da18eebcee85a7240eadf4db6cb16fedf178d18af3b32f4ab61c49879a",
+"res://data/npcs/ch1_prologue_service_sheet.tres": "7532d90e02f7c5650af0f2fad1ee74f4d619c238a368f5e853c630677acb55a3",
+"res://data/npcs/ch1_pump_service.tres": "01956d8ae9937177c0b3ab6671b2aedc036ac5b37a67e88c6270c68f6e229a24",
+"res://data/npcs/ch1_umbrella_stand.tres": "e46516d7e0a50bac77c57ab1c17d54eb4811b43d29dfefc6ca7b1a939f8e11cc",
+"res://data/npcs/ch2_ali_home.tres": "80b67bfc7e82b741b791eb988fda61d60ad0615c95cce6467c25695a33c4d598",
+"res://data/npcs/ch2_ali_lounge.tres": "a8a30a3d4a7839ad423ee2b25646bc0414e2794b6fe0bf20ade61ece50beee7e",
+"res://data/npcs/ch2_ali_market.tres": "aefda54e7fabd27729e1bbf5e694ed0c2785123852df4df47e1b375d05280bdd",
+"res://data/npcs/ch2_banyan.tres": "a28a44dd0ef16afcdcbfac07fcadfeb951dbdfeb1ca4388d8f23a69cc9153702",
+"res://data/npcs/ch2_collection_book.tres": "e53688626f61fe472fc1d5c877e935b56ef6d736a738c780886d0b071b9fabdb",
+"res://data/npcs/ch2_drying_desk.tres": "34e6a506feac130f7bef9577bf1ec470c69571e4d43c9a4bdd62bc3039c04724",
+"res://data/npcs/ch2_egret.tres": "51a82f568b7df6970505c433e9abc509e3018b895eb09badfee2caae2eef93ed",
+"res://data/npcs/ch2_egret_booth.tres": "d8c48c5a06bfbde9003bf1e83fd51ee2620115ebed34ff906bcd419ccc6fbafc",
+"res://data/npcs/ch2_guard.tres": "386d16d4fd477c61fd24c258b4caab4a7586ed604924027aaf3f0106e06b22b8",
+"res://data/npcs/ch2_guest_entry.tres": "baa6cbd6162cbb3973af8e7d3342e617ddc85c0eebc057122b9a1f53b955e80c",
+"res://data/npcs/ch2_hawker.tres": "d5c817c0fcfae906b6b1e1d8a19b9e021030f4d647fcff52bf6984e98d1ec713",
+"res://data/npcs/ch2_isolation_diagram.tres": "327e044549f83e5226f7fde454dfe9045fe99dabac74ea5548c48d78dcbb1f91",
+"res://data/npcs/ch2_ledger_cabinet.tres": "d8e34aec6a50c3e0f94de32f7b7d5de3278865224e393c0607151d9b37a39e93",
+"res://data/npcs/ch2_ledger_door.tres": "aac29835db3a9219f960ad2531b0c08816cd3061455f800e7bd6a2769aed0440",
+"res://data/npcs/ch2_notice_screen.tres": "04376169867e7874648b62d5ebdfd1c12f2b14ea27f9850db6148be5d2d9b8cc",
+"res://data/npcs/ch2_old_k.tres": "ddda1c4f5660e5838e5bddd0e0824f57e0420e256ff1c0f7ff65a46e9c971111",
+"res://data/npcs/ch2_patroller.tres": "555df47f3a4faf5bade12d853b8258231a207821cc9085c90d0e09eddcbf79bc",
+"res://data/npcs/ch2_radio.tres": "c057d7156b4488e26767760e8b1dd638aa1eb1cbb035ba73d5ed25bcfc927b60",
+"res://data/npcs/ch2_rent_window.tres": "a6df3d4bab61307b72457a07740703145f4086a1e94d8f5fe132ef03b0160d44",
+"res://data/npcs/ch2_sc1_lever.tres": "71b07b442849550015291fc7f749d9ff2dedc0d36f351ef19f9abaf19b63c515",
+"res://data/npcs/ch2_terminal.tres": "e2145077edac89cc85ebc109a92548360f9a0a91c5b9dbb065d80ab780e1bbf6",
+"res://data/npcs/ch2_vig.tres": "004db57ff2c5cc590a0c6895d860467cb6d4bfb5a1763f52bec6e737ceb580af",
+"res://data/npcs/ch2_xiaowei.tres": "b66296d5e5285c108ed1bc8a7756cdadd3b31b1f262e4ebac95c9dc970486468",
+"res://data/npcs/ch3_branch_panel.tres": "048fdb427c6acfb415f16021c2206274926cffbeb661b6777cc1abc9b7731c63",
+"res://data/npcs/ch3_control_box.tres": "9dd08455c2d91c39e46b4b5398ae8bcb1f8364585b3d79f541f17088a7df8f32",
+"res://data/npcs/ch3_deposit_drawer.tres": "b20f562b9ba71b81b0dcd603e6a8e64248ec9c2d5d89b23c59abd821ab067669",
+"res://data/npcs/ch3_drain_wheel.tres": "a4f85c1e5fef47ba820cb6af8afb5b2eb9516666d02828c26d88b5f7ca683b5d",
+"res://data/npcs/ch3_gatekeeper.tres": "8c0a191dda3de788334c1cb196f407017c9714bad43d2581af209a8a841df23c",
+"res://data/npcs/ch3_light_spot.tres": "9fa716e55de6016789f549989f2a8e596635b06962d1a403bd78817eae893fd1",
+"res://data/npcs/ch3_lin.tres": "a1e05c7923d1948802e87da1553c23d2f19a8c7e358bf37bb962f2a1e0276620",
+"res://data/npcs/ch3_notice_terminal.tres": "cdd652c528197852e1d700c3984e24b032fee972b26e4277e0f18ad8d765c0fa",
+"res://data/npcs/ch3_nursing_board.tres": "f03fbbfb4cfbc228b46d7026fc6284b0169a5778c272a7bac396d5fe57d83dca",
+"res://data/npcs/ch3_old_k.tres": "a801f385ef0ef41f7a72c640e651e27810807788d2c72abf90a6276c5cd7085a",
+"res://data/npcs/ch3_old_k_kitchen.tres": "4f73a1c71c9bd339a03e3b4939f9735b1e64c00e61a634f7702990952e97689a",
+"res://data/npcs/ch3_outer_ladder.tres": "846838ca8f0128c6734f71388f873d5fef2628d55fedda2a970deb489b4a3104",
+"res://data/npcs/ch3_petition_box.tres": "473c5ad2e8dcdef37f0ce95a61d3f1d542a34367aa502d5477f43de7e99b7059",
+"res://data/npcs/ch3_public_report.tres": "93092f46a06bed4ae8ecb41d66571374effb5393bf26360335c6210d0d8c2760",
+"res://data/npcs/ch3_reading_desk.tres": "3addee4de4fbf7311699365056e321a82b090ff487d4e5705238f844570e6065",
+"res://data/npcs/ch3_register_cabinet.tres": "d2d705201c0fda4674fe5ad23a46aaf55c5c30a3a5bfdc047329eec135c42087",
+"res://data/npcs/ch3_scanner_gate.tres": "208b5a620446e4bf585054d7435061242bba545c9e0c5f5a1f9e290dbffd25fc",
+"res://data/npcs/ch3_shop_radio.tres": "4fe167791fe378e758429d62748eb1bf4eb9b179b912d034d3366e6ddb19c8d1",
+"res://data/npcs/ch3_telescope.tres": "d1a9bb8a2c1dd33e44644488bb4b1db5126f878ab7963ec1348d1dd5eb8728e1",
+"res://data/npcs/ch3_unsigned_record.tres": "b10ae88be686ff48a86e94a54d1df275f3e30eaefb512191f15ca9be38b41fcd",
+"res://data/npcs/ch3_waiting_bench.tres": "74fa5f8eb514a7254d54bdf6e7385da711846325a84e4ef49be28d7b123edf71",
+"res://data/npcs/ch3_water_gauge.tres": "5d77fab3e8642d7ede45f65489c604ee155a26e5bf3a606d98906e32fc4a04ad",
+"res://data/npcs/ch3_window_late.tres": "6266721967eb0e6282a46f77d370259a7e9a9854e8374201301854a15610c177",
+"res://data/npcs/ch3_window_morning.tres": "374bd3af8dfa7665938a90a87ebf973262dbce23b5aa90ee72fbd95661e120a9",
+"res://data/npcs/ch3_window_quiet.tres": "65d715b204f88640b524d3672fe2f242eda477ff02a4f9db0d768564c6cb6776",
+"res://data/npcs/ch3_zhi.tres": "8466b0fd09c2ac6e3e154c90853c3d95291a753abe86d3a9b5b69642ea9cd8fa",
+"res://data/npcs/height_marks.tres": "d27e662a987eea97addd25019c7f4aa5047496a2c370620ee9981793325577b2",
+"res://data/npcs/night_worker.tres": "907be02d75012b5f450e1a5233c560bcba3bd00712c2c76c0e4370582d7c111e",
+"res://data/npcs/nurse.tres": "e9848a827dce068c7d53ed27859fb026fd4f320a1749dc919103b51ec95ce562",
+"res://data/npcs/repairman_chen.tres": "14a981cb9b6d75ca8abcb09921e6135c2f65d0cfa94226175e7fcbc1e92e3d45",
+"res://data/npcs/resident.tres": "c8f2b16c66771daffd3532cda401d0fa9dd989a607012652f4cfe71a23c8cd94",
+"res://data/props/barrel.tres": "e8e924cce6d9d32c79adde8d6e8e8935d786eca49afa6ebc304e96f646f43bd0",
+"res://data/props/ch1_crate.tres": "a3a531b6ff155b875c462c669642ff20484d057f430450d6d02027d9788ee1bb",
+"res://data/props/ch1_enc_street_blockade.tres": "1da4786edc5a025eb2d36a7806f76b01643b5218d4627d7bae47d27e0c2580c7",
+"res://data/props/ch1_enc_street_plaza.tres": "bcb1fb2c0be0c713f4086270e81330bfd3471135df0b018f16e7484cbb990d67",
+"res://data/props/ch1_enc_warehouse_vault.tres": "8237b32dc4eba3a7e43302e5068c177c1c8d02e060e24523a4d5df29c49ad630",
+"res://data/props/ch1_enc_warehouse_walkway.tres": "8aa595df34beea32f0b5b6222db68317abae263efe281091053282e905a03a07",
+"res://data/props/ch1_flood_pit.tres": "4af6ea42a7d84d48b7f367814d8bead324fa13f13a57b7a8603954bf9553874e",
+"res://data/props/ch1_gate_a.tres": "1cb8aa343f372f6c4de992ff25df98db10756bba850b8d2f25a409cf50d0d91d",
+"res://data/props/ch1_gate_b.tres": "50c49e2b4b5ca4b79efa71e289f2adb6745e50cc40b6eab5cad8c5a9fbc14310",
+"res://data/props/ch1_gate_c.tres": "e104ab39adb0017e66eb98598bfc6c5802f285254bcce80fc5b2511e475ed617",
+"res://data/props/ch1_gate_watchdog.tres": "4f5a30b41adc8b2dd33887667d16c55e30a8807c4ecc3dc9aa483bc87ad2d2d4",
+"res://data/props/ch1_secret_wall.tres": "81ec1e38419a28e5fce73bed97584cef540e9a0f8349899e52a175403a56ecfd",
+"res://data/props/ch1_switch_a.tres": "dbd31470329a6631056063082506c19cc6653f81844fcbbc5d3384d6a97a2ded",
+"res://data/props/ch1_switch_b.tres": "84d80c4e216d8e976e80d76e211f70e47eecca7ef7c87579dfe2930edf76e4ab",
+"res://data/props/ch1_training_area.tres": "49b8b2c6dc6e657797aaba9ebf4f8fb9203486d6172bc3a866382d8bad9ae489",
+"res://data/props/ch1_training_dash.tres": "c252cb104e8d5b3dd5b5fb66205bf653d9f3a3b01f0264883ee7806c39a6421f",
+"res://data/props/ch1_training_dummy.tres": "2a9ef55d68fe3d9cf3deea68e1fd96786427b47da1aa656e6de2143c7b2715c8",
+"res://data/props/ch1_training_platform.tres": "0c768266c962e84f697c41b14c714e091ea264028a6ef3951fa5f0860d8597de",
+"res://data/props/ch1_training_range.tres": "a266ae4b2fbfd11251a88594105fd4a1eaf8fec9f7dec44e29a20797ecf5ae81",
+"res://data/props/ch1_training_target.tres": "5e9d2c9be80dd0e85b22e0aa8085387b46bb34066aa669ccd0d8578b308a83ba",
+"res://data/props/ch1_training_target_high.tres": "23266daec31ebca8facbd22d95ec70f400f92eeb158f46ca0e0a38edc9459bda",
+"res://data/props/ch1_training_trainer.tres": "799eeba1f50082b1675b715ac1ea3a7cf371eab39b5315c5d130af1b2789f73f",
+"res://data/props/ch1_training_workbench.tres": "a62edd2f8cf4ce6fe74647cbce12f99db2d5aadcb01db65077fdf339a44a57b5",
+"res://data/props/ch2_roof_combo_target.tres": "0e504284dd94dc7afaa081b29b38e8b1622d89fa40954487ce7c151022c3de5e",
+"res://data/props/cracked_wall.tres": "dfa3048aaf3553adf889a944c5b987a6768e947b00f0643d8227e47567691136",
+"res://data/props/crate.tres": "5286ff437abc89ee6a56dc52e26cd446d71150413d314814696c3082c14eef33",
+"res://data/props/credits_large.tres": "3219f488733a09b8e1e8d6ebe21e41e72decc2dbef5d0c34162b8b32983beee7",
+"res://data/props/credits_maintenance.tres": "8b33daa0acd1cf168bde59d1e3eaeebc310e8bebe3024efb6b48f36dbadab84f",
+"res://data/props/credits_small.tres": "4b43badb1a8793817bb0513783b9740c0d1eae51a5737f10f552e459046661c7",
+"res://data/props/gate_a.tres": "05305505a02f54f35e3c5c0ff5af66b327798273ee343e42d47653bcddd40385",
+"res://data/props/gate_b.tres": "70851f44619ca0089969737ae45f18fb488204f48ab762e0205ecf1f4d37ce0f",
+"res://data/props/gate_custodian.tres": "a54aca54f187d24a1288424c30cec73745d1611e9b1c111c41c08fe8135950a0",
+"res://data/props/glass_wall.tres": "89b33bec9c9f5c73a133bbddf3eb18947603e4a0cf9ad2a8a3239b36d7cecb5f",
+"res://data/props/lift.tres": "507685cf61aa02e6391a4a33f501448429ece90bd6aa3974ac970525575576e3",
+"res://data/props/lift_tall.tres": "b6c19c44dd24c43a91fdc6a4c789fc7f1ad91db7ac2b3df5c60ae0e568882113",
+"res://data/props/power_switch.tres": "3a1fa15b69337101aaab47d59451fdb109fc28a6b4321711ffed8a863a924afa",
+"res://data/props/recycle_curtain.tres": "c34f4a92d19c0b72be4edfb49dc90e24d541b85fea695b2f83b0785bdbd92195",
+"res://data/props/switch_a.tres": "1808e3468812d85c616eb1ea0945f5a7571e999d04b7f3b5e0cb9962fefb40d7",
+"res://data/props/switch_b.tres": "efbc3ebd232b17b6097e3c7c3e2cc8b0e4c3c61301406272ee1e53adc0fcf136",
+"res://data/shops/ch1_pawn.tres": "3bda753f21dd6005b9748d3644297b57e0081ce6db0d4641cc76ac53b2e4bceb",
+"res://data/shops/supply.tres": "ca8aafa1d7ab1724ba725bff81ca95f67f71767be3da51b3547a3fa4dce08b92",
+"res://data/story_items/ch1_data_disk.tres": "d4328b94e0ff19d62f8b250e8528b3017ad6f1db6684802d1839b41f4337b561",
+"res://data/story_items/doc_cargo_manifest.tres": "f863458ab30160eb505942438ef701938b6f8d8a305809919adf0b9dd8c75c2c",
+"res://data/story_items/doc_collection_notice.tres": "644e8d014ba2f91e356efe3a38ec83fd86447e3ca3f7e0aa7efaae78258d11e2",
+"res://data/story_items/doc_dike_log.tres": "2fc8f95249bed80d721dc47edfc8f73ab8c2fa5e82bdef6175c0c3bfeda2d0a0",
+"res://data/story_items/doc_echo_flyer.tres": "2409dea7c6bc0f4f270ec0508aa0b10a05388496c3ef2442c80e97722208b6d3",
+"res://data/story_items/doc_nest_log.tres": "1c74ddb4afe0d655de445ee3ea40212899878fc11f1b772d8ea0e07ed0825cef",
+"res://data/story_items/doc_pawn_stub.tres": "dd4a44bb9b62391c128733c14a3196aa6a673dad46119503df52d75cef11ed78",
+"res://data/story_items/doc_power_log.tres": "7d10bda4a2eefc22bcfaf0540a88d1c84ab86d01b65b56e5d1aadfc1d5424e71",
+"res://data/story_items/doc_rain_news.tres": "75fffea379a9bb060468eaf80625b2458ce976f7b10a95b0b00345da18587a28",
+"res://data/story_items/doc_resident_notice.tres": "bf57e99fb89e9f95c7c8d3fe6f8e2554cca7dc2746037288ea9d4ba01ee9abba",
+"res://data/story_items/doc_shaft_memo.tres": "a0d863bc9d8f454509b2651af0a6a84a9e8e17e7848a0615e5fb0287886f7b55",
+"res://data/story_items/doc_sky_flyer.tres": "db52b5da57e39b89361f9d9198fcc6da9851a841655ead4daf9ed8344e9c9ed4",
+"res://data/story_items/rec_old_k_voicemail.tres": "e2276b447c774070913d35a796af971aeaf7a8b4f0b3e0d236108d0c0da3026f",
+"res://data/story_items/rec_wataru_1.tres": "9c0644d859896f27a8961ee88e74b37c5754f0a7a65d29505c09bfa20bb11494",
+"res://data/story_items/rec_wataru_2.tres": "ade8f64b9e6904d989273c16b67384171bd719bb203179d605ba43d6717d2945",
+"res://data/throwables/concrete_chunk.tres": "9b304b80af320bc6b8ec7dee3a17ec48a71173f3dfb9e584640809d34e720bad",
+"res://data/throwables/crate_small.tres": "bad1d161bac1cb1fd31e073c4aecfe960ceea01d56ac616c832dc5b155c7b48f",
+"res://data/throwables/fuel_barrel.tres": "5b856873d923cff4f692d54050c64f6c1ceb2f08774a14d8311ca64b32795286",
+"res://data/throwables/pipe.tres": "6cda9bc1a19842c67e7936d0caaf1b471ae4dcc0ce174b4f3411157837b8f93e",
+"res://data/vehicles/bulwark.tres": "36001ee0e883cf0f7a8bd04a9445abefea73b5cc890de33e855c970ec55a3eec",
+"res://data/weapons/laser.tres": "65514c8053baeb27c587976b639608db9a8586488357b0d5efba17d732fb6b7d",
+"res://data/weapons/launcher.tres": "ff1940311cfac0af76fc95dfe251d81485c3a562adf26afcfc635a5abb8ff906",
+"res://data/weapons/melee/melee_blade.tres": "739d157f220c2f0e794bb638b30bd0e9945b46da7dca1982599560fed8cd0e79",
+"res://data/weapons/melee/melee_dagger.tres": "5aefc6922efaca9abee83f7c24e321ac49ffbcca1fa26932ddf80d983c04d0cb",
+"res://data/weapons/melee/melee_glaive.tres": "f862d1f7185f914c7302f61c414a8ed03c9a4894c882ee935f2de548a31a2f3f",
+"res://data/weapons/melee/melee_maul.tres": "177aed4a1e6af81388230f2213e1e77f6eb279b7f2bbf0931cb545c0bd69ec62",
+"res://data/weapons/melee/melee_whip.tres": "daf784395628b77c2970d232e3e608ed9b834dc5b26aeae89a39bb6da83a98ff",
+"res://data/weapons/railgun.tres": "052d3510755ddcb5eef383e6c2113161443c294cfd4822e28143d3d8f970dfc8",
+"res://data/weapons/rifle.tres": "8ae4d0d551a97b4653130c6e9c0e9071136cb0b63e04e631ae7a3185a34ef45e",
+"res://data/weapons/smg.tres": "32d5cc703b39e666d575236130870661a4c78dd2fbd0de362964721d5d64bd1b",
+"res://data/weapons/spread.tres": "bcfad9ead25b8b73f369e0e5d6d432b4b3f1920658fa8184b6372e2cf5f3c1c5"
+})

@@ -54,7 +54,7 @@ func _ready() -> void:
 		set_process(false)
 		return
 	state = QuestMapState.for_run()
-	maps = QuestMapIndex.for_chapter(level.data.chapter)
+	maps = QuestMapIndex.for_guidance(level.data.chapter)
 	if catalog == null:
 		catalog = state.catalog_for_chapter(level.data.chapter, maps)
 	_row = ObjectiveRow.new()

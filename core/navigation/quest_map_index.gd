@@ -4,8 +4,11 @@ extends RefCounted
 
 const LevelCatalog := preload("res://core/navigation/level_resource_index.gd")
 const AREA_DIRECTORY := LevelCatalog.DIRECTORY
+const Metadata := preload("res://core/navigation/quest_map_metadata.gd")
 
 static var _chapters: Dictionary = {}
+static var _guidance: QuestMapIndex
+static var _guidance_chapter: StringName
 
 
 static func for_chapter(chapter: StringName) -> QuestMapIndex:
@@ -45,14 +48,20 @@ static func for_navigation_restore(raw: Variant, chapters: Array[StringName]) ->
 	return index
 
 
-## Build against the same data as synchronous callers and publish only a complete index.
+static func for_guidance(chapter: StringName) -> QuestMapIndex:
+	if _guidance == null or _guidance_chapter != chapter:
+		prepare_chapter(chapter, Callable())
+	return _guidance
+
+
+## Keep only the current chapter's HUD index. Audit tools can still inspect full LevelData.
 static func prepare_chapter(chapter: StringName, checkpoint: Callable) -> void:
-	if _chapters.has(chapter):
+	if _guidance != null and _guidance_chapter == chapter:
 		return
 	var index := QuestMapIndex.new()
-	await index.load_chapter(chapter, checkpoint)
-	if not _chapters.has(chapter):
-		_chapters[chapter] = index
+	await index.load_guidance(chapter, checkpoint)
+	_guidance = index
+	_guidance_chapter = chapter
 
 
 var areas: Dictionary = {}
@@ -71,8 +80,28 @@ func load_chapter(chapter: StringName, checkpoint := Callable()) -> void:
 			await checkpoint.call()
 
 
-func add_area(data: LevelData) -> void:
-	if areas.has(data.resource_path):
+func load_guidance(chapter: StringName, checkpoint := Callable()) -> void:
+	var metadata: Metadata = load(Metadata.PATH) as Metadata if ResourceLoader.exists(Metadata.PATH) else null
+	var issue := "無法讀取" if metadata == null else metadata.validation_error()
+	if not issue.is_empty():
+		push_warning("[QuestMapIndex] %s：%s，改由關卡建立地圖。" % [Metadata.PATH, issue])
+		await load_chapter(chapter, checkpoint)
+		return
+	for path: String in LevelCatalog.chapter_paths(chapter):
+		var data: LevelData = metadata.levels.get(path)
+		if data == null or data.chapter != chapter:
+			push_warning("[QuestMapIndex] %s 缺少 %s，改由關卡建立地圖。" % [Metadata.PATH, path])
+			data = LevelCatalog.load_level(path)
+		if data != null and data.chapter == chapter:
+			add_area(data, path)
+		if checkpoint.is_valid():
+			await checkpoint.call()
+
+
+func add_area(data: LevelData, path := "") -> void:
+	if path.is_empty():
+		path = data.resource_path
+	if areas.has(path):
 		return
 	var layout := LevelBuilder.parse(data)
 	parse_count += 1
@@ -81,7 +110,7 @@ func add_area(data: LevelData) -> void:
 	var markers: Array[Dictionary] = []
 	for position in layout.checkpoints:
 		markers.append(_marker("checkpoint", "在這裡啟用復原點。", position, data.tile_size))
-		checkpoint_keys.append("%s@%d,%d" % [data.resource_path, int(position.x / data.tile_size), int(position.y / data.tile_size)])
+		checkpoint_keys.append("%s@%d,%d" % [path, int(position.x / data.tile_size), int(position.y / data.tile_size)])
 	for position in layout.health_pickups:
 		markers.append(_marker("pickup", "在這裡拾取回復道具。", position, data.tile_size))
 	for spawn in layout.spawns:
@@ -108,7 +137,7 @@ func add_area(data: LevelData) -> void:
 			marker["text"] = resource.hint
 		if marker["kind"] != "":
 			markers.append(marker)
-	areas[data.resource_path] = {"data": data, "layout": layout, "markers": markers}
+	areas[path] = {"data": data, "layout": layout, "markers": markers}
 
 
 static func _marker(kind: String, text: String, position: Vector2, tile: int) -> Dictionary:

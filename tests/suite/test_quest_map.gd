@@ -22,6 +22,7 @@ func run() -> void:
 	_test_sparse_restore(catalog, maps)
 	_test_saved_area_revision_index()
 	_test_level_manifest_matches()
+	_test_guidance_metadata()
 	await _test_terrain_cache(catalog, maps)
 	await _test_ui(catalog, maps)
 	await _test_world_chapter_titles(catalog)
@@ -66,6 +67,38 @@ func _test_level_manifest_matches() -> void:
 	check(shipped != null and shipped.data is Dictionary and shipped.data.get("version") == index.FORMAT
 			and shipped.data.get("levels") == index.authored_manifest()["levels"],
 			"the lightweight level index matches authored resources; regenerate with tools/build_level_index.tscn")
+
+
+func _test_guidance_metadata() -> void:
+	var level_index := preload("res://core/navigation/level_resource_index.gd")
+	const Metadata := preload("res://core/navigation/quest_map_metadata.gd")
+	var shipped := load(Metadata.PATH) as Metadata
+	var authored := Metadata.new()
+	for level: LevelData in ResourceCatalog.load_dir(level_index.DIRECTORY, LevelData, "QuestMapSuite"):
+		authored.add_level(level)
+	check(shipped != null and shipped.definition() == authored.definition(),
+			"map metadata matches the authored resources; regenerate with build_level_index.tscn")
+	for chapter: StringName in [&"ch1_kasa", &"ch2_heron", &"ch3_clearwater"]:
+		var full := QuestMapIndex.for_chapter(chapter)
+		var guidance := QuestMapIndex.for_guidance(chapter)
+		check(guidance.areas.keys() == full.areas.keys() and guidance.checkpoint_keys == full.checkpoint_keys,
+				"guidance preserves authored areas, order and checkpoint keys for " + chapter)
+		for path: String in full.areas:
+			if not guidance.areas.has(path):
+				continue
+			var original: Dictionary = full.areas[path]
+			var projected: Dictionary = guidance.areas[path]
+			var data: LevelData = projected["data"]
+			check(data.environment == null and projected["layout"].rows == original["layout"].rows,
+					"guidance keeps the real terrain without holding the environment for " + path)
+			var original_markers: Array[Dictionary] = original["markers"]
+			var markers: Array[Dictionary] = projected["markers"]
+			check(markers.size() == original_markers.size(), "guidance preserves marker count for " + path)
+			for i in mini(markers.size(), original_markers.size()):
+				check(markers[i]["kind"] == original_markers[i]["kind"]
+						and markers[i]["cell"] == original_markers[i]["cell"]
+						and guidance.marker_text(markers[i], {}, "en") == full.marker_text(original_markers[i], {}, "en"),
+						"guidance preserves marker position and copy for %s, marker %d" % [path, i])
 
 
 func _test_saved_area_revision_index() -> void:
