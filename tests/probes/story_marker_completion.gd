@@ -80,9 +80,14 @@ func _run() -> void:
 		done[1]=await npc._talk()
 		done[0]=true
 	talk.call()
-	await _frames(2)
-	# Main legitimately saves the unread cinematic entry before its result.
-	_before=FileAccess.get_file_as_bytes(_store.path)
+	var checkpoint := await _settled_entry_checkpoint()
+	if io_fault:
+		_check(checkpoint == _before, "the owned obstruction preserves the original primary before the refusal")
+	else:
+		var decoded := RunSaveCodec.decode(checkpoint.get_string_from_utf8())
+		_check(decoded.get("data", {}).get("cinematic") == String(_definition.scene),
+				"the ordinary writer publishes the actual unread entry before the result is driven")
+	_before = checkpoint
 	await _drive_marker(done)
 	await _frames(4)
 	_check(_facts()==_original_facts and npc.talk_count==0,"bad metadata or refused IO cannot mutate any original result or actor counter")
@@ -129,6 +134,17 @@ func _run() -> void:
 	_check(_prompt()==null and not get_tree().paused,"accepted corrected source releases its original UI and lock")
 	await _shot(_producer+"-"+_mode+"-accepted")
 	await _done()
+## The entry checkpoint may span several idle frames while gameplay is paused.
+## Wait for Main's writer, then sample the primary before sending any result input.
+func _settled_entry_checkpoint() -> PackedByteArray:
+	for frame in 120:
+		await get_tree().process_frame
+		if not (_main.get("_save_queued") or _main.get("_autosave_queued") or _main.get("_writing_autosave")):
+			return FileAccess.get_file_as_bytes(_store.path)
+	_check(false, "the entry checkpoint settles before the bounded frame guard")
+	return PackedByteArray()
+
+
 func _drive_marker(done: Array[bool]) -> void:
 	for i in 1800:
 		if done[0] or _prompt()!=null or Story._current_cinematic==&"":return
