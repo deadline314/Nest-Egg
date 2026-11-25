@@ -6,11 +6,16 @@ const STORY := "res://data/story/ch4_hollow.json"
 const CHAPTER := &"ch4_hollow"
 const CABINET := &"ch4_dispatch_cabinet"
 const WAITING_ROOM := &"ch4_dispatch_egret"
+const NEXT_DAY := "res://data/levels/ch5_pawnshop.tres"
 
 
 func run() -> void:
 	var areas := Checks.load_areas(self, "ch4", CHAPTER, ["pawnshop", "ward_reception", "nursing_ward", "revival_lounge", "factory_approach", "factory_loading", "factory_relay", "factory_safety", "factory_work", "factory_cleaning", "factory_office", "factory_roof", "ward_lamp_bay"])
-	Checks.check_portals(self, "chapter 4", areas)
+	Checks.check_portals(self, "chapter 4", areas, {"pawnshop/pawnshop_next_day": NEXT_DAY})
+	var handoff := Checks.portal_by_id(areas["pawnshop"], &"pawnshop_next_day")
+	check(handoff != null and handoff.target_level == NEXT_DAY and handoff.target_portal == &""
+			and handoff.mode == PortalData.Mode.INTERACT and handoff.requires_flag == &"ch4_pawnshop_homecoming_seen",
+			"Chapter Five starts only when the player chooses the next day after returning the ledger")
 	for area: LevelData in areas.values():
 		var actual: Array[Dictionary] = LevelBuilder.parse(area).spawns
 		for resource: Resource in area.legend.values():

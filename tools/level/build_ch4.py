@@ -137,6 +137,11 @@ def _configure():
                             local_replay="res://game/cutscene/local_replay/last_sunday.tscn",
                             prompt="{interact} 回到最後一個週日", requires="ch4_original_ledger_saved",
                             locked="先核對原帳，再到側門回放鷺的路線。")
+    kit.PORTALS["⟹"] = dict(
+        id="pawnshop_next_day", to="res://data/levels/ch5_pawnshop.tres", target="", mode=0,
+        style="hidden", w=32, h=44, prompt="{interact} 休息到隔天，開始第五章",
+        requires="ch4_pawnshop_homecoming_seen", locked="先在櫃台和老 K 談完帶回來的原帳。",
+    )
     for glyph in ("⟱", "⇣"):
         kit.PORTALS[glyph]["style"] = "hidden"
     prompts = {
@@ -198,6 +203,7 @@ def _pawnshop():
     kit.pawnshop_shell(area)
     area.stand(41, "P")
     area.stand(74, "Ⅰ")
+    area.stand(79, "⟹")
     return area
 
 

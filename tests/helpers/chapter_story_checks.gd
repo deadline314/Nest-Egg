@@ -14,8 +14,8 @@ static func load_areas(s: TestSuite, prefix: String, chapter: StringName, areas:
 	return datas
 
 
-## 每個有目標的出入口：目標區域存在，而且那一頭有同名的回程出入口指回來。
-static func check_portals(s: TestSuite, label: String, datas: Dictionary) -> void:
+## 區域門要有互通的回程。章節交接可明列單向目的地，抵達目標的起點。
+static func check_portals(s: TestSuite, label: String, datas: Dictionary, one_way: Dictionary = {}) -> void:
 	var broken := PackedStringArray()
 	for id: String in datas:
 		var data := datas[id] as LevelData
@@ -24,6 +24,9 @@ static func check_portals(s: TestSuite, label: String, datas: Dictionary) -> voi
 			if portal == null or portal.target_level.is_empty():
 				continue
 			var target := load(portal.target_level) as LevelData if ResourceLoader.exists(portal.target_level) else null
+			var route := "%s/%s" % [id, portal.id]
+			if target != null and portal.target_portal == &"" and one_way.get(route) == portal.target_level:
+				continue
 			var back := portal_by_id(target, portal.target_portal) if target != null else null
 			if back == null or back.target_level != data.resource_path or back.target_portal != portal.id:
 				broken.append("%s/%s→%s/%s" % [id, portal.id, portal.target_level.get_file(), portal.target_portal])

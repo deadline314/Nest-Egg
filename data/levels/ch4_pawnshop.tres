@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=11 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=12 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
@@ -23,12 +23,25 @@ height = 68
 style = "door"
 
 [sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("2_portal_data")
+id = &"pawnshop_next_day"
+target_level = "res://data/levels/ch5_pawnshop.tres"
+requires_flag = &"ch4_pawnshop_homecoming_seen"
+locked_text = "先在櫃台和老 K 談完帶回來的原帳。"
+localized_locked_text = Dictionary[String, String]({"en": "Speak to Old K at the counter about the ledger you brought back.", "ja": "カウンターで老Kに、持ち帰った原簿について話す。"})
+prompt = "{interact} 休息到隔天，開始第五章"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Rest until tomorrow and start Chapter Five", "ja": "{interact} 一晩休んで第五章を始める"})
+width = 32
+height = 44
+style = "hidden"
+
+[sub_resource type="Resource" id="Resource_2"]
 script = ExtResource("4_lighting_zone")
 start_tile = 0
 blend_tiles = 12
 profile = ExtResource("5_rooftop")
 
-[sub_resource type="Resource" id="Resource_2"]
+[sub_resource type="Resource" id="Resource_3"]
 script = ExtResource("4_lighting_zone")
 start_tile = 30
 blend_tiles = 6
@@ -43,7 +56,8 @@ tile_size = 16
 height = 24
 legend = Dictionary[String, Resource]({
 "Ⅰ": SubResource("Resource_0"),
-"ⓞ": ExtResource("3_ch4_old_k")
+"ⓞ": ExtResource("3_ch4_old_k"),
+"⟹": SubResource("Resource_1")
 })
 hints = PackedStringArray()
 chapter = &"ch4_hollow"
@@ -51,6 +65,6 @@ persistent_world = true
 show_chapter_card = true
 environment = ExtResource("7_ch4_pawnshop")
 layout_path = "res://data/levels/ch4_pawnshop_map.json"
-lighting_zones = Array[ExtResource("4_lighting_zone")]([SubResource("Resource_1"), SubResource("Resource_2")])
+lighting_zones = Array[ExtResource("4_lighting_zone")]([SubResource("Resource_2"), SubResource("Resource_3")])
 story_triggers = PackedStringArray()
 death_credit_cap = 250

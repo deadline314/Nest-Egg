@@ -28,6 +28,8 @@ const CHAPTER_PATHS: Array[String] = [
 	"res://data/story/ch3_clearwater.json",
 	# 第四章「空殼」的病房路線目前只能在開發版進入。
 	"res://data/story/ch4_hollow.json",
+	# 第五章「付帳人」從開發版第四章當舖的互動入口接續。
+	"res://data/story/ch5_paymaster.json",
 ]
 ## 作廢的舊故事（舊第一、二章與它們的動畫過場）：只給開發版的舊示範關卡（level_01、level_02）與歷史格式測試。
 ## 發行版不載入；正式章節不能引用這裡的場景或講者（ST-2）。先讀舊稿，正式章節的同名講者才會覆蓋它。

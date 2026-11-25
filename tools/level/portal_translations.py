@@ -1,6 +1,7 @@
 """Localized action labels and lock reasons for the formal chapter portals."""
 
 PROMPTS = {
+    '休息到隔天，開始第五章': ("Rest until tomorrow and start Chapter Five", "一晩休んで第五章を始める"),
     "從維修樓梯上屋頂": ("Take the service stairs to the roof", "整備階段で屋上へ"),
     "沿樓梯回原帳辦公室": ("Take the stairs back to the ledger office", "階段で原簿の事務室へ戻る"),
     "下樓回清理線安全臺": ("Go downstairs to the sweep line safe platform", "階段で清掃線の安全台へ戻る"),
@@ -99,6 +100,8 @@ PROMPTS = {
 }
 
 LOCKS = {
+    '先在櫃台和老 K 談完帶回來的原帳。': (
+        "Speak to Old K at the counter about the ledger you brought back.", "カウンターで老Kに、持ち帰った原簿について話す。"),
     "先在辦公桌核對原帳，再從樓梯回程。": ("Check the original ledger at the desk first.", "先に机の原簿を確認する。"),
     "先在舊廠辦公室核對原帳。": ("Check the original ledger in the factory office first.", "先に旧工場の事務室で原簿を確認する。"),
     "先在屋頂聽過燈的通訊，再帶話筒來。": ("Listen to Lantern on the roof, then bring his microphone.", "屋上で灯の通信を聞いてからマイクを持ってくる。"),

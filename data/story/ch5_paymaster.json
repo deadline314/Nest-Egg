@@ -1,0 +1,1213 @@
+{
+ "chapter": {
+  "id": "ch5_paymaster",
+  "title": "第五章　付帳人",
+  "subtitle": "空白標籤",
+  "end_title": "第五章　付帳人　完",
+  "teaser": "下一章　斷錨",
+  "languages": [
+   "zh",
+   "ja",
+   "en"
+  ],
+  "title_ja": "第五章　支払人",
+  "title_en": "Chapter Five: The Paymaster",
+  "subtitle_ja": "空白の札",
+  "subtitle_en": "Blank Labels",
+  "end_title_ja": "第五章　支払う人　完",
+  "end_title_en": "Chapter Five: The Payer — End",
+  "teaser_ja": "次章　断錨",
+  "teaser_en": "Next Chapter: Unmooring"
+ },
+ "speakers": {},
+ "flag_defaults": {
+  "ch5_pawnshop_watch_read": false,
+  "ch5_pawnshop_guitar_read": false,
+  "ch5_pawnshop_raincoat_read": false,
+  "ch5_pawnshop_fare_read": false,
+  "ch5_pawnshop_index_read": false,
+  "ch5_pawnshop_labels_matched": false
+ },
+ "transactions": {},
+ "derived_flags": {},
+ "quests": [
+  {
+   "id": "ch5_blank_labels",
+   "kind": "main",
+   "title": "對照貨架，找出兩張空白標籤",
+   "background": "老 K 到樓下查滲水。四件舊物都在原位，櫃台抽屜還有格號。",
+   "reward": "盤點板的第一道滑扣打開。",
+   "complete_flag": "ch5_pawnshop_labels_matched",
+   "steps": [
+    {
+     "title": "查看櫃台抽屜的格號。",
+     "complete_flag": "ch5_pawnshop_index_read",
+     "location": {
+      "level": "res://data/levels/ch5_pawnshop.tres",
+      "cell": [
+       52,
+       19
+      ]
+     },
+     "title_ja": "カウンターの引き出しにある番号表を調べる。",
+     "title_en": "Check the index in the counter drawer."
+    },
+    {
+     "title": "比對貨架的標籤，再到盤點板勾出兩張空白標籤。",
+     "complete_flag": "ch5_pawnshop_labels_matched",
+     "location": {
+      "level": "res://data/levels/ch5_pawnshop.tres",
+      "cell": [
+       56,
+       19
+      ]
+     },
+     "title_ja": "棚の札を照合し、棚卸し板で空白の二枚に印を付ける。",
+     "title_en": "Compare the shelf tags, then mark the two blanks on the inventory board."
+    }
+   ],
+   "completion_requires_steps": true,
+   "title_ja": "棚を照合し、空白になった二枚の札を見つける。",
+   "title_en": "Check the shelf and find the two tags that went blank.",
+   "background_ja": "老Kは水漏れを調べに階下へ。四つの品は元の場所にあり、番号表はカウンターの引き出しにある。",
+   "background_en": "Old K went downstairs to check a leak. The four items are still in place, and their index is in the counter drawer.",
+   "reward_ja": "棚卸し板の一つ目の留め金が開く。",
+   "reward_en": "The first catch on the inventory board opens."
+  }
+ ],
+ "scenes": {
+  "ch5_t_watch_compare": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "懷錶的標籤只剩「取回日」的格線。",
+     "ja": "懐中時計の札には「引取日」の枠だけが残っている。",
+     "en": "Only the empty box marked “Collection date” remains on the pocket watch’s tag."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我把以前讀過的那張抄在筆記裡。",
+     "ja": "前に読んだ札は、手帳に書き写してある。",
+     "en": "I copied this tag into my notebook when I first read it."
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "送貨員押來的懷錶。他說遲到二十分鐘會被罵，三年沒有贖回。",
+     "ja": "配達員が質に入れていった懐中時計。遅れて二十分経つと叱られると本人は言っていて、三年間、請け出されていない。",
+     "en": "Pocket watch pawned by a courier. He says he'll get scolded if he's twenty minutes late. Not redeemed in three years."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch1_label_watch_seen",
+    "equals": true
+   }
+  },
+  "ch5_t_watch_revisit": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "懷錶的標籤只剩「取回日」的格線。",
+     "ja": "懐中時計の札には「引取日」の枠だけが残っている。",
+     "en": "Only the empty box marked “Collection date” remains on the pocket watch’s tag."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch5_pawnshop_watch_read",
+    "equals": true
+   }
+  },
+  "ch5_t_watch": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "懷錶的標籤只剩「取回日」的格線。",
+     "ja": "懐中時計の札には「引取日」の枠だけが残っている。",
+     "en": "Only the empty box marked “Collection date” remains on the pocket watch’s tag."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "not": {
+       "flag": "ch1_label_watch_seen",
+       "equals": true
+      }
+     },
+     {
+      "not": {
+       "flag": "ch5_pawnshop_watch_read",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch5_pawnshop_watch_read",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch5_t_guitar_compare": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "吉他仍寫著「押來時已經沒有弦」。",
+     "ja": "ギターの札には今も「預かった時点で弦なし」とある。",
+     "en": "The guitar’s tag still says, “It had no strings when it was pawned.”"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我把以前讀過的那張抄在筆記裡。",
+     "ja": "前に読んだ札は、手帳に書き写してある。",
+     "en": "I copied this tag into my notebook when I first read it."
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "押來時已經沒有弦。主人說，彈的人不在了。",
+     "ja": "質入れされたときには、もう弦がなかった。持ち主いわく、弾いていた人がもういない。",
+     "en": "It was pawned without strings. The owner says the person who played it is gone."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch1_label_guitar_seen",
+    "equals": true
+   }
+  },
+  "ch5_t_guitar_revisit": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "吉他仍寫著「押來時已經沒有弦」。",
+     "ja": "ギターの札には今も「預かった時点で弦なし」とある。",
+     "en": "The guitar’s tag still says, “It had no strings when it was pawned.”"
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch5_pawnshop_guitar_read",
+    "equals": true
+   }
+  },
+  "ch5_t_guitar": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "吉他仍寫著「押來時已經沒有弦」。",
+     "ja": "ギターの札には今も「預かった時点で弦なし」とある。",
+     "en": "The guitar’s tag still says, “It had no strings when it was pawned.”"
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "not": {
+       "flag": "ch1_label_guitar_seen",
+       "equals": true
+      }
+     },
+     {
+      "not": {
+       "flag": "ch5_pawnshop_guitar_read",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch5_pawnshop_guitar_read",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch5_t_raincoat_compare": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "雨衣上的別針孔還在，原來那行字磨掉了。",
+     "ja": "雨合羽の札にはピンの穴が残っている。元の文字は擦り切れている。",
+     "en": "The raincoat’s tag still has a pinhole. The writing has worn away."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我把以前讀過的那張抄在筆記裡。",
+     "ja": "前に読んだ札は、手帳に書き写してある。",
+     "en": "I copied this tag into my notebook when I first read it."
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "碼頭舊雨衣。主人說，這件曾替另一個人擋過水。",
+     "ja": "埠頭の古いレインコート。持ち主によると、かつては別の人のために雨を防いでいたという。",
+     "en": "Old dock raincoat. The owner says it once kept another person dry."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch1_label_raincoat_seen",
+    "equals": true
+   }
+  },
+  "ch5_t_raincoat_revisit": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "雨衣上的別針孔還在，原來那行字磨掉了。",
+     "ja": "雨合羽の札にはピンの穴が残っている。元の文字は擦り切れている。",
+     "en": "The raincoat’s tag still has a pinhole. The writing has worn away."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch5_pawnshop_raincoat_read",
+    "equals": true
+   }
+  },
+  "ch5_t_raincoat": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "雨衣上的別針孔還在，原來那行字磨掉了。",
+     "ja": "雨合羽の札にはピンの穴が残っている。元の文字は擦り切れている。",
+     "en": "The raincoat’s tag still has a pinhole. The writing has worn away."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "not": {
+       "flag": "ch1_label_raincoat_seen",
+       "equals": true
+      }
+     },
+     {
+      "not": {
+       "flag": "ch5_pawnshop_raincoat_read",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch5_pawnshop_raincoat_read",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch5_t_fare_compare": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "船錢罐底還寫著「留給回不來的人」。",
+     "ja": "船賃の瓶の底には今も「帰れない人のために」と書いてある。",
+     "en": "On the bottom of the ferry-fare jar, it still reads, “For those who can’t come back.”"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我把以前讀過的那張抄在筆記裡。",
+     "ja": "前に読んだ札は、手帳に書き写してある。",
+     "en": "I copied this tag into my notebook when I first read it."
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "船錢，留給回不來的人渡河用的。",
+     "ja": "渡し賃。戻ってこられなかった人が川を渡るために残しておくもの。",
+     "en": "The Fare. Kept for those who never came back, to pay their way across the river."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch1_label_fare_seen",
+    "equals": true
+   }
+  },
+  "ch5_t_fare_revisit": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "船錢罐底還寫著「留給回不來的人」。",
+     "ja": "船賃の瓶の底には今も「帰れない人のために」と書いてある。",
+     "en": "On the bottom of the ferry-fare jar, it still reads, “For those who can’t come back.”"
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch5_pawnshop_fare_read",
+    "equals": true
+   }
+  },
+  "ch5_t_fare": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "船錢罐底還寫著「留給回不來的人」。",
+     "ja": "船賃の瓶の底には今も「帰れない人のために」と書いてある。",
+     "en": "On the bottom of the ferry-fare jar, it still reads, “For those who can’t come back.”"
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "not": {
+       "flag": "ch1_label_fare_seen",
+       "equals": true
+      }
+     },
+     {
+      "not": {
+       "flag": "ch5_pawnshop_fare_read",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch5_pawnshop_fare_read",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch5_t_read_index": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "抽屜格號：01 懷錶、02 吉他、03 雨衣、04 船錢罐。",
+     "ja": "引き出しの番号表：01 懐中時計、02 ギター、03 雨合羽、04 船賃の瓶。",
+     "en": "Drawer index: 01 pocket watch, 02 guitar, 03 raincoat, 04 ferry-fare jar."
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "把空白的那兩格勾起來，等客人回來認字。東西先留在架上。",
+     "ja": "空欄の二つに印を。持ち主が戻ったら確かめてもらう。品物は棚に置いたまま。",
+     "en": "Mark both blanks. Let the owners identify their tags when they come back. Keep everything on the shelf."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "ch5_pawnshop_index_read",
+     "equals": true
+    }
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch5_pawnshop_index_read",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch5_t_revisit_index": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "抽屜格號：01 懷錶、02 吉他、03 雨衣、04 船錢罐。",
+     "ja": "引き出しの番号表：01 懐中時計、02 ギター、03 雨合羽、04 船賃の瓶。",
+     "en": "Drawer index: 01 pocket watch, 02 guitar, 03 raincoat, 04 ferry-fare jar."
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "把空白的那兩格勾起來，等客人回來認字。東西先留在架上。",
+     "ja": "空欄の二つに印を。持ち主が戻ったら確かめてもらう。品物は棚に置いたまま。",
+     "en": "Mark both blanks. Let the owners identify their tags when they come back. Keep everything on the shelf."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch5_pawnshop_index_read",
+    "equals": true
+   }
+  },
+  "ch5_t_need_index": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "先看櫃台抽屜裡的格號。",
+     "ja": "まず、カウンターの引き出しにある番号表を見よう。",
+     "en": "First, check the index in the counter drawer."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "ch5_pawnshop_index_read",
+     "equals": true
+    }
+   }
+  },
+  "ch5_t_need_labels": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "先翻完架上的標籤，再回來核對。",
+     "ja": "棚の札を全部見てから、ここで照合しよう。",
+     "en": "Check the rest of the tags on the shelf, then come back here."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "all": [
+      {
+       "flag": "ch5_pawnshop_index_read",
+       "equals": true
+      },
+      {
+       "any": [
+        {
+         "flag": "ch1_label_watch_seen",
+         "equals": true
+        },
+        {
+         "flag": "ch5_pawnshop_watch_read",
+         "equals": true
+        }
+       ]
+      },
+      {
+       "any": [
+        {
+         "flag": "ch1_label_guitar_seen",
+         "equals": true
+        },
+        {
+         "flag": "ch5_pawnshop_guitar_read",
+         "equals": true
+        }
+       ]
+      },
+      {
+       "any": [
+        {
+         "flag": "ch1_label_raincoat_seen",
+         "equals": true
+        },
+        {
+         "flag": "ch5_pawnshop_raincoat_read",
+         "equals": true
+        }
+       ]
+      },
+      {
+       "any": [
+        {
+         "flag": "ch1_label_fare_seen",
+         "equals": true
+        },
+        {
+         "flag": "ch5_pawnshop_fare_read",
+         "equals": true
+        }
+       ]
+      }
+     ]
+    }
+   }
+  },
+  "ch5_t_choose_labels": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "他平常連破袖口都要寫清楚。這兩張明明寫過，現在只剩紙。",
+     "ja": "あの人なら破れた袖口まで書き残す。文があったはずなのに、この二枚は紙だけだ。",
+     "en": "He usually writes down every little tear. These two had writing on them. Now there’s just paper."
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "哪兩張標籤變成了空白？",
+     "ja": "どの二枚の札が空白になった？",
+     "en": "Which two tags went blank?"
+    },
+    {
+     "do": "choice",
+     "text": "哪兩張標籤變成了空白？",
+     "default": "leave",
+     "options": [
+      {
+       "id": "watch_guitar",
+       "text": "懷錶和吉他",
+       "explanation": "核對第 01、02 格。",
+       "target": "ch5_t_wrong_labels",
+       "ja": "懐中時計とギター",
+       "en": "Pocket watch and guitar",
+       "explanation_ja": "01 と 02 を照合する。",
+       "explanation_en": "Check slots 01 and 02."
+      },
+      {
+       "id": "watch_raincoat",
+       "text": "懷錶和雨衣",
+       "explanation": "核對第 01、03 格。",
+       "target": "ch5_t_lift_catch",
+       "ja": "懐中時計と雨合羽",
+       "en": "Pocket watch and raincoat",
+       "explanation_ja": "01 と 03 を照合する。",
+       "explanation_en": "Check slots 01 and 03."
+      },
+      {
+       "id": "raincoat_fare",
+       "text": "雨衣和船錢罐",
+       "explanation": "核對第 03、04 格。",
+       "target": "ch5_t_wrong_labels",
+       "ja": "雨合羽と船賃の瓶",
+       "en": "Raincoat and ferry-fare jar",
+       "explanation_ja": "03 と 04 を照合する。",
+       "explanation_en": "Check slots 03 and 04."
+      },
+      {
+       "id": "leave",
+       "text": "先離開",
+       "explanation": "可以再看格號或標籤。",
+       "ja": "いったん離れる",
+       "en": "Step away",
+       "explanation_ja": "番号表や札を見直せる。",
+       "explanation_en": "You can reread the index or the tags."
+      }
+     ],
+     "cancel_choice_on_back": true,
+     "ja": "どの二枚の札が空白になった？",
+     "en": "Which two tags went blank?"
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "ch5_pawnshop_index_read",
+        "equals": true
+       },
+       {
+        "any": [
+         {
+          "flag": "ch1_label_watch_seen",
+          "equals": true
+         },
+         {
+          "flag": "ch5_pawnshop_watch_read",
+          "equals": true
+         }
+        ]
+       },
+       {
+        "any": [
+         {
+          "flag": "ch1_label_guitar_seen",
+          "equals": true
+         },
+         {
+          "flag": "ch5_pawnshop_guitar_read",
+          "equals": true
+         }
+        ]
+       },
+       {
+        "any": [
+         {
+          "flag": "ch1_label_raincoat_seen",
+          "equals": true
+         },
+         {
+          "flag": "ch5_pawnshop_raincoat_read",
+          "equals": true
+         }
+        ]
+       },
+       {
+        "any": [
+         {
+          "flag": "ch1_label_fare_seen",
+          "equals": true
+         },
+         {
+          "flag": "ch5_pawnshop_fare_read",
+          "equals": true
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "not": {
+       "flag": "ch5_pawnshop_labels_matched",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch5_t_wrong_labels": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "再把索引上的格號和架上的字對一次。",
+     "ja": "番号表と棚の札をもう一度照らし合わせよう。",
+     "en": "Match the drawer numbers to the tags on the shelf again."
+    }
+   ],
+   "overlay": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch5_t_lift_catch": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "第一格和第三格。空白的只有這兩張。",
+     "ja": "一番と三番。空白はこの二枚だけ。",
+     "en": "Slots one and three. These are the only two blanks."
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "第一道滑扣鬆開了。",
+     "ja": "一つ目の留め金が外れた。",
+     "en": "The first catch slid open."
+    },
+    {
+     "do": "sfx",
+     "id": "switch",
+     "volume": -14
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "ch5_pawnshop_index_read",
+        "equals": true
+       },
+       {
+        "any": [
+         {
+          "flag": "ch1_label_watch_seen",
+          "equals": true
+         },
+         {
+          "flag": "ch5_pawnshop_watch_read",
+          "equals": true
+         }
+        ]
+       },
+       {
+        "any": [
+         {
+          "flag": "ch1_label_guitar_seen",
+          "equals": true
+         },
+         {
+          "flag": "ch5_pawnshop_guitar_read",
+          "equals": true
+         }
+        ]
+       },
+       {
+        "any": [
+         {
+          "flag": "ch1_label_raincoat_seen",
+          "equals": true
+         },
+         {
+          "flag": "ch5_pawnshop_raincoat_read",
+          "equals": true
+         }
+        ]
+       },
+       {
+        "any": [
+         {
+          "flag": "ch1_label_fare_seen",
+          "equals": true
+         },
+         {
+          "flag": "ch5_pawnshop_fare_read",
+          "equals": true
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "not": {
+       "flag": "ch5_pawnshop_labels_matched",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch5_pawnshop_labels_matched",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch5_t_labels_matched": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "01 懷錶和 03 雨衣已勾記，第一道滑扣已開。",
+     "ja": "01 懐中時計と 03 雨合羽は確認済み。一つ目の留め金は開いた。",
+     "en": "01 Pocket watch and 03 Raincoat are marked. The first catch is open."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch5_pawnshop_labels_matched",
+    "equals": true
+   }
+  },
+  "ch5_dispatch_watch": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "flag": "ch1_label_watch_seen",
+      "equals": true
+     },
+     "target": "ch5_t_watch_compare"
+    },
+    {
+     "when": {
+      "flag": "ch5_pawnshop_watch_read",
+      "equals": true
+     },
+     "target": "ch5_t_watch_revisit"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "not": {
+           "flag": "ch1_label_watch_seen",
+           "equals": true
+          }
+         },
+         {
+          "not": {
+           "flag": "ch5_pawnshop_watch_read",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch5_pawnshop_watch_read",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch5_t_watch"
+    }
+   ]
+  },
+  "ch5_dispatch_guitar": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "flag": "ch1_label_guitar_seen",
+      "equals": true
+     },
+     "target": "ch5_t_guitar_compare"
+    },
+    {
+     "when": {
+      "flag": "ch5_pawnshop_guitar_read",
+      "equals": true
+     },
+     "target": "ch5_t_guitar_revisit"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "not": {
+           "flag": "ch1_label_guitar_seen",
+           "equals": true
+          }
+         },
+         {
+          "not": {
+           "flag": "ch5_pawnshop_guitar_read",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch5_pawnshop_guitar_read",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch5_t_guitar"
+    }
+   ]
+  },
+  "ch5_dispatch_raincoat": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "flag": "ch1_label_raincoat_seen",
+      "equals": true
+     },
+     "target": "ch5_t_raincoat_compare"
+    },
+    {
+     "when": {
+      "flag": "ch5_pawnshop_raincoat_read",
+      "equals": true
+     },
+     "target": "ch5_t_raincoat_revisit"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "not": {
+           "flag": "ch1_label_raincoat_seen",
+           "equals": true
+          }
+         },
+         {
+          "not": {
+           "flag": "ch5_pawnshop_raincoat_read",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch5_pawnshop_raincoat_read",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch5_t_raincoat"
+    }
+   ]
+  },
+  "ch5_dispatch_fare": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "flag": "ch1_label_fare_seen",
+      "equals": true
+     },
+     "target": "ch5_t_fare_compare"
+    },
+    {
+     "when": {
+      "flag": "ch5_pawnshop_fare_read",
+      "equals": true
+     },
+     "target": "ch5_t_fare_revisit"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "not": {
+           "flag": "ch1_label_fare_seen",
+           "equals": true
+          }
+         },
+         {
+          "not": {
+           "flag": "ch5_pawnshop_fare_read",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch5_pawnshop_fare_read",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch5_t_fare"
+    }
+   ]
+  },
+  "ch5_dispatch_shelf_index": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "not": {
+         "flag": "ch5_pawnshop_index_read",
+         "equals": true
+        }
+       },
+       {
+        "not": {
+         "flag": "ch5_pawnshop_index_read",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch5_t_read_index"
+    },
+    {
+     "when": {
+      "flag": "ch5_pawnshop_index_read",
+      "equals": true
+     },
+     "target": "ch5_t_revisit_index"
+    }
+   ]
+  },
+  "ch5_dispatch_inventory_board": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "flag": "ch5_pawnshop_labels_matched",
+      "equals": true
+     },
+     "target": "ch5_t_labels_matched"
+    },
+    {
+     "when": {
+      "not": {
+       "flag": "ch5_pawnshop_index_read",
+       "equals": true
+      }
+     },
+     "target": "ch5_t_need_index"
+    },
+    {
+     "when": {
+      "not": {
+       "all": [
+        {
+         "flag": "ch5_pawnshop_index_read",
+         "equals": true
+        },
+        {
+         "any": [
+          {
+           "flag": "ch1_label_watch_seen",
+           "equals": true
+          },
+          {
+           "flag": "ch5_pawnshop_watch_read",
+           "equals": true
+          }
+         ]
+        },
+        {
+         "any": [
+          {
+           "flag": "ch1_label_guitar_seen",
+           "equals": true
+          },
+          {
+           "flag": "ch5_pawnshop_guitar_read",
+           "equals": true
+          }
+         ]
+        },
+        {
+         "any": [
+          {
+           "flag": "ch1_label_raincoat_seen",
+           "equals": true
+          },
+          {
+           "flag": "ch5_pawnshop_raincoat_read",
+           "equals": true
+          }
+         ]
+        },
+        {
+         "any": [
+          {
+           "flag": "ch1_label_fare_seen",
+           "equals": true
+          },
+          {
+           "flag": "ch5_pawnshop_fare_read",
+           "equals": true
+          }
+         ]
+        }
+       ]
+      }
+     },
+     "target": "ch5_t_need_labels"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch5_pawnshop_index_read",
+          "equals": true
+         },
+         {
+          "any": [
+           {
+            "flag": "ch1_label_watch_seen",
+            "equals": true
+           },
+           {
+            "flag": "ch5_pawnshop_watch_read",
+            "equals": true
+           }
+          ]
+         },
+         {
+          "any": [
+           {
+            "flag": "ch1_label_guitar_seen",
+            "equals": true
+           },
+           {
+            "flag": "ch5_pawnshop_guitar_read",
+            "equals": true
+           }
+          ]
+         },
+         {
+          "any": [
+           {
+            "flag": "ch1_label_raincoat_seen",
+            "equals": true
+           },
+           {
+            "flag": "ch5_pawnshop_raincoat_read",
+            "equals": true
+           }
+          ]
+         },
+         {
+          "any": [
+           {
+            "flag": "ch1_label_fare_seen",
+            "equals": true
+           },
+           {
+            "flag": "ch5_pawnshop_fare_read",
+            "equals": true
+           }
+          ]
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch5_pawnshop_labels_matched",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch5_t_choose_labels"
+    }
+   ]
+  }
+ }
+}
