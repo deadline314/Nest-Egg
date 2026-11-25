@@ -122,6 +122,22 @@ class StoryContracts(unittest.TestCase):
         with self.assertRaisesRegex(CompileError, first + ".*skip_then"):
             compile_chapter(chapter)
 
+    def test_repeatable_results_match_nested_admission_and_empty_defaults(self):
+        source = "res://data/story/ch2_heron.json"
+        scene_id = "ch2_t_test_retry"
+        condition = {"all": [{"flag": "ready", "equals": True}, {"not": {"flag": "done", "equals": True}}]}
+        rule = {"policy": "main_terminal_results_v1", "then": "", "repeatable": True,
+                "repeat_condition": condition}
+        records = {scene_id: {"source": source, "role": "boundary", "rule": rule}}
+        scene = {"completion_policy": rule["policy"], "when": copy.deepcopy(condition)}
+        contracts.validate_generated({scene_id: scene}, source, records)
+        scene["when"]["all"][0]["equals"] = False
+        with self.assertRaisesRegex(ValueError, "repeat_condition"):
+            contracts.validate_generated({scene_id: scene}, source, records)
+        rule["repeat_condition"] = {}
+        scene.pop("when")
+        contracts.validate_generated({scene_id: scene}, source, records)
+
     def test_finite_fractional_wait_is_not_rounded(self):
         rule={"default":"no","options":[{"id":"yes","target":"","flags":{}},{"id":"no","target":"","flags":{}}],"waits":{"3":0.125}}
         self.assertTrue(contracts._rule_valid("choice",rule))

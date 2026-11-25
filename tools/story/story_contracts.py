@@ -251,6 +251,11 @@ def validate_generated(scenes, source, records):
             for key in ("mode", "when"):
                 if key in rule and not _same(scene.get(key, {}), rule[key]):
                     raise ValueError(f"{where}/{key}: differs from independent contract")
+            if rule.get("repeatable"):
+                fallback = {"flag": "ch1_lamp_voice_asked", "equals": True}
+                expected_condition = rule.get("repeat_condition", fallback)
+                if not _same(scene.get("when", {}), expected_condition):
+                    raise ValueError(f"{where}/repeat_condition: differs from independent contract")
             if not _same(scene.get("on_failure", {}), rule.get("failures", {})):
                 raise ValueError(f"{where}/on_failure: differs from independent contract")
             continue

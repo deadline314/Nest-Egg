@@ -72,5 +72,30 @@ static func run(s) -> void:
 	s.check(catalog.inspect(MENU,scenes,locations)["state"] == Catalog.MATCH, "integral JSON version accepted without flag coercion")
 	catalog = Catalog.new(ROOT + "/test_bad_cutscene_missing.json")
 	s.check(catalog.inspect(LEAF,scenes,locations)["state"] == Catalog.REFUSED and catalog._records.is_empty(), "missing root fails closed")
+	_check_repeatable_route(s, records, scenes, locations)
 	for file: String in ["catalog.json","chapter.json"]: DirAccess.remove_absolute(ROOT + "/" + file)
 	DirAccess.remove_absolute(ROOT)
+
+
+static func _check_repeatable_route(s, records: Array, scenes: Dictionary, locations: Dictionary) -> void:
+	var rules := records.duplicate(true)
+	var repeated := scenes.duplicate(true)
+	var condition := {"all": [
+		{"flag": "test_ready", "equals": true},
+		{"not": {"flag": "test_done", "equals": true}},
+	]}
+	rules[0]["rule"].erase("operations")
+	rules[0]["rule"].erase("when")
+	rules[0]["rule"]["repeatable"] = true
+	rules[0]["rule"]["repeat_condition"] = condition
+	repeated[LEAF].erase("results")
+	repeated[LEAF]["when"] = condition.duplicate(true)
+	var catalog = _fixture(rules)
+	s.check(catalog.repeatable(LEAF, repeated, locations), "repeat is admitted for the exact authored condition tree")
+	s.check(not catalog.choice_step(MENU, repeated, locations).is_empty(), "the real menu can route to a repeatable reply")
+	repeated[LEAF]["when"]["all"][1]["not"]["equals"] = false
+	s.check(catalog.choice_step(MENU, repeated, locations).is_empty(), "a changed nested repeat condition refuses the route")
+	rules[0]["rule"]["repeat_condition"] = {}
+	repeated[LEAF].erase("when")
+	catalog = _fixture(rules)
+	s.check(catalog.repeatable(LEAF, repeated, locations), "an explicitly unconditional repeat agrees with an omitted live condition")

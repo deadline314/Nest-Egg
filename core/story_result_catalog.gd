@@ -343,7 +343,7 @@ func boundary(id: String, scenes: Dictionary, sources: Dictionary) -> Dictionary
 			return {}
 	if rule.get("repeatable", false):
 		var expected: Dictionary = rule.get("repeat_condition", {"flag": "ch1_lamp_voice_asked", "equals": true})
-		if not _option_condition(scene.get("when"), expected):
+		if not _condition_matches(scene.get("when", {}), expected):
 			return {}
 		if id == "ch1_t_lamp_voice_later" and not operations.is_empty():
 			return {}
