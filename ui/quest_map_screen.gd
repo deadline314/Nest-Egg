@@ -130,7 +130,6 @@ func _ready() -> void:
 	layout.add_child(FlatStyle.rule())
 	layout.add_child(_build_footer())
 	_map_path = str(reference_location.get("level", player_path))
-	InputBindings.device_changed.connect(_on_device_changed)
 	InputBindings.bindings_changed.connect(_refresh_prompts)
 	show_page(start_page, false)
 
@@ -154,8 +153,6 @@ func _process(_delta: float) -> void:
 
 
 func _exit_tree() -> void:
-	if InputBindings.device_changed.is_connected(_on_device_changed):
-		InputBindings.device_changed.disconnect(_on_device_changed)
 	if InputBindings.bindings_changed.is_connected(_refresh_prompts):
 		InputBindings.bindings_changed.disconnect(_refresh_prompts)
 
@@ -540,7 +537,7 @@ func _select(id: String, focus_details := false) -> void:
 		jump.set_meta(&"nav_key", "action:destination")
 		FlatStyle.chip(jump)
 		_actions.add_child(jump)
-	_scroll_note = UiKit.caption(_text(["右搖桿／PageDown 往下讀", "右スティック／Page Downでスクロール", "Right stick / Page Down to scroll"]))
+	_scroll_note = UiKit.caption(_scroll_instruction())
 	_scroll_note.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	_scroll_note.visible = _details_overflow
 	_actions.add_child(_scroll_note)
@@ -549,6 +546,12 @@ func _select(id: String, focus_details := false) -> void:
 	_bind_hints(_actions)
 	if focus_details:
 		_focus_details.call_deferred()
+
+
+func _scroll_instruction() -> String:
+	if InputBindings.using_gamepad:
+		return _text(["用右搖桿捲動", "右スティックでスクロール", "Scroll with the right stick"])
+	return _text(["用 PgUp 或 PgDn 捲動", "PgUp／PgDn でスクロール", "Scroll with PgUp or PgDn"])
 
 
 func _on_details_overflow(below: bool, above: bool) -> void:
@@ -837,12 +840,10 @@ func _bind_hints(node: Node) -> void:
 		_bind_hints(child)
 
 
-func _on_device_changed(_gamepad: bool, _device: int) -> void:
-	_refresh_prompts()
-
-
 func _refresh_prompts() -> void:
 	FlatStyle.refresh_prompts(self)
+	if is_instance_valid(_scroll_note):
+		_scroll_note.text = _scroll_instruction()
 
 
 func _focus_first() -> void:

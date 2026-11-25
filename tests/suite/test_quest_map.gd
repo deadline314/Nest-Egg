@@ -882,7 +882,14 @@ func _test_long_details(maps: QuestMapIndex) -> void:
 	var cue := ScrollCue.of(screen._detail_scroll)
 	var cue_ok := cue != null and cue.more_below
 	check(cue_ok, "long details show a 'more below' cue")
+	var keyboard_event := InputEventKey.new()
+	keyboard_event.keycode = KEY_PAGEUP
+	keyboard_event.pressed = true
+	runner.get_viewport().push_input(keyboard_event)
+	await frames(2)
 	check(screen._scroll_note.is_visible_in_tree(), "long details explain how to scroll beside the actions")
+	check(screen._scroll_note.text.contains("PgUp") and screen._scroll_note.text.contains("PgDn"),
+		"keyboard hint shows both scroll directions")
 	screen._focus_details()
 	await frames(2)
 	var focus_before := screen.get_viewport().gui_get_focus_owner()
@@ -896,6 +903,8 @@ func _test_long_details(maps: QuestMapIndex) -> void:
 	runner.get_viewport().push_input(motion)
 	await frames(2)
 	check(screen._detail_scroll.scroll_vertical > 0, "right stick scrolls long details")
+	check(not screen._scroll_note.text.contains("PgUp") and not screen._scroll_note.text.contains("PageDown"),
+		"right stick input shows a controller-only scroll hint")
 	check(screen.get_viewport().gui_get_focus_owner() == focus_before, "scrolling details keeps focus on the action")
 	check(cue_ok and cue.more_above, "scrolled details show the 'more above' cue")
 	var page := InputEventKey.new()
@@ -905,6 +914,9 @@ func _test_long_details(maps: QuestMapIndex) -> void:
 	runner.get_viewport().push_input(page)
 	await frames(2)
 	check(screen._detail_scroll.scroll_vertical == 0, "PageUp scrolls details back to the top")
+	check(screen._scroll_note.text.contains("PgUp") and screen._scroll_note.text.contains("PgDn"),
+		"keyboard input restores the keyboard scroll hint")
+	check(screen.get_viewport().gui_get_focus_owner() == focus_before, "changing the cue keeps focus on the action")
 	screen.queue_free()
 	await frames(2)
 
