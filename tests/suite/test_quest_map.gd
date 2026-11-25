@@ -32,6 +32,7 @@ func run() -> void:
 	_test_display_defaults()
 	await _test_story_language()
 	await _test_radio_objective_handoff()
+	await _test_objective_row_fits_text()
 
 
 func _test_sparse_restore(catalog: QuestCatalog, chapter: QuestMapIndex) -> void:
@@ -1736,3 +1737,23 @@ func _test_radio_objective_handoff() -> void:
 	Settings.set_skip_cutscenes(previous_skip_setting)
 	await end_level(level)
 	Story.auto_skip = previous_skip
+
+
+func _test_objective_row_fits_text() -> void:
+	var row := QuestGuidance.ObjectiveRow.new()
+	row.custom_minimum_size.x = QuestGuidance.TRACKER_WIDTH
+	row.set_category("主線任務", Palette.CYAN)
+	row.label.text = "Follow the marker through the station and look for the maintenance ladder near the loading platform."
+	runner.add_child(row)
+	for frame in 6:
+		await _prompt_ui_frame()
+	var tall := row.size.y
+	check(row.label.get_line_count() > 1, "the objective layout exercises a genuinely wrapped description")
+	row.label.text = "返回當鋪。"
+	for frame in 6:
+		await _prompt_ui_frame()
+	check(row.label.get_line_count() == 1 and is_equal_approx(row.size.y, row.get_combined_minimum_size().y)
+			and row.size.y < tall and is_equal_approx(row.size.x, QuestGuidance.TRACKER_WIDTH),
+			"a shorter objective removes unused vertical space while preserving the reading width")
+	row.queue_free()
+	await _prompt_ui_frame()

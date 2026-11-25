@@ -364,6 +364,9 @@ class ObjectiveRow extends MarginContainer:
 
 	func _ready() -> void:
 		resized.connect(queue_redraw)
+		minimum_size_changed.connect(reset_size)
+		reset_size()
+
 
 	func set_category(title: String, accent: Color) -> void:
 		if _category.text != title:
