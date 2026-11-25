@@ -20,6 +20,13 @@
   "teaser_en": "Return to the pawnshop to follow up on the original ledger."
  },
  "speakers": {
+  "factory_terminal": {
+   "name": "復原終端",
+   "name_ja": "復元端末",
+   "name_en": "Restoration terminal",
+   "color": "#cad8dd",
+   "portrait": "res://art/portraits/system.png"
+  },
   "factory_pa": {
    "name": "廠內廣播",
    "name_ja": "工場内放送",
@@ -44,6 +51,9 @@
  },
  "flag_defaults": {
   "ch4_work_cover_erased": false,
+  "ch4_arena_cover_erased": false,
+  "ch4_atropos_midpoint_ready": false,
+  "ch4_atropos_retreat_ready": false,
   "ch4_documents_wrapped": false,
   "ch4_visit_signed": false,
   "ch4_linden_visit_confirmed": false,
@@ -58,7 +68,10 @@
   "ch4_demo_cover_cleared": false,
   "ch4_cleaning_briefing_read": false,
   "ch4_safety_shortcut_open": false,
-  "ch4_factory_work_crossed": false
+  "ch4_factory_work_crossed": false,
+  "ch4_terminal_revival_denied": false,
+  "ch4_egret_departed": false,
+  "ch4_office_access": false
  },
  "transactions": {},
  "derived_flags": {},
@@ -331,6 +344,38 @@
    "background_en": "The white line sweeps the test cover and the catwalk. Wait on a fixed platform or change levels.",
    "reward_ja": "作業帯の反対側で、原簿への経路を確認する。",
    "reward_en": "Find the route to the original ledger at the far end of the work lane."
+  },
+  {
+   "id": "ch4_cleanup_battle",
+   "kind": "main",
+   "title": "打開原帳辦公室",
+   "background": "清理隊長守在前方工作廊。鷺看著固定欄杆和清掃線。",
+   "reward": "清理隊長撤離，辦公室開門。",
+   "complete_flag": "ch4_office_access",
+   "steps": [
+    {
+     "title": "通過清掃工作廊，打開辦公室。",
+     "complete_flag": "ch4_office_access",
+     "location": {
+      "level": "res://data/levels/ch4_factory_cleaning.tres",
+      "cell": [
+       77,
+       19
+      ]
+     },
+     "title_ja": "清掃作業廊を通り、事務室を開ける。",
+     "title_en": "Cross the cleanup gallery and open the office."
+    }
+   ],
+   "visible_flags": [
+    "ch4_factory_work_crossed"
+   ],
+   "title_ja": "原簿の事務室を開ける",
+   "title_en": "Open the original ledger office",
+   "background_ja": "前方の作業廊を清掃隊長が守っている。鷺は固定の手すりと清掃線を見張る。",
+   "background_en": "The cleanup captain holds the gallery ahead. Egret watches the railing and the sweep line.",
+   "reward_ja": "清掃隊長が退き、事務室の扉が開く。",
+   "reward_en": "The cleanup captain withdraws and the office unlocks."
   }
  ],
  "scenes": {
@@ -1573,6 +1618,107 @@
     "equals": true
    }
   },
+  "ch4_t_egret_handoff": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "妳把手給我。我先拿終端接上。",
+     "ja": "手を貸して。端末をつなぐ。",
+     "en": "Give me your hand. I'll connect the terminal."
+    },
+    {
+     "do": "say",
+     "speaker": "factory_terminal",
+     "text": "無法執行復原。",
+     "ja": "復元は実行できません。",
+     "en": "Revival cannot be performed."
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "原帳在樓上。妳自己看。",
+     "ja": "原簿は上にある。自分の目で見て。",
+     "en": "The original ledger is upstairs. Look for yourself."
+    }
+   ],
+   "overlay": true,
+   "silence_music": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch4_atropos_midpoint_ready",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch4_egret_departed",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch4_terminal_revival_denied",
+     "value": true
+    },
+    {
+     "kind": "flag",
+     "id": "ch4_egret_departed",
+     "value": true
+    }
+   ],
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch4_t_work_retreat": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "她退到工作廊裡了。辦公室的門現在解鎖。",
+     "ja": "隊長は作業廊の奥へ退いた。事務室の扉が開いた。",
+     "en": "She withdrew into the work corridor. The office door is unlocked."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我先帶原帳出去。",
+     "ja": "先に原簿を持ち出す。",
+     "en": "I'll take the original ledger out first."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch4_atropos_retreat_ready",
+      "equals": true
+     },
+     {
+      "flag": "ch4_egret_departed",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch4_office_access",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch4_office_access",
+     "value": true
+    }
+   ],
+   "completion_policy": "main_terminal_results_v1"
+  },
   "ch4_dispatch_old_k": {
    "mode": "dispatch",
    "routes": [
@@ -2158,6 +2304,80 @@
       "equals": true
      },
      "target": "ch4_t_work_crossed"
+    }
+   ]
+  },
+  "ch4_dispatch_egret_at_rail": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch4_atropos_midpoint_ready",
+          "equals": true
+         },
+         {
+          "not": {
+           "flag": "ch4_egret_departed",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch4_terminal_revival_denied",
+         "equals": true
+        }
+       },
+       {
+        "not": {
+         "flag": "ch4_egret_departed",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch4_t_egret_handoff"
+    }
+   ]
+  },
+  "ch4_dispatch_office_release": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch4_atropos_retreat_ready",
+          "equals": true
+         },
+         {
+          "flag": "ch4_egret_departed",
+          "equals": true
+         },
+         {
+          "not": {
+           "flag": "ch4_office_access",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch4_office_access",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch4_t_work_retreat"
     }
    ]
   },

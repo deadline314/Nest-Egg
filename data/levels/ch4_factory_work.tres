@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=12 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=13 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
@@ -22,6 +22,20 @@ height = 68
 style = "door"
 
 [sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("2_portal_data")
+id = &"work_arena"
+target_level = "res://data/levels/ch4_factory_cleaning.tres"
+target_portal = &"arena_work"
+requires_flag = &"ch4_factory_work_crossed"
+locked_text = "先到工作帶另一端核對讀數。"
+localized_locked_text = Dictionary[String, String]({"en": "Check the readings at the far end of the work lane first.", "ja": "先に作業帯の反対側で計測値を確認する。"})
+prompt = "{interact} 確認進入清掃工作廊"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Enter the cleanup gallery", "ja": "{interact} 清掃作業廊に入る"})
+width = 32
+height = 68
+style = "door"
+
+[sub_resource type="Resource" id="Resource_2"]
 script = ExtResource("7_lighting_zone")
 start_tile = 0
 blend_tiles = 12
@@ -36,6 +50,7 @@ tile_size = 16
 height = 24
 legend = Dictionary[String, Resource]({
 "↤": SubResource("Resource_0"),
+"↪": SubResource("Resource_1"),
 "ⓟ": ExtResource("3_ch4_work_observation"),
 "⧈": ExtResource("4_ch4_work_test_cover"),
 "⭗": ExtResource("5_ch4_upper_sweep"),
@@ -47,6 +62,6 @@ persistent_world = true
 show_chapter_card = false
 environment = ExtResource("9_ch4_factory_work")
 layout_path = "res://data/levels/ch4_factory_work_map.json"
-lighting_zones = Array[ExtResource("7_lighting_zone")]([SubResource("Resource_1")])
+lighting_zones = Array[ExtResource("7_lighting_zone")]([SubResource("Resource_2")])
 story_triggers = PackedStringArray()
 death_credit_cap = 250

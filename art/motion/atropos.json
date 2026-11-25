@@ -1,0 +1,203 @@
+{
+  "description": "裁的工業靴接地與步態。平時短步巡視，出招順序由專屬動作資料決定。角度為弧度，鞋底輪廓由正式靴子貼圖量取。",
+  "skin": "atropos",
+  "idle": {
+    "breath_speed": 2.91,
+    "breath_amp": 0.018,
+    "hip_bob": 0.13,
+    "chest": 0.015,
+    "legs": [
+      -0.23,
+      0.2,
+      0.16,
+      0.18
+    ],
+    "sway": 0.29,
+    "sway_speed": 1.42
+  },
+  "move": {
+    "stride": 48,
+    "swing": 0.7,
+    "knee_bend": 1.1,
+    "knee_base": 0.13,
+    "hip_bounce": 0.73,
+    "chest_lean": 0.14,
+    "threshold": 0.08,
+    "duty": 0.59,
+    "lift": 4,
+    "reach": 0.973,
+    "stride_exp": 0.45,
+    "stride_floor": 0.53,
+    "bounce": 0.47,
+    "rise": 0.28,
+    "level": 1,
+    "bob_slow": 0.74
+  },
+  "crouch": {
+    "hip_drop": 3.54,
+    "chest": 0.14,
+    "legs": [
+      -0.65,
+      1.05,
+      -0.12,
+      0.85
+    ],
+    "feet": [
+      -0.4,
+      -0.73
+    ]
+  },
+  "air": {
+    "rise": {
+      "chest": 0.05,
+      "legs": [
+        -0.95,
+        1.4,
+        0.35,
+        0.7
+      ]
+    },
+    "fall": {
+      "chest": -0.05,
+      "legs": [
+        -0.35,
+        0.45,
+        0.45,
+        0.25
+      ]
+    }
+  },
+  "dash": {
+    "forward": {
+      "chest": 0.38,
+      "legs": [
+        -1,
+        0.6,
+        0.85,
+        1
+      ]
+    },
+    "back": {
+      "chest": -0.22,
+      "legs": [
+        0.5,
+        0.9,
+        -0.7,
+        0.4
+      ]
+    },
+    "sole": [
+      [
+        -2.1,
+        3.52
+      ],
+      [
+        -1.1,
+        3.73
+      ],
+      [
+        0.47,
+        3.73
+      ],
+      [
+        3.71,
+        3.78
+      ],
+      [
+        4.48,
+        3.78
+      ],
+      [
+        5.32,
+        3.63
+      ],
+      [
+        5.73,
+        3.33
+      ]
+    ]
+  },
+  "block": {
+    "chest": 0.09,
+    "legs": [
+      -0.38,
+      0.61,
+      0.03,
+      0.66
+    ],
+    "plant_feet": true
+  },
+  "hurt": {
+    "stagger_chest": -0.27,
+    "kick": 0.17
+  },
+  "look": {
+    "chest": 0.12,
+    "neck": 0.12,
+    "head": 0.3,
+    "head_min": -0.35,
+    "head_max": 0.3
+  },
+  "death": {
+    "duration": 0.81,
+    "rotation": -1.55,
+    "drop": 21,
+    "hip_x": -9,
+    "chest": 0.15,
+    "head": 0.35,
+    "fold": 0,
+    "ease": "out_cubic",
+    "legs": [
+      0.3,
+      0.1,
+      0.45,
+      0.05
+    ],
+    "fold_legs": [
+      -1.4,
+      2,
+      -1.2,
+      1.9
+    ],
+    "rest_height": 3
+  },
+  "npc": {
+    "stand": {},
+    "talk_speed": 1,
+    "talk_amp": 1
+  },
+  "grounding": true,
+  "relax": {
+    "speed": 6,
+    "aim": 0.6,
+    "reach": 0.8,
+    "chest": -0.06
+  },
+  "recoil": {
+    "chest": 0.05,
+    "reach": 2,
+    "hip": 0.4,
+    "decay": 12
+  },
+  "foot": {
+    "droop": 0.19,
+    "heel": -0.13,
+    "toe_off": 0.25
+  },
+  "torso": {
+    "hip_swing": 0.016,
+    "chest_counter": -0.025,
+    "chest_wobble": 0.011,
+    "wobble_phase": 0.32,
+    "head_hold": 0.61
+  },
+  "arms": {
+    "hang": [
+      0.05,
+      -0.25,
+      -0.27,
+      -0.32
+    ],
+    "swing": 0.24
+  }
+}

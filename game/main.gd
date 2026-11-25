@@ -289,6 +289,7 @@ func _continue_run() -> void:
 		return
 	if not _import_path.is_empty():
 		push_warning("[RunSave] 從其他累積版本接續：%s；原檔不修改，之後保存到 %s" % [_import_path, _run_store.path])
+	data = _resume_from_safe_area(data)
 	_active_run = false
 	_restore_publish_pending = true
 	RunSnapshot.apply(data, false)
@@ -317,6 +318,39 @@ func _continue_run() -> void:
 		await _show_victory(terminal.chapter)
 	else:
 		await _load_level(Transition.Kind.SCAN)
+
+
+func _safe_resume_target(source: LevelData) -> String:
+	if source == null or source.safe_resume_level.is_empty():
+		return ""
+	var target := RunSaveCodec.resource(source.safe_resume_level, "level", "res://data/levels/") as LevelData
+	if target == null or target.chapter != source.chapter or not CampaignEdition.current().includes_level(target):
+		push_warning("[RunSave] %s 的安全返回區無效：%s" % [source.resource_path, source.safe_resume_level])
+		return ""
+	return target.resource_path
+
+
+func _resume_from_safe_area(snapshot: Dictionary) -> Dictionary:
+	var runtime: Dictionary = snapshot["runtime"]
+	if snapshot["chapter_complete"] or runtime["ending"] or not runtime.get("death_entry", {}).is_empty():
+		return snapshot
+	var source := RunSaveCodec.resource(snapshot["level"], "level", "res://data/levels/") as LevelData
+	var target := _safe_resume_target(source)
+	if target.is_empty() or target == snapshot["level"]:
+		return snapshot
+	var prepared := preload("res://core/run_destination.gd").prepare(snapshot, target, {"pending_portal": "", "carried_health": -1})
+	if prepared.has("error"):
+		push_warning("[RunSave] %s 無法安全返回 %s：%s" % [snapshot["level"], target, prepared["error"]])
+		return snapshot
+	var entry: Dictionary = prepared["data"]
+	entry["runtime"]["position"] = [-1, -1]
+	# Ordinary defeat still opens its recovery screen and charges only once.
+	entry["runtime"]["dead"] = runtime["dead"]
+	entry["runtime"]["death_cause"] = runtime["death_cause"]
+	# An unfinished local presentation can be retried from its own source.
+	entry["cinematic"] = ""
+	entry["cinematic_context"] = {}
+	return entry
 
 
 ## 下一個區域：存在、型別正確且屬於本版本收錄的章節才接續；否則視為本版本的章末。
@@ -401,9 +435,11 @@ func _retry_run(level: Level, kind: Transition.Kind, caption: String, hold: floa
 	Story.reset_active_presentation(&"retry")
 	# 檢查點在別的區域（區域組）：回到那個區域；舊式關卡的檢查點一定在同一關。
 	var checkpoint_level := GameState.checkpoint_level_path
-	var destination_path := _level_path
-	if GameState.has_checkpoint and not checkpoint_level.is_empty() and RunSaveCodec.resource(checkpoint_level, "level", "res://data/levels/") != null:
-		destination_path = checkpoint_level
+	var destination_path := _safe_resume_target(level.data)
+	if destination_path.is_empty():
+		destination_path = _level_path
+		if GameState.has_checkpoint and not checkpoint_level.is_empty() and RunSaveCodec.resource(checkpoint_level, "level", "res://data/levels/") != null:
+			destination_path = checkpoint_level
 	var runtime := level.run_snapshot()
 	runtime["loadout"] = GameState.checkpoint_loadout.duplicate(true)
 	var restore_progression: Variant = null

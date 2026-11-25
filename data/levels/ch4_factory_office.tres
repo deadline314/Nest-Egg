@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="3_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/clinic_ward.tres" id="4_clinic_ward"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch4_factory_office.tres" id="5_ch4_factory_office"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("2_portal_data")
+id = &"office_arena"
+target_level = "res://data/levels/ch4_factory_cleaning.tres"
+target_portal = &"arena_office"
+prompt = "{interact} 下樓回工作廊"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Go downstairs to the gallery", "ja": "{interact} 階下の清掃作業廊へ戻る"})
+width = 32
+height = 68
+style = "door"
+
+[sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("3_lighting_zone")
+start_tile = 0
+blend_tiles = 12
+profile = ExtResource("4_clinic_ward")
+
+[resource]
+script = ExtResource("1_level_data")
+id = &"ch4_factory_office"
+display_name = "原帳辦公室"
+localized_names = Dictionary[String, String]({"en": "Original Ledger Office", "ja": "原簿の事務室"})
+tile_size = 16
+height = 24
+legend = Dictionary[String, Resource]({
+"↧": SubResource("Resource_0")
+})
+hints = PackedStringArray()
+chapter = &"ch4_hollow"
+persistent_world = true
+show_chapter_card = false
+environment = ExtResource("5_ch4_factory_office")
+layout_path = "res://data/levels/ch4_factory_office_map.json"
+lighting_zones = Array[ExtResource("3_lighting_zone")]([SubResource("Resource_1")])
+story_triggers = PackedStringArray()
+death_credit_cap = 250

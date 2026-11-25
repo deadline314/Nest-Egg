@@ -73,6 +73,8 @@ const MAX_CHANNEL_RESULT_FLAGS := 64
 ## 持久世界（區域組）：殺掉的敵人、撿過的東西、開過的機關與受傷的頭目在區域之間與死亡之後都保留；
 ## 死亡改為扣信用點而不是回溯成就之前的狀態。關閉＝舊式關卡（死後敵人重生、世界還原到檢查點）。
 @export var persistent_world := false
+## 返回固定的同章區域重新進場。留空時保存當前區域與玩家位置。
+@export_file("*.tres") var safe_resume_level := ""
 ## 進入區域時是否顯示章節標題卡（只有章節的第一個區域需要）。
 @export var show_chapter_card := true
 ## 穿過出入口進來時，是否在畫面上顯示區域名稱（display_name）。

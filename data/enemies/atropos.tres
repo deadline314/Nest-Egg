@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="1"]
+[ext_resource type="Script" path="res://game/enemies/atropos_boss.gd" id="2"]
+[ext_resource type="Resource" path="res://data/projectiles/atropos_burst.tres" id="3"]
+
+[resource]
+script = ExtResource("1")
+id = &"atropos"
+behavior = ExtResource("2")
+projectile = ExtResource("3")
+display_name = "清理隊隊長　裁"
+localized_names = Dictionary[String, String]({"en": "Cleanup Captain Atropos", "ja": "清掃隊長 裁"})
+attack_category = &"melee"
+hit_material = &"armor"
+body_size = Vector2(21, 52)
+color = Color(0.76, 0.59, 0.27, 1.0)
+max_health = 76
+move_speed = 67.0
+contact_damage = 1
+contact_source_id = &"atropos_lunge"
+attack_range = 380.0
+detect_range = 320.0
+attack_cooldown = 1.06
+knockback_scale = 0.0
+poise = 38.0
+health_drop_chance = 0.0
+finish_health_ratio = 0.0
+rig_skin = "atropos"
+rig_weapon = ""

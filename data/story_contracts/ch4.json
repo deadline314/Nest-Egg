@@ -469,6 +469,85 @@
           }
         ]
       }
+    },
+    {
+      "id": "ch4_t_egret_handoff",
+      "source": "res://data/story/ch4_hollow.json",
+      "npc": "res://data/npcs/ch4_egret_at_rail.tres",
+      "levels": [
+        "res://data/levels/ch4_factory_cleaning.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "flag": "ch4_atropos_midpoint_ready",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch4_egret_departed",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch4_terminal_revival_denied",
+            "value": true
+          },
+          {
+            "kind": "flag",
+            "id": "ch4_egret_departed",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch4_t_work_retreat",
+      "source": "res://data/story/ch4_hollow.json",
+      "npc": "res://data/npcs/ch4_office_release.tres",
+      "levels": [
+        "res://data/levels/ch4_factory_cleaning.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "flag": "ch4_atropos_retreat_ready",
+              "equals": true
+            },
+            {
+              "flag": "ch4_egret_departed",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch4_office_access",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch4_office_access",
+            "value": true
+          }
+        ]
+      }
     }
   ]
 }

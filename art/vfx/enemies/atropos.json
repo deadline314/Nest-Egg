@@ -1,0 +1,22 @@
+{
+  "description": "裁的特殊裝備在受擊時冒出低亮的銅色電弧。",
+  "step": {
+    "every": 38,
+    "dust": 1,
+    "spread": 12
+  },
+  "hit": {
+    "color": "#d3a369",
+    "amount": 4,
+    "speed": 150,
+    "kind": "arc",
+    "light": 0.15
+  },
+  "states": {
+    "work_retreat": {
+      "at": "feet",
+      "dust": 4,
+      "spread": 28
+    }
+  }
+}

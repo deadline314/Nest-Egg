@@ -75,4 +75,5 @@ environment = ExtResource("7_ch4_factory_safety")
 layout_path = "res://data/levels/ch4_factory_safety_map.json"
 lighting_zones = Array[ExtResource("5_lighting_zone")]([SubResource("Resource_3")])
 story_triggers = PackedStringArray()
+safe_resume_level = "res://data/levels/ch4_factory_safety.tres"
 death_credit_cap = 250

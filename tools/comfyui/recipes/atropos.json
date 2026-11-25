@@ -1,0 +1,19 @@
+{
+  "description": "裁（atropos）的建置配方。保留原生來源 art_src/characters/atropos/01_design/source.json；沒有本機生成 seed；原始來源與提示保持，分件及後續步驟另驗。",
+  "id": "atropos",
+  "name": "裁",
+  "spec": "tools/comfyui/specs/atropos_side.json",
+  "rig": "art/rigs/atropos.json",
+  "work": "art_src/characters/atropos",
+  "design": {
+    "size": [
+      1037,
+      1516
+    ],
+    "prompt": "Taiwanese factory cleanup chief, slate blue cropped jacket and ochre armband, asymmetrical amber earpiece, neutral right-facing profile, matte flat two-tone cel color, same style as Ali, Egret and Sweeper from Nest Egg.",
+    "source_record": "art_src/characters/atropos/01_design/source.json"
+  },
+  "source_rebuilds": [
+    "art_src/characters/atropos/stitch_knee.py"
+  ]
+}

@@ -1,0 +1,72 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=15 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
+[ext_resource type="Resource" path="res://data/props/ch4_arena_lower_sweep.tres" id="3_ch4_arena_lower_sweep"]
+[ext_resource type="Resource" path="res://data/props/ch4_arena_upper_sweep.tres" id="4_ch4_arena_upper_sweep"]
+[ext_resource type="Resource" path="res://data/npcs/ch4_egret_at_rail.tres" id="5_ch4_egret_at_rail"]
+[ext_resource type="Resource" path="res://data/npcs/ch4_office_release.tres" id="6_ch4_office_release"]
+[ext_resource type="Resource" path="res://data/props/ch4_arena_cover.tres" id="7_ch4_arena_cover"]
+[ext_resource type="Resource" path="res://data/enemies/atropos.tres" id="8_atropos"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="9_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/ch4_loading_bay.tres" id="10_ch4_loading_bay"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch4_factory_cleaning.tres" id="11_ch4_factory_cleaning"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("2_portal_data")
+id = &"arena_office"
+target_level = "res://data/levels/ch4_factory_office.tres"
+target_portal = &"office_arena"
+requires_flag = &"ch4_office_access"
+locked_text = "等清理隊長撤出工作廊。"
+localized_locked_text = Dictionary[String, String]({"en": "Wait until the cleanup captain leaves the gallery.", "ja": "清掃隊長が作業廊から撤退するのを待つ。"})
+prompt = "{interact} 上樓進原帳辦公室"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Go upstairs to the ledger office", "ja": "{interact} 原簿事務室の上階へ進む"})
+width = 32
+height = 68
+style = "door"
+
+[sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("2_portal_data")
+id = &"arena_work"
+target_level = "res://data/levels/ch4_factory_work.tres"
+target_portal = &"work_arena"
+prompt = "{interact} 退回工作帶"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Return to the work lane", "ja": "{interact} 清掃作業帯に戻る"})
+width = 32
+height = 68
+style = "door"
+
+[sub_resource type="Resource" id="Resource_2"]
+script = ExtResource("9_lighting_zone")
+start_tile = 0
+blend_tiles = 12
+profile = ExtResource("10_ch4_loading_bay")
+
+[resource]
+script = ExtResource("1_level_data")
+id = &"ch4_factory_cleaning"
+display_name = "清掃工作廊"
+localized_names = Dictionary[String, String]({"en": "Cleanup Gallery", "ja": "清掃作業廊"})
+tile_size = 16
+height = 24
+legend = Dictionary[String, Resource]({
+"↥": SubResource("Resource_0"),
+"↩": SubResource("Resource_1"),
+"⏚": ExtResource("3_ch4_arena_lower_sweep"),
+"⏛": ExtResource("4_ch4_arena_upper_sweep"),
+"ⓙ": ExtResource("5_ch4_egret_at_rail"),
+"ⓩ": ExtResource("6_ch4_office_release"),
+"▧": ExtResource("7_ch4_arena_cover"),
+"⦿": ExtResource("8_atropos")
+})
+hints = PackedStringArray()
+chapter = &"ch4_hollow"
+persistent_world = true
+show_chapter_card = false
+environment = ExtResource("11_ch4_factory_cleaning")
+layout_path = "res://data/levels/ch4_factory_cleaning_map.json"
+lighting_zones = Array[ExtResource("9_lighting_zone")]([SubResource("Resource_2")])
+story_triggers = PackedStringArray()
+safe_resume_level = "res://data/levels/ch4_factory_safety.tres"
+death_credit_cap = 250

@@ -1,0 +1,108 @@
+{
+  "_doc": "裁的廠房戰。中段與撤離由同區具名演出來源保存，角色屬於正式工作廊。",
+  "bar_name": "裁  ATROPOS",
+  "bar_name_en": "ATROPOS",
+  "bar_name_ja": "裁  ATROPOS",
+  "wake_range": 280,
+  "moves": {
+    "lane_lunge": {
+      "kind": "lunge",
+      "telegraph": 0.88,
+      "recover": 1.05,
+      "weight": 1.4,
+      "pose_windup": "atropos.brace",
+      "pose_act": "atropos.lunge",
+      "params": {
+        "speed": 320,
+        "max_distance": 188,
+        "damage": 1
+      }
+    },
+    "signal_burst": {
+      "kind": "burst",
+      "telegraph": 0.83,
+      "recover": 0.66,
+      "weight": 1,
+      "params": {
+        "count": 3,
+        "interval": 0.18,
+        "lock": 0.27
+      },
+      "pose_windup": "atropos.burst_ready",
+      "pose_act": "atropos.burst_cycle"
+    },
+    "mark_zone": {
+      "kind": "missiles",
+      "telegraph": 1.4,
+      "recover": 0.79,
+      "weight": 1,
+      "params": {
+        "count": 3,
+        "damage": 1,
+        "spacing": 36,
+        "source": "atropos_barrage"
+      },
+      "pose_windup": "atropos.mark"
+    },
+    "mark_double": {
+      "kind": "missiles",
+      "telegraph": 1.6,
+      "recover": 1.1,
+      "weight": 1.3,
+      "params": {
+        "count": 4,
+        "damage": 1,
+        "spacing": 32,
+        "source": "atropos_barrage"
+      },
+      "pose_windup": "atropos.mark"
+    }
+  },
+  "phases": [
+    {
+      "until": 0.5,
+      "moves": [
+        "lane_lunge",
+        "signal_burst",
+        "mark_zone"
+      ],
+      "speed": 1,
+      "armored": false
+    },
+    {
+      "until": 0,
+      "moves": [
+        "lane_lunge",
+        "signal_burst",
+        "mark_double"
+      ],
+      "speed": 1.22,
+      "armored": false
+    }
+  ],
+  "habits": {
+    "close_range": 63,
+    "far_range": 218,
+    "close": [
+      "lane_lunge",
+      "signal_burst"
+    ],
+    "mid": [
+      "lane_lunge",
+      "mark_zone",
+      "mark_double",
+      "signal_burst"
+    ],
+    "far": [
+      "mark_zone",
+      "signal_burst",
+      "mark_double"
+    ]
+  },
+  "hooks": {
+    "retreat_x": 1416
+  },
+  "poses": {
+    "recover": "atropos.recover"
+  }
+}

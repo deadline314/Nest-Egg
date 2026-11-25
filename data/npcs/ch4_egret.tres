@@ -13,6 +13,7 @@ id = &"ch4_egret"
 display_name = "鷺"
 speaker = "egret"
 rig_id = "egret"
+spawn_unless_flag = &"ch4_egret_departed"
 loop = &"glance"
 facing = -1
 prompt = "{interact} 和鷺說話"

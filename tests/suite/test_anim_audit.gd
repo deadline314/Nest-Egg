@@ -4,7 +4,7 @@ extends TestSuite
 ## 都要在 AnimAudit.LIMITS 以內；超標時訊息會寫出最糟的數值、情境與格數。環境變數 ANIM_AUDIT_VERBOSE=1 會印出每個角色每一項的餘裕。
 
 const ENEMIES: Array[String] = ["rin", "trooper", "trooper_elite", "sniper", "flamer", "grenadier", "enforcer", "heavy_gunner", "warden", "reclaimer", "slasher", "stalker",
-	"sweeper", "collector_gunner", "collector_brute"]
+	"sweeper", "collector_gunner", "collector_brute", "atropos"]
 const WEAPONS := {"rin": "rifle", "trooper": "smg", "trooper_elite": "rifle", "sniper": "sniper", "flamer": "flamethrower", "grenadier": "launcher", "enforcer": "pistol", "heavy_gunner": "minigun", "warden": "minigun", "reclaimer": "rifle", "slasher": "", "stalker": "rifle",
 	"sweeper": "pistol", "collector_gunner": "pistol", "collector_brute": ""}
 

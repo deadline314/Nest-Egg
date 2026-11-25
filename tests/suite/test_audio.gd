@@ -374,7 +374,11 @@ func _test_character_sounds() -> void:
 	for file in DirAccess.get_files_at("res://data/enemies"):
 		if file.ends_with(".tres"):
 			var enemy := load("res://data/enemies/" + file) as EnemyData
-			check(CharacterSounds.name_for(enemy.id, &"death") != &"", "enemy %s has a death sound" % enemy.id)
+			var death_sound := CharacterSounds.name_for(enemy.id, &"death")
+			if enemy.id == &"atropos":
+				check(death_sound == &"", "the living captain has no death sound")
+			else:
+				check(death_sound != &"", "enemy %s has a death sound" % enemy.id)
 
 
 func _test_loadout_switch_signal() -> void:

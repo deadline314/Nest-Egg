@@ -34,6 +34,11 @@ FLOOR = "ch4_fixed_ground_marked"
 SWEEP = "ch4_demo_cover_cleared"
 BRIEFED = "ch4_cleaning_briefing_read"
 WORK_CROSSED = "ch4_factory_work_crossed"
+ATROPOS_MID = "ch4_atropos_midpoint_ready"
+ATROPOS_RETREAT = "ch4_atropos_retreat_ready"
+EGRET_GONE = "ch4_egret_departed"
+TERMINAL_DENIED = "ch4_terminal_revival_denied"
+OFFICE = "ch4_office_access"
 SHORTCUT = "ch4_safety_shortcut_open"
 
 
@@ -235,9 +240,27 @@ def _work_lane(source, dispatch):
     ), when=flag(WORK_CROSSED), mode="animated")
 
 
+def _cleanup_battle(source, dispatch):
+    dispatch["egret_at_rail"] = ["ch4_t_egret_handoff"]
+    source.add("ch4_t_egret_handoff", "10", (
+        ("rin", "妳把手給我。我先拿終端接上。"),
+        ("factory_terminal", "無法執行復原。"),
+        ("egret", "原帳在樓上。妳自己看。"),
+    ), when=all_of(flag(ATROPOS_MID), negate(flag(EGRET_GONE))), mode="animated",
+        completion=(set_flag(TERMINAL_DENIED), set_flag(EGRET_GONE)), silence_music=True)
+    dispatch["office_release"] = ["ch4_t_work_retreat"]
+    source.add("ch4_t_work_retreat", "11", (
+        ("lamp", "她退到工作廊裡了。辦公室的門現在解鎖。"),
+        ("rin", "我先帶原帳出去。"),
+    ), when=all_of(flag(ATROPOS_RETREAT), flag(EGRET_GONE), negate(flag(OFFICE))), mode="animated",
+        completion=(set_flag(OFFICE),))
+
+
 def build_spec():
     source = ProductionSource(flag_defaults={})
     source.speakers = {
+        "factory_terminal": {"name": "復原終端", "name_ja": "復元端末", "name_en": "Restoration terminal",
+                             "color": "#cad8dd", "portrait": "res://art/portraits/system.png"},
         "factory_pa": {"name": "廠內廣播", "name_ja": "工場内放送", "name_en": "Factory PA",
                        "color": "#e4bd91", "portrait": "res://art/portraits/atropos.png"},
         "linden": {"name": "棠", "name_ja": "棠", "name_en": "Linden",
@@ -257,9 +280,10 @@ def build_spec():
     _sweep_demo(source, dispatch)
     _factory_safety(source, dispatch)
     _work_lane(source, dispatch)
+    _cleanup_battle(source, dispatch)
     route_back_to_choices(source, dispatch, "ch4")
     source.bindings.update({
-        binding: Binding("npc" if binding in ("old_k", "egret", "ali") else "object", CHAPTER,
+        binding: Binding("npc" if binding in ("old_k", "egret", "ali", "egret_at_rail") else "object", CHAPTER,
                          f"res://data/npcs/ch4_{binding}.tres")
         for binding in POINTS
     })
@@ -312,7 +336,16 @@ def build_spec():
         (QuestStep("避開白框，去工作帶另一端核對讀數。", WORK_CROSSED, "work_observation"),),
         visible_flags=(BRIEFED,),
     ))
-    return ChapterSpec(CHAPTER_INFO, source, "ch4", dispatch, POINTS, flag_defaults={"ch4_work_cover_erased": False})
+
+    source.quests.append(Quest(
+        "ch4_cleanup_battle", "main", "打開原帳辦公室",
+        "清理隊長守在前方工作廊。鷺看著固定欄杆和清掃線。",
+        "清理隊長撤離，辦公室開門。", OFFICE,
+        (QuestStep("通過清掃工作廊，打開辦公室。", OFFICE, "office_release"),),
+        visible_flags=(WORK_CROSSED,),
+    ))
+    return ChapterSpec(CHAPTER_INFO, source, "ch4", dispatch, POINTS,
+        flag_defaults={"ch4_work_cover_erased": False, "ch4_arena_cover_erased": False, ATROPOS_MID: False, ATROPOS_RETREAT: False})
 
 
 def main():

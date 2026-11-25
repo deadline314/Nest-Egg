@@ -2728,10 +2728,95 @@ hints = PackedStringArray()
 layout_path = "res://data/levels/ch4_factory_approach_map.json"
 
 [sub_resource type="Resource" id="Resource_idqof"]
+script = ExtResource("3_sfgi7")
+id = &"arena_office"
+target_level = "res://data/levels/ch4_factory_office.tres"
+target_portal = &"office_arena"
+prompt = "{interact} 上樓進原帳辦公室"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Go upstairs to the ledger office",
+"ja": "{interact} 原簿事務室の上階へ進む"
+})
+requires_flag = &"ch4_office_access"
+locked_text = "等清理隊長撤出工作廊。"
+localized_locked_text = Dictionary[String, String]({
+"en": "Wait until the cleanup captain leaves the gallery.",
+"ja": "清掃隊長が作業廊から撤退するのを待つ。"
+})
+width = 32
+height = 68
+
+[sub_resource type="Resource" id="Resource_tyrfg"]
+script = ExtResource("3_sfgi7")
+id = &"arena_work"
+target_level = "res://data/levels/ch4_factory_work.tres"
+target_portal = &"work_arena"
+prompt = "{interact} 退回工作帶"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Return to the work lane",
+"ja": "{interact} 清掃作業帯に戻る"
+})
+width = 32
+height = 68
+
+[sub_resource type="Resource" id="Resource_y15mw"]
+script = ExtResource("16_fvipl")
+id = &"ch4_arena_lower_sweep"
+kind = 6
+display_name = "清掃工作廊白線"
+
+[sub_resource type="Resource" id="Resource_adoc1"]
+script = ExtResource("16_fvipl")
+id = &"ch4_arena_upper_sweep"
+kind = 6
+display_name = "清掃工作廊白線"
+
+[sub_resource type="Resource" id="Resource_7pnad"]
+script = ExtResource("7_04qia")
+id = &"ch4_egret_at_rail"
+
+[sub_resource type="Resource" id="Resource_uulrg"]
+script = ExtResource("7_04qia")
+id = &"ch4_office_release"
+
+[sub_resource type="Resource" id="Resource_iflki"]
+script = ExtResource("14_xqojo")
+id = &"ch4_arena_cover"
+
+[sub_resource type="Resource" id="Resource_c2ux3"]
+
+[sub_resource type="Resource" id="Resource_c666f"]
+script = ExtResource("1_fuu4v")
+id = &"ch4_factory_cleaning"
+display_name = "清掃工作廊"
+localized_names = Dictionary[String, String]({
+"en": "Cleanup Gallery",
+"ja": "清掃作業廊"
+})
+height = 24
+legend = Dictionary[String, Resource]({
+"↥": SubResource("Resource_idqof"),
+"↩": SubResource("Resource_tyrfg"),
+"⏚": SubResource("Resource_y15mw"),
+"⏛": SubResource("Resource_adoc1"),
+"ⓙ": SubResource("Resource_7pnad"),
+"ⓩ": SubResource("Resource_uulrg"),
+"▧": SubResource("Resource_iflki"),
+"⦿": SubResource("Resource_c2ux3")
+})
+sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
+billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
+chapter = &"ch4_hollow"
+skip_flags = PackedStringArray()
+story_triggers = PackedStringArray()
+hints = PackedStringArray()
+layout_path = "res://data/levels/ch4_factory_cleaning_map.json"
+
+[sub_resource type="Resource" id="Resource_384wq"]
 script = ExtResource("14_xqojo")
 id = &"ch4_sweep_sample"
 
-[sub_resource type="Resource" id="Resource_tyrfg"]
+[sub_resource type="Resource" id="Resource_obhqy"]
 script = ExtResource("3_sfgi7")
 id = &"loading_approach"
 target_level = "res://data/levels/ch4_factory_approach.tres"
@@ -2744,7 +2829,7 @@ localized_prompts = Dictionary[String, String]({
 width = 32
 height = 68
 
-[sub_resource type="Resource" id="Resource_y15mw"]
+[sub_resource type="Resource" id="Resource_cgb6x"]
 script = ExtResource("3_sfgi7")
 id = &"loading_rail"
 target_level = "res://data/levels/ch4_factory_approach.tres"
@@ -2763,7 +2848,7 @@ localized_locked_text = Dictionary[String, String]({
 width = 32
 height = 68
 
-[sub_resource type="Resource" id="Resource_adoc1"]
+[sub_resource type="Resource" id="Resource_2hkrv"]
 script = ExtResource("3_sfgi7")
 id = &"loading_relay"
 target_level = "res://data/levels/ch4_factory_relay.tres"
@@ -2782,19 +2867,19 @@ localized_locked_text = Dictionary[String, String]({
 width = 32
 height = 68
 
-[sub_resource type="Resource" id="Resource_7pnad"]
+[sub_resource type="Resource" id="Resource_u7tun"]
 script = ExtResource("7_04qia")
 id = &"ch4_rail_release"
 
-[sub_resource type="Resource" id="Resource_uulrg"]
+[sub_resource type="Resource" id="Resource_7k3pb"]
 script = ExtResource("7_04qia")
 id = &"ch4_workbench"
 
-[sub_resource type="Resource" id="Resource_iflki"]
+[sub_resource type="Resource" id="Resource_44wm3"]
 script = ExtResource("7_04qia")
 id = &"ch4_sweep_console"
 
-[sub_resource type="Resource" id="Resource_c2ux3"]
+[sub_resource type="Resource" id="Resource_fdcxq"]
 script = ExtResource("3_sfgi7")
 id = &"loading_service"
 target_level = "res://data/levels/ch4_factory_safety.tres"
@@ -2813,7 +2898,7 @@ localized_locked_text = Dictionary[String, String]({
 width = 32
 height = 68
 
-[sub_resource type="Resource" id="Resource_c666f"]
+[sub_resource type="Resource" id="Resource_5jj72"]
 script = ExtResource("1_fuu4v")
 id = &"ch4_factory_loading"
 display_name = "舊廠裝卸帶"
@@ -2823,14 +2908,14 @@ localized_names = Dictionary[String, String]({
 })
 height = 24
 legend = Dictionary[String, Resource]({
-"Ƶ": SubResource("Resource_idqof"),
-"Ⅻ": SubResource("Resource_tyrfg"),
-"Ⅽ": SubResource("Resource_y15mw"),
-"Ⅾ": SubResource("Resource_adoc1"),
-"ⓡ": SubResource("Resource_7pnad"),
-"ⓦ": SubResource("Resource_uulrg"),
-"ⓧ": SubResource("Resource_iflki"),
-"⤒": SubResource("Resource_c2ux3")
+"Ƶ": SubResource("Resource_384wq"),
+"Ⅻ": SubResource("Resource_obhqy"),
+"Ⅽ": SubResource("Resource_cgb6x"),
+"Ⅾ": SubResource("Resource_2hkrv"),
+"ⓡ": SubResource("Resource_u7tun"),
+"ⓦ": SubResource("Resource_7k3pb"),
+"ⓧ": SubResource("Resource_44wm3"),
+"⤒": SubResource("Resource_fdcxq")
 })
 sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
 billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
@@ -2840,9 +2925,42 @@ story_triggers = PackedStringArray()
 hints = PackedStringArray()
 layout_path = "res://data/levels/ch4_factory_loading_map.json"
 
-[sub_resource type="Resource" id="Resource_384wq"]
+[sub_resource type="Resource" id="Resource_5apuw"]
+script = ExtResource("3_sfgi7")
+id = &"office_arena"
+target_level = "res://data/levels/ch4_factory_cleaning.tres"
+target_portal = &"arena_office"
+prompt = "{interact} 下樓回工作廊"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Go downstairs to the gallery",
+"ja": "{interact} 階下の清掃作業廊へ戻る"
+})
+width = 32
+height = 68
 
-[sub_resource type="Resource" id="Resource_obhqy"]
+[sub_resource type="Resource" id="Resource_lrjm1"]
+script = ExtResource("1_fuu4v")
+id = &"ch4_factory_office"
+display_name = "原帳辦公室"
+localized_names = Dictionary[String, String]({
+"en": "Original Ledger Office",
+"ja": "原簿の事務室"
+})
+height = 24
+legend = Dictionary[String, Resource]({
+"↧": SubResource("Resource_5apuw")
+})
+sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
+billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
+chapter = &"ch4_hollow"
+skip_flags = PackedStringArray()
+story_triggers = PackedStringArray()
+hints = PackedStringArray()
+layout_path = "res://data/levels/ch4_factory_office_map.json"
+
+[sub_resource type="Resource" id="Resource_f4sx7"]
+
+[sub_resource type="Resource" id="Resource_3cupv"]
 script = ExtResource("3_sfgi7")
 id = &"relay_loading"
 target_level = "res://data/levels/ch4_factory_loading.tres"
@@ -2855,7 +2973,7 @@ localized_prompts = Dictionary[String, String]({
 width = 32
 height = 68
 
-[sub_resource type="Resource" id="Resource_cgb6x"]
+[sub_resource type="Resource" id="Resource_j3i7q"]
 script = ExtResource("3_sfgi7")
 id = &"relay_safe"
 target_level = "res://data/levels/ch4_factory_safety.tres"
@@ -2868,7 +2986,7 @@ localized_prompts = Dictionary[String, String]({
 width = 32
 height = 68
 
-[sub_resource type="Resource" id="Resource_2hkrv"]
+[sub_resource type="Resource" id="Resource_o2krs"]
 script = ExtResource("1_fuu4v")
 id = &"ch4_factory_relay"
 display_name = "廠房接線廊"
@@ -2878,11 +2996,11 @@ localized_names = Dictionary[String, String]({
 })
 height = 24
 legend = Dictionary[String, Resource]({
-"b": SubResource("Resource_384wq"),
-"d": SubResource("Resource_384wq"),
-"g": SubResource("Resource_384wq"),
-"Ⅿ": SubResource("Resource_obhqy"),
-"↟": SubResource("Resource_cgb6x")
+"b": SubResource("Resource_f4sx7"),
+"d": SubResource("Resource_f4sx7"),
+"g": SubResource("Resource_f4sx7"),
+"Ⅿ": SubResource("Resource_3cupv"),
+"↟": SubResource("Resource_j3i7q")
 })
 sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
 billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
@@ -2892,7 +3010,7 @@ story_triggers = PackedStringArray()
 hints = PackedStringArray()
 layout_path = "res://data/levels/ch4_factory_relay_map.json"
 
-[sub_resource type="Resource" id="Resource_u7tun"]
+[sub_resource type="Resource" id="Resource_3p5sp"]
 script = ExtResource("3_sfgi7")
 id = &"safety_relay"
 target_level = "res://data/levels/ch4_factory_relay.tres"
@@ -2905,7 +3023,7 @@ localized_prompts = Dictionary[String, String]({
 width = 32
 height = 68
 
-[sub_resource type="Resource" id="Resource_7k3pb"]
+[sub_resource type="Resource" id="Resource_vlihw"]
 script = ExtResource("3_sfgi7")
 id = &"safety_work"
 target_level = "res://data/levels/ch4_factory_work.tres"
@@ -2924,15 +3042,15 @@ localized_locked_text = Dictionary[String, String]({
 width = 32
 height = 68
 
-[sub_resource type="Resource" id="Resource_44wm3"]
+[sub_resource type="Resource" id="Resource_675go"]
 script = ExtResource("7_04qia")
 id = &"ch4_safety_instruction"
 
-[sub_resource type="Resource" id="Resource_fdcxq"]
+[sub_resource type="Resource" id="Resource_yftj7"]
 script = ExtResource("7_04qia")
 id = &"ch4_safety_catch"
 
-[sub_resource type="Resource" id="Resource_5jj72"]
+[sub_resource type="Resource" id="Resource_q572w"]
 script = ExtResource("3_sfgi7")
 id = &"safety_service"
 target_level = "res://data/levels/ch4_factory_loading.tres"
@@ -2951,7 +3069,7 @@ localized_locked_text = Dictionary[String, String]({
 width = 32
 height = 68
 
-[sub_resource type="Resource" id="Resource_5apuw"]
+[sub_resource type="Resource" id="Resource_iwqme"]
 script = ExtResource("1_fuu4v")
 id = &"ch4_factory_safety"
 display_name = "清理線安全臺"
@@ -2961,11 +3079,11 @@ localized_names = Dictionary[String, String]({
 })
 height = 24
 legend = Dictionary[String, Resource]({
-"↡": SubResource("Resource_u7tun"),
-"↦": SubResource("Resource_7k3pb"),
-"ⓘ": SubResource("Resource_44wm3"),
-"ⓤ": SubResource("Resource_fdcxq"),
-"⤓": SubResource("Resource_5jj72")
+"↡": SubResource("Resource_3p5sp"),
+"↦": SubResource("Resource_vlihw"),
+"ⓘ": SubResource("Resource_675go"),
+"ⓤ": SubResource("Resource_yftj7"),
+"⤓": SubResource("Resource_q572w")
 })
 sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
 billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
@@ -2975,7 +3093,7 @@ story_triggers = PackedStringArray()
 hints = PackedStringArray()
 layout_path = "res://data/levels/ch4_factory_safety_map.json"
 
-[sub_resource type="Resource" id="Resource_lrjm1"]
+[sub_resource type="Resource" id="Resource_rqwqw"]
 script = ExtResource("3_sfgi7")
 id = &"work_safety"
 target_level = "res://data/levels/ch4_factory_safety.tres"
@@ -2988,27 +3106,46 @@ localized_prompts = Dictionary[String, String]({
 width = 32
 height = 68
 
-[sub_resource type="Resource" id="Resource_f4sx7"]
+[sub_resource type="Resource" id="Resource_o5gdx"]
+script = ExtResource("3_sfgi7")
+id = &"work_arena"
+target_level = "res://data/levels/ch4_factory_cleaning.tres"
+target_portal = &"arena_work"
+prompt = "{interact} 確認進入清掃工作廊"
+localized_prompts = Dictionary[String, String]({
+"en": "{interact} Enter the cleanup gallery",
+"ja": "{interact} 清掃作業廊に入る"
+})
+requires_flag = &"ch4_factory_work_crossed"
+locked_text = "先到工作帶另一端核對讀數。"
+localized_locked_text = Dictionary[String, String]({
+"en": "Check the readings at the far end of the work lane first.",
+"ja": "先に作業帯の反対側で計測値を確認する。"
+})
+width = 32
+height = 68
+
+[sub_resource type="Resource" id="Resource_5ohd6"]
 script = ExtResource("7_04qia")
 id = &"ch4_work_observation"
 
-[sub_resource type="Resource" id="Resource_3cupv"]
+[sub_resource type="Resource" id="Resource_513ps"]
 script = ExtResource("14_xqojo")
 id = &"ch4_work_test_cover"
 
-[sub_resource type="Resource" id="Resource_j3i7q"]
+[sub_resource type="Resource" id="Resource_q6bxe"]
 script = ExtResource("16_fvipl")
 id = &"ch4_upper_sweep"
 kind = 6
 display_name = "廠房清掃線"
 
-[sub_resource type="Resource" id="Resource_o2krs"]
+[sub_resource type="Resource" id="Resource_1vbr1"]
 script = ExtResource("16_fvipl")
 id = &"ch4_lower_sweep"
 kind = 6
 display_name = "廠房清掃線"
 
-[sub_resource type="Resource" id="Resource_3p5sp"]
+[sub_resource type="Resource" id="Resource_15okj"]
 script = ExtResource("1_fuu4v")
 id = &"ch4_factory_work"
 display_name = "清理工作帶"
@@ -3018,11 +3155,12 @@ localized_names = Dictionary[String, String]({
 })
 height = 24
 legend = Dictionary[String, Resource]({
-"↤": SubResource("Resource_lrjm1"),
-"ⓟ": SubResource("Resource_f4sx7"),
-"⧈": SubResource("Resource_3cupv"),
-"⭗": SubResource("Resource_j3i7q"),
-"⭙": SubResource("Resource_o2krs")
+"↤": SubResource("Resource_rqwqw"),
+"↪": SubResource("Resource_o5gdx"),
+"ⓟ": SubResource("Resource_5ohd6"),
+"⧈": SubResource("Resource_513ps"),
+"⭗": SubResource("Resource_q6bxe"),
+"⭙": SubResource("Resource_1vbr1")
 })
 sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
 billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
@@ -3032,7 +3170,7 @@ story_triggers = PackedStringArray()
 hints = PackedStringArray()
 layout_path = "res://data/levels/ch4_factory_work_map.json"
 
-[sub_resource type="Resource" id="Resource_vlihw"]
+[sub_resource type="Resource" id="Resource_0h675"]
 script = ExtResource("3_sfgi7")
 id = &"ward_entry"
 target_level = "res://data/levels/ch4_ward_reception.tres"
@@ -3045,7 +3183,7 @@ localized_prompts = Dictionary[String, String]({
 width = 32
 height = 68
 
-[sub_resource type="Resource" id="Resource_675go"]
+[sub_resource type="Resource" id="Resource_r3nt2"]
 script = ExtResource("3_sfgi7")
 id = &"ward_staff"
 target_level = "res://data/levels/ch4_ward_reception.tres"
@@ -3058,27 +3196,27 @@ localized_prompts = Dictionary[String, String]({
 width = 32
 height = 68
 
-[sub_resource type="Resource" id="Resource_yftj7"]
+[sub_resource type="Resource" id="Resource_bv13g"]
 script = ExtResource("7_04qia")
 id = &"ch4_cabinet"
 
-[sub_resource type="Resource" id="Resource_q572w"]
+[sub_resource type="Resource" id="Resource_3yq2a"]
 script = ExtResource("7_04qia")
 id = &"ch4_desk_demo"
 
-[sub_resource type="Resource" id="Resource_iwqme"]
+[sub_resource type="Resource" id="Resource_dumfg"]
 script = ExtResource("7_04qia")
 id = &"ch4_staff_switch"
 
-[sub_resource type="Resource" id="Resource_rqwqw"]
+[sub_resource type="Resource" id="Resource_bqa5n"]
 script = ExtResource("7_04qia")
 id = &"ch4_linden"
 
-[sub_resource type="Resource" id="Resource_o5gdx"]
+[sub_resource type="Resource" id="Resource_gx2ex"]
 script = ExtResource("7_04qia")
 id = &"ch4_voice_demo"
 
-[sub_resource type="Resource" id="Resource_5ohd6"]
+[sub_resource type="Resource" id="Resource_n3k17"]
 script = ExtResource("1_fuu4v")
 id = &"ch4_nursing_ward"
 display_name = "安養病房"
@@ -3088,13 +3226,13 @@ localized_names = Dictionary[String, String]({
 })
 height = 24
 legend = Dictionary[String, Resource]({
-"Ⅳ": SubResource("Resource_vlihw"),
-"Ⅴ": SubResource("Resource_675go"),
-"ⓒ": SubResource("Resource_yftj7"),
-"ⓓ": SubResource("Resource_q572w"),
-"ⓢ": SubResource("Resource_iwqme"),
-"ⓣ": SubResource("Resource_rqwqw"),
-"ⓥ": SubResource("Resource_o5gdx")
+"Ⅳ": SubResource("Resource_0h675"),
+"Ⅴ": SubResource("Resource_r3nt2"),
+"ⓒ": SubResource("Resource_bv13g"),
+"ⓓ": SubResource("Resource_3yq2a"),
+"ⓢ": SubResource("Resource_dumfg"),
+"ⓣ": SubResource("Resource_bqa5n"),
+"ⓥ": SubResource("Resource_gx2ex")
 })
 sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
 billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
@@ -3104,7 +3242,7 @@ story_triggers = PackedStringArray()
 hints = PackedStringArray()
 layout_path = "res://data/levels/ch4_nursing_ward_map.json"
 
-[sub_resource type="Resource" id="Resource_513ps"]
+[sub_resource type="Resource" id="Resource_o10gr"]
 script = ExtResource("3_sfgi7")
 id = &"pawn_ward"
 target_level = "res://data/levels/ch4_ward_reception.tres"
@@ -3123,11 +3261,11 @@ localized_locked_text = Dictionary[String, String]({
 width = 32
 height = 68
 
-[sub_resource type="Resource" id="Resource_q6bxe"]
+[sub_resource type="Resource" id="Resource_aqj7t"]
 script = ExtResource("7_04qia")
 id = &"ch4_old_k"
 
-[sub_resource type="Resource" id="Resource_1vbr1"]
+[sub_resource type="Resource" id="Resource_bfvsw"]
 script = ExtResource("1_fuu4v")
 id = &"ch4_pawnshop"
 display_name = "當舖（赴約）"
@@ -3137,8 +3275,8 @@ localized_names = Dictionary[String, String]({
 })
 height = 24
 legend = Dictionary[String, Resource]({
-"Ⅰ": SubResource("Resource_513ps"),
-"ⓞ": SubResource("Resource_q6bxe")
+"Ⅰ": SubResource("Resource_o10gr"),
+"ⓞ": SubResource("Resource_aqj7t")
 })
 sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
 billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
@@ -3148,7 +3286,7 @@ story_triggers = PackedStringArray()
 hints = PackedStringArray()
 layout_path = "res://data/levels/ch4_pawnshop_map.json"
 
-[sub_resource type="Resource" id="Resource_15okj"]
+[sub_resource type="Resource" id="Resource_fv4gs"]
 script = ExtResource("3_sfgi7")
 id = &"lounge_reception"
 target_level = "res://data/levels/ch4_ward_reception.tres"
@@ -3161,7 +3299,7 @@ localized_prompts = Dictionary[String, String]({
 width = 32
 height = 68
 
-[sub_resource type="Resource" id="Resource_0h675"]
+[sub_resource type="Resource" id="Resource_atayr"]
 script = ExtResource("3_sfgi7")
 id = &"lounge_factory"
 target_level = "res://data/levels/ch4_factory_approach.tres"
@@ -3180,11 +3318,11 @@ localized_locked_text = Dictionary[String, String]({
 width = 32
 height = 68
 
-[sub_resource type="Resource" id="Resource_r3nt2"]
+[sub_resource type="Resource" id="Resource_r2ppk"]
 script = ExtResource("7_04qia")
 id = &"ch4_ali"
 
-[sub_resource type="Resource" id="Resource_bv13g"]
+[sub_resource type="Resource" id="Resource_bn2dc"]
 script = ExtResource("1_fuu4v")
 id = &"ch4_revival_lounge"
 display_name = "復原館的換班口"
@@ -3194,9 +3332,9 @@ localized_names = Dictionary[String, String]({
 })
 height = 24
 legend = Dictionary[String, Resource]({
-"Ⅷ": SubResource("Resource_15okj"),
-"Ⅸ": SubResource("Resource_0h675"),
-"ⓐ": SubResource("Resource_r3nt2")
+"Ⅷ": SubResource("Resource_fv4gs"),
+"Ⅸ": SubResource("Resource_atayr"),
+"ⓐ": SubResource("Resource_r2ppk")
 })
 sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
 billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
@@ -3206,7 +3344,7 @@ story_triggers = PackedStringArray()
 hints = PackedStringArray()
 layout_path = "res://data/levels/ch4_revival_lounge_map.json"
 
-[sub_resource type="Resource" id="Resource_3yq2a"]
+[sub_resource type="Resource" id="Resource_yrrku"]
 script = ExtResource("3_sfgi7")
 id = &"reception_pawn"
 target_level = "res://data/levels/ch4_pawnshop.tres"
@@ -3219,7 +3357,7 @@ localized_prompts = Dictionary[String, String]({
 width = 32
 height = 68
 
-[sub_resource type="Resource" id="Resource_dumfg"]
+[sub_resource type="Resource" id="Resource_ixn2n"]
 script = ExtResource("3_sfgi7")
 id = &"reception_ward"
 target_level = "res://data/levels/ch4_nursing_ward.tres"
@@ -3238,7 +3376,7 @@ localized_locked_text = Dictionary[String, String]({
 width = 32
 height = 68
 
-[sub_resource type="Resource" id="Resource_bqa5n"]
+[sub_resource type="Resource" id="Resource_2oi6r"]
 script = ExtResource("3_sfgi7")
 id = &"reception_staff"
 target_level = "res://data/levels/ch4_nursing_ward.tres"
@@ -3257,7 +3395,7 @@ localized_locked_text = Dictionary[String, String]({
 width = 32
 height = 68
 
-[sub_resource type="Resource" id="Resource_gx2ex"]
+[sub_resource type="Resource" id="Resource_7065b"]
 script = ExtResource("3_sfgi7")
 id = &"reception_lounge"
 target_level = "res://data/levels/ch4_revival_lounge.tres"
@@ -3276,11 +3414,11 @@ localized_locked_text = Dictionary[String, String]({
 width = 32
 height = 68
 
-[sub_resource type="Resource" id="Resource_n3k17"]
+[sub_resource type="Resource" id="Resource_7r41l"]
 script = ExtResource("7_04qia")
 id = &"ch4_egret"
 
-[sub_resource type="Resource" id="Resource_o10gr"]
+[sub_resource type="Resource" id="Resource_eaxtd"]
 script = ExtResource("1_fuu4v")
 id = &"ch4_ward_reception"
 display_name = "病房外櫃檯"
@@ -3290,11 +3428,11 @@ localized_names = Dictionary[String, String]({
 })
 height = 24
 legend = Dictionary[String, Resource]({
-"Ⅱ": SubResource("Resource_3yq2a"),
-"Ⅲ": SubResource("Resource_dumfg"),
-"Ⅵ": SubResource("Resource_bqa5n"),
-"Ⅶ": SubResource("Resource_gx2ex"),
-"ⓔ": SubResource("Resource_n3k17")
+"Ⅱ": SubResource("Resource_yrrku"),
+"Ⅲ": SubResource("Resource_ixn2n"),
+"Ⅵ": SubResource("Resource_2oi6r"),
+"Ⅶ": SubResource("Resource_7065b"),
+"ⓔ": SubResource("Resource_7r41l")
 })
 sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
 billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
@@ -3304,151 +3442,151 @@ story_triggers = PackedStringArray()
 hints = PackedStringArray()
 layout_path = "res://data/levels/ch4_ward_reception_map.json"
 
-[sub_resource type="Resource" id="Resource_aqj7t"]
+[sub_resource type="Resource" id="Resource_xo2dv"]
 script = ExtResource("7_04qia")
 id = &"night_worker"
 
-[sub_resource type="Resource" id="Resource_bfvsw"]
+[sub_resource type="Resource" id="Resource_vdraq"]
 script = ExtResource("7_04qia")
 id = &"ah_po"
 
-[sub_resource type="Resource" id="Resource_fv4gs"]
+[sub_resource type="Resource" id="Resource_kcf0o"]
 
-[sub_resource type="Resource" id="Resource_atayr"]
+[sub_resource type="Resource" id="Resource_fyu8i"]
 script = ExtResource("13_rr1u8")
 id = &"melee_dagger"
 display_name = "單分子匕首"
 
-[sub_resource type="Resource" id="Resource_r2ppk"]
+[sub_resource type="Resource" id="Resource_bg1jp"]
 script = ExtResource("13_rr1u8")
 id = &"melee_blade"
 display_name = "熱能長刀"
 
-[sub_resource type="Resource" id="Resource_bn2dc"]
+[sub_resource type="Resource" id="Resource_xlqf3"]
 script = ExtResource("13_rr1u8")
 id = &"melee_maul"
 display_name = "液壓錘"
 
-[sub_resource type="Resource" id="Resource_yrrku"]
+[sub_resource type="Resource" id="Resource_x346k"]
 script = ExtResource("13_rr1u8")
 id = &"melee_glaive"
 display_name = "離子戰戟"
 
-[sub_resource type="Resource" id="Resource_ixn2n"]
+[sub_resource type="Resource" id="Resource_mhoom"]
 script = ExtResource("13_rr1u8")
 id = &"melee_whip"
 display_name = "單分子鞭"
 
-[sub_resource type="Resource" id="Resource_2oi6r"]
+[sub_resource type="Resource" id="Resource_llqvn"]
 script = ExtResource("13_rr1u8")
 id = &"launcher"
 display_name = "震爆榴彈發射器"
 
-[sub_resource type="Resource" id="Resource_7065b"]
+[sub_resource type="Resource" id="Resource_8vfah"]
 script = ExtResource("13_rr1u8")
 id = &"laser"
 display_name = "貫穿光束"
 
-[sub_resource type="Resource" id="Resource_7r41l"]
+[sub_resource type="Resource" id="Resource_0g7gu"]
 script = ExtResource("13_rr1u8")
 id = &"rifle"
 display_name = "K-7 突擊步槍"
 
-[sub_resource type="Resource" id="Resource_eaxtd"]
+[sub_resource type="Resource" id="Resource_ibk8h"]
 script = ExtResource("13_rr1u8")
 id = &"spread"
 display_name = "碎骨霰彈槍"
 
-[sub_resource type="Resource" id="Resource_xo2dv"]
+[sub_resource type="Resource" id="Resource_2y0bm"]
 script = ExtResource("13_rr1u8")
 id = &"smg"
 display_name = "蜂鳴衝鋒槍"
 
-[sub_resource type="Resource" id="Resource_vdraq"]
+[sub_resource type="Resource" id="Resource_ereca"]
 script = ExtResource("13_rr1u8")
 id = &"railgun"
 display_name = "電磁軌道砲"
 
-[sub_resource type="Resource" id="Resource_kcf0o"]
+[sub_resource type="Resource" id="Resource_6muma"]
 script = ExtResource("4_kb2ry")
 
-[sub_resource type="Resource" id="Resource_fyu8i"]
+[sub_resource type="Resource" id="Resource_ybp87"]
 script = ExtResource("12_tnruj")
 id = &"shield_cell"
 display_name = "護盾電池"
 
-[sub_resource type="Resource" id="Resource_bg1jp"]
+[sub_resource type="Resource" id="Resource_a0tuq"]
 script = ExtResource("5_4mrjh")
 id = &"doc_sky_flyer"
 display_name = "天穹宣傳單"
 
-[sub_resource type="Resource" id="Resource_xlqf3"]
+[sub_resource type="Resource" id="Resource_e5v43"]
 script = ExtResource("12_tnruj")
 id = &"med_injector"
 display_name = "醫療針"
 
-[sub_resource type="Resource" id="Resource_x346k"]
+[sub_resource type="Resource" id="Resource_mdgvc"]
 script = ExtResource("4_kb2ry")
 id = &"credits_large"
 
-[sub_resource type="Resource" id="Resource_mhoom"]
+[sub_resource type="Resource" id="Resource_hiqu1"]
 script = ExtResource("5_4mrjh")
 id = &"rec_old_k_voicemail"
 display_name = "老K的語音留言"
 
-[sub_resource type="Resource" id="Resource_llqvn"]
+[sub_resource type="Resource" id="Resource_df1qc"]
 script = ExtResource("14_xqojo")
 id = &"cracked_wall"
 look = 3
 hint = "牆上有裂縫：打破它，後面可能有東西"
 size_tiles = Vector2i(1, 4)
 
-[sub_resource type="Resource" id="Resource_8vfah"]
+[sub_resource type="Resource" id="Resource_vpyr5"]
 script = ExtResource("5_4mrjh")
 id = &"doc_cargo_manifest"
 display_name = "貨運清單"
 
-[sub_resource type="Resource" id="Resource_0g7gu"]
+[sub_resource type="Resource" id="Resource_fvwm0"]
 script = ExtResource("11_fqxrv")
 
-[sub_resource type="Resource" id="Resource_ibk8h"]
+[sub_resource type="Resource" id="Resource_wvisu"]
 script = ExtResource("1_fuu4v")
 id = &"level_01"
 display_name = "第一章　雨夜"
 height = 24
 legend = Dictionary[String, Resource]({
-"A": SubResource("Resource_bfvsw"),
-"D": SubResource("Resource_atayr"),
-"E": SubResource("Resource_r2ppk"),
-"F": SubResource("Resource_bn2dc"),
-"G": SubResource("Resource_2oi6r"),
-"I": SubResource("Resource_yrrku"),
-"J": SubResource("Resource_ixn2n"),
-"L": SubResource("Resource_7065b"),
-"M": SubResource("Resource_fv4gs"),
-"R": SubResource("Resource_7r41l"),
-"S": SubResource("Resource_eaxtd"),
-"T": SubResource("Resource_fv4gs"),
-"U": SubResource("Resource_xo2dv"),
-"V": SubResource("Resource_vdraq"),
-"W": SubResource("Resource_aqj7t"),
-"X": SubResource("Resource_fv4gs"),
-"[": SubResource("Resource_fv4gs"),
-"b": SubResource("Resource_fv4gs"),
-"c": SubResource("Resource_kcf0o"),
-"d": SubResource("Resource_fv4gs"),
-"e": SubResource("Resource_fyu8i"),
-"f": SubResource("Resource_bg1jp"),
-"g": SubResource("Resource_fv4gs"),
-"i": SubResource("Resource_xlqf3"),
-"m": SubResource("Resource_fv4gs"),
-"q": SubResource("Resource_x346k"),
-"r": SubResource("Resource_fv4gs"),
-"t": SubResource("Resource_fv4gs"),
-"v": SubResource("Resource_mhoom"),
-"x": SubResource("Resource_llqvn"),
-"y": SubResource("Resource_8vfah"),
-"z": SubResource("Resource_0g7gu")
+"A": SubResource("Resource_vdraq"),
+"D": SubResource("Resource_fyu8i"),
+"E": SubResource("Resource_bg1jp"),
+"F": SubResource("Resource_xlqf3"),
+"G": SubResource("Resource_llqvn"),
+"I": SubResource("Resource_x346k"),
+"J": SubResource("Resource_mhoom"),
+"L": SubResource("Resource_8vfah"),
+"M": SubResource("Resource_kcf0o"),
+"R": SubResource("Resource_0g7gu"),
+"S": SubResource("Resource_ibk8h"),
+"T": SubResource("Resource_kcf0o"),
+"U": SubResource("Resource_2y0bm"),
+"V": SubResource("Resource_ereca"),
+"W": SubResource("Resource_xo2dv"),
+"X": SubResource("Resource_kcf0o"),
+"[": SubResource("Resource_kcf0o"),
+"b": SubResource("Resource_kcf0o"),
+"c": SubResource("Resource_6muma"),
+"d": SubResource("Resource_kcf0o"),
+"e": SubResource("Resource_ybp87"),
+"f": SubResource("Resource_a0tuq"),
+"g": SubResource("Resource_kcf0o"),
+"i": SubResource("Resource_e5v43"),
+"m": SubResource("Resource_kcf0o"),
+"q": SubResource("Resource_mdgvc"),
+"r": SubResource("Resource_kcf0o"),
+"t": SubResource("Resource_kcf0o"),
+"v": SubResource("Resource_hiqu1"),
+"x": SubResource("Resource_df1qc"),
+"y": SubResource("Resource_vpyr5"),
+"z": SubResource("Resource_fvwm0")
 })
 decor = Dictionary[String, String]({
 "$": "neon_sign",
@@ -3464,230 +3602,230 @@ story_triggers = PackedStringArray("radio_start", "radio_roof", "radio_market", 
 hints = PackedStringArray("移動 {move_left}/{move_right}，跳躍 {jump}（按久跳更高）", "滑鼠瞄準，{shoot} 射擊；{weapon_next} 或 1～4 換武器", "按住 {block} 舉盾；子彈到的瞬間舉盾＝完美反彈", "{move_down}＋{jump} 從平台落下；{dash} 衝刺時無敵", "監視蜂在頭頂：往斜上方瞄準射擊", "敵人頭上出現青色菱形：按 {melee} 終結，回補彈藥", "鎮暴員正面擋子彈：跳過或衝刺穿越，打背後", "按 {interact} 搭乘機甲：爆炸彈頭無視盾牌", "打爆自爆蟲，爆炸會波及牠的同伴")
 layout_path = "res://data/levels/level_01_map.json"
 
-[sub_resource type="Resource" id="Resource_2y0bm"]
+[sub_resource type="Resource" id="Resource_neujw"]
 
-[sub_resource type="Resource" id="Resource_ereca"]
+[sub_resource type="Resource" id="Resource_2cvhm"]
 script = ExtResource("7_04qia")
 id = &"height_marks"
 
-[sub_resource type="Resource" id="Resource_6muma"]
+[sub_resource type="Resource" id="Resource_djap0"]
 script = ExtResource("7_04qia")
 id = &"nurse"
 
-[sub_resource type="Resource" id="Resource_ybp87"]
+[sub_resource type="Resource" id="Resource_yv5ml"]
 script = ExtResource("7_04qia")
 id = &"resident"
 
-[sub_resource type="Resource" id="Resource_a0tuq"]
+[sub_resource type="Resource" id="Resource_c2wxm"]
 script = ExtResource("7_04qia")
 id = &"repairman_chen"
 
-[sub_resource type="Resource" id="Resource_e5v43"]
+[sub_resource type="Resource" id="Resource_tgdjo"]
 script = ExtResource("16_fvipl")
 id = &"gate_custodian"
 kind = 1
 display_name = "轉運站閘門"
 hint = "轉運站閘門：打倒看守長才會打開"
 
-[sub_resource type="Resource" id="Resource_mdgvc"]
+[sub_resource type="Resource" id="Resource_qjm6d"]
 script = ExtResource("5_4mrjh")
 id = &"doc_shaft_memo"
 display_name = "升降井維護備忘"
 
-[sub_resource type="Resource" id="Resource_hiqu1"]
+[sub_resource type="Resource" id="Resource_6ndbq"]
 script = ExtResource("13_rr1u8")
 id = &"laser"
 display_name = "貫穿光束"
 
-[sub_resource type="Resource" id="Resource_df1qc"]
+[sub_resource type="Resource" id="Resource_7j1q4"]
 script = ExtResource("5_4mrjh")
 id = &"doc_power_log"
 display_name = "電力室值班記錄"
 
-[sub_resource type="Resource" id="Resource_vpyr5"]
+[sub_resource type="Resource" id="Resource_pccaf"]
 script = ExtResource("5_4mrjh")
 id = &"doc_nest_log"
 display_name = "NEST 實驗日誌"
 
-[sub_resource type="Resource" id="Resource_fvwm0"]
+[sub_resource type="Resource" id="Resource_g1dhs"]
 script = ExtResource("5_4mrjh")
 id = &"doc_resident_notice"
 display_name = "夾層區居民通知"
 
-[sub_resource type="Resource" id="Resource_wvisu"]
+[sub_resource type="Resource" id="Resource_mvxkj"]
 script = ExtResource("13_rr1u8")
 id = &"spread"
 display_name = "碎骨霰彈槍"
 
-[sub_resource type="Resource" id="Resource_neujw"]
+[sub_resource type="Resource" id="Resource_e50wq"]
 script = ExtResource("13_rr1u8")
 id = &"rifle"
 display_name = "K-7 突擊步槍"
 
-[sub_resource type="Resource" id="Resource_2cvhm"]
+[sub_resource type="Resource" id="Resource_ttc74"]
 script = ExtResource("13_rr1u8")
 id = &"smg"
 display_name = "蜂鳴衝鋒槍"
 
-[sub_resource type="Resource" id="Resource_djap0"]
+[sub_resource type="Resource" id="Resource_3fgq8"]
 script = ExtResource("5_4mrjh")
 id = &"rec_wataru_2"
 display_name = "航的語音留言・二"
 
-[sub_resource type="Resource" id="Resource_yv5ml"]
+[sub_resource type="Resource" id="Resource_tv3tx"]
 script = ExtResource("5_4mrjh")
 id = &"rec_wataru_1"
 display_name = "航的語音留言・一"
 
-[sub_resource type="Resource" id="Resource_c2wxm"]
+[sub_resource type="Resource" id="Resource_83kxt"]
 script = ExtResource("14_xqojo")
 id = &"crate"
 hint = "打破貨箱，尋找裡面的補給。"
 
-[sub_resource type="Resource" id="Resource_tgdjo"]
+[sub_resource type="Resource" id="Resource_lhe0a"]
 script = ExtResource("4_kb2ry")
 
-[sub_resource type="Resource" id="Resource_qjm6d"]
+[sub_resource type="Resource" id="Resource_3o8xu"]
 script = ExtResource("12_tnruj")
 id = &"shield_cell"
 display_name = "護盾電池"
 
-[sub_resource type="Resource" id="Resource_6ndbq"]
+[sub_resource type="Resource" id="Resource_kw18f"]
 script = ExtResource("16_fvipl")
 id = &"lift_tall"
 kind = 0
 display_name = "升降梯"
 hint = "搭乘升降梯上樓，前往維修走道。"
 
-[sub_resource type="Resource" id="Resource_7j1q4"]
+[sub_resource type="Resource" id="Resource_ghvd1"]
 script = ExtResource("16_fvipl")
 id = &"gate_a"
 kind = 1
 display_name = "閘門"
 hint = "閘門：找到同色的開關才能打開"
 
-[sub_resource type="Resource" id="Resource_pccaf"]
+[sub_resource type="Resource" id="Resource_7bivd"]
 script = ExtResource("12_tnruj")
 id = &"med_injector"
 display_name = "醫療針"
 
-[sub_resource type="Resource" id="Resource_g1dhs"]
+[sub_resource type="Resource" id="Resource_bk6i4"]
 script = ExtResource("16_fvipl")
 id = &"gate_b"
 kind = 1
 display_name = "閘門"
 hint = "藍色閘門：找到藍色的開關才能打開"
 
-[sub_resource type="Resource" id="Resource_mvxkj"]
+[sub_resource type="Resource" id="Resource_h02tj"]
 script = ExtResource("16_fvipl")
 id = &"switch_b"
 display_name = "藍色閘門開關"
 hint = "{interact} 切換開關：打開藍色的閘門"
 
-[sub_resource type="Resource" id="Resource_e50wq"]
+[sub_resource type="Resource" id="Resource_cgb4g"]
 script = ExtResource("14_xqojo")
 id = &"barrel"
 look = 1
 hint = "油桶：打爆會連敵人帶你一起炸，保持距離"
 size_tiles = Vector2i(1, 2)
 
-[sub_resource type="Resource" id="Resource_ttc74"]
+[sub_resource type="Resource" id="Resource_kboht"]
 script = ExtResource("16_fvipl")
 id = &"power_switch"
 kind = 3
 display_name = "電力開關"
 hint = "{interact} 切斷電源：這一區熄燈，雷射與砲台停擺"
 
-[sub_resource type="Resource" id="Resource_3fgq8"]
+[sub_resource type="Resource" id="Resource_uhb12"]
 script = ExtResource("4_kb2ry")
 id = &"credits_large"
 
-[sub_resource type="Resource" id="Resource_tv3tx"]
+[sub_resource type="Resource" id="Resource_yxhhi"]
 script = ExtResource("16_fvipl")
 id = &"lift"
 kind = 0
 display_name = "升降梯"
 hint = "站上升降梯，它會自動上下往返。"
 
-[sub_resource type="Resource" id="Resource_83kxt"]
+[sub_resource type="Resource" id="Resource_souyg"]
 script = ExtResource("14_xqojo")
 id = &"glass_wall"
 look = 2
 hint = "強化玻璃：多打幾發就會碎"
 size_tiles = Vector2i(1, 4)
 
-[sub_resource type="Resource" id="Resource_lhe0a"]
+[sub_resource type="Resource" id="Resource_i1pf2"]
 script = ExtResource("14_xqojo")
 id = &"cracked_wall"
 look = 3
 hint = "牆上有裂縫：打破它，後面可能有東西"
 size_tiles = Vector2i(1, 4)
 
-[sub_resource type="Resource" id="Resource_3o8xu"]
+[sub_resource type="Resource" id="Resource_7ki2t"]
 script = ExtResource("16_fvipl")
 id = &"switch_a"
 display_name = "閘門開關"
 hint = "{interact} 切換開關：打開同色的閘門"
 
-[sub_resource type="Resource" id="Resource_kw18f"]
+[sub_resource type="Resource" id="Resource_iqawu"]
 script = ExtResource("11_fqxrv")
 
-[sub_resource type="Resource" id="Resource_ghvd1"]
+[sub_resource type="Resource" id="Resource_kx5e2"]
 script = ExtResource("1_fuu4v")
 id = &"level_02"
 display_name = "第二章　天空的代價"
 height = 24
 legend = Dictionary[String, Resource]({
-"+": SubResource("Resource_2y0bm"),
-"<": SubResource("Resource_2y0bm"),
-">": SubResource("Resource_2y0bm"),
-"A": SubResource("Resource_a0tuq"),
-"D": SubResource("Resource_mdgvc"),
-"E": SubResource("Resource_2y0bm"),
-"F": SubResource("Resource_hiqu1"),
-"G": SubResource("Resource_ybp87"),
-"I": SubResource("Resource_6muma"),
-"J": SubResource("Resource_df1qc"),
-"K": SubResource("Resource_vpyr5"),
-"L": SubResource("Resource_ereca"),
-"M": SubResource("Resource_2y0bm"),
-"N": SubResource("Resource_fvwm0"),
-"O": SubResource("Resource_2y0bm"),
-"Q": SubResource("Resource_wvisu"),
-"R": SubResource("Resource_neujw"),
-"S": SubResource("Resource_2y0bm"),
-"U": SubResource("Resource_2cvhm"),
-"V": SubResource("Resource_djap0"),
-"W": SubResource("Resource_yv5ml"),
-"X": SubResource("Resource_2y0bm"),
-"Y": SubResource("Resource_2y0bm"),
-"Z": SubResource("Resource_2y0bm"),
-"a": SubResource("Resource_c2wxm"),
-"b": SubResource("Resource_2y0bm"),
-"c": SubResource("Resource_tgdjo"),
-"e": SubResource("Resource_qjm6d"),
-"f": SubResource("Resource_6ndbq"),
-"h": SubResource("Resource_7j1q4"),
-"i": SubResource("Resource_pccaf"),
-"j": SubResource("Resource_g1dhs"),
-"k": SubResource("Resource_2y0bm"),
-"l": SubResource("Resource_mvxkj"),
-"m": SubResource("Resource_e5v43"),
-"n": SubResource("Resource_2y0bm"),
-"o": SubResource("Resource_e50wq"),
-"p": SubResource("Resource_ttc74"),
-"q": SubResource("Resource_3fgq8"),
-"s": SubResource("Resource_2y0bm"),
-"u": SubResource("Resource_tv3tx"),
-"v": SubResource("Resource_2y0bm"),
-"w": SubResource("Resource_83kxt"),
-"x": SubResource("Resource_lhe0a"),
-"y": SubResource("Resource_3o8xu"),
-"z": SubResource("Resource_kw18f"),
-"λ": SubResource("Resource_2y0bm"),
-"μ": SubResource("Resource_2y0bm"),
-"ν": SubResource("Resource_2y0bm"),
-"ξ": SubResource("Resource_2y0bm")
+"+": SubResource("Resource_neujw"),
+"<": SubResource("Resource_neujw"),
+">": SubResource("Resource_neujw"),
+"A": SubResource("Resource_c2wxm"),
+"D": SubResource("Resource_qjm6d"),
+"E": SubResource("Resource_neujw"),
+"F": SubResource("Resource_6ndbq"),
+"G": SubResource("Resource_yv5ml"),
+"I": SubResource("Resource_djap0"),
+"J": SubResource("Resource_7j1q4"),
+"K": SubResource("Resource_pccaf"),
+"L": SubResource("Resource_2cvhm"),
+"M": SubResource("Resource_neujw"),
+"N": SubResource("Resource_g1dhs"),
+"O": SubResource("Resource_neujw"),
+"Q": SubResource("Resource_mvxkj"),
+"R": SubResource("Resource_e50wq"),
+"S": SubResource("Resource_neujw"),
+"U": SubResource("Resource_ttc74"),
+"V": SubResource("Resource_3fgq8"),
+"W": SubResource("Resource_tv3tx"),
+"X": SubResource("Resource_neujw"),
+"Y": SubResource("Resource_neujw"),
+"Z": SubResource("Resource_neujw"),
+"a": SubResource("Resource_83kxt"),
+"b": SubResource("Resource_neujw"),
+"c": SubResource("Resource_lhe0a"),
+"e": SubResource("Resource_3o8xu"),
+"f": SubResource("Resource_kw18f"),
+"h": SubResource("Resource_ghvd1"),
+"i": SubResource("Resource_7bivd"),
+"j": SubResource("Resource_bk6i4"),
+"k": SubResource("Resource_neujw"),
+"l": SubResource("Resource_h02tj"),
+"m": SubResource("Resource_tgdjo"),
+"n": SubResource("Resource_neujw"),
+"o": SubResource("Resource_cgb4g"),
+"p": SubResource("Resource_kboht"),
+"q": SubResource("Resource_uhb12"),
+"s": SubResource("Resource_neujw"),
+"u": SubResource("Resource_yxhhi"),
+"v": SubResource("Resource_neujw"),
+"w": SubResource("Resource_souyg"),
+"x": SubResource("Resource_i1pf2"),
+"y": SubResource("Resource_7ki2t"),
+"z": SubResource("Resource_iqawu"),
+"λ": SubResource("Resource_neujw"),
+"μ": SubResource("Resource_neujw"),
+"ν": SubResource("Resource_neujw"),
+"ξ": SubResource("Resource_neujw")
 })
 decor = Dictionary[String, String]({
 "$": "neon_sign",
@@ -3737,20 +3875,23 @@ levels = Dictionary[String, ExtResource("1_fuu4v")]({
 "res://data/levels/ch3_pump.tres": SubResource("Resource_ylbsi"),
 "res://data/levels/ch3_showroom.tres": SubResource("Resource_yr0cf"),
 "res://data/levels/ch4_factory_approach.tres": SubResource("Resource_yx0gr"),
-"res://data/levels/ch4_factory_loading.tres": SubResource("Resource_c666f"),
-"res://data/levels/ch4_factory_relay.tres": SubResource("Resource_2hkrv"),
-"res://data/levels/ch4_factory_safety.tres": SubResource("Resource_5apuw"),
-"res://data/levels/ch4_factory_work.tres": SubResource("Resource_3p5sp"),
-"res://data/levels/ch4_nursing_ward.tres": SubResource("Resource_5ohd6"),
-"res://data/levels/ch4_pawnshop.tres": SubResource("Resource_1vbr1"),
-"res://data/levels/ch4_revival_lounge.tres": SubResource("Resource_bv13g"),
-"res://data/levels/ch4_ward_reception.tres": SubResource("Resource_o10gr"),
-"res://data/levels/level_01.tres": SubResource("Resource_ibk8h"),
-"res://data/levels/level_02.tres": SubResource("Resource_ghvd1")
+"res://data/levels/ch4_factory_cleaning.tres": SubResource("Resource_c666f"),
+"res://data/levels/ch4_factory_loading.tres": SubResource("Resource_5jj72"),
+"res://data/levels/ch4_factory_office.tres": SubResource("Resource_lrjm1"),
+"res://data/levels/ch4_factory_relay.tres": SubResource("Resource_o2krs"),
+"res://data/levels/ch4_factory_safety.tres": SubResource("Resource_iwqme"),
+"res://data/levels/ch4_factory_work.tres": SubResource("Resource_15okj"),
+"res://data/levels/ch4_nursing_ward.tres": SubResource("Resource_n3k17"),
+"res://data/levels/ch4_pawnshop.tres": SubResource("Resource_bfvsw"),
+"res://data/levels/ch4_revival_lounge.tres": SubResource("Resource_bn2dc"),
+"res://data/levels/ch4_ward_reception.tres": SubResource("Resource_eaxtd"),
+"res://data/levels/level_01.tres": SubResource("Resource_wvisu"),
+"res://data/levels/level_02.tres": SubResource("Resource_kx5e2")
 })
 digests = Dictionary[String, String]({
 "res://data/consumables/med_injector.tres": "0464a1745471706110f2e332dc022765a61177afdb3f3f0116984d8e66e50bb8",
 "res://data/consumables/shield_cell.tres": "deb22cb97db469eb406aeff6abb0751c9727bce6697ddaa4ec4e3d37d862d83b",
+"res://data/enemies/atropos.tres": "abba3c7d963255e5489c3d652682e32741f9821a355fcd27ab1086f6c96f5621",
 "res://data/enemies/bomber.tres": "024c4b083d3b3ac43086a77ababf353c201e2044a60a32c8d611a7595785e560",
 "res://data/enemies/ch1_inspector.tres": "ed33c305c5e4fc015bc48674dc18337b9f4d1861a22a2763c164f45069d2759b",
 "res://data/enemies/ch2_bill_thrower.tres": "7811d82563d80eb98becab8391e83cca34a880f865d600c7b81036a642fdbc8e",
@@ -3820,10 +3961,12 @@ digests = Dictionary[String, String]({
 "res://data/levels/ch3_pump.tres": "b6f80ee980510e2569e6af04497dbdf69bfa4d0f8442e1192f8fe0190f614e0d",
 "res://data/levels/ch3_showroom.tres": "d0f8fab766ec01863ef82f5c3b533cfd7a55ca563c70f736661196aeaeb04812",
 "res://data/levels/ch4_factory_approach.tres": "c5f09e390d712cd1f0cc7599acb38a46de78f1727b010c46aee4129455183383",
+"res://data/levels/ch4_factory_cleaning.tres": "30ecb61418fc80b44b5980f21696d77f2be0a035bc650c982584fcd18c7aa57f",
 "res://data/levels/ch4_factory_loading.tres": "b73ac5cac1269868bb3fb92d8fe2813d778db21439b1201838a512a663b9475f",
+"res://data/levels/ch4_factory_office.tres": "f9a8f60fb660e0e5985fcdc7014bacf948a683131c2bd71c2b677754df5eda40",
 "res://data/levels/ch4_factory_relay.tres": "4ea034978e00bc6805c1022777beb46a0392d5dbc407e94bb50f557e410659fe",
-"res://data/levels/ch4_factory_safety.tres": "da26796e7a1b8352ec7983f89eafd0473628d7c1546e04f827e079573cc0cb2a",
-"res://data/levels/ch4_factory_work.tres": "5ab42095cead0079719a74d3c0b87ae7335d78c531bc1c36af378622e1707519",
+"res://data/levels/ch4_factory_safety.tres": "383123ec41241dece733ead22789311ac256eab7eba4903652a95c3c96c74ea8",
+"res://data/levels/ch4_factory_work.tres": "11ac1dceea1b83966675f077ed13a9686bff03a8a2754d780179a86678aaa6b0",
 "res://data/levels/ch4_nursing_ward.tres": "a4193633313f34bd9a100b44a42e4f31b7164aee669c58c4ba3fa6d09891b152",
 "res://data/levels/ch4_pawnshop.tres": "df21ef71aa1e54b570507c3a5f13fed201d80262d34e2981db39a77a3757cd52",
 "res://data/levels/ch4_revival_lounge.tres": "4691c4e257c8666b6ee506f7f7627c283c17488abcb7e0bf03f6052e0ab78e10",
@@ -3901,8 +4044,10 @@ digests = Dictionary[String, String]({
 "res://data/npcs/ch4_ali.tres": "f0383688510072a0f4903208dbf636dbdda2c9bd715143cdbddce811b0a27d49",
 "res://data/npcs/ch4_cabinet.tres": "1aee1764fcbccca7b05eaaa746de54df7e166981c347a21b658b8f7dceab6a15",
 "res://data/npcs/ch4_desk_demo.tres": "4c90ba350b471cdbb941434878b3cd9d789b1b5ceb65add32116710dce45b4a0",
-"res://data/npcs/ch4_egret.tres": "53b15a7095a4327f3121f75282b50f0c2c10c9e48b2b3509a32a9f2b4683a5f9",
+"res://data/npcs/ch4_egret.tres": "49f2c5215951ccfcf3dcde363ee0c17b0759de188d25b6bbc29186f0441b8acf",
+"res://data/npcs/ch4_egret_at_rail.tres": "7eb4e1694591f68835b47d41ef2c8278fc7b6fddf63a201a7c381ca31277a19d",
 "res://data/npcs/ch4_linden.tres": "7519a1ce232e3620839d191d898ed4496f09d67c8e7525af18eaca7db8c23139",
+"res://data/npcs/ch4_office_release.tres": "723bac582799b0f5cf3141c1d1e44dd8e5e136d330f6077f34e378e7195eb302",
 "res://data/npcs/ch4_old_k.tres": "12fcd215976db14a1fc9be7ad661817ae1f99e4f1299b56755a79fa1b1b62f16",
 "res://data/npcs/ch4_rail_release.tres": "31954cc5582e918f0f1a4b6dcdde90c516234afcf39fd19428528854c920bbf9",
 "res://data/npcs/ch4_safety_catch.tres": "52b80334157469b5c24bc5fe7c5bbabcaa137555f1e93201e41912ae8dc411e7",
@@ -3942,6 +4087,9 @@ digests = Dictionary[String, String]({
 "res://data/props/ch1_training_trainer.tres": "2450bf9b7f0203e0c67a0aac5a6b14138b8f6ca54bd1d4cc4ac11052846dabb2",
 "res://data/props/ch1_training_workbench.tres": "a99c4ba2c37196b35050159605fa8644941bc003c20e9bee70ea23edd4741776",
 "res://data/props/ch2_roof_combo_target.tres": "0e504284dd94dc7afaa081b29b38e8b1622d89fa40954487ce7c151022c3de5e",
+"res://data/props/ch4_arena_cover.tres": "da93e94388e91f95243aabd6ceecc0672a66cc47ee8c673a9e04f4c4066c6466",
+"res://data/props/ch4_arena_lower_sweep.tres": "7ff8abaa717783307ae6a2298e24a001568a01c93bf8da4558586eac9e88b069",
+"res://data/props/ch4_arena_upper_sweep.tres": "c19ce73f79e69ee27dfee60fea96512474d80dbd69b426a24bb12d5a558cd4df",
 "res://data/props/ch4_lower_sweep.tres": "8f3eed05ea0d988abf3e615d31bd321912272516fd77da62bf5a02fc84385010",
 "res://data/props/ch4_sweep_sample.tres": "9cb630bf93343dabe7532e1dcd01dff09062392f845945d128365ba73a726b5d",
 "res://data/props/ch4_upper_sweep.tres": "714fc2bc7b857a637cd0dc7f5e2be4363166d59a5cdf746be42c288dba6e2438",

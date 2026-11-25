@@ -9,7 +9,7 @@ const WAITING_ROOM := &"ch4_dispatch_egret"
 
 
 func run() -> void:
-	var areas := Checks.load_areas(self, "ch4", CHAPTER, ["pawnshop", "ward_reception", "nursing_ward", "revival_lounge", "factory_approach", "factory_loading", "factory_relay", "factory_safety", "factory_work"])
+	var areas := Checks.load_areas(self, "ch4", CHAPTER, ["pawnshop", "ward_reception", "nursing_ward", "revival_lounge", "factory_approach", "factory_loading", "factory_relay", "factory_safety", "factory_work", "factory_cleaning", "factory_office"])
 	Checks.check_portals(self, "chapter 4", areas)
 	for area: LevelData in areas.values():
 		var actual: Array[Dictionary] = LevelBuilder.parse(area).spawns
@@ -44,6 +44,7 @@ func run() -> void:
 	_check_safe_platform(loading, areas["factory_relay"], areas["factory_safety"])
 	_check_sweep(loading)
 	_check_work_lane(areas["factory_safety"], areas["factory_work"])
+	_check_boss_arena(areas["factory_safety"], areas["factory_work"], areas["factory_cleaning"], areas["factory_office"])
 	GameState.start_new_run(GameState.difficulties[1])
 
 
@@ -101,3 +102,43 @@ func _check_work_lane(safety: LevelData, work: LevelData) -> void:
 	malformed.kind = MechanismData.Kind.SWEEP_LANE
 	malformed.sweep_warning_seconds = INF
 	check(not malformed.validate().is_empty(), "nonfinite warning durations are rejected before spawning")
+
+
+func _check_boss_arena(safety: LevelData, work: LevelData, gallery: LevelData, office: LevelData) -> void:
+	var entrance := Checks.portal_by_id(work, &"work_arena")
+	var exit := Checks.portal_by_id(gallery, &"arena_office")
+	check(entrance != null and entrance.requires_flag == &"ch4_factory_work_crossed", "the gallery requires the work-lane survey")
+	check(exit != null and exit.requires_flag == &"ch4_office_access" and exit.target_level == office.resource_path,
+		"the office portal requires the durable withdrawal result")
+	check(gallery.safe_resume_level == safety.resource_path, "combat retries and cold resumes target the safe platform")
+	var layout := LevelBuilder.parse(gallery)
+	var erased_covers := 0
+	var controlled_lanes := 0
+	var boss_roster := 0
+	var player_start := layout.player_start
+	for entry: Dictionary in layout.spawns:
+		var resource: Resource = entry["resource"]
+		if resource is MechanismData and resource.kind == MechanismData.Kind.SWEEP_LANE:
+			check(resource.channel == &"ch4_arena_sweeps" and resource.validate().is_empty(),
+				"the gallery has controller-owned sweep sectors")
+			controlled_lanes += 1
+		elif resource is BreakableData and resource.sweep_result == &"ch4_arena_cover_erased":
+			var cell: Vector2i = entry["cell"]
+			check(layout.cell(cell.x, cell.y + 1) == LevelBuilder.SOLID, "the marked cover is independent of the permanent floor")
+			erased_covers += 1
+		elif resource is EnemyData and resource.id == &"atropos":
+			check(not resource.is_boss and entry["position"].x > player_start.x, "the captain is a local encounter facing the entrance")
+			check(DefeatCodex.has_card(resource.contact_source_id) and resource.projectile != null and DefeatCodex.has_card(resource.projectile.source_id)
+				and DefeatCodex.has_card(&"atropos_barrage"), "all captain attacks have their own practical defeat guidance")
+			boss_roster += 1
+	check(erased_covers == 1 and controlled_lanes == 2 and boss_roster == 1, "the gallery has two elevations, one marked cover and one captain")
+	var handoff := &"ch4_dispatch_egret_at_rail"
+	var release := &"ch4_dispatch_office_release"
+	check(Story.resolve_dispatch(handoff) != &"ch4_t_egret_handoff", "the midpoint conversation cannot start at entry")
+	GameState.set_flag(&"ch4_atropos_midpoint_ready", true)
+	check(Story.resolve_dispatch(handoff) == &"ch4_t_egret_handoff", "the living player's midpoint makes the handoff available")
+	GameState.set_flag(&"ch4_egret_departed", true)
+	check(Story.resolve_dispatch(handoff) != &"ch4_t_egret_handoff", "the committed departure cannot reappear")
+	check(Story.resolve_dispatch(release) != &"ch4_t_work_retreat", "the terminal stays inactive during phase two")
+	GameState.set_flag(&"ch4_atropos_retreat_ready", true)
+	check(Story.resolve_dispatch(release) == &"ch4_t_work_retreat", "the release needs withdrawal and the prior departure")

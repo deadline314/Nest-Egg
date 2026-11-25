@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MechanismData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/mechanism_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"ch4_arena_upper_sweep"
+kind = 6
+display_name = "清掃工作廊白線"
+channel = &"ch4_arena_sweeps"
+size_tiles = Vector2i(7, 2)
+sweep_warning_seconds = 1.65
+sweep_rest_seconds = 4.1

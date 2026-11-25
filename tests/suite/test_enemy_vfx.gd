@@ -36,12 +36,16 @@ func _test_every_enemy_has_its_own() -> void:
 			continue
 		var data := RigLibrary.load_json(path)
 		var death: Dictionary = data.get("death", {})
-		check(not (death.get("bursts", []) as Array).is_empty(), "%s has a death effect" % id)
-		for extra: Variant in death.get("extras", []):
-			check(KNOWN_EXTRAS.has(str(extra)), "%s: death extra '%s' exists" % [id, extra])
-		var sig := _signature(death)
-		check(not signatures.has(sig), "%s does not share its death effect with %s" % [id, signatures.get(sig, "")])
-		signatures[sig] = id
+		if id == "atropos":
+			check(death.is_empty() and not data.get("states", {}).get("work_retreat", {}).is_empty(),
+				"the captain withdraws alive with a distinct retreat effect")
+		else:
+			check(not (death.get("bursts", []) as Array).is_empty(), "%s has a death effect" % id)
+			for extra: Variant in death.get("extras", []):
+				check(KNOWN_EXTRAS.has(str(extra)), "%s: death extra '%s' exists" % [id, extra])
+			var sig := _signature(death)
+			check(not signatures.has(sig), "%s does not share its death effect with %s" % [id, signatures.get(sig, "")])
+			signatures[sig] = id
 		# 狀態名稱要存在於敵人腳本。
 		var enemy := load(DIR + "/%s.tres" % id) as EnemyData
 		if enemy != null and enemy.behavior != null:

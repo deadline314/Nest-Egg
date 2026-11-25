@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BreakableData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/breakable_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"ch4_arena_cover"
+display_name = "工作廊的標記掩體"
+size_tiles = Vector2i(2, 2)
+sweep_result = &"ch4_arena_cover_erased"

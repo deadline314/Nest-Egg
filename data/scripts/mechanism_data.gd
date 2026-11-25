@@ -31,6 +31,7 @@ enum Kind {
 @export var localized_hints: Dictionary[String, String] = {}
 @export var color: Color = Color(1.0, 0.76, 0.29, 1.0)
 ## 開關與閘門的連動頻道（也用於電力開關的區域 id）。
+## Sweep lanes with a channel start disarmed and follow their encounter controller.
 @export var channel: StringName = &""
 ## 大小（格）：閘門是寬×高，升降梯是寬×1。
 @export var size_tiles := Vector2i(1, 4)

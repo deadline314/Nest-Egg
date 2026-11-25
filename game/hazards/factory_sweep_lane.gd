@@ -15,6 +15,7 @@ var _state := State.DORMANT
 var _time_left := 0.0
 var _warning_step := 0
 var _contact: ContactHitbox
+var _armed := true
 
 
 func configure(profile: MechanismData, tile: int) -> void:
@@ -40,23 +41,41 @@ func _ready() -> void:
 	add_child(_contact)
 	_contact.setup(Combat.Team.ENEMY, _profile.sweep_damage, SOURCE, _sector.size, _sector.get_center())
 	_set_hazard_live(false)
+	_armed = _profile.channel == &""
+	if not _armed:
+		EventBus.mechanism_toggled.connect(_on_channel_changed)
 	body_entered.connect(_on_player_enter)
 	body_exited.connect(_on_player_exit)
 	set_physics_process(false)
 
 
 func _on_player_enter(body: Node2D) -> void:
-	if _state == State.DORMANT and Pickup.resolve_player(body) != null:
+	if _armed and _state == State.DORMANT and Pickup.resolve_player(body) != null:
 		_warn()
 		set_physics_process(true)
 
 
 func _on_player_exit(body: Node2D) -> void:
 	if Pickup.resolve_player(body) != null:
-		_state = State.DORMANT
-		_set_hazard_live(false)
-		set_physics_process(false)
-		queue_redraw()
+		_stop()
+
+
+func _on_channel_changed(id: StringName, enabled: bool) -> void:
+	if id != _profile.channel or _armed == enabled:
+		return
+	_armed = enabled
+	if not enabled:
+		_stop()
+		return
+	for body in get_overlapping_bodies():
+		_on_player_enter(body)
+
+
+func _stop() -> void:
+	_state = State.DORMANT
+	_set_hazard_live(false)
+	set_physics_process(false)
+	queue_redraw()
 
 
 func _set_hazard_live(live: bool) -> void:

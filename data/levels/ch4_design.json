@@ -102,6 +102,24 @@
     "reward": "另一端能看見頭目工作廊。"
    },
    "encounters": []
+  },
+  "factory_cleaning": {
+   "combat": false,
+   "group": "factory_cleaning",
+   "features": {
+    "landmark": "鷺所在的固定上層欄杆。",
+    "vertical": "工作帶上層保有可到達的支撐。",
+    "loop": "可退回清掃工作帶。"
+   },
+   "encounters": []
+  },
+  "factory_office": {
+   "combat": false,
+   "group": "factory_office",
+   "features": {
+    "landmark": "停在下班時間的時鐘和月報板。"
+   },
+   "encounters": []
   }
  },
  "curve": {
