@@ -93,7 +93,8 @@
   "ch4_linden_witnesses_noted": false,
   "ch4_roof_radio_heard": false,
   "ch4_lamp_mic_requested": false,
-  "ch4_lamp_message_recorded": false
+  "ch4_lamp_message_recorded": false,
+  "ch4_pawnshop_homecoming_seen": false
  },
  "transactions": {},
  "derived_flags": {},
@@ -207,6 +208,38 @@
    "background_en": "Lantern wants to leave his mother a message in his present voice. Her bed is at the far east end of the care ward.",
    "reward_ja": "側窓のベッド脇に灯の録音を残す。",
    "reward_en": "Leave Lantern's recording by the bed next to the side window."
+  },
+  {
+   "id": "ch4_homecoming",
+   "kind": "main",
+   "title": "把原帳帶回當舖",
+   "background": "工廠原帳留下了一筆遮住簽名的紀錄。",
+   "reward": "老 K 已知道凜把原帳帶了回來。",
+   "complete_flag": "ch4_pawnshop_homecoming_seen",
+   "steps": [
+    {
+     "title": "在當舖把原帳交代給老 K。",
+     "complete_flag": "ch4_pawnshop_homecoming_seen",
+     "location": {
+      "level": "res://data/levels/ch4_pawnshop.tres",
+      "cell": [
+       49,
+       19
+      ]
+     },
+     "title_ja": "質屋で老Kに元帳のことを伝える。",
+     "title_en": "Tell Old K about the ledger at the pawnshop."
+    }
+   ],
+   "visible_flags": [
+    "ch4_roof_radio_heard"
+   ],
+   "title_ja": "元帳を質屋に持ち帰る",
+   "title_en": "Bring the ledger back to the pawnshop",
+   "background_ja": "工場の元帳には、署名を隠された記録が一件残っていた。",
+   "background_en": "One entry in the factory ledger has its signature covered.",
+   "reward_ja": "凛が元帳を持ち帰ったと老Kに伝えた。",
+   "reward_en": "Old K knows Rin brought the ledger back."
   },
   {
    "id": "ch4_ward_visit",
@@ -3039,9 +3072,337 @@
     "equals": true
    }
   },
+  "ch4_t_homecoming_choice": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "妳回來了。原帳帶在身上嗎？",
+     "ja": "おかえり。元帳は持っているか？",
+     "en": "You’re back. Do you have the original ledger?"
+    },
+    {
+     "do": "choice",
+     "text": "妳回來了。原帳帶在身上嗎？",
+     "default": "later",
+     "options": [
+      {
+       "id": "sit",
+       "text": "和老 K 談原帳。",
+       "explanation": "在當舖把廠房的原帳交代清楚。",
+       "target": "ch4_t_homecoming",
+       "ja": "老Kに元帳のことを話す。",
+       "en": "Talk to Old K about the ledger.",
+       "explanation_ja": "質屋で工場の元帳について話す。",
+       "explanation_en": "Tell Old K what you found in the factory ledger."
+      },
+      {
+       "id": "later",
+       "text": "待會再談。",
+       "explanation": "可以先在店裡歇一下。",
+       "ja": "あとで話す。",
+       "en": "Talk later.",
+       "explanation_ja": "先に店でひと息つける。",
+       "explanation_en": "Take a moment in the shop first."
+      }
+     ],
+     "cancel_choice_on_back": true,
+     "ja": "おかえり。元帳は持っているか？",
+     "en": "You’re back. Do you have the original ledger?"
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "ch4_original_ledger_saved",
+        "equals": true
+       },
+       {
+        "item": "ch4_original_ledger_copy"
+       },
+       {
+        "flag": "ch4_roof_radio_heard",
+        "equals": true
+       }
+      ]
+     },
+     {
+      "not": {
+       "flag": "ch4_pawnshop_homecoming_seen",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch4_t_homecoming": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "scene",
+     "id": "ch4_pawnshop_return",
+     "pos": [
+      312,
+      293.0
+     ],
+     "zoom": 0.88,
+     "fade": 1.2,
+     "props": {
+      "copied_ledger": {
+       "visible": false
+      }
+     }
+    },
+    {
+     "do": "letterbox",
+     "on": true,
+     "time": 0.6
+    },
+    {
+     "do": "actor",
+     "id": "old_k",
+     "kind": "old_k",
+     "pos": [
+      364,
+      348
+     ],
+     "facing": -1,
+     "scale": 2.05,
+     "weapon": ""
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      185,
+      348
+     ],
+     "facing": 1,
+     "scale": 2.05,
+     "weapon": ""
+    },
+    {
+     "do": "wait",
+     "time": 0.65
+    },
+    {
+     "do": "move",
+     "id": "rin",
+     "to": [
+      249,
+      348
+     ],
+     "time": 1.52,
+     "wait": true
+    },
+    {
+     "do": "move",
+     "id": "old_k",
+     "to": [
+      402,
+      348
+     ],
+     "time": 0.78,
+     "wait": true
+    },
+    {
+     "do": "face",
+     "id": "old_k",
+     "dir": -1
+    },
+    {
+     "do": "wait",
+     "time": 0.65
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "帶傘了嗎？妳把外套脫下來，我拿乾的給妳。",
+     "ja": "傘は持ってたか？　上着を脱ぎな。乾いたのを持ってきてやる。",
+     "en": "Did you bring an umbrella? Take off your coat. I’ll get you a dry one."
+    },
+    {
+     "do": "wait",
+     "time": 0.55
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "back",
+     "space": "prop",
+     "prop": "copied_ledger",
+     "to": [
+      47,
+      14
+     ],
+     "time": 0.34
+    },
+    {
+     "do": "prop_visible",
+     "id": "copied_ledger",
+     "visible": true
+    },
+    {
+     "do": "prop_move",
+     "id": "copied_ledger",
+     "to": [
+      263,
+      278
+     ],
+     "time": 0.48
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "back",
+     "release": true,
+     "time": 0.24
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我把帳帶回來了。",
+     "ja": "帳簿を持って帰った。",
+     "en": "I brought the ledger back."
+    },
+    {
+     "do": "wait",
+     "time": 1.9
+    }
+   ],
+   "pose_policy": "supported",
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "ch4_original_ledger_saved",
+        "equals": true
+       },
+       {
+        "item": "ch4_original_ledger_copy"
+       },
+       {
+        "flag": "ch4_roof_radio_heard",
+        "equals": true
+       }
+      ]
+     },
+     {
+      "not": {
+       "flag": "ch4_pawnshop_homecoming_seen",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch4_pawnshop_homecoming_seen",
+     "value": true
+    }
+   ],
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch4_t_homecoming_reminder": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "原帳還在。明天再仔細看看店裡的標籤跟帳冊。",
+     "ja": "元帳はある。明日、店の札と帳簿をもう少しよく見てみよう。",
+     "en": "I still have the ledger. Tomorrow I’ll take a closer look at the tags and books in here."
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "ch4_original_ledger_saved",
+        "equals": true
+       },
+       {
+        "item": "ch4_original_ledger_copy"
+       },
+       {
+        "flag": "ch4_roof_radio_heard",
+        "equals": true
+       }
+      ]
+     },
+     {
+      "flag": "ch4_pawnshop_homecoming_seen",
+      "equals": true
+     }
+    ]
+   }
+  },
   "ch4_dispatch_old_k": {
    "mode": "dispatch",
    "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch4_original_ledger_saved",
+          "equals": true
+         },
+         {
+          "item": "ch4_original_ledger_copy"
+         },
+         {
+          "flag": "ch4_roof_radio_heard",
+          "equals": true
+         }
+        ]
+       },
+       {
+        "flag": "ch4_pawnshop_homecoming_seen",
+        "equals": true
+       }
+      ]
+     },
+     "target": "ch4_t_homecoming_reminder"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch4_original_ledger_saved",
+          "equals": true
+         },
+         {
+          "item": "ch4_original_ledger_copy"
+         },
+         {
+          "flag": "ch4_roof_radio_heard",
+          "equals": true
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch4_pawnshop_homecoming_seen",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch4_t_homecoming_choice"
+    },
     {
      "when": {
       "all": [

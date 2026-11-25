@@ -1,0 +1,127 @@
+{
+  "camera": {
+    "pos": [
+      312,
+      293
+    ],
+    "zoom": 0.88
+  },
+  "floor": 348,
+  "layers": [
+    {
+      "kind": "gradient",
+      "top": "#120d09",
+      "bottom": "#241810",
+      "parallax": 0.0
+    },
+    {
+      "kind": "sprite",
+      "path": "res://art/environment/scenes/pawnshop_front.webp",
+      "pos": [
+        -64,
+        -36.0
+      ],
+      "scale": 0.5,
+      "filter": "linear",
+      "source_width": 1536
+    },
+    {
+      "kind": "sprite",
+      "id": "coat_hooks",
+      "path": "res://art/environment/stages/ch4_pawnshop_coat_hooks.png",
+      "pos": [
+        473,
+        136
+      ],
+      "scale": 0.47,
+      "source_width": 142,
+      "filter": "linear",
+      "modulate": "#bdab94"
+    },
+    {
+      "kind": "glow",
+      "pos": [
+        330,
+        70
+      ],
+      "radius": 230,
+      "color": "#ffb066",
+      "intensity": 0.7,
+      "additive": true,
+      "alpha": 0.35,
+      "pulse": 0.06,
+      "pulse_depth": 0.2
+    },
+    {
+      "kind": "motes",
+      "count": 24,
+      "color": "#cfe0ff",
+      "opacity": 0.3,
+      "area": [
+        0,
+        30,
+        640,
+        280
+      ],
+      "drift": [
+        2,
+        -3
+      ],
+      "size": 1.1,
+      "seed": 7
+    },
+    {
+      "kind": "sprite",
+      "id": "homecoming_table",
+      "path": "res://art/environment/props/shop_table.png",
+      "source_width": 275,
+      "scale": 0.64,
+      "pos": [
+        259,
+        263.52
+      ],
+      "filter": "linear",
+      "modulate": "#ab967d"
+    },
+    {
+      "kind": "sprite",
+      "id": "counter_stool",
+      "path": "res://art/environment/scene_props/radio_workbench/radio_workbench__worn_stool.png",
+      "pos": [
+        337,
+        303
+      ],
+      "scale": 0.177,
+      "source_width": 216,
+      "filter": "linear",
+      "depth": "front",
+      "modulate": "#d2bba1"
+    },
+    {
+      "kind": "sprite",
+      "id": "copied_ledger",
+      "path": "res://art/items/world/document.png",
+      "pos": [
+        250,
+        275.5
+      ],
+      "scale": 0.135,
+      "source_width": 96,
+      "filter": "linear",
+      "depth": "front",
+      "modulate": "#c7b795"
+    }
+  ],
+  "furniture": [
+    {
+      "id": "shop_counter",
+      "kind": "counter",
+      "rect": [
+        36,
+        207,
+        444,
+        129
+      ]
+    }
+  ]
+}

@@ -930,6 +930,52 @@
           }
         ]
       }
+    },
+    {
+      "id": "ch4_t_homecoming",
+      "source": "res://data/story/ch4_hollow.json",
+      "npc": "res://data/npcs/ch4_old_k.tres",
+      "levels": [
+        "res://data/levels/ch4_pawnshop.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "all": [
+                {
+                  "flag": "ch4_original_ledger_saved",
+                  "equals": true
+                },
+                {
+                  "item": "ch4_original_ledger_copy"
+                },
+                {
+                  "flag": "ch4_roof_radio_heard",
+                  "equals": true
+                }
+              ]
+            },
+            {
+              "not": {
+                "flag": "ch4_pawnshop_homecoming_seen",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch4_pawnshop_homecoming_seen",
+            "value": true
+          }
+        ]
+      }
     }
   ]
 }
