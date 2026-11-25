@@ -13,8 +13,15 @@ const MIN_NEAR_LENGTH := 6
 const SCAN_ROOTS: Array[String] = ["res://data", "res://game", "res://autoload", "res://ui", "res://core"]
 const SCAN_EXTENSIONS: Array[String] = ["tres", "tscn", "gd", "json"]
 
-static var _flag_write_re := RegEx.create_from_string("set_flag\\(\\s*&?\"([^\"]+)\"")
-static var _flag_read_re := RegEx.create_from_string("has_flag\\(\\s*&?\"([^\"]+)\"")
+static var _script_flag_re := RegEx.create_from_string(
+	'\\b(set_flag|has_flag)\\(\\s*&?"([^"\\r\\n]+)"(?=\\s*[,)])')
+# Match supported declarations and direct GameState calls before consuming comments and strings.
+static var _script_named_flag_re := RegEx.create_from_string(
+	'(?m)^const[ \\t]+(?<name>[A-Za-z_]\\w*)[ \\t]*(?:(?:=|:=)[ \\t]*&|:[ \\t]*StringName[ \\t]*=[ \\t]*&?)'
+	+ '"(?<flag>[^"\\r\\n]+)"[ \\t]*(?:#[^\\r\\n]*)?\\r?$'
+	+ '|(?<![\\w.])GameState\\.(?<method>set_flag|has_flag)\\(\\s*(?<argument>[A-Za-z_]\\w*)(?=\\s*[,)])'
+	+ '|#[^\\r\\n]*|"""(?s:.*?)"""|\'\'\'(?s:.*?)\'\'\''
+	+ '|"(?:\\\\.|[^"\\\\\\r\\n])*"|\'(?:\\\\.|[^\'\\\\\\r\\n])*\'')
 static var _portal_read_re := RegEx.create_from_string("requires_flag = &\"([^\"]+)\"")
 static var _spawn_read_re := RegEx.create_from_string("spawn_(?:requires|unless)_flag = &\"([^\"]+)\"")
 static var _acquire_write_re := RegEx.create_from_string("acquire_flag = &\"([^\"]+)\"")
@@ -77,11 +84,30 @@ static func flag_table(scenes: Dictionary, death_tables: Dictionary, text_files:
 		if path.ends_with(".json"):
 			_add_chapter_rules(table, path, text)
 		if path.ends_with(".gd"):
-			for match in _flag_write_re.search_all(text):
-				_add(table, match.get_string(1), "writes", "%s 的 set_flag" % path)
-			for match in _flag_read_re.search_all(text):
-				_add(table, match.get_string(1), "reads", "%s 的 has_flag" % path)
+			_add_script_flags(table, path, text)
 	return table
+
+
+static func _add_script_flags(table: Dictionary, path: String, text: String) -> void:
+	for access in _script_flag_re.search_all(text):
+		_add_script_flag(table, path, access.get_string(1), access.get_string(2))
+	if not text.contains("GameState.") or not text.contains("const "):
+		return
+	var constants: Dictionary[String, String] = {}
+	var named_accesses: Array[RegExMatch] = []
+	for match in _script_named_flag_re.search_all(text):
+		var name := match.get_string("name")
+		if not name.is_empty():
+			constants[name] = match.get_string("flag")
+		elif not match.get_string("method").is_empty():
+			named_accesses.append(match)
+	for access in named_accesses:
+		var flag: String = constants.get(access.get_string("argument"), "")
+		_add_script_flag(table, path, access.get_string("method"), flag)
+
+
+static func _add_script_flag(table: Dictionary, path: String, method: String, flag: String) -> void:
+	_add(table, flag, "writes" if method == "set_flag" else "reads", "%s 的 %s" % [path, method])
 
 
 ## 章節劇本的旗標規則：執行期事實與一般復原旗標由真實服務寫入；衍生旗標由條件重算（寫）並讀它的條件。

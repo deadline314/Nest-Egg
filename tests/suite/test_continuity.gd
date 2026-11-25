@@ -12,6 +12,7 @@ const SEEN_FLAG := &"ch1_first_death_done"
 func run() -> void:
 	var previous_auto := Story.auto_skip
 	_test_detects_flag_problems()
+	_test_direct_script_flag_constants()
 	_test_detects_orphans()
 	_test_real_data()
 	_test_detects_unreachable()
@@ -50,6 +51,58 @@ func _test_detects_flag_problems() -> void:
 	check(ContinuityAudit.distance("kitten", "sitting") == 3 and ContinuityAudit.distance("same", "same") == 0, "edit distance is correct")
 	check(ContinuityAudit.flag_problems({"a1": {"writes": ["x"], "reads": ["y"]}, "a2": {"writes": ["x"], "reads": ["y"]}})["errors"].is_empty(),
 			"short names such as a1/a2 are not compared by spelling")
+
+
+
+func _test_direct_script_flag_constants() -> void:
+	var files := {
+		"res://fixture/boss.gd": '''
+const MIDPOINT := &"fixture_boss_midpoint"
+const READ_ONLY: StringName = &"fixture_view_marker"
+const VISITED: StringName = "fixture_completed_visit"
+const EXPRESSION := flag_for("fixture_dynamic")
+const COMBINED := &"fixture_prefix" + suffix
+var current_flag := &"fixture_mutable"
+# const INACTIVE := &"fixture_comment"
+var logged := "GameState.set_flag(READ_ONLY)"
+var example := """
+const HIDDEN := &"fixture_in_text"
+GameState.set_flag(READ_ONLY)
+"""
+
+func part_complete() -> void:
+	GameState.set_flag(MIDPOINT, true)
+	GameState.has_flag(MIDPOINT)
+	GameState.has_flag(READ_ONLY)
+	GameState.set_flag(VISITED, true)
+	GameState.set_flag(EXPRESSION)
+	GameState.set_flag(COMBINED)
+	GameState.set_flag(current_flag)
+	GameState.set_flag(UNDEFINED)
+	GameState.set_flag(INACTIVE)
+	GameState.set_flag(&"fixture_partial" + suffix)
+	GameState.has_flag(OtherScript.READ_ONLY)
+	# GameState.set_flag(READ_ONLY)
+	OtherState.set_flag(READ_ONLY)
+	GameState.set_flag(HIDDEN)
+''',
+		"res://fixture/other.gd": 'GameState.set_flag(READ_ONLY)\nGameState.set_flag(&"fixture_literal")',
+	}
+	var table := ContinuityAudit.flag_table({}, {}, files)
+	check(table.get("fixture_boss_midpoint", {}).get("writes", []).size() == 1
+		and table.get("fixture_boss_midpoint", {}).get("reads", []).size() == 1,
+		"a same-file StringName literal constant has one recognized read and write")
+	check(table.get("fixture_view_marker", {}).get("reads", []).size() == 1
+		and table.get("fixture_view_marker", {}).get("writes", []).is_empty(),
+		"a read stays read-only even with other receivers, strings, comments, and files")
+	check(table.get("fixture_completed_visit", {}).get("writes", []).size() == 1,
+		"a typed StringName constant can initialize from a quoted literal")
+	check(table.get("fixture_literal", {}).get("writes", []).size() == 1,
+		"direct literal flag calls are still recognized")
+	for name in ["EXPRESSION", "COMBINED", "current_flag", "UNDEFINED", "INACTIVE",
+			"fixture_dynamic", "fixture_prefix", "fixture_mutable", "fixture_comment",
+			"fixture_partial", "fixture_in_text"]:
+		check(not table.has(name), "the auditor cannot attribute a dynamic or undefined reference to %s" % name)
 
 
 func _test_detects_orphans() -> void:
