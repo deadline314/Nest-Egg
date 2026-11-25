@@ -24,7 +24,8 @@ static func _fixture(s: TestSuite, script: Script, seated: bool, animator_script
 	return {"player":p, "actor":a}
 
 static func _step(s: TestSuite, p) -> void:
-	await s.frames(1)
+	# ClockActor advances on process frames. A render can contain several physics ticks.
+	await s.runner.get_tree().process_frame
 	if is_instance_valid(p):
 		for tween: Tween in p._tweens:
 			if tween.is_valid():

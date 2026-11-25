@@ -23,3 +23,7 @@ Actor 只保留 token 與少量純量，transport 弱引用 Actor／Player，沒
 原 affected selector 在已發布 8c + 近戰 v8 26 檔 + 純時鐘 7 檔的同一來源上跑 70 組、94,097 checks，0 新／0 已知失敗，exit 0；原工具與過濾器未改。不是各自窄測試的加總，也不宣稱這一輪只有七檔或 headless log 零 ERROR。
 
 [純／整合控制、全部失敗、固定材質與外部原始包索引](../../pm/Nest-Egg/attachments/NE-290-stage-move-clock/README.md)；[原 selector 聯合回歸](../../pm/Nest-Egg/attachments/NE-277-contact-timing-2026-11-11/affected-v8-clock-joint-index.json)。
+
+## 坐姿起身的測試時鐘（2026-11-26）
+
+坐姿測試用固定的 1/60 秒姿勢步長。這個步長隨每次繪製更新消耗一次，因此等待上限也用 process frame 計算。主機負載高時會在同一繪製影格執行多次物理更新。若以物理步數計算上限，測試可能在角色起身完成前先耗完步數。維持原樣檢查站穩、移動到位以及完成、略過和取消的回報。
