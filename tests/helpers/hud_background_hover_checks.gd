@@ -2,7 +2,7 @@ extends RefCounted
 ## NE-228：背景 HUD 的 Hover 說明不能蓋住暫停頁、人物交談或通訊。
 ## 用真的滑鼠移動事件走引擎的 Hover 與說明計時，量測引擎實際建立的說明視窗，不手造彈出框。
 
-const WAIT_MS := 1600
+const WAIT_SECONDS := 1.6
 
 
 static func run(suite: TestSuite) -> void:
@@ -152,11 +152,12 @@ static func _tooltip(owner: Control) -> Window:
 	return null
 
 
-## 等待說明出現（want=true），回傳期間內是否出現；說明延遲預設 0.5 秒，最多等 WAIT_MS。
+## 等待說明出現（want=true），回傳期間內是否出現；說明延遲預設 0.5 秒，最多等 WAIT_SECONDS。
 static func _wait_tooltip(suite: TestSuite, owner: Control, want: bool) -> bool:
-	var deadline := Time.get_ticks_msec() + WAIT_MS
-	while Time.get_ticks_msec() < deadline:
-		await suite.frames(1)
+	# Match the viewport's unscaled idle timer, which still processes while paused.
+	var timeout := suite.runner.get_tree().create_timer(WAIT_SECONDS, true, false, true)
+	while timeout.time_left > 0.0:
+		await suite.runner.get_tree().process_frame
 		if (_tooltip(owner) != null) == want:
 			return true
 	return false

@@ -199,8 +199,9 @@ func _test_saved_arena_initialization() -> void:
 	data.show_chapter_card = false
 	var original := await start_level(data)
 	original._start_boss_fight()
-	var deadline := Time.get_ticks_msec() + 4000
-	while not original._boss_spawned and Time.get_ticks_msec() < deadline:
+	# The boss delay runs on simulation time, which can lag wall time on a loaded runner.
+	var spawn_timeout := runner.get_tree().create_timer(Level.BOSS_SPAWN_DELAY + 1.0)
+	while not original._boss_spawned and spawn_timeout.time_left > 0.0:
 		await runner.get_tree().process_frame
 	check(original._arena_triggered and original._boss_spawned and original.camera != null, "normal new arena initializes camera before boss lock and spawn")
 	var runtime := original.run_snapshot()

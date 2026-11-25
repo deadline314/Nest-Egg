@@ -39,8 +39,9 @@ static func run_sliced_entry(s: TestSuite, directory: String) -> void:
 	var slot_digest := FileAccess.get_sha256(store.path)
 	main.call("_on_continue_requested")
 	var inspected := false
-	var elapsed := Time.get_ticks_msec() + 6000
-	while Time.get_ticks_msec() < elapsed and Transition.is_active():
+	# Sliced entry advances on process frames while the transition holds the gameplay pause.
+	var timeout := s.runner.get_tree().create_timer(16.0)
+	while timeout.time_left > 0.0 and Transition.is_active():
 		await s.runner.get_tree().process_frame
 		var level := main.get("_screen") as Level
 		if not inspected and level != null and level.is_building_entry():
