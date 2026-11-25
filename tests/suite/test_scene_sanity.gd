@@ -1,3 +1,4 @@
+# changed-test-inputs: data/cutscene/stages/*.json data/cutscene/stage_proportions.json
 class_name SceneSanitySuite
 extends TestSuite
 ## 場景合理性檢查（NE-210）：SceneAudit 對假地圖要抓得到問題（懸空、陷進地形、梯子太短、起點走不到的平台、
