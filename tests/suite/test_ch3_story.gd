@@ -224,10 +224,10 @@ func _test_level_hooks() -> void:
 			"Old K moves from the counter to the kitchen once Rin has heard the trade")
 
 
-## 當舖的章末：接受下一個週日的邀約寫下旗標就結束本章（第四章尚未收錄，沒有下一關）。
+## 當舖的章末：接受下一個週日的邀約寫下旗標就結束本章（開發版可接到下一章）。
 func _test_chapter_end() -> void:
 	var shop: LevelData = _datas.get("pawnshop")
-	check(shop != null and shop.complete_on_flag == &"ch3_shore_closed" and shop.next_level.is_empty(), "the pawnshop ends chapter 3 on its flag without loading a chapter 4 level")
+	check(shop != null and shop.complete_on_flag == &"ch3_shore_closed" and shop.next_level == "res://data/levels/ch4_pawnshop.tres", "the pawnshop ends chapter 3 on its flag at the next Sunday handoff")
 	if shop == null:
 		return
 	GameState.start_new_run(GameState.difficulties[1])

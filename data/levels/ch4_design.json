@@ -1,0 +1,100 @@
+{
+ "areas": {
+  "pawnshop": {
+   "combat": false,
+   "group": "pawnshop",
+   "features": {},
+   "encounters": []
+  },
+  "ward_reception": {
+   "combat": false,
+   "group": "ward_reception",
+   "features": {},
+   "encounters": []
+  },
+  "nursing_ward": {
+   "combat": false,
+   "group": "nursing_ward",
+   "features": {
+    "loop": "病房內廊回外櫃檯。",
+    "landmark": "雨窗與棠的床位。",
+    "vertical": "上層靠窗的收音座。"
+   },
+   "encounters": []
+  }
+ },
+ "curve": {
+  "掩護射擊": {
+   "intro": [
+    "street",
+    "接觸"
+   ],
+   "practice": [
+    "street",
+    "高台"
+   ],
+   "combine": [
+    "street",
+    "街心"
+   ],
+   "test": [
+    "street",
+    "路障"
+   ]
+  },
+  "格擋與衝刺": {
+   "intro": [
+    "street",
+    "格擋"
+   ],
+   "practice": [
+    "street",
+    "街心"
+   ],
+   "combine": [
+    "street",
+    "路障"
+   ],
+   "test": [
+    "vault",
+    "保險箱守衛"
+   ]
+  },
+  "近戰終結": {
+   "intro": [
+    "street",
+    "近戰"
+   ],
+   "practice": [
+    "warehouse",
+    "開關守衛"
+   ],
+   "combine": [
+    "warehouse",
+    "坑前"
+   ],
+   "test": [
+    "vault",
+    "保險箱守衛"
+   ]
+  },
+  "空中與高處": {
+   "intro": [
+    "street",
+    "空襲"
+   ],
+   "practice": [
+    "warehouse",
+    "高處無人機"
+   ],
+   "combine": [
+    "vault",
+    "階梯"
+   ],
+   "test": [
+    "vault",
+    "上層走道"
+   ]
+  }
+ }
+}

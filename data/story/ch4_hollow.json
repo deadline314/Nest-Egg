@@ -1,0 +1,1222 @@
+{
+ "chapter": {
+  "id": "ch4_hollow",
+  "title": "第四章　空殼",
+  "subtitle": "夾層安養病房",
+  "end_title": "第四章　空殼　完",
+  "teaser": "回當舖查清倉庫原帳留下的問題。",
+  "languages": [
+   "zh",
+   "ja",
+   "en"
+  ],
+  "title_ja": "第四章　空の器",
+  "title_en": "Chapter Four: Hollow Shell",
+  "subtitle_ja": "中二階の療養病棟",
+  "subtitle_en": "Mezzanine Care Ward",
+  "end_title_ja": "第四章　空の器　完",
+  "end_title_en": "End of Chapter Four: Hollow Shell",
+  "teaser_ja": "質屋に戻り、原本の帳簿に残った疑問を確かめる。",
+  "teaser_en": "Return to the pawnshop to follow up on the original ledger."
+ },
+ "speakers": {
+  "linden": {
+   "name": "棠",
+   "name_ja": "棠",
+   "name_en": "Linden",
+   "color": "#c0d3c8",
+   "portrait": "res://art/portraits/linden.png"
+  },
+  "ward_demo": {
+   "name": "護理示範",
+   "name_ja": "看護手順",
+   "name_en": "Ward demonstration",
+   "color": "#c3d7e5",
+   "portrait": "res://art/portraits/system.png"
+  }
+ },
+ "flag_defaults": {
+  "ch4_documents_wrapped": false,
+  "ch4_visit_signed": false,
+  "ch4_linden_visit_confirmed": false,
+  "ch4_desk_demo_read": false,
+  "ch4_voice_demo_read": false,
+  "ch4_collection_slip_saved": false,
+  "ch4_inner_exit_open": false
+ },
+ "transactions": {},
+ "derived_flags": {},
+ "quests": [
+  {
+   "id": "ch4_ward_visit",
+   "kind": "main",
+   "title": "帶回執去安養病房探訪棠",
+   "background": "鷺在夾層病房外等凜，兩人約好先核對回執。",
+   "reward": "訪客可以進入安養病房。",
+   "complete_flag": "ch4_linden_visit_confirmed",
+   "steps": [
+    {
+     "title": "請老 K 把回執裝進防水袋。",
+     "complete_flag": "ch4_documents_wrapped",
+     "location": {
+      "level": "res://data/levels/ch4_pawnshop.tres",
+      "cell": [
+       49,
+       19
+      ]
+     },
+     "title_ja": "老Kに受領証を防水袋に入れてもらう。",
+     "title_en": "Ask Old K to wrap the receipt."
+    },
+    {
+     "title": "去外櫃檯找鷺簽訪客簿。",
+     "complete_flag": "ch4_visit_signed",
+     "location": {
+      "level": "res://data/levels/ch4_ward_reception.tres",
+      "cell": [
+       20,
+       19
+      ]
+     },
+     "title_ja": "受付で鷺に会い、面会簿に署名する。",
+     "title_en": "Meet Egret at reception and sign in."
+    },
+    {
+     "title": "到雨窗旁問棠能不能借取件聯。",
+     "complete_flag": "ch4_linden_visit_confirmed",
+     "location": {
+      "level": "res://data/levels/ch4_nursing_ward.tres",
+      "cell": [
+       26,
+       19
+      ]
+     },
+     "title_ja": "窓辺の棠に受取票を借りていいか尋ねる。",
+     "title_en": "Ask Linden by the window to borrow the slip."
+    }
+   ],
+   "title_ja": "療養病棟の棠を訪ねる",
+   "title_en": "Visit Linden at the care ward",
+   "background_ja": "鷺は中二階の病棟前で待っている。凛と一緒に受領証を確認する約束だ。",
+   "background_en": "Egret is waiting outside the mezzanine ward to check the receipt with Rin.",
+   "reward_ja": "療養病棟に面会に入れる。",
+   "reward_en": "Visitors can enter the care ward."
+  },
+  {
+   "id": "ch4_ward_investigation",
+   "kind": "main",
+   "title": "解開床頭櫃並取得公用取件聯",
+   "background": "棠同意借出公用聯，護士留下了兩段開櫃示範。",
+   "reward": "取件聯會指向月報十七批次的轉介去向。",
+   "complete_flag": "ch4_collection_slip_saved",
+   "steps": [
+    {
+     "title": "看走廊的桌緣示範。",
+     "complete_flag": "ch4_desk_demo_read",
+     "location": {
+      "level": "res://data/levels/ch4_nursing_ward.tres",
+      "cell": [
+       14,
+       19
+      ]
+     },
+     "title_ja": "廊下で机のたたき方の見本を見る。",
+     "title_en": "Watch the tapping demonstration in the hall."
+    },
+    {
+     "title": "到窗邊上層看收音示範。",
+     "complete_flag": "ch4_voice_demo_read",
+     "location": {
+      "level": "res://data/levels/ch4_nursing_ward.tres",
+      "cell": [
+       42,
+       15
+      ]
+     },
+     "title_ja": "窓際の上段で集音の見本を見る。",
+     "title_en": "Watch the voice demonstration by the upper window."
+    },
+    {
+     "title": "回床頭櫃輸入兩個訊號。",
+     "complete_flag": "ch4_collection_slip_saved",
+     "location": {
+      "level": "res://data/levels/ch4_nursing_ward.tres",
+      "cell": [
+       31,
+       19
+      ]
+     },
+     "title_ja": "枕元の棚に戻り、二つの信号を入力する。",
+     "title_en": "Enter both signals at the cabinet."
+    }
+   ],
+   "visible_flags": [
+    "ch4_linden_visit_confirmed"
+   ],
+   "completion_requires_steps": true,
+   "title_ja": "枕元の棚を開けて受取票を取る",
+   "title_en": "Open the cabinet and take the slip",
+   "background_ja": "棠は公開用の票を貸してくれる。看護師が棚の開け方を二か所に残した。",
+   "background_en": "Linden agreed to lend the slip. The nurses left two demonstrations for the cabinet.",
+   "reward_ja": "受取票に月報十七の対象が移された先が記されている。",
+   "reward_en": "The slip shows where batch seventeen was sent."
+  }
+ ],
+ "scenes": {
+  "ch4_t_wrap": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "old_k",
+     "text": "袋口要折兩次，水才不會從縫裡跑進去喔。",
+     "ja": "袋の口は二回折るんだよ。そうしないと隙間から水が入るからね。",
+     "en": "Fold the top twice. Otherwise the water gets into the seam."
+    },
+    {
+     "speaker": "rin",
+     "text": "我只帶副本。原本還留在診所，他們不能說少了一頁。",
+     "ja": "持っていくのは写しだけよ。原本は診療所にあるから、一枚なくなったとは言わせない。",
+     "en": "I'm only taking copies. The originals are at the clinic, so they can't say a page went missing."
+    },
+    {
+     "speaker": "old_k",
+     "text": "我把袋子放門邊。回來記得把濕的東西掛起來。",
+     "ja": "袋は戸口に置いとくよ。帰ったら濡れた物はちゃんと掛けておきな。",
+     "en": "I'll put the bag by the door. Hang anything wet when you get home, all right?"
+    }
+   ],
+   "when": {
+    "not": {
+     "flag": "ch4_documents_wrapped",
+     "equals": true
+    }
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch4_documents_wrapped",
+     "value": true
+    }
+   ],
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch4_t_wrapped": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "回執包好了，出門沿病房的牌子走。",
+     "ja": "受領証は包んだよ。外へ出たら病棟の案内に沿って行きな。",
+     "en": "The receipt is wrapped. Follow the ward signs from here."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch4_documents_wrapped",
+    "equals": true
+   }
+  },
+  "ch4_t_ward_intro": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "裡面是安養病房，住著需要長期照顧的人。棠住在這裡，她是我的伴侶。",
+     "ja": "ここは長い間ケアが必要な人の療養病棟。棠が暮らしてる。私の連れ合いだよ。",
+     "en": "This is the care ward for people who need long-term support. Linden lives here. She's my partner."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "回執只寫批次。我給櫃檯看這張，妳的訪客簿不用翻給我。",
+     "ja": "受領証には対象の番号しかない。受付にはこれを見せるね。面会簿は見せなくていいよ。",
+     "en": "The receipt only gives a batch number. I'll show that at the desk. You can keep the guest book to yourself."
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "等她問妳是誰，再照妳自己的名字答就好。",
+     "ja": "誰かと聞かれたら、自分の名前をそのまま伝えて。",
+     "en": "If she asks who you are, just give her your own name."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "ch4_visit_signed",
+     "equals": true
+    }
+   },
+   "then": "ch4_dispatch_ward_history"
+  },
+  "ch4_t_traded_before": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "上週妳提到的備份，我在這裡沒問人。病房的帳和訪客資料分開放。",
+     "ja": "先週話してくれたバックアップの件は、ここでは誰にも聞いてないよ。病棟の記録と面会者の情報は別に保管してる。",
+     "en": "I haven't asked anyone here about the backup you mentioned last week. The ward records are kept apart from visitor details."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch3_told_egret_trade",
+    "equals": true
+   },
+   "then": "ch4_dispatch_ward_sunday"
+  },
+  "ch4_t_sunday_before": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "我在屋頂說過週日要留給一個人，那個人就是她。",
+     "ja": "屋上で日曜はある人のために空けてるって言ったよね。あの人のことだよ。",
+     "en": "On the roof I told you I keep Sundays for someone. I meant her."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "sq2_sunday_heard",
+    "equals": true
+   },
+   "then": "ch4_dispatch_back_reception_sign"
+  },
+  "ch4_t_reception_sign": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "今天的訪客簿放在櫃檯，簽了就能進去。",
+     "ja": "今日の面会簿は受付にある。名前を書けば入れるよ。",
+     "en": "Today's guest book is at the desk. Sign it and we can go in."
+    },
+    {
+     "do": "choice",
+     "text": "今天的訪客簿放在櫃檯，簽了就能進去。",
+     "default": "leave",
+     "options": [
+      {
+       "id": "sign",
+       "text": "簽訪客簿，準備進病房。",
+       "explanation": "簽好後開啟病房內門。",
+       "target": "ch4_t_signed",
+       "ja": "面会簿に署名する。",
+       "en": "Sign in for the visit.",
+       "explanation_ja": "署名すると病棟の内扉が開く。",
+       "explanation_en": "Signing in opens the ward door."
+      },
+      {
+       "id": "leave",
+       "text": "我想先在外面等一下。",
+       "explanation": "之後可以再來簽名。",
+       "ja": "ひとまず外で待つ。",
+       "en": "Wait outside for now.",
+       "explanation_ja": "あとで戻って署名できる。",
+       "explanation_en": "You can come back to sign in."
+      }
+     ],
+     "cancel_choice_on_back": true,
+     "ja": "今日の面会簿は受付にある。名前を書けば入れるよ。",
+     "en": "Today's guest book is at the desk. Sign it and we can go in."
+    }
+   ],
+   "overlay": true
+  },
+  "ch4_t_signed": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我把回執放在櫃檯，簿子也簽好了。",
+     "ja": "受領証を受付に置いて、面会簿にも署名したよ。",
+     "en": "I left the receipt at the desk and signed the book."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "ch4_visit_signed",
+     "equals": true
+    }
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch4_visit_signed",
+     "value": true
+    }
+   ],
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch4_t_reception_return": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "妳可以直接走訪客入口，棠坐在雨窗旁邊。",
+     "ja": "面会者用の入口から入って。棠は雨の当たる窓の横に座ってるよ。",
+     "en": "Use the visitor entrance. Linden's sitting by the rain-streaked window."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch4_visit_signed",
+    "equals": true
+   }
+  },
+  "ch4_t_linden_meet": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "linden",
+     "text": "妳要放東西嗎？先放這張桌子，我右手拿得比較穩。",
+     "ja": "何か置くの？　この机に置いてね。右手の方がしっかり持てるの。",
+     "en": "Do you need to set something down? Use this table. My right hand is steadier."
+    },
+    {
+     "speaker": "rin",
+     "text": "我是凜。我在查轉介的事，想借妳床頭櫃裡那張公用的取件聯。",
+     "ja": "私は凛。転院のことを調べてるの。枕元の棚にある公開用の受取票を借りてもいい？",
+     "en": "I'm Rin. I'm looking into the referrals. Could I borrow the public slip from your bedside cabinet?"
+    },
+    {
+     "speaker": "linden",
+     "text": "它收在下層。護士把開法放在走廊和窗邊，妳可以去看。",
+     "ja": "下の段に入ってる。廊下と窓のそばに看護師さんが開け方を残してくれたから、見てきていいよ。",
+     "en": "It's in the bottom drawer. The nurses left instructions in the hall and by the window."
+    }
+   ],
+   "when": {
+    "not": {
+     "flag": "ch4_linden_visit_confirmed",
+     "equals": true
+    }
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch4_linden_visit_confirmed",
+     "value": true
+    }
+   ],
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch4_t_linden_revisit": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "linden",
+     "text": "公用的紙放在下層，上層放的是我自己的東西。",
+     "ja": "公開用の紙は下の段よ。上の段には私の物が入ってるの。",
+     "en": "The public form is in the bottom drawer. I keep my things in the top one."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch4_linden_visit_confirmed",
+    "equals": true
+   }
+  },
+  "ch4_t_visit_first": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "先去雨窗旁問棠，確認她願意借出取件聯。",
+     "ja": "窓辺の棠に、受取票を借りていいか先に聞こう。",
+     "en": "I should ask Linden by the window if I can borrow it."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "ch4_linden_visit_confirmed",
+     "equals": true
+    }
+   }
+  },
+  "ch4_t_desk_demo_replay": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "sfx",
+     "id": "step_wood",
+     "volume": -15
+    },
+    {
+     "do": "wait",
+     "time": 0.18
+    },
+    {
+     "do": "sfx",
+     "id": "step_wood",
+     "volume": -15
+    },
+    {
+     "do": "wait",
+     "time": 0.18
+    },
+    {
+     "do": "sfx",
+     "id": "step_wood",
+     "volume": -15
+    },
+    {
+     "do": "say",
+     "speaker": "ward_demo",
+     "text": "先敲靠床的桌緣三下，再等提示燈亮。",
+     "ja": "まずベッド側の机の縁を三回たたき、ランプが点くまでお待ちください。",
+     "en": "Tap the edge of the table three times, then wait for the light."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch4_desk_demo_read",
+    "equals": true
+   }
+  },
+  "ch4_t_desk_demo": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "sfx",
+     "id": "step_wood",
+     "volume": -15
+    },
+    {
+     "do": "wait",
+     "time": 0.18
+    },
+    {
+     "do": "sfx",
+     "id": "step_wood",
+     "volume": -15
+    },
+    {
+     "do": "wait",
+     "time": 0.18
+    },
+    {
+     "do": "sfx",
+     "id": "step_wood",
+     "volume": -15
+    },
+    {
+     "do": "say",
+     "speaker": "ward_demo",
+     "text": "先敲靠床的桌緣三下，再等提示燈亮。",
+     "ja": "まずベッド側の机の縁を三回たたき、ランプが点くまでお待ちください。",
+     "en": "Tap the edge of the table three times, then wait for the light."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch4_linden_visit_confirmed",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch4_desk_demo_read",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch4_desk_demo_read",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch4_t_voice_demo_replay": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "sfx",
+     "id": "beep",
+     "volume": -19
+    },
+    {
+     "do": "say",
+     "speaker": "ward_demo",
+     "text": "等桌緣燈亮，再對著收音鍵哼一小段。",
+     "ja": "机のランプが点いたら、集音ボタンを押して短い旋律を口ずさんでください。",
+     "en": "Once the table light comes on, use the voice button to hum a short tune."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch4_voice_demo_read",
+    "equals": true
+   }
+  },
+  "ch4_t_voice_demo": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "sfx",
+     "id": "beep",
+     "volume": -19
+    },
+    {
+     "do": "say",
+     "speaker": "ward_demo",
+     "text": "等桌緣燈亮，再對著收音鍵哼一小段。",
+     "ja": "机のランプが点いたら、集音ボタンを押して短い旋律を口ずさんでください。",
+     "en": "Once the table light comes on, use the voice button to hum a short tune."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch4_linden_visit_confirmed",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch4_voice_demo_read",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch4_voice_demo_read",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch4_t_missing_desk": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "先去走廊的顯示屏看桌緣示範。",
+     "ja": "先に廊下の画面で、机のたたき方を見よう。",
+     "en": "I'll check the tapping demonstration on the hall screen first."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "ch4_desk_demo_read",
+     "equals": true
+    }
+   }
+  },
+  "ch4_t_missing_voice": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "窗邊上層還有一段收音示範，我先去看。",
+     "ja": "窓際の上段に集音の見本もある。先に見ておこう。",
+     "en": "There's another demonstration on the platform by the window. I'll check it first."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "ch4_voice_demo_read",
+     "equals": true
+    }
+   }
+  },
+  "ch4_t_open_cabinet": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "櫃子等兩個訊號，我先照示範做一次。",
+     "ja": "棚は二つの信号を待ってる。見本どおりにやってみよう。",
+     "en": "The cabinet needs two signals. I'll follow the instructions."
+    },
+    {
+     "do": "choice",
+     "text": "櫃子等兩個訊號，我先照示範做一次。",
+     "default": "leave",
+     "options": [
+      {
+       "id": "sequence",
+       "text": "先敲三下，燈亮後再按收音鍵。",
+       "explanation": "依桌緣與收音示範的順序。",
+       "target": "ch4_t_take_slip",
+       "ja": "三回たたき、点灯したら集音ボタンを押す。",
+       "en": "Tap three times, then use the voice button.",
+       "explanation_ja": "机と集音の見本どおりに操作する。",
+       "explanation_en": "Follow both demonstrations in order."
+      },
+      {
+       "id": "voice_first",
+       "text": "先按收音鍵，再敲桌緣。",
+       "explanation": "讓收音鍵先接收訊號。",
+       "target": "ch4_t_wrong_order",
+       "ja": "集音ボタンを押してから机をたたく。",
+       "en": "Use the voice button before tapping.",
+       "explanation_ja": "先に集音の信号を送る。",
+       "explanation_en": "Send the voice signal first."
+      },
+      {
+       "id": "single_tap",
+       "text": "敲一下，再按收音鍵。",
+       "explanation": "只送出一次敲擊訊號。",
+       "target": "ch4_t_wrong_order",
+       "ja": "一回たたいてから集音ボタンを押す。",
+       "en": "Tap once, then use the voice button.",
+       "explanation_ja": "打音を一度だけ送る。",
+       "explanation_en": "Send a single tap."
+      },
+      {
+       "id": "leave",
+       "text": "先把櫃門留著。",
+       "explanation": "兩段示範都能重看。",
+       "ja": "今は棚をそのままにする。",
+       "en": "Leave the cabinet alone for now.",
+       "explanation_ja": "どちらの見本も見直せる。",
+       "explanation_en": "Both demonstrations can be replayed."
+      }
+     ],
+     "cancel_choice_on_back": true,
+     "ja": "棚は二つの信号を待ってる。見本どおりにやってみよう。",
+     "en": "The cabinet needs two signals. I'll follow the instructions."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch4_linden_visit_confirmed",
+      "equals": true
+     },
+     {
+      "flag": "ch4_desk_demo_read",
+      "equals": true
+     },
+     {
+      "flag": "ch4_voice_demo_read",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch4_collection_slip_saved",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch4_t_wrong_order": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "提示燈熄了。櫃子會等我重新輸入。",
+     "ja": "ランプが消えた。もう一度入力できる。",
+     "en": "The light went out. I can enter it again."
+    }
+   ],
+   "overlay": true,
+   "then": "ch4_dispatch_back_open_cabinet"
+  },
+  "ch4_t_take_slip": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我先敲桌緣三下，等燈亮再按收音鍵。",
+     "ja": "机の縁を三回たたいて、点灯したら集音ボタンを押す。",
+     "en": "Three taps on the edge, then the voice button when it lights up."
+    },
+    {
+     "do": "say",
+     "speaker": "linden",
+     "text": "就是這樣開的。妳可以把下層那張拿走。",
+     "ja": "そうやって開けるのよ。下の紙を持っていっていいよ。",
+     "en": "That's how it opens. You can take the form from the bottom."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "取件聯寫的是舊廠代收，沒有病人的名字。",
+     "ja": "受取先は旧工場。患者の名前は書かれていない。",
+     "en": "The old factory handles collection. There are no patient names here."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch4_linden_visit_confirmed",
+      "equals": true
+     },
+     {
+      "flag": "ch4_desk_demo_read",
+      "equals": true
+     },
+     {
+      "flag": "ch4_voice_demo_read",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch4_collection_slip_saved",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "item_acquire",
+     "id": "ch4_ward_collection_slip"
+    },
+    {
+     "kind": "flag",
+     "id": "ch4_collection_slip_saved",
+     "value": true
+    }
+   ],
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch4_t_read_slip_again": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "公用的取件聯已收進筆記。上層的東西留給棠。",
+     "ja": "公開用の票は手帳に入れた。上の段は棠の物だから触らない。",
+     "en": "The public slip is in my notes. I'll leave the top drawer for Linden."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch4_collection_slip_saved",
+    "equals": true
+   }
+  },
+  "ch4_t_open_staff": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "內廊門已解鎖，訪客可以從這條路回外櫃檯。",
+     "ja": "内廊下の扉が解錠されました。面会者はここから受付に戻れます。",
+     "en": "The passage is unlocked. Visitors can return to the reception desk this way."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "ch4_inner_exit_open",
+     "equals": true
+    }
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch4_inner_exit_open",
+     "value": true
+    }
+   ],
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch4_t_staff_open": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "內廊門已經打開，可以從外櫃檯走回來。",
+     "ja": "内廊下は開いています。受付からも戻れます。",
+     "en": "The passage is open. You can come back through it from reception."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch4_inner_exit_open",
+    "equals": true
+   }
+  },
+  "ch4_dispatch_old_k": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "not": {
+         "flag": "ch4_documents_wrapped",
+         "equals": true
+        }
+       },
+       {
+        "not": {
+         "flag": "ch4_documents_wrapped",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch4_t_wrap"
+    },
+    {
+     "when": {
+      "flag": "ch4_documents_wrapped",
+      "equals": true
+     },
+     "target": "ch4_t_wrapped"
+    }
+   ]
+  },
+  "ch4_dispatch_egret": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "not": {
+       "flag": "ch4_visit_signed",
+       "equals": true
+      }
+     },
+     "target": "ch4_t_ward_intro"
+    },
+    {
+     "when": {
+      "flag": "ch4_visit_signed",
+      "equals": true
+     },
+     "target": "ch4_t_reception_return"
+    }
+   ]
+  },
+  "ch4_dispatch_ward_history": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "flag": "ch3_told_egret_trade",
+      "equals": true
+     },
+     "target": "ch4_t_traded_before"
+    },
+    {
+     "when": {
+      "flag": "sq2_sunday_heard",
+      "equals": true
+     },
+     "target": "ch4_t_sunday_before"
+    },
+    {
+     "when": {},
+     "target": "ch4_t_reception_sign"
+    }
+   ]
+  },
+  "ch4_dispatch_ward_sunday": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "flag": "sq2_sunday_heard",
+      "equals": true
+     },
+     "target": "ch4_t_sunday_before"
+    },
+    {
+     "when": {},
+     "target": "ch4_t_reception_sign"
+    }
+   ]
+  },
+  "ch4_dispatch_linden": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "not": {
+         "flag": "ch4_linden_visit_confirmed",
+         "equals": true
+        }
+       },
+       {
+        "not": {
+         "flag": "ch4_linden_visit_confirmed",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch4_t_linden_meet"
+    },
+    {
+     "when": {
+      "flag": "ch4_linden_visit_confirmed",
+      "equals": true
+     },
+     "target": "ch4_t_linden_revisit"
+    }
+   ]
+  },
+  "ch4_dispatch_desk_demo": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "not": {
+       "flag": "ch4_linden_visit_confirmed",
+       "equals": true
+      }
+     },
+     "target": "ch4_t_visit_first"
+    },
+    {
+     "when": {
+      "flag": "ch4_desk_demo_read",
+      "equals": true
+     },
+     "target": "ch4_t_desk_demo_replay"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch4_linden_visit_confirmed",
+          "equals": true
+         },
+         {
+          "not": {
+           "flag": "ch4_desk_demo_read",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch4_desk_demo_read",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch4_t_desk_demo"
+    }
+   ]
+  },
+  "ch4_dispatch_voice_demo": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "not": {
+       "flag": "ch4_linden_visit_confirmed",
+       "equals": true
+      }
+     },
+     "target": "ch4_t_visit_first"
+    },
+    {
+     "when": {
+      "flag": "ch4_voice_demo_read",
+      "equals": true
+     },
+     "target": "ch4_t_voice_demo_replay"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch4_linden_visit_confirmed",
+          "equals": true
+         },
+         {
+          "not": {
+           "flag": "ch4_voice_demo_read",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch4_voice_demo_read",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch4_t_voice_demo"
+    }
+   ]
+  },
+  "ch4_dispatch_cabinet": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "not": {
+       "flag": "ch4_linden_visit_confirmed",
+       "equals": true
+      }
+     },
+     "target": "ch4_t_visit_first"
+    },
+    {
+     "when": {
+      "flag": "ch4_collection_slip_saved",
+      "equals": true
+     },
+     "target": "ch4_t_read_slip_again"
+    },
+    {
+     "when": {
+      "not": {
+       "flag": "ch4_desk_demo_read",
+       "equals": true
+      }
+     },
+     "target": "ch4_t_missing_desk"
+    },
+    {
+     "when": {
+      "not": {
+       "flag": "ch4_voice_demo_read",
+       "equals": true
+      }
+     },
+     "target": "ch4_t_missing_voice"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch4_linden_visit_confirmed",
+        "equals": true
+       },
+       {
+        "flag": "ch4_desk_demo_read",
+        "equals": true
+       },
+       {
+        "flag": "ch4_voice_demo_read",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch4_collection_slip_saved",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch4_t_open_cabinet"
+    }
+   ]
+  },
+  "ch4_dispatch_staff_switch": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "not": {
+         "flag": "ch4_inner_exit_open",
+         "equals": true
+        }
+       },
+       {
+        "not": {
+         "flag": "ch4_inner_exit_open",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch4_t_open_staff"
+    },
+    {
+     "when": {
+      "flag": "ch4_inner_exit_open",
+      "equals": true
+     },
+     "target": "ch4_t_staff_open"
+    }
+   ]
+  },
+  "ch4_dispatch_back_reception_sign": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {},
+     "target": "ch4_t_reception_sign"
+    }
+   ]
+  },
+  "ch4_dispatch_back_open_cabinet": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch4_linden_visit_confirmed",
+        "equals": true
+       },
+       {
+        "flag": "ch4_desk_demo_read",
+        "equals": true
+       },
+       {
+        "flag": "ch4_voice_demo_read",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch4_collection_slip_saved",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch4_t_open_cabinet"
+    }
+   ]
+  }
+ }
+}

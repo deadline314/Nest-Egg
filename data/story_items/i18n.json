@@ -569,5 +569,17 @@
    "display_name": "Wataru's Medical Wristband",
    "description": "A plastic band printed with the number 12. It's warm, as if just taken off. A tiny contact inside, no battery."
   }
+ },
+ "ch4_ward_collection_slip": {
+  "ja": {
+   "display_name": "病棟の公開受取票",
+   "description": "月報十七の物件は旧工場が受け取る。患者の個人情報は記載されていない。",
+   "body": "月報十七の移送物は旧工場が受け取る。担当者は受取票と外門の当番記録を照合して通す。この票には対象番号と行き先だけが記されている。"
+  },
+  "en": {
+   "display_name": "Ward Collection Slip",
+   "description": "The old factory collects items from batch seventeen. The slip contains no personal patient data.",
+   "body": "The old factory receives referrals from batch seventeen. Staff compare this slip with the shift record at the outer gate before granting entry. The slip lists only the batch and destination."
+  }
  }
 }

@@ -190,10 +190,12 @@ func _test_scene_shapes() -> void:
 		names[str(speaker["name"])] = true
 
 
-## 每個講者有自己的聲音：凜的句子最短，芽與監管者比較長；老 K 愛碎念、句尾拖「喔」。
+## 舊示範兩章的量化對照：凜的句子最短，芽與監管者比較長。正式章節的可讀性由 StoryLint 檢查。
 func _test_voices() -> void:
 	var lengths: Dictionary[String, Array] = {}
 	for id: String in Story.scene_ids():
+		if Story._scene_chapter.get(id, &"") not in [&"chapter_01", &"chapter_02"]:
+			continue
 		for entry: Variant in Story._scene_text_lines(Story._scenes[id]):
 			var speaker := str((entry as Dictionary).get("speaker", ""))
 			var text := str((entry as Dictionary).get("text", ""))

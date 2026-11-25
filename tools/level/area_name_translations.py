@@ -1,6 +1,9 @@
 """Area names for the chapter builders and their in-game route labels."""
 
 AREA_NAMES = {
+    "當舖（赴約）": {"en": "Pawnshop (Sunday Visit)", "ja": "質屋（面会の日）"},
+    "病房外櫃檯": {"en": "Ward Reception", "ja": "病棟の受付"},
+    "安養病房": {"en": "Care Ward", "ja": "療養病棟"},
     "二樓帳房": {"en": "Upstairs Accounts Office", "ja": "二階の帳場"},
     "倉庫深處": {"en": "Warehouse Inner Bay", "ja": "倉庫の奥"},
     "公眾攤道": {"en": "Public Market Walk", "ja": "公設市場通り"},

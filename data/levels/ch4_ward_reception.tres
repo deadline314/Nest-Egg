@@ -1,0 +1,76 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
+[ext_resource type="Resource" path="res://data/npcs/ch4_egret.tres" id="3_ch4_egret"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="4_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/reception_white.tres" id="5_reception_white"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch4_ward_reception.tres" id="6_ch4_ward_reception"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("2_portal_data")
+id = &"reception_pawn"
+target_level = "res://data/levels/ch4_pawnshop.tres"
+target_portal = &"pawn_ward"
+prompt = "{interact} 回當舖"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Return to the pawnshop", "ja": "{interact} 質屋へ戻る"})
+width = 32
+height = 68
+style = "door"
+
+[sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("2_portal_data")
+id = &"reception_ward"
+target_level = "res://data/levels/ch4_nursing_ward.tres"
+target_portal = &"ward_entry"
+requires_flag = &"ch4_visit_signed"
+locked_text = "先找外櫃檯旁的鷺簽訪客簿，再進病房。"
+localized_locked_text = Dictionary[String, String]({"en": "Sign in with Egret at reception before entering the ward.", "ja": "病棟に入る前に受付の鷺のところで面会簿に署名する。"})
+prompt = "{interact} 進安養病房"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Enter the care ward", "ja": "{interact} 療養病棟へ入る"})
+width = 32
+height = 68
+style = "door"
+
+[sub_resource type="Resource" id="Resource_2"]
+script = ExtResource("2_portal_data")
+id = &"reception_staff"
+target_level = "res://data/levels/ch4_nursing_ward.tres"
+target_portal = &"ward_staff"
+requires_flag = &"ch4_inner_exit_open"
+locked_text = "內廊的門要從病房裡面打開，可以先走訪客入口。"
+localized_locked_text = Dictionary[String, String]({"en": "Unlock this door from inside the ward. Use the visitor entrance first.", "ja": "この扉は病棟側から開ける。先に面会者用の入口へ。"})
+prompt = "{interact} 從內廊進病房"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Enter the ward via the passage", "ja": "{interact} 内廊下から病棟に入る"})
+width = 32
+height = 68
+style = "door"
+
+[sub_resource type="Resource" id="Resource_3"]
+script = ExtResource("4_lighting_zone")
+start_tile = 0
+blend_tiles = 12
+profile = ExtResource("5_reception_white")
+
+[resource]
+script = ExtResource("1_level_data")
+id = &"ch4_ward_reception"
+display_name = "病房外櫃檯"
+localized_names = Dictionary[String, String]({"en": "Ward Reception", "ja": "病棟の受付"})
+tile_size = 16
+height = 24
+legend = Dictionary[String, Resource]({
+"Ⅱ": SubResource("Resource_0"),
+"Ⅲ": SubResource("Resource_1"),
+"Ⅵ": SubResource("Resource_2"),
+"ⓔ": ExtResource("3_ch4_egret")
+})
+hints = PackedStringArray()
+chapter = &"ch4_hollow"
+persistent_world = true
+show_chapter_card = false
+environment = ExtResource("6_ch4_ward_reception")
+layout_path = "res://data/levels/ch4_ward_reception_map.json"
+lighting_zones = Array[ExtResource("4_lighting_zone")]([SubResource("Resource_3")])
+story_triggers = PackedStringArray()
+death_credit_cap = 250

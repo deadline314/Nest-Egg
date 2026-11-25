@@ -553,8 +553,9 @@ def main():
         extra = kit._map_extra(a)
         a.grid.write(a.id, (kit.LEVEL_DIR, f'ch3_{a.id}_map.json'), extra)
     by_id = {a.id: a for a in areas}
-    # 章末在當舖：接受下一個週日的邀約寫下章末旗標，本章結束（第四章尚未收錄，回到結算畫面）。
-    kit.write_level(by_id['pawnshop'], show_card=True, complete_on_flag='&"ch3_shore_closed"')
+    # 累積版以 CampaignEdition 停在此處。開發版接上下一週日的病房路線。
+    kit.write_level(by_id['pawnshop'], show_card=True, complete_on_flag='&"ch3_shore_closed"',
+                    next_level='"res://data/levels/ch4_pawnshop.tres"')
     sunlit = {'glass_edge', 'showroom', 'office_hall'}
     for a in areas[1:]:
         lighting_events = [('pump_drained', 12, a.w - 2, 'pump_drained', 'ch3_pump_low')] if a.id == 'pump' else ()

@@ -1,0 +1,230 @@
+{
+  "version": 1,
+  "records": [
+    {
+      "id": "ch4_t_wrap",
+      "source": "res://data/story/ch4_hollow.json",
+      "npc": "res://data/npcs/ch4_old_k.tres",
+      "levels": [
+        "res://data/levels/ch4_pawnshop.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "dialogue",
+        "when": {
+          "not": {
+            "flag": "ch4_documents_wrapped",
+            "equals": true
+          }
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch4_documents_wrapped",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch4_t_signed",
+      "source": "res://data/story/ch4_hollow.json",
+      "npc": "res://data/npcs/ch4_egret.tres",
+      "levels": [
+        "res://data/levels/ch4_ward_reception.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "not": {
+            "flag": "ch4_visit_signed",
+            "equals": true
+          }
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch4_visit_signed",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch4_t_linden_meet",
+      "source": "res://data/story/ch4_hollow.json",
+      "npc": "res://data/npcs/ch4_linden.tres",
+      "levels": [
+        "res://data/levels/ch4_nursing_ward.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "dialogue",
+        "when": {
+          "not": {
+            "flag": "ch4_linden_visit_confirmed",
+            "equals": true
+          }
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch4_linden_visit_confirmed",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch4_t_desk_demo",
+      "source": "res://data/story/ch4_hollow.json",
+      "npc": "res://data/npcs/ch4_desk_demo.tres",
+      "levels": [
+        "res://data/levels/ch4_nursing_ward.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "flag": "ch4_linden_visit_confirmed",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch4_desk_demo_read",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch4_desk_demo_read",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch4_t_voice_demo",
+      "source": "res://data/story/ch4_hollow.json",
+      "npc": "res://data/npcs/ch4_voice_demo.tres",
+      "levels": [
+        "res://data/levels/ch4_nursing_ward.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "flag": "ch4_linden_visit_confirmed",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch4_voice_demo_read",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch4_voice_demo_read",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch4_t_take_slip",
+      "source": "res://data/story/ch4_hollow.json",
+      "npc": "res://data/npcs/ch4_cabinet.tres",
+      "levels": [
+        "res://data/levels/ch4_nursing_ward.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "flag": "ch4_linden_visit_confirmed",
+              "equals": true
+            },
+            {
+              "flag": "ch4_desk_demo_read",
+              "equals": true
+            },
+            {
+              "flag": "ch4_voice_demo_read",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch4_collection_slip_saved",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "item_acquire",
+            "id": "ch4_ward_collection_slip"
+          },
+          {
+            "kind": "flag",
+            "id": "ch4_collection_slip_saved",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch4_t_open_staff",
+      "source": "res://data/story/ch4_hollow.json",
+      "npc": "res://data/npcs/ch4_staff_switch.tres",
+      "levels": [
+        "res://data/levels/ch4_nursing_ward.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "not": {
+            "flag": "ch4_inner_exit_open",
+            "equals": true
+          }
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch4_inner_exit_open",
+            "value": true
+          }
+        ]
+      }
+    }
+  ]
+}

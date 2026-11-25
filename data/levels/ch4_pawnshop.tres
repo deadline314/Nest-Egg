@@ -1,0 +1,56 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
+[ext_resource type="Resource" path="res://data/npcs/ch4_old_k.tres" id="3_ch4_old_k"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="4_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/rooftop.tres" id="5_rooftop"]
+[ext_resource type="Resource" path="res://data/lighting/pawnshop_warm.tres" id="6_pawnshop_warm"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch4_pawnshop.tres" id="7_ch4_pawnshop"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("2_portal_data")
+id = &"pawn_ward"
+target_level = "res://data/levels/ch4_ward_reception.tres"
+target_portal = &"reception_pawn"
+requires_flag = &"ch4_documents_wrapped"
+locked_text = "先到當舖櫃檯把回執包好，以免紙張在路上淋濕。"
+localized_locked_text = Dictionary[String, String]({"en": "Wrap the receipt at the pawnshop counter to protect it from the rain.", "ja": "雨で濡らさないよう、質屋のカウンターで受領証を包んでから出る。"})
+prompt = "{interact} 走往夾層病房"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Walk to the mezzanine care ward", "ja": "{interact} 中二階の療養病棟へ"})
+width = 32
+height = 68
+style = "door"
+
+[sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("4_lighting_zone")
+start_tile = 0
+blend_tiles = 12
+profile = ExtResource("5_rooftop")
+
+[sub_resource type="Resource" id="Resource_2"]
+script = ExtResource("4_lighting_zone")
+start_tile = 30
+blend_tiles = 6
+profile = ExtResource("6_pawnshop_warm")
+
+[resource]
+script = ExtResource("1_level_data")
+id = &"ch4_pawnshop"
+display_name = "當舖（赴約）"
+localized_names = Dictionary[String, String]({"en": "Pawnshop (Sunday Visit)", "ja": "質屋（面会の日）"})
+tile_size = 16
+height = 24
+legend = Dictionary[String, Resource]({
+"Ⅰ": SubResource("Resource_0"),
+"ⓞ": ExtResource("3_ch4_old_k")
+})
+hints = PackedStringArray()
+chapter = &"ch4_hollow"
+persistent_world = true
+show_chapter_card = true
+environment = ExtResource("7_ch4_pawnshop")
+layout_path = "res://data/levels/ch4_pawnshop_map.json"
+lighting_zones = Array[ExtResource("4_lighting_zone")]([SubResource("Resource_1"), SubResource("Resource_2")])
+story_triggers = PackedStringArray()
+death_credit_cap = 250

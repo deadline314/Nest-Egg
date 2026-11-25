@@ -1,6 +1,11 @@
 """Localized action labels and lock reasons for the formal chapter portals."""
 
 PROMPTS = {
+    "走往夾層病房": ("Walk to the mezzanine care ward", "中二階の療養病棟へ"),
+    "進安養病房": ("Enter the care ward", "療養病棟へ入る"),
+    "回病房外櫃檯": ("Return to ward reception", "病棟の受付へ戻る"),
+    "從內廊回外櫃檯": ("Return to reception via the passage", "内廊下を通って受付へ戻る"),
+    "從內廊進病房": ("Enter the ward via the passage", "内廊下から病棟に入る"),
     "上屋頂": ("Go to the rooftop", "屋上へ上がる"),
     "上層通道：前往館外交接櫃": ("Take the upper route to the handover locker", "上層通路で引き渡しロッカーへ"),
     "下後樓外梯": ("Go down the rear stairs", "裏棟の外階段を下りる"),
@@ -69,6 +74,9 @@ PROMPTS = {
 }
 
 LOCKS = {
+    "先到當舖櫃檯把回執包好，以免紙張在路上淋濕。": ("Wrap the receipt at the pawnshop counter to protect it from the rain.", "雨で濡らさないよう、質屋のカウンターで受領証を包んでから出る。"),
+    "先找外櫃檯旁的鷺簽訪客簿，再進病房。": ("Sign in with Egret at reception before entering the ward.", "病棟に入る前に受付の鷺のところで面会簿に署名する。"),
+    "內廊的門要從病房裡面打開，可以先走訪客入口。": ("Unlock this door from inside the ward. Use the visitor entrance first.", "この扉は病棟側から開ける。先に面会者用の入口へ。"),
     "先在復原館的委託終端送出查核資料，員工通道才會開放。": ("Submit the audit at Restoration Hall's commission terminal to unlock the staff passage.", "復元館の依頼端末で監査資料を送信すると、職員通路が開きます。"),
     "住宅內區需要正式參觀證，今天只開展示接待。": ("You need a visitor pass for the residential wing. Only reception is open today.", "住宅区画には見学証が必要です。今日は展示受付のみ開いています。"),
     "先上屋頂，鷺在茶座等你拿查核證。": ("Get the inspection pass from Egret on the rooftop tea terrace first.", "先に屋上の茶席で鷺から査察証を受け取る。"),

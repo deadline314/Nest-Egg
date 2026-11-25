@@ -1,7 +1,7 @@
 extends "res://tools/ch3_flow_probe.gd"
 ## 跨章接續探針・第二段（ST-21）：另一個程序在真正的 Main 按「繼續遊戲」，讀第一段（tools/ch2_handoff_probe.tscn）
 ## 在第二章章末寫的存檔，回到第三章的當舖；檢查前章的旗標、物品、金額與阿勇的選擇都是存檔帶來的，
-## 再用同一份進度把第三章玩到章末，最後確認沒有進到還沒做的下一章。不替前章補設任何旗標或物品。
+## 再用同一份進度把第三章玩到章末，最後確認開發版能進到第四章的病房開頭。不替前章補設任何旗標或物品。
 ## 用法：godot --path . res://tools/ch3_handoff_probe.tscn -- --save-dir=<第一段的絕對路徑> --out=<截圖資料夾> [--route=full|minimal]
 
 const ProbeMainRoute := preload("res://tools/probe_main_route.gd")
@@ -54,10 +54,12 @@ func _run() -> void:
 	await _settle(20)
 	_capture("ST-21-handoff-continue")
 	await _play_chapter()
-	# 第三章是目前最後一章：章末之後不能接進還沒做的關卡。
-	await _settle(60)
-	var after := _route_main.level()
-	_check(after == null or after.data.resource_path.begins_with("res://data/levels/ch3_"), "the chapter 3 ending does not enter an unfinished chapter")
+	if CampaignEdition.current().development:
+		_check(await _route_main.wait_level("res://data/levels/ch4_pawnshop.tres"), "the chapter 3 ending continues to the following Sunday in development")
+	else:
+		await _settle(60)
+		var after := _route_main.level()
+		_check(after == null or after.data.chapter == &"ch3_clearwater", "the cumulative release ends before chapter 4")
 	Settings.set_skip_cutscenes(_previous_skip)
 	print("CH3_HANDOFF route=%s yong=%s credits=%d failures=%d" % [_route, _yong, Progression.credits, _failures])
 	_main.call("_quit", 1 if _failures > 0 else 0)

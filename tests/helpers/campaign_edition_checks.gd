@@ -117,6 +117,12 @@ static func run(s: TestSuite) -> void:
 	var heron: LevelData = main.call("_next_level", dawn)
 	s.check(heron != null and heron.chapter == &"ch2_heron", "second-chapter edition continues from chapter 1 end into chapter 2")
 	s.check(ch2.is_last_chapter(&"ch2_heron") and not ch2.is_last_chapter(&"ch1_kasa"), "completion note follows the edition's real last chapter id")
+	var terminal := load("res://data/levels/ch3_pawnshop.tres") as LevelData
+	CampaignEdition.override_current(dev.describe("through-ch3_clearwater"))
+	s.check(main.call("_next_level", terminal) == null, "the third-chapter edition ends at the Sunday call")
+	CampaignEdition.override_current(dev)
+	var fourth := main.call("_next_level", terminal) as LevelData
+	s.check(fourth != null and fourth.chapter == &"ch4_hollow", "only the development edition continues into Hollow Shell")
 	main.free()
 	CampaignEdition.override_current(null)
 	_test_scope(s, dev, ch1, ch2)
@@ -133,7 +139,7 @@ static func _test_scope(s: TestSuite, dev: CampaignEdition, ch1: CampaignEdition
 	var two := ch2.scope_report()
 	s.check(two["endings"] == ["res://data/levels/ch2_rooftop.tres"] and int(two["included_levels"].get("ch2_heron", 0)) > 0 and not two["included_levels"].has("ch3_clearwater"), "序章至第二章 ends on the chapter-two rooftop and leaves chapter three out: %s" % [two["endings"]])
 	var three := dev.describe("through-ch3_clearwater").scope_report()
-	s.check(three["endings"].is_empty() and three["excluded_levels"].keys().all(func(c: String) -> bool: return c.begins_with("chapter_")), "the last chapter has no onward area; only legacy demo areas stay out: %s" % [three["excluded_levels"]])
+	s.check(three["endings"] == ["res://data/levels/ch3_pawnshop.tres"] and not three["included_levels"].has("ch4_hollow"), "the third-chapter release excludes the ward preview and ends in the pawnshop")
 	var everything := dev.scope_report()
 	s.check(everything["development"] and everything["endings"].is_empty() and everything["excluded_levels"].is_empty(), "the development build includes every area and never stops at a chapter end")
 

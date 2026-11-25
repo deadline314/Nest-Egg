@@ -70,4 +70,5 @@ layout_path = "res://data/levels/ch3_pawnshop_map.json"
 lighting_zones = Array[ExtResource("7_lighting_zone")]([SubResource("Resource_2"), SubResource("Resource_3")])
 story_triggers = PackedStringArray()
 complete_on_flag = &"ch3_shore_closed"
+next_level = "res://data/levels/ch4_pawnshop.tres"
 death_credit_cap = 250

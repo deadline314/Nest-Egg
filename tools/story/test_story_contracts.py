@@ -8,6 +8,7 @@ import unittest
 from unittest.mock import patch
 import story_contracts as contracts
 from build_ch2_story import spec
+from build_ch4_story import build_spec as hollow_spec
 from chapter_compiler import compile_chapter, CompileError
 
 class StoryContracts(unittest.TestCase):
@@ -16,8 +17,26 @@ class StoryContracts(unittest.TestCase):
         self.chapter = compile_chapter(spec())
 
     def test_original_contracts_are_complete_and_generated_unchanged(self):
-        self.assertEqual(len(self.records),53)
+        originals = [r for r in self.records.values() if r["source"] in (
+            "res://data/story/ch1_kasa.json", "res://data/story/ch2_heron.json")]
+        self.assertEqual(len(originals), 53)
         contracts.validate_generated(self.chapter["scenes"],"res://data/story/ch2_heron.json",self.records)
+
+    def test_hollow_collection_publishes_the_document_with_its_progress(self):
+        source = "res://data/story/ch4_hollow.json"
+        spec = hollow_spec()
+        scene_id = "ch4_t_take_slip"
+        chapter = compile_chapter(spec)
+        scene = chapter["scenes"][scene_id]
+        self.assertEqual(scene["results"], [
+            {"kind": "item_acquire", "id": "ch4_ward_collection_slip"},
+            {"kind": "flag", "id": "ch4_collection_slip_saved", "value": True},
+        ])
+        self.assertEqual(self.records[scene_id]["npc"], "res://data/npcs/ch4_cabinet.tres")
+        contracts.validate_generated(chapter["scenes"], source, self.records)
+        scene["results"].pop(0)
+        with self.assertRaisesRegex(ValueError, scene_id):
+            contracts.validate_generated(chapter["scenes"], source, self.records)
 
     def test_map_hand_presentation_keeps_sealed_radio_effects(self):
         sealed = contracts._sealed_migration()["routes"]["ch2_dispatch_radio"]["ch2_t_s02_broadcast"]["effects"]

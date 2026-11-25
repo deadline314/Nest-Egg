@@ -1,6 +1,11 @@
 """Localizations for authored world prompts in the formal chapter builders."""
 
 TRANSLATIONS = {
+    "和棠說話": ("Talk to Linden", "棠と話す"),
+    "看桌緣示範": ("Watch the tapping demonstration", "机のたたき方を見る"),
+    "看收音示範": ("Watch the voice demonstration", "集音の見本を見る"),
+    "操作床頭櫃": ("Use the bedside cabinet", "枕元の棚を操作する"),
+    "解鎖內廊的門": ("Unlock the passage door", "内廊下の扉を解錠する"),
     "停在光裡": ("Stand in the light", "光の中で立ち止まる"),
     "出示查核證": ("Show the inspection pass", "査察証を見せる"),
     "到租攤視窗查合約": ("Check the contract at the stall rental window", "露店の貸出窓口で契約を調べる"),

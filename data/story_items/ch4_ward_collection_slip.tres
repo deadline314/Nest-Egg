@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"ch4_ward_collection_slip"
+display_name = "病房公用取件聯"
+description = "月報十七批次的物件由舊廠代收，單據沒有病人個資。"
+color = Color(0.78, 0.86, 0.92, 1.0)
+category = 0
+order = 400
+chapter = &"ch4_hollow"
+body = "月報十七批次的轉介物件由舊廠代收。接收人核對取件聯與外門當班紀錄後放行。聯上只記批次與去向。"
+trigger = 3
+icon = "doc_stub"

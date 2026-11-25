@@ -240,7 +240,7 @@
 			"height": 24.0,
 			"id": "ch3_pawnshop",
 			"layout_path": "res://data/levels/ch3_pawnshop_map.json",
-			"sha256": "6e3fc7cf55238125bbc8c52f09ef9ba87bdaa1f211980da685798edda042b37a",
+			"sha256": "60c13c80cfef4a39f836735bb3cabf041b3bd7433e306c062f9220e07abd6d6e",
 			"tile_size": 16.0
 		},
 		{
@@ -268,6 +268,33 @@
 			"id": "ch3_showroom",
 			"layout_path": "res://data/levels/ch3_showroom_map.json",
 			"sha256": "d0f8fab766ec01863ef82f5c3b533cfd7a55ca563c70f736661196aeaeb04812",
+			"tile_size": 16.0
+		},
+		{
+			"chapter": "ch4_hollow",
+			"file": "ch4_nursing_ward.tres",
+			"height": 24.0,
+			"id": "ch4_nursing_ward",
+			"layout_path": "res://data/levels/ch4_nursing_ward_map.json",
+			"sha256": "a4193633313f34bd9a100b44a42e4f31b7164aee669c58c4ba3fa6d09891b152",
+			"tile_size": 16.0
+		},
+		{
+			"chapter": "ch4_hollow",
+			"file": "ch4_pawnshop.tres",
+			"height": 24.0,
+			"id": "ch4_pawnshop",
+			"layout_path": "res://data/levels/ch4_pawnshop_map.json",
+			"sha256": "df21ef71aa1e54b570507c3a5f13fed201d80262d34e2981db39a77a3757cd52",
+			"tile_size": 16.0
+		},
+		{
+			"chapter": "ch4_hollow",
+			"file": "ch4_ward_reception.tres",
+			"height": 24.0,
+			"id": "ch4_ward_reception",
+			"layout_path": "res://data/levels/ch4_ward_reception_map.json",
+			"sha256": "d9ad9934d77e952e61f459dc4a05d314957302a051f26e25397e16797871c1da",
 			"tile_size": 16.0
 		},
 		{

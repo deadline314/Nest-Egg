@@ -1,0 +1,66 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=14 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
+[ext_resource type="Resource" path="res://data/npcs/ch4_cabinet.tres" id="3_ch4_cabinet"]
+[ext_resource type="Resource" path="res://data/npcs/ch4_desk_demo.tres" id="4_ch4_desk_demo"]
+[ext_resource type="Resource" path="res://data/npcs/ch4_staff_switch.tres" id="5_ch4_staff_switch"]
+[ext_resource type="Resource" path="res://data/npcs/ch4_linden.tres" id="6_ch4_linden"]
+[ext_resource type="Resource" path="res://data/npcs/ch4_voice_demo.tres" id="7_ch4_voice_demo"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="8_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/clinic_ward.tres" id="9_clinic_ward"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch4_nursing_ward.tres" id="10_ch4_nursing_ward"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("2_portal_data")
+id = &"ward_entry"
+target_level = "res://data/levels/ch4_ward_reception.tres"
+target_portal = &"reception_ward"
+prompt = "{interact} 回病房外櫃檯"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Return to ward reception", "ja": "{interact} 病棟の受付へ戻る"})
+width = 32
+height = 68
+style = "door"
+
+[sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("2_portal_data")
+id = &"ward_staff"
+target_level = "res://data/levels/ch4_ward_reception.tres"
+target_portal = &"reception_staff"
+prompt = "{interact} 從內廊回外櫃檯"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Return to reception via the passage", "ja": "{interact} 内廊下を通って受付へ戻る"})
+width = 32
+height = 68
+style = "door"
+
+[sub_resource type="Resource" id="Resource_2"]
+script = ExtResource("8_lighting_zone")
+start_tile = 0
+blend_tiles = 12
+profile = ExtResource("9_clinic_ward")
+
+[resource]
+script = ExtResource("1_level_data")
+id = &"ch4_nursing_ward"
+display_name = "安養病房"
+localized_names = Dictionary[String, String]({"en": "Care Ward", "ja": "療養病棟"})
+tile_size = 16
+height = 24
+legend = Dictionary[String, Resource]({
+"Ⅳ": SubResource("Resource_0"),
+"Ⅴ": SubResource("Resource_1"),
+"ⓒ": ExtResource("3_ch4_cabinet"),
+"ⓓ": ExtResource("4_ch4_desk_demo"),
+"ⓢ": ExtResource("5_ch4_staff_switch"),
+"ⓣ": ExtResource("6_ch4_linden"),
+"ⓥ": ExtResource("7_ch4_voice_demo")
+})
+hints = PackedStringArray()
+chapter = &"ch4_hollow"
+persistent_world = true
+show_chapter_card = false
+environment = ExtResource("10_ch4_nursing_ward")
+layout_path = "res://data/levels/ch4_nursing_ward_map.json"
+lighting_zones = Array[ExtResource("8_lighting_zone")]([SubResource("Resource_2")])
+story_triggers = PackedStringArray()
+death_credit_cap = 250
