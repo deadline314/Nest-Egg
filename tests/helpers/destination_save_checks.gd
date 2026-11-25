@@ -13,6 +13,13 @@ class RouteMain extends "res://game/main.gd":
 		loaded.append(_level_path)
 
 
+class CaptureLevel extends Level:
+	var captures := 0
+	func run_snapshot() -> Dictionary:
+		captures += 1
+		return super.run_snapshot()
+
+
 static func _owners() -> PackedByteArray:
 	return var_to_bytes([GameState._install_source(), Progression.snapshot(), StoryItems.snapshot(), Story.progress_snapshot()])
 
@@ -77,6 +84,7 @@ static func run(s: TestSuite) -> void:
 			main.free()
 			await s.end_level(level)
 	await _test_invalid_portal(s, directory)
+	await _test_dialogue_checkpoint(s)
 	Story.auto_skip = previous_auto
 
 static func _test_invalid_portal(s: TestSuite, directory: String) -> void:
@@ -121,6 +129,36 @@ static func _test_invalid_portal(s: TestSuite, directory: String) -> void:
 	s.check(FileAccess.get_file_as_bytes(main._run_store.path) == bytes and toasts.has(definition.locked_text),
 			"refusing the destination preserves the source save and reports the actual portal hint")
 	portal.free()
+	main._screen = null
+	main.free()
+	await s.end_level(level)
+
+static func _test_dialogue_checkpoint(s: TestSuite) -> void:
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := CaptureLevel.new()
+	level.configure(load(FIRST) as LevelData)
+	s.runner.get_tree().root.add_child(level)
+	await s.frames(3)
+	Story.reset_active_presentation(&"test_setup")
+	var main := RouteMain.new()
+	main._screen = level
+	main._active_run = true
+	main._level_path = FIRST
+	main._cinematic = "ch1_t_oldk_1"
+	main._cinematic_entry = RunSnapshot.capture(FIRST, level.run_snapshot())
+	var position: Array = main._cinematic_entry["runtime"]["position"].duplicate()
+	level.player.teleport_to(level.player.global_position + Vector2(32, 0))
+	var checkpoint := main._snapshot_for_save()
+	s.check(level.captures == 1 and checkpoint.get("cinematic") == main._cinematic
+			and checkpoint.get("runtime", {}).get("position") == position,
+			"dialogue checkpoint saves the captured entry without recapturing the live world")
+	if not checkpoint.is_empty():
+		checkpoint["runtime"]["position"][0] += 5.0
+	s.check(main._cinematic_entry["runtime"]["position"] == position, "writing a dialogue checkpoint cannot mutate the stored entry")
+	main._clear_cinematic()
+	var current := main._snapshot_for_save()
+	s.check(level.captures == 2 and current.get("runtime", {}).get("position") != position,
+			"outside an active dialogue the save still captures the current world")
 	main._screen = null
 	main.free()
 	await s.end_level(level)

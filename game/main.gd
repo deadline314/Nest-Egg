@@ -689,17 +689,21 @@ func _can_capture_save() -> bool:
 func _snapshot_for_save(route_source := false) -> Dictionary:
 	if not _can_capture_save():
 		return {}
-	var runtime := (_screen as Level).run_snapshot()
+	var level := _screen as Level
+	if not is_instance_valid(level.player) or level._layout == null:
+		return {}
+	if _cinematic != "" and not _cinematic_entry.is_empty():
+		# The locked scene owns its entry state until the result is durable.
+		var checkpoint := _cinematic_entry.duplicate(true)
+		checkpoint["cinematic"] = _cinematic
+		checkpoint["cinematic_context"] = _cinematic_context.duplicate(true)
+		return checkpoint
+	var runtime := level.run_snapshot()
 	if runtime.is_empty():
 		return {}
-	if route_source: runtime["ending"] = false
-	var snapshot := RunSnapshot.capture(_level_path, runtime, _cinematic, _chapter_complete, _cinematic_context)
-	if _cinematic != "" and not _cinematic_entry.is_empty():
-		# 尚未結束的選項／物品／款項皆暫定；完整入口快照避免A殘留再選B。
-		snapshot = _cinematic_entry.duplicate(true)
-		snapshot["cinematic"] = _cinematic
-		snapshot["cinematic_context"] = _cinematic_context.duplicate(true)
-	return snapshot
+	if route_source:
+		runtime["ending"] = false
+	return RunSnapshot.capture(_level_path, runtime, _cinematic, _chapter_complete, _cinematic_context)
 
 
 func _report_run_save(saved: bool) -> void:
