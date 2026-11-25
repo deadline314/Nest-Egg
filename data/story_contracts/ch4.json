@@ -225,6 +225,134 @@
           }
         ]
       }
+    },
+    {
+      "id": "ch4_t_shift_tip",
+      "source": "res://data/story/ch4_hollow.json",
+      "npc": "res://data/npcs/ch4_ali.tres",
+      "levels": [
+        "res://data/levels/ch4_revival_lounge.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "dialogue",
+        "when": {
+          "all": [
+            {
+              "flag": "ch4_collection_slip_saved",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch4_shift_tip_known",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch4_shift_tip_known",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch4_t_manifest_matched",
+      "source": "res://data/story/ch4_hollow.json",
+      "npc": "res://data/npcs/ch4_shift_board.tres",
+      "levels": [
+        "res://data/levels/ch4_factory_approach.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "flag": "ch4_shift_tip_known",
+              "equals": true
+            },
+            {
+              "flag": "ch4_collection_slip_saved",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch4_factory_batch_matched",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch4_factory_batch_matched",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch4_t_release_rail",
+      "source": "res://data/story/ch4_hollow.json",
+      "npc": "res://data/npcs/ch4_rail_release.tres",
+      "levels": [
+        "res://data/levels/ch4_factory_loading.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "not": {
+            "flag": "ch4_loader_rail_released",
+            "equals": true
+          }
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch4_loader_rail_released",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch4_t_survey_floor",
+      "source": "res://data/story/ch4_hollow.json",
+      "npc": "res://data/npcs/ch4_workbench.tres",
+      "levels": [
+        "res://data/levels/ch4_factory_loading.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "dialogue",
+        "when": {
+          "not": {
+            "flag": "ch4_fixed_ground_marked",
+            "equals": true
+          }
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch4_fixed_ground_marked",
+            "value": true
+          }
+        ]
+      }
     }
   ]
 }

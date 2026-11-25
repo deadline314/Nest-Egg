@@ -9,7 +9,7 @@ const WAITING_ROOM := &"ch4_dispatch_egret"
 
 
 func run() -> void:
-	var areas := Checks.load_areas(self, "ch4", CHAPTER, ["pawnshop", "ward_reception", "nursing_ward"])
+	var areas := Checks.load_areas(self, "ch4", CHAPTER, ["pawnshop", "ward_reception", "nursing_ward", "revival_lounge", "factory_approach", "factory_loading"])
 	Checks.check_portals(self, "chapter 4", areas)
 	for area: LevelData in areas.values():
 		var actual: Array[Dictionary] = LevelBuilder.parse(area).spawns
@@ -17,8 +17,8 @@ func run() -> void:
 			if resource is PortalData:
 				check(actual.any(func(spawn: Dictionary) -> bool: return spawn["resource"] == resource),
 					"%s/%s is parsed as a live portal" % [area.id, resource.id])
-	Checks.check_entries(self, "chapter 4", areas, 7)
-	Checks.check_quest_markers(self, "chapter 4", "ch4", STORY, areas, 6)
+	Checks.check_entries(self, "chapter 4", areas, 11)
+	Checks.check_quest_markers(self, "chapter 4", "ch4", STORY, areas, 9)
 
 	GameState.start_new_run(GameState.difficulties[1])
 	check(Story.resolve_dispatch(CABINET) == &"ch4_t_visit_first", "the cabinet asks for consent before it is investigated")
@@ -35,4 +35,10 @@ func run() -> void:
 	GameState.set_flag(&"ch4_visit_signed", true)
 	check(Story.resolve_dispatch(WAITING_ROOM) == &"ch4_t_reception_return", "checking in replaces the signing prompt")
 	check(StoryItems.find(&"ch4_ward_collection_slip") != null, "the cabinet has a registered document")
+	var approach := areas["factory_approach"] as LevelData
+	var loading := areas["factory_loading"] as LevelData
+	var lower_door := Checks.portal_by_id(approach, &"approach_loading")
+	var upper_door := Checks.portal_by_id(loading, &"loading_rail")
+	check(lower_door != null and lower_door.requires_flag == &"ch4_factory_batch_matched", "the loading door needs a matching batch")
+	check(upper_door != null and upper_door.requires_flag == &"ch4_loader_rail_released", "releasing the internal catch opens a separate return route")
 	GameState.start_new_run(GameState.difficulties[1])

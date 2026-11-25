@@ -1,6 +1,9 @@
 """Area names for the chapter builders and their in-game route labels."""
 
 AREA_NAMES = {
+    "復原館的換班口": {"en": "Restoration Hall Shift Entrance", "ja": "復元館の交代口"},
+    "舊廠外廊": {"en": "Old Factory Approach", "ja": "旧工場の外廊下"},
+    "舊廠裝卸帶": {"en": "Old Factory Loading Bay", "ja": "旧工場の荷さばき場"},
     "當舖（赴約）": {"en": "Pawnshop (Sunday Visit)", "ja": "質屋（面会の日）"},
     "病房外櫃檯": {"en": "Ward Reception", "ja": "病棟の受付"},
     "安養病房": {"en": "Care Ward", "ja": "療養病棟"},

@@ -27,6 +27,10 @@ DESK = "ch4_desk_demo_read"
 VOICE = "ch4_voice_demo_read"
 COLLECTED = "ch4_collection_slip_saved"
 INNER = "ch4_inner_exit_open"
+TIP = "ch4_shift_tip_known"
+MATCHED = "ch4_factory_batch_matched"
+RAIL = "ch4_loader_rail_released"
+FLOOR = "ch4_fixed_ground_marked"
 
 
 def _opening(source, dispatch):
@@ -132,6 +136,56 @@ def _ward(source, dispatch):
     ), when=flag(INNER), mode="animated")
 
 
+def _factory_approach(source, dispatch):
+    dispatch["ali"] = ["ch4_t_tip_known", "ch4_t_shift_tip"]
+    source.add("ch4_t_shift_tip", "07", (
+        ("ali", "天穹換班才清點轉介箱。剛才有人說，停擺的掛鐘旁那扇側門還能進。"),
+        ("rin", "這張取件聯少了接收人，怎麼知道是哪一箱？"),
+        ("ali", "班表還在牆上。妳拿批次核對，先找給病房的那格。"),
+    ), when=all_of(flag(COLLECTED), negate(flag(TIP))), completion=(set_flag(TIP),))
+    source.add("ch4_t_tip_known", "07", (
+        ("ali", "找到停擺的掛鐘，貨門的班表就在旁邊。"),
+    ), when=flag(TIP), mode="animated")
+
+    dispatch["shift_board"] = ["ch4_t_manifest_revisit", "ch4_t_match_manifest"]
+    ready = all_of(flag(TIP), flag(COLLECTED), negate(flag(MATCHED)))
+    source.add("ch4_t_match_manifest", "07", (
+        ("rin", "同一個時段有兩批箱子。我先核對哪一格是病房的。"),
+    ), when=ready, options=(
+        Option("nineteen", "對倉儲例行送件的十九批。", "ch4_t_wrong_manifest", "班表列為一般倉儲。"),
+        Option("seventeen", "對月報十七的轉介批次。", "ch4_t_manifest_matched", "取件聯寫的是這批。"),
+        Option("leave", "先收起手上的紙。", None, "可以稍後重來核對。"),
+    ), reference_items=(DOCUMENT,), cancel_choice_on_back=True)
+    source.add("ch4_t_wrong_manifest", "07", (
+        ("rin", "那格是一般倉儲。我需要找病房的轉介箱。"),
+    ), mode="animated", next_scene="ch4_t_match_manifest")
+    source.add("ch4_t_manifest_matched", "07", (
+        ("rin", "同一批次也寫在班表上。這才是接病房貨的門。"),
+    ), when=ready, mode="animated", completion=(set_flag(MATCHED),))
+    source.add("ch4_t_manifest_revisit", "07", (
+        ("rin", "轉介批次已核對。貨門可以通行。"),
+    ), when=flag(MATCHED), mode="animated")
+
+    dispatch["rail_release"] = ["ch4_t_release_rail", "ch4_t_rail_open"]
+    source.add("ch4_t_release_rail", "08", (
+        ("label", "維修棘輪已鬆開，這條高架可回外廊。"),
+    ), when=negate(flag(RAIL)), mode="animated", completion=(set_flag(RAIL),))
+    source.add("ch4_t_rail_open", "08", (
+        ("label", "棘輪保持鬆開，外廊也可以走這條路。"),
+    ), when=flag(RAIL), mode="animated")
+
+
+    dispatch["workbench"] = ["ch4_t_workbench_return", "ch4_t_survey_floor"]
+    source.add("ch4_t_survey_floor", "08", (
+        ("rin", "警示牌外是固定地面，這裡有一張可以停靠的工作臺。"),
+        ("lamp", "先辨認清掃線，下一段才會進機具工作的範圍。"),
+        ("rin", "我已標出固定地面，走維修道也能回到外廊。"),
+    ), when=negate(flag(FLOOR)), completion=(set_flag(FLOOR),))
+    source.add("ch4_t_workbench_return", "08", (
+        ("rin", "我已標出固定地面，走維修道也能回到外廊。"),
+    ), when=flag(FLOOR), mode="animated")
+
+
 def build_spec():
     source = ProductionSource(flag_defaults={})
     source.speakers = {
@@ -148,9 +202,10 @@ def build_spec():
     dispatch = {}
     _opening(source, dispatch)
     _ward(source, dispatch)
+    _factory_approach(source, dispatch)
     route_back_to_choices(source, dispatch, "ch4")
     source.bindings.update({
-        binding: Binding("npc" if binding in ("old_k", "egret") else "object", CHAPTER,
+        binding: Binding("npc" if binding in ("old_k", "egret", "ali") else "object", CHAPTER,
                          f"res://data/npcs/ch4_{binding}.tres")
         for binding in POINTS
     })
@@ -170,6 +225,15 @@ def build_spec():
          QuestStep("到窗邊上層看收音示範。", VOICE, "voice_demo"),
          QuestStep("回床頭櫃輸入兩個訊號。", COLLECTED, "cabinet")),
         visible_flags=(CONSENT,), completion_requires_steps=True,
+    ))
+    source.quests.append(Quest(
+        "ch4_factory_entry", "main", "帶取件聯找舊廠的貨門",
+        "取件聯寫著舊廠代收，阿梨知道換班時用哪個入口。",
+        "找到廠房內可以安全停留的工作臺。", FLOOR,
+        (QuestStep("到復原館找阿梨問換班紀錄。", TIP, "ali"),
+         QuestStep("在舊廠外門核對公用取件聯。", MATCHED, "shift_board"),
+         QuestStep("到裝卸帶確認工作邊界。", FLOOR, "workbench")),
+        visible_flags=(COLLECTED,), completion_requires_steps=True,
     ))
     return ChapterSpec(CHAPTER_INFO, source, "ch4", dispatch, POINTS)
 

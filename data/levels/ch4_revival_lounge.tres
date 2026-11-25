@@ -1,0 +1,61 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
+[ext_resource type="Resource" path="res://data/npcs/ch4_ali.tres" id="3_ch4_ali"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="4_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/lounge_safe.tres" id="5_lounge_safe"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch4_revival_lounge.tres" id="6_ch4_revival_lounge"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("2_portal_data")
+id = &"lounge_reception"
+target_level = "res://data/levels/ch4_ward_reception.tres"
+target_portal = &"reception_lounge"
+prompt = "{interact} 回病房外櫃檯"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Return to ward reception", "ja": "{interact} 病棟の受付へ戻る"})
+width = 32
+height = 68
+style = "door"
+
+[sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("2_portal_data")
+id = &"lounge_factory"
+target_level = "res://data/levels/ch4_factory_approach.tres"
+target_portal = &"approach_lounge"
+requires_flag = &"ch4_shift_tip_known"
+locked_text = "先找吧台旁的阿梨，問清楚舊廠換班的入口。"
+localized_locked_text = Dictionary[String, String]({"en": "Ask Pear by the bar which factory entrance is used at shift change.", "ja": "バーにいる梨に、交代時に使う工場の入口を尋ねる。"})
+prompt = "{interact} 前往舊廠房"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Go to the old factory", "ja": "{interact} 旧工場へ向かう"})
+width = 32
+height = 68
+style = "door"
+
+[sub_resource type="Resource" id="Resource_2"]
+script = ExtResource("4_lighting_zone")
+start_tile = 0
+blend_tiles = 12
+profile = ExtResource("5_lounge_safe")
+
+[resource]
+script = ExtResource("1_level_data")
+id = &"ch4_revival_lounge"
+display_name = "復原館的換班口"
+localized_names = Dictionary[String, String]({"en": "Restoration Hall Shift Entrance", "ja": "復元館の交代口"})
+tile_size = 16
+height = 24
+legend = Dictionary[String, Resource]({
+"Ⅷ": SubResource("Resource_0"),
+"Ⅸ": SubResource("Resource_1"),
+"ⓐ": ExtResource("3_ch4_ali")
+})
+hints = PackedStringArray()
+chapter = &"ch4_hollow"
+persistent_world = true
+show_chapter_card = false
+environment = ExtResource("6_ch4_revival_lounge")
+layout_path = "res://data/levels/ch4_revival_lounge_map.json"
+lighting_zones = Array[ExtResource("4_lighting_zone")]([SubResource("Resource_2")])
+story_triggers = PackedStringArray()
+death_credit_cap = 250

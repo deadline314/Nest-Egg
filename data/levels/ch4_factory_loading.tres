@@ -1,0 +1,63 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
+[ext_resource type="Resource" path="res://data/npcs/ch4_rail_release.tres" id="3_ch4_rail_release"]
+[ext_resource type="Resource" path="res://data/npcs/ch4_workbench.tres" id="4_ch4_workbench"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="5_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/ch4_loading_bay.tres" id="6_ch4_loading_bay"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch4_factory_loading.tres" id="7_ch4_factory_loading"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("2_portal_data")
+id = &"loading_approach"
+target_level = "res://data/levels/ch4_factory_approach.tres"
+target_portal = &"approach_loading"
+prompt = "{interact} 從貨門回外廊"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Return outside by the loading door", "ja": "{interact} 搬入口から外廊下へ戻る"})
+width = 32
+height = 68
+style = "door"
+
+[sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("2_portal_data")
+id = &"loading_rail"
+target_level = "res://data/levels/ch4_factory_approach.tres"
+target_portal = &"approach_rail"
+requires_flag = &"ch4_loader_rail_released"
+locked_text = "先放開內側的維修棘輪。"
+localized_locked_text = Dictionary[String, String]({"en": "Release the maintenance catch inside the loading bay.", "ja": "荷さばき場の整備用留め具を外す。"})
+prompt = "{interact} 沿維修高架回外廊"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Return outside by catwalk", "ja": "{interact} 整備用の足場から外廊下へ戻る"})
+width = 32
+height = 68
+style = "door"
+
+[sub_resource type="Resource" id="Resource_2"]
+script = ExtResource("5_lighting_zone")
+start_tile = 0
+blend_tiles = 12
+profile = ExtResource("6_ch4_loading_bay")
+
+[resource]
+script = ExtResource("1_level_data")
+id = &"ch4_factory_loading"
+display_name = "舊廠裝卸帶"
+localized_names = Dictionary[String, String]({"en": "Old Factory Loading Bay", "ja": "旧工場の荷さばき場"})
+tile_size = 16
+height = 24
+legend = Dictionary[String, Resource]({
+"Ⅻ": SubResource("Resource_0"),
+"Ⅽ": SubResource("Resource_1"),
+"ⓡ": ExtResource("3_ch4_rail_release"),
+"ⓦ": ExtResource("4_ch4_workbench")
+})
+hints = PackedStringArray()
+chapter = &"ch4_hollow"
+persistent_world = true
+show_chapter_card = false
+environment = ExtResource("7_ch4_factory_loading")
+layout_path = "res://data/levels/ch4_factory_loading_map.json"
+lighting_zones = Array[ExtResource("5_lighting_zone")]([SubResource("Resource_2")])
+story_triggers = PackedStringArray()
+death_credit_cap = 250

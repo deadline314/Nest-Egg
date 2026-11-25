@@ -1,0 +1,75 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
+[ext_resource type="Resource" path="res://data/npcs/ch4_shift_board.tres" id="3_ch4_shift_board"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="4_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/factory_rust.tres" id="5_factory_rust"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch4_factory_approach.tres" id="6_ch4_factory_approach"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("2_portal_data")
+id = &"approach_lounge"
+target_level = "res://data/levels/ch4_revival_lounge.tres"
+target_portal = &"lounge_factory"
+prompt = "{interact} 回復原館"
+width = 32
+height = 68
+style = "door"
+
+[sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("2_portal_data")
+id = &"approach_loading"
+target_level = "res://data/levels/ch4_factory_loading.tres"
+target_portal = &"loading_approach"
+requires_flag = &"ch4_factory_batch_matched"
+locked_text = "比對公用取件聯與外門的班表，才能通過貨門。"
+localized_locked_text = Dictionary[String, String]({"en": "Compare the collection slip with the shift list to open this door.", "ja": "受取票と当番表を照合すると、搬入口を通れる。"})
+prompt = "{interact} 進舊廠裝卸帶"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Enter the loading bay", "ja": "{interact} 荷さばき場に入る"})
+width = 32
+height = 68
+style = "door"
+
+[sub_resource type="Resource" id="Resource_2"]
+script = ExtResource("2_portal_data")
+id = &"approach_rail"
+target_level = "res://data/levels/ch4_factory_loading.tres"
+target_portal = &"loading_rail"
+requires_flag = &"ch4_loader_rail_released"
+locked_text = "先從貨門進去，再放開廠內的維修棘輪。"
+localized_locked_text = Dictionary[String, String]({"en": "Enter by the loading door, then release the maintenance catch inside.", "ja": "搬入口から入り、中の整備用留め具を外す。"})
+prompt = "{interact} 沿維修高架進裝卸帶"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Enter the loading bay by catwalk", "ja": "{interact} 整備用の足場から荷さばき場へ入る"})
+width = 32
+height = 68
+style = "door"
+
+[sub_resource type="Resource" id="Resource_3"]
+script = ExtResource("4_lighting_zone")
+start_tile = 0
+blend_tiles = 12
+profile = ExtResource("5_factory_rust")
+
+[resource]
+script = ExtResource("1_level_data")
+id = &"ch4_factory_approach"
+display_name = "舊廠外廊"
+localized_names = Dictionary[String, String]({"en": "Old Factory Approach", "ja": "旧工場の外廊下"})
+tile_size = 16
+height = 24
+legend = Dictionary[String, Resource]({
+"Ⅹ": SubResource("Resource_0"),
+"Ⅺ": SubResource("Resource_1"),
+"Ⅼ": SubResource("Resource_2"),
+"ⓑ": ExtResource("3_ch4_shift_board")
+})
+hints = PackedStringArray()
+chapter = &"ch4_hollow"
+persistent_world = true
+show_chapter_card = false
+environment = ExtResource("6_ch4_factory_approach")
+layout_path = "res://data/levels/ch4_factory_approach_map.json"
+lighting_zones = Array[ExtResource("4_lighting_zone")]([SubResource("Resource_3")])
+story_triggers = PackedStringArray()
+death_credit_cap = 250

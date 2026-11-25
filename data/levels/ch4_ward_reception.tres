@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=11 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=12 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
@@ -47,6 +47,20 @@ height = 68
 style = "door"
 
 [sub_resource type="Resource" id="Resource_3"]
+script = ExtResource("2_portal_data")
+id = &"reception_lounge"
+target_level = "res://data/levels/ch4_revival_lounge.tres"
+target_portal = &"lounge_reception"
+requires_flag = &"ch4_collection_slip_saved"
+locked_text = "先在床頭櫃拿到公用取件聯，再去復原館找阿梨。"
+localized_locked_text = Dictionary[String, String]({"en": "Take the collection slip from the bedside cabinet, then meet Pear at Restoration Hall.", "ja": "枕元の棚で受取票を手に入れてから、復元館の梨に会う。"})
+prompt = "{interact} 沿連廊前往復原館"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Walk to Restoration Hall", "ja": "{interact} 連絡路で復元館へ向かう"})
+width = 32
+height = 68
+style = "door"
+
+[sub_resource type="Resource" id="Resource_4"]
 script = ExtResource("4_lighting_zone")
 start_tile = 0
 blend_tiles = 12
@@ -63,6 +77,7 @@ legend = Dictionary[String, Resource]({
 "Ⅱ": SubResource("Resource_0"),
 "Ⅲ": SubResource("Resource_1"),
 "Ⅵ": SubResource("Resource_2"),
+"Ⅶ": SubResource("Resource_3"),
 "ⓔ": ExtResource("3_ch4_egret")
 })
 hints = PackedStringArray()
@@ -71,6 +86,6 @@ persistent_world = true
 show_chapter_card = false
 environment = ExtResource("6_ch4_ward_reception")
 layout_path = "res://data/levels/ch4_ward_reception_map.json"
-lighting_zones = Array[ExtResource("4_lighting_zone")]([SubResource("Resource_3")])
+lighting_zones = Array[ExtResource("4_lighting_zone")]([SubResource("Resource_4")])
 story_triggers = PackedStringArray()
 death_credit_cap = 250

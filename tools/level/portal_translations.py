@@ -1,6 +1,12 @@
 """Localized action labels and lock reasons for the formal chapter portals."""
 
 PROMPTS = {
+    "沿連廊前往復原館": ("Walk to Restoration Hall", "連絡路で復元館へ向かう"),
+    "前往舊廠房": ("Go to the old factory", "旧工場へ向かう"),
+    "進舊廠裝卸帶": ("Enter the loading bay", "荷さばき場に入る"),
+    "從貨門回外廊": ("Return outside by the loading door", "搬入口から外廊下へ戻る"),
+    "沿維修高架進裝卸帶": ("Enter the loading bay by catwalk", "整備用の足場から荷さばき場へ入る"),
+    "沿維修高架回外廊": ("Return outside by catwalk", "整備用の足場から外廊下へ戻る"),
     "走往夾層病房": ("Walk to the mezzanine care ward", "中二階の療養病棟へ"),
     "進安養病房": ("Enter the care ward", "療養病棟へ入る"),
     "回病房外櫃檯": ("Return to ward reception", "病棟の受付へ戻る"),
@@ -74,6 +80,11 @@ PROMPTS = {
 }
 
 LOCKS = {
+    "先在床頭櫃拿到公用取件聯，再去復原館找阿梨。": ("Take the collection slip from the bedside cabinet, then meet Pear at Restoration Hall.", "枕元の棚で受取票を手に入れてから、復元館の梨に会う。"),
+    "先找吧台旁的阿梨，問清楚舊廠換班的入口。": ("Ask Pear by the bar which factory entrance is used at shift change.", "バーにいる梨に、交代時に使う工場の入口を尋ねる。"),
+    "比對公用取件聯與外門的班表，才能通過貨門。": ("Compare the collection slip with the shift list to open this door.", "受取票と当番表を照合すると、搬入口を通れる。"),
+    "先從貨門進去，再放開廠內的維修棘輪。": ("Enter by the loading door, then release the maintenance catch inside.", "搬入口から入り、中の整備用留め具を外す。"),
+    "先放開內側的維修棘輪。": ("Release the maintenance catch inside the loading bay.", "荷さばき場の整備用留め具を外す。"),
     "先到當舖櫃檯把回執包好，以免紙張在路上淋濕。": ("Wrap the receipt at the pawnshop counter to protect it from the rain.", "雨で濡らさないよう、質屋のカウンターで受領証を包んでから出る。"),
     "先找外櫃檯旁的鷺簽訪客簿，再進病房。": ("Sign in with Egret at reception before entering the ward.", "病棟に入る前に受付の鷺のところで面会簿に署名する。"),
     "內廊的門要從病房裡面打開，可以先走訪客入口。": ("Unlock this door from inside the ward. Use the visitor entrance first.", "この扉は病棟側から開ける。先に面会者用の入口へ。"),

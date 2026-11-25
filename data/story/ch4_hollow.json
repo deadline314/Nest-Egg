@@ -42,7 +42,11 @@
   "ch4_desk_demo_read": false,
   "ch4_voice_demo_read": false,
   "ch4_collection_slip_saved": false,
-  "ch4_inner_exit_open": false
+  "ch4_inner_exit_open": false,
+  "ch4_shift_tip_known": false,
+  "ch4_factory_batch_matched": false,
+  "ch4_loader_rail_released": false,
+  "ch4_fixed_ground_marked": false
  },
  "transactions": {},
  "derived_flags": {},
@@ -160,6 +164,65 @@
    "background_en": "Linden agreed to lend the slip. The nurses left two demonstrations for the cabinet.",
    "reward_ja": "受取票に月報十七の対象が移された先が記されている。",
    "reward_en": "The slip shows where batch seventeen was sent."
+  },
+  {
+   "id": "ch4_factory_entry",
+   "kind": "main",
+   "title": "帶取件聯找舊廠的貨門",
+   "background": "取件聯寫著舊廠代收，阿梨知道換班時用哪個入口。",
+   "reward": "找到廠房內可以安全停留的工作臺。",
+   "complete_flag": "ch4_fixed_ground_marked",
+   "steps": [
+    {
+     "title": "到復原館找阿梨問換班紀錄。",
+     "complete_flag": "ch4_shift_tip_known",
+     "location": {
+      "level": "res://data/levels/ch4_revival_lounge.tres",
+      "cell": [
+       33,
+       19
+      ]
+     },
+     "title_ja": "復元館の梨に交代記録について聞く。",
+     "title_en": "Ask Pear at Restoration Hall about the shift records."
+    },
+    {
+     "title": "在舊廠外門核對公用取件聯。",
+     "complete_flag": "ch4_factory_batch_matched",
+     "location": {
+      "level": "res://data/levels/ch4_factory_approach.tres",
+      "cell": [
+       58,
+       19
+      ]
+     },
+     "title_ja": "旧工場の外門で受取票と当番表を照合する。",
+     "title_en": "Match the collection slip to the shift record at the outer door."
+    },
+    {
+     "title": "到裝卸帶確認工作邊界。",
+     "complete_flag": "ch4_fixed_ground_marked",
+     "location": {
+      "level": "res://data/levels/ch4_factory_loading.tres",
+      "cell": [
+       67,
+       19
+      ]
+     },
+     "title_ja": "荷さばき場で作業区画の境界を確認する。",
+     "title_en": "Mark the work floor's boundary in the loading bay."
+    }
+   ],
+   "visible_flags": [
+    "ch4_collection_slip_saved"
+   ],
+   "completion_requires_steps": true,
+   "title_ja": "旧工場の搬入口を探す",
+   "title_en": "Find the old factory loading door",
+   "background_ja": "受取票には旧工場とある。梨は交代時に使う入口を知っている。",
+   "background_en": "The slip names the old factory. Pear knows which entrance is used at shift change.",
+   "reward_ja": "工場内の安全な作業台が分かる。",
+   "reward_en": "Locate the safe workbench inside the factory."
   }
  ],
  "scenes": {
@@ -866,6 +929,309 @@
     "equals": true
    }
   },
+  "ch4_t_shift_tip": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "ali",
+     "text": "天穹換班才清點轉介箱。剛才有人說，停擺的掛鐘旁那扇側門還能進。",
+     "ja": "天穹が移送箱を数えるのは交代の時よ。止まった掛け時計のそばの通用口は、まだ使えるって聞いたわ。",
+     "en": "Skydome counts the referral crates at shift change. Someone said the side door by the stopped clock still works."
+    },
+    {
+     "speaker": "rin",
+     "text": "這張取件聯少了接收人，怎麼知道是哪一箱？",
+     "ja": "この受取票に受取人がない。どの箱か、どうやって見分ける？",
+     "en": "The slip has no recipient. How do we tell which crate is ours?"
+    },
+    {
+     "speaker": "ali",
+     "text": "班表還在牆上。妳拿批次核對，先找給病房的那格。",
+     "ja": "当番表はまだ壁にあるわ。番号を照らし合わせて、病棟の欄を探して。",
+     "en": "The shift list is still on the wall. Match the batch, then find the entry for the ward."
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch4_collection_slip_saved",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch4_shift_tip_known",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch4_shift_tip_known",
+     "value": true
+    }
+   ],
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch4_t_tip_known": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "找到停擺的掛鐘，貨門的班表就在旁邊。",
+     "ja": "止まった掛け時計を探して。搬入口の当番表はその隣にあるわ。",
+     "en": "Find the stopped clock. The loading door's shift list is next to it."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch4_shift_tip_known",
+    "equals": true
+   }
+  },
+  "ch4_t_match_manifest": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "同一個時段有兩批箱子。我先核對哪一格是病房的。",
+     "ja": "同じ時間に二組運ばれている。病棟の分がどれか確かめよう。",
+     "en": "Two batches share the same time slot. I'll match up the one for the ward."
+    },
+    {
+     "do": "choice",
+     "text": "同一個時段有兩批箱子。我先核對哪一格是病房的。",
+     "default": "leave",
+     "options": [
+      {
+       "id": "nineteen",
+       "text": "對倉儲例行送件的十九批。",
+       "explanation": "班表列為一般倉儲。",
+       "target": "ch4_t_wrong_manifest",
+       "ja": "倉庫への定期便、第十九組と照合する。",
+       "en": "Match batch nineteen for routine storage.",
+       "explanation_ja": "当番表では一般倉庫向けになっている。",
+       "explanation_en": "The shift list labels it as general storage."
+      },
+      {
+       "id": "seventeen",
+       "text": "對月報十七的轉介批次。",
+       "explanation": "取件聯寫的是這批。",
+       "target": "ch4_t_manifest_matched",
+       "ja": "月報十七の転院分と照合する。",
+       "en": "Match the referral batch from report seventeen.",
+       "explanation_ja": "受取票に載っているのはこの組。",
+       "explanation_en": "The collection slip lists this batch."
+      },
+      {
+       "id": "leave",
+       "text": "先收起手上的紙。",
+       "explanation": "可以稍後重來核對。",
+       "ja": "今は書類をしまう。",
+       "en": "Put the papers away for now.",
+       "explanation_ja": "あとで戻って照合できる。",
+       "explanation_en": "You can return to check the list later."
+      }
+     ],
+     "cancel_choice_on_back": true,
+     "reference_items": [
+      "ch4_ward_collection_slip"
+     ],
+     "ja": "同じ時間に二組運ばれている。病棟の分がどれか確かめよう。",
+     "en": "Two batches share the same time slot. I'll match up the one for the ward."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch4_shift_tip_known",
+      "equals": true
+     },
+     {
+      "flag": "ch4_collection_slip_saved",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch4_factory_batch_matched",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch4_t_wrong_manifest": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "那格是一般倉儲。我需要找病房的轉介箱。",
+     "ja": "それは一般倉庫向けだ。病棟の移送箱を探さないと。",
+     "en": "That's general storage. I need the ward's referral crate."
+    }
+   ],
+   "overlay": true,
+   "then": "ch4_dispatch_back_match_manifest"
+  },
+  "ch4_t_manifest_matched": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "同一批次也寫在班表上。這才是接病房貨的門。",
+     "ja": "同じ番号が当番表にもある。ここが病棟の荷物を受ける入口だ。",
+     "en": "The same batch is on this list. This is the door for the ward delivery."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch4_shift_tip_known",
+      "equals": true
+     },
+     {
+      "flag": "ch4_collection_slip_saved",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch4_factory_batch_matched",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch4_factory_batch_matched",
+     "value": true
+    }
+   ],
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch4_t_manifest_revisit": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "轉介批次已核對。貨門可以通行。",
+     "ja": "転院分の照合は済んだ。搬入口を通れる。",
+     "en": "The referral batch matches. The loading door is open."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch4_factory_batch_matched",
+    "equals": true
+   }
+  },
+  "ch4_t_release_rail": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "維修棘輪已鬆開，這條高架可回外廊。",
+     "ja": "整備用の留め具が外れました。この足場から外廊下へ戻れます。",
+     "en": "The maintenance catch is released. The catwalk leads back outside."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "ch4_loader_rail_released",
+     "equals": true
+    }
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch4_loader_rail_released",
+     "value": true
+    }
+   ],
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch4_t_rail_open": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "棘輪保持鬆開，外廊也可以走這條路。",
+     "ja": "留め具は外れたままです。外廊下からも通れます。",
+     "en": "The catch stays released. You can use the catwalk from outside too."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch4_loader_rail_released",
+    "equals": true
+   }
+  },
+  "ch4_t_survey_floor": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "rin",
+     "text": "警示牌外是固定地面，這裡有一張可以停靠的工作臺。",
+     "ja": "警告板のそばは固定床だ。ここの作業台で止まれる。",
+     "en": "The floor by the warning sign is fixed. I can stop here at the workbench."
+    },
+    {
+     "speaker": "lamp",
+     "text": "先辨認清掃線，下一段才會進機具工作的範圍。",
+     "ja": "先に清掃線の位置を確認する。この先は機械が動く区画だ。",
+     "en": "Mark the sweep line first. The next section enters the active machinery floor."
+    },
+    {
+     "speaker": "rin",
+     "text": "我已標出固定地面，走維修道也能回到外廊。",
+     "ja": "固定床を記録した。整備用の足場から外廊下に戻れる。",
+     "en": "I've marked the fixed ground. The service catwalk also leads back outside."
+    }
+   ],
+   "when": {
+    "not": {
+     "flag": "ch4_fixed_ground_marked",
+     "equals": true
+    }
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch4_fixed_ground_marked",
+     "value": true
+    }
+   ],
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch4_t_workbench_return": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我已標出固定地面，走維修道也能回到外廊。",
+     "ja": "固定床を記録した。整備用の足場から外廊下に戻れる。",
+     "en": "I've marked the fixed ground. The service catwalk also leads back outside."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch4_fixed_ground_marked",
+    "equals": true
+   }
+  },
   "ch4_dispatch_old_k": {
    "mode": "dispatch",
    "routes": [
@@ -1179,6 +1545,140 @@
     }
    ]
   },
+  "ch4_dispatch_ali": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "flag": "ch4_shift_tip_known",
+      "equals": true
+     },
+     "target": "ch4_t_tip_known"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch4_collection_slip_saved",
+          "equals": true
+         },
+         {
+          "not": {
+           "flag": "ch4_shift_tip_known",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch4_shift_tip_known",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch4_t_shift_tip"
+    }
+   ]
+  },
+  "ch4_dispatch_shift_board": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "flag": "ch4_factory_batch_matched",
+      "equals": true
+     },
+     "target": "ch4_t_manifest_revisit"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch4_shift_tip_known",
+        "equals": true
+       },
+       {
+        "flag": "ch4_collection_slip_saved",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch4_factory_batch_matched",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch4_t_match_manifest"
+    }
+   ]
+  },
+  "ch4_dispatch_rail_release": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "not": {
+         "flag": "ch4_loader_rail_released",
+         "equals": true
+        }
+       },
+       {
+        "not": {
+         "flag": "ch4_loader_rail_released",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch4_t_release_rail"
+    },
+    {
+     "when": {
+      "flag": "ch4_loader_rail_released",
+      "equals": true
+     },
+     "target": "ch4_t_rail_open"
+    }
+   ]
+  },
+  "ch4_dispatch_workbench": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "flag": "ch4_fixed_ground_marked",
+      "equals": true
+     },
+     "target": "ch4_t_workbench_return"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "not": {
+         "flag": "ch4_fixed_ground_marked",
+         "equals": true
+        }
+       },
+       {
+        "not": {
+         "flag": "ch4_fixed_ground_marked",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch4_t_survey_floor"
+    }
+   ]
+  },
   "ch4_dispatch_back_reception_sign": {
    "mode": "dispatch",
    "routes": [
@@ -1215,6 +1715,32 @@
       ]
      },
      "target": "ch4_t_open_cabinet"
+    }
+   ]
+  },
+  "ch4_dispatch_back_match_manifest": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch4_shift_tip_known",
+        "equals": true
+       },
+       {
+        "flag": "ch4_collection_slip_saved",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch4_factory_batch_matched",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch4_t_match_manifest"
     }
    ]
   }

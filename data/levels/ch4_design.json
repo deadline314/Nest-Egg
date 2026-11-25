@@ -21,6 +21,31 @@
     "vertical": "上層靠窗的收音座。"
    },
    "encounters": []
+  },
+  "revival_lounge": {
+   "combat": false,
+   "group": "revival_lounge",
+   "features": {},
+   "encounters": []
+  },
+  "factory_approach": {
+   "combat": false,
+   "group": "factory_approach",
+   "features": {
+    "landmark": "外門班表與沿牆升高的維修架。",
+    "loop": "裝卸帶的上層可返回外廊。"
+   },
+   "encounters": []
+  },
+  "factory_loading": {
+   "combat": false,
+   "group": "factory_loading",
+   "features": {
+    "landmark": "入口可見的鏽蝕沖壓機。",
+    "loop": "維修棘輪通往外廊上層。",
+    "vertical": "固定地板與兩側階梯連成環路。"
+   },
+   "encounters": []
   }
  },
  "curve": {

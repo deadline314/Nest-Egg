@@ -17,13 +17,22 @@ POINTS = {
     "voice_demo": ("nursing_ward", 42, 15),
     "cabinet": ("nursing_ward", 31, GROUND - 1),
     "staff_switch": ("nursing_ward", 55, GROUND - 1),
+    "ali": ("revival_lounge", 33, GROUND - 1),
+    "shift_board": ("factory_approach", 58, GROUND - 1),
+    "rail_release": ("factory_loading", 37, 13),
+    "workbench": ("factory_loading", 67, GROUND - 1),
 }
-PEOPLE = {"old_k": ("老 K", "old_k", "wipe_hands"), "egret": ("鷺", "egret", "glance")}
+PEOPLE = {
+    "old_k": ("老 K", "old_k", "wipe_hands"),
+    "egret": ("鷺", "egret", "glance"),
+    "ali": ("阿梨", "ali", "wipe_hands"),
+}
 STATIONS = {
     "linden": "棠", "desk_demo": "桌緣示範", "voice_demo": "收音示範",
     "cabinet": "床頭櫃", "staff_switch": "內廊開門鍵",
+    "shift_board": "舊廠班表", "rail_release": "維修棘輪", "workbench": "裝卸帶工作臺",
 }
-GLYPHS = dict(zip(POINTS, "ⓞⓔⓣⓓⓥⓒⓢ", strict=True))
+GLYPHS = dict(zip(POINTS, "ⓞⓔⓣⓓⓥⓒⓢⓐⓑⓡⓦ", strict=True))
 
 
 def area_path(area):
@@ -40,6 +49,19 @@ PORTALS = {
     "Ⅴ": ("ward_staff", "ward_reception", "reception_staff", "從內廊回外櫃檯", "", ""),
     "Ⅵ": ("reception_staff", "nursing_ward", "ward_staff", "從內廊進病房", "ch4_inner_exit_open",
           "內廊的門要從病房裡面打開，可以先走訪客入口。"),
+    "Ⅶ": ("reception_lounge", "revival_lounge", "lounge_reception", "沿連廊前往復原館", "ch4_collection_slip_saved",
+          "先在床頭櫃拿到公用取件聯，再去復原館找阿梨。"),
+    "Ⅷ": ("lounge_reception", "ward_reception", "reception_lounge", "回病房外櫃檯", "", ""),
+    "Ⅸ": ("lounge_factory", "factory_approach", "approach_lounge", "前往舊廠房", "ch4_shift_tip_known",
+          "先找吧台旁的阿梨，問清楚舊廠換班的入口。"),
+    "Ⅹ": ("approach_lounge", "revival_lounge", "lounge_factory", "回復原館", "", ""),
+    "Ⅺ": ("approach_loading", "factory_loading", "loading_approach", "進舊廠裝卸帶", "ch4_factory_batch_matched",
+          "比對公用取件聯與外門的班表，才能通過貨門。"),
+    "Ⅻ": ("loading_approach", "factory_approach", "approach_loading", "從貨門回外廊", "", ""),
+    "Ⅼ": ("approach_rail", "factory_loading", "loading_rail", "沿維修高架進裝卸帶", "ch4_loader_rail_released",
+          "先從貨門進去，再放開廠內的維修棘輪。"),
+    "Ⅽ": ("loading_rail", "factory_approach", "approach_rail", "沿維修高架回外廊", "ch4_loader_rail_released",
+          "先放開內側的維修棘輪。"),
 }
 
 THEMES = {
@@ -47,6 +69,11 @@ THEMES = {
                  ["pawnshop_front", "pawnshop_kitchen", "basement_door", "harbor_street"]),
     "ward_reception": ("facility_floor", ["facility_wall"], "facility_panel", 0.0, "sky_storm", ["clinic", "mezzanine"]),
     "nursing_ward": ("facility_floor", ["facility_wall"], "facility_panel", 0.0, "sky_storm", ["nursing_ward", "clinic"]),
+    "revival_lounge": ("facility_floor", ["facility_wall"], "facility_panel", 0.0, "sky_storm", ["revival_lounge"]),
+    "factory_approach": ("asphalt", ["shutter_block", "warehouse"], "hangar_wall", 0.19, "sky_storm",
+                         ["abandoned_factory", "factory_office"]),
+    "factory_loading": ("steel_plate", ["warehouse"], "hangar_wall", 0.0, "sky_storm",
+                        ["abandoned_factory", "factory_office"]),
 }
 
 
@@ -66,6 +93,10 @@ def _configure():
         "voice_demo": "看收音示範",
         "cabinet": "操作床頭櫃",
         "staff_switch": "解鎖內廊的門",
+        "ali": "和阿梨說話",
+        "shift_board": "核對舊廠班表",
+        "rail_release": "放開維修棘輪",
+        "workbench": "查看清理線",
     }
     kit.NPCS = {}
     kit.RES = {}
@@ -98,12 +129,13 @@ def _reception():
     area.stand(3, "Ⅱ")
     area.stand(8, "P")
     area.stand(32, "Ⅲ")
-    area.stand(48, "Ⅵ")
+    area.stand(43, "Ⅵ")
+    area.stand(49, "Ⅶ")
     area.prop("clinic__waiting_chairs", 13)
     area.prop("clinic__reception_window", 23, y=15, support="wall")
     area.prop("clinic__reading_desk", 23)
     area.prop("clinic__fern_pot", 37)
-    area.prop("clinic__water_dispenser", 42)
+    area.prop("clinic__water_dispenser", 39)
     return area
 
 
@@ -131,9 +163,76 @@ def _ward():
     return area
 
 
+def _lounge():
+    area = kit.Area("revival_lounge", "復原館的換班口", 61, GROUND, indoor=True)
+    area.ceiling(1, 59, 10)
+    area.zone(0, "lounge_safe")
+    area.stand(4, "Ⅷ")
+    area.stand(8, "P")
+    area.stand(56, "Ⅸ")
+    area.prop("revival_lounge__booth_sofa", 9)
+    area.prop("revival_lounge__round_table_stools", 16)
+    area.prop("revival_lounge__jukebox", 22)
+    area.prop("revival_lounge__bar_counter", 30)
+    area.prop("revival_lounge__bottle_wall_shelf", 31, y=14, support="wall")
+    area.prop("revival_lounge__menu_board", 43, y=14, support="wall")
+    area.prop("revival_lounge__hat_coat_rack", 51)
+    for x in (10, 24, 41, 53):
+        area.lamp(x, 11)
+    return area
+
+
+def _factory_approach():
+    area = kit.Area("factory_approach", "舊廠外廊", 70, GROUND)
+    area.zone(0, "factory_rust")
+    area.stand(4, "Ⅹ")
+    area.stand(8, "P")
+    area.stand(63, "Ⅺ")
+    area.platform(39, 42, 18)
+    area.platform(44, 47, 16)
+    area.platform(49, 62, 14)
+    area.stand(57, "Ⅼ", row=13)
+    area.prop("abandoned_factory__rust_tank", 15)
+    area.prop("abandoned_factory__scrap_pile", 23)
+    area.prop("abandoned_factory__oil_drum_spill", 30)
+    area.ceiling(52, 68, 4)
+    area.prop("factory_office__stopped_clock", 58, y=11, support="wall")
+    area.prop("factory_office__bulletin_board", 58, y=15, support="wall")
+    area.prop("abandoned_factory__broken_conveyor", 48)
+    for x in (12, 37, 61):
+        area.lamp(x, 9)
+    area.features = {"landmark": "外門班表與沿牆升高的維修架。", "loop": "裝卸帶的上層可返回外廊。"}
+    return area
+
+
+def _factory_loading():
+    area = kit.Area("factory_loading", "舊廠裝卸帶", 80, GROUND, indoor=True)
+    area.ceiling(1, 78, 4)
+    area.zone(0, "ch4_loading_bay")
+    area.stand(4, "Ⅻ")
+    area.stand(7, "P")
+    area.stand(12, "C")
+    area.platform(19, 22, 18)
+    area.platform(24, 27, 16)
+    area.platform(29, 48, 14)
+    area.stand(44, "Ⅽ", row=13)
+    area.platform(51, 53, 16)
+    area.platform(55, 58, 18)
+    area.prop("abandoned_factory__press_machine", 13)
+    area.prop("abandoned_factory__cleaner_gear_case", 60)
+    area.prop("hazard_sign", 65, y=15, support="wall")
+    area.prop("abandoned_factory__scrap_pile", 67)
+    for x in (10, 25, 45, 58, 72):
+        area.lamp(x, 5)
+    area.features = {"landmark": "入口可見的鏽蝕沖壓機。", "loop": "維修棘輪通往外廊上層。",
+                     "vertical": "固定地板與兩側階梯連成環路。"}
+    return area
+
+
+
 def main():
     _configure()
-    areas = [_pawnshop(), _reception(), _ward()]
+    areas = [_pawnshop(), _reception(), _ward(), _lounge(), _factory_approach(), _factory_loading()]
     targets = set(GLYPHS.values()) | set(PORTALS)
     for area in areas:
         for binding, (area_id, x, y) in POINTS.items():
