@@ -15,6 +15,7 @@ func run() -> void:
 	await _test_poses_touch_the_ground()
 	await _test_whole_cast_cover()
 	_test_cover_survives_repeated_noise()
+	_test_cower_restores_current_story_pose()
 	await _test_talking_and_listening()
 	await _test_loops()
 	await _test_fallbacks()
@@ -197,6 +198,37 @@ func _test_cover_survives_repeated_noise() -> void:
 			"both hands stay over the head until the noise has stopped (facing %d, samples %d, cover %.2f)" % [direction, hold_samples, minimum_cover])
 		check(not awareness.is_cowering() and animator._head_cover == 0.0 and actor.pose == data.pose,
 			"quiet releases the cover and restores the NPC's authored pose")
+	actor.free()
+
+
+func _test_cower_restores_current_story_pose() -> void:
+	var data := load("res://data/npcs/ch3_gatekeeper.tres") as NpcData
+	var actor := CutsceneActor.new()
+	runner.get_tree().root.add_child(actor)
+	var ready := actor.setup(data.id, data.rig_id, "", 1.0, "")
+	check(ready, "the aftercare actor uses the gatekeeper's production rig")
+	if not ready:
+		actor.free()
+		return
+	var previous := GameState.has_flag(data.pose_before_flag)
+	for completed_during_cover: bool in [false, true]:
+		GameState.set_flag(data.pose_before_flag, false)
+		actor.set_pose(data.current_pose(GameState.has_flag))
+		for frame in 90:
+			actor._advance_stage_actor(1.0 / 60.0)
+		var reaction := NpcAwareness.new(actor, data)
+		for sound in NpcAwareness.COWER_COUNT:
+			reaction.hear(Vector2.ZERO, Vector2(40, -4), 1.0, false)
+		check(reaction.is_cowering(), "the gatekeeper crouches when exposed to three nearby sounds")
+		var frames_to_quiet := ceili(NpcAwareness.COWER_QUIET * 60.0) + 2
+		for frame in frames_to_quiet:
+			if frame == 60 and completed_during_cover:
+				GameState.set_flag(data.pose_before_flag, true)
+			reaction.step(1.0 / 60.0, Vector2.ZERO, Vector2.INF, false)
+			actor._advance_stage_actor(1.0 / 60.0)
+		check(not reaction.is_cowering() and actor.pose == (data.pose if completed_during_cover else data.pose_before),
+			"the gatekeeper resumes the story pose selected by its current flag (aftercare %s, pose %s)" % [completed_during_cover, actor.pose])
+	GameState.set_flag(data.pose_before_flag, previous)
 	actor.free()
 
 func _test_talking_and_listening() -> void:

@@ -139,7 +139,7 @@ func _stand_up() -> void:
 	_noise_times.clear()
 	_actor.release_gesture()  # 放下抱頭的手，同時站起來
 	if _data != null:
-		_actor.set_pose(_data.pose)
+		_actor.set_pose(_data.current_pose(GameState.has_flag))
 		_actor.set_loop(_data.loop, _data.loop_scale)
 
 
