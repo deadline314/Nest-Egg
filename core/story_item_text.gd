@@ -13,19 +13,20 @@ static var _reported: Dictionary = {}
 
 
 ## 道具 item 的 field 在 language 下的文字；source 是中文原文（缺譯時的最後退路）。
-static func lookup(item_id: StringName, field: String, source: String, language: String) -> String:
+static func lookup(item_id: StringName, field: String, source: String, language: String, required_marker := "") -> String:
 	if source.is_empty() or language == StoryLocale.SOURCE_LANGUAGE or not StoryLocale.is_supported(language):
 		return source
-	var wanted := _entry(item_id, language, field)
+	var wanted := _entry(item_id, language, field, required_marker)
 	if not wanted.is_empty():
 		return wanted
-	var fallback := _entry(item_id, StoryLocale.FALLBACK, field) if language != StoryLocale.FALLBACK else ""
-	_report("%s/%s/%s" % [item_id, field, language], "[StoryItemText] %s 的 %s 沒有%s譯文，%s（補在 %s）" % [
-			item_id, field, language, "改用英文" if not fallback.is_empty() else "保留中文", PATH])
+	var fallback := _entry(item_id, StoryLocale.FALLBACK, field, required_marker) if language != StoryLocale.FALLBACK else ""
+	var marker_hint := "，內文需有一個 %s" % required_marker if not required_marker.is_empty() else ""
+	_report("%s/%s/%s" % [item_id, field, language], "[StoryItemText] %s 的 %s 沒有可用的 %s 譯文，%s%s（補在 %s）" % [
+			item_id, field, language, "改用英文" if not fallback.is_empty() else "保留中文", marker_hint, PATH])
 	return fallback if not fallback.is_empty() else source
 
 
-## 缺譯清單（道具 id／欄位／語言）：只算有中文原文的欄位。給測試與稽核用，不改資料。
+## 缺譯清單（道具 id／欄位／語言）：原文存在，但譯文缺少文字或必要標記。
 static func missing(items: Array) -> PackedStringArray:
 	var result := PackedStringArray()
 	for value: Variant in items:
@@ -35,8 +36,9 @@ static func missing(items: Array) -> PackedStringArray:
 		for field in FIELDS:
 			if str(item.get(field)).is_empty():
 				continue
+			var marker := StoryItemData.RUN_RESTORATIONS_MARKER if field == "body" and item.show_run_restorations else ""
 			for language in ["ja", "en"]:
-				if _entry(item.id, language, field).is_empty():
+				if _entry(item.id, language, field, marker).is_empty():
 					result.append("%s/%s/%s" % [item.id, field, language])
 	return result
 
@@ -48,7 +50,7 @@ static func reload() -> void:
 	_reported.clear()
 
 
-static func _entry(item_id: StringName, language: String, field: String) -> String:
+static func _entry(item_id: StringName, language: String, field: String, required_marker: String) -> String:
 	_ensure_loaded()
 	var item: Variant = _table.get(String(item_id))
 	if not item is Dictionary:
@@ -57,7 +59,9 @@ static func _entry(item_id: StringName, language: String, field: String) -> Stri
 	if not texts is Dictionary:
 		return ""
 	var text: Variant = (texts as Dictionary).get(field)
-	return str(text).strip_edges() if text is String else ""
+	if not text is String or (not required_marker.is_empty() and (text as String).count(required_marker) != 1):
+		return ""
+	return (text as String).strip_edges()
 
 
 static func _ensure_loaded() -> void:

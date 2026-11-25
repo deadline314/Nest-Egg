@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"ch4_original_ledger_copy"
+display_name = "舊廠原帳副本"
+description = "原帳記著凜的姓名和耗損，另一個簽名被遮住。"
+color = Color(0.78, 0.86, 0.92, 1.0)
+category = 0
+order = 401
+chapter = &"ch4_hollow"
+body = "十七批次的原帳把凜列為受錨者，錨人的姓名仍然以匿名登記。\n本輪已經復原 {run_restorations} 次。\n原帳當時記下的耗損為 91%。"
+trigger = 3
+source_actor = &"ch4_original_ledger"
+show_run_restorations = true
+icon = "doc_stub"

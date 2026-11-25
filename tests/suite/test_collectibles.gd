@@ -21,6 +21,7 @@ func run() -> void:
 	await _test_hidden_room()
 	await _test_inventory_page()
 	await _test_item_translations()
+	_test_live_restoration_text()
 	await preload("res://tests/helpers/market_document_notice_checks.gd").run(self)
 	await preload("res://tests/helpers/story_item_full_text_checks.gd").run(self)
 	await _test_elevated_credit()
@@ -448,6 +449,72 @@ func _test_inventory_page() -> void:
 	Story.language = original
 	check(not by_id.has(&"doc_nest_log"), "uncollected documents are not listed")
 	page.free()
+
+
+func _test_live_restoration_text() -> void:
+	var ledger := StoryItemData.new()
+	ledger.id = &"test_live_restoration_text"
+	ledger.display_name = "測試帳冊"
+	ledger.description = "帳冊記下當時的耗損。"
+	ledger.category = StoryItemData.Category.DOCUMENT
+	ledger.chapter = &"ch4_hollow"
+	ledger.icon = "document"
+	ledger.show_run_restorations = true
+	ledger.body = "受錨者為凜，錨人匿名。原帳耗損 91%。\n本輪復原次數為 {run_restorations}。"
+	check(ledger.validate().is_empty(), "a ledger with one count marker validates")
+
+	ledger.category = StoryItemData.Category.KEY_ITEM
+	check(ledger.validate().is_empty() and not ledger.is_collectible(),
+			"story key papers can format the count outside collectible totals")
+	ledger.category = StoryItemData.Category.RECORDING
+	check(not ledger.validate().is_empty(), "recording transcripts reject the live count marker")
+	ledger.category = StoryItemData.Category.KEY_ITEM
+	var previous_language := Story.language
+	var previous_deaths := GameState.deaths
+	StoryItemText._ensure_loaded()
+	StoryItemText._table[String(ledger.id)] = {
+		"en": {"display_name": "Test ledger", "description": "The ledger records its historical depletion.",
+			"body": "Anchored subject: Rin. The payer is anonymous. Historical depletion: 91%.\nRestorations this run: {run_restorations}."},
+		"ja": {"display_name": "検証用の帳簿", "description": "帳簿には当時の消耗率が記録されている。",
+			"body": "凜を支えた支払人は匿名。記録当時の消耗率は 91%。\nこの周回の復元回数は {run_restorations} 回。"},
+	}
+	var original := ledger.body
+	GameState.deaths = 0
+	Story.language = "zh"
+	check(ledger.body_text().contains("復原次數為 0"), "a no-death run displays zero")
+
+	GameState.deaths = 12
+	var saved_state := GameState.story_progress_snapshot()
+	var page := StoryItemsPage.new()
+	for entry: Array in [["zh", "復原次數為 12"], ["en", "Restorations this run: 12"], ["ja", "復元回数は 12 回"]]:
+		Story.language = entry[0]
+		var text := page._entry_for(ledger).detail_body
+		check(text.contains(entry[1]) and text.contains("91%") and not text.contains(StoryItemData.RUN_RESTORATIONS_MARKER),
+				"the inventory renders the live count without changing historical depletion: %s" % entry[0])
+	page.free()
+	var reader := preload("res://ui/inventory/document_reader.gd").new()
+	runner.add_child(reader)
+	reader.show_document(ledger.title_text(), ledger.body_text(), ledger.color)
+	check(reader._text.text.contains("復元回数は 12 回"), "the shared full reader receives the same live count")
+	reader.queue_free()
+	check(GameState.story_progress_snapshot() == saved_state and ledger.body == original,
+			"reading a ledger changes neither the run nor its source")
+
+	StoryItemText._table[String(ledger.id)]["ja"]["body"] = "復元回数が欠けた訳文。"
+	check(StoryItemText.missing([ledger]).has("test_live_restoration_text/body/ja"), "a body translation without its marker is reported")
+	check(ledger.body_text().contains("Restorations this run: 12"), "an invalid Japanese translation falls back to a usable English body")
+	StoryItemText._table[String(ledger.id)]["en"]["body"] = "{run_restorations}, {run_restorations}"
+	check(ledger.body_text().contains("復原次數為 12"), "an English translation with duplicate markers falls back to the original")
+	ledger.body = "本輪復原次數未登記。"
+	check(not ledger.validate().is_empty(), "a live document without its marker fails validation")
+	ledger.show_run_restorations = false
+	Story.language = "zh"
+	ledger.body = "當時耗損為 91%。"
+	check(ledger.body_text() == ledger.body, "static documents still show literal percentages")
+	StoryItemText._table.erase(String(ledger.id))
+	StoryItemText._reported.erase("%s/body/ja" % ledger.id)
+	Story.language = previous_language
+	GameState.deaths = previous_deaths
 
 
 ## ST-21：每份劇情道具與文件都有日文與英文；切換語言後背包、撿取提示與取得訊息跟著換，缺譯退回英文再退回中文；

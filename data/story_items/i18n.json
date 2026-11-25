@@ -581,5 +581,17 @@
    "description": "The old factory collects items from batch seventeen. The slip contains no personal patient data.",
    "body": "The old factory receives referrals from batch seventeen. Staff compare this slip with the shift record at the outer gate before granting entry. The slip lists only the batch and destination."
   }
+ },
+ "ch4_original_ledger_copy": {
+  "ja": {
+   "display_name": "旧工場の原簿の写し",
+   "description": "原簿には凛の名前と消耗が記され、もう一人の署名は伏せられている。",
+   "body": "第十七便の原簿では凛が受け手として登録され、錨人の名前は匿名のままです。\n今周はこれまでに {run_restorations} 回復元しました。\n当時の原簿には消耗が 91% と記録されています。"
+  },
+  "en": {
+   "display_name": "Old Factory Ledger Copy",
+   "description": "The original ledger names Rin and records depletion. The other signature is blacked out.",
+   "body": "Batch Seventeen names Rin as the recipient and keeps the anchor anonymous.\nRin has been restored {run_restorations} times this run.\nThe original ledger recorded 91% depletion at the time."
+  }
  }
 }

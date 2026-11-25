@@ -27,6 +27,7 @@ POINTS = {
     "work_observation": ("factory_work", 81, GROUND - 1),
     "egret_at_rail": ("factory_cleaning", 47, 13),
     "office_release": ("factory_cleaning", 77, GROUND - 1),
+    "original_ledger": ("factory_office", 20, GROUND - 1),
 }
 PEOPLE = {
     "old_k": ("老 K", "old_k", "wipe_hands"),
@@ -40,8 +41,9 @@ STATIONS = {
     "shift_board": "舊廠班表", "rail_release": "維修棘輪", "workbench": "裝卸帶工作臺",
     "sweep_console": "清掃試車台",
     "safety_instruction": "安全臺喇叭", "safety_catch": "員工門栓", "work_observation": "清理線讀數", "office_release": "工作帶終端",
+    "original_ledger": "讀取原帳",
 }
-GLYPHS = dict(zip(POINTS, "ⓞⓔⓣⓓⓥⓒⓢⓐⓑⓡⓦⓧⓘⓤⓟⓙⓩ", strict=True))
+GLYPHS = dict(zip(POINTS, "ⓞⓔⓣⓓⓥⓒⓢⓐⓑⓡⓦⓧⓘⓤⓟⓙⓩⓛ", strict=True))
 
 
 def area_path(area):
@@ -118,6 +120,7 @@ def _configure():
         for glyph, (ident, target, target_id, prompt, requires, locked) in PORTALS.items()
     }
     prompts = {
+        "original_ledger": "核對原帳",
         "old_k": "和老 K 說話",
         "egret": "和鷺說話",
         "linden": "和棠說話",
@@ -393,6 +396,10 @@ def _factory_office():
     area.ceiling(1, 40, 5)
     area.stand(4, "↧")
     area.stand(8, "P")
+    area.prop("factory_office__blinds_rain_window", 13, y=13, support="wall")
+    area.prop("factory_office__desk_with_ledger", 20)
+    area.prop("factory_office__toppled_chair", 23)
+    area.prop("factory_office__filing_cabinet", 35)
     area.prop("factory_office__stopped_clock", 24, y=12, support="wall")
     area.prop("factory_office__bulletin_board", 28, y=14, support="wall")
     area.prop("floor_marking", 30, y=GROUND - 1)

@@ -8,6 +8,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools/level"))
 
 from build_ch4 import CHAPTER, POINTS  # noqa: E402
+from ch4_office_evidence import add_office_evidence  # noqa: E402
 from ch1_closure import Binding, Option, ProductionSource, Quest, QuestStep, all_of, flag, grant, negate, say, set_flag  # noqa: E402
 from build_ch1_story import sfx, wait  # noqa: E402
 from chapter_compiler import ChapterSpec, route_back_to_choices, write_chapter, write_documents  # noqa: E402
@@ -281,6 +282,7 @@ def build_spec():
     _factory_safety(source, dispatch)
     _work_lane(source, dispatch)
     _cleanup_battle(source, dispatch)
+    add_office_evidence(source, dispatch)
     route_back_to_choices(source, dispatch, "ch4")
     source.bindings.update({
         binding: Binding("npc" if binding in ("old_k", "egret", "ali", "egret_at_rail") else "object", CHAPTER,

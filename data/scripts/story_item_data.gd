@@ -30,6 +30,8 @@ enum Category { KEY_ITEM, DOCUMENT, RECORDING }
 @export var chapter: StringName = &""
 ## 文件的全文或錄音的逐字稿（背包閱讀用）；空白時只顯示 description。
 @export_multiline var body: String = ""
+## 用在文件正文，將唯一的 {run_restorations} 換成本輪累計復原次數。
+@export var show_run_restorations := false
 ## 撿到時播放的通訊場景（例如航的語音留言），空白代表不播。
 @export var play_scene: StringName = &""
 @export_group("Acquire")
@@ -48,6 +50,7 @@ enum Category { KEY_ITEM, DOCUMENT, RECORDING }
 ## 是否算進「每章收集進度」。
 ## 內文長度上限：背包詳情面板不捲動，超過會被裁掉。
 const MAX_BODY_LENGTH := 220
+const RUN_RESTORATIONS_MARKER := "{run_restorations}"
 
 
 func is_collectible() -> bool:
@@ -64,7 +67,9 @@ func description_text() -> String:
 
 
 func body_text() -> String:
-	return StoryItemText.lookup(id, "body", body, Story.language)
+	var marker := RUN_RESTORATIONS_MARKER if show_run_restorations and category != Category.RECORDING else ""
+	var localized := StoryItemText.lookup(id, "body", body, Story.language, marker)
+	return localized.replace(marker, str(GameState.deaths)) if not marker.is_empty() else localized
 
 
 func validate() -> PackedStringArray:
@@ -75,6 +80,13 @@ func validate() -> PackedStringArray:
 		problems.append("%s 缺少名稱" % id)
 	if description.is_empty():
 		problems.append("%s 缺少說明" % id)
+	if show_run_restorations:
+		if category == Category.RECORDING:
+			problems.append("%s 的本輪復原次數只支援紙本文件" % id)
+		if body.count(RUN_RESTORATIONS_MARKER) != 1:
+			problems.append("%s 的文件內文需有一個 %s" % [id, RUN_RESTORATIONS_MARKER])
+	elif body.contains(RUN_RESTORATIONS_MARKER):
+		problems.append("%s 的文件內文使用 %s，須啟用本輪復原次數" % [id, RUN_RESTORATIONS_MARKER])
 	if is_collectible():
 		if chapter == &"":
 			problems.append("%s 是文件或錄音，必須指定 chapter" % id)

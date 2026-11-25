@@ -1,6 +1,7 @@
 """Localizations for authored world prompts in the formal chapter builders."""
 
 TRANSLATIONS = {
+    "核對原帳": ("Compare the original ledger", "元帳を照合する"),
     "核對白線的讀數": ("Check the sweep readings", "白線の測定値を確認する"),
     "聽清理線廣播": ("Listen to the line announcement", "清掃線の放送を聞く"),
     "放開員工門栓": ("Release the staff-door latch", "職員通路の錠を外す"),

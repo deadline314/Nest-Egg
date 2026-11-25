@@ -298,13 +298,17 @@ def render_document_resource(ident: str, document: dict, order: int) -> str:
     if not isinstance(source_actor, str):
         raise ValueError(f"{ident}: source_actor must be an NPC id")
     origin = [f"source_actor = &{quote(source_actor)}"] if source_actor else []
+    wants_readout = document.get("show_run_restorations") is True
+    if wants_readout and document["body"].count("{run_restorations}") != 1:
+        raise ValueError(f"{ident}: restoration count requires one marker in the document body")
+    readout = ["show_run_restorations = true"] if wants_readout else []
     return "\n".join([
         '[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]', "",
         '[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]', "",
         '[resource]', 'script = ExtResource("1_script")', f'id = &{quote(ident)}',
         f'display_name = {quote(document["name"])}', f'description = {quote(document["description"])}',
         'color = Color(0.78, 0.86, 0.92, 1.0)', 'category = 0', f'order = {order}',
-        'chapter = &"ch1_kasa"', f'body = {quote(document["body"])}', 'trigger = 3', *origin,
+        'chapter = &"ch1_kasa"', f'body = {quote(document["body"])}', 'trigger = 3', *origin, *readout,
         f'icon = {quote(document["icon"])}', "",
     ])
 

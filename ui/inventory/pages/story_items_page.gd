@@ -62,14 +62,15 @@ func _entry_for(item: StoryItemData) -> InventoryEntry:
 	var text := item.body_text()
 	entry.detail_body = item.description_text()
 	entry.hint = Labels.get_text(&"story_readonly")
-	if item.is_collectible():
+	var collectible := item.is_collectible()
+	if collectible:
 		var chapter_title := str(Story.chapter_info(item.chapter).get("title", ""))
 		entry.detail_tag = "%s　%s" % [kind, chapter_title] if not chapter_title.is_empty() else kind
 		entry.detail_stats = PackedStringArray([Labels.get_text(&"story_chapter_count") %
 				[StoryItems.collected_count(item.chapter), StoryItems.collectible_total(item.chapter)]])
-		if not text.is_empty():
-			entry.detail_body = text
 	if not text.is_empty():
+		if collectible or item.show_run_restorations:
+			entry.detail_body = text
 		var recording := item.category == StoryItemData.Category.RECORDING
 		entry.action_label = Labels.get_text(&"story_transcript" if recording else &"story_read")
 		entry.action_hint = Labels.get_text(&"story_transcript_help" if recording else &"story_read_help")

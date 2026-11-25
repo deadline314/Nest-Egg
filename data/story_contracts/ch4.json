@@ -548,6 +548,98 @@
           }
         ]
       }
+    },
+    {
+      "id": "ch4_t_ledger_page",
+      "source": "res://data/story/ch4_hollow.json",
+      "npc": "res://data/npcs/ch4_original_ledger.tres",
+      "levels": [
+        "res://data/levels/ch4_factory_office.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "all": [
+                {
+                  "flag": "ch4_office_access",
+                  "equals": true
+                },
+                {
+                  "item": "ch4_ward_collection_slip"
+                }
+              ]
+            },
+            {
+              "not": {
+                "flag": "ch4_original_ledger_read",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch4_original_ledger_read",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch4_t_ledger_saved",
+      "source": "res://data/story/ch4_hollow.json",
+      "npc": "res://data/npcs/ch4_original_ledger.tres",
+      "levels": [
+        "res://data/levels/ch4_factory_office.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "all": [
+                {
+                  "flag": "ch4_office_access",
+                  "equals": true
+                },
+                {
+                  "item": "ch4_ward_collection_slip"
+                }
+              ]
+            },
+            {
+              "flag": "ch4_original_ledger_read",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch4_original_ledger_saved",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "item_acquire",
+            "id": "ch4_original_ledger_copy"
+          },
+          {
+            "kind": "flag",
+            "id": "ch4_original_ledger_saved",
+            "value": true
+          }
+        ]
+      }
     }
   ]
 }
