@@ -187,10 +187,10 @@ func posture_ready(target: StringName) -> bool:
 
 
 ## 讓這個 NPC 做一個指定的手勢或小動作（art/rigs/npc_animations.json 的 gestures）；還沒開始動畫、手勢不存在或姿勢不允許時回傳 false。
-func play_gesture(gesture_name: StringName) -> bool:
+func play_gesture(gesture_name: StringName, hold_until_release := false) -> bool:
 	if _life == null:
 		return false
-	return _life.play_gesture(gesture_name, _pose_now if _pose_now != &"" else &"stand")
+	return _life.play_gesture(gesture_name, _pose_now if _pose_now != &"" else &"stand", hold_until_release)
 
 
 ## 腳踩實地：姿勢資料有 feet 時，兩隻腳用 IK 平放在地面上（腳掌放平），骨盆下沉讓腿彎起來（不靠手調骨盆高度），

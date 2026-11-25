@@ -14,6 +14,7 @@ func run() -> void:
 	await _test_poses()
 	await _test_poses_touch_the_ground()
 	await _test_whole_cast_cover()
+	_test_cover_survives_repeated_noise()
 	await _test_talking_and_listening()
 	await _test_loops()
 	await _test_fallbacks()
@@ -161,6 +162,42 @@ func _test_whole_cast_cover() -> void:
 		rig.queue_free()
 		await frames(2)
 
+
+
+func _test_cover_survives_repeated_noise() -> void:
+	var data := load("res://data/npcs/resident.tres") as NpcData
+	var actor := CutsceneActor.new()
+	runner.get_tree().root.add_child(actor)
+	var ready := actor.setup(data.id, data.rig_id, "", 1.0, "")
+	check(ready, "resident uses its production rig for prolonged cover")
+	if not ready:
+		actor.free()
+		return
+	var animator := actor.rig.animator as NpcAnimator
+	for direction: int in [1, -1]:
+		actor.face(direction)
+		actor.set_pose(&"idle")
+		for tick in 90:
+			actor._advance_stage_actor(1.0 / 60.0)
+		var awareness := NpcAwareness.new(actor, data)
+		var source := Vector2(50 * direction, -6)
+		for shot in NpcAwareness.COWER_COUNT:
+			awareness.hear(Vector2.ZERO, source, 1.0, false)
+		var minimum_cover := 1.0
+		var hold_samples := 0
+		for frame in 420:
+			if frame == 105 or frame == 158:
+				awareness.hear(Vector2.ZERO, source, 1.0, false)
+			awareness.step(1.0 / 60.0, Vector2.ZERO, Vector2.INF, false)
+			actor._advance_stage_actor(1.0 / 60.0)
+			if frame >= 60 and awareness.is_cowering():
+				minimum_cover = minf(minimum_cover, animator._head_cover)
+				hold_samples += 1
+		check(hold_samples >= 270 and minimum_cover >= 0.95,
+			"both hands stay over the head until the noise has stopped (facing %d, samples %d, cover %.2f)" % [direction, hold_samples, minimum_cover])
+		check(not awareness.is_cowering() and animator._head_cover == 0.0 and actor.pose == data.pose,
+			"quiet releases the cover and restores the NPC's authored pose")
+	actor.free()
 
 func _test_talking_and_listening() -> void:
 	var input := RigInput.new()

@@ -40,6 +40,7 @@ var _startle_cooldown := 0.0
 var _noise_times: Array[float] = []
 var _time := 0.0
 var _cowering := false
+var _cover_started := false
 var _quiet := 0.0
 var _look_left := 0.0
 var _look_dir := 0
@@ -104,14 +105,15 @@ func hear(origin: Vector2, source: Vector2, loudness: float, talking: bool) -> b
 	if loudness < STARTLE_LOUDNESS:
 		return true  # 小聲響（試開鎖住的門）只轉頭看，不會縮、也不算進蹲下的次數
 	_quiet = 0.0
+	if _cowering:
+		if not _cover_started and _startle_cooldown <= 0.0:
+			# An actor that has just spawned may not have reached its first animation update.
+			_startle_cooldown = STARTLE_COOLDOWN
+			_cover_started = _actor.play_gesture(COWER_GESTURE, true)
+		return true
 	_noise_times.append(_time)
 	while not _noise_times.is_empty() and _time - _noise_times[0] > COWER_WINDOW:
 		_noise_times.pop_front()
-	if _cowering:
-		if _startle_cooldown <= 0.0:  # 又一聲：抱頭的手再壓緊一次
-			_startle_cooldown = STARTLE_COOLDOWN
-			_actor.play_gesture(COWER_GESTURE)
-		return true
 	if _noise_times.size() >= COWER_COUNT:
 		_cower()
 		return true
@@ -129,7 +131,7 @@ func _cower() -> void:
 	cowers += 1
 	_actor.set_loop(&"", 1.0)
 	_actor.set_pose(&"squat")
-	_actor.play_gesture(COWER_GESTURE)
+	_cover_started = _actor.play_gesture(COWER_GESTURE, true)
 
 
 func _stand_up() -> void:

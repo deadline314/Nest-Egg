@@ -331,11 +331,11 @@ func _play(player: NpcGesture, section: String, posture: StringName, carry: Dict
 
 
 ## 直接播放指定的手勢或小動作（過場指定動作、預覽工具用）；手勢不存在或這個姿勢不能用時回傳 false。
-func play_gesture(gesture_name: StringName, posture: StringName = &"stand") -> bool:
+func play_gesture(gesture_name: StringName, posture: StringName = &"stand", hold_until_release := false) -> bool:
 	var def := _gesture_def(gesture_name)
 	if def.is_empty() or not _allows(def, posture):
 		return false
-	_hands.start(gesture_name, def, _rng, _speed("beat"), 1.0, _hands_out, _hands.velocity())
+	_hands.start(gesture_name, def, _rng, _speed("beat"), 1.0, _hands_out, _hands.velocity(), hold_until_release)
 	_hands_kind = "cue"
 	_fidget_next = maxf(_fidget_next, _time + 3.0)
 	return true

@@ -30,6 +30,7 @@ var _t_retract := 0.0
 var _scale := 1.0
 var _t := -1.0
 var _released := false
+var _hold_until_release := false
 ## 接手時上一個手勢留下的姿勢，在準備階段慢慢淡掉（不回到原位就接下一個）。
 var _carry: Dictionary = {}
 ## 接手時上一個手勢各骨頭的速度（弧度／秒）：用 Hermite 曲線從「目前的位置與速度」淡到 0，不會突然停住（保留餘勢）。
@@ -41,7 +42,7 @@ var name := &""
 
 ## 開始播放 def；hold 秒數由 rng 在範圍內挑；speed > 1 越快、expanse 是幅度倍率；carry／carry_v 是上一個手勢目前的增量與速度（接續用，
 ## 見 velocity()）。
-func start(gesture_name: StringName, def: Dictionary, rng: RandomNumberGenerator, speed: float, expanse: float, carry: Dictionary = {}, carry_v: Dictionary = {}) -> void:
+func start(gesture_name: StringName, def: Dictionary, rng: RandomNumberGenerator, speed: float, expanse: float, carry: Dictionary = {}, carry_v: Dictionary = {}, hold_until_release := false) -> void:
 	name = gesture_name
 	_def = def
 	_pose = _dict(def, "pose")
@@ -72,6 +73,7 @@ func start(gesture_name: StringName, def: Dictionary, rng: RandomNumberGenerator
 	_carry_v = carry_v.duplicate()
 	_t = 0.0
 	_released = false
+	_hold_until_release = hold_until_release
 
 
 func active() -> bool:
@@ -85,7 +87,7 @@ func past_stroke() -> bool:
 
 ## 提早收回（例如說話結束）：從目前的樣子緩緩回到原位（用 retract 的秒數），不跳格；已在收回就不動。
 func release() -> void:
-	if _t < 0.0 or _released or _t >= _t_wind + _t_prep + _t_stroke + _t_hold:
+	if _t < 0.0 or _released or (not _hold_until_release and _t >= _t_wind + _t_prep + _t_stroke + _t_hold):
 		return
 	_carry = _last_out.duplicate()
 	_carry_v = _last_v.duplicate()
@@ -102,14 +104,22 @@ func release() -> void:
 	_t_hold = 0.0
 	_t_retract = 0.01
 	_released = true
+	_hold_until_release = false
 
 
 ## 往前走 delta 秒，回傳 {骨頭: 角度增量}。播完之後回傳空字典並變成不活動。
 func step(delta: float) -> Dictionary:
 	if _t < 0.0:
 		return {}
+	var hold_end := _t_wind + _t_prep + _t_stroke + _t_hold
+	# Reuse the final pose while waiting for the caller, with no new per-frame dictionary.
+	if _hold_until_release and _t >= hold_end:
+		_last_v.clear()
+		return _last_out
 	_t += delta
-	var total := _t_wind + _t_prep + _t_stroke + _t_hold + _t_retract + _tail
+	if _hold_until_release:
+		_t = minf(_t, hold_end)
+	var total := hold_end + _t_retract + _tail
 	var out: Dictionary = {}
 	for bone: Variant in _pose.keys():
 		_add(out, bone, _num(_pose, bone, 0.0), 0)
