@@ -42,13 +42,22 @@ static func load_level(path: String) -> LevelData:
 	return data
 
 
+## These manifests track text sources. Git and local editors may use different
+## line endings for the same authored file.
+static func source_digest(path: String) -> String:
+	var source := FileAccess.open(path, FileAccess.READ)
+	if source == null:
+		return ""
+	return source.get_as_text().replace("\r\n", "\n").sha256_text()
+
+
 static func authored_manifest() -> Dictionary:
 	var levels: Array[Dictionary] = []
 	for resource in ResourceCatalog.load_dir(DIRECTORY, LevelData, "LevelCatalog"):
 		var data := resource as LevelData
 		# Match the numeric type used by Godot's JSON parser.
 		levels.append({"id": String(data.id), "chapter": String(data.chapter),
-				"file": data.resource_path.get_file(), "sha256": FileAccess.get_sha256(data.resource_path),
+				"file": data.resource_path.get_file(), "sha256": source_digest(data.resource_path),
 				"layout_path": data.layout_path, "tile_size": float(data.tile_size), "height": float(data.height)})
 	return {"version": FORMAT, "levels": levels}
 
@@ -106,7 +115,7 @@ static func _read_manifest(files: PackedStringArray) -> Dictionary:
 			if editor or files.has(file):
 				return {}
 			continue  # An exported edition may omit unshipped areas.
-		if editor and FileAccess.get_sha256(DIRECTORY.path_join(file)) != item.get("sha256", ""):
+		if editor and source_digest(DIRECTORY.path_join(file)) != item.get("sha256", ""):
 			return {}
 		levels.append(item)
 	return {"levels": levels} if authored_files.is_empty() else {}

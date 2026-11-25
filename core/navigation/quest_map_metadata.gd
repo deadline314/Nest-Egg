@@ -2,6 +2,7 @@ extends Resource
 ## Build-time projection of authored levels for the live HUD and map.
 ## A runtime record uses the real layout document and only the metadata its map needs.
 
+const LevelIndex := preload("res://core/navigation/level_resource_index.gd")
 const PATH := "res://data/navigation/quest_map_metadata.tres"
 const VERSION := 1
 const LEVEL_FIELDS := [&"id", &"chapter", &"display_name", &"localized_names", &"tile_size",
@@ -55,7 +56,7 @@ func _marker_projection(resource: Resource, placeholder: Resource) -> Resource:
 
 func _record_source(path: String) -> void:
 	if not path.is_empty() and not digests.has(path):
-		digests[path] = FileAccess.get_sha256(path)
+		digests[path] = LevelIndex.source_digest(path)
 
 
 func validation_error() -> String:
@@ -63,7 +64,7 @@ func validation_error() -> String:
 		return "版本不符或沒有區域"
 	if OS.has_feature("editor"):
 		for path: String in digests:
-			if FileAccess.get_sha256(path) != digests[path]:
+			if LevelIndex.source_digest(path) != digests[path]:
 				return "%s 已變更" % path
 	return ""
 
