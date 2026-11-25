@@ -682,7 +682,7 @@ func _write_queued_autosave() -> RunSaveStore.WriteStatus:
 		return RunSaveStore.WriteStatus.CANCELLED
 	var owner: WeakRef = weakref(_screen)
 	var may_write := _can_finish_autosave.bind(owner, _cinematic, _cinematic_request)
-	return await _run_store.write_in_frames(snapshot, get_tree(), may_write)
+	return await _run_store.write_in_frames(snapshot, get_tree(), may_write, owner)
 
 
 func _can_finish_autosave(owner: WeakRef, scene: String, request: int) -> bool:

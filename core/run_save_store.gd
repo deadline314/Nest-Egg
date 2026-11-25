@@ -10,12 +10,26 @@ enum ReadRecovery { NONE, BACKUP, NEW_RUN }
 enum WriteStatus { SAVED, FAILED, CANCELLED }
 
 class WritePlan extends RefCounted:
-	var primary: Dictionary
+	var primary_checksum: String
+	var primary_valid := false
+	var primary_validator: Callable
+	var primary_proof: AutosaveProof
 	var absolute: String
 	var temporary: String
+	var draft_checksum := ""
+	var draft_validator: Callable
+
+
+class AutosaveProof extends RefCounted:
+	var slot: String
+	var owner: WeakRef
+	var checksum: String
+	var validator: Callable
 
 var _write_generation := 0
 var _deferred_draft := ""
+## One successful primary receipt for the same live room and save validator.
+var _autosave_proof: AutosaveProof
 var path: String
 var issues := PackedStringArray()
 var unknown_version := false
@@ -147,7 +161,8 @@ func write(data: Dictionary, confirmed_overwrite := false) -> bool:
 
 ## Gameplay autosaves yield between CPU/file phases. A critical write can discard
 ## the unpublished draft and commit immediately using the same write operations.
-func write_in_frames(data: Dictionary, tree: SceneTree, may_write := Callable()) -> WriteStatus:
+func write_in_frames(data: Dictionary, tree: SceneTree, may_write := Callable(),
+		validation_owner: WeakRef = null) -> WriteStatus:
 	if overwrite_authorized or FileAccess.file_exists(path + ".newrun"):
 		return WriteStatus.SAVED if write(data) else WriteStatus.FAILED
 	cancel_deferred_write()
@@ -161,9 +176,31 @@ func write_in_frames(data: Dictionary, tree: SceneTree, may_write := Callable())
 	if not _still_writing(generation, slot, may_write):
 		return WriteStatus.CANCELLED
 	_deferred_draft = "%s.autosave-%d-%d.tmp" % [path, OS.get_process_id(), get_instance_id()]
-	var plan := _begin_write(false, _deferred_draft)
+	var plan := _begin_write(false, _deferred_draft, _proven_primary(validation_owner))
 	if plan == null:
 		return WriteStatus.FAILED
+	await tree.process_frame
+	if not _still_writing(generation, slot, may_write):
+		return WriteStatus.CANCELLED
+	# Check the actual canonical payload on its own frame. It is immutable from here on.
+	var decoded := RunSaveCodec.decode(encoded)
+	if not decoded.has("data"):
+		_failure(path, str(decoded.get("error", "無法解碼暫存資料")))
+		return WriteStatus.FAILED
+	await tree.process_frame
+	if not _still_writing(generation, slot, may_write):
+		return WriteStatus.CANCELLED
+	var draft_validator := validator
+	var problem := _semantic_write_problem(decoded["data"], draft_validator)
+	decoded = {}
+	if not problem.is_empty():
+		_failure(path, problem)
+		return WriteStatus.FAILED
+	await tree.process_frame
+	if not _still_writing(generation, slot, may_write):
+		return WriteStatus.CANCELLED
+	plan.draft_checksum = encoded.sha256_text()
+	plan.draft_validator = draft_validator
 	await tree.process_frame
 	if not _still_writing(generation, slot, may_write):
 		return WriteStatus.CANCELLED
@@ -175,7 +212,30 @@ func write_in_frames(data: Dictionary, tree: SceneTree, may_write := Callable())
 	if not _verify_and_promote(plan):
 		return WriteStatus.FAILED
 	_deferred_draft = ""
+	_remember_autosave(plan, slot, validation_owner)
 	return WriteStatus.SAVED
+
+
+func _semantic_write_problem(data: Dictionary, validate: Callable) -> String:
+	return _validation_problem(validate.call(data)) if validate.is_valid() else ""
+
+
+func _proven_primary(owner: WeakRef) -> AutosaveProof:
+	if owner == null or _autosave_proof == null or _autosave_proof.slot != path or _autosave_proof.validator != validator:
+		return null
+	var live_owner: Object = owner.get_ref()
+	return _autosave_proof if live_owner != null and live_owner == _autosave_proof.owner.get_ref() else null
+
+
+func _remember_autosave(plan: WritePlan, slot: String, owner: WeakRef) -> void:
+	if owner == null or owner.get_ref() == null or plan.draft_validator != validator or slot != path:
+		return
+	var proof := AutosaveProof.new()
+	proof.slot = slot
+	proof.owner = owner
+	proof.checksum = plan.draft_checksum
+	proof.validator = validator
+	_autosave_proof = proof
 
 
 func cancel_deferred_write() -> void:
@@ -196,7 +256,7 @@ func _still_writing(generation: int, slot: String, may_write: Callable) -> bool:
 	return false
 
 
-func _begin_write(confirmed_overwrite: bool, temporary: String) -> WritePlan:
+func _begin_write(confirmed_overwrite: bool, temporary: String, primary_proof: AutosaveProof = null) -> WritePlan:
 	issues.clear()
 	# The durable transaction still owns the slot's canonical draft path. An obstruction
 	# there also blocks routine writes, even though each autosave has a private draft.
@@ -223,16 +283,21 @@ func _begin_write(confirmed_overwrite: bool, temporary: String) -> WritePlan:
 			if archival != OK:
 				_failure(path + ".newrun", "無法保留舊交易標記（%s）" % archival)
 				return null
-	var primary := _read_file(path, true) if FileAccess.file_exists(path) else {}
+	var primary_validator := validator
+	var reused_primary := primary_proof != null and _byte_checksum(path) == primary_proof.checksum
+	var primary := _read_file(path, true) if not reused_primary and FileAccess.file_exists(path) else {}
 	if primary.get("unknown_version", false):
 		unknown_version = true
-	elif not primary.has("data") and FileAccess.file_exists(path + ".bak") and _read_file(path + ".bak").get("unknown_version", false):
+	elif not reused_primary and not primary.has("data") and FileAccess.file_exists(path + ".bak") and _read_file(path + ".bak").get("unknown_version", false):
 		unknown_version = true
 	if unknown_version and not overwrite_authorized:
 		_failure(path, "未知版本保留；請明確選擇新遊戲覆寫")
 		return null
 	var plan := WritePlan.new()
-	plan.primary = primary
+	plan.primary_checksum = primary_proof.checksum if reused_primary else primary.get("content_checksum", "")
+	plan.primary_valid = reused_primary or primary.has("data")
+	plan.primary_validator = primary_validator
+	plan.primary_proof = primary_proof if reused_primary else null
 	plan.absolute = ProjectSettings.globalize_path(path)
 	plan.temporary = temporary
 	return plan
@@ -263,26 +328,28 @@ func _write_draft(plan: WritePlan, encoded: String) -> bool:
 
 
 func _verify_and_promote(plan: WritePlan) -> bool:
-	var verified := _read_file(plan.temporary)
-	if not verified.has("data"):
-		return _failure(plan.temporary, "驗證失敗（%s），原檔保留" % verified.get("error", "未知錯誤"))
+	var problem := _draft_problem(plan)
+	if not problem.is_empty():
+		return _failure(plan.temporary, "驗證失敗（%s），原檔保留" % problem)
 	var absolute := plan.absolute
 	if overwrite_authorized:
 		return _install_new_run(absolute)
 	if FileAccess.file_exists(path + ".newrun"):
 		return _failure(path, "偵測到其他新輪交易，保留原檔及暫存檔")
-	var primary := plan.primary
 	var error: Error
 	# 只有完整有效的舊主檔能輪替備份。檔案相同時沿用本次校驗，
 	# 另一程序若已換掉主檔，再檢查新檔及其版本。
 	var old_valid := false
 	if FileAccess.file_exists(path):
-		if primary.get("content_checksum", "") != FileAccess.get_sha256(path):
-			primary = _read_file(path)
+		var owner_live := plan.primary_proof == null or plan.primary_proof.owner.get_ref() != null
+		if owner_live and plan.primary_validator == validator and plan.primary_checksum == FileAccess.get_sha256(path):
+			old_valid = plan.primary_valid
+		else:
+			var primary := _read_file(path)
 			if primary.get("unknown_version", false):
 				unknown_version = true
 				return _failure(path, "存檔已另外更新為未知版本；新主檔及原備份保留")
-		old_valid = primary.has("data")
+			old_valid = primary.has("data")
 	if old_valid:
 		if FileAccess.file_exists(path + ".bak"):
 			error = DirAccess.remove_absolute(absolute + ".bak")
@@ -309,6 +376,47 @@ func _verify_and_promote(plan: WritePlan) -> bool:
 	overwrite_authorized = false
 	_resolve_new_run()
 	return true
+
+
+func _draft_problem(plan: WritePlan) -> String:
+	if plan.draft_checksum.is_empty():
+		return _validation_problem(_read_file(plan.temporary))
+	# Check bytes instead of a decoded string. A draft may only publish the exact
+	# payload that was validated by this owner, even if a replacement is valid JSON.
+	var matches := _byte_checksum(plan.temporary) == plan.draft_checksum
+	if matches and plan.draft_validator == validator:
+		return ""
+	var problem := _validation_problem(_read_file(plan.temporary))
+	if problem.is_empty() and not matches:
+		return "暫存內容與本次存檔不同"
+	return problem
+
+
+static func _validation_problem(result: Dictionary) -> String:
+	if result.has("data"):
+		return ""
+	var problem := str(result.get("error", ""))
+	return "未知錯誤" if problem.is_empty() else problem
+
+
+static func _byte_checksum(candidate: String) -> String:
+	var file := FileAccess.open(candidate, FileAccess.READ)
+	if file == null:
+		return ""
+	var size := file.get_length()
+	if size == 0 or size > RunSaveCodec.MAX_BYTES:
+		return ""
+	var hasher := HashingContext.new()
+	if hasher.start(HashingContext.HASH_SHA256) != OK:
+		return ""
+	var remaining := size
+	while remaining > 0:
+		var length := mini(remaining, 64 * 1024)
+		var bytes := file.get_buffer(length)
+		if bytes.size() != length or hasher.update(bytes) != OK:
+			return ""
+		remaining -= length
+	return hasher.finish().hex_encode() if file.get_length() == size else ""
 
 
 ## 新輪的恢復備份也是新輪；上一輪另外保留，不成為續玩候選。

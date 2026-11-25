@@ -197,12 +197,12 @@ static func _test_dialogue_frame_save(s: TestSuite, directory: String) -> void:
 	await _process_frames(tree, 1)
 	s.check(FileAccess.get_file_as_bytes(main._run_store.path) == original,
 			"opening dialogue leaves the installed save intact during its first frame")
-	await _process_frames(tree, 6)
+	s.check(await _wait_for_autosave(main, tree), "the opening autosave releases its staging queue")
 	var opened := main._run_store.read()
 	s.check(opened.get("cinematic") == String(SCENE), "locked dialogue reaches the real installed save in frames")
 	var installed := FileAccess.get_file_as_bytes(main._run_store.path)
 	main._queue_movement_autosave()
-	await _process_frames(tree, 6)
+	s.check(await _wait_for_autosave(main, tree), "a discovery request leaves no unfinished save")
 	s.check(FileAccess.get_file_as_bytes(main._run_store.path) == installed and not main._save_queued,
 			"routine discovery during a dialogue does not rewrite its checkpoint")
 
@@ -222,7 +222,7 @@ static func _test_dialogue_frame_save(s: TestSuite, directory: String) -> void:
 			"cancellation keeps elapsed gameplay and does not complete the dialogue")
 	s.check(FileAccess.get_file_as_bytes(main._run_store.path) == installed,
 			"cancellation returns before publishing the rollback save")
-	await _process_frames(tree, 6)
+	s.check(await _wait_for_autosave(main, tree), "the rollback autosave releases its staging queue")
 	var closed := main._run_store.read()
 	s.check(closed.get("cinematic") == "" and closed.get("navigation", {}).get("pinned_id") == pinned,
 			"the resumable slot loses the cancelled dialogue and keeps its restored pin")
@@ -231,7 +231,7 @@ static func _test_dialogue_frame_save(s: TestSuite, directory: String) -> void:
 	await _process_frames(tree, 2)
 	main._on_presentation_cancelled(SCENE, {}, &"leave", 0)
 	main._save_run()  # Same authoritative save path used by quit.
-	await _process_frames(tree, 6)
+	s.check(await _wait_for_autosave(main, tree), "the superseded opening save settles")
 	s.check(main._run_store.read().get("cinematic") == "", "a pending open draft cannot replace a synchronous close save")
 
 	var previous_skip := Story.auto_skip
@@ -240,13 +240,14 @@ static func _test_dialogue_frame_save(s: TestSuite, directory: String) -> void:
 	Story.scene_started.connect(main._on_scene_started)
 	Story.scene_finished.connect(main._on_scene_finished)
 	Story.play(SCENE, false)
-	await _process_frames(tree, 6)
+	await _process_frames(tree, 1)
+	s.check(await _wait_for_autosave(main, tree), "the authored dialogue checkpoint settles")
 	var before_close := FileAccess.get_file_as_bytes(main._run_store.path)
 	s.check(Story.is_cinematic_active(), "the authored dialogue stays locked until the player dismisses it")
 	Story.skip_cinematic()  # DialogueLayer uses the same completion from Escape.
 	s.check(not main._save_queued and FileAccess.get_file_as_bytes(main._run_store.path) == before_close,
 			"the story completion signal and Main share a staged dialogue save")
-	await _process_frames(tree, 6)
+	s.check(await _wait_for_autosave(main, tree), "the completed dialogue releases its staging queue")
 	var completed := main._run_store.read()
 	s.check(completed.get("cinematic") == "" and String(SCENE) in completed.get("story", {}).get("seen", []),
 			"the staged completion stores the seen scene and retires the playback checkpoint")
@@ -254,6 +255,14 @@ static func _test_dialogue_frame_save(s: TestSuite, directory: String) -> void:
 	main._screen = null
 	main.queue_free()
 	await s.end_level(level)
+
+
+static func _wait_for_autosave(main: RouteMain, tree: SceneTree) -> bool:
+	for frame in 32:
+		if not main._autosave_queued and not main._writing_autosave:
+			return true
+		await tree.process_frame
+	return false
 
 
 static func _process_frames(tree: SceneTree, count: int) -> void:

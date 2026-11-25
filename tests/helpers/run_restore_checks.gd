@@ -180,12 +180,116 @@ static func run_deferred_writes(s: TestSuite, directory: String) -> void:
 	await _wait_deferred_status(s, statuses)
 	s.check(statuses == [RunSaveStore.WriteStatus.CANCELLED] and store.read()["progression"]["credits"] == 407,
 			"an ordinary draft cannot overwrite a later durable story result")
+	statuses.clear()
+	draft["progression"]["credits"] = 408
+	var primary_checksum := FileAccess.get_sha256(store.path)
+	var backup_checksum := FileAccess.get_sha256(store.path + ".bak")
+	_record_deferred(store, draft, s.runner.get_tree(), statuses)
+	s.check(await _wait_draft(s, store), "the outgoing save has a private draft before publication")
+	draft["progression"]["credits"] = 999
+	var tampered := FileAccess.open(store.get("_deferred_draft"), FileAccess.WRITE)
+	s.check(tampered != null, "test replaces the unpublished draft with different valid bytes")
+	if tampered != null:
+		tampered.store_string(RunSaveCodec.encode(draft))
+		tampered.close()
+	await _wait_deferred_status(s, statuses)
+	s.check(statuses == [RunSaveStore.WriteStatus.FAILED], "modified draft bytes cannot be published even when they form a valid save")
+	s.check(FileAccess.get_sha256(store.path) == primary_checksum and FileAccess.get_sha256(store.path + ".bak") == backup_checksum,
+			"tampered unpublished draft leaves the previous primary and backup byte-for-byte intact")
+	await _check_autosave_proof(s, directory, baseline)
 	GameState.start_new_run(GameState.difficulties[1])
 
 
+
+static func _check_autosave_proof(s: TestSuite, directory: String, baseline: Dictionary) -> void:
+	var store := ReadAuditStore.new(directory.path_join("verified_autosave.json"))
+	store.validator = RunSnapshot.prepare
+	s.check(store.write(baseline, true), "autosave proof fixture writes a canonical primary")
+	var owner := RefCounted.new()
+	var scope: WeakRef = weakref(owner)
+	var draft := baseline.duplicate(true)
+	var tree := s.runner.get_tree()
+	store.reads.clear()
+	draft["progression"]["credits"] = 501
+	s.check(await store.write_in_frames(draft, tree, Callable(), scope) == RunSaveStore.WriteStatus.SAVED
+			and store.reads == [store.path], "first scoped autosave validates an unproven primary and checks exact draft bytes")
+	store.reads.clear()
+	draft["progression"]["credits"] = 502
+	var previous := FileAccess.get_sha256(store.path)
+	s.check(await store.write_in_frames(draft, tree, Callable(), scope) == RunSaveStore.WriteStatus.SAVED
+			and store.reads.is_empty() and FileAccess.get_sha256(store.path + ".bak") == previous,
+			"unchanged validated primary and draft fingerprints avoid duplicate decoding")
+	var external := baseline.duplicate(true)
+	external["progression"]["credits"] = 601
+	var bytes := RunSaveCodec.encode(external)
+	_replace_bytes(store.path, bytes)
+	store.reads.clear()
+	draft["progression"]["credits"] = 503
+	s.check(await store.write_in_frames(draft, tree, Callable(), scope) == RunSaveStore.WriteStatus.SAVED
+			and store.reads == [store.path] and FileAccess.get_file_as_string(store.path + ".bak") == bytes,
+			"a valid external primary change is fully checked before backup rotation")
+	owner = RefCounted.new()
+	s.check(scope.get_ref() == null, "the previous room owner is no longer alive")
+	scope = weakref(owner)
+	store.reads.clear()
+	draft["progression"]["credits"] = 504
+	s.check(await store.write_in_frames(draft, tree, Callable(), scope) == RunSaveStore.WriteStatus.SAVED
+			and store.reads == [store.path], "a new live owner invalidates the previous primary proof")
+	store.validator = func(raw: Dictionary) -> Dictionary: return RunSnapshot.prepare(raw)
+	store.reads.clear()
+	draft["progression"]["credits"] = 505
+	s.check(await store.write_in_frames(draft, tree, Callable(), scope) == RunSaveStore.WriteStatus.SAVED
+			and store.reads == [store.path], "a replacement validator does not inherit a prior proof")
+	var statuses: Array[RunSaveStore.WriteStatus] = []
+	store.reads.clear()
+	draft["progression"]["credits"] = 506
+	_record_deferred(store, draft, tree, statuses, Callable(), scope)
+	s.check(await _wait_draft(s, store), "an already planned autosave awaits publication")
+	var temporary: String = store.get("_deferred_draft")
+	var backup := FileAccess.get_sha256(store.path + ".bak")
+	previous = FileAccess.get_sha256(store.path)
+	store.validator = func(raw: Dictionary) -> Dictionary:
+		if raw["progression"]["credits"] == 505:
+			return {"error": "the replacement validator rejects the previous primary"}
+		return RunSnapshot.prepare(raw)
+	await _wait_deferred_status(s, statuses)
+	s.check(statuses == [RunSaveStore.WriteStatus.SAVED] and store.reads == [temporary, store.path],
+			"a validator replaced after planning requires full checks of both draft and prior primary")
+	s.check(FileAccess.get_sha256(store.path + ".bak") == backup and FileAccess.get_sha256(store.path + ".invalid") == previous,
+			"the now-invalid primary does not displace the intact backup")
+	statuses.clear()
+	draft["progression"]["credits"] = 507
+	_record_deferred(store, draft, tree, statuses, Callable(), scope)
+	s.check(await _wait_draft(s, store), "an external replacement can occur after planning")
+	var future := '{"version":999}'
+	_replace_bytes(store.path, future)
+	await _wait_deferred_status(s, statuses)
+	s.check(statuses == [RunSaveStore.WriteStatus.FAILED] and store.unknown_version
+			and FileAccess.get_file_as_string(store.path) == future and FileAccess.get_sha256(store.path + ".bak") == backup,
+			"a late future-version primary and its existing backup remain intact")
+
+
+class ReadAuditStore extends RunSaveStore:
+	var reads: Array[String] = []
+
+	func _init(slot: String) -> void:
+		super(slot)
+
+	func _read_file(candidate: String, fingerprint := false) -> Dictionary:
+		reads.append(candidate)
+		return super._read_file(candidate, fingerprint)
+
+
+static func _replace_bytes(path: String, text: String) -> void:
+	var file := FileAccess.open(path, FileAccess.WRITE)
+	assert(file != null)
+	file.store_string(text)
+	file.close()
+
+
 static func _record_deferred(store: RunSaveStore, draft: Dictionary, tree: SceneTree,
-		statuses: Array[RunSaveStore.WriteStatus], allowed := Callable()) -> void:
-	var status: RunSaveStore.WriteStatus = await store.write_in_frames(draft, tree, allowed)
+		statuses: Array[RunSaveStore.WriteStatus], allowed := Callable(), owner: WeakRef = null) -> void:
+	var status: RunSaveStore.WriteStatus = await store.write_in_frames(draft, tree, allowed, owner)
 	statuses.append(status)
 
 
