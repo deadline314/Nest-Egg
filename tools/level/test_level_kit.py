@@ -121,7 +121,7 @@ class HeightTests(unittest.TestCase):
 
         level_dir = Path(__file__).resolve().parents[2] / "data" / "levels"
         seen = set()
-        for level_path in sorted(level_dir.glob("ch[123]_*.tres")):
+        for level_path in sorted(level_dir.glob("ch[0-9]*_*.tres")):
             fields = {}
             for line in level_path.read_text(encoding="utf-8").splitlines():
                 if line.startswith(("display_name = ", "localized_names = ")):
