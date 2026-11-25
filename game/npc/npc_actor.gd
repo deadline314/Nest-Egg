@@ -300,6 +300,7 @@ func _present_talk(index: int, scene: StringName, once: bool) -> bool:
 	if data.kind == NpcData.Kind.PERSON:
 		_space_player(player)
 	_talking = true
+	queue_redraw()  # The world is about to pause for the dialogue.
 	_presentation_index = index
 	_durable_completed = false
 	_prompt.hide()  # gameplay暫停後WorldPrompt不會再淡出，先同步隱藏避免重複互動提示。
@@ -311,6 +312,7 @@ func _present_talk(index: int, scene: StringName, once: bool) -> bool:
 	_durable_completed = false
 	_presentation_index = -1
 	_talking = false
+	queue_redraw()
 	if is_instance_valid(_prompt):
 		_prompt.show()
 	if _actor != null and is_instance_valid(_actor):
@@ -413,6 +415,10 @@ func _on_body_exited(body: Node2D) -> void:
 		Music.set_safe(self, false)
 
 
+func _shows_first_talk_cue() -> bool:
+	return data.kind == NpcData.Kind.PERSON and talk_count == 0 and not _talking
+
+
 func _draw() -> void:
 	if data.kind == NpcData.Kind.OBJECT:
 		if _actor == null or _actor.rig == null:
@@ -422,7 +428,7 @@ func _draw() -> void:
 	if _actor == null:
 		draw_rect(Rect2(-6, -34, 12, 34), Color(Palette.UI_PANEL, 0.9))
 		draw_rect(Rect2(-6, -34, 12, 34), Palette.CYAN_DIM, false, 1.0)
-	if talk_count == 0:
+	if _shows_first_talk_cue():
 		var bob := 0.0 if Settings.get_reduce_ui_motion() else sin(_time * 3.0) * BUBBLE_BOB
 		draw_set_transform(_bubble_pos + Vector2(-BUBBLE_SIZE.x * 0.5, -BUBBLE_SIZE.y * 0.8 + bob))
 		draw_colored_polygon(_bubble_shape, UiTheme.PANEL_BODY)

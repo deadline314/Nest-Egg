@@ -506,6 +506,13 @@ func _test_conversation() -> void:
 	await _stand_next_to(level, npc)
 	# 開始對話：遊戲暫停、對話框演出，逐句推進後結束。
 	var credits_before := Progression.credits
+	check(npc._shows_first_talk_cue(), "an unread conversation advertises its world cue before interaction")
+	npc._talk()
+	await frames(2)
+	check(not npc._shows_first_talk_cue(), "the cue yields to the open dialogue even before the first talk is recorded")
+	Story.reset_active_presentation(&"leave")
+	await frames(2)
+	check(npc._shows_first_talk_cue() and npc.talk_count == 0, "leaving an unread dialogue brings back the first talk cue")
 	npc._talk()
 	await frames(2)
 	check(runner.get_tree().paused and Story.is_cinematic_active(), "a conversation pauses the game and opens the dialogue box")
@@ -523,6 +530,7 @@ func _test_conversation() -> void:
 	await frames(2)
 	check(not runner.get_tree().paused and not Story.is_cinematic_active(), "the game resumes after the conversation")
 	check(npc.talk_count == 1, "a finished conversation is counted")
+	check(not npc._shows_first_talk_cue(), "a completed first conversation clears the world cue")
 	check(Progression.credits == credits_before + 100, "the first conversation gives its credits (%d)" % (Progression.credits - credits_before))
 	check(npc.current_talk_index() == 1, "the next visit uses the later conversation")
 	# 同一段場景可以重複對話（不受「看過就不再播」限制）。
