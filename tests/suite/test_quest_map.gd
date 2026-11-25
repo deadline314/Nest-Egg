@@ -2,6 +2,10 @@ class_name QuestMapSuite
 extends TestSuite
 ## 資料接點與導覽實測；樣本任務不代表第一章主流程已驗收。
 
+# Map metadata enumerates these files at build time; staged deletions still select this suite.
+# changed-test-inputs: data/levels/*.tres data/levels/*.json data/npcs/*.tres data/props/*.tres data/enemies/*.tres
+# changed-test-inputs: data/story_items/*.tres data/weapons/*.tres data/throwables/*.tres data/consumables/*.tres data/shops/*.tres data/vehicles/*.tres
+
 const FIXTURE := "res://tests/fixtures/navigation/catalog.json"
 const PAWN := "res://data/levels/ch1_pawnshop.tres"
 const ROOF := "res://data/levels/ch1_rooftop.tres"
