@@ -16,21 +16,40 @@ class Definitions:
 	func for_area(path: String, current: LevelData) -> Dictionary:
 		if _by_path.has(path):
 			return _by_path[path]
-		var data := current if current != null and current.resource_path == path else LevelCatalog.load_level(path)
-		var entry := {"id": String(data.id), "definition": MapLayoutMigration.read(data)} if data != null else {}
+		var entry: Dictionary
+		if current != null and current.resource_path == path:
+			entry = {"id": String(current.id), "definition": MapLayoutMigration.read(current)}
+		else:
+			entry = MapLayoutMigration.describe_area(path)
 		_by_path[path] = entry
 		return entry
 
 
+## Offscreen migration needs the live map document, not the area's scripts and assets.
+static func describe_area(path: String) -> Dictionary:
+	var fields := LevelCatalog.layout_fields(path)
+	if not fields.is_empty():
+		var definition := _read_layout(fields["layout_path"], int(fields["height"]), int(fields["tile_size"]))
+		return {"id": fields["id"], "definition": definition}
+	var data := RunSaveCodec.resource(path, "level", "res://data/levels/") as LevelData
+	return {"id": String(data.id), "definition": read(data)} if data != null else {}
+
+
 static func read(data: LevelData) -> Dictionary:
-	if data == null or data.layout_path.is_empty():
+	if data == null:
 		return {"revision": 1}
-	var json := load(data.layout_path) as JSON if ResourceLoader.exists(data.layout_path) else null
+	return _read_layout(data.layout_path, data.height, data.tile_size)
+
+
+static func _read_layout(layout_path: String, height: int, tile_size: int) -> Dictionary:
+	if layout_path.is_empty():
+		return {"revision": 1}
+	var json := load(layout_path) as JSON if ResourceLoader.exists(layout_path) else null
 	if json == null or not json.data is Dictionary:
 		return {"revision": 1}  # Existing LevelBuilder owns missing/invalid map diagnostics.
 	var raw: Dictionary = json.data
 	var revision: Variant = raw.get("layout_revision", 1)
-	var where := data.layout_path + "/layout_revision"
+	var where := layout_path + "/layout_revision"
 	if not RunSaveCodec.valid_version(revision) or revision > 2:
 		return {"error": where + "：不支援的版面修訂；原存檔保留"}
 	if revision == 1:
@@ -41,27 +60,27 @@ static func read(data: LevelData) -> Dictionary:
 	var offset: Variant = _pair(legacy.get("cell_offset"))
 	var cells: Variant = legacy.get("cells", {})
 	if offset == null or not cells is Dictionary or cells.size() > MAX_CELLS:
-		return {"error": data.layout_path + "/legacy_layout：位移或座標表無效"}
+		return {"error": layout_path + "/legacy_layout：位移或座標表無效"}
 	var segments: Variant = raw.get("segments")
-	if not segments is Array or segments.is_empty() or segments.size() > MAX_CELLS or data.height < 1 or data.height > MAX_COORDINATE:
-		return {"error": data.layout_path + "/segments：新區域尺寸無效"}
+	if not segments is Array or segments.is_empty() or segments.size() > MAX_CELLS or height < 1 or height > MAX_COORDINATE:
+		return {"error": layout_path + "/segments：新區域尺寸無效"}
 	var width := 0
 	for segment: Variant in segments:
 		if not segment is Array or segment.is_empty() or not segment[0] is String:
-			return {"error": data.layout_path + "/segments：新區域寬度無效"}
+			return {"error": layout_path + "/segments：新區域寬度無效"}
 		width += segment[0].length()
 	if width < 1 or width > MAX_COORDINATE:
-		return {"error": data.layout_path + "/segments：新區域寬度超限"}
+		return {"error": layout_path + "/segments：新區域寬度超限"}
 	var mapped: Dictionary = {}
 	for key: Variant in cells:
 		var source: Variant = _cell(key)
 		var target: Variant = _pair(cells[key])
-		if source == null or target == null or target.x < 0 or target.y < 0 or target.x >= width or target.y >= data.height:
-			return {"error": "%s/legacy_layout/cells/%s：座標無效" % [data.layout_path, str(key).left(80)]}
+		if source == null or target == null or target.x < 0 or target.y < 0 or target.x >= width or target.y >= height:
+			return {"error": "%s/legacy_layout/cells/%s：座標無效" % [layout_path, str(key).left(80)]}
 		if key != "%d,%d" % [source.x, source.y]:
-			return {"error": "%s/legacy_layout/cells/%s：座標不是標準格式" % [data.layout_path, key]}
+			return {"error": "%s/legacy_layout/cells/%s：座標不是標準格式" % [layout_path, key]}
 		mapped[key] = target
-	return {"revision": 2, "offset": offset, "cells": mapped, "tile": maxi(4, data.tile_size), "where": data.layout_path}
+	return {"revision": 2, "offset": offset, "cells": mapped, "tile": maxi(4, tile_size), "where": layout_path}
 
 
 static func area(raw: Dictionary, definition: Dictionary) -> Dictionary:

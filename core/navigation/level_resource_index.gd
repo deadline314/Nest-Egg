@@ -3,12 +3,13 @@ extends RefCounted
 
 const DIRECTORY := "res://data/levels"
 const MANIFEST := "res://data/navigation/level_index.json"
-const FORMAT := 1
+const FORMAT := 2
 
 static var _indexed := false
 static var _files: PackedStringArray
 static var _areas: Dictionary[StringName, String] = {}
 static var _chapters: Dictionary[StringName, PackedStringArray] = {}
+static var _layouts: Dictionary[String, Dictionary] = {}
 
 
 static func saved_paths(areas: Dictionary, checkpoint: String) -> PackedStringArray:
@@ -28,6 +29,12 @@ static func chapter_paths(chapter: StringName) -> PackedStringArray:
 	return _chapters.get(chapter, PackedStringArray())
 
 
+## Lightweight authored inputs for save migration and exploration snapshots.
+static func layout_fields(path: String) -> Dictionary:
+	_refresh()
+	return _layouts.get(path, {})
+
+
 static func load_level(path: String) -> LevelData:
 	var data := RunSaveCodec.resource(path, "level", DIRECTORY + "/") as LevelData
 	if data == null:
@@ -39,8 +46,10 @@ static func authored_manifest() -> Dictionary:
 	var levels: Array[Dictionary] = []
 	for resource in ResourceCatalog.load_dir(DIRECTORY, LevelData, "LevelCatalog"):
 		var data := resource as LevelData
+		# Match the numeric type used by Godot's JSON parser.
 		levels.append({"id": String(data.id), "chapter": String(data.chapter),
-				"file": data.resource_path.get_file(), "sha256": FileAccess.get_sha256(data.resource_path)})
+				"file": data.resource_path.get_file(), "sha256": FileAccess.get_sha256(data.resource_path),
+				"layout_path": data.layout_path, "tile_size": float(data.tile_size), "height": float(data.height)})
 	return {"version": FORMAT, "levels": levels}
 
 
@@ -52,6 +61,7 @@ static func _refresh() -> void:
 	_files = files
 	_areas.clear()
 	_chapters.clear()
+	_layouts.clear()
 	var manifest := _read_manifest(files)
 	if manifest.is_empty():
 		push_warning("[LevelCatalog] %s 已過期或無法讀取，直接驗證關卡資料。" % MANIFEST)
@@ -59,6 +69,7 @@ static func _refresh() -> void:
 	for entry: Dictionary in manifest["levels"]:
 		var path := DIRECTORY.path_join(entry["file"])
 		_areas[StringName(entry["id"])] = path
+		_layouts[path] = entry
 		var chapter := StringName(entry["chapter"])
 		var paths: PackedStringArray = _chapters.get(chapter, PackedStringArray())
 		paths.append(path)
@@ -82,6 +93,9 @@ static func _read_manifest(files: PackedStringArray) -> Dictionary:
 	var editor := OS.has_feature("editor")
 	for item: Variant in raw["levels"]:
 		if not item is Dictionary or not item.get("file") is String or not item.get("id") is String or not item.get("chapter") is String:
+			return {}
+		if not item.get("layout_path") is String or not RunSaveCodec.valid_version(item.get("tile_size")) \
+				or not RunSaveCodec.valid_version(item.get("height")):
 			return {}
 		var file: String = item["file"]
 		var id: String = item["id"]

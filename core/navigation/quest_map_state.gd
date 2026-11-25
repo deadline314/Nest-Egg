@@ -128,11 +128,10 @@ func snapshot() -> Dictionary:
 		paths[key.get_slice("@", 0)] = true
 	var versions: Dictionary = {}
 	for path: String in paths:
-		var data := RunSaveCodec.resource(path, "level", "res://data/levels/") as LevelData
-		if data != null:
-			var definition := MapLayoutMigration.read(data)
-			if not definition.has("error") and definition["revision"] > 1:
-				versions[path] = definition["revision"]
+		var area := MapLayoutMigration.describe_area(path)
+		var definition: Dictionary = area.get("definition", {})
+		if definition.get("revision", 1) > 1:
+			versions[path] = definition["revision"]
 	if not versions.is_empty():
 		result["layout_revisions"] = versions
 	return result

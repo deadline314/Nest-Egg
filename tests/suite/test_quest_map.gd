@@ -22,6 +22,7 @@ func run() -> void:
 	_test_sparse_restore(catalog, maps)
 	_test_saved_area_revision_index()
 	_test_level_manifest_matches()
+	_test_offscreen_layout_metadata()
 	_test_guidance_metadata()
 	await _test_terrain_cache(catalog, maps)
 	await _test_ui(catalog, maps)
@@ -99,6 +100,16 @@ func _test_guidance_metadata() -> void:
 						and markers[i]["cell"] == original_markers[i]["cell"]
 						and guidance.marker_text(markers[i], {}, "en") == full.marker_text(original_markers[i], {}, "en"),
 						"guidance preserves marker position and copy for %s, marker %d" % [path, i])
+
+
+func _test_offscreen_layout_metadata() -> void:
+	var catalog = preload("res://core/navigation/level_resource_index.gd")
+	for level: LevelData in ResourceCatalog.load_dir(catalog.DIRECTORY, LevelData, "QuestMapSuite"):
+		var entry := MapLayoutMigration.describe_area(level.resource_path)
+		check(entry.get("id") == String(level.id) and entry.get("definition") == MapLayoutMigration.read(level),
+				"offscreen save migration uses the same authored geometry for " + level.resource_path)
+	check(MapLayoutMigration.describe_area("res://data/levels/test_area_bad_missing.tres").is_empty(),
+			"an unrecognized area cannot add geometry to a save")
 
 
 func _test_saved_area_revision_index() -> void:
