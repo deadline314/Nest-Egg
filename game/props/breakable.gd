@@ -12,6 +12,7 @@ const FLASH_TIME := 0.12
 const EXPLOSION_DELAY := 0.12
 const HURTBOX_PADDING := 4.0
 const PROMPT_RADIUS := 72.0
+const SweepWarning := preload("res://game/props/sweep_warning.gd")
 
 var data: BreakableData
 ## 所在格（腳底那格），狀態 key 與掉落亂數的種子。
@@ -31,6 +32,7 @@ var _prompt: WorldPrompt
 var _wall_art: Sprite2D
 var _body_art: Sprite2D
 var _body_id: StringName
+var _sweep_finished := false
 
 
 func configure(p_data: BreakableData, p_cell: Vector2i, tile_size: int) -> void:
@@ -80,6 +82,30 @@ func _ready() -> void:
 		_prompt.offset = Vector2(0, -size_px.y - 10.0)
 		add_child(_prompt)
 	add_to_group(WorldState.GROUP)
+	if not data.sweep_preview.is_empty() and not data.sweep_result.is_empty():
+		hurtbox.enabled = false
+		var warning := SweepWarning.new()
+		warning.name = &"SweepWarning"
+		warning.scene_id = data.sweep_preview
+		warning.size = size_px
+		add_child(warning)
+		GameState.flag_changed.connect(_on_sweep_committed)
+		_on_sweep_committed(data.sweep_result, GameState.get_flag(data.sweep_result, false))
+
+
+func _on_sweep_committed(id: StringName, value: Variant) -> void:
+	if id != data.sweep_result or value != true or _sweep_finished:
+		return
+	_sweep_finished = true
+	restore_state(true)
+	if _body_art != null:
+		_body_art.hide()
+	if _wall_art != null:
+		_wall_art.hide()
+	_rim.hide()
+	# Keep a faint mark where a solid object used to stand.
+	show()
+	queue_redraw()
 
 
 func _process(delta: float) -> void:
@@ -188,6 +214,9 @@ func _draw() -> void:
 	if data == null:
 		return
 	var rect := Rect2(Vector2(-size_px.x * 0.5, -size_px.y), size_px)
+	if _sweep_finished:
+		draw_rect(rect, Color(0.68, 0.72, 0.77, 0.24), false, 1.0)
+		return
 	match data.look:
 		BreakableData.Look.CRATE:
 			if _body_art == null:

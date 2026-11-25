@@ -46,7 +46,8 @@
   "ch4_shift_tip_known": false,
   "ch4_factory_batch_matched": false,
   "ch4_loader_rail_released": false,
-  "ch4_fixed_ground_marked": false
+  "ch4_fixed_ground_marked": false,
+  "ch4_demo_cover_cleared": false
  },
  "transactions": {},
  "derived_flags": {},
@@ -223,6 +224,38 @@
    "background_en": "The slip names the old factory. Pear knows which entrance is used at shift change.",
    "reward_ja": "工場内の安全な作業台が分かる。",
    "reward_en": "Locate the safe workbench inside the factory."
+  },
+  {
+   "id": "ch4_sweep_demonstration",
+   "kind": "main",
+   "title": "在固定地面試一次清掃線",
+   "background": "舊廠的清掃裝置會讓標記的掩體消失。",
+   "reward": "知道警示框和固定地面的位置。",
+   "complete_flag": "ch4_demo_cover_cleared",
+   "steps": [
+    {
+     "title": "在裝卸帶試一次清掃線。",
+     "complete_flag": "ch4_demo_cover_cleared",
+     "location": {
+      "level": "res://data/levels/ch4_factory_loading.tres",
+      "cell": [
+       71,
+       19
+      ]
+     },
+     "title_ja": "荷さばき場で清掃線を試運転する。",
+     "title_en": "Test the sweep line in the loading bay."
+    }
+   ],
+   "visible_flags": [
+    "ch4_fixed_ground_marked"
+   ],
+   "title_ja": "固定床から清掃線を試運転する",
+   "title_en": "Test the sweep line from fixed ground",
+   "background_ja": "旧工場の清掃装置は印が付いた遮蔽物を消す。",
+   "background_en": "The old factory's sweep removes marked cover.",
+   "reward_ja": "警告の枠と固定床の場所が分かる。",
+   "reward_en": "Learn to distinguish the warning frame from fixed ground."
   }
  ],
  "scenes": {
@@ -1232,6 +1265,86 @@
     "equals": true
    }
   },
+  "ch4_t_sweep_unready": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "先在工作臺確認腳下的地板，再開清掃裝置。",
+     "ja": "清掃装置を起動する前に、作業台で足元の床を確認する。",
+     "en": "Check the floor at the workbench before starting the sweep."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "ch4_fixed_ground_marked",
+     "equals": true
+    }
+   }
+  },
+  "ch4_t_demo_sweep": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "sfx",
+     "id": "telegraph",
+     "volume": -12
+    },
+    {
+     "do": "wait",
+     "time": 1.2
+    },
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "只清掉框內的測試箱。沿警示牌外的固定地板走。",
+     "ja": "枠の中の試験箱だけが消える。警告板のそばの固定床を通って。",
+     "en": "It clears the test crate inside the frame. Stay on the fixed floor by the warning sign."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch4_fixed_ground_marked",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch4_demo_cover_cleared",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch4_demo_cover_cleared",
+     "value": true
+    }
+   ],
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch4_t_sweep_return": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "原位只剩標記，腳下的固定地板還在。",
+     "ja": "跡だけが残った。足元の固定床はそのままだ。",
+     "en": "There's a mark where it stood. The fixed floor is still under me."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch4_demo_cover_cleared",
+    "equals": true
+   }
+  },
   "ch4_dispatch_old_k": {
    "mode": "dispatch",
    "routes": [
@@ -1676,6 +1789,54 @@
       ]
      },
      "target": "ch4_t_survey_floor"
+    }
+   ]
+  },
+  "ch4_dispatch_sweep_console": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "flag": "ch4_demo_cover_cleared",
+      "equals": true
+     },
+     "target": "ch4_t_sweep_return"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch4_fixed_ground_marked",
+          "equals": true
+         },
+         {
+          "not": {
+           "flag": "ch4_demo_cover_cleared",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch4_demo_cover_cleared",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch4_t_demo_sweep"
+    },
+    {
+     "when": {
+      "not": {
+       "flag": "ch4_fixed_ground_marked",
+       "equals": true
+      }
+     },
+     "target": "ch4_t_sweep_unready"
     }
    ]
   },

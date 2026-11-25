@@ -353,6 +353,41 @@
           }
         ]
       }
+    },
+    {
+      "id": "ch4_t_demo_sweep",
+      "source": "res://data/story/ch4_hollow.json",
+      "npc": "res://data/npcs/ch4_sweep_console.tres",
+      "levels": [
+        "res://data/levels/ch4_factory_loading.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "flag": "ch4_fixed_ground_marked",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch4_demo_cover_cleared",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch4_demo_cover_cleared",
+            "value": true
+          }
+        ]
+      }
     }
   ]
 }

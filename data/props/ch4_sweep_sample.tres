@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="BreakableData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/breakable_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"ch4_sweep_sample"
+display_name = "清掃測試箱"
+look = 0
+max_health = 50
+size_tiles = Vector2i(2, 2)
+color = Color(0.55, 0.44, 0.32, 1)
+sweep_preview = &"ch4_t_demo_sweep"
+sweep_result = &"ch4_demo_cover_cleared"

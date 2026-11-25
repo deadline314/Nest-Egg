@@ -23,6 +23,10 @@ enum Look {
 ## 大小（格）。以所在格的底邊中點為腳底。
 @export var size_tiles := Vector2i(2, 2)
 @export var color: Color = Color(0.45, 0.4, 0.34, 1.0)
+@export_group("Story Sweep")
+## An authored scene lights the target, then its committed flag removes the cover.
+@export var sweep_preview: StringName = &""
+@export var sweep_result: StringName = &""
 @export_group("Explosion")
 ## > 0 代表被破壞時爆炸，同時傷害敵人與玩家，也會引爆旁邊的油桶。
 @export var explosion_radius: float = 0.0
@@ -50,6 +54,10 @@ func validate() -> PackedStringArray:
 		problems.append("%s 的生命值必須至少 1" % id)
 	if size_tiles.x < 1 or size_tiles.y < 1:
 		problems.append("%s 的大小必須至少 1×1 格" % id)
+	if sweep_preview.is_empty() != sweep_result.is_empty():
+		problems.append("%s 的清掃預告場景與結果必須一起指定" % id)
+	if not sweep_result.is_empty() and (is_explosive() or credit_drop > 0 or not drops.is_empty() or health_drop_chance > 0.0):
+		problems.append("%s 的劇情清掃掩體必須是無爆炸、無掉落的物件" % id)
 	if is_explosive() and explosion_damage < 1:
 		problems.append("%s 會爆炸但爆炸傷害小於 1" % id)
 	for drop in drops:

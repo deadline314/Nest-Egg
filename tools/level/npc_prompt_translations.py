@@ -1,6 +1,7 @@
 """Localizations for authored world prompts in the formal chapter builders."""
 
 TRANSLATIONS = {
+    "試一次清掃線": ("Test the sweep line", "清掃線を試運転する"),
     "核對舊廠班表": ("Compare the shift list", "当番表を照合する"),
     "放開維修棘輪": ("Release the maintenance catch", "整備用の留め具を外す"),
     "查看清理線": ("Inspect the sweep line", "清掃線を確認する"),

@@ -46,7 +46,7 @@
       ".===.........................#",
       ".............................#",
       ".....====....................#",
-      ".................ⓦ...........#",
+      ".................ⓦ...ⓧ....Ƶ..#",
       "##############################",
       "##############################",
       "##############################",
@@ -57,6 +57,7 @@
     {"id": "abandoned_factory__press_machine", "x": 13, "ground": true},
     {"id": "abandoned_factory__cleaner_gear_case", "x": 60, "ground": true},
     {"id": "hazard_sign", "x": 65, "support": "wall", "ground": true},
-    {"id": "abandoned_factory__scrap_pile", "x": 67, "ground": true}
+    {"id": "abandoned_factory__scrap_pile", "x": 67, "ground": true},
+    {"id": "abandoned_factory__power_panel", "x": 71, "y": 15, "support": "wall"}
   ]
 }

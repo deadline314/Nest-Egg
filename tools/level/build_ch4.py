@@ -21,6 +21,7 @@ POINTS = {
     "shift_board": ("factory_approach", 58, GROUND - 1),
     "rail_release": ("factory_loading", 37, 13),
     "workbench": ("factory_loading", 67, GROUND - 1),
+    "sweep_console": ("factory_loading", 71, GROUND - 1),
 }
 PEOPLE = {
     "old_k": ("老 K", "old_k", "wipe_hands"),
@@ -31,8 +32,9 @@ STATIONS = {
     "linden": "棠", "desk_demo": "桌緣示範", "voice_demo": "收音示範",
     "cabinet": "床頭櫃", "staff_switch": "內廊開門鍵",
     "shift_board": "舊廠班表", "rail_release": "維修棘輪", "workbench": "裝卸帶工作臺",
+    "sweep_console": "清掃試車台",
 }
-GLYPHS = dict(zip(POINTS, "ⓞⓔⓣⓓⓥⓒⓢⓐⓑⓡⓦ", strict=True))
+GLYPHS = dict(zip(POINTS, "ⓞⓔⓣⓓⓥⓒⓢⓐⓑⓡⓦⓧ", strict=True))
 
 
 def area_path(area):
@@ -97,6 +99,7 @@ def _configure():
         "shift_board": "核對舊廠班表",
         "rail_release": "放開維修棘輪",
         "workbench": "查看清理線",
+        "sweep_console": "試一次清掃線",
     }
     kit.NPCS = {}
     kit.RES = {}
@@ -107,6 +110,7 @@ def _configure():
                               loop=loop, facing=-1, kind=0 if binding in PEOPLE else 1,
                               prompt=f"{{interact}} {prompts[binding]}", talks=[(f"ch4_dispatch_{binding}", 0)])
         kit.RES[glyph] = f"res://data/npcs/{ident}.tres"
+    kit.RES["Ƶ"] = "res://data/props/ch4_sweep_sample.tres"
     kit.THEMES = THEMES
     kit.STORY = {}
     kit.placement_id = lambda ident: "ch1_pawnshop" if ident == "pawnshop" else f"ch4_{ident}"
@@ -212,6 +216,7 @@ def _factory_loading():
     area.stand(4, "Ⅻ")
     area.stand(7, "P")
     area.stand(12, "C")
+    area.stand(76, "Ƶ")
     area.platform(19, 22, 18)
     area.platform(24, 27, 16)
     area.platform(29, 48, 14)
@@ -222,6 +227,7 @@ def _factory_loading():
     area.prop("abandoned_factory__cleaner_gear_case", 60)
     area.prop("hazard_sign", 65, y=15, support="wall")
     area.prop("abandoned_factory__scrap_pile", 67)
+    area.prop("abandoned_factory__power_panel", 71, y=15, support="wall")
     for x in (10, 25, 45, 58, 72):
         area.lamp(x, 5)
     area.features = {"landmark": "入口可見的鏽蝕沖壓機。", "loop": "維修棘輪通往外廊上層。",

@@ -31,6 +31,7 @@ TIP = "ch4_shift_tip_known"
 MATCHED = "ch4_factory_batch_matched"
 RAIL = "ch4_loader_rail_released"
 FLOOR = "ch4_fixed_ground_marked"
+SWEEP = "ch4_demo_cover_cleared"
 
 
 def _opening(source, dispatch):
@@ -186,6 +187,21 @@ def _factory_approach(source, dispatch):
     ), when=flag(FLOOR), mode="animated")
 
 
+def _sweep_demo(source, dispatch):
+    dispatch["sweep_console"] = ["ch4_t_sweep_return", "ch4_t_demo_sweep", "ch4_t_sweep_unready"]
+    source.add("ch4_t_sweep_unready", "08", (
+        ("rin", "先在工作臺確認腳下的地板，再開清掃裝置。"),
+    ), when=negate(flag(FLOOR)), mode="animated")
+    source.add("ch4_t_demo_sweep", "08", steps=(
+        sfx("telegraph", -12),
+        wait(1.2),
+        say("lamp", "只清掉框內的測試箱。沿警示牌外的固定地板走。"),
+    ), when=all_of(flag(FLOOR), negate(flag(SWEEP))), mode="animated", completion=(set_flag(SWEEP),))
+    source.add("ch4_t_sweep_return", "08", (
+        ("rin", "原位只剩標記，腳下的固定地板還在。"),
+    ), when=flag(SWEEP), mode="animated")
+
+
 def build_spec():
     source = ProductionSource(flag_defaults={})
     source.speakers = {
@@ -203,6 +219,7 @@ def build_spec():
     _opening(source, dispatch)
     _ward(source, dispatch)
     _factory_approach(source, dispatch)
+    _sweep_demo(source, dispatch)
     route_back_to_choices(source, dispatch, "ch4")
     source.bindings.update({
         binding: Binding("npc" if binding in ("old_k", "egret", "ali") else "object", CHAPTER,
@@ -234,6 +251,13 @@ def build_spec():
          QuestStep("在舊廠外門核對公用取件聯。", MATCHED, "shift_board"),
          QuestStep("到裝卸帶確認工作邊界。", FLOOR, "workbench")),
         visible_flags=(COLLECTED,), completion_requires_steps=True,
+    ))
+    source.quests.append(Quest(
+        "ch4_sweep_demonstration", "main", "在固定地面試一次清掃線",
+        "舊廠的清掃裝置會讓標記的掩體消失。",
+        "知道警示框和固定地面的位置。", SWEEP,
+        (QuestStep("在裝卸帶試一次清掃線。", SWEEP, "sweep_console"),),
+        visible_flags=(FLOOR,),
     ))
     return ChapterSpec(CHAPTER_INFO, source, "ch4", dispatch, POINTS)
 

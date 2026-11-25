@@ -1,15 +1,17 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=11 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=13 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
-[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
-[ext_resource type="Resource" path="res://data/npcs/ch4_rail_release.tres" id="3_ch4_rail_release"]
-[ext_resource type="Resource" path="res://data/npcs/ch4_workbench.tres" id="4_ch4_workbench"]
-[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="5_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/ch4_loading_bay.tres" id="6_ch4_loading_bay"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch4_factory_loading.tres" id="7_ch4_factory_loading"]
+[ext_resource type="Resource" path="res://data/props/ch4_sweep_sample.tres" id="2_ch4_sweep_sample"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="3_portal_data"]
+[ext_resource type="Resource" path="res://data/npcs/ch4_rail_release.tres" id="4_ch4_rail_release"]
+[ext_resource type="Resource" path="res://data/npcs/ch4_workbench.tres" id="5_ch4_workbench"]
+[ext_resource type="Resource" path="res://data/npcs/ch4_sweep_console.tres" id="6_ch4_sweep_console"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="7_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/ch4_loading_bay.tres" id="8_ch4_loading_bay"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch4_factory_loading.tres" id="9_ch4_factory_loading"]
 
 [sub_resource type="Resource" id="Resource_0"]
-script = ExtResource("2_portal_data")
+script = ExtResource("3_portal_data")
 id = &"loading_approach"
 target_level = "res://data/levels/ch4_factory_approach.tres"
 target_portal = &"approach_loading"
@@ -20,7 +22,7 @@ height = 68
 style = "door"
 
 [sub_resource type="Resource" id="Resource_1"]
-script = ExtResource("2_portal_data")
+script = ExtResource("3_portal_data")
 id = &"loading_rail"
 target_level = "res://data/levels/ch4_factory_approach.tres"
 target_portal = &"approach_rail"
@@ -34,10 +36,10 @@ height = 68
 style = "door"
 
 [sub_resource type="Resource" id="Resource_2"]
-script = ExtResource("5_lighting_zone")
+script = ExtResource("7_lighting_zone")
 start_tile = 0
 blend_tiles = 12
-profile = ExtResource("6_ch4_loading_bay")
+profile = ExtResource("8_ch4_loading_bay")
 
 [resource]
 script = ExtResource("1_level_data")
@@ -47,17 +49,19 @@ localized_names = Dictionary[String, String]({"en": "Old Factory Loading Bay", "
 tile_size = 16
 height = 24
 legend = Dictionary[String, Resource]({
+"Ƶ": ExtResource("2_ch4_sweep_sample"),
 "Ⅻ": SubResource("Resource_0"),
 "Ⅽ": SubResource("Resource_1"),
-"ⓡ": ExtResource("3_ch4_rail_release"),
-"ⓦ": ExtResource("4_ch4_workbench")
+"ⓡ": ExtResource("4_ch4_rail_release"),
+"ⓦ": ExtResource("5_ch4_workbench"),
+"ⓧ": ExtResource("6_ch4_sweep_console")
 })
 hints = PackedStringArray()
 chapter = &"ch4_hollow"
 persistent_world = true
 show_chapter_card = false
-environment = ExtResource("7_ch4_factory_loading")
+environment = ExtResource("9_ch4_factory_loading")
 layout_path = "res://data/levels/ch4_factory_loading_map.json"
-lighting_zones = Array[ExtResource("5_lighting_zone")]([SubResource("Resource_2")])
+lighting_zones = Array[ExtResource("7_lighting_zone")]([SubResource("Resource_2")])
 story_triggers = PackedStringArray()
 death_credit_cap = 250
