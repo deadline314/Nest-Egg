@@ -1,6 +1,7 @@
 extends RefCounted
 ## Contract-only writer unit; separate native probe uses actual sensor and buttons.
 const VAULT := "res://data/levels/ch1_vault.tres"
+const Bundle := preload("res://core/story_install_bundle.gd")
 class Context extends Node:
 	var _level_path := VAULT
 	var _chapter_complete := false
@@ -47,7 +48,38 @@ static func run(s: TestSuite, directory: String) -> void:
 	s.check(refused.get("reload_original", false), "uncommitted pickup repair requests original progress instead of an impossible retry")
 	s.check(original == FileAccess.get_file_as_bytes(context._run_store.path) and invalid_live == var_to_bytes([GameState._install_source(), Story._install_source(), StoryItems.snapshot(), Progression.snapshot()]), "pickup repair refusal preserves exact disk and every live owner")
 	Progression.credits = credits
+	_check_source_seal(s)
 	gate.free()
 	context.free()
 	await s.end_level(level)
 	Story.auto_skip = previous_auto
+
+
+static func _check_source_seal(s: TestSuite) -> void:
+	var world: Bundle.SourceSeal = Bundle.capture_world_pickup_source()["data"]
+	var scripted: Bundle.SourceSeal = Bundle._capture_source()["data"]
+	var original := Story._scenes
+	var id: String = original.keys().front()
+	var changed := original.duplicate()
+	var edited: Dictionary = original[id].duplicate()
+	edited["pickup_seal_test_body"] = true
+	changed[id] = edited
+	Story._scenes = changed
+	s.check(world.matches() and not scripted.matches(), "only a physical pickup ignores a change to an authorized scene's body")
+	changed.erase(id)
+	s.check(not world.matches(), "pickup source proof still rejects a scene identity change")
+	Story._scenes = original
+	var request := Story._request_serial
+	Story._request_serial = request + 1
+	s.check(not world.matches(), "pickup source proof keeps the exact active request state")
+	Story._request_serial = request
+	var credits := Progression.credits
+	Progression.credits = credits + 1
+	s.check(not world.matches(), "pickup source proof keeps the complete wallet state")
+	Progression.credits = credits
+	var held := StoryItems._held
+	StoryItems._held = held.duplicate()
+	StoryItems._held[&"ch1_data_disk"] = true
+	s.check(not world.matches(), "pickup source proof keeps all item custody")
+	StoryItems._held = held
+	s.check(world.matches() and scripted.matches(), "restoring source owners recovers both original exact proofs")

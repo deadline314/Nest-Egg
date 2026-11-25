@@ -111,15 +111,17 @@ static func _prepare(state: Variant, progression: Variant, story: Variant, diffi
 class SourceSeal:
 	var _tree: Dictionary
 	var _bytes: PackedByteArray
+	var _scene_ids_only: bool
 
-	func _init(source: Dictionary) -> void:
+	func _init(source: Dictionary, scene_ids_only: bool) -> void:
+		_scene_ids_only = scene_ids_only
 		_tree = source.duplicate(true)
 		_bytes = var_to_bytes(source)
 
 	func error_if_stale() -> String:
 		if Progression._story_transaction_busy:
 			return "install/source story transaction is busy"
-		var current := StoryInstallBundle._source_state()
+		var current := StoryInstallBundle._source_state(_scene_ids_only)
 		# The initial tree has bounded depth and size. Native structural equality
 		# checks the current types and shape before the exact byte comparison.
 		if current == _tree and var_to_bytes(current) == _bytes:
@@ -133,19 +135,30 @@ class SourceSeal:
 		return error_if_stale().is_empty()
 
 
-static func _source_state() -> Dictionary:
+static func _source_state(scene_ids_only: bool) -> Dictionary:
+	var story := Story._install_source()
+	if scene_ids_only:
+		# _install_source supplies a reference to the registry. Replace only this
+		# snapshot entry before validating or copying it.
+		story["scenes"] = (story["scenes"] as Dictionary).keys()
 	return {"game": GameState._install_source(), "progression": Progression.snapshot(),
-		"items": StoryItems.snapshot(), "story": Story._install_source()}
+		"items": StoryItems.snapshot(), "story": story}
 
 
-static func _capture_source() -> Dictionary:
+## A physical pickup validates stored scene identities and running requests. It
+## never interprets dialogue bodies to authorize an acquisition or payment.
+static func capture_world_pickup_source() -> Dictionary:
+	return _capture_source(true)
+
+
+static func _capture_source(scene_ids_only := false) -> Dictionary:
 	if Progression._story_transaction_busy:
 		return {"error": "install/source story transaction is busy"}
-	var source := _source_state()
+	var source := _source_state(scene_ids_only)
 	var errors := RunSaveCodec.validate_tree(source)
 	if not errors.is_empty():
 		return {"error": "install/source " + errors[0]}
-	var seal := SourceSeal.new(source)
+	var seal := SourceSeal.new(source, scene_ids_only)
 	if seal._bytes.is_empty():
 		return {"error": "install/source could not encode the bounded owner tree"}
 	return {"data": seal}
