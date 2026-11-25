@@ -11,6 +11,7 @@ func run() -> void:
 	_test_lit_coverage()
 	_test_backdrop()
 	_test_theme()
+	_test_platform_deck_structure()
 	_test_missing_texture()
 	_test_sky()
 	_test_backdrop_import_scale()
@@ -1864,3 +1865,53 @@ func _test_texture_release() -> void:
 			"換區域後，預載裡不屬於新區域的貼圖放掉，用量跟著扣掉")
 	AssetPrefetch.clear()
 	await frames(1)
+
+func _test_platform_deck_structure() -> void:
+	var layout := LevelLayout.new()
+	layout.width = 28
+	layout.height = 9
+	layout.rows = PackedStringArray([
+		".........#..................",
+		"............................",
+		"............................",
+		"..=......=.........====....=",
+		"............................",
+		"............................",
+		"............................",
+		"...................####.....",
+		"............................",
+	])
+	layout.platform_rects.assign([
+		Rect2i(2, 3, 1, 1), Rect2i(9, 3, 1, 1), Rect2i(19, 3, 4, 1), Rect2i(27, 3, 1, 1),
+	])
+	var walls := BackWallGeometry.new()
+	walls.support_rects.append(Rect2(0, 40, 100, 70))
+	var terrain := Terrain.new()
+	terrain.wall_geometry = walls
+	terrain.build(layout)
+
+	var platforms := terrain.get_node("Platforms") as StaticBody2D
+	check(platforms.collision_layer == Layers.PLATFORM and platforms.get_child_count() == 4,
+			"decorative supports add no platform collision bodies")
+	for shape: CollisionShape2D in platforms.get_children():
+		var bounds := shape.shape as RectangleShape2D
+		check(shape.one_way_collision and bounds.size.y == 6.0 and shape.position.y - bounds.size.y * 0.5 == 48.0,
+				"the landing line and thin one-way shape still match the original cells")
+
+	var deck := terrain._platform_decks
+	check(deck._decks_by_chunk[0].has(Rect2(304, 48, 64, 6)) and deck._decks_by_chunk[1].has(Rect2(304, 48, 64, 6)),
+			"a deck spanning two chunks retains a continuous deck and shared boundary")
+	var left_mounts: Array = deck._supports_by_chunk.get(0, [])
+	var right_mounts: Array = deck._supports_by_chunk.get(1, [])
+	check(left_mounts.size() == 3 and right_mounts.size() == 2, "each visible anchor is owned by exactly one chunk")
+	if left_mounts.size() == 3 and right_mounts.size() == 2:
+		var wall_mount: Variant = left_mounts[0]
+		var ceiling_mount: Variant = left_mounts[1]
+		var post: Variant = left_mounts[2]
+		var suspended: Variant = right_mounts[1]
+		var support_kind := Terrain.PlatformDeck.SupportKind
+		check(wall_mount.kind == support_kind.WALL and wall_mount.end > wall_mount.top, "wall hardware covers the bracket's actual mount")
+		check(ceiling_mount.kind == support_kind.HANGER and ceiling_mount.end == 16.0, "a hanger meets the underside of the solid overhead")
+		check(post.kind == support_kind.POST and post.end == 112.0, "a post meets the top of solid ground")
+		check(suspended.kind == support_kind.HANGER and suspended.end == 0.0, "a span outside visible structure suspends beyond the frame")
+	terrain.free()

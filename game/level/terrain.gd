@@ -6,21 +6,12 @@ extends ChunkedDrawer
 const PANEL_PATH := "res://art/materials/metal_panel.png"
 ## 面板貼圖的邊長（像素）。實心矩形與區塊邊界都落在這個格線上，平鋪不會有接縫。
 const PANEL_TEXTURE_SIZE := 16
-## 吊索：後面沒有牆的平台用它吊著（顏色、亮邊與粗細）。
-const HANGER_COLOR := Color(0.07, 0.08, 0.12, 0.9)
-const HANGER_EDGE := Color(0.3, 0.34, 0.44, 0.55)
-## 上一層走道的頂面往下多少像素算它的底面。
-const HANGER_UNDER_PLATFORM := 8.0
-## 平台托架：大小、兩端內縮距離與中間的間隔（像素）。
-const BRACKET_SIZE := Vector2(7.0, 9.0)
-const BRACKET_INSET := 10.0
-const BRACKET_SPACING := 72.0
-const BRACKET_FILL := Color(0.09, 0.1, 0.14, 0.92)
-const BRACKET_EDGE := Color(0.32, 0.36, 0.46, 0.95)
+const PlatformDeck = preload("res://game/level/environment/platform_deck.gd")
 
 var _solid_rects: Array[Rect2] = []
 var _platform_rects: Array[Rect2] = []
-## 背牆的實際範圍，由關卡在 build 之前設定：平台後面有牆就畫托架，沒有牆就畫吊索。null 時一律畫托架。
+var _platform_decks := PlatformDeck.new()
+## 背牆幾何用來判斷平台能否在牆面固定。
 var wall_geometry: BackWallGeometry
 var _tile := 16
 var _panel: Texture2D
@@ -62,6 +53,7 @@ func build(layout: LevelLayout, theme: EnvironmentTheme = null, regions: Array[D
 		var top := Rect2(rect.position, Vector2(rect.size.x, 6.0))
 		_platform_rects.append(top)
 		platform_body.add_child(_make_shape(top, true))
+	_platform_decks.build(layout, theme, wall_geometry, _platform_rects)
 	build_chunks(Rect2(Vector2.ZERO, layout.pixel_size()))
 	# 亮邊自成一層，自發光；本體的頂面線改由它負責。
 	var edges := TerrainEdges.new()
@@ -107,8 +99,10 @@ func _make_occluder(rect: Rect2) -> LightOccluder2D:
 
 
 func _draw_chunk(canvas: CanvasItem, area: Rect2) -> void:
+	_platform_decks.draw_supports(canvas, area)
 	if _theme != null and not _theme.zones.is_empty():
 		_draw_themed_chunk(canvas, area)
+		_platform_decks.draw_decks(canvas, area, _material_texture)
 		return
 	for full in _solid_rects:
 		var rect := full.intersection(area)
@@ -122,16 +116,7 @@ func _draw_chunk(canvas: CanvasItem, area: Rect2) -> void:
 				canvas.draw_line(Vector2(x, rect.position.y + 3), Vector2(x, rect.end.y), Color(Palette.TERRAIN_EDGE, 0.5), 1.0)
 			x += _tile * 2.0
 		canvas.draw_rect(rect, Palette.TERRAIN_EDGE, false, 1.0)
-	for full in _platform_rects:
-		var rect := full.intersection(area)
-		if rect.size.x <= 0.0:
-			continue
-		canvas.draw_rect(Rect2(rect.position, Vector2(rect.size.x, 4)), Palette.PLATFORM)
-		var x := full.position.x + 4.0
-		while x < rect.end.x:
-			if x > rect.position.x:
-				canvas.draw_line(Vector2(x, rect.position.y + 4), Vector2(x - 3, rect.position.y + 9), Color(Palette.PLATFORM, 0.6), 1.0)
-			x += 8.0
+	_platform_decks.draw_decks(canvas, area, _material_texture)
 
 
 # ---------------------------------------------------------------------------
@@ -156,7 +141,6 @@ func _draw_themed_chunk(canvas: CanvasItem, area: Rect2) -> void:
 				_draw_piece(canvas, zone.material, Rect2(x, rect.position.y, next_x - x, rect.size.y), full)
 			x = next_x
 	_draw_regions(canvas, area)
-	_draw_themed_platforms(canvas, area)
 
 
 ## 把地圖 JSON 的覆蓋區（x0、x1、y0、y1 為格座標，material 為材質 id）換成材質資源；壞掉的略過並記錄。
@@ -192,78 +176,6 @@ func _draw_regions(canvas: CanvasItem, area: Rect2) -> void:
 					if piece.size.x > 0.0 and piece.size.y > 0.0:
 						_draw_piece(canvas, material, piece, run)
 					start = -1
-
-
-## 單向平台：用所在區段材質的頂面條，底下加一道陰影，讓「可以站」一眼看得出來。
-func _draw_themed_platforms(canvas: CanvasItem, area: Rect2) -> void:
-	for full in _platform_rects:
-		var rect := full.intersection(area)
-		if rect.size.x <= 0.0:
-			continue
-		var zone := _theme.zone_at(int(floor(rect.position.x / _tile)))
-		if zone == null or zone.material == null:
-			continue
-		var scale_factor := float(zone.material.texture_scale)
-		var top_h := zone.material.top_height
-		var dest := Rect2(rect.position, Vector2(rect.size.x, top_h))
-		canvas.draw_texture_rect_region(_material_texture(zone.material.top), dest,
-				Rect2(dest.position.x * scale_factor, 0.0, dest.size.x * scale_factor, top_h * scale_factor))
-		canvas.draw_rect(Rect2(rect.position.x, rect.position.y + top_h, rect.size.x, 2.0), Color(0, 0, 0, 0.45))
-	# 支撐另外走一輪：吊索會往上穿過別的區塊，不能只看平台本身落在哪一塊。
-	for full in _platform_rects:
-		var zone := _theme.zone_at(int(floor(full.position.x / _tile)))
-		if zone != null and zone.material != null:
-			_draw_platform_supports(canvas, full, area, zone.material.top_height)
-
-
-## 平台的支撐：兩端內縮各一處、中間每隔 BRACKET_SPACING 補一處。後面有牆的地方畫三角托架（架在牆面上），
-## 沒有牆的地方畫往上的吊索（吊在上方的結構或畫面外），懸空的平台才看得出是怎麼撐住的。
-func _draw_platform_supports(canvas: CanvasItem, full: Rect2, area: Rect2, top_h: float) -> void:
-	var inset := minf(BRACKET_INSET, full.size.x * 0.25)
-	var span := full.size.x - inset * 2.0
-	var count := maxi(2, int(ceil(span / BRACKET_SPACING)) + 1)
-	var y := full.position.y + top_h
-	for i in count:
-		var x := full.position.x + inset + span * float(i) / float(count - 1)
-		if x + BRACKET_SIZE.x < area.position.x or x - BRACKET_SIZE.x > area.end.x:
-			continue
-		if wall_geometry != null and not wall_geometry.covers(Rect2(x - 1.0, y + 1.0, 2.0, BRACKET_SIZE.y - 2.0)):
-			_draw_hanger(canvas, x, full.position.y, area)
-			continue
-		if y > area.end.y or y + BRACKET_SIZE.y < area.position.y:
-			continue
-		# 斜撐朝平台中間；最左與最右各朝內。
-		var lean := 1.0 if i * 2 < count else -1.0
-		canvas.draw_colored_polygon(PackedVector2Array([Vector2(x, y), Vector2(x + lean * BRACKET_SIZE.x, y),
-				Vector2(x, y + BRACKET_SIZE.y)]), BRACKET_FILL)
-		canvas.draw_line(Vector2(x + lean * BRACKET_SIZE.x, y + 0.5), Vector2(x, y + BRACKET_SIZE.y), BRACKET_EDGE, 1.0)
-		canvas.draw_rect(Rect2(x - 1.0, y, 2.0, BRACKET_SIZE.y), BRACKET_EDGE)
-
-
-## 吊索：從平台頂面往上到最近的實心地形或上一層走道的底面（沒有就到地圖頂端），只畫落在這一塊範圍內的那一段。
-func _draw_hanger(canvas: CanvasItem, x: float, platform_top: float, area: Rect2) -> void:
-	if x < area.position.x or x > area.end.x:
-		return
-	var column := clampi(int(x / _tile), 0, _layout.width - 1)
-	var top := 0.0
-	for row in range(int(platform_top / _tile) - 1, -1, -1):
-		var above := _layout.cell(column, row)
-		if above == LevelBuilder.SOLID:
-			top = float((row + 1) * _tile)
-			break
-		if above == LevelBuilder.PLATFORM:
-			# 上面還有一層走道：吊在它的底面，不穿過去。
-			top = float(row * _tile) + HANGER_UNDER_PLATFORM
-			break
-	var from := maxf(top, area.position.y)
-	var to := minf(platform_top, area.end.y)
-	if to <= from:
-		return
-	canvas.draw_rect(Rect2(x - 1.0, from, 2.0, to - from), HANGER_COLOR)
-	canvas.draw_rect(Rect2(x - 1.0, from, 1.0, to - from), HANGER_EDGE)
-	# 吊索與平台相接的扣環。
-	if platform_top <= area.end.y and platform_top - 3.0 >= area.position.y:
-		canvas.draw_rect(Rect2(x - 2.0, platform_top - 3.0, 4.0, 3.0), HANGER_COLOR)
 
 
 func _draw_piece(canvas: CanvasItem, material: TerrainMaterialData, piece: Rect2, full: Rect2) -> void:
