@@ -299,5 +299,30 @@
       "prop": "clearwater__late_window_shaded",
       "pack": "res://data/environment/scene_props/clearwater"
     }
+  },
+ "ch5_inventory_latch": {
+  "lamp": {
+   "at": [
+    0.78,
+    0.76
+   ],
+   "radius": 0.85,
+   "states": [
+    {
+     "color": "#5e4641",
+     "pulse": 0
+    },
+    {
+     "flag": "ch5_pawnshop_labels_matched",
+     "color": "#cf9458",
+     "pulse": 0
+    },
+    {
+     "flag": "ch5_fee_ledger_compared",
+     "color": "#57bb91",
+     "pulse": 0
+    }
+   ]
   }
+ }
 }

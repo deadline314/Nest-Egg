@@ -26,11 +26,73 @@
   "ch5_pawnshop_raincoat_read": false,
   "ch5_pawnshop_fare_read": false,
   "ch5_pawnshop_index_read": false,
-  "ch5_pawnshop_labels_matched": false
+  "ch5_pawnshop_labels_matched": false,
+  "ch5_fee_receipt_read": false,
+  "ch5_fee_ledger_read": false,
+  "ch5_fee_ledger_compared": false
  },
  "transactions": {},
  "derived_flags": {},
  "quests": [
+  {
+   "id": "ch5_fee_ledger",
+   "kind": "main",
+   "title": "核對櫃台的舊收據和存款總帳。",
+   "background": "第一道滑扣鬆開後，凜發現收據和總帳蓋著同一個當舖章。",
+   "reward": "記下手續費存給凜的來歷。",
+   "complete_flag": "ch5_fee_ledger_compared",
+   "steps": [
+    {
+     "title": "查看櫃台左邊的舊委託收據。",
+     "complete_flag": "ch5_fee_receipt_read",
+     "location": {
+      "level": "res://data/levels/ch5_pawnshop.tres",
+      "cell": [
+       54,
+       19
+      ]
+     },
+     "title_ja": "カウンター左の古い依頼の領収書を読む。",
+     "title_en": "Read the old commission receipt on the left side of the counter."
+    },
+    {
+     "title": "查看櫃台右邊的手續費存款總帳。",
+     "complete_flag": "ch5_fee_ledger_read",
+     "location": {
+      "level": "res://data/levels/ch5_pawnshop.tres",
+      "cell": [
+       58,
+       19
+      ]
+     },
+     "title_ja": "カウンター右の手数料の積立帳を読む。",
+     "title_en": "Read the fee deposit ledger on the right side of the counter."
+    },
+    {
+     "title": "回盤點板核對兩份單據。",
+     "complete_flag": "ch5_fee_ledger_compared",
+     "location": {
+      "level": "res://data/levels/ch5_pawnshop.tres",
+      "cell": [
+       56,
+       19
+      ]
+     },
+     "title_ja": "棚卸し板に戻り、二つの書類を照合する。",
+     "title_en": "Return to the inventory board to compare the two records."
+    }
+   ],
+   "visible_flags": [
+    "ch5_pawnshop_labels_matched"
+   ],
+   "completion_requires_steps": true,
+   "title_ja": "カウンターの古い領収書と積立帳を照合する。",
+   "title_en": "Compare the old receipt and deposit ledger on the counter.",
+   "background_ja": "一つ目の留め金を外した凜は、領収書と積立帳に同じ質屋の印を見つけた。",
+   "background_en": "After opening the first latch, Rin found that the receipt and the ledger bear the same pawnshop stamp.",
+   "reward_ja": "凜への手数料の積み立てを記録する。",
+   "reward_en": "Record how the fees were set aside for Rin."
+  },
   {
    "id": "ch5_blank_labels",
    "kind": "main",
@@ -835,6 +897,408 @@
     "equals": true
    }
   },
+  "ch5_t_read_fee_receipt": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "這張當舖收據寫著，委託報酬是 800，扣除手續費 80，實領 720。",
+     "ja": "質屋の領収書には、依頼の報酬が800、手数料が80、差引受取額が720とある。",
+     "en": "The pawnshop receipt lists an 800-credit job, an 80-credit fee, and a net payment of 720."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_pawnshop_labels_matched",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch5_fee_receipt_read",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch5_fee_receipt_read",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch5_t_revisit_fee_receipt": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "這張當舖收據寫著，委託報酬是 800，扣除手續費 80，實領 720。",
+     "ja": "質屋の領収書には、依頼の報酬が800、手数料が80、差引受取額が720とある。",
+     "en": "The pawnshop receipt lists an 800-credit job, an 80-credit fee, and a net payment of 720."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_pawnshop_labels_matched",
+      "equals": true
+     },
+     {
+      "flag": "ch5_fee_receipt_read",
+      "equals": true
+     }
+    ]
+   }
+  },
+  "ch5_t_read_fee_ledger": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "總帳寫著每單撥入 10%，歷年累計 52,000 信用點，留給凜。",
+     "ja": "積立帳には、依頼ごとに10％、累計52,000クレジットを凜のために取り分けたとある。",
+     "en": "The ledger lists 10% from each job and a running total of 52,000 credits, set aside for Rin."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "這一頁的章和舊收據上的章一樣。",
+     "ja": "このページ、古い領収書と同じ印が押してある。",
+     "en": "This page has the same stamp as the old receipt."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_pawnshop_labels_matched",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch5_fee_ledger_read",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch5_fee_ledger_read",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch5_t_revisit_fee_ledger": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "總帳寫著每單撥入 10%，歷年累計 52,000 信用點，留給凜。",
+     "ja": "積立帳には、依頼ごとに10％、累計52,000クレジットを凜のために取り分けたとある。",
+     "en": "The ledger lists 10% from each job and a running total of 52,000 credits, set aside for Rin."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "這一頁的章和舊收據上的章一樣。",
+     "ja": "このページ、古い領収書と同じ印が押してある。",
+     "en": "This page has the same stamp as the old receipt."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_pawnshop_labels_matched",
+      "equals": true
+     },
+     {
+      "flag": "ch5_fee_ledger_read",
+      "equals": true
+     }
+    ]
+   }
+  },
+  "ch5_t_need_fee_pages": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "先翻櫃台左邊的舊收據和右邊的總帳，再回來比對。",
+     "ja": "カウンターの左にある領収書と右の積立帳を読んでから、ここで照合しよう。",
+     "en": "I’ll look at the receipt on the left and the ledger on the right, then compare them here."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_pawnshop_labels_matched",
+      "equals": true
+     },
+     {
+      "not": {
+       "all": [
+        {
+         "flag": "ch5_fee_receipt_read",
+         "equals": true
+        },
+        {
+         "flag": "ch5_fee_ledger_read",
+         "equals": true
+        }
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "ch5_t_choose_fee": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "舊收據和總帳蓋著同一個當舖章。",
+     "ja": "古い領収書と積立帳には、同じ質屋の印がある。",
+     "en": "The receipt and the ledger carry the same pawnshop stamp."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "每筆委託的錢是怎麼存進總帳的？",
+     "ja": "依頼ごとの報酬は、どうやって積み立てたんだろう？",
+     "en": "How did money from each job go into the ledger?"
+    },
+    {
+     "do": "choice",
+     "text": "每筆委託的錢是怎麼存進總帳的？",
+     "default": "leave",
+     "options": [
+      {
+       "id": "gross",
+       "text": "每單的報酬都存了進去。",
+       "explanation": "核對收據的報酬和實領。",
+       "target": "ch5_t_fee_check_receipt",
+       "ja": "依頼の報酬は、毎回全額が積み立てられた。",
+       "en": "The full payment from every job went in.",
+       "explanation_ja": "領収書の報酬額と差引受取額を見比べる。",
+       "explanation_en": "Compare the gross and net payments on the receipt."
+      },
+      {
+       "id": "fee_share",
+       "text": "每單的一成都存進同一本帳。",
+       "explanation": "比較收據的手續費與總帳的比例。",
+       "target": "ch5_t_confirm_fee",
+       "ja": "依頼ごとに一割が、同じ帳簿に積み立てられた。",
+       "en": "One tenth of each job went into the same account.",
+       "explanation_ja": "領収書の手数料と積立帳の割合を比べる。",
+       "explanation_en": "Compare the fee on the receipt with the ledger’s rate."
+      },
+      {
+       "id": "live_balance",
+       "text": "總帳寫的是我現在的餘額。",
+       "explanation": "核對總帳的累計欄。",
+       "target": "ch5_t_fee_check_ledger",
+       "ja": "積立帳に書いてあるのは、私の今の残高だ。",
+       "en": "The ledger shows my current balance.",
+       "explanation_ja": "積立帳の累計欄を確認する。",
+       "explanation_en": "Check the running total in the ledger."
+      },
+      {
+       "id": "leave",
+       "text": "先離開。",
+       "explanation": "單據會留在櫃台。",
+       "ja": "いったん離れる。",
+       "en": "Leave for now.",
+       "explanation_ja": "書類はカウンターに残る。",
+       "explanation_en": "The papers will stay on the counter."
+      }
+     ],
+     "cancel_choice_on_back": true,
+     "ja": "依頼ごとの報酬は、どうやって積み立てたんだろう？",
+     "en": "How did money from each job go into the ledger?"
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_pawnshop_labels_matched",
+      "equals": true
+     },
+     {
+      "flag": "ch5_fee_receipt_read",
+      "equals": true
+     },
+     {
+      "flag": "ch5_fee_ledger_read",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch5_fee_ledger_compared",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch5_t_fee_check_receipt": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "左頁的 720 是實領。請再看報酬和手續費。",
+     "ja": "左の720は差引受取額。報酬と手数料の欄をもう一度見てみよう。",
+     "en": "The 720 on the left is the net payment. Check the gross payment and the fee again."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_pawnshop_labels_matched",
+      "equals": true
+     },
+     {
+      "flag": "ch5_fee_receipt_read",
+      "equals": true
+     },
+     {
+      "flag": "ch5_fee_ledger_read",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch5_fee_ledger_compared",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch5_t_fee_check_ledger": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "右頁的 52,000 是歷年累計。請再看每單撥入的比例。",
+     "ja": "右の52,000はこれまでの累計額。依頼ごとの積立割合を見直そう。",
+     "en": "The 52,000 on the right is the amount accumulated over the years. Check the share from each job."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_pawnshop_labels_matched",
+      "equals": true
+     },
+     {
+      "flag": "ch5_fee_receipt_read",
+      "equals": true
+     },
+     {
+      "flag": "ch5_fee_ledger_read",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch5_fee_ledger_compared",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch5_t_confirm_fee": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我一直以為那一成是保費。老 K 把它留在店裡，還寫了我的名字。",
+     "ja": "あの一割は保険料だと思ってた。Kはここに貯めて、私の名前まで書いておいたんだ。",
+     "en": "I always thought that ten percent was an insurance premium. Old K kept it here and put my name on it."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我還不知道誰付了復原帳。阿梨看過灰衣人付錢，我去問她。",
+     "ja": "復元の代金を払ったのは誰だろう。阿梨は灰色のコートの人が払うのを見てる。聞いてみよう。",
+     "en": "I still need to find out who paid for the restorations. Ali saw the person in the gray coat pay. I’ll ask her."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_pawnshop_labels_matched",
+      "equals": true
+     },
+     {
+      "flag": "ch5_fee_receipt_read",
+      "equals": true
+     },
+     {
+      "flag": "ch5_fee_ledger_read",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch5_fee_ledger_compared",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch5_fee_ledger_compared",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch5_t_fee_compared": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "第二道滑扣已開。總帳寫著按單存給凜的手續費。",
+     "ja": "二つ目の留め金が外れている。帳簿には、依頼ごとに凜のために積み立てた手数料がある。",
+     "en": "The second latch is open. The ledger records fees set aside for Rin from each job."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch5_fee_ledger_compared",
+    "equals": true
+   }
+  },
   "ch5_dispatch_watch": {
    "mode": "dispatch",
    "routes": [
@@ -1063,6 +1527,63 @@
    "routes": [
     {
      "when": {
+      "flag": "ch5_fee_ledger_compared",
+      "equals": true
+     },
+     "target": "ch5_t_fee_compared"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch5_pawnshop_labels_matched",
+        "equals": true
+       },
+       {
+        "flag": "ch5_fee_receipt_read",
+        "equals": true
+       },
+       {
+        "flag": "ch5_fee_ledger_read",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch5_fee_ledger_compared",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch5_t_choose_fee"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch5_pawnshop_labels_matched",
+        "equals": true
+       },
+       {
+        "not": {
+         "all": [
+          {
+           "flag": "ch5_fee_receipt_read",
+           "equals": true
+          },
+          {
+           "flag": "ch5_fee_ledger_read",
+           "equals": true
+          }
+         ]
+        }
+       }
+      ]
+     },
+     "target": "ch5_t_need_fee_pages"
+    },
+    {
+     "when": {
       "flag": "ch5_pawnshop_labels_matched",
       "equals": true
      },
@@ -1206,6 +1727,100 @@
       ]
      },
      "target": "ch5_t_choose_labels"
+    }
+   ]
+  },
+  "ch5_dispatch_fee_receipt": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch5_pawnshop_labels_matched",
+          "equals": true
+         },
+         {
+          "not": {
+           "flag": "ch5_fee_receipt_read",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch5_fee_receipt_read",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch5_t_read_fee_receipt"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch5_pawnshop_labels_matched",
+        "equals": true
+       },
+       {
+        "flag": "ch5_fee_receipt_read",
+        "equals": true
+       }
+      ]
+     },
+     "target": "ch5_t_revisit_fee_receipt"
+    }
+   ]
+  },
+  "ch5_dispatch_fee_ledger": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch5_pawnshop_labels_matched",
+          "equals": true
+         },
+         {
+          "not": {
+           "flag": "ch5_fee_ledger_read",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch5_fee_ledger_read",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch5_t_read_fee_ledger"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch5_pawnshop_labels_matched",
+        "equals": true
+       },
+       {
+        "flag": "ch5_fee_ledger_read",
+        "equals": true
+       }
+      ]
+     },
+     "target": "ch5_t_revisit_fee_ledger"
     }
    ]
   }

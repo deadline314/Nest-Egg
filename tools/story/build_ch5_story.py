@@ -11,7 +11,8 @@ sys.path.insert(0, str(ROOT / "tools/level"))
 from build_ch5 import CHAPTER, POINTS  # noqa: E402
 from build_ch1_story import sfx  # noqa: E402
 from ch1_closure import Binding, Option, ProductionSource, Quest, QuestStep, all_of, any_of, flag, negate, say, set_flag  # noqa: E402
-from chapter_compiler import ChapterSpec, write_chapter  # noqa: E402
+from chapter_compiler import ChapterSpec, write_chapter
+import ch5_fee_story  # noqa: E402  # noqa: E402
 
 CHAPTER_INFO = {
     "id": CHAPTER,
@@ -94,6 +95,7 @@ def build_spec():
     dispatch = {}
     evidence = _shelf(source, dispatch)
     _inventory(source, dispatch, evidence)
+    ch5_fee_story.install(source, dispatch)
     source.bindings.update({
         name: Binding("object", CHAPTER, f"res://data/npcs/ch5_{name}.tres") for name in POINTS
     })

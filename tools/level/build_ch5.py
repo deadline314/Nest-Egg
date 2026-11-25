@@ -5,6 +5,8 @@ import sys
 
 sys.dont_write_bytecode = True
 import build_ch1 as kit
+import ch5_fee_layout as fee_layout
+from npc_prompt_translations import TRANSLATIONS
 
 CHAPTER = "ch5_paymaster"
 GROUND = 20
@@ -16,6 +18,7 @@ OBJECTS = {
     "shelf_index": ("ⓘ", 52, "抽屜格號", "查看抽屜格號"),
     "inventory_board": ("ⓑ", 56, "盤點板", "核對空白標籤"),
 }
+OBJECTS = fee_layout.with_fee_objects(OBJECTS)
 POINTS = {ident: ("pawnshop", x, GROUND - 1) for ident, (_, x, _, _) in OBJECTS.items()}
 
 
@@ -28,11 +31,13 @@ def _configure():
                             prompt=f"{{interact}} {prompt}", talks=[(f"ch5_dispatch_{ident}", 0)])
         for ident, (_, _, name, prompt) in OBJECTS.items()
     }
+    fee_layout.gate_counter_objects(kit.NPCS)
+    TRANSLATIONS.update(fee_layout.PROMPTS)
     kit.RES = {glyph: f"res://data/npcs/ch5_{ident}.tres"
                for ident, (glyph, _, _, _) in OBJECTS.items()}
     kit.THEMES = {
         "pawnshop": ("concrete", ["shopfront", "brick_block"], "brick", 0.0, "sky_storm",
-                     ["pawnshop_front", "pawnshop_kitchen", "basement_door", "harbor_street"]),
+                     ["pawnshop_front", "pawnshop_kitchen", "basement_door", "harbor_street", "factory_office", "basement"]),
     }
     kit.CURVE = {}
     kit.STORY = {}
@@ -50,6 +55,7 @@ def main():
 
     # Put the inventory board at an existing lit, reachable section of the counter.
     area.prop("pawnshop_front__range_tally_board", POINTS["inventory_board"][1], y=16, support="wall")
+    fee_layout.stage_counter(area)
     area.features = {"landmark": "櫃台黃燈下的格號和盤點板。"}
     goals = [(glyph, (x, GROUND - 1)) for glyph, x, _, _ in OBJECTS.values()]
     issues = area.check() + kit.reachable(area, spawn, goals)
