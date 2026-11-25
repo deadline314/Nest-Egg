@@ -25,6 +25,9 @@ static var _bubble_shape := PackedVector2Array([
 	Vector2(16, 7), Vector2(14, 9), Vector2(9, 9), Vector2(6, 11),
 	Vector2(6, 9), Vector2(2, 9), Vector2(0, 7),
 ])
+static var _object_marker_shape := PackedVector2Array([
+	Vector2(0, -22), Vector2(5, -17), Vector2(0, -12), Vector2(-5, -17), Vector2(0, -22),
+])
 const BUBBLE_SIGNAL := Color("edc881")
 ## 其他提示文字要避開的人物範圍的半寬（高度到對話泡泡頂為止）。
 const FIGURE_HALF_WIDTH := 12.0
@@ -110,6 +113,8 @@ func _ready() -> void:
 	_present = data.should_spawn()
 	_apply_presence(false)
 	Story.scene_finished.connect(_on_story_scene_finished)
+	if data.kind == NpcData.Kind.PERSON:
+		Settings.display_changed.connect(_refresh_talk_cue)
 	if data.spawn_requires_flag != &"" or data.spawn_unless_flag != &"":
 		GameState.flag_changed.connect(_on_flag_changed)
 
@@ -176,6 +181,7 @@ func _fit_to_figure() -> void:
 	var bubble_top := _bubble_pos.y - BUBBLE_SIZE.y * 0.8 - BUBBLE_BOB
 	_prompt.offset = Vector2(0.0, bubble_top - LABEL_GAP - WorldPrompt.PADDING.y)
 	_prompt.position = _prompt.offset
+	_refresh_talk_cue()
 
 
 ## 人物（含頭上的對話泡泡）在世界座標的範圍：附近其他物件的提示文字會自動避開，不蓋住人物的臉。
@@ -234,7 +240,8 @@ func _physics_process(delta: float) -> void:
 		if _cooldown <= 0.0 and not _talking and not get_tree().paused and Input.is_action_just_pressed(&"interact") \
 				and Story.framing.is_interaction_target(self):
 			_talk()
-	queue_redraw()
+	if _shows_object_marker() or (_shows_first_talk_cue() and not Settings.get_reduce_ui_motion()):
+		queue_redraw()
 
 
 ## 挑走近反應用的讀取函式（與挑對話同一套條件來源）。
@@ -343,6 +350,7 @@ func prepare_story_completion(index: int) -> Dictionary:
 ## Validated by the Main owner immediately before its callback-free install.
 func install_story_completion(prepared: Dictionary) -> void:
 	talk_count = prepared["after"]["talks"]
+	queue_redraw()
 	_cooldown = TALK_COOLDOWN
 	_durable_completed = true
 
@@ -419,9 +427,18 @@ func _shows_first_talk_cue() -> bool:
 	return data.kind == NpcData.Kind.PERSON and talk_count == 0 and not _talking
 
 
+func _refresh_talk_cue() -> void:
+	if _shows_first_talk_cue():
+		queue_redraw()
+
+
+func _shows_object_marker() -> bool:
+	return data.kind == NpcData.Kind.OBJECT and (_actor == null or _actor.rig == null)
+
+
 func _draw() -> void:
 	if data.kind == NpcData.Kind.OBJECT:
-		if _actor == null or _actor.rig == null:
+		if _shows_object_marker():
 			_draw_object_marker()
 		return
 	# 還沒說過話：頭上有個對話泡泡。沒有任何外觀時畫一個站著的記號。
@@ -442,8 +459,7 @@ func _draw() -> void:
 ## 可調查物：一個緩緩呼吸的青色菱形記號。
 func _draw_object_marker() -> void:
 	var glow := LightKit.glow(Palette.CYAN, 1.4 + 0.5 * sin(_time * 3.0))
-	var points := PackedVector2Array([Vector2(0, -22), Vector2(5, -17), Vector2(0, -12), Vector2(-5, -17), Vector2(0, -22)])
-	draw_polyline(points, glow, 1.0)
+	draw_polyline(_object_marker_shape, glow, 1.0)
 	draw_circle(Vector2(0, -17), 1.2, glow)
 
 
@@ -465,6 +481,7 @@ func capture_state() -> Variant:
 func restore_state(state: Variant) -> void:
 	claimed.clear()
 	talk_count = 0
+	queue_redraw()
 	if typeof(state) != TYPE_DICTIONARY:
 		return
 	talk_count = maxi(0, int((state as Dictionary).get("talks", 0)))
