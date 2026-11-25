@@ -9,12 +9,19 @@ var _previous_frame := 0
 var _input_frames: Array[Array] = []
 var _events: Array[Dictionary] = []
 var _prompt: Node2D
+var _dialogue_exit := ""
 
 
 func _ready() -> void:
 	if DisplayServer.get_name() == "headless":
 		_fail("gameplay frame measurements require a native renderer")
 		return
+	for arg: String in OS.get_cmdline_user_args():
+		if arg.begins_with("--dialogue-exit="):
+			_dialogue_exit = arg.trim_prefix("--dialogue-exit=")
+			if _dialogue_exit not in ["pause", "leave"]:
+				_fail("--dialogue-exit must be pause or leave")
+				return
 	super._ready()
 	set_process(false)
 	RenderingServer.frame_pre_draw.connect(_sample_frame)
@@ -60,9 +67,8 @@ func _run() -> void:
 			return
 		await _wait(0.35)
 		if iteration == 0:
-			if not await _press_binding(&"interact", 0.10):
+			if not await _measure_dialogue():
 				return
-			await _wait(0.65)
 	_previous_frame = 0
 	var output := FileAccess.open(_out.path_join(_tag + ".json"), FileAccess.WRITE)
 	if output == null:
@@ -81,6 +87,37 @@ func _run() -> void:
 	output.close()
 	print("PLAY_INPUT_COMPLETE ", _input_frames.size(), " frames ", JSON.stringify(maxima))
 	_main.call("_quit", 0)
+
+
+func _measure_dialogue() -> bool:
+	Story.auto_skip = _dialogue_exit.is_empty()
+	if not await _press_binding(&"interact", 0.10):
+		return false
+	await _wait(0.65)
+	if _dialogue_exit.is_empty():
+		return true
+	if not Story.is_cinematic_active() or not GameplayLock.is_locked():
+		_fail("the authored dialogue never opened; disable cinematic skipping for this probe")
+		return false
+	if _active_capture:
+		_previous_frame = 0
+		await RenderingServer.frame_post_draw
+		var screenshot := CAPTURE.image(get_viewport())
+		screenshot.save_jpg(_out.path_join(_tag + "-dialogue.jpg"), 0.82)
+		_previous_frame = Time.get_ticks_usec()
+	_action = "dialogue_exit"
+	if _dialogue_exit == "pause":
+		if not await _press_binding(&"pause", 0.10, "dialogue_exit"):
+			return false
+	else:
+		_mark("cancel", "leave")
+		Story.reset_active_presentation(&"leave")
+	await _wait(0.30)
+	if Story.is_cinematic_active() or GameplayLock.is_locked():
+		_fail("exiting the dialogue left the gameplay lock active")
+		return false
+	Story.auto_skip = true
+	return true
 
 
 func _sample_frame() -> void:

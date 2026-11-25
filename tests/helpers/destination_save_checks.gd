@@ -85,6 +85,7 @@ static func run(s: TestSuite) -> void:
 			await s.end_level(level)
 	await _test_invalid_portal(s, directory)
 	await _test_dialogue_checkpoint(s)
+	await _test_dialogue_frame_save(s, directory)
 	Story.auto_skip = previous_auto
 
 static func _test_invalid_portal(s: TestSuite, directory: String) -> void:
@@ -162,3 +163,99 @@ static func _test_dialogue_checkpoint(s: TestSuite) -> void:
 	main._screen = null
 	main.free()
 	await s.end_level(level)
+
+static func _test_dialogue_frame_save(s: TestSuite, directory: String) -> void:
+	const SCENE := &"ch1_t_oldk_1"
+	var level := await s.start_level(load(FIRST))
+	Story.reset_active_presentation(&"test_setup")
+	var main := RouteMain.new()
+	main._screen = level
+	main._active_run = true
+	main._level_path = FIRST
+	main._run_store = RunSaveStore.new(directory.path_join("dialogue-frame-save.json"))
+	main._run_store.validator = main._prepare_run_snapshot
+	var tree := s.runner.get_tree()
+	tree.root.add_child(main)
+	var navigation := QuestMapState.for_run()
+	const EARLIER_AREA := "res://data/levels/ch2_harbor_street.tres"
+	var earlier := load(EARLIER_AREA) as LevelData
+	var earlier_map := LevelBuilder.parse(earlier)
+	s.check(not earlier_map.checkpoints.is_empty(), "the earlier area has an authored checkpoint")
+	navigation.reveal(EARLIER_AREA, [Vector2i(1, 1)])
+	for point: Vector2 in earlier_map.checkpoints:
+		navigation.activate(EARLIER_AREA, point, earlier.tile_size)
+	var catalog := navigation.catalog_copy()
+	var pinned: String = catalog.quests[0]["id"]
+	navigation.pin(pinned, catalog)
+	s.check(not pinned.is_empty() and navigation.pinned_id == pinned,
+			"dialogue regression starts with an authored pinned mission")
+	s.check(main._run_store.write(main._snapshot_for_save(), true), "dialogue regression establishes the source slot")
+	var original := FileAccess.get_file_as_bytes(main._run_store.path)
+	var lock_token := GameplayLock.acquire(main, Input.MOUSE_MODE_VISIBLE)
+
+	main._on_scene_started(SCENE, Story.MODE_CINEMATIC)
+	await _process_frames(tree, 1)
+	s.check(FileAccess.get_file_as_bytes(main._run_store.path) == original,
+			"opening dialogue leaves the installed save intact during its first frame")
+	await _process_frames(tree, 6)
+	var opened := main._run_store.read()
+	s.check(opened.get("cinematic") == String(SCENE), "locked dialogue reaches the real installed save in frames")
+	var installed := FileAccess.get_file_as_bytes(main._run_store.path)
+	main._queue_movement_autosave()
+	await _process_frames(tree, 6)
+	s.check(FileAccess.get_file_as_bytes(main._run_store.path) == installed and not main._save_queued,
+			"routine discovery during a dialogue does not rewrite its checkpoint")
+
+	GameState.run_time += 4.0
+	var actual_clock := GameState.run_time
+	navigation.reveal(EARLIER_AREA, [Vector2i(2, 1)])
+	navigation.pin("", catalog)
+	main._on_presentation_cancelled(SCENE, {}, &"leave", 0)
+	GameplayLock.release(lock_token)
+	s.check(QuestMapState.for_run().pinned_id == pinned
+			and QuestMapState.for_run().knows(EARLIER_AREA, Vector2i(1, 1))
+			and not QuestMapState.for_run().knows(EARLIER_AREA, Vector2i(2, 1))
+			and QuestMapState.for_run().activated == opened.get("navigation", {}).get("activated")
+			and QuestMapState.for_run().snapshot().get("layout_revisions", {}).get(EARLIER_AREA) == 2,
+			"cancelling restores the entry's pin, explored cells and activated checkpoints across areas")
+	s.check(GameState.run_time >= actual_clock and not Story.was_seen(SCENE),
+			"cancellation keeps elapsed gameplay and does not complete the dialogue")
+	s.check(FileAccess.get_file_as_bytes(main._run_store.path) == installed,
+			"cancellation returns before publishing the rollback save")
+	await _process_frames(tree, 6)
+	var closed := main._run_store.read()
+	s.check(closed.get("cinematic") == "" and closed.get("navigation", {}).get("pinned_id") == pinned,
+			"the resumable slot loses the cancelled dialogue and keeps its restored pin")
+
+	main._on_scene_started(SCENE, Story.MODE_CINEMATIC)
+	await _process_frames(tree, 2)
+	main._on_presentation_cancelled(SCENE, {}, &"leave", 0)
+	main._save_run()  # Same authoritative save path used by quit.
+	await _process_frames(tree, 6)
+	s.check(main._run_store.read().get("cinematic") == "", "a pending open draft cannot replace a synchronous close save")
+
+	var previous_skip := Story.auto_skip
+	Story.auto_skip = false
+	GameState.run_save_requested.connect(main._on_story_save_requested)
+	Story.scene_started.connect(main._on_scene_started)
+	Story.scene_finished.connect(main._on_scene_finished)
+	Story.play(SCENE, false)
+	await _process_frames(tree, 6)
+	var before_close := FileAccess.get_file_as_bytes(main._run_store.path)
+	s.check(Story.is_cinematic_active(), "the authored dialogue stays locked until the player dismisses it")
+	Story.skip_cinematic()  # DialogueLayer uses the same completion from Escape.
+	s.check(not main._save_queued and FileAccess.get_file_as_bytes(main._run_store.path) == before_close,
+			"the story completion signal and Main share a staged dialogue save")
+	await _process_frames(tree, 6)
+	var completed := main._run_store.read()
+	s.check(completed.get("cinematic") == "" and String(SCENE) in completed.get("story", {}).get("seen", []),
+			"the staged completion stores the seen scene and retires the playback checkpoint")
+	Story.auto_skip = previous_skip
+	main._screen = null
+	main.queue_free()
+	await s.end_level(level)
+
+
+static func _process_frames(tree: SceneTree, count: int) -> void:
+	for frame in count:
+		await tree.process_frame

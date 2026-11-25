@@ -14,6 +14,8 @@ var revision := 0
 ## 地形只依各區探索變化失效；釘選與復原點不會改變地形。
 var _exploration_revisions: Dictionary = {}
 var _restore_revision := 0
+# Only the authored revision number is retained for each visited area.
+var _layout_revisions: Dictionary[String, int] = {}
 var issues := PackedStringArray()
 ## Definitions share this run lifetime; every UI receives its own mutable copy.
 var _source_catalog: QuestCatalog
@@ -121,26 +123,54 @@ static func _checkpoint_key(path: String, position: Vector2, tile: int) -> Strin
 
 func snapshot() -> Dictionary:
 	var result := {"version": VERSION, "pinned_id": pinned_id, "explored": explored.duplicate(true), "activated": activated.duplicate(true)}
-	var paths: Dictionary = {}
-	for path: String in explored:
-		paths[path] = true
-	for key: String in activated:
-		paths[key.get_slice("@", 0)] = true
 	var versions: Dictionary = {}
-	for path: String in paths:
-		var area := MapLayoutMigration.describe_area(path)
-		var definition: Dictionary = area.get("definition", {})
-		if definition.get("revision", 1) > 1:
-			versions[path] = definition["revision"]
+	for path: String in _visited_paths():
+		if not _layout_revisions.has(path):
+			var area := MapLayoutMigration.describe_area(path)
+			var definition: Dictionary = area.get("definition", {})
+			if definition.has("revision"):
+				_layout_revisions[path] = int(definition["revision"])
+		var version: int = _layout_revisions.get(path, 1)
+		if version > 1:
+			versions[path] = version
 	if not versions.is_empty():
 		result["layout_revisions"] = versions
 	return result
 
 
-func restore(raw: Variant, catalog: QuestCatalog, maps: QuestMapIndex, notify := true) -> void:
-	# 讀檔可把探索倒退；即使格數一樣也必須失效。
+func _visited_paths() -> Dictionary:
+	var paths: Dictionary = {}
+	for path: String in explored:
+		paths[path] = true
+	for key: String in activated:
+		paths[key.get_slice("@", 0)] = true
+	return paths
+
+
+## The runtime rollback owns this copy of a snapshot taken from this layout.
+## Disk snapshots must go through restore() to validate cells and migrate revisions.
+func restore_checkpoint(checkpoint: Dictionary) -> void:
+	_invalidate_exploration()
+	pinned_id = checkpoint["pinned_id"]
+	explored = checkpoint["explored"]
+	activated = checkpoint["activated"]
+	# The in-memory entry already recorded the revisions of this layout.
+	var versions: Dictionary = checkpoint.get("layout_revisions", {})
+	for path: String in _visited_paths():
+		_layout_revisions[path] = int(versions.get(path, 1))
+	issues.clear()
+	revision += 1
+
+
+func _invalidate_exploration() -> void:
 	_restore_revision = revision + 1
 	_exploration_revisions.clear()
+	_layout_revisions.clear()
+
+
+func restore(raw: Variant, catalog: QuestCatalog, maps: QuestMapIndex, notify := true) -> void:
+	# 讀檔可把探索倒退；即使格數一樣也必須失效。
+	_invalidate_exploration()
 	pinned_id = ""
 	explored.clear()
 	activated.clear()

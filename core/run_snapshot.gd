@@ -217,7 +217,7 @@ static func apply(data: Dictionary, notify := true) -> void:
 
 
 ## 中止演出時撤回暫定效果，保留場景中的玩家死亡事實；死亡計數／費用由Level隨後結算。
-static func rollback_presentation(data: Dictionary, notify := true) -> void:
+static func rollback_presentation(data: Dictionary, notify := true, live_checkpoint := false) -> void:
 	# 演出期間經過的時計、戰鬥統計與live死亡事實並非劇情暫定效果。
 	var actual: Dictionary = {}
 	for key in ["run_time", "kills", "finishers", "deaths", "lives_left", "last_death_clock"]:
@@ -227,12 +227,12 @@ static func rollback_presentation(data: Dictionary, notify := true) -> void:
 		restored["state"][key] = actual[key]
 	restored["story"]["deaths"] = actual["deaths"]
 	# 由取消回呼呼叫；不再次取消正在退場的請求。
-	_apply_components_silent(restored)
+	_apply_components_silent(restored, live_checkpoint)
 	if notify:
 		publish_restored()
 
 
-static func _apply_components_silent(data: Dictionary) -> void:
+static func _apply_components_silent(data: Dictionary, live_checkpoint := false) -> void:
 	var state: Dictionary = data["state"]
 	for key: String in SCALARS + DICTIONARIES:
 		GameState.set(key, state[key])
@@ -243,6 +243,11 @@ static func _apply_components_silent(data: Dictionary) -> void:
 	# 先還原故事與 area_states，再建正式導覽索引。
 	var navigation := QuestMapState.for_run()
 	var saved_navigation: Variant = data["navigation"]
+	if live_checkpoint:
+		# Only the rollback's private copy of a snapshot captured in this run
+		# uses this path. Data loaded from disk still goes through migration.
+		navigation.restore_checkpoint(saved_navigation)
+		return
 	var index := QuestMapIndex.for_navigation_restore(saved_navigation, Story.chapter_ids())
 	var catalog: QuestCatalog
 	if saved_navigation is Dictionary and saved_navigation.get("version") == QuestMapState.VERSION:

@@ -68,6 +68,7 @@ var _import_path := ""
 var _resume_runtime: Dictionary = {}
 var _cinematic := ""
 var _cinematic_entry: Dictionary = {}
+var _live_cinematic_entry := false
 var _cinematic_context: Dictionary = {}
 var _cinematic_request := 0
 var _chapter_complete := false
@@ -112,7 +113,7 @@ func _ready() -> void:
 	_channel_completion.main = self
 	add_child(_channel_completion)
 	_run_store.validator = _prepare_run_snapshot
-	GameState.run_save_requested.connect(_queue_save)
+	GameState.run_save_requested.connect(_on_story_save_requested)
 	Progression.credits_changed.connect(func(_value: int, _delta: int) -> void: _queue_save())
 	Progression.upgrades_changed.connect(_queue_save)
 	Progression.abilities_changed.connect(_queue_save)
@@ -299,6 +300,7 @@ func _continue_run() -> void:
 	_cinematic_context = data.get("cinematic_context", {}).duplicate(true)
 	_cinematic_request = 0
 	_cinematic = data["cinematic"]
+	_live_cinematic_entry = false
 	_cinematic_entry = data.duplicate(true) if _cinematic != "" and Story.scene_mode(StringName(_cinematic)) != Story.MODE_RADIO else {}
 	_active_run = true
 	_bind_navigation()
@@ -607,6 +609,15 @@ func _defer_world_story(id: StringName, request: int) -> bool:
 	return is_instance_valid(_channel_completion) and _channel_completion.defer_story(id, request)
 
 
+func _on_story_save_requested() -> void:
+	var finished := Story.finished_presentation_request()
+	if finished != 0 and finished == _cinematic_request and _is_plain_dialogue(StringName(_cinematic)):
+		# The same completion signal reaches _on_scene_finished after the story
+		# marks the scene as read. Save its final state together there.
+		return
+	_queue_save()
+
+
 func _queue_save() -> void:
 	if is_instance_valid(_destination_save_prompt):
 		return
@@ -618,13 +629,22 @@ func _queue_save() -> void:
 	_flush_save.call_deferred()
 
 
-## Movement, exploration and routine player-state changes share one deferred
-## draft. Story and explicit saves still use the immediate durability path.
+## Movement and exploration cannot change a locked dialogue's entry checkpoint.
 func _queue_movement_autosave() -> void:
 	if _save_queued or _autosave_queued or _route_preparing or _quitting or not _can_capture_save():
 		return
+	if not _cinematic_entry.is_empty() and _is_plain_dialogue(StringName(_cinematic)):
+		return
 	if get_tree().paused or Story.is_cinematic_active():
 		_queue_save()
+		return
+	_queue_frame_save()
+
+
+## Ordinary checkpoints use a private draft. Results, destinations and quit
+## continue to publish through their synchronous durability paths.
+func _queue_frame_save() -> void:
+	if _save_queued or _autosave_queued or _route_preparing or _quitting or not _can_capture_save():
 		return
 	_autosave_queued = true
 	if not _writing_autosave:
@@ -640,15 +660,10 @@ func _flush_save() -> void:
 func _flush_autosave() -> void:
 	if not _autosave_queued or _writing_autosave:
 		return
-	_autosave_queued = false
-	if _save_queued or _route_preparing or _quitting:
-		return
-	var snapshot := _snapshot_for_save()
-	if snapshot.is_empty():
-		return
-	var owner: WeakRef = weakref(_screen)
 	_writing_autosave = true
-	var status: RunSaveStore.WriteStatus = await _run_store.write_in_frames(snapshot, get_tree(), _can_finish_autosave.bind(owner))
+	# Present the immediate response before capturing and serializing the slot.
+	await get_tree().process_frame
+	var status := await _write_queued_autosave()
 	_writing_autosave = false
 	if status != RunSaveStore.WriteStatus.CANCELLED:
 		_report_run_save(status == RunSaveStore.WriteStatus.SAVED)
@@ -656,9 +671,24 @@ func _flush_autosave() -> void:
 		_flush_autosave.call_deferred()
 
 
-func _can_finish_autosave(owner: WeakRef) -> bool:
+func _write_queued_autosave() -> RunSaveStore.WriteStatus:
+	if not _autosave_queued:
+		return RunSaveStore.WriteStatus.CANCELLED
+	_autosave_queued = false
+	if _save_queued or _route_preparing or _quitting:
+		return RunSaveStore.WriteStatus.CANCELLED
+	var snapshot := _snapshot_for_save()
+	if snapshot.is_empty():
+		return RunSaveStore.WriteStatus.CANCELLED
+	var owner: WeakRef = weakref(_screen)
+	var may_write := _can_finish_autosave.bind(owner, _cinematic, _cinematic_request)
+	return await _run_store.write_in_frames(snapshot, get_tree(), may_write)
+
+
+func _can_finish_autosave(owner: WeakRef, scene: String, request: int) -> bool:
 	return (not _quitting and not _route_preparing and not _save_queued
-			and not get_tree().paused and owner.get_ref() == _screen and _can_capture_save())
+			and owner.get_ref() == _screen and scene == _cinematic
+			and request == _cinematic_request and _can_capture_save())
 
 
 func _save_run(route_source := false) -> void:
@@ -734,10 +764,15 @@ func _save_destination(runtime: Dictionary, destination_path := "", state_change
 	return true
 
 
+func _is_plain_dialogue(id: StringName) -> bool:
+	return Story.scene_mode(id) == Story.MODE_DIALOGUE
+
+
 func _on_scene_started(id: StringName, mode: StringName) -> void:
 	if _active_run and _screen is Level and mode == Story.MODE_RADIO and _cinematic == String(id):
 		var requests: Array = Story._passive_requests.get(id, [])
 		_cinematic_request = int(requests.back()) if not requests.is_empty() else 0
+		_live_cinematic_entry = false
 		_cinematic_entry = {} # Flag-only radio has no tentative player/world changes.
 		_queue_save()
 		return
@@ -746,8 +781,13 @@ func _on_scene_started(id: StringName, mode: StringName) -> void:
 	_cinematic_context = Story.current_presentation_context()
 	_cinematic_request = Story.current_presentation_request()
 	_cinematic_entry = RunSnapshot.capture(_level_path, (_screen as Level).run_snapshot(), "", false, _cinematic_context)
+	_live_cinematic_entry = true
 	_cinematic = String(id)
-	_queue_save()
+	if _is_plain_dialogue(id):
+		_run_store.cancel_deferred_write()
+		_queue_frame_save()
+	else:
+		_queue_save()
 
 
 ## A durable world event may carry an unread important radio across restart.
@@ -757,6 +797,7 @@ func _remember_world_radio(id: StringName, request := 0) -> void:
 	_cinematic_request = request
 	_cinematic_context = {}
 	_cinematic_entry = {}
+	_live_cinematic_entry = false
 
 
 func _on_scene_finished(id: StringName) -> void:
@@ -766,6 +807,12 @@ func _on_scene_finished(id: StringName) -> void:
 		_clear_cinematic()
 		if request != 0 and is_instance_valid(_screen) and _screen is Level:
 			_apply_legacy_story_health_reward(_screen, entry)
+		if _is_plain_dialogue(id):
+			# The dialogue layer also uses completion when the player presses Esc.
+			# Explicit requests from outcome owners still take the immediate path.
+			_run_store.cancel_deferred_write()
+			_queue_frame_save()
+			return
 	_queue_save()
 
 
@@ -789,11 +836,13 @@ func _accept_story_choice(target: StringName, request: int, context: Dictionary)
 	_cinematic_request = request
 	_cinematic_context = context.duplicate(true)
 	_cinematic_entry = RunSnapshot.capture(_level_path, (_screen as Level).run_snapshot(), "", false, context)
+	_live_cinematic_entry = true
 
 
 func _clear_cinematic() -> void:
 	_cinematic = ""
 	_cinematic_entry = {}
+	_live_cinematic_entry = false
 	_cinematic_context = {}
 	_cinematic_request = 0
 
@@ -845,13 +894,14 @@ func _exit_tree() -> void:
 func _on_presentation_cancelled(id: StringName, _context: Dictionary, reason: StringName, request: int) -> void:
 	if _cinematic != String(id) or (_cinematic_request != 0 and request != _cinematic_request):
 		return
+	var plain_dialogue := _is_plain_dialogue(id)
 	var level: Level = _screen as Level if is_instance_valid(_screen) else null
 	var rolled_back := false
 	if _active_run and not _destination_pending and level != null and level.data.resource_path == _level_path \
 			and reason in [&"death", &"route", &"retry", &"leave"] and not _cinematic_entry.is_empty():
-		var entry := _cinematic_entry.duplicate(true)
+		var entry := _cinematic_entry
 		_publishing_restore = true
-		RunSnapshot.rollback_presentation(entry, false)
+		RunSnapshot.rollback_presentation(entry, false, _live_cinematic_entry and plain_dialogue)
 		_clear_cinematic()
 		if level.is_inside_tree() and not level.is_queued_for_deletion():
 			level.rollback_presentation_world(entry.get("runtime", {}))
@@ -862,8 +912,12 @@ func _on_presentation_cancelled(id: StringName, _context: Dictionary, reason: St
 		RunSnapshot.publish_restored()
 		_publishing_restore = false
 	if rolled_back or reason == &"skip":
-		# Explicitly leaving an optional scene also clears the saved playback checkpoint.
-		_queue_save()
+		if plain_dialogue:
+			# Retire an unpublished dialogue draft before scheduling the restored world.
+			_run_store.cancel_deferred_write()
+			_queue_frame_save()
+		else:
+			_queue_save()
 
 
 func _notification(what: int) -> void:
