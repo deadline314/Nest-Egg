@@ -1711,5 +1711,18 @@ func _test_radio_objective_handoff() -> void:
 	Story.reset_active_presentation(&"test_teardown")
 	check(guidance._row.visible and guidance._idle == idle and guidance._label.text == text, "radio exit restores the original objective without consuming its display time")
 	Story._scenes.erase("test_objective_radio")
+	var previous_skip_setting := Settings.get_skip_cutscenes()
+	Settings.set_skip_cutscenes(false)
+	check(Story.play(&"ch1_t_oldk_1", false), "objective handoff uses the authored Old K dialogue")
+	await _prompt_ui_frame()
+	check(Story.is_cinematic_active() and runner.get_tree().paused
+			and not guidance._row.visible and not guidance._arrow.visible
+			and guidance._row.mouse_filter == Control.MOUSE_FILTER_IGNORE,
+			"locked dialogue hides the objective and its hover even after pausing the world")
+	Story.reset_active_presentation(&"test_teardown")
+	await _prompt_ui_frame()
+	check(guidance._row.visible and guidance._label.text == text,
+			"ending the dialogue restores the same objective")
+	Settings.set_skip_cutscenes(previous_skip_setting)
 	await end_level(level)
 	Story.auto_skip = previous_skip

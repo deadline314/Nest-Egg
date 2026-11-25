@@ -88,6 +88,11 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if level == null or not is_instance_valid(level.player):
 		return
+	if Story.is_cinematic_active():
+		_row.hide()
+		_arrow.hide()
+		_set_pointer_covered(true)
+		return
 	if get_tree().paused:
 		_set_pointer_covered(true)
 		return
@@ -99,7 +104,7 @@ func _process(delta: float) -> void:
 		_time = 0
 		sample_exploration()
 		_refresh_target()
-	_row.visible = _enabled("quest_objective") and not _target.is_empty() and not Story.is_cinematic_active() and not radio
+	_row.visible = _enabled("quest_objective") and not _target.is_empty() and not radio
 	if radio:
 		_arrow.hide()
 		_set_pointer_covered(true)
