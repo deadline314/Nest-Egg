@@ -120,6 +120,8 @@
 
 一般介面、任務與對話使用由 IBM Plex Sans 衍生的 Nest Egg Sans，依繁中及日文各自的標準字形排版，英文沿用繁中版所含的拉丁字母。地圖圖示與少見字使用同包備援，再由平台補字。主標題採 IBM Plex Sans Condensed SemiBold，遊玩時間與信用點採 IBM Plex Mono Medium。保留整體像素樣式與現有文字放大。
 
+執行中切換語言或樣式時，既有標籤沿用同一個字型介面。每個已使用的字型保留一份已設定的字型資源與備援，避免舊畫格仍在繪製時釋放字形。依使用需要載入，切回已使用的樣式會重用字形快取。
+
 字型來源為 [IBM Plex 固定版本](https://github.com/IBM/plex/tree/ba3013d72a8419a22c758cc51c44e04ac7ea565b)，SIL OFL 1.1 隨專案分發。內文子集使用新的家族名，依遊戲文字及既有符號範圍建立。使用 fontTools 4.61.1 執行 `python tools/ui/build_body_fonts.py <兩個原始 Regular TTF 所在資料夾>` 即可重建。來源位於套件 `plex-sans-tc` 與 `plex-sans-jp` 的 `fonts/complete/ttf/hinted`，兩個特用字型直接採用同版本檔案。
 
 主選單的游標停留可暫時預覽說明。鍵盤或手把確認與導覽時，焦點線立刻回到實際操作的按鈕。游標再次移動後恢復預覽。

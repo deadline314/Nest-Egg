@@ -5,6 +5,7 @@ extends TestSuite
 
 func run() -> void:
 	_test_font()
+	_test_font_switch_keeps_shaped_glyphs_alive()
 	_test_sizes()
 	await _test_widgets()
 	await _test_item_icon_density()
@@ -122,6 +123,33 @@ func _test_font() -> void:
 	check(Settings.get_ui_font() == UiKit.DEFAULT_FONT_STYLE, "恢復顯示預設也會把字型改回預設")
 	UiKit.set_font_language(Story.language)
 	check(FileAccess.file_exists("res://art/fonts/OFL-IBM-Plex.txt"), "字型套件附上開放授權")
+
+
+func _test_font_switch_keeps_shaped_glyphs_alive() -> void:
+	var previous := Settings.get_ui_font()
+	Settings.set_ui_font("smooth")
+	UiKit.set_font_language("ja")
+	var server := TextServerManager.get_primary_interface()
+	var japanese_rid: RID = UiKit.font().get_rids()[0]
+	var display_rid: RID = UiKit.special_font(&"display").get_rids()[0]
+	var shaped := server.create_shaped_text()
+	check(server.shaped_text_add_string(shaped, "任務", [japanese_rid], UiKit.FS_BODY),
+		"以日文字型排版後可保留已在繪製佇列中的字形")
+	server.shaped_text_shape(shaped)
+
+	UiKit.set_font_language("zh")
+	Settings.set_ui_font("pixel")
+	check(server.has(japanese_rid) and server.has(display_rid),
+		"切換語言與樣式時保留前一幀仍會使用的字形 RID")
+	check(server.shaped_text_is_ready(shaped), "既有排版在字型切換後仍可繪製")
+
+	Settings.set_ui_font("smooth")
+	UiKit.set_font_language("ja")
+	check(UiKit.font().get_rids()[0] == japanese_rid and UiKit.special_font(&"display").get_rids()[0] == display_rid,
+		"切回已用過的字型時重用字形快取")
+	server.free_rid(shaped)
+	UiKit.set_font_language(Story.language)
+	Settings.set_ui_font(previous)
 
 
 func _test_sizes() -> void:

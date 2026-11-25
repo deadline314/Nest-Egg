@@ -44,6 +44,12 @@ static var _font: FontVariation
 static var _special_fonts: Dictionary[StringName, FontVariation] = {}
 static var _font_language := "zh"
 static var _system_fallback: SystemFont
+# TextServer can still draw glyphs from the previous face after a live switch.
+# Retain the configured faces and fallback chains for the finite set of styles and roles.
+static var _body_fonts: Dictionary[String, Font] = {}
+static var _special_faces: Dictionary[StringName, FontFile] = {}
+static var _special_variants: Dictionary[Font, Dictionary] = {}
+static var _bundled_fallback: FontFile
 
 
 static func font() -> Font:
@@ -84,12 +90,8 @@ static func font_style() -> String:
 ## 套用設定裡的字型樣式（設定畫面切換時呼叫）。
 static func apply_font_style() -> void:
 	font()
-	# Labels may reshape synchronously while their cached glyphs still use the old RID.
-	# Keep that font alive until the text-size refresh has finished.
-	var previous_bases: Array[Font] = [_font.base_font]
 	_font.base_font = _load_font(font_style())
 	for role in _special_fonts:
-		previous_bases.append(_special_fonts[role].base_font)
 		_special_fonts[role].base_font = _special_base(role)
 	# 說明小字依字體樣式換字級（像素字體改用內文字級才銳利）。
 	apply_text_scale()
@@ -108,35 +110,47 @@ static func _load_font(style: String) -> Font:
 	var entry: Dictionary = FONT_STYLES.get(style, FONT_STYLES[DEFAULT_FONT_STYLE])
 	var pixel: bool = entry["pixel"]
 	var path: String = JAPANESE_BODY_PATH if not pixel and _font_language == "ja" else entry["path"]
+	if _body_fonts.has(path):
+		return _body_fonts[path]
+	var fallback: Font = _system_font() if pixel else _smooth_fallback()
 	var face := _load_project_font(path, pixel)
-	var system_font := _system_font()
-	if pixel:
-		if face != null:
-			face.fallbacks = [system_font]
-			return face
-		push_warning("UiKit: 像素字型載入失敗（%s），使用系統字型。" % path)
-		return system_font
-	var fallback := _load_project_font(BODY_FALLBACK_PATH, false)
-	if fallback != null:
-		fallback.fallbacks = [system_font]
 	if face == null:
-		push_warning("UiKit: 內文字型載入失敗（%s），使用備援字型。" % path)
-		return fallback if fallback != null else system_font
-	face.fallbacks = [fallback] if fallback != null else [system_font]
+		push_warning("UiKit: 介面字型載入失敗（%s），使用備援字型。" % path)
+		return fallback
+	face.fallbacks = [fallback]
+	_body_fonts[path] = face
 	return face
+
+
+static func _smooth_fallback() -> Font:
+	if _bundled_fallback == null:
+		_bundled_fallback = _load_project_font(BODY_FALLBACK_PATH, false)
+		if _bundled_fallback == null:
+			return _system_font()
+		_bundled_fallback.fallbacks = [_system_font()]
+	return _bundled_fallback
 
 
 static func _special_base(role: StringName) -> Font:
 	var body := (font() as FontVariation).base_font
 	if font_style() == "pixel":
 		return body
-	var path: String = SPECIAL_FONT_PATHS[role]
-	var face := _load_project_font(path, false)
+	var variants: Dictionary = _special_variants.get_or_add(body, {})
+	if variants.has(role):
+		return variants[role]
+	var face := _special_faces.get(role) as FontFile
 	if face == null:
-		push_warning("UiKit: 字型載入失敗（%s），使用內文字型。" % path)
-		return body
-	face.fallbacks = [body]
-	return face
+		var path: String = SPECIAL_FONT_PATHS[role]
+		face = _load_project_font(path, false)
+		if face == null:
+			push_warning("UiKit: 字型載入失敗（%s），使用內文字型。" % path)
+			return body
+		_special_faces[role] = face
+	var variant := FontVariation.new()
+	variant.base_font = face
+	variant.fallbacks = [body]
+	variants[role] = variant
+	return variant
 
 
 static func _load_project_font(path: String, pixel: bool) -> FontFile:
