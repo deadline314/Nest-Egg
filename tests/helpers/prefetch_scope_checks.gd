@@ -1,6 +1,9 @@
 extends RefCounted
+
+const TextureIndex := preload("res://core/navigation/level_texture_index.gd")
 ## Real authored scopes and real service; no fake loader or changed budget.
 static func run(s: TestSuite) -> void:
+	_test_index(s)
 	for area: String in ["street", "pawnshop_dawn", "lounge", "stall"]:
 		AssetPrefetch.clear()
 		await _drain(s)
@@ -22,6 +25,17 @@ static func run(s: TestSuite) -> void:
 	await _scheduled_neighbors(s)
 	AssetPrefetch.clear()
 	s.check(await _drain(s), "scope regression leaves no queued or native inflight requests")
+
+
+static func _test_index(s: TestSuite) -> void:
+	TextureIndex.prepare()
+	for level: LevelData in ResourceCatalog.load_dir("res://data/levels", LevelData, "Chapter1MapSuite"):
+		var indexed: Variant = TextureIndex.candidates(level.resource_path)
+		var authored := AssetPrefetch.level_texture_candidates(level)
+		s.check(indexed is Dictionary and indexed == authored and indexed.keys() == authored.keys(),
+				"neighbor index matches authored paths, priority and order for " + level.resource_path)
+	s.check(TextureIndex.candidates("res://tests/fixtures/arena_level.tres") == null,
+			"an unindexed test area keeps dynamic neighbor discovery")
 
 
 static func _scheduled_neighbors(s: TestSuite) -> void:

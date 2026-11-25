@@ -4,6 +4,8 @@ extends RefCounted
 ## 4.7.2 原生 RD 由主線 Pump 逐影格載入；其他後端保留真正背景請求。
 ## 主線載入前先由背景執行緒把檔案讀進系統快取（見「檔案暖身」），主線那一格只剩解碼與上傳，不等磁碟。
 
+const TextureIndex := preload("res://core/navigation/level_texture_index.gd")
+
 ## 一個區域一次送出的上限。現有第一章街道鄰居已超過 256 張；與既有 512 張佇列容量對齊，避免第一次預載漏掉尾段。
 const MAX_REQUESTS_PER_CALL := 512
 const MAX_INFLIGHT := 4
@@ -110,10 +112,16 @@ class NeighborWarmup:
 				AssetPrefetch._add_candidates(backdrop, data.environment.sky.texture)
 
 	func collect_target() -> void:
-		var neighbor := AssetPrefetch._resolve_level(targets[target_index])
+		var target := targets[target_index]
 		target_index += 1
-		if neighbor != null:
-			AssetPrefetch._collect_level_candidates(neighbor, candidates)
+		var indexed: Variant = TextureIndex.candidates(target)
+		if indexed == null:
+			var neighbor := AssetPrefetch._resolve_level(target)
+			if neighbor == null:
+				return
+			indexed = AssetPrefetch.level_texture_candidates(neighbor)
+		for path: String in indexed:
+			candidates[path] = candidates.get(path, false) or indexed[path]
 
 	func queue_paths(deadline: int) -> bool:
 		while path_index < paths.size() and Time.get_ticks_usec() < deadline:
@@ -177,6 +185,7 @@ static func schedule_neighbors(data: LevelData) -> void:
 
 static func _begin_neighbors(data: LevelData) -> void:
 	_select_scope("neighbors:%s:%s" % [data.resource_path, data.id], false)
+	TextureIndex.prepare()
 	_neighbor_warmup = NeighborWarmup.new(data)
 
 
@@ -654,15 +663,16 @@ static func _shutdown() -> void:
 ## 一個區域用到的貼圖：場景擺設（含法線與發光層）、環境主題的地形材質、立面、室內牆面、背景與天空、敵人的角色零件。
 static func level_texture_paths(data: LevelData) -> PackedStringArray:
 	var paths := PackedStringArray()
-	var candidates: Dictionary[String, bool] = {}
-	_collect_level_candidates(data, candidates)
+	var candidates := level_texture_candidates(data)
 	for path: String in candidates:
 		if candidates[path] or ResourceLoader.exists(path):
 			paths.append(path)
 	return paths
 
 
-static func _collect_level_candidates(data: LevelData, candidates: Dictionary[String, bool]) -> void:
+## Preserve author order, since the neighbor queue has a bounded capacity.
+static func level_texture_candidates(data: LevelData) -> Dictionary[String, bool]:
+	var candidates: Dictionary[String, bool] = {}
 	var theme := data.environment
 	if theme != null:
 		var dirs := theme.prop_dirs()
@@ -696,6 +706,7 @@ static func _collect_level_candidates(data: LevelData, candidates: Dictionary[St
 		for file in DirAccess.get_files_at(dir):
 			if file.ends_with(".png") or file.ends_with(".webp"):
 				candidates[dir.path_join(file)] = true
+	return candidates
 
 
 ## 一個場景（含接續的下一段）用到的舞台貼圖。
