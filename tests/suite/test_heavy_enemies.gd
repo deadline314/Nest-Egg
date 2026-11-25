@@ -7,6 +7,7 @@ const FLAMER_PATH := "res://data/enemies/flamer.tres"
 const GUNNER_PATH := "res://data/enemies/heavy_gunner.tres"
 const WARDEN_PATH := "res://data/enemies/warden.tres"
 const WATCHDOG_PATH := "res://data/enemies/watchdog.tres"
+const ATROPOS_PATH := "res://data/enemies/atropos.tres"
 const PISTOL_SHOT_PATH := "res://data/projectiles/pistol_shot.tres"
 
 
@@ -22,6 +23,7 @@ func run() -> void:
 	await _test_warden_core_cannon()
 	await _test_warden_core_origin()
 	await _test_visible_heads_are_hittable()
+	await _test_atropos_head_shot()
 	await _test_watchdog_head_shot()
 	await _test_core_hit_along_path()
 	await _test_hit_feedback_at_contact()
@@ -457,6 +459,27 @@ func _test_visible_heads_are_hittable() -> void:
 			check(head != Vector2.INF and covered, "%s's visible head is inside a hurt box (facing %d, head %s)" % [data.id, side, head])
 		enemy.queue_free()
 		await physics_frames(2)
+	await end_level(level)
+
+
+func _test_atropos_head_shot() -> void:
+	await open_level(10.0)
+	var boss := spawn(ATROPOS_PATH, 45.0)
+	await physics_frames(2)
+	var ordinary_damage := roundi((load(PISTOL_SHOT_PATH) as ProjectileSpec).damage)
+	for side: int in [-1, 1]:
+		await _freeze_facing(boss, side)
+		var head := _head_center(boss) - Vector2(0, 3)
+		var hits := await _shot(boss, head + Vector2(side * 140.0, 0), head)
+		check(hits == [[&"head", ordinary_damage, false]],
+				"Atropos takes one ordinary hit at the drawn head (facing %d): %s" % [side, hits])
+	boss.call(&"_hold_enter")
+	await physics_frames(2)
+	var head := _head_center(boss) - Vector2(0, 3)
+	var held_health := boss.health.current
+	var ignored := await _shot(boss, head + Vector2(140, 0), head)
+	check(ignored.is_empty() and boss.health.current == held_health,
+			"Atropos's story-locked phase also protects the head")
 	await end_level(level)
 
 

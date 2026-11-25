@@ -24,6 +24,7 @@ detect_range = 320.0
 attack_cooldown = 1.06
 knockback_scale = 0.0
 poise = 38.0
+hurt_parts = Array[Dictionary]([{"id": "head", "bone": "head", "offset": Vector2(0.25, -4.75), "size": Vector2(10, 10), "mult": 1.0}])
 health_drop_chance = 0.0
 finish_health_ratio = 0.0
 rig_skin = "atropos"
