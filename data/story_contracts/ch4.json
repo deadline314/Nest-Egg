@@ -442,6 +442,33 @@
           }
         ]
       }
+    },
+    {
+      "id": "ch4_t_work_observation",
+      "source": "res://data/story/ch4_hollow.json",
+      "npc": "res://data/npcs/ch4_work_observation.tres",
+      "levels": [
+        "res://data/levels/ch4_factory_work.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "not": {
+            "flag": "ch4_factory_work_crossed",
+            "equals": true
+          }
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch4_factory_work_crossed",
+            "value": true
+          }
+        ]
+      }
     }
   ]
 }

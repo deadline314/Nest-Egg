@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=11 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=12 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
@@ -21,6 +21,20 @@ style = "door"
 
 [sub_resource type="Resource" id="Resource_1"]
 script = ExtResource("2_portal_data")
+id = &"safety_work"
+target_level = "res://data/levels/ch4_factory_work.tres"
+target_portal = &"work_safety"
+requires_flag = &"ch4_cleaning_briefing_read"
+locked_text = "先在安全臺聽完廠內廣播。"
+localized_locked_text = Dictionary[String, String]({"en": "Listen to the announcement at the safe platform first.", "ja": "まず安全台で工場内放送を聞く。"})
+prompt = "{interact} 進清理工作帶"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Enter the sweep work lane", "ja": "{interact} 清掃作業帯へ入る"})
+width = 32
+height = 68
+style = "door"
+
+[sub_resource type="Resource" id="Resource_2"]
+script = ExtResource("2_portal_data")
 id = &"safety_service"
 target_level = "res://data/levels/ch4_factory_loading.tres"
 target_portal = &"loading_service"
@@ -33,7 +47,7 @@ width = 32
 height = 68
 style = "door"
 
-[sub_resource type="Resource" id="Resource_2"]
+[sub_resource type="Resource" id="Resource_3"]
 script = ExtResource("5_lighting_zone")
 start_tile = 0
 blend_tiles = 12
@@ -48,9 +62,10 @@ tile_size = 16
 height = 24
 legend = Dictionary[String, Resource]({
 "↡": SubResource("Resource_0"),
+"↦": SubResource("Resource_1"),
 "ⓘ": ExtResource("3_ch4_safety_instruction"),
 "ⓤ": ExtResource("4_ch4_safety_catch"),
-"⤓": SubResource("Resource_1")
+"⤓": SubResource("Resource_2")
 })
 hints = PackedStringArray()
 chapter = &"ch4_hollow"
@@ -58,6 +73,6 @@ persistent_world = true
 show_chapter_card = false
 environment = ExtResource("7_ch4_factory_safety")
 layout_path = "res://data/levels/ch4_factory_safety_map.json"
-lighting_zones = Array[ExtResource("5_lighting_zone")]([SubResource("Resource_2")])
+lighting_zones = Array[ExtResource("5_lighting_zone")]([SubResource("Resource_3")])
 story_triggers = PackedStringArray()
 death_credit_cap = 250

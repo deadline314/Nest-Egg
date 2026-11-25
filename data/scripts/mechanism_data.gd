@@ -18,6 +18,8 @@ enum Kind {
 	## 遭遇：玩家進入範圍後追蹤敵人與增援；一般路線可自由進出，只有明確指定的特殊場地才鎖門。
 	## size_tiles 是範圍的寬×高（格），原點是範圍底邊的中點；範圍內事先放好的敵人就是這場遭遇的成員。
 	ENCOUNTER,
+	## A scheduled warning and sweep inside one marked sector.
+	SWEEP_LANE,
 }
 
 @export var id: StringName = &"mechanism"
@@ -63,6 +65,13 @@ enum Kind {
 ## 斷電時套用的光影；空白則用 blackout。
 @export var blackout_profile: LightingProfile
 
+@export_group("Sweep")
+@export_range(0.6, 5.0, 0.05) var sweep_warning_seconds := 1.25
+@export_range(0.1, 2.0, 0.05) var sweep_live_seconds := 0.22
+@export_range(0.5, 10.0, 0.05) var sweep_rest_seconds := 2.5
+@export_range(1, 4) var sweep_damage := 1
+## Optional flag for precisely the cover marked to be erased in this sector.
+@export var sweep_clear_flag: StringName = &""
 
 
 func display_name_for(language: String) -> String:
@@ -116,6 +125,15 @@ func validate() -> PackedStringArray:
 			for enemy in reinforcements:
 				if enemy == null:
 					problems.append("%s 的增援清單有空的項目" % id)
+		Kind.SWEEP_LANE:
+			if not is_finite(sweep_warning_seconds) or sweep_warning_seconds < 0.6 or sweep_warning_seconds > 5.0:
+				problems.append("%s 的清掃警示需介於 0.6 至 5 秒" % id)
+			if not is_finite(sweep_live_seconds) or sweep_live_seconds < 0.1 or sweep_live_seconds > 2.0:
+				problems.append("%s 的清掃生效需介於 0.1 至 2 秒" % id)
+			if not is_finite(sweep_rest_seconds) or sweep_rest_seconds < 0.5 or sweep_rest_seconds > 10.0:
+				problems.append("%s 的清掃間隔需介於 0.5 至 10 秒" % id)
+			if sweep_damage < 1 or sweep_damage > 4 or size_tiles.x > 20 or size_tiles.y > 5:
+				problems.append("%s 的清掃範圍或傷害超出安全數值" % id)
 		Kind.LIFT:
 			if travel_tiles < 1 or speed <= 0.0:
 				problems.append("%s 的升降梯行程與速度必須大於 0" % id)

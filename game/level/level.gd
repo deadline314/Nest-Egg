@@ -885,9 +885,16 @@ func _create_prop(spawn: Dictionary) -> Node2D:
 		return credits
 	if resource is MechanismData:
 		var mechanism := resource as MechanismData
-		for problem in mechanism.validate():
+		var problems := mechanism.validate()
+		for problem in problems:
 			push_error("[Level] %s" % problem)
 		match mechanism.kind:
+			MechanismData.Kind.SWEEP_LANE:
+				if not problems.is_empty():
+					return null
+				var sweep := preload("res://game/hazards/factory_sweep_lane.gd").new()
+				sweep.configure(mechanism, _layout.tile_size)
+				return sweep
 			MechanismData.Kind.LIFT:
 				var lift := Lift.new()
 				lift.configure(mechanism, cell, _layout.tile_size)

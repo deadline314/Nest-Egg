@@ -82,13 +82,14 @@ func _ready() -> void:
 		_prompt.offset = Vector2(0, -size_px.y - 10.0)
 		add_child(_prompt)
 	add_to_group(WorldState.GROUP)
-	if not data.sweep_preview.is_empty() and not data.sweep_result.is_empty():
+	if not data.sweep_result.is_empty():
 		hurtbox.enabled = false
-		var warning := SweepWarning.new()
-		warning.name = &"SweepWarning"
-		warning.scene_id = data.sweep_preview
-		warning.size = size_px
-		add_child(warning)
+		if not data.sweep_preview.is_empty():
+			var warning := SweepWarning.new()
+			warning.name = &"SweepWarning"
+			warning.scene_id = data.sweep_preview
+			warning.size = size_px
+			add_child(warning)
 		GameState.flag_changed.connect(_on_sweep_committed)
 		_on_sweep_committed(data.sweep_result, GameState.get_flag(data.sweep_result, false))
 

@@ -1,6 +1,8 @@
 """Localized action labels and lock reasons for the formal chapter portals."""
 
 PROMPTS = {
+    "進清理工作帶": ("Enter the sweep work lane", "清掃作業帯へ入る"),
+    "退回清理線安全臺": ("Return to the safe platform", "清掃線の安全台へ退く"),
     "往清理線前的安全臺": ("Head to the safe platform", "清掃線手前の安全台へ"),
     "回舊廠裝卸帶": ("Return to the loading bay", "荷さばき場へ戻る"),
     "進安全臺": ("Enter the safe platform", "安全台に入る"),
@@ -86,6 +88,7 @@ PROMPTS = {
 }
 
 LOCKS = {
+    "先在安全臺聽完廠內廣播。": ("Listen to the announcement at the safe platform first.", "まず安全台で工場内放送を聞く。"),
     "先在固定地面試跑一次清掃裝置。": ("Test the sweep from fixed ground first.", "固定床から清掃装置を試運転する。"),
     "員工門要從安全臺內側開啟。": ("Unlatch the staff door from the safe platform.", "職員用の扉は安全台の内側から開ける。"),
     "先放開安全臺的門栓。": ("Release the latch at the safe platform first.", "まず安全台の錠を外す。"),

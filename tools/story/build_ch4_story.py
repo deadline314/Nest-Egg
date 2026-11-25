@@ -33,6 +33,7 @@ RAIL = "ch4_loader_rail_released"
 FLOOR = "ch4_fixed_ground_marked"
 SWEEP = "ch4_demo_cover_cleared"
 BRIEFED = "ch4_cleaning_briefing_read"
+WORK_CROSSED = "ch4_factory_work_crossed"
 SHORTCUT = "ch4_safety_shortcut_open"
 
 
@@ -223,6 +224,17 @@ def _factory_safety(source, dispatch):
     ), when=flag(SHORTCUT), mode="animated")
 
 
+def _work_lane(source, dispatch):
+    dispatch["work_observation"] = ["ch4_t_work_observation", "ch4_t_work_crossed"]
+    source.add("ch4_t_work_observation", "09", (
+        ("lamp", "白線會先掃底層，再掃另一端的高架。看到白框，先走另一層。"),
+        ("rin", "這裡讀得到原帳的路徑。工作廊在前面。"),
+    ), when=negate(flag(WORK_CROSSED)), mode="animated", completion=(set_flag(WORK_CROSSED),))
+    source.add("ch4_t_work_crossed", "09", (
+        ("rin", "離開白框的範圍，固定路面還能通行。"),
+    ), when=flag(WORK_CROSSED), mode="animated")
+
+
 def build_spec():
     source = ProductionSource(flag_defaults={})
     source.speakers = {
@@ -244,6 +256,7 @@ def build_spec():
     _factory_approach(source, dispatch)
     _sweep_demo(source, dispatch)
     _factory_safety(source, dispatch)
+    _work_lane(source, dispatch)
     route_back_to_choices(source, dispatch, "ch4")
     source.bindings.update({
         binding: Binding("npc" if binding in ("old_k", "egret", "ali") else "object", CHAPTER,
@@ -291,7 +304,15 @@ def build_spec():
         (QuestStep("穿過接線廊，在安全臺聽廣播。", BRIEFED, "safety_instruction"),),
         visible_flags=(SWEEP,),
     ))
-    return ChapterSpec(CHAPTER_INFO, source, "ch4", dispatch, POINTS)
+
+    source.quests.append(Quest(
+        "ch4_factory_work", "main", "通過清理工作帶",
+        "白線會掃過測試箱和高架。可沿固定工作臺等待，也可以換層。",
+        "在工作帶另一端查到通往原帳的路徑。", WORK_CROSSED,
+        (QuestStep("避開白框，去工作帶另一端核對讀數。", WORK_CROSSED, "work_observation"),),
+        visible_flags=(BRIEFED,),
+    ))
+    return ChapterSpec(CHAPTER_INFO, source, "ch4", dispatch, POINTS, flag_defaults={"ch4_work_cover_erased": False})
 
 
 def main():

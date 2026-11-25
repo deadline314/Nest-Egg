@@ -9,7 +9,7 @@ const WAITING_ROOM := &"ch4_dispatch_egret"
 
 
 func run() -> void:
-	var areas := Checks.load_areas(self, "ch4", CHAPTER, ["pawnshop", "ward_reception", "nursing_ward", "revival_lounge", "factory_approach", "factory_loading", "factory_relay", "factory_safety"])
+	var areas := Checks.load_areas(self, "ch4", CHAPTER, ["pawnshop", "ward_reception", "nursing_ward", "revival_lounge", "factory_approach", "factory_loading", "factory_relay", "factory_safety", "factory_work"])
 	Checks.check_portals(self, "chapter 4", areas)
 	for area: LevelData in areas.values():
 		var actual: Array[Dictionary] = LevelBuilder.parse(area).spawns
@@ -17,8 +17,8 @@ func run() -> void:
 			if resource is PortalData:
 				check(actual.any(func(spawn: Dictionary) -> bool: return spawn["resource"] == resource),
 					"%s/%s is parsed as a live portal" % [area.id, resource.id])
-	Checks.check_entries(self, "chapter 4", areas, 14)
-	Checks.check_quest_markers(self, "chapter 4", "ch4", STORY, areas, 11)
+	Checks.check_entries(self, "chapter 4", areas, 15)
+	Checks.check_quest_markers(self, "chapter 4", "ch4", STORY, areas, 12)
 
 	GameState.start_new_run(GameState.difficulties[1])
 	check(Story.resolve_dispatch(CABINET) == &"ch4_t_visit_first", "the cabinet asks for consent before it is investigated")
@@ -43,6 +43,7 @@ func run() -> void:
 	check(upper_door != null and upper_door.requires_flag == &"ch4_loader_rail_released", "releasing the internal catch opens a separate return route")
 	_check_safe_platform(loading, areas["factory_relay"], areas["factory_safety"])
 	_check_sweep(loading)
+	_check_work_lane(areas["factory_safety"], areas["factory_work"])
 	GameState.start_new_run(GameState.difficulties[1])
 
 
@@ -79,3 +80,24 @@ func _check_safe_platform(loading: LevelData, relay: LevelData, safety: LevelDat
 			threats.append(enemy.id)
 	check(threats.count(&"sweeper") == 1 and threats.count(&"slasher") == 1 and threats.count(&"searchlight_drone") == 2,
 			"the shared floor and upper catwalk contain two distinct patrol groups")
+
+
+func _check_work_lane(safety: LevelData, work: LevelData) -> void:
+	var entrance := Checks.portal_by_id(safety, &"safety_work")
+	check(entrance != null and entrance.requires_flag == &"ch4_cleaning_briefing_read", "the work lane requires the safe-platform briefing")
+	var layout := LevelBuilder.parse(work)
+	var sectors: Array[Dictionary] = []
+	for entry: Dictionary in layout.spawns:
+		var data := entry.get("resource") as MechanismData
+		if data != null and data.kind == MechanismData.Kind.SWEEP_LANE:
+			check(data.validate().is_empty(), "each work sweep uses a valid, bounded warning and live period")
+			sectors.append(entry)
+	check(sectors.size() == 2, "the work lane has two independently placed sweep sectors")
+	if sectors.size() == 2:
+		var a: Vector2i = sectors[0]["cell"]
+		var b: Vector2i = sectors[1]["cell"]
+		check(absi(a.y - b.y) >= 5, "the second sweep is far enough above the first to leave alternate footing")
+	var malformed := MechanismData.new()
+	malformed.kind = MechanismData.Kind.SWEEP_LANE
+	malformed.sweep_warning_seconds = INF
+	check(not malformed.validate().is_empty(), "nonfinite warning durations are rejected before spawning")

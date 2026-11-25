@@ -91,6 +91,17 @@
     "loop": "上層員工門回裝卸帶，原路可回接線廊。"
    },
    "encounters": []
+  },
+  "factory_work": {
+   "combat": false,
+   "group": "factory_work",
+   "features": {
+    "landmark": "亮線間隔顯示的固定工作帶。",
+    "loop": "低處和高架交錯，可從另一層繞過白線。",
+    "vertical": "前段掃底層、後段掃上層。",
+    "reward": "另一端能看見頭目工作廊。"
+   },
+   "encounters": []
   }
  },
  "curve": {

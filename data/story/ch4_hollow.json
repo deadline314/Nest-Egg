@@ -43,6 +43,7 @@
   }
  },
  "flag_defaults": {
+  "ch4_work_cover_erased": false,
   "ch4_documents_wrapped": false,
   "ch4_visit_signed": false,
   "ch4_linden_visit_confirmed": false,
@@ -56,7 +57,8 @@
   "ch4_fixed_ground_marked": false,
   "ch4_demo_cover_cleared": false,
   "ch4_cleaning_briefing_read": false,
-  "ch4_safety_shortcut_open": false
+  "ch4_safety_shortcut_open": false,
+  "ch4_factory_work_crossed": false
  },
  "transactions": {},
  "derived_flags": {},
@@ -297,6 +299,38 @@
    "background_en": "There's a yellow line before the work lane. Stop outside it to prepare.",
    "reward_ja": "黄色い境界を確認し、隊長の放送を聞く。",
    "reward_en": "Mark the yellow boundary and listen to the captain's announcement."
+  },
+  {
+   "id": "ch4_factory_work",
+   "kind": "main",
+   "title": "通過清理工作帶",
+   "background": "白線會掃過測試箱和高架。可沿固定工作臺等待，也可以換層。",
+   "reward": "在工作帶另一端查到通往原帳的路徑。",
+   "complete_flag": "ch4_factory_work_crossed",
+   "steps": [
+    {
+     "title": "避開白框，去工作帶另一端核對讀數。",
+     "complete_flag": "ch4_factory_work_crossed",
+     "location": {
+      "level": "res://data/levels/ch4_factory_work.tres",
+      "cell": [
+       81,
+       19
+      ]
+     },
+     "title_ja": "白い枠を避け、作業帯の反対側で測定値を確認する。",
+     "title_en": "Avoid the white frames and check the readings at the far end."
+    }
+   ],
+   "visible_flags": [
+    "ch4_cleaning_briefing_read"
+   ],
+   "title_ja": "清掃作業帯を通過する",
+   "title_en": "Cross the sweep work lane",
+   "background_ja": "白線は試験箱と上段を掃く。固定台で待つか、別の段を通る。",
+   "background_en": "The white line sweeps the test cover and the catwalk. Wait on a fixed platform or change levels.",
+   "reward_ja": "作業帯の反対側で、原簿への経路を確認する。",
+   "reward_en": "Find the route to the original ledger at the far end of the work lane."
   }
  ],
  "scenes": {
@@ -1488,6 +1522,57 @@
     "equals": true
    }
   },
+  "ch4_t_work_observation": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "白線會先掃底層，再掃另一端的高架。看到白框，先走另一層。",
+     "ja": "白線は先に下段を、反対側では上段を掃く。白い枠が見えたら別の段を通って。",
+     "en": "The white line sweeps the lower floor, then the catwalk at the far end. Change levels when you see a white frame."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "這裡讀得到原帳的路徑。工作廊在前面。",
+     "ja": "ここで原簿への経路が分かる。作業廊はこの先だ。",
+     "en": "This shows the way to the original ledger. The work corridor is ahead."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "ch4_factory_work_crossed",
+     "equals": true
+    }
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch4_factory_work_crossed",
+     "value": true
+    }
+   ],
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch4_t_work_crossed": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "離開白框的範圍，固定路面還能通行。",
+     "ja": "白い枠の外なら、固定の通路をまだ通れる。",
+     "en": "The permanent route is clear outside the white frame."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch4_factory_work_crossed",
+    "equals": true
+   }
+  },
   "ch4_dispatch_old_k": {
    "mode": "dispatch",
    "routes": [
@@ -2042,6 +2127,37 @@
       "equals": true
      },
      "target": "ch4_t_safety_open"
+    }
+   ]
+  },
+  "ch4_dispatch_work_observation": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "not": {
+         "flag": "ch4_factory_work_crossed",
+         "equals": true
+        }
+       },
+       {
+        "not": {
+         "flag": "ch4_factory_work_crossed",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch4_t_work_observation"
+    },
+    {
+     "when": {
+      "flag": "ch4_factory_work_crossed",
+      "equals": true
+     },
+     "target": "ch4_t_work_crossed"
     }
    ]
   },

@@ -1,6 +1,7 @@
 """Area names for the chapter builders and their in-game route labels."""
 
 AREA_NAMES = {
+    "清理工作帶": {"en": "Sweep Line Work Lane", "ja": "清掃作業帯"},
     "廠房接線廊": {"en": "Factory Service Walk", "ja": "工場の配線通路"},
     "清理線安全臺": {"en": "Sweep Line Safe Platform", "ja": "清掃線の安全台"},
     "復原館的換班口": {"en": "Restoration Hall Shift Entrance", "ja": "復元館の交代口"},

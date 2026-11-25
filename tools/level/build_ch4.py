@@ -24,6 +24,7 @@ POINTS = {
     "sweep_console": ("factory_loading", 71, GROUND - 1),
     "safety_instruction": ("factory_safety", 23, GROUND - 1),
     "safety_catch": ("factory_safety", 35, 13),
+    "work_observation": ("factory_work", 81, GROUND - 1),
 }
 PEOPLE = {
     "old_k": ("老 K", "old_k", "wipe_hands"),
@@ -35,9 +36,9 @@ STATIONS = {
     "cabinet": "床頭櫃", "staff_switch": "內廊開門鍵",
     "shift_board": "舊廠班表", "rail_release": "維修棘輪", "workbench": "裝卸帶工作臺",
     "sweep_console": "清掃試車台",
-    "safety_instruction": "安全臺喇叭", "safety_catch": "員工門栓",
+    "safety_instruction": "安全臺喇叭", "safety_catch": "員工門栓", "work_observation": "清理線讀數",
 }
-GLYPHS = dict(zip(POINTS, "ⓞⓔⓣⓓⓥⓒⓢⓐⓑⓡⓦⓧⓘⓤ", strict=True))
+GLYPHS = dict(zip(POINTS, "ⓞⓔⓣⓓⓥⓒⓢⓐⓑⓡⓦⓧⓘⓤⓟ", strict=True))
 
 
 def area_path(area):
@@ -69,6 +70,9 @@ PORTALS = {
           "先在固定地面試跑一次清掃裝置。"),
     "Ⅿ": ("relay_loading", "factory_loading", "loading_relay", "回舊廠裝卸帶", "", ""),
     "↟": ("relay_safe", "factory_safety", "safety_relay", "進安全臺", "", ""),
+    "↦": ("safety_work", "factory_work", "work_safety", "進清理工作帶", "ch4_cleaning_briefing_read",
+          "先在安全臺聽完廠內廣播。"),
+    "↤": ("work_safety", "factory_safety", "safety_work", "退回清理線安全臺", "", ""),
     "↡": ("safety_relay", "factory_relay", "relay_safe", "回廠房接線廊", "", ""),
     "⤒": ("loading_service", "factory_safety", "safety_service", "走高架員工捷徑", "ch4_safety_shortcut_open",
           "員工門要從安全臺內側開啟。"),
@@ -87,6 +91,7 @@ THEMES = {
     "factory_approach": ("asphalt", ["shutter_block", "warehouse"], "hangar_wall", 0.19, "sky_storm",
                          ["abandoned_factory", "factory_office"]),
     "factory_relay": ("steel_plate", ["warehouse"], "hangar_wall", 0.0, "sky_storm", ["abandoned_factory"]),
+    "factory_work": ("steel_plate", ["warehouse"], "hangar_wall", 0.0, "sky_storm", ["abandoned_factory", "factory_office"]),
     "factory_safety": ("steel_plate", ["warehouse"], "facility_panel", 0.0, "sky_storm", ["abandoned_factory", "factory_office"]),
     "factory_loading": ("steel_plate", ["warehouse"], "hangar_wall", 0.0, "sky_storm",
                         ["abandoned_factory", "factory_office"]),
@@ -115,6 +120,7 @@ def _configure():
         "workbench": "查看清理線",
         "sweep_console": "試一次清掃線",
         "safety_instruction": "聽清理線廣播", "safety_catch": "放開員工門栓",
+        "work_observation": "核對白線的讀數",
     }
     kit.NPCS = {}
     kit.RES = {}
@@ -130,6 +136,9 @@ def _configure():
         "g": "res://data/enemies/sweeper.tres",
         "b": "res://data/enemies/slasher.tres",
         "d": "res://data/enemies/searchlight_drone.tres",
+        "⭙": "res://data/props/ch4_lower_sweep.tres",
+        "⭗": "res://data/props/ch4_upper_sweep.tres",
+        "⧈": "res://data/props/ch4_work_test_cover.tres",
     })
     kit.ENEMY_NAMES.update({"b": "切割者", "d": "探照無人機"})
     kit.THEMES = THEMES
@@ -295,6 +304,7 @@ def _factory_safety():
     area.platform(27, 30, 16)
     area.platform(32, 41, 14)
     area.stand(39, "⤓", row=13)
+    area.stand(41, "↦")
     area.prop("abandoned_factory__cleaner_gear_case", 14)
     area.prop("abandoned_factory__power_panel", 19, y=13, support="wall")
     area.prop("hazard_sign", 24, y=14, support="wall")
@@ -306,10 +316,36 @@ def _factory_safety():
     return area
 
 
+def _factory_work():
+    area = kit.Area("factory_work", "清理工作帶", 88, GROUND, indoor=True)
+    area.zone(0, "ch4_loading_bay")
+    area.ceiling(1, 86, 4)
+    area.stand(4, "↤")
+    area.stand(8, "P")
+    area.stand(42, "C")
+    for x0, x1, y in ((10, 14, 18), (16, 20, 16), (22, 37, 14), (40, 48, 14),
+                      (51, 72, 14), (74, 78, 16), (80, 85, 18)):
+        area.platform(x0, x1, y)
+    area.stand(29, "⭙")
+    area.stand(30, "⧈")
+    area.stand(60, "⭗", row=13)
+    area.prop("hazard_sign", 22, y=15, support="wall")
+    area.prop("floor_marking", 24, y=GROUND - 1)
+    area.prop("floor_marking", 34, y=GROUND - 1)
+    area.prop("floor_marking", 55, y=13)
+    area.prop("abandoned_factory__press_machine", 45, y=GROUND - 1)
+    area.prop("abandoned_factory__power_panel", 80, y=14, support="wall")
+    for x in (10, 27, 42, 60, 78):
+        area.lamp(x, 5)
+    area.features = {"landmark": "亮線間隔顯示的固定工作帶。", "loop": "低處和高架交錯，可從另一層繞過白線。",
+                     "vertical": "前段掃底層、後段掃上層。", "reward": "另一端能看見頭目工作廊。"}
+    return area
+
+
 def main():
     _configure()
     areas = [_pawnshop(), _reception(), _ward(), _lounge(), _factory_approach(), _factory_loading(),
-             _factory_relay(), _factory_safety()]
+             _factory_relay(), _factory_safety(), _factory_work()]
     targets = set(GLYPHS.values()) | set(PORTALS)
     for area in areas:
         for binding, (area_id, x, y) in POINTS.items():

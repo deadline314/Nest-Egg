@@ -1,0 +1,52 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
+[ext_resource type="Resource" path="res://data/npcs/ch4_work_observation.tres" id="3_ch4_work_observation"]
+[ext_resource type="Resource" path="res://data/props/ch4_work_test_cover.tres" id="4_ch4_work_test_cover"]
+[ext_resource type="Resource" path="res://data/props/ch4_upper_sweep.tres" id="5_ch4_upper_sweep"]
+[ext_resource type="Resource" path="res://data/props/ch4_lower_sweep.tres" id="6_ch4_lower_sweep"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="7_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/ch4_loading_bay.tres" id="8_ch4_loading_bay"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch4_factory_work.tres" id="9_ch4_factory_work"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("2_portal_data")
+id = &"work_safety"
+target_level = "res://data/levels/ch4_factory_safety.tres"
+target_portal = &"safety_work"
+prompt = "{interact} 退回清理線安全臺"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Return to the safe platform", "ja": "{interact} 清掃線の安全台へ退く"})
+width = 32
+height = 68
+style = "door"
+
+[sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("7_lighting_zone")
+start_tile = 0
+blend_tiles = 12
+profile = ExtResource("8_ch4_loading_bay")
+
+[resource]
+script = ExtResource("1_level_data")
+id = &"ch4_factory_work"
+display_name = "清理工作帶"
+localized_names = Dictionary[String, String]({"en": "Sweep Line Work Lane", "ja": "清掃作業帯"})
+tile_size = 16
+height = 24
+legend = Dictionary[String, Resource]({
+"↤": SubResource("Resource_0"),
+"ⓟ": ExtResource("3_ch4_work_observation"),
+"⧈": ExtResource("4_ch4_work_test_cover"),
+"⭗": ExtResource("5_ch4_upper_sweep"),
+"⭙": ExtResource("6_ch4_lower_sweep")
+})
+hints = PackedStringArray()
+chapter = &"ch4_hollow"
+persistent_world = true
+show_chapter_card = false
+environment = ExtResource("9_ch4_factory_work")
+layout_path = "res://data/levels/ch4_factory_work_map.json"
+lighting_zones = Array[ExtResource("7_lighting_zone")]([SubResource("Resource_1")])
+story_triggers = PackedStringArray()
+death_credit_cap = 250
