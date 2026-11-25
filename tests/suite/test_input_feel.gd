@@ -733,7 +733,8 @@ class VehicleStepStop extends Node:
 	func _physics_process(_delta: float) -> void:
 		if not stopped and Input.is_action_pressed(&"interact"):
 			stopped = true
-			Fx.freeze(actors, 0.08)
+			# This fixture tests ordering. Each case thaws explicitly before returning.
+			Fx.freeze(actors, 2.0)
 
 
 func _test_vehicle_same_step_stop() -> void:
