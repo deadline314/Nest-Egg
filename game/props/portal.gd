@@ -6,8 +6,14 @@ extends Area2D
 
 signal used(portal: Portal)
 
+const LOCAL_REPLAY_GROUP := &"local_replay_active"
 const PROMPT_LOCKED_RADIUS := 56.0
 const LOCKED_TOAST_COOLDOWN := 1.2
+const REPLAY_UNAVAILABLE_TEXT := {
+	"zh": "回放無法載入，請稍後再試。",
+	"en": "The memory could not load. Please try again.",
+	"ja": "回想を読み込めませんでした。もう一度お試しください。",
+}
 const CINEMATIC_PREVIEW_COPY := {
 	"zh": "前方將播放劇情。",
 	"en": "A story scene plays ahead.",
@@ -34,6 +40,9 @@ var _rattle_left := 0.0
 var _prompt: WorldPrompt
 var _cinematic_notice: WorldPrompt
 var _preview_valid := false
+var _replay_pending := false
+var _replay_input_frame := -2
+var _local_replay: CanvasLayer
 ## 門或梯子的貼圖（墊在後面的子節點）；讀不到貼圖時是 null，改用簡單畫法。
 var _art: Sprite2D
 var _art_origin := Vector2.ZERO
@@ -101,7 +110,9 @@ func _ready() -> void:
 
 ## 玩家從這個出入口出現：離開一次之前不觸發。
 func disarm() -> void:
-	_armed = false
+	# Local playback has no automatic entry or reciprocal destination.
+	if data == null or data.local_replay.is_empty():
+		_armed = false
 
 
 ## 這個點是否落在出入口的觸發範圍（範圍以腳下為底、往上 height）；margin 給角色身體寬度。
@@ -117,7 +128,11 @@ func is_armed() -> bool:
 
 ## 現在能不能通行（旗標滿足、有目標）。
 func is_open() -> bool:
-	return data != null and data.can_travel(GameState.get_flag(data.requires_flag, false))
+	if data == null:
+		return false
+	if not data.local_replay.is_empty():
+		return data.can_replay_locally(GameState.has_flag(data.requires_flag))
+	return data.can_travel(GameState.get_flag(data.requires_flag, false))
 
 
 func preview_available() -> bool:
@@ -142,10 +157,42 @@ func try_use() -> bool:
 			Sfx.play(&"switch", -12.0, 0.1, 0, 0.7)
 			EventBus.world_noise.emit(global_position + Vector2(0.0, -data.height * 0.5), RATTLE_NOISE)
 		return false
+	if not data.local_replay.is_empty():
+		if _replay_pending or is_instance_valid(_local_replay) or get_tree().paused or Engine.get_physics_frames() <= _replay_input_frame + 1:
+			return false
+		_replay_pending = true
+		add_to_group(LOCAL_REPLAY_GROUP)
+		_open_local_replay.call_deferred()
+		return true
 	if _preview_valid:
 		Story.framing.interaction_started(self)
 	used.emit(self)
 	return true
+
+
+func _open_local_replay() -> void:
+	_replay_pending = false
+	if not is_inside_tree() or is_queued_for_deletion() or get_tree().paused or not is_open():
+		remove_from_group(LOCAL_REPLAY_GROUP)
+		return
+	var source := load(data.local_replay) as PackedScene if ResourceLoader.exists(data.local_replay, "PackedScene") else null
+	var instance := source.instantiate() if source != null else null
+	_local_replay = instance as CanvasLayer
+	if _local_replay == null:
+		remove_from_group(LOCAL_REPLAY_GROUP)
+		if instance != null:
+			instance.free()
+		push_warning("[Portal] %s 的現地回放載入失敗：%s" % [data.id, data.local_replay])
+		EventBus.toast_requested.emit(REPLAY_UNAVAILABLE_TEXT.get(Story.language, REPLAY_UNAVAILABLE_TEXT["zh"]))
+		return
+	# The final interact was consumed by the replay. Do not use it to reopen the door.
+	_local_replay.tree_exiting.connect(_on_local_replay_closed, CONNECT_ONE_SHOT)
+	add_child(_local_replay)
+
+
+func _on_local_replay_closed() -> void:
+	remove_from_group(LOCAL_REPLAY_GROUP)
+	_replay_input_frame = Engine.get_physics_frames()
 
 
 func _physics_process(delta: float) -> void:
@@ -184,7 +231,7 @@ func _rattle_offset() -> float:
 
 
 func _accent() -> Color:
-	if data.is_locked_door() or (data.requires_flag != &"" and not GameState.has_flag(data.requires_flag)):
+	if (data.local_replay.is_empty() and data.is_locked_door()) or (data.requires_flag != &"" and not GameState.has_flag(data.requires_flag)):
 		return Palette.DANGER.darkened(0.2)
 	return Palette.NEON_YELLOW if data.style == "door" else Palette.CYAN
 

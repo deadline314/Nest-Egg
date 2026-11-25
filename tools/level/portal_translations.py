@@ -1,6 +1,7 @@
 """Localized action labels and lock reasons for the formal chapter portals."""
 
 PROMPTS = {
+    "回到最後一個週日": ("Revisit the last Sunday", "最後の日曜日を追体験する"),
     "確認進入清掃工作廊": ("Enter the cleanup gallery", "清掃作業廊に入る"),
     "退回工作帶": ("Return to the work lane", "清掃作業帯に戻る"),
     "上樓進原帳辦公室": ("Go upstairs to the ledger office", "原簿事務室の上階へ進む"),
@@ -92,6 +93,7 @@ PROMPTS = {
 }
 
 LOCKS = {
+    "先核對原帳，再到側門回放鷺的路線。": ("Verify the ledger first, then retrace Egret’s route at the side door.", "先に原簿を照合してから、側扉で鷺の足取りをたどってください。"),
     "先到工作帶另一端核對讀數。": ("Check the readings at the far end of the work lane first.", "先に作業帯の反対側で計測値を確認する。"),
     "等清理隊長撤出工作廊。": ("Wait until the cleanup captain leaves the gallery.", "清掃隊長が作業廊から撤退するのを待つ。"),
     "先在安全臺聽完廠內廣播。": ("Listen to the announcement at the safe platform first.", "まず安全台で工場内放送を聞く。"),

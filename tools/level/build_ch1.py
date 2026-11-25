@@ -1484,6 +1484,8 @@ def write_level(area, theme_key=None, level_id=None, map_name=None, persist=True
                 body.append(f'target_level = "{p["to"]}"')
                 if p.get('target'):
                     body.append(f'target_portal = &"{p["target"]}"')
+            if p.get('local_replay'):
+                body.append(f'local_replay = "{p["local_replay"]}"')
             if p.get('requires'):
                 body.append(f'requires_flag = &"{p["requires"]}"')
             if p.get('locked'):

@@ -121,6 +121,10 @@ def _configure():
                     prompt=f"{{interact}} {prompt}", requires=requires, locked=locked)
         for glyph, (ident, target, target_id, prompt, requires, locked) in PORTALS.items()
     }
+    kit.PORTALS["↻"] = dict(id="office_sunday_replay", to="", mode=0, style="door", w=28, h=64,
+                            local_replay="res://game/cutscene/local_replay/last_sunday.tscn",
+                            prompt="{interact} 回到最後一個週日", requires="ch4_original_ledger_saved",
+                            locked="先核對原帳，再到側門回放鷺的路線。")
     prompts = {
         "original_ledger": "核對原帳",
         "archive_recorder": "查看第三十一版錄音",
@@ -399,6 +403,7 @@ def _factory_office():
     area.ceiling(1, 40, 5)
     area.stand(4, "↧")
     area.stand(8, "P")
+    area.stand(39, "↻")
     area.prop("factory_office__desk_with_ledger", 20)
     area.prop("factory_office__stopped_clock", 24, y=12, support="wall")
     area.prop("factory_office__bulletin_board", 28, y=14, support="wall")
@@ -416,7 +421,7 @@ def main():
     _configure()
     areas = [_pawnshop(), _reception(), _ward(), _lounge(), _factory_approach(), _factory_loading(),
              _factory_relay(), _factory_safety(), _factory_work(), _factory_cleaning(), _factory_office()]
-    targets = set(GLYPHS.values()) | set(PORTALS)
+    targets = set(GLYPHS.values()) | set(kit.PORTALS)
     for area in areas:
         for binding, (area_id, x, y) in POINTS.items():
             if area_id == area.id:

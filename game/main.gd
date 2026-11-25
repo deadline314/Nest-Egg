@@ -667,6 +667,8 @@ func _queue_save() -> void:
 
 ## Movement and exploration cannot change a locked dialogue's entry checkpoint.
 func _queue_movement_autosave() -> void:
+	if get_tree().has_group(Portal.LOCAL_REPLAY_GROUP):
+		return
 	if _save_queued or _autosave_queued or _route_preparing or _quitting or not _can_capture_save():
 		return
 	if not _cinematic_entry.is_empty() and _is_plain_dialogue(StringName(_cinematic)):
@@ -711,7 +713,7 @@ func _write_queued_autosave() -> RunSaveStore.WriteStatus:
 	if not _autosave_queued:
 		return RunSaveStore.WriteStatus.CANCELLED
 	_autosave_queued = false
-	if _save_queued or _route_preparing or _quitting:
+	if _save_queued or _route_preparing or _quitting or get_tree().has_group(Portal.LOCAL_REPLAY_GROUP):
 		return RunSaveStore.WriteStatus.CANCELLED
 	var snapshot := _snapshot_for_save()
 	if snapshot.is_empty():
@@ -724,7 +726,8 @@ func _write_queued_autosave() -> RunSaveStore.WriteStatus:
 func _can_finish_autosave(owner: WeakRef, scene: String, request: int) -> bool:
 	return (not _quitting and not _route_preparing and not _save_queued
 			and owner.get_ref() == _screen and scene == _cinematic
-			and request == _cinematic_request and _can_capture_save())
+			and request == _cinematic_request and not get_tree().has_group(Portal.LOCAL_REPLAY_GROUP)
+			and _can_capture_save())
 
 
 func _save_run(route_source := false) -> void:

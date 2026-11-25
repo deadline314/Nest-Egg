@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=10 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
@@ -20,6 +20,19 @@ height = 68
 style = "door"
 
 [sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("2_portal_data")
+id = &"office_sunday_replay"
+local_replay = "res://game/cutscene/local_replay/last_sunday.tscn"
+requires_flag = &"ch4_original_ledger_saved"
+locked_text = "先核對原帳，再到側門回放鷺的路線。"
+localized_locked_text = Dictionary[String, String]({"en": "Verify the ledger first, then retrace Egret’s route at the side door.", "ja": "先に原簿を照合してから、側扉で鷺の足取りをたどってください。"})
+prompt = "{interact} 回到最後一個週日"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Revisit the last Sunday", "ja": "{interact} 最後の日曜日を追体験する"})
+width = 28
+height = 64
+style = "door"
+
+[sub_resource type="Resource" id="Resource_2"]
 script = ExtResource("5_lighting_zone")
 start_tile = 0
 blend_tiles = 12
@@ -34,6 +47,7 @@ tile_size = 16
 height = 24
 legend = Dictionary[String, Resource]({
 "↧": SubResource("Resource_0"),
+"↻": SubResource("Resource_1"),
 "ⓕ": ExtResource("3_ch4_archive_recorder"),
 "ⓛ": ExtResource("4_ch4_original_ledger")
 })
@@ -43,6 +57,6 @@ persistent_world = true
 show_chapter_card = false
 environment = ExtResource("7_ch4_factory_office")
 layout_path = "res://data/levels/ch4_factory_office_map.json"
-lighting_zones = Array[ExtResource("5_lighting_zone")]([SubResource("Resource_1")])
+lighting_zones = Array[ExtResource("5_lighting_zone")]([SubResource("Resource_2")])
 story_triggers = PackedStringArray()
 death_credit_cap = 250

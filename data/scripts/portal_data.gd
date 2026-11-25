@@ -2,7 +2,7 @@ class_name PortalData
 extends Resource
 ## 出入口：把一個區域（關卡）連到另一個區域。在關卡 legend 把字元對應到它，就會在地圖上放一扇門。
 ## 只放資料就能新增連接：目標區域與目標出入口用路徑和 id 指定，不需要改程式。
-## 沒有目標區域的出入口是「鎖死的門」（擺設）：互動只會顯示 locked_text。
+## 目標區域留空時是擺設或播放現地回放；兩種都不參與地圖路由。
 
 const DEFAULT_LOCKED_TEXT := "這扇門打不開。"
 const DEFAULT_PROMPTS := {"zh": "{interact} 進入", "en": "{interact} Enter", "ja": "{interact} 入る"}
@@ -21,6 +21,8 @@ enum Mode {
 @export_file("*.tres") var target_level: String = ""
 ## 目標區域裡的出入口 id；玩家會出現在那個出入口。空白時出現在目標區域的起點 P。
 @export var target_portal: StringName = &""
+## A local presentation. It never declares a destination or a map edge.
+@export_file("*.tscn") var local_replay: String = ""
 @export var mode: Mode = Mode.INTERACT
 ## 互動提示（可用 {interact} 佔位符）；空白時用預設。一句話講重點，例如「{interact} 回家」。
 @export var prompt: String = ""
@@ -47,6 +49,11 @@ func can_travel(flag_value: Variant) -> bool:
 	return not is_locked_door() and (requires_flag == &"" or (true if flag_value else false))
 
 
+func can_replay_locally(flag: bool) -> bool:
+	return not local_replay.is_empty() and mode == Mode.INTERACT and target_level.is_empty() and target_portal == &"" \
+			and cinematic_preview_scene == &"" and (requires_flag == &"" or flag)
+
+
 func default_prompt(language := StoryLocale.SOURCE_LANGUAGE) -> String:
 	var source: String = DEFAULT_PROMPTS.get(language, DEFAULT_PROMPTS[StoryLocale.SOURCE_LANGUAGE]) if prompt.is_empty() else prompt
 	return StoryLocale.optional_text(localized_prompts, language, source)
@@ -61,7 +68,12 @@ func validate() -> PackedStringArray:
 	var problems := PackedStringArray()
 	if id == &"":
 		problems.append("出入口缺少 id")
-	if target_level.is_empty():
+	if not local_replay.is_empty():
+		if mode != Mode.INTERACT or not target_level.is_empty() or target_portal != &"" or cinematic_preview_scene != &"":
+			problems.append("出入口 %s 的現地回放不能同時切區、預告過場或自動觸發" % id)
+		if not ResourceLoader.exists(local_replay, "PackedScene"):
+			problems.append("出入口 %s 的現地回放不存在：%s" % [id, local_replay])
+	elif target_level.is_empty():
 		if locked_text.is_empty():
 			problems.append("出入口 %s 沒有目標區域，也沒有鎖住的提示文字" % id)
 	elif not ResourceLoader.exists(target_level):
