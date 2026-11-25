@@ -312,7 +312,11 @@ func _build_entry() -> void:
 	await _entry_checkpoint()
 	await _spawn_cinematic_entries()
 	await _entry_checkpoint()
+	var player_textures: Array[Texture2D] = []
+	if _slice_entry:
+		player_textures = await RigLibrary.prepare_skin_textures(PlayerVisual.SKIN_ID, _entry_checkpoint)
 	_spawn_player()
+	player_textures.clear()
 	await _entry_checkpoint()
 	# 從檢查點重生：還原被打破的箱子、開關、閘門與電力（要在光影設定之前，事件才會正確）。
 	WorldState.restore(get_tree(), _resume.get("world", {}) if not _resume.is_empty() else (_area.get("world", {}) if _persistent else GameState.checkpoint_world))

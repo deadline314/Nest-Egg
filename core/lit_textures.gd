@@ -18,7 +18,7 @@ static func load_texture(path: String, fallback_size := Vector2i(16, 16)) -> Tex
 	if _cache.has(path):
 		return _cache[path]
 	var diffuse := RigLibrary.texture(path, fallback_size)
-	var normal_path := path.get_basename() + "_n." + path.get_extension()
+	var normal_path := RigLibrary.companion_normal_path(path)
 	var result: Texture2D = diffuse
 	if ResourceLoader.exists(path):
 		var normal: Texture2D = load(normal_path) as Texture2D if ResourceLoader.exists(normal_path) else null

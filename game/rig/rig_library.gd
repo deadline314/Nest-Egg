@@ -77,6 +77,47 @@ static func weapon(id: String) -> Dictionary:
 	return {}
 
 
+static func companion_normal_path(path: String) -> String:
+	return path.get_basename() + "_n." + path.get_extension()
+
+
+## Load the registered skin images across entry frames. The returned references keep
+## the same engine assets available until the rig binds them; no separate persistent cache.
+static func prepare_skin_textures(skin_id: String, checkpoint: Callable) -> Array[Texture2D]:
+	var retained: Array[Texture2D] = []
+	var textures: Variant = character(skin_id).get("textures", {})
+	if not textures is Dictionary:
+		return retained
+	var base := character_dir(skin_id)
+	var visited: Dictionary[String, bool] = {}
+	for definition: Variant in textures.values():
+		if not checkpoint.is_valid():
+			return retained
+		if not definition is Dictionary:
+			continue
+		var file: String = str(definition.get("file", ""))
+		if file.is_empty():
+			continue
+		var diffuse := base.path_join(file)
+		var paths := PackedStringArray([diffuse, companion_normal_path(diffuse)])
+		var glow: String = str(definition.get("glow", ""))
+		if not glow.is_empty():
+			paths.append(base.path_join(glow))
+		for path: String in paths:
+			if not checkpoint.is_valid():
+				return retained
+			if visited.has(path) or not ResourceLoader.exists(path):
+				continue
+			visited[path] = true
+			var texture := ResourceLoader.get_cached_ref(path) as Texture2D
+			if texture == null:
+				texture = ResourceLoader.load(path, "Texture2D") as Texture2D
+			if texture != null:
+				retained.append(texture)
+			await checkpoint.call()
+	return retained
+
+
 ## 載入貼圖；缺失時回傳醒目的洋紅色替代圖（尺寸與規格一致，位置不會跑掉）。
 static func texture(path: String, fallback_size := Vector2i(16, 16)) -> Texture2D:
 	if _texture_cache.has(path):
