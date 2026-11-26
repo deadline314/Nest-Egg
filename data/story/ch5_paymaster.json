@@ -41,7 +41,8 @@
   "ch5_ye_offer_declined": false,
   "ch5_ye_ahan_asked": false,
   "ch5_gray_first_wage_paid": false,
-  "ch5_gray_return_unlatched": false
+  "ch5_gray_return_unlatched": false,
+  "ch5_ledger_broadcast_requested": false
  },
  "transactions": {
   "ch5.gray_path.first_wage": {
@@ -406,6 +407,38 @@
    "background_en": "You can choose to cover the basement handover, or take the street to the phone booth.",
    "reward_ja": "質屋の地下室と電話ボックスを結ぶ灰道を開く。",
    "reward_en": "Open the service route between the basement and the booth."
+  },
+  {
+   "id": "ch5_ledger_call",
+   "kind": "main",
+   "title": "請燈準備公開帳本",
+   "background": "凜拒絕了買斷的要約。電話亭巷的話筒還能接通燈。",
+   "reward": "燈開始準備讓其他人看到帳本。",
+   "complete_flag": "ch5_ledger_broadcast_requested",
+   "steps": [
+    {
+     "title": "到電話亭巷，撥電話把帳的事告訴燈。",
+     "complete_flag": "ch5_ledger_broadcast_requested",
+     "location": {
+      "level": "res://data/levels/ch5_phone_alley.tres",
+      "cell": [
+       29,
+       19
+      ]
+     },
+     "title_ja": "電話ボックス横丁から灯に電話し、帳簿のことを伝える。",
+     "title_en": "Call Wick from Phone Booth Alley and tell him about the ledger."
+    }
+   ],
+   "visible_flags": [
+    "ch5_ye_offer_declined"
+   ],
+   "title_ja": "帳簿の公開準備を灯に頼む",
+   "title_en": "Ask Wick to prepare the broadcast",
+   "background_ja": "凛は買収の申し出を断った。横丁の電話から、まだ灯につながる。",
+   "background_en": "Rin turned down the buyout offer. The phone in the alley can still reach Wick.",
+   "reward_ja": "灯が帳簿を公開する準備を始める。",
+   "reward_en": "Wick starts preparing to share the ledger."
   }
  ],
  "scenes": {
@@ -4262,6 +4295,167 @@
     "equals": true
    }
   },
+  "ch5_t_ledger_call_wait": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "先把當舖的事談清楚，再打給燈。",
+     "ja": "質屋の話を片づけてから、灯に電話しよう。",
+     "en": "Settle things at the pawnshop before calling Wick."
+    }
+   ],
+   "when": {
+    "not": {
+     "flag": "ch5_ye_offer_declined",
+     "equals": true
+    }
+   }
+  },
+  "ch5_t_offer_ledger_call": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "街上的電話還通。現在要把帳的事告訴燈嗎？",
+     "ja": "通りの電話はまだつながる。今、帳簿のことを灯に伝える？",
+     "en": "The street phone still works. Should I tell Wick about the ledger now?"
+    },
+    {
+     "do": "choice",
+     "text": "街上的電話還通。現在要把帳的事告訴燈嗎？",
+     "default": "leave",
+     "options": [
+      {
+       "id": "call",
+       "text": "把帳的事告訴燈。",
+       "explanation": "約好怎麼讓其他人看到帳本。",
+       "target": "ch5_t_make_ledger_call",
+       "ja": "帳簿のことを灯に伝える。",
+       "en": "Tell Wick about the ledger.",
+       "explanation_ja": "ほかの人にも帳簿を見せる方法を決める。",
+       "explanation_en": "Arrange how to let others see the ledger."
+      },
+      {
+       "id": "leave",
+       "text": "先離開電話亭。",
+       "explanation": "可以隨時回來打給燈。",
+       "ja": "いったん電話ボックスを離れる。",
+       "en": "Leave the phone booth for now.",
+       "explanation_ja": "いつでも戻って灯に電話できる。",
+       "explanation_en": "You can come back and call Wick anytime."
+      }
+     ],
+     "cancel_choice_on_back": true,
+     "ja": "通りの電話はまだつながる。今、帳簿のことを灯に伝える？",
+     "en": "The street phone still works. Should I tell Wick about the ledger now?"
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_ye_offer_declined",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch5_ledger_broadcast_requested",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch5_t_make_ledger_call": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "world_action",
+     "id": "ch5_phone_hook_press"
+    },
+    {
+     "do": "sfx",
+     "id": "phone_pickup",
+     "volume": -18
+    },
+    {
+     "do": "sfx",
+     "id": "phone_dial",
+     "volume": -24
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我們查到誰在付錢，也查到復原的代價。這些人有權知道自己簽了什麼。",
+     "ja": "誰が払ったかも、復元の代償も分かった。あの人たちには、自分が何に署名したか知る権利がある。",
+     "en": "We found out who paid and what restoration cost. These people have a right to know what they signed."
+    },
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "我會記下來。妳要我先做什麼？",
+     "ja": "書き留めておく。まず何をしてほしい？",
+     "en": "I'll make a note. What do you want me to do first?"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "公開帳本。",
+     "ja": "帳簿を公開して。",
+     "en": "Publish the ledger."
+    },
+    {
+     "do": "sfx",
+     "id": "phone_hangup",
+     "volume": -22
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_ye_offer_declined",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch5_ledger_broadcast_requested",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch5_ledger_broadcast_requested",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch5_t_ledger_call_revisit": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "妳交代的事已經記下。資料先收好，我去找能播出去的地方。",
+     "ja": "頼まれたことは書き留めた。記録はしまっておいて。放送できる場所を探す。",
+     "en": "I've noted what you asked. Keep the records safe while I look for a place to broadcast."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch5_ledger_broadcast_requested",
+    "equals": true
+   }
+  },
   "ch5_dispatch_watch": {
    "mode": "dispatch",
    "routes": [
@@ -5549,6 +5743,44 @@
       ]
      },
      "target": "ch5_t_gray_latch_release"
+    }
+   ]
+  },
+  "ch5_dispatch_paymaster_phone": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "flag": "ch5_ledger_broadcast_requested",
+      "equals": true
+     },
+     "target": "ch5_t_ledger_call_revisit"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch5_ye_offer_declined",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch5_ledger_broadcast_requested",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch5_t_offer_ledger_call"
+    },
+    {
+     "when": {
+      "not": {
+       "flag": "ch5_ye_offer_declined",
+       "equals": true
+      }
+     },
+     "target": "ch5_t_ledger_call_wait"
     }
    ]
   }

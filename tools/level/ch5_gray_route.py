@@ -23,6 +23,7 @@ PORTALS = (
      LATCH, "先從灰道小桌那一側打開回口。"),
 )
 OBJECTS = {
+    "paymaster_phone": ("☎", "phone_alley", 29, "電話亭話筒", "拿起電話", "Pick up the phone", "受話器を取る"),
     "gray_wage_notice": ("▧", "basement_archive", 52, "本期交班單", "查看本期工錢", "Read the wage notice", "今回の賃金を確認する"),
     "gray_return_latch": ("⊞", "gray_path", 46, "回口滑扣", "打開回口滑扣", "Release the return latch", "帰り口の留め金を外す"),
 }

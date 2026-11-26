@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=7 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=8 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
-[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="3_lighting_zone"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch5_phone_alley.tres" id="4_ch5_phone_alley"]
+[ext_resource type="Resource" path="res://data/npcs/ch5_paymaster_phone.tres" id="3_ch5_paymaster_phone"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="4_lighting_zone"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch5_phone_alley.tres" id="5_ch5_phone_alley"]
 
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("2_portal_data")
@@ -39,14 +40,15 @@ tile_size = 16
 height = 24
 legend = Dictionary[String, Resource]({
 "Ⅸ": SubResource("Resource_0"),
-"Ⅺ": SubResource("Resource_1")
+"Ⅺ": SubResource("Resource_1"),
+"☎": ExtResource("3_ch5_paymaster_phone")
 })
 hints = PackedStringArray()
 chapter = &"ch5_paymaster"
 persistent_world = true
 show_chapter_card = false
-environment = ExtResource("4_ch5_phone_alley")
+environment = ExtResource("5_ch5_phone_alley")
 layout_path = "res://data/levels/ch5_phone_alley_map.json"
-lighting_zones = Array[ExtResource("3_lighting_zone")]([])
+lighting_zones = Array[ExtResource("4_lighting_zone")]([])
 story_triggers = PackedStringArray()
 death_credit_cap = 250

@@ -16,6 +16,7 @@ from ch5_anchor_record import install as install_anchor_record  # noqa: E402
 from ch5_offer_layout import POINTS as OFFER_POINTS  # noqa: E402
 from ch5_pawnshop_offer import install as install_offer  # noqa: E402
 import ch5_gray_wages as gray_wages  # noqa: E402
+import ch5_ledger_call  # noqa: E402
 from ch5_gray_route import POINTS as GRAY_ROUTE_POINTS  # noqa: E402
 from build_ch5 import CHAPTER, POINTS  # noqa: E402
 from ch5_pear_testimony import add_pear_testimony  # noqa: E402
@@ -129,6 +130,7 @@ def build_spec():
     install_agreement(source, dispatch, CHAPTER)
     install_offer(source, dispatch, CHAPTER)
     gray_wages.install(source, dispatch, CHAPTER)
+    ch5_ledger_call.install(source, dispatch, CHAPTER)
     spec = ChapterSpec(CHAPTER_INFO, source, "ch5", dispatch,
                        {**POINTS, "pear": PEAR, ch5_voice_lock.SOURCE: VOICE_LOCK_POINT,
                         ch5_bian_coat.COAT: COAT_POINT})

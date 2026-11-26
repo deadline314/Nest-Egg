@@ -1461,6 +1461,65 @@
           }
         ]
       }
+    },
+    {
+      "id": "ch5_t_offer_ledger_call",
+      "source": "res://data/story/ch5_paymaster.json",
+      "npc": "res://data/npcs/ch5_paymaster_phone.tres",
+      "levels": [
+        "res://data/levels/ch5_phone_alley.tres"
+      ],
+      "role": "choice",
+      "rule": {
+        "default": "leave",
+        "options": [
+          {
+            "id": "call",
+            "target": "ch5_t_make_ledger_call",
+            "flags": {}
+          },
+          {
+            "id": "leave",
+            "target": "",
+            "flags": {}
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch5_t_make_ledger_call",
+      "source": "res://data/story/ch5_paymaster.json",
+      "npc": "res://data/npcs/ch5_paymaster_phone.tres",
+      "levels": [
+        "res://data/levels/ch5_phone_alley.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "mode": "animated",
+        "then": "",
+        "when": {
+          "all": [
+            {
+              "flag": "ch5_ye_offer_declined",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch5_ledger_broadcast_requested",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch5_ledger_broadcast_requested",
+            "value": true
+          }
+        ]
+      }
     }
   ]
 }

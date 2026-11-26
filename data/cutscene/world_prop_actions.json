@@ -361,5 +361,22 @@
     "facing": 1,
     "hand_angle": -24,
     "button": [6.7, 13.0]
+  },
+  "ch5_phone_hook_press": {
+    "scene": "ch5_t_make_ledger_call",
+    "level": "res://data/levels/ch5_phone_alley.tres",
+    "source": "res://data/npcs/ch5_paymaster_phone.tres",
+    "prop": "anchor_phone_booth__phone_booth",
+    "kind": "press",
+    "station": [
+      -7.0,
+      75.0
+    ],
+    "facing": 1,
+    "hand_angle": -8,
+    "button": [
+      8.1,
+      26.2
+    ]
   }
 }
