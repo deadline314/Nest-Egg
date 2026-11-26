@@ -30,7 +30,8 @@
   "ch5_fee_receipt_read": false,
   "ch5_fee_ledger_read": false,
   "ch5_fee_ledger_compared": false,
-  "ch5_pear_dates_confirmed": false
+  "ch5_pear_dates_confirmed": false,
+  "ch5_basement_voice_unlocked": false
  },
  "transactions": {},
  "derived_flags": {},
@@ -169,6 +170,38 @@
    "background_en": "The pawnshop accounts match. Ask Pear at Restoration Hall about the hauling fees in the original ledger.",
    "reward_ja": "梨の控えにある交代日を帳面に写す。",
    "reward_en": "Record Pear's shift dates in the notebook."
+  },
+  {
+   "id": "ch5_voice_lock",
+   "kind": "main",
+   "title": "打開後巷的聲音鎖",
+   "background": "阿梨的交班紀錄指向當舖後巷，門鎖裡存著一段門廊錄音。",
+   "reward": "後巷通往地下室樓梯。",
+   "complete_flag": "ch5_basement_voice_unlocked",
+   "steps": [
+    {
+     "title": "在後巷用原本的話回答門鎖。",
+     "complete_flag": "ch5_basement_voice_unlocked",
+     "location": {
+      "level": "res://data/levels/ch5_back_alley.tres",
+      "cell": [
+       41,
+       19
+      ]
+     },
+     "title_ja": "裏路地でいつもの言葉を声紋錠に返す。",
+     "title_en": "Give the familiar reply at the back-alley lock."
+    }
+   ],
+   "visible_flags": [
+    "ch5_pear_dates_confirmed"
+   ],
+   "title_ja": "裏路地の声紋錠を開ける",
+   "title_en": "Open the back-alley voice lock",
+   "background_ja": "梨の引き継ぎ記録は質屋の裏路地を指している。声紋錠には玄関先の録音が残っている。",
+   "background_en": "Pear's shift record points to the pawnshop's back alley. The lock holds a porch recording.",
+   "reward_ja": "裏路地から地下室の階段へ続いている。",
+   "reward_en": "The back alley opens onto the basement stairs."
   }
  ],
  "scenes": {
@@ -1689,6 +1722,511 @@
     ]
    }
   },
+  "ch5_t_voice_lock_open": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "門還開著，樓梯就在裡面。",
+     "ja": "扉は開いたまま。階段はこの先だ。",
+     "en": "The door is still open. The stairs are just inside."
+    },
+    {
+     "do": "choice",
+     "text": "門還開著，樓梯就在裡面。",
+     "default": "leave",
+     "options": [
+      {
+       "id": "contact",
+       "text": "重聽燈的通訊。",
+       "explanation": "聽燈轉述誰也在找帳本。",
+       "target": "ch5_t_voice_lock_contact",
+       "ja": "灯からの通信を聞き直す。",
+       "en": "Replay Wick's call.",
+       "explanation_ja": "ほかに誰が帳簿を探しているか聞く。",
+       "explanation_en": "Hear who else is looking for the ledger."
+      },
+      {
+       "id": "leave",
+       "text": "先離開。",
+       "explanation": "門鎖留在原位。",
+       "ja": "いったん離れる。",
+       "en": "Leave for now.",
+       "explanation_ja": "あとでまた試せる。",
+       "explanation_en": "You can return and try again."
+      }
+     ],
+     "cancel_choice_on_back": true,
+     "ja": "扉は開いたまま。階段はこの先だ。",
+     "en": "The door is still open. The stairs are just inside."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch5_basement_voice_unlocked",
+    "equals": true
+   }
+  },
+  "ch5_t_voice_lock_no_dates": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "先核對阿梨手上的交班日期。",
+     "ja": "先に梨の引き継ぎの日付を確かめよう。",
+     "en": "Check the shift dates with Pear first."
+    }
+   ],
+   "when": {
+    "not": {
+     "all": [
+      {
+       "flag": "ch5_fee_ledger_compared",
+       "equals": true
+      },
+      {
+       "flag": "ch5_pear_dates_confirmed",
+       "equals": true
+      }
+     ]
+    }
+   }
+  },
+  "ch5_t_voice_lock_menu": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "這扇門留著一段門廊錄音。",
+     "ja": "この扉には玄関先の録音が残ってる。",
+     "en": "This door has an old recording from the porch."
+    },
+    {
+     "do": "choice",
+     "text": "這扇門留著一段門廊錄音。",
+     "default": "leave",
+     "options": [
+      {
+       "id": "answer",
+       "text": "回答門鎖。",
+       "explanation": "選一句話對話筒說。",
+       "target": "ch5_t_voice_lock_reply",
+       "ja": "声紋錠に答える。",
+       "en": "Answer the voice lock.",
+       "explanation_ja": "マイクに答える言葉を選ぶ。",
+       "explanation_en": "Choose a reply for the microphone."
+      },
+      {
+       "id": "replay",
+       "text": "重聽門廊錄音。",
+       "explanation": "重播老 K 的提問與凜的回答。",
+       "target": "ch5_t_voice_lock_recording",
+       "ja": "玄関先の録音を聞き直す。",
+       "en": "Replay the porch recording.",
+       "explanation_ja": "老Kの問いと凛の答えを聞き直す。",
+       "explanation_en": "Replay Old K's question and Rin's reply."
+      },
+      {
+       "id": "hint",
+       "text": "請燈給提示。",
+       "explanation": "從第一個提示開始。",
+       "target": "ch5_t_voice_lock_hint_first",
+       "ja": "灯にヒントを頼む。",
+       "en": "Ask Wick for a hint.",
+       "explanation_ja": "最初のヒントを聞く。",
+       "explanation_en": "Hear the first hint."
+      },
+      {
+       "id": "leave",
+       "text": "先離開。",
+       "explanation": "門鎖留在原位。",
+       "ja": "いったん離れる。",
+       "en": "Leave for now.",
+       "explanation_ja": "あとでまた試せる。",
+       "explanation_en": "You can return and try again."
+      }
+     ],
+     "cancel_choice_on_back": true,
+     "ja": "この扉には玄関先の録音が残ってる。",
+     "en": "This door has an old recording from the porch."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_fee_ledger_compared",
+      "equals": true
+     },
+     {
+      "flag": "ch5_pear_dates_confirmed",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch5_basement_voice_unlocked",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch5_t_voice_lock_reply": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "帶傘了嗎？",
+     "ja": "傘は持ったか？",
+     "en": "Did you bring an umbrella?"
+    },
+    {
+     "do": "choice",
+     "text": "帶傘了嗎？",
+     "default": "leave",
+     "options": [
+      {
+       "id": "water",
+       "text": "下面本來就是水。",
+       "explanation": "對話筒回答。",
+       "target": "ch5_t_voice_lock_release",
+       "ja": "下はもう水だろ。",
+       "en": "Down here it's already water.",
+       "explanation_ja": "マイクに答える。",
+       "explanation_en": "Say this into the microphone."
+      },
+      {
+       "id": "umbrella",
+       "text": "我會帶把傘出門。",
+       "explanation": "對話筒回答。",
+       "target": "ch5_t_voice_lock_try_again",
+       "ja": "傘を持っていくよ。",
+       "en": "I'll take an umbrella with me.",
+       "explanation_ja": "マイクに答える。",
+       "explanation_en": "Say this into the microphone."
+      },
+      {
+       "id": "wait",
+       "text": "我等外面的雨停了再走。",
+       "explanation": "對話筒回答。",
+       "target": "ch5_t_voice_lock_try_again",
+       "ja": "雨がやんでから出るよ。",
+       "en": "I'll leave when it stops raining.",
+       "explanation_ja": "マイクに答える。",
+       "explanation_en": "Say this into the microphone."
+      },
+      {
+       "id": "leave",
+       "text": "先放下話筒。",
+       "explanation": "想好後可再回答。",
+       "ja": "マイクを置く。",
+       "en": "Put down the microphone.",
+       "explanation_ja": "思い出したらまた答えられる。",
+       "explanation_en": "Try again when you remember."
+      }
+     ],
+     "cancel_choice_on_back": true,
+     "ja": "傘は持ったか？",
+     "en": "Did you bring an umbrella?"
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_fee_ledger_compared",
+      "equals": true
+     },
+     {
+      "flag": "ch5_pear_dates_confirmed",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch5_basement_voice_unlocked",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch5_t_voice_lock_recording": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "sfx",
+     "id": "beep",
+     "volume": -23
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "帶傘了嗎？",
+     "ja": "傘は持ったか？",
+     "en": "Did you bring an umbrella?"
+    },
+    {
+     "do": "wait",
+     "time": 0.25
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "下面本來就是水。",
+     "ja": "下はもう水だろ。",
+     "en": "Down here it's already water."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_fee_ledger_compared",
+      "equals": true
+     },
+     {
+      "flag": "ch5_pear_dates_confirmed",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch5_basement_voice_unlocked",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch5_t_voice_lock_hint_first": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "燈下黑，最近的反而看不見。妳往常出門是怎麼回他的？",
+     "ja": "灯台下暗し。出かける時、いつも何て返してた？",
+     "en": "It's darkest right under the lamp. What do you usually tell him when you head out?"
+    },
+    {
+     "do": "choice",
+     "text": "燈下黑，最近的反而看不見。妳往常出門是怎麼回他的？",
+     "default": "leave",
+     "options": [
+      {
+       "id": "more",
+       "text": "再給我一個提示。",
+       "explanation": "聽一個更直接的提示。",
+       "target": "ch5_t_voice_lock_hint_second",
+       "ja": "もう一つヒントを。",
+       "en": "Give me another hint.",
+       "explanation_ja": "もう少し直接的なヒントを聞く。",
+       "explanation_en": "Hear a more direct hint."
+      },
+      {
+       "id": "leave",
+       "text": "我先想一下。",
+       "explanation": "可以回門鎖重聽。",
+       "ja": "少し考える。",
+       "en": "Let me think.",
+       "explanation_ja": "ここでもう一度聞ける。",
+       "explanation_en": "You can replay it at the lock."
+      }
+     ],
+     "cancel_choice_on_back": true,
+     "ja": "灯台下暗し。出かける時、いつも何て返してた？",
+     "en": "It's darkest right under the lamp. What do you usually tell him when you head out?"
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_fee_ledger_compared",
+      "equals": true
+     },
+     {
+      "flag": "ch5_pear_dates_confirmed",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch5_basement_voice_unlocked",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch5_t_voice_lock_hint_second": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "想想他問妳的那句話，跟門外的雨有關。",
+     "ja": "老Kは何て聞いた？　外の雨に関係してる。",
+     "en": "Think of what he asked. It has to do with the rain outside."
+    },
+    {
+     "do": "choice",
+     "text": "想想他問妳的那句話，跟門外的雨有關。",
+     "default": "leave",
+     "options": [
+      {
+       "id": "replay",
+       "text": "重聽門廊錄音。",
+       "explanation": "重播老 K 的提問與凜的回答。",
+       "target": "ch5_t_voice_lock_recording",
+       "ja": "玄関先の録音を聞き直す。",
+       "en": "Replay the porch recording.",
+       "explanation_ja": "老Kの問いと凛の答えを聞き直す。",
+       "explanation_en": "Replay Old K's question and Rin's reply."
+      },
+      {
+       "id": "leave",
+       "text": "我先想一下。",
+       "explanation": "可以回門鎖重聽。",
+       "ja": "少し考える。",
+       "en": "Let me think.",
+       "explanation_ja": "ここでもう一度聞ける。",
+       "explanation_en": "You can replay it at the lock."
+      }
+     ],
+     "cancel_choice_on_back": true,
+     "ja": "老Kは何て聞いた？　外の雨に関係してる。",
+     "en": "Think of what he asked. It has to do with the rain outside."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_fee_ledger_compared",
+      "equals": true
+     },
+     {
+      "flag": "ch5_pear_dates_confirmed",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch5_basement_voice_unlocked",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch5_t_voice_lock_try_again": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "sfx",
+     "id": "beep",
+     "volume": -28
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "先聽一次門廊錄音，再用同一句回答。",
+     "ja": "玄関先の録音を聞いて、同じ言葉で答えよう。",
+     "en": "Play the porch recording and repeat the same reply."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_fee_ledger_compared",
+      "equals": true
+     },
+     {
+      "flag": "ch5_pear_dates_confirmed",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch5_basement_voice_unlocked",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch5_t_voice_lock_release": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "下面本來就是水。",
+     "ja": "下はもう水だろ。",
+     "en": "Down here it's already water."
+    },
+    {
+     "do": "sfx",
+     "id": "switch",
+     "volume": -20
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "門開了。下去看看。",
+     "ja": "開いた。下を見てこよう。",
+     "en": "It's open. Let's see what's downstairs."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_fee_ledger_compared",
+      "equals": true
+     },
+     {
+      "flag": "ch5_pear_dates_confirmed",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch5_basement_voice_unlocked",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch5_basement_voice_unlocked",
+     "value": true
+    }
+   ],
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch5_t_voice_lock_contact": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "還有人在問帳本。聽說是做廣播的，我還沒問到她叫什麼。",
+     "ja": "帳簿のことを聞いて回ってる人がいる。ラジオ関係らしいけど、名前はまだ聞けてない。",
+     "en": "Someone else is asking about the ledger. I heard she's in radio, but I haven't caught her name."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch5_basement_voice_unlocked",
+    "equals": true
+   }
+  },
   "ch5_dispatch_watch": {
    "mode": "dispatch",
    "routes": [
@@ -2257,6 +2795,56 @@
       }
      },
      "target": "ch5_t_pear_wait"
+    }
+   ]
+  },
+  "ch5_dispatch_voice_lock": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "flag": "ch5_basement_voice_unlocked",
+      "equals": true
+     },
+     "target": "ch5_t_voice_lock_open"
+    },
+    {
+     "when": {
+      "not": {
+       "all": [
+        {
+         "flag": "ch5_fee_ledger_compared",
+         "equals": true
+        },
+        {
+         "flag": "ch5_pear_dates_confirmed",
+         "equals": true
+        }
+       ]
+      }
+     },
+     "target": "ch5_t_voice_lock_no_dates"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch5_fee_ledger_compared",
+        "equals": true
+       },
+       {
+        "flag": "ch5_pear_dates_confirmed",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch5_basement_voice_unlocked",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch5_t_voice_lock_menu"
     }
    ]
   }

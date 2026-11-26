@@ -14,7 +14,9 @@ from ch5_revival_route import PEAR  # noqa: E402
 from build_ch1_story import sfx  # noqa: E402
 from ch1_closure import Binding, Option, ProductionSource, Quest, QuestStep, all_of, any_of, flag, negate, say, set_flag  # noqa: E402
 from chapter_compiler import ChapterSpec, write_chapter, write_documents
-import ch5_fee_story  # noqa: E402  # noqa: E402
+import ch5_fee_story  # noqa: E402
+import ch5_voice_lock  # noqa: E402
+from ch5_alley_layout import POINT as VOICE_LOCK_POINT  # noqa: E402
 
 CHAPTER_INFO = {
     "id": CHAPTER,
@@ -110,7 +112,9 @@ def build_spec():
         completion_requires_steps=True,
     ))
     add_pear_testimony(source, dispatch, CHAPTER)
-    return ChapterSpec(CHAPTER_INFO, source, "ch5", dispatch, {**POINTS, "pear": PEAR})
+    ch5_voice_lock.install(source, dispatch, CHAPTER)
+    return ChapterSpec(CHAPTER_INFO, source, "ch5", dispatch,
+                       {**POINTS, "pear": PEAR, ch5_voice_lock.SOURCE: VOICE_LOCK_POINT})
 
 
 if __name__ == "__main__":

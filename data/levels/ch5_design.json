@@ -23,6 +23,25 @@
     "landmark": "阿梨站在吧台末端的暖燈下。"
    },
    "encounters": []
+  },
+  "back_alley": {
+   "combat": false,
+   "group": "back_alley",
+   "features": {
+    "landmark": "聲音鎖在隊尾的籠燈下。",
+    "loop": "後巷可通往當舖後門和港區街道。",
+    "vertical": "抬高的維修架避開地面的積水，兩端都能下來。"
+   },
+   "encounters": []
+  },
+  "basement_stair": {
+   "combat": false,
+   "group": "basement_stair",
+   "features": {
+    "landmark": "下行臺階和牆上的籠燈。",
+    "loop": "沿原門返回後巷。"
+   },
+   "encounters": []
   }
  },
  "curve": {}

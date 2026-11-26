@@ -6,6 +6,7 @@ import sys
 sys.dont_write_bytecode = True
 import build_ch1 as kit
 import ch5_revival_route as revival
+import ch5_alley_layout as alley
 import ch5_fee_layout as fee_layout
 from npc_prompt_translations import TRANSLATIONS
 
@@ -43,8 +44,9 @@ def _configure():
     kit.CURVE = {}
     kit.STORY = {}
     kit.placement_id = lambda ident: {"pawnshop": "ch1_pawnshop", "harbor_street": "ch1_street",
-                                      "revival_lounge": "ch4_revival_lounge"}[ident]
+                                      "revival_lounge": "ch4_revival_lounge"}.get(ident, f"ch5_{ident}")
     revival.configure()
+    alley.configure(kit)
 
 
 def main():
@@ -60,7 +62,7 @@ def main():
     area.prop("pawnshop_front__range_tally_board", POINTS["inventory_board"][1], y=16, support="wall")
     fee_layout.stage_counter(area)
     area.features = {"landmark": "櫃台黃燈下的格號和盤點板。"}
-    areas = revival.areas(area, GROUND)
+    areas = alley.join(kit, revival.areas(area, GROUND))
     targets = set(kit.RES) | set(kit.PORTALS)
     for room in areas:
         marks = [(room.grid.at(x, GROUND - 1), (x, GROUND - 1)) for x in range(room.w)]

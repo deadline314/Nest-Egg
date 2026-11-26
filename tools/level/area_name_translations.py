@@ -1,6 +1,8 @@
 """Area names for the chapter builders and their in-game route labels."""
 
 AREA_NAMES = {
+    '地下室樓梯口': {"en": "Basement Landing", "ja": "地下階段の踊り場"},
+    '當舖後巷': {"en": "Pawnshop Back Alley", "ja": "質屋の裏路地"},
     '當舖（貨架盤點）': {"en": "Pawnshop (Shelf Inventory)", "ja": "質屋（棚卸し）"},
     "廠房回程梯與屋頂": {"en":"Old Factory Rooftop","ja":"旧工場の屋上"},
     "病房側窗床位": {"en":"Side-Window Bed","ja":"側窓のベッド"},

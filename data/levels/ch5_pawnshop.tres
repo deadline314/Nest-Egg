@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=18 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=19 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
@@ -30,12 +30,23 @@ height = 68
 style = "door"
 
 [sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("2_portal_data")
+id = &"pawnshop_back"
+target_level = "res://data/levels/ch5_back_alley.tres"
+target_portal = &"alley_pawnshop"
+prompt = "{interact} 前往當舖後巷"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Go to the pawnshop back alley", "ja": "{interact} 質屋の裏路地へ"})
+width = 30
+height = 64
+style = "door"
+
+[sub_resource type="Resource" id="Resource_2"]
 script = ExtResource("11_lighting_zone")
 start_tile = 0
 blend_tiles = 12
 profile = ExtResource("12_rooftop")
 
-[sub_resource type="Resource" id="Resource_2"]
+[sub_resource type="Resource" id="Resource_3"]
 script = ExtResource("11_lighting_zone")
 start_tile = 30
 blend_tiles = 6
@@ -57,7 +68,8 @@ legend = Dictionary[String, Resource]({
 "ⓛ": ExtResource("7_ch5_fee_ledger"),
 "ⓡ": ExtResource("8_ch5_raincoat"),
 "ⓤ": ExtResource("9_ch5_fee_receipt"),
-"ⓦ": ExtResource("10_ch5_watch")
+"ⓦ": ExtResource("10_ch5_watch"),
+"⟲": SubResource("Resource_1")
 })
 hints = PackedStringArray()
 chapter = &"ch5_paymaster"
@@ -65,6 +77,6 @@ persistent_world = true
 show_chapter_card = true
 environment = ExtResource("14_ch5_pawnshop")
 layout_path = "res://data/levels/ch5_pawnshop_map.json"
-lighting_zones = Array[ExtResource("11_lighting_zone")]([SubResource("Resource_1"), SubResource("Resource_2")])
+lighting_zones = Array[ExtResource("11_lighting_zone")]([SubResource("Resource_2"), SubResource("Resource_3")])
 story_triggers = PackedStringArray()
 death_credit_cap = 250

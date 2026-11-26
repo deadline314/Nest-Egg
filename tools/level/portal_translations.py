@@ -1,6 +1,10 @@
 """Localized action labels and lock reasons for the formal chapter portals."""
 
 PROMPTS = {
+    '回當舖後巷': ("Return to the pawnshop back alley", "質屋の裏路地に戻る"),
+    '下地下室樓梯': ("Go down to the basement landing", "地下階段へ下りる"),
+    '轉進當舖後巷': ("Turn into the pawnshop back alley", "質屋の裏路地に入る"),
+    '前往當舖後巷': ("Go to the pawnshop back alley", "質屋の裏路地へ"),
     '前往港區街道': ("Go to Harbor Street", "港の通りへ出る"),
     '休息到隔天，開始第五章': ("Rest until tomorrow and start Chapter Five", "一晩休んで第五章を始める"),
     "從維修樓梯上屋頂": ("Take the service stairs to the roof", "整備階段で屋上へ"),
@@ -101,6 +105,7 @@ PROMPTS = {
 }
 
 LOCKS = {
+    '先回答牆邊的聲音鎖。': ("Answer the voice lock by the wall first.", "先に壁の声紋錠に答える。"),
     '先到當舖的盤點板核對舊收據和存款總帳。': (
         "Compare the old receipt and deposit ledger at the pawnshop board first.",
         "先に質屋の棚卸し板で古い領収書と積立帳を照合する。"),

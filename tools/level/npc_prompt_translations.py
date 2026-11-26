@@ -1,8 +1,9 @@
 """Localizations for authored world prompts in the formal chapter builders."""
 
 TRANSLATIONS = {
-    '核對工作廊終端': ('Check the gallery terminal', '作業廊の端末を確認する'),
-    '查看鷺的狀況': ('Check on Egret', '鷺の様子を見る'),
+    '操作聲音鎖': ("Use the voice lock", "声紋錠を操作する"),
+    '查看鷺的狀況': ("Check on Egret", "鷺の様子を見る"),
+    '核對工作廊終端': ("Check the gallery terminal", "作業廊の端末を確認する"),
     '查看抽屜格號': ("Check the drawer index", "引き出しの番号表を調べる"),
     '核對空白標籤': ("Match the blank labels", "空白の札を照合する"),
     "聽燈的通訊": ("Listen to Lantern's transmission", "灯の通信を聞く"),
