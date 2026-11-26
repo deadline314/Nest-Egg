@@ -20,7 +20,7 @@
       "#.................................................",
       "#.................................................",
       "#.................................................",
-      "#...⇖...P...........☰.............♮.............▤.",
+      "#...⇖...P.......♜...☰.............♮.........◫...▤.",
       "##################################################",
       "##################################################",
       "##################################################",
@@ -65,6 +65,8 @@
     {"id": "basement__anchor_helmet", "x": 37, "ground": true},
     {"id": "basement__kerosene_heater", "x": 41, "ground": true},
     {"id": "basement__notebook_desk", "x": 48, "ground": true},
-    {"id": "basement__chip_reader", "x": 57, "ground": true}
+    {"id": "basement__chip_reader", "x": 57, "ground": true},
+    {"id": "basement__notebook_desk", "x": 44, "ground": true},
+    {"id": "basement__fee_ledger", "x": 44, "dy": -16, "support": "prop", "support_id": "basement__notebook_desk", "support_x": 44, "support_dy": 9.5, "ground": true}
   ]
 }

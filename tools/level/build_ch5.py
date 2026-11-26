@@ -6,6 +6,7 @@ import sys
 sys.dont_write_bytecode = True
 import build_ch1 as kit
 import ch5_anchor_layout as anchor_layout
+import ch5_agreement_layout as agreement_layout
 import ch5_revival_route as revival
 import ch5_alley_layout as alley
 import ch5_stair_layout as stair
@@ -53,6 +54,8 @@ def _configure():
     stair.configure(kit, TRANSLATIONS, PORTAL_PROMPTS, PORTAL_LOCKS)
 
     anchor_layout.configure(kit)
+    agreement_layout.configure(kit)
+    TRANSLATIONS.update(agreement_layout.PROMPTS)
     memory_key = "⏵"
     if memory_key in kit.PORTALS or memory_key in kit.RES:
         raise ValueError("Chapter Five flood memory glyph already in use")
@@ -82,6 +85,7 @@ def main():
     anchor_layout.furnish(areas)
     archive = next(room for room in areas if room.id == "basement_archive")
     archive.stand(57, "⏵")
+    agreement_layout.furnish(archive)
 
     targets = set(kit.RES) | set(kit.PORTALS)
     for room in areas:

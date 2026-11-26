@@ -9,6 +9,8 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools/level"))
 
 from ch5_anchor_layout import POINTS as ANCHOR_POINTS  # noqa: E402
+from ch5_anchor_agreement import install as install_agreement  # noqa: E402
+from ch5_agreement_layout import POINTS as AGREEMENT_POINTS  # noqa: E402
 from ch5_anchor_record import install as install_anchor_record  # noqa: E402
 
 from build_ch5 import CHAPTER, POINTS  # noqa: E402
@@ -120,10 +122,12 @@ def build_spec():
     ch5_voice_lock.install(source, dispatch, CHAPTER)
     ch5_bian_coat.install(source, dispatch, CHAPTER)
     install_anchor_record(source, dispatch, CHAPTER)
+    install_agreement(source, dispatch, CHAPTER)
     spec = ChapterSpec(CHAPTER_INFO, source, "ch5", dispatch,
                        {**POINTS, "pear": PEAR, ch5_voice_lock.SOURCE: VOICE_LOCK_POINT,
                         ch5_bian_coat.COAT: COAT_POINT})
     spec.quest_locations.update(ANCHOR_POINTS)
+    spec.quest_locations.update(AGREEMENT_POINTS)
     return spec
 
 

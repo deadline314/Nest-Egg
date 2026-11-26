@@ -1,13 +1,15 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=12 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=14 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
 [ext_resource type="Resource" path="res://data/npcs/ch5_life_notebook.tres" id="3_ch5_life_notebook"]
-[ext_resource type="Resource" path="res://data/npcs/ch5_anchor_counterfoil.tres" id="4_ch5_anchor_counterfoil"]
-[ext_resource type="Resource" path="res://data/npcs/ch5_anchor_chair.tres" id="5_ch5_anchor_chair"]
-[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="6_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/basement_amber.tres" id="7_basement_amber"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch5_basement_archive.tres" id="8_ch5_basement_archive"]
+[ext_resource type="Resource" path="res://data/npcs/ch5_redemption_appendix.tres" id="4_ch5_redemption_appendix"]
+[ext_resource type="Resource" path="res://data/npcs/ch5_anchor_counterfoil.tres" id="5_ch5_anchor_counterfoil"]
+[ext_resource type="Resource" path="res://data/npcs/ch5_archive_old_k.tres" id="6_ch5_archive_old_k"]
+[ext_resource type="Resource" path="res://data/npcs/ch5_anchor_chair.tres" id="7_ch5_anchor_chair"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="8_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/basement_amber.tres" id="9_basement_amber"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch5_basement_archive.tres" id="10_ch5_basement_archive"]
 
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("2_portal_data")
@@ -34,10 +36,10 @@ height = 44
 style = "hidden"
 
 [sub_resource type="Resource" id="Resource_2"]
-script = ExtResource("6_lighting_zone")
+script = ExtResource("8_lighting_zone")
 start_tile = 14
 blend_tiles = 5
-profile = ExtResource("7_basement_amber")
+profile = ExtResource("9_basement_amber")
 
 [resource]
 script = ExtResource("1_level_data")
@@ -50,15 +52,17 @@ legend = Dictionary[String, Resource]({
 "⇖": SubResource("Resource_0"),
 "⏵": SubResource("Resource_1"),
 "▤": ExtResource("3_ch5_life_notebook"),
-"☰": ExtResource("4_ch5_anchor_counterfoil"),
-"♮": ExtResource("5_ch5_anchor_chair")
+"◫": ExtResource("4_ch5_redemption_appendix"),
+"☰": ExtResource("5_ch5_anchor_counterfoil"),
+"♜": ExtResource("6_ch5_archive_old_k"),
+"♮": ExtResource("7_ch5_anchor_chair")
 })
 hints = PackedStringArray()
 chapter = &"ch5_paymaster"
 persistent_world = true
 show_chapter_card = false
-environment = ExtResource("8_ch5_basement_archive")
+environment = ExtResource("10_ch5_basement_archive")
 layout_path = "res://data/levels/ch5_basement_archive_map.json"
-lighting_zones = Array[ExtResource("6_lighting_zone")]([SubResource("Resource_2")])
+lighting_zones = Array[ExtResource("8_lighting_zone")]([SubResource("Resource_2")])
 story_triggers = PackedStringArray()
 death_credit_cap = 250

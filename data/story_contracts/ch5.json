@@ -1012,6 +1012,149 @@
           }
         ]
       }
+    },
+    {
+      "id": "ch5_t_ask_backup_trade",
+      "source": "res://data/story/ch5_paymaster.json",
+      "npc": "res://data/npcs/ch5_archive_old_k.tres",
+      "levels": [
+        "res://data/levels/ch5_basement_archive.tres"
+      ],
+      "role": "choice",
+      "rule": {
+        "default": "leave",
+        "options": [
+          {
+            "id": "explain",
+            "target": "ch5_t_explain_backup_trade",
+            "flags": {}
+          },
+          {
+            "id": "summary",
+            "target": "ch5_t_summarize_backup_trade",
+            "flags": {}
+          },
+          {
+            "id": "leave",
+            "target": "",
+            "flags": {}
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch5_t_explain_backup_trade",
+      "source": "res://data/story/ch5_paymaster.json",
+      "npc": "res://data/npcs/ch5_archive_old_k.tres",
+      "levels": [
+        "res://data/levels/ch5_basement_archive.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "flag": "ch5_anchor_identity_confirmed",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch5_backup_trade_explained",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch5_backup_trade_explained",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch5_t_summarize_backup_trade",
+      "source": "res://data/story/ch5_paymaster.json",
+      "npc": "res://data/npcs/ch5_archive_old_k.tres",
+      "levels": [
+        "res://data/levels/ch5_basement_archive.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "flag": "ch5_anchor_identity_confirmed",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch5_backup_trade_explained",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch5_backup_trade_explained",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch5_t_read_redemption_clause",
+      "source": "res://data/story/ch5_paymaster.json",
+      "npc": "res://data/npcs/ch5_redemption_appendix.tres",
+      "levels": [
+        "res://data/levels/ch5_basement_archive.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "flag": "ch5_anchor_identity_confirmed",
+              "equals": true
+            },
+            {
+              "flag": "ch5_backup_trade_explained",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch5_redemption_clause_read",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch5_redemption_clause_read",
+            "value": true
+          },
+          {
+            "kind": "flag",
+            "id": "ch5_memory_redemption_status",
+            "value": "awaiting_personal_consent"
+          }
+        ]
+      }
     }
   ]
 }

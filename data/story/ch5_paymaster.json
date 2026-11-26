@@ -34,7 +34,10 @@
   "ch5_basement_voice_unlocked": false,
   "ch5_bian_coat_identified": false,
   "ch5_anchor_counterfoil_verified": false,
-  "ch5_anchor_identity_confirmed": false
+  "ch5_anchor_identity_confirmed": false,
+  "ch5_backup_trade_explained": false,
+  "ch5_redemption_clause_read": false,
+  "ch5_memory_redemption_status": "unset"
  },
  "transactions": {},
  "derived_flags": {},
@@ -270,6 +273,52 @@
    "background_en": "Bian's collar bears a receiving stamp. The basement holds a hauling slip and chair record from the same batch.",
    "reward_ja": "第十七便の座椅子登録を帳面に写す。",
    "reward_en": "Copy the Batch Seventeen registration into the notebook."
+  },
+  {
+   "id": "ch5_anchor_agreement",
+   "kind": "main",
+   "title": "問清交易，讀完贖回附頁",
+   "background": "錨椅的登記已核對。老 K 回到樓梯旁，桌上有一份贖回附頁。",
+   "reward": "記下備份交換與贖回條件，等待本人同意。",
+   "complete_flag": "ch5_redemption_clause_read",
+   "steps": [
+    {
+     "title": "到地下室樓梯旁向老 K 問備份交易。",
+     "complete_flag": "ch5_backup_trade_explained",
+     "location": {
+      "level": "res://data/levels/ch5_basement_archive.tres",
+      "cell": [
+       16,
+       19
+      ]
+     },
+     "title_ja": "地下の階段そばで、バックアップの取引について老Kに聞く。",
+     "title_en": "Ask Old K about the backup deal by the basement stairs."
+    },
+    {
+     "title": "在檯燈下的桌上讀記憶贖回附頁。",
+     "complete_flag": "ch5_redemption_clause_read",
+     "location": {
+      "level": "res://data/levels/ch5_basement_archive.tres",
+      "cell": [
+       44,
+       19
+      ]
+     },
+     "title_ja": "明かりの下にある机で、記憶買い戻しの付則を読む。",
+     "title_en": "Read the memory redemption appendix on the desk under the lamp."
+    }
+   ],
+   "visible_flags": [
+    "ch5_anchor_identity_confirmed"
+   ],
+   "completion_requires_steps": true,
+   "title_ja": "取引の事情を聞き、買い戻しの付則を読む",
+   "title_en": "Ask about the deal and read the redemption appendix",
+   "background_ja": "椅子の登録は照合済み。老Kは階段のそばに戻り、机には買い戻しの付則が置いてある。",
+   "background_en": "The chair’s registration is verified. Old K is back by the stairs and a redemption appendix lies on the desk.",
+   "reward_ja": "バックアップの取引と買い戻しの条件を記録し、本人の同意を待つ。",
+   "reward_en": "Record the backup deal and redemption terms, then wait for personal consent."
   }
  ],
  "scenes": {
@@ -2983,6 +3032,413 @@
     "equals": true
    }
   },
+  "ch5_t_ask_backup_trade": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "錨椅的登記已經核對了。我想問清楚那筆交易。",
+     "ja": "錨椅の登録は確認した。あの取引の事情を聞きたい。",
+     "en": "I checked the chair’s registration. I want to ask about the deal."
+    },
+    {
+     "do": "choice",
+     "text": "錨椅的登記已經核對了。我想問清楚那筆交易。",
+     "default": "leave",
+     "options": [
+      {
+       "id": "explain",
+       "text": "問他為什麼把資料交出去。",
+       "explanation": "聽老 K 說明備份交易。",
+       "target": "ch5_t_explain_backup_trade",
+       "ja": "なぜ資料を渡したのか聞く。",
+       "en": "Ask why he handed over the backup.",
+       "explanation_ja": "バックアップの取引について老Kの説明を聞く。",
+       "explanation_en": "Hear Old K explain the backup deal."
+      },
+      {
+       "id": "summary",
+       "text": "只問交換的條件。",
+       "explanation": "直接核對他和葉交換的條件。",
+       "target": "ch5_t_summarize_backup_trade",
+       "ja": "交換の条件だけを聞く。",
+       "en": "Ask about the terms of the exchange.",
+       "explanation_ja": "葉と取り決めた条件を先に確かめる。",
+       "explanation_en": "Go straight to the terms he agreed with Folio."
+      },
+      {
+       "id": "leave",
+       "text": "先離開。",
+       "explanation": "可以再回樓梯旁找老 K。",
+       "ja": "いったん離れる。",
+       "en": "Leave for now.",
+       "explanation_ja": "階段そばの老Kにはまた話しかけられる。",
+       "explanation_en": "You can find Old K by the stairs again."
+      }
+     ],
+     "cancel_choice_on_back": true,
+     "ja": "錨椅の登録は確認した。あの取引の事情を聞きたい。",
+     "en": "I checked the chair’s registration. I want to ask about the deal."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_anchor_identity_confirmed",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch5_backup_trade_explained",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch5_t_explain_backup_trade": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "筆記最後一頁是空的。你每次問我的那句，怎麼沒寫？",
+     "ja": "手帳の最後のページが空白だよね。いつも聞くあの言葉は、どうして書かなかったの？",
+     "en": "The last page of your notebook is blank. Why didn’t you write down the thing you always ask me?"
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "那句不用寫。",
+     "ja": "あれは書いておかなくていい。",
+     "en": "That one doesn’t need writing down."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "椅子的登記我核對過了。你拿我的資料換了什麼？",
+     "ja": "椅子の登録は確認した。私のデータと何を引き換えにしたの？",
+     "en": "I checked the chair’s registration. What did you trade my data for?"
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "我把妳賣給了讓妳活著的人。葉拿妳的備份當樣本，答應不查這張椅子。",
+     "ja": "お前を生かしてくれる人に売った。葉はお前のバックアップを試料にして、この椅子は調べないと約束した。",
+     "en": "I sold you to the person who let you live. Folio took your backup as a sample and agreed to leave this chair alone."
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "我不是替妳付。是我想付。",
+     "ja": "払いたくて払った。俺が選んだんだ。",
+     "en": "I paid because I wanted to. I made that choice myself."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我沒有問你。",
+     "ja": "そんなこと、頼んでない。",
+     "en": "I never asked you to."
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "妳也沒問過。",
+     "ja": "お前も俺には聞かなかった。",
+     "en": "You never asked me either."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "你想要我怎麼做？",
+     "ja": "私にどうしてほしいの？",
+     "en": "What do you want me to do?"
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "去賺妳的錢。妳自己那一份還要用。",
+     "ja": "自分の金を稼ぎな。お前には自分のために使う金がいる。",
+     "en": "Go earn your money. You still need it for yourself."
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "我還沒決定要不要贖回。拿回記憶，我就得記得舊椅當時記下的四十次。",
+     "ja": "買い戻すかどうかはまだ決めていない。記憶を取り戻せば、この椅子にあの時までに記録された四十回を思い出すことになる。",
+     "en": "I haven’t decided whether to buy the memories back. If I do, I’ll have to remember the forty times this chair had recorded by then."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_anchor_identity_confirmed",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch5_backup_trade_explained",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch5_backup_trade_explained",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch5_t_summarize_backup_trade": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "我把妳賣給了讓妳活著的人。葉拿妳的備份當樣本，答應不查這張椅子。",
+     "ja": "お前を生かしてくれる人に売った。葉はお前のバックアップを試料にして、この椅子は調べないと約束した。",
+     "en": "I sold you to the person who let you live. Folio took your backup as a sample and agreed to leave this chair alone."
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "我還沒決定要不要贖回。拿回記憶，我就得記得舊椅當時記下的四十次。",
+     "ja": "買い戻すかどうかはまだ決めていない。記憶を取り戻せば、この椅子にあの時までに記録された四十回を思い出すことになる。",
+     "en": "I haven’t decided whether to buy the memories back. If I do, I’ll have to remember the forty times this chair had recorded by then."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_anchor_identity_confirmed",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch5_backup_trade_explained",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch5_backup_trade_explained",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch5_t_backup_clause_hint": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "再往裡走，桌上那份附頁寫了贖回的條件。",
+     "ja": "奥の机にある付則に、買い戻しの条件が書いてある。",
+     "en": "The appendix on the desk farther in has the terms for redemption."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_backup_trade_explained",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch5_redemption_clause_read",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch5_t_backup_revisit": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "附頁寫可以拿回來。你想我把它拿回來嗎？",
+     "ja": "付則には取り戻せるってある。私にそうしてほしい？",
+     "en": "The appendix says we can get the memories back. Do you want me to?"
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "我還沒決定要不要贖回。拿回記憶，我就得記得舊椅當時記下的四十次。",
+     "ja": "買い戻すかどうかはまだ決めていない。記憶を取り戻せば、この椅子にあの時までに記録された四十回を思い出すことになる。",
+     "en": "I haven’t decided whether to buy the memories back. If I do, I’ll have to remember the forty times this chair had recorded by then."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch5_redemption_clause_read",
+    "equals": true
+   }
+  },
+  "ch5_t_read_redemption_clause": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "沈望簽過的原條文寫著，契約一旦成立，不得中止。",
+     "ja": "沈望が署名した原条文には、契約成立後の中止は認められないとある。",
+     "en": "The original clause signed by Shen Wang states that a contract cannot be suspended once it takes effect."
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "讀去的記憶存放在天穹帳房。贖回須當事人與錨人同意。",
+     "ja": "抜き取られた記憶は天穹の帳場に保管される。買い戻しには本人と錨人の同意が必要となる。",
+     "en": "Extracted memories are kept in the Skydome accounts office. Redemption requires consent from both the subject and the anchor."
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "贖回費用是 480,000 信用點。目前等待本人同意。",
+     "ja": "買い戻し費用は480,000クレジット。現在は本人の同意待ち。",
+     "en": "The redemption fee is 480,000 credits. Personal consent is pending."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_anchor_identity_confirmed",
+      "equals": true
+     },
+     {
+      "flag": "ch5_backup_trade_explained",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch5_redemption_clause_read",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch5_redemption_clause_read",
+     "value": true
+    },
+    {
+     "kind": "flag",
+     "id": "ch5_memory_redemption_status",
+     "value": "awaiting_personal_consent"
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch5_t_redemption_revisit": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "沈望簽過的原條文寫著，契約一旦成立，不得中止。",
+     "ja": "沈望が署名した原条文には、契約成立後の中止は認められないとある。",
+     "en": "The original clause signed by Shen Wang states that a contract cannot be suspended once it takes effect."
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "讀去的記憶存放在天穹帳房。贖回須當事人與錨人同意。",
+     "ja": "抜き取られた記憶は天穹の帳場に保管される。買い戻しには本人と錨人の同意が必要となる。",
+     "en": "Extracted memories are kept in the Skydome accounts office. Redemption requires consent from both the subject and the anchor."
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "贖回費用是 480,000 信用點。目前等待本人同意。",
+     "ja": "買い戻し費用は480,000クレジット。現在は本人の同意待ち。",
+     "en": "The redemption fee is 480,000 credits. Personal consent is pending."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch5_redemption_clause_read",
+    "equals": true
+   }
+  },
+  "ch5_t_redemption_ask_first": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "先到樓梯旁問老 K，再來讀這張附頁。",
+     "ja": "まず階段のそばで老Kに聞いてから、この付則を読もう。",
+     "en": "I’ll ask Old K by the stairs first and then come back to this appendix."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_anchor_identity_confirmed",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch5_backup_trade_explained",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch5_t_redemption_chair_first": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "先核對錨椅的登記，再查這份附頁。",
+     "ja": "先に椅子の登録記録を照合してから、この付則を調べよう。",
+     "en": "I’ll check the anchor chair’s registration before I read this appendix."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "ch5_anchor_identity_confirmed",
+     "equals": true
+    }
+   }
+  },
   "ch5_dispatch_watch": {
    "mode": "dispatch",
    "routes": [
@@ -3890,6 +4346,121 @@
       "equals": true
      },
      "target": "ch5_t_anchor_life_notebook"
+    }
+   ]
+  },
+  "ch5_dispatch_archive_old_k": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "flag": "ch5_redemption_clause_read",
+      "equals": true
+     },
+     "target": "ch5_t_backup_revisit"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch5_backup_trade_explained",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch5_redemption_clause_read",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch5_t_backup_clause_hint"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch5_anchor_identity_confirmed",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch5_backup_trade_explained",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch5_t_ask_backup_trade"
+    }
+   ]
+  },
+  "ch5_dispatch_redemption_appendix": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "flag": "ch5_redemption_clause_read",
+      "equals": true
+     },
+     "target": "ch5_t_redemption_revisit"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch5_anchor_identity_confirmed",
+          "equals": true
+         },
+         {
+          "flag": "ch5_backup_trade_explained",
+          "equals": true
+         },
+         {
+          "not": {
+           "flag": "ch5_redemption_clause_read",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch5_redemption_clause_read",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch5_t_read_redemption_clause"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch5_anchor_identity_confirmed",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch5_backup_trade_explained",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch5_t_redemption_ask_first"
+    },
+    {
+     "when": {
+      "not": {
+       "flag": "ch5_anchor_identity_confirmed",
+       "equals": true
+      }
+     },
+     "target": "ch5_t_redemption_chair_first"
     }
    ]
   }
