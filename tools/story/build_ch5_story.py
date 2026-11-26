@@ -8,6 +8,9 @@ sys.dont_write_bytecode = True
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools/level"))
 
+from ch5_anchor_layout import POINTS as ANCHOR_POINTS  # noqa: E402
+from ch5_anchor_record import install as install_anchor_record  # noqa: E402
+
 from build_ch5 import CHAPTER, POINTS  # noqa: E402
 from ch5_pear_testimony import add_pear_testimony  # noqa: E402
 from ch5_revival_route import PEAR  # noqa: E402
@@ -116,9 +119,12 @@ def build_spec():
     add_pear_testimony(source, dispatch, CHAPTER)
     ch5_voice_lock.install(source, dispatch, CHAPTER)
     ch5_bian_coat.install(source, dispatch, CHAPTER)
-    return ChapterSpec(CHAPTER_INFO, source, "ch5", dispatch,
+    install_anchor_record(source, dispatch, CHAPTER)
+    spec = ChapterSpec(CHAPTER_INFO, source, "ch5", dispatch,
                        {**POINTS, "pear": PEAR, ch5_voice_lock.SOURCE: VOICE_LOCK_POINT,
                         ch5_bian_coat.COAT: COAT_POINT})
+    spec.quest_locations.update(ANCHOR_POINTS)
+    return spec
 
 
 if __name__ == "__main__":

@@ -12,6 +12,7 @@
       "#........*........................................",
       "#.................................................",
       "#.................................................",
+      "#...................*.............*.............*.",
       "#.................................................",
       "#.................................................",
       "#.................................................",
@@ -19,8 +20,7 @@
       "#.................................................",
       "#.................................................",
       "#.................................................",
-      "#.................................................",
-      "#...⇖...P.........................................",
+      "#...⇖...P...........☰.............♮.............▤.",
       "##################################################",
       "##################################################",
       "##################################################",
@@ -54,6 +54,17 @@
     ]
   ],
   "props": [
-    {"id": "basement_door__caged_bulb", "x": 9, "y": 12, "support": "wall"}
+    {"id": "basement_door__caged_bulb", "x": 9, "y": 12, "support": "wall"},
+    {"id": "basement__army_cot", "x": 12, "ground": true},
+    {"id": "basement__notebook_desk", "x": 20, "ground": true},
+    {"id": "basement__fee_ledger", "x": 20, "dy": -16, "support": "prop", "support_id": "basement__notebook_desk", "support_x": 20, "support_dy": 9.5, "ground": true},
+    {"id": "basement__notebook_desk", "x": 27, "ground": true},
+    {"id": "basement__cash_envelopes", "x": 27, "dy": -16, "support": "prop", "support_id": "basement__notebook_desk", "support_x": 27, "support_dy": 9.5, "ground": true},
+    {"id": "basement__name_list_board", "x": 24, "y": 14, "support": "wall"},
+    {"id": "basement__anchor_chair", "x": 34, "ground": true},
+    {"id": "basement__anchor_helmet", "x": 37, "ground": true},
+    {"id": "basement__kerosene_heater", "x": 41, "ground": true},
+    {"id": "basement__notebook_desk", "x": 48, "ground": true},
+    {"id": "basement__chip_reader", "x": 57, "ground": true}
   ]
 }

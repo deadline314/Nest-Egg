@@ -5,6 +5,7 @@ import sys
 
 sys.dont_write_bytecode = True
 import build_ch1 as kit
+import ch5_anchor_layout as anchor_layout
 import ch5_revival_route as revival
 import ch5_alley_layout as alley
 import ch5_stair_layout as stair
@@ -51,6 +52,9 @@ def _configure():
     alley.configure(kit)
     stair.configure(kit, TRANSLATIONS, PORTAL_PROMPTS, PORTAL_LOCKS)
 
+    anchor_layout.configure(kit)
+    TRANSLATIONS.update(anchor_layout.PROMPTS)
+
 
 def main():
     _configure()
@@ -66,6 +70,7 @@ def main():
     fee_layout.stage_counter(area)
     area.features = {"landmark": "櫃台黃燈下的格號和盤點板。"}
     areas = stair.extend(kit, alley.join(kit, revival.areas(area, GROUND)))
+    anchor_layout.furnish(areas)
     targets = set(kit.RES) | set(kit.PORTALS)
     for room in areas:
         marks = [(room.grid.at(x, GROUND - 1), (x, GROUND - 1)) for x in range(room.w)]

@@ -32,7 +32,9 @@
   "ch5_fee_ledger_compared": false,
   "ch5_pear_dates_confirmed": false,
   "ch5_basement_voice_unlocked": false,
-  "ch5_bian_coat_identified": false
+  "ch5_bian_coat_identified": false,
+  "ch5_anchor_counterfoil_verified": false,
+  "ch5_anchor_identity_confirmed": false
  },
  "transactions": {},
  "derived_flags": {},
@@ -235,6 +237,39 @@
    "background_en": "Dodge on the lower lane, or use the catwalk to get over the rope and the blockade.",
    "reward_ja": "襟から灰色のコートの男の身元を確かめ、地下への入口を開ける。",
    "reward_en": "Identify the man from his collar and open the basement entrance."
+  },
+  {
+   "id": "ch5_anchor_chair_record",
+   "kind": "main",
+   "title": "到地下室核對錨椅登記",
+   "background": "必安的衣領留著收件章。地下室有搬運回單和同批次的座椅記錄。",
+   "reward": "把第十七批次的座椅登記抄進帳冊。",
+   "complete_flag": "ch5_anchor_identity_confirmed",
+   "steps": [
+    {
+     "title": "到地下室的錨椅旁核對第十七批次。",
+     "complete_flag": "ch5_anchor_identity_confirmed",
+     "location": {
+      "level": "res://data/levels/ch5_basement_archive.tres",
+      "cell": [
+       34,
+       19
+      ]
+     },
+     "title_ja": "地下室の椅子で第十七便を照合する。",
+     "title_en": "Compare Batch Seventeen at the basement chair."
+    }
+   ],
+   "visible_flags": [
+    "ch5_bian_coat_identified"
+   ],
+   "completion_requires_steps": true,
+   "title_ja": "地下室で錨の椅子を照合する",
+   "title_en": "Check the anchor chair in the basement",
+   "background_ja": "必安の襟元には受領印がある。地下室には同じ便の運搬控えと椅子の記録がある。",
+   "background_en": "Bian's collar bears a receiving stamp. The basement holds a hauling slip and chair record from the same batch.",
+   "reward_ja": "第十七便の座椅子登録を帳面に写す。",
+   "reward_en": "Copy the Batch Seventeen registration into the notebook."
   }
  ],
  "scenes": {
@@ -2386,6 +2421,568 @@
     "equals": true
    }
   },
+  "ch5_t_anchor_counterfoil_verification": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "這是當舖留下的搬運回單。第十七批次，送到復原終端。",
+     "ja": "質屋に残された運搬控えだ。第十七便の届け先は復元端末。",
+     "en": "A counterfoil the pawnshop kept. Batch Seventeen goes to the restoration terminal."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "收件章和必安衣領旁的相同。回單寫的是我的名字，簽收欄還遮著。",
+     "ja": "受領印は必安の襟元と同じ。私の名前がある。受領署名は伏せられたままだ。",
+     "en": "The stamp matches the one by Bian's collar. The slip names me. The signature is still covered."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_bian_coat_identified",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch5_anchor_counterfoil_verified",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch5_anchor_counterfoil_verified",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch5_t_anchor_counterfoil_seen": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "這是當舖留下的搬運回單。第十七批次，送到復原終端。",
+     "ja": "質屋に残された運搬控えだ。第十七便の届け先は復元端末。",
+     "en": "A counterfoil the pawnshop kept. Batch Seventeen goes to the restoration terminal."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "收件章和必安衣領旁的相同。回單寫的是我的名字，簽收欄還遮著。",
+     "ja": "受領印は必安の襟元と同じ。私の名前がある。受領署名は伏せられたままだ。",
+     "en": "The stamp matches the one by Bian's collar. The slip names me. The signature is still covered."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_bian_coat_identified",
+      "equals": true
+     },
+     {
+      "flag": "ch5_anchor_counterfoil_verified",
+      "equals": true
+     }
+    ]
+   }
+  },
+  "ch5_t_anchor_compare_copy": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "舊廠原帳的第十七批寫的是我的名字，錨人一欄被遮住了。",
+     "ja": "旧工場の原簿では、第十七便に私の名前がある。錨人の欄は伏せられている。",
+     "en": "Batch Seventeen in the factory ledger names me. The anchor's entry is covered."
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "座椅讀取板記著同一個批次。要核對座椅登記嗎？",
+     "ja": "椅子の読み取り盤に同じ便がある。登録を照合する？",
+     "en": "The chair reader shows the same batch. Check its registration?"
+    },
+    {
+     "do": "choice",
+     "text": "座椅讀取板記著同一個批次。要核對座椅登記嗎？",
+     "default": "leave",
+     "options": [
+      {
+       "id": "confirm",
+       "text": "核對第十七批的座椅登記",
+       "explanation": "核對後記進帳冊。",
+       "target": "ch5_t_anchor_record",
+       "ja": "第十七便の座椅子登録を照合する",
+       "en": "Check the chair's Batch Seventeen record",
+       "explanation_ja": "照合した記録を帳面に残す。",
+       "explanation_en": "Save the comparison in your notebook."
+      },
+      {
+       "id": "leave",
+       "text": "先離開",
+       "explanation": "座椅紀錄會留在原處。",
+       "ja": "いったん離れる",
+       "en": "Step away",
+       "explanation_ja": "椅子の記録はここに残る。",
+       "explanation_en": "The chair's record will stay here."
+      }
+     ],
+     "cancel_choice_on_back": true,
+     "ja": "椅子の読み取り盤に同じ便がある。登録を照合する？",
+     "en": "The chair reader shows the same batch. Check its registration?"
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "ch5_bian_coat_identified",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch5_anchor_identity_confirmed",
+         "equals": true
+        }
+       }
+      ]
+     },
+     {
+      "item": "ch4_original_ledger_copy"
+     }
+    ]
+   }
+  },
+  "ch5_t_anchor_compare_memory": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "在舊廠我看過第十七批的原頁。受錨者是我，錨人的名字被遮住了。",
+     "ja": "旧工場で第十七便の原頁を見た。受錨者は私で、錨人の名前は伏せてあった。",
+     "en": "I saw Batch Seventeen at the factory. It listed me as the recipient and covered the anchor's name."
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "座椅讀取板記著同一個批次。要核對座椅登記嗎？",
+     "ja": "椅子の読み取り盤に同じ便がある。登録を照合する？",
+     "en": "The chair reader shows the same batch. Check its registration?"
+    },
+    {
+     "do": "choice",
+     "text": "座椅讀取板記著同一個批次。要核對座椅登記嗎？",
+     "default": "leave",
+     "options": [
+      {
+       "id": "confirm",
+       "text": "核對第十七批的座椅登記",
+       "explanation": "核對後記進帳冊。",
+       "target": "ch5_t_anchor_record",
+       "ja": "第十七便の座椅子登録を照合する",
+       "en": "Check the chair's Batch Seventeen record",
+       "explanation_ja": "照合した記録を帳面に残す。",
+       "explanation_en": "Save the comparison in your notebook."
+      },
+      {
+       "id": "leave",
+       "text": "先離開",
+       "explanation": "座椅紀錄會留在原處。",
+       "ja": "いったん離れる",
+       "en": "Step away",
+       "explanation_ja": "椅子の記録はここに残る。",
+       "explanation_en": "The chair's record will stay here."
+      }
+     ],
+     "cancel_choice_on_back": true,
+     "ja": "椅子の読み取り盤に同じ便がある。登録を照合する？",
+     "en": "The chair reader shows the same batch. Check its registration?"
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "ch5_bian_coat_identified",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch5_anchor_identity_confirmed",
+         "equals": true
+        }
+       }
+      ]
+     },
+     {
+      "all": [
+       {
+        "not": {
+         "item": "ch4_original_ledger_copy"
+        }
+       },
+       {
+        "flag": "ch4_original_ledger_read",
+        "equals": true
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "ch5_t_anchor_compare_local": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "當舖的搬運回單也寫著第十七批和我的名字。我把回單的批號對到椅子上。",
+     "ja": "質屋の運搬控えにも第十七便と私の名前がある。番号を椅子の記録と照合しよう。",
+     "en": "The pawnshop slip lists Batch Seventeen and my name. I'll match the batch to the chair."
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "座椅讀取板記著同一個批次。要核對座椅登記嗎？",
+     "ja": "椅子の読み取り盤に同じ便がある。登録を照合する？",
+     "en": "The chair reader shows the same batch. Check its registration?"
+    },
+    {
+     "do": "choice",
+     "text": "座椅讀取板記著同一個批次。要核對座椅登記嗎？",
+     "default": "leave",
+     "options": [
+      {
+       "id": "confirm",
+       "text": "核對第十七批的座椅登記",
+       "explanation": "核對後記進帳冊。",
+       "target": "ch5_t_anchor_record",
+       "ja": "第十七便の座椅子登録を照合する",
+       "en": "Check the chair's Batch Seventeen record",
+       "explanation_ja": "照合した記録を帳面に残す。",
+       "explanation_en": "Save the comparison in your notebook."
+      },
+      {
+       "id": "leave",
+       "text": "先離開",
+       "explanation": "座椅紀錄會留在原處。",
+       "ja": "いったん離れる",
+       "en": "Step away",
+       "explanation_ja": "椅子の記録はここに残る。",
+       "explanation_en": "The chair's record will stay here."
+      }
+     ],
+     "cancel_choice_on_back": true,
+     "ja": "椅子の読み取り盤に同じ便がある。登録を照合する？",
+     "en": "The chair reader shows the same batch. Check its registration?"
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "ch5_bian_coat_identified",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch5_anchor_identity_confirmed",
+         "equals": true
+        }
+       }
+      ]
+     },
+     {
+      "all": [
+       {
+        "not": {
+         "item": "ch4_original_ledger_copy"
+        }
+       },
+       {
+        "not": {
+         "flag": "ch4_original_ledger_read",
+         "equals": true
+        }
+       },
+       {
+        "flag": "ch5_anchor_counterfoil_verified",
+        "equals": true
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "ch5_t_anchor_needs_record": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我手上沒有原帳，還沒核對過那一批。左邊矮桌上有張搬運回單，可以先看批號。",
+     "ja": "この便はまだ照合していない。左の低い机に運搬控えがある。番号を確かめよう。",
+     "en": "I haven't checked that batch. There's a hauling slip on the low desk to the left. I can check its number."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "ch5_bian_coat_identified",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch5_anchor_identity_confirmed",
+         "equals": true
+        }
+       }
+      ]
+     },
+     {
+      "not": {
+       "any": [
+        {
+         "item": "ch4_original_ledger_copy"
+        },
+        {
+         "flag": "ch4_original_ledger_read",
+         "equals": true
+        },
+        {
+         "flag": "ch5_anchor_counterfoil_verified",
+         "equals": true
+        }
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "ch5_t_anchor_record": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "第十七批次。登記錨人是老 K，受錨者是凜。",
+     "ja": "第十七便の登録は、錨人が老K、受錨者が凛。",
+     "en": "Batch Seventeen lists Old K as anchor and Rin as recipient."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "搬運的人把我送到終端。每次坐上這張椅子的人，是老 K。",
+     "ja": "運び屋が私を端末に届けた。そのたびにこの椅子に座ったのは、老Kだった。",
+     "en": "The hauler brought me to the terminal. The one who sat here each time was Old K."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "這些紀錄都留在原處。我把椅子的登記另抄一頁。",
+     "ja": "記録はここに置いておこう。椅子の登録だけ、別の頁に写す。",
+     "en": "These records stay here. I'll copy the chair's registration onto a separate page."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_bian_coat_identified",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch5_anchor_identity_confirmed",
+       "equals": true
+      }
+     },
+     {
+      "any": [
+       {
+        "item": "ch4_original_ledger_copy"
+       },
+       {
+        "flag": "ch4_original_ledger_read",
+        "equals": true
+       },
+       {
+        "flag": "ch5_anchor_counterfoil_verified",
+        "equals": true
+       }
+      ]
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "item_acquire",
+     "id": "ch5_anchor_record"
+    },
+    {
+     "kind": "flag",
+     "id": "ch5_anchor_identity_confirmed",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch5_t_anchor_revisit": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "第十七批次的座椅登記已抄進凜的帳冊。椅子和頭盔都留在原位。",
+     "ja": "第十七便の椅子の登録は凛の帳面に写した。椅子とヘルメットはそのままだ。",
+     "en": "Rin has copied the Batch Seventeen registration. The chair and helmet stay in place."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch5_anchor_identity_confirmed",
+    "equals": true
+   }
+  },
+  "ch5_t_anchor_life_carrots": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "她不吃紅蘿蔔。下次買菜記得避開。",
+     "ja": "あの子はにんじんを食べない。次に買い物するときは気をつける。",
+     "en": "She doesn't eat carrots. Remember next time you're shopping."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch5_bian_coat_identified",
+    "equals": true
+   }
+  },
+  "ch5_t_anchor_life_shoes": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "她第一天來，把鞋脫在門外，擺得像要被檢查。",
+     "ja": "初めて来た日、あの子は靴を戸口で脱いで、点検でも受けるみたいに揃えた。",
+     "en": "On her first day, she left her shoes at the door, lined up as if for inspection."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch5_bian_coat_identified",
+    "equals": true
+   }
+  },
+  "ch5_t_anchor_life_blank": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "最後一頁留白，前一頁的字跡到這裡就停了。",
+     "ja": "最後の頁は白紙だ。手書きの文字はその前の頁で途切れている。",
+     "en": "The last page is blank. The writing stops on the page before it."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch5_bian_coat_identified",
+    "equals": true
+   }
+  },
+  "ch5_t_anchor_life_notebook": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "桌上有老 K 的生活筆記。想先翻哪一頁？",
+     "ja": "机に老Kの手帳がある。どの頁を先に読もう？",
+     "en": "Old K kept a notebook here. Which page should I read first?"
+    },
+    {
+     "do": "choice",
+     "text": "桌上有老 K 的生活筆記。想先翻哪一頁？",
+     "default": "leave",
+     "options": [
+      {
+       "id": "carrots",
+       "text": "翻看買菜那一頁",
+       "explanation": "讀桌上筆記的第一頁。",
+       "target": "ch5_t_anchor_life_carrots",
+       "ja": "買い物の頁を読む",
+       "en": "Read the shopping note",
+       "explanation_ja": "机の手帳の最初の頁を読む。",
+       "explanation_en": "Read the first page."
+      },
+      {
+       "id": "shoes",
+       "text": "翻看第一天那一頁",
+       "explanation": "讀桌上筆記的第二頁。",
+       "target": "ch5_t_anchor_life_shoes",
+       "ja": "初めて来た日の頁を読む",
+       "en": "Read about her first day",
+       "explanation_ja": "机の手帳の二頁目を読む。",
+       "explanation_en": "Read the second page."
+      },
+      {
+       "id": "blank",
+       "text": "翻到最後一頁",
+       "explanation": "讀桌上筆記的末頁。",
+       "target": "ch5_t_anchor_life_blank",
+       "ja": "最後の頁を開く",
+       "en": "Turn to the last page",
+       "explanation_ja": "机の手帳の最後の頁を読む。",
+       "explanation_en": "Read the last page."
+      },
+      {
+       "id": "leave",
+       "text": "先闔上筆記",
+       "explanation": "還可以回來翻讀。",
+       "ja": "いったん手帳を閉じる",
+       "en": "Close the notebook",
+       "explanation_ja": "あとで読みに戻れる。",
+       "explanation_en": "You can read it later."
+      }
+     ],
+     "cancel_choice_on_back": true,
+     "ja": "机に老Kの手帳がある。どの頁を先に読もう？",
+     "en": "Old K kept a notebook here. Which page should I read first?"
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch5_bian_coat_identified",
+    "equals": true
+   }
+  },
   "ch5_dispatch_watch": {
    "mode": "dispatch",
    "routes": [
@@ -3086,6 +3683,213 @@
       ]
      },
      "target": "ch5_t_read_bian_coat"
+    }
+   ]
+  },
+  "ch5_dispatch_anchor_counterfoil": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch5_bian_coat_identified",
+        "equals": true
+       },
+       {
+        "flag": "ch5_anchor_counterfoil_verified",
+        "equals": true
+       }
+      ]
+     },
+     "target": "ch5_t_anchor_counterfoil_seen"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch5_bian_coat_identified",
+          "equals": true
+         },
+         {
+          "not": {
+           "flag": "ch5_anchor_counterfoil_verified",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch5_anchor_counterfoil_verified",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch5_t_anchor_counterfoil_verification"
+    }
+   ]
+  },
+  "ch5_dispatch_anchor_chair": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "flag": "ch5_anchor_identity_confirmed",
+      "equals": true
+     },
+     "target": "ch5_t_anchor_revisit"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch5_bian_coat_identified",
+          "equals": true
+         },
+         {
+          "not": {
+           "flag": "ch5_anchor_identity_confirmed",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "item": "ch4_original_ledger_copy"
+       }
+      ]
+     },
+     "target": "ch5_t_anchor_compare_copy"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch5_bian_coat_identified",
+          "equals": true
+         },
+         {
+          "not": {
+           "flag": "ch5_anchor_identity_confirmed",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "all": [
+         {
+          "not": {
+           "item": "ch4_original_ledger_copy"
+          }
+         },
+         {
+          "flag": "ch4_original_ledger_read",
+          "equals": true
+         }
+        ]
+       }
+      ]
+     },
+     "target": "ch5_t_anchor_compare_memory"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch5_bian_coat_identified",
+          "equals": true
+         },
+         {
+          "not": {
+           "flag": "ch5_anchor_identity_confirmed",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "all": [
+         {
+          "not": {
+           "item": "ch4_original_ledger_copy"
+          }
+         },
+         {
+          "not": {
+           "flag": "ch4_original_ledger_read",
+           "equals": true
+          }
+         },
+         {
+          "flag": "ch5_anchor_counterfoil_verified",
+          "equals": true
+         }
+        ]
+       }
+      ]
+     },
+     "target": "ch5_t_anchor_compare_local"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch5_bian_coat_identified",
+          "equals": true
+         },
+         {
+          "not": {
+           "flag": "ch5_anchor_identity_confirmed",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "any": [
+          {
+           "item": "ch4_original_ledger_copy"
+          },
+          {
+           "flag": "ch4_original_ledger_read",
+           "equals": true
+          },
+          {
+           "flag": "ch5_anchor_counterfoil_verified",
+           "equals": true
+          }
+         ]
+        }
+       }
+      ]
+     },
+     "target": "ch5_t_anchor_needs_record"
+    }
+   ]
+  },
+  "ch5_dispatch_life_notebook": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "flag": "ch5_bian_coat_identified",
+      "equals": true
+     },
+     "target": "ch5_t_anchor_life_notebook"
     }
    ]
   }

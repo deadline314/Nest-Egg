@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"ch5_anchor_record"
+display_name = "錨椅登記"
+description = "座椅登記老 K 為錨人，凜為受錨者。"
+color = Color(0.78, 0.86, 0.92, 1.0)
+category = 0
+order = 501
+chapter = &"ch5_paymaster"
+body = "座椅讀取板記著第十七批次，老 K 為登記錨人，凜為受錨者。這一頁抄自座椅讀取板。舊廠原帳的遮蔽欄位照樣保留。"
+trigger = 3
+source_actor = &"ch5_anchor_chair"
+icon = "doc_stub"
