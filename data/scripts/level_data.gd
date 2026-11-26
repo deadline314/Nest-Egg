@@ -93,6 +93,8 @@ const MAX_CHANNEL_RESULT_FLAGS := 64
 @export_range(0.0, 1.0) var death_boss_recovery := 0.3
 ## 同時攻擊的敵人數上限（攻擊令牌）：群組（melee、ranged）-> 上限；沒列出的用 data/combat/attack_tokens.json。前期區域調小。
 @export var attack_caps: Dictionary = {}
+## A room may author a noncombat avoidance activity with its own checkpoint.
+@export var avoidance_encounter: Resource
 @export_group("Environment")
 ## 環境主題（地形材質、建築立面、道具、背景層）。留空時沿用單一金屬面板與程式繪製立面。
 @export var environment: EnvironmentTheme
@@ -113,6 +115,12 @@ const MAX_CHANNEL_RESULT_FLAGS := 64
 ## 教學看板文字，地圖字元 "1" 對應 hints[0]。請寫重點，一句話。
 ## 提到按鍵時請用 {動作} 佔位符（例如 {jump}），玩家改鍵後提示會自動更新。
 @export var hints: PackedStringArray = PackedStringArray()
+
+
+func avoidance_skin() -> String:
+	const Spec := preload("res://data/scripts/avoidance_encounter_data.gd")
+	var activity := avoidance_encounter as Spec
+	return activity.rig_id if activity != null else ""
 
 
 func display_name_for(language: String) -> String:

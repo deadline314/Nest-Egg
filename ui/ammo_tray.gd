@@ -188,7 +188,7 @@ func _process(delta: float) -> void:
 	_flip_left = maxf(0.0, _flip_left - delta)
 	_pop_left = maxf(0.0, _pop_left - delta)
 	var player := _player_ref.get_player(get_tree())
-	var hidden := cinematic or player == null or player.is_dead() or player.mounted_vehicle != null or not _has_mag
+	var hidden := cinematic or player == null or player.is_dead() or player.is_noncombat_room() or player.mounted_vehicle != null or not _has_mag
 	presence.update(delta, true, false, hidden)  # 常駐：不受自動淡出影響
 	_slide = lerpf(_slide, 0.0, 1.0 - exp(-SLIDE_SHARPNESS * delta))
 	if _slide < 0.02:

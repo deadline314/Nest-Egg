@@ -16,6 +16,8 @@ from ch1_closure import Binding, Option, ProductionSource, Quest, QuestStep, all
 from chapter_compiler import ChapterSpec, write_chapter, write_documents
 import ch5_fee_story  # noqa: E402
 import ch5_voice_lock  # noqa: E402
+import ch5_bian_coat
+from ch5_stair_layout import COAT_POINT
 from ch5_alley_layout import POINT as VOICE_LOCK_POINT  # noqa: E402
 
 CHAPTER_INFO = {
@@ -113,8 +115,10 @@ def build_spec():
     ))
     add_pear_testimony(source, dispatch, CHAPTER)
     ch5_voice_lock.install(source, dispatch, CHAPTER)
+    ch5_bian_coat.install(source, dispatch, CHAPTER)
     return ChapterSpec(CHAPTER_INFO, source, "ch5", dispatch,
-                       {**POINTS, "pear": PEAR, ch5_voice_lock.SOURCE: VOICE_LOCK_POINT})
+                       {**POINTS, "pear": PEAR, ch5_voice_lock.SOURCE: VOICE_LOCK_POINT,
+                        ch5_bian_coat.COAT: COAT_POINT})
 
 
 if __name__ == "__main__":

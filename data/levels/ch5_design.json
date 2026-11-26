@@ -39,7 +39,16 @@
    "group": "basement_stair",
    "features": {
     "landmark": "下行臺階和牆上的籠燈。",
-    "loop": "沿原門返回後巷。"
+    "loop": "穿過下層或跳上維修架，都能抵達梯口並返回後巷。",
+    "vertical": "維修架越過地面的繩圈和圍堵。"
+   },
+   "encounters": []
+  },
+  "basement_archive": {
+   "combat": false,
+   "group": "basement_archive",
+   "features": {
+    "landmark": "下樓後的籠燈照著原路出口。"
    },
    "encounters": []
   }

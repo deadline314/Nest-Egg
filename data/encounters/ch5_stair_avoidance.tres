@@ -1,0 +1,24 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/avoidance_encounter_data.gd" id="1_activity"]
+
+[resource]
+script = ExtResource("1_activity")
+id = &"ch5_stair_avoidance"
+rig_id = "ch2_greycoat"
+home_column = 20
+retry_column = 8
+start_column = 13
+coat_npc = &"ch5_bian_coat"
+coat_prop = &"basement_door__grey_coat_on_steps"
+identified = &"ch5_bian_coat_identified"
+actions = Array[Dictionary]([{
+"kind": "grab", "gesture": "both_hands", "tell": 0.85, "commit": 0.58, "reach": 76.0
+}, {
+"kind": "rope", "gesture": "sleeve_tug", "tell": 0.85, "commit": 0.45, "reach": 56.0
+}, {
+"kind": "smoke", "gesture": "cover_head", "tell": 0.64, "commit": 1.2, "reach": 64.0
+}, {
+"kind": "block", "gesture": "point", "tell": 0.69, "commit": 0.56, "reach": 72.0
+}])
+text_path = "res://data/encounters/ch5_stair_avoidance_text.json"

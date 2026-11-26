@@ -317,6 +317,7 @@ func _build_entry() -> void:
 	if _slice_entry:
 		player_textures = await RigLibrary.prepare_skin_textures(PlayerVisual.SKIN_ID, _entry_checkpoint)
 	_spawn_player()
+	await _spawn_avoidance_activity()
 	player_textures.clear()
 	await _entry_checkpoint()
 	# 從檢查點重生：還原被打破的箱子、開關、閘門與電力（要在光影設定之前，事件才會正確）。
@@ -968,6 +969,42 @@ func _create_enemy(enemy_data: EnemyData) -> Enemy:
 		return null
 	enemy.configure(enemy_data)
 	return enemy
+
+
+func _spawn_avoidance_activity() -> void:
+	const Avoidance := preload("res://game/props/avoidance_encounter.gd")
+	const Spec := preload("res://data/scripts/avoidance_encounter_data.gd")
+	if data.avoidance_encounter == null:
+		return
+	var spec := data.avoidance_encounter as Spec
+	if spec == null:
+		push_warning("[Level] %s has an invalid avoidance resource" % data.resource_path)
+		return
+	var problem := spec.problem(_layout)
+	if not problem.is_empty():
+		push_warning("[Level] %s avoidance %s: %s" % [data.resource_path, spec.id, problem])
+		return
+	var coat: NpcActor
+	var prop: PropNode
+	for node: Node in get_tree().get_nodes_in_group(NpcActor.GROUP):
+		if node is NpcActor and is_ancestor_of(node) and node.data.id == spec.coat_npc:
+			coat = node as NpcActor
+			break
+	for node: Node in get_tree().get_nodes_in_group(PropNode.GROUP):
+		if node is PropNode and is_ancestor_of(node) and node.data.id == spec.coat_prop:
+			prop = node as PropNode
+			break
+	var prepared_textures: Array[Texture2D] = []
+	if _slice_entry and not GameState.has_flag(spec.identified):
+		prepared_textures = await RigLibrary.prepare_skin_textures(spec.rig_id, _entry_checkpoint)
+	var activity := Avoidance.new()
+	activity.name = "AvoidanceEncounter"
+	activity.z_index = WorldLayers.ENTITY_BEHIND
+	add_child(activity)
+	if not activity.configure(spec, _layout, player, coat, prop):
+		remove_child(activity)
+		activity.queue_free()
+	prepared_textures.clear()
 
 
 func _spawn_player() -> void:

@@ -91,7 +91,7 @@ func _refresh_visibility() -> void:
 		hide()
 		return
 	var player := _player()
-	visible = player != null and player.is_inside_tree() and not player.is_dead() and (player.interaction == null or not player.interaction.active)
+	visible = player != null and player.is_inside_tree() and not player.is_dead() and not player.is_noncombat_room() and (player.interaction == null or not player.interaction.active)
 
 
 func _process(delta: float) -> void:

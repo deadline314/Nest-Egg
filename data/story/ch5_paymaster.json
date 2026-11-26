@@ -31,7 +31,8 @@
   "ch5_fee_ledger_read": false,
   "ch5_fee_ledger_compared": false,
   "ch5_pear_dates_confirmed": false,
-  "ch5_basement_voice_unlocked": false
+  "ch5_basement_voice_unlocked": false,
+  "ch5_bian_coat_identified": false
  },
  "transactions": {},
  "derived_flags": {},
@@ -202,6 +203,38 @@
    "background_en": "Pear's shift record points to the pawnshop's back alley. The lock holds a porch recording.",
    "reward_ja": "裏路地から地下室の階段へ続いている。",
    "reward_en": "The back alley opens onto the basement stairs."
+  },
+  {
+   "id": "ch5_basement_avoidance",
+   "kind": "main",
+   "title": "繞過灰衣人，查看梯口的外套",
+   "background": "下層可直接閃避，上層維修架可以跨過繩圈與圍堵。",
+   "reward": "從衣領辨認灰衣人，打開地下室的入口。",
+   "complete_flag": "ch5_bian_coat_identified",
+   "steps": [
+    {
+     "title": "躲過搬運，等灰衣人走開再查看外套。",
+     "complete_flag": "ch5_bian_coat_identified",
+     "location": {
+      "level": "res://data/levels/ch5_basement_stair.tres",
+      "cell": [
+       30,
+       19
+      ]
+     },
+     "title_ja": "連れ戻されないようにかわす。彼が去ってからコートを調べる。",
+     "title_en": "Evade his attempts to move you. Examine the coat after he leaves."
+    }
+   ],
+   "visible_flags": [
+    "ch5_basement_voice_unlocked"
+   ],
+   "title_ja": "灰色のコートの男をかわして階段口の服を調べる",
+   "title_en": "Get around the man in gray and examine the coat",
+   "background_ja": "下では回避、上の足場なら縄や通せんぼを飛び越えられる。",
+   "background_en": "Dodge on the lower lane, or use the catwalk to get over the rope and the blockade.",
+   "reward_ja": "襟から灰色のコートの男の身元を確かめ、地下への入口を開ける。",
+   "reward_en": "Identify the man from his collar and open the basement entrance."
   }
  ],
  "scenes": {
@@ -2227,6 +2260,132 @@
     "equals": true
    }
   },
+  "ch5_t_read_bian_coat": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "外套裡縫著必安。旁邊的收件章，和阿梨留下的那枚一樣。",
+     "ja": "内側に「必安」と縫ってある。横の受領印は、阿梨が見せてくれたのと同じだ。",
+     "en": "The name Bian is sewn inside. That receiving stamp beside it matches the one Ali showed me."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "他把外套留在梯口，手上的委託到這裡就結束了。",
+     "ja": "彼は階段にコートを置いていった。引き受けていた仕事も、ここまでだ。",
+     "en": "He left his coat by the stairs. Whatever job he was on ends here."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "ch5_basement_voice_unlocked",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch5_bian_coat_identified",
+         "equals": true
+        }
+       }
+      ]
+     },
+     {
+      "not": {
+       "item": "ch1_grey_cloth"
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch5_bian_coat_identified",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch5_t_read_bian_coat_with_cloth": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "外套裡縫著必安。旁邊的收件章，和阿梨留下的那枚一樣。",
+     "ja": "内側に「必安」と縫ってある。横の受領印は、阿梨が見せてくれたのと同じだ。",
+     "en": "The name Bian is sewn inside. That receiving stamp beside it matches the one Ali showed me."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "他把外套留在梯口，手上的委託到這裡就結束了。",
+     "ja": "彼は階段にコートを置いていった。引き受けていた仕事も、ここまでだ。",
+     "en": "He left his coat by the stairs. Whatever job he was on ends here."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我帶來的灰布也有同一道補縫。我先把布角收好。",
+     "ja": "持ってきた布切れにも同じ縫い直しがある。これはしまっておこう。",
+     "en": "The cloth I brought has the same mending stitch. I’ll keep the swatch with me."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "ch5_basement_voice_unlocked",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch5_bian_coat_identified",
+         "equals": true
+        }
+       }
+      ]
+     },
+     {
+      "item": "ch1_grey_cloth"
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch5_bian_coat_identified",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch5_t_revisit_bian_coat": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "必安把灰外套留在這裡。我可以下樓了。",
+     "ja": "必安はここにコートを置いていった。これで下に行ける。",
+     "en": "Bian left the coat here. I can go downstairs now."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch5_bian_coat_identified",
+    "equals": true
+   }
+  },
   "ch5_dispatch_watch": {
    "mode": "dispatch",
    "routes": [
@@ -2845,6 +3004,88 @@
       ]
      },
      "target": "ch5_t_voice_lock_menu"
+    }
+   ]
+  },
+  "ch5_dispatch_bian_coat": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "flag": "ch5_bian_coat_identified",
+      "equals": true
+     },
+     "target": "ch5_t_revisit_bian_coat"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "all": [
+           {
+            "flag": "ch5_basement_voice_unlocked",
+            "equals": true
+           },
+           {
+            "not": {
+             "flag": "ch5_bian_coat_identified",
+             "equals": true
+            }
+           }
+          ]
+         },
+         {
+          "item": "ch1_grey_cloth"
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch5_bian_coat_identified",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch5_t_read_bian_coat_with_cloth"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "all": [
+           {
+            "flag": "ch5_basement_voice_unlocked",
+            "equals": true
+           },
+           {
+            "not": {
+             "flag": "ch5_bian_coat_identified",
+             "equals": true
+            }
+           }
+          ]
+         },
+         {
+          "not": {
+           "item": "ch1_grey_cloth"
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch5_bian_coat_identified",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch5_t_read_bian_coat"
     }
    ]
   }

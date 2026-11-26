@@ -701,6 +701,9 @@ static func level_texture_candidates(data: LevelData) -> Dictionary[String, bool
 	for resource in data.legend.values():
 		if resource is EnemyData and not (resource as EnemyData).rig_skin.is_empty():
 			skins[(resource as EnemyData).rig_skin] = true
+	var avoidance_skin := data.avoidance_skin()
+	if not avoidance_skin.is_empty():
+		skins[avoidance_skin] = true
 	for skin in skins:
 		var dir := RigLibrary.character_dir(skin).path_join("parts")
 		for file in DirAccess.get_files_at(dir):

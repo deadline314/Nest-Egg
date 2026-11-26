@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="3_lighting_zone"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch5_basement_archive.tres" id="4_ch5_basement_archive"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("2_portal_data")
+id = &"basement_stair"
+target_level = "res://data/levels/ch5_basement_stair.tres"
+target_portal = &"stair_basement"
+prompt = "{interact} 上樓回梯口"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Go back up to the stairwell", "ja": "{interact} 階段口へ戻る"})
+width = 28
+height = 64
+style = "door"
+
+[resource]
+script = ExtResource("1_level_data")
+id = &"ch5_basement_archive"
+display_name = "地下室檔案間"
+localized_names = Dictionary[String, String]({"en": "Basement archive", "ja": "地下の書庫"})
+tile_size = 16
+height = 24
+legend = Dictionary[String, Resource]({
+"⇖": SubResource("Resource_0")
+})
+hints = PackedStringArray()
+chapter = &"ch5_paymaster"
+persistent_world = true
+show_chapter_card = false
+environment = ExtResource("4_ch5_basement_archive")
+layout_path = "res://data/levels/ch5_basement_archive_map.json"
+lighting_zones = Array[ExtResource("3_lighting_zone")]([])
+story_triggers = PackedStringArray()
+death_credit_cap = 250

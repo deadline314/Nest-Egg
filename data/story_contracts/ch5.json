@@ -1,770 +1,856 @@
 {
- "version": 1,
- "records": [
-  {
-   "id": "ch5_t_watch",
-   "source": "res://data/story/ch5_paymaster.json",
-   "npc": "res://data/npcs/ch5_watch.tres",
-   "levels": [
-    "res://data/levels/ch5_pawnshop.tres"
-   ],
-   "role": "boundary",
-   "rule": {
-    "policy": "main_terminal_results_v1",
-    "then": "",
-    "mode": "animated",
-    "when": {
-     "all": [
-      {
-       "not": {
-        "flag": "ch1_label_watch_seen",
-        "equals": true
-       }
-      },
-      {
-       "not": {
-        "flag": "ch5_pawnshop_watch_read",
-        "equals": true
-       }
-      }
-     ]
-    },
-    "operations": [
-     {
-      "kind": "flag",
-      "id": "ch5_pawnshop_watch_read",
-      "value": true
-     }
-    ]
-   }
-  },
-  {
-   "id": "ch5_t_guitar",
-   "source": "res://data/story/ch5_paymaster.json",
-   "npc": "res://data/npcs/ch5_guitar.tres",
-   "levels": [
-    "res://data/levels/ch5_pawnshop.tres"
-   ],
-   "role": "boundary",
-   "rule": {
-    "policy": "main_terminal_results_v1",
-    "then": "",
-    "mode": "animated",
-    "when": {
-     "all": [
-      {
-       "not": {
-        "flag": "ch1_label_guitar_seen",
-        "equals": true
-       }
-      },
-      {
-       "not": {
-        "flag": "ch5_pawnshop_guitar_read",
-        "equals": true
-       }
-      }
-     ]
-    },
-    "operations": [
-     {
-      "kind": "flag",
-      "id": "ch5_pawnshop_guitar_read",
-      "value": true
-     }
-    ]
-   }
-  },
-  {
-   "id": "ch5_t_raincoat",
-   "source": "res://data/story/ch5_paymaster.json",
-   "npc": "res://data/npcs/ch5_raincoat.tres",
-   "levels": [
-    "res://data/levels/ch5_pawnshop.tres"
-   ],
-   "role": "boundary",
-   "rule": {
-    "policy": "main_terminal_results_v1",
-    "then": "",
-    "mode": "animated",
-    "when": {
-     "all": [
-      {
-       "not": {
-        "flag": "ch1_label_raincoat_seen",
-        "equals": true
-       }
-      },
-      {
-       "not": {
-        "flag": "ch5_pawnshop_raincoat_read",
-        "equals": true
-       }
-      }
-     ]
-    },
-    "operations": [
-     {
-      "kind": "flag",
-      "id": "ch5_pawnshop_raincoat_read",
-      "value": true
-     }
-    ]
-   }
-  },
-  {
-   "id": "ch5_t_fare",
-   "source": "res://data/story/ch5_paymaster.json",
-   "npc": "res://data/npcs/ch5_fare.tres",
-   "levels": [
-    "res://data/levels/ch5_pawnshop.tres"
-   ],
-   "role": "boundary",
-   "rule": {
-    "policy": "main_terminal_results_v1",
-    "then": "",
-    "mode": "animated",
-    "when": {
-     "all": [
-      {
-       "not": {
-        "flag": "ch1_label_fare_seen",
-        "equals": true
-       }
-      },
-      {
-       "not": {
-        "flag": "ch5_pawnshop_fare_read",
-        "equals": true
-       }
-      }
-     ]
-    },
-    "operations": [
-     {
-      "kind": "flag",
-      "id": "ch5_pawnshop_fare_read",
-      "value": true
-     }
-    ]
-   }
-  },
-  {
-   "id": "ch5_t_read_index",
-   "source": "res://data/story/ch5_paymaster.json",
-   "npc": "res://data/npcs/ch5_shelf_index.tres",
-   "levels": [
-    "res://data/levels/ch5_pawnshop.tres"
-   ],
-   "role": "boundary",
-   "rule": {
-    "policy": "main_terminal_results_v1",
-    "then": "",
-    "mode": "animated",
-    "when": {
-     "not": {
-      "flag": "ch5_pawnshop_index_read",
-      "equals": true
-     }
-    },
-    "operations": [
-     {
-      "kind": "flag",
-      "id": "ch5_pawnshop_index_read",
-      "value": true
-     }
-    ]
-   }
-  },
-  {
-   "id": "ch5_t_choose_labels",
-   "source": "res://data/story/ch5_paymaster.json",
-   "npc": "res://data/npcs/ch5_inventory_board.tres",
-   "levels": [
-    "res://data/levels/ch5_pawnshop.tres"
-   ],
-   "role": "choice",
-   "rule": {
-    "default": "leave",
-    "options": [
-     {
-      "id": "watch_guitar",
-      "target": "ch5_t_wrong_labels",
-      "flags": {}
-     },
-     {
-      "id": "watch_raincoat",
-      "target": "ch5_t_lift_catch",
-      "flags": {}
-     },
-     {
-      "id": "raincoat_fare",
-      "target": "ch5_t_wrong_labels",
-      "flags": {}
-     },
-     {
-      "id": "leave",
-      "target": "",
-      "flags": {}
-     }
-    ]
-   }
-  },
-  {
-   "id": "ch5_t_wrong_labels",
-   "source": "res://data/story/ch5_paymaster.json",
-   "npc": "res://data/npcs/ch5_inventory_board.tres",
-   "levels": [
-    "res://data/levels/ch5_pawnshop.tres"
-   ],
-   "role": "boundary",
-   "rule": {
-    "policy": "main_terminal_results_v1",
-    "then": "",
-    "mode": "animated",
-    "when": {},
-    "repeatable": true,
-    "repeat_condition": {}
-   }
-  },
-  {
-   "id": "ch5_t_lift_catch",
-   "source": "res://data/story/ch5_paymaster.json",
-   "npc": "res://data/npcs/ch5_inventory_board.tres",
-   "levels": [
-    "res://data/levels/ch5_pawnshop.tres"
-   ],
-   "role": "boundary",
-   "rule": {
-    "policy": "main_terminal_results_v1",
-    "then": "",
-    "mode": "animated",
-    "when": {
-     "all": [
-      {
-       "all": [
-        {
-         "flag": "ch5_pawnshop_index_read",
-         "equals": true
+  "version": 1,
+  "records": [
+    {
+      "id": "ch5_t_watch",
+      "source": "res://data/story/ch5_paymaster.json",
+      "npc": "res://data/npcs/ch5_watch.tres",
+      "levels": [
+        "res://data/levels/ch5_pawnshop.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "not": {
+                "flag": "ch1_label_watch_seen",
+                "equals": true
+              }
+            },
+            {
+              "not": {
+                "flag": "ch5_pawnshop_watch_read",
+                "equals": true
+              }
+            }
+          ]
         },
-        {
-         "any": [
+        "operations": [
           {
-           "flag": "ch1_label_watch_seen",
-           "equals": true
+            "kind": "flag",
+            "id": "ch5_pawnshop_watch_read",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch5_t_guitar",
+      "source": "res://data/story/ch5_paymaster.json",
+      "npc": "res://data/npcs/ch5_guitar.tres",
+      "levels": [
+        "res://data/levels/ch5_pawnshop.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "not": {
+                "flag": "ch1_label_guitar_seen",
+                "equals": true
+              }
+            },
+            {
+              "not": {
+                "flag": "ch5_pawnshop_guitar_read",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch5_pawnshop_guitar_read",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch5_t_raincoat",
+      "source": "res://data/story/ch5_paymaster.json",
+      "npc": "res://data/npcs/ch5_raincoat.tres",
+      "levels": [
+        "res://data/levels/ch5_pawnshop.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "not": {
+                "flag": "ch1_label_raincoat_seen",
+                "equals": true
+              }
+            },
+            {
+              "not": {
+                "flag": "ch5_pawnshop_raincoat_read",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch5_pawnshop_raincoat_read",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch5_t_fare",
+      "source": "res://data/story/ch5_paymaster.json",
+      "npc": "res://data/npcs/ch5_fare.tres",
+      "levels": [
+        "res://data/levels/ch5_pawnshop.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "not": {
+                "flag": "ch1_label_fare_seen",
+                "equals": true
+              }
+            },
+            {
+              "not": {
+                "flag": "ch5_pawnshop_fare_read",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch5_pawnshop_fare_read",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch5_t_read_index",
+      "source": "res://data/story/ch5_paymaster.json",
+      "npc": "res://data/npcs/ch5_shelf_index.tres",
+      "levels": [
+        "res://data/levels/ch5_pawnshop.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "not": {
+            "flag": "ch5_pawnshop_index_read",
+            "equals": true
+          }
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch5_pawnshop_index_read",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch5_t_choose_labels",
+      "source": "res://data/story/ch5_paymaster.json",
+      "npc": "res://data/npcs/ch5_inventory_board.tres",
+      "levels": [
+        "res://data/levels/ch5_pawnshop.tres"
+      ],
+      "role": "choice",
+      "rule": {
+        "default": "leave",
+        "options": [
+          {
+            "id": "watch_guitar",
+            "target": "ch5_t_wrong_labels",
+            "flags": {}
           },
           {
-           "flag": "ch5_pawnshop_watch_read",
-           "equals": true
-          }
-         ]
-        },
-        {
-         "any": [
-          {
-           "flag": "ch1_label_guitar_seen",
-           "equals": true
+            "id": "watch_raincoat",
+            "target": "ch5_t_lift_catch",
+            "flags": {}
           },
           {
-           "flag": "ch5_pawnshop_guitar_read",
-           "equals": true
-          }
-         ]
-        },
-        {
-         "any": [
-          {
-           "flag": "ch1_label_raincoat_seen",
-           "equals": true
+            "id": "raincoat_fare",
+            "target": "ch5_t_wrong_labels",
+            "flags": {}
           },
           {
-           "flag": "ch5_pawnshop_raincoat_read",
-           "equals": true
+            "id": "leave",
+            "target": "",
+            "flags": {}
           }
-         ]
+        ]
+      }
+    },
+    {
+      "id": "ch5_t_wrong_labels",
+      "source": "res://data/story/ch5_paymaster.json",
+      "npc": "res://data/npcs/ch5_inventory_board.tres",
+      "levels": [
+        "res://data/levels/ch5_pawnshop.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {},
+        "repeatable": true,
+        "repeat_condition": {}
+      }
+    },
+    {
+      "id": "ch5_t_lift_catch",
+      "source": "res://data/story/ch5_paymaster.json",
+      "npc": "res://data/npcs/ch5_inventory_board.tres",
+      "levels": [
+        "res://data/levels/ch5_pawnshop.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "all": [
+                {
+                  "flag": "ch5_pawnshop_index_read",
+                  "equals": true
+                },
+                {
+                  "any": [
+                    {
+                      "flag": "ch1_label_watch_seen",
+                      "equals": true
+                    },
+                    {
+                      "flag": "ch5_pawnshop_watch_read",
+                      "equals": true
+                    }
+                  ]
+                },
+                {
+                  "any": [
+                    {
+                      "flag": "ch1_label_guitar_seen",
+                      "equals": true
+                    },
+                    {
+                      "flag": "ch5_pawnshop_guitar_read",
+                      "equals": true
+                    }
+                  ]
+                },
+                {
+                  "any": [
+                    {
+                      "flag": "ch1_label_raincoat_seen",
+                      "equals": true
+                    },
+                    {
+                      "flag": "ch5_pawnshop_raincoat_read",
+                      "equals": true
+                    }
+                  ]
+                },
+                {
+                  "any": [
+                    {
+                      "flag": "ch1_label_fare_seen",
+                      "equals": true
+                    },
+                    {
+                      "flag": "ch5_pawnshop_fare_read",
+                      "equals": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "not": {
+                "flag": "ch5_pawnshop_labels_matched",
+                "equals": true
+              }
+            }
+          ]
         },
-        {
-         "any": [
+        "operations": [
           {
-           "flag": "ch1_label_fare_seen",
-           "equals": true
+            "kind": "flag",
+            "id": "ch5_pawnshop_labels_matched",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch5_t_read_fee_receipt",
+      "source": "res://data/story/ch5_paymaster.json",
+      "npc": "res://data/npcs/ch5_fee_receipt.tres",
+      "levels": [
+        "res://data/levels/ch5_pawnshop.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "flag": "ch5_pawnshop_labels_matched",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch5_fee_receipt_read",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch5_fee_receipt_read",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch5_t_read_fee_ledger",
+      "source": "res://data/story/ch5_paymaster.json",
+      "npc": "res://data/npcs/ch5_fee_ledger.tres",
+      "levels": [
+        "res://data/levels/ch5_pawnshop.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "flag": "ch5_pawnshop_labels_matched",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch5_fee_ledger_read",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch5_fee_ledger_read",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch5_t_choose_fee",
+      "source": "res://data/story/ch5_paymaster.json",
+      "npc": "res://data/npcs/ch5_inventory_board.tres",
+      "levels": [
+        "res://data/levels/ch5_pawnshop.tres"
+      ],
+      "role": "choice",
+      "rule": {
+        "default": "leave",
+        "options": [
+          {
+            "id": "gross",
+            "target": "ch5_t_fee_check_receipt",
+            "flags": {}
           },
           {
-           "flag": "ch5_pawnshop_fare_read",
-           "equals": true
+            "id": "fee_share",
+            "target": "ch5_t_confirm_fee",
+            "flags": {}
+          },
+          {
+            "id": "live_balance",
+            "target": "ch5_t_fee_check_ledger",
+            "flags": {}
+          },
+          {
+            "id": "leave",
+            "target": "",
+            "flags": {}
           }
-         ]
+        ]
+      }
+    },
+    {
+      "id": "ch5_t_fee_check_receipt",
+      "source": "res://data/story/ch5_paymaster.json",
+      "npc": "res://data/npcs/ch5_inventory_board.tres",
+      "levels": [
+        "res://data/levels/ch5_pawnshop.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "flag": "ch5_pawnshop_labels_matched",
+              "equals": true
+            },
+            {
+              "flag": "ch5_fee_receipt_read",
+              "equals": true
+            },
+            {
+              "flag": "ch5_fee_ledger_read",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch5_fee_ledger_compared",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "repeatable": true,
+        "repeat_condition": {
+          "all": [
+            {
+              "flag": "ch5_pawnshop_labels_matched",
+              "equals": true
+            },
+            {
+              "flag": "ch5_fee_receipt_read",
+              "equals": true
+            },
+            {
+              "flag": "ch5_fee_ledger_read",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch5_fee_ledger_compared",
+                "equals": true
+              }
+            }
+          ]
         }
-       ]
-      },
-      {
-       "not": {
-        "flag": "ch5_pawnshop_labels_matched",
-        "equals": true
-       }
       }
-     ]
     },
-    "operations": [
-     {
-      "kind": "flag",
-      "id": "ch5_pawnshop_labels_matched",
-      "value": true
-     }
-    ]
-   }
-  },
-  {
-   "id": "ch5_t_read_fee_receipt",
-   "source": "res://data/story/ch5_paymaster.json",
-   "npc": "res://data/npcs/ch5_fee_receipt.tres",
-   "levels": [
-    "res://data/levels/ch5_pawnshop.tres"
-   ],
-   "role": "boundary",
-   "rule": {
-    "policy": "main_terminal_results_v1",
-    "then": "",
-    "mode": "animated",
-    "when": {
-     "all": [
-      {
-       "flag": "ch5_pawnshop_labels_matched",
-       "equals": true
-      },
-      {
-       "not": {
-        "flag": "ch5_fee_receipt_read",
-        "equals": true
-       }
+    {
+      "id": "ch5_t_fee_check_ledger",
+      "source": "res://data/story/ch5_paymaster.json",
+      "npc": "res://data/npcs/ch5_inventory_board.tres",
+      "levels": [
+        "res://data/levels/ch5_pawnshop.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "flag": "ch5_pawnshop_labels_matched",
+              "equals": true
+            },
+            {
+              "flag": "ch5_fee_receipt_read",
+              "equals": true
+            },
+            {
+              "flag": "ch5_fee_ledger_read",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch5_fee_ledger_compared",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "repeatable": true,
+        "repeat_condition": {
+          "all": [
+            {
+              "flag": "ch5_pawnshop_labels_matched",
+              "equals": true
+            },
+            {
+              "flag": "ch5_fee_receipt_read",
+              "equals": true
+            },
+            {
+              "flag": "ch5_fee_ledger_read",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch5_fee_ledger_compared",
+                "equals": true
+              }
+            }
+          ]
+        }
       }
-     ]
     },
-    "operations": [
-     {
-      "kind": "flag",
-      "id": "ch5_fee_receipt_read",
-      "value": true
-     }
-    ]
-   }
-  },
-  {
-   "id": "ch5_t_read_fee_ledger",
-   "source": "res://data/story/ch5_paymaster.json",
-   "npc": "res://data/npcs/ch5_fee_ledger.tres",
-   "levels": [
-    "res://data/levels/ch5_pawnshop.tres"
-   ],
-   "role": "boundary",
-   "rule": {
-    "policy": "main_terminal_results_v1",
-    "then": "",
-    "mode": "animated",
-    "when": {
-     "all": [
-      {
-       "flag": "ch5_pawnshop_labels_matched",
-       "equals": true
-      },
-      {
-       "not": {
-        "flag": "ch5_fee_ledger_read",
-        "equals": true
-       }
+    {
+      "id": "ch5_t_confirm_fee",
+      "source": "res://data/story/ch5_paymaster.json",
+      "npc": "res://data/npcs/ch5_inventory_board.tres",
+      "levels": [
+        "res://data/levels/ch5_pawnshop.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "flag": "ch5_pawnshop_labels_matched",
+              "equals": true
+            },
+            {
+              "flag": "ch5_fee_receipt_read",
+              "equals": true
+            },
+            {
+              "flag": "ch5_fee_ledger_read",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch5_fee_ledger_compared",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch5_fee_ledger_compared",
+            "value": true
+          }
+        ]
       }
-     ]
     },
-    "operations": [
-     {
-      "kind": "flag",
-      "id": "ch5_fee_ledger_read",
-      "value": true
-     }
-    ]
-   }
-  },
-  {
-   "id": "ch5_t_choose_fee",
-   "source": "res://data/story/ch5_paymaster.json",
-   "npc": "res://data/npcs/ch5_inventory_board.tres",
-   "levels": [
-    "res://data/levels/ch5_pawnshop.tres"
-   ],
-   "role": "choice",
-   "rule": {
-    "default": "leave",
-    "options": [
-     {
-      "id": "gross",
-      "target": "ch5_t_fee_check_receipt",
-      "flags": {}
-     },
-     {
-      "id": "fee_share",
-      "target": "ch5_t_confirm_fee",
-      "flags": {}
-     },
-     {
-      "id": "live_balance",
-      "target": "ch5_t_fee_check_ledger",
-      "flags": {}
-     },
-     {
-      "id": "leave",
-      "target": "",
-      "flags": {}
-     }
-    ]
-   }
-  },
-  {
-   "id": "ch5_t_fee_check_receipt",
-   "source": "res://data/story/ch5_paymaster.json",
-   "npc": "res://data/npcs/ch5_inventory_board.tres",
-   "levels": [
-    "res://data/levels/ch5_pawnshop.tres"
-   ],
-   "role": "boundary",
-   "rule": {
-    "policy": "main_terminal_results_v1",
-    "then": "",
-    "mode": "animated",
-    "when": {
-     "all": [
-      {
-       "flag": "ch5_pawnshop_labels_matched",
-       "equals": true
-      },
-      {
-       "flag": "ch5_fee_receipt_read",
-       "equals": true
-      },
-      {
-       "flag": "ch5_fee_ledger_read",
-       "equals": true
-      },
-      {
-       "not": {
-        "flag": "ch5_fee_ledger_compared",
-        "equals": true
-       }
+    {
+      "id": "ch5_t_pear_question",
+      "source": "res://data/story/ch5_paymaster.json",
+      "npc": "res://data/npcs/ch5_pear.tres",
+      "levels": [
+        "res://data/levels/ch5_revival_lounge.tres"
+      ],
+      "role": "choice",
+      "rule": {
+        "default": "leave",
+        "options": [
+          {
+            "id": "check_dates",
+            "target": "ch5_t_pear_record_dates",
+            "flags": {}
+          },
+          {
+            "id": "leave",
+            "target": "",
+            "flags": {}
+          }
+        ]
       }
-     ]
     },
-    "repeatable": true,
-    "repeat_condition": {
-     "all": [
-      {
-       "flag": "ch5_pawnshop_labels_matched",
-       "equals": true
-      },
-      {
-       "flag": "ch5_fee_receipt_read",
-       "equals": true
-      },
-      {
-       "flag": "ch5_fee_ledger_read",
-       "equals": true
-      },
-      {
-       "not": {
-        "flag": "ch5_fee_ledger_compared",
-        "equals": true
-       }
+    {
+      "id": "ch5_t_pear_record_dates",
+      "source": "res://data/story/ch5_paymaster.json",
+      "npc": "res://data/npcs/ch5_pear.tres",
+      "levels": [
+        "res://data/levels/ch5_revival_lounge.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "flag": "ch5_fee_ledger_compared",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch5_pear_dates_confirmed",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "item_acquire",
+            "id": "ch5_pear_shift_dates"
+          },
+          {
+            "kind": "flag",
+            "id": "ch5_pear_dates_confirmed",
+            "value": true
+          }
+        ]
       }
-     ]
+    },
+    {
+      "id": "ch5_t_voice_lock_reply",
+      "source": "res://data/story/ch5_paymaster.json",
+      "npc": "res://data/npcs/ch5_voice_lock.tres",
+      "levels": [
+        "res://data/levels/ch5_back_alley.tres"
+      ],
+      "role": "choice",
+      "rule": {
+        "default": "leave",
+        "options": [
+          {
+            "id": "water",
+            "target": "ch5_t_voice_lock_release",
+            "flags": {}
+          },
+          {
+            "id": "umbrella",
+            "target": "ch5_t_voice_lock_try_again",
+            "flags": {}
+          },
+          {
+            "id": "wait",
+            "target": "ch5_t_voice_lock_try_again",
+            "flags": {}
+          },
+          {
+            "id": "leave",
+            "target": "",
+            "flags": {}
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch5_t_voice_lock_try_again",
+      "source": "res://data/story/ch5_paymaster.json",
+      "npc": "res://data/npcs/ch5_voice_lock.tres",
+      "levels": [
+        "res://data/levels/ch5_back_alley.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "flag": "ch5_fee_ledger_compared",
+              "equals": true
+            },
+            {
+              "flag": "ch5_pear_dates_confirmed",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch5_basement_voice_unlocked",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "repeatable": true,
+        "repeat_condition": {
+          "all": [
+            {
+              "flag": "ch5_fee_ledger_compared",
+              "equals": true
+            },
+            {
+              "flag": "ch5_pear_dates_confirmed",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch5_basement_voice_unlocked",
+                "equals": true
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "ch5_t_voice_lock_release",
+      "source": "res://data/story/ch5_paymaster.json",
+      "npc": "res://data/npcs/ch5_voice_lock.tres",
+      "levels": [
+        "res://data/levels/ch5_back_alley.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "flag": "ch5_fee_ledger_compared",
+              "equals": true
+            },
+            {
+              "flag": "ch5_pear_dates_confirmed",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch5_basement_voice_unlocked",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch5_basement_voice_unlocked",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch5_t_read_bian_coat",
+      "source": "res://data/story/ch5_paymaster.json",
+      "npc": "res://data/npcs/ch5_bian_coat.tres",
+      "levels": [
+        "res://data/levels/ch5_basement_stair.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "all": [
+                {
+                  "flag": "ch5_basement_voice_unlocked",
+                  "equals": true
+                },
+                {
+                  "not": {
+                    "flag": "ch5_bian_coat_identified",
+                    "equals": true
+                  }
+                }
+              ]
+            },
+            {
+              "not": {
+                "item": "ch1_grey_cloth"
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch5_bian_coat_identified",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch5_t_read_bian_coat_with_cloth",
+      "source": "res://data/story/ch5_paymaster.json",
+      "npc": "res://data/npcs/ch5_bian_coat.tres",
+      "levels": [
+        "res://data/levels/ch5_basement_stair.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "all": [
+                {
+                  "flag": "ch5_basement_voice_unlocked",
+                  "equals": true
+                },
+                {
+                  "not": {
+                    "flag": "ch5_bian_coat_identified",
+                    "equals": true
+                  }
+                }
+              ]
+            },
+            {
+              "item": "ch1_grey_cloth"
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch5_bian_coat_identified",
+            "value": true
+          }
+        ]
+      }
     }
-   }
-  },
-  {
-   "id": "ch5_t_fee_check_ledger",
-   "source": "res://data/story/ch5_paymaster.json",
-   "npc": "res://data/npcs/ch5_inventory_board.tres",
-   "levels": [
-    "res://data/levels/ch5_pawnshop.tres"
-   ],
-   "role": "boundary",
-   "rule": {
-    "policy": "main_terminal_results_v1",
-    "then": "",
-    "mode": "animated",
-    "when": {
-     "all": [
-      {
-       "flag": "ch5_pawnshop_labels_matched",
-       "equals": true
-      },
-      {
-       "flag": "ch5_fee_receipt_read",
-       "equals": true
-      },
-      {
-       "flag": "ch5_fee_ledger_read",
-       "equals": true
-      },
-      {
-       "not": {
-        "flag": "ch5_fee_ledger_compared",
-        "equals": true
-       }
-      }
-     ]
-    },
-    "repeatable": true,
-    "repeat_condition": {
-     "all": [
-      {
-       "flag": "ch5_pawnshop_labels_matched",
-       "equals": true
-      },
-      {
-       "flag": "ch5_fee_receipt_read",
-       "equals": true
-      },
-      {
-       "flag": "ch5_fee_ledger_read",
-       "equals": true
-      },
-      {
-       "not": {
-        "flag": "ch5_fee_ledger_compared",
-        "equals": true
-       }
-      }
-     ]
-    }
-   }
-  },
-  {
-   "id": "ch5_t_confirm_fee",
-   "source": "res://data/story/ch5_paymaster.json",
-   "npc": "res://data/npcs/ch5_inventory_board.tres",
-   "levels": [
-    "res://data/levels/ch5_pawnshop.tres"
-   ],
-   "role": "boundary",
-   "rule": {
-    "policy": "main_terminal_results_v1",
-    "then": "",
-    "mode": "animated",
-    "when": {
-     "all": [
-      {
-       "flag": "ch5_pawnshop_labels_matched",
-       "equals": true
-      },
-      {
-       "flag": "ch5_fee_receipt_read",
-       "equals": true
-      },
-      {
-       "flag": "ch5_fee_ledger_read",
-       "equals": true
-      },
-      {
-       "not": {
-        "flag": "ch5_fee_ledger_compared",
-        "equals": true
-       }
-      }
-     ]
-    },
-    "operations": [
-     {
-      "kind": "flag",
-      "id": "ch5_fee_ledger_compared",
-      "value": true
-     }
-    ]
-   }
-  },
-  {
-   "id": "ch5_t_pear_question",
-   "source": "res://data/story/ch5_paymaster.json",
-   "npc": "res://data/npcs/ch5_pear.tres",
-   "levels": [
-    "res://data/levels/ch5_revival_lounge.tres"
-   ],
-   "role": "choice",
-   "rule": {
-    "default": "leave",
-    "options": [
-     {
-      "id": "check_dates",
-      "target": "ch5_t_pear_record_dates",
-      "flags": {}
-     },
-     {
-      "id": "leave",
-      "target": "",
-      "flags": {}
-     }
-    ]
-   }
-  },
-  {
-   "id": "ch5_t_pear_record_dates",
-   "source": "res://data/story/ch5_paymaster.json",
-   "npc": "res://data/npcs/ch5_pear.tres",
-   "levels": [
-    "res://data/levels/ch5_revival_lounge.tres"
-   ],
-   "role": "boundary",
-   "rule": {
-    "policy": "main_terminal_results_v1",
-    "then": "",
-    "mode": "animated",
-    "when": {
-     "all": [
-      {
-       "flag": "ch5_fee_ledger_compared",
-       "equals": true
-      },
-      {
-       "not": {
-        "flag": "ch5_pear_dates_confirmed",
-        "equals": true
-       }
-      }
-     ]
-    },
-    "operations": [
-     {
-      "kind": "item_acquire",
-      "id": "ch5_pear_shift_dates"
-     },
-     {
-      "kind": "flag",
-      "id": "ch5_pear_dates_confirmed",
-      "value": true
-     }
-    ]
-   }
-  },
-  {
-   "id": "ch5_t_voice_lock_reply",
-   "source": "res://data/story/ch5_paymaster.json",
-   "npc": "res://data/npcs/ch5_voice_lock.tres",
-   "levels": [
-    "res://data/levels/ch5_back_alley.tres"
-   ],
-   "role": "choice",
-   "rule": {
-    "default": "leave",
-    "options": [
-     {
-      "id": "water",
-      "target": "ch5_t_voice_lock_release",
-      "flags": {}
-     },
-     {
-      "id": "umbrella",
-      "target": "ch5_t_voice_lock_try_again",
-      "flags": {}
-     },
-     {
-      "id": "wait",
-      "target": "ch5_t_voice_lock_try_again",
-      "flags": {}
-     },
-     {
-      "id": "leave",
-      "target": "",
-      "flags": {}
-     }
-    ]
-   }
-  },
-  {
-   "id": "ch5_t_voice_lock_try_again",
-   "source": "res://data/story/ch5_paymaster.json",
-   "npc": "res://data/npcs/ch5_voice_lock.tres",
-   "levels": [
-    "res://data/levels/ch5_back_alley.tres"
-   ],
-   "role": "boundary",
-   "rule": {
-    "policy": "main_terminal_results_v1",
-    "then": "",
-    "mode": "animated",
-    "when": {
-     "all": [
-      {
-       "flag": "ch5_fee_ledger_compared",
-       "equals": true
-      },
-      {
-       "flag": "ch5_pear_dates_confirmed",
-       "equals": true
-      },
-      {
-       "not": {
-        "flag": "ch5_basement_voice_unlocked",
-        "equals": true
-       }
-      }
-     ]
-    },
-    "repeatable": true,
-    "repeat_condition": {
-     "all": [
-      {
-       "flag": "ch5_fee_ledger_compared",
-       "equals": true
-      },
-      {
-       "flag": "ch5_pear_dates_confirmed",
-       "equals": true
-      },
-      {
-       "not": {
-        "flag": "ch5_basement_voice_unlocked",
-        "equals": true
-       }
-      }
-     ]
-    }
-   }
-  },
-  {
-   "id": "ch5_t_voice_lock_release",
-   "source": "res://data/story/ch5_paymaster.json",
-   "npc": "res://data/npcs/ch5_voice_lock.tres",
-   "levels": [
-    "res://data/levels/ch5_back_alley.tres"
-   ],
-   "role": "boundary",
-   "rule": {
-    "policy": "main_terminal_results_v1",
-    "then": "",
-    "mode": "animated",
-    "when": {
-     "all": [
-      {
-       "flag": "ch5_fee_ledger_compared",
-       "equals": true
-      },
-      {
-       "flag": "ch5_pear_dates_confirmed",
-       "equals": true
-      },
-      {
-       "not": {
-        "flag": "ch5_basement_voice_unlocked",
-        "equals": true
-       }
-      }
-     ]
-    },
-    "operations": [
-     {
-      "kind": "flag",
-      "id": "ch5_basement_voice_unlocked",
-      "value": true
-     }
-    ]
-   }
-  }
- ]
+  ]
 }

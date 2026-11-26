@@ -61,6 +61,7 @@ var awareness: NpcAwareness
 var _looking := false
 ## 依 NpcData 的出現條件目前是否在地圖上。
 var _present := true
+var _local_available := true
 var _fade: Tween
 
 
@@ -131,10 +132,15 @@ func _on_story_scene_finished(_scene: StringName) -> void:
 
 
 func _refresh_presence() -> void:
-	var present := data.should_spawn()
+	var present := _local_available and data.should_spawn()
 	if present != _present:
 		_present = present
 		_apply_presence(true)
+
+
+func set_local_available(available: bool) -> void:
+	_local_available = available
+	_refresh_presence()
 
 
 func is_present() -> bool:
@@ -285,7 +291,7 @@ func interaction_available() -> bool:
 
 ## 開始對話：說完記下次數並發放獎勵。可用於測試直接呼叫。
 func _talk() -> bool:
-	if _talking:
+	if _talking or not _local_available:
 		return false
 	var index := current_talk_index()
 	if index < 0:

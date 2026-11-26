@@ -79,6 +79,8 @@ var aim_point := Vector2.ZERO
 var aim_bloom := 0.0
 var is_crouching := false
 var is_blocking := false
+var _noncombat_room := false
+var _avoidance_held := false
 ## 護盾能量（格擋消耗、放開後回復）。
 var guard := 100.0
 var mounted_vehicle: Vehicle
@@ -400,6 +402,8 @@ func _input(event: InputEvent) -> void:
 
 ## 換武器用事件處理：滾輪的按下與放開發生在同一影格，用輪詢會漏掉。
 func _unhandled_input(event: InputEvent) -> void:
+	if _noncombat_room:
+		return
 	if GameplayLock.is_locked() or get_tree().paused or state == State.DEAD or state == State.MOUNTED:
 		return
 	if event.is_action_pressed(&"weapon_next"):
@@ -423,7 +427,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if GameplayLock.is_locked() or get_tree().paused:
+	if GameplayLock.is_locked() or get_tree().paused or _avoidance_held:
 		return
 	_render_previous_position = global_position
 	_render_sample_tick = Engine.get_physics_frames()
@@ -526,7 +530,7 @@ func _tick_timers(delta: float) -> void:
 	_remount_cooldown_left = maxf(0.0, _remount_cooldown_left - delta)
 	aim_bloom = move_toward(aim_bloom, 0.0, AIM_BLOOM_RECOVERY * delta)
 	_dry_fire_left = maxf(0.0, _dry_fire_left - delta)
-	if state != State.DEAD and state != State.MOUNTED:
+	if not _noncombat_room and state != State.DEAD and state != State.MOUNTED:
 		loadout.tick(delta * cyber.reload_speed_scale())
 		if loadout.is_reloading():
 			reload_track.advance(loadout.reload_progress())
@@ -592,6 +596,12 @@ func _process_normal(delta: float) -> void:
 		velocity.y *= tuning.jump_cut
 	_apply_gravity(delta)
 
+	if _noncombat_room:
+		if absf(input_x) > 0.05:
+			facing = 1 if input_x > 0.0 else -1
+		if Input.is_action_just_pressed(&"dash"):
+			_try_dash(input_x)
+		return
 	if Input.is_action_just_pressed(&"interact") and _try_mount():
 		return
 	if carry.handle_input():
@@ -699,7 +709,7 @@ func _update_weapon_light(delta: float) -> void:
 		_lit_weapon = weapon
 		_weapon_light.configure(weapon)
 	_weapon_light.set_active(state != State.DEAD and state != State.MOUNTED and state != State.PHONE
-			and carry.phase == PlayerCarry.Phase.NONE and not interaction.active)
+			and not _noncombat_room and carry.phase == PlayerCarry.Phase.NONE and not interaction.active)
 	var interval := weapon.fire_interval / cyber.fire_rate_scale() if weapon != null else 1.0
 	_weapon_light.aim(aim_origin().lerp(muzzle_position(), WEAPON_LIGHT_ORIGIN), aim_dir, 1.0 - _fire_cooldown_left / maxf(0.01, interval), delta)
 	var radius := SELF_GLOW_RADIUS if _weapon_light.is_lit() else SELF_GLOW_RADIUS_UNARMED
@@ -709,7 +719,7 @@ func _update_weapon_light(delta: float) -> void:
 
 
 func _update_aim(_delta: float) -> void:
-	if state == State.DEAD:
+	if state == State.DEAD or _noncombat_room:
 		return
 	var origin := aim_origin()
 	aim_dir = AimInput.direction_from(self, origin, aim_dir)
@@ -882,6 +892,8 @@ func play_respawn_fx() -> void:
 
 ## 手上武器在骨架上的貼圖 id：近戰武器是程式繪製的（PlayerVisual），骨架手上不放貼圖。
 func _visual_id_of(weapon: WeaponData) -> String:
+	if _noncombat_room:
+		return ""
 	return "" if weapon == null or weapon.is_melee() else weapon.visual_id
 
 
@@ -1182,6 +1194,8 @@ func _process_mounted() -> void:
 # ---------------------------------------------------------------------------
 
 func _update_blocking() -> void:
+	if _noncombat_room:
+		return
 	var pressed := Input.is_action_pressed(&"block") and _guard_lockout_left <= 0.0
 	# 舉盾需要最低能量；已經舉著的盾可以一直撐到能量耗盡。
 	var wants := pressed and not is_melee_locked() and (guard >= tuning.guard_min_to_raise if not is_blocking else guard > 0.0)
@@ -1419,6 +1433,26 @@ func use_consumable(id: StringName, report: Callable = Callable()) -> bool:
 	if report.is_valid():
 		report.call(item.used_text(Story.language, healed, can_restore_guard), false)
 	return true
+
+
+## Room-local controls never alter the equipped slot or reload inventory.
+func set_noncombat_room(enabled: bool) -> void:
+	_noncombat_room = enabled
+	if enabled:
+		is_blocking = false
+		_clear_input_buffers()
+	_visual.set_weapon_visual(visual_id_of_active_weapon())
+
+
+func is_noncombat_room() -> bool:
+	return _noncombat_room
+
+
+func set_avoidance_held(held: bool) -> void:
+	_avoidance_held = held
+	velocity = Vector2.ZERO
+	state = State.NORMAL
+	_clear_input_buffers()
 
 
 func is_reloading() -> bool:

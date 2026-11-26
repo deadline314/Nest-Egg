@@ -1,11 +1,27 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=6 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=9 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
-[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="3_lighting_zone"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch5_basement_stair.tres" id="4_ch5_basement_stair"]
+[ext_resource type="Resource" path="res://data/npcs/ch5_bian_coat.tres" id="3_ch5_bian_coat"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="4_lighting_zone"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch5_basement_stair.tres" id="5_ch5_basement_stair"]
+[ext_resource type="Resource" path="res://data/encounters/ch5_stair_avoidance.tres" id="6_ch5_stair_avoidance"]
 
 [sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("2_portal_data")
+id = &"stair_basement"
+target_level = "res://data/levels/ch5_basement_archive.tres"
+target_portal = &"basement_stair"
+requires_flag = &"ch5_bian_coat_identified"
+locked_text = "先查看灰衣人留下的外套。"
+localized_locked_text = Dictionary[String, String]({"en": "Examine the coat left by the person in gray.", "ja": "灰色のコートの人物が残した服を調べよう。"})
+prompt = "{interact} 下樓進地下室"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Descend into the basement", "ja": "{interact} 地下室へ下りる"})
+width = 28
+height = 64
+style = "door"
+
+[sub_resource type="Resource" id="Resource_1"]
 script = ExtResource("2_portal_data")
 id = &"stair_alley"
 target_level = "res://data/levels/ch5_back_alley.tres"
@@ -24,14 +40,18 @@ localized_names = Dictionary[String, String]({"en": "Basement Landing", "ja": "�
 tile_size = 16
 height = 24
 legend = Dictionary[String, Resource]({
-"⤊": SubResource("Resource_0")
+"⇘": SubResource("Resource_0"),
+"♧": ExtResource("3_ch5_bian_coat"),
+"⤊": SubResource("Resource_1")
 })
 hints = PackedStringArray()
 chapter = &"ch5_paymaster"
 persistent_world = true
 show_chapter_card = false
-environment = ExtResource("4_ch5_basement_stair")
+environment = ExtResource("5_ch5_basement_stair")
 layout_path = "res://data/levels/ch5_basement_stair_map.json"
-lighting_zones = Array[ExtResource("3_lighting_zone")]([])
+lighting_zones = Array[ExtResource("4_lighting_zone")]([])
+avoidance_encounter = ExtResource("6_ch5_stair_avoidance")
 story_triggers = PackedStringArray()
+safe_resume_level = "res://data/levels/ch5_back_alley.tres"
 death_credit_cap = 250

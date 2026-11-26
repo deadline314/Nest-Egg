@@ -7,6 +7,8 @@ sys.dont_write_bytecode = True
 import build_ch1 as kit
 import ch5_revival_route as revival
 import ch5_alley_layout as alley
+import ch5_stair_layout as stair
+from portal_translations import PROMPTS as PORTAL_PROMPTS, LOCKS as PORTAL_LOCKS
 import ch5_fee_layout as fee_layout
 from npc_prompt_translations import TRANSLATIONS
 
@@ -47,6 +49,7 @@ def _configure():
                                       "revival_lounge": "ch4_revival_lounge"}.get(ident, f"ch5_{ident}")
     revival.configure()
     alley.configure(kit)
+    stair.configure(kit, TRANSLATIONS, PORTAL_PROMPTS, PORTAL_LOCKS)
 
 
 def main():
@@ -62,7 +65,7 @@ def main():
     area.prop("pawnshop_front__range_tally_board", POINTS["inventory_board"][1], y=16, support="wall")
     fee_layout.stage_counter(area)
     area.features = {"landmark": "櫃台黃燈下的格號和盤點板。"}
-    areas = alley.join(kit, revival.areas(area, GROUND))
+    areas = stair.extend(kit, alley.join(kit, revival.areas(area, GROUND)))
     targets = set(kit.RES) | set(kit.PORTALS)
     for room in areas:
         marks = [(room.grid.at(x, GROUND - 1), (x, GROUND - 1)) for x in range(room.w)]
@@ -75,7 +78,7 @@ def main():
     kit.write_design(areas)
     for room in areas:
         room.grid.write(room.id, (kit.LEVEL_DIR, f"ch5_{room.id}_map.json"), kit._map_extra(room))
-        kit.write_level(room, show_card=room.id == "pawnshop")
+        kit.write_level(room, show_card=room.id == "pawnshop", **stair.options(room.id))
 
 
 if __name__ == "__main__":
