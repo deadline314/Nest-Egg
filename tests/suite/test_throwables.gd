@@ -676,19 +676,18 @@ func _test_weapon_changes_during_carry() -> void:
 		loadout.select(melee_slot)
 		await physics_frames(2)
 		check(loadout.active_slot == melee_slot and not visual.melee_held().visible, "melee selection stays invisible during carry")
-		var attack := InputEventAction.new()
-		attack.action = &"shoot"
 		if dispatch_event:
-			attack.pressed = true
-			Input.parse_input_event(attack)
+			_shoot_event(true)
 		else:
 			Input.action_press(&"shoot")
 		await physics_frames(5)
-		check(player.carry.phase == PlayerCarry.Phase.THROWING and not player.melee.is_active(),
-				"one throw press does not also queue a melee swing (event=%s)" % dispatch_event)
+		check(player.carry.phase == PlayerCarry.Phase.THROWING and player.carry.holds_back_shoot(),
+				"the throw press reaches the carried-crate path (event=%s)" % dispatch_event)
+		check(not player.melee.is_active() and is_zero_approx(player.melee.commands.remaining())
+				and is_zero_approx(player.melee.buffer_left),
+				"the throw press neither starts nor queues melee (event=%s)" % dispatch_event)
 		if dispatch_event:
-			attack.pressed = false
-			Input.parse_input_event(attack)
+			_shoot_event(false)
 		else:
 			Input.action_release(&"shoot")
 		loadout.select(Loadout.PRIMARY)
@@ -715,6 +714,15 @@ func hit_player() -> DamageInfo:
 	info.ignore_invulnerability = true
 	info.bypass_guard = true
 	return info
+
+
+## Consume synthetic events before counting physics ticks, including catch-up batches.
+func _shoot_event(pressed: bool) -> void:
+	var event := InputEventAction.new()
+	event.action = &"shoot"
+	event.pressed = pressed
+	Input.parse_input_event(event)
+	Input.flush_buffered_events()
 
 
 func _joy_button(button: JoyButton, pressed: bool) -> void:
