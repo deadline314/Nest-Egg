@@ -1,0 +1,35 @@
+{
+  "tool": "Built-in image_gen.imagegen",
+  "api_model_or_seed": "not exposed by tool; not invented",
+  "input_crop": "evidence/01-source/head-native.png",
+  "input_crop_sha256": "7baa876bded1b8024c6afa767f6a75b811261c3714830a1139df471d2b57b8ad",
+  "crop_to_original_source_origin": [
+    395,
+    15
+  ],
+  "refs": {
+    "half": {
+      "original_generated_file": "C:\\Users\\stanl\\.codex\\generated_images\\01a1e5df-805d-7ff0-bb86-e9063dc689c2\\exec-a6374078-a35a-49c2-a9f8-4c3439f43697.png",
+      "sha256": "f65907806403c064c059afaae4c289d2bb55ef5aaeeebd10ef74c094b45333ff",
+      "size": [
+        1241,
+        1268
+      ],
+      "role": "Expression reference only, not replacement face or original-source pixels"
+    },
+    "closed": {
+      "original_generated_file": "C:\\Users\\stanl\\.codex\\generated_images\\01a1e5df-805d-7ff0-bb86-e9063dc689c2\\exec-6af2e07a-7e82-4b8b-ba65-d4f07faefe4f.png",
+      "sha256": "69d21678fa443c6996e2e94903b08dd8893d8aa027e11ab22c6d21932c2485ba",
+      "size": [
+        1240,
+        1268
+      ],
+      "role": "Expression reference only, not replacement face or original-source pixels"
+    }
+  },
+  "original_retained_source_unchanged": true,
+  "actual_prompts": {
+    "half": "Use case: precise-object-edit. Edit target: supplied Su head crop. Asset type: eye expression reference for an existing 2D game character, not a replacement face. Preserve the exact same 54-year-old radio host face, nose, ear receiver, hairstyle and silver streak, eyebrow, head angle, ink outlines, flat hard-edged cel shading, colors, framing and grey background. Change ONLY the visible eyelid/iris within the tiny existing eye. No other objects, text, glow, beauty retouch or style change. Make the eye half closed: lower the upper eyelid over the upper half of the iris, calm half-lidded expression, same original dark lash contour. Keep the eyebrow at its current height. Produce one head image only.",
+    "closed": "Use case: precise-object-edit. Edit target: supplied Su head crop. Asset type: eye expression reference for an existing 2D game character, not a replacement face. Preserve the exact same 54-year-old radio host face, nose, ear receiver, hairstyle and silver streak, eyebrow, head angle, ink outlines, flat hard-edged cel shading, colors, framing and grey background. Change ONLY the visible eyelid/iris within the tiny existing eye. No other objects, text, glow, beauty retouch or style change. Close the eye completely: one small natural downward-curved dark upper-lash line on the same skin, calm blink, no eyeball or iris visible. Keep the eyebrow at its current height. Produce one head image only."
+  }
+}

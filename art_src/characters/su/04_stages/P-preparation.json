@@ -1,0 +1,35 @@
+{
+  "status": "prepared input only, generation not started",
+  "source_png_sha256": "d7c403d6c83fdffa39b068f239d7abbefae35aa3c66d6f31c0a07f141c5be4e5",
+  "source_size": [
+    1037,
+    1516
+  ],
+  "pad_size": [
+    1056,
+    1536
+  ],
+  "source_to_pad": [
+    1,
+    0,
+    0,
+    1,
+    0,
+    0
+  ],
+  "pad_rgba_native_region_exact": true,
+  "expected_raw_size": [
+    1056,
+    1536
+  ],
+  "take_crop": [
+    0,
+    0,
+    1037,
+    1516
+  ],
+  "resampling": false,
+  "reason": "Qwen reference latent uses32 grid; native source is1037x1516. Keep original source unchanged and preserve source coordinates by right/bottom transparent pad, then lossless coordinate crop of raw output.",
+  "final_composite_policy": "Existing make_parts only takes reviewed hidden/trim material; original source remains authoritative outside affected underlayer.",
+  "raw_required": "Save generated raw PNG + actual graph/prompt/seed before crop, fail on unexpected dimensions/mode rather than resize."
+}

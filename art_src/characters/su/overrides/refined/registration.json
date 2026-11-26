@@ -1,0 +1,126 @@
+{
+  "source_sha256": "d7c403d6c83fdffa39b068f239d7abbefae35aa3c66d6f31c0a07f141c5be4e5",
+  "neck_original_source_polygon": [
+    [
+      479,
+      220
+    ],
+    [
+      505,
+      227
+    ],
+    [
+      535,
+      235
+    ],
+    [
+      559,
+      237
+    ],
+    [
+      559,
+      261
+    ],
+    [
+      541,
+      256
+    ],
+    [
+      524,
+      247
+    ],
+    [
+      507,
+      242
+    ],
+    [
+      492,
+      239
+    ],
+    [
+      481,
+      236
+    ]
+  ],
+  "head_continuous_source_neck_polygon": [
+    [
+      478,
+      229
+    ],
+    [
+      495,
+      232
+    ],
+    [
+      520,
+      239
+    ],
+    [
+      540,
+      250
+    ],
+    [
+      561,
+      257
+    ],
+    [
+      561,
+      262
+    ],
+    [
+      540,
+      257
+    ],
+    [
+      520,
+      250
+    ],
+    [
+      514,
+      248
+    ],
+    [
+      509,
+      246
+    ],
+    [
+      505,
+      244
+    ],
+    [
+      500,
+      242
+    ],
+    [
+      494,
+      240
+    ],
+    [
+      478,
+      234
+    ]
+  ],
+  "head_claim_pixels": 660,
+  "head_outside_claim_unchanged": true,
+  "head_no_original_alpha0_filled": true,
+  "neck_original_rgba_samples": 1396,
+  "hip_hidden_trouser_rgb_samples": 12943,
+  "hip_alpha_unchanged": true,
+  "torso_outside_neck_unchanged": true,
+  "source_original_png_unchanged": true,
+  "method": "Authored hidden-layer reconstruction, not GPT/SAM model output",
+  "outputs": {
+    "torso": {
+      "sha256": "b7bcd9823285ca467f3cdc8e9a5bc625e1f38e17e4ea7509d6f71ebe2cafbf7a",
+      "rgba_changed_pixels": 1396
+    },
+    "leg_upper": {
+      "sha256": "adc6ad7f6a7695c80e85b5a97721afa71541eac04c9cf4d5fd768a017f799d84",
+      "rgba_changed_pixels": 12943
+    },
+    "head": {
+      "sha256": "98d58d18411614ad48cdd2789d5c4d26f4b32c25ccf2acad2da4a4203da15d5a",
+      "rgba_changed_pixels": 55
+    }
+  }
+}

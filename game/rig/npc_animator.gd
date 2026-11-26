@@ -91,6 +91,32 @@ var _cycle_period := 1.0
 var _cycle_amp := 1.0
 
 
+## Optional flat bone-angle additions for existing non-standing NPC postures.
+## Validate once per animator; npc.stand keeps its established reader unchanged.
+var _posture_adjustments: Dictionary = {}
+
+func _init(rig: CharacterRig) -> void:
+	super(rig)
+	var mine: Variant = RigLibrary.load_json(MOTION_PATH % rig.skin_id).get("npc", {})
+	if typeof(mine) != TYPE_DICTIONARY:
+		return
+	for posture: String in ["sit", "lean", "rest", "crouch"]:
+		if not mine.has(posture):
+			continue
+		var values: Variant = mine[posture]
+		var accepted: Dictionary = {}
+		if typeof(values) != TYPE_DICTIONARY:
+			RigLibrary.report_once("npc.posture:%s:%s" % [rig.skin_id, posture], "[NpcAnimator] art/motion/%s.json: npc.%s requires a flat bone-angle dictionary; using default." % [rig.skin_id, posture])
+			continue
+		for key: Variant in values:
+			var value: Variant = values[key]
+			if rig.bone(StringName(str(key))) == null or typeof(value) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(value)) or absf(float(value)) > PI:
+				RigLibrary.report_once("npc.posture:%s:%s:%s" % [rig.skin_id, posture, key], "[NpcAnimator] art/motion/%s.json: npc.%s.%s requires an existing bone and finite angle within +/-PI; using default." % [rig.skin_id, posture, key])
+				continue
+			accepted[StringName(str(key))] = float(value)
+		_posture_adjustments[StringName(posture)] = accepted
+
+
 func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> Dictionary:
 	_head_cover = 0.0
 	_use_npc = _is_npc_state(input)
@@ -356,7 +382,7 @@ func _step_posture(data: Dictionary, mine: Dictionary, posture: StringName, delt
 ## 姿勢資料的骨頭角度加上 _hip_x／_hip_y；站姿再加上這個角色自己的站姿微調。
 func _base_of(def: Dictionary, mine: Dictionary, posture: StringName) -> Dictionary:
 	var base: Dictionary = {&"_hip_x": _num(def, "hip_x", 0.0), &"_hip_y": _num(def, "hip_y", 0.0)}
-	for source: Variant in [def.get("bones", {}), mine.get("stand", {}) if posture == &"stand" else {}]:
+	for source: Variant in [def.get("bones", {}), mine.get("stand", {}) if posture == &"stand" else _posture_adjustments.get(posture, {})]:
 		if typeof(source) != TYPE_DICTIONARY:
 			continue
 		for key: Variant in (source as Dictionary).keys():

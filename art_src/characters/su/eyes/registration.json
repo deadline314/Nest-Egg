@@ -1,0 +1,61 @@
+{
+  "states": {
+    "half": {
+      "reference_sha256": "f65907806403c064c059afaae4c289d2bb55ef5aaeeebd10ef74c094b45333ff",
+      "rgba_changed_pixels": 596,
+      "alpha_held": true,
+      "outside_registered_mask_rgba_exact": true
+    },
+    "closed": {
+      "reference_sha256": "69d21678fa443c6996e2e94903b08dd8893d8aa027e11ab22c6d21932c2485ba",
+      "rgba_changed_pixels": 597,
+      "alpha_held": true,
+      "outside_registered_mask_rgba_exact": true
+    }
+  },
+  "mask": [
+    [
+      570,
+      139
+    ],
+    [
+      576,
+      134
+    ],
+    [
+      589,
+      133
+    ],
+    [
+      607,
+      138
+    ],
+    [
+      611,
+      143
+    ],
+    [
+      608,
+      150
+    ],
+    [
+      594,
+      154
+    ],
+    [
+      578,
+      148
+    ]
+  ],
+  "native_reference_crop_origin": [
+    395,
+    15
+  ],
+  "native_reference_registration_translation": [
+    -1,
+    -1
+  ],
+  "original_head_sha256": "98d58d18411614ad48cdd2789d5c4d26f4b32c25ccf2acad2da4a4203da15d5a",
+  "model": "Built-in GPT ImageGen; exact model version/seed unavailable",
+  "not_entire_generated_face": true
+}

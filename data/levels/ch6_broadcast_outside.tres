@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=11 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=14 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
@@ -6,8 +6,10 @@
 [ext_resource type="Resource" path="res://data/npcs/ch6_yard_gauge.tres" id="4_ch6_yard_gauge"]
 [ext_resource type="Resource" path="res://data/npcs/ch6_relay_backup.tres" id="5_ch6_relay_backup"]
 [ext_resource type="Resource" path="res://data/npcs/ch6_relay_drain.tres" id="6_ch6_relay_drain"]
-[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="7_lighting_zone"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch6_broadcast_outside.tres" id="8_ch6_broadcast_outside"]
+[ext_resource type="Resource" path="res://data/npcs/ch6_su_canopy.tres" id="7_ch6_su_canopy"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="8_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/ch6_studio_light.tres" id="9_ch6_studio_light"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch6_broadcast_outside.tres" id="10_ch6_broadcast_outside"]
 
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("2_portal_data")
@@ -34,6 +36,12 @@ width = 30
 height = 63
 style = "hidden"
 
+[sub_resource type="Resource" id="Resource_2"]
+script = ExtResource("8_lighting_zone")
+start_tile = 49
+blend_tiles = 5
+profile = ExtResource("9_ch6_studio_light")
+
 [resource]
 script = ExtResource("1_level_data")
 id = &"ch6_broadcast_outside"
@@ -47,14 +55,15 @@ legend = Dictionary[String, Resource]({
 "ⓓ": ExtResource("3_ch6_relay_diverter"),
 "ⓖ": ExtResource("4_ch6_yard_gauge"),
 "ⓟ": ExtResource("5_ch6_relay_backup"),
-"ⓡ": ExtResource("6_ch6_relay_drain")
+"ⓡ": ExtResource("6_ch6_relay_drain"),
+"ⓢ": ExtResource("7_ch6_su_canopy")
 })
 hints = PackedStringArray()
 chapter = &"ch6_unmooring"
 persistent_world = true
 show_chapter_card = false
-environment = ExtResource("8_ch6_broadcast_outside")
+environment = ExtResource("10_ch6_broadcast_outside")
 layout_path = "res://data/levels/ch6_broadcast_outside_map.json"
-lighting_zones = Array[ExtResource("7_lighting_zone")]([])
+lighting_zones = Array[ExtResource("8_lighting_zone")]([SubResource("Resource_2")])
 story_triggers = PackedStringArray()
 death_credit_cap = 250

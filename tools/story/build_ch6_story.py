@@ -11,6 +11,8 @@ sys.path.insert(0, str(ROOT / "tools/level"))
 from build_ch6 import CHAPTER, POINTS, REQUEST, WITNESS  # noqa: E402
 from build_ch1_story import sfx  # noqa: E402
 from ch6_relay_water_story import add_relay_water  # noqa: E402
+from ch6_studio_trial import PEOPLE  # noqa: E402
+from ch6_studio_trial_story import add_studio_trial  # noqa: E402
 from ch1_closure import Binding, Option, ProductionSource, Quest, QuestStep, all_of, flag, negate, say, set_flag  # noqa: E402
 from chapter_compiler import ChapterSpec, write_chapter  # noqa: E402
 
@@ -31,9 +33,9 @@ GAUGE_READ = "ch6_t_read_yard_gauge"
 def build_spec():
     source = ProductionSource(flag_defaults={})
     source.speakers["su"] = {"name": "蘇", "name_en": "Wake", "name_ja": "蘇", "color": "#a9d4cf",
-                             "portrait": "res://art/portraits/system.png", "formal": True}
+                             "portrait": "res://art/portraits/su.png", "formal": True}
     source.bindings.update({
-        name: Binding("object", CHAPTER, f"res://data/npcs/ch6_{name}.tres") for name in POINTS
+        name: Binding("npc" if name in PEOPLE else "object", CHAPTER, f"res://data/npcs/ch6_{name}.tres") for name in POINTS
     })
     dispatch = {
         "plaza_intercom": ["ch6_t_approach_revisit", OFFER, "ch6_t_wait_for_request"],
@@ -78,6 +80,7 @@ def build_spec():
         visible_flags=(REQUEST,), completion_requires_steps=True,
     ))
     add_relay_water(source, dispatch, GAUGE)
+    add_studio_trial(source, dispatch, REQUEST)
     return ChapterSpec(CHAPTER_INFO, source, "ch6", dispatch, POINTS)
 
 

@@ -1,0 +1,91 @@
+{
+  "schema": "manual-source-review-v1",
+  "source_sha256": "d7c403d6c83fdffa39b068f239d7abbefae35aa3c66d6f31c0a07f141c5be4e5",
+  "image_size": [
+    1037,
+    1516
+  ],
+  "purpose": "Pre-model visual anchors only; not SAM predictions or verified rig pivots. No hidden anatomy fabricated.",
+  "visible_candidates": {
+    "head_top": [
+      525,
+      24
+    ],
+    "head_base": [
+      522,
+      224
+    ],
+    "neck_skin": [
+      526,
+      244
+    ],
+    "near_shoulder": [
+      460,
+      376
+    ],
+    "near_elbow": [
+      447,
+      556
+    ],
+    "near_wrist": [
+      485,
+      778
+    ],
+    "near_palm": [
+      489,
+      820
+    ],
+    "near_fingertip": [
+      494,
+      895
+    ],
+    "near_hip_region": [
+      508,
+      768
+    ],
+    "near_knee_region": [
+      468,
+      1090
+    ],
+    "near_ankle": [
+      469,
+      1398
+    ],
+    "near_toe": [
+      589,
+      1451
+    ],
+    "near_heel": [
+      424,
+      1430
+    ]
+  },
+  "occluded_unknown": {
+    "far_shoulder": null,
+    "far_elbow": null,
+    "far_wrist": null,
+    "far_hip": null,
+    "far_knee": null
+  },
+  "regions_to_validate": {
+    "far_hand_visible_skin_roi": [
+      610,
+      765,
+      632,
+      854
+    ],
+    "near_shoe_roi": [
+      406,
+      1384,
+      615,
+      1473
+    ],
+    "far_shoe_visible_roi": [
+      527,
+      1350,
+      650,
+      1448
+    ]
+  },
+  "grounding": "Use actual shoe sole, not ankle or far-foot toe. Final geometry from source/model review, not this draft."
+}

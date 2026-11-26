@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="LightingProfile" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/lighting_profile.gd" id="1_script"]
+[ext_resource type="Script" path="res://data/scripts/lamp_style.gd" id="2_lamp"]
+
+[sub_resource type="Resource" id="LampStyle_studio"]
+script = ExtResource("2_lamp")
+colors = PackedColorArray(1, 0.85, 0.64, 1)
+energy = 0.55
+radius = 108.0
+flicker_chance = 0.0
+dead_chance = 0.0
+fixtures = PackedStringArray("tin_shade_bulb", "cage_worklight")
+
+[resource]
+script = ExtResource("1_script")
+id = &"ch6_studio_light"
+ambient_color = Color(0.57, 0.61, 0.65, 1)
+background_tint = Color(0.78, 0.86, 0.93, 1)
+fog_color = Color(0.25, 0.32, 0.38, 1)
+fog_density = 0.12
+glow_threshold = 1.24
+glow_intensity = 0.65
+saturation = 0.88
+contrast = 1.03
+vignette = 0.14
+lamp_style = SubResource("LampStyle_studio")
+neon_colors = PackedColorArray(0.66, 0.88, 1, 1)
+neon_energy = 0.13
+character_floor = 0.48
+rim_color = Color(1, 0.82, 0.6, 1)
+rim_energy = 0.25

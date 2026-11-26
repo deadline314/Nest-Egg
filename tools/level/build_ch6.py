@@ -6,6 +6,7 @@ import argparse
 
 import build_ch1 as kit
 import ch6_relay_water as water
+import ch6_studio_trial as studio
 from area_name_translations import AREA_NAMES
 from npc_prompt_translations import TRANSLATIONS
 from portal_translations import LOCKS, PROMPTS
@@ -38,6 +39,7 @@ OBJECTS = (
     ("ⓖ", "yard_gauge", "前庭水位尺", "broadcast_outside", 24, 19,
      ("查看前庭水位", "Check the yard water level", "前庭の水位を調べる")),
     *water.OBJECTS,
+    *studio.OBJECTS,
 )
 AREA_COPY = {
     "廣播站錄音室": ("Broadcast Recording Booth", "放送局の録音室"),
@@ -80,6 +82,8 @@ def configure():
         TRANSLATIONS[zh] = (en, ja)
         kit.NPCS[key] = dict(name=label, speaker="label", facing=1, rig="", loop="", kind=1,
                               prompt=f"{{interact}} {zh}", talks=[(f"ch6_dispatch_{name}", 0)])
+        if name in studio.PEOPLE:
+            kit.NPCS[key].update(speaker="su", rig="su", kind=0, **studio.PEOPLE[name])
         kit.RES[glyph] = f"res://data/npcs/{key}.tres"
 
 
@@ -153,7 +157,11 @@ def main():
     parser.add_argument("--check", action="store_true", help="validate walkway reachability without writing output")
     options = parser.parse_args()
     configure()
-    areas = [plaza(), overpass(), relay(), water.recording_booth(kit, GROUND)]
+    yard = relay()
+    booth = water.recording_booth(kit, GROUND)
+    studio.extend_canopy(yard)
+    studio.extend_booth(booth)
+    areas = [plaza(), overpass(), yard, booth]
     for area in areas:
         for glyph, _, _, room, col, row, _ in OBJECTS:
             if room == area.id:

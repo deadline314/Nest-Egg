@@ -1,0 +1,12 @@
+# Su/Wake frozen rig candidate
+
+54-year-old female former radio/weather host. Retained original native transparent design SHA d7c403d6c83fdffa39b068f239d7abbefae35aa3c66d6f31c0a07f141c5be4e5. No held prop. Rig ID `su`; portrait `res://art/portraits/su.png`; 16 bones / 15 body slots. Original visible near-hand and far-hand ownership are separate; hidden cloth is explicitly authored reconstruction. The retained source image was never resized or replaced. Eye expression references alone were registered to a native eye ROI; every original alpha and every non-eye head pixel is exact relative to the selected head source.
+
+Build inputs are ordinary files, not model weights or compiled GPU cache. From an isolated project root with the existing standard tools and this recipe/spec:
+
+1. Run `python art_src/characters/su/rebuild_hidden_underlayer.py` to reproduce the reviewed P source from original source pixels and native outlines. This preserves the retained source. P SHA must equal 7501aa21c2720c7e030ba02697ea86b9157d28b00e229feaadfc06c3ed8b8950.
+2. Run standard `make_parts.py` then `refine_parts.py` with this spec/work. All SAM prompts are empty manual outlines; P is already present. Do not delete P or start a service to pretend it was generated. Original keypoints are retained real SAM3D evidence with manual calibration recorded separately.
+3. The registered recipe `source_rebuilds` execute `register_manual_layers.py`, then `register_eye_reference.py`, before standard `cut_layers.py`. The first restores native source neck skin, hidden trouser material and the reviewed 55-pixel head-neck recovery; the second produces reversible eyelids from the same selected head source. Call cut with the **absolute output directory** for --char and **absolute JSON file** for --rig, not the ID string.
+4. Standard headless `res://tools/art/paint_normals.tscn -- --only=su` produces 11 normals. Import on a truly local writable cache; never run the editor on a linked shared imported directory.
+
+The optional shared candidate `game/rig/npc_animator.gd` reads finite flat `npc.<posture>` bone additions once at load. Existing `npc.stand` behavior is unchanged; 45 existing motion files' base poses are byte-for-value unchanged. Su grounding uses the already supported motion field, and its lean forearm addition +0.8 radians avoids the generic folded lean plus wave reaching ~167 degrees. No actor translation, collision, AI, renderer or audit threshold was changed.

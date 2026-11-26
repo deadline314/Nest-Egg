@@ -14,13 +14,13 @@
       "##################################",
       "##################################",
       "#................................#",
-      "#............*..........*........#",
+      "#.......................*........#",
       "#................................#",
       "#................................#",
       "#................................#",
       "#................................#",
       "#................................#",
-      "#...ⅶ...P........................#",
+      "#...ⅶ...P.........ⓜ...ⓣ..........#",
       "##################################",
       "##################################",
       "##################################",
@@ -30,6 +30,11 @@
   "props": [
     {"id": "recording_booth__mixing_console", "x": 17, "ground": true},
     {"id": "recording_booth__booth_stool", "x": 23, "ground": true},
-    {"id": "recording_booth__reel_recorder", "x": 26, "ground": true}
+    {"id": "recording_booth__reel_recorder", "x": 26, "ground": true},
+    {"id": "recording_booth__glass_window", "x": 8, "y": 15, "support": "wall"},
+    {"id": "recording_booth__foam_panels", "x": 24, "y": 17, "support": "wall"},
+    {"id": "recording_booth__recording_desk_lamp", "x": 17, "dx": 6, "y": 18, "dy": -10, "support": "prop", "support_id": "recording_booth__mixing_console", "support_x": 17, "support_dy": 4},
+    {"id": "recording_booth__script_sheets", "x": 18, "dx": 2, "y": 18, "dy": -10, "support": "prop", "support_id": "recording_booth__mixing_console", "support_x": 17, "support_dy": 4},
+    {"id": "recording_booth__desk_microphone", "x": 20, "y": 18, "dy": -10, "support": "prop", "support_id": "recording_booth__mixing_console", "support_x": 17, "support_dy": 4}
   ]
 }

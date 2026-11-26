@@ -25,7 +25,7 @@
    "name_en": "Wake",
    "name_ja": "蘇",
    "color": "#a9d4cf",
-   "portrait": "res://art/portraits/system.png",
+   "portrait": "res://art/portraits/su.png",
    "formal": true
   }
  },
@@ -34,7 +34,9 @@
   "ch6_yard_gauge_read": false,
   "ch6_relay_water_diverted": false,
   "ch6_relay_water_drained": false,
-  "ch6_relay_powered": false
+  "ch6_relay_powered": false,
+  "ch6_su_studio_met": false,
+  "ch6_trial_broadcast_confirmed": false
  },
  "transactions": {},
  "derived_flags": {},
@@ -143,6 +145,52 @@
    "background_en": "Divert the gutter, drain below the white mark, then connect backup power.",
    "reward_ja": "前庭から録音室に入れる。",
    "reward_en": "The recording booth is accessible from the yard."
+  },
+  {
+   "id": "ch6_studio_trial",
+   "kind": "main",
+   "title": "核對廣播站試音",
+   "background": "在門邊找蘇。到錄音室確認室內麥克風與字幕。",
+   "reward": "試音已確認，可以聯絡控制室。",
+   "complete_flag": "ch6_trial_broadcast_confirmed",
+   "steps": [
+    {
+     "title": "到錄音室門外找蘇。",
+     "complete_flag": "ch6_su_studio_met",
+     "location": {
+      "level": "res://data/levels/ch6_broadcast_outside.tres",
+      "cell": [
+       53,
+       19
+      ]
+     },
+     "title_ja": "録音室の扉の外で蘇に会う。",
+     "title_en": "Meet Wake outside the booth door."
+    },
+    {
+     "title": "在錄音室確認室內試音。",
+     "complete_flag": "ch6_trial_broadcast_confirmed",
+     "location": {
+      "level": "res://data/levels/ch6_recording_booth.tres",
+      "cell": [
+       22,
+       19
+      ]
+     },
+     "title_ja": "録音室で室内の音声テストを確認する。",
+     "title_en": "Confirm the local test inside the booth."
+    }
+   ],
+   "visible_flags": [
+    "ch6_relay_powered"
+   ],
+   "completion_requires_steps": true,
+   "title_ja": "放送局の音声テストを確認",
+   "title_en": "Verify the studio test",
+   "background_ja": "扉のそばで蘇に会う。録音室で室内マイクと字幕を確認する。",
+   "background_en": "Meet Wake by the door. Check the local microphone and captions inside the booth.",
+   "reward_ja": "音声テストは確認済み。制御室に連絡できる。",
+   "reward_en": "The booth test is confirmed. The control room can now be contacted."
   }
  ],
  "scenes": {
@@ -703,6 +751,414 @@
    "cancel_on_skip": true,
    "completion_policy": "main_terminal_results_v1"
   },
+  "ch6_t_meet_su_studio": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "su",
+     "text": "雨進不來了。妳先看門上的燈，我進去試麥克風。",
+     "ja": "雨はもう入らないわ。扉の上の灯を見ていて。中でマイクを確かめてくる。",
+     "en": "The rain can't get in now. Watch the light above the door. I'll go in and check the microphone."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "試音只走室內的線。要公開的欄位再逐一核對。",
+     "ja": "テストは室内回線だけで。公開する欄はあとで一つずつ照合する。",
+     "en": "Keep the test on the booth line. We'll check each field before it's released."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "ch5_ledger_broadcast_requested",
+        "equals": true
+       },
+       {
+        "flag": "ch6_relay_powered",
+        "equals": true
+       }
+      ]
+     },
+     {
+      "not": {
+       "flag": "ch6_su_studio_met",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch6_su_studio_met",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch6_t_trial_wait_for_su": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "試音稿收在桌上。先到掛著白燈的門外找蘇。",
+     "ja": "音声テストの原稿は机の上。まず白い灯の扉の外にいる蘇に会おう。",
+     "en": "The rehearsal script is on the desk. Meet Wake outside the door with the white light first."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "ch6_su_studio_met",
+     "equals": true
+    }
+   }
+  },
+  "ch6_t_trial_read_scope": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "試音稿只列同意公開的姓名、復原費和代付款。標記未確認的部分留在原帳。",
+     "ja": "原稿には公開の許可がある氏名、復元費、立替払いだけを載せる。未確認の欄は原本に残す。",
+     "en": "The script includes only cleared names, revival fees, and payments made on someone's behalf. Unverified fields stay in the ledger."
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "播出線封閉。這裡可以重看字幕。",
+     "ja": "放送回線は閉じている。ここで字幕を読み返せる。",
+     "en": "The broadcast line is closed. You can read the captions again here."
+    },
+    {
+     "do": "branch",
+     "when": {
+      "flag": "sq4_broadcast_heard",
+      "equals": true
+     },
+     "steps": [
+      {
+       "do": "say",
+       "speaker": "rin",
+       "text": "收音機裡那段也先念名字。那頂帽子，妳還留著嗎？",
+       "ja": "ラジオの放送でも、まず名前を読んでた。あの帽子、まだ持ってる？",
+       "en": "That broadcast started with names, too. Do you still have the cap?"
+      },
+      {
+       "do": "say",
+       "speaker": "su",
+       "text": "帽子還留著。先把這次要讀的欄位核對好。",
+       "ja": "持ってるわ。先に今回読む欄を確かめましょう。",
+       "en": "I do. First, let's check which fields we can read today."
+      }
+     ]
+    },
+    {
+     "do": "branch",
+     "when": {
+      "all": [
+       {
+        "not": {
+         "flag": "sq4_broadcast_heard",
+         "equals": true
+        }
+       },
+       {
+        "flag": "ch4_voice_demo_read",
+        "equals": true
+       }
+      ]
+     },
+     "steps": [
+      {
+       "do": "say",
+       "speaker": "rin",
+       "text": "我在病房看過那段示範。名單到本人點頭才能動。",
+       "ja": "病棟であの実演を見た。本人がうなずくまで、名簿の名前は動かさない。",
+       "en": "I saw the demonstration at the ward. A name stays put until that person agrees."
+      }
+     ]
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "ch5_ledger_broadcast_requested",
+        "equals": true
+       },
+       {
+        "flag": "ch6_relay_powered",
+        "equals": true
+       }
+      ]
+     },
+     {
+      "flag": "ch6_su_studio_met",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch6_trial_broadcast_confirmed",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch6_t_trial_monitor_ready": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "室內試音已確認。姓名、復原費與代付欄各自核對公開許可。",
+     "ja": "室内テストは確認済み。氏名、復元費、立替払いは欄ごとに公開の許可を確認する。",
+     "en": "Booth test confirmed. Permission is checked separately for each name, revival fee, and third-party payment."
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "這是室內試音留檔。控制室另管對外播報。",
+     "ja": "これは室内の音声テスト記録。外への放送は別に制御室が扱う。",
+     "en": "This is the booth test record. The control room runs the public broadcast separately."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch6_trial_broadcast_confirmed",
+    "equals": true
+   }
+  },
+  "ch6_t_choose_studio_trial": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "su",
+     "text": "有些人只同意列復原費，沒有同意公開名字。那行我會留空。要先試室內的線嗎？",
+     "ja": "復元費だけ公開に同意して、氏名を出さない人もいる。その名前は空欄にする。室内回線を試す？",
+     "en": "Some people agreed to list the revival fee but withheld their name. I'll leave those names blank. Shall we test the booth line?"
+    },
+    {
+     "do": "choice",
+     "text": "有些人只同意列復原費，沒有同意公開名字。那行我會留空。要先試室內的線嗎？",
+     "default": "leave",
+     "options": [
+      {
+       "id": "check_line",
+       "text": "確認室內試音",
+       "explanation": "試音與字幕留在室內。",
+       "target": "ch6_t_studio_trial",
+       "ja": "室内の音声テストを確認",
+       "en": "Confirm the booth test",
+       "explanation_ja": "テスト音声と字幕は室内だけに流れる。",
+       "explanation_en": "The test audio and captions stay in the booth."
+      },
+      {
+       "id": "leave",
+       "text": "先暫停試音",
+       "explanation": "可以回來試音。",
+       "ja": "音声テストを保留する",
+       "en": "Pause the test",
+       "explanation_ja": "あとでテストに戻れる。",
+       "explanation_en": "You can return to test it."
+      }
+     ],
+     "cancel_choice_on_back": true,
+     "ja": "復元費だけ公開に同意して、氏名を出さない人もいる。その名前は空欄にする。室内回線を試す？",
+     "en": "Some people agreed to list the revival fee but withheld their name. I'll leave those names blank. Shall we test the booth line?"
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch5_ledger_broadcast_requested",
+          "equals": true
+         },
+         {
+          "flag": "ch6_relay_powered",
+          "equals": true
+         }
+        ]
+       },
+       {
+        "flag": "ch6_su_studio_met",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch6_trial_broadcast_confirmed",
+         "equals": true
+        }
+       }
+      ]
+     },
+     {
+      "item": "ch4_original_ledger_copy"
+     }
+    ]
+   }
+  },
+  "ch6_t_choose_blank_trial": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "su",
+     "text": "原帳不在手上。先用空白試音稿，單獨測麥克風和字幕，好嗎？",
+     "ja": "原本が手元にない。空の原稿で、マイクと字幕だけ試してみる？",
+     "en": "We don't have the ledger here. Shall we use a blank slate to test the microphone and captions?"
+    },
+    {
+     "do": "choice",
+     "text": "原帳不在手上。先用空白試音稿，單獨測麥克風和字幕，好嗎？",
+     "default": "leave",
+     "options": [
+      {
+       "id": "check_line",
+       "text": "用空白稿試音",
+       "explanation": "不讀姓名或帳目。",
+       "target": "ch6_t_studio_trial",
+       "ja": "空の原稿で試す",
+       "en": "Test with a blank slate",
+       "explanation_ja": "氏名も帳簿の記録も読まない。",
+       "explanation_en": "No names or account entries are read."
+      },
+      {
+       "id": "leave",
+       "text": "先暫停試音",
+       "explanation": "可以回來試音。",
+       "ja": "音声テストを保留する",
+       "en": "Pause the test",
+       "explanation_ja": "あとでテストに戻れる。",
+       "explanation_en": "You can return to test it."
+      }
+     ],
+     "cancel_choice_on_back": true,
+     "ja": "原本が手元にない。空の原稿で、マイクと字幕だけ試してみる？",
+     "en": "We don't have the ledger here. Shall we use a blank slate to test the microphone and captions?"
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch5_ledger_broadcast_requested",
+          "equals": true
+         },
+         {
+          "flag": "ch6_relay_powered",
+          "equals": true
+         }
+        ]
+       },
+       {
+        "flag": "ch6_su_studio_met",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch6_trial_broadcast_confirmed",
+         "equals": true
+        }
+       }
+      ]
+     },
+     {
+      "not": {
+       "item": "ch4_original_ledger_copy"
+      }
+     }
+    ]
+   }
+  },
+  "ch6_t_studio_trial": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "sfx",
+     "id": "switch",
+     "volume": -19
+    },
+    {
+     "do": "say",
+     "speaker": "su",
+     "text": "先測室內麥克風的清晰度。還沒確認許可的欄位一律留白。",
+     "ja": "まず室内マイクの明瞭さを確かめます。許可を確認できていない欄は空白のままです。",
+     "en": "First, check the booth microphone for clarity. Any field without confirmed permission stays blank."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我守這扇門。妳念完一頁，我再把下一頁放到桌邊。",
+     "ja": "私は扉を見ている。一枚読み終えたら、次を机の端に置く。",
+     "en": "I'll watch the door. When you finish a page, I'll set the next one by the desk."
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "室內試音通過。對外播報仍待命。",
+     "ja": "室内の音声テストに合格。外への放送は待機中。",
+     "en": "The booth test passed. Public broadcast is still on standby."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "ch5_ledger_broadcast_requested",
+        "equals": true
+       },
+       {
+        "flag": "ch6_relay_powered",
+        "equals": true
+       }
+      ]
+     },
+     {
+      "flag": "ch6_su_studio_met",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch6_trial_broadcast_confirmed",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch6_trial_broadcast_confirmed",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
   "ch6_dispatch_plaza_intercom": {
    "mode": "dispatch",
    "routes": [
@@ -974,6 +1430,182 @@
       ]
      },
      "target": "ch6_t_choose_backup"
+    }
+   ]
+  },
+  "ch6_dispatch_su_canopy": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "all": [
+           {
+            "flag": "ch5_ledger_broadcast_requested",
+            "equals": true
+           },
+           {
+            "flag": "ch6_relay_powered",
+            "equals": true
+           }
+          ]
+         },
+         {
+          "not": {
+           "flag": "ch6_su_studio_met",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch6_su_studio_met",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch6_t_meet_su_studio"
+    }
+   ]
+  },
+  "ch6_dispatch_trial_monitor": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "flag": "ch6_trial_broadcast_confirmed",
+      "equals": true
+     },
+     "target": "ch6_t_trial_monitor_ready"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch5_ledger_broadcast_requested",
+          "equals": true
+         },
+         {
+          "flag": "ch6_relay_powered",
+          "equals": true
+         }
+        ]
+       },
+       {
+        "flag": "ch6_su_studio_met",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch6_trial_broadcast_confirmed",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch6_t_trial_read_scope"
+    },
+    {
+     "when": {
+      "not": {
+       "flag": "ch6_su_studio_met",
+       "equals": true
+      }
+     },
+     "target": "ch6_t_trial_wait_for_su"
+    }
+   ]
+  },
+  "ch6_dispatch_su_booth": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "flag": "ch6_trial_broadcast_confirmed",
+      "equals": true
+     },
+     "target": "ch6_t_trial_monitor_ready"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "all": [
+           {
+            "flag": "ch5_ledger_broadcast_requested",
+            "equals": true
+           },
+           {
+            "flag": "ch6_relay_powered",
+            "equals": true
+           }
+          ]
+         },
+         {
+          "flag": "ch6_su_studio_met",
+          "equals": true
+         },
+         {
+          "not": {
+           "flag": "ch6_trial_broadcast_confirmed",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "item": "ch4_original_ledger_copy"
+       }
+      ]
+     },
+     "target": "ch6_t_choose_studio_trial"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "all": [
+           {
+            "flag": "ch5_ledger_broadcast_requested",
+            "equals": true
+           },
+           {
+            "flag": "ch6_relay_powered",
+            "equals": true
+           }
+          ]
+         },
+         {
+          "flag": "ch6_su_studio_met",
+          "equals": true
+         },
+         {
+          "not": {
+           "flag": "ch6_trial_broadcast_confirmed",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "item": "ch4_original_ledger_copy"
+        }
+       }
+      ]
+     },
+     "target": "ch6_t_choose_blank_trial"
     }
    ]
   }

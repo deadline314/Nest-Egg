@@ -1,0 +1,19 @@
+{
+  "description": "蘇（su）的建置配方。保留原生來源 art_src/characters/su/01_design/source.json；沒有本機生成 seed；原始來源與提示保持，分件及後續步驟另驗。",
+  "id": "su",
+  "name": "蘇",
+  "spec": "tools/comfyui/specs/su_side.json",
+  "rig": "art/rigs/su.json",
+  "work": "art_src/characters/su",
+  "design": {
+    "size": [
+      1037,
+      1516
+    ],
+    "source_record": "art_src/characters/su/01_design/source.json"
+  },
+  "source_rebuilds": [
+    "art_src/characters/su/register_manual_layers.py",
+    "art_src/characters/su/register_eye_reference.py"
+  ]
+}
