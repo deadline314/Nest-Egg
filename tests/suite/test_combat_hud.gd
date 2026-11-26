@@ -44,6 +44,8 @@ func _test_reload_prompt_clearance() -> void:
 		check(ring._reloading, "reload feedback reflects the loadout signal before an idle frame")
 		await frames(2)
 		reserved = bounds_for_ring.call()
+		# The world camera can move while the HUD stays in viewport coordinates.
+		to_world = level.get_viewport().get_canvas_transform().affine_inverse()
 		check(reserved.has_point(to_world * (ring._point + Vector2(-15, 24))),
 				"active reload feedback reserves the same label position")
 		loadout.set_ammo(slot, loadout.active_weapon().magazine_size, -1)
