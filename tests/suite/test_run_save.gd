@@ -63,6 +63,7 @@ func run() -> void:
 		"UTF-8 text, literal delimiters and escaped quotes round-trip")
 	var encoded := RunSaveCodec.encode(valid)
 	check(RunSaveCodec.decode(encoded).has("data"), "checksum envelope round-trips JSON data")
+	_test_local_json_round_trip(valid, unicode)
 	check(not RunSaveCodec.decode(encoded.left(encoded.length() / 2)).has("data"), "truncated envelope rejected")
 	check(not RunSaveCodec.decode(encoded.replace("demo-0.1", "demo-0.2")).has("data"), "payload edits invalidate checksum")
 	for malformed: String in ['{}', '{"version":null}', '{"version":"1"}', '{"version":1.5}']:
@@ -249,6 +250,42 @@ func run() -> void:
 	await preload("res://tests/helpers/world_item_repair_boundary_checks.gd").run(self, directory)
 	await preload("res://tests/helpers/terminal_repair_boundary_checks.gd").run(self, directory)
 	GameState.start_new_run(GameState.difficulties[1])
+
+
+func _test_local_json_round_trip(snapshot: Dictionary, unicode: Dictionary) -> void:
+	var mixed := {"text": unicode, &"types": [&"fixture", -0.0, 5, 0.000013, null, false]}
+	for data: Dictionary in [snapshot, unicode, mixed]:
+		var on_disk := RunSaveCodec.decode(RunSaveCodec.encode(data))
+		var in_memory := RunSaveCodec.round_trip(data)
+		check(on_disk.has("data") and var_to_bytes(on_disk) == var_to_bytes(in_memory),
+			"local round trip preserves disk JSON types and numbers")
+
+	var text := JSON.stringify(["雨傘", String.chr(92).repeat(3) + '"[{}]', "🦉"])
+	check(RunSaveCodec.nesting_safe(text), "quoted Unicode brackets and escapes cannot increase container depth")
+	var unclosed := text.trim_suffix("]") + ',"unfinished' + String.chr(92) + '"]'
+	check(not RunSaveCodec.nesting_safe(unclosed), "an escaped final quote cannot close an unfinished string")
+	var prefix := '['.repeat(RunSaveCodec.MAX_DEPTH + 1)
+	check(not RunSaveCodec.nesting_safe(prefix + text + ']'.repeat(RunSaveCodec.MAX_DEPTH + 1)),
+		"stripping strings preserves the depth of containers around them")
+	var deepest: Variant = []
+	for _depth in RunSaveCodec.MAX_DEPTH - 2:
+		deepest = [deepest]
+	var at_depth := {"nested": deepest}
+	var over_depth := {"nested": [deepest]}
+	check(RunSaveCodec.round_trip(at_depth).has("data"), "local round trip accepts the last valid JSON container depth")
+	check(RunSaveCodec.encode(over_depth) != "" and RunSaveCodec.round_trip(over_depth) == RunSaveCodec.decode(RunSaveCodec.encode(over_depth)),
+		"local round trip retains the serialized depth check for a deepest empty container")
+
+	var escaped := '\"'.repeat(RunSaveCodec.MAX_TEXT)
+	var large: Array = []
+	# Inner content alone fits; repeated quote escapes in its stored envelope do not.
+	large.resize(1100)
+	large.fill(escaped)
+	var oversize := {"escaped": large}
+	var oversized_result := RunSaveCodec.round_trip(oversize)
+	check(oversized_result.has("error") and oversized_result == RunSaveCodec.decode(RunSaveCodec.encode(oversize)),
+		"local round trip includes envelope escaping in the byte budget")
+	check(RunSaveCodec.round_trip({"not_finite": INF}).has("error"), "nonfinite local input fails before JSON")
 
 
 func _test_primary_validation(seed: Dictionary) -> void:

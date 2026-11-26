@@ -755,14 +755,13 @@ func prepare_existing_write(raw: Variant, level: Level = null) -> Dictionary:
 		return checked
 	# Normalize through the actual JSON boundary, then prove the exact returned
 	# candidate; the later coordinator must use snapshot(), never the original raw.
-	var encoded := RunSaveCodec.encode(checked["data"])
-	var decoded := RunSaveCodec.decode(encoded)
+	var decoded := RunSaveCodec.round_trip(checked["data"])
 	if decoded.has("error"):
 		return decoded
 	checked = _durable_prepare_snapshot(decoded["data"], proof)
 	if checked.has("error"):
 		return checked
-	encoded = RunSaveCodec.encode(checked["data"])
+	var encoded := RunSaveCodec.encode(checked["data"])
 	if encoded.is_empty() or encoded.to_utf8_buffer().size() > RunSaveCodec.MAX_BYTES:
 		return {"error": "durable/candidate encoding exceeds budget"}
 	var prepared := PreparedExistingWrite.new()

@@ -11,12 +11,30 @@ const MAX_TEXT := 1024
 const MAX_DIAGNOSTIC_PATH := 512
 const MAX_NUMBER := 1000000000.0
 
+# Alternating branches are disjoint. Possessive runs keep quote matching linear.
+static var _json_strings := RegEx.create_from_string(r'(?s)"(?:[^"\\]++|\\.)*+"')
+
 
 static func encode(data: Dictionary) -> String:
 	if not validate_tree(data).is_empty():
 		return ""
-	var payload := JSON.stringify(data)
+	return _wrap_payload(JSON.stringify(data))
+
+
+static func _wrap_payload(payload: String) -> String:
 	return JSON.stringify({"version": VERSION, "checksum": payload.sha256_text(), "payload": payload})
+
+
+## Use the same JSON types and byte budget for a freshly captured run.
+## The envelope is generated here, so only external text goes through envelope parsing.
+static func round_trip(data: Dictionary) -> Dictionary:
+	var errors := validate_tree(data)
+	if not errors.is_empty():
+		return {"error": errors[0]}
+	var payload := JSON.stringify(data)
+	if _wrap_payload(payload).to_utf8_buffer().size() > MAX_BYTES:
+		return {"error": "檔案超過大小或巢狀上限"}
+	return _decode_payload(payload, JSON.new())
 
 
 static func decode(text: String) -> Dictionary:
@@ -33,6 +51,10 @@ static func decode(text: String) -> Dictionary:
 	var payload: Variant = envelope.get("payload")
 	if not payload is String or not envelope.get("checksum") is String or payload.sha256_text() != envelope["checksum"]:
 		return {"error": "存檔完整性校驗失敗"}
+	return _decode_payload(payload, json)
+
+
+static func _decode_payload(payload: String, json: JSON) -> Dictionary:
 	if not nesting_safe(payload):
 		return {"error": "資料巢狀超過上限"}
 	if json.parse(payload) != OK or not json.data is Dictionary:
@@ -49,12 +71,15 @@ static func valid_version(value: Variant) -> bool:
 
 ## 在 JSON.parse 前檢查容器深度；忽略字串內括號及跳脫字元。
 static func nesting_safe(text: String) -> bool:
-	return _nesting_bytes_safe(text.to_utf8_buffer())
+	var stripped := _json_strings.sub(text, "", true) if _json_strings != null else text
+	# An unmatched quote or a failed substitution can require the original scan.
+	if stripped.is_empty() or stripped.contains('"'):
+		return _nesting_bytes_safe(text.to_utf8_buffer())
+	return _nesting_bytes_safe(stripped.to_utf8_buffer())
 
 
 static func _bounded_envelope(text: String) -> bool:
-	var bytes := text.to_utf8_buffer()
-	return bytes.size() <= MAX_BYTES and _nesting_bytes_safe(bytes)
+	return text.to_utf8_buffer().size() <= MAX_BYTES and nesting_safe(text)
 
 
 ## JSON delimiters and escapes are ASCII; UTF-8 continuation bytes cannot match them.

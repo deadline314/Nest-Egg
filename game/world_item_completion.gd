@@ -113,7 +113,7 @@ func _attempt(generation: int) -> void:
 func _commit(source: Dictionary) -> Dictionary:
 	var level: Level = source["level"]
 	var candidate := RunSnapshot.capture(main.get("_level_path"), level.run_snapshot(), "", main.get("_chapter_complete"))
-	var decoded := RunSaveCodec.decode(RunSaveCodec.encode(candidate))
+	var decoded := RunSaveCodec.round_trip(candidate)
 	if decoded.has("error"):
 		return decoded
 	var original := RunSnapshot.prepare(decoded["data"], level.data, level._layout)
