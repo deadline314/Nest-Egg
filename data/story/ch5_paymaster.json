@@ -39,9 +39,15 @@
   "ch5_redemption_clause_read": false,
   "ch5_memory_redemption_status": "unset",
   "ch5_ye_offer_declined": false,
-  "ch5_ye_ahan_asked": false
+  "ch5_ye_ahan_asked": false,
+  "ch5_gray_first_wage_paid": false,
+  "ch5_gray_return_unlatched": false
  },
- "transactions": {},
+ "transactions": {
+  "ch5.gray_path.first_wage": {
+   "resource": "res://data/story_transactions/ch5_gray_first_wage.tres"
+  }
+ },
  "derived_flags": {},
  "quests": [
   {
@@ -354,6 +360,52 @@
    "background_en": "Rin has read the redemption clause. Ye is at the pawnshop, offering the same sum for silence.",
    "reward_ja": "署名を断り、帳簿をどうするかは凛が決める。",
    "reward_en": "Refuse the offer and keep the decision about the ledger with Rin."
+  },
+  {
+   "id": "ch5_gray_first_wage",
+   "kind": "side",
+   "title": "接下第一期灰道工錢",
+   "background": "地下室的交班單可以自願接下。也可以走地面前往電話亭。",
+   "reward": "打開當舖地下室和電話亭之間的灰道。",
+   "complete_flag": "ch5_gray_return_unlatched",
+   "steps": [
+    {
+     "title": "查看地下室的交班單，選擇是否付款。",
+     "complete_flag": "ch5_gray_first_wage_paid",
+     "location": {
+      "level": "res://data/levels/ch5_basement_archive.tres",
+      "cell": [
+       52,
+       19
+      ]
+     },
+     "title_ja": "地下室の引継ぎ票を読み、支払うか決める。",
+     "title_en": "Read the basement handover slip and decide whether to pay."
+    },
+    {
+     "title": "在灰道的小桌旁，從裡面打開回口。",
+     "complete_flag": "ch5_gray_return_unlatched",
+     "location": {
+      "level": "res://data/levels/ch5_gray_path.tres",
+      "cell": [
+       46,
+       19
+      ]
+     },
+     "title_ja": "灰道の小机のそばで、内側から帰り口を開ける。",
+     "title_en": "Open the return latch from inside, by the service table."
+    }
+   ],
+   "visible_flags": [
+    "ch5_ye_offer_declined"
+   ],
+   "completion_requires_steps": true,
+   "title_ja": "灰道の初回賃金を引き受ける",
+   "title_en": "Cover the first service shift",
+   "background_ja": "地下室の引き継ぎ賃金は任意で引き受けられる。電話ボックスへは地上からも行ける。",
+   "background_en": "You can choose to cover the basement handover, or take the street to the phone booth.",
+   "reward_ja": "質屋の地下室と電話ボックスを結ぶ灰道を開く。",
+   "reward_en": "Open the service route between the basement and the booth."
   }
  ],
  "scenes": {
@@ -3979,6 +4031,237 @@
     "equals": true
    }
   },
+  "ch5_t_gray_wage_wait": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "先回店裡把那份要約談清楚。",
+     "ja": "先に店へ戻って、あの申し出について話をつけよう。",
+     "en": "Go back to the shop and settle the offer first."
+    }
+   ],
+   "when": {
+    "not": {
+     "flag": "ch5_ye_offer_declined",
+     "equals": true
+    }
+   }
+  },
+  "ch5_t_gray_wage_menu": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "本期工錢是 800 信用點。付清後，可從小桌往外走到電話亭巷。",
+     "ja": "今回の賃金は800クレジット。支払い後は小机の先から電話ボックス横丁へ出られる。",
+     "en": "This shift costs 800 credits. Once it's paid, the service table leads out to Phone Booth Alley."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "所以連離開時走哪條路，也是從他的帳上付出去的。",
+     "ja": "私がどの道で立ち去るかまで、彼の帳面から支払われてたんだ。",
+     "en": "Even the route I took to leave came out of his account."
+    },
+    {
+     "do": "choice",
+     "text": "所以連離開時走哪條路，也是從他的帳上付出去的。",
+     "default": "street",
+     "options": [
+      {
+       "id": "pay",
+       "text": "支付 800 信用點。",
+       "explanation": "付清這一期，開啟灰道的第一段。",
+       "target": "ch5_t_pay_first_gray_wage",
+       "ja": "800クレジットを支払う。",
+       "en": "Pay 800 credits.",
+       "explanation_ja": "今回分を清算して、灰道の最初の区間を開ける。",
+       "explanation_en": "Cover this shift to open the first service passage."
+      },
+      {
+       "id": "street",
+       "text": "先走地面的街道。",
+       "explanation": "從港區街道前往電話亭巷。",
+       "ja": "今回は地上の通りへ出る。",
+       "en": "Take the street for now.",
+       "explanation_ja": "港の通りから電話ボックス横丁へ向かう。",
+       "explanation_en": "Reach Phone Booth Alley via Harbor Street."
+      }
+     ],
+     "cancel_choice_on_back": true,
+     "ja": "私がどの道で立ち去るかまで、彼の帳面から支払われてたんだ。",
+     "en": "Even the route I took to leave came out of his account."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_ye_offer_declined",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch5_gray_first_wage_paid",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch5_t_pay_first_gray_wage": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "這一期從我的錢付。給我留張收據。",
+     "ja": "今回の分は私が払う。領収書を残して。",
+     "en": "This one comes out of my pocket. Leave me a receipt."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_ye_offer_declined",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch5_gray_first_wage_paid",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "transaction",
+     "id": "ch5.gray_path.first_wage"
+    },
+    {
+     "kind": "item_acquire",
+     "id": "ch5_gray_wage_receipt"
+    },
+    {
+     "kind": "flag",
+     "id": "ch5_gray_first_wage_paid",
+     "value": true
+    }
+   ],
+   "on_failure": {
+    "insufficient_credits": "ch5_t_gray_wage_insufficient"
+   },
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch5_t_gray_wage_insufficient": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我現在付不起這一期。先從地面去電話亭。",
+     "ja": "今はこの分を払えない。先に地上から電話ボックスへ行こう。",
+     "en": "I can't cover this shift right now. I'll take the street to the booth."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_ye_offer_declined",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch5_gray_first_wage_paid",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch5_t_gray_wage_paid": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "這一期已結清。裡面的回口要從小桌那一側拉開。",
+     "ja": "今回分は清算済み。帰り口は小机側から開ける。",
+     "en": "This shift is paid. Release the return door from the service table side."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch5_gray_first_wage_paid",
+    "equals": true
+   }
+  },
+  "ch5_t_gray_latch_release": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "world_action",
+     "id": "ch5_gray_latch_press"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "把這頭的滑扣扳下去，就能從電話亭回到小桌。",
+     "ja": "ここで留め金を外せば、電話ボックスから小机へ戻れる。",
+     "en": "Once I release this latch, I can get back to the table from the booth."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_gray_first_wage_paid",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch5_gray_return_unlatched",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch5_gray_return_unlatched",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch5_t_gray_latch_open": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "回口留著。要回當舖就走這條路。",
+     "ja": "帰り口は開けておこう。質屋へ戻る時はこっちだ。",
+     "en": "I'll leave this door open. This is the way back to the pawnshop."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch5_gray_return_unlatched",
+    "equals": true
+   }
+  },
   "ch5_dispatch_watch": {
    "mode": "dispatch",
    "routes": [
@@ -5189,6 +5472,83 @@
       "equals": true
      },
      "target": "ch5_t_ye_quote"
+    }
+   ]
+  },
+  "ch5_dispatch_gray_wage_notice": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "flag": "ch5_gray_first_wage_paid",
+      "equals": true
+     },
+     "target": "ch5_t_gray_wage_paid"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch5_ye_offer_declined",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch5_gray_first_wage_paid",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch5_t_gray_wage_menu"
+    },
+    {
+     "when": {
+      "not": {
+       "flag": "ch5_ye_offer_declined",
+       "equals": true
+      }
+     },
+     "target": "ch5_t_gray_wage_wait"
+    }
+   ]
+  },
+  "ch5_dispatch_gray_return_latch": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "flag": "ch5_gray_return_unlatched",
+      "equals": true
+     },
+     "target": "ch5_t_gray_latch_open"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch5_gray_first_wage_paid",
+          "equals": true
+         },
+         {
+          "not": {
+           "flag": "ch5_gray_return_unlatched",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch5_gray_return_unlatched",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch5_t_gray_latch_release"
     }
    ]
   }

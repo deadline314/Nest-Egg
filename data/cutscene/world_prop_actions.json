@@ -350,5 +350,16 @@
       16.8,
       10.5
     ]
+  },
+  "ch5_gray_latch_press": {
+    "scene": "ch5_t_gray_latch_release",
+    "level": "res://data/levels/ch5_gray_path.tres",
+    "source": "res://data/npcs/ch5_gray_return_latch.tres",
+    "prop": "dock_warehouse__bridge_lever",
+    "kind": "press",
+    "station": [-7.5, 68.0],
+    "facing": 1,
+    "hand_angle": -24,
+    "button": [6.7, 13.0]
   }
 }

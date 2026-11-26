@@ -1313,6 +1313,154 @@
           }
         ]
       }
+    },
+    {
+      "id": "ch5_t_gray_wage_menu",
+      "source": "res://data/story/ch5_paymaster.json",
+      "npc": "res://data/npcs/ch5_gray_wage_notice.tres",
+      "levels": [
+        "res://data/levels/ch5_basement_archive.tres"
+      ],
+      "role": "choice",
+      "rule": {
+        "default": "street",
+        "options": [
+          {
+            "id": "pay",
+            "target": "ch5_t_pay_first_gray_wage",
+            "flags": {}
+          },
+          {
+            "id": "street",
+            "target": "",
+            "flags": {}
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch5_t_pay_first_gray_wage",
+      "source": "res://data/story/ch5_paymaster.json",
+      "npc": "res://data/npcs/ch5_gray_wage_notice.tres",
+      "levels": [
+        "res://data/levels/ch5_basement_archive.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "mode": "animated",
+        "then": "",
+        "when": {
+          "all": [
+            {
+              "flag": "ch5_ye_offer_declined",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch5_gray_first_wage_paid",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "failures": {
+          "insufficient_credits": "ch5_t_gray_wage_insufficient"
+        },
+        "operations": [
+          {
+            "kind": "transaction",
+            "id": "ch5.gray_path.first_wage"
+          },
+          {
+            "kind": "item_acquire",
+            "id": "ch5_gray_wage_receipt"
+          },
+          {
+            "kind": "flag",
+            "id": "ch5_gray_first_wage_paid",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch5_t_gray_wage_insufficient",
+      "source": "res://data/story/ch5_paymaster.json",
+      "npc": "res://data/npcs/ch5_gray_wage_notice.tres",
+      "levels": [
+        "res://data/levels/ch5_basement_archive.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "mode": "animated",
+        "then": "",
+        "when": {
+          "all": [
+            {
+              "flag": "ch5_ye_offer_declined",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch5_gray_first_wage_paid",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "repeatable": true,
+        "repeat_condition": {
+          "all": [
+            {
+              "flag": "ch5_ye_offer_declined",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch5_gray_first_wage_paid",
+                "equals": true
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "ch5_t_gray_latch_release",
+      "source": "res://data/story/ch5_paymaster.json",
+      "npc": "res://data/npcs/ch5_gray_return_latch.tres",
+      "levels": [
+        "res://data/levels/ch5_gray_path.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "mode": "animated",
+        "then": "",
+        "when": {
+          "all": [
+            {
+              "flag": "ch5_gray_first_wage_paid",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch5_gray_return_unlatched",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch5_gray_return_unlatched",
+            "value": true
+          }
+        ]
+      }
     }
   ]
 }

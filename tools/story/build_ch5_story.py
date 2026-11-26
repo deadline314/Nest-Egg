@@ -15,12 +15,14 @@ from ch5_anchor_record import install as install_anchor_record  # noqa: E402
 
 from ch5_offer_layout import POINTS as OFFER_POINTS  # noqa: E402
 from ch5_pawnshop_offer import install as install_offer  # noqa: E402
+import ch5_gray_wages as gray_wages  # noqa: E402
+from ch5_gray_route import POINTS as GRAY_ROUTE_POINTS  # noqa: E402
 from build_ch5 import CHAPTER, POINTS  # noqa: E402
 from ch5_pear_testimony import add_pear_testimony  # noqa: E402
 from ch5_revival_route import PEAR  # noqa: E402
 from build_ch1_story import sfx  # noqa: E402
 from ch1_closure import Binding, Option, ProductionSource, Quest, QuestStep, all_of, any_of, flag, negate, say, set_flag  # noqa: E402
-from chapter_compiler import ChapterSpec, write_chapter, write_documents
+from chapter_compiler import ChapterSpec, write_chapter, write_documents, write_transactions
 import ch5_fee_story  # noqa: E402
 import ch5_voice_lock  # noqa: E402
 import ch5_bian_coat
@@ -126,17 +128,21 @@ def build_spec():
     install_anchor_record(source, dispatch, CHAPTER)
     install_agreement(source, dispatch, CHAPTER)
     install_offer(source, dispatch, CHAPTER)
+    gray_wages.install(source, dispatch, CHAPTER)
     spec = ChapterSpec(CHAPTER_INFO, source, "ch5", dispatch,
                        {**POINTS, "pear": PEAR, ch5_voice_lock.SOURCE: VOICE_LOCK_POINT,
                         ch5_bian_coat.COAT: COAT_POINT})
     spec.quest_locations.update(ANCHOR_POINTS)
     spec.quest_locations.update(AGREEMENT_POINTS)
     spec.quest_locations.update(OFFER_POINTS)
+    spec.quest_locations.update(GRAY_ROUTE_POINTS)
     return spec
 
 
 if __name__ == "__main__":
     spec = build_spec()
     write_documents(spec.source, CHAPTER, ROOT / "data/story_items", 500)
+    write_transactions({gray_wages.TRANSACTION: ("ch5_gray_first_wage", -gray_wages.AMOUNT)},
+                       ROOT / "data/story_transactions", "ch5.")
     missing = write_chapter(spec, ROOT / f"data/story/{CHAPTER}.json")
     raise SystemExit(int(bool(missing)))

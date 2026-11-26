@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"ch5_gray_wage_receipt"
+display_name = "灰道第一期工錢收據"
+description = "必安留下的交班單，第一期已由凜付清。"
+color = Color(0.78, 0.86, 0.92, 1.0)
+category = 0
+order = 502
+chapter = &"ch5_paymaster"
+body = "凜為本期交班支付 800 信用點。這張收據適用於當舖地下室到電話亭的服務通道。以後各段另有交班紀錄。"
+trigger = 3
+source_actor = &"ch5_gray_wage_notice"
+icon = "doc_stub"

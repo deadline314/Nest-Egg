@@ -1,17 +1,32 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=14 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=16 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
 [ext_resource type="Resource" path="res://data/npcs/ch5_life_notebook.tres" id="3_ch5_life_notebook"]
-[ext_resource type="Resource" path="res://data/npcs/ch5_redemption_appendix.tres" id="4_ch5_redemption_appendix"]
-[ext_resource type="Resource" path="res://data/npcs/ch5_anchor_counterfoil.tres" id="5_ch5_anchor_counterfoil"]
-[ext_resource type="Resource" path="res://data/npcs/ch5_archive_old_k.tres" id="6_ch5_archive_old_k"]
-[ext_resource type="Resource" path="res://data/npcs/ch5_anchor_chair.tres" id="7_ch5_anchor_chair"]
-[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="8_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/basement_amber.tres" id="9_basement_amber"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch5_basement_archive.tres" id="10_ch5_basement_archive"]
+[ext_resource type="Resource" path="res://data/npcs/ch5_gray_wage_notice.tres" id="4_ch5_gray_wage_notice"]
+[ext_resource type="Resource" path="res://data/npcs/ch5_redemption_appendix.tres" id="5_ch5_redemption_appendix"]
+[ext_resource type="Resource" path="res://data/npcs/ch5_anchor_counterfoil.tres" id="6_ch5_anchor_counterfoil"]
+[ext_resource type="Resource" path="res://data/npcs/ch5_archive_old_k.tres" id="7_ch5_archive_old_k"]
+[ext_resource type="Resource" path="res://data/npcs/ch5_anchor_chair.tres" id="8_ch5_anchor_chair"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="9_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/basement_amber.tres" id="10_basement_amber"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch5_basement_archive.tres" id="11_ch5_basement_archive"]
 
 [sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("2_portal_data")
+id = &"archive_gray"
+target_level = "res://data/levels/ch5_gray_path.tres"
+target_portal = &"gray_archive"
+requires_flag = &"ch5_gray_first_wage_paid"
+locked_text = "可付本期工錢，或從港區街道前往電話亭。"
+localized_locked_text = Dictionary[String, String]({"en": "Pay this wage or use Harbor Street to reach the booth.", "ja": "今回の賃金を払うか、港の通りから電話ボックスへ行く。"})
+prompt = "{interact} 進灰道"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Enter the service passage", "ja": "{interact} 灰道へ入る"})
+width = 30
+height = 63
+style = "door"
+
+[sub_resource type="Resource" id="Resource_1"]
 script = ExtResource("2_portal_data")
 id = &"basement_stair"
 target_level = "res://data/levels/ch5_basement_stair.tres"
@@ -22,7 +37,7 @@ width = 28
 height = 64
 style = "door"
 
-[sub_resource type="Resource" id="Resource_1"]
+[sub_resource type="Resource" id="Resource_2"]
 script = ExtResource("2_portal_data")
 id = &"flood_memory_chip"
 local_replay = "res://game/cutscene/local_replay/flood_memory.tscn"
@@ -35,11 +50,11 @@ width = 28
 height = 44
 style = "hidden"
 
-[sub_resource type="Resource" id="Resource_2"]
-script = ExtResource("8_lighting_zone")
+[sub_resource type="Resource" id="Resource_3"]
+script = ExtResource("9_lighting_zone")
 start_tile = 14
 blend_tiles = 5
-profile = ExtResource("9_basement_amber")
+profile = ExtResource("10_basement_amber")
 
 [resource]
 script = ExtResource("1_level_data")
@@ -49,20 +64,22 @@ localized_names = Dictionary[String, String]({"en": "Basement archive", "ja": "�
 tile_size = 16
 height = 24
 legend = Dictionary[String, Resource]({
-"⇖": SubResource("Resource_0"),
-"⏵": SubResource("Resource_1"),
+"Ⅵ": SubResource("Resource_0"),
+"⇖": SubResource("Resource_1"),
+"⏵": SubResource("Resource_2"),
 "▤": ExtResource("3_ch5_life_notebook"),
-"◫": ExtResource("4_ch5_redemption_appendix"),
-"☰": ExtResource("5_ch5_anchor_counterfoil"),
-"♜": ExtResource("6_ch5_archive_old_k"),
-"♮": ExtResource("7_ch5_anchor_chair")
+"▧": ExtResource("4_ch5_gray_wage_notice"),
+"◫": ExtResource("5_ch5_redemption_appendix"),
+"☰": ExtResource("6_ch5_anchor_counterfoil"),
+"♜": ExtResource("7_ch5_archive_old_k"),
+"♮": ExtResource("8_ch5_anchor_chair")
 })
 hints = PackedStringArray()
 chapter = &"ch5_paymaster"
 persistent_world = true
 show_chapter_card = false
-environment = ExtResource("10_ch5_basement_archive")
+environment = ExtResource("11_ch5_basement_archive")
 layout_path = "res://data/levels/ch5_basement_archive_map.json"
-lighting_zones = Array[ExtResource("8_lighting_zone")]([SubResource("Resource_2")])
+lighting_zones = Array[ExtResource("9_lighting_zone")]([SubResource("Resource_3")])
 story_triggers = PackedStringArray()
 death_credit_cap = 250

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=8 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=9 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
@@ -29,6 +29,20 @@ style = "door"
 
 [sub_resource type="Resource" id="Resource_2"]
 script = ExtResource("2_portal_data")
+id = &"street_phone"
+target_level = "res://data/levels/ch5_phone_alley.tres"
+target_portal = &"phone_street"
+requires_flag = &"ch5_ye_offer_declined"
+locked_text = "先回當舖談清楚那份要約。"
+localized_locked_text = Dictionary[String, String]({"en": "Settle the offer at the pawnshop first.", "ja": "先に質屋で申し出について話をつける。"})
+prompt = "{interact} 前往電話亭巷"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Go to Phone Booth Alley", "ja": "{interact} 電話ボックス横丁へ"})
+width = 30
+height = 63
+style = "door"
+
+[sub_resource type="Resource" id="Resource_3"]
+script = ExtResource("2_portal_data")
 id = &"street_back"
 target_level = "res://data/levels/ch5_back_alley.tres"
 target_portal = &"alley_street"
@@ -48,7 +62,8 @@ height = 24
 legend = Dictionary[String, Resource]({
 "Ⅱ": SubResource("Resource_0"),
 "Ⅲ": SubResource("Resource_1"),
-"⇲": SubResource("Resource_2")
+"Ⅷ": SubResource("Resource_2"),
+"⇲": SubResource("Resource_3")
 })
 hints = PackedStringArray()
 chapter = &"ch5_paymaster"

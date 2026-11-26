@@ -1,0 +1,54 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
+[ext_resource type="Resource" path="res://data/npcs/ch5_gray_return_latch.tres" id="3_ch5_gray_return_latch"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="4_lighting_zone"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch5_gray_path.tres" id="5_ch5_gray_path"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("2_portal_data")
+id = &"gray_archive"
+target_level = "res://data/levels/ch5_basement_archive.tres"
+target_portal = &"archive_gray"
+prompt = "{interact} 回當舖地下室"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Return to the pawnshop basement", "ja": "{interact} 質屋の地下室に戻る"})
+width = 30
+height = 63
+style = "door"
+
+[sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("2_portal_data")
+id = &"gray_phone"
+target_level = "res://data/levels/ch5_phone_alley.tres"
+target_portal = &"phone_gray"
+requires_flag = &"ch5_gray_return_unlatched"
+locked_text = "先從灰道小桌那一側打開回口。"
+localized_locked_text = Dictionary[String, String]({"en": "Release the latch from the service table side first.", "ja": "先に灰道の小机側から留め金を外す。"})
+prompt = "{interact} 從灰道走到電話亭"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Take the passage to the phone booth", "ja": "{interact} 灰道から電話ボックスへ"})
+width = 30
+height = 63
+style = "door"
+
+[resource]
+script = ExtResource("1_level_data")
+id = &"ch5_gray_path"
+display_name = "灰道換班廊"
+localized_names = Dictionary[String, String]({"en": "Service Passage", "ja": "灰道の引継ぎ廊下"})
+tile_size = 16
+height = 24
+legend = Dictionary[String, Resource]({
+"Ⅶ": SubResource("Resource_0"),
+"Ⅹ": SubResource("Resource_1"),
+"⊞": ExtResource("3_ch5_gray_return_latch")
+})
+hints = PackedStringArray()
+chapter = &"ch5_paymaster"
+persistent_world = true
+show_chapter_card = false
+environment = ExtResource("5_ch5_gray_path")
+layout_path = "res://data/levels/ch5_gray_path_map.json"
+lighting_zones = Array[ExtResource("4_lighting_zone")]([])
+story_triggers = PackedStringArray()
+death_credit_cap = 250

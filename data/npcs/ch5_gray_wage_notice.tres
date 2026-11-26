@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="NpcData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/npc_data.gd" id="1_npc_data"]
+[ext_resource type="Script" path="res://data/scripts/npc_talk.gd" id="2_npc_talk"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("2_npc_talk")
+scene = &"ch5_dispatch_gray_wage_notice"
+
+[resource]
+script = ExtResource("1_npc_data")
+id = &"ch5_gray_wage_notice"
+display_name = "本期交班單"
+speaker = "label"
+rig_id = ""
+kind = 1
+loop = &""
+facing = 1
+prompt = "{interact} 查看本期工錢"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Read the wage notice", "ja": "{interact} 今回の賃金を確認する"})
+talks = Array[ExtResource("2_npc_talk")]([SubResource("Resource_0")])

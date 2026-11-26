@@ -51,6 +51,24 @@
     "landmark": "過了搬運回單，暖燈下有一張高背錨椅。"
    },
    "encounters": []
+  },
+  "gray_path": {
+   "combat": false,
+   "group": "gray_path",
+   "features": {
+    "landmark": "暖燈下的換班小桌。",
+    "loop": "從內側扳動滑扣可往返電話亭。"
+   },
+   "encounters": []
+  },
+  "phone_alley": {
+   "combat": false,
+   "group": "phone_alley",
+   "features": {
+    "landmark": "亭門玻璃後的一盞暖燈。",
+    "loop": "地面返回港區街道，開通後也可走灰道。"
+   },
+   "encounters": []
   }
  },
  "curve": {}

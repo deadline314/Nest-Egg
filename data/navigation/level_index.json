@@ -393,7 +393,7 @@
 			"height": 24.0,
 			"id": "ch5_back_alley",
 			"layout_path": "res://data/levels/ch5_back_alley_map.json",
-			"sha256": "48eb10b7819e24e410b298578ad8225c2c1b2a717057bc01b99122b61b1285d7",
+			"sha256": "6ff2e747a0bfa0125079033531234a6d02c3d14e986a20c7ac6c097203fa421c",
 			"tile_size": 16.0
 		},
 		{
@@ -402,7 +402,7 @@
 			"height": 24.0,
 			"id": "ch5_basement_archive",
 			"layout_path": "res://data/levels/ch5_basement_archive_map.json",
-			"sha256": "409e787c8d76564423806a5a603042a63fbc3948fd66dca48ce6dc9158ae32d4",
+			"sha256": "b0b0b8e4a12a61926d81cc67306d93d0203e346d570b991bc7f7cea582002c6d",
 			"tile_size": 16.0
 		},
 		{
@@ -416,11 +416,20 @@
 		},
 		{
 			"chapter": "ch5_paymaster",
+			"file": "ch5_gray_path.tres",
+			"height": 24.0,
+			"id": "ch5_gray_path",
+			"layout_path": "res://data/levels/ch5_gray_path_map.json",
+			"sha256": "56e799f08b425e906800a857631ae97500f509db2508d280af69936d70df4688",
+			"tile_size": 16.0
+		},
+		{
+			"chapter": "ch5_paymaster",
 			"file": "ch5_harbor_street.tres",
 			"height": 24.0,
 			"id": "ch5_harbor_street",
 			"layout_path": "res://data/levels/ch5_harbor_street_map.json",
-			"sha256": "8962d986ddc746806746cd7cdca5a433ebee88d0a866cede5e83aa62cc0469b3",
+			"sha256": "0ababd09a5ff3c3b046790837c675ec4514cf51804e491f50f949e4eb420d5b0",
 			"tile_size": 16.0
 		},
 		{
@@ -434,11 +443,20 @@
 		},
 		{
 			"chapter": "ch5_paymaster",
+			"file": "ch5_phone_alley.tres",
+			"height": 24.0,
+			"id": "ch5_phone_alley",
+			"layout_path": "res://data/levels/ch5_phone_alley_map.json",
+			"sha256": "36aef2974c10dd13e0c65fb58aeee8fff1021872b07b3f18683bea8acdfcf448",
+			"tile_size": 16.0
+		},
+		{
+			"chapter": "ch5_paymaster",
 			"file": "ch5_revival_lounge.tres",
 			"height": 24.0,
 			"id": "ch5_revival_lounge",
 			"layout_path": "res://data/levels/ch5_revival_lounge_map.json",
-			"sha256": "f75761e783dc154a58e26ea02dbab2c432a12b7100ef2a1b30477813854fc9e7",
+			"sha256": "da7b5c6e682e5e1a76165412c7e3be07557e5877ac0aa3dc41c2274e5d4083ce",
 			"tile_size": 16.0
 		},
 		{
