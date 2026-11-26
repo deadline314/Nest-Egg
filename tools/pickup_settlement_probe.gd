@@ -2,6 +2,7 @@ extends "res://tools/route_frame_time_probe.gd"
 ## Live pawnshop overlap and durable notification boundary on an isolated Main.
 const DOCUMENT := &"doc_pawn_stub"
 const BONUS := 17
+const DIRECT_FLAG := "ch1_heard_brief"
 const MainScript := preload("res://game/main.gd")
 
 class DeferredMain extends MainScript:
@@ -64,6 +65,7 @@ func _run() -> void:
 	AimInput.restore_direction(Vector2.RIGHT)
 	await get_tree().create_timer(0.2,true,false,true).timeout
 	var before_credits := Progression.credits
+	var direct_flag_value := not GameState.has_flag(StringName(DIRECT_FLAG))
 	var seen := [0, false]
 	StoryItems.acquired.connect(func(item: StoryItemData) -> void:
 		if item.id != DOCUMENT:
@@ -73,7 +75,11 @@ func _run() -> void:
 		seen[1] = String(DOCUMENT) in disk["story"]["items"]["owned"] and String(DOCUMENT) in disk["story"]["items"]["held"]
 		owner.call("collect",site,player)
 		if _mode == "listener":
-			Progression.add_credits(BONUS))
+			Progression.add_credits(BONUS)
+		elif _mode == "listener-direct":
+			# No public save signal accompanies either direct live change.
+			Progression.credits += BONUS
+			GameState.world_flags[DIRECT_FLAG] = direct_flag_value)
 	var blocked := store.path + ".tmp"
 	var before_bytes := FileAccess.get_file_as_bytes(store.path)
 	if _mode == "refusal" and not _check(DirAccess.make_dir_absolute(blocked) == OK,"isolated draft obstruction was established"):
@@ -103,10 +109,16 @@ func _run() -> void:
 				"held movement continues after the automatic pickup without a new press"):
 			return
 	Input.action_release(&"move_right")
-	var expected := before_credits + (BONUS if _mode == "listener" else 0)
-	if not await _until(func() -> bool: return int(store.read().get("progression",{}).get("credits",-1)) == expected):
+	var expected := before_credits + (BONUS if _mode in ["listener", "listener-direct"] else 0)
+	if not await _until(func() -> bool:
+		var saved := store.read()
+		return (int(saved.get("progression", {}).get("credits", -1)) == expected
+				and (_mode != "listener-direct" or saved.get("story", {}).get("flags", {}).get(DIRECT_FLAG) == direct_flag_value))):
 		return
-	if not _check(Progression.credits == expected,"independent listener balance survives the post-commit save"):
+	if not _check(Progression.credits == expected, "independent listener balance survives the post-commit save"):
+		return
+	if _mode == "listener-direct" and not _check(GameState.has_flag(StringName(DIRECT_FLAG)) == direct_flag_value,
+			"the direct story flag survives without a save signal"):
 		return
 	if _active_capture:
 		await RenderingServer.frame_post_draw

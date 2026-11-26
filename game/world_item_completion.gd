@@ -148,7 +148,8 @@ func _commit(source: Dictionary) -> Dictionary:
 		return prepared
 	var write: RunSaveStore.PreparedExistingWrite = prepared["data"]
 	var normalized := write.snapshot()
-	if JSON.parse_string(JSON.stringify(normalized)) != JSON.parse_string(JSON.stringify(candidate)):
+	var committed_values: Variant = JSON.parse_string(JSON.stringify(normalized))
+	if committed_values != JSON.parse_string(JSON.stringify(candidate)):
 		return {"error": "world pickup needs a whole-run repair before retry", "reload_original": true}
 	var game := GameState.prepare_install(normalized["state"], normalized["story"]["flags"], "", false)
 	var items := StoryItems.prepare_install(normalized["story"]["items"])
@@ -171,7 +172,8 @@ func _commit(source: Dictionary) -> Dictionary:
 	GameState._install_prepared_flags(game["data"])
 	level._area["consumed"][key] = true
 	return {"committed": true, "changed": changed, "first_acquisition": first_acquisition,
-		"checksum": outcome.checksum, "saved_at": normalized["saved_at"]}
+		"checksum": outcome.checksum, "saved_at": normalized["saved_at"],
+		"comparison_payload": JSON.stringify(committed_values)}
 
 
 func _listener_save_needed(level: Level, committed: Dictionary) -> bool:
@@ -188,6 +190,11 @@ func _listener_save_needed(level: Level, committed: Dictionary) -> bool:
 	if encoded.is_empty():
 		return true
 	if encoded.sha256_text() == checksum:
+		return false
+	# Compare JSON-decoded values so capture-time integers and saved numeric
+	# values use the same representation. A mismatch still needs full preparation.
+	var comparable := RunSaveCodec.round_trip(RunSnapshot.capture_with_save_defaults(current))
+	if comparable.has("data") and JSON.stringify(comparable["data"]) == committed["comparison_payload"]:
 		return false
 	var decoded := RunSaveCodec.decode(encoded)
 	if not decoded.has("data"):

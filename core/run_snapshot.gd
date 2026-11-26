@@ -24,6 +24,39 @@ static func capture(level_path: String, runtime: Dictionary, cinematic := "", co
 		"runtime": runtime, "cinematic": cinematic, "cinematic_context": Story.presentation_context(context), "chapter_complete": completed}
 
 
+## A freshly captured run can omit fields whose only effect is a save default.
+## Add those defaults to a separate comparison view. Preserve all present values
+## and keep the original capture available for the full validator on any mismatch.
+static func capture_with_save_defaults(capture: Dictionary) -> Dictionary:
+	if not capture.get("state") is Dictionary or not capture.get("runtime") is Dictionary:
+		return capture
+	var comparable := capture.duplicate()
+	var state: Dictionary = capture["state"].duplicate()
+	var runtime: Dictionary = capture["runtime"].duplicate()
+	for key: String in ["checkpoint_progress", "level_start_progress"]:
+		var progress: Variant = state.get(key)
+		if progress is Dictionary and progress.is_empty():
+			state[key] = _progression({})
+	for key: String in ["checkpoint_loadout", "level_start_loadout"]:
+		if state.get(key) is Dictionary:
+			state[key] = _loadout_with_save_defaults(state[key])
+	if runtime.get("loadout") is Dictionary:
+		runtime["loadout"] = _loadout_with_save_defaults(runtime["loadout"])
+	comparable["state"] = state
+	comparable["runtime"] = runtime
+	return comparable
+
+
+static func _loadout_with_save_defaults(captured: Dictionary) -> Dictionary:
+	if captured.is_empty():
+		return _loadout(captured)
+	if captured.has("ammo"):
+		return captured
+	var comparable := captured.duplicate()
+	comparable["ammo"] = []
+	return comparable
+
+
 static func prepare(raw: Dictionary, active_level: LevelData = null, active_layout: LevelLayout = null,
 		definitions: MapLayoutMigration.Definitions = null,
 		loadout_encoding: LoadoutEncoding = LoadoutEncoding.ALLOW_LEGACY,
