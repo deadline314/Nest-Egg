@@ -5,6 +5,7 @@ import sys
 
 sys.dont_write_bytecode = True
 import build_ch1 as kit
+import ch5_revival_route as revival
 import ch5_fee_layout as fee_layout
 from npc_prompt_translations import TRANSLATIONS
 
@@ -41,7 +42,9 @@ def _configure():
     }
     kit.CURVE = {}
     kit.STORY = {}
-    kit.placement_id = lambda _ident: "ch1_pawnshop"
+    kit.placement_id = lambda ident: {"pawnshop": "ch1_pawnshop", "harbor_street": "ch1_street",
+                                      "revival_lounge": "ch4_revival_lounge"}[ident]
+    revival.configure()
 
 
 def main():
@@ -57,14 +60,20 @@ def main():
     area.prop("pawnshop_front__range_tally_board", POINTS["inventory_board"][1], y=16, support="wall")
     fee_layout.stage_counter(area)
     area.features = {"landmark": "櫃台黃燈下的格號和盤點板。"}
-    goals = [(glyph, (x, GROUND - 1)) for glyph, x, _, _ in OBJECTS.values()]
-    issues = area.check() + kit.reachable(area, spawn, goals)
-    if issues:
-        raise SystemExit("\n".join(issues))
+    areas = revival.areas(area, GROUND)
+    targets = set(kit.RES) | set(kit.PORTALS)
+    for room in areas:
+        marks = [(room.grid.at(x, GROUND - 1), (x, GROUND - 1)) for x in range(room.w)]
+        start = next(cell for glyph, cell in marks if glyph == "P")
+        goals = [(glyph, cell) for glyph, cell in marks if glyph in targets]
+        issues = room.check() + kit.reachable(room, start, goals)
+        if issues:
+            raise SystemExit("\n".join(issues))
     kit.write_npc_files()
-    kit.write_design([area])
-    area.grid.write(area.id, (kit.LEVEL_DIR, "ch5_pawnshop_map.json"), kit._map_extra(area))
-    kit.write_level(area, show_card=True)
+    kit.write_design(areas)
+    for room in areas:
+        room.grid.write(room.id, (kit.LEVEL_DIR, f"ch5_{room.id}_map.json"), kit._map_extra(room))
+        kit.write_level(room, show_card=room.id == "pawnshop")
 
 
 if __name__ == "__main__":

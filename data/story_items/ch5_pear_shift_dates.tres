@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"ch5_pear_shift_dates"
+display_name = "阿梨抄下的交班日期"
+description = "杯墊背面的店章每月蓋在同一天。"
+color = Color(0.78, 0.86, 0.92, 1.0)
+category = 0
+order = 500
+chapter = &"ch5_paymaster"
+body = "阿梨抄下杯墊背面的店章。連續幾個月，店章都蓋在同一天。灰外套每次帶現金，把收條壓在杯子底下。阿梨手上只留著交班日期，原帳的付帳人欄仍空著。"
+trigger = 3
+source_actor = &"ch5_pear"
+icon = "doc_stub"

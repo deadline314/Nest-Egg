@@ -296,6 +296,88 @@
    "body": "Old K told Folio he gave them the backup, on condition the dangerous jobs stop; he never showed me. Folio said Skydome keeps the data and that he handed it over. I didn't hear the price, the reason or the full terms."
   }
  },
+ "ch4_archive_31_index": {
+  "ja": {
+   "display_name": "第31版の登録票",
+   "description": "テープ箱に残された試し録りの版番号。あとで再生するときに使う。",
+   "body": "天穹の電話ボックスの標語の試し録り。版番号は31。旧工場の事務室のテープ再生機か、雨の窓辺のベッド脇にある無線機で字幕を確認できる。"
+  },
+  "en": {
+   "display_name": "Version 31 Index Card",
+   "description": "The test reel's version number, copied from the box for later playback.",
+   "body": "Version 31 of the Skydome phone booth slogan test. View the subtitles on the old factory office reel player or the ward's bedside radio by the rain-streaked window."
+  }
+ },
+ "ch4_archive_31_recording": {
+  "ja": {
+   "display_name": "天穹・第31版の文字起こし",
+   "description": "天穹の電話ボックスの標語を試し録りした際の、未公開のエンディング。",
+   "body": "今日もやり直せる。汐、私の声は聞こえる？"
+  },
+  "en": {
+   "display_name": "Skydome Version 31 Transcript",
+   "description": "The Skydome phone booth slogan test includes an unaired ending.",
+   "body": "You can start again today. Xi, can you hear my voice?"
+  }
+ },
+ "ch4_lamp_microphone": {
+  "ja": {
+   "display_name": "灯のマイク",
+   "description": "灯が母親の枕元に、今の声で伝言を残すためのマイク。療養病棟の東端、側窓のベッドに運ぶ。"
+  },
+  "en": {
+   "display_name": "Lantern's Microphone",
+   "description": "Lantern wants to leave his mother a message in his present voice. Take the microphone to the side-window bed in the east bay of the ward."
+  }
+ },
+ "ch4_linden_witness_note": {
+  "ja": {
+   "display_name": "棠が控えることを許した名簿",
+   "description": "棠の許可を得て、手紙から聞きに行ける四か所を控えた。",
+   "body": "市場の榕じい、復原館の阿梨、質屋の老K、病棟で棠の入院手続きをした看護師。原本は棠の手元にある。"
+  },
+  "en": {
+   "display_name": "Linden’s Witness Note",
+   "description": "Four places Rin copied from the letter with Linden’s permission.",
+   "body": "Old Banyan at the market, Ali at the Restoration Bar, Old K at the pawnshop, and the nurse who admitted Linden. The original letter is with Linden."
+  }
+ },
+ "ch4_original_ledger_copy": {
+  "ja": {
+   "display_name": "旧工場の原簿の写し",
+   "description": "原簿には凛の名前と消耗が記され、もう一人の署名は伏せられている。",
+   "body": "第十七便の原簿では凛が受け手として登録され、錨人の名前は匿名のままです。\n今周はこれまでに {run_restorations} 回復元しました。\n当時の原簿には消耗が 91% と記録されています。"
+  },
+  "en": {
+   "display_name": "Old Factory Ledger Copy",
+   "description": "The original ledger names Rin and records depletion. The other signature is blacked out.",
+   "body": "Batch Seventeen names Rin as the recipient and keeps the anchor anonymous.\nRin has been restored {run_restorations} times this run.\nThe original ledger recorded 91% depletion at the time."
+  }
+ },
+ "ch4_ward_collection_slip": {
+  "ja": {
+   "display_name": "病棟の公開受取票",
+   "description": "月報十七の物件は旧工場が受け取る。患者の個人情報は記載されていない。",
+   "body": "月報十七の移送物は旧工場が受け取る。担当者は受取票と外門の当番記録を照合して通す。この票には対象番号と行き先だけが記されている。"
+  },
+  "en": {
+   "display_name": "Ward Collection Slip",
+   "description": "The old factory collects items from batch seventeen. The slip contains no personal patient data.",
+   "body": "The old factory receives referrals from batch seventeen. Staff compare this slip with the shift record at the outer gate before granting entry. The slip lists only the batch and destination."
+  }
+ },
+ "ch5_pear_shift_dates": {
+  "en": {
+   "display_name": "Pear's Shift Dates",
+   "description": "The hall stamps on the coaster all show the same day of the month.",
+   "body": "For months, the stamps show the same date. Someone in a gray coat brought cash and tucked receipts under a cup. Pear kept the shift dates. The original ledger has no payer name."
+  },
+  "ja": {
+   "display_name": "梨が控えた交代日",
+   "description": "コースターの裏にある店の印は、毎月同じ日に押されている。",
+   "body": "梨がコースターの裏にある店の印を書き写した。数か月にわたり、押された日は毎月同じ。灰色のコートの人は現金を持ち込み、受取票をカップの下に置いた。梨が控えたのは交代日だけ。原簿の支払人欄は空白のままだ。"
+  }
+ },
  "doc_cargo_manifest": {
   "ja": {
    "display_name": "貨物の積荷目録",
@@ -568,76 +650,6 @@
   "en": {
    "display_name": "Wataru's Medical Wristband",
    "description": "A plastic band printed with the number 12. It's warm, as if just taken off. A tiny contact inside, no battery."
-  }
- },
- "ch4_ward_collection_slip": {
-  "ja": {
-   "display_name": "病棟の公開受取票",
-   "description": "月報十七の物件は旧工場が受け取る。患者の個人情報は記載されていない。",
-   "body": "月報十七の移送物は旧工場が受け取る。担当者は受取票と外門の当番記録を照合して通す。この票には対象番号と行き先だけが記されている。"
-  },
-  "en": {
-   "display_name": "Ward Collection Slip",
-   "description": "The old factory collects items from batch seventeen. The slip contains no personal patient data.",
-   "body": "The old factory receives referrals from batch seventeen. Staff compare this slip with the shift record at the outer gate before granting entry. The slip lists only the batch and destination."
-  }
- },
- "ch4_original_ledger_copy": {
-  "ja": {
-   "display_name": "旧工場の原簿の写し",
-   "description": "原簿には凛の名前と消耗が記され、もう一人の署名は伏せられている。",
-   "body": "第十七便の原簿では凛が受け手として登録され、錨人の名前は匿名のままです。\n今周はこれまでに {run_restorations} 回復元しました。\n当時の原簿には消耗が 91% と記録されています。"
-  },
-  "en": {
-   "display_name": "Old Factory Ledger Copy",
-   "description": "The original ledger names Rin and records depletion. The other signature is blacked out.",
-   "body": "Batch Seventeen names Rin as the recipient and keeps the anchor anonymous.\nRin has been restored {run_restorations} times this run.\nThe original ledger recorded 91% depletion at the time."
-  }
- },
- "ch4_archive_31_index": {
-  "ja": {
-   "display_name": "第31版の登録票",
-   "description": "テープ箱に残された試し録りの版番号。あとで再生するときに使う。",
-   "body": "天穹の電話ボックスの標語の試し録り。版番号は31。旧工場の事務室のテープ再生機か、雨の窓辺のベッド脇にある無線機で字幕を確認できる。"
-  },
-  "en": {
-   "display_name": "Version 31 Index Card",
-   "description": "The test reel's version number, copied from the box for later playback.",
-   "body": "Version 31 of the Skydome phone booth slogan test. View the subtitles on the old factory office reel player or the ward's bedside radio by the rain-streaked window."
-  }
- },
- "ch4_archive_31_recording": {
-  "ja": {
-   "display_name": "天穹・第31版の文字起こし",
-   "description": "天穹の電話ボックスの標語を試し録りした際の、未公開のエンディング。",
-   "body": "今日もやり直せる。汐、私の声は聞こえる？"
-  },
-  "en": {
-   "display_name": "Skydome Version 31 Transcript",
-   "description": "The Skydome phone booth slogan test includes an unaired ending.",
-   "body": "You can start again today. Xi, can you hear my voice?"
-  }
- },
- "ch4_linden_witness_note": {
-  "ja": {
-   "display_name": "棠が控えることを許した名簿",
-   "description": "棠の許可を得て、手紙から聞きに行ける四か所を控えた。",
-   "body": "市場の榕じい、復原館の阿梨、質屋の老K、病棟で棠の入院手続きをした看護師。原本は棠の手元にある。"
-  },
-  "en": {
-   "display_name": "Linden’s Witness Note",
-   "description": "Four places Rin copied from the letter with Linden’s permission.",
-   "body": "Old Banyan at the market, Ali at the Restoration Bar, Old K at the pawnshop, and the nurse who admitted Linden. The original letter is with Linden."
-  }
- },
- "ch4_lamp_microphone": {
-  "ja": {
-   "display_name": "灯のマイク",
-   "description": "灯が母親の枕元に、今の声で伝言を残すためのマイク。療養病棟の東端、側窓のベッドに運ぶ。"
-  },
-  "en": {
-   "display_name": "Lantern's Microphone",
-   "description": "Lantern wants to leave his mother a message in his present voice. Take the microphone to the side-window bed in the east bay of the ward."
   }
  }
 }

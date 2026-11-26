@@ -578,6 +578,69 @@
           }
         ]
       }
+    },
+    {
+      "id": "ch5_t_pear_question",
+      "source": "res://data/story/ch5_paymaster.json",
+      "npc": "res://data/npcs/ch5_pear.tres",
+      "levels": [
+        "res://data/levels/ch5_revival_lounge.tres"
+      ],
+      "role": "choice",
+      "rule": {
+        "default": "leave",
+        "options": [
+          {
+            "id": "check_dates",
+            "target": "ch5_t_pear_record_dates",
+            "flags": {}
+          },
+          {
+            "id": "leave",
+            "target": "",
+            "flags": {}
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch5_t_pear_record_dates",
+      "source": "res://data/story/ch5_paymaster.json",
+      "npc": "res://data/npcs/ch5_pear.tres",
+      "levels": [
+        "res://data/levels/ch5_revival_lounge.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "flag": "ch5_fee_ledger_compared",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch5_pear_dates_confirmed",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "item_acquire",
+            "id": "ch5_pear_shift_dates"
+          },
+          {
+            "kind": "flag",
+            "id": "ch5_pear_dates_confirmed",
+            "value": true
+          }
+        ]
+      }
     }
   ]
 }

@@ -9,9 +9,11 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools/level"))
 
 from build_ch5 import CHAPTER, POINTS  # noqa: E402
+from ch5_pear_testimony import add_pear_testimony  # noqa: E402
+from ch5_revival_route import PEAR  # noqa: E402
 from build_ch1_story import sfx  # noqa: E402
 from ch1_closure import Binding, Option, ProductionSource, Quest, QuestStep, all_of, any_of, flag, negate, say, set_flag  # noqa: E402
-from chapter_compiler import ChapterSpec, write_chapter
+from chapter_compiler import ChapterSpec, write_chapter, write_documents
 import ch5_fee_story  # noqa: E402  # noqa: E402
 
 CHAPTER_INFO = {
@@ -107,9 +109,12 @@ def build_spec():
          QuestStep("比對貨架的標籤，再到盤點板勾出兩張空白標籤。", MATCHED, "inventory_board")),
         completion_requires_steps=True,
     ))
-    return ChapterSpec(CHAPTER_INFO, source, "ch5", dispatch, POINTS)
+    add_pear_testimony(source, dispatch, CHAPTER)
+    return ChapterSpec(CHAPTER_INFO, source, "ch5", dispatch, {**POINTS, "pear": PEAR})
 
 
 if __name__ == "__main__":
-    missing = write_chapter(build_spec(), ROOT / f"data/story/{CHAPTER}.json")
+    spec = build_spec()
+    write_documents(spec.source, CHAPTER, ROOT / "data/story_items", 500)
+    missing = write_chapter(spec, ROOT / f"data/story/{CHAPTER}.json")
     raise SystemExit(int(bool(missing)))

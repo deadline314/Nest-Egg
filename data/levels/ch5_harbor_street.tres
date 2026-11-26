@@ -1,0 +1,49 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="3_lighting_zone"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch5_harbor_street.tres" id="4_ch5_harbor_street"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("2_portal_data")
+id = &"street_pawn"
+target_level = "res://data/levels/ch5_pawnshop.tres"
+target_portal = &"pawn_street"
+prompt = "{interact} 回當舖"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Return to the pawnshop", "ja": "{interact} 質屋へ戻る"})
+width = 32
+height = 68
+style = "door"
+
+[sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("2_portal_data")
+id = &"street_hall"
+target_level = "res://data/levels/ch5_revival_lounge.tres"
+target_portal = &"hall_street"
+prompt = "{interact} 進復原館"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Enter Restoration Hall", "ja": "{interact} 復元館に入る"})
+width = 32
+height = 68
+style = "door"
+
+[resource]
+script = ExtResource("1_level_data")
+id = &"ch5_harbor_street"
+display_name = "港區街道"
+localized_names = Dictionary[String, String]({"en": "Harbor Street", "ja": "港の通り"})
+tile_size = 16
+height = 24
+legend = Dictionary[String, Resource]({
+"Ⅱ": SubResource("Resource_0"),
+"Ⅲ": SubResource("Resource_1")
+})
+hints = PackedStringArray()
+chapter = &"ch5_paymaster"
+persistent_world = true
+show_chapter_card = false
+environment = ExtResource("4_ch5_harbor_street")
+layout_path = "res://data/levels/ch5_harbor_street_map.json"
+lighting_zones = Array[ExtResource("3_lighting_zone")]([])
+story_triggers = PackedStringArray()
+death_credit_cap = 250

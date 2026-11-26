@@ -1,30 +1,45 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=16 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=18 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
-[ext_resource type="Resource" path="res://data/npcs/ch5_inventory_board.tres" id="2_ch5_inventory_board"]
-[ext_resource type="Resource" path="res://data/npcs/ch5_fare.tres" id="3_ch5_fare"]
-[ext_resource type="Resource" path="res://data/npcs/ch5_guitar.tres" id="4_ch5_guitar"]
-[ext_resource type="Resource" path="res://data/npcs/ch5_shelf_index.tres" id="5_ch5_shelf_index"]
-[ext_resource type="Resource" path="res://data/npcs/ch5_fee_ledger.tres" id="6_ch5_fee_ledger"]
-[ext_resource type="Resource" path="res://data/npcs/ch5_raincoat.tres" id="7_ch5_raincoat"]
-[ext_resource type="Resource" path="res://data/npcs/ch5_fee_receipt.tres" id="8_ch5_fee_receipt"]
-[ext_resource type="Resource" path="res://data/npcs/ch5_watch.tres" id="9_ch5_watch"]
-[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="10_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/rooftop.tres" id="11_rooftop"]
-[ext_resource type="Resource" path="res://data/lighting/pawnshop_warm.tres" id="12_pawnshop_warm"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch5_pawnshop.tres" id="13_ch5_pawnshop"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
+[ext_resource type="Resource" path="res://data/npcs/ch5_inventory_board.tres" id="3_ch5_inventory_board"]
+[ext_resource type="Resource" path="res://data/npcs/ch5_fare.tres" id="4_ch5_fare"]
+[ext_resource type="Resource" path="res://data/npcs/ch5_guitar.tres" id="5_ch5_guitar"]
+[ext_resource type="Resource" path="res://data/npcs/ch5_shelf_index.tres" id="6_ch5_shelf_index"]
+[ext_resource type="Resource" path="res://data/npcs/ch5_fee_ledger.tres" id="7_ch5_fee_ledger"]
+[ext_resource type="Resource" path="res://data/npcs/ch5_raincoat.tres" id="8_ch5_raincoat"]
+[ext_resource type="Resource" path="res://data/npcs/ch5_fee_receipt.tres" id="9_ch5_fee_receipt"]
+[ext_resource type="Resource" path="res://data/npcs/ch5_watch.tres" id="10_ch5_watch"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="11_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/rooftop.tres" id="12_rooftop"]
+[ext_resource type="Resource" path="res://data/lighting/pawnshop_warm.tres" id="13_pawnshop_warm"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch5_pawnshop.tres" id="14_ch5_pawnshop"]
 
 [sub_resource type="Resource" id="Resource_0"]
-script = ExtResource("10_lighting_zone")
-start_tile = 0
-blend_tiles = 12
-profile = ExtResource("11_rooftop")
+script = ExtResource("2_portal_data")
+id = &"pawn_street"
+target_level = "res://data/levels/ch5_harbor_street.tres"
+target_portal = &"street_pawn"
+requires_flag = &"ch5_fee_ledger_compared"
+locked_text = "先到當舖的盤點板核對舊收據和存款總帳。"
+localized_locked_text = Dictionary[String, String]({"en": "Compare the old receipt and deposit ledger at the pawnshop board first.", "ja": "先に質屋の棚卸し板で古い領収書と積立帳を照合する。"})
+prompt = "{interact} 前往港區街道"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Go to Harbor Street", "ja": "{interact} 港の通りへ出る"})
+width = 32
+height = 68
+style = "door"
 
 [sub_resource type="Resource" id="Resource_1"]
-script = ExtResource("10_lighting_zone")
+script = ExtResource("11_lighting_zone")
+start_tile = 0
+blend_tiles = 12
+profile = ExtResource("12_rooftop")
+
+[sub_resource type="Resource" id="Resource_2"]
+script = ExtResource("11_lighting_zone")
 start_tile = 30
 blend_tiles = 6
-profile = ExtResource("12_pawnshop_warm")
+profile = ExtResource("13_pawnshop_warm")
 
 [resource]
 script = ExtResource("1_level_data")
@@ -34,21 +49,22 @@ localized_names = Dictionary[String, String]({"en": "Pawnshop (Shelf Inventory)"
 tile_size = 16
 height = 24
 legend = Dictionary[String, Resource]({
-"ⓑ": ExtResource("2_ch5_inventory_board"),
-"ⓕ": ExtResource("3_ch5_fare"),
-"ⓖ": ExtResource("4_ch5_guitar"),
-"ⓘ": ExtResource("5_ch5_shelf_index"),
-"ⓛ": ExtResource("6_ch5_fee_ledger"),
-"ⓡ": ExtResource("7_ch5_raincoat"),
-"ⓤ": ExtResource("8_ch5_fee_receipt"),
-"ⓦ": ExtResource("9_ch5_watch")
+"Ⅰ": SubResource("Resource_0"),
+"ⓑ": ExtResource("3_ch5_inventory_board"),
+"ⓕ": ExtResource("4_ch5_fare"),
+"ⓖ": ExtResource("5_ch5_guitar"),
+"ⓘ": ExtResource("6_ch5_shelf_index"),
+"ⓛ": ExtResource("7_ch5_fee_ledger"),
+"ⓡ": ExtResource("8_ch5_raincoat"),
+"ⓤ": ExtResource("9_ch5_fee_receipt"),
+"ⓦ": ExtResource("10_ch5_watch")
 })
 hints = PackedStringArray()
 chapter = &"ch5_paymaster"
 persistent_world = true
 show_chapter_card = true
-environment = ExtResource("13_ch5_pawnshop")
+environment = ExtResource("14_ch5_pawnshop")
 layout_path = "res://data/levels/ch5_pawnshop_map.json"
-lighting_zones = Array[ExtResource("10_lighting_zone")]([SubResource("Resource_0"), SubResource("Resource_1")])
+lighting_zones = Array[ExtResource("11_lighting_zone")]([SubResource("Resource_1"), SubResource("Resource_2")])
 story_triggers = PackedStringArray()
 death_credit_cap = 250
