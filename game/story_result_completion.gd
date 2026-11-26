@@ -262,16 +262,21 @@ func _prepare_and_commit(scene: Dictionary, continuation: StringName = &"", choi
 			return {"error": "terminal result has a duplicate automatic item producer"}
 	var context := Story.presentation_context_for_request(_id, _request) if continuation != &"" else {}
 	var candidate := RunSnapshot.capture(main.get("_level_path"), level.run_snapshot(), String(continuation), main.get("_chapter_complete"), context)
-	var original := RunSnapshot.prepare(candidate, level.data, level._layout)
+	var definitions := MapLayoutMigration.Definitions.new()
+	var original := RunSnapshot.prepare(candidate, level.data, level._layout, definitions)
 	if original.has("error"):
 		return original
-	# Compare both sides through the writer's exact JSON + second validation
-	# boundary. Vector2 normalization uses real_t precision; one pass compared to
-	# two can otherwise reject an unchanged, non-cardinal aim by one float ULP.
-	var encoded_original := RunSaveCodec.decode(RunSaveCodec.encode(original["data"]))
+	# Match the writer's JSON precision and validate the decoded baseline again.
+	var encoded_original := RunSaveCodec.round_trip(original["data"])
 	if encoded_original.has("error"):
 		return encoded_original
-	original = RunSnapshot.prepare(encoded_original["data"])
+	var prepared_path: String = encoded_original["data"]["level"]
+	var shared_definitions: MapLayoutMigration.Definitions
+	if prepared_path == candidate["level"] and prepared_path == level.data.resource_path \
+			and is_same(RunSaveCodec.resource(prepared_path, "level", "res://data/levels/"), level.data):
+		shared_definitions = definitions
+	# Validate encounter identities against the independently authored layout.
+	original = RunSnapshot.prepare(encoded_original["data"], null, null, shared_definitions)
 	if original.has("error"):
 		return original
 	if not npc.is_empty() or not death.is_empty():
