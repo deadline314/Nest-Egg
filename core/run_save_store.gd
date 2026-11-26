@@ -5,6 +5,7 @@ extends RefCounted
 ## 開發版的槽；實際預設槽依目前累積版本（CampaignEdition.slot_path），各版本各自一個目錄。
 const DEFAULT_PATH := "user://runs/demo-0.1/slot-1.json"
 const MAX_EDITION_DIRS := 32
+const EncounterSnapshot := preload("res://game/level/encounter_snapshot.gd")
 
 enum ReadRecovery { NONE, BACKUP, NEW_RUN }
 enum WriteStatus { SAVED, FAILED, CANCELLED }
@@ -618,6 +619,7 @@ func _durable_declared_version(component: Dictionary, supported: int, where: Str
 class _DurableProof:
 	var catalog := Progression.InstallCatalog.new()
 	var map_definitions := MapLayoutMigration.Definitions.new()
+	var encounter_layouts := EncounterSnapshot.LayoutReuse.new()
 	var level: LevelData
 	var layout: LevelLayout
 
@@ -628,20 +630,11 @@ class _DurableProof:
 
 
 func _durable_prepare_snapshot(raw: Variant, proof: _DurableProof) -> Dictionary:
-	var errors := RunSaveCodec.validate_tree(raw)
-	if not errors.is_empty():
-		return {"error": errors[0]}
 	if not raw is Dictionary:
-		return {"error": "durable/run must be an object"}
-	# RunSnapshot normalization supplies mag=[], so it cannot preserve the
-	# published Loadout.restore branch that consumes old total-ammo snapshots.
-	# Refuse BEFORE normalization instead of silently overwriting that data.
-	for entry: Array in [[raw.get("runtime", {}), "loadout", "runtime/loadout"], [raw.get("state", {}), "checkpoint_loadout", "state/checkpoint_loadout"], [raw.get("state", {}), "level_start_loadout", "state/level_start_loadout"]]:
-		if entry[0] is Dictionary:
-			var loadout: Variant = entry[0].get(entry[1], {})
-			if loadout is Dictionary and loadout.has("ammo") and not loadout.has("mag"):
-				return {"error": "durable/" + entry[2] + ": requires_legacy_loadout_migration"}
-	var checked := RunSnapshot.prepare(raw, proof.level, proof.layout, proof.map_definitions)
+		var errors := RunSaveCodec.validate_tree(raw)
+		return {"error": "durable/run must be an object" if errors.is_empty() else errors[0]}
+	var checked := RunSnapshot.prepare(raw, proof.level, proof.layout, proof.map_definitions,
+			RunSnapshot.LoadoutEncoding.REQUIRE_MAGAZINES, proof.encounter_layouts)
 	if checked.has("error"):
 		return checked
 	var data: Dictionary = checked["data"]

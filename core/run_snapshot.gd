@@ -7,6 +7,8 @@ const SCALARS := ["lives_left", "deaths", "kills", "finishers", "run_time", "las
 const DICTIONARIES := ["area_states", "checkpoint_world", "checkpoint_progress", "level_start_progress", "level_start_loadout", "checkpoint_loadout"]
 const MAX_NPC_REACTIONS := 1024
 
+enum LoadoutEncoding { ALLOW_LEGACY, REQUIRE_MAGAZINES }
+
 
 static func capture(level_path: String, runtime: Dictionary, cinematic := "", completed := false, context: Dictionary = {}) -> Dictionary:
 	var state: Dictionary = {}
@@ -23,10 +25,16 @@ static func capture(level_path: String, runtime: Dictionary, cinematic := "", co
 
 
 static func prepare(raw: Dictionary, active_level: LevelData = null, active_layout: LevelLayout = null,
-		definitions: MapLayoutMigration.Definitions = null) -> Dictionary:
+		definitions: MapLayoutMigration.Definitions = null,
+		loadout_encoding: LoadoutEncoding = LoadoutEncoding.ALLOW_LEGACY,
+		encounter_layouts: ENCOUNTER_SNAPSHOT.LayoutReuse = null) -> Dictionary:
 	var errors := RunSaveCodec.validate_tree(raw)
 	if not errors.is_empty():
 		return {"error": errors[0]}
+	if loadout_encoding == LoadoutEncoding.REQUIRE_MAGAZINES:
+		var legacy := _legacy_loadout_path(raw)
+		if not legacy.is_empty():
+			return {"error": "durable/" + legacy + ": requires_legacy_loadout_migration"}
 	if not RunSaveCodec.valid_version(raw.get("version")):
 		return {"error": "run/version缺漏或格式損毀"}
 	var release: Variant = raw.get("release")
@@ -171,7 +179,8 @@ static func prepare(raw: Dictionary, active_level: LevelData = null, active_layo
 	runtime = result["runtime"]
 	if migration.get("relocated", false):
 		notices.append("地圖已更新，從原區域的安全入口續玩；既有進度與已取得內容保留。")
-	var dynamic := _dynamic(runtime, level, active_layout if level == active_level else null)
+	var dynamic := _dynamic(runtime, level, active_layout if level == active_level else null,
+			encounter_layouts)
 	if dynamic.has("error"):
 		return dynamic
 	runtime.merge(dynamic, true)
@@ -317,6 +326,21 @@ static func _progression(raw: Dictionary) -> Dictionary:
 	return result
 
 
+## A durable write must preserve the legacy total-ammo restore branch.
+## The normalizer would otherwise fill mag and make that original branch unreachable.
+static func _legacy_loadout_path(raw: Dictionary) -> String:
+	for entry: Array in [
+		[raw.get("runtime", {}), "loadout", "runtime/loadout"],
+		[raw.get("state", {}), "checkpoint_loadout", "state/checkpoint_loadout"],
+		[raw.get("state", {}), "level_start_loadout", "state/level_start_loadout"],
+	]:
+		if entry[0] is Dictionary:
+			var loadout: Variant = entry[0].get(entry[1], {})
+			if loadout is Dictionary and loadout.has("ammo") and not loadout.has("mag"):
+				return entry[2]
+	return ""
+
+
 static func _loadout(raw: Dictionary) -> Dictionary:
 	var result := raw.duplicate(true)
 	var paths: Array = raw.get("weapons", []) if raw.get("weapons", []) is Array else []
@@ -373,8 +397,9 @@ static func _world(raw: Dictionary) -> Dictionary:
 	return result
 
 
-static func _dynamic(runtime: Dictionary, level: LevelData = null, layout: LevelLayout = null) -> Dictionary:
-	var membership := ENCOUNTER_SNAPSHOT.prepare(runtime, level, layout)
+static func _dynamic(runtime: Dictionary, level: LevelData = null, layout: LevelLayout = null,
+		encounter_layouts: ENCOUNTER_SNAPSHOT.LayoutReuse = null) -> Dictionary:
+	var membership := ENCOUNTER_SNAPSHOT.prepare(runtime, level, layout, encounter_layouts)
 	if membership.has("error"):
 		return membership
 	var result := {"loose": [], "enemies": [], "encounters": {}}

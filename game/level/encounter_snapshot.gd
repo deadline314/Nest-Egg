@@ -7,8 +7,22 @@ const MAX_ENCOUNTERS := 1024
 const MAX_MEMBER_REFERENCES := 4096
 
 
+## One parsed authored layout for the lifetime of a single save operation.
+## Retain only the most recent area when primary and backup reference different areas.
+class LayoutReuse:
+	var _source: LevelData
+	var _parsed: LevelLayout
+
+	func resolve(level: LevelData) -> LevelLayout:
+		if _source != level:
+			_source = level
+			_parsed = LevelBuilder.parse(level)
+		return _parsed
+
+
 ## Validate before any live state is applied. New-format errors never use spatial fallback.
-static func prepare(runtime: Dictionary, level: LevelData, layout: LevelLayout = null) -> Dictionary:
+static func prepare(runtime: Dictionary, level: LevelData, layout: LevelLayout = null,
+		reuse: LayoutReuse = null) -> Dictionary:
 	var enemies: Variant = runtime.get("enemies", [])
 	var encounters: Variant = runtime.get("encounters", {})
 	if not enemies is Array or enemies.size() > MAX_ENEMIES:
@@ -29,7 +43,7 @@ static func prepare(runtime: Dictionary, level: LevelData, layout: LevelLayout =
 	if level == null:
 		return {"error": "run/runtime/encounter_members_version缺少有效關卡資料"}
 	if layout == null:
-		layout = LevelBuilder.parse(level)
+		layout = reuse.resolve(level) if reuse != null else LevelBuilder.parse(level)
 	if not layout.is_valid():
 		return {"error": "run/runtime/encounter_members_version的關卡無法解析"}
 	var authored: Dictionary = {}

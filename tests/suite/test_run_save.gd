@@ -3,6 +3,7 @@ extends TestSuite
 ## 整輪格式／磁碟故障回歸；工具 probe 另驗兩個真正獨立程序。
 
 const FIRST := "res://data/levels/ch1_pawnshop.tres"
+const ENCOUNTER_FIXTURE := preload("res://tests/helpers/encounter_resume_checks.gd")
 var directory := "user://ne230-suite"
 
 
@@ -19,6 +20,7 @@ func run() -> void:
 	print("[RunSaveSuite] initial preparation: %s" % RunSnapshot.prepare(valid).get("error", "OK"))
 	check(RunSnapshot.prepare(valid).has("data"), "valid whole-run schema prepares before applying")
 	_test_active_layout_validation(valid)
+	_test_durable_legacy_ammo_boundary(valid)
 	var detached_main: Node = load("res://game/main.gd").new()
 	var freed_level := Level.new()
 	detached_main.set("_screen", freed_level)
@@ -249,7 +251,76 @@ func run() -> void:
 	await preload("res://tests/helpers/npc_repair_boundary_checks.gd").run(self, directory)
 	await preload("res://tests/helpers/world_item_repair_boundary_checks.gd").run(self, directory)
 	await preload("res://tests/helpers/terminal_repair_boundary_checks.gd").run(self, directory)
+	await _test_durable_layout_switch()
 	GameState.start_new_run(GameState.difficulties[1])
+
+
+func _test_durable_layout_switch() -> void:
+	var street := await _capture_layout_fixture(ENCOUNTER_FIXTURE.LEVEL)
+	var warehouse := await _capture_layout_fixture("res://data/levels/ch1_warehouse.tres")
+	var street_keys := _authored_enemy_keys(street)
+	var warehouse_keys := _authored_enemy_keys(warehouse)
+	var street_only := street_keys.any(func(key: String) -> bool: return not warehouse_keys.has(key))
+	var warehouse_only := warehouse_keys.any(func(key: String) -> bool: return not street_keys.has(key))
+	var distinct := street_only and warehouse_only
+	check(distinct, "both disk areas have distinct nonempty authored enemy keys")
+	if not distinct:
+		return
+
+	var store := RunSaveStore.new(directory.path_join("layout_switch_%d.json" % Time.get_ticks_usec()))
+	store.validator = RunSnapshot.prepare
+	var seeded := store.write(warehouse, true) and store.write(street)
+	check(seeded, "normal saves rotate the other authored area into backup")
+	if seeded:
+		var draft := street.duplicate(true)
+		draft["progression"]["credits"] += 1
+		var prepared := store.prepare_existing_write(draft)
+		check(prepared.has("data"), "a cold durable proof checks street primary, warehouse backup and street draft (%s)" % prepared.get("error", "OK"))
+		if prepared.has("data"):
+			var snapshot: Dictionary = prepared["data"].snapshot()
+			check(snapshot["level"] == ENCOUNTER_FIXTURE.LEVEL and _authored_enemy_keys(snapshot) == street_keys,
+					"the JSON-normalized draft preserves the original street authored enemy identities")
+	for suffix: String in ["", ".bak", ".tmp"]:
+		DirAccess.remove_absolute(ProjectSettings.globalize_path(store.path + suffix))
+
+
+func _capture_layout_fixture(path: String) -> Dictionary:
+	GameState.start_new_run(GameState.difficulties[1])
+	var data := (load(path) as LevelData).duplicate() as LevelData
+	data.intro_scene = &""
+	data.show_chapter_card = false
+	var level := await ENCOUNTER_FIXTURE._create(self, data)
+	var saved := RunSnapshot.capture(path, level.run_snapshot())
+	await end_level(level)
+	return saved
+
+
+func _authored_enemy_keys(snapshot: Dictionary) -> Array[String]:
+	var keys: Array[String] = []
+	for enemy: Dictionary in snapshot["runtime"]["enemies"]:
+		var key := String(enemy["key"])
+		if not key.is_empty():
+			keys.append(key)
+	return keys
+
+
+func _test_durable_legacy_ammo_boundary(valid: Dictionary) -> void:
+	var encoding := RunSnapshot.LoadoutEncoding.REQUIRE_MAGAZINES
+	for entry: Array in [
+		["runtime", "loadout"],
+		["state", "checkpoint_loadout"],
+		["state", "level_start_loadout"],
+	]:
+		var legacy := valid.duplicate(true)
+		legacy[entry[0]][entry[1]] = {"ammo": [15]}
+		check(RunSnapshot.prepare(legacy).has("data"), "ordinary legacy loadout preparation still works: " + entry[1])
+		var strict := RunSnapshot.prepare(legacy, null, null, null, encoding)
+		check(strict.get("error") == "durable/%s/%s: requires_legacy_loadout_migration" % entry,
+				"durable preparation retains the specific legacy loadout error: " + entry[1])
+		legacy["invalid_variant"] = Vector2.ONE
+		var validation := RunSaveCodec.validate_tree(legacy)
+		check(not validation.is_empty() and RunSnapshot.prepare(legacy, null, null, null, encoding).get("error") == validation[0],
+				"invalid data keeps precedence over the legacy loadout diagnostics: " + entry[1])
 
 
 func _test_local_json_round_trip(snapshot: Dictionary, unicode: Dictionary) -> void:
@@ -326,3 +397,14 @@ func _test_active_layout_validation(valid: Dictionary) -> void:
 	var other := load("res://data/levels/ch1_street.tres") as LevelData
 	check(RunSnapshot.prepare(snapshot, other, LevelLayout.new()) == cold,
 		"a cross-area snapshot cannot use a different active level's layout")
+	var layouts := preload("res://game/level/encounter_snapshot.gd").LayoutReuse.new()
+	var cached := layouts.resolve(data)
+	check(cached.is_valid() and layouts.resolve(data) == cached,
+		"a save operation reuses the same parsed layout for one area")
+	check(RunSnapshot.prepare(snapshot, other, LevelLayout.new(), null,
+			RunSnapshot.LoadoutEncoding.ALLOW_LEGACY, layouts) == cold,
+		"a cold save proof reuses the authored layout without changing encounter validation")
+	var other_layout := layouts.resolve(other)
+	check(other_layout.is_valid() and other_layout != cached and layouts.resolve(other) == other_layout,
+		"a save proof keeps a different area's authored layout separate")
+	check(layouts.resolve(data) != cached, "a save proof keeps only one area's layout in memory")
