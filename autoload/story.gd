@@ -512,14 +512,16 @@ func _validate_targets(scene_id: String, scene: Dictionary) -> PackedStringArray
 			var target := str((route as Dictionary).get("target", "")) if route is Dictionary else ""
 			if not _scenes.has(target) or str((_scenes[target] as Dictionary).get("mode", "")) == String(MODE_DISPATCH):
 				problems.append("分派場景 %s 的 routes[%d] 指向不存在或另一個分派場景：%s" % [scene_id, i, target])
-			elif not StoryConditionTree.validate((route as Dictionary).get("when", {}))["valid"]:
+			elif not StoryConditionTree.validate((route as Dictionary).get("when", {}), outcomes.transactions)["valid"]:
 				problems.append("分派場景 %s 的 routes[%d] 條件無效" % [scene_id, i])
 		return problems
 	for entry in StoryRules.entries(scene.get("steps", [])):
 		if entry.has("target") and not _scenes.has(str(entry["target"])):
 			problems.append("場景 %s 的選項 %s 接續不存在的場景：%s" % [scene_id, entry.get("id", ""), entry["target"]])
-		if entry.has("when") and not StoryConditionTree.validate(entry["when"])["valid"]:
-			problems.append("場景 %s 的選項或分支 %s 條件無效：%s" % [scene_id, entry.get("id", ""), StoryConditionTree.validate(entry["when"])["error"]])
+		if entry.has("when"):
+			var condition := StoryConditionTree.validate(entry["when"], outcomes.transactions)
+			if not condition["valid"]:
+				problems.append("場景 %s 的選項或分支 %s 條件無效：%s" % [scene_id, entry.get("id", ""), condition["error"]])
 	return problems
 
 

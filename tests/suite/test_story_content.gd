@@ -347,6 +347,7 @@ func _test_condition_contract() -> void:
 		check(result["error"].contains("[1]"), "invalid branch identifies precise condition path")
 	_test_condition_meal_subsets(context)
 	_test_condition_receipt_trust(context)
+	_test_later_chapter_receipt(context)
 	_test_condition_limits(facts)
 	var shared := {"flag": "ready", "equals": true}
 	var aliases := {"all": [shared, shared]}
@@ -364,6 +365,34 @@ func _test_condition_contract() -> void:
 	_condition_check(CONDITION_TREE.evaluate(ready, fake), true, false, "flag type replacement cannot become boolean true")
 	fake["items"]["ch1_data_disk"] = 1
 	_condition_check(CONDITION_TREE.evaluate(ready, fake), false, false, "item facts require exact boolean values")
+
+
+func _test_later_chapter_receipt(first_chapter: Dictionary) -> void:
+	var definition := load("res://data/story_transactions/ch2_market_advance.tres") as StoryTransactionData
+	if definition == null:
+		check(false, "later chapter receipt uses its canonical project resource")
+		return
+	var id := String(definition.id)
+	var condition := {"receipt": id, "status": "recorded"}
+	var context := first_chapter.duplicate(true)
+	check(not CONDITION_TREE.validate(condition)["valid"], "a later receipt needs registration")
+	context["transaction_definitions"][id] = definition.descriptor()
+	var facts := _condition_facts(context)
+	check(CONDITION_TREE.validate(condition, context["transaction_definitions"])["valid"],
+			"schema uses the caller's registered definitions")
+	_condition_check(CONDITION_TREE.evaluate(condition, facts, context), true, false, "a registered missing receipt is false")
+	_condition_check(CONDITION_TREE.evaluate({"not": condition}, facts, first_chapter), false, false,
+			"an unregistered later receipt stays invalid under negation")
+	facts = _condition_facts(context, [id])
+	_condition_check(CONDITION_TREE.evaluate(condition, facts, context), true, true,
+			"the later chapter receipt matches the complete verified ledger")
+	var without_descriptor := context.duplicate(true)
+	without_descriptor["transaction_definitions"][id]["fingerprint"] = "a".repeat(64)
+	_condition_check(CONDITION_TREE.evaluate({"not": condition}, facts, without_descriptor), false, false,
+			"a registered resource with a corrupt fingerprint still fails closed")
+	facts["ledger"]["receipts"][id]["credits_delta"] += 1
+	_condition_check(CONDITION_TREE.evaluate(condition, facts, context), false, false,
+			"changed receipt amount cannot authorize a later chapter's result")
 
 
 func _test_condition_meal_subsets(context: Dictionary) -> void:

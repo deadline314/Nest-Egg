@@ -61,11 +61,12 @@ static func _keys(raw: Dictionary, expected: Array) -> bool:
 
 
 ## 空物件是作者的無前置條件；空 all/any、未知欄位及型別一律無效。
-static func validate(condition: Variant) -> Dictionary:
-	return _validate(condition, "$", 1, {"nodes": 0})
+static func validate(condition: Variant, registered_receipts: Dictionary = {}) -> Dictionary:
+	return _validate(condition, "$", 1, {"nodes": 0}, registered_receipts)
 
 
-static func _validate(raw: Variant, where: String, depth: int, budget: Dictionary) -> Dictionary:
+static func _validate(raw: Variant, where: String, depth: int, budget: Dictionary,
+		registered_receipts: Dictionary) -> Dictionary:
 	budget["nodes"] += 1
 	if depth > MAX_DEPTH or budget["nodes"] > MAX_NODES:
 		return _invalid(where, "條件深度或節點數超過上限（含循環引用）")
@@ -76,12 +77,12 @@ static func _validate(raw: Variant, where: String, depth: int, budget: Dictionar
 	for op in ["all", "any", "not"]:
 		if _keys(raw, [op]):
 			if op == "not":
-				return _validate(raw[op], where + ".not", depth + 1, budget)
+				return _validate(raw[op], where + ".not", depth + 1, budget, registered_receipts)
 			var children: Variant = raw[op]
 			if not children is Array or children.is_empty() or children.size() > MAX_CHILDREN:
 				return _invalid(where + "." + op, "子條件數量必須介於 1 與 %d" % MAX_CHILDREN)
 			for i in children.size():
-				var child := _validate(children[i], "%s.%s[%d]" % [where, op, i], depth + 1, budget)
+				var child := _validate(children[i], "%s.%s[%d]" % [where, op, i], depth + 1, budget, registered_receipts)
 				if not child["valid"]:
 					return child
 			return _result(true)
@@ -89,8 +90,10 @@ static func _validate(raw: Variant, where: String, depth: int, budget: Dictionar
 		return _result(true)
 	if _keys(raw, ["item"]) and _id(raw["item"]):
 		return _result(true)
-	if _keys(raw, ["receipt", "status"]) and raw["receipt"] is String and TRANSACTION_IDS.has(raw["receipt"]) and raw["status"] is String and raw["status"] == "recorded":
-		return _result(true)
+	if _keys(raw, ["receipt", "status"]) and _id(raw["receipt"]) and raw["status"] is String and raw["status"] == "recorded":
+		var id: String = raw["receipt"]
+		if TRANSACTION_IDS.has(id) or registered_receipts.has(id):
+			return _result(true)
 	if _keys(raw, ["account", "equals"]) and raw["account"] is String and raw["account"] == "ch1_lounge" and raw["equals"] is String and ACCOUNT_MASKS.values().has(raw["equals"]):
 		return _result(true)
 	return _invalid(where, "未知或格式錯誤的條件")
@@ -99,7 +102,8 @@ static func _validate(raw: Variant, where: String, depth: int, budget: Dictionar
 ## facts: flags / items / ledger；context: ledger_locked / transaction_definitions。
 ## 不接受替代帳務旗標、函式回呼、狀態別名；所有輸入與內部 const 均唯讀。
 static func evaluate(condition: Variant, facts: Variant, context: Variant = {}) -> Dictionary:
-	var schema := validate(condition)
+	var registered: Variant = context.get("transaction_definitions") if context is Dictionary else null
+	var schema := validate(condition, registered if registered is Dictionary else {})
 	if not schema["valid"]:
 		return schema
 	var checked := _validate_facts(facts, context)

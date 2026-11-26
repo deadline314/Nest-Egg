@@ -93,7 +93,7 @@ func flag_value(name: StringName) -> Variant:
 ## Bind only request-owned context leaves to literals. Persistent flags remain
 ## unchanged; the pure result planner retains its strict service projection.
 func bind_context_condition(condition: Variant) -> Variant:
-	if not StoryConditionTree.validate(condition).get("valid",false):
+	if not StoryConditionTree.validate(condition, transactions).get("valid",false):
 		return condition # Preserve malformed input for the original planner error.
 	return _bound_context_condition(condition)
 
@@ -430,7 +430,7 @@ func validate(has_scene: Callable) -> PackedStringArray:
 		if path.is_empty() or not ResourceLoader.exists(path):
 			problems.append("transactions.%s 的資源不存在：%s" % [id, path])
 	for name: String in derived_flags:
-		var checked := StoryConditionTree.validate(derived_flags[name])
+		var checked := StoryConditionTree.validate(derived_flags[name], transactions)
 		if not checked["valid"]:
 			problems.append("derived_flags.%s 條件無效：%s" % [name, checked["error"]])
 	for name: String in runtime_facts:
@@ -468,7 +468,7 @@ func validate_scene(scene_id: String, scene: Dictionary, has_scene: Callable) ->
 			if not bool(has_scene.call(StringName(str(failures[reason])))):
 				problems.append("場景 %s 的 on_failure.%s 指向不存在的場景" % [scene_id, reason])
 	if scene.has("when"):
-		var checked := StoryConditionTree.validate(scene["when"])
+		var checked := StoryConditionTree.validate(scene["when"], transactions)
 		if not checked["valid"]:
 			problems.append("場景 %s 的 when 條件無效：%s" % [scene_id, checked["error"]])
 	return problems
