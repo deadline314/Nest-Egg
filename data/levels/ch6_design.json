@@ -1,0 +1,33 @@
+{
+ "areas": {
+  "harbor_plaza": {
+   "combat": false,
+   "group": "harbor_plaza",
+   "features": {
+    "landmark": "廣場喇叭與貨梯",
+    "loop": "貨梯上高架，出口仍可返回電話亭。"
+   },
+   "encounters": []
+  },
+  "broadcast_overpass": {
+   "combat": false,
+   "group": "broadcast_overpass",
+   "features": {
+    "landmark": "鋼桁架與線況表",
+    "loop": "平台和橋下維修道互通。",
+    "vertical": "上層可看線況，下層可直接前往前庭。"
+   },
+   "encounters": []
+  },
+  "broadcast_outside": {
+   "combat": false,
+   "group": "broadcast_outside",
+   "features": {
+    "landmark": "水位尺與前庭泵房",
+    "loop": "入口可原路退回高架。"
+   },
+   "encounters": []
+  }
+ },
+ "curve": {}
+}

@@ -4,6 +4,10 @@ GROUND = 20
 DECLINED = "ch5_ye_offer_declined"
 PAID = "ch5_gray_first_wage_paid"
 LATCH = "ch5_gray_return_unlatched"
+BROADCAST_REQUEST = "ch5_ledger_broadcast_requested"
+PLAZA_PORTAL = "Ⅻ"
+PLAZA_PROMPT = "上港區廣場"
+PLAZA_LOCK = "先在電話亭聯絡燈，確認公開帳本的請託。"
 ROUTE_LOCKS = {
     "先回當舖談清楚那份要約。": ("Settle the offer at the pawnshop first.", "先に質屋で申し出について話をつける。"),
     "可付本期工錢，或從港區街道前往電話亭。": ("Pay this wage or use Harbor Street to reach the booth.", "今回の賃金を払うか、港の通りから電話ボックスへ行く。"),
@@ -31,7 +35,7 @@ POINTS = {name: (room, x, GROUND - 1) for name, (_, room, x, _, _, _, _) in OBJE
 
 
 def configure(kit, npc_prompts, portal_prompts, portal_locks):
-    glyphs = {row[0] for row in PORTALS} | {row[0] for row in OBJECTS.values()}
+    glyphs = {row[0] for row in PORTALS} | {row[0] for row in OBJECTS.values()} | {PLAZA_PORTAL}
     conflict = glyphs & (set(kit.RES) | set(kit.PORTALS))
     if conflict:
         raise ValueError(f"Chapter Five service passage glyphs already used: {sorted(conflict)}")
@@ -41,6 +45,13 @@ def configure(kit, npc_prompts, portal_prompts, portal_locks):
         kit.PORTALS[glyph] = dict(id=ident, to=f"res://data/levels/ch5_{target}.tres", target=mate,
                                   mode=0, style="door", w=30, h=63, prompt=f"{{interact}} {zh}",
                                   requires=gate, locked=locked)
+    portal_prompts[PLAZA_PROMPT] = ("Take the stairs to Harbor Plaza", "階段で港の広場へ")
+    portal_locks[PLAZA_LOCK] = ("Call Lamp about publishing the ledger first.",
+                                "先に電話ボックスから灯に帳簿公開を頼む。")
+    kit.PORTALS[PLAZA_PORTAL] = dict(
+        id="phone_plaza", to="res://data/levels/ch6_harbor_plaza.tres", target="plaza_phone",
+        mode=0, style="hidden", w=30, h=63, prompt=f"{{interact}} {PLAZA_PROMPT}",
+        requires=BROADCAST_REQUEST, locked=PLAZA_LOCK)
     for name, (glyph, _, _, label, zh, en, ja) in OBJECTS.items():
         npc_prompts[zh] = (en, ja)
         kit.NPCS[f"ch5_{name}"] = dict(name=label, speaker="label", rig="", loop="", facing=1,
@@ -50,7 +61,7 @@ def configure(kit, npc_prompts, portal_prompts, portal_locks):
         "gray_path": ("concrete", ["facility_wall"], "facility_panel", 0.0, "sky_storm",
                       ["basement", "basement_door", "dock_warehouse"]),
         "phone_alley": ("asphalt", ["shopfront", "shutter_block"], None, 0.12, "sky_storm",
-                        ["anchor_phone_booth", "harbor_street"]),
+                        ["anchor_phone_booth", "harbor_street", "mezzanine"]),
     })
 
 
@@ -68,15 +79,17 @@ def extend(kit, prior):
     gray.lamp(47, 11)
     gray.features = {"landmark": "暖燈下的換班小桌。", "loop": "從內側扳動滑扣可往返電話亭。"}
 
-    phone = kit.Area("phone_alley", "電話亭巷", 52, GROUND)
+    phone = kit.Area("phone_alley", "電話亭巷", 58, GROUND)
     phone.stand(4, "Ⅸ")
     phone.stand(8, "P")
     phone.stand(44, "Ⅺ")
+    phone.stand(53, PLAZA_PORTAL)
+    phone.prop("mezzanine__grating_stairs", 51, dx=11.2)
     phone.prop("anchor_phone_booth__flicker_lamp_post", 14)
     phone.prop("anchor_phone_booth__phone_booth", 29)
     phone.prop("anchor_phone_booth__news_rack", 34)
     phone.prop("anchor_phone_booth__leaning_bicycle", 39)
-    phone.features = {"landmark": "亭門玻璃後的一盞暖燈。", "loop": "地面返回港區街道，開通後也可走灰道。"}
+    phone.features = {"landmark": "亭門玻璃後的一盞暖燈。", "loop": "地面返回港區街道，開通後也可走灰道。打完電話可從東側維修階到廣場。"}
 
     rooms = {room.id: room for room in [*prior, gray, phone]}
     for room, x, glyph in (("basement_archive", 60, "Ⅵ"), ("harbor_street", 54, "Ⅷ")):

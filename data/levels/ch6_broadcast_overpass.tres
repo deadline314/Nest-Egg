@@ -1,0 +1,51 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
+[ext_resource type="Resource" path="res://data/npcs/ch6_relay_signal.tres" id="3_ch6_relay_signal"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="4_lighting_zone"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch6_broadcast_overpass.tres" id="5_ch6_broadcast_overpass"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("2_portal_data")
+id = &"overpass_plaza"
+target_level = "res://data/levels/ch6_harbor_plaza.tres"
+target_portal = &"plaza_overpass"
+prompt = "{interact} 回港區廣場"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Return to the harbor plaza", "ja": "{interact} 港の広場に戻る"})
+width = 30
+height = 63
+style = "hidden"
+
+[sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("2_portal_data")
+id = &"overpass_relay"
+target_level = "res://data/levels/ch6_broadcast_outside.tres"
+target_portal = &"relay_overpass"
+prompt = "{interact} 進廣播站前庭"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Enter the relay yard", "ja": "{interact} 中継所前庭に入る"})
+width = 30
+height = 63
+style = "door"
+
+[resource]
+script = ExtResource("1_level_data")
+id = &"ch6_broadcast_overpass"
+display_name = "廣播站高架維修道"
+localized_names = Dictionary[String, String]({"en": "Broadcast Maintenance Overpass", "ja": "放送局の高架保守路"})
+tile_size = 16
+height = 24
+legend = Dictionary[String, Resource]({
+"ⅲ": SubResource("Resource_0"),
+"ⅳ": SubResource("Resource_1"),
+"ⓐ": ExtResource("3_ch6_relay_signal")
+})
+hints = PackedStringArray()
+chapter = &"ch6_unmooring"
+persistent_world = true
+show_chapter_card = false
+environment = ExtResource("5_ch6_broadcast_overpass")
+layout_path = "res://data/levels/ch6_broadcast_overpass_map.json"
+lighting_zones = Array[ExtResource("4_lighting_zone")]([])
+story_triggers = PackedStringArray()
+death_credit_cap = 250

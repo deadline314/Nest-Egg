@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "records": [
+    {
+      "id": "ch6_t_offer_approach",
+      "source": "res://data/story/ch6_unmooring.json",
+      "npc": "res://data/npcs/ch6_plaza_intercom.tres",
+      "levels": [
+        "res://data/levels/ch6_harbor_plaza.tres"
+      ],
+      "role": "choice",
+      "rule": {
+        "default": "leave",
+        "options": [
+          {
+            "id": "follow",
+            "target": "ch6_t_confirm_approach",
+            "flags": {}
+          },
+          {
+            "id": "leave",
+            "target": "",
+            "flags": {}
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch6_t_confirm_approach",
+      "source": "res://data/story/ch6_unmooring.json",
+      "npc": "res://data/npcs/ch6_plaza_intercom.tres",
+      "levels": [
+        "res://data/levels/ch6_harbor_plaza.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "mode": "animated",
+        "then": "",
+        "when": {
+          "all": [
+            {
+              "flag": "ch5_ledger_broadcast_requested",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch6_su_approach_confirmed",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch6_su_approach_confirmed",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch6_t_read_yard_gauge",
+      "source": "res://data/story/ch6_unmooring.json",
+      "npc": "res://data/npcs/ch6_yard_gauge.tres",
+      "levels": [
+        "res://data/levels/ch6_broadcast_outside.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "mode": "animated",
+        "then": "",
+        "when": {
+          "all": [
+            {
+              "flag": "ch6_su_approach_confirmed",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch6_yard_gauge_read",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch6_yard_gauge_read",
+            "value": true
+          }
+        ]
+      }
+    }
+  ]
+}

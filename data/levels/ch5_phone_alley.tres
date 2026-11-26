@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=8 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=9 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
@@ -31,6 +31,20 @@ width = 30
 height = 63
 style = "door"
 
+[sub_resource type="Resource" id="Resource_2"]
+script = ExtResource("2_portal_data")
+id = &"phone_plaza"
+target_level = "res://data/levels/ch6_harbor_plaza.tres"
+target_portal = &"plaza_phone"
+requires_flag = &"ch5_ledger_broadcast_requested"
+locked_text = "先在電話亭聯絡燈，確認公開帳本的請託。"
+localized_locked_text = Dictionary[String, String]({"en": "Call Lamp about publishing the ledger first.", "ja": "先に電話ボックスから灯に帳簿公開を頼む。"})
+prompt = "{interact} 上港區廣場"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Take the stairs to Harbor Plaza", "ja": "{interact} 階段で港の広場へ"})
+width = 30
+height = 63
+style = "hidden"
+
 [resource]
 script = ExtResource("1_level_data")
 id = &"ch5_phone_alley"
@@ -41,6 +55,7 @@ height = 24
 legend = Dictionary[String, Resource]({
 "Ⅸ": SubResource("Resource_0"),
 "Ⅺ": SubResource("Resource_1"),
+"Ⅻ": SubResource("Resource_2"),
 "☎": ExtResource("3_ch5_paymaster_phone")
 })
 hints = PackedStringArray()

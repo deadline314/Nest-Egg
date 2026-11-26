@@ -1,0 +1,380 @@
+{
+ "chapter": {
+  "id": "ch6_unmooring",
+  "title": "第六章　斷錨",
+  "subtitle": "港區・廣播站",
+  "end_title": "第六章　斷錨　完",
+  "teaser": "下一章　日照",
+  "languages": [
+   "zh",
+   "ja",
+   "en"
+  ],
+  "title_ja": "第六章　断錨",
+  "title_en": "Chapter Six: Unmooring",
+  "subtitle_ja": "港区・放送局",
+  "subtitle_en": "Harbor District · Radio Station",
+  "end_title_ja": "第六章　断錨　完",
+  "end_title_en": "Chapter Six: Unmooring — End",
+  "teaser_ja": "次章　日照",
+  "teaser_en": "Next Chapter: Sunlight"
+ },
+ "speakers": {
+  "su": {
+   "name": "蘇",
+   "name_en": "Wake",
+   "name_ja": "蘇",
+   "color": "#a9d4cf",
+   "portrait": "res://art/portraits/system.png",
+   "formal": true
+  }
+ },
+ "flag_defaults": {
+  "ch6_su_approach_confirmed": false,
+  "ch6_yard_gauge_read": false
+ },
+ "transactions": {},
+ "derived_flags": {},
+ "quests": [
+  {
+   "id": "ch6_approach_relay",
+   "kind": "main",
+   "title": "從港區廣場到中繼站",
+   "background": "燈已轉告公開帳本的請託。蘇在廣場的喇叭等凜。",
+   "reward": "已到中繼站前庭，確認水位。",
+   "complete_flag": "ch6_yard_gauge_read",
+   "steps": [
+    {
+     "title": "用廣場的喇叭向蘇確認維修路線。",
+     "complete_flag": "ch6_su_approach_confirmed",
+     "location": {
+      "level": "res://data/levels/ch6_harbor_plaza.tres",
+      "cell": [
+       30,
+       19
+      ]
+     },
+     "title_ja": "広場のスピーカーで蘇に保守路を聞く。",
+     "title_en": "Speak to Wake on the plaza speaker about the service route."
+    },
+    {
+     "title": "從高架進前庭，查看水位尺。",
+     "complete_flag": "ch6_yard_gauge_read",
+     "location": {
+      "level": "res://data/levels/ch6_broadcast_outside.tres",
+      "cell": [
+       24,
+       19
+      ]
+     },
+     "title_ja": "高架から前庭へ行き、水位計を調べる。",
+     "title_en": "Take the overpass to the yard and read the gauge."
+    }
+   ],
+   "visible_flags": [
+    "ch5_ledger_broadcast_requested"
+   ],
+   "completion_requires_steps": true,
+   "title_ja": "港の広場から中継所へ",
+   "title_en": "Reach the relay from Harbor Plaza",
+   "background_ja": "灯が帳簿公開の頼みを伝えた。蘇が広場のスピーカーで凛を待っている。",
+   "background_en": "Lamp passed on the request. Wake is waiting on the plaza speaker.",
+   "reward_ja": "中継所の前庭に着き、水位を確認した。",
+   "reward_en": "Reached the relay yard and checked the water level."
+  }
+ ],
+ "scenes": {
+  "ch6_t_wait_for_request": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "廣場喇叭在待機。先用電話亭聯絡燈。",
+     "ja": "広場のスピーカーは待機中だ。先に電話ボックスから灯に連絡しよう。",
+     "en": "The plaza speaker is on standby. Call Lamp from the phone booth first."
+    }
+   ],
+   "when": {
+    "not": {
+     "flag": "ch5_ledger_broadcast_requested",
+     "equals": true
+    }
+   }
+  },
+  "ch6_t_offer_approach": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "su",
+     "text": "我是蘇，負責這裡的播報。妳到橋頭等白燈亮，我請人把高架放下來。",
+     "ja": "蘇よ。ここの放送を担当してる。橋のたもとで白い灯が点くまで待って。高架を下ろしてもらう。",
+     "en": "I'm Wake. I handle the broadcasts here. Wait for the white light at the bridgehead. I'll have them lower the overpass."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "原帳在我這裡。到前庭再核對哪些能播。從貨梯過去嗎？",
+     "ja": "原本は私が持ってる。何を放送できるか前庭で確認しよう。荷物用リフトから渡るの？",
+     "en": "I have the original. We'll agree on what can be aired at the yard. Is the freight lift the way across?"
+    },
+    {
+     "do": "choice",
+     "text": "原帳在我這裡。到前庭再核對哪些能播。從貨梯過去嗎？",
+     "default": "leave",
+     "options": [
+      {
+       "id": "follow",
+       "text": "從貨梯上高架。",
+       "explanation": "打開廣場的維修貨梯。",
+       "target": "ch6_t_confirm_approach",
+       "ja": "荷物用リフトで高架に上る。",
+       "en": "Take the freight lift to the overpass.",
+       "explanation_ja": "広場の保守用リフトを開ける。",
+       "explanation_en": "Open the plaza's service lift."
+      },
+      {
+       "id": "leave",
+       "text": "先留在廣場。",
+       "explanation": "稍後可以再接入喇叭。",
+       "ja": "今は広場に残る。",
+       "en": "Stay in the plaza for now.",
+       "explanation_ja": "あとでスピーカーに戻れる。",
+       "explanation_en": "You can come back to the speaker."
+      }
+     ],
+     "cancel_choice_on_back": true,
+     "ja": "原本は私が持ってる。何を放送できるか前庭で確認しよう。荷物用リフトから渡るの？",
+     "en": "I have the original. We'll agree on what can be aired at the yard. Is the freight lift the way across?"
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_ledger_broadcast_requested",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch6_su_approach_confirmed",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch6_t_confirm_approach": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "su",
+     "text": "高架放下了。看貨梯門上的白燈。高處能看線路，下面也通往前庭。",
+     "ja": "高架が下りたわ。リフト扉の上の白い灯を見て。上なら配線が見られる。下からも前庭へ行ける。",
+     "en": "The overpass is down. Look for the white light above the lift door. Check the wiring up top or take the lower path to the yard."
+    },
+    {
+     "do": "sfx",
+     "id": "switch",
+     "volume": -22.0
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_ledger_broadcast_requested",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch6_su_approach_confirmed",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch6_su_approach_confirmed",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch6_t_approach_revisit": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "su",
+     "text": "白燈還亮著。到前庭先看水位尺。",
+     "ja": "白い灯はまだ点いている。前庭に着いたら水位計を見て。",
+     "en": "The white light is still on. Check the gauge when you reach the yard."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch6_su_approach_confirmed",
+    "equals": true
+   }
+  },
+  "ch6_t_read_line_status": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "前庭還沒送電。帶電的街側線路和備用中繼分開標著。",
+     "ja": "前庭にはまだ送電されていない。通電中の街側回線と予備中継は別々に記されている。",
+     "en": "The yard has no power. The live street line and the backup relay are marked separately."
+    }
+   ],
+   "overlay": true
+  },
+  "ch6_t_read_yard_gauge": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "水已經淹過第一格，泵房的指示燈還沒亮。",
+     "ja": "水は最初の目盛りを越えた。ポンプ小屋の表示灯はまだ消えている。",
+     "en": "Water is above the first mark. The pump house indicator is still dark."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch6_su_approach_confirmed",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch6_yard_gauge_read",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch6_yard_gauge_read",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch6_t_yard_gauge_revisit": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "前庭已查過水位。回程出口在高架坡道腳下。",
+     "ja": "前庭の水位は確認済み。戻り口は高架の坂の下にある。",
+     "en": "Yard level checked. The return exit is at the foot of the overpass ramp."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch6_yard_gauge_read",
+    "equals": true
+   }
+  },
+  "ch6_dispatch_plaza_intercom": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "flag": "ch6_su_approach_confirmed",
+      "equals": true
+     },
+     "target": "ch6_t_approach_revisit"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch5_ledger_broadcast_requested",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch6_su_approach_confirmed",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch6_t_offer_approach"
+    },
+    {
+     "when": {
+      "not": {
+       "flag": "ch5_ledger_broadcast_requested",
+       "equals": true
+      }
+     },
+     "target": "ch6_t_wait_for_request"
+    }
+   ]
+  },
+  "ch6_dispatch_relay_signal": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {},
+     "target": "ch6_t_read_line_status"
+    }
+   ]
+  },
+  "ch6_dispatch_yard_gauge": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "flag": "ch6_yard_gauge_read",
+      "equals": true
+     },
+     "target": "ch6_t_yard_gauge_revisit"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch6_su_approach_confirmed",
+          "equals": true
+         },
+         {
+          "not": {
+           "flag": "ch6_yard_gauge_read",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch6_yard_gauge_read",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch6_t_read_yard_gauge"
+    }
+   ]
+  }
+ }
+}

@@ -447,7 +447,7 @@
 			"height": 24.0,
 			"id": "ch5_phone_alley",
 			"layout_path": "res://data/levels/ch5_phone_alley_map.json",
-			"sha256": "27b5b42af32ef104e935c99a2b92f998f2fdd39d8fe2457f7a0f2a1321713744",
+			"sha256": "fdb388c185c634b734ffbd67546dc36e05655428ee453b66125a04ea3584e0ec",
 			"tile_size": 16.0
 		},
 		{
@@ -457,6 +457,33 @@
 			"id": "ch5_revival_lounge",
 			"layout_path": "res://data/levels/ch5_revival_lounge_map.json",
 			"sha256": "f75761e783dc154a58e26ea02dbab2c432a12b7100ef2a1b30477813854fc9e7",
+			"tile_size": 16.0
+		},
+		{
+			"chapter": "ch6_unmooring",
+			"file": "ch6_broadcast_outside.tres",
+			"height": 24.0,
+			"id": "ch6_broadcast_outside",
+			"layout_path": "res://data/levels/ch6_broadcast_outside_map.json",
+			"sha256": "fc16e81fa261f272c58653a3a1615226167782f973d31bd37c25bc6c39c047e7",
+			"tile_size": 16.0
+		},
+		{
+			"chapter": "ch6_unmooring",
+			"file": "ch6_broadcast_overpass.tres",
+			"height": 24.0,
+			"id": "ch6_broadcast_overpass",
+			"layout_path": "res://data/levels/ch6_broadcast_overpass_map.json",
+			"sha256": "7b2153ae31dfafc0755fd4da0b658de506cda599c4ffb6824a4491c71a5ca40e",
+			"tile_size": 16.0
+		},
+		{
+			"chapter": "ch6_unmooring",
+			"file": "ch6_harbor_plaza.tres",
+			"height": 24.0,
+			"id": "ch6_harbor_plaza",
+			"layout_path": "res://data/levels/ch6_harbor_plaza_map.json",
+			"sha256": "e7f120accdaeb89495dee5a1a6af55da3a7b6f3f11cff9e34049f3dd0b297409",
 			"tile_size": 16.0
 		},
 		{

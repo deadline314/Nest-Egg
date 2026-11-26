@@ -152,8 +152,19 @@ func _test_lit_coverage() -> void:
 	var no_normal: PackedStringArray = []
 	var no_glow: PackedStringArray = []
 	for prop in props:
-		if not ResourceLoader.exists(prop.texture.get_basename() + "_n.png"):
+		var normal_path := RigLibrary.companion_normal_path(prop.texture)
+		if not ResourceLoader.exists(normal_path):
 			no_normal.append(String(prop.id))
+		elif prop.texture.get_extension() == "tres":
+			var diffuse := load(prop.texture) as AtlasTexture
+			if diffuse != null:
+				var normal := load(normal_path) as AtlasTexture
+				var same_slice := (
+					normal != null and normal.atlas != null and diffuse.atlas != null
+					and normal.region == diffuse.region and normal.filter_clip == diffuse.filter_clip
+					and normal.atlas.get_size() == diffuse.atlas.get_size()
+				)
+				check(same_slice, "道具 %s 的法線與色圖使用相同的裁切範圍" % prop.id)
 		if prop.has_glow and not ResourceLoader.exists(prop.glow_path()):
 			no_glow.append(String(prop.id))
 	check(props.size() >= 100, "道具資料（共用庫＋場景包）至少 100 件（%d）" % props.size())

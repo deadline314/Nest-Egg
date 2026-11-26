@@ -1,0 +1,54 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
+[ext_resource type="Resource" path="res://data/npcs/ch6_plaza_intercom.tres" id="3_ch6_plaza_intercom"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="4_lighting_zone"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch6_harbor_plaza.tres" id="5_ch6_harbor_plaza"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("2_portal_data")
+id = &"plaza_phone"
+target_level = "res://data/levels/ch5_phone_alley.tres"
+target_portal = &"phone_plaza"
+prompt = "{interact} 回電話亭巷"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Return to Phone Booth Alley", "ja": "{interact} 電話ボックス横丁に戻る"})
+width = 30
+height = 63
+style = "hidden"
+
+[sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("2_portal_data")
+id = &"plaza_overpass"
+target_level = "res://data/levels/ch6_broadcast_overpass.tres"
+target_portal = &"overpass_plaza"
+requires_flag = &"ch6_su_approach_confirmed"
+locked_text = "先到廣場喇叭和蘇確認維修路線。"
+localized_locked_text = Dictionary[String, String]({"en": "Check the maintenance route with Wake at the plaza speaker first.", "ja": "先に広場のスピーカーで蘇と保守路を確認する。"})
+prompt = "{interact} 上廣播站高架"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Take the broadcast overpass", "ja": "{interact} 放送局の高架に上る"})
+width = 30
+height = 63
+style = "hidden"
+
+[resource]
+script = ExtResource("1_level_data")
+id = &"ch6_harbor_plaza"
+display_name = "港區廣場（廣播前）"
+localized_names = Dictionary[String, String]({"en": "Harbor Plaza (Before the Broadcast)", "ja": "港の広場（放送前）"})
+tile_size = 16
+height = 24
+legend = Dictionary[String, Resource]({
+"ⅰ": SubResource("Resource_0"),
+"ⅱ": SubResource("Resource_1"),
+"Ⓢ": ExtResource("3_ch6_plaza_intercom")
+})
+hints = PackedStringArray()
+chapter = &"ch6_unmooring"
+persistent_world = true
+show_chapter_card = true
+environment = ExtResource("5_ch6_harbor_plaza")
+layout_path = "res://data/levels/ch6_harbor_plaza_map.json"
+lighting_zones = Array[ExtResource("4_lighting_zone")]([])
+story_triggers = PackedStringArray()
+death_credit_cap = 250

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"sluice_hall__catwalk_span"
+display_name = "檢修走道直段"
+texture = "res://data/environment/atlases/ch6_overpass_span.tres"
+size = Vector2(72, 48)
+category = &"scene"
