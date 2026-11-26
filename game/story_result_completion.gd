@@ -8,6 +8,7 @@ const POLICY := Sources.TERMINAL
 const CONTINUATION_POLICIES := Sources.CONTINUATION_POLICIES
 const COMPLETION_POLICIES := [POLICY] + CONTINUATION_POLICIES
 const Bundle := preload("res://core/story_install_bundle.gd")
+const InputSeal := preload("res://game/story_result_input_seal.gd")
 const Prompt := preload("res://ui/radio_save_prompt.gd")
 const SEGMENTS := {
 	"ch1_b_dinner_food": "res://data/levels/ch1_pawnshop.tres",
@@ -232,12 +233,21 @@ func _prepare_and_commit(scene: Dictionary, continuation: StringName = &"", choi
 		return {"error": "terminal producer is not bound to this segment and current authored Level"}
 	var npc := {}
 	var death := {}
+	var reads: InputSeal.Reads
+	var source_read := Callable()
+	if Sources.supports_bounded_result_source(String(_id)):
+		reads = InputSeal.Reads.new()
+		source_read = reads.include
+		if not Sources.include_route_sources(String(_id), source_read):
+			return {"error": "terminal catalog dependency scope is unavailable", "reload_original": true}
 	if Clinic.owns(String(_id)):
 		death = level.death_presentation_source(_id,_request)
 		if not Clinic.owns_source(death):
 			return {"error":"first clinic requires its actual current death episode and request"}
 	elif not Sources.npc_source(String(_id)).is_empty():
-		npc = _npc_source(level)
+		npc = _npc_source(level, source_read)
+		if reads != null and not reads.problem.is_empty():
+			return {"error": reads.problem, "reload_original": true}
 		if npc.is_empty():
 			return {"error": "terminal NPC result requires its actual current authored interaction", "reload_original": true}
 	elif SEGMENTS.get(String(_id), "") != level.data.resource_path:
@@ -268,10 +278,16 @@ func _prepare_and_commit(scene: Dictionary, continuation: StringName = &"", choi
 		# Detach the raw capture from the live area, retaining actual owner facts.
 		# Copying the normalized original could silently introduce read-time repairs.
 		candidate = candidate.duplicate(true)
-	var source := Bundle._capture_source()
+	var source := Bundle._capture_source() if reads == null else Bundle.capture_terminal_result_source()
 	if source.has("error"):
 		return source
 	var seal: Bundle.SourceSeal = source["data"]
+	var authored: InputSeal
+	if reads != null:
+		var captured := InputSeal.capture(reads)
+		if captured.has("error"):
+			return captured
+		authored = captured["data"]
 	var planned := _plan(scene, candidate, continuation, choice)
 	if not planned.get("valid", false):
 		return {"error": planned.get("error", "invalid result plan"), "status": planned.get("status", "")}
@@ -337,7 +353,7 @@ func _prepare_and_commit(scene: Dictionary, continuation: StringName = &"", choi
 	for flag: String in game["data"].flags:
 		if GameState.get_flag(StringName(flag)) != game["data"].flags[flag]:
 			changed.append(flag)
-	if not seal.matches() or not _source_unchanged(level,npc,death):
+	if not _sources_match(seal, authored, level, npc, death):
 		return {"error": "live source changed before durable terminal write"}
 	if health_gain > 0 and (not is_instance_valid(health) or health.current != health_before or health.preview_heal(health_gain) != health_gain):
 		return {"error": "live player health changed before durable terminal write"}
@@ -345,7 +361,7 @@ func _prepare_and_commit(scene: Dictionary, continuation: StringName = &"", choi
 	var outcome := store.commit_existing_write(write)
 	if not outcome.committed:
 		return {"error": "; ".join(outcome.issues), "reload_original": outcome.requires_recovery}
-	if outcome.requires_recovery or not seal.matches() or not _source_unchanged(level,npc,death):
+	if outcome.requires_recovery or not _sources_match(seal, authored, level, npc, death):
 		return {"committed": true, "recovery": true}
 	if health_gain > 0 and (not is_instance_valid(health) or health.current != health_before or health.preview_heal(health_gain) != health_gain):
 		return {"committed": true, "recovery": true}
@@ -363,9 +379,15 @@ func _prepare_and_commit(scene: Dictionary, continuation: StringName = &"", choi
 		"recovered_health": health, "health_gain": health_gain}
 
 
-func _source_unchanged(level: Level, npc: Dictionary, death: Dictionary) -> bool:
+func _sources_match(seal: Bundle.SourceSeal, authored: InputSeal, level: Level, npc: Dictionary, death: Dictionary) -> bool:
+	if not seal.matches() or (authored != null and not authored.matches()):
+		return false
+	return _source_unchanged(level, npc, death, authored != null)
+
+
+func _source_unchanged(level: Level, npc: Dictionary, death: Dictionary, scoped: bool) -> bool:
 	if _contract_revision != Sources.revision() or not is_instance_valid(level) or _live_level() != level: return false
-	if not _npc_unchanged(level,npc):
+	if not _npc_unchanged(level, npc, scoped):
 		return false
 	if death.is_empty():
 		return true
@@ -397,7 +419,7 @@ func _catalog_gate(id: StringName, request: int) -> Dictionary:
 
 ## Scope evidence only. Reward-free prepare remains a separate formal-write
 ## admission; failure there must never downgrade a genuine NPC to legacy.
-func _npc_origin(level: Level, id: StringName, request: int) -> Dictionary:
+func _npc_origin(level: Level, id: StringName, request: int, source_read := Callable()) -> Dictionary:
 	var context := Story.presentation_context_for_request(id,request)
 	var framing: String = context.get("framing_source","")
 	if framing not in ["person","object"]: return {"kind":"none"}
@@ -415,7 +437,7 @@ func _npc_origin(level: Level, id: StringName, request: int) -> Dictionary:
 		if not is_instance_valid(node): continue
 		var actor := node as NpcActor
 		if actor == null or not level.npc_sources.has(actor) or actor.is_queued_for_deletion() or not actor.is_inside_tree() or not is_instance_valid(actor.data) or actor.state_key() != context.get("source_id") or not actor.is_present() or not actor.get("_talking") or actor.get("_presentation_index") != index or index >= actor.data.talks.size(): continue
-		if framing != ("person" if actor.data.kind == NpcData.Kind.PERSON else "object") or not Story.is_npc_presentation(actor.data,index,id): continue
+		if framing != ("person" if actor.data.kind == NpcData.Kind.PERSON else "object") or not Story.is_npc_presentation(actor.data, index, id, source_read): continue
 		for spawn: Dictionary in level._layout.spawns:
 			if spawn["resource"] == actor.data and spawn["cell"] == actor.cell:
 				return {"kind":"npc","actor":actor,"index":index,"metadata":{"npc":actor.data.resource_path,"index":index,"entry":String(actor.data.talks[index].scene),"talk":_talk_descriptor(actor.data.talks[index])}}
@@ -426,25 +448,35 @@ static func _talk_descriptor(talk: NpcTalk) -> Dictionary:
 	return {"scene":String(talk.scene),"min_talks":talk.min_talks,"min_deaths":talk.min_deaths,"after_scene":String(talk.after_scene),"requires_flag":String(talk.requires_flag),"unless_flag":String(talk.unless_flag),"requires_item":String(talk.requires_item),"requires_held_item":String(talk.requires_held_item),"unless_held_item":String(talk.unless_held_item),"requires_transferred_item":String(talk.requires_transferred_item),"once":talk.once,"credits":talk.credits,"consumable":talk.consumable.resource_path if talk.consumable else "","story_item":talk.story_item.resource_path if talk.story_item else ""}
 
 
-func _npc_source(level: Level) -> Dictionary:
+func _npc_source(level: Level, source_read := Callable()) -> Dictionary:
 	var source: Dictionary = Sources.npc_source(String(_id))
 	var allowed: Array = source.get("levels", [])
 	if not allowed.has(level.data.resource_path): return {}
-	var origin := _npc_origin(level,_id,_request)
+	var origin := _npc_origin(level, _id, _request, source_read)
 	if origin.get("kind") != "npc": return {}
 	var actor: NpcActor = origin["actor"]
 	if actor.data.resource_path != source.get("npc",""): return {}
 	var prepared := actor.prepare_story_completion(origin["index"])
-	return {"actor":actor,"key":actor.state_key(),"prepared":prepared} if not prepared.is_empty() else {}
+	if prepared.is_empty():
+		return {}
+	var talk: NpcTalk = actor.data.talks[origin["index"]]
+	var descriptor: Dictionary = origin["metadata"]
+	descriptor["kind"] = actor.data.kind
+	descriptor["talk_path"] = talk.resource_path
+	descriptor["resume_scene"] = talk.resume_scene
+	descriptor["reward_text"] = talk.reward_text
+	return {"actor": actor, "key": actor.state_key(), "prepared": prepared, "descriptor": descriptor}
 
 
-func _npc_unchanged(level: Level, expected: Dictionary) -> bool:
+func _npc_unchanged(level: Level, expected: Dictionary, scoped: bool) -> bool:
 	if expected.is_empty():
 		return true
 	if not is_instance_valid(level) or level.is_queued_for_deletion() or not level.is_inside_tree() or main.get("_screen") != level or not is_instance_valid(expected["actor"]):
 		return false
 	var current := _npc_source(level)
-	return not current.is_empty() and current["actor"] == expected["actor"] and current["key"] == expected["key"] and var_to_bytes(current["prepared"]) == var_to_bytes(expected["prepared"])
+	return not current.is_empty() and current["actor"] == expected["actor"] and current["key"] == expected["key"] \
+			and (not scoped or current["descriptor"] == expected["descriptor"]) \
+			and var_to_bytes(current["prepared"]) == var_to_bytes(expected["prepared"])
 
 
 func _plan(scene: Dictionary, candidate: Dictionary, continuation: StringName = &"", choice := false) -> Dictionary:

@@ -387,28 +387,56 @@ func _local_choice_step(id: String, scenes: Dictionary, sources: Dictionary) -> 
 
 ## One bounded, memoized authored graph; gray nodes reject cycles. Metadata is
 ## registered here rather than inferred from arbitrary loaded story payloads.
+## Called only after the catalog is independently admitted. Its frozen edges
+## include unselected choices and failure positions as well as the used route.
+func supports_bounded_result_source(id: String) -> bool:
+	return _error.is_empty() and _records.has(id) and not npc_source(id).is_empty()
+
+
+func include_route_sources(id: String, source_read: Callable) -> bool:
+	var pending: Array[String] = [id]
+	var visited := {}
+	while not pending.is_empty():
+		var next: String = pending.pop_back()
+		if visited.has(next):
+			continue
+		if not _records.has(next) or visited.size() >= MAX_ROUTE_NODES or not source_read.call(StringName(next)):
+			return false
+		visited[next] = true
+		pending.append_array(_route_targets(next))
+		# Only the Ali pending-terminal admission currently has a durable
+		# predecessor that can become a second read root.
+		var previous: String = _boundary_rule(next).get("pending_after", "")
+		if not previous.is_empty():
+			pending.append(previous)
+	return true
+
+
+func _route_targets(id: String) -> Array[String]:
+	var targets: Array[String] = []
+	if owns_choice(id):
+		for option: Dictionary in _choice_rule(id)["options"]:
+			if not option["target"].is_empty():
+				targets.append(option["target"])
+	else:
+		var rule := _boundary_rule(id)
+		if not rule.get("then", "").is_empty():
+			targets.append(rule["then"])
+		for target: String in rule.get("failures", {}).values():
+			targets.append(target)
+	return targets
+
+
 func _route_valid(id: String, scenes: Dictionary, sources: Dictionary, visits: Dictionary) -> bool:
 	if visits.has(id):
 		return visits[id] == 2
 	if visits.size() >= MAX_ROUTE_NODES or npc_source(id).is_empty():
 		return false
 	visits[id] = 1
-	var targets: Array = []
-	if owns_choice(id):
-		if _local_choice_step(id, scenes, sources).is_empty():
-			return false
-		for option: Dictionary in _choice_rule(id)["options"]:
-			if not option["target"].is_empty():
-				targets.append(option["target"])
-	else:
-		var rule := boundary(id, scenes, sources)
-		if rule.is_empty():
-			return false
-		if not rule["then"].is_empty():
-			targets.append(rule["then"])
-		for target: String in rule.get("failures", {}).values():
-			targets.append(target)
-	for target: String in targets:
+	var local := _local_choice_step(id, scenes, sources) if owns_choice(id) else boundary(id, scenes, sources)
+	if local.is_empty():
+		return false
+	for target: String in _route_targets(id):
 		if npc_source(id) != npc_source(target) or not _route_valid(target, scenes, sources, visits):
 			return false
 	visits[id] = 2

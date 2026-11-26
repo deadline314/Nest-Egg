@@ -89,6 +89,14 @@ static func repeatable(id: String, scenes: Dictionary, sources: Dictionary) -> b
 static func failure(id: String, reason: String, scenes: Dictionary, sources: Dictionary) -> StringName:
 	return _catalog_instance().failure(id, reason, scenes, sources)
 
+static func supports_bounded_result_source(id: String) -> bool:
+	return not Clinic.owns(id) and not Flags.owns(id) and not BOUNDARIES.has(id) and _catalog_instance().supports_bounded_result_source(id)
+
+
+static func include_route_sources(id: String, source_read: Callable) -> bool:
+	return _catalog_instance().include_route_sources(id, source_read)
+
+
 static func pending_terminal(npc_path: String, entry: StringName, id: String, scenes: Dictionary, sources: Dictionary, completed: Dictionary) -> bool:
 	if entry != &"ch1_dispatch_ali_stall" or npc_path != npc_source(id).get("npc", "") or completed.has(StringName(id)) or _catalog_instance()._loaded(String(entry), scenes, sources).is_empty(): return false
 	var rule := boundary(id, scenes, sources)

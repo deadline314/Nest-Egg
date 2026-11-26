@@ -401,12 +401,22 @@ func scene_available(id: StringName) -> bool:
 
 
 ## 分派場景目前會播哪一段（依 routes 順序第一個成立的）；不是分派場景時回傳自己，沒有可播的回傳空。
-func resolve_dispatch(id: StringName) -> StringName:
+func resolve_dispatch(id: StringName, source_read := Callable()) -> StringName:
+	if source_read.is_valid() and not source_read.call(id):
+		return &""
 	var scene: Dictionary = _scenes.get(String(id), {})
 	if str(scene.get("mode", "")) != String(MODE_DISPATCH):
 		return id if has_scene(id) else &""
 	var routes: Variant = scene.get("routes", [])
 	if routes is Array:
+		if source_read.is_valid():
+			if not source_read.call(id, routes.size()):
+				return &""
+			# Include ineligible and lower-priority candidates. A change to
+			# their source must be caught even if selection would stay equal.
+			for route: Variant in routes:
+				if route is Dictionary and not source_read.call(StringName(str(route.get("target", "")))):
+					return &""
 		for route: Variant in routes:
 			if not route is Dictionary:
 				continue
@@ -874,11 +884,11 @@ func finished_presentation_request() -> int:
 ## 續玩只接受原 talk 可到達的 then／選項目標；分派仍依還原後的事實選取。
 ## 不讀取結果、不重新套用選項，且限制探索大小，避免循環或損壞資料無限展開。
 ## 取件與記錄會切換分派。當次後續仍需對上已完成的原段落和實際物件。
-func is_npc_presentation(data: NpcData, index: int, segment: StringName) -> bool:
+func is_npc_presentation(data: NpcData, index: int, segment: StringName, source_read := Callable()) -> bool:
 	if data == null or index < 0 or index >= data.talks.size():
 		return false
 	var entry := data.talks[index].scene
-	if is_chained_scene(resolve_dispatch(entry), segment):
+	if is_chained_scene(resolve_dispatch(entry, source_read), segment, source_read):
 		return true
 	if _completed.has(segment) or not scene_available(segment):
 		return false
@@ -887,12 +897,14 @@ func is_npc_presentation(data: NpcData, index: int, segment: StringName) -> bool
 	var origin: Array = OFFICE_CHAIN_ORIGINS.get(data.resource_path, [])
 	if origin.is_empty() or origin[0] != entry or not _completed.has(origin[1]):
 		return false
+	if source_read.is_valid() and not source_read.call(StringName(origin[1])):
+		return false
 	var office_story := "res://data/story/ch3_clearwater.json"
 	return _scene_sources.get(String(origin[1])) == office_story and _scene_sources.get(String(segment)) == office_story \
-			and is_chained_scene(origin[1], segment)
+			and is_chained_scene(origin[1], segment, source_read)
 
 
-func is_chained_scene(origin: StringName, segment: StringName) -> bool:
+func is_chained_scene(origin: StringName, segment: StringName, source_read := Callable()) -> bool:
 	var visited: Dictionary[StringName, bool] = {}
 	var pending: Array[StringName] = [origin]
 	while not pending.is_empty() and visited.size() < 64:
@@ -900,11 +912,13 @@ func is_chained_scene(origin: StringName, segment: StringName) -> bool:
 		if not has_scene(origin) or visited.has(origin):
 			continue
 		visited[origin] = true
+		if source_read.is_valid() and not source_read.call(origin):
+			return false
 		if origin == segment:
 			return true
 		var scene: Dictionary = _scenes[String(origin)]
 		if str(scene.get("mode", "")) == String(MODE_DISPATCH):
-			pending.append(resolve_dispatch(origin))
+			pending.append(resolve_dispatch(origin, source_read))
 		else:
 			pending.append(StringName(str(scene.get("then", ""))))
 			# Authored transaction failures are real outgoing presentation edges.

@@ -2,6 +2,22 @@ extends RefCounted
 ## Real authored label actors and real writer; the native probe separately uses
 ## the complete Main menu/route and public input across independent processes.
 const LEVEL := "res://data/levels/ch1_pawnshop.tres"
+const WATCH_ALTERNATE := "ch1_t_label_watch_revisit"
+const OTHER_NPC := "ch1_t_egret_1"
+
+
+class SourceStore extends RunSaveStore:
+	var after_prepare := Callable()
+
+	func prepare_existing_write(raw: Variant, level: Level = null) -> Dictionary:
+		var prepared := super.prepare_existing_write(raw, level)
+		if prepared.has("data") and after_prepare.is_valid():
+			var change := after_prepare
+			after_prepare = Callable()
+			change.call()
+		return prepared
+
+
 class BoundaryMain extends "res://game/main.gd":
 	func _ready() -> void:
 		pass
@@ -17,8 +33,9 @@ static func run(s: TestSuite, directory: String) -> void:
 	main._active_run = true
 	main._screen = level
 	main._level_path = LEVEL
-	main._run_store = RunSaveStore.new(directory.path_join("npc-terminal.json"))
-	main._run_store.validator = RunSnapshot.prepare
+	var store := SourceStore.new(directory.path_join("npc-terminal.json"))
+	store.validator = RunSnapshot.prepare
+	main._run_store = store
 	var owner := preload("res://game/story_result_completion.gd").new()
 	owner.main = main
 	main._result_completion = owner
@@ -62,8 +79,11 @@ static func run(s: TestSuite, directory: String) -> void:
 		if not is_instance_valid(owner._prompt):
 			GameState.flag_changed.disconnect(listener)
 			continue
-		owner._retry()
-		await s.frames(3)
+		if name == "watch":
+			await _retry_watch_with_source_changes(s, store, owner, actor, before)
+		else:
+			owner._retry()
+			await s.frames(3)
 		s.check(observed.get("consistent", false) and actor.talk_count == 1 and not actor._talking, "durable label installs all facts before observers and settles once: " + name)
 		s.check(not actor.can_resume_presentation(id, 0), "completed dispatcher cannot resume its already-settled terminal result: " + name)
 		var reader := RunSaveStore.new(main._run_store.path)
@@ -80,3 +100,36 @@ static func run(s: TestSuite, directory: String) -> void:
 	Story.result_completion = previous_owner if is_instance_valid(previous_owner) else null
 	await s.end_level(level)
 	Story.auto_skip = previous_auto
+
+
+## The real first waiter's alternate stays ineligible while both retries run.
+## Its source is still relevant, while the unrelated NPC's body is disjoint.
+static func _retry_watch_with_source_changes(s: TestSuite, store: SourceStore, owner: Node, actor: NpcActor, original_slot: PackedByteArray) -> void:
+	var previous: Dictionary = Story._scenes[WATCH_ALTERNATE]
+	var alternate := previous.duplicate(true)
+	var condition := {"flag": "ch1_label_watch_seen", "equals": true}
+	for depth: int in 12:
+		condition = {"all" if depth % 2 == 0 else "any": [condition]}
+	s.check(StoryConditionTree.validate(condition, Story.outcomes.transactions).get("valid", false), "watch retry fixture uses legal authored condition depth")
+	alternate["when"] = condition
+	Story._scenes[WATCH_ALTERNATE] = alternate
+	var original_source: String = Story._scene_sources[WATCH_ALTERNATE]
+	store.after_prepare = func() -> void:
+		Story._scene_sources[WATCH_ALTERNATE] = "res://data/story/changed_during_label_save.json"
+	owner._retry()
+	await s.frames(3)
+	s.check(not store.after_prepare.is_valid() and is_instance_valid(owner._prompt) and actor._talking and actor.talk_count == 0
+		and FileAccess.get_file_as_bytes(store.path) == original_slot, "inactive dispatcher source change retains the same unsettled waiter and old primary")
+	Story._scene_sources[WATCH_ALTERNATE] = original_source
+
+	var other: Dictionary = Story._scenes[OTHER_NPC]
+	store.after_prepare = func() -> void:
+		var changed := other.duplicate(true)
+		changed["scope_fixture"] = true
+		Story._scenes[OTHER_NPC] = changed
+	owner._retry()
+	await s.frames(3)
+	s.check(not store.after_prepare.is_valid() and not is_instance_valid(owner._prompt) and actor.talk_count == 1,
+		"deep alternate and disjoint authored edit allow the real watcher to settle once")
+	Story._scenes[OTHER_NPC] = other
+	Story._scenes[WATCH_ALTERNATE] = previous

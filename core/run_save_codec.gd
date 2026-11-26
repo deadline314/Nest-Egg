@@ -122,6 +122,21 @@ static func validate_tree(raw: Variant, node_limit := MAX_NODES, depth_limit := 
 	validator.depth_limit = depth_limit
 	if validator.visit(raw, 0):
 		return PackedStringArray()
+	return _validation_issue(validator)
+
+
+## Bound an in-memory Variant packet before allocating its encoded bytes.
+static func validate_marshaled_tree(raw: Variant, node_limit: int, byte_limit: int, depth_limit: int) -> PackedStringArray:
+	var validator := _MarshalValidator.new()
+	validator.limit = clampi(node_limit, 1, MAX_NODES)
+	validator.depth_limit = depth_limit
+	validator.bytes_left = maxi(0, byte_limit)
+	if validator.visit(raw, 0):
+		return PackedStringArray()
+	return _validation_issue(validator)
+
+
+static func _validation_issue(validator: _TreeValidator) -> PackedStringArray:
 	var where := "run"
 	for i in range(validator.path.size() - 1, -1, -1):
 		where = _diagnostic_path(where, str(validator.path[i]))
@@ -174,6 +189,33 @@ class _TreeValidator:
 					path.append(i)
 					return false
 		return true
+
+
+# The bound counts more than the marshaling header, type and alignment cost
+# for a scalar/container, plus at most four UTF-8 bytes per character.
+class _MarshalValidator extends _TreeValidator:
+	var bytes_left := 0
+
+	func visit(value: Variant, depth: int) -> bool:
+		if not _reserve(value):
+			return false
+		if value is Dictionary:
+			if value.get_typed_key_builtin() == TYPE_OBJECT or value.get_typed_value_builtin() == TYPE_OBJECT:
+				return fail("不接受物件容器")
+			if value.size() > bytes_left / 32:
+				return fail("資料超過編碼大小上限")
+			for key: Variant in value:
+				if not _reserve(key):
+					return false
+		elif value is Array and value.get_typed_builtin() == TYPE_OBJECT:
+			return fail("不接受物件容器")
+		return super.visit(value, depth)
+
+	func _reserve(value: Variant) -> bool:
+		bytes_left -= 32
+		if value is String or value is StringName:
+			bytes_left -= String(value).length() * 4
+		return bytes_left >= 0 or fail("資料超過編碼大小上限")
 
 
 static func _diagnostic_path(parent: String, key: String) -> String:

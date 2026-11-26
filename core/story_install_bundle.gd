@@ -153,6 +153,11 @@ static func capture_world_pickup_source() -> Dictionary:
 	return _capture_source(true)
 
 
+## The terminal NPC owner independently proves every authored body it reads.
+static func capture_terminal_result_source() -> Dictionary:
+	return _capture_source(true)
+
+
 static func _capture_source(scene_ids_only := false) -> Dictionary:
 	if Progression._story_transaction_busy:
 		return {"error": "install/source story transaction is busy"}
