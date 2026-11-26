@@ -49,7 +49,7 @@ from_tile = 215
 material = ExtResource("m_brick")
 facades = Array[ExtResource("4_facade_data")]([ExtResource("f_apartment")])
 interior = "res://art/environment/materials/asphalt_body.png"
-interior_scale = 8
+interior_scale = 4
 hole_chance = 0.0
 label = "中庭"
 

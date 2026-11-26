@@ -181,7 +181,8 @@ func _draw_regions(canvas: CanvasItem, area: Rect2) -> void:
 func _draw_piece(canvas: CanvasItem, material: TerrainMaterialData, piece: Rect2, full: Rect2) -> void:
 	var scale_factor := float(material.texture_scale)
 	var body := _material_texture(material.body)
-	canvas.draw_texture_rect_region(body, piece, Rect2(piece.position * scale_factor, piece.size * scale_factor))
+	var body_scale := material.effective_body_scale()
+	canvas.draw_texture_rect_region(body, piece, Rect2(piece.position * body_scale, piece.size * body_scale))
 	var top_h := material.top_height
 	var side_w := material.side_width
 	# 頂端：上方那一格不是實心的欄才有頂面。

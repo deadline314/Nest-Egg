@@ -68,9 +68,34 @@ func _test_materials() -> void:
 		var m := res as TerrainMaterialData
 		check(m.validate().is_empty(), "材質 %s 的三張貼圖與法線都存在" % m.id)
 		var body := _png_size(m.body)
-		check(body.x == body.y and body.x % m.texture_scale == 0 and body.x >= 64 and body.x <= 768, "材質 %s 本體是正方形、邊長是貼圖倍率的整數倍且在 64～768（%s）" % [m.id, body])
-		check(_png_size(m.top) == Vector2i(body.x, roundi(m.top_height * m.texture_scale)), "材質 %s 頂面寬同本體、高 = 頂面厚度 × 倍率" % m.id)
-		check(_png_size(m.side) == Vector2i(roundi(m.side_width * m.texture_scale), body.y), "材質 %s 側邊寬 = 側邊厚度 × 倍率、高同本體" % m.id)
+		var top := _png_size(m.top)
+		var side := _png_size(m.side)
+		check(_png_size(TerrainMaterialData.normal_path(m.body)) == body, "材質 %s 底色與法線同尺寸" % m.id)
+		check(top.y == roundi(m.top_height * m.texture_scale), "材質 %s 頂面高度符合頂面倍率" % m.id)
+		check(side.x == roundi(m.side_width * m.texture_scale), "材質 %s 側邊寬度符合側邊倍率" % m.id)
+		if m.body_texture_scale == 0:
+			check(body.x == body.y and body.x % m.texture_scale == 0 and body.x >= 64 and body.x <= 768, "材質 %s 本體符合正方貼圖規格（%s）" % [m.id, body])
+			check(top.x == body.x and side.y == body.y, "材質 %s 頂面和側邊週期對齊方形本體" % m.id)
+		else:
+			var density := int(m.effective_body_scale())
+			check(body.x > body.y and body.x <= 1536 and body.x * body.y <= 393216 and body.y >= 64, "材質 %s 長幅本體符合尺寸上限（%s）" % [m.id, body])
+			check(body.x % density == 0 and body.y % density == 0, "材質 %s 長幅本體以整數世界像素重複" % m.id)
+
+	var asphalt_ids: Array[StringName] = [&"asphalt", &"plaza_asphalt", &"street_asphalt", &"street_asphalt_platform"]
+	var authored: Array[StringName] = []
+	var atlas := "res://art/environment/materials/asphalt_body.png"
+	for res in list:
+		var material := res as TerrainMaterialData
+		if material.body != atlas:
+			continue
+		authored.append(material.id)
+		check(material.body_texture_scale == 4 and material.texture_scale == 8, "柏油本體與頂面各自用原尺寸")
+	for id in asphalt_ids:
+		check(id in authored, "柏油變體 %s 沿用共用的不規則圖案" % id)
+	var chapter_two := load("res://data/environment/themes/chapter2.tres") as EnvironmentTheme
+	var courtyard := chapter_two.zone_at(232)
+	check(courtyard.interior == atlas and courtyard.interior_scale == 4, "中庭從世界座標取樣同一幅長圖案")
+	check(_png_size(atlas) == Vector2i(1536, 256), "柏油本體在 384 × 64 世界像素內分散裂紋")
 
 
 func _test_facades() -> void:

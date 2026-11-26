@@ -9,8 +9,10 @@ const TEXTURE_SCALE := 4
 
 @export var id: StringName = &""
 @export var display_name: String = ""
-## 貼圖像素 ÷ 邏輯像素。本體貼圖的邊長 = texture_scale × 每次重複涵蓋的邏輯像素。
+## 貼圖像素 ÷ 邏輯像素，供頂面、側邊和沒有覆寫解析度的本體使用。
 @export_range(1, 16) var texture_scale: int = TEXTURE_SCALE
+## 長幅本體可以使用較低的像素密度；0 代表沿用 texture_scale。
+@export_range(0, 16) var body_texture_scale: int = 0
 @export_file("*.png") var body: String = ""
 @export_file("*.png") var top: String = ""
 @export_file("*.png") var side: String = ""
@@ -19,6 +21,10 @@ const TEXTURE_SCALE := 4
 @export var side_width: float = 6.0
 ## 頂端亮邊的顏色（自發光細線）；alpha 為 0 時沿用預設亮邊。
 @export var edge_color: Color = Color(0, 0, 0, 0)
+
+
+func effective_body_scale() -> float:
+	return float(body_texture_scale if body_texture_scale > 0 else texture_scale)
 
 
 func validate() -> PackedStringArray:

@@ -7,7 +7,8 @@ with ink lines, seamless by construction, BG-1); one with a "source" is cut from
 For every entry writes, into art/environment/materials/:
   <id>_body.png  <id>_top.png  <id>_side.png   (+ _n.png normals, Godot 2D convention: Y+ up, OpenGL maps as-is)
 and patches data/environment/materials/<id>.tres with the texture_scale that matches the written size,
-so the game draws the texture at tile_world logical pixels per repeat.
+so the game draws the texture at tile_world logical pixels per repeat. A cel body_override
+can use a longer period while top and side continue to use the square source.
 Grading (brightness / contrast / saturation / tint) lives in the JSON, never in code, so one edit re-colours a material.
 A seam metric is printed per body texture; above SEAM_LIMIT the source is not tileable and the entry is skipped.
 """
@@ -31,7 +32,10 @@ PIPELINE = ROOT / "assets_src" / "pipeline" / "materials.json"
 OUT = ROOT / "art" / "environment" / "materials"
 DATA = ROOT / "data" / "environment" / "materials"
 SEAM_LIMIT = 3.0
-MAX_BODY_PX = 768  # size budget per texture; raise deliberately, not by accident
+MAX_BODY_PX = 768  # Existing square materials keep their size budget.
+MIN_WALL_HEIGHT = 64
+MAX_WALL_DIMENSION = 1536
+MAX_WALL_TEXELS = 1536 * 256
 LUMA = np.array([0.299, 0.587, 0.114], dtype=np.float32)
 
 
@@ -150,14 +154,49 @@ def build_side_cel(body, nrm, k, side_w, spec):
     return img, v
 
 
-def patch_tres(path: Path, scale: int) -> None:
+def patch_tres(path: Path, scale: int, body_scale: int | None = None) -> None:
     text = path.read_text(encoding="utf-8")
     line = f"texture_scale = {scale}"
     if re.search(r"^texture_scale = .*$", text, re.M):
         text = re.sub(r"^texture_scale = .*$", line, text, flags=re.M)
     else:
         text = re.sub(r'(^id = &"[^"]*"\n)', lambda m: m.group(1) + line + "\n", text, count=1, flags=re.M)
+    if body_scale is not None:
+        body_line = f"body_texture_scale = {body_scale}"
+        if re.search(r"^body_texture_scale = .*$", text, re.M):
+            text = re.sub(r"^body_texture_scale = .*$", body_line, text, flags=re.M)
+        else:
+            text = re.sub(r"^texture_scale = .*$", lambda match: match[0] + "\n" + body_line, text, count=1, flags=re.M)
     path.write_text(text, encoding="utf-8")
+
+
+def body_override(spec: dict) -> tuple[np.ndarray, np.ndarray]:
+    """A wider cel body can keep gameplay edge strips at their original repeat."""
+    override = spec["body_override"]
+    required = {"world_size", "texture_scale", "normal_strength", "cel"}
+    if not isinstance(override, dict) or override.keys() != required:
+        raise ValueError("body_override requires world_size, texture_scale, normal_strength and cel")
+    world, scale, cel = override["world_size"], override["texture_scale"], override["cel"]
+    if (not isinstance(world, list) or len(world) != 2 or any(type(n) is not int or n < 1 for n in world)
+            or type(scale) is not int or not 1 <= scale <= 16
+            or not isinstance(cel, dict) or cel.get("kind") != "aggregate_wall"):
+        raise ValueError("body_override requires a positive world_size pair, a valid scale and a cel aggregate wall")
+    width, height_px = (side * scale for side in world)
+    if not MIN_WALL_HEIGHT <= height_px < width <= MAX_WALL_DIMENSION or width * height_px > MAX_WALL_TEXELS:
+        raise ValueError(f"body {width}x{height_px}px is outside the wall dimension or texel budget")
+    strength = override["normal_strength"]
+    if type(strength) not in (int, float) or not 0 <= strength <= 24:
+        raise ValueError("body_override normal_strength must be in [0, 24]")
+    seed = zlib.crc32(f"{spec['id']}:body".encode())
+    tile = cel_tile.paint(cel["kind"], width, scale, seed, cel, height_px=height_px)
+    rgb, height = tile.finish()
+    body = grade(rgb, spec.get("grade", {}))
+    ratio = seam_ratio(body)
+    if not ratio <= SEAM_LIMIT:
+        raise ValueError(f"body override RGB seam ratio {ratio:.2f} > {SEAM_LIMIT}")
+    normals = cel_tile.normals(height, strength) * 2.0 - 1.0
+    print(f"      {spec['id']:16} body override {width}x{height_px}px  scale {scale}  seam {ratio:.2f}")
+    return body, normals
 
 
 def process(spec: dict, defaults: dict) -> bool:
@@ -200,13 +239,17 @@ def process(spec: dict, defaults: dict) -> bool:
         "top": top_fn(body, nrm, k, float(spec["top_height"]), spec),
         "side": side_fn(body, nrm, k, float(spec["side_width"]), spec),
     }
+    body_scale = None
+    if "body_override" in spec:
+        parts["body"] = body_override(spec)
+        body_scale = spec["body_override"]["texture_scale"]
     for name, (img, v) in parts.items():
         v = v / np.maximum(np.linalg.norm(v, axis=2, keepdims=True), 1e-6)
         save(OUT / f"{spec['id']}_{name}.png", img)
         save(OUT / f"{spec['id']}_{name}_n.png", v * 0.5 + 0.5)
     tres = DATA / f"{spec['id']}.tres"
     if tres.exists():
-        patch_tres(tres, k)
+        patch_tres(tres, k, body_scale)
     else:
         print(f"warn  {spec['id']}: {tres.name} not found, texture_scale not patched", file=sys.stderr)
     print(f"ok    {spec['id']:16} body {px}px  scale {k}  seam {ratio:.2f}  <- {source}")

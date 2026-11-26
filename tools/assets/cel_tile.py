@@ -7,7 +7,7 @@ seed comes from the material id, so a rebuild gives the same picture.
 
   t = Tile(px=512, k=8, seed=1)       px pixels square, k pixels per logical pixel
   t.fill(base); t.bevel_rect(...); t.blob(...); t.crack(...)
-  rgb, height = t.finish()            float arrays at px x px (rgb 0..1, height 0..1)
+  rgb, height = t.finish()            float arrays (rgb 0..1, height 0..1); height_px opts in to a non-square tile
   normals(height, strength)           OpenGL (Y+ up) normal map, the convention Godot 2D lighting expects
 
 Painters per material kind live at the bottom (PAINTERS); their parameters come from assets_src/pipeline/materials.json.
@@ -41,18 +41,20 @@ def mul(c, f: float) -> tuple[int, int, int]:
 
 
 class Tile:
-    def __init__(self, px: int, k: int, seed: int):
+    def __init__(self, px: int, k: int, seed: int, *, height_px: int | None = None):
         self.px, self.k = px, k
+        self.py = px if height_px is None else height_px
         self.n = px * SS
+        self.height_n = self.py * SS
         self.rng = random.Random(seed)
-        self.col = Image.new("RGB", (self.n, self.n))
-        self.hgt = Image.new("L", (self.n, self.n), 128)
+        self.col = Image.new("RGB", (self.n, self.height_n))
+        self.hgt = Image.new("L", (self.n, self.height_n), 128)
         self.dc, self.dh = ImageDraw.Draw(self.col), ImageDraw.Draw(self.hgt)
 
     # ---- drawing (coordinates in final pixels, floats allowed) ---------------------------------------------------
     def _shifts(self, xs, ys, margin: float):
         sx = [0] + ([self.px] if min(xs) - margin < 0 else []) + ([-self.px] if max(xs) + margin > self.px else [])
-        sy = [0] + ([self.px] if min(ys) - margin < 0 else []) + ([-self.px] if max(ys) + margin > self.px else [])
+        sy = [0] + ([self.py] if min(ys) - margin < 0 else []) + ([-self.py] if max(ys) + margin > self.py else [])
         return [(a, b) for a in sx for b in sy]
 
     def poly(self, pts, fill=None, h=None, ink=None, ink_w: float = 0.0, ink_h: int | None = None) -> None:
@@ -90,8 +92,8 @@ class Tile:
                 self.dh.line(P, fill=h, width=width, joint="curve")
 
     def fill(self, color, h: int = 128) -> None:
-        self.dc.rectangle([0, 0, self.n, self.n], fill=color)
-        self.dh.rectangle([0, 0, self.n, self.n], fill=h)
+        self.dc.rectangle([0, 0, self.n, self.height_n], fill=color)
+        self.dh.rectangle([0, 0, self.n, self.height_n], fill=h)
 
     # ---- composite shapes ------------------------------------------------------------------------------------------
     def bevel_rect(self, x0, y0, x1, y1, base, hi, lo, bw: float, ink=None, ink_w: float = 0.0, h: int = 150) -> None:
@@ -129,8 +131,8 @@ class Tile:
                        ang + self.rng.choice([-1, 1]) * self.rng.uniform(0.6, 1.2), 0, h)
 
     def finish(self) -> tuple[np.ndarray, np.ndarray]:
-        rgb = cv2.resize(np.asarray(self.col), (self.px, self.px), interpolation=cv2.INTER_AREA).astype(np.float32) / 255.0
-        hgt = cv2.resize(np.asarray(self.hgt), (self.px, self.px), interpolation=cv2.INTER_AREA).astype(np.float32) / 255.0
+        rgb = cv2.resize(np.asarray(self.col), (self.px, self.py), interpolation=cv2.INTER_AREA).astype(np.float32) / 255.0
+        hgt = cv2.resize(np.asarray(self.hgt), (self.px, self.py), interpolation=cv2.INTER_AREA).astype(np.float32) / 255.0
         return rgb, hgt
 
 
@@ -287,6 +289,38 @@ def paint_asphalt(t: Tile, p: dict) -> None:
         t.rect(sx, sy, sx + ln, sy + 0.35 * u, mix(pal["base"], pal["light"], 0.3), 138)
 
 
+def paint_aggregate_wall(t: Tile, p: dict) -> None:
+    """Matte cast aggregate with sparse fractures and one chipped patch across a long panel."""
+    pal, u = _pal(p), t.k
+    base, tones = pal["base"], pal["tones"]
+    t.fill(base)
+    for _ in range(48):
+        x, y = t.rng.uniform(0, t.px), t.rng.uniform(0, t.py)
+        tone = mix(base, t.rng.choice(tones), t.rng.uniform(0.40, 0.80))
+        t.blob(x, y, t.rng.uniform(7, 26) * u, tone, None, 0.36, 8, squash=t.rng.uniform(0.35, 0.85))
+    for _ in range(1280):
+        x, y = t.rng.uniform(0, t.px), t.rng.uniform(0, t.py)
+        r = t.rng.uniform(0.13, 0.55) * u
+        tint = pal["light"] if t.rng.random() < 0.40 else pal["ink"]
+        t.ellipse(x, y, r, r * t.rng.uniform(0.65, 1.2), mix(base, tint, t.rng.uniform(0.09, 0.27)), 127)
+    fractures = p["fractures"]
+    if not isinstance(fractures, list) or len(fractures) > 12:
+        raise ValueError("an aggregate wall supports at most twelve fractures")
+    for x, y, extent, angle in fractures:
+        if not (0 <= x <= 1 and 0 <= y <= 1 and 4 <= extent <= 22 and -180 <= angle <= 180):
+            raise ValueError("wall fractures must stay in the authored position, size and angle ranges")
+        t.crack(x * t.px, y * t.py, extent * u, mix(base, pal["ink"], 0.44), 0.34 * u,
+                angle=math.radians(angle), branch=1, h=119)
+    px, py = p["repair"]
+    if not (0 <= px <= 1 and 0 <= py <= 1):
+        raise ValueError("wall repair position must lie inside the panel")
+    x, y = px * t.px, py * t.py
+    patch = [(x + dx * u, y + dy * u) for dx, dy in
+             [(-7, -2), (-2, -6), (6, -5), (11, -1), (9, 5), (3, 7), (-5, 5), (-8, 1)]]
+    t.poly(patch, mix(base, pal["ink"], 0.16), 123, mix(base, pal["ink"], 0.38), 0.30 * u, 116)
+    t.line(patch[4:8], mix(base, pal["light"], 0.18), 0.34 * u, 131)
+
+
 def paint_gravel(t: Tile, p: dict) -> None:
     """Gravel-and-tar roof: tar base, roofing-felt seams, clusters of small lit stones, a few patches."""
     pal, u = _pal(p), t.k
@@ -389,13 +423,15 @@ def paint_rust(t: Tile, p: dict) -> None:
 
 PAINTERS = {
     "plates": paint_plates, "bricks": paint_bricks, "corrugated": paint_corrugated, "slabs": paint_slabs,
-    "asphalt": paint_asphalt, "gravel": paint_gravel, "grating": paint_grating, "glass": paint_glass, "rust": paint_rust,
+    "asphalt": paint_asphalt, "aggregate_wall": paint_aggregate_wall, "gravel": paint_gravel, "grating": paint_grating, "glass": paint_glass, "rust": paint_rust,
 }
 
 
-def paint(kind: str, px: int, k: int, seed: int, params: dict) -> Tile:
+def paint(kind: str, px: int, k: int, seed: int, params: dict, *, height_px: int | None = None) -> Tile:
     if kind not in PAINTERS:
         raise KeyError(f"unknown cel material kind '{kind}' (known: {', '.join(PAINTERS)})")
-    t = Tile(px, k, seed)
+    if height_px is not None and kind != "aggregate_wall":
+        raise ValueError("explicit height is reserved for aggregate walls")
+    t = Tile(px, k, seed, height_px=height_px)
     PAINTERS[kind](t, params)
     return t
