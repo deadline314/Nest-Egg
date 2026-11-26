@@ -46,6 +46,7 @@ var _actors: Dictionary[StringName, CutsceneActor] = {}
 var _root: Control
 var _dialogue: CutsceneDialogue
 var _fade: ColorRect
+var _initial_cover_pending := false
 var _tint: ColorRect
 var _flash: ColorRect
 var _noise: ColorRect
@@ -336,7 +337,8 @@ func _build_ui() -> void:
 	_tint = _overlay(Color(0, 0, 0, 0))
 	_flash = _overlay(Color(1, 1, 1, 0))
 	_noise = _make_noise_rect()
-	_fade = _overlay(Color(0, 0, 0, 0.0 if _overlay_mode else 1.0))
+	_initial_cover_pending = not _overlay_mode
+	_fade = _overlay(Color(0, 0, 0, 1.0 if _initial_cover_pending else 0.0))
 	_center_text = UiKit.label("", UiKit.FS_DISPLAY, Palette.UI_TEXT, HORIZONTAL_ALIGNMENT_CENTER)
 	_center_text.set_anchors_preset(Control.PRESET_FULL_RECT)
 	_center_text.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
@@ -655,10 +657,16 @@ func _do_scene(step: Dictionary) -> void:
 	cam_pos = _vec(step.get("pos"), _stage.default_camera_pos)
 	cam_zoom = float(step.get("zoom", _stage.default_camera_zoom))
 	_apply_camera()
-	# 第一個場景從黑幕淡入（演出開始時畫面是黑的）。
-	var fade_in := float(step.get("fade", 0.5 if _fade.color.a > 0.5 else 0.0))
+	# Only the first real stage can reveal the player's opening cover.
+	var reveal_initial := stage_exists and _initial_cover_pending
+	if stage_exists:
+		_initial_cover_pending = false
+	var fade_value: Variant = step.get("fade", 0.5 if _fade.color.a > 0.5 else 0.0)
+	var fade_in := float(fade_value)
 	if fade_in > 0.0:
 		await _do_fade({"to": 0.0, "time": fade_in})
+	elif reveal_initial and step.has("fade") and typeof(fade_value) in [TYPE_INT, TYPE_FLOAT] and fade_in == 0.0:
+		_fade.color.a = 0.0
 
 
 func _do_letterbox(step: Dictionary) -> void:
@@ -972,6 +980,8 @@ func _do_wait(step: Dictionary) -> void:
 
 
 func _do_fade(step: Dictionary) -> void:
+	# A scripted fade owns the cover once it starts, including when it keeps it opaque.
+	_initial_cover_pending = false
 	var color := StageLayers.color_of(step.get("color", "#000000"))
 	var target := float(step.get("to", 0.0))
 	var time := float(step.get("time", 0.6))

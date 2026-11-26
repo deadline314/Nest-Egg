@@ -74,6 +74,8 @@ func run() -> void:
 	_test_result_payload_validation()
 	_test_checker()
 	_test_stages()
+	await _test_initial_stage_fade()
+	await _test_gallery_initial_stage_fade()
 	await _test_play_all_steps()
 	await _test_skip()
 	await _test_broken_data()
@@ -632,6 +634,79 @@ func _wait_finished(id: StringName, max_frames := 900) -> bool:
 			return true
 		await runner.get_tree().process_frame
 	return _finished_ids.has(id)
+
+
+func _test_initial_stage_fade() -> void:
+	var opening := {"do": "scene", "id": "test_room", "fade": 0.0}
+	var authored_cover := {"do": "fade", "to": 0.75, "time": 0.05}
+	var missing := {"do": "scene", "id": "test_bad_cutscene_zero_stage_asset", "fade": 0.0}
+	var cases: Array[Dictionary] = [
+		{"id": &"test_initial_zero", "steps": [opening], "alpha": 0.0},
+		{"id": &"test_initial_default", "steps": [{"do": "scene", "id": "test_room"}], "alpha": 0.0},
+		{"id": &"test_initial_authored_cover", "steps": [authored_cover, opening], "alpha": 0.75},
+		{"id": &"test_initial_scripted_black", "steps": [
+			{"do": "fade", "to": 1.0, "time": 0.05, "wait": false}, opening,
+		], "alpha": 1.0},
+		{"id": &"test_later_authored_cover", "steps": [opening, authored_cover, opening], "alpha": 0.75},
+		{"id": &"test_overlay_initial_zero", "steps": [opening], "alpha": 0.0, "overlay": true},
+		{"id": &"test_bad_cutscene_initial_zero_missing", "steps": [missing], "alpha": 1.0, "stage": &""},
+		{"id": &"test_bad_cutscene_initial_zero_recovery", "steps": [missing, opening], "alpha": 0.0},
+	]
+	for fixture in cases:
+		var id: StringName = fixture["id"]
+		var steps: Array = fixture["steps"].duplicate()
+		var stage_steps := steps.size()
+		steps.append({"do": "wait", "time": 300.0})
+		var overlay := bool(fixture.get("overlay", false))
+		var player := _play(id, {"overlay": overlay, "steps": steps})
+		var initial_alpha := 0.0 if overlay else 1.0
+		check(player._fade.color.a == initial_alpha, "%s: retains the opening cover before the steps" % id)
+		for _attempt in 120:
+			if not is_instance_valid(player) or player.steps_run >= stage_steps:
+				break
+			await frames(1)
+		var expected_stage: StringName = fixture.get("stage", &"test_room")
+		var reached_stage := is_instance_valid(player) and player.steps_run >= stage_steps \
+			and is_instance_valid(player._stage) and player._stage.stage_id == expected_stage
+		check(reached_stage, "%s: reaches the authored stage or missing-stage fallback" % id)
+		if reached_stage:
+			check(is_equal_approx(player._fade.color.a, float(fixture["alpha"])),
+				"%s: mounted stage has the expected fade alpha" % id)
+		if is_instance_valid(player):
+			player.skip()
+		check(await _wait_finished(id, 60), "%s: finishes and releases the scene" % id)
+
+	var slow_id := &"test_initial_default_tween"
+	var player := _play(slow_id, {"steps": [{"do": "scene", "id": "test_room"}]}, 0.05)
+	await frames(2)
+	check(is_instance_valid(player) and is_instance_valid(player._stage) \
+		and player.steps_run == 0 and player._fade.color.a > 0.0,
+		"the default opening mounts and waits for its fade before advancing")
+	if is_instance_valid(player):
+		player.skip()
+	check(await _wait_finished(slow_id, 60), "skipping the default opening fade releases the scene")
+
+
+func _test_gallery_initial_stage_fade() -> void:
+	var id := &"test_gallery_initial_zero"
+	Story._scenes[String(id)] = {"mode": "animated", "steps": [
+		{"do": "scene", "id": "test_room", "fade": 0},
+		{"do": "wait", "time": 300.0},
+	]}
+	Story._completed[id] = true
+	var started := Story.replay(id)
+	check(started, "gallery starts a completed zero-fade scene")
+	if started:
+		await frames(2)
+		var player: CutscenePlayer = Story._replay
+		check(is_instance_valid(player) and is_instance_valid(player._stage) \
+			and player._stage.stage_id == &"test_room" and player._fade.color.a == 0.0,
+			"gallery reveals the real opening stage with integer zero fade")
+		Story.stop_replay()
+		await frames(2)
+		check(not Story.is_replaying(), "gallery releases the zero-fade scene on stop")
+	Story._completed.erase(id)
+	Story._scenes.erase(String(id))
 
 
 func _test_play_all_steps() -> void:
