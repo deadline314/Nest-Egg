@@ -37,7 +37,9 @@
   "ch5_anchor_identity_confirmed": false,
   "ch5_backup_trade_explained": false,
   "ch5_redemption_clause_read": false,
-  "ch5_memory_redemption_status": "unset"
+  "ch5_memory_redemption_status": "unset",
+  "ch5_ye_offer_declined": false,
+  "ch5_ye_ahan_asked": false
  },
  "transactions": {},
  "derived_flags": {},
@@ -319,6 +321,39 @@
    "background_en": "The chair’s registration is verified. Old K is back by the stairs and a redemption appendix lies on the desk.",
    "reward_ja": "バックアップの取引と買い戻しの条件を記録し、本人の同意を待つ。",
    "reward_en": "Record the backup deal and redemption terms, then wait for personal consent."
+  },
+  {
+   "id": "ch5_ye_pawnshop_offer",
+   "kind": "main",
+   "title": "回當舖聽葉的條件",
+   "background": "凜已看過贖回條文。葉正在當舖，桌上有一份同樣金額的保密要約。",
+   "reward": "確認拒簽，保留凜處置帳本的決定。",
+   "complete_flag": "ch5_ye_offer_declined",
+   "steps": [
+    {
+     "title": "回當舖櫃台與葉談完，明確拒絕保密要約。",
+     "complete_flag": "ch5_ye_offer_declined",
+     "location": {
+      "level": "res://data/levels/ch5_pawnshop.tres",
+      "cell": [
+       66,
+       19
+      ]
+     },
+     "title_ja": "質屋のカウンターで葉と話し、守秘の提案をはっきり断る。",
+     "title_en": "Return to Ye at the pawnshop counter and turn down the agreement."
+    }
+   ],
+   "visible_flags": [
+    "ch5_redemption_clause_read"
+   ],
+   "completion_requires_steps": true,
+   "title_ja": "質屋に戻って葉の条件を聞く",
+   "title_en": "Hear Ye's terms at the pawnshop",
+   "background_ja": "凛は買い戻し条項を読んだ。質屋にいる葉が、同じ額で守秘を求めている。",
+   "background_en": "Rin has read the redemption clause. Ye is at the pawnshop, offering the same sum for silence.",
+   "reward_ja": "署名を断り、帳簿をどうするかは凛が決める。",
+   "reward_en": "Refuse the offer and keep the decision about the ledger with Rin."
   }
  ],
  "scenes": {
@@ -3439,6 +3474,511 @@
     }
    }
   },
+  "ch5_t_ye_offer_with_ahan": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ye",
+     "text": "我給妳 480,000 信用點。妳照常工作，這件事留在我們之間。",
+     "ja": "48万クレジットを渡すわ。仕事はいつもどおり。この件は内々に。",
+     "en": "I'll offer you 480,000 credits. Keep working as usual, and keep this between us."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "這也是一間晴岸房子的價錢。妳想買的是我不再問。",
+     "ja": "晴岸の部屋と同じ値段。私にもう聞くなと言うためね。",
+     "en": "That's the price of a Far Shore flat. You're paying me to stop asking questions."
+    },
+    {
+     "do": "say",
+     "speaker": "ye",
+     "text": "妳是我們最好的樣本。文件在桌上，簽了字今天就能領錢。",
+     "ja": "あなたは最高のサンプルよ。書類は机の上。署名すれば今日中に受け取れる。",
+     "en": "You're our best sample. The forms are on the desk. Sign them and you can collect the money today."
+    },
+    {
+     "do": "choice",
+     "text": "妳是我們最好的樣本。文件在桌上，簽了字今天就能領錢。",
+     "default": "leave",
+     "options": [
+      {
+       "id": "refuse",
+       "text": "拒絕簽下保密要約",
+       "explanation": "拒簽後仍由凜保管手上的紀錄。",
+       "target": "ch5_t_ye_decline",
+       "ja": "守秘の提案を断る",
+       "en": "Refuse the agreement",
+       "explanation_ja": "記録は凛がそのまま保管する。",
+       "explanation_en": "Keep the records in Rin's custody."
+      },
+      {
+       "id": "ask_ahan",
+       "text": "問她手背上的名字",
+       "explanation": "問葉這個名字對她的意義。",
+       "target": "ch5_t_ye_ahan",
+       "ja": "手の甲の名前を尋ねる",
+       "en": "Ask about the name on her hand",
+       "explanation_ja": "その名前が葉にとって何を意味するか聞く。",
+       "explanation_en": "Ask what the name means to Ye."
+      },
+      {
+       "id": "leave",
+       "text": "先離開",
+       "explanation": "可以回櫃台再談。",
+       "ja": "いったん離れる",
+       "en": "Step away",
+       "explanation_ja": "カウンターに戻ればまた話せる。",
+       "explanation_en": "Come back to the counter to talk."
+      }
+     ],
+     "cancel_choice_on_back": true,
+     "ja": "あなたは最高のサンプルよ。書類は机の上。署名すれば今日中に受け取れる。",
+     "en": "You're our best sample. The forms are on the desk. Sign them and you can collect the money today."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "ch5_redemption_clause_read",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch5_ye_offer_declined",
+         "equals": true
+        }
+       }
+      ]
+     },
+     {
+      "all": [
+       {
+        "flag": "ch5_redemption_clause_read",
+        "equals": true
+       },
+       {
+        "any": [
+         {
+          "flag": "sq7_ye_name_seen",
+          "equals": true
+         },
+         {
+          "item": "ch3_ahan_tape"
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch5_ye_ahan_asked",
+         "equals": true
+        }
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "ch5_t_ye_offer": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ye",
+     "text": "我給妳 480,000 信用點。妳照常工作，這件事留在我們之間。",
+     "ja": "48万クレジットを渡すわ。仕事はいつもどおり。この件は内々に。",
+     "en": "I'll offer you 480,000 credits. Keep working as usual, and keep this between us."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "這也是一間晴岸房子的價錢。妳想買的是我不再問。",
+     "ja": "晴岸の部屋と同じ値段。私にもう聞くなと言うためね。",
+     "en": "That's the price of a Far Shore flat. You're paying me to stop asking questions."
+    },
+    {
+     "do": "say",
+     "speaker": "ye",
+     "text": "妳是我們最好的樣本。文件在桌上，簽了字今天就能領錢。",
+     "ja": "あなたは最高のサンプルよ。書類は机の上。署名すれば今日中に受け取れる。",
+     "en": "You're our best sample. The forms are on the desk. Sign them and you can collect the money today."
+    },
+    {
+     "do": "choice",
+     "text": "妳是我們最好的樣本。文件在桌上，簽了字今天就能領錢。",
+     "default": "leave",
+     "options": [
+      {
+       "id": "refuse",
+       "text": "拒絕簽下保密要約",
+       "explanation": "拒簽後仍由凜保管手上的紀錄。",
+       "target": "ch5_t_ye_decline",
+       "ja": "守秘の提案を断る",
+       "en": "Refuse the agreement",
+       "explanation_ja": "記録は凛がそのまま保管する。",
+       "explanation_en": "Keep the records in Rin's custody."
+      },
+      {
+       "id": "leave",
+       "text": "先離開",
+       "explanation": "可以回櫃台再談。",
+       "ja": "いったん離れる",
+       "en": "Step away",
+       "explanation_ja": "カウンターに戻ればまた話せる。",
+       "explanation_en": "Come back to the counter to talk."
+      }
+     ],
+     "cancel_choice_on_back": true,
+     "ja": "あなたは最高のサンプルよ。書類は机の上。署名すれば今日中に受け取れる。",
+     "en": "You're our best sample. The forms are on the desk. Sign them and you can collect the money today."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_redemption_clause_read",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch5_ye_offer_declined",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch5_t_ye_decline": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "把表收回去。我會自己決定帳本拿去做什麼。",
+     "ja": "書類は持って帰って。帳簿をどうするかは私が決める。",
+     "en": "Take back the forms. I'll decide what to do with the ledger."
+    },
+    {
+     "do": "say",
+     "speaker": "ye",
+     "text": "我記住妳的答覆了。桌上的文件妳可以再看。",
+     "ja": "返事は覚えておくわ。机の書類はまた見てもいい。",
+     "en": "I've heard your answer. You can still read the papers on the desk."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_redemption_clause_read",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch5_ye_offer_declined",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch5_ye_offer_declined",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch5_t_ye_revisit_with_ahan": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ye",
+     "text": "我已經聽過妳的答覆。妳還想問別的嗎？",
+     "ja": "返事は聞いたわ。ほかに聞きたいことがある？",
+     "en": "I've heard your answer. Is there something else you want to ask?"
+    },
+    {
+     "do": "choice",
+     "text": "我已經聽過妳的答覆。妳還想問別的嗎？",
+     "default": "leave",
+     "options": [
+      {
+       "id": "ask_ahan",
+       "text": "問她手背上的名字",
+       "explanation": "問葉這個名字對她的意義。",
+       "target": "ch5_t_ye_ahan",
+       "ja": "手の甲の名前を尋ねる",
+       "en": "Ask about the name on her hand",
+       "explanation_ja": "その名前が葉にとって何を意味するか聞く。",
+       "explanation_en": "Ask what the name means to Ye."
+      },
+      {
+       "id": "leave",
+       "text": "先離開",
+       "explanation": "可以回櫃台再談。",
+       "ja": "いったん離れる",
+       "en": "Step away",
+       "explanation_ja": "カウンターに戻ればまた話せる。",
+       "explanation_en": "Come back to the counter to talk."
+      }
+     ],
+     "cancel_choice_on_back": true,
+     "ja": "返事は聞いたわ。ほかに聞きたいことがある？",
+     "en": "I've heard your answer. Is there something else you want to ask?"
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_ye_offer_declined",
+      "equals": true
+     },
+     {
+      "all": [
+       {
+        "flag": "ch5_redemption_clause_read",
+        "equals": true
+       },
+       {
+        "any": [
+         {
+          "flag": "sq7_ye_name_seen",
+          "equals": true
+         },
+         {
+          "item": "ch3_ahan_tape"
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch5_ye_ahan_asked",
+         "equals": true
+        }
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "ch5_t_ye_revisit": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ye",
+     "text": "保密要約已經收回。桌上的文件還可以查看。",
+     "ja": "提案は取り下げたわ。机の書類はまだ読める。",
+     "en": "The offer is withdrawn. The paperwork is still on the desk."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_redemption_clause_read",
+      "equals": true
+     },
+     {
+      "flag": "ch5_ye_offer_declined",
+      "equals": true
+     }
+    ]
+   }
+  },
+  "ch5_t_ye_ahan": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "妳手背上的名字是阿翰嗎？",
+     "ja": "手の甲にあるのは、阿翰の名前？",
+     "en": "Is that Ahan's name on your hand?"
+    },
+    {
+     "do": "wait",
+     "time": 0.45
+    },
+    {
+     "do": "say",
+     "speaker": "ye",
+     "text": "那個名字，我每天早上都要再寫一次。",
+     "ja": "その名前は、毎朝書き直すの。",
+     "en": "I have to write that name again every morning."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_redemption_clause_read",
+      "equals": true
+     },
+     {
+      "any": [
+       {
+        "flag": "sq7_ye_name_seen",
+        "equals": true
+       },
+       {
+        "item": "ch3_ahan_tape"
+       }
+      ]
+     },
+     {
+      "not": {
+       "flag": "ch5_ye_ahan_asked",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch5_ye_ahan_asked",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch5_t_ye_quote_morning": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "保密要約列了 480,000 信用點，桌上的文件仍未簽署。",
+     "ja": "守秘の提示額は48万クレジット。机の書類はどちらも未署名だ。",
+     "en": "The offer lists 480,000 credits. Neither form on the desk has been signed."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "原來我只提了晨窗。要不要選這間，最後由老 K 決定。",
+     "ja": "提案したのは朝窓。そこにするか最後に決めるのは老Kだ。",
+     "en": "My proposal was Morning Window. Old K still gets to choose the flat."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_redemption_clause_read",
+      "equals": true
+     },
+     {
+      "flag": "sq3_room_proposal_done",
+      "equals": true
+     },
+     {
+      "flag": "room_choice",
+      "equals": "morning"
+     }
+    ]
+   }
+  },
+  "ch5_t_ye_quote_quiet": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "保密要約列了 480,000 信用點，桌上的文件仍未簽署。",
+     "ja": "守秘の提示額は48万クレジット。机の書類はどちらも未署名だ。",
+     "en": "The offer lists 480,000 credits. Neither form on the desk has been signed."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "原來我只提了靜窗。要不要選這間，最後由老 K 決定。",
+     "ja": "提案したのは静窓。そこにするか最後に決めるのは老Kだ。",
+     "en": "My proposal was Quiet Window. Old K still gets to choose the flat."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_redemption_clause_read",
+      "equals": true
+     },
+     {
+      "flag": "sq3_room_proposal_done",
+      "equals": true
+     },
+     {
+      "flag": "room_choice",
+      "equals": "quiet"
+     }
+    ]
+   }
+  },
+  "ch5_t_ye_quote_late": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "保密要約列了 480,000 信用點，桌上的文件仍未簽署。",
+     "ja": "守秘の提示額は48万クレジット。机の書類はどちらも未署名だ。",
+     "en": "The offer lists 480,000 credits. Neither form on the desk has been signed."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "原來我只提了晚窗。要不要選這間，最後由老 K 決定。",
+     "ja": "提案したのは夕窓。そこにするか最後に決めるのは老Kだ。",
+     "en": "My proposal was Evening Window. Old K still gets to choose the flat."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_redemption_clause_read",
+      "equals": true
+     },
+     {
+      "flag": "sq3_room_proposal_done",
+      "equals": true
+     },
+     {
+      "flag": "room_choice",
+      "equals": "late"
+     }
+    ]
+   }
+  },
+  "ch5_t_ye_quote": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "保密要約列了 480,000 信用點，桌上的文件仍未簽署。",
+     "ja": "守秘の提示額は48万クレジット。机の書類はどちらも未署名だ。",
+     "en": "The offer lists 480,000 credits. Neither form on the desk has been signed."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch5_redemption_clause_read",
+    "equals": true
+   }
+  },
   "ch5_dispatch_watch": {
    "mode": "dispatch",
    "routes": [
@@ -4461,6 +5001,194 @@
       }
      },
      "target": "ch5_t_redemption_chair_first"
+    }
+   ]
+  },
+  "ch5_dispatch_ye_offer": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch5_redemption_clause_read",
+          "equals": true
+         },
+         {
+          "not": {
+           "flag": "ch5_ye_offer_declined",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "all": [
+         {
+          "flag": "ch5_redemption_clause_read",
+          "equals": true
+         },
+         {
+          "any": [
+           {
+            "flag": "sq7_ye_name_seen",
+            "equals": true
+           },
+           {
+            "item": "ch3_ahan_tape"
+           }
+          ]
+         },
+         {
+          "not": {
+           "flag": "ch5_ye_ahan_asked",
+           "equals": true
+          }
+         }
+        ]
+       }
+      ]
+     },
+     "target": "ch5_t_ye_offer_with_ahan"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch5_redemption_clause_read",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch5_ye_offer_declined",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch5_t_ye_offer"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch5_ye_offer_declined",
+        "equals": true
+       },
+       {
+        "all": [
+         {
+          "flag": "ch5_redemption_clause_read",
+          "equals": true
+         },
+         {
+          "any": [
+           {
+            "flag": "sq7_ye_name_seen",
+            "equals": true
+           },
+           {
+            "item": "ch3_ahan_tape"
+           }
+          ]
+         },
+         {
+          "not": {
+           "flag": "ch5_ye_ahan_asked",
+           "equals": true
+          }
+         }
+        ]
+       }
+      ]
+     },
+     "target": "ch5_t_ye_revisit_with_ahan"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch5_redemption_clause_read",
+        "equals": true
+       },
+       {
+        "flag": "ch5_ye_offer_declined",
+        "equals": true
+       }
+      ]
+     },
+     "target": "ch5_t_ye_revisit"
+    }
+   ]
+  },
+  "ch5_dispatch_ye_offer_papers": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch5_redemption_clause_read",
+        "equals": true
+       },
+       {
+        "flag": "sq3_room_proposal_done",
+        "equals": true
+       },
+       {
+        "flag": "room_choice",
+        "equals": "morning"
+       }
+      ]
+     },
+     "target": "ch5_t_ye_quote_morning"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch5_redemption_clause_read",
+        "equals": true
+       },
+       {
+        "flag": "sq3_room_proposal_done",
+        "equals": true
+       },
+       {
+        "flag": "room_choice",
+        "equals": "quiet"
+       }
+      ]
+     },
+     "target": "ch5_t_ye_quote_quiet"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch5_redemption_clause_read",
+        "equals": true
+       },
+       {
+        "flag": "sq3_room_proposal_done",
+        "equals": true
+       },
+       {
+        "flag": "room_choice",
+        "equals": "late"
+       }
+      ]
+     },
+     "target": "ch5_t_ye_quote_late"
+    },
+    {
+     "when": {
+      "flag": "ch5_redemption_clause_read",
+      "equals": true
+     },
+     "target": "ch5_t_ye_quote"
     }
    ]
   }

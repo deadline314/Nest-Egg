@@ -46,7 +46,7 @@
       ".............................#....................",
       "..................................................",
       "..................................................",
-      "..ⓘ.ⓤ.ⓑ.ⓛ..................Ⅰ......................",
+      "..ⓘ.ⓤ.ⓑ.ⓛ...▥...♢..........Ⅰ......................",
       "##################################################",
       "##################################################",
       "##################################################",
@@ -102,6 +102,7 @@
     {"id": "pawnshop_kitchen__tear_off_calendar", "x": 100, "y": 14, "support": "wall"},
     {"id": "pawnshop_front__range_tally_board", "x": 56, "y": 16, "support": "wall", "react": "ch5_inventory_latch"},
     {"id": "factory_office__scattered_papers", "x": 54, "dx": -27, "dy": -20, "support": "prop", "support_id": "pawnshop_front__counter_register", "support_x": 52, "support_dy": 16, "ground": true},
-    {"id": "basement__fee_ledger", "x": 58, "dx": -8.5, "dy": -20, "support": "prop", "support_id": "pawnshop_front__counter_register", "support_x": 52, "support_dy": 16, "ground": true}
+    {"id": "basement__fee_ledger", "x": 58, "dx": -8.5, "dy": -20, "support": "prop", "support_id": "pawnshop_front__counter_register", "support_x": 52, "support_dy": 16, "ground": true},
+    {"id": "recording_booth__script_sheets", "x": 62, "dy": -16.0, "support": "prop", "support_id": "pawnshop_front__arms_workbench", "support_x": 61, "support_dy": 15.5, "ground": true}
   ]
 }

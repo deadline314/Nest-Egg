@@ -5,6 +5,7 @@ import sys
 
 sys.dont_write_bytecode = True
 import build_ch1 as kit
+import ch5_offer_layout as offer_layout
 import ch5_anchor_layout as anchor_layout
 import ch5_agreement_layout as agreement_layout
 import ch5_revival_route as revival
@@ -67,6 +68,9 @@ def _configure():
     )
     TRANSLATIONS.update(anchor_layout.PROMPTS)
 
+    offer_layout.configure(kit)
+    TRANSLATIONS.update(offer_layout.PROMPTS)
+
 
 def main():
     _configure()
@@ -87,6 +91,7 @@ def main():
     archive.stand(57, "⏵")
     agreement_layout.furnish(archive)
 
+    offer_layout.furnish(areas)
     targets = set(kit.RES) | set(kit.PORTALS)
     for room in areas:
         marks = [(room.grid.at(x, GROUND - 1), (x, GROUND - 1)) for x in range(room.w)]

@@ -1155,6 +1155,164 @@
           }
         ]
       }
+    },
+    {
+      "id": "ch5_t_ye_offer",
+      "source": "res://data/story/ch5_paymaster.json",
+      "npc": "res://data/npcs/ch5_ye_offer.tres",
+      "levels": [
+        "res://data/levels/ch5_pawnshop.tres"
+      ],
+      "role": "choice",
+      "rule": {
+        "default": "leave",
+        "options": [
+          {
+            "id": "refuse",
+            "target": "ch5_t_ye_decline",
+            "flags": {}
+          },
+          {
+            "id": "leave",
+            "target": "",
+            "flags": {}
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch5_t_ye_offer_with_ahan",
+      "source": "res://data/story/ch5_paymaster.json",
+      "npc": "res://data/npcs/ch5_ye_offer.tres",
+      "levels": [
+        "res://data/levels/ch5_pawnshop.tres"
+      ],
+      "role": "choice",
+      "rule": {
+        "default": "leave",
+        "options": [
+          {
+            "id": "refuse",
+            "target": "ch5_t_ye_decline",
+            "flags": {}
+          },
+          {
+            "id": "ask_ahan",
+            "target": "ch5_t_ye_ahan",
+            "flags": {}
+          },
+          {
+            "id": "leave",
+            "target": "",
+            "flags": {}
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch5_t_ye_revisit_with_ahan",
+      "source": "res://data/story/ch5_paymaster.json",
+      "npc": "res://data/npcs/ch5_ye_offer.tres",
+      "levels": [
+        "res://data/levels/ch5_pawnshop.tres"
+      ],
+      "role": "choice",
+      "rule": {
+        "default": "leave",
+        "options": [
+          {
+            "id": "ask_ahan",
+            "target": "ch5_t_ye_ahan",
+            "flags": {}
+          },
+          {
+            "id": "leave",
+            "target": "",
+            "flags": {}
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch5_t_ye_decline",
+      "source": "res://data/story/ch5_paymaster.json",
+      "npc": "res://data/npcs/ch5_ye_offer.tres",
+      "levels": [
+        "res://data/levels/ch5_pawnshop.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "flag": "ch5_redemption_clause_read",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch5_ye_offer_declined",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch5_ye_offer_declined",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch5_t_ye_ahan",
+      "source": "res://data/story/ch5_paymaster.json",
+      "npc": "res://data/npcs/ch5_ye_offer.tres",
+      "levels": [
+        "res://data/levels/ch5_pawnshop.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "flag": "ch5_redemption_clause_read",
+              "equals": true
+            },
+            {
+              "any": [
+                {
+                  "flag": "sq7_ye_name_seen",
+                  "equals": true
+                },
+                {
+                  "item": "ch3_ahan_tape"
+                }
+              ]
+            },
+            {
+              "not": {
+                "flag": "ch5_ye_ahan_asked",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch5_ye_ahan_asked",
+            "value": true
+          }
+        ]
+      }
     }
   ]
 }

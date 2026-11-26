@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=19 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=21 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
@@ -10,10 +10,12 @@
 [ext_resource type="Resource" path="res://data/npcs/ch5_raincoat.tres" id="8_ch5_raincoat"]
 [ext_resource type="Resource" path="res://data/npcs/ch5_fee_receipt.tres" id="9_ch5_fee_receipt"]
 [ext_resource type="Resource" path="res://data/npcs/ch5_watch.tres" id="10_ch5_watch"]
-[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="11_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/rooftop.tres" id="12_rooftop"]
-[ext_resource type="Resource" path="res://data/lighting/pawnshop_warm.tres" id="13_pawnshop_warm"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch5_pawnshop.tres" id="14_ch5_pawnshop"]
+[ext_resource type="Resource" path="res://data/npcs/ch5_ye_offer_papers.tres" id="11_ch5_ye_offer_papers"]
+[ext_resource type="Resource" path="res://data/npcs/ch5_ye_offer.tres" id="12_ch5_ye_offer"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="13_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/rooftop.tres" id="14_rooftop"]
+[ext_resource type="Resource" path="res://data/lighting/pawnshop_warm.tres" id="15_pawnshop_warm"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch5_pawnshop.tres" id="16_ch5_pawnshop"]
 
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("2_portal_data")
@@ -41,16 +43,16 @@ height = 64
 style = "door"
 
 [sub_resource type="Resource" id="Resource_2"]
-script = ExtResource("11_lighting_zone")
+script = ExtResource("13_lighting_zone")
 start_tile = 0
 blend_tiles = 12
-profile = ExtResource("12_rooftop")
+profile = ExtResource("14_rooftop")
 
 [sub_resource type="Resource" id="Resource_3"]
-script = ExtResource("11_lighting_zone")
+script = ExtResource("13_lighting_zone")
 start_tile = 30
 blend_tiles = 6
-profile = ExtResource("13_pawnshop_warm")
+profile = ExtResource("15_pawnshop_warm")
 
 [resource]
 script = ExtResource("1_level_data")
@@ -69,14 +71,16 @@ legend = Dictionary[String, Resource]({
 "ⓡ": ExtResource("8_ch5_raincoat"),
 "ⓤ": ExtResource("9_ch5_fee_receipt"),
 "ⓦ": ExtResource("10_ch5_watch"),
+"▥": ExtResource("11_ch5_ye_offer_papers"),
+"♢": ExtResource("12_ch5_ye_offer"),
 "⟲": SubResource("Resource_1")
 })
 hints = PackedStringArray()
 chapter = &"ch5_paymaster"
 persistent_world = true
 show_chapter_card = true
-environment = ExtResource("14_ch5_pawnshop")
+environment = ExtResource("16_ch5_pawnshop")
 layout_path = "res://data/levels/ch5_pawnshop_map.json"
-lighting_zones = Array[ExtResource("11_lighting_zone")]([SubResource("Resource_2"), SubResource("Resource_3")])
+lighting_zones = Array[ExtResource("13_lighting_zone")]([SubResource("Resource_2"), SubResource("Resource_3")])
 story_triggers = PackedStringArray()
 death_credit_cap = 250
