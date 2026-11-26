@@ -8,7 +8,6 @@ import build_ch1 as kit
 import ch6_control_station as control
 import ch6_relay_water as water
 import ch6_studio_trial as studio
-from area_name_translations import AREA_NAMES
 from npc_prompt_translations import TRANSLATIONS
 from portal_translations import LOCKS, PROMPTS
 
@@ -43,12 +42,6 @@ OBJECTS = (
     *studio.OBJECTS,
     *control.OBJECTS,
 )
-AREA_COPY = {
-    "廣播站錄音室": ("Broadcast Recording Booth", "放送局の録音室"),
-    "港區廣場（廣播前）": ("Harbor Plaza (Before the Broadcast)", "港の広場（放送前）"),
-    "廣播站高架維修道": ("Broadcast Maintenance Overpass", "放送局の高架保守路"),
-    "廣播站前庭": ("Broadcast Relay Yard", "放送局前庭"),
-}
 POINTS = {name: (room, x, row) for _, name, _, room, x, row, _ in OBJECTS}
 THEMES = {
     "recording_booth": (*water.THEME[:-1], [*water.THEME[-1], "control_room"]),
@@ -70,7 +63,6 @@ def configure():
     kit.RES = {}
     kit.PORTALS = {}
     kit.THEMES = THEMES
-    AREA_NAMES.update({zh: {"en": en, "ja": ja} for zh, (en, ja) in AREA_COPY.items()})
     LOCKS[LOCK_TEXT] = ("Check the maintenance route with Wake at the plaza speaker first.",
                        "先に広場のスピーカーで蘇と保守路を確認する。")
     LOCKS[water.LOCK_TEXT] = water.LOCK_COPY

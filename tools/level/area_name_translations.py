@@ -1,6 +1,11 @@
 """Area names for the chapter builders and their in-game route labels."""
 
 AREA_NAMES = {
+    "地下室檔案間": {"en": "Basement archive", "ja": "地下の書庫"},
+    "廣播站前庭": {"en": "Broadcast Relay Yard", "ja": "放送局前庭"},
+    "廣播站高架維修道": {"en": "Broadcast Maintenance Overpass", "ja": "放送局の高架保守路"},
+    "港區廣場（廣播前）": {"en": "Harbor Plaza (Before the Broadcast)", "ja": "港の広場（放送前）"},
+    "廣播站錄音室": {"en": "Broadcast Recording Booth", "ja": "放送局の録音室"},
     '灰道換班廊': {"en":"Service Passage", "ja":"灰道の引継ぎ廊下"},
     '地下室樓梯口': {"en": "Basement Landing", "ja": "地下階段の踊り場"},
     '當舖後巷': {"en": "Pawnshop Back Alley", "ja": "質屋の裏路地"},
