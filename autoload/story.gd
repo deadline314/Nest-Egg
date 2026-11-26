@@ -1104,14 +1104,24 @@ func _on_passive_finished(id: StringName, expected_request := 0) -> void:
 	if requests.is_empty():
 		_passive_requests.erase(id)
 	var applied := {"ok": true, "failure_scene": ""} if guarded.get("handled", false) else _apply_scene_results(id)
+	var source_completed := bool(guarded.get("source_completed", applied["ok"]))
+	var guarded_fallback := not source_completed and guarded.has("next_scene")
+	var chained := false
+	if guarded_fallback:
+		_pending_next.erase(id)
+		chained = _queue_dynamic_scene(StringName(guarded["next_scene"]), request, context)
 	_finished_request = request
 	if guarded.get("terminal_batch", false):
 		result_completion.publish()
-	scene_finished.emit(id)
+	_signal_source_result(id, context, request, source_completed)
 	_finished_request = 0
-	_complete_request(request, true)
+	if not chained:
+		_complete_request(request, source_completed)
 	if guarded.get("terminal_batch", false):
 		result_completion.finish()
+	if guarded_fallback:
+		_start_queued_cinematic()
+		return
 	var next := StringName(str(applied["failure_scene"])) if not applied["ok"] else StringName(str((_scenes.get(String(id), {}) as Dictionary).get("then", "")))
 	if next != &"" and has_scene(next):
 		play(next, applied["ok"], context)
@@ -1314,30 +1324,43 @@ func _on_cinematic_finished(id: StringName, expected_request := 0) -> void:
 	framing.release(_framing_token)
 	_framing_token = 0
 	var applied := {"ok": true, "failure_scene": ""} if guarded.get("handled", false) else _apply_scene_results(id)
+	var source_completed := bool(guarded.get("source_completed", applied["ok"]))
+	var context := _presentation_context
 	var chosen: StringName = _pending_next.get(id, &"")
 	_pending_next.erase(id)
 	var chained := false
 	if guarded.has("next_scene"):
 		# A durable owner resolved this continuation, including an intentional
 		# empty target. A freed skipped player must not resurrect its authored then.
-		chained = _queue_dynamic_scene(StringName(guarded["next_scene"]),completed_request)
+		chained = _queue_dynamic_scene(StringName(guarded["next_scene"]), completed_request, context)
 	elif not applied["ok"]:
-		chained = _queue_dynamic_scene(StringName(str(applied["failure_scene"])), completed_request)
+		chained = _queue_dynamic_scene(StringName(str(applied["failure_scene"])), completed_request, context)
 	elif chosen != &"":
-		chained = _queue_dynamic_scene(chosen, completed_request)
+		chained = _queue_dynamic_scene(chosen, completed_request, context)
 	else:
 		chained = _queue_chained_scene(id, completed_request)
 	_presentation_context = {}
 	_finished_request = completed_request
 	if guarded.get("terminal_batch", false):
 		result_completion.publish()
-	scene_finished.emit(id)
+	_signal_source_result(id, context, completed_request, source_completed)
 	_finished_request = 0
 	if not chained:
-		_complete_request(completed_request, true)
+		_complete_request(completed_request, source_completed)
 	if guarded.get("terminal_batch", false):
 		result_completion.finish()
 	_start_queued_cinematic()
+
+
+## A refusal retires the source presentation without publishing its story effects.
+## A chained fallback can still settle the original interaction as a whole.
+func _signal_source_result(id: StringName, context: Dictionary, request: int, completed: bool) -> void:
+	if completed:
+		scene_finished.emit(id)
+		return
+	if not _completed.has(id) and not _passive_requests.has(id):
+		_seen.erase(id)
+	presentation_cancelled.emit(id, context, &"result_refused", request)
 
 
 ## Leave an authored choice without applying its default or retiring unrelated presentations.
@@ -1372,14 +1395,14 @@ func _start_queued_cinematic() -> void:
 
 
 ## 選項或交易失敗指定的接續場景：不論是否看過都接著播（可回到上一個選擇），條件不成立時不接。
-func _queue_dynamic_scene(next: StringName, request: int) -> bool:
+func _queue_dynamic_scene(next: StringName, request: int, context: Dictionary) -> bool:
 	if next == &"" or not has_scene(next):
 		return false
 	var target := resolve_dispatch(next)
 	if target == &"" or not scene_available(target) or not can_transfer_for(target):
 		return false
 	_seen[target] = true
-	_cinematic_queue.push_front({"id": target, "context": _presentation_context.duplicate(true), "request": request})
+	_cinematic_queue.push_front({"id": target, "context": context.duplicate(true), "request": request})
 	return true
 
 
@@ -1427,7 +1450,7 @@ func _queue_chained_scene(id: StringName, request: int) -> bool:
 	# 接到分派時依當下進度挑段落（和選項接續一樣，可以回到看過的中樞，例如客人名單）。
 	var target: Dictionary = _scenes[String(next)]
 	if target.get("mode") == String(MODE_DISPATCH):
-		return _queue_dynamic_scene(next, request)
+		return _queue_dynamic_scene(next, request, _presentation_context)
 	if (_seen.has(next) and (skipped or not _can_replay_chain_middle(scene, target))) or not scene_available(next):
 		return false
 	_seen[next] = true

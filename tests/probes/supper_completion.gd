@@ -78,6 +78,9 @@ func _finish() -> void:
 		_main.call("_save_run")
 		var raw := _primary()
 		_check(raw.get("cinematic") == String(expected_next) and raw.get("cinematic_context",{}).get("source_id") == _actor().state_key(), "fresh original pending primary retains exact next scene and source identity")
+		if case_name == "insufficient":
+			_check(not Story.was_seen(target) and target not in Story.progress_snapshot() and String(target) not in raw["story"]["seen"],
+				"insufficient funds persist the fallback without completing the payment source")
 		_check(raw["progression"]["credits"] == Progression.credits, "fresh pending capture retains all ordinary observer spending")
 		FileAccess.open(_directory.path_join("pending-primary.json"),FileAccess.WRITE).store_buffer(FileAccess.get_file_as_bytes(store.path))
 		await _capture("pending")
