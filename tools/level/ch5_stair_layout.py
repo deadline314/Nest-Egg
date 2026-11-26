@@ -26,7 +26,6 @@ def configure(kit, npc_prompts, portal_prompts, lock_text):
         "上樓回梯口": ("Go back up to the stairwell", "階段口へ戻る"),
     })
     lock_text["先查看灰衣人留下的外套。"] = ("Examine the coat left by the person in gray.", "灰色のコートの人物が残した服を調べよう。")
-    kit.AREA_NAMES[ARCHIVE] = {"en": "Basement archive", "ja": "地下の書庫"}
     kit.NPCS[f"ch5_{COAT}"] = dict(name="灰外套", speaker="label", rig="", loop="", facing=1, kind=1,
                                     prompt="{interact} 翻看外套衣領", talks=[("ch5_dispatch_bian_coat", 0)])
     kit.RES[COAT_GLYPH] = f"res://data/npcs/ch5_{COAT}.tres"
