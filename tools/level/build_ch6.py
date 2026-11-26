@@ -5,6 +5,7 @@ from pathlib import Path
 import argparse
 
 import build_ch1 as kit
+import ch6_relay_water as water
 from area_name_translations import AREA_NAMES
 from npc_prompt_translations import TRANSLATIONS
 from portal_translations import LOCKS, PROMPTS
@@ -27,6 +28,7 @@ PORTALS = (
      ("進廣播站前庭", "Enter the relay yard", "中継所前庭に入る")),
     ("ⅴ", "relay_overpass", "ch6_broadcast_overpass", "overpass_relay", "door", "", "",
      ("回高架維修道", "Return to the maintenance overpass", "高架の保守路に戻る")),
+    *water.PORTALS,
 )
 OBJECTS = (
     ("Ⓢ", "plaza_intercom", "廣場廣播喇叭", "harbor_plaza", 30, 19,
@@ -35,20 +37,23 @@ OBJECTS = (
      ("查看中繼站線況", "Read the relay signal", "中継の信号を確認する")),
     ("ⓖ", "yard_gauge", "前庭水位尺", "broadcast_outside", 24, 19,
      ("查看前庭水位", "Check the yard water level", "前庭の水位を調べる")),
+    *water.OBJECTS,
 )
 AREA_COPY = {
+    "廣播站錄音室": ("Broadcast Recording Booth", "放送局の録音室"),
     "港區廣場（廣播前）": ("Harbor Plaza (Before the Broadcast)", "港の広場（放送前）"),
     "廣播站高架維修道": ("Broadcast Maintenance Overpass", "放送局の高架保守路"),
     "廣播站前庭": ("Broadcast Relay Yard", "放送局前庭"),
 }
 POINTS = {name: (room, x, row) for _, name, _, room, x, row, _ in OBJECTS}
 THEMES = {
+    "recording_booth": water.THEME,
     "harbor_plaza": ("asphalt", ["shopfront", "shutter_block"], None, 0.14, "sky_storm",
                     ["harbor_plaza", "anchor_phone_booth", "mezzanine"]),
     "broadcast_overpass": ("steel_plate", ["facility_wall", "shutter_block"], "facility_panel", 0.0, "sky_storm",
                            ["harbor_plaza", "sluice_hall", "broadcast_outside"]),
     "broadcast_outside": ("concrete", ["facility_wall"], "facility_panel", 0.10, "sky_storm",
-                          ["broadcast_outside", "harbor_plaza"]),
+                          ["broadcast_outside", "harbor_plaza", "sluice_hall", "abandoned_factory"]),
 }
 
 
@@ -64,6 +69,7 @@ def configure():
     AREA_NAMES.update({zh: {"en": en, "ja": ja} for zh, (en, ja) in AREA_COPY.items()})
     LOCKS[LOCK_TEXT] = ("Check the maintenance route with Wake at the plaza speaker first.",
                        "先に広場のスピーカーで蘇と保守路を確認する。")
+    LOCKS[water.LOCK_TEXT] = water.LOCK_COPY
     for glyph, name, target, mate, style, gate, locked, (zh, en, ja) in PORTALS:
         PROMPTS[zh] = (en, ja)
         kit.PORTALS[glyph] = dict(id=name, to=f"res://data/levels/{target}.tres", target=mate,
@@ -132,12 +138,13 @@ def relay():
     room.stand(4, "ⅴ")
     room.stand(8, "P")
     room.prop("broadcast_outside__antenna_tower", 15)
-    room.prop("broadcast_outside__pond_gauge_pole", 24, dx=-3.25)
+    room.prop("broadcast_outside__pond_gauge_pole", 24, dx=-3.25, react="ch6_cooling_gauge")
     room.prop("broadcast_outside__cable_reel", 32)
-    room.prop("broadcast_outside__pump_hut", 42)
-    room.prop("broadcast_outside__lamp_mast", 47)
-    room.prop("broadcast_outside__studio_door", 50)
-    room.features = {"landmark": "水位尺與前庭泵房", "loop": "入口可原路退回高架。"}
+    room.prop("broadcast_outside__pump_hut", 42, y=GROUND - 1, support="ground")
+    room.prop("broadcast_outside__lamp_mast", 47, y=GROUND - 1, support="ground")
+    room.prop("broadcast_outside__studio_door", 50, react="ch6_recording_door")
+    water.extend_forecourt(room)
+    room.features = {"landmark": "水位尺與前庭泵房", "loop": "乾台與前庭地面相通，入口可原路退回高架。"}
     return room
 
 
@@ -146,7 +153,7 @@ def main():
     parser.add_argument("--check", action="store_true", help="validate walkway reachability without writing output")
     options = parser.parse_args()
     configure()
-    areas = [plaza(), overpass(), relay()]
+    areas = [plaza(), overpass(), relay(), water.recording_booth(kit, GROUND)]
     for area in areas:
         for glyph, _, _, room, col, row, _ in OBJECTS:
             if room == area.id:
@@ -157,7 +164,7 @@ def main():
         if errors:
             raise SystemExit("\n".join(errors))
     if options.check:
-        print("Three walkable areas and all local stations validated.")
+        print("Chapter Six walkable areas and all local stations validated.")
         return
     kit.write_npc_files()
     kit.write_design(areas)

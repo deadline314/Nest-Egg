@@ -950,9 +950,9 @@ func _on_presentation_cancelled(id: StringName, _context: Dictionary, reason: St
 		_bind_navigation()
 		RunSnapshot.publish_restored()
 		_publishing_restore = false
-	if rolled_back or reason == &"skip":
-		if plain_dialogue:
-			# Retire an unpublished dialogue draft before scheduling the restored world.
+	if rolled_back or reason in [&"skip", &"world_action_unavailable"]:
+		if plain_dialogue or reason == &"world_action_unavailable":
+			# Retire an unpublished draft before saving the world without the cancelled scene.
 			_run_store.cancel_deferred_write()
 			_queue_frame_save()
 		else:

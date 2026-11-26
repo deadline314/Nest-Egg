@@ -378,5 +378,69 @@
       8.1,
       26.2
     ]
+  },
+  "ch6_turn_diverter": {
+    "scene": "ch6_t_relay_divert",
+    "level": "res://data/levels/ch6_broadcast_outside.tres",
+    "source": "res://data/npcs/ch6_relay_diverter.tres",
+    "prop": "broadcast_outside__cooling_valve",
+    "kind": "turn",
+    "station": [
+      23.0,
+      22.0
+    ],
+    "facing": 1,
+    "hub": [
+      30.4,
+      5.7
+    ],
+    "radius": [
+      3.0,
+      1.0
+    ],
+    "sweep": [
+      165,
+      53
+    ],
+    "strokes": 1,
+    "stall": 1.0,
+    "crouch": true
+  },
+  "ch6_press_drain": {
+    "scene": "ch6_t_relay_drain",
+    "level": "res://data/levels/ch6_broadcast_outside.tres",
+    "source": "res://data/npcs/ch6_relay_drain.tres",
+    "prop": "sluice_hall__release_console",
+    "kind": "press",
+    "station": [
+      6.0,
+      42.0
+    ],
+    "facing": 1,
+    "button": [
+      12.8,
+      16.8
+    ],
+    "hand_angle": 15,
+    "crouch": true,
+    "required": true
+  },
+  "ch6_press_backup": {
+    "scene": "ch6_t_relay_connect",
+    "level": "res://data/levels/ch6_broadcast_outside.tres",
+    "source": "res://data/npcs/ch6_relay_backup.tres",
+    "prop": "abandoned_factory__power_panel",
+    "kind": "press",
+    "station": [
+      5.0,
+      51.0
+    ],
+    "facing": 1,
+    "button": [
+      16.1,
+      25.6
+    ],
+    "crouch": true,
+    "required": true
   }
 }

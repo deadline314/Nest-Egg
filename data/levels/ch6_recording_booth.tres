@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="3_lighting_zone"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch6_recording_booth.tres" id="4_ch6_recording_booth"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("2_portal_data")
+id = &"recording_relay"
+target_level = "res://data/levels/ch6_broadcast_outside.tres"
+target_portal = &"relay_recording"
+prompt = "{interact} 回廣播站前庭"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Return to the relay yard", "ja": "{interact} 中継所前庭に戻る"})
+width = 30
+height = 63
+style = "door"
+
+[resource]
+script = ExtResource("1_level_data")
+id = &"ch6_recording_booth"
+display_name = "廣播站錄音室"
+localized_names = Dictionary[String, String]({"en": "Broadcast Recording Booth", "ja": "放送局の録音室"})
+tile_size = 16
+height = 24
+legend = Dictionary[String, Resource]({
+"ⅶ": SubResource("Resource_0")
+})
+hints = PackedStringArray()
+chapter = &"ch6_unmooring"
+persistent_world = true
+show_chapter_card = false
+environment = ExtResource("4_ch6_recording_booth")
+layout_path = "res://data/levels/ch6_recording_booth_map.json"
+lighting_zones = Array[ExtResource("3_lighting_zone")]([])
+story_triggers = PackedStringArray()
+death_credit_cap = 250

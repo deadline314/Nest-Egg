@@ -31,7 +31,10 @@
  },
  "flag_defaults": {
   "ch6_su_approach_confirmed": false,
-  "ch6_yard_gauge_read": false
+  "ch6_yard_gauge_read": false,
+  "ch6_relay_water_diverted": false,
+  "ch6_relay_water_drained": false,
+  "ch6_relay_powered": false
  },
  "transactions": {},
  "derived_flags": {},
@@ -81,6 +84,65 @@
    "background_en": "Lamp passed on the request. Wake is waiting on the plaza speaker.",
    "reward_ja": "中継所の前庭に着き、水位を確認した。",
    "reward_en": "Reached the relay yard and checked the water level."
+  },
+  {
+   "id": "ch6_relay_water",
+   "kind": "main",
+   "title": "恢復廣播站的中繼電力",
+   "background": "先把屋簷雨槽分流，等刻針落到白線下，再接上備援電源。",
+   "reward": "可以從前庭進錄音室。",
+   "complete_flag": "ch6_relay_powered",
+   "steps": [
+    {
+     "title": "在水位尺旁轉動分流手輪。",
+     "complete_flag": "ch6_relay_water_diverted",
+     "location": {
+      "level": "res://data/levels/ch6_broadcast_outside.tres",
+      "cell": [
+       29,
+       17
+      ]
+     },
+     "title_ja": "水位計のそばで分流弁を回す。",
+     "title_en": "Turn the diversion valve by the gauge."
+    },
+    {
+     "title": "到泵房第一階退水。",
+     "complete_flag": "ch6_relay_water_drained",
+     "location": {
+      "level": "res://data/levels/ch6_broadcast_outside.tres",
+      "cell": [
+       35,
+       18
+      ]
+     },
+     "title_ja": "ポンプ小屋の最初の段で排水する。",
+     "title_en": "Use the drain on the first pump-house step."
+    },
+    {
+     "title": "到上層乾台接通備援。",
+     "complete_flag": "ch6_relay_powered",
+     "location": {
+      "level": "res://data/levels/ch6_broadcast_outside.tres",
+      "cell": [
+       45,
+       16
+      ]
+     },
+     "title_ja": "上の乾いた足場で予備電源をつなぐ。",
+     "title_en": "Connect backup power on the upper dry deck."
+    }
+   ],
+   "visible_flags": [
+    "ch6_yard_gauge_read"
+   ],
+   "completion_requires_steps": true,
+   "title_ja": "放送局の中継電源を復旧する",
+   "title_en": "Restore power to the broadcast relay",
+   "background_ja": "雨どいの水を逃がし、指針が白線より下がってから予備電源をつなごう。",
+   "background_en": "Divert the gutter, drain below the white mark, then connect backup power.",
+   "reward_ja": "前庭から録音室に入れる。",
+   "reward_en": "The recording booth is accessible from the yard."
   }
  ],
  "scenes": {
@@ -279,9 +341,9 @@
     {
      "do": "say",
      "speaker": "label",
-     "text": "前庭已查過水位。回程出口在高架坡道腳下。",
-     "ja": "前庭の水位は確認済み。戻り口は高架の坂の下にある。",
-     "en": "Yard level checked. The return exit is at the foot of the overpass ramp."
+     "text": "刻針還在白線上。回程出口在高架坡道腳下。",
+     "ja": "指針はまだ白線より上だ。戻り口は高架の坂の下にある。",
+     "en": "The needle is still above the white line. The return is at the foot of the overpass ramp."
     }
    ],
    "overlay": true,
@@ -289,6 +351,357 @@
     "flag": "ch6_yard_gauge_read",
     "equals": true
    }
+  },
+  "ch6_t_relay_need_gauge": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "先到前庭水位尺確認目前的刻度。",
+     "ja": "まず前庭の水位計で今の水位を確かめよう。",
+     "en": "Check the yard gauge before operating the controls."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "ch6_yard_gauge_read",
+     "equals": true
+    }
+   }
+  },
+  "ch6_t_yard_gauge_safe": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "刻針已降到白線下，可以接上備援電源。",
+     "ja": "指針は白線より下だ。予備電源をつなげる。",
+     "en": "The needle is below the white line. Backup power can be connected."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch6_yard_gauge_read",
+      "equals": true
+     },
+     {
+      "flag": "ch6_relay_water_drained",
+      "equals": true
+     }
+    ]
+   }
+  },
+  "ch6_t_diverter_revisit": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "雨槽已分流到外槽。退水控制盒在泵房第一階。",
+     "ja": "雨どいは外槽に切り替わった。排水盤はポンプ小屋の最初の段にある。",
+     "en": "The gutter now drains to the outer channel. The drain control is on the first pump-house step."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch6_relay_water_diverted",
+    "equals": true
+   }
+  },
+  "ch6_t_relay_divert": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "su",
+     "text": "先把屋簷的雨水引到外槽，泵房才能退水。",
+     "ja": "屋根の雨水を外槽に逃がせば、ポンプ小屋の水を排水できる。",
+     "en": "Divert rain from the roof into the outer channel before draining the pump house."
+    },
+    {
+     "do": "world_action",
+     "id": "ch6_turn_diverter"
+    },
+    {
+     "do": "sfx",
+     "id": "switch",
+     "volume": -14
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "分流刻針已轉到底。可以操作泵房的退水盒。",
+     "ja": "分流の指針は端まで回った。ポンプ小屋の排水盤が使える。",
+     "en": "The diversion valve is fully open. The pump-house drain control is ready."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch6_yard_gauge_read",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch6_relay_water_diverted",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch6_relay_water_diverted",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch6_t_drain_need_diversion": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "雨水還往泵房流。先轉水位尺旁的分流手輪。",
+     "ja": "まだ雨水がポンプ小屋に流れている。水位計のそばの分流弁を先に回そう。",
+     "en": "Rain is still flowing toward the pump house. Turn the diversion valve beside the gauge first."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "ch6_relay_water_diverted",
+     "equals": true
+    }
+   }
+  },
+  "ch6_t_drain_revisit": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "刻針已降到白線下。備援箱在上層乾台。",
+     "ja": "指針は白線より下だ。予備電源箱は上の乾いた足場にある。",
+     "en": "The needle is below the white mark. The backup power box is on the upper dry deck."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch6_relay_water_drained",
+    "equals": true
+   }
+  },
+  "ch6_t_relay_drain": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "world_action",
+     "id": "ch6_press_drain"
+    },
+    {
+     "do": "sfx",
+     "id": "switch",
+     "volume": -15
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "水位往下退了。到白線以下，備援箱才會放行。",
+     "ja": "水位が下がった。白線を下回れば予備電源が使える。",
+     "en": "The water is going down. Below the white mark, the backup box will let us power up."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch6_yard_gauge_read",
+      "equals": true
+     },
+     {
+      "flag": "ch6_relay_water_diverted",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch6_relay_water_drained",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch6_relay_water_drained",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch6_t_backup_need_drain": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "水位還在白線上。先操作階梯旁的退水控制盒。",
+     "ja": "まだ水位が白線より上だ。階段脇の排水盤を先に操作しよう。",
+     "en": "The water is still above the white line. Use the drain control by the steps first."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "ch6_relay_water_drained",
+     "equals": true
+    }
+   }
+  },
+  "ch6_t_backup_revisit": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "備援自檢完成。錄音室入口在乾台右側的地面。",
+     "ja": "予備電源の自己診断が完了した。録音室の入口は乾いた足場の右下にある。",
+     "en": "Backup self-test complete. The recording booth door is at ground level to the right of the dry deck."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch6_relay_powered",
+    "equals": true
+   }
+  },
+  "ch6_t_choose_backup": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "水位已低於白線。是否接通錄音室的備援電源？",
+     "ja": "水位は白線を下回った。録音室の予備電源をつなぐ？",
+     "en": "The water is below the white line. Connect backup power to the recording booth?"
+    },
+    {
+     "do": "choice",
+     "text": "水位已低於白線。是否接通錄音室的備援電源？",
+     "default": "leave",
+     "options": [
+      {
+       "id": "connect",
+       "text": "接通備援電源",
+       "explanation": "通過自檢後開錄音室。",
+       "target": "ch6_t_relay_connect",
+       "ja": "予備電源をつなぐ",
+       "en": "Connect backup power",
+       "explanation_ja": "自己診断が済めば録音室が開く。",
+       "explanation_en": "Unlock the recording booth after the self-test."
+      },
+      {
+       "id": "leave",
+       "text": "先離開電源箱",
+       "explanation": "可以回來接電。",
+       "ja": "いったん電源箱から離れる",
+       "en": "Step away",
+       "explanation_ja": "戻ってから電源をつなげる。",
+       "explanation_en": "You can come back to connect the power."
+      }
+     ],
+     "cancel_choice_on_back": true,
+     "ja": "水位は白線を下回った。録音室の予備電源をつなぐ？",
+     "en": "The water is below the white line. Connect backup power to the recording booth?"
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch6_yard_gauge_read",
+      "equals": true
+     },
+     {
+      "flag": "ch6_relay_water_diverted",
+      "equals": true
+     },
+     {
+      "flag": "ch6_relay_water_drained",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch6_relay_powered",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch6_t_relay_connect": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "world_action",
+     "id": "ch6_press_backup"
+    },
+    {
+     "do": "sfx",
+     "id": "switch",
+     "volume": -12
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "中繼器自檢通過。錄音室可開門，麥克風仍在待機。",
+     "ja": "中継器の自己診断に合格。録音室は開き、マイクは待機中。",
+     "en": "The relay passed its self-test. The booth is unlocked and its microphone is on standby."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch6_yard_gauge_read",
+      "equals": true
+     },
+     {
+      "flag": "ch6_relay_water_diverted",
+      "equals": true
+     },
+     {
+      "flag": "ch6_relay_water_drained",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch6_relay_powered",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch6_relay_powered",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
   },
   "ch6_dispatch_plaza_intercom": {
    "mode": "dispatch",
@@ -342,6 +755,21 @@
    "routes": [
     {
      "when": {
+      "all": [
+       {
+        "flag": "ch6_yard_gauge_read",
+        "equals": true
+       },
+       {
+        "flag": "ch6_relay_water_drained",
+        "equals": true
+       }
+      ]
+     },
+     "target": "ch6_t_yard_gauge_safe"
+    },
+    {
+     "when": {
       "flag": "ch6_yard_gauge_read",
       "equals": true
      },
@@ -373,6 +801,179 @@
       ]
      },
      "target": "ch6_t_read_yard_gauge"
+    }
+   ]
+  },
+  "ch6_dispatch_relay_diverter": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "not": {
+       "flag": "ch6_yard_gauge_read",
+       "equals": true
+      }
+     },
+     "target": "ch6_t_relay_need_gauge"
+    },
+    {
+     "when": {
+      "flag": "ch6_relay_water_diverted",
+      "equals": true
+     },
+     "target": "ch6_t_diverter_revisit"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch6_yard_gauge_read",
+          "equals": true
+         },
+         {
+          "not": {
+           "flag": "ch6_relay_water_diverted",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch6_relay_water_diverted",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch6_t_relay_divert"
+    }
+   ]
+  },
+  "ch6_dispatch_relay_drain": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "not": {
+       "flag": "ch6_yard_gauge_read",
+       "equals": true
+      }
+     },
+     "target": "ch6_t_relay_need_gauge"
+    },
+    {
+     "when": {
+      "not": {
+       "flag": "ch6_relay_water_diverted",
+       "equals": true
+      }
+     },
+     "target": "ch6_t_drain_need_diversion"
+    },
+    {
+     "when": {
+      "flag": "ch6_relay_water_drained",
+      "equals": true
+     },
+     "target": "ch6_t_drain_revisit"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch6_yard_gauge_read",
+          "equals": true
+         },
+         {
+          "flag": "ch6_relay_water_diverted",
+          "equals": true
+         },
+         {
+          "not": {
+           "flag": "ch6_relay_water_drained",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch6_relay_water_drained",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch6_t_relay_drain"
+    }
+   ]
+  },
+  "ch6_dispatch_relay_backup": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "not": {
+       "flag": "ch6_yard_gauge_read",
+       "equals": true
+      }
+     },
+     "target": "ch6_t_relay_need_gauge"
+    },
+    {
+     "when": {
+      "not": {
+       "flag": "ch6_relay_water_diverted",
+       "equals": true
+      }
+     },
+     "target": "ch6_t_drain_need_diversion"
+    },
+    {
+     "when": {
+      "not": {
+       "flag": "ch6_relay_water_drained",
+       "equals": true
+      }
+     },
+     "target": "ch6_t_backup_need_drain"
+    },
+    {
+     "when": {
+      "flag": "ch6_relay_powered",
+      "equals": true
+     },
+     "target": "ch6_t_backup_revisit"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch6_yard_gauge_read",
+        "equals": true
+       },
+       {
+        "flag": "ch6_relay_water_diverted",
+        "equals": true
+       },
+       {
+        "flag": "ch6_relay_water_drained",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch6_relay_powered",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch6_t_choose_backup"
     }
    ]
   }

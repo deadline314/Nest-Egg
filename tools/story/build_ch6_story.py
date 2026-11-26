@@ -10,11 +10,15 @@ sys.path.insert(0, str(ROOT / "tools/level"))
 
 from build_ch6 import CHAPTER, POINTS, REQUEST, WITNESS  # noqa: E402
 from build_ch1_story import sfx  # noqa: E402
+from ch6_relay_water_story import add_relay_water  # noqa: E402
 from ch1_closure import Binding, Option, ProductionSource, Quest, QuestStep, all_of, flag, negate, say, set_flag  # noqa: E402
 from chapter_compiler import ChapterSpec, write_chapter  # noqa: E402
 
 
-CHAPTER_INFO = {"id": CHAPTER, "title": "第六章　斷錨", "subtitle": "港區・廣播站",
+CHAPTER_INFO = {
+    "id": CHAPTER,
+    "title": "第六章　斷錨",
+    "subtitle": "港區・廣播站",
     "end_title": "第六章　斷錨　完",
     "teaser": "下一章　日照",
 }
@@ -62,7 +66,7 @@ def build_spec():
     ), when=all_of(flag(WITNESS), negate(flag(GAUGE))), mode="animated",
         completion=(set_flag(GAUGE),), cancel_on_skip=True)
     source.add("ch6_t_yard_gauge_revisit", "6.01", (
-        ("label", "前庭已查過水位。回程出口在高架坡道腳下。"),
+        ("label", "刻針還在白線上。回程出口在高架坡道腳下。"),
     ), when=flag(GAUGE), mode="animated")
     source.quests.append(Quest(
         "ch6_approach_relay", "main", "從港區廣場到中繼站",
@@ -73,6 +77,7 @@ def build_spec():
          QuestStep("從高架進前庭，查看水位尺。", GAUGE, "yard_gauge")),
         visible_flags=(REQUEST,), completion_requires_steps=True,
     ))
+    add_relay_water(source, dispatch, GAUGE)
     return ChapterSpec(CHAPTER_INFO, source, "ch6", dispatch, POINTS)
 
 

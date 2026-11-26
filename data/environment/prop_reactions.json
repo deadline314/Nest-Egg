@@ -326,5 +326,98 @@
   }
  },
  "ch5_voice_lock_status": {"lamp": {"at": [0.68, 0.32], "radius": 0.72, "states": [{"color": "#382f38", "pulse": 0}, {"flag": "ch5_pear_dates_confirmed", "color": "#d99b4c", "pulse": 0}, {"flag": "ch5_basement_voice_unlocked", "color": "#5fbfae", "pulse": 0}]}},
- "ch6_approach_lift": {"lamp": {"at": [0.5, 0.04], "radius": 1.4, "states": [{"color": "#ba713d", "pulse": 0}, {"flag": "ch6_su_approach_confirmed", "color": "#d6f1fa", "pulse": 0}]}}
+ "ch6_approach_lift": {"lamp": {"at": [0.5, 0.04], "radius": 1.4, "states": [{"color": "#ba713d", "pulse": 0}, {"flag": "ch6_su_approach_confirmed", "color": "#d6f1fa", "pulse": 0}]}},
+  "ch6_cooling_gauge": {
+    "dial": {
+      "at": [
+        0.64,
+        0.56
+      ],
+      "length": 9,
+      "from_deg": -90,
+      "to_deg": 90,
+      "flag": "ch6_relay_water_drained",
+      "turn_seconds": 0.55,
+      "color": "#d6f1fa"
+    }
+  },
+  "ch6_diversion_wheel": {
+    "dial": {
+      "at": [
+        0.32,
+        0.33
+      ],
+      "length": 2.2,
+      "from_deg": 120,
+      "to_deg": 30,
+      "flag": "ch6_relay_water_diverted",
+      "turn_seconds": 0.55,
+      "color": "#d6f1fa"
+    }
+  },
+  "ch6_drain_indicator": {
+    "lamp": {
+      "at": [
+        0.36,
+        0.13
+      ],
+      "radius": 1.6,
+      "states": [
+        {
+          "color": "#b56b53",
+          "pulse": 0
+        },
+        {
+          "color": "#e0b16c",
+          "pulse": 0,
+          "flag": "ch6_relay_water_diverted"
+        },
+        {
+          "color": "#98d9d9",
+          "pulse": 0,
+          "flag": "ch6_relay_water_drained"
+        }
+      ]
+    }
+  },
+  "ch6_backup_indicator": {
+    "lamp": {
+      "at": [
+        0.77,
+        0.22
+      ],
+      "radius": 1.6,
+      "states": [
+        {
+          "color": "#b56b53",
+          "pulse": 0
+        },
+        {
+          "color": "#a3e4cd",
+          "pulse": 0,
+          "flag": "ch6_relay_powered"
+        }
+      ]
+    }
+  },
+  "ch6_recording_door": {
+    "lamp": {
+      "at": [
+        0.5,
+        0.11
+      ],
+      "radius": 2.0,
+      "states": [
+        {
+          "color": "#b56b53",
+          "pulse": 0
+        },
+        {
+          "flag": "ch6_relay_powered",
+          "color": "#c9f4d6",
+          "pulse": 0
+        }
+      ]
+    }
+  }
 }

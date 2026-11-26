@@ -1,10 +1,13 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=7 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
-[ext_resource type="Resource" path="res://data/npcs/ch6_yard_gauge.tres" id="3_ch6_yard_gauge"]
-[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="4_lighting_zone"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch6_broadcast_outside.tres" id="5_ch6_broadcast_outside"]
+[ext_resource type="Resource" path="res://data/npcs/ch6_relay_diverter.tres" id="3_ch6_relay_diverter"]
+[ext_resource type="Resource" path="res://data/npcs/ch6_yard_gauge.tres" id="4_ch6_yard_gauge"]
+[ext_resource type="Resource" path="res://data/npcs/ch6_relay_backup.tres" id="5_ch6_relay_backup"]
+[ext_resource type="Resource" path="res://data/npcs/ch6_relay_drain.tres" id="6_ch6_relay_drain"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="7_lighting_zone"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch6_broadcast_outside.tres" id="8_ch6_broadcast_outside"]
 
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("2_portal_data")
@@ -17,6 +20,20 @@ width = 30
 height = 63
 style = "door"
 
+[sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("2_portal_data")
+id = &"relay_recording"
+target_level = "res://data/levels/ch6_recording_booth.tres"
+target_portal = &"recording_relay"
+requires_flag = &"ch6_relay_powered"
+locked_text = "先讓水位降到白線下，再接通上層備援電源。"
+localized_locked_text = Dictionary[String, String]({"en": "Lower the water below the white mark and connect backup power upstairs.", "ja": "水位を白線より下げてから、上層の予備電源をつなぐ。"})
+prompt = "{interact} 進錄音室"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Enter the recording booth", "ja": "{interact} 録音室に入る"})
+width = 30
+height = 63
+style = "hidden"
+
 [resource]
 script = ExtResource("1_level_data")
 id = &"ch6_broadcast_outside"
@@ -26,14 +43,18 @@ tile_size = 16
 height = 24
 legend = Dictionary[String, Resource]({
 "ⅴ": SubResource("Resource_0"),
-"ⓖ": ExtResource("3_ch6_yard_gauge")
+"ⅵ": SubResource("Resource_1"),
+"ⓓ": ExtResource("3_ch6_relay_diverter"),
+"ⓖ": ExtResource("4_ch6_yard_gauge"),
+"ⓟ": ExtResource("5_ch6_relay_backup"),
+"ⓡ": ExtResource("6_ch6_relay_drain")
 })
 hints = PackedStringArray()
 chapter = &"ch6_unmooring"
 persistent_world = true
 show_chapter_card = false
-environment = ExtResource("5_ch6_broadcast_outside")
+environment = ExtResource("8_ch6_broadcast_outside")
 layout_path = "res://data/levels/ch6_broadcast_outside_map.json"
-lighting_zones = Array[ExtResource("4_lighting_zone")]([])
+lighting_zones = Array[ExtResource("7_lighting_zone")]([])
 story_triggers = PackedStringArray()
 death_credit_cap = 250

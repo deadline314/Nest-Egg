@@ -11,6 +11,7 @@ extends RefCounted
 ## place（拿起、沖洗、放好，ST-19）：手到擺設的 pick 點拿起一件只用來呈現的東西（texture／width／grip，例如一只碗），
 ## 繞著 pick 點做 scrub_loops 圈小動作（scrub 是橢圓半徑，往上繞；0 圈就是直接拿起），再放到 drop 點、放手。不需要擺設的反應物件，也不動任何物品。
 ## press：掌心按下擺設的 button 點再收手，只呈現已啟動的互動。
+## press with required=true cancels the scene when contact fails, before its durable result.
 ## inspect：從目前一側走到可安全蹲下的位置，查看原互動來源，不移動對方或碰道具。
 ## hand_angle（選填，度）：手掌朝向，0＝朝前平舉、正的往下彎（例如在水槽邊向下沖碗）；沒寫就是 0。
 
@@ -72,7 +73,8 @@ static func definition(id: String) -> Dictionary:
 
 
 static func is_presentation_only(id: String) -> bool:
-	return definition(id).get("kind") in ["press", "inspect"]
+	var spec := definition(id)
+	return spec.get("kind") in ["press", "inspect"] and spec.get("required", false) != true
 
 
 static func problem(id: Variant, scene: String, overlay: Variant) -> String:
@@ -82,6 +84,8 @@ static func problem(id: Variant, scene: String, overlay: Variant) -> String:
 	if spec.is_empty() or (spec.get("scene") != scene and spec.get("also_scene") != scene) \
 			or spec.get("kind") not in ["insert", "take_paper", "turn", "support", "place", "press", "inspect"]:
 		return "world_action is missing or belongs to another scene"
+	if spec.has("required") and (spec["kind"] != "press" or not spec["required"] is bool):
+		return "world_action required must be a boolean on a press"
 	var required: Array[String] = ["level", "source", "prop", "reaction"]
 	if spec["kind"] == "inspect":
 		required = ["level", "source"]

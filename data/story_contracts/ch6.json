@@ -94,6 +94,147 @@
           }
         ]
       }
+    },
+    {
+      "id": "ch6_t_relay_divert",
+      "source": "res://data/story/ch6_unmooring.json",
+      "npc": "res://data/npcs/ch6_relay_diverter.tres",
+      "levels": [
+        "res://data/levels/ch6_broadcast_outside.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "mode": "animated",
+        "then": "",
+        "when": {
+          "all": [
+            {
+              "flag": "ch6_yard_gauge_read",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch6_relay_water_diverted",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch6_relay_water_diverted",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch6_t_relay_drain",
+      "source": "res://data/story/ch6_unmooring.json",
+      "npc": "res://data/npcs/ch6_relay_drain.tres",
+      "levels": [
+        "res://data/levels/ch6_broadcast_outside.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "mode": "animated",
+        "then": "",
+        "when": {
+          "all": [
+            {
+              "flag": "ch6_yard_gauge_read",
+              "equals": true
+            },
+            {
+              "flag": "ch6_relay_water_diverted",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch6_relay_water_drained",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch6_relay_water_drained",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch6_t_choose_backup",
+      "source": "res://data/story/ch6_unmooring.json",
+      "npc": "res://data/npcs/ch6_relay_backup.tres",
+      "levels": [
+        "res://data/levels/ch6_broadcast_outside.tres"
+      ],
+      "role": "choice",
+      "rule": {
+        "default": "leave",
+        "options": [
+          {
+            "id": "connect",
+            "target": "ch6_t_relay_connect",
+            "flags": {}
+          },
+          {
+            "id": "leave",
+            "target": "",
+            "flags": {}
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch6_t_relay_connect",
+      "source": "res://data/story/ch6_unmooring.json",
+      "npc": "res://data/npcs/ch6_relay_backup.tres",
+      "levels": [
+        "res://data/levels/ch6_broadcast_outside.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "mode": "animated",
+        "then": "",
+        "when": {
+          "all": [
+            {
+              "flag": "ch6_yard_gauge_read",
+              "equals": true
+            },
+            {
+              "flag": "ch6_relay_water_diverted",
+              "equals": true
+            },
+            {
+              "flag": "ch6_relay_water_drained",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch6_relay_powered",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch6_relay_powered",
+            "value": true
+          }
+        ]
+      }
     }
   ]
 }

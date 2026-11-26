@@ -24,7 +24,16 @@
    "group": "broadcast_outside",
    "features": {
     "landmark": "水位尺與前庭泵房",
-    "loop": "入口可原路退回高架。"
+    "loop": "乾台與前庭地面相通，入口可原路退回高架。"
+   },
+   "encounters": []
+  },
+  "recording_booth": {
+   "combat": false,
+   "group": "recording_booth",
+   "features": {
+    "landmark": "窗後的調音台與錄音機。",
+    "loop": "從原門回廣播站前庭。"
    },
    "encounters": []
   }
