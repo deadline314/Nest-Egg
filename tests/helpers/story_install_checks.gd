@@ -81,12 +81,65 @@ static func _check_source_seal(s: TestSuite) -> void:
 	Story._scenes.erase(ID)
 
 
+static func _check_authored_depth(s: TestSuite) -> void:
+	const ID := "temporary_deep_authored_source"
+	var leaf := {"flag": "install_test_bool", "equals": true}
+	var condition: Dictionary = leaf
+	for i in StoryConditionTree.MAX_DEPTH - 1:
+		condition = {"all": [condition]}
+	var scene := {"mode": "dispatch", "routes": [{"when": condition, "target": "temporary_terminal"}]}
+	Story._scenes[ID] = scene
+	s.check(StoryConditionTree.validate(condition)["valid"], "the author condition is valid at its documented depth")
+	s.check(not RunSaveCodec.validate_tree({"runtime": scene}).is_empty()
+			and RunSaveCodec.encode({"runtime": scene}).is_empty(),
+			"nested scene data is still outside the save-file depth budget")
+	var captured := Bundle._capture_source()
+	s.check(captured.has("data"), "the full source seal accepts a supported authored route")
+	if captured.has("data"):
+		var seal: Bundle.SourceSeal = captured["data"]
+		s.check(seal.matches(), "the unchanged deep authored condition matches the captured source")
+		leaf["equals"] = false
+		s.check(not seal.matches(), "a deep authored condition mutation still stales the source")
+	Story._scenes.erase(ID)
+
+
+static func _check_plan_scene_scope(s: TestSuite) -> void:
+	const PRODUCER := "test_bounded_result_scope"
+	const OMITTED := "test_unknown_completed_scope"
+	var previous := _scene()
+	var registered := Story._scenes
+	Story._scenes = registered.duplicate()
+	for index in maxi(0, 1100 - Story._scenes.size()):
+		Story._scenes["test_unused_result_scope_%d" % index] = {}
+	var scene := {"results": []}
+	Story._scenes[PRODUCER] = scene
+	Story._scene_sources[PRODUCER] = "res://tests/fixtures/story_features.json"
+	var owner := preload("res://game/story_result_completion.gd").new()
+	owner._id = StringName(PRODUCER)
+	var source := _capture()
+	source["story"]["seen"] = [previous]
+	var planned: Dictionary = owner._plan(scene, source)
+	s.check(planned.get("valid", false) and planned["next"]["completed"] == [previous, PRODUCER],
+			"a real result plan needs only its contract and known recorded scenes in a large catalog")
+	source["story"]["seen"] = [previous, OMITTED]
+	planned = owner._plan(scene, source)
+	s.check(planned.get("status") == "invalid_snapshot", "unknown completed scenes still fail result planning")
+	source["story"]["seen"] = [previous, previous]
+	planned = owner._plan(scene, source)
+	s.check(planned.get("status") == "invalid_snapshot", "repeated completed scenes still fail result planning")
+	owner.free()
+	Story._scene_sources.erase(PRODUCER)
+	Story._scenes = registered
+
+
 static func run(s: TestSuite) -> void:
 	_check_source_seal(s)
+	_check_authored_depth(s)
 	var defaults := GameState.flag_defaults.duplicate(true)
 	GameState.story_autosave = false
 	GameState.register_flag_defaults({"install_test_bool": false, "install_test_count": 0}, "tests/story_install")
 	GameState.start_new_run(GameState.difficulties[1])
+	_check_plan_scene_scope(s)
 	Progression.restore({"version": 1, "credits": 1000, "upgrades": {"pistol": ["quick_reload"]},
 		"abilities": ["emp_pulse", "overclock"], "equipped": "overclock", "pawned": {"med_injector": 2}})
 	GameState.checkpoint_loadout = {"weapons": ["res://data/weapons/pistol.tres"], "mag": [7], "reserve": [-1], "active": 0, "consumables": {"med_injector": 1}}

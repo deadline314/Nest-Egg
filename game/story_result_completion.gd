@@ -448,9 +448,13 @@ func _npc_unchanged(level: Level, expected: Dictionary) -> bool:
 
 
 func _plan(scene: Dictionary, candidate: Dictionary, continuation: StringName = &"", choice := false) -> Dictionary:
+	# The planner needs the active contract and the registered IDs in this
+	# run's completion history. Unplayed definitions have no effect here.
 	var scenes := {}
-	for key: String in Story._scenes:
-		scenes[key] = {"once": false, "condition": {}, "results": []}
+	var history: Array = candidate["story"]["seen"]
+	for entry: Variant in history:
+		if (entry is String or entry is StringName) and Story._scenes.has(String(entry)):
+			scenes[String(entry)] = null
 	var operations: Array = scene.get("results", []).duplicate(true)
 	var producers := {}
 	var source: String = Story._scene_sources.get(String(_id), "")

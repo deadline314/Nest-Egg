@@ -114,9 +114,12 @@ static func _nesting_bytes_safe(bytes: PackedByteArray) -> bool:
 	return depth == 0 and not quoted
 
 
-static func validate_tree(raw: Variant, node_limit := MAX_NODES) -> PackedStringArray:
+## Callers handling saved data keep the file-format depth. An internal caller
+## may set a different bound for its own type of tree.
+static func validate_tree(raw: Variant, node_limit := MAX_NODES, depth_limit := MAX_DEPTH) -> PackedStringArray:
 	var validator := _TreeValidator.new()
 	validator.limit = clampi(node_limit, 1, MAX_NODES)
+	validator.depth_limit = depth_limit
 	if validator.visit(raw, 0):
 		return PackedStringArray()
 	var where := "run"
@@ -128,6 +131,7 @@ static func validate_tree(raw: Variant, node_limit := MAX_NODES) -> PackedString
 ## Save trees have a small fixed depth. Produce the path while unwinding a failure.
 class _TreeValidator:
 	var limit := 0
+	var depth_limit := RunSaveCodec.MAX_DEPTH
 	var count := 0
 	var path: Array = []
 	var message := ""
@@ -138,7 +142,7 @@ class _TreeValidator:
 
 	func visit(value: Variant, depth: int) -> bool:
 		count += 1
-		if count > limit or depth > RunSaveCodec.MAX_DEPTH:
+		if count > limit or depth > depth_limit:
 			return fail("資料數量或深度超過上限")
 		match typeof(value):
 			TYPE_NIL, TYPE_BOOL:

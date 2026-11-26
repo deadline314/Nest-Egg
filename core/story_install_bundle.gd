@@ -8,6 +8,10 @@ const ItemsOwner = preload("res://autoload/story_items.gd")
 const GameOwner = preload("res://autoload/game_state.gd")
 const StoryOwner = preload("res://autoload/story.gd")
 
+# Each all/any condition adds a dictionary and an array, in addition to the
+# scene and its route or choice wrapper. Saved progress still uses its own limit.
+const AUTHORED_CATALOG_DEPTH := StoryConditionTree.MAX_DEPTH * 2 + 8
+
 var _progression: ProgressionOwner.PreparedInstall
 var _items: ItemsOwner.PreparedInstall
 var _game: GameOwner.PreparedInstall
@@ -126,10 +130,8 @@ class SourceSeal:
 		# checks the current types and shape before the exact byte comparison.
 		if current == _tree and var_to_bytes(current) == _bytes:
 			return ""
-		var errors := RunSaveCodec.validate_tree(current)
-		if not errors.is_empty():
-			return "install/source " + errors[0]
-		return "install/source stale; prepare again from the current run"
+		var problem := StoryInstallBundle._source_problem(current, _scene_ids_only)
+		return problem if not problem.is_empty() else "install/source stale; prepare again from the current run"
 
 	func matches() -> bool:
 		return error_if_stale().is_empty()
@@ -155,13 +157,33 @@ static func _capture_source(scene_ids_only := false) -> Dictionary:
 	if Progression._story_transaction_busy:
 		return {"error": "install/source story transaction is busy"}
 	var source := _source_state(scene_ids_only)
-	var errors := RunSaveCodec.validate_tree(source)
-	if not errors.is_empty():
-		return {"error": "install/source " + errors[0]}
+	var problem := _source_problem(source, scene_ids_only)
+	if not problem.is_empty():
+		return {"error": problem}
 	var seal := SourceSeal.new(source, scene_ids_only)
 	if seal._bytes.is_empty():
 		return {"error": "install/source could not encode the bounded owner tree"}
 	return {"data": seal}
+
+
+## The registry is author data. The other owners remain under the save bounds,
+## and the exact detached source still includes every scene body in full mode.
+static func _source_problem(source: Dictionary, scene_ids_only: bool) -> String:
+	var story: Dictionary = source["story"]
+	var registry: Dictionary
+	if not scene_ids_only:
+		registry = story["scenes"]
+		story["scenes"] = registry.keys()
+	var errors := RunSaveCodec.validate_tree(source)
+	if not scene_ids_only:
+		story["scenes"] = registry
+	if not errors.is_empty():
+		return "install/source " + errors[0]
+	if not scene_ids_only:
+		errors = RunSaveCodec.validate_tree(registry, RunSaveCodec.MAX_NODES, AUTHORED_CATALOG_DEPTH)
+		if not errors.is_empty():
+			return "install/source story/scenes " + errors[0]
+	return ""
 
 
 ## Recheck before durable write, and again immediately before installation.
