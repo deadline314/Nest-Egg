@@ -3654,7 +3654,7 @@ target_portal = &"street_back"
 prompt = "{interact} 回港區街道"
 localized_prompts = Dictionary[String, String]({
 "en": "{interact} Return to Harbor Street",
-"ja": "{interact} 港の通りに戻る"
+"ja": "{interact} 港の通りへ戻る"
 })
 width = 30
 height = 64
@@ -4180,7 +4180,7 @@ target_portal = &"street_hall"
 prompt = "{interact} 回港區街道"
 localized_prompts = Dictionary[String, String]({
 "en": "{interact} Return to Harbor Street",
-"ja": "{interact} 港の通りに戻る"
+"ja": "{interact} 港の通りへ戻る"
 })
 width = 32
 height = 68
@@ -4751,14 +4751,14 @@ digests = Dictionary[String, String]({
 "res://data/levels/ch4_revival_lounge.tres": "4691c4e257c8666b6ee506f7f7627c283c17488abcb7e0bf03f6052e0ab78e10",
 "res://data/levels/ch4_ward_lamp_bay.tres": "833b7d73b8de25d4500126921e68db15e11af3789bd122624f39e9d9e50636d1",
 "res://data/levels/ch4_ward_reception.tres": "8dc5785ecead82eeb44e349c2fa45f32ff558553b72f176a851d95b902999701",
-"res://data/levels/ch5_back_alley.tres": "6ff2e747a0bfa0125079033531234a6d02c3d14e986a20c7ac6c097203fa421c",
+"res://data/levels/ch5_back_alley.tres": "48eb10b7819e24e410b298578ad8225c2c1b2a717057bc01b99122b61b1285d7",
 "res://data/levels/ch5_basement_archive.tres": "b0b0b8e4a12a61926d81cc67306d93d0203e346d570b991bc7f7cea582002c6d",
 "res://data/levels/ch5_basement_stair.tres": "971ef6b72bb6aa592331295579d5c9faabab4cc44105f8f0429ea628d35abe78",
 "res://data/levels/ch5_gray_path.tres": "56e799f08b425e906800a857631ae97500f509db2508d280af69936d70df4688",
 "res://data/levels/ch5_harbor_street.tres": "0ababd09a5ff3c3b046790837c675ec4514cf51804e491f50f949e4eb420d5b0",
 "res://data/levels/ch5_pawnshop.tres": "9322a6ed176b8acd9ea8d14f9718c71a2f5fdc56ff385e65b2022f7bc3fdd350",
 "res://data/levels/ch5_phone_alley.tres": "36aef2974c10dd13e0c65fb58aeee8fff1021872b07b3f18683bea8acdfcf448",
-"res://data/levels/ch5_revival_lounge.tres": "da7b5c6e682e5e1a76165412c7e3be07557e5877ac0aa3dc41c2274e5d4083ce",
+"res://data/levels/ch5_revival_lounge.tres": "f75761e783dc154a58e26ea02dbab2c432a12b7100ef2a1b30477813854fc9e7",
 "res://data/levels/level_01.tres": "c582d2bd9b2c821059489076e4186099891f5e37c9e3a3797a00437074d1b0ba",
 "res://data/levels/level_02.tres": "5db4c22f5a17686b01d4874865fe1096b5e8d55f9b00c28f6c4d84171184b28d",
 "res://data/npcs/ah_po.tres": "3cd6782fbfc78e4c50f5ebfb8a38fcad6f5abe0f59c5f99d30123fe69811a282",
