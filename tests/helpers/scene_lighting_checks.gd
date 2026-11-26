@@ -144,6 +144,35 @@ static func _test_stage_ui(suite: TestSuite) -> void:
 	var body := StageLayers.create({"kind": "sprite", "path": "res://art/environment/scene_props/pawnshop_kitchen_contacts/kettle_atlas.png", "pos": [100, 100]}, "UI isolation physical control") as Sprite2D
 	physical.add_layer(body)
 	movie._isolate_ui_lighting(movie._root)
+	var dialogue := movie._dialogue
+	dialogue.layout_safe_rect(Rect2(0, 0, 640, 360))
+	var card := dialogue._panel.get_theme_stylebox(&"panel") as ChamferBox
+	var portrait_card := (dialogue._frame.get_child(0) as Panel).get_theme_stylebox(&"panel") as ChamferBox
+	suite.check(card != null and card.fill == UiTheme.PANEL_BODY and card.corners == (ChamferBox.Corner.TR | ChamferBox.Corner.BL)
+			and card.bracket.a == 0.0 and card.scanlines == 0.0,
+			"cinematic dialogue shares the solid world conversation surface")
+	suite.check(portrait_card != null and portrait_card.rail.a == 0.0 and dialogue._panel.get_rect().encloses(dialogue._frame.get_rect()),
+			"the portrait backing stays contained inside the cinematic dialogue card")
+	var old_scale := Settings.get_ui_text_scale()
+	var old_motion := Settings.get_reduce_ui_motion()
+	Settings.set_ui_text_scale(1.2)
+	Settings.set_reduce_ui_motion(false)
+	var narrow := Rect2(80, 28, 480, 272)
+	dialogue.show_line(Story.speaker(&"rin"), "The speaker reads the route.\nThe next line checks the relay.\nThe third line explains the result.\nThe last line is still visible.")
+	dialogue.layout_safe_rect(narrow)
+	var stable_entry := dialogue._panel.get_rect().encloses(dialogue._frame.get_rect())
+	await suite.frames(4)
+	suite.check(stable_entry and narrow.encloses(dialogue._panel.get_rect())
+			and dialogue._panel.size.y > CutsceneDialogue.BOX_RECT.size.y
+			and is_equal_approx(dialogue._panel.get_rect().end.y, narrow.end.y - CutsceneDialogue.BOTTOM_MARGIN),
+			"the portrait enters inside a bottom-anchored card as long enlarged dialogue grows in an inset safe rect")
+	Settings.set_reduce_ui_motion(true)
+	dialogue.layout_safe_rect(narrow)
+	suite.check(dialogue._frame_slide == 0.0 and dialogue._frame.modulate.a == 1.0,
+			"reduced motion restarts neither the portrait slide nor the fade")
+	dialogue.hide_box()
+	Settings.set_ui_text_scale(old_scale)
+	Settings.set_reduce_ui_motion(old_motion)
 	suite.check(text.material == LightKit.emissive_material() and movie._dialogue._portrait.material == LightKit.emissive_material(), "dark stage keeps dialogue text and portrait independent of scene lighting")
 	suite.check(movie._center_text.material == LightKit.emissive_material() and movie._skip_hint.material == LightKit.emissive_material() and movie._fade.material == LightKit.emissive_material(), "title, skip hint and screen overlay retain their UI light context")
 	suite.check(body.material == null and movie._stage_holder.material == null and physical.actors.material == null, "UI isolation never marks the stage holder or physical branch emissive")

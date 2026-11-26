@@ -7,7 +7,11 @@ extends Control
 const BOX_RECT := Rect2(28, 268, 584, 76)
 ## 寬銀幕黑邊開著時，對話框底下留給下黑邊的空間：框頂 = 安全範圍下緣 − SAFE_BOTTOM_GAP（過場構圖檢查也用這個值）。
 const SAFE_BOTTOM_GAP := 84.0
+const SIDE_MARGIN := BOX_RECT.position.x
+const BOTTOM_MARGIN := SAFE_BOTTOM_GAP - BOX_RECT.size.y
 const PORTRAIT_SIZE := 60.0
+const PORTRAIT_INSET := Vector2(10.0, 8.0)
+const PORTRAIT_SLIDE := 6.0
 const STYLES: PackedStringArray = ["normal", "whisper", "shout", "noise"]
 const SPEED := {"normal": 38.0, "whisper": 22.0, "shout": 52.0, "noise": 30.0}
 const LONG_PAUSE := "。！？"
@@ -33,6 +37,7 @@ var _speaker_key := ""
 var _time := 0.0
 var _slide_tween: Tween
 var _box_rect := BOX_RECT
+var _safe_rect := Rect2()
 var _frame_slide := 0.0:
 	set(value):
 		_frame_slide = value
@@ -52,10 +57,8 @@ func _build() -> void:
 	_panel.position = BOX_RECT.position
 	_panel.size = BOX_RECT.size
 	_panel.custom_minimum_size = BOX_RECT.size
-	var box := ChamferBox.make(Color(0.02, 0.04, 0.07, 0.9), Palette.CYAN_DIM, 5)
-	box.scanlines = 0.1
-	box.bracket = Palette.CYAN
-	box.margins(PORTRAIT_SIZE + 22.0, 8, 14, 8)
+	var box := DialogueMaterial.panel("dialogue")
+	box.margins(PORTRAIT_SIZE + 22.0, 8, 14, 18)
 	_panel.add_theme_stylebox_override(&"panel", box)
 	add_child(_panel)
 	var column := VBoxContainer.new()
@@ -74,15 +77,14 @@ func _build() -> void:
 	_text.resized.connect(_sync_ghost_width)
 
 	_frame = Control.new()
-	_frame.position = Vector2(BOX_RECT.position.x + 6.0, BOX_RECT.position.y - 8.0)
 	_frame.size = Vector2(PORTRAIT_SIZE, PORTRAIT_SIZE)
 	_frame.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_frame)
+	_layout_portrait()
 	var frame_back := Panel.new()
 	frame_back.size = _frame.size
 	frame_back.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var frame_box := ChamferBox.make(Color(0.03, 0.06, 0.09, 0.96), Palette.CYAN, 4, 2)
-	frame_back.add_theme_stylebox_override(&"panel", frame_box)
+	frame_back.add_theme_stylebox_override(&"panel", DialogueMaterial.portrait_backing())
 	_frame.add_child(frame_back)
 	_portrait = TextureRect.new()
 	_portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
@@ -97,6 +99,7 @@ func _build() -> void:
 	_continue.position = Vector2(BOX_RECT.end.x - 28.0, BOX_RECT.end.y - 18.0)
 	_continue.size = Vector2(20, 14)
 	add_child(_continue)
+	_panel.minimum_size_changed.connect(_fit_box.call_deferred)
 
 
 func _make_ghost(color: Color) -> Label:
@@ -160,7 +163,7 @@ func _slide_frame() -> void:
 		_frame_slide = 0.0
 		_frame.modulate.a = 1.0
 		return
-	_frame_slide = -24.0
+	_frame_slide = -PORTRAIT_SLIDE
 	_frame.modulate.a = 0.0
 	_slide_tween = create_tween().set_parallel(true)
 	_slide_tween.tween_property(self, "_frame_slide", 0.0, 0.18).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
@@ -216,31 +219,35 @@ func _apply_visible() -> void:
 
 ## 吼叫抖動、雜訊色散；其他風格固定不動。文字在容器裡不能直接動，所以抖動整個面板。
 func _apply_style_motion() -> void:
-	var origin := _box_rect.position + Vector2(PORTRAIT_SIZE + 22.0, 8.0 + 14.0)
 	_panel.position = _box_rect.position
-	if Settings.get_reduce_ui_motion():
-		_ghost_a.position = origin
-		_ghost_b.position = origin
-		return
-	match _style:
-		"shout":
-			_panel.position += Vector2(sin(_time * 80.0) * 0.8, cos(_time * 70.0) * 0.6)
-		"noise":
-			var jitter := float(int(_time * 20.0) % 3) - 1.0
-			_ghost_a.position = origin + Vector2(1.5 + jitter, 0.0)
-			_ghost_b.position = origin + Vector2(-1.5 - jitter, 0.5)
+	var reduce_motion := Settings.get_reduce_ui_motion()
+	if _style == "shout" and not reduce_motion:
+		_panel.position += Vector2(sin(_time * 80.0) * 0.8, cos(_time * 70.0) * 0.6)
+	elif _style == "noise":
+		var origin := _text.global_position - global_position
+		var jitter := float(int(_time * 20.0) % 3) - 1.0
+		_ghost_a.position = origin if reduce_motion else origin + Vector2(1.5 + jitter, 0.0)
+		_ghost_b.position = origin if reduce_motion else origin + Vector2(-1.5 - jitter, 0.5)
 
 
 func layout_safe_rect(rect: Rect2) -> void:
-	_box_rect = Rect2(Vector2(28, rect.end.y - SAFE_BOTTOM_GAP), Vector2(maxf(0, rect.size.x - 56), 76))
-	_panel.position = _box_rect.position
-	_panel.custom_minimum_size.x = _box_rect.size.x
-	_panel.size = _box_rect.size
+	_safe_rect = rect
 	if Settings.get_reduce_ui_motion():
 		if _slide_tween != null and _slide_tween.is_valid():
 			_slide_tween.kill()
 		_frame_slide = 0.0
 		_frame.modulate.a = 1.0
+	_fit_box()
+
+
+func _fit_box() -> void:
+	if not _safe_rect.has_area():
+		return
+	var width := maxf(0.0, _safe_rect.size.x - SIDE_MARGIN * 2.0)
+	_panel.custom_minimum_size.x = width
+	_panel.size = Vector2(width, _panel.get_combined_minimum_size().y)
+	_box_rect = Rect2(Vector2(_safe_rect.position.x + SIDE_MARGIN,
+			_safe_rect.end.y - BOTTOM_MARGIN - _panel.size.y), _panel.size)
 	_layout_portrait()
 	_continue.position = _box_rect.end - Vector2(28, 18)
 	_apply_style_motion()
@@ -253,4 +260,4 @@ func _sync_ghost_width() -> void:
 
 func _layout_portrait() -> void:
 	if is_instance_valid(_frame):
-		_frame.position = _box_rect.position + Vector2(6.0 + _frame_slide, -8.0)
+		_frame.position = _box_rect.position + PORTRAIT_INSET + Vector2(_frame_slide, 0.0)
