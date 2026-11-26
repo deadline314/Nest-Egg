@@ -373,6 +373,128 @@
           }
         ]
       }
+    },
+    {
+      "id": "ch6_t_control_decision",
+      "source": "res://data/story/ch6_unmooring.json",
+      "npc": "res://data/npcs/ch6_control_link.tres",
+      "levels": [
+        "res://data/levels/ch6_recording_booth.tres"
+      ],
+      "role": "choice",
+      "rule": {
+        "default": "leave",
+        "options": [
+          {
+            "id": "forward",
+            "target": "ch6_t_relay_ali_call",
+            "flags": {}
+          },
+          {
+            "id": "keep",
+            "target": "ch6_t_keep_relay_feed",
+            "flags": {}
+          },
+          {
+            "id": "leave",
+            "target": "",
+            "flags": {}
+          },
+          {
+            "id": "review",
+            "target": "",
+            "flags": {}
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch6_t_relay_ali_call",
+      "source": "res://data/story/ch6_unmooring.json",
+      "npc": "res://data/npcs/ch6_control_link.tres",
+      "levels": [
+        "res://data/levels/ch6_recording_booth.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "mode": "animated",
+        "then": "",
+        "when": {
+          "all": [
+            {
+              "flag": "ch5_ledger_broadcast_requested",
+              "equals": true
+            },
+            {
+              "flag": "ch6_trial_broadcast_confirmed",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch6_control_call_decided",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ali_call_relayed",
+            "value": true
+          },
+          {
+            "kind": "flag",
+            "id": "ch6_control_call_decided",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch6_t_keep_relay_feed",
+      "source": "res://data/story/ch6_unmooring.json",
+      "npc": "res://data/npcs/ch6_control_link.tres",
+      "levels": [
+        "res://data/levels/ch6_recording_booth.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "mode": "animated",
+        "then": "",
+        "when": {
+          "all": [
+            {
+              "flag": "ch5_ledger_broadcast_requested",
+              "equals": true
+            },
+            {
+              "flag": "ch6_trial_broadcast_confirmed",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch6_control_call_decided",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ali_call_relayed",
+            "value": false
+          },
+          {
+            "kind": "flag",
+            "id": "ch6_control_call_decided",
+            "value": true
+          }
+        ]
+      }
     }
   ]
 }

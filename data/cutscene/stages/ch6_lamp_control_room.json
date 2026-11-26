@@ -1,0 +1,133 @@
+{
+ "camera": {
+  "pos": [
+   320,
+   180
+  ],
+  "zoom": 1.0
+ },
+ "floor": 335,
+ "layers": [
+  {
+   "kind": "gradient",
+   "top": "#0b111f",
+   "bottom": "#172738",
+   "parallax": 0.0
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    0,
+    16,
+    640,
+    15
+   ],
+   "color": "#172436"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    0,
+    31,
+    640,
+    2
+   ],
+   "color": "#32445c"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    0,
+    304,
+    640,
+    72
+   ],
+   "color": "#111d2a"
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scene_props/control_room/control_room__monitor_wall.png",
+   "pos": [
+    50,
+    29
+   ],
+   "scale": 0.54,
+   "filter": "linear",
+   "source_width": 637,
+   "glow": false,
+   "id": "noisy_display",
+   "modulate": "#6f607c"
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scene_props/control_room/control_room__monitor_wall.png",
+   "pos": [
+    50,
+    29
+   ],
+   "scale": 0.54,
+   "filter": "linear",
+   "source_width": 637,
+   "glow": false,
+   "id": "clear_display",
+   "modulate": "#b7d4df",
+   "visible": false
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scene_props/control_room/control_room__relay_map_display.png",
+   "pos": [
+    401,
+    38
+   ],
+   "scale": 0.34,
+   "filter": "linear",
+   "source_width": 585,
+   "glow": false,
+   "id": "relay_dim",
+   "modulate": "#526575"
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scene_props/control_room/control_room__relay_map_display.png",
+   "pos": [
+    401,
+    38
+   ],
+   "scale": 0.34,
+   "filter": "linear",
+   "source_width": 585,
+   "glow": false,
+   "id": "relay_active",
+   "modulate": "#bfdbe6",
+   "visible": false
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scene_props/control_room/control_room__comm_console.png",
+   "pos": [
+    87,
+    188
+   ],
+   "scale": 0.83,
+   "filter": "linear",
+   "source_width": 553,
+   "glow": false,
+   "lighting": "physical"
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scene_props/control_room/control_room__sos_panel.png",
+   "pos": [
+    589,
+    95
+   ],
+   "scale": 0.35,
+   "filter": "linear",
+   "source_width": 117,
+   "glow": false,
+   "id": "call_alarm",
+   "visible": false
+  }
+ ]
+}

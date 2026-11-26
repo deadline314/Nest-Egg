@@ -5,6 +5,7 @@ from pathlib import Path
 import argparse
 
 import build_ch1 as kit
+import ch6_control_station as control
 import ch6_relay_water as water
 import ch6_studio_trial as studio
 from area_name_translations import AREA_NAMES
@@ -40,6 +41,7 @@ OBJECTS = (
      ("查看前庭水位", "Check the yard water level", "前庭の水位を調べる")),
     *water.OBJECTS,
     *studio.OBJECTS,
+    *control.OBJECTS,
 )
 AREA_COPY = {
     "廣播站錄音室": ("Broadcast Recording Booth", "放送局の録音室"),
@@ -49,7 +51,7 @@ AREA_COPY = {
 }
 POINTS = {name: (room, x, row) for _, name, _, room, x, row, _ in OBJECTS}
 THEMES = {
-    "recording_booth": water.THEME,
+    "recording_booth": (*water.THEME[:-1], [*water.THEME[-1], "control_room"]),
     "harbor_plaza": ("asphalt", ["shopfront", "shutter_block"], None, 0.14, "sky_storm",
                     ["harbor_plaza", "anchor_phone_booth", "mezzanine"]),
     "broadcast_overpass": ("steel_plate", ["facility_wall", "shutter_block"], "facility_panel", 0.0, "sky_storm",
@@ -161,6 +163,7 @@ def main():
     booth = water.recording_booth(kit, GROUND)
     studio.extend_canopy(yard)
     studio.extend_booth(booth)
+    control.extend_booth(booth)
     areas = [plaza(), overpass(), yard, booth]
     for area in areas:
         for glyph, _, _, room, col, row, _ in OBJECTS:
@@ -174,6 +177,7 @@ def main():
     if options.check:
         print("Chapter Six walkable areas and all local stations validated.")
         return
+    control.write_stage(Path(__file__).resolve().parents[2])
     kit.write_npc_files()
     kit.write_design(areas)
     for room in areas:

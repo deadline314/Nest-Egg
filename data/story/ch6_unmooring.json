@@ -36,7 +36,9 @@
   "ch6_relay_water_drained": false,
   "ch6_relay_powered": false,
   "ch6_su_studio_met": false,
-  "ch6_trial_broadcast_confirmed": false
+  "ch6_trial_broadcast_confirmed": false,
+  "ali_call_relayed": false,
+  "ch6_control_call_decided": false
  },
  "transactions": {},
  "derived_flags": {},
@@ -191,6 +193,39 @@
    "background_en": "Meet Wake by the door. Check the local microphone and captions inside the booth.",
    "reward_ja": "音声テストは確認済み。制御室に連絡できる。",
    "reward_en": "The booth test is confirmed. The control room can now be contacted."
+  },
+  {
+   "id": "ch6_control_call",
+   "kind": "main",
+   "title": "查看控制室的來電",
+   "background": "從錄音室接上燈的監聽畫面，再決定要怎麼處理來電。",
+   "reward": "已保存來電的去向。",
+   "complete_flag": "ch6_control_call_decided",
+   "steps": [
+    {
+     "title": "接上控制室，檢查中繼與通訊。",
+     "complete_flag": "ch6_control_call_decided",
+     "location": {
+      "level": "res://data/levels/ch6_recording_booth.tres",
+      "cell": [
+       29,
+       19
+      ]
+     },
+     "title_ja": "制御室に接続し、中継と通信を確認する。",
+     "title_en": "Connect to control and check the relay and communications."
+    }
+   ],
+   "visible_flags": [
+    "ch6_trial_broadcast_confirmed"
+   ],
+   "completion_requires_steps": true,
+   "title_ja": "制御室の来電を確認する",
+   "title_en": "Check the control-room call",
+   "background_ja": "録音室から灯の監聴画面に接続し、来電をどう扱うか決める。",
+   "background_en": "Connect to Lamp's monitor feed from the booth and decide what to do with the call.",
+   "reward_ja": "来電の転送先を保存した。",
+   "reward_en": "Call routing saved."
   }
  ],
  "scenes": {
@@ -1159,6 +1194,448 @@
    "cancel_on_skip": true,
    "completion_policy": "main_terminal_results_v1"
   },
+  "ch6_t_control_wait": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "先和蘇確認室內試音，控制室才接得到監聽訊號。",
+     "ja": "蘇と室内テストを確認しよう。それから制御室に監聴信号が届く。",
+     "en": "Confirm the booth test with Wake so control can receive the monitor signal."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "ch6_trial_broadcast_confirmed",
+     "equals": true
+    }
+   }
+  },
+  "ch6_t_control_diag": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "scene",
+     "id": "ch6_lamp_control_room"
+    },
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "我從控制室看線。凜，妳守錄音室的門。",
+     "ja": "制御室から回線を見る。凜は録音室の扉を頼む。",
+     "en": "I'll watch the feed from the control room. Rin, hold the booth door."
+    },
+    {
+     "do": "choice",
+     "text": "要查看中繼訊號嗎？",
+     "default": "leave",
+     "cancel_choice_on_back": true,
+     "options": [
+      {
+       "id": "relay",
+       "text": "查看中繼訊號",
+       "explanation": "核對前庭到錄音室的兩路回訊。",
+       "steps": [
+        {
+         "do": "prop_visible",
+         "id": "relay_dim",
+         "visible": false
+        },
+        {
+         "do": "prop_visible",
+         "id": "relay_active",
+         "visible": true
+        },
+        {
+         "do": "sfx",
+         "id": "switch",
+         "volume": -22
+        },
+        {
+         "do": "choice",
+         "text": "中繼器收到回訊。要校正接收濾波嗎？",
+         "default": "leave",
+         "cancel_choice_on_back": true,
+         "options": [
+          {
+           "id": "filter",
+           "text": "校正干擾",
+           "explanation": "讓線況與通訊回到可讀狀態。",
+           "steps": [
+            {
+             "do": "prop_visible",
+             "id": "noisy_display",
+             "visible": false
+            },
+            {
+             "do": "prop_visible",
+             "id": "clear_display",
+             "visible": true
+            },
+            {
+             "do": "prop_visible",
+             "id": "call_alarm",
+             "visible": true
+            },
+            {
+             "do": "sfx",
+             "id": "phone_ring",
+             "volume": -26
+            },
+            {
+             "do": "choice",
+             "text": "監聽訊號已清楚。要接收通訊嗎？",
+             "default": "leave",
+             "cancel_choice_on_back": true,
+             "options": [
+              {
+               "id": "listen",
+               "text": "切到通訊",
+               "explanation": "只監聽來電。",
+               "target": "ch6_t_control_decision",
+               "ja": "通信に切り替える",
+               "en": "Switch to communications",
+               "explanation_ja": "来電を聞くだけ。",
+               "explanation_en": "Listen to the incoming call."
+              },
+              {
+               "id": "leave",
+               "text": "離開控制畫面",
+               "explanation": "目前的接線保持不變。",
+               "ja": "制御画面を閉じる",
+               "en": "Leave the control feed",
+               "explanation_ja": "現在の接続を保つ。",
+               "explanation_en": "Keep the current routing."
+              }
+             ],
+             "ja": "監聴信号が明瞭になった。通信に切り替える？",
+             "en": "The monitor signal is clear. Switch to communications?"
+            }
+           ],
+           "ja": "ノイズを抑える",
+           "en": "Filter the interference",
+           "explanation_ja": "回線状況と通信を読み取れるようにする。",
+           "explanation_en": "Make the status and communications readable."
+          },
+          {
+           "id": "leave",
+           "text": "離開控制畫面",
+           "explanation": "目前的接線保持不變。",
+           "ja": "制御画面を閉じる",
+           "en": "Leave the control feed",
+           "explanation_ja": "現在の接続を保つ。",
+           "explanation_en": "Keep the current routing."
+          }
+         ],
+         "ja": "中継器から応答が返った。受信フィルターを調整する？",
+         "en": "Both relay returns are present. Adjust the receiving filter?"
+        }
+       ],
+       "ja": "中継信号を確認する",
+       "en": "Check relay signals",
+       "explanation_ja": "前庭と録音室を結ぶ二系統の応答を確認する。",
+       "explanation_en": "Check both returns between the yard and the booth."
+      },
+      {
+       "id": "leave",
+       "text": "離開控制畫面",
+       "explanation": "目前的接線保持不變。",
+       "ja": "制御画面を閉じる",
+       "en": "Leave the control feed",
+       "explanation_ja": "現在の接続を保つ。",
+       "explanation_en": "Keep the current routing."
+      }
+     ],
+     "ja": "中継信号を確認する？",
+     "en": "Check the relay signal?"
+    }
+   ],
+   "pose_policy": "supported",
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_ledger_broadcast_requested",
+      "equals": true
+     },
+     {
+      "flag": "ch6_trial_broadcast_confirmed",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch6_control_call_decided",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch6_t_control_decision": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "scene",
+     "id": "ch6_lamp_control_room",
+     "props": {
+      "relay_dim": {
+       "visible": false
+      },
+      "relay_active": {
+       "visible": true
+      },
+      "noisy_display": {
+       "visible": false
+      },
+      "clear_display": {
+       "visible": true
+      },
+      "call_alarm": {
+       "visible": true
+      }
+     },
+     "fade": 0.15
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "有人等在我家外面。我想請凜過來，你能找到她嗎？",
+     "ja": "家の外で誰かが待ってる。凜に来てほしい。連絡できる？",
+     "en": "Someone's waiting outside my place. I want Rin to come over. Can you reach her?"
+    },
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "只有一條臨時線。把電話接給凜，就得暫停蘇那邊的監聽。",
+     "ja": "仮の回線は一本だけだ。凜に電話をつなぐなら、蘇の監聴をいったん止める。",
+     "en": "There's one temporary line. Forwarding the call to Rin pauses Wake's monitor feed."
+    },
+    {
+     "do": "choice",
+     "text": "只有一條臨時線。把電話接給凜，就得暫停蘇那邊的監聽。",
+     "default": "leave",
+     "options": [
+      {
+       "id": "forward",
+       "text": "把電話轉給凜",
+       "explanation": "暫停監聽，讓凜直接收到來電。",
+       "target": "ch6_t_relay_ali_call",
+       "ja": "凜に電話をつなぐ",
+       "en": "Forward the call to Rin",
+       "explanation_ja": "監聴を止めて、凜に直接電話をつなぐ。",
+       "explanation_en": "Pause monitoring and let Rin receive the call."
+      },
+      {
+       "id": "keep",
+       "text": "守住監聽線",
+       "explanation": "讓蘇接著試音。這通電話不會轉接。",
+       "target": "ch6_t_keep_relay_feed",
+       "ja": "監聴回線を維持する",
+       "en": "Keep the monitor line",
+       "explanation_ja": "蘇はテストを続ける。この電話は転送しない。",
+       "explanation_en": "Wake keeps testing the mic. The call stays here."
+      },
+      {
+       "id": "leave",
+       "text": "暫不做決定",
+       "explanation": "保持來電與監聽的目前狀態。",
+       "ja": "判断を保留する",
+       "en": "Leave the decision open",
+       "explanation_ja": "来電と監聴を現在の状態に保つ。",
+       "explanation_en": "Keep the call and monitoring as they are."
+      },
+      {
+       "id": "review",
+       "text": "回去查線路",
+       "explanation": "回錄音室，再開終端查看回訊。",
+       "ja": "回線を確認し直す",
+       "en": "Review the line",
+       "explanation_ja": "録音室に戻り、端末を開き直して応答を確認する。",
+       "explanation_en": "Return to the booth and reopen the terminal to inspect the line."
+      }
+     ],
+     "cancel_choice_on_back": true,
+     "ja": "仮の回線は一本だけだ。凜に電話をつなぐなら、蘇の監聴をいったん止める。",
+     "en": "There's one temporary line. Forwarding the call to Rin pauses Wake's monitor feed."
+    }
+   ],
+   "pose_policy": "supported",
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_ledger_broadcast_requested",
+      "equals": true
+     },
+     {
+      "flag": "ch6_trial_broadcast_confirmed",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch6_control_call_decided",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch6_t_relay_ali_call": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "阿梨在家門口等妳。她想請妳過去。我先把這一端的線留著。",
+     "ja": "アーリーは家の前で待ってる。来てほしいそうだ。こっちの回線は開けておく。",
+     "en": "Ali's waiting by her door. She wants you to come over. I'll keep this end of the line open."
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "電話已轉接。室內監聽暫停。",
+     "ja": "電話を転送した。室内の監聴は一時停止。",
+     "en": "Call forwarded. Booth monitoring paused."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_ledger_broadcast_requested",
+      "equals": true
+     },
+     {
+      "flag": "ch6_trial_broadcast_confirmed",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch6_control_call_decided",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ali_call_relayed",
+     "value": true
+    },
+    {
+     "kind": "flag",
+     "id": "ch6_control_call_decided",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch6_t_keep_relay_feed": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "su",
+     "text": "我把這段室內試音收完了。屋頂剛有人走過，妳去看看樓梯。",
+     "ja": "室内テストはここまで。さっき屋上を誰かが通った。階段を見てきて。",
+     "en": "I've finished this booth test. Someone just crossed the roof. Check the stairs."
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "監聽已保留。這通電話沒有轉接。",
+     "ja": "監聴を維持。電話は転送されなかった。",
+     "en": "Monitoring kept. The call stayed here."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch5_ledger_broadcast_requested",
+      "equals": true
+     },
+     {
+      "flag": "ch6_trial_broadcast_confirmed",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch6_control_call_decided",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ali_call_relayed",
+     "value": false
+    },
+    {
+     "kind": "flag",
+     "id": "ch6_control_call_decided",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch6_t_control_revisit_forward": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "電話已轉到凜這一端。監聽紀錄標為暫停。",
+     "ja": "電話は凜に届いた。監聴記録には一時停止と残っている。",
+     "en": "The call reached Rin. The monitoring log marks a pause."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch6_control_call_decided",
+      "equals": true
+     },
+     {
+      "flag": "ali_call_relayed",
+      "equals": true
+     }
+    ]
+   }
+  },
+  "ch6_t_control_revisit_keep": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "監聽線已保留，來電沒有轉接。",
+     "ja": "監聴回線は維持され、来電は転送されなかった。",
+     "en": "The monitor line stayed connected. The call was held."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch6_control_call_decided",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ali_call_relayed",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
   "ch6_dispatch_plaza_intercom": {
    "mode": "dispatch",
    "routes": [
@@ -1606,6 +2083,73 @@
       ]
      },
      "target": "ch6_t_choose_blank_trial"
+    }
+   ]
+  },
+  "ch6_dispatch_control_link": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch6_control_call_decided",
+        "equals": true
+       },
+       {
+        "flag": "ali_call_relayed",
+        "equals": true
+       }
+      ]
+     },
+     "target": "ch6_t_control_revisit_forward"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch6_control_call_decided",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ali_call_relayed",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch6_t_control_revisit_keep"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch5_ledger_broadcast_requested",
+        "equals": true
+       },
+       {
+        "flag": "ch6_trial_broadcast_confirmed",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch6_control_call_decided",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch6_t_control_diag"
+    },
+    {
+     "when": {
+      "not": {
+       "flag": "ch6_trial_broadcast_confirmed",
+       "equals": true
+      }
+     },
+     "target": "ch6_t_control_wait"
     }
    ]
   }
