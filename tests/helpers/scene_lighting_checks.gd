@@ -161,7 +161,7 @@ static func _test_stage_ui(suite: TestSuite) -> void:
 	await suite.frames(2)
 	var isolated := movie._choice != null and movie._choice.material == LightKit.emissive_material()
 	if movie._choice != null:
-		for node: Node in movie._choice.get_children():
+		for node: Node in movie._choice.find_children("*", "CanvasItem", true, false):
 			isolated = isolated and (node is CanvasItem and node.material == LightKit.emissive_material())
 	suite.check(isolated, "late choice prompt, button and explanation receive UI isolation when actually built")
 	movie._running = false

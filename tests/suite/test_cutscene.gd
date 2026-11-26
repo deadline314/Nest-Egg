@@ -88,6 +88,7 @@ func run() -> void:
 	await _test_gameplay_input_lock()
 	await _test_skip_covered_transition()
 	await _test_framing_lifecycle()
+	await _test_choice_panel_layout()
 	await _test_resumed_boss_cancel()
 	await _test_saved_arena_initialization()
 	_test_real_data()
@@ -287,6 +288,69 @@ func _test_framing_lifecycle() -> void:
 	overlay.cancel()
 	await frames(2)
 	Settings.set_reduce_ui_motion(reduced)
+
+
+func _test_choice_panel_layout() -> void:
+	var original_scale := Settings.get_ui_text_scale()
+	Settings.set_ui_text_scale(1.2)
+	var detail := "Keep the original receipt and return here after finding the second page."
+	var option := "Compare the separately signed observation and retain the original in its envelope. "
+	var options: Array[Dictionary] = []
+	for index in 7:
+		options.append({"id": "action_%d" % index, "text": option + str(index),
+				"explanation": detail if index == 1 else "Review the previous entry."})
+	var movie := _play(&"responsive_choice", {"overlay": true, "steps": [{
+		"do": "choice", "text": "Which entry belongs with the original receipt?", "default": "action_0",
+		"options": options,
+	}]}, 1.0)
+	for frame in 12:
+		if movie.choice_active():
+			break
+		await frames(1)
+	check(movie.choice_active(), "the real cutscene opens the choice at 120 percent text size")
+	if movie.choice_active():
+		var panel := movie._choice
+		var safe := Rect2(32, 34, 460, 200)
+		panel.layout_safe_rect(safe)
+		await frames(4)
+		var first := panel.rows.get_child(0) as Button
+		var second := panel.rows.get_child(1) as Button
+		var last := panel.rows.get_child(6) as Button
+		var height := panel.size.y
+		check(safe.encloses(panel.get_rect()) and panel.size.x < safe.size.x * 0.6,
+				"the whole compact plate fits an inset safe rect")
+		check((panel.get_theme_stylebox(&"panel") as ChamferBox).fill.a == 1.0 and not movie._skip_hint.visible,
+				"the plate is opaque and contains the only skip hint")
+		check(first.has_focus() and first.size.y > 22.0 and first.tooltip_text.is_empty(),
+				"long options wrap while the first row remains keyboard-focused without a duplicate tooltip")
+		second.mouse_entered.emit()
+		check(panel._note.text == detail and not second.has_focus(), "pointer hover uses the shared note without moving focus")
+		second.mouse_exited.emit()
+		check(panel._note.text == "Review the previous entry.", "moving the pointer away restores the focused row note")
+		var key := InputEventKey.new()
+		key.keycode = KEY_DOWN
+		key.pressed = true
+		runner.get_viewport().push_input(key)
+		await frames(2)
+		var key_release := key.duplicate() as InputEventKey
+		key_release.pressed = false
+		runner.get_viewport().push_input(key_release)
+		check(second.has_focus() and panel._note.text == detail and is_equal_approx(panel.size.y, height),
+				"keyboard focus updates the same note without shifting the plate")
+		var dpad := InputEventJoypadButton.new()
+		dpad.button_index = JOY_BUTTON_DPAD_DOWN
+		for index in 5:
+			dpad.pressed = true
+			runner.get_viewport().push_input(dpad)
+			dpad.pressed = false
+			runner.get_viewport().push_input(dpad)
+			await frames(1)
+		check(last.has_focus() and panel._scroll.scroll_vertical > 0
+				and panel._scroll.get_global_rect().encloses(last.get_global_rect()),
+				"controller focus reveals the whole final row in an overflowing choice")
+	movie.cancel()
+	await frames(2)
+	Settings.set_ui_text_scale(original_scale)
 
 
 func _test_stage_lighting_is_independent() -> void:
@@ -788,7 +852,7 @@ func _test_story_features() -> void:
 		await frames(1)
 	check(not Story.progress_snapshot().has(&"test_story_choice"), "unfinished scenes are excluded from serialized seen records")
 	check(player.choice_active() and runner.get_tree().paused, "a choice waits for real input while gameplay is locked")
-	check((player._choice.get_child(1) as Button).has_focus(), "the first choice starts with keyboard/controller focus")
+	check((player._choice.rows.get_child(0) as Button).has_focus(), "the first choice starts with keyboard/controller focus")
 	var accept := InputEventAction.new()
 	accept.action = &"ui_accept"
 	accept.pressed = true

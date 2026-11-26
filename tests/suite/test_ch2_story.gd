@@ -102,12 +102,14 @@ func _test_reconcile_documents() -> void:
 	if cutscene.choice_active():
 		var receipt := StoryItems.find(IDS[1])
 		var anchor: Button
-		for child in cutscene._choice.get_children():
+		for child in cutscene._choice.rows.get_children():
 			if child is Button and child.text == receipt.title_text():
 				anchor = child
 				break
-		check(anchor != null and anchor.tooltip_text == receipt.description_text(), "the receipt uses the registered title and short guidance")
+		check(anchor != null and anchor.tooltip_text.is_empty(), "the receipt uses its registered title without a duplicate tooltip")
 		if anchor != null:
+			anchor.grab_focus()
+			check(cutscene._choice._note.text == receipt.description_text(), "evidence focus uses the same concise guidance region")
 			anchor.pressed.emit()
 			check(is_instance_valid(cutscene._choice_reader) and cutscene._choice_reader._text.text == receipt.body_text(),
 				"reviewing the receipt opens the full existing document reader")

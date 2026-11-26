@@ -14,6 +14,7 @@ const CENTER := Vector2(320, 180)
 const NOISE_SHADER := "res://ui/transition/transition.gdshader"
 const TITLE_FADE := 0.5
 const DocumentReader := preload("res://ui/inventory/document_reader.gd")
+const ChoicePanel := preload("res://game/cutscene/cutscene_choice_panel.gd")
 ## 效果層（色調、閃光、雜訊、淡入淡出、黑邊、字幕、對話）的 z_index 起點，需高於任何角色零件。
 const EFFECT_Z := 200
 
@@ -63,11 +64,9 @@ var _overlay_mode := false
 ## 目前執行的步驟位置（錯誤訊息用）與下一步是否也是台詞（決定要不要收起對話框）。
 var _current_where := ""
 var _next_is_say := false
-var _choice: VBoxContainer
+var _choice: ChoicePanel
 var _choice_reader: DocumentReader
 var _choice_map: QuestMapScreen
-# HDR背景通知不能透進選項與後果說明，底板保持不透明。
-const CHOICE_BACKING := Color(0.02, 0.04, 0.07, 1.0)
 var _choice_options: Array[Dictionary] = []
 ## 目前的選擇步驟（含 default）；沒有選擇時為空。
 var _choice_step: Dictionary = {}
@@ -377,7 +376,8 @@ func _isolate_ui_lighting(node: Node) -> void:
 		return
 	if node is CanvasItem:
 		LightKit.mark_emissive(node)
-	for child: Node in node.get_children():
+	# Scrollbars are internal children, and need the same UI lighting as their panel.
+	for child: Node in node.get_children(true):
 		_isolate_ui_lighting(child)
 
 
@@ -1055,39 +1055,18 @@ func _do_choice(step: Dictionary) -> void:
 		push_warning("[Cutscene] %s 沒有可用選項，已略過" % _current_where)
 		return
 	_chosen = -1
-	_choice = VBoxContainer.new()
-	_choice.position = Vector2(96, 100)
-	_choice.custom_minimum_size = Vector2(448, 0)
-	_choice.theme = UiKit.theme()
+	_choice = ChoicePanel.new(str(step.get("text", "請選擇接下來的行動。")), Story.language)
 	_choice.z_index = EFFECT_Z + 20
-	_choice.add_theme_constant_override(&"separation", 8)
-	# 深色底板：選擇疊在亮舞台或遊戲畫面上時，提示與說明仍然清楚。
-	_choice.draw.connect(func() -> void:
-		_choice.draw_rect(Rect2(Vector2(-16, -12), _choice.size + Vector2(32, 24)), CHOICE_BACKING))
-	_choice.resized.connect(_choice.queue_redraw)
 	_root.add_child(_choice)
-	var prompt := UiKit.label(str(step.get("text", "請選擇接下來的行動。")), UiKit.FS_BODY, Palette.CYAN)
-	prompt.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	prompt.custom_minimum_size = Vector2(448, 0)
-	_choice.add_child(prompt)
-	# 選項說明：焦點（滑鼠、鍵盤或手把）停在哪一項，就在下方用一句話說清楚它的後果。
-	var explain := UiKit.label("", UiKit.FS_BODY, Palette.UI_MUTED)
-	explain.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	explain.custom_minimum_size = Vector2(448, 0)
 	for i in _choice_options.size():
-		var button := UiKit.button(str(_choice_options[i].get("text", "繼續。")), choose.bind(i))
-		button.custom_minimum_size = Vector2(448, 32)
-		var note := str(_choice_options[i].get("explanation", ""))
-		button.tooltip_text = note
-		button.focus_entered.connect(func() -> void: explain.text = note)
-		button.mouse_entered.connect(func() -> void: explain.text = note)
-		_choice.add_child(button)
-	_choice.add_child(explain)
-	_add_choice_references(step, explain)
+		var option := _choice_options[i]
+		_choice.add_row(str(option.get("text", "繼續")), str(option.get("explanation", "")), choose.bind(i))
+	_add_choice_references(step)
 	_refresh_skip_hint()
+	_skip_hint.hide()
 	_isolate_ui_lighting(_choice)
-	_layout_safe_rect(Story.framing.safe_rect())
-	(_choice.get_child(1) as Button).grab_focus()
+	_choice.layout_safe_rect(Story.framing.safe_rect())
+	_choice.focus_first_row()
 	var mouse_mode := Input.mouse_mode
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	while _chosen < 0 and not skipping and _running:
@@ -1108,11 +1087,14 @@ func _do_choice(step: Dictionary) -> void:
 		_choice_map.queue_free()
 		_choice_map = null
 	_choice.queue_free()
+	_choice = null
 	_choice_step = {}
+	_refresh_skip_hint()
+	_skip_hint.show()
 	Input.mouse_mode = mouse_mode
 
 
-func _add_choice_references(step: Dictionary, explain: Label) -> void:
+func _add_choice_references(step: Dictionary) -> void:
 	var ids: Variant = step.get("reference_items", [])
 	if not ids is Array or ids.size() > 3:
 		push_warning("[Cutscene] %s 的選擇證據必須是物品 id 清單（最多三份）" % _current_where)
@@ -1130,31 +1112,20 @@ func _add_choice_references(step: Dictionary, explain: Label) -> void:
 			references.append(item)
 	if references.is_empty():
 		return
-	_choice.add_theme_constant_override(&"separation", 5)
-	for child in _choice.get_children():
-		if child is Button:
-			child.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	var title := "查看證據"
 	match Story.language:
 		"ja": title = "証拠を確認"
 		"en": title = "Review evidence"
-	_choice.add_child(UiKit.label(title, UiKit.FS_CAPTION, Palette.CYAN))
+	_choice.add_reference_heading(title)
 	for item: StoryItemData in references:
-		var note := item.description_text()
-		var button := UiKit.button(item.title_text(), Callable(), note)
-		button.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		button.custom_minimum_size.y = 26
-		button.focus_entered.connect(func() -> void: explain.text = note)
-		button.mouse_entered.connect(func() -> void: explain.text = note)
+		var button := _choice.add_row(item.title_text(), item.description_text(), Callable())
 		button.pressed.connect(_open_choice_reference.bind(item, button))
-		_choice.add_child(button)
 
 
 func _open_choice_reference(item: StoryItemData, anchor: Button) -> void:
 	if not choice_active() or is_instance_valid(_choice_reader):
 		return
 	_choice.hide()
-	_skip_hint.hide()
 	var reader := DocumentReader.new()
 	_choice_reader = reader
 	reader.z_index = EFFECT_Z + 21
@@ -1168,7 +1139,6 @@ func _open_choice_reference(item: StoryItemData, anchor: Button) -> void:
 			return
 		reader.queue_free()
 		_choice_reader = null
-		_skip_hint.show()
 		if is_instance_valid(_choice):
 			_choice.show()
 			if is_instance_valid(anchor):
@@ -1236,16 +1206,7 @@ func _layout_safe_rect(rect: Rect2) -> void:
 	_skip_hint.position = Vector2(maxf(8, rect.end.x - 120), rect.position.y + 6)
 	_skip_hint.size = Vector2(110, 18)
 	if is_instance_valid(_choice):
-		var width := minf(448.0, maxf(0, rect.size.x - 48))
-		var top := 24.0
-		if _choice_step.has("reference_items"):
-			# Leave the skip hint above the choice's backing at larger text scales.
-			top = maxf(top, _skip_hint.size.y + 21.0)
-		_choice.position = Vector2((rect.size.x - width) * 0.5, rect.position.y + top)
-		_choice.custom_minimum_size.x = width
-		_choice.size.x = width
-		for control in _choice.get_children():
-			(control as Control).custom_minimum_size.x = width
+		_choice.layout_safe_rect(rect)
 	if is_instance_valid(_choice_reader):
 		_choice_reader.offset_left = rect.position.x + 24
 		_choice_reader.offset_top = rect.position.y + 16
@@ -1256,4 +1217,7 @@ func _layout_safe_rect(rect: Rect2) -> void:
 func _refresh_skip_hint() -> void:
 	if is_instance_valid(_skip_hint):
 		var returns: bool = Story.cancels_on_skip(scene_id) or _choice_step.get("cancel_choice_on_back", false) == true
-		_skip_hint.text = UiKit.cinematic_skip_hint(Story.language, &"ui_cancel", returns)
+		var hint := UiKit.cinematic_skip_hint(Story.language, &"ui_cancel", returns)
+		_skip_hint.text = hint
+		if is_instance_valid(_choice):
+			_choice.set_back_hint(hint)
