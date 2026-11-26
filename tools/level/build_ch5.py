@@ -53,6 +53,15 @@ def _configure():
     stair.configure(kit, TRANSLATIONS, PORTAL_PROMPTS, PORTAL_LOCKS)
 
     anchor_layout.configure(kit)
+    memory_key = "⏵"
+    if memory_key in kit.PORTALS or memory_key in kit.RES:
+        raise ValueError("Chapter Five flood memory glyph already in use")
+    kit.PORTALS[memory_key] = dict(
+        id="flood_memory_chip", to="", mode=0, style="hidden", w=28, h=44,
+        prompt="{interact} 播放洪水回放", requires="ch5_anchor_identity_confirmed",
+        locked="先核對錨椅旁的登記記錄。",
+        local_replay="res://game/cutscene/local_replay/flood_memory.tscn",
+    )
     TRANSLATIONS.update(anchor_layout.PROMPTS)
 
 
@@ -71,6 +80,9 @@ def main():
     area.features = {"landmark": "櫃台黃燈下的格號和盤點板。"}
     areas = stair.extend(kit, alley.join(kit, revival.areas(area, GROUND)))
     anchor_layout.furnish(areas)
+    archive = next(room for room in areas if room.id == "basement_archive")
+    archive.stand(57, "⏵")
+
     targets = set(kit.RES) | set(kit.PORTALS)
     for room in areas:
         marks = [(room.grid.at(x, GROUND - 1), (x, GROUND - 1)) for x in range(room.w)]

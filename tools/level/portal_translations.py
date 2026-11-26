@@ -1,6 +1,7 @@
 """Localized action labels and lock reasons for the formal chapter portals."""
 
 PROMPTS = {
+    '播放洪水回放': ("Play the flood memory", "洪水の記憶を再生する"),
     '回當舖後巷': ("Return to the pawnshop back alley", "質屋の裏路地に戻る"),
     '下地下室樓梯': ("Go down to the basement landing", "地下階段へ下りる"),
     '轉進當舖後巷': ("Turn into the pawnshop back alley", "質屋の裏路地に入る"),
@@ -105,6 +106,7 @@ PROMPTS = {
 }
 
 LOCKS = {
+    '先核對錨椅旁的登記記錄。': ("Check the registration record beside the chair first.", "先に椅子のそばの登録記録を照合する。"),
     '先回答牆邊的聲音鎖。': ("Answer the voice lock by the wall first.", "先に壁の声紋錠に答える。"),
     '先到當舖的盤點板核對舊收據和存款總帳。': (
         "Compare the old receipt and deposit ledger at the pawnshop board first.",

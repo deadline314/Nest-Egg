@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=11 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=12 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
@@ -21,6 +21,19 @@ height = 64
 style = "door"
 
 [sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("2_portal_data")
+id = &"flood_memory_chip"
+local_replay = "res://game/cutscene/local_replay/flood_memory.tscn"
+requires_flag = &"ch5_anchor_identity_confirmed"
+locked_text = "先核對錨椅旁的登記記錄。"
+localized_locked_text = Dictionary[String, String]({"en": "Check the registration record beside the chair first.", "ja": "先に椅子のそばの登録記録を照合する。"})
+prompt = "{interact} 播放洪水回放"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Play the flood memory", "ja": "{interact} 洪水の記憶を再生する"})
+width = 28
+height = 44
+style = "hidden"
+
+[sub_resource type="Resource" id="Resource_2"]
 script = ExtResource("6_lighting_zone")
 start_tile = 14
 blend_tiles = 5
@@ -35,6 +48,7 @@ tile_size = 16
 height = 24
 legend = Dictionary[String, Resource]({
 "⇖": SubResource("Resource_0"),
+"⏵": SubResource("Resource_1"),
 "▤": ExtResource("3_ch5_life_notebook"),
 "☰": ExtResource("4_ch5_anchor_counterfoil"),
 "♮": ExtResource("5_ch5_anchor_chair")
@@ -45,6 +59,6 @@ persistent_world = true
 show_chapter_card = false
 environment = ExtResource("8_ch5_basement_archive")
 layout_path = "res://data/levels/ch5_basement_archive_map.json"
-lighting_zones = Array[ExtResource("6_lighting_zone")]([SubResource("Resource_1")])
+lighting_zones = Array[ExtResource("6_lighting_zone")]([SubResource("Resource_2")])
 story_triggers = PackedStringArray()
 death_credit_cap = 250
