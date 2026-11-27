@@ -15,6 +15,9 @@ const PLACEMENTS := {
 		["NE-406-mezzanine-radio", "res://data/levels/ch3_mezzanine.tres", DecoyRadio.GROUP, 61, -150.0, 2.6],
 		["NE-406-mezzanine-cable", "res://data/levels/ch3_mezzanine.tres", LiveCable.GROUP, 63, -150.0, 1.2, Vector2(-24.0, 0.0)],
 	],
+	"ch4": [
+		["NE-407-relay-cable", "res://data/levels/ch4_factory_relay.tres", LiveCable.GROUP, 32, 140.0, 1.2],
+	],
 }
 ## 觸發後算「附近」的敵人範圍（像素）。
 const NEAR := 260.0

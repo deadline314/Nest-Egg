@@ -837,6 +837,8 @@ func _test_mechanic_placements() -> void:
 		["res://data/levels/ch3_pump.tres", "res://data/props/decoy_radio.tres", Vector2i(37, 35)],
 		["res://data/levels/ch3_mezzanine.tres", "res://data/props/decoy_radio.tres", Vector2i(61, 35)],
 		["res://data/levels/ch3_mezzanine.tres", "res://data/props/live_cable.tres", Vector2i(63, 35)],
+		["res://data/levels/ch4_factory_relay.tres", "res://data/props/conveyor.tres", Vector2i(13, 19)],
+		["res://data/levels/ch4_factory_relay.tres", "res://data/props/live_cable.tres", Vector2i(32, 19)],
 	]
 	for entry: Array in EXPECTED:
 		var level := load(entry[0]) as LevelData
@@ -846,3 +848,9 @@ func _test_mechanic_placements() -> void:
 				var res: Resource = spawn["resource"]
 				found = found or (res.resource_path == entry[1] and spawn["cell"] == entry[2])
 		check(found, "%s has %s at %s" % [entry[0].get_file(), entry[1].get_file(), entry[2]])
+	# 第四章中繼區的組合（NE-407）：輸送帶反轉後把人送到馬達那一端，那一端要落在電纜積水裡。
+	var belt := load(CONVEYOR_PATH) as ConveyorData
+	var cable := load(CABLE_PATH) as LiveCableData
+	var belt_end := (13.0 + belt.length_tiles) * 16.0
+	var puddle_center := (32.0 + 0.5) * 16.0
+	check(absf(belt_end - puddle_center) < cable.water_width * 0.5 - 8.0, "the reversed belt delivers riders into the relay puddle: end %.0f, puddle %.0f±%.0f" % [belt_end, puddle_center, cable.water_width * 0.5])
