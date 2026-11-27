@@ -637,6 +637,7 @@ func _spawn_static_entities() -> void:
 			lamp.use_flicker(LampFlicker.state_for(profile.lamp_style.supply_id(), lit), hash(Vector2i(tile, lamp_row)))
 			if LampFlicker.buzz(lamp.flicker_state) > 0.0:
 				buzzing.append(lamp)
+		lamp.shootable = data.shootable_lamps
 		_world.add_child(lamp)
 	if not buzzing.is_empty():
 		var buzz := LampBuzz.new()

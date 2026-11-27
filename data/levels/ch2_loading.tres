@@ -81,6 +81,7 @@ profile = ExtResource("12_hangar")
 
 [resource]
 script = ExtResource("1_level_data")
+shootable_lamps = true
 id = &"ch2_loading"
 display_name = "雨棚背面與裝卸間"
 localized_names = Dictionary[String, String]({"en": "Canopy and Loading Room", "ja": "雨よけの裏と荷さばき室"})

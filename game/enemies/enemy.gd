@@ -950,6 +950,9 @@ func _can_see_target(max_range: float, max_height_diff := 120.0) -> bool:
 	if _alert_left > 0.0:
 		max_range *= ALERT_RANGE_SCALE
 		max_height_diff *= ALERT_RANGE_SCALE
+	elif Lamp.in_shot_out_dark(target.global_position):
+		# 還沒察覺的敵人看不清玩家射暗的燈下（NE-399）；一旦被打或被警報引來就照常。
+		max_range *= Lamp.DARK_SIGHT_SCALE
 	var offset := target.global_position - global_position
 	return offset.length() <= max_range and absf(offset.y) <= max_height_diff and _has_line_of_sight()
 

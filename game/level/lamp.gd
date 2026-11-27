@@ -27,6 +27,20 @@ const ARM_GAP := 7.0
 ## 熄滅或壞掉時，燈具本體壓暗的程度。
 const UNLIT_TINT := Color(0.62, 0.64, 0.7)
 const GLOW_INTENSITY := 1.2
+## 可以射暗的燈（NE-399）：打中燈具就熄掉，燈下一段變暗；沒察覺的敵人只看得到 DARK_SIGHT_SCALE 倍遠的人。
+## 變暗的範圍是原本光池的幾倍；那一點如果還被別的燈照到 LIT_ENOUGH 以上就不算暗。
+const DARK_REACH := 0.75
+const DARK_SIGHT_SCALE := 0.5
+const LIT_ENOUGH := 0.3
+const SHOOT_HURTBOX := Vector2(12.0, 10.0)
+const SHOOT_HINT := {
+	"zh": "射暗燈光，還沒察覺的敵人只看得到近處。",
+	"ja": "照明を撃って消すと、気づいていない敵は近くしか見えなくなります。",
+	"en": "Shoot out the light: unaware enemies only see what is close.",
+}
+## 目前關卡裡所有的燈與被射暗的燈。沒有燈被射暗時，敵人的視野檢查直接略過，不花任何成本。
+static var _all: Array[Lamp] = []
+static var _dark: Array[Lamp] = []
 
 ## 所在區段給的基準：色調、光池半徑、亮度。實際照出來的光見 light_color、light_radius、light_energy。
 var color := Palette.CYAN
@@ -58,6 +72,13 @@ var wall_behind := false
 var support_floor_y := INF
 ## 左右翻轉：桿子或壁架換到另一邊。
 var flipped := false
+## 可以射暗（關卡依 LevelData.shootable_lamps 指定，要在加入場景樹之前設定）。
+var shootable := false
+## 被玩家射暗了（和本來就壞掉的 dead 分開：射暗的燈會讓沒察覺的敵人看不遠）。
+var shot_out := false
+var _health: HealthComponent
+var _hurtbox: Hurtbox
+var _prompt: WorldPrompt
 
 var _light: PointLight2D
 var _shaft: LightShaft
@@ -203,6 +224,16 @@ func is_supported() -> bool:
 	return false
 
 
+func _enter_tree() -> void:
+	if not _all.has(self):
+		_all.append(self)
+
+
+func _exit_tree() -> void:
+	_all.erase(self)
+	_dark.erase(self)
+
+
 func _ready() -> void:
 	_time = randf() * TAU
 	_resolve_light()
@@ -231,9 +262,11 @@ func _ready() -> void:
 	_shaft.source = _light
 	_shaft.position = Vector2(0, 3)
 	add_child(_shaft)
-	if LampFlicker.sparks(flicker_state):
+	if LampFlicker.sparks(flicker_state) or shootable:
 		_sparks = LampSparks.new()
 		add_child(_sparks)
+	if shootable:
+		_make_shootable()
 	_show_level(1.0)
 
 
@@ -274,6 +307,83 @@ func _build_fixture() -> void:
 	_glow.position = _top_left()
 	_glow.material = LightKit.additive_emissive_material()
 	_body.add_child(_glow)
+
+
+## 加上受擊框：玩家的子彈、近戰或爆炸打中燈具就熄掉。敵人的子彈打不到（受擊框屬於敵方陣營）。
+func _make_shootable() -> void:
+	add_to_group(WorldState.GROUP)
+	_health = HealthComponent.new()
+	add_child(_health)
+	_health.setup(1, 0.0)
+	_health.died.connect(func(_info: DamageInfo) -> void: shoot_out(true))
+	_hurtbox = Hurtbox.new()
+	add_child(_hurtbox)
+	var size := _prop.size if _prop != null else SHOOT_HURTBOX
+	_hurtbox.setup(Combat.Team.ENEMY, _health, size.max(SHOOT_HURTBOX), _top_left() + size * 0.5 if _prop != null else Vector2.ZERO)
+	_hurtbox.hit_material = &"glass"
+	_prompt = WorldPrompt.new()
+	_prompt.text = SHOOT_HINT.get(Story.language, SHOOT_HINT["zh"])
+	_prompt.radius = 80.0
+	_prompt.offset = Vector2(0.0, -14.0)
+	add_child(_prompt)
+
+
+## 射暗這盞燈。with_effects＝false 是從檢查點還原：不播火花與聲音。已經熄掉就不做事。
+func shoot_out(with_effects := false) -> void:
+	if shot_out or dead:
+		return
+	shot_out = true
+	if not _dark.has(self):
+		_dark.append(self)
+	if _light != null:
+		_light.enabled = false
+	if _shaft != null:
+		_shaft.intensity = 0.0
+		_shaft.hide()
+	if _hurtbox != null:
+		_hurtbox.enabled = false
+	if _prompt != null:
+		_prompt.enabled = false
+	set_process(false)
+	_show_level(0.0)
+	if with_effects:
+		if _sparks != null:
+			_sparks.burst(int(global_position.x * 7.0 + global_position.y))
+		Fx.impact(global_position, Vector2.DOWN, light_color.lightened(0.3), 6)
+		Sfx.play(&"glass_break", -6.0)
+		EventBus.world_noise.emit(global_position, 0.4)
+
+
+## 點 point 是不是在玩家射暗的燈下：離某一盞射暗的燈夠近，而且沒有其他還亮著的燈照得夠亮。
+## 沒有燈被射暗時直接回傳 false（敵人每格都會問，平常不花成本）。
+static func in_shot_out_dark(point: Vector2) -> bool:
+	if _dark.is_empty():
+		return false
+	var near := false
+	for lamp in _dark:
+		if is_instance_valid(lamp) and lamp.global_position.distance_to(point) <= lamp.light_radius * DARK_REACH:
+			near = true
+			break
+	if not near:
+		return false
+	for lamp in _all:
+		if is_instance_valid(lamp) and not lamp.shot_out and lamp.light_at(point) >= LIT_ENOUGH:
+			return false
+	return true
+
+
+# 檢查點狀態（WorldState）：只有可以射暗的燈參與。
+func state_key() -> String:
+	return "lamp@%d,%d" % [roundi(global_position.x), roundi(global_position.y)]
+
+
+func capture_state() -> Variant:
+	return shot_out
+
+
+func restore_state(saved: Variant) -> void:
+	if saved == true:
+		shoot_out(false)
 
 
 ## 這盞燈照到 point 的程度 0～1（離燈越遠越弱，熄滅、壞掉、停電時為 0）。

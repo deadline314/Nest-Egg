@@ -16,6 +16,7 @@ const SUSPENDED_PATH := "res://data/props/suspended_crate.tres"
 const SUSPENDED_MAP := "res://tests/fixtures/suspended_map.json"
 const VALVE_PATH := "res://data/props/steam_valve.tres"
 const VALVE_MAP := "res://tests/fixtures/steam_valve_map.json"
+const LAMP_MAP := "res://tests/fixtures/shootable_lamp_map.json"
 
 
 func run() -> void:
@@ -30,6 +31,7 @@ func run() -> void:
 	await _test_checkpoint_restore()
 	await _test_suspended_load()
 	await _test_steam_valve()
+	await _test_shootable_lamp()
 
 
 func _test_mechanism_translations() -> void:
@@ -561,3 +563,71 @@ func _test_steam_valve() -> void:
 	await runner.get_tree().create_timer(valve_data.cooldown_seconds + 0.2).timeout
 	check(valve.is_ready_to_vent() and not valve.is_processing(), "after cooling the valve is ready again and idle")
 	await end_level(level)
+
+
+## 可以射暗的燈（NE-399）：只有標記的區域可以射；射暗後燈下變暗，沒察覺的敵人看不遠、察覺後照常；敵人打不到燈；狀態跟著檢查點。
+func _test_shootable_lamp() -> void:
+	var plain := LevelData.new()
+	plain.id = &"lamp_plain_test"
+	plain.layout_path = LAMP_MAP
+	plain.legend = {"g": load(GRUNT_PATH)}
+	var plain_level := await start_level(plain)
+	var plain_lamps := _find_all(plain_level, Lamp)
+	check(plain_lamps.size() == 1 and not (plain_lamps[0] as Lamp).shootable and (plain_lamps[0] as Lamp)._hurtbox == null
+			and not (plain_lamps[0] as Lamp).is_in_group(WorldState.GROUP), "areas that do not opt in keep ordinary lamps")
+	await end_level(plain_level)
+
+	var data := LevelData.new()
+	data.id = &"lamp_shoot_test"
+	data.layout_path = LAMP_MAP
+	data.legend = {"g": load(GRUNT_PATH)}
+	data.shootable_lamps = true
+	var level := await start_level(data)
+	var lamps := _find_all(level, Lamp)
+	check(lamps.size() == 1, "the test map has one lamp")
+	if lamps.is_empty():
+		await end_level(level)
+		return
+	var lamp := lamps[0] as Lamp
+	check(lamp.shootable and lamp._hurtbox != null and lamp._prompt != null, "lamps in an opted-in area can be shot and explain how")
+	var under := Vector2(lamp.global_position.x, lamp.floor_y - 2.0)
+	check(not Lamp.in_shot_out_dark(under), "nothing is dark before a lamp is shot out")
+	var enemy: Enemy
+	for node in runner.get_tree().get_nodes_in_group(&"enemies"):
+		enemy = node as Enemy
+	check(enemy != null, "an enemy watches the lamp-lit floor")
+	if enemy == null:
+		await end_level(level)
+		return
+	enemy.set_physics_process(false)
+	var player := level.player
+	player.set_physics_process(false)
+	var reach := absf(enemy.global_position.x - under.x) + 4.0
+	player.global_position = under
+	check(enemy._can_see_target(reach), "an unaware enemy sees the player standing in the light")
+	lamp._hurtbox.receive(DamageInfo.create(1, Combat.Team.ENEMY, &"test_enemy_shot"))
+	check(not lamp.shot_out, "enemy fire cannot shoot out a lamp")
+	lamp._hurtbox.receive(DamageInfo.create(1, Combat.Team.PLAYER, &"test_player_shot"))
+	await physics_frames(2)
+	check(lamp.shot_out and not lamp._light.enabled and not lamp.is_processing(), "a player hit shoots the lamp out")
+	check(is_zero_approx(lamp.light_at(under)), "a shot-out lamp lights nothing")
+	check(Lamp.in_shot_out_dark(under), "the floor under it is now dark")
+	check(not Lamp.in_shot_out_dark(under + Vector2(lamp.light_radius, 0.0)), "the dark area ends near the lamp's old light")
+	check(not enemy._can_see_target(reach), "an unaware enemy cannot see the player hiding in the new dark at the same distance")
+	check(enemy._can_see_target(reach * Lamp.DARK_SIGHT_SCALE * 0.8) or enemy.global_position.distance_to(under) > reach * Lamp.DARK_SIGHT_SCALE,
+			"close up the enemy still sees the player")
+	enemy.raise_alert(under, 3.0)
+	check(enemy._can_see_target(reach), "an alerted enemy sees into the dark as usual")
+	check(lamp.capture_state() == true, "a shot-out lamp saves as shot out")
+	lamp.shoot_out(true)
+	check(lamp.shot_out, "shooting an already dark lamp changes nothing")
+	await end_level(level)
+	check(not Lamp.in_shot_out_dark(under), "leaving the area clears the dark list")
+
+	var restored_level := await start_level(data)
+	var again := _find_all(restored_level, Lamp)
+	if not again.is_empty():
+		var restored := again[0] as Lamp
+		restored.restore_state(true)
+		check(restored.shot_out and not restored._light.enabled, "restoring a checkpoint keeps the lamp dark")
+	await end_level(restored_level)
