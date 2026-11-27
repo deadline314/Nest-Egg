@@ -20,6 +20,7 @@ const SCENARIOS := {
 	"key_light": "res://tools/scenarios/key_light_scenario.gd",
 	"near_foreground": "res://tools/scenarios/near_foreground_scenario.gd",
 	"sky_behind": "res://tools/scenarios/sky_behind_scenario.gd",
+	"color_script": "res://tools/scenarios/color_script_scenario.gd",
 	"collage_ui": "res://tools/scenarios/collage_ui_scenario.gd",
 	"backdrop_drift": "res://tools/scenarios/backdrop_drift_scenario.gd",
 	"ui_motion": "res://tools/scenarios/ui_motion_scenario.gd",

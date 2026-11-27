@@ -32,6 +32,7 @@ func run() -> void:
 	await _test_near_foreground()
 	await _test_midground_and_haze()
 	await _test_ground_section()
+	_test_color_script()
 	_test_fixture_art()
 	await preload("res://tests/helpers/scene_lighting_checks.gd").run(self)
 	await _test_training_art()
@@ -2506,3 +2507,53 @@ func _test_ground_section() -> void:
 		check(covered > level._layout.pixel_size().x * 0.6, "the section covers most of the walkway (%.0f px)" % covered)
 		check(not section.is_processing(), "the ground section is drawn once and never redrawn")
 	await end_level(level)
+
+
+## 色彩腳本（BG-74）：每個寫到的區域都存在；套用後環境光與暗部色的亮度不變、邊緣光是主光色；向陽區樣板不變；
+## 第一到第四章有光影的區域都有腳本；沒有腳本的區域原樣回傳。
+func _test_color_script() -> void:
+	ColorScript.reload()
+	var ids := ColorScript.area_ids()
+	check(ids.size() >= 30, "the colour script covers the chapter areas (%d)" % ids.size())
+	var worst := 0.0
+	for id in ids:
+		var path := "res://data/levels/%s.tres" % id
+		if not ResourceLoader.exists(path):
+			check(false, "colour script area %s is a real level" % id)
+			continue
+		var level_data := load(path) as LevelData
+		check(String(level_data.id) == id, "colour script key %s matches the level id" % id)
+		var entry := ColorScript.entry_for(StringName(id))
+		var scripted := ColorScript.apply_zones(StringName(id), level_data.lighting_zones)
+		for i in scripted.size():
+			var before := level_data.lighting_zones[i].profile
+			var after := scripted[i].profile
+			check(after != before, "%s zone %d is scripted on a copy, the shared profile is untouched" % [id, i])
+			worst = maxf(worst, absf(after.ambient_color.get_luminance() - before.ambient_color.get_luminance()))
+			worst = maxf(worst, absf(after.shadow_tint.get_luminance() - before.shadow_tint.get_luminance()))
+			worst = maxf(worst, absf(after.background_tint.get_luminance() - before.background_tint.get_luminance()))
+			worst = maxf(worst, absf(after.fog_color.get_luminance() - before.fog_color.get_luminance()))
+			check(after.rim_color.is_equal_approx(Color(entry["key"], before.rim_color.a)), "%s zone %d uses the scripted key colour for the rim" % [id, i])
+	check(worst < 0.002, "the colour script keeps ambient, shadow, background and fog brightness (worst change %.4f)" % worst)
+	# 向陽區樣板：腳本就是它原本的顏色，套上去外觀不變。
+	var glass := load("res://data/levels/ch3_glass_edge.tres") as LevelData
+	var template := ColorScript.apply_zones(&"ch3_glass_edge", glass.lighting_zones)[0].profile
+	var original := glass.lighting_zones[0].profile
+	var drift := 0.0
+	for pair: Array in [[template.ambient_color, original.ambient_color], [template.shadow_tint, original.shadow_tint], [template.rim_color, original.rim_color], [template.background_tint, original.background_tint], [template.fog_color, original.fog_color]]:
+		var a: Color = pair[0]
+		var b: Color = pair[1]
+		drift = maxf(drift, maxf(absf(a.r - b.r), maxf(absf(a.g - b.g), absf(a.b - b.b))))
+	check(drift < 0.03, "the sunlit template looks the same with its colour script (max channel change %.3f)" % drift)
+	# 第一到第四章有光影的區域都要有腳本。
+	var missing := PackedStringArray()
+	for file in DirAccess.get_files_at("res://data/levels"):
+		if not file.ends_with(".tres") or not (file.begins_with("ch1_") or file.begins_with("ch2_") or file.begins_with("ch3_") or file.begins_with("ch4_")):
+			continue
+		var data := load("res://data/levels/" + file) as LevelData
+		if data != null and not data.lighting_zones.is_empty() and not ids.has(file.get_basename()):
+			missing.append(file.get_basename())
+	check(missing.is_empty(), "every chapter 1-4 area with lighting has a colour script (missing: %s)" % ", ".join(missing))
+	# 沒有腳本的區域原樣回傳。
+	var zones: Array[LightingZone] = glass.lighting_zones
+	check(ColorScript.apply_zones(&"no_such_area", zones) == zones, "an area without a script keeps its lighting as is")

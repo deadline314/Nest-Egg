@@ -52,6 +52,9 @@ var _world: Node2D
 var _entities: Node2D
 ## 角色圖層組的使用狀況（1 = 有角色在用），見 _claim_actor_layer。
 var _actor_slots := PackedByteArray()
+## 這一區實際用的光影區段（套過色彩腳本的複本），第一次用到時才建。
+var _lighting_zones: Array[LightingZone] = []
+var _lighting_zones_ready := false
 var _back_wall: BackWall
 var _facade_haze: FacadeHaze
 var _bubbles: MapBubbles
@@ -346,7 +349,7 @@ func _build_entry() -> void:
 	add_child(_post)
 	_lighting = LightingController.new()
 	add_child(_lighting)
-	_lighting.setup(data.lighting_zones, _layout.tile_size, player, ambient, _background, _fog, data.fog_color, _post)
+	_lighting.setup(_scripted_zones(), _layout.tile_size, player, ambient, _background, _fog, data.fog_color, _post)
 	_lighting.facade_haze = _facade_haze
 	_spawn_key_light()
 	_spawn_near_foreground()
@@ -773,6 +776,9 @@ func _spawn_props() -> void:
 	var dirs := _prop_dirs()
 	var entries := data.load_props()
 	var taken: Array[Rect2] = []
+	var script_entry := ColorScript.entry_for(data.id)
+	var area_main: Color = Color(script_entry["main"], 1.0) if not script_entry.is_empty() else Color(1, 1, 1, 0)
+	var key_color := _map_key_color()
 	for entry in entries:
 		await _entry_checkpoint()
 		var prop := PropLibrary.find_in(StringName(str(entry["id"])), dirs)
@@ -788,6 +794,9 @@ func _spawn_props() -> void:
 			push_warning("[Level] %s 道具 %s 第 %d 欄支撐無效（%s），已略過" % [data.id, prop.id, int(entry["x"]), issue])
 			continue
 		var node := _place_prop(prop, rect.position, bool(placed["flip"]))
+		# BG-74：手擺的非互動、不發光擺設也吃區段色調；有主光時白色石材壓到角色以下。
+		if Midground.tones_hand_prop(prop):
+			node.modulate = Midground.hand_tint_for(prop, area_main, key_color)
 		taken.append(rect)
 		if str(entry.get("support", "ground")) == "ground":
 			_prop_grounding.add_prop(prop, rect, bool(placed["flip"]))
@@ -812,9 +821,7 @@ func _spawn_midground(dirs: PackedStringArray, entries: Array[Dictionary], taken
 	for hint in _layout.hints:
 		entity_x.append((hint["position"] as Vector2).x)
 	var planned := Midground.plan(spec, _layout, dirs, taken, entity_x, enemy_x, "%s（%s）" % [data.id, data.layout_path], _scenery_walls)
-	# 主光這時還沒生成：直接讀地圖的主光顏色（只要顏色，不建立節點）。
-	var key_data := KeyLightData.parse(data.load_layout_value("key_light"), data.id) if data.load_layout_value("key_light") != null else null
-	var key_color := Color(key_data.color, 1.0) if key_data != null else Color(1, 1, 1, 0)
+	var key_color := _map_key_color()
 	for entry in planned:
 		await _entry_checkpoint()
 		var prop := PropLibrary.find_in(StringName(str(entry["id"])), dirs)
@@ -832,6 +839,13 @@ func _spawn_midground(dirs: PackedStringArray, entries: Array[Dictionary], taken
 		_prop_grounding.add_prop(prop, rect, bool(placed["flip"]))
 
 
+## 主光這時還沒生成：直接讀地圖的主光顏色（只要顏色，不建立節點）；沒有主光時 alpha 為 0。
+func _map_key_color() -> Color:
+	var raw: Variant = data.load_layout_value("key_light")
+	var key_data := KeyLightData.parse(raw, data.id) if raw != null else null
+	return Color(key_data.color, 1.0) if key_data != null else Color(1, 1, 1, 0)
+
+
 func _place_prop(prop: PropData, top_left: Vector2, flip: bool) -> PropNode:
 	var node := PropNode.new()
 	node.setup(prop, top_left, flip)
@@ -845,12 +859,20 @@ func _prop_dirs() -> PackedStringArray:
 
 ## 地面剖面（BG-72）：地圖 JSON 寫了 ground_section 才有。緊接在地形後面加入（同一層、畫在地形上面、角色與近前景下面）。
 ## 這時光影還沒建立：色調取第一個光影區段的環境光，亮邊取地圖主光的顏色（沒有主光用白色）。
+## 這一區實際用的光影區段：色彩腳本（BG-74）套在區段的複本上，共用的光影設定檔不變。
+func _scripted_zones() -> Array[LightingZone]:
+	if not _lighting_zones_ready:
+		_lighting_zones_ready = true
+		_lighting_zones = ColorScript.apply_zones(data.id, data.lighting_zones)
+	return _lighting_zones
+
+
 func _spawn_ground_section() -> void:
 	var spec: Variant = data.load_layout_value("ground_section")
 	if spec == null:
 		return
 	var ambient := Color(0.3, 0.3, 0.32)
-	for zone in data.lighting_zones:
+	for zone in _scripted_zones():
 		if zone != null and zone.profile != null:
 			ambient = zone.profile.ambient_color
 			break

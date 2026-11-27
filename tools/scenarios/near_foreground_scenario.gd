@@ -85,9 +85,11 @@ func _pair(near: CanvasItem, file_name: String) -> void:
 ## 中景物件的平均明度要低於同一格主角的平均明度（BG-71）：各自藏起來再拍一張，兩張不同的像素就是它。
 func _check_midground(file_name: String) -> void:
 	var mids: Array[CanvasItem] = []
+	# BG-74：中景與手擺的非互動、不發光擺設都要比主角暗，每一件分開量（一張白色長椅不會被其他擺設平均掉）。
 	for node in get_tree().get_nodes_in_group(PropNode.GROUP):
-		if node.has_meta(Midground.META) and (node as CanvasItem).is_visible_in_tree():
-			mids.append(node as CanvasItem)
+		var prop_node := node as PropNode
+		if prop_node.is_visible_in_tree() and (prop_node.has_meta(Midground.META) or Midground.tones_hand_prop(prop_node.data)):
+			mids.append(prop_node)
 	if mids.is_empty():
 		return
 	var shown := preload("res://tools/viewport_capture.gd").image(get_viewport())
@@ -103,18 +105,19 @@ func _check_midground(file_name: String) -> void:
 	player.visible = true
 	await settle(2)
 	var to_screen := get_viewport().get_final_transform() * get_viewport().get_canvas_transform()
-	var mid_rects: Array[Rect2] = []
+	var hero := _mean_changed(shown, without_player, [to_screen * Rect2(player.global_position - Vector2(16, 60), Vector2(32, 60))] as Array[Rect2])
+	if hero.y < 40.0:
+		return
 	for node in mids:
 		var prop := node as PropNode
-		mid_rects.append(to_screen * Rect2(prop.global_position, prop.data.size))
-	var mid := _mean_changed(shown, without_mid, mid_rects)
-	var hero := _mean_changed(shown, without_player, [to_screen * Rect2(player.global_position - Vector2(16, 60), Vector2(32, 60))] as Array[Rect2])
-	if mid.y < 40.0 or hero.y < 40.0:
-		return
-	print("MIDGROUND_LUMA %s midground=%.3f player=%.3f (%d / %d px)" % [file_name, mid.x, hero.x, int(mid.y), int(hero.y)])
-	if mid.x >= hero.x:
-		failures += 1
-		push_error("[NearForegroundScenario] %s 中景物件比主角亮：%.3f >= %.3f" % [file_name, mid.x, hero.x])
+		var mid := _mean_changed(shown, without_mid, [to_screen * Rect2(prop.global_position, prop.data.size)] as Array[Rect2])
+		if mid.y < 40.0:
+			continue
+		var kind := "midground" if prop.has_meta(Midground.META) else "hand"
+		print("PROP_LUMA %s %s %s=%.3f player=%.3f (%d px)" % [file_name, prop.data.id, kind, mid.x, hero.x, int(mid.y)])
+		if mid.x >= hero.x:
+			failures += 1
+			push_error("[NearForegroundScenario] %s 的擺設 %s（%s）比主角亮：%.3f >= %.3f" % [file_name, prop.data.id, kind, mid.x, hero.x])
 
 
 ## 只在 rects（畫面座標）裡、兩張不同的像素，在第一張裡的平均亮度與像素數

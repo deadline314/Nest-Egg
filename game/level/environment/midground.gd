@@ -14,6 +14,10 @@ const TINT := Color(0.62, 0.6, 0.62)
 ## 有主光的區段往主光色靠這麼多。
 const TARGET_ALBEDO := 0.18
 const KEY_TINT := 0.35
+## BG-74：手擺的非互動、不發光擺設也吃區段色調（往色彩腳本的主色偏一點，亮度不變）；
+## 有主光的區段裡貼圖很亮的（白色石材）壓到平均反照率不超過 HAND_ALBEDO（比中景亮、比角色暗）。
+const HAND_ALBEDO := 0.3
+const HAND_SPREAD := 0.12
 
 static var _albedo_cache: Dictionary = {}
 
@@ -25,6 +29,22 @@ static func tint_for(prop: PropData, key_color: Color) -> Color:
 	var tint := Color(level, level, level)
 	if key_color.a > 0.0:
 		tint = Color(level * lerpf(1.0, key_color.r, KEY_TINT), level * lerpf(1.0, key_color.g, KEY_TINT), level * lerpf(1.0, key_color.b, KEY_TINT))
+	return tint
+
+
+## 手擺的擺設要不要調色：會發光、有燈、窗戶會亮的是點綴（燈本身要亮），不調。
+static func tones_hand_prop(prop: PropData) -> bool:
+	return prop != null and not prop.has_glow and prop.light_radius <= 0.0 and not prop.glow_life
+
+
+## 手擺擺設的顏色：往區段主色偏一點（main 的 alpha 為 0 時不偏）；有主光時很亮的貼圖再壓暗並往主光色靠。
+static func hand_tint_for(prop: PropData, main: Color, key_color: Color) -> Color:
+	var tint := Color.WHITE
+	if main.a > 0.0:
+		tint = ColorScript._retint(Color.WHITE, main, HAND_SPREAD)
+	if key_color.a > 0.0:
+		var level := minf(1.0, HAND_ALBEDO / maxf(albedo_of(prop), 0.01))
+		tint = Color(tint.r * level * lerpf(1.0, key_color.r, KEY_TINT), tint.g * level * lerpf(1.0, key_color.g, KEY_TINT), tint.b * level * lerpf(1.0, key_color.b, KEY_TINT))
 	return tint
 
 
