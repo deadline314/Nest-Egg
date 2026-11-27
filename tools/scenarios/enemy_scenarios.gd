@@ -20,6 +20,7 @@ const SCENARIOS := {
 	"ui_motion": "res://tools/scenarios/ui_motion_scenario.gd",
 	"inventory_portrait": "res://tools/scenarios/inventory_portrait_scenario.gd",
 	"suspended_load": "res://tools/scenarios/suspended_load_scenario.gd",
+	"steam_valve": "res://tools/scenarios/steam_valve_scenario.gd",
 	"scene_packs": "res://tools/scenarios/scene_pack_scenario.gd",
 	"lighting_scenes": "res://tools/scenarios/lighting_scene_scenario.gd",
 	"enemy_vfx": "res://tools/scenarios/enemy_vfx_scenario.gd",

@@ -14,6 +14,8 @@ const POWER_PATH := "res://data/props/power_switch.tres"
 const GRUNT_PATH := "res://data/enemies/grunt.tres"
 const SUSPENDED_PATH := "res://data/props/suspended_crate.tres"
 const SUSPENDED_MAP := "res://tests/fixtures/suspended_map.json"
+const VALVE_PATH := "res://data/props/steam_valve.tres"
+const VALVE_MAP := "res://tests/fixtures/steam_valve_map.json"
 
 
 func run() -> void:
@@ -27,6 +29,7 @@ func run() -> void:
 	await _test_power_and_lighting()
 	await _test_checkpoint_restore()
 	await _test_suspended_load()
+	await _test_steam_valve()
 
 
 func _test_mechanism_translations() -> void:
@@ -488,3 +491,73 @@ func _test_suspended_load() -> void:
 		for node in runner.get_tree().get_nodes_in_group(&"enemies"):
 			check((node as Enemy).health.current == survivor_health, "restoring does not replay the drop damage")
 	await end_level(restored_level)
+
+
+## 蒸汽閥（NE-398）：射中閥門噴出蒸汽牆，牆在時雙方子彈都打不穿、角色走得過去；時間到散掉、冷卻後才能再用；敵人打不開；資料有檢查。
+func _test_steam_valve() -> void:
+	var valve_data := load(VALVE_PATH) as SteamValveData
+	check(valve_data != null and valve_data.validate().is_empty(), "the steam valve data is valid: %s" % [valve_data.validate() if valve_data != null else ["missing"]])
+	if valve_data == null:
+		return
+	check(not valve_data.hint_for("en").is_empty() and not valve_data.hint_for("ja").is_empty(), "the valve hint is available in all three languages")
+	var bad := SteamValveData.new()
+	bad.texture = "res://art/environment/test_missing_prop_valve.png"
+	bad.screen_seconds = NAN
+	bad.hint = "只有中文"
+	check(bad.validate().size() >= 3, "a valve with missing art, broken timing or missing translations is reported")
+
+	var data := LevelData.new()
+	data.id = &"steam_valve_test"
+	data.layout_path = VALVE_MAP
+	data.legend = {"V": valve_data}
+	var level := await start_level(data)
+	var valves := _find_all(level, SteamValve)
+	check(valves.size() == 1, "the map character spawns one steam valve")
+	if valves.is_empty():
+		await end_level(level)
+		return
+	var valve := valves[0] as SteamValve
+	check(valve.is_ready_to_vent() and not valve._screen.is_blocking(), "the valve starts ready with no steam")
+	valve.hurtbox.receive(DamageInfo.create(2, Combat.Team.ENEMY, &"test_enemy_shot"))
+	check(valve.is_ready_to_vent(), "enemy fire cannot open the valve")
+	valve.hurtbox.receive(DamageInfo.create(1, Combat.Team.PLAYER, &"test_player_shot"))
+	await physics_frames(2)
+	check(valve.is_venting() and valve._screen.is_blocking(), "a player hit opens the valve and raises the steam screen")
+	check(valve.health.current == valve.health.max_health, "the valve itself is never worn down")
+	var rect := valve.screen_rect()
+	check(rect.position.x > valve.global_position.x and rect.size.y >= 48.0, "the screen stands beside the valve, tall enough to cover a standing body")
+
+	# 子彈從兩邊打進蒸汽都會被吃掉；穿牆的子彈不受影響。
+	var spec := load("res://data/projectiles/collector_shot.tres") as ProjectileSpec if ResourceLoader.exists("res://data/projectiles/collector_shot.tres") else null
+	if spec == null:
+		for file in DirAccess.get_files_at("res://data/projectiles"):
+			var candidate := load("res://data/projectiles".path_join(file)) as ProjectileSpec
+			if candidate != null and not candidate.passes_walls and candidate.gravity == 0.0:
+				spec = candidate
+				break
+	check(spec != null, "a straight bullet spec exists for the screen check")
+	if spec != null:
+		var middle := rect.get_center()
+		for team: Combat.Team in [Combat.Team.PLAYER, Combat.Team.ENEMY]:
+			var bullet := ProjectilePool.spawn(spec, middle + Vector2(-60.0, 0.0), Vector2.RIGHT, team) as Projectile
+			var crossed := false
+			for i in 30:
+				await physics_frames(1)
+				if not bullet.active:
+					break
+				crossed = crossed or bullet.global_position.x > rect.end.x + 2.0
+			check(not crossed and not bullet.active, "a %s bullet stops inside the steam" % ("player" if team == Combat.Team.PLAYER else "enemy"))
+	# 角色穿得過去：蒸汽不在角色會撞到的層。
+	check((valve._screen.collision_layer & (Layers.SOLID | Layers.PLAYER | Layers.ENEMY)) == 0 and level.player.collision_mask & Layers.SCREEN == 0,
+			"bodies walk straight through the steam")
+
+	valve.vent()
+	check(valve.is_venting(), "hitting the valve again while venting changes nothing")
+	await runner.get_tree().create_timer(valve_data.screen_seconds + 0.2).timeout
+	await physics_frames(2)
+	check(valve.state == SteamValve.State.COOLING and not valve._screen.is_blocking() and is_zero_approx(valve.screen_opacity()),
+			"the steam clears after its time and the valve cools down")
+	check(not valve.vent(), "a cooling valve cannot be opened")
+	await runner.get_tree().create_timer(valve_data.cooldown_seconds + 0.2).timeout
+	check(valve.is_ready_to_vent() and not valve.is_processing(), "after cooling the valve is ready again and idle")
+	await end_level(level)

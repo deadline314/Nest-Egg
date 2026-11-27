@@ -123,7 +123,7 @@ func _move_swept(delta: float) -> void:
 	for contact in MAX_SWEEP_CONTACTS:
 		if not active or remaining <= 0.000001:
 			return
-		_sweep.collision_mask = Combat.hurtbox_mask_against(team) | (0 if spec.passes_walls else Layers.WORLD)
+		_sweep.collision_mask = _collision_mask()
 		_sweep.exclude = _sweep_exclude
 		_sweep.transform = Transform2D(0.0, global_position)
 		_sweep.motion = Vector2.ZERO
@@ -245,7 +245,7 @@ func _is_path_blocked(from: Vector2, to: Vector2) -> bool:
 	_path_ray.exclude = _path_exclude
 	_path_ray.collide_with_areas = true
 	_path_ray.collide_with_bodies = not spec.passes_walls
-	_path_ray.collision_mask = Combat.hurtbox_mask_against(team) | (0 if spec.passes_walls else Layers.WORLD)
+	_path_ray.collision_mask = _collision_mask()
 	return not get_world_2d().direct_space_state.intersect_ray(_path_ray).is_empty()
 
 
@@ -262,6 +262,11 @@ func _make_damage() -> DamageInfo:
 ## 撞上實體：一般地形直接消失；可破壞物（有 hit_by_projectile）會受傷，貫穿彈打破後可以繼續飛。
 func _on_body_entered(body: Node2D) -> void:
 	if not active:
+		return
+	if body.has_method(&"absorbs_projectile"):
+		# 只擋子彈的屏障（蒸汽牆）：子彈被吃掉，不算命中、不冒火花。
+		body.call(&"absorbs_projectile", global_position)
+		_finish(false)
 		return
 	if body.has_method(&"hit_by_projectile"):
 		var id := body.get_instance_id()
@@ -298,7 +303,12 @@ func _reflect(direction: Vector2) -> void:
 
 
 func _update_mask() -> void:
-	set_deferred(&"collision_mask", Combat.hurtbox_mask_against(team) | (0 if spec.passes_walls else Layers.WORLD))
+	set_deferred(&"collision_mask", _collision_mask())
+
+
+## 子彈會撞到的東西：對方的受擊框、地形，以及只擋子彈的屏障（蒸汽牆）。穿牆的子彈兩者都略過。
+func _collision_mask() -> int:
+	return Combat.hurtbox_mask_against(team) | (0 if spec.passes_walls else Layers.WORLD | Layers.SCREEN)
 
 
 func _finish(impact: bool) -> void:

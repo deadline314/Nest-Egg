@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="SteamValveData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/steam_valve_data.gd" id="1_valve"]
+
+[resource]
+script = ExtResource("1_valve")
+id = &"steam_valve"
+display_name = "蒸汽閥"
+hint = "射擊閥門噴出蒸汽，幾秒內擋住雙方的子彈。"
+localized_hints = Dictionary[String, String]({
+"en": "Shoot the valve: the steam blocks bullets both ways for a few seconds.",
+"ja": "バルブを撃つと蒸気が噴き出し、数秒間お互いの弾を防ぎます。"
+})
+screen_offset = 30.0
+screen_width = 22.0
+screen_height = 72.0
+screen_seconds = 6.0
+cooldown_seconds = 8.0
