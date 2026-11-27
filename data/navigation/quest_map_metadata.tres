@@ -1019,6 +1019,7 @@ localized_names = Dictionary[String, String]({
 })
 height = 56
 legend = Dictionary[String, Resource]({
+"!": SubResource("Resource_3nxth"),
 "%": SubResource("Resource_3nxth"),
 "@": SubResource("Resource_3nxth"),
 "A": SubResource("Resource_bdldf"),
@@ -5187,7 +5188,7 @@ digests = Dictionary[String, String]({
 "res://data/levels/ch1_stall.tres": "c8f9b84e70e47b2392085db5a6ffcbd8090374b4d740434b5713cc0e90678cb6",
 "res://data/levels/ch1_street.tres": "d392944bdb057b1f5cb2a02d93c5b5f0b2f700c3e2dc52ff741d35b654236b47",
 "res://data/levels/ch1_vault.tres": "17ea469a8e6fb8fb5f58c36e31409f8adaeba4ab7a479304825ff25080f4da7e",
-"res://data/levels/ch1_warehouse.tres": "41a5a18c6eb27d5bf94e379152451ca3d225c2038f5a82bb84e3778f93e5fe79",
+"res://data/levels/ch1_warehouse.tres": "c537dda584f0ea189ad71c1812a955b6975f18a451556301fbb015eeb6dc57ba",
 "res://data/levels/ch2_ali_home.tres": "afcc17be922a00a813d6f0ebc543ff72ce049fbc1e95ce0af67c98d2903cfc28",
 "res://data/levels/ch2_harbor_street.tres": "5b518b012d01bb2b79f22e73845653e3bb7a955053db9b2da9bfd04c1af562f7",
 "res://data/levels/ch2_ledger_front.tres": "dc7cbed7976c7da61f9b8bd19f2fb89207113164274606e9f0b1fe6a15d5eabc",
@@ -5409,6 +5410,7 @@ digests = Dictionary[String, String]({
 "res://data/props/lift_tall.tres": "b6c19c44dd24c43a91fdc6a4c789fc7f1ad91db7ac2b3df5c60ae0e568882113",
 "res://data/props/power_switch.tres": "3a1fa15b69337101aaab47d59451fdb109fc28a6b4321711ffed8a863a924afa",
 "res://data/props/recycle_curtain.tres": "c34f4a92d19c0b72be4edfb49dc90e24d541b85fea695b2f83b0785bdbd92195",
+"res://data/props/suspended_crate.tres": "fe1269e2bd150339942105d4319b3055cb46569fd766f36aff24256c5d69589f",
 "res://data/props/switch_a.tres": "1808e3468812d85c616eb1ea0945f5a7571e999d04b7f3b5e0cb9962fefb40d7",
 "res://data/props/switch_b.tres": "efbc3ebd232b17b6097e3c7c3e2cc8b0e4c3c61301406272ee1e53adc0fcf136",
 "res://data/shops/ch1_pawn.tres": "3bda753f21dd6005b9748d3644297b57e0081ce6db0d4641cc76ac53b2e4bceb",

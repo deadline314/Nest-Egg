@@ -12,6 +12,8 @@ const GATE_PATH := "res://data/props/gate_a.tres"
 const SWITCH_PATH := "res://data/props/switch_a.tres"
 const POWER_PATH := "res://data/props/power_switch.tres"
 const GRUNT_PATH := "res://data/enemies/grunt.tres"
+const SUSPENDED_PATH := "res://data/props/suspended_crate.tres"
+const SUSPENDED_MAP := "res://tests/fixtures/suspended_map.json"
 
 
 func run() -> void:
@@ -24,6 +26,7 @@ func run() -> void:
 	await _test_lift()
 	await _test_power_and_lighting()
 	await _test_checkpoint_restore()
+	await _test_suspended_load()
 
 
 func _test_mechanism_translations() -> void:
@@ -404,3 +407,84 @@ func _test_checkpoint_restore() -> void:
 	check(is_instance_valid(level.player), "level builds even with a stale or garbage world snapshot")
 	await end_level(level)
 	GameState.clear_checkpoint()
+
+
+## 吊掛貨箱（NE-397）：吊著時不擋路、打到就砸下來傷害底下的敵人、不傷玩家也不卡住玩家、落地後是掩體、狀態跟著檢查點、資料有檢查。
+func _test_suspended_load() -> void:
+	var load_data := load(SUSPENDED_PATH) as SuspendedLoadData
+	check(load_data != null and load_data.validate().is_empty(), "the suspended crate data is valid: %s" % [load_data.validate() if load_data != null else ["missing"]])
+	if load_data == null:
+		return
+	check(load_data.hint_for("en").begins_with("Shoot") and not load_data.hint_for("ja").is_empty() and load_data.hint_for("zh") == load_data.hint,
+			"the hint is available in all three languages")
+	var bad := SuspendedLoadData.new()
+	bad.hang_tiles = 2
+	bad.hint = "只有中文"
+	check(bad.validate().size() >= 3, "a load that hangs too low or lacks translations is reported")
+
+	var data := LevelData.new()
+	data.id = &"suspended_test"
+	data.layout_path = SUSPENDED_MAP
+	data.legend = {"Q": load_data, "g": load(GRUNT_PATH)}
+	var level := await start_level(data)
+	var loads := _find_all(level, SuspendedLoad)
+	check(loads.size() == 1, "the map character spawns one suspended crate")
+	if loads.is_empty():
+		await end_level(level)
+		return
+	var crate := loads[0] as SuspendedLoad
+	var tile := 16.0
+	check(crate.is_hanging() and is_equal_approx(crate.drop_height(), load_data.hang_tiles * tile), "it starts hanging %d tiles above the floor" % load_data.hang_tiles)
+	check(crate._shape_node.disabled and crate.hurtbox.enabled, "while hanging it blocks nothing but can be shot")
+	check(is_equal_approx(crate._anchor_height, 11.0 * tile), "the chain reaches the ceiling above it (%.0f px)" % crate._anchor_height)
+	check(crate.capture_state() == false and crate.state_key() == "suspended@14,19", "a hanging crate saves as not fallen")
+	var enemy: Enemy
+	for node in runner.get_tree().get_nodes_in_group(&"enemies"):
+		enemy = node as Enemy
+	check(enemy != null, "an enemy stands beside the landing spot")
+	if enemy == null:
+		await end_level(level)
+		return
+	enemy.set_physics_process(false)
+	enemy.set_process(false)
+	var enemy_health := enemy.health.current
+	var player := level.player
+	player.set_physics_process(false)
+	player.global_position = crate.global_position + Vector2(-3.0, 0.0)  # 玩家站在正下方（略偏左，會被推向沒有敵人的那一側）
+	var player_health := player.health.current
+	# 敵方的子彈打不動它。
+	crate.hurtbox.receive(DamageInfo.create(3, Combat.Team.ENEMY, &"test_enemy_shot"))
+	check(crate.is_hanging(), "enemy fire does not release the crate")
+	crate.hurtbox.receive(DamageInfo.create(1, Combat.Team.PLAYER, &"test_player_shot"))
+	check(crate.state == SuspendedLoad.State.FALLING and not crate.hurtbox.enabled, "a player hit releases the chain")
+	for i in 180:
+		if crate.state == SuspendedLoad.State.LANDED:
+			break
+		await physics_frames(1)
+	await physics_frames(3)
+	check(crate.state == SuspendedLoad.State.LANDED and is_zero_approx(crate.drop_height()), "the crate falls to the floor")
+	check(not crate._shape_node.disabled, "once landed it is solid cover")
+	check(not is_instance_valid(enemy) or enemy.health.current <= enemy_health - mini(load_data.drop_damage, enemy_health),
+			"the enemy below takes the drop damage")
+	check(player.health.current == player_health, "the player is never hurt by a crate they dropped (%d -> %d)" % [player_health, player.health.current])
+	check(absf(player.global_position.x - crate.global_position.x) >= crate.size_px.x * 0.5 + SuspendedLoad.SHOVE_MARGIN - 0.5,
+			"a player standing underneath is pushed clear instead of being trapped inside")
+	check(crate.capture_state() == true, "a fallen crate saves as fallen")
+	crate.release()
+	check(crate.state == SuspendedLoad.State.LANDED, "a landed crate cannot be released again")
+	await end_level(level)
+
+	var restored_level := await start_level(data)
+	var again := _find_all(restored_level, SuspendedLoad)
+	if not again.is_empty():
+		var restored := again[0] as SuspendedLoad
+		var survivor_health := -1
+		for node in runner.get_tree().get_nodes_in_group(&"enemies"):
+			(node as Enemy).set_physics_process(false)
+			survivor_health = (node as Enemy).health.current
+		restored.restore_state(true)
+		await physics_frames(3)
+		check(restored.state == SuspendedLoad.State.LANDED and not restored._shape_node.disabled, "restoring a checkpoint puts the fallen crate back on the floor")
+		for node in runner.get_tree().get_nodes_in_group(&"enemies"):
+			check((node as Enemy).health.current == survivor_health, "restoring does not replay the drop damage")
+	await end_level(restored_level)

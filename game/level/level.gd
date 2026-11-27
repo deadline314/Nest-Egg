@@ -839,7 +839,8 @@ var _throwables_placed := 0
 
 static func _is_prop_resource(resource: Resource) -> bool:
 	return resource is BreakableData or resource is MechanismData or resource is CreditPileData \
-			or resource is ShopData or resource is NpcData or resource is PortalData or resource is ThrowableData or resource is TrainingData
+			or resource is ShopData or resource is NpcData or resource is PortalData or resource is ThrowableData or resource is TrainingData \
+			or resource is SuspendedLoadData
 
 
 ## 生成物在本區域裡固定的鍵（資源 id 加格座標）；地圖資料改版後對不上的鍵會被忽略。
@@ -848,6 +849,14 @@ func _spawn_key(spawn: Dictionary) -> String:
 	var res: Resource = spawn["resource"]
 	var res_id := str(res.get(&"id")) if res.get(&"id") != null else res.get_class()
 	return "%s@%d,%d" % [res_id, cell.x, cell.y]
+
+
+## 從 cell 的底邊往上、跳過 clearance 格之後遇到的第一塊實心地形（天花板）離底邊多高（像素）；上面沒有天花板就算到地圖頂端。
+func _ceiling_height_above(cell: Vector2i, clearance: int) -> float:
+	var row := cell.y - clearance
+	while row >= 0 and _layout.cell(cell.x, row) != "#":
+		row -= 1
+	return float((cell.y - row) * _layout.tile_size)
 
 
 func _create_prop(spawn: Dictionary) -> Node2D:
@@ -864,6 +873,13 @@ func _create_prop(spawn: Dictionary) -> Node2D:
 		breakable.configure(resource as BreakableData, cell, _layout.tile_size)
 		breakable.broken.connect(_on_breakable_broken)
 		return breakable
+	if resource is SuspendedLoadData:
+		var load_data := resource as SuspendedLoadData
+		for problem in load_data.validate():
+			push_error("[Level] %s（格 %s）" % [problem, cell])
+		var hanging := SuspendedLoad.new()
+		hanging.configure(load_data, cell, _layout.tile_size, _ceiling_height_above(cell, load_data.hang_tiles + load_data.size_tiles.y))
+		return hanging
 	if resource is ThrowableData:
 		# 每個區域的可投擲物有上限；重進區域時依地圖重新擺放，不會累積。
 		if _throwables_placed >= MAX_THROWABLES:

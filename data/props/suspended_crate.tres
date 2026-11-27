@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="SuspendedLoadData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/suspended_load_data.gd" id="1_load"]
+
+[resource]
+script = ExtResource("1_load")
+id = &"suspended_crate"
+display_name = "吊掛貨箱"
+hint = "射斷吊鏈，貨箱會砸到底下的敵人。"
+localized_hints = Dictionary[String, String]({
+"en": "Shoot the hoist chain to drop the crate on enemies below.",
+"ja": "吊り鎖を撃つと、荷箱が真下の敵に落ちます。"
+})
+size_tiles = Vector2i(2, 2)
+hang_tiles = 4
+drop_damage = 4
+drop_radius = 22.0
+release_health = 1
