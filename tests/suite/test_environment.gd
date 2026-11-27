@@ -31,6 +31,7 @@ func run() -> void:
 	await _test_key_light()
 	await _test_near_foreground()
 	await _test_midground_and_haze()
+	await _test_ground_section()
 	_test_fixture_art()
 	await preload("res://tests/helpers/scene_lighting_checks.gd").run(self)
 	await _test_training_art()
@@ -2483,3 +2484,25 @@ func _test_midground_and_haze() -> void:
 	check(plain_windows == null or is_zero_approx(float(plain_windows.get_shader_parameter(&"key_mix") if plain_windows.get_shader_parameter(&"key_mix") != null else 0.0)), "an area without a key light keeps its window colours")
 	await end_level(plain)
 	Settings.set_light_quality(previous_quality)
+
+
+## 地面剖面（BG-72）：壞資料不畫並記錄；向陽區有剖面、蓋住大部分走道下方；畫在地形之後（同一層）、角色之下；靜止不重畫。
+func _test_ground_section() -> void:
+	var layout := LevelBuilder.parse(load("res://data/levels/ch3_glass_edge.tres") as LevelData)
+	for bad: Variant in [[1, 2], {"fade": 3.0}, {"piles": [4, 2]}, {"pipes": "often"}]:
+		var probe := GroundSection.new()
+		check(not probe.setup(layout, bad, "test_ground_section_bad", Color.WHITE, Color.WHITE), "broken ground_section data draws nothing: %s" % [bad])
+		probe.free()
+	var level := await start_level(load("res://data/levels/ch3_glass_edge.tres") as LevelData)
+	var section := level.find_child("GroundSection", true, false) as GroundSection
+	check(section != null and section.run_count() > 0, "the sunlit edge has a ground section below its walkway")
+	if section != null:
+		var world := level.get_node("World")
+		check(section.z_index == WorldLayers.TERRAIN and section.get_index() > world.get_node("Terrain").get_index(), "the ground section lies on the terrain, below props, characters and the near foreground")
+		var covered := 0.0
+		for run in section._runs:
+			covered += run.size.x
+			check(run.position.y >= level._layout.surface_heights[clampi(int(run.position.x / level._layout.tile_size), 0, level._layout.surface_heights.size() - 1)] + section.start - 0.01, "the section starts below the walkway edge, which stays as it was")
+		check(covered > level._layout.pixel_size().x * 0.6, "the section covers most of the walkway (%.0f px)" % covered)
+		check(not section.is_processing(), "the ground section is drawn once and never redrawn")
+	await end_level(level)

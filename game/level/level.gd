@@ -274,6 +274,7 @@ func _build_entry() -> void:
 	_world.add_child(terrain)
 	terrain.wall_geometry = back_wall.geometry
 	terrain.build(_layout, data.environment, data.load_regions())
+	_spawn_ground_section()
 	_world.add_child(_prop_grounding)
 	_prop_grounding.build_chunks(Rect2(Vector2.ZERO, _layout.pixel_size()))
 	if not _layout.ghost_rects.is_empty():
@@ -840,6 +841,28 @@ func _place_prop(prop: PropData, top_left: Vector2, flip: bool) -> PropNode:
 
 func _prop_dirs() -> PackedStringArray:
 	return data.environment.prop_dirs() if data.environment != null else PackedStringArray([PropLibrary.DEFAULT_DIR])
+
+
+## 地面剖面（BG-72）：地圖 JSON 寫了 ground_section 才有。緊接在地形後面加入（同一層、畫在地形上面、角色與近前景下面）。
+## 這時光影還沒建立：色調取第一個光影區段的環境光，亮邊取地圖主光的顏色（沒有主光用白色）。
+func _spawn_ground_section() -> void:
+	var spec: Variant = data.load_layout_value("ground_section")
+	if spec == null:
+		return
+	var ambient := Color(0.3, 0.3, 0.32)
+	for zone in data.lighting_zones:
+		if zone != null and zone.profile != null:
+			ambient = zone.profile.ambient_color
+			break
+	var raw_key: Variant = data.load_layout_value("key_light")
+	var key_data := KeyLightData.parse(raw_key, data.id) if raw_key != null else null
+	var section := GroundSection.new()
+	if not section.setup(_layout, spec, "%s（%s）" % [data.id, data.layout_path], ambient, key_data.color if key_data != null else Color.WHITE):
+		section.free()
+		return
+	section.z_index = WorldLayers.TERRAIN
+	section.material = LightKit.emissive_material()
+	_world.add_child(section)
 
 
 ## 有主光的區段裡，立面窗光往主光色靠的比例（BG-69）。

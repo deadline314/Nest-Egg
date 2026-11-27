@@ -390,6 +390,8 @@ def build_glass_edge():
         'shafts': {'count': 6, 'angle': 34, 'length': 360, 'width': 30, 'spread': 300},
         'occlusion': [0.12, 0.88], 'period': 48},
         # 近前景（BG-68）：走道外緣的花台、矮籬與玫瑰叢（只露出小腿高），上緣垂下的枝葉與燈籠串。
+        # 地面剖面（BG-72）：走道下方往下變暗，看得到橋面樑、基樁與管線。
+        'ground_section': {'start': 14, 'fade': 0.7, 'piles': [56, 104], 'pipes': 0.5},
         # 中景（BG-69、BG-71）：靠牆的回收桶、行道樹花台、咖啡棚、販賣機、貨箱、管線、油桶（深色為主），由 Midground 依規則排位置。
         'midground': {'pieces': ['sunlit_district__sorting_bins', 'sunlit_district__street_tree_planter', 'sunlit_district__cafe_awning_set', 'vending_machine', 'crates_stack', 'pipe_vertical', 'barrels'], 'spacing': [50, 120], 'from': 2, 'to': 70},
         'near_foreground': [{'anchor': 'bottom', 'base': ['planter_edge'], 'pieces': ['rose_bush', 'planters'], 'rise': 14, 'spacing': [30, 120], 'scale': [0.6, 1.15], 'from': 0, 'to': 72}, {'anchor': 'top', 'pieces': ['foliage', 'lanterns'], 'above': 175, 'spacing': [110, 260], 'from': 0, 'to': 72}]}
