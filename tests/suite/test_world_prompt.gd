@@ -9,6 +9,7 @@ func run() -> void:
 	_test_edge_row_fallback()
 	_test_leader_geometry()
 	_test_chapter_one_hint_language()
+	await _test_hologram_plate()
 	await _test_leader_world_transform()
 	await _test_toast_reading_space()
 	await _test_motion_safety()
@@ -21,6 +22,43 @@ func run() -> void:
 	await _test_dead_player_suppression()
 	await _test_long_text()
 	await _test_framing_bounds()
+
+
+## 全像字幕與看板螢幕（NE-390）：由一條線展開、文字後到、完全顯示時整片到位；「減少動態」直接淡入；看板離開畫面不重畫。
+func _test_hologram_plate() -> void:
+	var previous_motion := Settings.get_reduce_ui_motion()
+	Settings.set_reduce_ui_motion(false)
+	check(is_equal_approx(WorldPrompt.plate_open(1.0), 1.0) and is_equal_approx(WorldPrompt.text_alpha(1.0), 1.0),
+			"a fully shown prompt is fully open with full-strength text")
+	check(WorldPrompt.plate_open(0.05) < 0.5 and WorldPrompt.plate_open(0.05) >= WorldPrompt.MIN_OPEN, "a prompt starts as a thin line")
+	check(is_zero_approx(WorldPrompt.text_alpha(WorldPrompt.TEXT_START)) and WorldPrompt.plate_open(WorldPrompt.TEXT_START) > 0.8,
+			"text only appears once the plate has mostly opened")
+	var rising := true
+	var last_open := 0.0
+	var last_ink := 0.0
+	for step in 21:
+		var alpha := float(step) / 20.0
+		rising = rising and WorldPrompt.plate_open(alpha) >= last_open and WorldPrompt.text_alpha(alpha) >= last_ink
+		last_open = WorldPrompt.plate_open(alpha)
+		last_ink = WorldPrompt.text_alpha(alpha)
+	check(rising, "opening and text fade never go backwards while fading in")
+	check(WorldPrompt.PLATE_ALPHA >= 0.9, "the backing behind the text stays dark enough to read on bright scenes")
+	Settings.set_reduce_ui_motion(true)
+	check(is_equal_approx(WorldPrompt.plate_open(0.1), 1.0) and is_equal_approx(WorldPrompt.text_alpha(0.3), 0.3),
+			"reduce motion skips the unfold and simply fades")
+	Settings.set_reduce_ui_motion(previous_motion)
+
+	var sign := HintSign.new()
+	sign.text = "{jump} 跳躍"
+	runner.add_child(sign)
+	sign.position = Vector2(-9000.0, -9000.0)
+	await frames(2)
+	var gated := false
+	for child in sign.get_children():
+		gated = gated or child is VisibleOnScreenNotifier2D
+	check(gated and not sign.is_processing(), "a hint sign off screen does not redraw its screen")
+	sign.queue_free()
+	await frames(1)
 
 
 func _test_chapter_one_hint_language() -> void:
