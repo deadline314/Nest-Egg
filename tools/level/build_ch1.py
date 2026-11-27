@@ -1719,6 +1719,8 @@ def build_rooftop():
 
 def build_street():
     area = _v2_area(_build_street_v1())
+    # 近前景（BG-68）：走道外緣的鐵網欄杆（只露出小腿高，戰鬥範圍更矮），上緣的吊纜與燈籠串（戰鬥範圍不放）。
+    area.map_extra = {'near_foreground': [{'anchor': 'bottom', 'pieces': ['fence'], 'rise': 14, 'spacing': [20, 120], 'from': 0, 'to': 208}, {'anchor': 'top', 'pieces': ['cables', 'lanterns'], 'above': 175, 'spacing': [140, 320], 'from': 0, 'to': 208}]}
     area.features.update(loop='資料盤取得後，維修高路連屋頂與倉庫深處',
                          vertical='低處街口、市集高臺、排水線與路障高路',
                          reward='市集上方第23列信用點：取得空中再躍後回訪', landmark='上方維修管線與下方排水口')

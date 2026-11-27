@@ -43,6 +43,8 @@ const KEY_LIGHT_SHEEN := TERRAIN + 1
 ## 主光畫在角色前面的那層淡淡漫射：緊貼在角色上面，頭頂標記、水面、提示與氣泡都在它之上，不會被洗淡（BG-70）。
 const KEY_LIGHT_FRONT := CHARACTERS_TOP + 1
 const ABOVE_CHARACTERS := CHARACTERS_TOP + 2
+## 近前景剪影（BG-68）：在角色前面、子彈與提示之下（只放在小腿以下與頭頂以上，不擋判讀）。
+const NEAR_FOREGROUND := CHARACTERS_TOP + 3
 const PROJECTILES := CHARACTERS_TOP + 4
 ## 會擋子彈的蒸汽幕：子彈消失在蒸汽裡要看得到。
 const STEAM_SCREEN := PROJECTILES + 1

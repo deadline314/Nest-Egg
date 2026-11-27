@@ -54,8 +54,9 @@ description: 做或修改 Nest Egg 的關卡佈景、過場動畫舞台與場景
 - 格子 16 px，角色站立約 56 px（H ≈ 3.5 格）。室內天花板用 `Area.ceiling(x0, x1, rows)`，淨高 = 地面列 − rows 列。
 - 出入口 `PORTALS` 的 `w`／`h`（像素）決定視覺與互動範圍。**室內的梯子高度必須通到天花板**（`Chapter1MapSuite` 檢查：梯子高 ≥ 地面到天花板的 80%）；屋頂等頭上沒有天花板的梯子不檢查。
 - 圖層（`game/level/world_layers.gd`，NE-402）：靜態場景（背牆、導軌、裝飾、背景道具、地形）在 −24 ~ −20，非角色的實體（看板、檢查點、出入口、開關、拾取物、箱子）一律排在 `WorldLayers.ENTITY_BEHIND`（−10）。**每個關卡角色佔一整組圖層**：零件仍是 −9 ~ +12（相對於角色根節點），根節點的 z 由 `Level._send_behind_characters` 分配——敵人與人物拿最低的空組（`level_actor_z`），玩家固定在最上面（`PLAYER_Z`），組數用完共用最後一組並記警告。`CHARACTERS_BOTTOM` 以下（含 0 ~ 12 這類小數字）全部在所有角色之下；主光的光暈與光柱在 `KEY_LIGHT_BACK`（最低角色的正下方）。
-- 要蓋在角色上的東西一律用 `WorldLayers` 的常數，不要寫數字：`ABOVE_CHARACTERS`（水面、頭頂標記、預覽線）< `KEY_LIGHT_FRONT`（主光的淡漫射）< `PROJECTILES` < `STEAM_SCREEN` < `FX` < `FOG` < `RAIN` < `FRONT_PROPS` < `FOREGROUND` < `WORLD_PROMPTS` < `MAP_BUBBLES`。掛在角色底下但要跟著絕對圖層的（提示框）設 `z_as_relative = false`；`top_level` 的節點 z 本來就是絕對的。
+- 要蓋在角色上的東西一律用 `WorldLayers` 的常數，不要寫數字：`KEY_LIGHT_FRONT`（主光的淡漫射，緊貼角色）< `ABOVE_CHARACTERS`（水面、頭頂標記、預覽線）< `NEAR_FOREGROUND`（近前景）< `PROJECTILES` < `STEAM_SCREEN` < `FX` < `FOG` < `RAIN` < `FRONT_PROPS` < `FOREGROUND` < `WORLD_PROMPTS` < `MAP_BUBBLES`。掛在角色底下但要跟著絕對圖層的（提示框）設 `z_as_relative = false`；`top_level` 的節點 z 本來就是絕對的。
 - 前景擺設不透明，只能放在不擋戰鬥判讀的位置（畫面上緣、走道外緣）；擋住角色的改用背景版本，不靠半透明。
+- **近前景（BG-68）**：走道外緣一排從地面往下長的剪影、畫面上緣垂下來的剪影，寫在地圖 JSON 的 `near_foreground`（`anchor` bottom／top、`pieces`、`rise`／`above`、`spacing`、`from`、`to`），零件在 `data/environment/near_foreground.json`（既有素材只取形狀，剪影著色器補邊緣光）。規則都在 `NearForeground.plan()`：走道那排最多露出小腿高 16 像素、敵人出生點 160 像素內 9 像素；垂掛物的底邊離下面走道至少 84 像素、戰鬥範圍不放、下面走道不平就不放。走道那排要大到伸出畫面下緣（向陽區約 100 像素寬），只到半截會像浮在地磚上的黑塊；方方正正的形狀（修剪過的矮籬）不要用。`EnvironmentSuite` 對每個有近前景的區域重排一次檢查高度；截圖 `--scenario=near_foreground`；影格時間 `frame_time_probe --off=near_foreground`。第一章的地圖由 `build_ch1.py` 的 `map_extra` 產生，兩邊都要改。
 - 光源的 z 範圍預設只到 ±1024，玩家那組超過 1024：光一律從 `LightKit.create_point_light` 建（已經把範圍開到最大）。
 - 檢查：`LayerOrderSuite` 算每個角色實際畫在哪些 z（`WorldLayers.drawn_z_range`），任兩個角色不重疊、玩家最前、除了角色沒有東西落在角色圖層組的範圍裡；截圖 `--scenario=layer_overlap` 拍重疊、霧雨（加圖層探針橫條）、子彈與前景擺設的近拍。
 

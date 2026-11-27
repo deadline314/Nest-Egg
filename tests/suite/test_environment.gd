@@ -29,6 +29,7 @@ func run() -> void:
 	await _test_prop_grounding()
 	await _test_sway_kick()
 	await _test_key_light()
+	await _test_near_foreground()
 	_test_fixture_art()
 	await preload("res://tests/helpers/scene_lighting_checks.gd").run(self)
 	await _test_training_art()
@@ -2304,6 +2305,78 @@ func _test_key_light() -> void:
 		Settings.set_light_quality(LightQuality.Tier.LOW)
 		key._process(0.0)
 		check(not key._back.visible and not key._front.visible and key._light.enabled and key._light.visible, "low quality drops the halo and shafts but keeps the surface light")
+	Settings.set_reduce_ui_motion(previous_motion)
+	Settings.set_light_quality(previous_quality)
+	await end_level(level)
+
+
+## 近前景（BG-68）：每一個寫了 near_foreground 的區域，排出來的每一件都只到小腿以下或頭頂以上（戰鬥範圍更矮、不垂掛）；
+## 零件庫完整；壞資料略過並記錄；畫在角色之上、子彈與提示之下；三個畫質都畫；「減少動態」時垂掛物不動。
+func _test_near_foreground() -> void:
+	var library := NearForeground.library()
+	check(library.size() >= 4, "the near-foreground library has pieces (%d)" % library.size())
+	for id: String in library:
+		var piece: Dictionary = library[id]
+		check(str(piece.get("anchor", "")) in ["bottom", "top"] and RigLibrary.optional_texture(str(piece.get("texture", ""))) != null, "near-foreground piece %s has an anchor and an existing texture" % id)
+	var flat := func(_x: float) -> float: return 320.0
+	check(NearForeground.plan("rows", flat, PackedFloat32Array(), 16.0, "test_near_foreground_bad").is_empty(), "a broken near_foreground entry draws nothing")
+	check(NearForeground.plan([{"anchor": "side", "pieces": ["fence"]}, {"anchor": "bottom", "pieces": ["no_such_piece"]}], flat, PackedFloat32Array(), 16.0, "test_near_foreground_bad").is_empty(), "unknown anchors and pieces are skipped")
+	var greedy := NearForeground.plan([{"anchor": "bottom", "pieces": ["fence"], "rise": 60, "spacing": [10, 20], "from": 0, "to": 60}], flat, PackedFloat32Array(), 16.0, "test_near")
+	check(not greedy.is_empty() and greedy.all(func(e: Dictionary) -> bool: return (e["rect"] as Rect2).position.y >= 320.0 - NearForeground.CALF_RISE), "a walkway row asking to rise 60 px is held at calf height")
+	var fight := NearForeground.plan([{"anchor": "top", "pieces": ["cables"], "spacing": [10, 20], "from": 0, "to": 40}], flat, PackedFloat32Array([160.0, 480.0]), 16.0, "test_near")
+	check(fight.is_empty(), "nothing hangs over a combat section")
+	var checked := 0
+	for level_data: LevelData in ResourceCatalog.load_dir("res://data/levels", LevelData, "EnvironmentSuite"):
+		var rows: Variant = level_data.load_layout_value("near_foreground")
+		if rows == null:
+			continue
+		var layout := LevelBuilder.parse(level_data)
+		var surface := func(x: float) -> float: return layout.surface_heights[clampi(int(x / layout.tile_size), 0, layout.surface_heights.size() - 1)]
+		var enemy_x := PackedFloat32Array()
+		for spawn in layout.spawns:
+			if spawn["resource"] is EnemyData:
+				enemy_x.append((spawn["position"] as Vector2).x)
+		var placements := NearForeground.plan(rows, surface, enemy_x, float(layout.tile_size), level_data.id)
+		check(not placements.is_empty(), "%s places some near foreground" % level_data.id)
+		checked += 1
+		for entry in placements:
+			var rect: Rect2 = entry["rect"]
+			var floor_low := INF
+			var probe := rect.position.x - NearForeground.MAX_DRIFT
+			while probe <= rect.end.x + NearForeground.MAX_DRIFT:
+				floor_low = minf(floor_low, float(surface.call(probe)))
+				probe += layout.tile_size * 0.5
+			var combat := false
+			for x in enemy_x:
+				combat = combat or (x > rect.position.x - NearForeground.COMBAT_REACH and x < rect.end.x + NearForeground.COMBAT_REACH)
+			if entry["anchor"] == "bottom":
+				var limit := NearForeground.COMBAT_RISE if combat else NearForeground.CALF_RISE
+				check(rect.position.y >= floor_low - limit - 0.01, "%s %s at x=%.0f stays below calf height (top %.0f, floor %.0f, limit %.0f)" % [level_data.id, entry["id"], rect.position.x, rect.position.y, floor_low, limit])
+			else:
+				check(not combat and rect.end.y <= floor_low - NearForeground.HEAD_CLEAR + 0.01, "%s %s at x=%.0f hangs above head height outside combat (bottom %.0f, floor %.0f)" % [level_data.id, entry["id"], rect.position.x, rect.end.y, floor_low])
+	check(checked >= 2, "at least two areas use the near foreground (%d)" % checked)
+	check(WorldLayers.NEAR_FOREGROUND > WorldLayers.CHARACTERS_TOP and WorldLayers.NEAR_FOREGROUND < WorldLayers.PROJECTILES and WorldLayers.NEAR_FOREGROUND < WorldLayers.WORLD_PROMPTS, "the near foreground is in front of characters but behind bullets and prompts")
+
+	var previous_motion := Settings.get_reduce_ui_motion()
+	var previous_quality := Settings.get_light_quality()
+	Settings.set_reduce_ui_motion(false)
+	Settings.set_light_quality(LightQuality.Tier.LOW)
+	var level := await start_level(load("res://data/levels/ch3_glass_edge.tres") as LevelData)
+	var near := level.find_child("NearForeground", true, false) as NearForeground
+	check(near != null and near.visible and near.get_child_count() > 0, "the near foreground is drawn on low quality too")
+	if near != null:
+		check(near.z_index == WorldLayers.NEAR_FOREGROUND and not near.z_as_relative, "the near foreground uses its own layer")
+		var swaying := near._materials.filter(func(m: ShaderMaterial) -> bool: return m.get_shader_parameter(&"hang") == true)
+		check(not swaying.is_empty() and swaying.all(func(m: ShaderMaterial) -> bool: return is_zero_approx(float(m.get_shader_parameter(&"amplitude")))), "low quality keeps the hanging pieces still")
+		Settings.set_light_quality(LightQuality.Tier.HIGH)
+		check(swaying.any(func(m: ShaderMaterial) -> bool: return float(m.get_shader_parameter(&"amplitude")) > 0.0), "high quality lets the wind move the hanging pieces")
+		Settings.set_reduce_ui_motion(true)
+		check(swaying.all(func(m: ShaderMaterial) -> bool: return is_zero_approx(float(m.get_shader_parameter(&"amplitude")))), "reduced motion keeps the hanging pieces still")
+		var before := (near.get_child(0) as Node2D).position.x
+		near._last_camera_x = INF
+		near._process(0.0)
+		check(absf(NearForeground.drift_at(1000.0, 400.0)) <= NearForeground.MAX_DRIFT and NearForeground.drift_at(1000.0, 400.0) > 0.0, "the near foreground runs a little ahead of the walkway when the camera moves right")
+		check(is_finite(before), "near-foreground pieces have a position")
 	Settings.set_reduce_ui_motion(previous_motion)
 	Settings.set_light_quality(previous_quality)
 	await end_level(level)

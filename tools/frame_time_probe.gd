@@ -23,6 +23,7 @@ const OFF_KINDS := {
 	"grounding": ["PropGrounding"],
 	"kick": ["SwayKick"],
 	"key_light": ["KeyLight"],
+	"near_foreground": ["NearForeground"],
 }
 const WARMUP_SECONDS := 2.0
 const SLOW_FRAME_MS := 16.7

@@ -388,7 +388,9 @@ def build_glass_edge():
         'x': 17, 'y': 12, 'color': [1.0, 0.68, 0.4], 'energy': 0.8, 'light_radius': 700,
         'halo_radius': 320, 'halo_alpha': 0.75, 'front_wash': 0.08,
         'shafts': {'count': 6, 'angle': 34, 'length': 360, 'width': 30, 'spread': 300},
-        'occlusion': [0.12, 0.88], 'period': 48}}
+        'occlusion': [0.12, 0.88], 'period': 48},
+        # 近前景（BG-68）：走道外緣的花台、矮籬與玫瑰叢（只露出小腿高），上緣垂下的枝葉與燈籠串。
+        'near_foreground': [{'anchor': 'bottom', 'pieces': ["planters", "rose_bush"], 'rise': 14, 'spacing': [8, 60], 'from': 0, 'to': 72}, {'anchor': 'top', 'pieces': ['foliage', 'lanterns'], 'above': 175, 'spacing': [110, 260], 'from': 0, 'to': 72}]}
     a.features = {'landmark': '地上的光斑（x=20）與觀景框（x=30）', 'secret': '觀景框的塔頂花園遠景（可選）'}
     return a
 

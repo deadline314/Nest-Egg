@@ -150,7 +150,7 @@ func _test_level_scenery(path: String) -> void:
 ## 子彈、特效、霧、雨、前景擺設、前景層、提示與對話氣泡在所有角色之上，接觸陰影在所有角色之下，光源照得到最上面一層。
 func _test_level_actor_groups() -> void:
 	check(WorldLayers.CHARACTERS_BOTTOM > WorldLayers.ENTITY_BEHIND and WorldLayers.CHARACTERS_BOTTOM > WorldLayers.SCENERY_MAX, "the lowest character group is above the entities and scenery that sit behind characters")
-	var above := [WorldLayers.KEY_LIGHT_FRONT, WorldLayers.ABOVE_CHARACTERS, WorldLayers.PROJECTILES, WorldLayers.STEAM_SCREEN, WorldLayers.FX, WorldLayers.FOG, WorldLayers.RAIN, WorldLayers.FRONT_PROPS, WorldLayers.FOREGROUND, WorldLayers.WORLD_PROMPTS, WorldLayers.MAP_BUBBLES]
+	var above := [WorldLayers.KEY_LIGHT_FRONT, WorldLayers.ABOVE_CHARACTERS, WorldLayers.NEAR_FOREGROUND, WorldLayers.PROJECTILES, WorldLayers.STEAM_SCREEN, WorldLayers.FX, WorldLayers.FOG, WorldLayers.RAIN, WorldLayers.FRONT_PROPS, WorldLayers.FOREGROUND, WorldLayers.WORLD_PROMPTS, WorldLayers.MAP_BUBBLES]
 	for i in above.size():
 		check(int(above[i]) > WorldLayers.CHARACTERS_TOP and int(above[i]) <= WorldLayers.WORLD_TOP, "overlay layer %d (%d) is above every character part" % [i, above[i]])
 		if i > 0:

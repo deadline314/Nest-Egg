@@ -343,6 +343,7 @@ func _build_entry() -> void:
 	add_child(_lighting)
 	_lighting.setup(data.lighting_zones, _layout.tile_size, player, ambient, _background, _fog, data.fog_color, _post)
 	_spawn_key_light()
+	_spawn_near_foreground()
 	# 從檢查點重生時若正好在事件範圍內，直接套用，不從區段光影漸變。
 	_update_lighting_events(0.0)
 	_lighting.snap()
@@ -808,6 +809,35 @@ func _spawn_key_light() -> void:
 		return _layout.surface_heights[clampi(int(x / _layout.tile_size), 0, _layout.surface_heights.size() - 1)])
 	_world.add_child(key)
 	_lighting.key_light = key
+
+
+## 近前景（BG-68）：地圖 JSON 寫了 near_foreground 才有。邊緣光用主光的顏色與方向，沒有主光時用光影設定的輪廓光。
+func _spawn_near_foreground() -> void:
+	var rows: Variant = data.load_layout_value("near_foreground")
+	if rows == null:
+		return
+	var enemy_x := PackedFloat32Array()
+	for spawn in _layout.spawns:
+		if spawn["resource"] is EnemyData:
+			enemy_x.append((spawn["position"] as Vector2).x)
+	if not _layout.boss_spawn.is_empty():
+		enemy_x.append((_layout.boss_spawn["position"] as Vector2).x)
+	var placements := NearForeground.plan(rows, surface_y_at, enemy_x, float(_layout.tile_size), "%s（%s）" % [data.id, data.layout_path])
+	if placements.is_empty():
+		return
+	var near := NearForeground.new()
+	var ambient := _lighting.current.ambient_color
+	var fill := Color(ambient.r * 0.07, ambient.g * 0.06, ambient.b * 0.06)
+	var key := _lighting.key_light
+	var rim := key.data.color if is_instance_valid(key) else _lighting.current.rim_color
+	var direction := (key.global_position - Vector2(_layout.pixel_size().x * 0.5, _layout.ground_y)) if is_instance_valid(key) else Vector2(0.78, -0.62)
+	near.build(placements, fill, rim, direction)
+	_world.add_child(near)
+
+
+## 世界座標 x 處最高的可走地面（地圖外夾在兩端）。
+func surface_y_at(x: float) -> float:
+	return _layout.surface_heights[clampi(int(x / _layout.tile_size), 0, _layout.surface_heights.size() - 1)]
 
 
 ## 雨與霧（畫在角色前方，低透明度）。
