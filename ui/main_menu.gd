@@ -28,7 +28,7 @@ const HERO_GHOST := {"start": "DEPLOY", "resume": "RESUME"}
 const SLOTS: Array[Rect2] = [Rect2(40, 186, 134, 30), Rect2(150, 205, 118, 28), Rect2(54, 231, 110, 26), Rect2(166, 240, 104, 26)]
 const SLOT_TILTS: Array[float] = [3.5, -5.0, 4.5, -3.0]
 ## 右邊的主角立繪佔畫面的範圍（錨點：左、上、右、下）。
-const PORTRAIT_ANCHORS := [0.56, 0.1, 0.96, 0.98]
+const PORTRAIT_ANCHORS := [0.56, 0.15, 0.96, 0.98]
 ## 標題：字級（遊戲像素）、底板的位置與大小、錯位副標的字級。
 const TITLE_SIZE := 50
 const TITLE_PLATE := Rect2(14, 22, 312, 92)
@@ -71,7 +71,7 @@ const COPY := {
 	"no_heal": ["檢查點回血　沒有", "チェックポイント回復なし", "Checkpoint healing: Off"],
 }
 ## 開發工具按鈕離右上角的距離（右、上）。
-const DEV_BUTTON_MARGIN := Vector2(12, 10)
+const DEV_BUTTON_MARGIN := Vector2(12, 8)
 
 var _selected: DifficultyData
 var _camera: Camera2D
@@ -295,7 +295,8 @@ func _build_dev_entry() -> void:
 	if not DevMenu.is_available():
 		return
 	_dev_button = UiKit.button(_text("developer"), DevMenu.open, _text("developer_hint"))
-	# 貼著右上角、向左下長（右下角是版本戳章）：按鈕的最小尺寸由主題決定，不用自己算寬度才不會被切掉。
+	# 右上角、主角立繪的上方（立繪從 PORTRAIT_ANCHORS 的上緣才開始，兩者不重疊）：寬度只跟字一樣，向左長。
+	_dev_button.custom_minimum_size.x = 0.0
 	_dev_button.set_anchors_preset(Control.PRESET_TOP_RIGHT)
 	_dev_button.grow_horizontal = Control.GROW_DIRECTION_BEGIN
 	_dev_button.offset_right = -DEV_BUTTON_MARGIN.x

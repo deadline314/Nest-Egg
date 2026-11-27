@@ -167,6 +167,9 @@ func _test_title_language() -> void:
 				"reduced motion straightens the focused tag at once")
 		check(menu._hint.get_global_rect().end.y <= menu._menu_legend.get_global_rect().position.y,
 				"at 120 percent with Continue, focus help has its own row " + entry[0])
+		var dev := menu._dev_button
+		check(dev == null or not dev.get_global_rect().intersects(menu._portrait.get_global_rect()) and dev.get_global_rect().end.x <= menu._ui.size.x + 0.5,
+				"at 120 percent the developer button stays on screen and off the portrait " + entry[0])
 		check(menu._start_button.text == entry[1] and menu._hint.text == menu._start_button.tooltip_text,
 				"new game action and focus hint use the title language " + entry[0])
 		menu._open_difficulty()

@@ -35,6 +35,8 @@ const SEAL := Color("b51f62")
 ## 選到時亮一點，但白字對比仍在 4.5 以上（純洋紅只有約 3.4）。
 const SEAL_ACTIVE := Color("c7246c")
 const STUB := 22.0
+## 錯位外文字壓在當票底下的寬度（像素）。
+const GHOST_TUCK := 14.0
 
 ## 待機時的傾斜（度，6 度以內；正值順時針）。
 var tilt_degrees := 3.0:
@@ -374,8 +376,8 @@ class _Frame:
 		var body := button._body_rect()
 		var font := UiKit.font()
 		if not button.ghost_text.is_empty():
-			# 後面錯位的大外文字：從當票右下方伸出來，左半被當票壓住。
-			draw_string(font, Vector2(body.end.x - body.size.x * 0.3, body.end.y + 8.0), button.ghost_text, HORIZONTAL_ALIGNMENT_LEFT, -1, UiKit.scaled_size(30), Color(Palette.CYAN, 0.28))
+			# 後面錯位的大外文字：從當票右緣伸出去，只有第一個字母的邊被當票壓住，其餘完整露在當票與立繪之間。
+			draw_string(font, Vector2(body.end.x - GHOST_TUCK, body.get_center().y + 12.0), button.ghost_text, HORIZONTAL_ALIGNMENT_LEFT, -1, UiKit.scaled_size(30), Color(Palette.CYAN, 0.28))
 		CollageShapes.draw_shape(self, points, TagButton.PAPER.lerp(Color("fbf6e8"), active), Color(TagButton.INK, 0.5), 1.0)
 		# 票根：左邊一段，打孔線與打孔。
 		var stub_x := body.position.x + TagButton.STUB
