@@ -31,6 +31,7 @@ var _theme: EnvironmentTheme
 ## 每一欄的立面模組（由下往上）：{ "rect": Rect2, "path": String }。只在有立面主題時使用。
 var _col_modules: Array[Array] = []
 var geometry := BackWallGeometry.new()
+var _glow: _FacadeGlow
 ## 畫過的貼圖要自己留著：繪製指令只記貼圖的編號、不算「有人在用」，沒留著的話釋放用不到的貼圖時（BG-32）
 ## 會被放掉，整面牆變成白色方塊。值可以是 null（沒有發光層）。
 var _held: Dictionary[String, Texture2D] = {}
@@ -56,8 +57,25 @@ func setup(layout: LevelLayout, p_seed := 1, theme: EnvironmentTheme = null) -> 
 		var glow := _FacadeGlow.new()
 		glow.name = "FacadeGlow"
 		glow.walls = self
+		# 自己一份材質：窗光改色（tint_windows）只影響這一面立面，不影響遠景、擺設與過場的窗光。
+		glow.chunk_material = LightKit.window_life_material().duplicate()
 		add_child(glow)
 		glow.build_chunks(Rect2(Vector2.ZERO, size))
+		_glow = glow
+
+
+## 有主光的區段（BG-69）：立面的窗光往主光色靠（amount 0~1），只留少數幾扇原色當點綴。
+func tint_windows(color: Color, amount: float, accents := 0.12) -> void:
+	if _glow == null:
+		return
+	var material := _glow.chunk_material as ShaderMaterial
+	material.set_shader_parameter(&"key_tint", Vector3(color.r, color.g, color.b))
+	material.set_shader_parameter(&"key_mix", clampf(amount, 0.0, 1.0))
+	material.set_shader_parameter(&"accent_share", clampf(accents, 0.0, 1.0))
+
+
+func window_material() -> ShaderMaterial:
+	return _glow.chunk_material as ShaderMaterial if _glow != null else null
 
 
 func _lit(path: String, fallback_size: Vector2i) -> Texture2D:

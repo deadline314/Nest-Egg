@@ -390,6 +390,8 @@ def build_glass_edge():
         'shafts': {'count': 6, 'angle': 34, 'length': 360, 'width': 30, 'spread': 300},
         'occlusion': [0.12, 0.88], 'period': 48},
         # 近前景（BG-68）：走道外緣的花台、矮籬與玫瑰叢（只露出小腿高），上緣垂下的枝葉與燈籠串。
+        # 中景（BG-69）：靠牆的回收桶、行道樹花台、長椅、飲水柱與室內盆栽，由 Midground 依規則排位置。
+        'midground': {'pieces': ['sunlit_district__sorting_bins', 'sunlit_district__street_tree_planter', 'sunlit_district__white_bench', 'sunlit_district__water_fountain_post', 'clearwater__tall_floor_plant'], 'spacing': [60, 160], 'from': 2, 'to': 70},
         'near_foreground': [{'anchor': 'bottom', 'pieces': ["planters", "rose_bush"], 'rise': 14, 'spacing': [8, 60], 'from': 0, 'to': 72}, {'anchor': 'top', 'pieces': ['foliage', 'lanterns'], 'above': 175, 'spacing': [110, 260], 'from': 0, 'to': 72}]}
     a.features = {'landmark': '地上的光斑（x=20）與觀景框（x=30）', 'secret': '觀景框的塔頂花園遠景（可選）'}
     return a

@@ -2418,6 +2418,7 @@ const SPOTS := {
 	"ch1_rooftop": [["a", 24], ["b", 60]],
 	"ch3_glass_edge": [["a", 14], ["npc", 20], ["b", 30], ["c", 48]],
 	"ch1_stall": [["a", 20]],
+	"ch1_street": [["wall", 33], ["market", 84], ["mid", 130], ["dock", 196]],
 }
 
 

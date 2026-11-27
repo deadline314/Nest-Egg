@@ -25,7 +25,13 @@ func run() -> void:
 			failures += 1
 			push_error("[NearForegroundScenario] %s 沒有近前景" % area)
 			continue
-		print("NEAR_FOREGROUND %s pieces=%d" % [area, near.get_child_count()])
+		var mid := 0
+		for node in get_tree().get_nodes_in_group(PropNode.GROUP):
+			if (node as CanvasItem).modulate.is_equal_approx(Midground.TINT):
+				mid += 1
+				print("MIDGROUND %s %s col=%d" % [area, (node as PropNode).data.id, int((node as Node2D).position.x / 16.0)])
+		var haze := level.find_child("FacadeHaze", true, false) as FacadeHaze
+		print("NEAR_FOREGROUND %s pieces=%d midground=%d haze_bands=%d" % [area, near.get_child_count(), mid, haze.band_count() if haze != null else 0])
 		for col: int in AREAS[area]:
 			_place(col)
 			await wait(1.2)

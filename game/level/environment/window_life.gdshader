@@ -7,6 +7,10 @@ uniform float cell = 16.0;          // 閃爍區塊的大小（邏輯像素）
 uniform float flicker_share = 0.22; // 會閃的區塊比例
 uniform float depth = 0.6;          // 閃爍時最暗降到多少（0 = 不閃）
 uniform float beacon_rate = 1.1;    // 信標每秒明滅次數
+// 有主光的區段（BG-69）：窗光往主光色靠，只留 accent_share 比例的窗戶維持原本的顏色當點綴。預設 0 = 不改色。
+uniform vec3 key_tint = vec3(1.0);
+uniform float key_mix = 0.0;
+uniform float accent_share = 0.12;
 
 varying vec2 world_pos;
 
@@ -26,6 +30,11 @@ void fragment() {
 	// 純紅像素 = 信標
 	float beacon = step(0.7, COLOR.r) * (1.0 - step(0.35, COLOR.g)) * (1.0 - step(0.35, COLOR.b));
 	float blink = step(0.0, sin(TIME * beacon_rate * 6.2831 + h * 20.0));
+	if (key_mix > 0.0 && beacon < 0.5) {
+		float accent = step(1.0 - accent_share, hash(floor(world_pos / cell) + vec2(17.0, 3.0)));
+		float luma = dot(COLOR.rgb, vec3(0.2126, 0.7152, 0.0722));
+		COLOR.rgb = mix(COLOR.rgb, key_tint * luma * 1.4, key_mix * (1.0 - accent));
+	}
 	COLOR.rgb *= mix(level, blink, beacon);
 	COLOR.a *= mix(1.0, blink, beacon);
 }

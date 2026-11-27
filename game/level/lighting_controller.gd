@@ -38,6 +38,8 @@ var _announced_zone: StringName = &""
 var _rim_light: PointLight2D
 ## 區段的主光（BG-67）：有的話輪廓光的顏色與方向跟著它。
 var key_light: KeyLight
+## 立面的霧色（BG-69）：顏色跟著區段的霧色。
+var facade_haze: FacadeHaze
 
 
 ## zones 會被複製並排序；沒有有效區段時整關使用預設（全亮）光影，霧顏色取 fallback_fog。
@@ -255,6 +257,8 @@ func _apply() -> void:
 		_modulate.color = current.ambient_color
 	if is_instance_valid(_background):
 		_background.modulate = current.background_tint
+	if is_instance_valid(facade_haze):
+		facade_haze.set_tint(current.fog_color)
 	if is_instance_valid(_fog):
 		_fog.color = current.fog_color
 		_fog.density = current.fog_density

@@ -306,5 +306,7 @@
   "layout_revision": 2,
   "legacy_layout": {"revision": 1, "cell_offset": [0, 32], "cells": {"66,19": [66, 31], "78,15": [78, 31], "84,19": [84, 31], "90,19": [90, 31], "98,19": [98, 31], "111,19": [111, 31], "104,9": [104, 23], "95,19": [95, 31], "96,19": [96, 31], "104,19": [104, 31], "105,19": [105, 31], "92,19": [92, 31], "118,19": [118, 31], "143,9": [143, 44], "148,13": [148, 32], "155,19": [155, 36], "157,19": [157, 36], "165,19": [165, 36], "166,14": [166, 36], "168,19": [168, 36], "177,14": [177, 36], "167,19": [167, 36], "152,19": [152, 36], "182,19": [182, 36], "184,14": [184, 28], "186,11": [186, 25], "139,9": [100, 23], "78,12": [78, 27], "104,12": [104, 27], "176,12": [176, 32], "82,19": [82, 31], "86,19": [86, 31]}},
   "capability_targets": {"100,23": {"ability": "air_jump", "flag": "ledger_disk_obtained"}, "46,15": {"ability": "air_jump", "flag": "ledger_disk_obtained"}, "122,15": {"ability": "air_jump", "flag": "ledger_disk_obtained"}},
-  "near_foreground": [{"anchor": "bottom", "pieces": ["fence"], "rise": 14, "spacing": [20, 120], "from": 0, "to": 208}, {"anchor": "top", "pieces": ["cables", "lanterns"], "above": 175, "spacing": [140, 320], "from": 0, "to": 208}]
+  "near_foreground": [{"anchor": "bottom", "pieces": ["fence"], "rise": 14, "spacing": [20, 120], "from": 0, "to": 208}, {"anchor": "top", "pieces": ["cables", "lanterns"], "above": 175, "spacing": [140, 320], "from": 0, "to": 208}],
+  "midground": {"pieces": ["vending_machine", "trash_can", "crates_stack", "barrels", "harbor_street__umbrella_stand", "harbor_street__fish_cart"], "spacing": [70, 200], "from": 2, "to": 206},
+  "facade_haze": 0.1
 }

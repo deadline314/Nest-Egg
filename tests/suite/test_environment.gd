@@ -30,6 +30,7 @@ func run() -> void:
 	await _test_sway_kick()
 	await _test_key_light()
 	await _test_near_foreground()
+	await _test_midground_and_haze()
 	_test_fixture_art()
 	await preload("res://tests/helpers/scene_lighting_checks.gd").run(self)
 	await _test_training_art()
@@ -2380,3 +2381,77 @@ func _test_near_foreground() -> void:
 	Settings.set_reduce_ui_motion(previous_motion)
 	Settings.set_light_quality(previous_quality)
 	await end_level(level)
+
+
+## 中景與立面空氣感（BG-69）：中景依規則排、不重疊不擋實體、密度有上限且戰鬥範圍更少、站在地上；
+## 立面霧只在室外、低畫質隱藏；有主光的區段窗光往主光色靠，沒有主光的區段不改。
+func _test_midground_and_haze() -> void:
+	var checked := 0
+	for level_data: LevelData in ResourceCatalog.load_dir("res://data/levels", LevelData, "EnvironmentSuite"):
+		var spec: Variant = level_data.load_layout_value("midground")
+		if spec == null:
+			continue
+		checked += 1
+		var layout := LevelBuilder.parse(level_data)
+		var dirs := level_data.environment.prop_dirs() if level_data.environment != null else PackedStringArray([PropLibrary.DEFAULT_DIR])
+		var entity_x := PackedFloat32Array()
+		var enemy_x := PackedFloat32Array()
+		for spawn in layout.spawns:
+			entity_x.append((spawn["position"] as Vector2).x)
+			if spawn["resource"] is EnemyData:
+				enemy_x.append((spawn["position"] as Vector2).x)
+		var taken: Array[Rect2] = []
+		for entry in level_data.load_props():
+			var prop := PropLibrary.find_in(StringName(str(entry["id"])), dirs)
+			var placed := PropPlacement.resolve(entry, prop, layout) if prop != null else {}
+			if not placed.is_empty():
+				taken.append(placed["rect"])
+		var walls := BackWallGeometry.new()
+		walls.setup(layout, hash(level_data.id), level_data.environment)
+		var planned := Midground.plan(spec, layout, dirs, taken, entity_x, enemy_x, level_data.id, walls)
+		check(planned.size() >= 3, "%s places some mid-ground pieces (%d)" % [level_data.id, planned.size()])
+		var rects: Array[Rect2] = []
+		for entry in planned:
+			var prop := PropLibrary.find_in(StringName(str(entry["id"])), dirs)
+			var rect: Rect2 = PropPlacement.resolve(entry, prop, layout)["rect"]
+			check(ScenerySupport.has_ground(layout, rect, prop.id), "%s mid-ground %s at column %d stands on the ground" % [level_data.id, entry["id"], entry["x"]])
+			check(walls.covers(rect), "%s mid-ground %s at column %d stands against the facade" % [level_data.id, entry["id"], entry["x"]])
+			for other in taken:
+				check(not rect.intersects(other), "%s mid-ground %s at column %d does not overlap a placed prop" % [level_data.id, entry["id"], entry["x"]])
+			for x in entity_x:
+				check(x <= rect.position.x - Midground.ENTITY_CLEAR or x >= rect.end.x + Midground.ENTITY_CLEAR, "%s mid-ground %s at column %d keeps clear of the entity at x=%.0f" % [level_data.id, entry["id"], entry["x"], x])
+			rects.append(rect)
+		for rect in rects:
+			var combat := false
+			for x in enemy_x:
+				combat = combat or (x > rect.position.x - Midground.COMBAT_REACH and x < rect.end.x + Midground.COMBAT_REACH)
+			var nearby := 0
+			for other in rects:
+				nearby += 1 if absf(other.get_center().x - rect.get_center().x) < Midground.VIEW_WIDTH * 0.5 else 0
+			check(nearby <= (Midground.MAX_PER_VIEW_COMBAT + 1 if combat else Midground.MAX_PER_VIEW + 1), "%s mid-ground density around x=%.0f stays under the cap (%d)" % [level_data.id, rect.position.x, nearby])
+	check(checked >= 2, "at least two areas have a mid-ground (%d)" % checked)
+	check(Midground.plan({"pieces": ["no_such_prop"]}, LevelBuilder.parse(load("res://data/levels/ch3_glass_edge.tres") as LevelData), PackedStringArray([PropLibrary.DEFAULT_DIR]), [] as Array[Rect2], PackedFloat32Array(), PackedFloat32Array(), "test_midground_bad").is_empty(), "a mid-ground made of unknown props places nothing")
+
+	var previous_quality := Settings.get_light_quality()
+	Settings.set_light_quality(LightQuality.Tier.HIGH)
+	var level := await start_level(load("res://data/levels/ch3_glass_edge.tres") as LevelData)
+	var haze := level.find_child("FacadeHaze", true, false) as FacadeHaze
+	check(haze != null and haze.visible and haze.band_count() > 0, "the sunlit edge has facade haze on high quality")
+	if haze != null:
+		check(haze.z_index == WorldLayers.BACK_WALL and haze.get_index() == level.get_node("World").get_children().find(level._back_wall) + 1, "the facade haze lies right on the facade, under rails, signs and props")
+		Settings.set_light_quality(LightQuality.Tier.LOW)
+		check(not haze.visible, "low quality drops the facade haze")
+		Settings.set_light_quality(LightQuality.Tier.HIGH)
+	var windows := level._back_wall.window_material()
+	check(windows != null and float(windows.get_shader_parameter(&"key_mix")) > 0.5 and windows != LightKit.window_life_material(), "facade windows lean toward the key light colour with their own material")
+	check(is_zero_approx(float(LightKit.window_life_material().get_shader_parameter(&"key_mix") if LightKit.window_life_material().get_shader_parameter(&"key_mix") != null else 0.0)), "the shared window material elsewhere keeps its own colours")
+	var tinted := 0
+	for node in level.get_tree().get_nodes_in_group(PropNode.GROUP):
+		tinted += 1 if (node as CanvasItem).modulate.is_equal_approx(Midground.TINT) else 0
+	check(tinted >= 3, "mid-ground pieces are drawn a step darker (%d)" % tinted)
+	await end_level(level)
+	var plain := await start_level(load("res://data/levels/level_01.tres") as LevelData)
+	var plain_windows := plain._back_wall.window_material() if plain._back_wall != null else null
+	check(plain_windows == null or is_zero_approx(float(plain_windows.get_shader_parameter(&"key_mix") if plain_windows.get_shader_parameter(&"key_mix") != null else 0.0)), "an area without a key light keeps its window colours")
+	await end_level(plain)
+	Settings.set_light_quality(previous_quality)

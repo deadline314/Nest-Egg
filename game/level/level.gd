@@ -52,6 +52,8 @@ var _world: Node2D
 var _entities: Node2D
 ## 角色圖層組的使用狀況（1 = 有角色在用），見 _claim_actor_layer。
 var _actor_slots := PackedByteArray()
+var _back_wall: BackWall
+var _facade_haze: FacadeHaze
 var _bubbles: MapBubbles
 var _tokens: AttackTokens
 var _pause_menu: PauseMenu
@@ -247,6 +249,8 @@ func _build_entry() -> void:
 	_world.add_child(back_wall)
 	back_wall.setup(_layout, hash(data.id), data.environment)
 	_scenery_walls = back_wall.geometry
+	_back_wall = back_wall
+	_spawn_facade_haze(back_wall)
 	await _entry_checkpoint()
 
 	_prop_grounding = PropGrounding.new()
@@ -342,6 +346,7 @@ func _build_entry() -> void:
 	_lighting = LightingController.new()
 	add_child(_lighting)
 	_lighting.setup(data.lighting_zones, _layout.tile_size, player, ambient, _background, _fog, data.fog_color, _post)
+	_lighting.facade_haze = _facade_haze
 	_spawn_key_light()
 	_spawn_near_foreground()
 	# 從檢查點重生時若正好在事件範圍內，直接套用，不從區段光影漸變。
@@ -766,6 +771,7 @@ func _spawn_decor() -> void:
 func _spawn_props() -> void:
 	var dirs := _prop_dirs()
 	var entries := data.load_props()
+	var taken: Array[Rect2] = []
 	for entry in entries:
 		await _entry_checkpoint()
 		var prop := PropLibrary.find_in(StringName(str(entry["id"])), dirs)
@@ -781,11 +787,44 @@ func _spawn_props() -> void:
 			push_warning("[Level] %s 道具 %s 第 %d 欄支撐無效（%s），已略過" % [data.id, prop.id, int(entry["x"]), issue])
 			continue
 		var node := _place_prop(prop, rect.position, bool(placed["flip"]))
+		taken.append(rect)
 		if str(entry.get("support", "ground")) == "ground":
 			_prop_grounding.add_prop(prop, rect, bool(placed["flip"]))
 		# 依劇情旗標換樣子的擺設（NE-240）：地圖的道具項目寫 "react": "<反應 id>"。
 		if entry.has("react"):
 			PropReaction.attach(node, str(entry["react"]), prop.size, bool(placed["flip"]))
+	await _spawn_midground(dirs, entries, taken)
+
+
+## 中景（BG-69）：地圖 JSON 寫了 midground 才有；依規則排出位置（不重疊、不擋實體、密度有上限），
+## 和手擺的擺設走同一套放置、支撐檢查與接地陰影，畫得比角色暗一階。
+func _spawn_midground(dirs: PackedStringArray, entries: Array[Dictionary], taken: Array[Rect2]) -> void:
+	var spec: Variant = data.load_layout_value("midground")
+	if spec == null:
+		return
+	var entity_x := PackedFloat32Array()
+	var enemy_x := PackedFloat32Array()
+	for spawn in _layout.spawns:
+		entity_x.append((spawn["position"] as Vector2).x)
+		if spawn["resource"] is EnemyData:
+			enemy_x.append((spawn["position"] as Vector2).x)
+	for hint in _layout.hints:
+		entity_x.append((hint["position"] as Vector2).x)
+	var planned := Midground.plan(spec, _layout, dirs, taken, entity_x, enemy_x, "%s（%s）" % [data.id, data.layout_path], _scenery_walls)
+	for entry in planned:
+		await _entry_checkpoint()
+		var prop := PropLibrary.find_in(StringName(str(entry["id"])), dirs)
+		var placed := PropPlacement.resolve(entry, prop, _layout)
+		if placed.is_empty():
+			continue
+		var rect: Rect2 = placed["rect"]
+		var issue := ScenerySupport.check_prop(entry, prop, rect, _layout, _scenery_walls, entries, dirs)
+		if not issue.is_empty():
+			push_warning("[Level] %s 中景 %s 第 %d 欄支撐無效（%s），已略過" % [data.id, prop.id, int(entry["x"]), issue])
+			continue
+		var node := _place_prop(prop, rect.position, bool(placed["flip"]))
+		node.modulate = Midground.TINT
+		_prop_grounding.add_prop(prop, rect, bool(placed["flip"]))
 
 
 func _place_prop(prop: PropData, top_left: Vector2, flip: bool) -> PropNode:
@@ -799,6 +838,28 @@ func _prop_dirs() -> PackedStringArray:
 	return data.environment.prop_dirs() if data.environment != null else PackedStringArray([PropLibrary.DEFAULT_DIR])
 
 
+## 有主光的區段裡，立面窗光往主光色靠的比例（BG-69）。
+const WINDOW_KEY_MIX := 0.75
+
+
+## 立面的空氣感（BG-69）：室外的立面往上漸漸蓋上遠景同一套的霧色。地圖 JSON 的 "facade_haze" 可以調濃淡（0 = 不加）。
+func _spawn_facade_haze(back_wall: BackWall) -> void:
+	var raw: Variant = data.load_layout_value("facade_haze")
+	var strength := FacadeHaze.DEFAULT_STRENGTH
+	if raw != null:
+		if typeof(raw) in [TYPE_INT, TYPE_FLOAT] and is_finite(float(raw)):
+			strength = float(raw)
+		else:
+			push_error("[Level] %s 的 facade_haze 必須是 0~%.1f 的數字，改用預設 %.2f" % [data.id, FacadeHaze.MAX_STRENGTH, strength])
+	var haze := FacadeHaze.new()
+	haze.setup(back_wall.geometry, float(_layout.tile_size * BackWall.PANEL_TILES), strength)
+	if haze.band_count() == 0:
+		haze.free()
+		return
+	_world.add_child(haze)
+	_facade_haze = haze
+
+
 ## 區段的主光（BG-67）：地圖 JSON 寫了 key_light 才有；資料壞掉時這個區域照常顯示、沒有主光。
 func _spawn_key_light() -> void:
 	var key_data := KeyLightData.parse(data.load_layout_value("key_light"), "%s（%s）" % [data.id, data.layout_path])
@@ -809,6 +870,9 @@ func _spawn_key_light() -> void:
 		return _layout.surface_heights[clampi(int(x / _layout.tile_size), 0, _layout.surface_heights.size() - 1)])
 	_world.add_child(key)
 	_lighting.key_light = key
+	# 立面的窗光往主光色靠，只留少數原色當點綴（BG-69）。
+	if is_instance_valid(_back_wall):
+		_back_wall.tint_windows(key_data.color, WINDOW_KEY_MIX)
 
 
 ## 近前景（BG-68）：地圖 JSON 寫了 near_foreground 才有。邊緣光用主光的顏色與方向，沒有主光時用光影設定的輪廓光。
