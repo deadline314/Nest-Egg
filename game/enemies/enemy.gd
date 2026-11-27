@@ -61,6 +61,10 @@ const MAX_SHIELD := 3
 const ALERT_RANGE_SCALE := 1.5
 const ALERT_SPEED_SCALE := 1.5
 const ALERT_ARRIVE_DISTANCE := 28.0
+## 被誘餌吸引（lure_to，NE-402）時走到離聲源多近就停下來盯著看（像素）。
+const LURE_ARRIVE_DISTANCE := 20.0
+## 被吸引時分心：面前只看得到平常的這個比例遠，背後看不到。
+const LURE_SIGHT_SCALE := 0.5
 
 ## 場上的屍體（由舊到新）。
 static var _corpses: Array[Enemy] = []
@@ -122,6 +126,7 @@ var _alert_left := 0.0
 ## 受擊叫聲的冷卻：連發子彈打中同一隻敵人時，叫聲不會每發都響。
 var _hurt_voice_left := 0.0
 var _alert_point := Vector2.ZERO
+var _lure_left := 0.0
 var _home := Vector2.ZERO
 var _target_ref: WeakRef
 
@@ -492,6 +497,7 @@ func _physics_process(delta: float) -> void:
 	_anim_time += delta
 	_flash_left = maxf(0.0, _flash_left - delta)
 	_alert_left = maxf(0.0, _alert_left - delta)
+	_lure_left = maxf(0.0, _lure_left - delta)
 	_hurt_voice_left = maxf(0.0, _hurt_voice_left - delta)
 	_body_kick = maxf(0.0, _body_kick - BODY_KICK_DECAY * delta)
 	_tick_damage_fx(delta)
@@ -666,6 +672,20 @@ func is_alerted() -> bool:
 	return _alert_left > 0.0
 
 
+## 被誘餌吸引（NE-402）：還沒進入戰鬥的敵人走到 point 盯著看 seconds 秒（取較長的）；這段時間只看得到面前，
+## 背後的人看不到、面前只看得到一半遠。已經在戰鬥、被打到或看到玩家就不理會。回傳有沒有被吸引。
+func lure_to(point: Vector2, seconds: float) -> bool:
+	if _dying or is_engaged() or not is_finite(seconds) or seconds <= 0.0:
+		return false
+	_lure_left = maxf(_lure_left, seconds)
+	_alert_point = point
+	return true
+
+
+func is_lured() -> bool:
+	return _lure_left > 0.0
+
+
 ## 是否進入戰鬥：還活著，而且被警報引來或不在放鬆的狀態（巡邏、待機、潛行以外）。背景音樂依此切換戰鬥曲。
 func is_engaged() -> bool:
 	return not _dying and health.current > 0 and (_alert_left > 0.0 or not data.relaxed_states.has(String(fsm.current)))
@@ -706,6 +726,7 @@ func stun(seconds: float) -> void:
 
 
 func _on_damaged(info: DamageInfo) -> void:
+	_lure_left = 0.0
 	if _hurt_voice_left <= 0.0:
 		_hurt_voice_left = HURT_VOICE_INTERVAL
 		CharacterSounds.play(data.id, &"hurt", -4.0)
@@ -950,11 +971,19 @@ func _can_see_target(max_range: float, max_height_diff := 120.0) -> bool:
 	if _alert_left > 0.0:
 		max_range *= ALERT_RANGE_SCALE
 		max_height_diff *= ALERT_RANGE_SCALE
+	elif _lure_left > 0.0:
+		# 盯著誘餌看（NE-402）：背後的人看不到，面前也只看得到一半遠。
+		if (target.global_position.x - global_position.x) * facing < 0.0:
+			return false
+		max_range *= LURE_SIGHT_SCALE
 	elif Lamp.in_shot_out_dark(target.global_position):
 		# 還沒察覺的敵人看不清玩家射暗的燈下（NE-399）；一旦被打或被警報引來就照常。
 		max_range *= Lamp.DARK_SIGHT_SCALE
 	var offset := target.global_position - global_position
-	return offset.length() <= max_range and absf(offset.y) <= max_height_diff and _has_line_of_sight()
+	var seen := offset.length() <= max_range and absf(offset.y) <= max_height_diff and _has_line_of_sight()
+	if seen:
+		_lure_left = 0.0
+	return seen
 
 
 ## 前方腳下是否為懸崖（巡邏時避免掉落）。
@@ -1027,6 +1056,12 @@ func _shoot(spec: ProjectileSpec, direction: Vector2, origin := Vector2.INF) -> 
 
 ## 巡邏移動：碰牆或遇到懸崖就回頭。戒備中改為往警報地點聚集（遇到懸崖或牆就停下）。
 func _patrol(speed: float) -> void:
+	if _lure_left > 0.0 and _alert_left <= 0.0:
+		var to_lure := _alert_point.x - global_position.x
+		facing = 1 if to_lure > 0.0 else -1
+		var stuck := is_on_floor() and (is_on_wall() or _is_ledge_ahead())
+		velocity.x = 0.0 if stuck or absf(to_lure) <= LURE_ARRIVE_DISTANCE else facing * speed
+		return
 	if _alert_left > 0.0 and absf(_alert_point.x - global_position.x) > ALERT_ARRIVE_DISTANCE:
 		facing = 1 if _alert_point.x > global_position.x else -1
 		var blocked := is_on_floor() and (is_on_wall() or _is_ledge_ahead())

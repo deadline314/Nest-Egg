@@ -40,7 +40,7 @@ func _on_stunned() -> void:
 func _patrol_tick(delta: float) -> void:
 	_cooldown = maxf(0.0, _cooldown - delta)
 	var offset := global_position.x - _home.x
-	if absf(offset) >= PATROL_RANGE and signf(offset) == float(facing) and _alert_left <= 0.0:
+	if absf(offset) >= PATROL_RANGE and signf(offset) == float(facing) and _alert_left <= 0.0 and not is_lured():
 		facing = -facing
 	_patrol(data.move_speed)
 	var target := _target()

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=19 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=20 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Resource" path="res://data/props/credits_small.tres" id="2_credits_small"]
@@ -13,6 +13,7 @@
 [ext_resource type="Resource" path="res://data/environment/themes/ch3_pump.tres" id="11_ch3_pump"]
 [ext_resource type="Script" path="res://data/scripts/lighting_event.gd" id="12_lighting_event"]
 [ext_resource type="Resource" path="res://data/lighting/pump_drained.tres" id="13_pump_drained"]
+[ext_resource type="Resource" path="res://data/props/decoy_radio.tres" id="93_decoy_radio"]
 
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("6_portal_data")
@@ -73,6 +74,7 @@ localized_names = Dictionary[String, String]({"en": "Sump and Pump Room", "ja": 
 tile_size = 16
 height = 40
 legend = Dictionary[String, Resource]({
+"ψ": ExtResource("93_decoy_radio"),
 "c": ExtResource("2_credits_small"),
 "¢": ExtResource("3_credits_maintenance"),
 "Ж": ExtResource("4_pump_inspector"),

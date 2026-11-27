@@ -21,6 +21,8 @@ const CABLE_PATH := "res://data/props/live_cable.tres"
 const CABLE_MAP := "res://tests/fixtures/live_cable_map.json"
 const CONVEYOR_PATH := "res://data/props/conveyor.tres"
 const CONVEYOR_MAP := "res://tests/fixtures/conveyor_map.json"
+const RADIO_PATH := "res://data/props/decoy_radio.tres"
+const RADIO_MAP := "res://tests/fixtures/decoy_radio_map.json"
 
 
 func run() -> void:
@@ -38,6 +40,7 @@ func run() -> void:
 	await _test_shootable_lamp()
 	await _test_live_cable()
 	await _test_conveyor()
+	await _test_decoy_radio()
 
 
 func _test_mechanism_translations() -> void:
@@ -691,8 +694,9 @@ func _test_live_cable() -> void:
 	check(not is_instance_valid(enemy) or enemy.health.current < enemy_before, "the enemy standing in the water is shocked")
 	check(player.health.current < 20, "the player standing in the water is shocked too")
 	# 跳起來（腳離開水面）就不會觸電。
-	player.health.setup(20, 0.0)
 	player.global_position = cable.global_position + Vector2(-20.0, -LiveCable.SHOCK_HEIGHT - 10.0)
+	await physics_frames(2)  # 讓觸電範圍的重疊先更新，再開始量（負載高時前一格還在水裡的重疊會晚一格才消失）
+	player.health.setup(20, 0.0)
 	await physics_frames(4)
 	check(player.health.current == 20, "a player in the air above the water is not shocked")
 	check(cable._hit_players.bypass_guard and cable._hit_enemies.bypass_guard, "guarding cannot block the current")
@@ -758,4 +762,65 @@ func _test_conveyor() -> void:
 	var air_x := player.global_position.x
 	await physics_frames(3)
 	check(absf(player.global_position.x - air_x) < 1.0, "a player in the air is not carried")
+	await end_level(level)
+
+
+## 誘餌收音機（NE-402）：射中才播、敵人打不開；範圍內沒發現玩家的敵人走過去盯著看、看不到背後；被打就醒；播完就壞。
+func _test_decoy_radio() -> void:
+	var radio_data := load(RADIO_PATH) as DecoyRadioData
+	check(radio_data != null and radio_data.validate().is_empty(), "the decoy radio data is valid: %s" % [radio_data.validate() if radio_data != null else ["missing"]])
+	if radio_data == null:
+		return
+	check(not radio_data.hint_for("en").is_empty() and not radio_data.hint_for("ja").is_empty(), "the radio hint is available in all three languages")
+	var bad := DecoyRadioData.new()
+	bad.play_seconds = NAN
+	bad.hint = "x"
+	check(bad.validate().size() >= 2, "broken timing or a missing translation is reported")
+
+	var data := LevelData.new()
+	data.id = &"decoy_radio_test"
+	data.legend = {"K": radio_data, "g": load(GRUNT_PATH)}
+	data.layout_path = RADIO_MAP
+	var level := await start_level(data)
+	var radios := _find_all(level, DecoyRadio)
+	check(radios.size() == 1, "the map character spawns one decoy radio")
+	var enemy: Enemy
+	for node in runner.get_tree().get_nodes_in_group(&"enemies"):
+		enemy = node as Enemy
+	if radios.is_empty() or enemy == null:
+		await end_level(level)
+		return
+	var radio := radios[0] as DecoyRadio
+	var player := level.player
+	player.set_physics_process(false)
+	player.global_position = enemy.global_position + Vector2(0.0, -400.0)  # 遠在上方，敵人看不到
+	enemy.fsm.transition(&"patrol")  # 開場時可能已經瞄過玩家；讓它回到還沒發現的狀態
+	await physics_frames(2)
+	check(not enemy.is_engaged(), "the enemy starts unaware")
+	radio.hurtbox.receive(DamageInfo.create(1, Combat.Team.ENEMY, &"test_enemy_shot"))
+	check(not radio.is_playing(), "enemy fire does not start the radio")
+	radio.hurtbox.receive(DamageInfo.create(1, Combat.Team.PLAYER, &"test_player_shot"))
+	check(radio.is_playing(), "a player hit starts the radio")
+	await frames(3)
+	check(enemy.is_lured(), "an unaware enemy in range is drawn to the radio")
+	var start_gap := absf(radio.global_position.x - enemy.global_position.x)
+	await runner.get_tree().create_timer(1.5).timeout
+	var gap := absf(radio.global_position.x - enemy.global_position.x)
+	check(gap < start_gap - 20.0, "the lured enemy walks toward the radio: %.0f -> %.0f px" % [start_gap, gap])
+	var front := 1 if radio.global_position.x > enemy.global_position.x else -1
+	check(enemy.facing == front, "the lured enemy faces the radio")
+	# 背後的人看不到，面前的看得到（看到之後就不再被吸引）。
+	player.global_position = enemy.global_position + Vector2(-front * 40.0, 0.0)
+	check(not enemy._can_see_target(400.0), "a lured enemy cannot see the player right behind it")
+	check(enemy.is_lured(), "standing behind does not break the lure")
+	enemy.health.damaged.emit(DamageInfo.create(1, Combat.Team.PLAYER, &"test_poke"))
+	check(not enemy.is_lured(), "getting hit snaps the enemy out of it")
+	player.global_position = enemy.global_position + Vector2(0.0, -400.0)
+	check(enemy.lure_to(radio.global_position, 2.0), "a relaxed enemy can be lured again while the radio plays")
+	player.global_position = enemy.global_position + Vector2(front * 300.0, 0.0)
+	check(not enemy._can_see_target(400.0) and enemy.is_lured(), "a distracted enemy only sees half as far in front")
+	player.global_position = enemy.global_position + Vector2(front * 40.0, 0.0)
+	check(enemy._can_see_target(400.0) and not enemy.is_lured(), "a player close in front is seen and ends the lure")
+	await runner.get_tree().create_timer(radio_data.play_seconds).timeout
+	check(radio.state == DecoyRadio.State.SPENT and not radio.play(), "the radio breaks after playing and cannot be used again")
 	await end_level(level)

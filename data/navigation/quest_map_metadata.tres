@@ -2497,12 +2497,12 @@ hints = PackedStringArray("維修盒：水位降到低線後再領。", "沿纜�
 layout_path = "res://data/levels/ch3_plaza_map.json"
 
 [sub_resource type="Resource" id="Resource_v1hds"]
-script = ExtResource("4_kb2ry")
 
 [sub_resource type="Resource" id="Resource_h0aor"]
 script = ExtResource("4_kb2ry")
 
 [sub_resource type="Resource" id="Resource_nd77v"]
+script = ExtResource("4_kb2ry")
 
 [sub_resource type="Resource" id="Resource_0xnf2"]
 script = ExtResource("3_sfgi7")
@@ -2569,10 +2569,11 @@ localized_names = Dictionary[String, String]({
 })
 height = 40
 legend = Dictionary[String, Resource]({
-"c": SubResource("Resource_v1hds"),
-"¢": SubResource("Resource_h0aor"),
-"Ж": SubResource("Resource_nd77v"),
-"Ш": SubResource("Resource_nd77v"),
+"c": SubResource("Resource_h0aor"),
+"¢": SubResource("Resource_nd77v"),
+"ψ": SubResource("Resource_v1hds"),
+"Ж": SubResource("Resource_v1hds"),
+"Ш": SubResource("Resource_v1hds"),
 "Ⅱ": SubResource("Resource_0xnf2"),
 "Ⅵ": SubResource("Resource_fa4dp"),
 "⇑": SubResource("Resource_iixw3"),
@@ -5209,7 +5210,7 @@ digests = Dictionary[String, String]({
 "res://data/levels/ch3_office_hall.tres": "0754d6402f3f5f83d5b61039cd8e49ef9df29daf280aa7ebb1c2d89162fd188f",
 "res://data/levels/ch3_pawnshop.tres": "60c13c80cfef4a39f836735bb3cabf041b3bd7433e306c062f9220e07abd6d6e",
 "res://data/levels/ch3_plaza.tres": "04b7c5dddb570368a2663a58de1c8f5ba2240c2cda580b4b94a6fac7ae08a0fe",
-"res://data/levels/ch3_pump.tres": "b6f80ee980510e2569e6af04497dbdf69bfa4d0f8442e1192f8fe0190f614e0d",
+"res://data/levels/ch3_pump.tres": "334dc0f35e0baa49c908b732378416545144799e5322ac7bdb3a6f8277de94c4",
 "res://data/levels/ch3_showroom.tres": "d0f8fab766ec01863ef82f5c3b533cfd7a55ca563c70f736661196aeaeb04812",
 "res://data/levels/ch4_factory_approach.tres": "c5f09e390d712cd1f0cc7599acb38a46de78f1727b010c46aee4129455183383",
 "res://data/levels/ch4_factory_cleaning.tres": "30ecb61418fc80b44b5980f21696d77f2be0a035bc650c982584fcd18c7aa57f",
@@ -5406,6 +5407,7 @@ digests = Dictionary[String, String]({
 "res://data/props/credits_large.tres": "3219f488733a09b8e1e8d6ebe21e41e72decc2dbef5d0c34162b8b32983beee7",
 "res://data/props/credits_maintenance.tres": "8b33daa0acd1cf168bde59d1e3eaeebc310e8bebe3024efb6b48f36dbadab84f",
 "res://data/props/credits_small.tres": "4b43badb1a8793817bb0513783b9740c0d1eae51a5737f10f552e459046661c7",
+"res://data/props/decoy_radio.tres": "2a5064274da29965080df860d9ed1a4bd9c4d1e72bd6dc7d063e2b63b047ebc3",
 "res://data/props/gate_a.tres": "05305505a02f54f35e3c5c0ff5af66b327798273ee343e42d47653bcddd40385",
 "res://data/props/gate_b.tres": "70851f44619ca0089969737ae45f18fb488204f48ab762e0205ecf1f4d37ce0f",
 "res://data/props/gate_custodian.tres": "a54aca54f187d24a1288424c30cec73745d1611e9b1c111c41c08fe8135950a0",

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="DecoyRadioData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/decoy_radio_data.gd" id="1_radio"]
+
+[resource]
+script = ExtResource("1_radio")
+id = &"decoy_radio"
+display_name = "收音機"
+hint = "射中收音機讓它大聲播放，附近沒發現你的敵人會走過去盯著看。"
+localized_hints = Dictionary[String, String]({
+"en": "Shoot the radio to blast it. Enemies who haven't spotted you walk over and stare at it.",
+"ja": "ラジオを撃つと大音量で鳴ります。まだ気づいていない敵は近づいて見つめます。"
+})
+lure_radius = 240.0
+lure_height = 64.0
+play_seconds = 6.0
+linger_seconds = 2.5
