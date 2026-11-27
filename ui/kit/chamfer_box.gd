@@ -1,6 +1,8 @@
 class_name ChamferBox
 extends StyleBox
-## 共用像素面板：實心底、階梯轉角、低亮內緣與角標。
+## 共用像素面板：有層次的底、階梯轉角、低亮內緣與角標。
+## 形狀語言（NE-392）：底色由上到下漸深，邊線離左上角越遠越淡，左上角有一段沿上緣與左緣的重點邊；
+## 清單項目的底色可以往右淡出。這些都是選項，預設關閉＝原本的單色方框。
 ## 所有繪製座標取整數，邊線落在像素格上；禁用狀態改畫虛線。
 ## 這是全專案共用的面板形狀，按鈕、頁籤、提示框、面板都由它組成。
 
@@ -24,6 +26,14 @@ var pixel_corners: bool = true
 var bevel: bool = true
 ## 內側光暈（亮度 0 表示不畫）。
 var glow: Color = Color(0, 0, 0, 0)
+## 底色的層次：最底下的顏色（alpha 為 0 表示單色）；由上到下漸變。
+var fill_bottom: Color = Color(0, 0, 0, 0)
+## 底色往右淡出的程度（0 = 不淡出，1 = 右端完全透明）。
+var fill_fade: float = 0.0
+## 邊線離左上角越遠越淡（0 = 等亮，1 = 右下角完全淡掉）。
+var border_fade: float = 0.0
+## 重點邊沿左緣往下延伸的長度（像素；0 = 只有上緣那一段）。需要 rail 有顏色。
+var rail_drop: float = 0.0
 
 const SCAN_STEP := 3
 const BRACKET_LEN := 6
@@ -119,7 +129,7 @@ func _draw(canvas: RID, rect: Rect2) -> void:
 	if fill.a > 0.0:
 		var fill_pts := pts.duplicate()
 		fill_pts.remove_at(fill_pts.size() - 1)
-		RenderingServer.canvas_item_add_polygon(canvas, fill_pts, PackedColorArray([fill]))
+		RenderingServer.canvas_item_add_polygon(canvas, fill_pts, _fill_colors(fill_pts, rect))
 	if bevel and fill.a > 0.0:
 		_draw_bevel(canvas, rect)
 	if glow.a > 0.0:
@@ -132,6 +142,10 @@ func _draw(canvas: RID, rect: Rect2) -> void:
 		var start := rect.position.round() + Vector2(6.0 + (notch if corners & Corner.TL else 0), 0.5)
 		var length := minf(24.0, rect.size.x * 0.2)
 		RenderingServer.canvas_item_add_line(canvas, start, start + Vector2(length, 0.0), rail, 1.0)
+		var drop := minf(rail_drop, rect.size.y - float(notch) * 2.0 - 4.0)
+		if drop >= 3.0:
+			var top := rect.position.round() + Vector2(1.0, 3.0 + (notch if corners & Corner.TL else 0))
+			RenderingServer.canvas_item_add_line(canvas, top, top + Vector2(0.0, drop), rail, 2.0)
 	if bracket.a > 0.0:
 		_draw_brackets(canvas, rect)
 
@@ -157,9 +171,41 @@ func _draw_border(canvas: RID, pts: PackedVector2Array) -> void:
 		return
 	if open_bottom:
 		# 頁籤：左右兩邊停在底部，不連到下邊。
-		RenderingServer.canvas_item_add_polyline(canvas, _without_bottom(pts), PackedColorArray([border]), width)
+		var open_pts := _without_bottom(pts)
+		RenderingServer.canvas_item_add_polyline(canvas, open_pts, _border_colors(open_pts), width)
 		return
-	RenderingServer.canvas_item_add_polyline(canvas, pts, PackedColorArray([border]), width)
+	RenderingServer.canvas_item_add_polyline(canvas, pts, _border_colors(pts), width)
+
+
+## 底色：單色，或依各頂點的位置算出由上到下的層次與往右的淡出。
+func _fill_colors(pts: PackedVector2Array, rect: Rect2) -> PackedColorArray:
+	if fill_bottom.a <= 0.0 and fill_fade <= 0.0:
+		return PackedColorArray([fill])
+	var colors := PackedColorArray()
+	var size := rect.size.max(Vector2.ONE)
+	for p in pts:
+		var t := ((p - rect.position) / size).clamp(Vector2.ZERO, Vector2.ONE)
+		var color := fill.lerp(fill_bottom, t.y) if fill_bottom.a > 0.0 else fill
+		color.a *= 1.0 - clampf(fill_fade, 0.0, 1.0) * t.x
+		colors.append(color)
+	return colors
+
+
+## 邊線：等亮，或離左上角越遠越淡（每個頂點一個顏色，線段之間自動漸變）。
+func _border_colors(pts: PackedVector2Array) -> PackedColorArray:
+	if border_fade <= 0.0 or pts.size() < 2:
+		return PackedColorArray([border])
+	var low := pts[0]
+	var high := pts[0]
+	for p in pts:
+		low = low.min(p)
+		high = high.max(p)
+	var span := maxf(1.0, (high.x - low.x) + (high.y - low.y))
+	var colors := PackedColorArray()
+	for p in pts:
+		var far := ((p.x - low.x) + (p.y - low.y)) / span
+		colors.append(Color(border, border.a * (1.0 - clampf(border_fade, 0.0, 1.0) * far)))
+	return colors
 
 
 ## 頁籤用：從路徑中去掉最底下的那條邊。路徑順序是順時針，所以把起點轉到最底邊之後。

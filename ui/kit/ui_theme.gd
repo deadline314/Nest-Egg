@@ -10,6 +10,13 @@ const BUTTON_IDLE := Color("18222c")
 const BUTTON_HOVER := Color("293a45")
 const BUTTON_SELECTED := Color("244550")
 const BUTTON_EDGE := Color("374956")
+## 面板的形狀語言（NE-392）：底部比頂部深多少、邊線到右下角淡掉多少、重點邊沿左緣往下幾像素。
+const SURFACE_DEPTH := 0.42
+const SURFACE_BORDER_FADE := 0.85
+const SURFACE_RAIL_DROP := 18.0
+## 按鈕：底色到右端淡掉多少、邊線到右下角淡掉多少。
+const BUTTON_FILL_FADE := 0.85
+const BUTTON_BORDER_FADE := 1.0
 
 
 static func build(font: Font, base_size: int) -> Theme:
@@ -60,6 +67,10 @@ static func surface(accent: Color, body := PANEL_BODY, cut := 6) -> ChamferBox:
 	box.corners = ChamferBox.Corner.TR | ChamferBox.Corner.BL
 	box.bevel = false
 	box.rail = Color(accent, accent.a * 0.74)
+	# 形狀語言（NE-392）：底色往下漸深、邊線往右下淡出、左上角的重點邊沿左緣往下延伸，不是四邊等亮的方框。
+	box.fill_bottom = Color(body.darkened(SURFACE_DEPTH), body.a)
+	box.border_fade = SURFACE_BORDER_FADE
+	box.rail_drop = SURFACE_RAIL_DROP
 	return box
 
 
@@ -84,6 +95,10 @@ static func _button_box(bg: Color, line: Color, wide_line := false) -> ChamferBo
 	box.corners = ChamferBox.Corner.TR | ChamferBox.Corner.BL
 	box.bevel = false
 	box.margins(16, 5, 12, 5)
+	# 按鈕像清單裡的一列：底色往右淡出、邊線往右下淡出；焦點框（粗線）維持整圈清楚。
+	if not wide_line:
+		box.fill_fade = BUTTON_FILL_FADE
+		box.border_fade = BUTTON_BORDER_FADE
 	return box
 
 
