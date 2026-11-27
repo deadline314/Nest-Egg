@@ -37,15 +37,20 @@ func run() -> void:
 		push_error("[KeyLightScenario] %s 沒有主光" % LEVEL)
 		await finish()
 		return
+	var to_screen_at_start := get_viewport().get_final_transform() * get_viewport().get_canvas_transform()
+	print("KEY_LIGHT source_screen=%s" % [to_screen_at_start * key.global_position])
 	print("KEY_LIGHT max_rate=%.4f per second, range %.2f..%.2f, period %.0f s" % [key.data.max_rate(), key.data.occlusion_min, key.data.occlusion_max, key.data.period])
 	await wait(TITLE_CARD_TIME)
 
 	_place(VIEW_COL)
+	# 等鏡頭停好、提示牌完整淡入（淡入中的提示牌是半透明的，會被誤認成被光洗淡）。
+	await wait(1.5)
 	for state: Array in [["open", 0.1], ["covered", 0.9]]:
 		KeyLight.forced_occlusion = float(state[1])
 		await settle(20)
 		capture("BG-67-%s" % state[0])
 		await settle(2)
+	await _prompt_contrast(key)
 	KeyLight.forced_occlusion = 0.5
 	key.visible = false
 	await settle(10)
@@ -96,6 +101,60 @@ func _place(col: int) -> void:
 	player.velocity = Vector2.ZERO
 	player.facing = 1
 	snap_camera()
+
+
+## 太陽遮得最少時，畫面上的提示牌文字與底板的對比（WCAG 對比值：文字取亮的 3%、底板取暗的 30%），主光開與關各量一次。
+## 開的時候低於 4.5:1（一般文字的業界標準）或低於關的時候的八成五就記錯誤；也存一張提示牌的近拍。
+func _prompt_contrast(key: KeyLight) -> void:
+	KeyLight.forced_occlusion = 0.0
+	var results := {}
+	for on: bool in [true, false]:
+		key.visible = on
+		await settle(20)
+		var prompt := _shown_prompt()
+		if prompt == null:
+			failures += 1
+			push_error("[KeyLightScenario] 畫面上沒有完整顯示的提示牌")
+			return
+		var viewport := get_viewport()
+		var image := preload("res://tools/viewport_capture.gd").image(viewport)
+		var to_screen := viewport.get_final_transform() * viewport.get_canvas_transform()
+		var world := prompt.base_rect()
+		var a := Vector2i(to_screen * world.position)
+		var b := Vector2i(to_screen * world.end)
+		var rect := Rect2i(a, b - a).intersection(Rect2i(Vector2i.ZERO, image.get_size()))
+		var lums := PackedFloat32Array()
+		var inner := rect.grow_individual(-rect.size.x / 8, -rect.size.y / 5, -rect.size.x / 8, -rect.size.y / 5)
+		for y in range(inner.position.y, inner.end.y):
+			for x in range(inner.position.x, inner.end.x):
+				lums.append(_relative_luminance(image.get_pixel(x, y)))
+		lums.sort()
+		var ratio := 0.0
+		if lums.size() > 20:
+			var text := lums[int(lums.size() * 0.97)]
+			var plate := lums[int(lums.size() * 0.3)]
+			ratio = (text + 0.05) / (plate + 0.05)
+		results[on] = ratio
+		var crop := image.get_region(rect.grow(12).intersection(Rect2i(Vector2i.ZERO, image.get_size())))
+		crop.resize(crop.get_width() * 2, crop.get_height() * 2, Image.INTERPOLATE_NEAREST)
+		crop.save_png(out_dir.path_join("BG-70-prompt-%s.png" % ("on" if on else "off")))
+	key.visible = true
+	print("KEY_LIGHT_PROMPT contrast on=%.2f off=%.2f" % [results[true], results[false]])
+	if results[true] < 4.5 or results[true] < float(results[false]) * 0.85:
+		failures += 1
+		push_error("[KeyLightScenario] 太陽遮得最少時提示牌對比不足：%.2f（主光關 %.2f，門檻 4.5 且不低於關的八成五）" % [results[true], results[false]])
+
+
+func _shown_prompt() -> WorldPrompt:
+	for node in get_tree().root.find_children("*", "Node2D", true, false):
+		if node is WorldPrompt and (node as WorldPrompt).is_visible_in_tree() and (node as WorldPrompt)._alpha > 0.95:
+			return node as WorldPrompt
+	return null
+
+
+static func _relative_luminance(color: Color) -> float:
+	var linear := color.srgb_to_linear()
+	return 0.2126 * linear.r + 0.7152 * linear.g + 0.0722 * linear.b
 
 
 ## 同一格主角在與不在各拍一張。

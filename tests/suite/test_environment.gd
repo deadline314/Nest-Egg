@@ -2267,6 +2267,12 @@ func _test_key_light() -> void:
 		check(key.get_index() > last_prop, "the key light is added after every background prop, so its glow lies over them on the same layer")
 		check(key._sheen.z_index == WorldLayers.KEY_LIGHT_SHEEN and WorldLayers.KEY_LIGHT_SHEEN > WorldLayers.TERRAIN and WorldLayers.KEY_LIGHT_SHEEN < WorldLayers.CHARACTERS_BOTTOM, "the floor sheen sits on the ground, under the characters")
 		check(key._front.z_index == WorldLayers.KEY_LIGHT_FRONT and WorldLayers.KEY_LIGHT_FRONT > WorldLayers.CHARACTERS_TOP and WorldLayers.KEY_LIGHT_FRONT < WorldLayers.PROJECTILES, "the faint wash is in front of the characters and behind bullets")
+		# BG-70：光暈與光柱用一般混合，顏色不超過 1，不會超過泛光門檻去洗淡上層的提示與氣泡；光心不是純白。
+		var glow_material := key._back.material as CanvasItemMaterial
+		check(glow_material != null and glow_material.blend_mode == CanvasItemMaterial.BLEND_MODE_MIX, "the halo and shafts blend toward the light colour instead of adding light, so they never bloom over prompts")
+		var core := key.core_color()
+		check(core.r <= 1.0 and core.g <= 1.0 and core.b <= 1.0 and minf(core.g, core.b) < 0.95, "the brightest part of the halo is warm, not pure white (%s)" % core)
+		check(WorldLayers.KEY_LIGHT_FRONT < WorldLayers.ABOVE_CHARACTERS and WorldLayers.KEY_LIGHT_FRONT < WorldLayers.WORLD_PROMPTS and WorldLayers.KEY_LIGHT_FRONT < WorldLayers.MAP_BUBBLES, "prompts, map bubbles and overhead markers are drawn above every key light layer")
 		var wash_material := key._front.material as CanvasItemMaterial
 		check(wash_material != null and wash_material.blend_mode == CanvasItemMaterial.BLEND_MODE_MIX, "the wash in front of characters only tints (normal blend), so it cannot brighten hair to white")
 		KeyLight.forced_occlusion = 0.1

@@ -24,6 +24,9 @@ const REDRAW_FPS := 12.0
 const REDRAW_STEP := 0.004
 ## 前面那層漫射比光暈大多少。
 const WASH_SCALE := 1.5
+## 光心：主光色往白靠的比例、整體亮度（< 1，調色之後才不會到頂）。
+const CORE_WHITEN := 0.6
+const CORE_LEVEL := 1.0
 
 var data: KeyLightData
 ## 目前被遮住的程度（0~1）。
@@ -101,7 +104,9 @@ func _ready() -> void:
 	add_child(_light)
 	_back = _Glow.new()
 	_back.key = self
-	_back.material = LightKit.additive_emissive_material()
+	# 一般混合（往主光色靠）而不是加法：亮度永遠不超過主光色本身、不會超過泛光門檻，
+	# 光心不會變成一塊純白，也不會泛光泛到上層的提示牌與對話氣泡（BG-70）。
+	_back.material = LightKit.emissive_material()
 	_back.z_as_relative = false
 	_back.z_index = WorldLayers.KEY_LIGHT_BACK
 	add_child(_back)
@@ -150,6 +155,11 @@ func halo_radius() -> float:
 
 func halo_alpha() -> float:
 	return data.halo_alpha * lerpf(1.0, HALO_DIM, occlusion)
+
+
+## 光心的顏色：主光色往白靠一點再壓暗一階，經過區段的亮部色調後每個色版仍不到頂（不是純白）。
+func core_color() -> Color:
+	return data.color.lerp(Color.WHITE, CORE_WHITEN) * CORE_LEVEL
 
 
 ## 第 i 道光柱目前的亮度（含遮住程度與緩慢的明暗）。
@@ -208,12 +218,10 @@ class _Glow:
 		var radius := key.halo_radius()
 		var alpha := key.halo_alpha()
 		var soft := LightKit.soft_texture()
-		# 外圈大片柔光，內圈小而亮；HDR 亮度讓核心帶一點泛光（有上限）。
-		# 核心只帶一點 HDR 泛光（上限見 LightKit.glow），太陽不會糊成一團白，旁邊的主角頭髮也不會被泛光吃掉。
-		var hot := LightKit.glow(data.color, 1.0 + 0.15 * (1.0 - key.occlusion))
-		draw_texture_rect(soft, Rect2(-Vector2(radius, radius), Vector2(radius, radius) * 2.0), false, Color(data.color, alpha * 0.6))
+		# 外圈大片柔光往主光色靠，內圈小而亮、偏暖白（見 core_color）；兩層都是一般混合，最亮處就是 core_color。
+		draw_texture_rect(soft, Rect2(-Vector2(radius, radius), Vector2(radius, radius) * 2.0), false, Color(data.color, alpha * 0.75))
 		var core := radius * 0.38
-		draw_texture_rect(soft, Rect2(-Vector2(core, core), Vector2(core, core) * 2.0), false, Color(hot, alpha * 0.8))
+		draw_texture_rect(soft, Rect2(-Vector2(core, core), Vector2(core, core) * 2.0), false, Color(key.core_color(), minf(1.0, alpha * 1.3)))
 		if data.shaft_count > 0:
 			_draw_shafts(data)
 
