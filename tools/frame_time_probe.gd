@@ -22,6 +22,7 @@ const OFF_KINDS := {
 	"props": ["PropNode"],
 	"grounding": ["PropGrounding"],
 	"kick": ["SwayKick"],
+	"key_light": ["KeyLight"],
 }
 const WARMUP_SECONDS := 2.0
 const SLOW_FRAME_MS := 16.7

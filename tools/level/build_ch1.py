@@ -1802,6 +1802,8 @@ def _map_extra(area):
         extra.update(layout_revision=2, legacy_layout=area.legacy_layout)
         if area.capability_targets:
             extra['capability_targets'] = area.capability_targets
+    # 其他頂層資料（例如主光 key_light，BG-67）原樣寫進地圖。
+    extra.update(getattr(area, 'map_extra', {}))
     return extra
 
 

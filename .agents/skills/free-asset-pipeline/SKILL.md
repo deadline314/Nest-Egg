@@ -240,6 +240,7 @@ BG-47 補入三態破壞物、升降平台與電源開關：`cel_fixtures.py --o
 ## 11. 光影預設與可讀性量測（BG-13、BG-14）
 
 - **光影預設**是 `data/lighting/<id>.tres`（`LightingProfile`：環境光、背景色調、霧、泛光、調色、光源色、角色最低亮度 `character_floor`、輪廓光）。新增只加資料檔；大綱 5.1 的章節畫面進程已建好白天、晴天、洪水夜、塔內等 11 組。欄位說明在 `data/scripts/lighting_profile.gd`，設計在 `design/08-lighting/DESIGN.md`。
+- **主光（BG-67）**：一個區段要有「決定方向與顏色的光源」時，在地圖 JSON 頂層寫 `key_light`（欄位見 `data/scripts/key_light_data.gd`；第三章的地圖由 `tools/level/build_ch3.py` 的 `map_extra` 產生，兩邊都要改）。光暈與光柱畫在所有角色後面（`WorldLayers.KEY_LIGHT_BACK`），只有很淡的一層一般混合的漫射在角色前面，主角白髮不會被加到過曝；遮住程度慢慢起伏（`period` 下限 20 秒），「減少動態」固定在中間。光源要放在鏡頭真的看得到的位置（站在區段裡看一次整張畫面），放在畫面外只會看到一點邊。同區段的光影預設要一起拉成同一個色系：`saturation` 降到 0.5 左右、`shadow_tint` 與 `highlight_tint` 往主光色偏（亮部紅色版不超過 1.08，白髮才不會過曝）、`rim_color` 由主光帶過去。截圖 `--scenario=key_light`（遮得少／多、主光關、三個畫質、主角在光源正下方的頭部全白比例，開與關用同一個範圍比）；影格時間用 `frame_time_probe --off=key_light` 交替量。
 - **兩個量測，共用 `tools/contrast_probe.gd`**（對比 = (內 − 外) / (外 + 0.02)，取亮部與剪影較大者；門檻玩家 0.6、地面邊緣 1.0、敵人 0.45）：
   - 區段量測：`godot --path . res://tools/readability_check.tscn -- [--level=level_01] [--quality=low]`，兩章每個區段。
   - 預設量測：`screenshot.tscn -- --out=<資料夾> --scenario=lighting_scenes [--lighting=<id>] [--scene=<id>]`，把玩家與敵人放在場景背景前，對應表 `data/lighting_preview/scenes.json`（預設 → 場景背景）。多印一欄「空處」（沒有角色處的背景起伏）當雜訊底線。

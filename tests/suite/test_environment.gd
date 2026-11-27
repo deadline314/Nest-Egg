@@ -28,6 +28,7 @@ func run() -> void:
 	await _test_contact_shadow()
 	await _test_prop_grounding()
 	await _test_sway_kick()
+	await _test_key_light()
 	_test_fixture_art()
 	await preload("res://tests/helpers/scene_lighting_checks.gd").run(self)
 	await _test_training_art()
@@ -2221,3 +2222,82 @@ func _test_platform_deck_structure() -> void:
 		check(post.kind == support_kind.POST and post.end == 112.0, "a post meets the top of solid ground")
 		check(suspended.kind == support_kind.HANGER and suspended.end == 0.0, "a span outside visible structure suspends beyond the frame")
 	terrain.free()
+
+
+## 主光（BG-67）：資料壞掉時不加主光；遮住程度變化夠慢；兩個狀態看得出差別；光暈在角色後面、漫射在前面且不加亮；
+## 輪廓光跟主光同色；「減少動態」時固定；低畫質只留照亮表面的光；光柱照到地面為止。
+func _test_key_light() -> void:
+	check(KeyLightData.parse(null, "test_key_light_bad") == null, "an area without key_light has no key light")
+	check(KeyLightData.parse({"x": 3, "y": 2}, "test_key_light_bad") != null, "a key light needs only its position; everything else has a default")
+	var bad_samples: Array = [[1, 2], {"y": 2}, {"x": 3, "y": 2, "color": [2.0, 0.0, 0.0]}, {"x": 3, "y": 2, "occlusion": [0.9, 0.1]},
+		{"x": 3, "y": 2, "period": 2}, {"x": 3, "y": 2, "front_wash": 0.9}, {"x": 3, "y": 2, "shafts": {"count": "many"}}, {"x": "left", "y": 2}]
+	for sample: Variant in bad_samples:
+		check(KeyLightData.parse(sample, "test_key_light_bad") == null, "broken key light data is rejected: %s" % [sample])
+	var level_data := load("res://data/levels/ch3_glass_edge.tres") as LevelData
+	var data := KeyLightData.parse(level_data.load_layout_value("key_light"), "ch3_glass_edge")
+	check(data != null, "the chapter 3 sunlit area has a key light")
+	if data == null:
+		return
+	# 不會被當成閃爍：遮住程度每秒最多變化 0.06，實際取樣也不超過；兩個極端都會出現。
+	check(data.max_rate() < 0.06, "the key light changes slowly (%.3f per second)" % data.max_rate())
+	var worst := 0.0
+	var low := 1.0
+	var high := 0.0
+	for i in 4000:
+		var t := float(i) * 0.05
+		worst = maxf(worst, absf(data.occlusion_at(t + 0.05) - data.occlusion_at(t)) / 0.05)
+		low = minf(low, data.occlusion_at(t))
+		high = maxf(high, data.occlusion_at(t))
+	check(worst <= data.max_rate() + 0.0001, "sampled change (%.4f/s) stays under the stated limit" % worst)
+	check(low < data.occlusion_min + 0.1 and high > data.occlusion_max - 0.1, "both the open and the covered state happen (%.2f..%.2f)" % [low, high])
+
+	var previous_motion := Settings.get_reduce_ui_motion()
+	var previous_quality := Settings.get_light_quality()
+	Settings.set_reduce_ui_motion(false)
+	Settings.set_light_quality(LightQuality.Tier.HIGH)
+	var level := await start_level(level_data)
+	var key := level.find_child("KeyLight", true, false) as KeyLight
+	check(key != null, "the sunlit area spawns its key light")
+	if key != null:
+		check(key._back.z_index == WorldLayers.KEY_LIGHT_BACK and WorldLayers.KEY_LIGHT_BACK < WorldLayers.TERRAIN and not key._back.z_as_relative, "the halo and shafts are drawn behind every character and behind the walkway, so the ground edge stays readable")
+		var last_prop := -1
+		for node in level.get_node("World").get_children():
+			if node is PropNode:
+				last_prop = maxi(last_prop, node.get_index())
+		check(key.get_index() > last_prop, "the key light is added after every background prop, so its glow lies over them on the same layer")
+		check(key._sheen.z_index == WorldLayers.KEY_LIGHT_SHEEN and WorldLayers.KEY_LIGHT_SHEEN > WorldLayers.TERRAIN and WorldLayers.KEY_LIGHT_SHEEN < WorldLayers.CHARACTERS_BOTTOM, "the floor sheen sits on the ground, under the characters")
+		check(key._front.z_index == WorldLayers.KEY_LIGHT_FRONT and WorldLayers.KEY_LIGHT_FRONT > WorldLayers.CHARACTERS_TOP and WorldLayers.KEY_LIGHT_FRONT < WorldLayers.PROJECTILES, "the faint wash is in front of the characters and behind bullets")
+		var wash_material := key._front.material as CanvasItemMaterial
+		check(wash_material != null and wash_material.blend_mode == CanvasItemMaterial.BLEND_MODE_MIX, "the wash in front of characters only tints (normal blend), so it cannot brighten hair to white")
+		KeyLight.forced_occlusion = 0.1
+		key._process(0.0)
+		var open_radius := key.halo_radius()
+		var open_shafts := key.shaft_strength()
+		var open_energy := key._light.energy
+		KeyLight.forced_occlusion = 0.9
+		key._process(0.0)
+		check(open_radius > key.halo_radius() * 1.5, "the halo shrinks when the light is covered (%.0f -> %.0f)" % [open_radius, key.halo_radius()])
+		check(key.shaft_strength() > open_shafts * 2.0, "shafts stand out when the light is covered (%.2f -> %.2f)" % [open_shafts, key.shaft_strength()])
+		check(key._light.energy < open_energy, "the surface light dims when covered")
+		KeyLight.forced_occlusion = -1.0
+		await frames(2)
+		check(level._lighting._rim_light.color.is_equal_approx(key.data.color), "the rim light takes the key light's colour")
+		var landed := 0
+		for i in key.shaft_starts.size():
+			if key.shaft_landed[i] == 1:
+				landed += 1
+				var land := key.global_position + key.shaft_starts[i] + key.shaft_direction * key.shaft_lengths[i]
+				var floor_y: float = level._layout.surface_heights[clampi(int(land.x / level._layout.tile_size), 0, level._layout.surface_heights.size() - 1)]
+				check(land.y <= floor_y + 4.0, "shaft %d stops at the floor (%.0f vs %.0f)" % [i, land.y, floor_y])
+		check(landed > 0, "at least one shaft reaches the floor")
+		Settings.set_reduce_ui_motion(true)
+		key._process(7.0)
+		var held := key.occlusion
+		key._process(13.0)
+		check(is_equal_approx(held, key.occlusion) and is_equal_approx(held, key.data.middle_occlusion()), "with reduced motion the key light holds still at its middle state")
+		Settings.set_light_quality(LightQuality.Tier.LOW)
+		key._process(0.0)
+		check(not key._back.visible and not key._front.visible and key._light.enabled and key._light.visible, "low quality drops the halo and shafts but keeps the surface light")
+	Settings.set_reduce_ui_motion(previous_motion)
+	Settings.set_light_quality(previous_quality)
+	await end_level(level)

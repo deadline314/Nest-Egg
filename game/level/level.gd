@@ -341,6 +341,7 @@ func _build_entry() -> void:
 	_lighting = LightingController.new()
 	add_child(_lighting)
 	_lighting.setup(data.lighting_zones, _layout.tile_size, player, ambient, _background, _fog, data.fog_color, _post)
+	_spawn_key_light()
 	# 從檢查點重生時若正好在事件範圍內，直接套用，不從區段光影漸變。
 	_update_lighting_events(0.0)
 	_lighting.snap()
@@ -794,6 +795,18 @@ func _place_prop(prop: PropData, top_left: Vector2, flip: bool) -> PropNode:
 
 func _prop_dirs() -> PackedStringArray:
 	return data.environment.prop_dirs() if data.environment != null else PackedStringArray([PropLibrary.DEFAULT_DIR])
+
+
+## 區段的主光（BG-67）：地圖 JSON 寫了 key_light 才有；資料壞掉時這個區域照常顯示、沒有主光。
+func _spawn_key_light() -> void:
+	var key_data := KeyLightData.parse(data.load_layout_value("key_light"), "%s（%s）" % [data.id, data.layout_path])
+	if key_data == null:
+		return
+	var key := KeyLight.new()
+	key.setup(key_data, float(_layout.tile_size), func(x: float) -> float:
+		return _layout.surface_heights[clampi(int(x / _layout.tile_size), 0, _layout.surface_heights.size() - 1)])
+	_world.add_child(key)
+	_lighting.key_light = key
 
 
 ## 雨與霧（畫在角色前方，低透明度）。

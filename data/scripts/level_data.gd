@@ -185,6 +185,16 @@ func load_regions() -> Array[Dictionary]:
 	return result
 
 
+## 地圖 JSON 的頂層欄位（例如 key_light）；沒有地圖或沒有這個欄位時回傳 null。
+func load_layout_value(key: String) -> Variant:
+	if layout_path.is_empty() or not ResourceLoader.exists(layout_path):
+		return null
+	var json := load(layout_path) as JSON
+	if json == null or typeof(json.data) != TYPE_DICTIONARY:
+		return null
+	return (json.data as Dictionary).get(key)
+
+
 ## 檢查光影區段的設定，回傳問題清單（空代表沒問題）。
 func validate_lighting() -> PackedStringArray:
 	var problems := PackedStringArray()

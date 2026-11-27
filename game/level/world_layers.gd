@@ -32,9 +32,17 @@ const PLAYER_Z := (LEVEL_ACTOR_SLOTS + 1) * CHARACTER_SPAN
 const CHARACTERS_BOTTOM := CHARACTER_SPAN + CHARACTER_MIN_Z
 const CHARACTERS_TOP := PLAYER_Z + CHARACTER_MAX_Z
 
+## 主光的光暈與光柱（BG-67）：和背景道具同一層（主光在道具之後才加入，畫在道具上面）、地形之下：
+## 光漫過立面與道具、所有角色在光前面變成剪影，走道的地面邊緣不被光蓋掉（可讀性）。
+const KEY_LIGHT_BACK := PROPS
+## 光柱照到地面的反光：畫在地形頂面上。
+const KEY_LIGHT_SHEEN := TERRAIN + 1
+
 ## 畫在所有角色之上的東西，由後往前。
 ## 跟著角色的提示線、頭頂標記；水坑的水面（淹過角色）。
 const ABOVE_CHARACTERS := CHARACTERS_TOP + 1
+## 主光畫在角色前面的那層淡淡漫射。
+const KEY_LIGHT_FRONT := CHARACTERS_TOP + 2
 const PROJECTILES := CHARACTERS_TOP + 4
 ## 會擋子彈的蒸汽幕：子彈消失在蒸汽裡要看得到。
 const STEAM_SCREEN := PROJECTILES + 1

@@ -36,6 +36,8 @@ var _lightning_gap := 0.0
 ## 最近一次對外宣告的區段 id（環境音與背景音樂靠 EventBus.zone_changed 切換）。
 var _announced_zone: StringName = &""
 var _rim_light: PointLight2D
+## 區段的主光（BG-67）：有的話輪廓光的顏色與方向跟著它。
+var key_light: KeyLight
 
 
 ## zones 會被複製並排序；沒有有效區段時整關使用預設（全亮）光影，霧顏色取 fallback_fog。
@@ -270,13 +272,16 @@ func _apply() -> void:
 	LightKit.creature_fill = clampf(creature_floor / ambient_luma, 1.0, MAX_CHARACTER_FILL) if creature_floor > 0.0 else 0.0
 	LightKit.creature_light_cap = LightKit.character_light_cap_for(ambient_luma, maxf(1.0, LightKit.creature_fill)) * LightKit.ENEMY_LIGHT_GAIN
 	LightKit.lamp_power = current.lamp_power
-	_rim_light.color = current.rim_color
+	var keyed := is_instance_valid(key_light)
+	_rim_light.color = key_light.data.color if keyed else current.rim_color
 	_rim_light.energy = current.rim_energy
 	_rim_light.enabled = LightQuality.normal_maps() and current.rim_energy > 0.0
 	var viewport := get_viewport()
 	if viewport != null:
 		var center := viewport.get_canvas_transform().affine_inverse() * (viewport.get_visible_rect().size * 0.5)
-		_rim_light.global_position = center + RIM_LIGHT_OFFSET
+		# 有主光時輪廓光從主光那一側打過來：角色朝主光的一側有同色的亮邊。
+		var toward := (key_light.global_position - center) if keyed else RIM_LIGHT_OFFSET
+		_rim_light.global_position = center + (toward.normalized() * RIM_LIGHT_OFFSET.length() if toward.length_squared() > 1.0 else RIM_LIGHT_OFFSET)
 
 
 ## 離開關卡時還原泛光預設，避免主選單沿用最後一個區段的設定。

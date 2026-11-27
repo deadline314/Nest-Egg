@@ -383,6 +383,12 @@ def build_glass_edge():
     for x in (16, 40, 64):
         a.lamp(x, 7)
     a.zone(0, 'sunlit_edge')
+    # 主光（BG-67）：立面上方偏左的午後太陽，光柱往右下斜照到地上的光斑一帶。其他區段照這份當樣板。
+    a.map_extra = {'key_light': {
+        'x': 17, 'y': 12, 'color': [1.0, 0.68, 0.4], 'energy': 0.8, 'light_radius': 700,
+        'halo_radius': 320, 'halo_alpha': 0.75, 'front_wash': 0.08,
+        'shafts': {'count': 6, 'angle': 34, 'length': 360, 'width': 30, 'spread': 300},
+        'occlusion': [0.12, 0.88], 'period': 48}}
     a.features = {'landmark': '地上的光斑（x=20）與觀景框（x=30）', 'secret': '觀景框的塔頂花園遠景（可選）'}
     return a
 
