@@ -834,6 +834,9 @@ func _test_mechanic_placements() -> void:
 		["res://data/levels/ch2_loading.tres", "res://data/props/suspended_crate.tres", Vector2i(73, 35)],
 		["res://data/levels/ch2_market_gate.tres", "res://data/props/live_cable.tres", Vector2i(40, 35)],
 		["res://data/levels/ch2_market_gate.tres", "res://data/props/live_cable.tres", Vector2i(65, 35)],
+		["res://data/levels/ch3_pump.tres", "res://data/props/decoy_radio.tres", Vector2i(37, 35)],
+		["res://data/levels/ch3_mezzanine.tres", "res://data/props/decoy_radio.tres", Vector2i(61, 35)],
+		["res://data/levels/ch3_mezzanine.tres", "res://data/props/live_cable.tres", Vector2i(63, 35)],
 	]
 	for entry: Array in EXPECTED:
 		var level := load(entry[0]) as LevelData

@@ -2151,9 +2151,9 @@ hints = PackedStringArray()
 layout_path = "res://data/levels/ch3_glass_edge_map.json"
 
 [sub_resource type="Resource" id="Resource_g57s1"]
-script = ExtResource("4_kb2ry")
 
 [sub_resource type="Resource" id="Resource_oorj2"]
+script = ExtResource("4_kb2ry")
 
 [sub_resource type="Resource" id="Resource_ncq6t"]
 script = ExtResource("3_sfgi7")
@@ -2227,9 +2227,11 @@ localized_names = Dictionary[String, String]({
 })
 height = 40
 legend = Dictionary[String, Resource]({
-"c": SubResource("Resource_g57s1"),
-"Ж": SubResource("Resource_oorj2"),
-"Ш": SubResource("Resource_oorj2"),
+"c": SubResource("Resource_oorj2"),
+"φ": SubResource("Resource_g57s1"),
+"ψ": SubResource("Resource_g57s1"),
+"Ж": SubResource("Resource_g57s1"),
+"Ш": SubResource("Resource_g57s1"),
 "Ⅲ": SubResource("Resource_ncq6t"),
 "Ⅳ": SubResource("Resource_e5lm5"),
 "Ⅶ": SubResource("Resource_au11c"),
@@ -5207,7 +5209,7 @@ digests = Dictionary[String, String]({
 "res://data/levels/ch3_clinic.tres": "1adf447aafa7b7d0abfd26d01ffd71912f99c65e4a274f969aa8dfea8eabba07",
 "res://data/levels/ch3_gate_hall.tres": "a20abe75d519708a5940929d18475f1de828c81731d2218fa35e6d5209b278dd",
 "res://data/levels/ch3_glass_edge.tres": "957ce11b4acd6c0a7d7bf28cddf781e0f7ae974483e404f4f4a9c957180424d9",
-"res://data/levels/ch3_mezzanine.tres": "aa0269e03e0320a1c62e5b60a67485778644bb37b761cfbc43c6bb3b25ade150",
+"res://data/levels/ch3_mezzanine.tres": "fb86f9d08660c7405010708b4894f66be0bfcfdbf57037792312ba90d366e3c6",
 "res://data/levels/ch3_office_hall.tres": "0754d6402f3f5f83d5b61039cd8e49ef9df29daf280aa7ebb1c2d89162fd188f",
 "res://data/levels/ch3_pawnshop.tres": "60c13c80cfef4a39f836735bb3cabf041b3bd7433e306c062f9220e07abd6d6e",
 "res://data/levels/ch3_plaza.tres": "04b7c5dddb570368a2663a58de1c8f5ba2240c2cda580b4b94a6fac7ae08a0fe",

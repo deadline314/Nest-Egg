@@ -3,7 +3,7 @@ extends ScenarioBase
 ## 環境機關擺進各章之後的實景（NE-405 起）：每個點載入那個區域、找到指定格附近的機關，
 ## 主角站在左邊、敵人停住，拍「觸發前」；玩家打中機關後放開敵人，等一下再拍「觸發後」，並印出附近敵人的血量變化。
 ## 用法（原生 Forward+）：godot --path . res://tools/screenshot.tscn -- --out=<絕對資料夾> --scenario=mechanic_placements --chapter=ch2
-## 新增一個點只要在 PLACEMENTS 加一行：[檔名標籤, 關卡檔, 機關群組, 機關所在格 x（全區域）, 主角站在左邊幾像素, 觸發後等幾秒, 站到機關下的敵人位移（可省略）]。
+## 新增一個點只要在 PLACEMENTS 加一行：[檔名標籤, 關卡檔, 機關群組, 機關所在格 x（全區域）, 主角站在左邊幾像素（負值＝站在右邊）, 觸發後等幾秒, 站到機關下的敵人位移（可省略）]。
 ## 有第七欄時，最近的一名敵人被放到機關位置加那個位移並停住到拍完（示範「敵人在那裡時觸發」），其餘敵人照常行動。
 
 const PLACEMENTS := {
@@ -11,9 +11,13 @@ const PLACEMENTS := {
 		["NE-405-loading-crate", "res://data/levels/ch2_loading.tres", SuspendedLoad.GROUP, 73, 170.0, 1.0, Vector2(4.0, 0.0)],
 		["NE-405-gate-cable", "res://data/levels/ch2_market_gate.tres", LiveCable.GROUP, 65, 130.0, 1.2],
 	],
+	"ch3": [
+		["NE-406-mezzanine-radio", "res://data/levels/ch3_mezzanine.tres", DecoyRadio.GROUP, 61, -150.0, 2.6],
+		["NE-406-mezzanine-cable", "res://data/levels/ch3_mezzanine.tres", LiveCable.GROUP, 63, -150.0, 1.2, Vector2(-24.0, 0.0)],
+	],
 }
 ## 觸發後算「附近」的敵人範圍（像素）。
-const NEAR := 120.0
+const NEAR := 260.0
 
 
 func run() -> void:
@@ -59,8 +63,9 @@ func _shoot_spot(spot: Array) -> void:
 			enemy.process_mode = Node.PROCESS_MODE_DISABLED
 			enemies.append(enemy)
 	await wait(TITLE_CARD_TIME + 0.3)
+	var aim := &"aim_right" if float(spot[4]) >= 0.0 else &"aim_left"
 	AimInput.set_virtual_gamepad(player, true)
-	Input.action_press(&"aim_right", 1.0)
+	Input.action_press(aim, 1.0)
 	var staged: Enemy
 	if spot.size() > 6:
 		var best := INF
@@ -92,10 +97,14 @@ func _shoot_spot(spot: Array) -> void:
 	if is_instance_valid(staged):
 		staged.set_physics_process(true)
 	var report := PackedStringArray()
-	for enemy: Enemy in before:
-		report.append("%s %d->%d" % [enemy.data.id, before[enemy], enemy.health.current if is_instance_valid(enemy) else 0])
+	for key: Variant in before:
+		if is_instance_valid(key):
+			var enemy := key as Enemy
+			report.append("%s %d->%d%s" % [enemy.data.id, before[key], enemy.health.current, " lured" if enemy.is_lured() else ""])
+		else:
+			report.append("%d->dead" % before[key])
 	print("MECHANIC %s near=%s" % [tag, report])
-	Input.action_release(&"aim_right")
+	Input.action_release(aim)
 	AimInput.set_virtual_gamepad(player, false)
 	level.queue_free()
 	await settle(4)
