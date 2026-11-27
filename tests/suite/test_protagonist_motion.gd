@@ -38,6 +38,7 @@ func run() -> void:
 	_test_node_squash_is_soft()
 	await _test_footfall_events()
 	await _test_legacy_two_hand_grips()
+	await _test_unarmed_squat()
 
 
 func _make(skin: String, input: RigInput) -> CharacterRig:
@@ -707,3 +708,77 @@ func _test_secondary_motion_lifecycle() -> void:
 	Story._scenes.erase(String(stage))
 	Story.auto_skip = previous_skip
 	await end_level(level)
+
+
+## 空手雙腳蹲（NE-394）：上身前傾壓在腳上、骨盆更低、前臂放到膝上，腳仍踩在地面；持槍的單膝跪不受影響；資料壞掉時沿用原本的垂放。
+func _test_unarmed_squat() -> void:
+	var holder := Node2D.new()
+	runner.get_tree().root.add_child(holder)
+	var rin := CharacterRig.new()
+	holder.add_child(rin)
+	check(rin.setup("rin"), "the protagonist rig builds for the squat check")
+	# 對照組：同一個角色、同樣的時間與換武器，但從頭到尾沒蹲過；待機本身會呼吸與換重心，起身後要和它比，不是和某一格的自己比。
+	var control := CharacterRig.new()
+	holder.add_child(control)
+	control.setup("rin")
+	rin.set_weapon("")
+	control.set_weapon("")
+	var input := RigInput.new()
+	input.on_floor = true
+	input.two_handed = false
+	var steady := RigInput.new()
+	steady.on_floor = true
+	steady.two_handed = false
+	for i in 60:
+		rin.animate(DT, input)
+		control.animate(DT, steady)
+	var standing_chest := rin.bone(&"chest").global_rotation
+	var standing_hand := rin.bone(&"hand_front").global_position
+	var standing_hip := rin.bone(&"hip").global_position.y
+	var standing_foot := maxf(rin.bone(&"foot_front").global_position.y, rin.bone(&"foot_back").global_position.y)
+	input.crouching = true
+	input.crouch_uses_kneel = false
+	for i in 90:
+		rin.animate(DT, input)
+		control.animate(DT, steady)
+	var squat_chest := rin.bone(&"chest").global_rotation
+	var squat_hand := rin.bone(&"hand_front").global_position
+	var knee := rin.bone(&"leg_front_lower").global_position
+	check(squat_chest - standing_chest > 0.2, "the unarmed squat leans the torso forward over the feet (%.2f rad)" % (squat_chest - standing_chest))
+	check(rin.bone(&"hip").global_position.y - standing_hip > 8.0, "the hips sink lower than the old half squat")
+	check(squat_hand.distance_to(knee) < 11.0 and squat_hand.x > rin.bone(&"hip").global_position.x and squat_hand.y < knee.y + 1.0,
+			"the front forearm rests on the front knee instead of hanging straight down (%.1f px from the knee)" % squat_hand.distance_to(knee))
+	check(squat_hand.distance_to(standing_hand) > 6.0, "the arm visibly leaves its hanging position in the squat")
+	var squat_foot := maxf(rin.bone(&"foot_front").global_position.y, rin.bone(&"foot_back").global_position.y)
+	check(absf(squat_foot - standing_foot) < 1.0, "both feet stay on the ground in the squat (%.2f px)" % (squat_foot - standing_foot))
+	rin.set_weapon("rifle")
+	control.set_weapon("rifle")
+	input.two_handed = true
+	steady.two_handed = true
+	input.crouch_uses_kneel = true
+	for i in 90:
+		rin.animate(DT, input)
+		control.animate(DT, steady)
+	check(rin.bone(&"chest").global_rotation < squat_chest - 0.1, "the armed kneel keeps its upright torso")
+	rin.set_weapon("")
+	control.set_weapon("")
+	input.two_handed = false
+	steady.two_handed = false
+	input.crouching = false
+	for i in 120:
+		rin.animate(DT, input)
+		control.animate(DT, steady)
+	var apart := rin.bone(&"hand_front").global_position.distance_to(control.bone(&"hand_front").global_position)
+	check(apart < 0.75 and is_zero_approx((rin.animator as HumanoidAnimator)._squat_support),
+			"standing up returns the arm to the same hang as a character that never squatted (%.2f px apart)" % apart)
+	check(HumanoidAnimator._read_squat_arms({"arms": [0.1, -0.9, 0.0, -0.8]}, "test_no_such_enemy").size() == 4, "four finite squat arm angles are accepted")
+	check(HumanoidAnimator._read_squat_arms({"arms": [0.1, "x", 0.0, 0.0]}, "test_no_such_enemy").is_empty()
+			and HumanoidAnimator._read_squat_arms({"chest": 0.3}, "test_no_such_enemy").is_empty()
+			and HumanoidAnimator._read_squat_arms(null, "test_no_such_enemy").is_empty(),
+			"broken or missing squat arm data keeps the normal arm hang")
+	var plain := CharacterRig.new()
+	holder.add_child(plain)
+	if plain.setup("trooper"):
+		check((plain.animator as HumanoidAnimator)._squat_arms.is_empty(), "characters without squat data are unchanged")
+	holder.queue_free()
+	await frames(1)

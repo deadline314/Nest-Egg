@@ -328,6 +328,11 @@ func _process(delta: float) -> void:
 		input.staggered = false
 		input.dead = false
 		input.shield_forward = _rigs[i].skin_id == "enforcer"
+		input.shield_pose_weight = 1.0
+		input.forearm_brace = false
+		input.hand_grip_back = false
+		input.guard_firearm_weight = 0.0
+		input.crouch_uses_kneel = true
 		input.two_handed = _rigs[i].skin_id != "enforcer" and not _npc
 		input.npc_pose = &"stand"
 		input.npc_loop = &""
@@ -362,6 +367,8 @@ func _process(delta: float) -> void:
 				input.aim_dir = Vector2(1, -1).normalized()
 			"crouch":
 				input.crouching = true
+				# 和遊戲一致：手上有槍才單膝跪，空手或近戰是雙腳支撐的蹲姿（PlayerVisual）。
+				input.crouch_uses_kneel = not _rigs[i].weapon_def().is_empty()
 			"jump":
 				input.on_floor = false
 				input.velocity = Vector2(80, -200)
@@ -370,6 +377,13 @@ func _process(delta: float) -> void:
 				input.velocity = Vector2(80, 260)
 			"block":
 				input.blocking = true
+				# 和遊戲一致：凜用後手前臂的偏折板擋、持槍手把槍收到腰側（PlayerVisual）；沒有這組資料的角色不受影響。
+				if _rigs[i].skin_id == PlayerVisual.SKIN_ID:
+					input.shield_forward = true
+					input.shield_pose_weight = 1.0
+					input.forearm_brace = true
+					input.hand_grip_back = true
+					input.guard_firearm_weight = 1.0
 				input.aim_dir = Vector2(1, -0.2).normalized()
 			"stagger":
 				input.staggered = true

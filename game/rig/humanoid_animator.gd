@@ -50,7 +50,9 @@ const DEFAULT_MOTION := {
 	"foot": {"droop": 0.25, "heel": 0.0, "toe_off": 0.0},
 	"torso": {"hip_swing": 0.0, "chest_counter": 0.0, "chest_wobble": 0.0, "wobble_phase": 0.0, "head_hold": 0.0},
 	"inertia": {"gain": 0.0, "ref_accel": 1600.0, "stiffness": 90.0, "damping": 11.0, "max": 0.3},
-	"crouch": {"hip_drop": 8.0, "hip": 0.0, "chest": 0.18, "legs": [-1.25, 2.05, -0.55, 1.85], "feet": [], "kneel": {}},
+	## squat：沒有單膝跪時（空手、近戰）的雙腳蹲姿另外指定的值，沒寫的沿用 crouch 自己的：
+	##   {"chest": 上身前傾, "hip_drop": 骨盆下降, "legs": [四個角度], "arms": [前上臂, 前前臂, 後上臂, 後前臂]（空手時手臂放在膝上的角度）}。
+	"crouch": {"hip_drop": 8.0, "hip": 0.0, "chest": 0.18, "legs": [-1.25, 2.05, -0.55, 1.85], "feet": [], "kneel": {}, "squat": {}},
 	# 空手時手臂怎麼垂、怎麼擺：hang＝[前上臂, 前前臂, 後上臂, 後前臂]（弧度；負的往前）。前手垂在身側、後手略往前，
 	# 兩隻手臂的角度不能一樣，否則站著時會並排在同一側，看起來像一邊長了兩隻手。swing＝滿速時上臂前後擺的幅度，停下來就不擺。
 	"arms": {"hang": [0.02, -0.18, -0.2, -0.28], "swing": 0.38},
@@ -59,7 +61,11 @@ const DEFAULT_MOTION := {
 	"dash": {"forward": {"chest": 0.38, "legs": [-1.0, 0.6, 0.85, 1.0]}, "back": {"chest": -0.22, "legs": [0.5, 0.9, -0.7, 0.4]}, "hip_drop": 0.0},
 	"land": {"gain": 0.0, "stiffness": 220.0, "damping": 16.0, "drop": 0.0, "chest": 0.0, "legs": [-0.8, 1.3, 0.1, 0.9]},
 	"impulse": {"jump": 0.0, "land": 0.0, "dash": 0.0, "hurt": 0.0, "stop": 0.0},
-	"block": {"chest": 0.1, "legs": [-0.4, 0.5, 0.5, 0.2], "plant_feet": false, "firearm_stow": {}, "reactions": {}},
+	## brace：前臂格擋的架勢（沒寫的沿用下面的預設＝原本寫死的數值）：
+	##   wrist [x, y]＝支撐手手腕相對肩膀的位置、aim [x, y]＝瞄準方向再推多少、angle／angle_aim＝前臂的角度與跟著瞄準轉多少、
+	##   hip_drop＝舉盾時骨盆下降（腳踩在原地，膝蓋跟著彎）、head＝低頭收下巴的角度。
+	"block": {"chest": 0.1, "legs": [-0.4, 0.5, 0.5, 0.2], "plant_feet": false, "firearm_stow": {}, "reactions": {},
+			"brace": {"wrist": [7.8, 1.7], "aim": [1.6, 3.4], "angle": -0.45, "angle_aim": 0.34, "hip_drop": 0.0, "head": 0.0}},
 	"hurt": {"stagger_chest": -0.35, "kick": 0.3},
 	"look": {"chest": 0.12, "neck": 0.12, "head": 0.3, "head_min": -0.35, "head_max": 0.3},
 	"npc": {"stand": {}, "talk_speed": 1.0, "talk_amp": 1.0, "life": {}},
@@ -167,6 +173,16 @@ var _idle_pin_w := 0.0
 var _kneel_w := 0.0
 var _kneel_parts := false  # 跪姿的專屬零件（前大腿用坐姿畫的那一塊）有沒有換上
 var _squat_support := 0.0
+## 空手雙腳蹲時手臂放在膝上的角度（crouch.squat.arms，四個數字；空＝不改）與混合後的結果（重複使用，不每格配置）。
+var _squat_arms: Array = []
+var _hang_blend: Array = [0.0, 0.0, 0.0, 0.0]
+## 前臂格擋的架勢（block.brace）。
+var _brace_wrist := Vector2(7.8, 1.7)
+var _brace_aim := Vector2(1.6, 3.4)
+var _brace_angle := -0.45
+var _brace_angle_aim := 0.34
+var _brace_hip_drop := 0.0
+var _brace_head := 0.0
 var _idle_foot_x: Array[float] = [0.0, 0.0]
 ## Reused leg IK blend base; do not allocate a temporary pose for each chain each frame.
 var _feet_base: Array[float] = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
@@ -201,6 +217,8 @@ func _init(rig: CharacterRig) -> void:
 	_forward_kinematics()
 	_ground_y = _lowest_foot_y()
 	_guard_firearm_stow = _motion["block"]["firearm_stow"]
+	_read_brace(_motion["block"].get("brace"), rig.skin_id)
+	_squat_arms = _read_squat_arms((_motion["crouch"] as Dictionary).get("squat"), rig.skin_id)
 	var guard_reactions: Dictionary = _motion["block"]["reactions"]
 	_parry_reaction = _read_guard_reaction(guard_reactions.get("parry"), "parry", rig.skin_id)
 	_break_reaction = _read_guard_reaction(guard_reactions.get("break"), "break", rig.skin_id)
@@ -550,6 +568,14 @@ func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> 
 		pose[&"_hip_y"] = float(crouch["hip_drop"])
 		pose[&"chest"] = float(crouch["chest"])
 		_set_legs_from(pose, crouch["legs"])
+		var squat: Dictionary = crouch["squat"]
+		if not input.crouch_uses_kneel and not squat.is_empty():
+			# 雙腳蹲（空手、近戰）：上身往前壓在腳掌上方，骨盆再低一點，不是直挺挺地半蹲。
+			pose[&"chest"] = _finite_or(squat.get("chest"), pose[&"chest"])
+			pose[&"_hip_y"] = _finite_or(squat.get("hip_drop"), pose[&"_hip_y"])
+			var squat_legs: Variant = squat.get("legs")
+			if squat_legs is Array and (squat_legs as Array).size() >= 4:
+				_set_legs_from(pose, squat_legs)
 		if input.crouch_walking and _has_grounded_gait():
 			# A short planted stride stays below the standing pose and avoids sliding the locked kneel.
 			pose[&"_hip_y"] += 3.0
@@ -626,6 +652,9 @@ func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> 
 		pose[&"chest"] += (float(block["chest"]) + _absorb_reaction.z * input.shield_absorption) * weight
 		if input.on_floor:
 			pose[&"_hip_y"] += maxf(0.0, _absorb_reaction.y) * input.shield_absorption * weight * 0.5
+			if not input.crouching:
+				# 舉盾時壓低重心：腳踩在原地，骨盆下降讓膝蓋跟著彎（走動時步態自己處理腿，所以只在站定時加）。
+				pose[&"_hip_y"] += _brace_hip_drop * weight * (1.0 - _run_w)
 	if input.blocking:
 		if not input.forearm_brace:
 			pose[&"chest"] += float(block["chest"])
@@ -643,6 +672,9 @@ func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> 
 	pose[&"chest"] = float(pose.get(&"chest", 0.0)) + aim_angle * float(look["chest"]) - _recoil * float((_motion["recoil"] as Dictionary)["chest"])
 	pose[&"neck"] = aim_angle * float(look["neck"])
 	pose[&"head"] = clampf(aim_angle * float(look["head"]), float(look["head_min"]), float(look["head_max"]))
+	if input.forearm_brace and input.shield_forward and _brace_head != 0.0:
+		# 舉盾時收下巴，視線從前臂上緣看出去。
+		pose[&"head"] = float(pose[&"head"]) + _brace_head * smoothstep(0.0, 1.0, input.shield_pose_weight)
 	return pose
 
 
@@ -1429,7 +1461,7 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 		var guard_wrist := shoulder + aim * 12.7 + Vector2(0, 2)
 		if input.forearm_brace:
 			# Keep the elbow under the load and carry the longitudinal force along the forearm.
-			guard_wrist = shoulder + Vector2(7.8 + 1.6 * absf(aim.x), 1.7 + aim.y * 3.4)
+			guard_wrist = shoulder + Vector2(_brace_wrist.x + _brace_aim.x * absf(aim.x), _brace_wrist.y + aim.y * _brace_aim.y)
 		if (input.melee_grip or (not input.forearm_brace and not weapon.is_empty())) and not _guard_firearm_stow.is_empty():
 			# Keep the plate clear of the equipment carried by the other hand.
 			var pelvis: Vector2 = _global_pos.get(&"hip", anchor_point)
@@ -1437,7 +1469,7 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 		var response := _parry_reaction if input.shield_reaction >= 0.0 else _break_reaction
 		var impulse := response * absf(input.shield_reaction) + _absorb_reaction * input.shield_absorption
 		guard_wrist += Vector2(impulse.x, impulse.y)
-		var guard_angle := (aim_angle * 0.34 - 0.45 if input.forearm_brace else aim_angle * 0.3) + impulse.z
+		var guard_angle := (aim_angle * _brace_angle_aim + _brace_angle if input.forearm_brace else aim_angle * 0.3) + impulse.z
 		if guard_pose < 1.0:
 			# Blend from the solved regular wrist, keeping the same two-bone reach limits.
 			_forward_kinematics()
@@ -1630,19 +1662,93 @@ func _measure_far_arm_tuck() -> Vector2:
 
 ## 空手時遠側手臂的垂放角度：動作資料自己寫了 arms.hang 的角色用資料的，其他角色用量出來的藏手角度。
 func _far_arm_hang() -> Vector2:
-	var hang := _arm_hang()
+	var hang := _standing_arm_hang()
 	var default_hang: Array = (DEFAULT_MOTION["arms"] as Dictionary)["hang"]
+	var far := Vector2(float(hang[2]), float(hang[3]))
 	if _far_arm_tuck.is_finite() and is_equal_approx(float(hang[2]), float(default_hang[2])) and is_equal_approx(float(hang[3]), float(default_hang[3])):
-		return _far_arm_tuck
-	return Vector2(float(hang[2]), float(hang[3]))
+		far = _far_arm_tuck
+	var w := _squat_arm_weight()
+	if w > 0.0:
+		far = Vector2(lerp_angle(far.x, float(_squat_arms[2]), w), lerp_angle(far.y, float(_squat_arms[3]), w))
+	return far
 
 
 ## 空手時四段手臂的垂放角度（動作資料 arms.hang）；資料不是四個數字時用預設值。
 func _arm_hang() -> Array:
+	var hang := _standing_arm_hang()
+	var w := _squat_arm_weight()
+	if w <= 0.0:
+		return hang
+	for i in 4:
+		_hang_blend[i] = lerp_angle(float(hang[i]), float(_squat_arms[i]), w)
+	return _hang_blend
+
+
+func _standing_arm_hang() -> Array:
 	var hang: Variant = (_motion["arms"] as Dictionary).get("hang")
 	if typeof(hang) == TYPE_ARRAY and (hang as Array).size() >= 4:
 		return hang
 	return (DEFAULT_MOTION["arms"] as Dictionary)["hang"]
+
+
+## 空手雙腳蹲時手臂往膝上放的程度（0＝照常垂放）。
+func _squat_arm_weight() -> float:
+	return smoothstep(0.0, 1.0, _squat_support) if _squat_arms.size() >= 4 else 0.0
+
+
+static func _finite_or(value: Variant, fallback: Variant) -> float:
+	if (value is float or value is int) and is_finite(float(value)):
+		return float(value)
+	return float(fallback)
+
+
+## crouch.squat.arms：四個有限的角度才採用；格式不對時記錄是哪個角色並沿用原本的垂放。
+static func _read_squat_arms(squat: Variant, skin_id: String) -> Array:
+	if not squat is Dictionary or not (squat as Dictionary).has("arms"):
+		return []
+	var arms: Variant = (squat as Dictionary)["arms"]
+	var valid: bool = arms is Array and (arms as Array).size() == 4
+	if valid:
+		for value: Variant in arms:
+			valid = valid and (value is float or value is int) and is_finite(float(value))
+	if not valid:
+		RigLibrary.report_once("motion.crouch.squat.arms:" + skin_id,
+				"[HumanoidAnimator] art/motion/%s.json: crouch.squat.arms 要是四個有限的角度；蹲下時手臂沿用原本的垂放。" % skin_id)
+		return []
+	return arms
+
+
+## block.brace：逐項讀取，缺漏或不是有限數字的那一項沿用預設並記錄是哪個角色的哪一項。
+func _read_brace(brace: Variant, skin_id: String) -> void:
+	var defaults: Dictionary = (DEFAULT_MOTION["block"] as Dictionary)["brace"]
+	var source: Dictionary = brace if brace is Dictionary else {}
+	_brace_wrist = _brace_pair(source, defaults, "wrist", skin_id)
+	_brace_aim = _brace_pair(source, defaults, "aim", skin_id)
+	_brace_angle = _brace_number(source, defaults, "angle", skin_id)
+	_brace_angle_aim = _brace_number(source, defaults, "angle_aim", skin_id)
+	_brace_hip_drop = _brace_number(source, defaults, "hip_drop", skin_id)
+	_brace_head = _brace_number(source, defaults, "head", skin_id)
+
+
+static func _brace_number(source: Dictionary, defaults: Dictionary, key: String, skin_id: String) -> float:
+	var value: Variant = source.get(key, defaults[key])
+	if (value is float or value is int) and is_finite(float(value)):
+		return float(value)
+	RigLibrary.report_once("motion.block.brace.%s:%s" % [key, skin_id], "[HumanoidAnimator] art/motion/%s.json: block.brace.%s 不是有限數字，沿用預設。" % [skin_id, key])
+	return float(defaults[key])
+
+
+static func _brace_pair(source: Dictionary, defaults: Dictionary, key: String, skin_id: String) -> Vector2:
+	var value: Variant = source.get(key, defaults[key])
+	var valid: bool = value is Array and (value as Array).size() == 2
+	if valid:
+		for item: Variant in value:
+			valid = valid and (item is float or item is int) and is_finite(float(item))
+	if valid:
+		return Vector2(float(value[0]), float(value[1]))
+	RigLibrary.report_once("motion.block.brace.%s:%s" % [key, skin_id], "[HumanoidAnimator] art/motion/%s.json: block.brace.%s 要是兩個有限數字，沿用預設。" % [skin_id, key])
+	var fallback: Array = defaults[key]
+	return Vector2(float(fallback[0]), float(fallback[1]))
 
 
 ## 空手時上臂的擺幅：跟著水平速度從 0 增加到 arms.swing（半速就擺滿），站著不擺。
