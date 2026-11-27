@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=21 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=23 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Resource" path="res://data/props/credits_small.tres" id="2_credits_small"]
@@ -14,6 +14,8 @@
 [ext_resource type="Resource" path="res://data/lighting/hangar.tres" id="12_hangar"]
 [ext_resource type="Resource" path="res://data/environment/themes/ch2_loading.tres" id="13_ch2_loading"]
 [ext_resource type="Resource" path="res://data/props/suspended_crate.tres" id="94_suspended_crate"]
+[ext_resource type="Script" path="res://data/scripts/area_challenge_data.gd" id="95_challenge_script"]
+[ext_resource type="Resource" path="res://data/challenges/ch2_loading_unseen.tres" id="96_challenge"]
 
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("3_portal_data")
@@ -111,3 +113,4 @@ layout_path = "res://data/levels/ch2_loading_map.json"
 lighting_zones = Array[ExtResource("10_lighting_zone")]([SubResource("Resource_4"), SubResource("Resource_5")])
 story_triggers = PackedStringArray("ch2_s09_wire", "ch2_s09_hawker")
 death_credit_cap = 250
+challenges = Array[ExtResource("95_challenge_script")]([ExtResource("96_challenge")])

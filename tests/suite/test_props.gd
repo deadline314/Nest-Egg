@@ -45,6 +45,7 @@ func run() -> void:
 	await _test_hazard_avoidance()
 	await _test_steam_blocks_sight()
 	await _test_area_challenge()
+	await _test_unseen_challenge()
 
 
 func _test_mechanism_translations() -> void:
@@ -996,3 +997,48 @@ func _test_area_challenge() -> void:
 	challenge.restore_state(saved)
 	check(challenge.done and challenge.state_key() == "challenge@test_environment", "the challenge state round-trips under a stable key")
 	await end_level(level)
+
+
+## 「不被發現」挑戰（NE-411）：走到終點前沒被發現就完成；終點附近的敵人一進入戰鬥就失敗、不給獎勵；失敗跟著檢查點重置。
+func _test_unseen_challenge() -> void:
+	var loading := load("res://data/levels/ch2_loading.tres") as LevelData
+	check(loading != null and loading.challenges.size() == 1 and loading.challenges[0].kind == AreaChallengeData.Kind.UNSEEN_PASS and loading.challenges[0].validate().is_empty(), "the loading bay has a valid unseen-pass challenge")
+	var no_finish := AreaChallengeData.new()
+	no_finish.kind = AreaChallengeData.Kind.UNSEEN_PASS
+	check("".join(no_finish.validate()).contains("終點"), "an unseen-pass challenge without a finish cell is reported")
+	for spotted: bool in [false, true]:
+		var challenge_data := AreaChallengeData.new()
+		challenge_data.id = &"test_unseen"
+		challenge_data.kind = AreaChallengeData.Kind.UNSEEN_PASS
+		challenge_data.target = 1
+		challenge_data.reward_credits = 30
+		challenge_data.finish_cell_x = 20
+		challenge_data.goal = "測試"
+		challenge_data.localized_goals = {"en": "test", "ja": "テスト"}
+		var data := LevelData.new()
+		data.id = &"unseen_challenge_test"
+		data.layout_path = CABLE_MAP
+		data.legend = {"g": load(GRUNT_PATH)}
+		data.challenges = [challenge_data]
+		var level := await start_level(data)
+		var challenge := runner.get_tree().get_nodes_in_group(AreaChallenge.GROUP)[0] as AreaChallenge
+		var enemy: Enemy
+		for node in runner.get_tree().get_nodes_in_group(&"enemies"):
+			enemy = node as Enemy
+		var player := level.player
+		player.set_physics_process(false)
+		var credits_before := Progression.credits
+		player.global_position += Vector2(0.0, -200.0)
+		if spotted:
+			enemy.raise_alert(player.global_position, 3.0)
+		await runner.get_tree().create_timer(AreaChallenge.WATCH_EVERY * 2.0).timeout
+		# 終點在敵人頭上：玩家從上方越過，地面的敵人看不到（高度差超過視野）。
+		player.global_position = Vector2(21.0 * 16.0, player.global_position.y - 200.0)
+		await runner.get_tree().create_timer(AreaChallenge.WATCH_EVERY * 2.0).timeout
+		if spotted:
+			check(challenge.failed and not challenge.done and Progression.credits == credits_before, "being spotted fails the challenge and pays nothing")
+			challenge.restore_state({"progress": 0, "done": false, "failed": false})
+			check(not challenge.failed and challenge.is_physics_processing(), "an earlier checkpoint resets a failed challenge")
+		else:
+			check(challenge.done and Progression.credits == credits_before + 30, "reaching the finish unseen completes the challenge and pays once")
+		await end_level(level)

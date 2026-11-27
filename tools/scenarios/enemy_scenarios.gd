@@ -32,6 +32,7 @@ const SCENARIOS := {
 	"hazard_avoidance": "res://tools/scenarios/hazard_avoidance_scenario.gd",
 	"steam_push": "res://tools/scenarios/steam_push_scenario.gd",
 	"area_challenge": "res://tools/scenarios/area_challenge_scenario.gd",
+	"unseen_challenge": "res://tools/scenarios/unseen_challenge_scenario.gd",
 	"scene_packs": "res://tools/scenarios/scene_pack_scenario.gd",
 	"lighting_scenes": "res://tools/scenarios/lighting_scene_scenario.gd",
 	"enemy_vfx": "res://tools/scenarios/enemy_vfx_scenario.gd",

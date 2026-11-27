@@ -917,7 +917,7 @@ func _spawn_challenges() -> void:
 		if not problems.is_empty():
 			continue
 		var challenge := AreaChallenge.new()
-		challenge.configure(challenge_data)
+		challenge.configure(challenge_data, _layout.tile_size)
 		add_child(challenge)
 
 

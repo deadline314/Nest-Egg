@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="AreaChallengeData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/area_challenge_data.gd" id="1_challenge"]
+
+[resource]
+script = ExtResource("1_challenge")
+id = &"ch2_loading_unseen"
+kind = 1
+target = 1
+reward_credits = 50
+finish_cell_x = 73
+goal = "不被發現，從上方走道走到吊著的貨箱上方"
+localized_goals = Dictionary[String, String]({
+"en": "Reach the hanging crate along the upper walkway without being spotted",
+"ja": "見つからずに、上の通路から吊られた荷箱の上まで進む"
+})
