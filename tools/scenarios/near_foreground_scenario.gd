@@ -5,7 +5,7 @@ extends ScenarioBase
 ## 用法（原生 Forward+）：godot --path . res://tools/screenshot.tscn -- --out=<絕對資料夾> --scenario=near_foreground
 
 const AREAS := {
-	"ch3_glass_edge": [14, 30, 48],
+	"ch3_glass_edge": [8, 14, 30, 48],
 	"ch1_street": [24, 96, 160],
 }
 const GRUNT := "res://data/enemies/grunt.tres"

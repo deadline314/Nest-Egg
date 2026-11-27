@@ -7,6 +7,8 @@ extends Node2D
 ## 亮邊強度是區段資料（地圖的 "near_foreground_rim"，沒寫時有主光 0.45、沒有主光 0.12）。
 ## 資料：地圖 JSON 頂層的 "near_foreground"（每一排：anchor、pieces、base、deck_pieces、deck_base、rise 或 above、spacing、scale、from、to），
 ## 零件在 LIBRARY_PATH（貼圖零件只取形狀；"strip" 零件由程式畫成連續的一段）。
+## 零件庫的 "needs_sky": true 標記枝葉這種壓在深色背景上會糊掉的垂掛物：地圖要把它放在後面是天空的欄位
+## （tools/scenarios/sky_behind_scenario.gd 掃描每一欄後面的亮度並檢查實際放的位置）。
 ##
 ## 判讀優先：走道那排最多只露出小腿高（CALF_RISE），戰鬥範圍（敵人出生點附近）更矮；垂掛物的底邊離下面最高的走道
 ## 至少 HEAD_CLEAR，戰鬥範圍不放。放不下就略過那一件。規則集中在 plan()，遊戲與自動檢查用同一份。
@@ -348,6 +350,11 @@ class _Strip:
 	var seed_value := 0
 	var fill := Color.BLACK
 	var rim := Color(1, 1, 1, 0.2)
+	## 花台細節（唇口的面、接縫）比剪影亮多少（往主光色混；HDR 2D 把顏色轉成線性，暗的值看起來更暗，所以要比感覺高）；
+	## 排水口的大小；托架往下伸多長（進到地面剖面的橋面樑）。
+	const DETAIL_MIX := 0.2
+	const NOTCH := Vector2(4.0, 4.0)
+	const BRACKET := 8.0
 
 	func _draw() -> void:
 		var rng := RandomNumberGenerator.new()
@@ -381,15 +388,40 @@ class _Strip:
 			x += rng.randf_range(18.0, 28.0)
 
 	func _planter(rng: RandomNumberGenerator) -> void:
-		# 一條連續的花台：身體不斷開，唇口一段一段有些微高低（沒有縫，不會變成一格一格的面板）。
+		# 一條連續的花台（BG-73）：唇口一段一段有些微高低、比身體略亮的一個面；段與段之間一條接縫；
+		# 身體下緣每段切一兩個排水口（看得到後面的地面剖面）；每隔一個接縫一個三角托架往下伸進地面剖面的橋面樑，
+		# 花台看起來是架在下面的結構上，不是浮著的一條黑帶。細節只比剪影亮一點，不搶走道。
 		var lip := 3.0
-		draw_rect(Rect2(0, lip, size.x, size.y - lip), fill)
+		var face := fill.lerp(Color(rim, 1.0), DETAIL_MIX)
+		var seam := fill.lerp(Color(rim, 1.0), DETAIL_MIX * 1.6)
 		var x := 0.0
+		var joint := 0
 		while x < size.x:
 			var length := minf(rng.randf_range(38.0, 64.0), size.x - x)
 			var lift := rng.randf_range(0.0, 1.5)
-			draw_rect(Rect2(x, lift, length, lip + 1.0), fill)
+			# 身體：下緣切出排水口（不畫那一小格，後面的結構露出來）。
+			var notch_count := 1 if length < 50.0 else 2
+			var cuts: Array[float] = []
+			for k in notch_count:
+				cuts.append(x + length * (float(k) + 1.0) / (notch_count + 1.0) - NOTCH.x * 0.5)
+			var from := x
+			for cut in cuts:
+				draw_rect(Rect2(from, lip, cut - from, size.y - lip), fill)
+				draw_rect(Rect2(cut, lip, NOTCH.x, size.y - lip - NOTCH.y), fill)
+				from = cut + NOTCH.x
+			draw_rect(Rect2(from, lip, x + length - from, size.y - lip), fill)
+			# 唇口：略亮的面、上緣亮邊、下緣一條陰影。身體保持剪影色：走道邊緣下方那一帶要暗，邊緣才讀得出來。
+			draw_rect(Rect2(x, lift, length, lip + 1.0), face)
+			draw_line(Vector2(x, lip + 1.5), Vector2(x + length, lip + 1.5), fill, 1.0)
 			_top(Vector2(x, lift), Vector2(x + length, lift))
+			# 接縫與托架（不在最左邊的起點）。
+			if x > 0.0:
+				draw_line(Vector2(x, lip + 1.0), Vector2(x, size.y), seam, 1.0)
+				if joint % 2 == 0:
+					draw_colored_polygon(PackedVector2Array([Vector2(x - 5.0, size.y - 1.0), Vector2(x + 5.0, size.y - 1.0),
+						Vector2(x + 1.5, size.y + BRACKET), Vector2(x - 1.5, size.y + BRACKET)]), fill)
+					draw_circle(Vector2(x, size.y + 2.0), 1.0, seam)
+				joint += 1
 			x += length
 
 	func _bollards(rng: RandomNumberGenerator) -> void:

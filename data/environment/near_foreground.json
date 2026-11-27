@@ -6,7 +6,7 @@
   "planters": {"texture": "res://art/environment/scene_props/sunlit_district/sunlit_district__flower_planters.png", "anchor": "bottom", "width": 96},
   "cables": {"texture": "res://art/environment/props/cables_hang.png", "anchor": "top", "width": 34, "sway": 1.4},
   "lanterns": {"texture": "res://art/environment/props/lantern_string.png", "anchor": "top", "width": 110, "sway": 0.8},
-  "foliage": {"texture": "res://art/environment/scene_props/public_garden/public_garden__big_shade_tree.png", "anchor": "top", "width": 100, "region": [0.0, 0.0, 1.0, 0.62], "flip_v": true, "sway": 1.8, "rim_all": true},
+  "foliage": {"texture": "res://art/environment/scene_props/public_garden/public_garden__big_shade_tree.png", "anchor": "top", "width": 100, "region": [0.0, 0.0, 1.0, 0.62], "flip_v": true, "sway": 1.8, "rim_all": true, "needs_sky": true},
   "railing": {"strip": true, "anchor": "bottom", "rise": 13, "depth": 10},
   "planter_edge": {"strip": true, "anchor": "bottom", "rise": -1, "depth": 18},
   "curb_bollards": {"strip": true, "anchor": "bottom", "rise": 9, "depth": 6},

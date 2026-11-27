@@ -394,7 +394,7 @@ def build_glass_edge():
         'ground_section': {'start': 14, 'fade': 0.7, 'piles': [56, 104], 'pipes': 0.5},
         # 中景（BG-69、BG-71）：靠牆的回收桶、行道樹花台、咖啡棚、販賣機、貨箱、管線、油桶（深色為主），由 Midground 依規則排位置。
         'midground': {'pieces': ['sunlit_district__sorting_bins', 'sunlit_district__street_tree_planter', 'sunlit_district__cafe_awning_set', 'vending_machine', 'crates_stack', 'pipe_vertical', 'barrels'], 'spacing': [50, 120], 'from': 2, 'to': 70},
-        'near_foreground': [{'anchor': 'bottom', 'base': ['planter_edge'], 'pieces': ['rose_bush', 'planters'], 'rise': 14, 'spacing': [30, 120], 'scale': [0.6, 1.15], 'from': 0, 'to': 72}, {'anchor': 'top', 'pieces': ['foliage', 'lanterns'], 'above': 175, 'spacing': [110, 260], 'from': 0, 'to': 72}]}
+        'near_foreground': [{'anchor': 'bottom', 'base': ['planter_edge'], 'pieces': ['rose_bush', 'planters'], 'rise': 14, 'spacing': [30, 120], 'scale': [0.6, 1.15], 'from': 0, 'to': 72}, {'anchor': 'top', 'pieces': ['foliage'], 'above': 175, 'spacing': [40, 120], 'from': 4, 'to': 22}, {'anchor': 'top', 'pieces': ['lanterns'], 'above': 175, 'spacing': [110, 260], 'from': 24, 'to': 72}]}
     a.features = {'landmark': '地上的光斑（x=20）與觀景框（x=30）', 'secret': '觀景框的塔頂花園遠景（可選）'}
     return a
 
