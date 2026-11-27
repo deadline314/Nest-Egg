@@ -14,10 +14,9 @@ const TEXTURE_SCALE := 4
 @export_file("*.png") var texture: String = ""
 ## 遊戲中的大小（邏輯像素）。
 @export var size: Vector2 = Vector2(16, 16)
-## BACK：在角色後面；FRONT：在角色前面（半透明，不遮住敵人與子彈）。
+## BACK：在角色後面；FRONT：在所有角色、子彈、霧與雨的前面，不透明（NE-402）。
+## 前景擺設只能放在不擋戰鬥判讀的位置（畫面上緣、走道外緣），不靠半透明解決。
 @export var layer: Layer = Layer.BACK
-## 前層道具的透明度上限。
-@export_range(0.1, 1.0) var front_alpha: float = 0.7
 ## 有同名 `_glow.png` 時自動疊上自發光層。
 @export var has_glow: bool = false
 @export var glow_intensity: float = 1.6

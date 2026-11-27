@@ -208,7 +208,7 @@ class EmpPulse:
 
 	func _ready() -> void:
 		LightKit.mark_emissive(self)
-		z_index = 6
+		z_index = WorldLayers.FX
 
 	func _process(delta: float) -> void:
 		_age += delta

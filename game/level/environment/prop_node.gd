@@ -52,8 +52,7 @@ func _ready() -> void:
 		sprite.material = sway_material(data.sway, data.sway_hang)
 	add_child(sprite)
 	if data.layer == PropData.Layer.FRONT:
-		z_index = 3
-		modulate.a = data.front_alpha
+		z_index = WorldLayers.FRONT_PROPS
 	if data.has_glow:
 		_add_glow()
 	if data.light_radius > 0.0:

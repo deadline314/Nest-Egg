@@ -80,7 +80,9 @@ static var _wing_texture: GradientTexture2D
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	LightKit.mark_emissive(self)
-	z_index = 20
+	# 絕對圖層：提示掛在角色、檢查點、拾取物底下，但一律畫在所有角色與前景之上，不跟著主人的圖層組。
+	z_as_relative = false
+	z_index = WorldLayers.WORLD_PROMPTS
 	_font = UiKit.font()
 	position = offset
 	_refresh_text()

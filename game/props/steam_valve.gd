@@ -193,7 +193,7 @@ class _Screen:
 		_shape.disabled = true
 		add_child(_shape)
 		z_as_relative = false
-		z_index = WorldLayers.ENTITY_BEHIND + 30  # 畫在角色前面一點：子彈從蒸汽裡消失要看得到
+		z_index = WorldLayers.STEAM_SCREEN  # 畫在子彈之上：子彈從蒸汽裡消失要看得到
 
 	func set_blocking(on: bool) -> void:
 		_shape.set_deferred(&"disabled", not on)

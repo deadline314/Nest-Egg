@@ -50,7 +50,7 @@ func _ready() -> void:
 	# Continue observing modal ownership while the world is paused, without
 	# consuming an unseen line's reading time or reporting its completion.
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	z_index = 30
+	z_index = WorldLayers.MAP_BUBBLES
 	_font = UiKit.font()
 	_font.changed.connect(_invalidate_layout)
 	Settings.display_changed.connect(_invalidate_layout)

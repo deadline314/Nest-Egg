@@ -63,7 +63,7 @@ func configure(boss: Enemy, config: Dictionary, where: String) -> void:
 			else:
 				push_error("[BossMark] %s：mark.pads 的項目要有 tile（欄），略過 %s" % [where, entry])
 	top_level = true
-	z_index = 2
+	z_index = WorldLayers.ABOVE_CHARACTERS  # top_level：絕對 z；地墊與頭頂的層數標記畫在所有角色之上
 	set_physics_process(false)
 
 

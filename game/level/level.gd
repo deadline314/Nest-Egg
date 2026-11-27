@@ -50,6 +50,8 @@ var _area_route_before: Dictionary = {}
 var _layout: LevelLayout
 var _world: Node2D
 var _entities: Node2D
+## 角色圖層組的使用狀況（1 = 有角色在用），見 _claim_actor_layer。
+var _actor_slots := PackedByteArray()
 var _bubbles: MapBubbles
 var _tokens: AttackTokens
 var _pause_menu: PauseMenu
@@ -284,13 +286,13 @@ func _build_entry() -> void:
 
 	var projectiles := Node2D.new()
 	projectiles.name = "Projectiles"
-	projectiles.z_index = 4
+	projectiles.z_index = WorldLayers.PROJECTILES
 	_world.add_child(projectiles)
 	ProjectilePool.bind_container(projectiles)
 
 	var fx := Node2D.new()
 	fx.name = "Fx"
-	fx.z_index = 6
+	fx.z_index = WorldLayers.FX
 	_world.add_child(fx)
 	Fx.bind_container(fx)
 
@@ -676,10 +678,31 @@ func _spawn_static_entities() -> void:
 
 
 ## 不是角色的實體（看板、檢查點、出入口、開關、拾取物…）排在所有角色零件之下；已經有自己圖層的不動。
+## 角色各拿一整組圖層（WorldLayers.level_actor_z）：玩家在最上面，其他角色拿最低的空組，離開關卡時歸還。
 func _send_behind_characters(node: Node) -> void:
 	var item := node as CanvasItem
-	if item != null and item.z_index == 0 and not WorldLayers.is_character(node):
+	if item == null:
+		return
+	if node is Player:
+		item.z_index = WorldLayers.PLAYER_Z
+	elif WorldLayers.is_character(node):
+		_claim_actor_layer(item)
+	elif item.z_index == 0:
 		item.z_index = WorldLayers.ENTITY_BEHIND
+
+
+func _claim_actor_layer(actor: CanvasItem) -> void:
+	if _actor_slots.is_empty():
+		_actor_slots.resize(WorldLayers.LEVEL_ACTOR_SLOTS)
+	var slot := _actor_slots.find(0)
+	if slot < 0:
+		slot = WorldLayers.LEVEL_ACTOR_SLOTS - 1
+		push_warning("[Level] %s 同時在場的角色超過 %d 組圖層，%s（格 %s）和最後一組共用圖層，重疊時零件可能交錯"
+				% [data.id, WorldLayers.LEVEL_ACTOR_SLOTS, actor.name, Vector2i((actor as Node2D).position / _layout.tile_size)])
+	else:
+		_actor_slots[slot] = 1
+		actor.tree_exiting.connect(func() -> void: _actor_slots[slot] = 0, CONNECT_ONE_SHOT)
+	actor.z_index = WorldLayers.level_actor_z(slot)
 
 
 ## 把剛生成的靜態場景節點（還在預設圖層的）排到所有角色零件之下；已經有自己圖層的（前景道具）不動。
@@ -776,14 +799,14 @@ func _prop_dirs() -> PackedStringArray:
 ## 雨與霧（畫在角色前方，低透明度）。
 func _spawn_atmosphere() -> void:
 	_fog = FogLayer.new()
-	_fog.z_index = 7
+	_fog.z_index = WorldLayers.FOG
 	_fog.ground_y = _layout.ground_y
 	_fog.layout = _layout
 	_fog.color = data.fog_color
 	_world.add_child(_fog)
 	if data.rain:
 		var rain := RainLayer.new()
-		rain.z_index = 8
+		rain.z_index = WorldLayers.RAIN
 		rain.tile_size = _layout.tile_size
 		rain.surface_heights = _layout.surface_heights
 		_world.add_child(rain)

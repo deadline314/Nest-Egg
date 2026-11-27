@@ -12,7 +12,8 @@ const PLATE_HEIGHT := 10.0
 ## 頭頂高度：水面超過腳底往上這麼多就溺斃。
 const HEAD_HEIGHT := 40.0
 const DROWN_SOURCE := &"flood"
-const WATER_Z := 9
+## 水面畫在所有角色之上：淹過頭頂時整個角色都在水裡，不是手臂浮在水面上。
+const WATER_Z := WorldLayers.ABOVE_CHARACTERS
 const RAFT_THICKNESS := 6.0
 const PLATE_HINT: Dictionary[String, String] = {
 	"en": "Step on the plate to open the gate. The water will rise.",

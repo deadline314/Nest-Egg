@@ -33,7 +33,7 @@ var _curtain: _Curtain
 func _ready() -> void:
 	scroll_scale = Vector2(SCROLL_SCALE, 1.0)
 	repeat_size = Vector2(REPEAT_WIDTH, 0)
-	z_index = 15
+	z_index = WorldLayers.FOREGROUND
 	_static = _Static.new()
 	_static.ground_y = ground_y
 	add_child(_static)

@@ -339,7 +339,7 @@ func _test_backdrop_motion_nodes() -> void:
 	await frames(1)
 
 
-## 樹木與植被（NE-64）：數量、前景樹半透明、搖動用共用著色器、不增加每影格開銷、第一章有擺放。
+## 樹木與植被（NE-64）：數量、前景樹、搖動用共用著色器、不增加每影格開銷、第一章有擺放。
 func _test_trees() -> void:
 	var trees: Array[PropData] = []
 	for prop in PropLibrary.all():
@@ -355,7 +355,6 @@ func _test_trees() -> void:
 			swaying += 1
 		if prop.layer == PropData.Layer.FRONT:
 			front += 1
-			check(prop.front_alpha < 1.0, "前景植物 %s 半透明，不遮住敵人與子彈" % prop.id)
 	check(swaying >= 4, "會被風吹動的植物至少 4 種（%d）" % swaying)
 	check(front >= 1, "至少有一種前景植物")
 	var swaying_prop := PropLibrary.find(&"tree_island")

@@ -42,7 +42,7 @@ var _pickup_frame := -1
 
 func _ready() -> void:
 	top_level = true
-	z_index = WorldLayers.CHARACTER_MAX_Z + 1  # 預覽線畫在角色前面
+	z_index = WorldLayers.ABOVE_CHARACTERS  # 預覽線畫在所有角色前面（top_level 的 z 是絕對的）
 	_pickup_ray.collision_mask = Layers.WORLD
 	_pickup_ray.hit_from_inside = true
 	Story.framing.register_target(self, true)

@@ -178,7 +178,6 @@ func place_scenery(prop: PropData, rect: Rect2, flip := false) -> void:
 	sprite.z_index = WorldLayers.PROPS
 	if prop.layer == PropData.Layer.FRONT:
 		sprite.z_index = WorldLayers.STAGE_FRONT
-		sprite.modulate.a = prop.front_alpha
 	add_child(sprite)
 
 

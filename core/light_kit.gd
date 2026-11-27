@@ -168,6 +168,9 @@ static func create_point_light(color: Color, radius: float, energy: float, shado
 	light.energy = energy
 	light.blend_mode = Light2D.BLEND_MODE_ADD
 	light.height = LIGHT_HEIGHT
+	# 預設只照 z −1024～1024；關卡角色各佔一組圖層之後最上面會超過 1024（WorldLayers.WORLD_TOP）。
+	light.range_z_min = RenderingServer.CANVAS_ITEM_Z_MIN
+	light.range_z_max = RenderingServer.CANVAS_ITEM_Z_MAX
 	light.shadow_enabled = shadows
 	light.set_meta(META_WANTS_SHADOW, shadows)
 	if managed:

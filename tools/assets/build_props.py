@@ -11,9 +11,9 @@ Reads assets_src/pipeline/props.json. For every prop it
      aspect), light_offset (scaled with the size) and has_glow.
 Grading lives in the JSON. Set GODOT to the Godot executable (default: C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe).
 Props with a one-way platform must keep their aspect ("keep_size": true stretches to the old size instead).
-New props: an entry with "new": {display_name, category, layer, front_alpha, sway, casts_shadow} and an "anchor": {"size": [w, h]}
+New props: an entry with "new": {display_name, category, layer, sway, casts_shadow} and an "anchor": {"size": [w, h]}
 creates data/environment/props/<id>.tres on first run (the size is then fitted to the model like any other prop).
-"aliases" entries (id, of, display_name, layer, front_alpha, scale) add another data file that reuses an existing prop's
+"aliases" entries (id, of, display_name, layer, scale) add another data file that reuses an existing prop's
 texture (e.g. a half-transparent foreground copy of a tree) without any new art.
 Kit pieces: an entry with "kit_cell": <n> skips its own render and cuts piece n (numbered by kit_cells.py) out of the
 kit render in assets_src/work/kits/<asset>.png (+ _n, _glow); "rotate": 90|180|270 turns the piece (normals included).
@@ -153,8 +153,6 @@ def write_new_tres(path: Path, pid: str, new: dict, texture: str, size: tuple[fl
     lines = []
     if int(new.get("layer", 0)):
         lines.append(f"layer = {int(new['layer'])}")
-    if "front_alpha" in new:
-        lines.append(f"front_alpha = {new['front_alpha']}")
     if float(new.get("sway", 0)) > 0:
         lines.append(f"sway = {new['sway']}")
     if new.get("casts_shadow"):
