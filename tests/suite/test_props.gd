@@ -41,6 +41,7 @@ func run() -> void:
 	await _test_live_cable()
 	await _test_conveyor()
 	await _test_decoy_radio()
+	_test_mechanic_placements()
 
 
 func _test_mechanism_translations() -> void:
@@ -824,3 +825,21 @@ func _test_decoy_radio() -> void:
 	await runner.get_tree().create_timer(radio_data.play_seconds).timeout
 	check(radio.state == DecoyRadio.State.SPENT and not radio.play(), "the radio breaks after playing and cannot be used again")
 	await end_level(level)
+
+
+## 環境機關擺進各章（NE-405 起）：每一處都在預期的區域與格子，資源路徑正確；新章節的擺放加在 EXPECTED。
+func _test_mechanic_placements() -> void:
+	const EXPECTED := [
+		# [區域, 機關資源, 地圖格]
+		["res://data/levels/ch2_loading.tres", "res://data/props/suspended_crate.tres", Vector2i(73, 35)],
+		["res://data/levels/ch2_market_gate.tres", "res://data/props/live_cable.tres", Vector2i(40, 35)],
+		["res://data/levels/ch2_market_gate.tres", "res://data/props/live_cable.tres", Vector2i(65, 35)],
+	]
+	for entry: Array in EXPECTED:
+		var level := load(entry[0]) as LevelData
+		var found := false
+		if level != null:
+			for spawn: Dictionary in LevelBuilder.parse(level).spawns:
+				var res: Resource = spawn["resource"]
+				found = found or (res.resource_path == entry[1] and spawn["cell"] == entry[2])
+		check(found, "%s has %s at %s" % [entry[0].get_file(), entry[1].get_file(), entry[2]])

@@ -1294,9 +1294,11 @@ hints = PackedStringArray()
 layout_path = "res://data/levels/ch2_ledger_office_map.json"
 
 [sub_resource type="Resource" id="Resource_um6xo"]
-script = ExtResource("4_kb2ry")
 
 [sub_resource type="Resource" id="Resource_5i6kn"]
+script = ExtResource("4_kb2ry")
+
+[sub_resource type="Resource" id="Resource_rxcs5"]
 script = ExtResource("3_sfgi7")
 id = &"loading_market"
 target_level = "res://data/levels/ch2_market.tres"
@@ -1309,7 +1311,7 @@ localized_prompts = Dictionary[String, String]({
 width = 28
 style = "road"
 
-[sub_resource type="Resource" id="Resource_rxcs5"]
+[sub_resource type="Resource" id="Resource_rpn4n"]
 script = ExtResource("3_sfgi7")
 id = &"loading_sc1"
 target_level = "res://data/levels/ch2_market.tres"
@@ -1329,7 +1331,7 @@ width = 32
 height = 56
 style = "hidden"
 
-[sub_resource type="Resource" id="Resource_rpn4n"]
+[sub_resource type="Resource" id="Resource_6ewqy"]
 script = ExtResource("3_sfgi7")
 id = &"loading_ledger"
 target_level = "res://data/levels/ch2_ledger_front.tres"
@@ -1348,7 +1350,7 @@ localized_locked_text = Dictionary[String, String]({
 width = 28
 height = 56
 
-[sub_resource type="Resource" id="Resource_6ewqy"]
+[sub_resource type="Resource" id="Resource_a7ann"]
 script = ExtResource("3_sfgi7")
 id = &"loading_canopy"
 target_level = "res://data/levels/ch2_market.tres"
@@ -1367,23 +1369,21 @@ localized_locked_text = Dictionary[String, String]({
 width = 28
 style = "road"
 
-[sub_resource type="Resource" id="Resource_a7ann"]
+[sub_resource type="Resource" id="Resource_pchid"]
 script = ExtResource("7_04qia")
 id = &"ch2_drying_desk"
 
-[sub_resource type="Resource" id="Resource_pchid"]
+[sub_resource type="Resource" id="Resource_noa1w"]
 script = ExtResource("7_04qia")
 id = &"ch2_sc1_lever"
 
-[sub_resource type="Resource" id="Resource_noa1w"]
+[sub_resource type="Resource" id="Resource_naubm"]
 script = ExtResource("7_04qia")
 id = &"ch2_collection_book"
 
-[sub_resource type="Resource" id="Resource_naubm"]
+[sub_resource type="Resource" id="Resource_u7nir"]
 script = ExtResource("7_04qia")
 id = &"ch2_guard"
-
-[sub_resource type="Resource" id="Resource_u7nir"]
 
 [sub_resource type="Resource" id="Resource_ddtbl"]
 script = ExtResource("1_fuu4v")
@@ -1395,17 +1395,18 @@ localized_names = Dictionary[String, String]({
 })
 height = 40
 legend = Dictionary[String, Resource]({
-"c": SubResource("Resource_um6xo"),
-"Ⅹ": SubResource("Resource_5i6kn"),
-"Ⅺ": SubResource("Resource_rxcs5"),
-"Ⅻ": SubResource("Resource_rpn4n"),
-"⇤": SubResource("Resource_6ewqy"),
-"ⓓ": SubResource("Resource_a7ann"),
-"ⓙ": SubResource("Resource_pchid"),
-"ⓛ": SubResource("Resource_noa1w"),
-"ⓧ": SubResource("Resource_naubm"),
-"♜": SubResource("Resource_u7nir"),
-"♞": SubResource("Resource_u7nir")
+"!": SubResource("Resource_um6xo"),
+"c": SubResource("Resource_5i6kn"),
+"Ⅹ": SubResource("Resource_rxcs5"),
+"Ⅺ": SubResource("Resource_rpn4n"),
+"Ⅻ": SubResource("Resource_6ewqy"),
+"⇤": SubResource("Resource_a7ann"),
+"ⓓ": SubResource("Resource_pchid"),
+"ⓙ": SubResource("Resource_noa1w"),
+"ⓛ": SubResource("Resource_naubm"),
+"ⓧ": SubResource("Resource_u7nir"),
+"♜": SubResource("Resource_um6xo"),
+"♞": SubResource("Resource_um6xo")
 })
 sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
 billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
@@ -5197,7 +5198,7 @@ digests = Dictionary[String, String]({
 "res://data/levels/ch2_harbor_street.tres": "5b518b012d01bb2b79f22e73845653e3bb7a955053db9b2da9bfd04c1af562f7",
 "res://data/levels/ch2_ledger_front.tres": "dc7cbed7976c7da61f9b8bd19f2fb89207113164274606e9f0b1fe6a15d5eabc",
 "res://data/levels/ch2_ledger_office.tres": "ecea6ab9434a6a13f241128b3179e51299f52480e710140eda7cb75599309894",
-"res://data/levels/ch2_loading.tres": "69b3aaa3a73b31d4399dbb7a1261fc08b14ddb4a58009cfc0342f08f13a0a0a5",
+"res://data/levels/ch2_loading.tres": "87531ea2e9ae28538d5120c56f345105eaec71f54e0f778bf62dc71cc4fb7d0a",
 "res://data/levels/ch2_lounge_front.tres": "c6910a5a00dbe1dc46a4f121390136c184ae4d4d7b2ba215eda1f086a8ddcf4f",
 "res://data/levels/ch2_market.tres": "3341dd129b68606373714d535e696e81fb756814a453a2040915720ff8942ac3",
 "res://data/levels/ch2_market_gate.tres": "3db5131f8d96962e99c3fe701c69e8169ce38f67baecb0f03d6f178f883b0f0f",

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=20 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=21 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Resource" path="res://data/props/credits_small.tres" id="2_credits_small"]
@@ -13,6 +13,7 @@
 [ext_resource type="Resource" path="res://data/lighting/market.tres" id="11_market"]
 [ext_resource type="Resource" path="res://data/lighting/hangar.tres" id="12_hangar"]
 [ext_resource type="Resource" path="res://data/environment/themes/ch2_loading.tres" id="13_ch2_loading"]
+[ext_resource type="Resource" path="res://data/props/suspended_crate.tres" id="94_suspended_crate"]
 
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("3_portal_data")
@@ -88,6 +89,7 @@ localized_names = Dictionary[String, String]({"en": "Canopy and Loading Room", "
 tile_size = 16
 height = 40
 legend = Dictionary[String, Resource]({
+"!": ExtResource("94_suspended_crate"),
 "c": ExtResource("2_credits_small"),
 "Ⅹ": SubResource("Resource_0"),
 "Ⅺ": SubResource("Resource_1"),

@@ -880,7 +880,7 @@ func _create_prop(spawn: Dictionary) -> Node2D:
 		for problem in load_data.validate():
 			push_error("[Level] %s（格 %s）" % [problem, cell])
 		var hanging := SuspendedLoad.new()
-		hanging.configure(load_data, cell, _layout.tile_size, _ceiling_height_above(cell, load_data.hang_tiles + load_data.size_tiles.y))
+		hanging.configure(load_data, cell, _layout.tile_size, _ceiling_height_above(cell, load_data.hang_tiles + load_data.size_tiles.y, true))  # 也可以吊在走道底下
 		return hanging
 	if resource is LiveCableData:
 		var cable_data := resource as LiveCableData

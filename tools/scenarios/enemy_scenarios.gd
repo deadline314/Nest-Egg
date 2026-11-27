@@ -25,6 +25,7 @@ const SCENARIOS := {
 	"live_cable": "res://tools/scenarios/live_cable_scenario.gd",
 	"conveyor": "res://tools/scenarios/conveyor_scenario.gd",
 	"decoy_radio": "res://tools/scenarios/decoy_radio_scenario.gd",
+	"mechanic_placements": "res://tools/scenarios/mechanic_placements_scenario.gd",
 	"scene_packs": "res://tools/scenarios/scene_pack_scenario.gd",
 	"lighting_scenes": "res://tools/scenarios/lighting_scene_scenario.gd",
 	"enemy_vfx": "res://tools/scenarios/enemy_vfx_scenario.gd",
