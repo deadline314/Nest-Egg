@@ -385,6 +385,16 @@ func _test_sway_mesh_binding() -> void:
 	await frames(1)
 
 
+## 頭髮站著飄動的上限（NE-396）：離靜止位置最多幾弧度、最快每秒幾弧度。超過就是亂晃，不是飄逸。
+const HAIR_IDLE_LIMIT := 0.24
+const HAIR_IDLE_SPEED := 0.6
+
+
+## 這條彈簧站著時會不會被微風帶動（wind 不是 0）。
+static func _has_breeze(spring: Dictionary) -> bool:
+	return not is_zero_approx(float(spring.get("wind", 1.0)))
+
+
 ## NE-257: simulate actual inputs and inspect the render nodes, not the unused coat bones.
 func _test_rin_visible_cloth() -> void:
 	var peaks: Array[float] = []
@@ -405,13 +415,24 @@ func _test_rin_visible_cloth() -> void:
 			check(absf(float(spring["min"])) <= 0.05 and absf(float(spring["max"])) <= 0.05, "rin/%s keeps short cloth inside a small angle" % part_name)
 		check(found == 2, "rin has actual near and far jacket follow regions")
 		animator.reset_springs()
+		# 站著不動：外套與胸口完全不動（NE-257）；頭髮（有微風的彈簧）依 NE-396 緩慢飄動，但幅度與速度都有上限，不是亂晃。
 		var idle_drift := 0.0
+		var hair_drift := 0.0
+		var hair_speed := 0.0
 		for tick in fps * 4:
 			rig.animate(1.0 / fps, input)
 			for spring: Dictionary in animator._springs:
 				var key := animator._spring_key(spring)
-				idle_drift = maxf(idle_drift, absf(float(animator._spring_angle[key]) - float(spring.get("rest", 0.0))))
-		check(idle_drift < 0.00001, "rin stands without perpetual wind drift at %d Hz (%.7f)" % [fps, idle_drift])
+				var offset := absf(float(animator._spring_angle[key]) - float(spring.get("rest", 0.0)))
+				if _has_breeze(spring):
+					hair_drift = maxf(hair_drift, offset)
+					if tick >= fps:  # 重設後的第一秒是從零進入微風的過渡
+						hair_speed = maxf(hair_speed, absf(float(animator._spring_velocity[key])))
+				else:
+					idle_drift = maxf(idle_drift, offset)
+		check(idle_drift < 0.00001, "rin's jacket and chest stand without perpetual wind drift at %d Hz (%.7f)" % [fps, idle_drift])
+		check(hair_drift > 0.02 and hair_drift < HAIR_IDLE_LIMIT and hair_speed < HAIR_IDLE_SPEED,
+				"rin's hair drifts gently while she stands: small and slow at %d Hz (%.3f rad, %.3f rad/s)" % [fps, hair_drift, hair_speed])
 		input.velocity = Vector2(220, 0)
 		var peak := 0.0
 		for tick in fps:
@@ -431,11 +452,20 @@ func _test_rin_visible_cloth() -> void:
 		for tick in fps * 2:
 			rig.animate(1.0 / fps, input)
 		var residual := 0.0
+		var hair_residual := 0.0
+		var hair_residual_speed := 0.0
 		for spring: Dictionary in animator._springs:
 			var key := animator._spring_key(spring)
-			residual = maxf(residual, absf(float(animator._spring_angle[key]) - float(spring.get("rest", 0.0))))
-			residual = maxf(residual, absf(float(animator._spring_velocity[key])))
-		check(residual < 0.01, "rin all follow settles after landing and stop within 2 s at %d Hz (%.6f)" % [fps, residual])
+			var offset := absf(float(animator._spring_angle[key]) - float(spring.get("rest", 0.0)))
+			var speed := absf(float(animator._spring_velocity[key]))
+			if _has_breeze(spring):
+				hair_residual = maxf(hair_residual, offset)
+				hair_residual_speed = maxf(hair_residual_speed, speed)
+			else:
+				residual = maxf(residual, maxf(offset, speed))
+		check(residual < 0.01, "rin's jacket and chest settle after landing and stop within 2 s at %d Hz (%.6f)" % [fps, residual])
+		check(hair_residual < HAIR_IDLE_LIMIT and hair_residual_speed < HAIR_IDLE_SPEED,
+				"rin's hair is back to its gentle idle drift 2 s after landing at %d Hz (%.3f rad, %.3f rad/s)" % [fps, hair_residual, hair_residual_speed])
 		rig.get_parent().queue_free()
 	await frames(1)
 	check(absf(peaks[0] - peaks[1]) < 0.002, "rin cloth peak is similar at 30 and 60 Hz")

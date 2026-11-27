@@ -214,21 +214,27 @@
       "bone": "hair_1",
       "rest": 0.25,
       "gain": 0.5,
-      "stiffness": 150,
-      "damping": 13,
+      "stiffness": 120,
+      "damping": 10,
       "min": -0.2,
       "max": 0.95,
-      "wind": 0.0
+      "wind": 1.6,
+      "wind_rate": 0.55,
+      "wind_phase": 0.0,
+      "wind_gust": 0.6
     },
     {
       "bone": "hair_2",
       "rest": 0.0,
       "gain": 0.4,
-      "stiffness": 70,
-      "damping": 8,
+      "stiffness": 55,
+      "damping": 6,
       "min": -0.35,
       "max": 0.7,
-      "wind": 0.0
+      "wind": 2.4,
+      "wind_rate": 0.55,
+      "wind_phase": -0.9,
+      "wind_gust": 0.8
     },
     {
       "id": "chest_follow",
@@ -261,6 +267,72 @@
         "jump": 1.0,
         "land": -2.2,
         "stop": 1.4
+      }
+    },
+    {
+      "id": "hair_flow_1",
+      "warp": {
+        "part": "hair_back_1",
+        "from": [
+          52,
+          60
+        ],
+        "to": [
+          96,
+          276
+        ],
+        "width": 96
+      },
+      "rest": 0.0,
+      "gain": 0.55,
+      "trail": 0.3,
+      "lift": 0.4,
+      "wind": 3.6,
+      "wind_rate": 0.55,
+      "wind_phase": -1.6,
+      "wind_gust": 0.6,
+      "stiffness": 38,
+      "damping": 4.6,
+      "min": -0.24,
+      "max": 0.26,
+      "events": {
+        "jump": 0.9,
+        "land": -1.4,
+        "dash": 1.6,
+        "hurt": -1.0
+      }
+    },
+    {
+      "id": "hair_flow_2",
+      "warp": {
+        "part": "hair_back_2",
+        "from": [
+          50,
+          30
+        ],
+        "to": [
+          86,
+          226
+        ],
+        "width": 96
+      },
+      "rest": 0.0,
+      "gain": 0.6,
+      "trail": 0.35,
+      "lift": 0.45,
+      "wind": 4.2,
+      "wind_rate": 0.55,
+      "wind_phase": -2.5,
+      "wind_gust": 0.7,
+      "stiffness": 30,
+      "damping": 4.0,
+      "min": -0.28,
+      "max": 0.3,
+      "events": {
+        "jump": 1.1,
+        "land": -1.6,
+        "dash": 1.9,
+        "hurt": -1.2
       }
     }
   ],

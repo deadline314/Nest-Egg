@@ -40,6 +40,7 @@ func run() -> void:
 	await _test_legacy_two_hand_grips()
 	await _test_unarmed_squat()
 	await _test_guard_brace()
+	await _test_flowing_hair()
 
 
 func _make(skin: String, input: RigInput) -> CharacterRig:
@@ -843,3 +844,84 @@ func _test_guard_brace() -> void:
 				and is_zero_approx(other._brace_head), "characters without guard stance data keep the original brace")
 	holder.queue_free()
 	await frames(1)
+
+
+## 飄逸的頭髮（NE-396）：站著不動時髮束也會緩慢飄動，髮根與髮梢、兩片頭髮不同步；彎曲量在上下限內；壞資料會被指出。
+func _test_flowing_hair() -> void:
+	var holder := Node2D.new()
+	runner.get_tree().root.add_child(holder)
+	var rin := CharacterRig.new()
+	holder.add_child(rin)
+	check(rin.setup("rin"), "the protagonist rig builds for the hair check")
+	rin.set_weapon("rifle")
+	var animator := rin.animator as HumanoidAnimator
+	var limits := {}
+	for spring in rin.springs():
+		limits[StringName(str(spring.get("id", spring.get("bone", ""))))] = Vector2(float(spring.get("min", -1.0)), float(spring.get("max", 1.0)))
+	var ids: Array[StringName] = [&"hair_1", &"hair_2", &"hair_flow_1", &"hair_flow_2"]
+	var bound := true
+	for id in ids:
+		bound = bound and animator._spring_angle.has(id) and limits.has(id)
+	check(bound and rin._sway_targets.has(&"hair_flow_1") and rin._sway_targets.has(&"hair_flow_2"),
+			"both hair pieces have a bend region from root to tip on top of their bones")
+	if not bound:
+		holder.queue_free()
+		return
+	var input := RigInput.new()
+	input.on_floor = true
+	for i in 120:
+		rin.animate(DT, input)
+	var series := {}
+	for id in ids:
+		series[id] = []
+	for i in 600:
+		rin.animate(DT, input)
+		for id in ids:
+			(series[id] as Array).append(float(animator._spring_angle[id]))  # Array 是參照；Packed 陣列放進字典再取出來是複本
+	var within := true
+	for id in ids:
+		var values: Array = series[id]
+		var low := INF
+		var high := -INF
+		for value: float in values:
+			low = minf(low, value)
+			high = maxf(high, value)
+		var limit: Vector2 = limits[id]
+		within = within and low >= limit.x - 0.0001 and high <= limit.y + 0.0001
+		if id == &"hair_flow_1" or id == &"hair_flow_2":
+			check(high - low > 0.06, "%s keeps drifting while she stands still (%.3f rad)" % [id, high - low])
+			check(high < limit.y and low > limit.x, "%s idles inside its limits instead of resting against one" % id)
+	check(within, "every hair spring stays within its angle limits")
+	check(absf(_series_correlation(series[&"hair_1"], series[&"hair_flow_2"])) < 0.95,
+			"the hair tip does not move in lockstep with the root (%.2f)" % _series_correlation(series[&"hair_1"], series[&"hair_flow_2"]))
+	check(absf(_series_correlation(series[&"hair_flow_1"], series[&"hair_flow_2"])) < 0.98,
+			"the two hair pieces are not a scaled copy of each other (%.2f)" % _series_correlation(series[&"hair_flow_1"], series[&"hair_flow_2"]))
+	check(not HumanoidAnimator.spring_problem({"bone": "hair_1", "wind_rate": "x"}).is_empty()
+			and not HumanoidAnimator.spring_problem({"bone": "hair_1", "wind_gust": NAN}).is_empty()
+			and HumanoidAnimator.spring_problem({"bone": "hair_1", "wind_rate": 0.5, "wind_phase": -1.0, "wind_gust": 0.8}).is_empty(),
+			"broken breeze values are reported and valid ones accepted")
+	holder.queue_free()
+	await frames(1)
+
+
+func _series_correlation(a: Array, b: Array) -> float:
+	var n := mini(a.size(), b.size())
+	if n < 2:
+		return 1.0
+	var mean_a := 0.0
+	var mean_b := 0.0
+	for i in n:
+		mean_a += float(a[i])
+		mean_b += float(b[i])
+	mean_a /= n
+	mean_b /= n
+	var cov := 0.0
+	var var_a := 0.0
+	var var_b := 0.0
+	for i in n:
+		var da := float(a[i]) - mean_a
+		var db := float(b[i]) - mean_b
+		cov += da * db
+		var_a += da * da
+		var_b += db * db
+	return cov / sqrt(maxf(var_a * var_b, 0.0000001))

@@ -17,9 +17,15 @@ const SPRING_STIFFNESS := 140.0
 const SPRING_DAMPING := 11.0
 ## 次級動態（衣襬、頭髮）的預設設定；骨架定義（rig json）有 "springs" 時以它為準。
 ## bone：彈簧骨；rest：靜止時的角度；gain：跟隨「移動造成的目標角度」的倍率；
+## wind_rate／wind_phase：這條彈簧自己的微風節奏倍率與相位（預設 1、0＝和其他彈簧同一個節奏）；髮根與髮梢、不同髮束錯開才不會整束同步擺。
+## wind_gust：再疊一個較慢、節奏不成整數比的起伏（0＝沒有），風才不是固定週期。
 ## trail／lift／wind：往前跑向後飄、上升下落、微風各自的倍率（預設 1）；stiffness／damping：彈簧硬度與阻尼；min／max：角度上下限。
 ## events（選填）：只對列出的一次性事件反應，值是該事件注入的角速度（取代 impulse × gain）；例如胸口只在起跳、落地、急停跟一下，走路與站著不動（NE-257）。
 ##   事件：jump 起跳、land 落地、dash 衝刺、hurt 受擊、stop 跑動中急停。
+## 微風：共用的節奏（弧度／秒）與幅度；陣風的節奏是它的幾倍（不成整數比，疊起來才不會固定週期重複）。
+const WIND_RATE := 3.1
+const WIND_AMOUNT := 0.05
+const WIND_GUST_RATIO := 0.37
 const DEFAULT_SPRINGS: Array[Dictionary] = [
 	{"bone": "coat_1", "rest": 0.15, "gain": 0.7},
 	{"bone": "coat_2", "rest": 0.0, "gain": 0.5},
@@ -1106,7 +1112,7 @@ func _kick_springs(event: String, strength: float) -> void:
 
 ## 檢查一項擺動設定的數值是否合理；合理回傳空字串，否則回傳原因（指出欄位）。
 static func spring_problem(entry: Dictionary) -> String:
-	for key: String in ["rest", "gain", "stiffness", "damping", "min", "max", "trail", "lift", "wind"]:
+	for key: String in ["rest", "gain", "stiffness", "damping", "min", "max", "trail", "lift", "wind", "wind_rate", "wind_phase", "wind_gust"]:
 		if entry.has(key) and not (typeof(entry[key]) in [TYPE_INT, TYPE_FLOAT] and is_finite(float(entry[key]))):
 			return "%s 不是數字" % key
 	if float(entry.get("stiffness", SPRING_STIFFNESS)) <= 0.0:
@@ -1898,12 +1904,18 @@ func _update_springs(delta: float, v: Vector2, input: RigInput) -> void:
 	# 往前跑時向後飄；下落時被氣流往上掀；上升時下垂。
 	var trail := clampf(v.x / 220.0, -0.4, 1.0) * 0.9
 	var lift := clampf(v.y / 420.0, -0.3, 1.0) * 0.6
-	var wind := sin(_time * 3.1) * 0.05
+	var wind := sin(_time * WIND_RATE) * WIND_AMOUNT
 	var steps := maxi(1, ceili(delta / (1.0 / 120.0)))
 	var dt := delta / steps
 	for spring in _springs:
 		var bone_name := _spring_key(spring)
-		var base := trail * float(spring.get("trail", 1.0)) + lift * float(spring.get("lift", 1.0)) + wind * float(spring.get("wind", 1.0))
+		var breeze := wind
+		if spring.has("wind_rate") or spring.has("wind_phase") or spring.has("wind_gust"):
+			var rate := float(spring.get("wind_rate", 1.0))
+			var phase := float(spring.get("wind_phase", 0.0))
+			breeze = sin(_time * WIND_RATE * rate + phase) * WIND_AMOUNT
+			breeze += sin(_time * WIND_RATE * rate * WIND_GUST_RATIO + phase * 1.7) * WIND_AMOUNT * float(spring.get("wind_gust", 0.0))
+		var base := trail * float(spring.get("trail", 1.0)) + lift * float(spring.get("lift", 1.0)) + breeze * float(spring.get("wind", 1.0))
 		if input.dead:
 			base = 0.6
 		var target := float(spring.get("rest", 0.0)) + base * float(spring.get("gain", 0.5))
