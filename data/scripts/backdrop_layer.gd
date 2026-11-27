@@ -13,6 +13,15 @@ extends Resource
 @export var source_width: int = 0
 @export var tint: Color = Color.WHITE
 @export var glow_intensity: float = 1.3
+## 這一層自己的橫向漂移（邏輯像素／秒，負值往左；0 = 不動）。雲、霧帶、遠處交通用；貼圖左右無縫才看不出接縫（BG-65）。
+@export_range(-40.0, 40.0, 0.1) var drift: float = 0.0
+## 疊在這一層前面的霧色濃度（0 = 沒有，最大 1）；-1 = 依遠近自動（越遠越濃），做出大氣透視。
+@export_range(-1.0, 1.0, 0.01) var haze: float = -1.0
+
+## 自動霧色：捲動比例低於這個值的層才有霧，每遠一點增加多少，以及上限。
+const AUTO_HAZE_NEAR := 0.45
+const AUTO_HAZE_GAIN := 0.9
+const AUTO_HAZE_MAX := 0.32
 
 
 func pixel_scale(imported: Texture2D) -> float:
@@ -20,8 +29,24 @@ func pixel_scale(imported: Texture2D) -> float:
 	return ratio / float(maxi(1, texture_scale))
 
 
+## 這一層前面霧色的濃度（0～1）：資料有指定就用指定的，否則依捲動比例算（越遠越濃）。
+func haze_strength() -> float:
+	if not is_finite(haze):
+		return 0.0
+	if haze >= 0.0:
+		return clampf(haze, 0.0, 1.0)
+	return clampf((AUTO_HAZE_NEAR - scroll_scale) * AUTO_HAZE_GAIN, 0.0, AUTO_HAZE_MAX)
+
+
+## 可以安全使用的漂移速度：資料損毀（不是數字）時當成不動。
+func drift_speed() -> float:
+	return drift if is_finite(drift) else 0.0
+
+
 func validate() -> PackedStringArray:
 	var problems := PackedStringArray()
+	if not is_finite(drift) or not is_finite(haze):
+		problems.append("背景層 %s 的漂移或霧色不是有效數字" % texture)
 	if texture.is_empty() or not ResourceLoader.exists(texture):
 		problems.append("背景層貼圖不存在：%s" % texture)
 	return problems

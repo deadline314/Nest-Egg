@@ -12,7 +12,7 @@ var _scenario := "all"
 ## --hurtboxes：畫出敵人的部位受擊框（核對判定與畫面是否對齊）。
 var _brightness := -1.0
 var _legacy_exposure := false
-## --without=節點名稱：spots 情境每個點多拍一張把這個節點藏起來的畫面（同一格鏡頭的有／無對照）。
+## --without=節點名稱：spots 情境每個點多拍一張把所有同名節點藏起來的畫面（同一格鏡頭的有／無對照）。
 var _without_node := ""
 var _scripted_aim_actor: WeakRef
 
@@ -1858,14 +1858,16 @@ func _run_spots() -> void:
 		await _settle(40)
 		_capture("spot_%s_%s_%s" % [level_id, spot[0], tag])
 		if not _without_node.is_empty():
-			var layer := level.find_child(_without_node, true, false) as CanvasItem
-			if layer == null:
+			var layers := level.find_children(_without_node, "CanvasItem", true, false)
+			if layers.is_empty():
 				push_error("[Screenshot] --without 找不到節點：%s" % _without_node)
 			else:
-				layer.visible = false
+				for layer: CanvasItem in layers:
+					layer.visible = false
 				await _settle(2)
 				_capture("spot_%s_%s_%s_without" % [level_id, spot[0], tag])
-				layer.visible = true
+				for layer: CanvasItem in layers:
+					layer.visible = true
 	level.queue_free()
 	await _settle(4)
 
@@ -2413,6 +2415,7 @@ const SPOTS := {
 	"level_01": [["s1a", 12], ["s1b", 45], ["s1c", 62], ["s2a", 85], ["s2b", 118], ["s2c", 150], ["s3a", 175], ["s3b", 208], ["s3c", 232], ["s4a", 252], ["s4b", 280], ["s5", 330]],
 	"level_02": [["a", 30], ["b", 100], ["c", 175], ["d", 240], ["e", 304], ["f", 350], ["g", 400], ["h", 425], ["i", 455], ["j", 492]],
 	"ch1_pawnshop": [["tutorial", 22], ["shop", 44], ["stairs", 106]],
+	"ch1_rooftop": [["a", 24], ["b", 60]],
 }
 
 

@@ -14,6 +14,7 @@ func run() -> void:
 	_test_platform_deck_structure()
 	_test_missing_texture()
 	_test_sky()
+	_test_backdrop_depth()
 	_test_backdrop_import_scale()
 	_test_trees()
 	_test_prop_animation()
@@ -241,6 +242,57 @@ func _test_sky() -> void:
 	check(fallback.get_child_count() == control.get_child_count(), "缺天空貼圖時退回程式天空，不多也不少一層")
 	for node in [control, with_sky, fallback]:
 		node.queue_free()
+
+
+## 遠景自己會動、層與層之間有霧色（BG-65）：漂移寫在資料裡、越遠霧越濃、近景沒有霧、低畫質不畫霧、壞資料當成不動。
+func _test_backdrop_depth() -> void:
+	var far := BackdropLayer.new()
+	far.scroll_scale = 0.12
+	var mid := BackdropLayer.new()
+	mid.scroll_scale = 0.26
+	var near := BackdropLayer.new()
+	near.scroll_scale = 0.5
+	check(far.haze_strength() > mid.haze_strength() and mid.haze_strength() > 0.0 and is_zero_approx(near.haze_strength()),
+			"farther layers sit behind more haze and the near layer has none")
+	check(far.haze_strength() <= BackdropLayer.AUTO_HAZE_MAX, "automatic haze never hides a layer")
+	mid.haze = 0.0
+	check(is_zero_approx(mid.haze_strength()), "a layer can switch its haze off in data")
+	mid.haze = 0.5
+	check(is_equal_approx(mid.haze_strength(), 0.5), "an explicit haze value wins over the automatic one")
+	var broken := BackdropLayer.new()
+	broken.drift = NAN
+	broken.haze = NAN
+	check(is_zero_approx(broken.drift_speed()) and is_zero_approx(broken.haze_strength()) and not broken.validate().is_empty(),
+			"broken drift or haze data falls back to a still, clear layer and is reported")
+
+	var theme := load("res://data/environment/themes/chapter1.tres") as EnvironmentTheme
+	check(theme.sky != null and not is_zero_approx(theme.sky.drift_speed()), "the chapter one sky drifts on its own")
+	var background := LevelBackground.new()
+	background.backdrop = theme.backdrop
+	background.sky = theme.sky
+	runner.add_child(background)
+	var drifting := 0
+	var hazes := 0
+	for layer in background.get_children():
+		var parallax := layer as Parallax2D
+		if parallax == null:
+			continue
+		drifting += 1 if not is_zero_approx(parallax.autoscroll.x) else 0
+		for child in parallax.get_children():
+			hazes += 1 if child.name == &"Haze" else 0
+	check(drifting >= 1, "a layer with drift keeps moving while the camera is still")
+	check(hazes == background.haze_count() and hazes >= 1 and hazes < theme.backdrop.size(),
+			"haze sits in front of the far layers only (%d of %d)" % [hazes, theme.backdrop.size()])
+	var previous_quality := Settings.get_light_quality()
+	Settings.set_light_quality(LightQuality.Tier.LOW)
+	var hidden := true
+	for layer in background.get_children():
+		for child in layer.get_children():
+			if child.name == &"Haze":
+				hidden = hidden and not (child as CanvasItem).visible
+	check(hidden, "low quality keeps the drift but drops the haze")
+	Settings.set_light_quality(previous_quality)
+	background.queue_free()
 
 
 ## 樹木與植被（NE-64）：數量、前景樹半透明、搖動用共用著色器、不增加每影格開銷、第一章有擺放。

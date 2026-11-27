@@ -9,12 +9,20 @@ extends Node2D
 const PATTERN_WIDTH := 1280.0
 const BACKGROUND_Z := -100
 const HORIZON := 300.0
+## 層與層之間霧色的高度（邏輯像素）：從該層底邊往上淡出。
+const HAZE_HEIGHT := 230.0
+## 霧色：被城市燈光染亮的水氣，比樓群的剪影亮，近的樓才會從遠的樓前面浮出來。會再乘上光影區段的背景色調。
+const HAZE_COLOR := Color(1.1, 0.6, 1.5)
 
 
 ## 環境主題的背景貼圖層（由遠到近）；空陣列時使用程式繪製的天際線。要在加入場景樹之前指定。
 var backdrop: Array[BackdropLayer] = []
 ## 環境主題的照片天空；null 或貼圖缺失時只用程式天空。要在加入場景樹之前指定。
 var sky: BackdropLayer
+
+## 各層前面的霧色（BG-65）；低畫質時整批隱藏。
+var _hazes: Array[CanvasItem] = []
+static var _haze_texture: GradientTexture2D
 
 
 func _ready() -> void:
@@ -35,6 +43,34 @@ func _ready() -> void:
 		# 車流夾在遠景與中景之間。
 		if i == 0:
 			_add_layer(0.16, _Traffic.new(), true)
+	Settings.display_changed.connect(_refresh_haze)
+	_refresh_haze()
+
+
+## 霧色是體積效果：低畫質不畫（漂移照常）。
+func _refresh_haze() -> void:
+	for haze in _hazes:
+		haze.visible = LightQuality.volumetrics()
+
+
+func haze_count() -> int:
+	return _hazes.size()
+
+
+## 由上往下變濃的霧色貼圖（所有層共用一張）：最濃在該層的底邊（地平線附近），往上淡出。
+static func _haze() -> GradientTexture2D:
+	if _haze_texture == null:
+		var gradient := Gradient.new()
+		gradient.set_color(0, Color(1, 1, 1, 0))
+		gradient.set_color(1, Color(1, 1, 1, 1))
+		gradient.add_point(0.55, Color(1, 1, 1, 0.45))
+		_haze_texture = GradientTexture2D.new()
+		_haze_texture.gradient = gradient
+		_haze_texture.fill_from = Vector2(0.5, 0.0)
+		_haze_texture.fill_to = Vector2(0.5, 1.0)
+		_haze_texture.width = 4
+		_haze_texture.height = 64
+	return _haze_texture
 
 
 ## 照片天空：整圈全景切成的長條（左右無縫），慢速視差，上緣透明漸層接上程式天空。
@@ -49,6 +85,7 @@ func _add_photo_sky() -> void:
 	var parallax := Parallax2D.new()
 	parallax.scroll_scale = Vector2(sky.scroll_scale, sky.scroll_scale * 0.4)
 	parallax.repeat_size = Vector2(float(texture.get_width()) * factor, 0.0)
+	parallax.autoscroll = Vector2(sky.drift_speed(), 0.0)  # 雲自己慢慢飄，鏡頭不動時天空也在動
 	var sprite := Sprite2D.new()
 	sprite.texture = texture
 	sprite.centered = false
@@ -66,6 +103,7 @@ func _add_textured_layer(layer: BackdropLayer) -> void:
 	var parallax := Parallax2D.new()
 	parallax.scroll_scale = Vector2(layer.scroll_scale, layer.scroll_scale * 0.4)
 	parallax.repeat_size = Vector2(PATTERN_WIDTH * 0.5, 0.0)
+	parallax.autoscroll = Vector2(layer.drift_speed(), 0.0)
 	var sprite := Sprite2D.new()
 	sprite.texture = texture
 	sprite.centered = false
@@ -86,6 +124,19 @@ func _add_textured_layer(layer: BackdropLayer) -> void:
 		glow_sprite.material = LightKit.window_life_material()  # 窗光緩慢閃爍、屋頂信標明滅
 		glow_sprite.self_modulate = LightKit.glow(layer.tint, layer.glow_intensity)
 		parallax.add_child(glow_sprite)
+	# 這一層前面的霧色：越遠的層越濃，層與層之間才有空氣感（大氣透視）。顏色跟著整個背景的光影區段色調。
+	var strength := layer.haze_strength()
+	if strength > 0.0:
+		var haze := Sprite2D.new()
+		haze.name = "Haze"
+		haze.texture = _haze()
+		haze.centered = false
+		haze.scale = Vector2(PATTERN_WIDTH * 0.5 / float(haze.texture.get_width()), HAZE_HEIGHT / float(haze.texture.get_height()))
+		haze.position = Vector2(0.0, layer.bottom_y - HAZE_HEIGHT)
+		haze.modulate = Color(HAZE_COLOR, strength)
+		haze.light_mask = 0
+		parallax.add_child(haze)
+		_hazes.append(haze)
 	add_child(parallax)
 
 
