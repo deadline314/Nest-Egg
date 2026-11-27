@@ -39,6 +39,7 @@ func run() -> void:
 	await preload("res://tests/helpers/inventory_layout_checks.gd").run(self)
 	await preload("res://tests/helpers/settings_device_checks.gd").run(self)
 	await _test_hd_portrait()
+	await _test_side_portrait()
 	await ContextualUiChecks.run(self)
 	await ContextualPriorityChecks.run(self)
 
@@ -811,6 +812,49 @@ func _test_hd_portrait() -> void:
 	await frames(3)
 	check(is_instance_valid(missing), "a missing character does not crash the page")
 	missing.queue_free()
+
+
+## 背包立繪（NE-393）：就是遊戲內的主角骨架、受損外觀跟著生命比例、有專屬的小動作、關閉後不留資源、找不到角色時留白。
+func _test_side_portrait() -> void:
+	check(SidePortrait.CHARACTER == PlayerVisual.SKIN_ID, "the bag shows the same character skin the player controls")
+	var data := RigLibrary.load_json(NpcAnimator.DATA_PATH)
+	var gestures: Dictionary = data.get("gestures", {})
+	var motion := RigLibrary.load_json("res://art/motion/%s.json" % SidePortrait.CHARACTER)
+	var vocab: Dictionary = ((motion.get("npc", {}) as Dictionary).get("life", {}) as Dictionary).get("fidget", {}).get("vocab", {})
+	check(vocab.has("hair_sweep") and vocab.has("think") and vocab.size() >= 3, "the protagonist has her own idle gestures, including a hair sweep and a thinking pose")
+	var defined := true
+	for gesture_name: String in vocab:
+		defined = defined and gestures.has(gesture_name) and (gestures[gesture_name] as Dictionary).has("pose")
+	check(defined, "every idle gesture she can pick is defined in the gesture data")
+
+	var portrait := SidePortrait.new()
+	portrait.size = Vector2(112, 262)
+	runner.get_tree().root.add_child(portrait)
+	check(not portrait.has_texture() and not portrait.drawn_rect().has_area(), "nothing is held before the bag opens")
+	EventBus.player_health_changed.emit(2, 6)
+	portrait.acquire()
+	portrait.acquire()
+	await frames(4)
+	var rigs := portrait.find_children("*", "CharacterRig", true, false)
+	check(portrait.has_texture() and rigs.size() == 1 and (rigs[0] as CharacterRig).is_valid() and (rigs[0] as CharacterRig).skin_id == PlayerVisual.SKIN_ID,
+			"the bag draws one real character rig, the same one as in the game")
+	var drawn := portrait.drawn_rect()
+	check(drawn.has_area() and Rect2(Vector2.ZERO, portrait.size).grow(0.5).encloses(drawn) and is_equal_approx(drawn.end.y, portrait.size.y),
+			"the figure stands on the bottom edge inside its column")
+	if rigs.size() == 1:
+		var rig := rigs[0] as CharacterRig
+		var total := rig.armor_count()
+		check(total == 0 or rig._armor_visible < total, "damage taken in the level shows on the bag portrait too (%d of %d pieces left)" % [rig._armor_visible, total])
+		EventBus.player_health_changed.emit(6, 6)
+		check(rig._armor_visible == total, "healing restores the portrait's outfit")
+	check(portrait.play_gesture(&"hair_sweep") and portrait.play_gesture(&"think"), "both new gestures can be played on the portrait")
+	check(not portrait.play_gesture(&"test_no_such_gesture"), "an unknown gesture is refused without breaking the portrait")
+	portrait.release()
+	await frames(3)
+	check(not portrait.has_texture() and portrait.find_children("*", "SubViewport", true, false).is_empty(), "closing the bag frees the figure and its render target")
+	check(not portrait.play_gesture(&"think"), "a closed portrait ignores gesture requests")
+	portrait.queue_free()
+	await frames(1)
 
 
 func _test_overwrite_prompt_language() -> void:

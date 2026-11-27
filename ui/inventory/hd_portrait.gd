@@ -20,6 +20,8 @@ var _holder: Node2D
 var _rig: CharacterRig
 var _input := RigInput.new()
 var _static_pose_ready := false
+## 還沒建立骨架時先記著的受損比例（1＝完好）。
+var _health_ratio := 1.0
 
 
 func _ready() -> void:
@@ -53,6 +55,7 @@ func _ready() -> void:
 		_rig = null
 		return
 	_rig.set_weapon("")
+	_rig.set_armor_ratio(_health_ratio, false)
 	_input.facing = facing
 	resized.connect(_layout)
 	_layout()
@@ -74,6 +77,24 @@ func _layout() -> void:
 	_holder.position = Vector2(float(_viewport.size.x) * 0.5, float(_viewport.size.y) * (1.0 + FILL) * 0.5)
 	if _static_pose_ready:
 		_viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
+
+
+## 和遊戲內的主角同步受損外觀（衣物與護甲依生命比例脫落）；不播放脫落特效。
+func set_health_ratio(ratio: float) -> void:
+	_health_ratio = clampf(ratio, 0.0, 1.0) if is_finite(ratio) else 1.0
+	if _rig != null:
+		_rig.set_armor_ratio(_health_ratio, false)
+		_static_pose_ready = false
+
+
+## 讓立繪做一個指定的小動作（art/rigs/npc_animations.json 的 gestures）；平常由待機生命感自己挑，這個給測試與截圖用。
+func play_gesture(gesture_name: StringName) -> bool:
+	return _rig != null and _rig.animator is NpcAnimator and (_rig.animator as NpcAnimator).play_gesture(gesture_name)
+
+
+## 骨架是否建立成功（找不到角色時是 false，立繪留白）。
+func has_rig() -> bool:
+	return _rig != null
 
 
 func _process(delta: float) -> void:

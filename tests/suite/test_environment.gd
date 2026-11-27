@@ -587,15 +587,13 @@ func _test_sway_kick() -> void:
 	runner_body.velocity = Vector2(-SwayKick.FULL_SPEED, 0.0)
 	holder.add_child(runner_body)
 	kick.body_entered.emit(runner_body)
-	await frames(3)
-	check(kick.offset() < 0.0, "a body passing leftward pushes the prop to the left")
+	check(await _sway_first_move(kick) < 0.0, "a body passing leftward pushes the prop to the left")
 	await _sway_peak(kick)
 	runner_body.queue_free()
 
 	var center := prop.global_position + swing.size * 0.5
 	kick.blast(center + Vector2(-30.0, 0.0), 40.0)
-	await frames(3)
-	check(kick.offset() > 0.0, "an explosion on the left throws the prop to the right")
+	check(await _sway_first_move(kick) > 0.0, "an explosion on the left throws the prop to the right")
 	var near_peak := maxf(await _sway_peak(kick), absf(kick.offset()))
 	kick.blast(center + Vector2(-100.0, 0.0), 40.0)
 	var far_peak := await _sway_peak(kick)
@@ -619,6 +617,15 @@ func _test_sway_kick() -> void:
 			and SwayKick.attach(prop, one, Rect2(0, 0, 0, 10), 1.0) == null, "invalid sway data builds no sensor and keeps the prop")
 	holder.queue_free()
 	await frames(2)
+
+
+## 等擺設開始移動，回傳第一個不是零的位移（正＝往右）；遊戲時間被放慢時多等幾格，不靠固定影格數。
+func _sway_first_move(kick: SwayKick) -> float:
+	for i in 300:
+		if not is_zero_approx(kick.offset()) or kick.is_resting():
+			break
+		await frames(1)
+	return kick.offset()
 
 
 ## 等擺設回彈到停下，回傳過程中離原位最遠的距離（像素）；太久沒停就記一筆失敗。

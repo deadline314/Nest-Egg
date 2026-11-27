@@ -401,7 +401,18 @@
  "npc": {
   "stand": {},
   "talk_speed": 1.0,
-  "talk_amp": 1.0
+  "talk_amp": 1.0,
+  "life": {
+   "fidget": {
+    "every": [6.0, 11.0],
+    "vocab": {
+     "hair_sweep": 2,
+     "think": 2,
+     "adjust_collar": 1,
+     "stretch_back": 0.6
+    }
+   }
+  }
  },
  "grounding": true,
  "foot": {
