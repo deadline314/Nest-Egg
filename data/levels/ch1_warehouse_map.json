@@ -251,5 +251,8 @@
     {"x0": 101, "x1": 103, "y0": 44, "y1": 48, "material": "container_red"}
   ],
   "layout_revision": 2,
-  "legacy_layout": {"revision": 1, "cell_offset": [0, 32], "cells": {"162,16": [162, 16], "90,5": [87, 37], "137,16": [137, 44], "140,16": [146, 40], "119,16": [119, 54]}}
+  "legacy_layout": {"revision": 1, "cell_offset": [0, 32], "cells": {"162,16": [162, 16], "90,5": [87, 37], "137,16": [137, 44], "140,16": [146, 40], "119,16": [119, 54]}},
+  "key_light": {"x": 104, "y": 42, "color": [1.0, 0.65, 0.3], "energy": 0.4, "light_radius": 520, "halo_radius": 200, "halo_alpha": 0.35, "front_wash": 0.05, "shafts": {"count": 5, "angle": 20, "length": 340, "width": 24, "spread": 200}, "occlusion": [0.2, 0.7], "period": 45},
+  "midground": {"pieces": ["crates_stack", "barrels"], "spacing": [80, 200], "from": 2, "to": 164},
+  "ground_section": {"start": 20, "fade": 0.82, "piles": [56, 104], "pipes": 0.6}
 }

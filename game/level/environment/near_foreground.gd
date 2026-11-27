@@ -383,7 +383,8 @@ class _Strip:
 		var x := rng.randf_range(2.0, 10.0)
 		while x < size.x - 2.0:
 			var cap := rng.randf_range(-1.0, 2.0)
-			draw_rect(Rect2(x, top - cap, 2.5, size.y - top + cap), fill)
+			# 立柱站在走道面上、不往下穿過走道邊（走道邊緣下方那一帶要留給地面的亮邊對比）。
+			draw_rect(Rect2(x, top - cap, 2.5, minf(size.y, rise) - top + cap), fill)
 			_top(Vector2(x, top - cap), Vector2(x + 2.5, top - cap))
 			x += rng.randf_range(18.0, 28.0)
 

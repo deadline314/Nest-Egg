@@ -1,7 +1,10 @@
 {
+  "chapters": {
+    "ch1": {"hue": [225, 275]}
+  },
   "areas": {
-    "ch1_prologue": {"main": "#5a4434", "key": "#ffb060", "shadow": "#3a2a22"},
-    "ch1_pawnshop": {"main": "#5a4434", "key": "#ffb060", "shadow": "#3a2a22"},
+    "ch1_prologue": {"main": "#5a4434", "key": "#ffb060", "shadow": "#3a2a22", "hue": [340, 50]},
+    "ch1_pawnshop": {"main": "#5a4434", "key": "#ffb060", "shadow": "#3a2a22", "hue": [340, 50]},
     "ch1_pawnshop_dawn": {"main": "#50555e", "key": "#c8e4ff", "shadow": "#343844"},
     "ch1_booth_alley": {"main": "#2c2f52", "key": "#86b8ff", "shadow": "#2a2448"},
     "ch1_stall": {"main": "#2c2f52", "key": "#86b8ff", "shadow": "#2a2448"},
@@ -12,7 +15,7 @@
     "ch1_warehouse": {"main": "#2e2622", "key": "#ffa64c", "shadow": "#22203a"},
     "ch1_vault": {"main": "#2e2622", "key": "#ffa64c", "shadow": "#22203a"},
 
-    "ch2_pawnshop": {"main": "#5a4434", "key": "#ffb060", "shadow": "#3a2a22"},
+    "ch2_pawnshop": {"main": "#5a4434", "key": "#ffb060", "shadow": "#3a2a22", "hue": [340, 50]},
     "ch2_ali_home": {"main": "#2e3846", "key": "#d0e4ff", "shadow": "#1e2a36"},
     "ch2_harbor_street": {"main": "#263c46", "key": "#ffb050", "shadow": "#14282e"},
     "ch2_market": {"main": "#2c3a48", "key": "#ff8a5c", "shadow": "#1a2a34"},
@@ -23,7 +26,7 @@
     "ch2_ledger_office": {"main": "#3a3028", "key": "#ffb050", "shadow": "#1a2428"},
     "ch2_rooftop": {"main": "#28384a", "key": "#ffbe70", "shadow": "#18283a"},
 
-    "ch3_pawnshop": {"main": "#5a4434", "key": "#ffb060", "shadow": "#3a2a22"},
+    "ch3_pawnshop": {"main": "#5a4434", "key": "#ffb060", "shadow": "#3a2a22", "hue": [340, 50]},
     "ch3_glass_edge": {"main": "#b39475", "key": "#ffb873", "shadow": "#e6b899", "background": 0.0},
     "ch3_plaza": {"main": "#3c3652", "key": "#ff59bf", "shadow": "#2e2a44", "background": 0.08},
     "ch3_showroom": {"main": "#e0d8c4", "key": "#fff2cc", "shadow": "#b4bcc8"},
@@ -33,7 +36,7 @@
     "ch3_mezzanine": {"main": "#30363c", "key": "#dcf8ff", "shadow": "#1e2832"},
     "ch3_pump": {"main": "#1e3438", "key": "#66ffd8", "shadow": "#10262c"},
 
-    "ch4_pawnshop": {"main": "#5a4434", "key": "#ffb060", "shadow": "#3a2a22"},
+    "ch4_pawnshop": {"main": "#5a4434", "key": "#ffb060", "shadow": "#3a2a22", "hue": [340, 50]},
     "ch4_factory_approach": {"main": "#44342a", "key": "#ff944a", "shadow": "#2a2a22"},
     "ch4_factory_loading": {"main": "#6e5a4a", "key": "#ffb878", "shadow": "#3a3a2c"},
     "ch4_factory_cleaning": {"main": "#6e5a4a", "key": "#ffb878", "shadow": "#3a3a2c"},

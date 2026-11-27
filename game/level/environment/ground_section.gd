@@ -3,7 +3,8 @@ extends Node2D
 ## 地面剖面（BG-72）：可走地面以下原本是整片重複的地磚或死黑；這一層蓋在地形上，讓它像一個有結構的剖面：
 ## 緊貼走道的一段（start 像素）維持原樣，以下換成不透明的剖面底色、往下逐漸變暗到 fade；中間有一道橋面樑、間隔不一的基樁、偶爾一條管線，
 ## 結構比底色亮一點、上緣一條很淡的亮邊，讀得出形狀但不搶走道。
-## 資料：地圖 JSON 頂層的 "ground_section"：{"start": 14, "fade": 0.82, "piles": [最小間隔, 最大間隔], "pipes": 0~1}。
+## 資料：地圖 JSON 頂層的 "ground_section"：{"start": 14, "fade": 0.82, "piles": [最小間隔, 最大間隔], "pipes": 0~1, "from": 欄, "to": 欄}。
+## from／to（選填）只在這段欄位裡畫（例如當舖只畫室外的後空地，店裡的石地板維持原樣）。
 ## 只畫一次（靜態，不重畫）；三個畫質都畫（它是構圖不是特效）。資料壞掉時記錄是哪個區域哪一項，這一層不畫。
 
 ## 地面下面至少要有幾格實心，才算「有剖面」的地面（薄薄一層的平台不算）。
@@ -14,7 +15,11 @@ const DEFAULT_PILES := Vector2(56.0, 104.0)
 const DEFAULT_PIPES := 0.5
 ## 橋面樑的厚度、基樁的寬度、管線的粗細（像素）。
 const BEAM := 5.0
-const PILE_WIDTH := Vector2(7.0, 12.0)
+const PILE_WIDTH := Vector2(6.0, 16.0)
+## 基樁頂端的樁帽比樁身寬多少、多高；背光面佔樁寬的比例與暗多少（往最暗的底色混）。
+const PILE_CAP := Vector2(2.0, 3.0)
+const SHADOW_SHARE := 0.45
+const SHADOW_MIX := 0.55
 const PIPE := 5.0
 
 var start := DEFAULT_START
@@ -26,7 +31,11 @@ var base := Color(0.06, 0.05, 0.06)
 var deep := Color(0.02, 0.02, 0.03)
 var structure := Color(0.09, 0.08, 0.09)
 var edge := Color(1, 1, 1, 0.08)
+## 主光的 x（像素）：每根基樁朝主光那一側是受光面、另一側是背光面；NAN 時光從左邊來。
+var key_x := NAN
 var _runs: Array[Rect2] = []
+var _from := 0
+var _to := 0
 var _seed := 0
 static var _gradient: GradientTexture2D
 
@@ -45,6 +54,8 @@ func setup(layout: LevelLayout, spec: Variant, where: String, ambient: Color, ac
 	start = _number(data, "start", DEFAULT_START, 0.0, 64.0, problems)
 	fade = _number(data, "fade", DEFAULT_FADE, 0.0, 1.0, problems)
 	pipes = _number(data, "pipes", DEFAULT_PIPES, 0.0, 1.0, problems)
+	_from = int(_number(data, "from", 0.0, 0.0, 100000.0, problems))
+	_to = int(_number(data, "to", float(layout.width), 0.0, 100000.0, problems))
 	var raw_piles: Variant = data.get("piles", [DEFAULT_PILES.x, DEFAULT_PILES.y])
 	if typeof(raw_piles) != TYPE_ARRAY or (raw_piles as Array).size() != 2 or typeof(raw_piles[0]) not in [TYPE_INT, TYPE_FLOAT] \
 			or typeof(raw_piles[1]) not in [TYPE_INT, TYPE_FLOAT] or float(raw_piles[0]) < 24.0 or float(raw_piles[1]) < float(raw_piles[0]):
@@ -72,7 +83,7 @@ func run_count() -> int:
 func _find_runs(layout: LevelLayout) -> void:
 	var tile := float(layout.tile_size)
 	var current := Rect2()
-	for column in mini(layout.width, layout.surface_heights.size()):
+	for column in range(_from, mini(mini(layout.width, layout.surface_heights.size()), _to)):
 		var top := int(layout.surface_heights[column] / tile)
 		var deep_enough := top >= 0 and top < layout.height and layout.cell(column, top) == LevelBuilder.SOLID
 		for k in MIN_DEPTH_TILES:
@@ -113,8 +124,7 @@ func _draw() -> void:
 		while x < run.end.x - 6.0:
 			var width := rng.randf_range(PILE_WIDTH.x, PILE_WIDTH.y)
 			var pile := Rect2(x, run.position.y + BEAM, width, run.size.y - BEAM)
-			draw_rect(pile, structure)
-			draw_line(pile.position + Vector2(1, 0), Vector2(pile.position.x + 1, pile.end.y), edge, 1.0)
+			_pile(pile)
 			# 偶爾在兩根基樁之間有一條管線（高度不一，兩端有接頭）。
 			if rng.randf() < pipes and x - last > 24.0:
 				var y := run.position.y + BEAM + rng.randf_range(8.0, maxf(9.0, run.size.y * 0.55))
@@ -125,6 +135,21 @@ func _draw() -> void:
 				draw_rect(Rect2(pipe.end.x - 2.0, y - 1.0, 3.0, PIPE + 2.0), structure)
 			last = x + width
 			x += width + rng.randf_range(piles.x, piles.y)
+
+
+## 一根基樁：受光面、背光面（朝主光的反方向、暗一截）、受光那側一條亮邊、頂端略寬的樁帽。
+func _pile(pile: Rect2) -> void:
+	draw_rect(pile, structure)
+	var light_side := -1.0 if is_nan(key_x) or key_x < pile.get_center().x else 1.0
+	var shadow_width := roundf(pile.size.x * SHADOW_SHARE)
+	var shadow_x := pile.end.x - shadow_width if light_side < 0.0 else pile.position.x
+	draw_rect(Rect2(shadow_x, pile.position.y, shadow_width, pile.size.y), structure.lerp(deep, SHADOW_MIX))
+	var lit_x := pile.position.x + 1.0 if light_side < 0.0 else pile.end.x - 1.0
+	draw_line(Vector2(lit_x, pile.position.y), Vector2(lit_x, pile.end.y), edge, 1.0)
+	var cap := Rect2(pile.position.x - PILE_CAP.x, pile.position.y, pile.size.x + PILE_CAP.x * 2.0, PILE_CAP.y)
+	draw_rect(cap, structure)
+	draw_line(cap.position, Vector2(cap.end.x, cap.position.y), edge, 1.0)
+	draw_line(Vector2(cap.position.x, cap.end.y), Vector2(cap.end.x, cap.end.y), structure.lerp(deep, SHADOW_MIX), 1.0)
 
 
 ## 由上往下變不透明的漸層（全部共用一張）：上緣透明、下面全黑，中間較快變暗。

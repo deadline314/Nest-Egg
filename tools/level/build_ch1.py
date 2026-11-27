@@ -1766,6 +1766,10 @@ def _v2_route_checks(area):
     return problems
 
 
+# 第一章的主光、近前景、中景與地面剖面（BG-75）：依區域 id 併進地圖頂層資料（街道的近前景與中景寫在 build_street）。
+DEPTH_EXTRA = {"booth_alley": {"key_light": {"x": 44, "y": 2, "color": [0.53, 0.72, 1.0], "energy": 0.6, "light_radius": 460, "halo_radius": 180, "halo_alpha": 0.4, "front_wash": 0.05, "shafts": {"count": 4, "angle": -18, "length": 300, "width": 18, "spread": 120}, "occlusion": [0.25, 0.75], "period": 40}, "near_foreground": [{"anchor": "bottom", "base": ["railing"], "pieces": ["fence"], "rise": 12, "spacing": [120, 260], "scale": [0.7, 1.0], "from": 0, "to": 56}, {"anchor": "top", "pieces": ["cables"], "above": 175, "spacing": [120, 260], "from": 0, "to": 56}], "ground_section": {"start": 20, "fade": 0.82, "piles": [56, 104], "pipes": 0.6}}, "street": {"key_light": {"x": 100, "y": 20, "color": [1.0, 0.35, 0.72], "energy": 0.45, "light_radius": 520, "halo_radius": 220, "halo_alpha": 0.32, "front_wash": 0.04, "shafts": {"count": 0}, "occlusion": [0.1, 0.5], "period": 36}, "ground_section": {"start": 20, "fade": 0.82, "piles": [56, 104], "pipes": 0.5}}, "pawnshop": {"key_light": {"x": 10, "y": 4, "color": [1.0, 0.69, 0.38], "energy": 0.3, "light_radius": 420, "halo_radius": 180, "halo_alpha": 0.45, "front_wash": 0.05, "shafts": {"count": 3, "angle": 10, "length": 200, "width": 16, "spread": 80}, "occlusion": [0.1, 0.4], "period": 60}, "near_foreground": [{"anchor": "bottom", "base": ["railing"], "pieces": ["fence"], "rise": 12, "spacing": [120, 240], "scale": [0.7, 1.0], "from": 0, "to": 28}], "ground_section": {"start": 20, "fade": 0.82, "piles": [56, 104], "pipes": 0.4, "from": 0, "to": 30}}, "rooftop": {"key_light": {"x": 20, "y": 30, "color": [0.55, 0.7, 1.0], "energy": 0.5, "light_radius": 520, "halo_radius": 260, "halo_alpha": 0.3, "front_wash": 0.04, "shafts": {"count": 5, "angle": 25, "length": 420, "width": 26, "spread": 200}, "occlusion": [0.3, 0.8], "period": 50}, "near_foreground": [{"anchor": "bottom", "base": ["railing"], "deck_base": ["curb_bollards", "deck_beam"], "rise": 13, "from": 0, "to": 72}, {"anchor": "top", "pieces": ["cables"], "above": 175, "spacing": [140, 300], "from": 0, "to": 72}], "midground": {"pieces": ["crates_stack", "barrels", "trash_can"], "spacing": [50, 120], "from": 2, "to": 70}, "ground_section": {"start": 20, "fade": 0.82, "piles": [56, 104], "pipes": 0.5}}, "warehouse": {"key_light": {"x": 104, "y": 42, "color": [1.0, 0.65, 0.3], "energy": 0.4, "light_radius": 520, "halo_radius": 200, "halo_alpha": 0.35, "front_wash": 0.05, "shafts": {"count": 5, "angle": 20, "length": 340, "width": 24, "spread": 200}, "occlusion": [0.2, 0.7], "period": 45}, "midground": {"pieces": ["crates_stack", "barrels"], "spacing": [80, 200], "from": 2, "to": 164}, "ground_section": {"start": 20, "fade": 0.82, "piles": [56, 104], "pipes": 0.6}}}
+
+
 def _map_extra(area):
     props = prepare_props(area.props, placement_id(area.id))
     if hasattr(area, 'legacy_layout'):
@@ -1808,6 +1812,7 @@ def _map_extra(area):
             extra['capability_targets'] = area.capability_targets
     # 其他頂層資料（例如主光 key_light，BG-67）原樣寫進地圖。
     extra.update(getattr(area, 'map_extra', {}))
+    extra.update(DEPTH_EXTRA.get(area.id, {}))
     return extra
 
 

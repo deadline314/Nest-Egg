@@ -7,6 +7,8 @@ extends ScenarioBase
 const AREAS := {
 	"ch3_glass_edge": [8, 14, 30, 48],
 	"ch1_street": [24, 96, 160],
+	"ch1_booth_alley": [26],
+	"ch1_rooftop": [42],
 }
 const GRUNT := "res://data/enemies/grunt.tres"
 

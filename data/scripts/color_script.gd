@@ -10,6 +10,8 @@ extends RefCounted
 ## 燈具與霓虹維持原本的（它們是點綴色，不在腳本裡）。
 ## 資料：DATA_PATH，{"areas": {區域 id: {"main": "#rrggbb", "key": "#rrggbb", "shadow": "#rrggbb", "background": 0~1（選填）}}}。
 ## background 是天空與遠景往主色偏的幅度（預設 BACKGROUND_SPREAD）；遠景剛好在角色身後、偏色會吃掉對比的區域調小。
+## 驗收用的色相範圍（BG-75）："chapters": {章 id: {"hue": [下限, 上限]}}（度，可以跨過 0，例如 [340, 50]）：那一章各區截圖的
+## 平均色相要落在這裡；區域自己寫了 "hue" 的（例如當舖）不算進章節平均，單獨檢查。
 ## 資料寫錯時記錄是哪個區域哪一項，那個區域維持原本的光影；沒寫到的區域也維持原本的。
 
 const DATA_PATH := "res://data/environment/color_script.json"
@@ -20,6 +22,7 @@ const MAIN_SATURATION_MIX := 0.5
 const BACKGROUND_SPREAD := 0.45
 
 static var _areas: Dictionary = {}
+static var _chapters: Dictionary = {}
 static var _loaded := false
 
 
@@ -27,6 +30,29 @@ static var _loaded := false
 static func entry_for(area_id: StringName) -> Dictionary:
 	_load()
 	return _areas.get(String(area_id), {})
+
+
+## 章節的色相範圍（Vector2(下限, 上限)，度）；沒寫時回傳 Vector2(-1, -1)。
+static func chapter_hue(chapter: String) -> Vector2:
+	_load()
+	return _chapters.get(chapter, Vector2(-1, -1))
+
+
+## 區域自己的色相範圍；沒寫時回傳 Vector2(-1, -1)。
+static func area_hue(area_id: StringName) -> Vector2:
+	return entry_for(area_id).get("hue", Vector2(-1, -1))
+
+
+## 色相 hue（度）在不在範圍裡（範圍可以跨過 0）。
+static func hue_in(hue: float, span: Vector2) -> bool:
+	hue = fposmod(hue, 360.0)
+	return hue >= span.x and hue <= span.y if span.x <= span.y else hue >= span.x or hue <= span.y
+
+
+## 兩個色相差幾度（0~180）。
+static func hue_distance(a: float, b: float) -> float:
+	var d := fposmod(a - b, 360.0)
+	return minf(d, 360.0 - d)
 
 
 static func area_ids() -> PackedStringArray:
@@ -109,6 +135,11 @@ static func _load() -> void:
 					problems.append("%s 要是 #rrggbb（%s）" % [key, value])
 				else:
 					entry[key] = Color.html(str(value))
+			var span := _hue_span((raw as Dictionary).get("hue"))
+			if span.x == -2.0:
+				problems.append("hue 要是 [0~360, 0~360]")
+			elif span.x >= 0.0:
+				entry["hue"] = span
 			var background: Variant = (raw as Dictionary).get("background", BACKGROUND_SPREAD)
 			if typeof(background) not in [TYPE_INT, TYPE_FLOAT] or float(background) < 0.0 or float(background) > 1.0:
 				problems.append("background 要是 0~1 的數字（%s）" % background)
@@ -118,6 +149,27 @@ static func _load() -> void:
 			push_error("[ColorScript] %s 的區域 %s 有問題，維持原本的光影：%s" % [DATA_PATH, area, "；".join(problems)])
 			continue
 		_areas[str(area)] = entry
+	_chapters.clear()
+	var chapters: Variant = (parsed as Dictionary).get("chapters", {})
+	if typeof(chapters) == TYPE_DICTIONARY:
+		for chapter: Variant in chapters:
+			var raw_chapter: Variant = (chapters as Dictionary)[chapter]
+			var span := _hue_span((raw_chapter as Dictionary).get("hue") if typeof(raw_chapter) == TYPE_DICTIONARY else null)
+			if span.x < 0.0:
+				push_error("[ColorScript] %s 的章節 %s 的 hue 要是 [0~360, 0~360]" % [DATA_PATH, chapter])
+				continue
+			_chapters[str(chapter)] = span
+	else:
+		push_error("[ColorScript] %s 的 chapters 必須是物件" % DATA_PATH)
+
+
+## 色相範圍：null 回傳 (-1, -1)（沒寫）；寫錯回傳 (-2, -2)。
+static func _hue_span(raw: Variant) -> Vector2:
+	if raw == null:
+		return Vector2(-1, -1)
+	if typeof(raw) != TYPE_ARRAY or (raw as Array).size() != 2 or typeof(raw[0]) not in [TYPE_INT, TYPE_FLOAT] or typeof(raw[1]) not in [TYPE_INT, TYPE_FLOAT] 			or float(raw[0]) < 0.0 or float(raw[0]) > 360.0 or float(raw[1]) < 0.0 or float(raw[1]) > 360.0:
+		return Vector2(-2, -2)
+	return Vector2(float(raw[0]), float(raw[1]))
 
 
 ## 測試用：重新讀檔。
