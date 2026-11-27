@@ -21,6 +21,14 @@ const TAB_GAP := 4
 const TAB_MAX_WIDTH := 104.0
 const LEGEND_WIDTH := 292.0
 ## 右側立繪欄：寬度依立繪比例（約 1:3.2）與可用高度決定；欄與內容之間的間距。
+## 拼貼版面（NE-403）：標題字級、標題底板比標題多出來的留白、分頁吊牌的傾斜（度，交錯）、信用點滾動的時間。
+const TITLE_SIZE := 26
+const TITLE_PLATE_PAD := Vector2(22, 8)
+const TAB_TILTS: Array[float] = [-2.5, 2.0, -1.5, 2.5, -2.0, 1.5]
+const CREDITS_ROLL := 0.28
+## 開啟時分頁吊牌依序彈入：第一張的延遲與間隔（最後一張也在 300 毫秒內停好）。
+const TAB_INTRO_DELAY := 0.02
+const TAB_INTRO_STEP := 0.015
 const PORTRAIT_WIDTH := 104.0
 const PORTRAIT_GAP := 8.0
 const CREDITS_HEIGHT := 16.0
@@ -36,9 +44,10 @@ var _current := 0
 var _root: Control
 var _frame: Control
 var _title: Label
+var _title_plate: CollagePlate
 var _scan: ColorRect
 var _tabs: HBoxContainer
-var _tab_buttons: Array[Button] = []
+var _tab_buttons: Array[TagButton] = []
 var _page_host: Control
 var _portrait: SidePortrait
 var _credits: Label
@@ -190,8 +199,14 @@ func _build_layout() -> void:
 	_root.add_child(_frame)
 	_frame.resized.connect(func() -> void: _frame.pivot_offset = _frame.size * 0.5)
 
-	_title = UiKit.label(_screen_title(), 18, Palette.CYAN)
-	_title.position = Vector2(MARGIN.x, MARGIN.y + 2)
+	# 標題放大、壓在斜切的招牌底板上（底板傾斜，字保持水平）。
+	_title_plate = CollagePlate.new()
+	_title_plate.tilt_degrees = -3.0
+	_title_plate.skew = 10.0
+	_title_plate.cut = 8.0
+	_frame.add_child(_title_plate)
+	_title = UiKit.label(_screen_title(), TITLE_SIZE, Palette.CYAN)
+	_title.position = Vector2(MARGIN.x, MARGIN.y - 4)
 	_frame.add_child(_title)
 
 	_tabs = HBoxContainer.new()
@@ -240,11 +255,16 @@ func _build_layout() -> void:
 	_root.add_child(_scan)
 
 
-func _make_tab_button(index: int, width: float) -> Button:
-	var button := Button.new()
+## 分頁是一排吊牌：微微傾斜、目前所在的那一張轉正往前（不取得焦點，和修前一樣只用 Q/E 與滑鼠切換）。
+func _make_tab_button(index: int, width: float) -> TagButton:
+	var button := TagButton.new()
 	button.toggle_mode = false
 	button.focus_mode = Control.FOCUS_NONE
+	button.alignment = HORIZONTAL_ALIGNMENT_CENTER
+	button.text_margin = 11.0
+	button.text_margin_right = 4.0
 	button.custom_minimum_size = Vector2(width, 26)
+	button.tilt_degrees = TAB_TILTS[index % TAB_TILTS.size()]
 	button.pressed.connect(func() -> void: select_tab(index))
 	button.mouse_entered.connect(func() -> void: _show_hint(_pages[index].tab_tooltip()))
 	return button
@@ -299,6 +319,9 @@ func _create_pages() -> void:
 
 ## Counter names can be wider than the bag title, including after text-size changes.
 func _layout_header() -> void:
+	var title_size := _title.get_combined_minimum_size()
+	_title_plate.position = _title.position - TITLE_PLATE_PAD * Vector2(0.5, 0.5) - Vector2(6, 0)
+	_title_plate.size = title_size + TITLE_PLATE_PAD
 	if _tab_buttons.is_empty():
 		return
 	_tabs.position.x = maxf(TABS_LEFT, _title.position.x + _title.get_combined_minimum_size().x + 12.0)
@@ -323,10 +346,9 @@ func _refresh_tab_labels() -> void:
 		var selected := i == _current
 		button.text = _pages[i].tab_title() + (" ●" if _pages[i].tab_has_alert() and not selected else "")
 		button.tooltip_text = _pages[i].tab_tooltip()
-		button.add_theme_stylebox_override(&"normal", UiKit.tab_style(selected))
-		button.add_theme_stylebox_override(&"hover", UiKit.tab_style(true))
-		button.add_theme_stylebox_override(&"pressed", UiKit.tab_style(true))
+		button.pinned = selected
 		var alert := _pages[i].tab_has_alert() and not selected
+		button.accent = Palette.MAGENTA if alert else Palette.CYAN
 		button.add_theme_color_override(&"font_color", Palette.CYAN if selected else (Palette.MAGENTA if alert else Palette.UI_MUTED))
 		button.add_theme_color_override(&"font_hover_color", Palette.CYAN)
 	_layout_header()
@@ -392,8 +414,13 @@ func _layout_side_column() -> void:
 	_portrait.size = Vector2(PORTRAIT_WIDTH, _page_host.position.y + _page_host.size.y - top)
 
 
-func _on_credits_changed(_credits_now: int, _delta: int) -> void:
+## 信用點改變時數字滾動到新的值（「減少動態」時直接顯示）。
+func _on_credits_changed(credits_now: int, delta: int) -> void:
+	if not _is_open:
+		return
 	_refresh_credits()
+	if delta != 0:
+		UiMotion.count_up(_credits, credits_now - delta, credits_now, CREDITS_ROLL, Labels.get_text(&"credits"))
 
 
 func _refresh_credits() -> void:
@@ -421,6 +448,10 @@ func _play_open_animation() -> void:
 		return
 	_frame.scale = Vector2(1.0, 0.03)
 	_frame.modulate = Color(1, 1, 1, 0)
+	# 標題底板斜切進來、分頁吊牌依序彈入。
+	_title_plate.intro(0.04)
+	for i in _tab_buttons.size():
+		_tab_buttons[i].intro(TAB_INTRO_DELAY + TAB_INTRO_STEP * i)
 	_root.modulate.a = 0.0
 	_scan.visible = not Settings.get_reduce_flashes()
 	_scan.modulate.a = 1.0

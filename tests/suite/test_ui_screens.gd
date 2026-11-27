@@ -25,6 +25,7 @@ func run() -> void:
 	await _test_pause_retry_copy()
 	await _test_pause_settings_overlay()
 	await _test_main_menu_overlays()
+	await _test_collage_motion()
 	await _test_difficulty_cards_never_overlap()
 	await _test_chapter_card_under_pause()
 	await _test_fullscreen_setting()
@@ -161,9 +162,9 @@ func _test_title_language() -> void:
 		runner.add_child(menu)
 		await frames(4)
 		menu._start_button.grab_focus()
-		check(menu._menu_marker.visible and menu._marker_tween == null
-				and is_equal_approx(menu._menu_marker.position.y, menu._menu_list.position.y + menu._start_button.position.y + 4.0),
-				"reduced motion moves the focus rail directly to the active row")
+		var start_tag := menu._start_button as TagButton
+		check(start_tag != null and is_equal_approx(start_tag.active_amount(), 1.0) and is_zero_approx(start_tag.current_tilt()),
+				"reduced motion straightens the focused tag at once")
 		check(menu._hint.get_global_rect().end.y <= menu._menu_legend.get_global_rect().position.y,
 				"at 120 percent with Continue, focus help has its own row " + entry[0])
 		check(menu._start_button.text == entry[1] and menu._hint.text == menu._start_button.tooltip_text,
@@ -878,3 +879,69 @@ func _test_overwrite_prompt_language() -> void:
 		prompt.queue_free()
 		await frames(2)
 	Story.language = previous_language
+
+
+## 拼貼版面（NE-403）：所有動畫 300 毫秒內完成；連續快速操作以最後一次為準、不殘留傾斜或半透明；
+## 「減少動態」直接到位；點擊範圍跟著畫面上的形狀；文字的節點不轉動；待機時只有選到的那一項在動，看不到就停。
+func _test_collage_motion() -> void:
+	var limit := 0.3
+	check(MainMenu.INTRO_DELAY + MainMenu.INTRO_STEP * 4 + TagButton.INTRO_TIME <= limit + 0.0001, "the main menu tags finish bouncing in within 300 ms")
+	check(InventoryScreen.TAB_INTRO_DELAY + InventoryScreen.TAB_INTRO_STEP * 5 + TagButton.INTRO_TIME <= limit + 0.0001, "the bag tabs finish bouncing in within 300 ms")
+	check(CollagePlate.INTRO_TIME + 0.04 <= limit and TagButton.SELECT_TIME <= limit and TagButton.PRESS_DOWN + TagButton.PRESS_UP <= limit and InventoryScreen.CREDITS_ROLL <= limit, "title plates, selection, press and number rolls each finish within 300 ms")
+	var previous_motion := Settings.get_reduce_ui_motion()
+	Settings.set_reduce_ui_motion(false)
+	var menu := MainMenu.new()
+	runner.add_child(menu)
+	await runner.get_tree().create_timer(0.5).timeout
+	var tags := menu._tags
+	check(tags.size() >= 4, "the main menu builds its options as tags (%d)" % tags.size())
+	for tag in tags:
+		check(is_zero_approx(tag.rotation) and is_equal_approx(tag.modulate.a, 1.0), "%s: the text node is never rotated and is fully shown after the intro" % tag.text)
+	# 連按：同一格裡焦點連跳三次，最後停在第四張。
+	tags[1].grab_focus()
+	tags[2].grab_focus()
+	tags[3].grab_focus()
+	await runner.get_tree().create_timer(0.35).timeout
+	for i in tags.size():
+		var expected := 1.0 if i == 3 else 0.0
+		check(is_equal_approx(tags[i].active_amount(), expected), "after rapid moves only the last focused tag is straight (%d: %.2f)" % [i, tags[i].active_amount()])
+	check(is_zero_approx(tags[3].current_tilt()) and absf(rad_to_deg(tags[0].current_tilt()) - tags[0].tilt_degrees) < 0.01, "the focused tag stands straight and the others are back at their tilt")
+	# 待機：沒選到的吊牌沒有在跑的動畫；選到的在呼吸，畫面藏起來就停。
+	var idle_quiet := true
+	for i in tags.size():
+		if i != 3:
+			idle_quiet = idle_quiet and (tags[i]._active_tween == null or not tags[i]._active_tween.is_running()) and tags[i]._breath_tween == null
+	check(idle_quiet, "unselected tags do nothing while the menu idles")
+	check(tags[3]._breath_tween != null and tags[3]._breath_tween.is_running(), "the selected tag breathes slowly while idle")
+	menu._main_page.visible = false
+	await frames(2)
+	check(tags[3]._breath_tween == null, "breathing stops when the menu is not on screen")
+	menu._main_page.visible = true
+	await frames(2)
+	# 點擊範圍跟著吊牌的形狀：切掉的角不算，正中間算。
+	var shape := tags[0].shape_points()
+	check(tags[0]._has_point(tags[0].size * 0.5) and not tags[0]._has_point(Vector2(1, 1)), "a tag only takes clicks inside its drawn shape")
+	check(shape.size() >= 8, "the tag outline is not a plain rectangle (%d points)" % shape.size())
+	menu.queue_free()
+	await frames(2)
+	# 減少動態：焦點一到就轉正，開場直接顯示。
+	Settings.set_reduce_ui_motion(true)
+	menu = MainMenu.new()
+	runner.add_child(menu)
+	await frames(3)
+	menu._tags[2].grab_focus()
+	check(is_equal_approx(menu._tags[2].active_amount(), 1.0) and is_equal_approx(menu._tags[0].modulate.a, 1.0) and menu._tags[2]._breath_tween == null, "reduced motion straightens at once, shows everything and does not breathe")
+	menu.queue_free()
+	await frames(2)
+	# 背包卡片：點擊範圍跟著當票的形狀（右邊撕線的凹處不算），沒選到的卡片不逐格重畫。
+	var card := ItemCard.new()
+	runner.add_child(card)
+	var entry := InventoryEntry.new()
+	entry.title = "test"
+	card.setup(entry, 0)
+	await frames(2)
+	check(card._has_point(ItemCard.CARD_SIZE * 0.5) and not card._has_point(Vector2(ItemCard.CARD_SIZE.x - 1.0, 4.0)), "an item card only takes clicks inside its ticket shape")
+	check(not card.is_processing(), "an unselected item card does not redraw every frame")
+	card.queue_free()
+	Settings.set_reduce_ui_motion(previous_motion)
+	await frames(2)

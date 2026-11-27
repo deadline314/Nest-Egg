@@ -19,6 +19,7 @@ const SCENARIOS := {
 	"layer_overlap": "res://tools/scenarios/layer_overlap_scenario.gd",
 	"key_light": "res://tools/scenarios/key_light_scenario.gd",
 	"near_foreground": "res://tools/scenarios/near_foreground_scenario.gd",
+	"collage_ui": "res://tools/scenarios/collage_ui_scenario.gd",
 	"backdrop_drift": "res://tools/scenarios/backdrop_drift_scenario.gd",
 	"ui_motion": "res://tools/scenarios/ui_motion_scenario.gd",
 	"inventory_portrait": "res://tools/scenarios/inventory_portrait_scenario.gd",

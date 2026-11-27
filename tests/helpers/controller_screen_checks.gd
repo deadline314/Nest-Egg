@@ -230,6 +230,8 @@ static func _check_bag(suite: TestSuite) -> void:
 	var before := Progression.credits
 	await _joy(suite, JOY_BUTTON_A)
 	suite.check(not entry.action_enabled or Progression.credits < before, "手把 A 執行選中項目的動作（改裝扣款）")
+	# 信用點會滾動到新的值（NE-403），等滾完再看。
+	await suite.runner.get_tree().create_timer(InventoryScreen.CREDITS_ROLL + 0.05).timeout
 	suite.check(bag._credits.text.contains(str(Progression.credits)), "右側信用點跟著扣款更新")
 	await _joy(suite, JOY_BUTTON_LEFT_SHOULDER)
 	suite.check(bag._current == upgrades - 1, "手把 LB 換回上一頁")

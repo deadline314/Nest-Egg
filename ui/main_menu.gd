@@ -2,6 +2,8 @@ class_name MainMenu
 extends Control
 ## 主選單的城市慢鏡、固定導覽列和難度選擇。
 ## 每個選項都有一句重點說明（游標或焦點移上去時顯示在選單下方，同時是 tooltip）。
+## 拼貼版面（NE-403）：遊戲名放大壓在斜切的霓虹招牌底板上，後面疊一層錯位的副標；選項是微微傾斜、互相壓住一點的貨運吊牌，
+## 選到的那一項轉正往前（TagButton）。開啟時底板切入、吊牌依序彈入；「減少動態」時直接到位。
 
 signal start_requested(difficulty: DifficultyData)
 signal quit_requested
@@ -15,10 +17,19 @@ var _continue_button: Button
 const VERSION_TEXT := "DEMO 0.1"
 const CAMERA_SWAY := 56.0
 const CAMERA_PERIOD := 48.0
-const MENU_WIDTH := 194.0
+const MENU_WIDTH := 200.0
 const MENU_INK := Color("e9e2ce")
-const MENU_DIVIDER := Color("688e91")
-const ACTIVE_RAIL := Color("9bd9d8")
+## 主要項目（吊牌）的高度、互相壓住的量與各自的傾斜（度，交錯排列）。
+const TAG_HEIGHT := 28.0
+const TAG_OVERLAP := 3
+const TAG_TILTS: Array[float] = [-3.5, 2.5, -2.0, 4.0, -3.0, 2.0]
+## 標題：字級（遊戲像素）、底板的位置與大小、錯位副標的字級。
+const TITLE_SIZE := 50
+const TITLE_PLATE := Rect2(14, 22, 312, 92)
+const GHOST_SIZE := 30
+## 開場吊牌依序彈入：第一張的延遲與每張之間的間隔（最後一張也要在 300 毫秒內停好）。
+const INTRO_DELAY := 0.03
+const INTRO_STEP := 0.02
 const CARD_SIZE := Vector2(184, 194)
 const COPY := {
 	"subtitle": ["巢中之卵", "巣の卵", ""],
@@ -64,11 +75,10 @@ var _difficulty_page: Control
 var _hint: Label
 var _start_button: Button
 var _menu_list: VBoxContainer
-var _menu_rail: ColorRect
-var _menu_marker: ColorRect
 var _menu_focus: Button
 var _menu_hover: Button
-var _marker_tween: Tween
+var _title_plate: CollagePlate
+var _tags: Array[TagButton] = []
 var _confirm_button: Button
 var _dev_button: Button
 var _cards: Array[UiCard] = []
@@ -124,7 +134,7 @@ func _input(event: InputEvent) -> void:
 			or event.is_action_pressed(&"ui_left") or event.is_action_pressed(&"ui_right") \
 			or event.is_action_pressed(&"ui_focus_next") or event.is_action_pressed(&"ui_focus_prev"):
 		_menu_hover = null
-		_move_menu_marker(false)
+		_update_hint()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -164,28 +174,28 @@ func _build_main_page() -> void:
 	_main_page.set_anchors_preset(Control.PRESET_FULL_RECT)
 	_ui.add_child(_main_page)
 
-	var title := UiKit.label("NEST EGG", UiKit.FS_DISPLAY, MENU_INK)
+	# 招牌底板 → 錯位的大副標（很淡）→ 遊戲名 → 小副標。文字一律水平，只有底板傾斜。
+	_title_plate = CollagePlate.new()
+	_title_plate.position = TITLE_PLATE.position
+	_title_plate.size = TITLE_PLATE.size
+	_main_page.add_child(_title_plate)
+	var ghost := UiKit.label(_text("subtitle") if not _text("subtitle").is_empty() else "NEST EGG", GHOST_SIZE, Color(Palette.CYAN, 0.16))
+	ghost.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	ghost.position = Vector2(186, 62)
+	_main_page.add_child(ghost)
+	var title := UiKit.label("NEST EGG", TITLE_SIZE, MENU_INK)
 	title.add_theme_font_override(&"font", UiKit.special_font(&"display"))
-	title.position = Vector2(36, 40)
+	title.position = Vector2(30, 26)
 	_main_page.add_child(title)
-	var subtitle := UiKit.label(_text("subtitle"), UiKit.FS_BODY, Palette.UI_MUTED)
-	subtitle.position = Vector2(38, 84)
+	var subtitle := UiKit.label(_text("subtitle"), UiKit.FS_BODY, Palette.CYAN)
+	subtitle.position = Vector2(36, 92)
 	_main_page.add_child(subtitle)
-	var rule := ColorRect.new()
-	rule.color = MENU_DIVIDER
-	rule.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	rule.position = Vector2(38, 108)
-	rule.size = Vector2(56, 1)
-	_main_page.add_child(rule)
 
 	_menu_list = VBoxContainer.new()
-	_menu_list.position = Vector2(38, 124)
-	_menu_list.add_theme_constant_override(&"separation", 3)
+	_menu_list.position = Vector2(30, 126)
+	_menu_list.add_theme_constant_override(&"separation", -TAG_OVERLAP)
 	_main_page.add_child(_menu_list)
-	_menu_rail = _new_rail(MENU_DIVIDER.darkened(0.35))
-	_menu_marker = _new_rail(ACTIVE_RAIL)
-	_menu_marker.hide()
-	_menu_list.sort_children.connect(_layout_menu_rail)
+	_menu_list.sort_children.connect(_layout_menu_list)
 	var entries: Array[Button] = []
 	if continue_available:
 		_continue_button = _menu_button(_text("resume"), continue_requested.emit, _text("resume_hint"))
@@ -203,7 +213,7 @@ func _build_main_page() -> void:
 	_hint.size = Vector2(260, 16)
 	_main_page.add_child(_hint)
 	_hint.position.y = 291
-	_layout_menu_rail.call_deferred()
+	_layout_menu_list.call_deferred()
 	if not save_notice.is_empty():
 		var notice_panel := PanelContainer.new()
 		notice_panel.theme_type_variation = &"TooltipPanel"
@@ -232,7 +242,28 @@ func _build_main_page() -> void:
 	version.offset_bottom = -8
 	_build_dev_entry()
 
-	UiMotion.stagger_in([title, subtitle, rule], 0.04, 8.0)
+	# 開場：底板斜切進來，標題與副標滑入，吊牌依序彈入（全部 300 毫秒內）。
+	UiMotion.stagger_in([title, ghost, subtitle], 0.03, 10.0)
+	_play_intro()
+
+
+## 開場動畫：先把底板與吊牌藏起來，等兩個影格（第一個影格常因為載入背景而很長，tween 會被那一格一次吃掉）再開始。
+func _play_intro() -> void:
+	if Settings.get_reduce_ui_motion():
+		_title_plate.intro()
+		for tag in _tags:
+			tag.intro(0.0)
+		return
+	_title_plate._set_intro(0.0)
+	for tag in _tags:
+		tag._set_intro(0.0)
+	await get_tree().process_frame
+	await get_tree().process_frame
+	if not is_inside_tree():
+		return
+	_title_plate.intro()
+	for i in _tags.size():
+		_tags[i].intro(INTRO_DELAY + INTRO_STEP * i)
 
 
 ## 編輯器與除錯版才有的開發工具入口：不依賴 F5 能不能送到遊戲視窗（編輯器可能先攔走 F5）。
@@ -251,26 +282,18 @@ func _build_dev_entry() -> void:
 
 
 func _menu_button(text: String, on_pressed: Callable, tooltip: String) -> Button:
-	var b := UiKit.button(text, on_pressed, tooltip) as UiButton
-	b.show_marker = false
+	var b := TagButton.new()
+	b.text = text
+	b.tooltip_text = tooltip
+	if on_pressed.is_valid():
+		b.pressed.connect(on_pressed)
 	b.theme_type_variation = &"MenuAction"
-	b.alignment = HORIZONTAL_ALIGNMENT_LEFT
-	b.custom_minimum_size = Vector2(MENU_WIDTH, 26)
-	var idle := StyleBoxEmpty.new()
-	idle.content_margin_left = 16.0
-	idle.content_margin_right = 12.0
-	idle.content_margin_top = 5.0
-	idle.content_margin_bottom = 5.0
-	var active := StyleBoxFlat.new()
-	active.bg_color = Color("2947546b")
-	for side in [SIDE_LEFT, SIDE_TOP, SIDE_RIGHT, SIDE_BOTTOM]:
-		active.set_content_margin(side, idle.get_margin(side))
-	b.add_theme_stylebox_override(&"normal", idle)
-	b.add_theme_stylebox_override(&"hover", idle)
-	b.add_theme_stylebox_override(&"pressed", active)
-	b.add_theme_stylebox_override(&"focus", idle)
+	b.custom_minimum_size = Vector2(MENU_WIDTH, TAG_HEIGHT)
+	b.tilt_degrees = TAG_TILTS[_tags.size() % TAG_TILTS.size()]
+	b.add_theme_color_override(&"font_color", Palette.UI_TEXT)
 	b.add_theme_color_override(&"font_hover_color", MENU_INK)
 	b.add_theme_color_override(&"font_focus_color", MENU_INK)
+	_tags.append(b)
 	_bind_menu_highlight(b)
 	return b
 
@@ -287,65 +310,42 @@ func _restore_pointer_highlight(event: InputEvent, button: Button) -> void:
 		_hover_action(button)
 
 
-func _new_rail(ink: Color) -> ColorRect:
-	var rail := ColorRect.new()
-	rail.color = ink
-	rail.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_main_page.add_child(rail)
-	return rail
-
-
 func _focus_action(button: Button) -> void:
 	_menu_focus = button
 	_menu_hover = null
-	_move_menu_marker(true)
+	_update_hint()
 
 
 func _hover_action(button: Button) -> void:
 	_menu_hover = button
-	_move_menu_marker(true)
+	_update_hint()
 
 
 func _leave_action(button: Button) -> void:
 	if _menu_hover == button:
 		_menu_hover = null
-		_move_menu_marker(true)
+		_update_hint()
 
 
-func _layout_menu_rail() -> void:
-	_menu_rail.position = _menu_list.position + Vector2(-2, 0)
-	_menu_rail.size = Vector2(1, _menu_list.size.y)
+## 選單排好後，說明放在最後一張吊牌下面。
+func _layout_menu_list() -> void:
 	if _hint != null:
-		_hint.position.y = _menu_rail.position.y + _menu_rail.size.y + 8.0
-	_move_menu_marker(false)
+		_hint.position.y = _menu_list.position.y + _menu_list.size.y + 10.0
+	_update_hint()
 
 
+## 「減少動態」切換時，吊牌直接回到該有的樣子。
 func _sync_menu_motion() -> void:
-	if Settings.get_reduce_ui_motion():
-		_move_menu_marker(false)
+	for tag in _tags:
+		tag._refresh_active()
 
 
-func _move_menu_marker(animate: bool) -> void:
+## 選單下方的說明：滑鼠指著的那一項優先，否則是焦點所在的那一項（吊牌自己處理轉正與往前）。
+func _update_hint() -> void:
 	var button := _menu_hover if is_instance_valid(_menu_hover) else _menu_focus
 	if not is_instance_valid(button) or _hint == null:
 		return
 	_hint.text = button.tooltip_text
-	if _marker_tween != null:
-		_marker_tween.kill()
-		_marker_tween = null
-	if button.get_parent() != _menu_list:
-		_menu_marker.hide()
-		return
-	var target := _menu_list.position.y + button.position.y + 4.0
-	var should_move := animate and _menu_marker.visible and not Settings.get_reduce_ui_motion()
-	_menu_marker.position.x = _menu_rail.position.x
-	_menu_marker.size = Vector2(2, maxf(1.0, button.size.y - 8.0))
-	_menu_marker.show()
-	if should_move:
-		_marker_tween = create_tween()
-		_marker_tween.tween_property(_menu_marker, "position:y", target, 0.12).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-	else:
-		_menu_marker.position.y = target
 
 
 func _build_difficulty_page() -> void:
