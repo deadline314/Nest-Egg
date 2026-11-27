@@ -841,7 +841,7 @@ var _throwables_placed := 0
 static func _is_prop_resource(resource: Resource) -> bool:
 	return resource is BreakableData or resource is MechanismData or resource is CreditPileData \
 			or resource is ShopData or resource is NpcData or resource is PortalData or resource is ThrowableData or resource is TrainingData \
-			or resource is SuspendedLoadData or resource is SteamValveData or resource is LiveCableData
+			or resource is SuspendedLoadData or resource is SteamValveData or resource is LiveCableData or resource is ConveyorData
 
 
 ## 生成物在本區域裡固定的鍵（資源 id 加格座標）；地圖資料改版後對不上的鍵會被忽略。
@@ -889,6 +889,13 @@ func _create_prop(spawn: Dictionary) -> Node2D:
 		var cable := LiveCable.new()
 		cable.configure(cable_data, cell, _ceiling_height_above(cell, 2, true) - float(_layout.tile_size))
 		return cable
+	if resource is ConveyorData:
+		var belt_data := resource as ConveyorData
+		for problem in belt_data.validate():
+			push_error("[Level] %s（格 %s）" % [problem, cell])
+		var belt := Conveyor.new()
+		belt.configure(belt_data, cell, _layout.tile_size)
+		return belt
 	if resource is SteamValveData:
 		var valve_data := resource as SteamValveData
 		for problem in valve_data.validate():

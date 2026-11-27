@@ -3050,6 +3050,7 @@ legend = Dictionary[String, Resource]({
 "b": SubResource("Resource_3p5sp"),
 "d": SubResource("Resource_3p5sp"),
 "g": SubResource("Resource_3p5sp"),
+"Ω": SubResource("Resource_3p5sp"),
 "Ⅿ": SubResource("Resource_vlihw"),
 "↟": SubResource("Resource_675go")
 })
@@ -5214,7 +5215,7 @@ digests = Dictionary[String, String]({
 "res://data/levels/ch4_factory_cleaning.tres": "30ecb61418fc80b44b5980f21696d77f2be0a035bc650c982584fcd18c7aa57f",
 "res://data/levels/ch4_factory_loading.tres": "b73ac5cac1269868bb3fb92d8fe2813d778db21439b1201838a512a663b9475f",
 "res://data/levels/ch4_factory_office.tres": "d0405e03e6c629a691031171c41fa99e35b9fb55756da3ea3c335777ad6a2534",
-"res://data/levels/ch4_factory_relay.tres": "4ea034978e00bc6805c1022777beb46a0392d5dbc407e94bb50f557e410659fe",
+"res://data/levels/ch4_factory_relay.tres": "de0d38fd3dfb8e31825ea285753fab3f0ebdc61b0fd2d4f50069aab84ad07b08",
 "res://data/levels/ch4_factory_roof.tres": "4e4f0db478ffc2374dd6120047c3e421af1262752cb26ccd53f0ea47e8b2d0c0",
 "res://data/levels/ch4_factory_safety.tres": "907f732bcf170ce04dc2876b744d8eedfa950cd193c17b8c5277bb37639d7f51",
 "res://data/levels/ch4_factory_work.tres": "11ac1dceea1b83966675f077ed13a9686bff03a8a2754d780179a86678aaa6b0",
@@ -5399,6 +5400,7 @@ digests = Dictionary[String, String]({
 "res://data/props/ch4_sweep_sample.tres": "9cb630bf93343dabe7532e1dcd01dff09062392f845945d128365ba73a726b5d",
 "res://data/props/ch4_upper_sweep.tres": "714fc2bc7b857a637cd0dc7f5e2be4363166d59a5cdf746be42c288dba6e2438",
 "res://data/props/ch4_work_test_cover.tres": "30b2f6cf8ed0fcd3132e5d61def38f1de0333299d7fa08f201d052797619d5b0",
+"res://data/props/conveyor.tres": "271db0b4dcab3b7ca6e1fbfab4e6164db362d2e25b8f31b2bfb3bcc8c8d55eb5",
 "res://data/props/cracked_wall.tres": "dfa3048aaf3553adf889a944c5b987a6768e947b00f0643d8227e47567691136",
 "res://data/props/crate.tres": "5286ff437abc89ee6a56dc52e26cd446d71150413d314814696c3082c14eef33",
 "res://data/props/credits_large.tres": "3219f488733a09b8e1e8d6ebe21e41e72decc2dbef5d0c34162b8b32983beee7",

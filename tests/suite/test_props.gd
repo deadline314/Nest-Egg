@@ -19,6 +19,8 @@ const VALVE_MAP := "res://tests/fixtures/steam_valve_map.json"
 const LAMP_MAP := "res://tests/fixtures/shootable_lamp_map.json"
 const CABLE_PATH := "res://data/props/live_cable.tres"
 const CABLE_MAP := "res://tests/fixtures/live_cable_map.json"
+const CONVEYOR_PATH := "res://data/props/conveyor.tres"
+const CONVEYOR_MAP := "res://tests/fixtures/conveyor_map.json"
 
 
 func run() -> void:
@@ -35,6 +37,7 @@ func run() -> void:
 	await _test_steam_valve()
 	await _test_shootable_lamp()
 	await _test_live_cable()
+	await _test_conveyor()
 
 
 func _test_mechanism_translations() -> void:
@@ -701,4 +704,58 @@ func _test_live_cable() -> void:
 	await physics_frames(4)
 	check(player.health.current == 20, "the spent puddle is just water")
 	check(not cable.cut(), "a spent cable cannot be cut again")
+	await end_level(level)
+
+
+## 輸送帶（NE-401）：站在上面的人被帶走、撞牆不穿；射馬達反轉、有冷卻、敵人打不轉；方向跟著檢查點。
+func _test_conveyor() -> void:
+	var belt_data := load(CONVEYOR_PATH) as ConveyorData
+	check(belt_data != null and belt_data.validate().is_empty(), "the conveyor data is valid: %s" % [belt_data.validate() if belt_data != null else ["missing"]])
+	if belt_data == null:
+		return
+	check(not belt_data.hint_for("en").is_empty() and not belt_data.hint_for("ja").is_empty(), "the conveyor hint is available in all three languages")
+	var bad := ConveyorData.new()
+	bad.speed = 0.0
+	bad.hint = "x"
+	check(bad.validate().size() >= 2, "a stopped belt or a missing translation is reported")
+
+	var data := LevelData.new()
+	data.id = &"conveyor_test"
+	data.layout_path = CONVEYOR_MAP
+	data.legend = {"K": belt_data}
+	var level := await start_level(data)
+	var belts := _find_all(level, Conveyor)
+	check(belts.size() == 1, "the map character spawns one conveyor")
+	if belts.is_empty():
+		await end_level(level)
+		return
+	var belt := belts[0] as Conveyor
+	var rect := belt.belt_rect()
+	check(is_equal_approx(rect.position.x, 5.0 * 16.0) and is_equal_approx(rect.size.x, belt_data.length_tiles * 16.0), "the belt starts at the left edge of its cell and spans its length: %s" % rect)
+	var player := level.player
+	var start_x := rect.position.x + rect.size.x * 0.5
+	player.global_position = Vector2(start_x, rect.end.y)
+	await physics_frames(30)
+	check(player.global_position.x < start_x - 8.0, "a player standing on the belt is carried along its direction: %.1f -> %.1f" % [start_x, player.global_position.x])
+	belt.hurtbox.receive(DamageInfo.create(1, Combat.Team.ENEMY, &"test_enemy_shot"))
+	check(not belt.is_reversed(), "enemy fire cannot reverse the belt")
+	belt.hurtbox.receive(DamageInfo.create(1, Combat.Team.PLAYER, &"test_player_shot"))
+	check(belt.is_reversed() and belt.speed > 0.0, "hitting the motor reverses the belt")
+	check(not belt.reverse(), "the motor has a cooldown so a burst does not flip it back")
+	var mid_x := player.global_position.x
+	await physics_frames(30)
+	check(player.global_position.x > mid_x + 8.0, "after reversing the player is carried the other way")
+	# 帶子只在腳底踩在帶面上時才推：被推到端點就停下來，不會一路推出去。
+	belt.restore_state(false)
+	check(not belt.is_reversed() and belt.speed < 0.0, "the direction is restored from a checkpoint")
+	check(belt.capture_state() == false and belt.state_key().begins_with("conveyor@"), "the direction is saved under a stable key")
+	player.global_position = Vector2(rect.position.x + 2.0, rect.end.y)
+	await physics_frames(90)
+	check(player.global_position.x > rect.position.x - 4.0 and player.global_position.x <= rect.position.x + 1.0, "the belt stops carrying at its end: %.1f" % player.global_position.x)
+	# 跳起來（不在地面上）就不會被帶走。
+	player.global_position = Vector2(start_x, rect.end.y - 40.0)
+	player.velocity = Vector2.ZERO
+	var air_x := player.global_position.x
+	await physics_frames(3)
+	check(absf(player.global_position.x - air_x) < 1.0, "a player in the air is not carried")
 	await end_level(level)

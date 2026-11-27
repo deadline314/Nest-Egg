@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ConveyorData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/conveyor_data.gd" id="1_conveyor"]
+
+[resource]
+script = ExtResource("1_conveyor")
+id = &"conveyor"
+display_name = "輸送帶"
+hint = "射擊馬達讓輸送帶反轉；站在上面的人都會被帶走。"
+localized_hints = Dictionary[String, String]({
+"en": "Shoot the motor to reverse the belt. Anyone standing on it gets carried.",
+"ja": "モーターを撃つとベルトが逆回転します。上に立つ者は誰でも運ばれます。"
+})
+length_tiles = 18
+speed = -55.0
+reverse_cooldown = 1.0
