@@ -6,10 +6,12 @@ render_mode unshaded;
 uniform float amplitude = 1.5;  // 擺動端的位移（邏輯像素；頂點座標是貼圖像素，所以除以節點的縮放換算）
 uniform float speed = 1.1;
 uniform bool hang = false;      // true：固定頂端、底部擺動
+// 被角色或爆炸帶動時多擺出去的位移（邏輯像素，正值往右）；每個實體各自一個值，材質仍然共用（SwayKick）。
+instance uniform float kick = 0.0;
 
 void vertex() {
 	float height = clamp(hang ? UV.y : 1.0 - UV.y, 0.0, 1.0);
 	float phase = MODEL_MATRIX[3].x * 0.07;
 	float pixels_per_unit = max(length(MODEL_MATRIX[0].xy), 0.0001);
-	VERTEX.x += amplitude / pixels_per_unit * height * height * sin(TIME * speed + phase);
+	VERTEX.x += (amplitude * sin(TIME * speed + phase) + kick) / pixels_per_unit * height * height;
 }

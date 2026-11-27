@@ -569,6 +569,8 @@ func explosion(position: Vector2, radius: float, damage: int, team: Combat.Team,
 	EventBus.world_noise.emit(position, clampf(radius / 30.0, 1.5, 3.0))
 	if _container == null:
 		return
+	# 附近會搖的擺設被震得往外擺（BG-64）。
+	get_tree().call_group(SwayKick.GROUP, &"blast", position, radius)
 	var blast := Explosion.new()
 	blast.radius = radius
 	blast.damage = damage

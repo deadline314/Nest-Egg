@@ -87,6 +87,12 @@ func _ready() -> void:
 			drip.setup(data, flip)
 		else:
 			push_warning("[PropNode] %s 滴水資料無效（出水口要在承接面上方、都在貼圖範圍內），保留靜態圖" % data.id)
+	if data.sway > 0.0:
+		# 被角色穿過或被爆炸震到時多擺一下（BG-64）；自發光層跟著本體一起。
+		var swaying: Array[CanvasItem] = [sprite]
+		if _glow_sprite != null:
+			swaying.append(_glow_sprite)
+		SwayKick.attach(self, swaying, Rect2(Vector2.ZERO, data.size), data.sway)
 	set_process(data.has_glow or data.light_radius > 0.0 or data.steam)
 	_time = randf() * 10.0
 

@@ -25,6 +25,7 @@ func run() -> void:
 	_test_chapter_one()
 	await _test_contact_shadow()
 	await _test_prop_grounding()
+	await _test_sway_kick()
 	_test_fixture_art()
 	await preload("res://tests/helpers/scene_lighting_checks.gd").run(self)
 	await _test_training_art()
@@ -485,6 +486,99 @@ func _test_prop_grounding() -> void:
 		check(grounding.shadow_count() <= (level.find_children("*", "PropNode", true, false).size() - wall_mounted) * 6,
 				"wall-mounted and hanging props add no shadows")
 	await end_level(level)
+
+
+## 會搖的擺設被帶動（BG-64）：穿過與爆炸會多擺一下再回彈停下，幅度有上限，靜止時不處理，「減少動態」時不加。
+func _test_sway_kick() -> void:
+	var previous_motion := Settings.get_reduce_ui_motion()
+	Settings.set_reduce_ui_motion(false)
+	var base := PropLibrary.find(&"street_lamp")
+	var swing := base.duplicate() as PropData
+	swing.sway = 1.5
+	swing.sway_hang = true
+	var still := base.duplicate() as PropData
+	still.sway = 0.0
+	var holder := Node2D.new()
+	runner.add_child(holder)
+	holder.position = Vector2(-6000.0, -6000.0)
+	var prop := PropNode.new()
+	prop.setup(swing, Vector2(100.0, 100.0))
+	holder.add_child(prop)
+	var rigid := PropNode.new()
+	rigid.setup(still, Vector2(300.0, 100.0))
+	holder.add_child(rigid)
+	var kick := prop.find_child("SwayKick", false, false) as SwayKick
+	check(kick != null and rigid.find_child("SwayKick", false, false) == null, "only props that sway can be pushed")
+	if kick == null:
+		holder.queue_free()
+		Settings.set_reduce_ui_motion(previous_motion)
+		return
+	check(kick.is_resting() and is_zero_approx(kick.offset()), "an untouched prop does no per-frame work")
+	check(kick.collision_layer == 0 and not kick.monitorable and (kick.collision_mask & Layers.WORLD) == 0,
+			"the push sensor is not a collider: it blocks nothing and ignores terrain")
+	var sprite := prop.get_child(0) as Sprite2D
+	check(sprite.material == PropNode.sway_material(1.5, true), "a pushable prop still shares the sway material")
+
+	kick.push(0.3)
+	var light_peak := await _sway_peak(kick)
+	check(light_peak > 0.2 and kick.is_resting() and is_zero_approx(kick.offset()), "a light push swings the prop and it settles back to rest")
+	check(is_zero_approx(float(sprite.get_instance_shader_parameter(SwayKick.KICK_PARAM))), "no offset is left on the sprite after it settles")
+	kick.push(1.0)
+	var full_peak := await _sway_peak(kick)
+	check(full_peak > light_peak * 1.5, "a faster pass swings it further than a slow one (%.2f vs %.2f)" % [full_peak, light_peak])
+	for i in 30:
+		kick.push(2.0)
+	var stacked_peak := await _sway_peak(kick)
+	check(stacked_peak <= SwayKick.MAX_OFFSET + 0.001 and kick.is_resting(), "repeated pushes stay within the limit and still settle")
+
+	var runner_body := CharacterBody2D.new()
+	runner_body.velocity = Vector2(-SwayKick.FULL_SPEED, 0.0)
+	holder.add_child(runner_body)
+	kick.body_entered.emit(runner_body)
+	await frames(3)
+	check(kick.offset() < 0.0, "a body passing leftward pushes the prop to the left")
+	await _sway_peak(kick)
+	runner_body.queue_free()
+
+	var center := prop.global_position + swing.size * 0.5
+	kick.blast(center + Vector2(-30.0, 0.0), 40.0)
+	await frames(3)
+	check(kick.offset() > 0.0, "an explosion on the left throws the prop to the right")
+	var near_peak := maxf(await _sway_peak(kick), absf(kick.offset()))
+	kick.blast(center + Vector2(-100.0, 0.0), 40.0)
+	var far_peak := await _sway_peak(kick)
+	check(far_peak > 0.0 and far_peak < near_peak, "a farther explosion pushes less (%.2f vs %.2f)" % [far_peak, near_peak])
+	kick.blast(center + Vector2(-40.0 * SwayKick.BLAST_REACH - 10.0, 0.0), 40.0)
+	check(kick.is_resting(), "an explosion out of reach does nothing")
+	Fx.explosion(center + Vector2(20.0, 0.0), 40.0, 0, Combat.Team.PLAYER, &"test_sway_kick")
+	await frames(2)
+	check(not kick.is_resting() or Fx._container == null, "a real explosion reaches the props around it")
+	await _sway_peak(kick)
+
+	Settings.set_reduce_ui_motion(true)
+	kick.push(1.0)
+	check(kick.is_resting(), "reduce motion keeps only the wind sway")
+	Settings.set_reduce_ui_motion(previous_motion)
+	kick.push(NAN)
+	check(kick.is_resting(), "a broken push value is ignored")
+	var none: Array[CanvasItem] = []
+	var one: Array[CanvasItem] = [sprite]
+	check(SwayKick.attach(prop, none, Rect2(0, 0, 10, 10), 1.0) == null and SwayKick.attach(prop, one, Rect2(0, 0, 10, 10), NAN) == null
+			and SwayKick.attach(prop, one, Rect2(0, 0, 0, 10), 1.0) == null, "invalid sway data builds no sensor and keeps the prop")
+	holder.queue_free()
+	await frames(2)
+
+
+## 等擺設回彈到停下，回傳過程中離原位最遠的距離（像素）；太久沒停就記一筆失敗。
+func _sway_peak(kick: SwayKick) -> float:
+	var peak := 0.0
+	for i in 900:
+		peak = maxf(peak, absf(kick.offset()))
+		if kick.is_resting():
+			return peak
+		await frames(1)
+	check(false, "a pushed prop comes to rest within a few seconds")
+	return peak
 
 
 ## 第一章（NE-40）：六個區段的主題、道具擺放不遮住敵人與危險物、不卡進地形、覆蓋區的材質存在。

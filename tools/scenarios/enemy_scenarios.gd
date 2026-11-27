@@ -15,6 +15,7 @@ const SCENARIOS := {
 	"rin_light": "res://tools/scenarios/rin_light_scenario.gd",
 	"rin_perf": "res://tools/scenarios/rin_perf_scenario.gd",
 	"light_audit": "res://tools/scenarios/light_audit_scenario.gd",
+	"sway_kick": "res://tools/scenarios/sway_kick_scenario.gd",
 	"scene_packs": "res://tools/scenarios/scene_pack_scenario.gd",
 	"lighting_scenes": "res://tools/scenarios/lighting_scene_scenario.gd",
 	"enemy_vfx": "res://tools/scenarios/enemy_vfx_scenario.gd",
