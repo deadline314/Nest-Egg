@@ -1,14 +1,17 @@
 class_name NearForeground
 extends Node2D
-## 近前景（BG-68）：畫在角色前面、不透明的深色剪影。走道外緣一排從地面往下長的欄杆、矮籬、花台，
-## 畫面上緣垂下來的纜線、燈籠串、枝葉。剪影用既有素材的形狀（貼圖只取 alpha），朝主光的一側有一圈邊緣光。
-## 資料：地圖 JSON 頂層的 "near_foreground"（每一排：anchor、pieces、rise 或 above、spacing、from、to），零件在 LIBRARY_PATH。
-## bottom 的 rise：地面以上露出多高；top 的 above：從下面走道往上多高的地方垂下來（站在走道上時就在畫面上緣附近）。
+## 近前景（BG-68、BG-71）：畫在角色前面、不透明、比走道最暗處還暗的剪影。
+## 走道外緣：一條連續的底座（欄杆、花台邊、路緣與矮樁）把整段串起來，上面再放大小不一、互相壓一點的物件（玫瑰叢、花台）；
+## 高架段（走道比區域地面高出 DECK_RISE 以上，底下是空的）不放圍欄，改放橋面下的鋼樑、托架、垂下的纜線與走道邊的矮樁。
+## 畫面上緣：垂下來的纜線、燈籠串、枝葉。亮邊只在朝主光的上緣、細細一條，細的網格與線條本身不吃亮邊；
+## 亮邊強度是區段資料（地圖的 "near_foreground_rim"，沒寫時有主光 0.45、沒有主光 0.12）。
+## 資料：地圖 JSON 頂層的 "near_foreground"（每一排：anchor、pieces、base、deck_pieces、deck_base、rise 或 above、spacing、scale、from、to），
+## 零件在 LIBRARY_PATH（貼圖零件只取形狀；"strip" 零件由程式畫成連續的一段）。
 ##
 ## 判讀優先：走道那排最多只露出小腿高（CALF_RISE），戰鬥範圍（敵人出生點附近）更矮；垂掛物的底邊離下面最高的走道
-## 至少 HEAD_CLEAR，戰鬥範圍不放。放不下就略過那一件，不會擋到角色、武器、子彈與提示。規則集中在 plan()，
-## 遊戲與自動檢查用同一份。比走道捲動得略快（DRIFT，最多 MAX_DRIFT 像素）；垂掛物被風吹、被經過的角色帶動，
-## 「減少動態」或低畫質時靜止；三個畫質都畫（它是構圖不是特效）。靜止時只有鏡頭移動才更新位置。
+## 至少 HEAD_CLEAR，戰鬥範圍不放。放不下就略過那一件。規則集中在 plan()，遊戲與自動檢查用同一份。
+## 貼圖零件比走道捲動得略快（DRIFT，最多 MAX_DRIFT 像素）；連續的底座固定在走道邊上（跟著走道，不越過階梯的邊）。
+## 垂掛物被風吹、被經過的角色帶動，「減少動態」或低畫質時靜止；三個畫質都畫（它是構圖不是特效）。靜止時只有鏡頭移動才更新位置。
 
 const LIBRARY_PATH := "res://data/environment/near_foreground.json"
 const SHADER := preload("res://game/level/environment/near_silhouette.gdshader")
@@ -26,17 +29,25 @@ const DRIFT := 0.06
 const MAX_DRIFT := 24.0
 ## 走道那排的地面要平：零件下方地面高低差超過這個就不放。
 const FLAT_TOLERANCE := 2.0
-## 邊緣光的寬度（遊戲像素）。
-const RIM_WIDTH := 1.6
+## 走道比區域的地面高出這麼多就算高架段（底下是空的）。
+const DECK_RISE := 48.0
+## 底座最短多長才畫。
+const MIN_STRIP := 24.0
+## 邊緣光的寬度（遊戲像素）與預設強度（有主光／沒有主光）。
+const RIM_WIDTH := 1.0
+const RIM_KEYED := 0.45
+const RIM_PLAIN := 0.12
+const MAX_RIM := 1.0
 
 static var _library: Dictionary = {}
 static var _library_loaded := false
 
-var _sprites: Array[Sprite2D] = []
+var _drifting: Array[Node2D] = []
 var _base_x := PackedFloat32Array()
 var _half_width := PackedFloat32Array()
 var _kicks: Array[SwayKick] = []
 var _materials: Array[ShaderMaterial] = []
+var _material_keys: Array[String] = []
 var _swaying: Array[float] = []
 var _last_camera_x := INF
 
@@ -55,17 +66,16 @@ static func library() -> Dictionary:
 	return _library
 
 
-## 依資料排出每一件的位置（不建立節點）：回傳 [{id, anchor, rect, texture, region, flip_v, sway}]。
-## rows 是地圖的 near_foreground；surface_y(x) 回傳 x 處最高可走地面的 y；enemy_x 是敵人出生點；where 用在錯誤訊息。
-## 不合規則的擺放直接略過（並不記錯誤：這是擺放規則，不是資料錯誤）；資料本身壞掉才記錯誤。
-static func plan(rows: Variant, surface_y: Callable, enemy_x: PackedFloat32Array, tile_size: float, where: String) -> Array[Dictionary]:
+## 依資料排出每一件的位置（不建立節點）。貼圖零件：{id, anchor, rect, texture, region, flip_v, sway, rim_all}；
+## 底座：{id, anchor: "bottom", strip: true, rect, seed}。surface_y(x) 回傳 x 處最高可走地面的 y；ground_y 是區域的地面高度
+## （用來分出高架段）；enemy_x 是敵人出生點；where 用在錯誤訊息。不合規則的擺放直接略過；資料本身壞掉才記錯誤。
+static func plan(rows: Variant, surface_y: Callable, enemy_x: PackedFloat32Array, tile_size: float, where: String, ground_y := INF) -> Array[Dictionary]:
 	var result: Array[Dictionary] = []
 	if rows == null:
 		return result
 	if typeof(rows) != TYPE_ARRAY:
 		push_error("[NearForeground] %s 的 near_foreground 必須是陣列" % where)
 		return result
-	var pieces := library()
 	for index in (rows as Array).size():
 		var row: Variant = rows[index]
 		var label := "%s near_foreground[%d]" % [where, index]
@@ -74,37 +84,48 @@ static func plan(rows: Variant, surface_y: Callable, enemy_x: PackedFloat32Array
 			continue
 		var spec := row as Dictionary
 		var anchor := str(spec.get("anchor", ""))
-		var ids: Variant = spec.get("pieces", [])
 		var spacing: Variant = spec.get("spacing", [80, 160])
-		if anchor not in ["bottom", "top"] or typeof(ids) != TYPE_ARRAY or (ids as Array).is_empty() \
-				or typeof(spacing) != TYPE_ARRAY or (spacing as Array).size() != 2 or not _numbers(spacing as Array) \
-				or float(spacing[0]) < 8.0 or float(spacing[1]) < float(spacing[0]) or not _numbers([spec.get("from", 0), spec.get("to", 0), spec.get("rise", 0), spec.get("above", 0)]):
-			push_error("[NearForeground] %s 的 anchor、pieces、spacing、from、to、rise、above 有誤，這一排不放" % label)
+		var scale_range: Variant = spec.get("scale", [0.8, 1.2])
+		if anchor not in ["bottom", "top"] or typeof(spacing) != TYPE_ARRAY or (spacing as Array).size() != 2 or not _numbers(spacing as Array) \
+				or float(spacing[1]) < float(spacing[0]) or typeof(scale_range) != TYPE_ARRAY or (scale_range as Array).size() != 2 \
+				or not _numbers(scale_range as Array) or float(scale_range[0]) <= 0.1 or float(scale_range[1]) < float(scale_range[0]) \
+				or not _numbers([spec.get("from", 0), spec.get("to", 0), spec.get("rise", 0), spec.get("above", 0)]):
+			push_error("[NearForeground] %s 的 anchor、spacing、scale、from、to、rise、above 有誤，這一排不放" % label)
 			continue
-		var usable: Array[String] = []
-		for id: Variant in ids:
-			var piece: Variant = pieces.get(str(id))
-			if typeof(piece) != TYPE_DICTIONARY or str((piece as Dictionary).get("anchor", "")) != anchor:
-				push_error("[NearForeground] %s 的零件 %s 不存在或不是 %s 用的，略過" % [label, id, anchor])
-				continue
-			usable.append(str(id))
-		if usable.is_empty():
+		var ground_pieces := _usable(spec.get("pieces", []), anchor, false, label)
+		var deck_pieces := _usable(spec.get("deck_pieces", []), anchor, false, label)
+		var ground_base := _usable(spec.get("base", []), anchor, true, label)
+		var deck_base := _usable(spec.get("deck_base", []), anchor, true, label)
+		if ground_pieces.is_empty() and deck_pieces.is_empty() and ground_base.is_empty() and deck_base.is_empty():
+			push_error("[NearForeground] %s 沒有可用的零件，這一排不放" % label)
+			continue
+		var from := float(spec.get("from", 0)) * tile_size
+		var to := float(spec.get("to", 0)) * tile_size
+		if anchor == "bottom" and not (ground_base.is_empty() and deck_base.is_empty()):
+			_plan_strips(result, ground_base, deck_base, from, to, surface_y, enemy_x, tile_size, ground_y, float(spec.get("rise", CALF_RISE)), where, index)
+		if ground_pieces.is_empty() and deck_pieces.is_empty():
 			continue
 		var rng := RandomNumberGenerator.new()
 		rng.seed = hash("%s:%d" % [where, index])
-		var x := float(spec.get("from", 0)) * tile_size + rng.randf_range(0.0, float(spacing[0]))
-		var end := float(spec.get("to", 0)) * tile_size
+		var x := from + rng.randf_range(0.0, maxf(0.0, float(spacing[0])))
 		var rise := minf(float(spec.get("rise", CALF_RISE)), CALF_RISE)
 		var above := float(spec.get("above", DEFAULT_ABOVE))
-		while x < end:
-			var id := usable[rng.randi() % usable.size()]
-			var info := _piece_info(pieces[id] as Dictionary, id, label)
-			if info.is_empty():
-				x += float(spacing[1])
+		while x < to:
+			var floor_here := float(surface_y.call(x))
+			var deck := is_finite(ground_y) and floor_here < ground_y - DECK_RISE
+			var choices := deck_pieces if deck else ground_pieces
+			if choices.is_empty():
+				x += tile_size
 				continue
-			var width: float = info["width"]
-			var height: float = info["height"]
-			if x + width > end:
+			var id := choices[rng.randi() % choices.size()]
+			var info := _piece_info(library()[id] as Dictionary, id, label)
+			if info.is_empty():
+				x += maxf(tile_size, float(spacing[1]))
+				continue
+			var grow := rng.randf_range(float(scale_range[0]), float(scale_range[1]))
+			var width: float = info["width"] * grow
+			var height: float = info["height"] * grow
+			if x + width > to:
 				break
 			var span_low := INF
 			var span_high := -INF
@@ -117,22 +138,70 @@ static func plan(rows: Variant, surface_y: Callable, enemy_x: PackedFloat32Array
 				probe += tile_size * 0.5
 			var combat := _near_enemy(x, width, enemy_x)
 			var rect := Rect2()
+			var advance := width + rng.randf_range(float(spacing[0]), float(spacing[1]))
 			if anchor == "bottom":
 				if span_high - span_low > FLAT_TOLERANCE or not is_finite(span_low):
-					x += width + rng.randf_range(float(spacing[0]), float(spacing[1]))
+					x += maxf(tile_size, advance)
 					continue
 				var shown := minf(rise, COMBAT_RISE) if combat else rise
+				# 大小不一的物件露出的高度也不同（較小的露出得少），輪廓才不會是一條直線。
+				shown = minf(shown, shown * clampf(grow, 0.6, 1.0) + 2.0)
 				rect = Rect2(x, span_low - shown, width, height)
 			else:
 				# 從最高的走道往上 above 垂下來；底邊要離那條走道至少 HEAD_CLEAR。
 				if combat or not is_finite(span_low) or span_high - span_low > FLAT_TOLERANCE or above - height < HEAD_CLEAR:
-					x += width + rng.randf_range(float(spacing[0]), float(spacing[1]))
+					x += maxf(tile_size, advance)
 					continue
 				rect = Rect2(x, span_low - above, width, height)
 			result.append({"id": id, "anchor": anchor, "rect": rect, "texture": info["texture"], "region": info["region"],
-				"flip_v": info["flip_v"], "sway": info["sway"]})
-			x += width + rng.randf_range(float(spacing[0]), float(spacing[1]))
+				"flip_v": info["flip_v"], "sway": info["sway"], "rim_all": info["rim_all"]})
+			# 間隔可以是負的：相鄰的物件互相壓住一點，連成一段。
+			x += maxf(width * 0.35, advance)
 	return result
+
+
+## 連續的底座：沿著走道把「平、同一種地形（地面或高架）、同一種戰鬥狀態」的一段畫成一條。
+static func _plan_strips(result: Array[Dictionary], ground_base: Array[String], deck_base: Array[String], from: float, to: float,
+		surface_y: Callable, enemy_x: PackedFloat32Array, tile_size: float, ground_y: float, row_rise: float, where: String, index: int) -> void:
+	var step := tile_size * 0.5
+	var start := from
+	var start_y := float(surface_y.call(from))
+	var start_deck := is_finite(ground_y) and start_y < ground_y - DECK_RISE
+	var start_combat := _near_enemy(from, step, enemy_x)
+	var x := from + step
+	while x <= to + 0.01:
+		var y := float(surface_y.call(minf(x, to - 0.01)))
+		var deck := is_finite(ground_y) and y < ground_y - DECK_RISE
+		var combat := _near_enemy(x, step, enemy_x)
+		var ended := x >= to - 0.01
+		if ended or absf(y - start_y) > FLAT_TOLERANCE or deck != start_deck or combat != start_combat:
+			var end := minf(x, to)
+			if end - start >= MIN_STRIP and is_finite(start_y):
+				for id in (deck_base if start_deck else ground_base):
+					var info := library()[id] as Dictionary
+					var rise := minf(minf(float(info.get("rise", 8)), row_rise), COMBAT_RISE if start_combat else CALF_RISE)
+					var depth := float(info.get("depth", 12))
+					result.append({"id": id, "anchor": "bottom", "strip": true, "seed": hash("%s:%d:%d" % [where, index, int(start)]),
+						"rect": Rect2(start, start_y - rise, end - start, rise + depth)})
+			start = x
+			start_y = y
+			start_deck = deck
+			start_combat = combat
+		x += step
+
+
+static func _usable(ids: Variant, anchor: String, strips: bool, label: String) -> Array[String]:
+	var usable: Array[String] = []
+	if typeof(ids) != TYPE_ARRAY:
+		push_error("[NearForeground] %s 的零件清單必須是陣列" % label)
+		return usable
+	for id: Variant in ids:
+		var piece: Variant = library().get(str(id))
+		if typeof(piece) != TYPE_DICTIONARY or str((piece as Dictionary).get("anchor", "")) != anchor or ((piece as Dictionary).get("strip", false) == true) != strips:
+			push_error("[NearForeground] %s 的零件 %s 不存在、不是 %s 用的，或放錯清單（底座放 base／deck_base），略過" % [label, id, anchor])
+			continue
+		usable.append(str(id))
+	return usable
 
 
 static func _piece_info(piece: Dictionary, id: String, label: String) -> Dictionary:
@@ -151,7 +220,7 @@ static func _piece_info(piece: Dictionary, id: String, label: String) -> Diction
 		return {}
 	var sway := float(piece.get("sway", 0.0)) if typeof(piece.get("sway")) in [TYPE_INT, TYPE_FLOAT] else 0.0
 	return {"texture": texture, "region": region, "width": width, "height": width * region.size.y / region.size.x,
-		"flip_v": piece.get("flip_v", false) == true, "sway": clampf(sway, 0.0, 8.0)}
+		"flip_v": piece.get("flip_v", false) == true, "sway": clampf(sway, 0.0, 8.0), "rim_all": piece.get("rim_all", false) == true}
 
 
 static func _near_enemy(x: float, width: float, enemy_x: PackedFloat32Array) -> bool:
@@ -168,16 +237,29 @@ static func _numbers(values: Array) -> bool:
 	return true
 
 
-## 依排好的位置建立剪影。fill 是剪影的顏色，rim 是邊緣光的顏色，rim_direction 是主光（或輪廓光）所在的方向。
-func build(placements: Array[Dictionary], fill: Color, rim: Color, rim_direction: Vector2) -> void:
+## 依排好的位置建立剪影。fill 是剪影的顏色，rim 是邊緣光的顏色，rim_strength 是亮邊強度（區段資料），
+## light_side 是主光在左（-1）還是右（1）：亮邊只在上緣，稍微偏向主光那一側。
+func build(placements: Array[Dictionary], fill: Color, rim: Color, rim_strength: float, light_side: float) -> void:
 	name = "NearForeground"
 	z_as_relative = false
 	z_index = WorldLayers.NEAR_FOREGROUND
+	var rim_direction := Vector2(0.35 * signf(light_side), -1.0).normalized()
 	for entry in placements:
+		var rect: Rect2 = entry["rect"]
+		if entry.get("strip", false) == true:
+			var strip := _Strip.new()
+			strip.shape = StringName(str(entry["id"]))
+			strip.size = rect.size
+			strip.position = rect.position
+			strip.rise = float((library()[str(entry["id"])] as Dictionary).get("rise", 8))
+			strip.seed_value = int(entry["seed"])
+			strip.fill = fill
+			strip.rim = Color(rim, clampf(rim_strength, 0.0, MAX_RIM))
+			add_child(strip)
+			continue
 		var sprite := Sprite2D.new()
 		var texture: Texture2D = entry["texture"]
 		var region: Rect2 = entry["region"]
-		var rect: Rect2 = entry["rect"]
 		sprite.texture = texture
 		sprite.centered = false
 		sprite.region_enabled = region.size != texture.get_size() or region.position != Vector2.ZERO
@@ -187,10 +269,10 @@ func build(placements: Array[Dictionary], fill: Color, rim: Color, rim_direction
 		sprite.scale = Vector2(scale_factor, scale_factor)
 		sprite.position = rect.position
 		var sway: float = entry["sway"]
-		sprite.material = _material(sway, entry["anchor"] == "top", fill, rim, rim_direction)
+		sprite.material = _material(sway, entry["anchor"] == "top", entry.get("rim_all", false) == true, fill, rim, rim_strength, rim_direction)
 		sprite.set_instance_shader_parameter(&"rim_texels", RIM_WIDTH / scale_factor)
 		add_child(sprite)
-		_sprites.append(sprite)
+		_drifting.append(sprite)
 		_base_x.append(rect.position.x)
 		_half_width.append(rect.size.x * 0.5)
 		if sway > 0.0:
@@ -201,18 +283,27 @@ func build(placements: Array[Dictionary], fill: Color, rim: Color, rim_direction
 	_apply_motion()
 
 
-func _material(sway: float, hang: bool, fill: Color, rim: Color, rim_direction: Vector2) -> ShaderMaterial:
-	for i in _materials.size():
-		if is_equal_approx(_swaying[i], sway) and _materials[i].get_shader_parameter(&"hang") == hang:
-			return _materials[i]
+## 會被風吹、被角色帶動的垂掛物有幾件（給檢查用）。
+func swaying_count() -> int:
+	return _kicks.size()
+
+
+func _material(sway: float, hang: bool, rim_all: bool, fill: Color, rim: Color, rim_strength: float, rim_direction: Vector2) -> ShaderMaterial:
+	var key := "%.3f:%s:%s" % [sway, hang, rim_all]
+	var found := _material_keys.find(key)
+	if found >= 0:
+		return _materials[found]
 	var material := ShaderMaterial.new()
 	material.shader = SHADER
 	material.set_shader_parameter(&"fill_color", fill)
 	material.set_shader_parameter(&"rim_color", rim)
-	material.set_shader_parameter(&"rim_direction", rim_direction.normalized() if rim_direction.length_squared() > 0.0001 else Vector2(0.6, -0.8))
+	material.set_shader_parameter(&"rim_direction", rim_direction)
+	material.set_shader_parameter(&"rim_strength", clampf(rim_strength, 0.0, MAX_RIM))
+	material.set_shader_parameter(&"rim_all_sides", rim_all)
 	material.set_shader_parameter(&"hang", hang)
 	material.set_shader_parameter(&"amplitude", sway)
 	_materials.append(material)
+	_material_keys.append(key)
 	_swaying.append(sway)
 	return material
 
@@ -235,10 +326,102 @@ func _process(_delta: float) -> void:
 	if absf(camera_x - _last_camera_x) < 0.5:
 		return
 	_last_camera_x = camera_x
-	for i in _sprites.size():
-		_sprites[i].position.x = _base_x[i] - drift_at(camera_x, _base_x[i] + _half_width[i])
+	for i in _drifting.size():
+		_drifting[i].position.x = _base_x[i] - drift_at(camera_x, _base_x[i] + _half_width[i])
 
 
 ## 鏡頭中心在 camera_x 時，中心在 piece_x 的零件往左偏多少（鏡頭往右走，近前景走得更快）。
 static func drift_at(camera_x: float, piece_x: float) -> float:
 	return clampf((camera_x - piece_x) * DRIFT, -MAX_DRIFT, MAX_DRIFT)
+
+
+## 連續的底座（程式繪製、只畫一次）：rect 的上緣是露出地面的最高點，往下延伸到走道邊下方。
+## railing：一排高低略有差異的立柱與上、中兩道橫桿；planter_edge：有唇口的連續花台邊（在走道面下方，不蓋走道的亮邊）；
+## curb_bollards：走道面下方的路緣加一排冒出地面的矮樁；deck_beam：高架橋面下的鋼樑、三角托架與垂下的纜線。
+## 亮邊只畫在朝上的面，一像素寬。
+class _Strip:
+	extends Node2D
+
+	var shape: StringName
+	var size := Vector2.ZERO
+	var rise := 8.0
+	var seed_value := 0
+	var fill := Color.BLACK
+	var rim := Color(1, 1, 1, 0.2)
+
+	func _draw() -> void:
+		var rng := RandomNumberGenerator.new()
+		rng.seed = seed_value
+		match shape:
+			&"railing":
+				_railing(rng)
+			&"planter_edge":
+				_planter(rng)
+			&"curb_bollards":
+				_bollards(rng)
+			&"deck_beam":
+				_beam(rng)
+			_:
+				draw_rect(Rect2(Vector2(0, size.y - 4.0), Vector2(size.x, 4.0)), fill)
+
+	func _top(from: Vector2, to: Vector2) -> void:
+		if rim.a > 0.0:
+			draw_line(from, to, rim, 1.0)
+
+	func _railing(rng: RandomNumberGenerator) -> void:
+		var top := 1.0
+		draw_rect(Rect2(0, top, size.x, 2.0), fill)
+		draw_rect(Rect2(0, top + rise * 0.55, size.x, 1.0), fill)
+		_top(Vector2(0, top), Vector2(size.x, top))
+		var x := rng.randf_range(2.0, 10.0)
+		while x < size.x - 2.0:
+			var cap := rng.randf_range(-1.0, 2.0)
+			draw_rect(Rect2(x, top - cap, 2.5, size.y - top + cap), fill)
+			_top(Vector2(x, top - cap), Vector2(x + 2.5, top - cap))
+			x += rng.randf_range(18.0, 28.0)
+
+	func _planter(rng: RandomNumberGenerator) -> void:
+		# 一條連續的花台：身體不斷開，唇口一段一段有些微高低（沒有縫，不會變成一格一格的面板）。
+		var lip := 3.0
+		draw_rect(Rect2(0, lip, size.x, size.y - lip), fill)
+		var x := 0.0
+		while x < size.x:
+			var length := minf(rng.randf_range(38.0, 64.0), size.x - x)
+			var lift := rng.randf_range(0.0, 1.5)
+			draw_rect(Rect2(x, lift, length, lip + 1.0), fill)
+			_top(Vector2(x, lift), Vector2(x + length, lift))
+			x += length
+
+	func _bollards(rng: RandomNumberGenerator) -> void:
+		# 路緣在走道面的下面一點（走道的亮邊照樣看得到），只有矮樁冒出地面。
+		var curb_top := rise + 1.0
+		draw_rect(Rect2(0, curb_top, size.x, maxf(0.0, size.y - curb_top)), fill)
+		var x := rng.randf_range(4.0, 16.0)
+		while x < size.x - 6.0:
+			var height := rise + 1.0 - rng.randf_range(0.0, 2.5)
+			var top := curb_top - height
+			draw_rect(Rect2(x, top + 1.5, 5.0, height), fill)
+			draw_circle(Vector2(x + 2.5, top + 2.0), 2.5, fill)
+			_top(Vector2(x + 1.0, top - 0.5), Vector2(x + 4.0, top - 0.5))
+			x += rng.randf_range(26.0, 42.0)
+
+	func _beam(rng: RandomNumberGenerator) -> void:
+		# rect 的上緣在走道下方：上面一道鋼樑，往下每隔一段一個三角托架，托架之間垂著一兩條纜線。
+		var beam := 6.0
+		draw_rect(Rect2(0, 0, size.x, beam), fill)
+		var x := rng.randf_range(10.0, 30.0)
+		var last := 0.0
+		while x < size.x - 6.0:
+			var drop := rng.randf_range(12.0, 18.0)
+			draw_colored_polygon(PackedVector2Array([Vector2(x - 6.0, beam), Vector2(x + 6.0, beam), Vector2(x + 1.5, beam + drop), Vector2(x - 1.5, beam + drop)]), fill)
+			if rng.randf() < 0.7:
+				_cable(Vector2(last, beam + 2.0), Vector2(x, beam + 2.0), rng.randf_range(8.0, minf(22.0, size.y - beam - 2.0)))
+			last = x
+			x += rng.randf_range(44.0, 64.0)
+
+	func _cable(from: Vector2, to: Vector2, sag: float) -> void:
+		var points := PackedVector2Array()
+		for i in 9:
+			var t := float(i) / 8.0
+			points.append(from.lerp(to, t) + Vector2(0, sag * 4.0 * t * (1.0 - t)))
+		draw_polyline(points, fill, 1.5)

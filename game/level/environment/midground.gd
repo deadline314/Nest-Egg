@@ -6,8 +6,53 @@ extends RefCounted
 ## 只放在背後真的有立面的地方（靠牆，空曠的高台不放）、不和地圖上手擺的擺設重疊、不擋在出入口、人物、拾取物這類實體前面；密度有上限（MAX_PER_VIEW），
 ## 戰鬥範圍（敵人出生點附近）間隔加倍。畫的時候比角色暗一階（TINT）。規則集中在 plan()，遊戲與檢查共用。
 
+## 中景擺設節點上的標記（檢查與截圖用）。
+const META := &"midground"
 ## 比角色暗一階、比立面清楚。
-const TINT := Color(0.74, 0.72, 0.74)
+const TINT := Color(0.62, 0.6, 0.62)
+## BG-71：貼圖本身很亮的擺設（白色石材、白色長椅）再壓暗，讓平均反照率不超過這個值（角色以下）；
+## 有主光的區段往主光色靠這麼多。
+const TARGET_ALBEDO := 0.18
+const KEY_TINT := 0.35
+
+static var _albedo_cache: Dictionary = {}
+
+
+## 中景物件的顏色：一般是 TINT；貼圖很亮的再壓到 TARGET_ALBEDO；有主光（key_color 的 alpha > 0）時往主光色靠。
+static func tint_for(prop: PropData, key_color: Color) -> Color:
+	var albedo := albedo_of(prop)
+	var level := minf(TINT.v, TARGET_ALBEDO / maxf(albedo, 0.01))
+	var tint := Color(level, level, level)
+	if key_color.a > 0.0:
+		tint = Color(level * lerpf(1.0, key_color.r, KEY_TINT), level * lerpf(1.0, key_color.g, KEY_TINT), level * lerpf(1.0, key_color.b, KEY_TINT))
+	return tint
+
+
+## 擺設貼圖不透明部分的平均亮度（0~1，只算一次）。讀不到圖時當作中等亮度。
+static func albedo_of(prop: PropData) -> float:
+	if prop == null or prop.texture.is_empty():
+		return 0.5
+	if _albedo_cache.has(prop.texture):
+		return _albedo_cache[prop.texture]
+	var value := 0.5
+	var texture := RigLibrary.optional_texture(prop.texture)
+	var image := texture.get_image() if texture != null else null
+	if image != null:
+		if image.is_compressed():
+			image.decompress()
+		var total := 0.0
+		var count := 0
+		var step := maxi(1, int(maxf(image.get_width(), image.get_height()) / 64.0))
+		for y in range(0, image.get_height(), step):
+			for x in range(0, image.get_width(), step):
+				var pixel := image.get_pixel(x, y)
+				if pixel.a > 0.5:
+					total += pixel.get_luminance()
+					count += 1
+		if count > 0:
+			value = total / float(count)
+	_albedo_cache[prop.texture] = value
+	return value
 ## 一個畫面寬（約 640 遊戲像素）裡最多幾件；戰鬥範圍最多幾件。
 const VIEW_WIDTH := 640.0
 const MAX_PER_VIEW := 5

@@ -811,6 +811,9 @@ func _spawn_midground(dirs: PackedStringArray, entries: Array[Dictionary], taken
 	for hint in _layout.hints:
 		entity_x.append((hint["position"] as Vector2).x)
 	var planned := Midground.plan(spec, _layout, dirs, taken, entity_x, enemy_x, "%s（%s）" % [data.id, data.layout_path], _scenery_walls)
+	# 主光這時還沒生成：直接讀地圖的主光顏色（只要顏色，不建立節點）。
+	var key_data := KeyLightData.parse(data.load_layout_value("key_light"), data.id) if data.load_layout_value("key_light") != null else null
+	var key_color := Color(key_data.color, 1.0) if key_data != null else Color(1, 1, 1, 0)
 	for entry in planned:
 		await _entry_checkpoint()
 		var prop := PropLibrary.find_in(StringName(str(entry["id"])), dirs)
@@ -823,7 +826,8 @@ func _spawn_midground(dirs: PackedStringArray, entries: Array[Dictionary], taken
 			push_warning("[Level] %s 中景 %s 第 %d 欄支撐無效（%s），已略過" % [data.id, prop.id, int(entry["x"]), issue])
 			continue
 		var node := _place_prop(prop, rect.position, bool(placed["flip"]))
-		node.modulate = Midground.TINT
+		node.modulate = Midground.tint_for(prop, key_color)
+		node.set_meta(Midground.META, true)
 		_prop_grounding.add_prop(prop, rect, bool(placed["flip"]))
 
 
@@ -886,16 +890,26 @@ func _spawn_near_foreground() -> void:
 			enemy_x.append((spawn["position"] as Vector2).x)
 	if not _layout.boss_spawn.is_empty():
 		enemy_x.append((_layout.boss_spawn["position"] as Vector2).x)
-	var placements := NearForeground.plan(rows, surface_y_at, enemy_x, float(_layout.tile_size), "%s（%s）" % [data.id, data.layout_path])
+	var where := "%s（%s）" % [data.id, data.layout_path]
+	var placements := NearForeground.plan(rows, surface_y_at, enemy_x, float(_layout.tile_size), where, _layout.ground_y)
 	if placements.is_empty():
 		return
 	var near := NearForeground.new()
+	# 剪影比走道最暗處還暗：環境光的一小部分。亮邊用主光的顏色，強度是區段資料（沒寫時依有沒有主光給預設值）。
 	var ambient := _lighting.current.ambient_color
-	var fill := Color(ambient.r * 0.07, ambient.g * 0.06, ambient.b * 0.06)
+	var fill := Color(ambient.r * 0.035, ambient.g * 0.03, ambient.b * 0.03)
 	var key := _lighting.key_light
-	var rim := key.data.color if is_instance_valid(key) else _lighting.current.rim_color
-	var direction := (key.global_position - Vector2(_layout.pixel_size().x * 0.5, _layout.ground_y)) if is_instance_valid(key) else Vector2(0.78, -0.62)
-	near.build(placements, fill, rim, direction)
+	var keyed := is_instance_valid(key)
+	var rim := key.data.color if keyed else _lighting.current.rim_color
+	var strength := NearForeground.RIM_KEYED if keyed else NearForeground.RIM_PLAIN
+	var raw_strength: Variant = data.load_layout_value("near_foreground_rim")
+	if raw_strength != null:
+		if typeof(raw_strength) in [TYPE_INT, TYPE_FLOAT] and is_finite(float(raw_strength)) and float(raw_strength) >= 0.0:
+			strength = minf(float(raw_strength), NearForeground.MAX_RIM)
+		else:
+			push_error("[Level] %s 的 near_foreground_rim 必須是 0~%.1f 的數字，改用預設 %.2f" % [where, NearForeground.MAX_RIM, strength])
+	var side := signf(key.global_position.x - _layout.pixel_size().x * 0.5) if keyed else 1.0
+	near.build(placements, fill, rim, strength, side if side != 0.0 else 1.0)
 	_world.add_child(near)
 
 

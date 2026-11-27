@@ -1,10 +1,14 @@
 {
-  "_comment": "近前景的剪影零件（BG-68）。texture 只取形狀，畫成深色剪影加朝主光的邊緣光。anchor: bottom = 從走道邊緣往下長（只露出 rise 那一段在地面以上）、top = 從上面垂下來。width 是遊戲裡的寬度（像素，高度依貼圖比例）。region 是貼圖的一部分 [x, y, w, h]（0~1），flip_v 上下翻轉，sway 是風吹幅度（像素，只有垂掛物用）。新增一種：加一筆，再在地圖 JSON 的 near_foreground 裡列出 id。",
+  "_comment": "近前景的剪影零件（BG-68、BG-71）。貼圖零件只取形狀，畫成深色剪影、上緣一條細亮邊：anchor bottom = 從走道邊緣往下長（只露出 rise 那一段在地面以上）、top = 從上面垂下來；width 是遊戲裡的寬度（像素，高度依貼圖比例）；region 是貼圖的一部分 [x, y, w, h]（0~1）；flip_v 上下翻轉；sway 是風吹幅度（只有垂掛物用）；rim_all 讓葉緣四周都帶一點主光色。strip: true 的是程式畫的連續底座（railing 欄杆、planter_edge 花台邊、curb_bollards 路緣與矮樁、deck_beam 高架橋面下的鋼樑與纜線），rise 是露出地面的高度（負的代表在走道下方），depth 是往下延伸多少。新增一種：加一筆，再在地圖 JSON 的 near_foreground 裡列出 id。",
   "fence": {"texture": "res://art/environment/props/fence.png", "anchor": "bottom", "width": 130},
   "hedge": {"texture": "res://art/environment/scene_props/public_garden/public_garden__trimmed_hedge.png", "anchor": "bottom", "width": 80},
   "rose_bush": {"texture": "res://art/environment/scene_props/public_garden/public_garden__rose_bush.png", "anchor": "bottom", "width": 110},
   "planters": {"texture": "res://art/environment/scene_props/sunlit_district/sunlit_district__flower_planters.png", "anchor": "bottom", "width": 96},
   "cables": {"texture": "res://art/environment/props/cables_hang.png", "anchor": "top", "width": 34, "sway": 1.4},
   "lanterns": {"texture": "res://art/environment/props/lantern_string.png", "anchor": "top", "width": 110, "sway": 0.8},
-  "foliage": {"texture": "res://art/environment/scene_props/public_garden/public_garden__big_shade_tree.png", "anchor": "top", "width": 100, "region": [0.0, 0.0, 1.0, 0.62], "flip_v": true, "sway": 1.8}
+  "foliage": {"texture": "res://art/environment/scene_props/public_garden/public_garden__big_shade_tree.png", "anchor": "top", "width": 100, "region": [0.0, 0.0, 1.0, 0.62], "flip_v": true, "sway": 1.8, "rim_all": true},
+  "railing": {"strip": true, "anchor": "bottom", "rise": 13, "depth": 10},
+  "planter_edge": {"strip": true, "anchor": "bottom", "rise": -1, "depth": 30},
+  "curb_bollards": {"strip": true, "anchor": "bottom", "rise": 9, "depth": 6},
+  "deck_beam": {"strip": true, "anchor": "bottom", "rise": -14, "depth": 40}
 }

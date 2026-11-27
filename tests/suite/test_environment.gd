@@ -2318,7 +2318,10 @@ func _test_near_foreground() -> void:
 	check(library.size() >= 4, "the near-foreground library has pieces (%d)" % library.size())
 	for id: String in library:
 		var piece: Dictionary = library[id]
-		check(str(piece.get("anchor", "")) in ["bottom", "top"] and RigLibrary.optional_texture(str(piece.get("texture", ""))) != null, "near-foreground piece %s has an anchor and an existing texture" % id)
+		if piece.get("strip", false) == true:
+			check(str(piece.get("anchor", "")) == "bottom" and typeof(piece.get("rise")) in [TYPE_INT, TYPE_FLOAT] and typeof(piece.get("depth")) in [TYPE_INT, TYPE_FLOAT], "near-foreground strip %s is a walkway-edge shape with a rise and depth" % id)
+		else:
+			check(str(piece.get("anchor", "")) in ["bottom", "top"] and RigLibrary.optional_texture(str(piece.get("texture", ""))) != null, "near-foreground piece %s has an anchor and an existing texture" % id)
 	var flat := func(_x: float) -> float: return 320.0
 	check(NearForeground.plan("rows", flat, PackedFloat32Array(), 16.0, "test_near_foreground_bad").is_empty(), "a broken near_foreground entry draws nothing")
 	check(NearForeground.plan([{"anchor": "side", "pieces": ["fence"]}, {"anchor": "bottom", "pieces": ["no_such_piece"]}], flat, PackedFloat32Array(), 16.0, "test_near_foreground_bad").is_empty(), "unknown anchors and pieces are skipped")
@@ -2337,9 +2340,20 @@ func _test_near_foreground() -> void:
 		for spawn in layout.spawns:
 			if spawn["resource"] is EnemyData:
 				enemy_x.append((spawn["position"] as Vector2).x)
-		var placements := NearForeground.plan(rows, surface, enemy_x, float(layout.tile_size), level_data.id)
+		var placements := NearForeground.plan(rows, surface, enemy_x, float(layout.tile_size), level_data.id, layout.ground_y)
 		check(not placements.is_empty(), "%s places some near foreground" % level_data.id)
 		checked += 1
+		# BG-71：擺的東西合位置——高架段（走道比地面高很多、底下是空的）只有橋面下的結構與矮樁，有地面的外緣才有欄杆與花台邊。
+		for entry in placements:
+			if entry.get("strip", false) != true:
+				continue
+			var rect: Rect2 = entry["rect"]
+			var floor_at_strip := float(surface.call(rect.position.x + 1.0))
+			var on_deck := floor_at_strip < layout.ground_y - NearForeground.DECK_RISE
+			if entry["id"] in ["deck_beam", "curb_bollards"]:
+				check(on_deck, "%s %s at x=%.0f is only used on an elevated walkway" % [level_data.id, entry["id"], rect.position.x])
+			elif entry["id"] in ["railing", "planter_edge"]:
+				check(not on_deck, "%s %s at x=%.0f is only used where there is ground below" % [level_data.id, entry["id"], rect.position.x])
 		for entry in placements:
 			var rect: Rect2 = entry["rect"]
 			var floor_low := INF
@@ -2356,6 +2370,15 @@ func _test_near_foreground() -> void:
 			else:
 				check(not combat and rect.end.y <= floor_low - NearForeground.HEAD_CLEAR + 0.01, "%s %s at x=%.0f hangs above head height outside combat (bottom %.0f, floor %.0f)" % [level_data.id, entry["id"], rect.position.x, rect.end.y, floor_low])
 	check(checked >= 2, "at least two areas use the near foreground (%d)" % checked)
+	var glass_layout := LevelBuilder.parse(load("res://data/levels/ch3_glass_edge.tres") as LevelData)
+	var glass := NearForeground.plan((load("res://data/levels/ch3_glass_edge.tres") as LevelData).load_layout_value("near_foreground"),
+			func(x: float) -> float: return glass_layout.surface_heights[clampi(int(x / glass_layout.tile_size), 0, glass_layout.surface_heights.size() - 1)],
+			PackedFloat32Array(), float(glass_layout.tile_size), "ch3_glass_edge", glass_layout.ground_y)
+	var planter_length := 0.0
+	for entry in glass:
+		if entry.get("id") == "planter_edge":
+			planter_length += (entry["rect"] as Rect2).size.x
+	check(planter_length > glass_layout.pixel_size().x * 0.6, "the sunlit edge has one continuous planter edge tying its bushes together (%.0f px)" % planter_length)
 	check(WorldLayers.NEAR_FOREGROUND > WorldLayers.CHARACTERS_TOP and WorldLayers.NEAR_FOREGROUND < WorldLayers.PROJECTILES and WorldLayers.NEAR_FOREGROUND < WorldLayers.WORLD_PROMPTS, "the near foreground is in front of characters but behind bullets and prompts")
 
 	var previous_motion := Settings.get_reduce_ui_motion()
@@ -2367,6 +2390,7 @@ func _test_near_foreground() -> void:
 	check(near != null and near.visible and near.get_child_count() > 0, "the near foreground is drawn on low quality too")
 	if near != null:
 		check(near.z_index == WorldLayers.NEAR_FOREGROUND and not near.z_as_relative, "the near foreground uses its own layer")
+		check(near.swaying_count() > 0, "hanging pieces sway with the wind and react to passing characters")
 		var swaying := near._materials.filter(func(m: ShaderMaterial) -> bool: return m.get_shader_parameter(&"hang") == true)
 		check(not swaying.is_empty() and swaying.all(func(m: ShaderMaterial) -> bool: return is_zero_approx(float(m.get_shader_parameter(&"amplitude")))), "low quality keeps the hanging pieces still")
 		Settings.set_light_quality(LightQuality.Tier.HIGH)
@@ -2447,7 +2471,11 @@ func _test_midground_and_haze() -> void:
 	check(is_zero_approx(float(LightKit.window_life_material().get_shader_parameter(&"key_mix") if LightKit.window_life_material().get_shader_parameter(&"key_mix") != null else 0.0)), "the shared window material elsewhere keeps its own colours")
 	var tinted := 0
 	for node in level.get_tree().get_nodes_in_group(PropNode.GROUP):
-		tinted += 1 if (node as CanvasItem).modulate.is_equal_approx(Midground.TINT) else 0
+		if node.has_meta(Midground.META):
+			tinted += 1
+			var prop := (node as PropNode).data
+			var shown := Midground.albedo_of(prop) * (node as CanvasItem).modulate.get_luminance()
+			check(shown <= Midground.TARGET_ALBEDO + 0.01, "mid-ground %s is drawn darker than characters (albedo %.2f x tint %.2f)" % [prop.id, Midground.albedo_of(prop), (node as CanvasItem).modulate.get_luminance()])
 	check(tinted >= 3, "mid-ground pieces are drawn a step darker (%d)" % tinted)
 	await end_level(level)
 	var plain := await start_level(load("res://data/levels/level_01.tres") as LevelData)

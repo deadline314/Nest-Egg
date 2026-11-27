@@ -27,7 +27,7 @@ func run() -> void:
 			continue
 		var mid := 0
 		for node in get_tree().get_nodes_in_group(PropNode.GROUP):
-			if (node as CanvasItem).modulate.is_equal_approx(Midground.TINT):
+			if node.has_meta(Midground.META):
 				mid += 1
 				print("MIDGROUND %s %s col=%d" % [area, (node as PropNode).data.id, int((node as Node2D).position.x / 16.0)])
 		var haze := level.find_child("FacadeHaze", true, false) as FacadeHaze
@@ -67,8 +67,10 @@ func _place(col: int) -> void:
 	snap_camera()
 
 
-## 同一格畫面：有近前景、沒有近前景。
+## 同一格畫面：有近前景、沒有近前景。拍的時候整棵樹暫停，兩張只差在近前景（子彈、特效、動作都停在同一格）。
 func _pair(near: CanvasItem, file_name: String) -> void:
+	get_tree().paused = true
+	await settle(2)
 	capture(file_name)
 	await settle(2)
 	near.visible = false
@@ -76,6 +78,61 @@ func _pair(near: CanvasItem, file_name: String) -> void:
 	capture(file_name + "-without")
 	near.visible = true
 	await settle(2)
+	await _check_midground(file_name)
+	get_tree().paused = false
+
+
+## 中景物件的平均明度要低於同一格主角的平均明度（BG-71）：各自藏起來再拍一張，兩張不同的像素就是它。
+func _check_midground(file_name: String) -> void:
+	var mids: Array[CanvasItem] = []
+	for node in get_tree().get_nodes_in_group(PropNode.GROUP):
+		if node.has_meta(Midground.META) and (node as CanvasItem).is_visible_in_tree():
+			mids.append(node as CanvasItem)
+	if mids.is_empty():
+		return
+	var shown := preload("res://tools/viewport_capture.gd").image(get_viewport())
+	for node in mids:
+		node.visible = false
+	await settle(2)
+	var without_mid := preload("res://tools/viewport_capture.gd").image(get_viewport())
+	for node in mids:
+		node.visible = true
+	player.visible = false
+	await settle(2)
+	var without_player := preload("res://tools/viewport_capture.gd").image(get_viewport())
+	player.visible = true
+	await settle(2)
+	var to_screen := get_viewport().get_final_transform() * get_viewport().get_canvas_transform()
+	var mid_rects: Array[Rect2] = []
+	for node in mids:
+		var prop := node as PropNode
+		mid_rects.append(to_screen * Rect2(prop.global_position, prop.data.size))
+	var mid := _mean_changed(shown, without_mid, mid_rects)
+	var hero := _mean_changed(shown, without_player, [to_screen * Rect2(player.global_position - Vector2(16, 60), Vector2(32, 60))] as Array[Rect2])
+	if mid.y < 40.0 or hero.y < 40.0:
+		return
+	print("MIDGROUND_LUMA %s midground=%.3f player=%.3f (%d / %d px)" % [file_name, mid.x, hero.x, int(mid.y), int(hero.y)])
+	if mid.x >= hero.x:
+		failures += 1
+		push_error("[NearForegroundScenario] %s 中景物件比主角亮：%.3f >= %.3f" % [file_name, mid.x, hero.x])
+
+
+## 只在 rects（畫面座標）裡、兩張不同的像素，在第一張裡的平均亮度與像素數
+## （藏起主角會連她自己的燈一起關掉、藏起擺設會連接地陰影一起拿掉，範圍外的變化不算）。
+static func _mean_changed(a: Image, b: Image, rects: Array[Rect2]) -> Vector2:
+	var total := 0.0
+	var count := 0
+	var bounds := Rect2i(Vector2i.ZERO, a.get_size())
+	for rect in rects:
+		var area := Rect2i(rect.abs()).intersection(bounds)
+		for y in range(area.position.y, area.end.y):
+			for x in range(area.position.x, area.end.x):
+				var p := a.get_pixel(x, y)
+				var q := b.get_pixel(x, y)
+				if absf(p.r - q.r) + absf(p.g - q.g) + absf(p.b - q.b) > 0.08:
+					total += p.get_luminance()
+					count += 1
+	return Vector2(total / maxf(1.0, float(count)), float(count))
 
 
 ## 戰鬥：兩個敵人站在主角前方，主角朝右連射，拍三格。
