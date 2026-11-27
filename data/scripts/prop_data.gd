@@ -61,6 +61,8 @@ const TEXTURE_SCALE := 4
 ## 是否依光源在背後的牆上投影（WallShadows）。給離牆站著的擺設（推車、桌椅、木箱、機車）；貼在牆上的東西
 ## （鐵捲門、招牌、水管、告示）不要開，不然會像浮在牆前面。
 @export var wall_shadow: bool = false
+## 站在地面上時腳下有沒有接地陰影（PropGrounding）。本身就是地面的一部分（地墊、排水溝蓋）或會自己發光照亮地面的可以關掉。
+@export var ground_shadow: bool = true
 ## 裝飾分類（預覽與檢查用）。
 @export var category: StringName = &"street"
 

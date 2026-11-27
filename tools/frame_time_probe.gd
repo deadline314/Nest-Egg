@@ -7,15 +7,22 @@ extends Node
 ##   --idle：主角站著不動（只量場景本身），和預設的「邊跑邊打」對照。
 ##   --entry：使用正式轉場的分段建置，記錄建置期間兩個畫面之間的最大間隔。
 ##   --vsync：不關垂直同步，照玩家實際的設定跑（看的是畫面更新穩不穩：每一格隔幾毫秒的分佈 pacing）。
-##   --off=lights,shadows,glow,enemies,weather,props,hud：關掉某一類東西再量，和全開的結果相減就是那一類的成本
+##   --off=lights,shadows,glow,enemies,weather,props,grounding,kick,hud：關掉某一類東西再量，和全開的結果相減就是那一類的成本
 ##     （lights＝所有 2D 光源、shadows＝只關光源的陰影、glow＝泛光與後製、enemies＝敵人不行動也不畫、
-##      weather＝雨與霧、props＝場景擺設、hud＝介面、prefetch＝不預載隔壁區域的貼圖）。
+##      weather＝雨與霧、props＝場景擺設、grounding＝擺設的接地陰影、kick＝擺設被帶動、hud＝介面、prefetch＝不預載隔壁區域的貼圖）。
 ## 輸出 <tag>-frame-time.json：每一關的中位數、第 95／99 百分位、最長的一格、超過 16.7／33.3 毫秒的格數與比例、
 ##   最長的幾格發生在第幾秒與主角的位置、進關卡花的時間、結束時的節點數與繪製次數。逐關印一行摘要。
 ## 兩個版本要比較時，用同一份工具、同一組關卡、交替各量幾輪取中位數（機器忙的時候單次的數字會飄）。
 
 const DEFAULT_LEVELS := ["ch1_prologue", "ch1_pawnshop", "ch1_street", "ch1_warehouse", "ch2_market", "ch2_loading", "ch3_plaza", "ch3_pump"]
 ## 進關卡後先跑這麼久才開始記（著色器第一次編譯、資源第一次載入另外記在 warmup）。
+## --off 的類別 → 要藏起來並停止處理的節點（腳本的 class_name）。
+const OFF_KINDS := {
+	"weather": ["RainLayer", "FogLayer"],
+	"props": ["PropNode"],
+	"grounding": ["PropGrounding"],
+	"kick": ["SwayKick"],
+}
 const WARMUP_SECONDS := 2.0
 const SLOW_FRAME_MS := 16.7
 const HITCH_MS := 33.3
@@ -271,9 +278,10 @@ func _apply_off(level: Level) -> void:
 			node.queue_free()
 		elif node is CanvasItem and node.get_script() != null:
 			var kind := String((node.get_script() as Script).get_global_name())
-			if (_off.has("weather") and kind in ["RainLayer", "FogLayer"]) or (_off.has("props") and kind == "PropNode"):
-				(node as CanvasItem).visible = false
-				node.set_process(false)
+			for key: String in OFF_KINDS:
+				if _off.has(key) and kind in OFF_KINDS[key]:
+					(node as CanvasItem).visible = false
+					node.process_mode = Node.PROCESS_MODE_DISABLED
 	if _off.has("enemies"):
 		for enemy in get_tree().get_nodes_in_group(&"enemies"):
 			enemy.set_physics_process(false)

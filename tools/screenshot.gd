@@ -12,6 +12,8 @@ var _scenario := "all"
 ## --hurtboxes：畫出敵人的部位受擊框（核對判定與畫面是否對齊）。
 var _brightness := -1.0
 var _legacy_exposure := false
+## --without=節點名稱：spots 情境每個點多拍一張把這個節點藏起來的畫面（同一格鏡頭的有／無對照）。
+var _without_node := ""
 var _scripted_aim_actor: WeakRef
 
 
@@ -51,6 +53,8 @@ func _ready() -> void:
 			_legacy_exposure = true  # 修正前的曝光設定：玩家的光固定 0.75、泛光不限亮度（NE-213 修前畫面）
 		elif arg == "--rigid":
 			CharacterRig.force_rigid_limbs = true  # 角色維持剛體零件（NE-204 修前畫面）
+		elif arg.begins_with("--without="):
+			_without_node = arg.trim_prefix("--without=")
 		elif arg == "--hurtboxes":
 			Enemy.debug_hurtboxes = true  # 開發檢查：畫出敵人的部位受擊框（黃＝弱點、青＝一般部位）
 		elif arg.begins_with("--text-scale="):
@@ -1853,6 +1857,15 @@ func _run_spots() -> void:
 		level_camera_snap()
 		await _settle(40)
 		_capture("spot_%s_%s_%s" % [level_id, spot[0], tag])
+		if not _without_node.is_empty():
+			var layer := level.find_child(_without_node, true, false) as CanvasItem
+			if layer == null:
+				push_error("[Screenshot] --without 找不到節點：%s" % _without_node)
+			else:
+				layer.visible = false
+				await _settle(2)
+				_capture("spot_%s_%s_%s_without" % [level_id, spot[0], tag])
+				layer.visible = true
 	level.queue_free()
 	await _settle(4)
 

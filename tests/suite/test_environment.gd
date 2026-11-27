@@ -24,6 +24,7 @@ func run() -> void:
 	await _test_level_without_environment()
 	_test_chapter_one()
 	await _test_contact_shadow()
+	await _test_prop_grounding()
 	_test_fixture_art()
 	await preload("res://tests/helpers/scene_lighting_checks.gd").run(self)
 	await _test_training_art()
@@ -411,6 +412,78 @@ func _test_level_without_environment() -> void:
 	check(data.environment == null, "沒有指定環境時維持原本的繪製")
 	var level := await start_level(data)
 	check(is_instance_valid(level.player), "沒有環境主題的關卡照常運作")
+	await end_level(level)
+
+
+## 擺設的接地陰影（BG-63）：站在地上的才有、寬度跟著實際接觸範圍、畫一次不跑每影格。
+func _test_prop_grounding() -> void:
+	var crate := PropData.new()
+	crate.id = &"grounding_probe_crate"
+	crate.size = Vector2(32.0, 24.0)
+	var rect := Rect2(100.0, 296.0, 32.0, 24.0)
+	var prints := PropGrounding.footprints(crate, rect)
+	check(prints.size() == 2, "a grounded prop gets a soft body shadow plus a contact core")
+	if prints.size() == 2:
+		var body: Rect2 = prints[0]["rect"]
+		var core: Rect2 = prints[1]["rect"]
+		check(is_equal_approx(body.position.y, 320.0 - PropGrounding.LIFT) and body.end.y > 320.0 and body.size.y <= PropGrounding.MAX_HEIGHT,
+				"the shadow straddles the floor line and stays on the floor face")
+		check(body.position.x < rect.position.x and body.end.x > rect.end.x and body.size.x <= rect.size.x + PropGrounding.MAX_SPREAD * 2.0,
+				"the body shadow is slightly wider than the prop, within the spread limit")
+		check(is_equal_approx(core.position.x, rect.position.x) and is_equal_approx(core.end.x, rect.end.x), "the core covers the contact span")
+		check(float(prints[0]["alpha"]) < ContactShadow.BASE_ALPHA and float(prints[1]["alpha"]) < ContactShadow.BASE_ALPHA, "prop shadows stay lighter than character shadows")
+	var tall := PropData.new()
+	tall.id = &"grounding_probe_tall"
+	tall.size = Vector2(32.0, 96.0)
+	var tall_prints := PropGrounding.footprints(tall, Rect2(100.0, 224.0, 32.0, 96.0))
+	check(not tall_prints.is_empty() and not prints.is_empty() and float(tall_prints[0]["alpha"]) > float(prints[0]["alpha"]),
+			"taller props sit in a slightly deeper shadow")
+	var off := PropData.new()
+	off.id = &"grounding_probe_off"
+	off.size = Vector2(32.0, 24.0)
+	off.ground_shadow = false
+	check(PropGrounding.footprints(off, rect).is_empty(), "a prop can opt out in its data")
+	off.ground_shadow = true
+	off.ripple = true
+	check(PropGrounding.footprints(off, rect).is_empty(), "puddles get no shadow")
+	off.ripple = false
+	off.layer = PropData.Layer.FRONT
+	check(PropGrounding.footprints(off, rect).is_empty(), "foreground props get no shadow")
+	off.layer = PropData.Layer.BACK
+	off.size = Vector2(32.0, 4.0)
+	check(PropGrounding.footprints(off, Rect2(100.0, 316.0, 32.0, 4.0)).is_empty(), "flat floor pieces get no shadow")
+	check(PropGrounding.footprints(null, rect).is_empty() and PropGrounding.footprints(crate, Rect2(NAN, 0.0, 32.0, 24.0)).is_empty(),
+			"missing or broken data yields no shadow instead of an error")
+	# 有登記接觸段的擺設：鏡像時接觸段跟著鏡像。
+	var spans := ScenerySupport.ground_spans(&"ac_unit")
+	var mirrored := ScenerySupport.ground_spans(&"ac_unit", true)
+	check(spans.size() == 2 and mirrored.size() == 2 and is_equal_approx(mirrored[0].x, 1.0 - spans[0].y),
+			"registered contact spans are mirrored with the prop")
+	check(ScenerySupport.ground_spans(&"grounding_probe_unregistered") == PackedVector2Array([Vector2(0.0, 1.0)]),
+			"an unregistered prop touches the ground along its whole base")
+
+	var data := EnvGallery.level_data("props")
+	var level := await start_level(data)
+	var grounding := level.find_child("PropGrounding", true, false) as PropGrounding
+	check(grounding != null and grounding.shadow_count() > 0, "the level draws grounding shadows for its standing props")
+	if grounding != null:
+		check(not grounding.is_processing() and not grounding.is_physics_processing(), "grounding shadows have no per-frame cost")
+		check(grounding.z_index > WorldLayers.TERRAIN and grounding.z_index < WorldLayers.ENTITY_BEHIND,
+				"grounding shadows sit above the terrain and below pickups and characters")
+		var layout := LevelBuilder.parse(data)
+		var floating := 0
+		for area in grounding.shadow_rects():
+			var column := int(floor(area.get_center().x / layout.tile_size))
+			var row := int(floor((area.position.y + PropGrounding.LIFT + 1.0) / layout.tile_size))
+			if layout.cell(column, row) not in ["#", "=", "~"]:
+				floating += 1
+		check(floating == 0, "every grounding shadow lies on a supporting surface (%d floating)" % floating)
+		var wall_mounted := 0
+		for entry in data.load_props():
+			if str(entry.get("support", "ground")) != "ground":
+				wall_mounted += 1
+		check(grounding.shadow_count() <= (level.find_children("*", "PropNode", true, false).size() - wall_mounted) * 6,
+				"wall-mounted and hanging props add no shadows")
 	await end_level(level)
 
 

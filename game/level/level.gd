@@ -56,6 +56,8 @@ var _pause_menu: PauseMenu
 var _inventory: InventoryScreen
 var _background: LevelBackground
 var _scenery_walls: BackWallGeometry
+## 站在地上的擺設的接地陰影（BG-63）；擺設擺完後一次畫好。
+var _prop_grounding: PropGrounding
 var _fog: FogLayer
 var _lighting: LightingController
 var _post: PostProcess
@@ -245,6 +247,7 @@ func _build_entry() -> void:
 	_scenery_walls = back_wall.geometry
 	await _entry_checkpoint()
 
+	_prop_grounding = PropGrounding.new()
 	var scenery_start := _world.get_child_count()
 	await _spawn_decor()
 	_lower_scenery(scenery_start, WorldLayers.DECOR)
@@ -265,6 +268,8 @@ func _build_entry() -> void:
 	_world.add_child(terrain)
 	terrain.wall_geometry = back_wall.geometry
 	terrain.build(_layout, data.environment, data.load_regions())
+	_world.add_child(_prop_grounding)
+	_prop_grounding.build_chunks(Rect2(Vector2.ZERO, _layout.pixel_size()))
 	if not _layout.ghost_rects.is_empty():
 		var ghosts := GhostPlatforms.new()
 		ghosts.name = "GhostPlatforms"
@@ -723,7 +728,11 @@ func _spawn_decor() -> void:
 				if prop == null:
 					push_warning("[Level] 未知的裝飾種類：%s" % entry["kind"])
 				else:
-					_place_prop(prop, position + Vector2(0.0, _layout.tile_size - prop.size.y), false)
+					var top_left := position + Vector2(0.0, _layout.tile_size - prop.size.y)
+					_place_prop(prop, top_left, false)
+					var footing := Rect2(top_left, prop.size)
+					if ScenerySupport.has_ground(_layout, footing, prop.id):
+						_prop_grounding.add_prop(prop, footing)
 
 
 ## 地圖 JSON 的 props 清單（見 LevelData.load_props）：以道具資料的 id 擺放。
@@ -745,6 +754,8 @@ func _spawn_props() -> void:
 			push_warning("[Level] %s 道具 %s 第 %d 欄支撐無效（%s），已略過" % [data.id, prop.id, int(entry["x"]), issue])
 			continue
 		var node := _place_prop(prop, rect.position, bool(placed["flip"]))
+		if str(entry.get("support", "ground")) == "ground":
+			_prop_grounding.add_prop(prop, rect, bool(placed["flip"]))
 		# 依劇情旗標換樣子的擺設（NE-240）：地圖的道具項目寫 "react": "<反應 id>"。
 		if entry.has("react"):
 			PropReaction.attach(node, str(entry["react"]), prop.size, bool(placed["flip"]))

@@ -64,6 +64,21 @@ static func has_ground(layout: LevelLayout, rect: Rect2, id: StringName = &"", f
 	return true
 
 
+## 擺設實際接觸地面的各段（占寬度的比例，x＝起點、y＝終點；已套用左右鏡像）。沒有登記的擺設視為整個底邊都接觸。
+static func ground_spans(id: StringName, flip := false) -> PackedVector2Array:
+	ground_offset(id, 0.0)  # 確保接觸資料已載入
+	var contact: Variant = _contacts.get(String(id), [[0, 1]])
+	var spans: Array = contact.get("spans", [[0, 1]]) if contact is Dictionary else contact
+	var result := PackedVector2Array()
+	for span: Variant in spans:
+		if not span is Array or (span as Array).size() < 2:
+			continue
+		var from := clampf(float(span[0]), 0.0, 1.0)
+		var to := clampf(float(span[1]), 0.0, 1.0)
+		result.append(Vector2(1.0 - to, 1.0 - from) if flip else Vector2(from, to))
+	return result
+
+
 static func ground_offset(id: StringName, height: float) -> float:
 	if not _contacts_loaded:
 		_contacts_loaded = true
