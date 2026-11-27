@@ -7,9 +7,9 @@ extends Node
 ##   --idle：主角站著不動（只量場景本身），和預設的「邊跑邊打」對照。
 ##   --entry：使用正式轉場的分段建置，記錄建置期間兩個畫面之間的最大間隔。
 ##   --vsync：不關垂直同步，照玩家實際的設定跑（看的是畫面更新穩不穩：每一格隔幾毫秒的分佈 pacing）。
-##   --off=lights,shadows,glow,enemies,weather,props,grounding,kick,hud：關掉某一類東西再量，和全開的結果相減就是那一類的成本
+##   --off=lights,shadows,glow,enemies,weather,props,grounding,kick,haze,hud：關掉某一類東西再量，和全開的結果相減就是那一類的成本
 ##     （lights＝所有 2D 光源、shadows＝只關光源的陰影、glow＝泛光與後製、enemies＝敵人不行動也不畫、
-##      weather＝雨與霧、props＝場景擺設、grounding＝擺設的接地陰影、kick＝擺設被帶動、hud＝介面、prefetch＝不預載隔壁區域的貼圖）。
+##      weather＝雨與霧、props＝場景擺設、grounding＝擺設的接地陰影、kick＝擺設被帶動、haze＝遠景霧色、hud＝介面、prefetch＝不預載隔壁區域的貼圖）。
 ## 輸出 <tag>-frame-time.json：每一關的中位數、第 95／99 百分位、最長的一格、超過 16.7／33.3 毫秒的格數與比例、
 ##   最長的幾格發生在第幾秒與主角的位置、進關卡花的時間、結束時的節點數與繪製次數。逐關印一行摘要。
 ## 兩個版本要比較時，用同一份工具、同一組關卡、交替各量幾輪取中位數（機器忙的時候單次的數字會飄）。
@@ -282,6 +282,8 @@ func _apply_off(level: Level) -> void:
 				if _off.has(key) and kind in OFF_KINDS[key]:
 					(node as CanvasItem).visible = false
 					node.process_mode = Node.PROCESS_MODE_DISABLED
+		elif node is CanvasItem and _off.has("haze") and node.name == &"Haze":
+			(node as CanvasItem).visible = false  # 遠景層之間的霧色（沒有腳本，用節點名稱找）
 	if _off.has("enemies"):
 		for enemy in get_tree().get_nodes_in_group(&"enemies"):
 			enemy.set_physics_process(false)

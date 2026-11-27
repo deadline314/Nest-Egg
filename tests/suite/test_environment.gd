@@ -15,6 +15,7 @@ func run() -> void:
 	_test_missing_texture()
 	_test_sky()
 	_test_backdrop_depth()
+	await _test_backdrop_motion_nodes()
 	_test_backdrop_import_scale()
 	_test_trees()
 	_test_prop_animation()
@@ -295,6 +296,49 @@ func _test_backdrop_depth() -> void:
 	background.queue_free()
 
 
+## 遠景會動的東西不再每影格重畫（BG-66）：車流、探照燈、信標各自是畫一次的子節點，每影格只改位置、角度或大小。
+func _test_backdrop_motion_nodes() -> void:
+	var background := LevelBackground.new()
+	runner.add_child(background)
+	await frames(2)
+	var traffic: Node2D
+	var lights: Node2D
+	var tower: Node2D
+	for layer in background.get_children():
+		for child in layer.get_children():
+			if child is LevelBackground._Traffic:
+				traffic = child
+			elif child is LevelBackground._Searchlights:
+				lights = child
+			elif child is LevelBackground._Arcology:
+				tower = child
+	check(traffic != null and lights != null and tower != null, "the procedural backdrop still has traffic, searchlights and the tower")
+	if traffic == null or lights == null or tower == null:
+		background.queue_free()
+		return
+	check(traffic.get_child_count() == LevelBackground._Traffic.LANES.size() and lights.get_child_count() == 2
+			and tower.get_child_count() == LevelBackground._Arcology.BEACONS.size(), "each moving element is its own draw-once node")
+	var lane := traffic.get_child(0) as Node2D
+	var beam := lights.get_child(0) as Node2D
+	var beacon := tower.get_child(0) as Node2D
+	var lane_x := lane.position.x
+	var beam_angle := beam.rotation
+	var wrapped := true
+	var beacon_ok := true
+	for i in 40:
+		await frames(1)
+		for node: Node2D in traffic.get_children():
+			wrapped = wrapped and node.position.x >= -LevelBackground.PATTERN_WIDTH - 0.01 and node.position.x < 0.01
+		beacon_ok = beacon_ok and beacon.scale.x >= 2.0 / LevelBackground._Arcology.BEACON_RADIUS - 0.001 and beacon.scale.x <= 1.001
+	check(not is_equal_approx(lane.position.x, lane_x) and wrapped, "traffic lanes scroll by moving their node and stay within one pattern width")
+	check(not is_equal_approx(beam.rotation, beam_angle) and absf(beam.rotation) <= 0.56, "searchlight beams sweep by rotating their node")
+	check(beacon_ok, "beacons pulse by scaling between two and three pixels")
+	check(traffic.process_mode == Node.PROCESS_MODE_INHERIT and lights.process_mode == Node.PROCESS_MODE_INHERIT and tower.process_mode == Node.PROCESS_MODE_INHERIT,
+			"backdrop motion follows the tree pause instead of running while paused")
+	background.queue_free()
+	await frames(1)
+
+
 ## 樹木與植被（NE-64）：數量、前景樹半透明、搖動用共用著色器、不增加每影格開銷、第一章有擺放。
 func _test_trees() -> void:
 	var trees: Array[PropData] = []
@@ -566,6 +610,7 @@ func _test_sway_kick() -> void:
 		Settings.set_reduce_ui_motion(previous_motion)
 		return
 	check(kick.is_resting() and is_zero_approx(kick.offset()), "an untouched prop does no per-frame work")
+	check(kick.process_mode == Node.PROCESS_MODE_INHERIT, "a pushed prop pauses with the game")
 	check(kick.collision_layer == 0 and not kick.monitorable and (kick.collision_mask & Layers.WORLD) == 0,
 			"the push sensor is not a collider: it blocks nothing and ignores terrain")
 	var sprite := prop.get_child(0) as Sprite2D

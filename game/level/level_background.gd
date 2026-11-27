@@ -3,7 +3,7 @@ extends Node2D
 ## 沉港市夜景：多層 Parallax2D 視差背景，全部程式產生（固定亂數種子，畫面穩定、不需貼圖）。
 ##   天空漸層 → 遠方「天穹」巨塔（紅色信標）→ 探照燈 → 遠景樓群（細密窗光）
 ##   → 飛行車流 → 中景樓群（霓虹招牌、全像廣告）→ 近景剪影
-## 靜態層只繪製一次；只有會動的層（信標、探照燈、車流）每影格重繪。
+## 所有層都只繪製一次（BG-66）：會動的東西（信標、探照燈、車流）各自畫在子節點上，每影格只改子節點的位置、角度或亮度，不重畫。
 ## 背景不受場景光源影響（light_mask = 0）。
 
 const PATTERN_WIDTH := 1280.0
@@ -164,51 +164,99 @@ class _Sky:
 			draw_circle(Vector2(rng.randf_range(-300, 1000), rng.randf_range(-40, 90)), rng.randf_range(60, 140), Color(0.2, 0.12, 0.3, 0.12))
 
 
-## 遠方的天穹集團巨塔（劇情地標）：頂端紅色信標閃爍、垂直光帶。
+## 遠方的天穹集團巨塔（劇情地標）：頂端紅色信標閃爍、垂直光帶。塔身只畫一次；信標是三個小節點，每影格只改大小與亮度。
 class _Arcology:
 	extends Node2D
 
+	const BASE_X := 430.0
+	const BEACONS: Array[Vector2] = [Vector2(BASE_X, -152), Vector2(BASE_X - 22, -64), Vector2(BASE_X + 22, -64)]
+	## 信標畫成這個半徑、這個亮度；閃爍時縮放到 2～3 像素、亮度 1～2 倍（與原本每影格重畫的結果相同）。
+	const BEACON_RADIUS := 3.0
+	const BEACON_PEAK := 2.0
+
 	var _time := 0.0
+	var _beacons: Array[Node2D] = []
+
+	func _ready() -> void:
+		for point in BEACONS:
+			var beacon := _Dot.new()
+			beacon.radius = BEACON_RADIUS
+			beacon.color = Color(LightKit.glow(Palette.DANGER, BEACON_PEAK), 0.9)
+			beacon.position = point
+			beacon.light_mask = 0
+			add_child(beacon)
+			_beacons.append(beacon)
+		_pulse()
 
 	func _process(delta: float) -> void:
 		_time += delta
-		queue_redraw()
+		_pulse()
+
+	func _pulse() -> void:
+		var blink := 0.5 + 0.5 * sin(_time * 3.0)
+		var size := (2.0 + blink) / BEACON_RADIUS
+		var level := (1.0 + blink) / BEACON_PEAK
+		for beacon in _beacons:
+			beacon.scale = Vector2(size, size)
+			beacon.modulate = Color(level, level, level, 1.0)
 
 	func _draw() -> void:
-		var base_x := 430.0
 		var horizon := LevelBackground.HORIZON
-		var tower := PackedVector2Array([Vector2(base_x - 70, horizon), Vector2(base_x - 26, -60), Vector2(base_x - 10, -150),
-				Vector2(base_x + 10, -150), Vector2(base_x + 26, -60), Vector2(base_x + 70, horizon)])
+		var tower := PackedVector2Array([Vector2(BASE_X - 70, horizon), Vector2(BASE_X - 26, -60), Vector2(BASE_X - 10, -150),
+				Vector2(BASE_X + 10, -150), Vector2(BASE_X + 26, -60), Vector2(BASE_X + 70, horizon)])
 		draw_colored_polygon(tower, Color("100c22"))
 		for i in 5:
-			var x := base_x - 18.0 + i * 9.0
-			draw_line(Vector2(x, -40), Vector2(x * 0.98 + base_x * 0.02, horizon), Color(Palette.MAGENTA, 0.08), 2.0)
-		# 頂部光環與信標
-		draw_arc(Vector2(base_x, -110), 34.0, PI, TAU, 24, Color(Palette.CYAN, 0.18), 2.0)
-		var blink := 0.5 + 0.5 * sin(_time * 3.0)
-		for point: Vector2 in [Vector2(base_x, -152), Vector2(base_x - 22, -64), Vector2(base_x + 22, -64)]:
-			draw_circle(point, 2.0 + blink, Color(LightKit.glow(Palette.DANGER, 1.0 + blink), 0.9))
+			var x := BASE_X - 18.0 + i * 9.0
+			draw_line(Vector2(x, -40), Vector2(x * 0.98 + BASE_X * 0.02, horizon), Color(Palette.MAGENTA, 0.08), 2.0)
+		# 頂部光環
+		draw_arc(Vector2(BASE_X, -110), 34.0, PI, TAU, 24, Color(Palette.CYAN, 0.18), 2.0)
 
 
-## 探照燈：兩道光束在雲層間緩慢掃動。
+## 一個只畫一次的圓點（信標用）。
+class _Dot:
+	extends Node2D
+
+	var radius := 1.0
+	var color := Color.WHITE
+
+	func _draw() -> void:
+		draw_circle(Vector2.ZERO, radius, color)
+
+
+## 探照燈：兩道光束在雲層間緩慢掃動。每道光束畫一次（朝正上方），每影格只轉節點。
 class _Searchlights:
 	extends Node2D
 
+	const LENGTH := 520.0
+	const HALF_WIDTH := 26.0
+
 	var _time := 0.0
+	var _beams: Array[Node2D] = []
+
+	func _ready() -> void:
+		for i in 2:
+			var beam := _Beam.new()
+			beam.position = Vector2(160.0 + i * 420.0, LevelBackground.HORIZON)
+			beam.light_mask = 0
+			add_child(beam)
+			_beams.append(beam)
+		_sweep()
 
 	func _process(delta: float) -> void:
 		_time += delta
-		queue_redraw()
+		_sweep()
 
-	func _draw() -> void:
-		for i in 2:
-			var origin := Vector2(160.0 + i * 420.0, LevelBackground.HORIZON)
-			var angle := -PI * 0.5 + sin(_time * (0.25 + i * 0.1) + i * 2.0) * 0.55
-			var direction := Vector2.RIGHT.rotated(angle)
-			var side := direction.orthogonal() * 26.0
-			var tip := origin + direction * 520.0
-			var beam := PackedVector2Array([origin, tip + side, tip - side])
-			draw_polygon(beam, PackedColorArray([Color(0.7, 0.8, 1.0, 0.1), Color(0.7, 0.8, 1.0, 0.0), Color(0.7, 0.8, 1.0, 0.0)]))
+	func _sweep() -> void:
+		for i in _beams.size():
+			_beams[i].rotation = sin(_time * (0.25 + i * 0.1) + i * 2.0) * 0.55
+
+	class _Beam:
+		extends Node2D
+
+		func _draw() -> void:
+			var tip := Vector2(0.0, -LENGTH)
+			draw_polygon(PackedVector2Array([Vector2.ZERO, tip + Vector2(HALF_WIDTH, 0.0), tip - Vector2(HALF_WIDTH, 0.0)]),
+					PackedColorArray([Color(0.7, 0.8, 1.0, 0.1), Color(0.7, 0.8, 1.0, 0.0), Color(0.7, 0.8, 1.0, 0.0)]))
 
 
 ## 樓群：固定種子產生；窗光密度與霓虹招牌比例依層調整。只繪製一次。
@@ -266,23 +314,46 @@ class _Skyline:
 			x += w
 
 
-## 飛行車流：三條航道上的光點，車頭白光、車尾紅光。
+## 飛行車流：三條航道上的光點，車頭白光、車尾紅光。每條航道的車畫一次（畫兩段好接起來），每影格只平移那一條。
 class _Traffic:
 	extends Node2D
 
+	## 每條航道：高度、速度（像素／秒，負值往左）、車數。
 	const LANES := [[150.0, 70.0, 9], [185.0, -95.0, 7], [215.0, 120.0, 6]]
+	const SPACING := 160.0
+
 	var _time := 0.0
+	var _lanes: Array[Node2D] = []
+
+	func _ready() -> void:
+		for lane: Array in LANES:
+			var node := _Lane.new()
+			node.cars = int(lane[2])
+			node.heading = signf(float(lane[1]))
+			node.position.y = float(lane[0])
+			node.light_mask = 0
+			add_child(node)
+			_lanes.append(node)
+		_advance()
 
 	func _process(delta: float) -> void:
 		_time += delta
-		queue_redraw()
+		_advance()
 
-	func _draw() -> void:
-		for lane: Array in LANES:
-			var y: float = lane[0]
-			var speed: float = lane[1]
-			for i in int(lane[2]):
-				var x := fposmod(i * 160.0 + _time * speed, LevelBackground.PATTERN_WIDTH)
-				var dir := signf(speed)
-				draw_line(Vector2(x, y), Vector2(x - dir * 10.0, y), Color(Palette.DANGER, 0.6), 1.5)
-				draw_circle(Vector2(x, y), 1.2, LightKit.glow(Palette.WHITE, 1.5))
+	func _advance() -> void:
+		for i in _lanes.size():
+			_lanes[i].position.x = fposmod(_time * float((LANES[i] as Array)[1]), LevelBackground.PATTERN_WIDTH) - LevelBackground.PATTERN_WIDTH
+
+	class _Lane:
+		extends Node2D
+
+		var cars := 0
+		var heading := 1.0
+
+		func _draw() -> void:
+			# 同一排車畫兩段（一段在原位、一段往右一個循環寬度），節點在 [-寬度, 0) 之間平移時永遠接得起來。
+			for copy in 2:
+				for i in cars:
+					var x := fposmod(i * SPACING, LevelBackground.PATTERN_WIDTH) + copy * LevelBackground.PATTERN_WIDTH
+					draw_line(Vector2(x, 0.0), Vector2(x - heading * 10.0, 0.0), Color(Palette.DANGER, 0.6), 1.5)
+					draw_circle(Vector2(x, 0.0), 1.2, LightKit.glow(Palette.WHITE, 1.5))
