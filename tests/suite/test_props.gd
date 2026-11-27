@@ -765,7 +765,7 @@ func _test_conveyor() -> void:
 	await end_level(level)
 
 
-## 誘餌收音機（NE-402）：射中才播、敵人打不開；範圍內沒發現玩家的敵人走過去盯著看、看不到背後；被打就醒；播完就壞。
+## 誘餌收音機（NE-404）：射中才播、敵人打不開；範圍內沒發現玩家的敵人走過去盯著看、看不到背後；被打就醒；播完就壞。
 func _test_decoy_radio() -> void:
 	var radio_data := load(RADIO_PATH) as DecoyRadioData
 	check(radio_data != null and radio_data.validate().is_empty(), "the decoy radio data is valid: %s" % [radio_data.validate() if radio_data != null else ["missing"]])

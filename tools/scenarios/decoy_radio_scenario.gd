@@ -1,6 +1,6 @@
 class_name DecoyRadioScenario
 extends ScenarioBase
-## 誘餌收音機（NE-402）：第三章泵室，兩台抽水巡檢器之間的地上有一台收音機。主角從左邊遠處射中它。
+## 誘餌收音機（NE-404）：第三章泵室，兩台抽水巡檢器之間的地上有一台收音機。主角從左邊遠處射中它。
 ## 拍三張：射中前（有提示）、播放中兩台巡檢器走過去、主角溜到左邊那台背後。印出巡檢器有沒有被吸引、有沒有發現主角。
 ## 用法（原生 Forward+）：godot --path . res://tools/screenshot.tscn -- --out=<絕對資料夾> --scenario=decoy_radio
 
@@ -45,7 +45,7 @@ func run() -> void:
 	player.velocity = Vector2.ZERO
 	snap_camera()
 	await wait(0.8)
-	capture("NE-402-radio-0-before")
+	capture("NE-404-radio-0-before")
 	# 開槍時退到巡檢器的視線外。
 	player.global_position = radio.global_position + Vector2(-260.0, 0.0)
 	snap_camera()
@@ -54,14 +54,14 @@ func run() -> void:
 		enemy.process_mode = Node.PROCESS_MODE_INHERIT
 	for step in 4:
 		await wait(0.55)
-	capture("NE-402-radio-1-lured")
+	capture("NE-404-radio-1-lured")
 	# 溜到左邊那台背後。
 	if not near.is_empty():
 		var left := near[0]
 		player.global_position = left.global_position + Vector2(-float(left.facing) * 36.0, 0.0)
 		snap_camera()
 	await wait(0.6)
-	capture("NE-402-radio-2-behind")
+	capture("NE-404-radio-2-behind")
 	var lured := 0
 	var engaged := 0
 	for enemy in near:

@@ -61,7 +61,7 @@ const MAX_SHIELD := 3
 const ALERT_RANGE_SCALE := 1.5
 const ALERT_SPEED_SCALE := 1.5
 const ALERT_ARRIVE_DISTANCE := 28.0
-## 被誘餌吸引（lure_to，NE-402）時走到離聲源多近就停下來盯著看（像素）。
+## 被誘餌吸引（lure_to，NE-404）時走到離聲源多近就停下來盯著看（像素）。
 const LURE_ARRIVE_DISTANCE := 20.0
 ## 被吸引時分心：面前只看得到平常的這個比例遠，背後看不到。
 const LURE_SIGHT_SCALE := 0.5
@@ -672,7 +672,7 @@ func is_alerted() -> bool:
 	return _alert_left > 0.0
 
 
-## 被誘餌吸引（NE-402）：還沒進入戰鬥的敵人走到 point 盯著看 seconds 秒（取較長的）；這段時間只看得到面前，
+## 被誘餌吸引（NE-404）：還沒進入戰鬥的敵人走到 point 盯著看 seconds 秒（取較長的）；這段時間只看得到面前，
 ## 背後的人看不到、面前只看得到一半遠。已經在戰鬥、被打到或看到玩家就不理會。回傳有沒有被吸引。
 func lure_to(point: Vector2, seconds: float) -> bool:
 	if _dying or is_engaged() or not is_finite(seconds) or seconds <= 0.0:
@@ -972,7 +972,7 @@ func _can_see_target(max_range: float, max_height_diff := 120.0) -> bool:
 		max_range *= ALERT_RANGE_SCALE
 		max_height_diff *= ALERT_RANGE_SCALE
 	elif _lure_left > 0.0:
-		# 盯著誘餌看（NE-402）：背後的人看不到，面前也只看得到一半遠。
+		# 盯著誘餌看（NE-404）：背後的人看不到，面前也只看得到一半遠。
 		if (target.global_position.x - global_position.x) * facing < 0.0:
 			return false
 		max_range *= LURE_SIGHT_SCALE

@@ -1,6 +1,6 @@
 class_name DecoyRadioData
 extends Resource
-## 誘餌收音機（NE-402）：射中就大聲播放幾秒，範圍內還沒發現玩家的敵人會走過去盯著它看，背後的人看不到。
+## 誘餌收音機（NE-404）：射中就大聲播放幾秒，範圍內還沒發現玩家的敵人會走過去盯著它看，背後的人看不到。
 ## 用一次就壞。新增一台只需要一份 .tres，再在關卡地圖的 legend 對應一個字元（放在地面那一格）。
 
 @export var id: StringName = &"decoy_radio"
