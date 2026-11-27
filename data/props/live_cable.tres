@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="LiveCableData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/live_cable_data.gd" id="1_cable"]
+
+[resource]
+script = ExtResource("1_cable")
+id = &"live_cable"
+display_name = "斷電纜"
+hint = "射斷電纜讓積水通電，水裡的人都會觸電，跳起來就不會。"
+localized_hints = Dictionary[String, String]({
+"en": "Shoot the cable into the puddle: anyone standing in it gets shocked. Jump to stay clear.",
+"ja": "ケーブルを撃って水たまりに落とすと、水の中にいる者は感電します。跳べば避けられます。"
+})
+water_width = 144.0
+warning_seconds = 0.45
+live_seconds = 3.0
+damage = 2
+source_id = &"live_cable"

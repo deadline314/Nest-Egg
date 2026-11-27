@@ -17,6 +17,8 @@ const SUSPENDED_MAP := "res://tests/fixtures/suspended_map.json"
 const VALVE_PATH := "res://data/props/steam_valve.tres"
 const VALVE_MAP := "res://tests/fixtures/steam_valve_map.json"
 const LAMP_MAP := "res://tests/fixtures/shootable_lamp_map.json"
+const CABLE_PATH := "res://data/props/live_cable.tres"
+const CABLE_MAP := "res://tests/fixtures/live_cable_map.json"
 
 
 func run() -> void:
@@ -32,6 +34,7 @@ func run() -> void:
 	await _test_suspended_load()
 	await _test_steam_valve()
 	await _test_shootable_lamp()
+	await _test_live_cable()
 
 
 func _test_mechanism_translations() -> void:
@@ -631,3 +634,71 @@ func _test_shootable_lamp() -> void:
 		restored.restore_state(true)
 		check(restored.shot_out and not restored._light.enabled, "restoring a checkpoint keeps the lamp dark")
 	await end_level(restored_level)
+
+
+## 斷電纜（NE-400）：射斷後預警、通電；水裡的敵人與玩家都會觸電、格擋擋不住、跳起來不會；時間到就停、只能用一次；敵人打不斷；有敗北卡片。
+func _test_live_cable() -> void:
+	var cable_data := load(CABLE_PATH) as LiveCableData
+	check(cable_data != null and cable_data.validate().is_empty(), "the live cable data is valid: %s" % [cable_data.validate() if cable_data != null else ["missing"]])
+	if cable_data == null:
+		return
+	check(not cable_data.hint_for("en").is_empty() and not cable_data.hint_for("ja").is_empty(), "the cable hint is available in all three languages")
+	var cards: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/codex/defeat_cards.json"))
+	var has_card := false
+	for card: Dictionary in cards.get("cards", []):
+		has_card = has_card or card.get("id") == String(cable_data.source_id)
+	check(has_card, "dying to the shock has its own defeat card")
+	var bad := LiveCableData.new()
+	bad.live_seconds = NAN
+	bad.source_id = &""
+	check(bad.validate().size() >= 2, "broken timing or a missing death cause is reported")
+
+	var data := LevelData.new()
+	data.id = &"live_cable_test"
+	data.layout_path = CABLE_MAP
+	data.legend = {"K": cable_data, "g": load(GRUNT_PATH)}
+	var level := await start_level(data)
+	var cables := _find_all(level, LiveCable)
+	check(cables.size() == 1, "the map character spawns one live cable")
+	if cables.is_empty():
+		await end_level(level)
+		return
+	var cable := cables[0] as LiveCable
+	check(cable.state == LiveCable.State.HANGING and not cable.is_live(), "the cable starts hanging and the water is safe")
+	var enemy: Enemy
+	for node in runner.get_tree().get_nodes_in_group(&"enemies"):
+		enemy = node as Enemy
+	check(enemy != null and cable.shock_rect().has_point(enemy.global_position + Vector2(0.0, -1.0)), "an enemy stands in the puddle")
+	if enemy == null:
+		await end_level(level)
+		return
+	enemy.set_physics_process(false)
+	var player := level.player
+	player.set_physics_process(false)
+	player.global_position = cable.global_position + Vector2(-20.0, 0.0)  # 玩家也站在水裡
+	player.health.setup(20, 0.0)
+	var enemy_before := enemy.health.current
+	cable.hurtbox.receive(DamageInfo.create(1, Combat.Team.ENEMY, &"test_enemy_shot"))
+	check(cable.state == LiveCable.State.HANGING, "enemy fire cannot cut the cable")
+	cable.hurtbox.receive(DamageInfo.create(1, Combat.Team.PLAYER, &"test_player_shot"))
+	check(cable.state == LiveCable.State.WARNING and not cable._hit_players.active, "a player hit cuts the cable and the water warns before going live")
+	await runner.get_tree().create_timer(cable_data.warning_seconds + 0.25).timeout
+	await physics_frames(3)
+	check(cable.is_live(), "after the warning the water is live")
+	check(not is_instance_valid(enemy) or enemy.health.current < enemy_before, "the enemy standing in the water is shocked")
+	check(player.health.current < 20, "the player standing in the water is shocked too")
+	# 跳起來（腳離開水面）就不會觸電。
+	player.health.setup(20, 0.0)
+	player.global_position = cable.global_position + Vector2(-20.0, -LiveCable.SHOCK_HEIGHT - 10.0)
+	await physics_frames(4)
+	check(player.health.current == 20, "a player in the air above the water is not shocked")
+	check(cable._hit_players.bypass_guard and cable._hit_enemies.bypass_guard, "guarding cannot block the current")
+	await runner.get_tree().create_timer(cable_data.live_seconds + 0.2).timeout
+	await physics_frames(2)
+	check(cable.state == LiveCable.State.SPENT and not cable._hit_players.active and not cable._hit_enemies.active, "the current stops after its time")
+	player.health.setup(20, 0.0)
+	player.global_position = cable.global_position
+	await physics_frames(4)
+	check(player.health.current == 20, "the spent puddle is just water")
+	check(not cable.cut(), "a spent cable cannot be cut again")
+	await end_level(level)

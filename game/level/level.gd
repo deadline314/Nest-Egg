@@ -841,7 +841,7 @@ var _throwables_placed := 0
 static func _is_prop_resource(resource: Resource) -> bool:
 	return resource is BreakableData or resource is MechanismData or resource is CreditPileData \
 			or resource is ShopData or resource is NpcData or resource is PortalData or resource is ThrowableData or resource is TrainingData \
-			or resource is SuspendedLoadData or resource is SteamValveData
+			or resource is SuspendedLoadData or resource is SteamValveData or resource is LiveCableData
 
 
 ## 生成物在本區域裡固定的鍵（資源 id 加格座標）；地圖資料改版後對不上的鍵會被忽略。
@@ -853,9 +853,10 @@ func _spawn_key(spawn: Dictionary) -> String:
 
 
 ## 從 cell 的底邊往上、跳過 clearance 格之後遇到的第一塊實心地形（天花板）離底邊多高（像素）；上面沒有天花板就算到地圖頂端。
-func _ceiling_height_above(cell: Vector2i, clearance: int) -> float:
+## include_platforms＝true 時單向平台（雨棚、走道）的底面也算，可以從那裡吊東西下來。
+func _ceiling_height_above(cell: Vector2i, clearance: int, include_platforms := false) -> float:
 	var row := cell.y - clearance
-	while row >= 0 and _layout.cell(cell.x, row) != "#":
+	while row >= 0 and _layout.cell(cell.x, row) != "#" and not (include_platforms and _layout.cell(cell.x, row) == "="):
 		row -= 1
 	return float((cell.y - row) * _layout.tile_size)
 
@@ -881,6 +882,13 @@ func _create_prop(spawn: Dictionary) -> Node2D:
 		var hanging := SuspendedLoad.new()
 		hanging.configure(load_data, cell, _layout.tile_size, _ceiling_height_above(cell, load_data.hang_tiles + load_data.size_tiles.y))
 		return hanging
+	if resource is LiveCableData:
+		var cable_data := resource as LiveCableData
+		for problem in cable_data.validate():
+			push_error("[Level] %s（格 %s）" % [problem, cell])
+		var cable := LiveCable.new()
+		cable.configure(cable_data, cell, _ceiling_height_above(cell, 2, true) - float(_layout.tile_size))
+		return cable
 	if resource is SteamValveData:
 		var valve_data := resource as SteamValveData
 		for problem in valve_data.validate():

@@ -22,6 +22,7 @@ const SCENARIOS := {
 	"suspended_load": "res://tools/scenarios/suspended_load_scenario.gd",
 	"steam_valve": "res://tools/scenarios/steam_valve_scenario.gd",
 	"shootable_lamp": "res://tools/scenarios/shootable_lamp_scenario.gd",
+	"live_cable": "res://tools/scenarios/live_cable_scenario.gd",
 	"scene_packs": "res://tools/scenarios/scene_pack_scenario.gd",
 	"lighting_scenes": "res://tools/scenarios/lighting_scene_scenario.gd",
 	"enemy_vfx": "res://tools/scenarios/enemy_vfx_scenario.gd",

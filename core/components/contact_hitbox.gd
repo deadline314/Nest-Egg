@@ -10,6 +10,8 @@ var knockback_force: float = 160.0
 ## 非零時使用固定擊退向量（x 會依目標方向翻轉），例如尖刺固定往上彈。
 var knockback_override: Vector2 = Vector2.ZERO
 var active: bool = true
+## true＝格擋擋不住（例如水裡的電流，NE-400）。
+var bypass_guard := false
 
 var _shape: RectangleShape2D
 var _shape_node: CollisionShape2D
@@ -47,6 +49,7 @@ func _physics_process(_delta: float) -> void:
 		if hurtbox == null or hurtbox.team == team or not hurtbox.can_receive():
 			continue
 		var info := DamageInfo.create(damage, team, source_id)
+		info.bypass_guard = bypass_guard
 		# 以碰撞形狀中心作為攻擊來源（而非節點原點／腳底），讓格擋方向判定準確。
 		var origin := _origin_for(hurtbox)
 		var side := signf(hurtbox.global_position.x - origin.x)

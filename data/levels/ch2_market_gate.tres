@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="8_lighting_zone"]
 [ext_resource type="Resource" path="res://data/lighting/market_gate.tres" id="9_market_gate"]
 [ext_resource type="Resource" path="res://data/environment/themes/ch2_market_gate.tres" id="10_ch2_market_gate"]
+[ext_resource type="Resource" path="res://data/props/live_cable.tres" id="92_live_cable"]
 
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("3_portal_data")
@@ -86,6 +87,7 @@ localized_names = Dictionary[String, String]({"en": "Market Entrance", "ja": "�
 tile_size = 16
 height = 40
 legend = Dictionary[String, Resource]({
+"φ": ExtResource("92_live_cable"),
 "c": ExtResource("2_credits_small"),
 "Ⅰ": SubResource("Resource_0"),
 "Ⅱ": SubResource("Resource_1"),
