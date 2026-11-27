@@ -42,6 +42,7 @@ func run() -> void:
 	await _test_conveyor()
 	await _test_decoy_radio()
 	_test_mechanic_placements()
+	await _test_hazard_avoidance()
 
 
 func _test_mechanism_translations() -> void:
@@ -854,3 +855,48 @@ func _test_mechanic_placements() -> void:
 	var belt_end := (13.0 + belt.length_tiles) * 16.0
 	var puddle_center := (32.0 + 0.5) * 16.0
 	check(absf(belt_end - puddle_center) < cable.water_width * 0.5 - 8.0, "the reversed belt delivers riders into the relay puddle: end %.0f, puddle %.0f±%.0f" % [belt_end, puddle_center, cable.water_width * 0.5])
+
+
+## 敵人避開通電的積水（NE-408）：預警與通電期間巡邏的敵人走到水邊就回頭、不會踩進去；水用完之後範圍撤掉。
+func _test_hazard_avoidance() -> void:
+	check(not HazardZones.blocks(Vector2(123.0, 456.0)), "no hazard zones are registered outside a live puddle")
+	var data := LevelData.new()
+	data.id = &"hazard_avoidance_test"
+	data.layout_path = CABLE_MAP
+	data.legend = {"K": load(CABLE_PATH), "g": load(GRUNT_PATH)}
+	var level := await start_level(data)
+	var cables := _find_all(level, LiveCable)
+	var enemy: Enemy
+	for node in runner.get_tree().get_nodes_in_group(&"enemies"):
+		enemy = node as Enemy
+	if cables.is_empty() or enemy == null:
+		check(false, "the hazard fixture has a cable and an enemy")
+		await end_level(level)
+		return
+	var cable := cables[0] as LiveCable
+	var player := level.player
+	player.set_physics_process(false)
+	player.global_position = cable.global_position + Vector2(0.0, -400.0)  # 敵人看不到
+	var rect := cable.shock_rect()
+	enemy.global_position = Vector2(rect.end.x + 40.0, cable.global_position.y)
+	enemy.facing = -1  # 往水的方向巡邏
+	enemy.fsm.transition(&"patrol")
+	cable.hurtbox.receive(DamageInfo.create(1, Combat.Team.PLAYER, &"test_player_shot"))
+	check(HazardZones.blocks(cable.global_position + Vector2(0.0, -1.0)), "a cut cable marks its puddle as dangerous from the warning on")
+	var stepped_in := false
+	var turned := false
+	var health_before := enemy.health.current
+	var timer := runner.get_tree().create_timer(2.5)
+	while timer.time_left > 0.0:
+		await physics_frames(1)
+		if not is_instance_valid(enemy):
+			break
+		stepped_in = stepped_in or rect.has_point(enemy.global_position + Vector2(0.0, -1.0))
+		turned = turned or enemy.facing == 1
+	check(not stepped_in, "a patrolling enemy does not walk into the live puddle")
+	check(turned, "the patrolling enemy turns back at the water's edge")
+	check(is_instance_valid(enemy) and enemy.health.current == health_before, "the enemy that stayed out of the water is never shocked")
+	await runner.get_tree().create_timer(LiveCable.ARC_EVERY + (load(CABLE_PATH) as LiveCableData).live_seconds).timeout
+	check(cable.state == LiveCable.State.SPENT and not HazardZones.blocks(cable.global_position + Vector2(0.0, -1.0)), "the spent puddle is no longer marked dangerous")
+	await end_level(level)
+	check(not HazardZones.blocks(cable.global_position if is_instance_valid(cable) else Vector2.ZERO), "leaving the level clears the hazard zones")

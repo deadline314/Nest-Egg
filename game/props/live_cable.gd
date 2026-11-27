@@ -122,6 +122,8 @@ func cut() -> bool:
 	Fx.sparks(global_position + Vector2(0.0, -_anchor_height + 4.0), LIVE_COLOR, 8, 160.0, 0.35)
 	Sfx.play(&"zap", -6.0)
 	EventBus.world_noise.emit(global_position, 0.6)
+	# 預警一開始就讓敵人知道別踩進來（NE-408）；腳底剛好在水面上，所以範圍往下多留一點。
+	HazardZones.register(self, shock_rect().grow_individual(0.0, 0.0, 0.0, 2.0))
 	return true
 
 
@@ -169,6 +171,11 @@ func _spend() -> void:
 	state = State.SPENT
 	_hit_players.active = false
 	_hit_enemies.active = false
+	HazardZones.unregister(self)
+
+
+func _exit_tree() -> void:
+	HazardZones.unregister(self)
 
 
 func _draw() -> void:

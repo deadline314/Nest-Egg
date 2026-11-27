@@ -519,6 +519,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		_telegraph_left = maxf(0.0, _telegraph_left - delta)
 		fsm.tick(delta)
+		_hold_at_hazard_edge()
 	_tick_vfx()
 	_update_telegraph_light(delta)
 	move_and_slide()
@@ -986,6 +987,22 @@ func _can_see_target(max_range: float, max_height_diff := 120.0) -> bool:
 	return seen
 
 
+## 前方一步是不是登記過的危險範圍（例如通電的積水，NE-408）；已經站在裡面就不算（不會在水裡原地打轉）。
+func _is_hazard_ahead(direction := 0) -> bool:
+	var step := direction if direction != 0 else facing
+	var ahead := global_position + Vector2(step * (data.body_size.x * 0.5 + 4.0), -1.0)
+	return HazardZones.blocks(ahead) and not HazardZones.blocks(global_position + Vector2(0.0, -1.0))
+
+
+## 行為自己決定的水平移動（巡邏、追擊、後退、衝撞）走到危險範圍邊緣就停下；被打飛、硬直不受影響，
+## 所以還是可以把敵人打進水裡。沒有任何危險範圍時不多花成本。
+func _hold_at_hazard_edge() -> void:
+	if HazardZones.is_empty() or absf(velocity.x) < 1.0 or not is_on_floor():
+		return
+	if _is_hazard_ahead(1 if velocity.x > 0.0 else -1):
+		velocity.x = 0.0
+
+
 ## 前方腳下是否為懸崖（巡邏時避免掉落）。
 func _is_ledge_ahead() -> bool:
 	var from := global_position + Vector2(facing * (data.body_size.x * 0.5 + 2.0), -2.0)
@@ -1059,14 +1076,14 @@ func _patrol(speed: float) -> void:
 	if _lure_left > 0.0 and _alert_left <= 0.0:
 		var to_lure := _alert_point.x - global_position.x
 		facing = 1 if to_lure > 0.0 else -1
-		var stuck := is_on_floor() and (is_on_wall() or _is_ledge_ahead())
+		var stuck := is_on_floor() and (is_on_wall() or _is_ledge_ahead() or _is_hazard_ahead())
 		velocity.x = 0.0 if stuck or absf(to_lure) <= LURE_ARRIVE_DISTANCE else facing * speed
 		return
 	if _alert_left > 0.0 and absf(_alert_point.x - global_position.x) > ALERT_ARRIVE_DISTANCE:
 		facing = 1 if _alert_point.x > global_position.x else -1
-		var blocked := is_on_floor() and (is_on_wall() or _is_ledge_ahead())
+		var blocked := is_on_floor() and (is_on_wall() or _is_ledge_ahead() or _is_hazard_ahead())
 		velocity.x = 0.0 if blocked else facing * speed * ALERT_SPEED_SCALE
 		return
-	if is_on_floor() and (is_on_wall() or _is_ledge_ahead()):
+	if is_on_floor() and (is_on_wall() or _is_ledge_ahead() or _is_hazard_ahead()):
 		facing = -facing
 	velocity.x = facing * speed
