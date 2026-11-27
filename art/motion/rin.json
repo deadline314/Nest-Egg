@@ -134,7 +134,8 @@
   "plant_feet": true,
   "firearm_stow": {"grip": [3.3, -1.0], "angle": 0.78, "brace_height": 18.5},
   "reactions": {"absorb": [-2.5, 1.45, -0.13], "parry": [3.5, -2.8, -0.24], "break": [-5.4, 5.3, 0.44]},
-  "chest": 0.075,
+  "brace": {"wrist": [6.8, -2.6], "angle": -0.95, "hip_drop": 2.5, "head": 0.1},
+  "chest": 0.12,
   "legs": [
    -0.4,
    0.5,

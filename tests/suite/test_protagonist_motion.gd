@@ -39,6 +39,7 @@ func run() -> void:
 	await _test_footfall_events()
 	await _test_legacy_two_hand_grips()
 	await _test_unarmed_squat()
+	await _test_guard_brace()
 
 
 func _make(skin: String, input: RigInput) -> CharacterRig:
@@ -780,5 +781,65 @@ func _test_unarmed_squat() -> void:
 	holder.add_child(plain)
 	if plain.setup("trooper"):
 		check((plain.animator as HumanoidAnimator)._squat_arms.is_empty(), "characters without squat data are unchanged")
+	holder.queue_free()
+	await frames(1)
+
+
+## 前臂格擋的架勢（NE-395）：支撐手抬到肩線以上擋在身前、站定時壓低重心且腳不離地、收下巴；沒有資料的角色沿用原本的數值；資料壞掉時逐項退回預設。
+func _test_guard_brace() -> void:
+	var holder := Node2D.new()
+	runner.get_tree().root.add_child(holder)
+	var rin := CharacterRig.new()
+	holder.add_child(rin)
+	check(rin.setup("rin"), "the protagonist rig builds for the guard check")
+	rin.set_weapon("rifle")
+	var input := RigInput.new()
+	input.on_floor = true
+	input.two_handed = true
+	for i in 60:
+		rin.animate(DT, input)
+	var standing_hip := rin.bone(&"hip").global_position.y
+	var standing_head := rin.bone(&"head").global_rotation
+	var standing_foot := maxf(rin.bone(&"foot_front").global_position.y, rin.bone(&"foot_back").global_position.y)
+	input.blocking = true
+	input.shield_forward = true
+	input.shield_pose_weight = 1.0
+	input.forearm_brace = true
+	input.hand_grip_back = true
+	input.guard_firearm_weight = 1.0
+	for i in 90:
+		rin.animate(DT, input)
+	var shoulder := rin.bone(&"arm_back_upper").global_position
+	var wrist := rin.bone(&"hand_back").global_position
+	var hip := rin.bone(&"hip").global_position
+	check(wrist.y < shoulder.y - 1.0 and wrist.x > shoulder.x + 4.0,
+			"the guarding forearm is raised in front of the upper body, above the shoulder line (%s)" % (wrist - shoulder))
+	check(hip.y - standing_hip > 1.5, "holding the guard lowers the centre of gravity (%.2f px)" % (hip.y - standing_hip))
+	var guard_foot := maxf(rin.bone(&"foot_front").global_position.y, rin.bone(&"foot_back").global_position.y)
+	check(absf(guard_foot - standing_foot) < 1.0, "the feet stay planted while guarding (%.2f px)" % (guard_foot - standing_foot))
+	check(rin.bone(&"head").global_rotation > standing_head + 0.05, "the chin tucks behind the forearm")
+	check(wrist.y < rin.weapon_root().global_position.y - 6.0, "the raised guard stays clear above the stowed weapon")
+	input.blocking = false
+	input.shield_forward = false
+	input.shield_pose_weight = 0.0
+	input.hand_grip_back = false
+	input.guard_firearm_weight = 0.0
+	for i in 90:
+		rin.animate(DT, input)
+	check(absf(rin.bone(&"hip").global_position.y - standing_hip) < 0.75, "releasing the guard returns to the standing height")
+	var animator := rin.animator as HumanoidAnimator
+	var defaults: Dictionary = (HumanoidAnimator.DEFAULT_MOTION["block"] as Dictionary)["brace"]
+	check(animator._brace_wrist != Vector2(float(defaults["wrist"][0]), float(defaults["wrist"][1])) and animator._brace_hip_drop > 0.0,
+			"the protagonist has her own guard stance data")
+	animator._read_brace({"wrist": [1.0], "angle": "x", "hip_drop": NAN}, "test_no_such_enemy")
+	check(animator._brace_wrist == Vector2(float(defaults["wrist"][0]), float(defaults["wrist"][1]))
+			and is_equal_approx(animator._brace_angle, float(defaults["angle"])) and is_zero_approx(animator._brace_hip_drop),
+			"each broken guard value falls back to its default")
+	var plain := CharacterRig.new()
+	holder.add_child(plain)
+	if plain.setup("trooper"):
+		var other := plain.animator as HumanoidAnimator
+		check(other._brace_wrist == Vector2(float(defaults["wrist"][0]), float(defaults["wrist"][1])) and is_zero_approx(other._brace_hip_drop)
+				and is_zero_approx(other._brace_head), "characters without guard stance data keep the original brace")
 	holder.queue_free()
 	await frames(1)
