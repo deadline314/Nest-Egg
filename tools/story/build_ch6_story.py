@@ -12,6 +12,7 @@ from build_ch6 import CHAPTER, POINTS, REQUEST, WITNESS  # noqa: E402
 from build_ch1_story import sfx  # noqa: E402
 from ch6_control_station_story import add_control_station  # noqa: E402
 from ch6_relay_water_story import add_relay_water  # noqa: E402
+from ch6_rain_route_story import add_rain_route  # noqa: E402
 from ch6_studio_trial import PEOPLE  # noqa: E402
 from ch6_studio_trial_story import add_studio_trial  # noqa: E402
 from ch1_closure import Binding, Option, ProductionSource, Quest, QuestStep, all_of, flag, negate, say, set_flag  # noqa: E402
@@ -83,6 +84,7 @@ def build_spec():
     add_relay_water(source, dispatch, GAUGE)
     add_studio_trial(source, dispatch, REQUEST)
     add_control_station(source, dispatch, REQUEST)
+    add_rain_route(source, dispatch)
     return ChapterSpec(CHAPTER_INFO, source, "ch6", dispatch, POINTS)
 
 

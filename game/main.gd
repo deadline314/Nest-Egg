@@ -335,6 +335,17 @@ func _resume_from_safe_area(snapshot: Dictionary) -> Dictionary:
 	if snapshot["chapter_complete"] or runtime["ending"] or not runtime.get("death_entry", {}).is_empty():
 		return snapshot
 	var source := RunSaveCodec.resource(snapshot["level"], "level", "res://data/levels/") as LevelData
+	const Trial := preload("res://data/scripts/traversal_trial_data.gd")
+	var activity := source.traversal_trial as Trial if source != null else null
+	if activity != null and snapshot["story"]["flags"].get(String(activity.resolved_flag), false) != true:
+		# Attempts and their local NPC access expire with the room. Keep the
+		# saved run and world, but return to the room's authored safe start.
+		runtime["position"] = [-1, -1]
+		runtime["velocity"] = [0, 0]
+		snapshot["state"]["pending_portal"] = ""
+		snapshot["cinematic"] = ""
+		snapshot["cinematic_context"] = {}
+		return snapshot
 	var target := _safe_resume_target(source)
 	if target.is_empty() or target == snapshot["level"]:
 		return snapshot

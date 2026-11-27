@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="NpcData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/npc_data.gd" id="1_npc_data"]
+[ext_resource type="Script" path="res://data/scripts/npc_talk.gd" id="2_npc_talk"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("2_npc_talk")
+scene = &"ch6_dispatch_ali_eaves_door"
+
+[resource]
+script = ExtResource("1_npc_data")
+id = &"ch6_ali_eaves_door"
+display_name = "屋簷便門"
+speaker = "label"
+rig_id = ""
+kind = 1
+spawn_requires_flag = &"knows_ali_address"
+spawn_unless_flag = &"ch6_ali_rain_arrival_resolved"
+start_locked_locally = true
+loop = &""
+facing = 1
+prompt = "{interact} 在便門應聲"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Call from the eaves gate", "ja": "{interact} 勝手口から声をかける"})
+talks = Array[ExtResource("2_npc_talk")]([SubResource("Resource_0")])

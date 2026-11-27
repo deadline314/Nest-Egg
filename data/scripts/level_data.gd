@@ -95,6 +95,8 @@ const MAX_CHANNEL_RESULT_FLAGS := 64
 @export var attack_caps: Dictionary = {}
 ## A room may author a noncombat avoidance activity with its own checkpoint.
 @export var avoidance_encounter: Resource
+## Optional local timed path. Only its completed conversation saves a result.
+@export var traversal_trial: Resource
 @export_group("Environment")
 ## 環境主題（地形材質、建築立面、道具、背景層）。留空時沿用單一金屬面板與程式繪製立面。
 @export var environment: EnvironmentTheme

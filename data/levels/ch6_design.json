@@ -36,6 +36,24 @@
     "loop": "從原門回廣播站前庭。"
    },
    "encounters": []
+  },
+  "rain_chase_alley": {
+   "combat": false,
+   "group": "rain_chase_alley",
+   "features": {
+    "landmark": "紅色市場招牌指向外街，屋簷下的粉筆箭頭指向三樓便門。",
+    "loop": "外街、屋簷便門及門廊後門在市集路口相通。"
+   },
+   "encounters": []
+  },
+  "ali_homefront": {
+   "combat": false,
+   "group": "ali_homefront",
+   "features": {
+    "landmark": "屋號與留傘的亮門廊。",
+    "loop": "後門往市集路口，前門接外街及屋簷。"
+   },
+   "encounters": []
   }
  },
  "curve": {}

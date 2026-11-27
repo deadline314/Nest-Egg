@@ -495,6 +495,134 @@
           }
         ]
       }
+    },
+    {
+      "id": "ch6_t_ali_at_eaves",
+      "source": "res://data/story/ch6_unmooring.json",
+      "npc": "res://data/npcs/ch6_ali_eaves_door.tres",
+      "levels": [
+        "res://data/levels/ch6_rain_chase_alley.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "mode": "animated",
+        "then": "",
+        "when": {
+          "all": [
+            {
+              "all": [
+                {
+                  "all": [
+                    {
+                      "flag": "ch6_control_call_decided",
+                      "equals": true
+                    },
+                    {
+                      "flag": "ali_call_relayed",
+                      "equals": true
+                    }
+                  ]
+                },
+                {
+                  "not": {
+                    "flag": "ch6_ali_rain_arrival_resolved",
+                    "equals": true
+                  }
+                }
+              ]
+            },
+            {
+              "flag": "knows_ali_address",
+              "equals": true
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch6_ali_rain_arrived_on_time",
+            "value": true
+          },
+          {
+            "kind": "flag",
+            "id": "ch6_ali_rain_arrival_resolved",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch6_t_ali_protective_arrival",
+      "source": "res://data/story/ch6_unmooring.json",
+      "npc": "res://data/npcs/ch6_ali_porch_note.tres",
+      "levels": [
+        "res://data/levels/ch6_ali_homefront.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "mode": "animated",
+        "then": "",
+        "when": {
+          "all": [
+            {
+              "all": [
+                {
+                  "flag": "ch6_control_call_decided",
+                  "equals": true
+                },
+                {
+                  "flag": "ali_call_relayed",
+                  "equals": true
+                }
+              ]
+            },
+            {
+              "not": {
+                "flag": "ch6_ali_rain_arrival_resolved",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch6_ali_rain_arrived_on_time",
+            "value": false
+          },
+          {
+            "kind": "flag",
+            "id": "ch6_ali_rain_arrival_resolved",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch6_t_ali_porch_choice",
+      "source": "res://data/story/ch6_unmooring.json",
+      "npc": "res://data/npcs/ch6_ali_porch_note.tres",
+      "levels": [
+        "res://data/levels/ch6_ali_homefront.tres"
+      ],
+      "role": "choice",
+      "rule": {
+        "default": "leave",
+        "options": [
+          {
+            "id": "hear",
+            "target": "ch6_t_ali_protective_arrival",
+            "flags": {}
+          },
+          {
+            "id": "leave",
+            "target": "",
+            "flags": {}
+          }
+        ]
+      }
     }
   ]
 }

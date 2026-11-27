@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=14 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=15 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
@@ -37,6 +37,20 @@ height = 63
 style = "hidden"
 
 [sub_resource type="Resource" id="Resource_2"]
+script = ExtResource("2_portal_data")
+id = &"relay_rain"
+target_level = "res://data/levels/ch6_rain_chase_alley.tres"
+target_portal = &"rain_relay"
+requires_flag = &"ali_call_relayed"
+locked_text = "先從錄音室接到燈轉來的電話。"
+localized_locked_text = Dictionary[String, String]({"en": "Receive the forwarded call from Lamp in the booth first.", "ja": "まず録音室で灯からの転送電話を受ける。"})
+prompt = "{interact} 往市集外街"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Enter the market side street", "ja": "{interact} 市場の外通りへ"})
+width = 30
+height = 63
+style = "door"
+
+[sub_resource type="Resource" id="Resource_3"]
 script = ExtResource("8_lighting_zone")
 start_tile = 49
 blend_tiles = 5
@@ -52,6 +66,7 @@ height = 24
 legend = Dictionary[String, Resource]({
 "ⅴ": SubResource("Resource_0"),
 "ⅵ": SubResource("Resource_1"),
+"ⅷ": SubResource("Resource_2"),
 "ⓓ": ExtResource("3_ch6_relay_diverter"),
 "ⓖ": ExtResource("4_ch6_yard_gauge"),
 "ⓟ": ExtResource("5_ch6_relay_backup"),
@@ -64,6 +79,6 @@ persistent_world = true
 show_chapter_card = false
 environment = ExtResource("10_ch6_broadcast_outside")
 layout_path = "res://data/levels/ch6_broadcast_outside_map.json"
-lighting_zones = Array[ExtResource("8_lighting_zone")]([SubResource("Resource_2")])
+lighting_zones = Array[ExtResource("8_lighting_zone")]([SubResource("Resource_3")])
 story_triggers = PackedStringArray()
 death_credit_cap = 250

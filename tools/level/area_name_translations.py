@@ -1,6 +1,8 @@
 """Area names for the chapter builders and their in-game route labels."""
 
 AREA_NAMES = {
+    "市集外街與屋簷": {"en": "Market Side Street and Eaves", "ja": "市場の外通りと軒下"},
+    "阿梨家門廊": {"en": "Ali's Porch", "ja": "アーリーの玄関先"},
     "地下室檔案間": {"en": "Basement archive", "ja": "地下の書庫"},
     "廣播站前庭": {"en": "Broadcast Relay Yard", "ja": "放送局前庭"},
     "廣播站高架維修道": {"en": "Broadcast Maintenance Overpass", "ja": "放送局の高架保守路"},

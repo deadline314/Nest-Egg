@@ -1259,6 +1259,8 @@ def write_npc_files():
         for field in ('spawn_requires_flag', 'spawn_unless_flag'):
             if n.get(field):
                 lines.append(f'{field} = &"{n[field]}"')
+        if n.get('start_locked_locally'):
+            lines.append('start_locked_locally = true')
         if n.get('pose'):
             lines.append(f'pose = &"{n["pose"]}"')
         if n.get('pose_before_flag'):  # 旗標寫入前用 pose_before（ST-21：守門人被扶坐下之前站著）
@@ -1516,6 +1518,7 @@ def write_level(area, theme_key=None, level_id=None, map_name=None, persist=True
         zone_ids.append(w.sub([f'script = ExtResource("{zone_script}")', f'start_tile = {start}', f'blend_tiles = {blend}', f'profile = ExtResource("{prof}")']))
     theme = w.ext(theme_path)
     activity = opts.pop('avoidance_resource', '')
+    traversal = opts.pop('traversal_resource', '')
     display_name = opts.pop("display_name", area.name)
     res = [f'script = ExtResource("{w.script_id}")', f'id = &"{PREFIX}_{level_id}"', f'display_name = {json.dumps(display_name, ensure_ascii=False)}',
            'tile_size = 16', f'height = {area.h}',
@@ -1529,6 +1532,8 @@ def write_level(area, theme_key=None, level_id=None, map_name=None, persist=True
            'lighting_zones = Array[ExtResource("%s")]([%s])' % (zone_script, ', '.join(f'SubResource("{z}")' for z in zone_ids))]
     if activity:
         res.append(f'avoidance_encounter = ExtResource("{w.ext(activity)}")')
+    if traversal:
+        res.append(f'traversal_trial = ExtResource("{w.ext(traversal)}")')
     if lighting_events:
         event_script = w.ext('res://data/scripts/lighting_event.gd', 'Script')
         events = []

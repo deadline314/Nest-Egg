@@ -352,6 +352,7 @@ func _build_entry() -> void:
 		process_mode = Node.PROCESS_MODE_DISABLED
 		menu_requested.emit.call_deferred()
 		return
+	_spawn_traversal_trial()
 	await _entry_checkpoint()
 
 	_tokens = AttackTokens.new(data.attack_caps)
@@ -969,6 +970,29 @@ func _create_enemy(enemy_data: EnemyData) -> Enemy:
 		return null
 	enemy.configure(enemy_data)
 	return enemy
+
+
+func _spawn_traversal_trial() -> void:
+	const Spec := preload("res://data/scripts/traversal_trial_data.gd")
+	const Trial := preload("res://game/props/traversal_trial.gd")
+	if data.traversal_trial == null:
+		return
+	var spec := data.traversal_trial as Spec
+	var problem := spec.problem(_layout) if spec != null else "invalid traversal resource type"
+	if not problem.is_empty():
+		push_warning("[Level] %s traversal: %s" % [data.resource_path, problem])
+		return
+	var sources := {}
+	for node: Node in get_tree().get_nodes_in_group(NpcActor.GROUP):
+		if node is NpcActor and is_ancestor_of(node) and node.data.id in [spec.start_source, spec.arrival_source]:
+			sources[node.data.id] = node
+	var trial := Trial.new()
+	trial.name = "TraversalTrial"
+	if not trial.configure(spec, _layout, player, sources, hud):
+		push_warning("[Level] %s traversal: invalid start, arrival, or localized copy" % data.resource_path)
+		trial.free()
+		return
+	add_child(trial)
 
 
 func _spawn_avoidance_activity() -> void:

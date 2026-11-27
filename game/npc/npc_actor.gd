@@ -111,7 +111,8 @@ func _ready() -> void:
 	Story.framing.register_target(self)
 	if _actor != null and _actor.rig != null:
 		_fit_to_figure()
-	_present = data.should_spawn()
+	_local_available = not data.start_locked_locally
+	_present = _local_available and data.should_spawn()
 	_apply_presence(false)
 	Story.scene_finished.connect(_on_story_scene_finished)
 	if data.kind == NpcData.Kind.PERSON:
@@ -380,6 +381,8 @@ func _space_player(player: Player) -> void:
 
 ## 續玩必須經真正人物的結算路徑；來源與目前可用場景不符時不猜測或發獎勵。
 func can_resume_presentation(scene: StringName, index := -1) -> bool:
+	if data.start_locked_locally and not _local_available:
+		return false
 	if index < 0:
 		index = current_talk_index()
 	return not _talking and index >= 0 and index < data.talks.size() and Story.is_npc_presentation(data, index, scene)

@@ -16,6 +16,8 @@ const OBJECT_PROMPT := {"zh": "{interact} 看一下%s", "ja": "{interact} %sを�
 @export var speaker: String = ""
 ## 骨架外觀 id（art/characters/<id>/）。找不到時自動退回頭像剪影。
 @export var rig_id: String = ""
+## A live room controller must authorize this interaction after validating its state.
+@export var start_locked_locally := false
 ## 站姿（CutsceneActor.POSES 之一），例如受傷的人用 crouch。
 @export var pose: StringName = &"idle"
 ## 換姿勢的條件（ST-21）：pose_before_flag 還沒寫入時用 pose_before，寫入後用 pose。

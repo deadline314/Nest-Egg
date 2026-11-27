@@ -27,6 +27,14 @@
    "color": "#a9d4cf",
    "portrait": "res://art/portraits/su.png",
    "formal": true
+  },
+  "porch_neighbor": {
+   "name": "鄰居",
+   "name_en": "Neighbor",
+   "name_ja": "近所の人",
+   "color": "#d5c991",
+   "portrait": "res://art/portraits/system.png",
+   "formal": true
   }
  },
  "flag_defaults": {
@@ -38,7 +46,9 @@
   "ch6_su_studio_met": false,
   "ch6_trial_broadcast_confirmed": false,
   "ali_call_relayed": false,
-  "ch6_control_call_decided": false
+  "ch6_control_call_decided": false,
+  "ch6_ali_rain_arrived_on_time": false,
+  "ch6_ali_rain_arrival_resolved": false
  },
  "transactions": {},
  "derived_flags": {},
@@ -226,6 +236,48 @@
    "background_en": "Connect to Lamp's monitor feed from the booth and decide what to do with the call.",
    "reward_ja": "来電の転送先を保存した。",
    "reward_en": "Call routing saved."
+  },
+  {
+   "id": "ch6_ali_rain_route",
+   "kind": "main",
+   "title": "沿雨巷找阿梨",
+   "background": "燈把電話接給凜。從前庭去市集外街，沿路找熟悉的屋號。",
+   "reward": "收到門廊的回覆，可以沿市集路口返回。",
+   "complete_flag": "ch6_ali_rain_arrival_resolved",
+   "steps": [
+    {
+     "title": "到市集外街照路標前進。",
+     "complete_flag": "ch6_ali_rain_arrival_resolved",
+     "location": {
+      "level": "res://data/levels/ch6_rain_chase_alley.tres",
+      "cell": [
+       12,
+       19
+      ]
+     },
+     "title_ja": "市場の外通りで案内板を確認する。",
+     "title_en": "Read the route sign on the market side street."
+    }
+   ],
+   "visible_flags": [
+    "ali_call_relayed"
+   ],
+   "completion_requires_steps": true,
+   "requires_flags": [
+    "ch6_control_call_decided"
+   ],
+   "blocked_reason": "尚未在控制室確認轉接。",
+   "suggestion": "回到控制台，確認是否轉接來電。",
+   "title_ja": "雨の路地でアーリーを探す",
+   "title_en": "Find Ali through the rain",
+   "background_ja": "灯が電話を凜につないだ。前庭から市場の外通りに出て、家の番地を探そう。",
+   "background_en": "Lamp forwarded the call. Leave the relay yard for the market side street and look for the right door.",
+   "reward_ja": "玄関先で返事を受け取った。市場の角を通って戻れる。",
+   "reward_en": "The porch reply is recorded. Return via the market corner.",
+   "blocked_reason_ja": "制御室で転送がまだ確認されていない。",
+   "blocked_reason_en": "Call forwarding has not been confirmed in the control room.",
+   "suggestion_ja": "制御盤に戻り、着信を転送するか決める。",
+   "suggestion_en": "Return to the control panel and decide whether to forward the call."
   }
  ],
  "scenes": {
@@ -1636,6 +1688,522 @@
     ]
    }
   },
+  "ch6_t_ali_routes_public": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我還不知道是哪一戶。沿亮著燈的外街找屋號。",
+     "ja": "どの家かまだ分からない。明るい外通りを進んで番地を探そう。",
+     "en": "I don't know which door yet. I'll follow the lit street and check the numbers."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch6_control_call_decided",
+          "equals": true
+         },
+         {
+          "flag": "ali_call_relayed",
+          "equals": true
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch6_ali_rain_arrival_resolved",
+         "equals": true
+        }
+       }
+      ]
+     },
+     {
+      "not": {
+       "flag": "knows_ali_address",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch6_t_ali_routes_known": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "代收處旁的外梯通到三樓。要從粉筆箭頭旁上去，還是先走外街？",
+     "ja": "集金窓口の横の外階段が三階に通じている。チョークの矢印から上る？ 外通りを先に行く？",
+     "en": "The stairs by the collection counter go to the third floor. Climb by the chalk arrow or take the street?"
+    },
+    {
+     "do": "choice",
+     "text": "代收處旁的外梯通到三樓。要從粉筆箭頭旁上去，還是先走外街？",
+     "default": "leave",
+     "options": [
+      {
+       "id": "run",
+       "text": "從乾台跑到便門",
+       "explanation": "站上起跑踏板才計時。",
+       "target": "ch6_t_ali_run_arm",
+       "ja": "乾いた足場から勝手口へ走る",
+       "en": "Run the dry deck to the eaves gate",
+       "explanation_ja": "最初の足場に着いてから計時する。",
+       "explanation_en": "Timing starts when you land on the first deck."
+      },
+      {
+       "id": "guide",
+       "text": "沿箭頭慢慢走",
+       "explanation": "走同一條乾台，有較多時間。",
+       "target": "ch6_t_ali_guide_arm",
+       "ja": "矢印をたどってゆっくり進む",
+       "en": "Follow the arrows at walking pace",
+       "explanation_ja": "同じ乾いた足場を、時間に余裕を持って進む。",
+       "explanation_en": "Take the same dry deck with more time."
+      },
+      {
+       "id": "leave",
+       "text": "先走亮著燈的外街",
+       "explanation": "外街仍能到門廊。",
+       "ja": "先に明るい外通りへ",
+       "en": "Take the lit street first",
+       "explanation_ja": "外通りからも玄関先に着く。",
+       "explanation_en": "The public street also reaches the porch."
+      }
+     ],
+     "cancel_choice_on_back": true,
+     "ja": "集金窓口の横の外階段が三階に通じている。チョークの矢印から上る？ 外通りを先に行く？",
+     "en": "The stairs by the collection counter go to the third floor. Climb by the chalk arrow or take the street?"
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch6_control_call_decided",
+          "equals": true
+         },
+         {
+          "flag": "ali_call_relayed",
+          "equals": true
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch6_ali_rain_arrival_resolved",
+         "equals": true
+        }
+       }
+      ]
+     },
+     {
+      "flag": "knows_ali_address",
+      "equals": true
+     }
+    ]
+   }
+  },
+  "ch6_t_ali_run_arm": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "從粉筆箭頭旁踏上乾台，站穩再往三樓便門走。",
+     "ja": "チョークの矢印の横から乾いた足場に上り、足が着いたら三階の勝手口へ。",
+     "en": "Climb beside the chalk arrow, land on the dry deck, then head for the third-floor side door."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch6_control_call_decided",
+          "equals": true
+         },
+         {
+          "flag": "ali_call_relayed",
+          "equals": true
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch6_ali_rain_arrival_resolved",
+         "equals": true
+        }
+       }
+      ]
+     },
+     {
+      "flag": "knows_ali_address",
+      "equals": true
+     }
+    ]
+   },
+   "cancel_on_skip": true
+  },
+  "ch6_t_ali_guide_arm": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "先找粉筆箭頭，再沿有扶手的踏板上樓。較長的計時從站穩後開始。",
+     "ja": "チョークの矢印を見つけ、手すり付きの足場を上る。足が着いてから長いほうの計時が始まる。",
+     "en": "Find the chalk arrow and follow the railed steps. The longer timer starts once you land."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch6_control_call_decided",
+          "equals": true
+         },
+         {
+          "flag": "ali_call_relayed",
+          "equals": true
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch6_ali_rain_arrival_resolved",
+         "equals": true
+        }
+       }
+      ]
+     },
+     {
+      "flag": "knows_ali_address",
+      "equals": true
+     }
+    ]
+   },
+   "cancel_on_skip": true
+  },
+  "ch6_t_ali_lane_revisit": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "門廊的回覆已收到。可以從市集路口繞回去。",
+     "ja": "玄関先で返事を受け取った。市場の角を通って戻れる。",
+     "en": "The porch reply is recorded. You can circle back through the market corner."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "ch6_control_call_decided",
+        "equals": true
+       },
+       {
+        "flag": "ali_call_relayed",
+        "equals": true
+       }
+      ]
+     },
+     {
+      "flag": "ch6_ali_rain_arrival_resolved",
+      "equals": true
+     }
+    ]
+   }
+  },
+  "ch6_t_ali_at_eaves": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我在樓梯下。妳想讓我陪妳走到哪裡？",
+     "ja": "階段の下にいる。どこまで一緒に歩こうか？",
+     "en": "I'm by the stairs. Where would you like me to walk with you?"
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "先陪我到亮的路口。我自己拿傘。",
+     "ja": "まず明るい角まで一緒に来て。傘は自分で持つ。",
+     "en": "Walk with me to the lit corner first. I'll carry my umbrella."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch6_control_call_decided",
+          "equals": true
+         },
+         {
+          "flag": "ali_call_relayed",
+          "equals": true
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch6_ali_rain_arrival_resolved",
+         "equals": true
+        }
+       }
+      ]
+     },
+     {
+      "flag": "knows_ali_address",
+      "equals": true
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch6_ali_rain_arrived_on_time",
+     "value": true
+    },
+    {
+     "kind": "flag",
+     "id": "ch6_ali_rain_arrival_resolved",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch6_t_ali_porch_choice": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "鄰居在門燈下等著，手上有阿梨留下的傘。要聽她轉話嗎？",
+     "ja": "街灯の下に、アーリーの傘を持った近所の人が待っている。伝言を聞く？",
+     "en": "A neighbor is waiting beneath the light with Ali's umbrella. Would you like to hear her message?"
+    },
+    {
+     "do": "choice",
+     "text": "鄰居在門燈下等著，手上有阿梨留下的傘。要聽她轉話嗎？",
+     "default": "leave",
+     "options": [
+      {
+       "id": "hear",
+       "text": "聽鄰居轉話",
+       "explanation": "確認外街這一路的回覆。",
+       "target": "ch6_t_ali_protective_arrival",
+       "ja": "近所の人から伝言を聞く",
+       "en": "Hear the neighbor's message",
+       "explanation_ja": "外通りから来た場合の返事を確認する。",
+       "explanation_en": "Confirm the response from the street route."
+      },
+      {
+       "id": "leave",
+       "text": "先離開門廊",
+       "explanation": "可以回屋簷路標重試。",
+       "ja": "玄関先を離れる",
+       "en": "Leave the porch",
+       "explanation_ja": "軒下の案内板に戻って再挑戦できる。",
+       "explanation_en": "Return to the eaves sign to try again."
+      }
+     ],
+     "cancel_choice_on_back": true,
+     "ja": "街灯の下に、アーリーの傘を持った近所の人が待っている。伝言を聞く？",
+     "en": "A neighbor is waiting beneath the light with Ali's umbrella. Would you like to hear her message?"
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "ch6_control_call_decided",
+        "equals": true
+       },
+       {
+        "flag": "ali_call_relayed",
+        "equals": true
+       }
+      ]
+     },
+     {
+      "not": {
+       "flag": "ch6_ali_rain_arrival_resolved",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch6_t_ali_protective_arrival": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "porch_neighbor",
+     "text": "她走的時候留了這把傘。她想先安靜一下。",
+     "ja": "出るときにこの傘を置いていった。今は少し静かに過ごしたいそう。",
+     "en": "She left this umbrella when she went out. She wants some quiet for now."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "等她想見人，我再來。傘留在她找得到的地方。",
+     "ja": "会いたいと思ったときにまた来る。傘は見つけやすいところに置いておこう。",
+     "en": "I'll come back when she wants company. Leave her umbrella somewhere she can find it."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "ch6_control_call_decided",
+        "equals": true
+       },
+       {
+        "flag": "ali_call_relayed",
+        "equals": true
+       }
+      ]
+     },
+     {
+      "not": {
+       "flag": "ch6_ali_rain_arrival_resolved",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch6_ali_rain_arrived_on_time",
+     "value": false
+    },
+    {
+     "kind": "flag",
+     "id": "ch6_ali_rain_arrival_resolved",
+     "value": true
+    }
+   ],
+   "cancel_on_skip": true,
+   "completion_policy": "main_terminal_results_v1"
+  },
+  "ch6_t_ali_porch_early": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "阿梨自己拿著傘，往亮著燈的路口走。後門已經打開。",
+     "ja": "アーリーは自分で傘を持って明るい角へ向かった。裏口は開いている。",
+     "en": "Ali took her umbrella to the lit corner. The rear door is open."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch6_control_call_decided",
+          "equals": true
+         },
+         {
+          "flag": "ali_call_relayed",
+          "equals": true
+         }
+        ]
+       },
+       {
+        "flag": "ch6_ali_rain_arrival_resolved",
+        "equals": true
+       }
+      ]
+     },
+     {
+      "flag": "ch6_ali_rain_arrived_on_time",
+      "equals": true
+     }
+    ]
+   }
+  },
+  "ch6_t_ali_porch_protective": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "傘留在門燈下。阿梨會自己決定何時見人，後門可以走。",
+     "ja": "傘は玄関灯の下にある。人に会う時期はアーリーが決める。裏口から先へ進める。",
+     "en": "The umbrella waits under the porch light. Ali will decide when to see people. You can use the rear door."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch6_control_call_decided",
+          "equals": true
+         },
+         {
+          "flag": "ali_call_relayed",
+          "equals": true
+         }
+        ]
+       },
+       {
+        "flag": "ch6_ali_rain_arrival_resolved",
+        "equals": true
+       }
+      ]
+     },
+     {
+      "not": {
+       "flag": "ch6_ali_rain_arrived_on_time",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
   "ch6_dispatch_plaza_intercom": {
    "mode": "dispatch",
    "routes": [
@@ -2150,6 +2718,250 @@
       }
      },
      "target": "ch6_t_control_wait"
+    }
+   ]
+  },
+  "ch6_dispatch_rain_route_board": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch6_control_call_decided",
+          "equals": true
+         },
+         {
+          "flag": "ali_call_relayed",
+          "equals": true
+         }
+        ]
+       },
+       {
+        "flag": "ch6_ali_rain_arrival_resolved",
+        "equals": true
+       }
+      ]
+     },
+     "target": "ch6_t_ali_lane_revisit"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "all": [
+           {
+            "flag": "ch6_control_call_decided",
+            "equals": true
+           },
+           {
+            "flag": "ali_call_relayed",
+            "equals": true
+           }
+          ]
+         },
+         {
+          "not": {
+           "flag": "ch6_ali_rain_arrival_resolved",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "flag": "knows_ali_address",
+        "equals": true
+       }
+      ]
+     },
+     "target": "ch6_t_ali_routes_known"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "all": [
+           {
+            "flag": "ch6_control_call_decided",
+            "equals": true
+           },
+           {
+            "flag": "ali_call_relayed",
+            "equals": true
+           }
+          ]
+         },
+         {
+          "not": {
+           "flag": "ch6_ali_rain_arrival_resolved",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "knows_ali_address",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch6_t_ali_routes_public"
+    }
+   ]
+  },
+  "ch6_dispatch_ali_eaves_door": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "all": [
+           {
+            "all": [
+             {
+              "flag": "ch6_control_call_decided",
+              "equals": true
+             },
+             {
+              "flag": "ali_call_relayed",
+              "equals": true
+             }
+            ]
+           },
+           {
+            "not": {
+             "flag": "ch6_ali_rain_arrival_resolved",
+             "equals": true
+            }
+           }
+          ]
+         },
+         {
+          "flag": "knows_ali_address",
+          "equals": true
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch6_ali_rain_arrived_on_time",
+         "equals": true
+        }
+       },
+       {
+        "not": {
+         "flag": "ch6_ali_rain_arrival_resolved",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch6_t_ali_at_eaves"
+    }
+   ]
+  },
+  "ch6_dispatch_ali_porch_note": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "all": [
+           {
+            "flag": "ch6_control_call_decided",
+            "equals": true
+           },
+           {
+            "flag": "ali_call_relayed",
+            "equals": true
+           }
+          ]
+         },
+         {
+          "flag": "ch6_ali_rain_arrival_resolved",
+          "equals": true
+         }
+        ]
+       },
+       {
+        "flag": "ch6_ali_rain_arrived_on_time",
+        "equals": true
+       }
+      ]
+     },
+     "target": "ch6_t_ali_porch_early"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "all": [
+           {
+            "flag": "ch6_control_call_decided",
+            "equals": true
+           },
+           {
+            "flag": "ali_call_relayed",
+            "equals": true
+           }
+          ]
+         },
+         {
+          "flag": "ch6_ali_rain_arrival_resolved",
+          "equals": true
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch6_ali_rain_arrived_on_time",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch6_t_ali_porch_protective"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch6_control_call_decided",
+          "equals": true
+         },
+         {
+          "flag": "ali_call_relayed",
+          "equals": true
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch6_ali_rain_arrival_resolved",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch6_t_ali_porch_choice"
     }
    ]
   }

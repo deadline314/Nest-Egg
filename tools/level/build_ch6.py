@@ -7,6 +7,7 @@ import argparse
 import build_ch1 as kit
 import ch6_control_station as control
 import ch6_relay_water as water
+import ch6_rain_route as rain
 import ch6_studio_trial as studio
 from npc_prompt_translations import TRANSLATIONS
 from portal_translations import LOCKS, PROMPTS
@@ -30,6 +31,7 @@ PORTALS = (
     ("ⅴ", "relay_overpass", "ch6_broadcast_overpass", "overpass_relay", "door", "", "",
      ("回高架維修道", "Return to the maintenance overpass", "高架の保守路に戻る")),
     *water.PORTALS,
+    *rain.PORTALS,
 )
 OBJECTS = (
     ("Ⓢ", "plaza_intercom", "廣場廣播喇叭", "harbor_plaza", 30, 19,
@@ -41,9 +43,12 @@ OBJECTS = (
     *water.OBJECTS,
     *studio.OBJECTS,
     *control.OBJECTS,
+    *rain.OBJECTS,
 )
 POINTS = {name: (room, x, row) for _, name, _, room, x, row, _ in OBJECTS}
 THEMES = {
+    "rain_chase_alley": rain.THEME,
+    "ali_homefront": rain.THEME,
     "recording_booth": (*water.THEME[:-1], [*water.THEME[-1], "control_room"]),
     "harbor_plaza": ("asphalt", ["shopfront", "shutter_block"], None, 0.14, "sky_storm",
                     ["harbor_plaza", "anchor_phone_booth", "mezzanine"]),
@@ -66,6 +71,7 @@ def configure():
     LOCKS[LOCK_TEXT] = ("Check the maintenance route with Wake at the plaza speaker first.",
                        "先に広場のスピーカーで蘇と保守路を確認する。")
     LOCKS[water.LOCK_TEXT] = water.LOCK_COPY
+    LOCKS.update(rain.LOCKS)
     for glyph, name, target, mate, style, gate, locked, (zh, en, ja) in PORTALS:
         PROMPTS[zh] = (en, ja)
         kit.PORTALS[glyph] = dict(id=name, to=f"res://data/levels/{target}.tres", target=mate,
@@ -78,6 +84,8 @@ def configure():
                               prompt=f"{{interact}} {zh}", talks=[(f"ch6_dispatch_{name}", 0)])
         if name in studio.PEOPLE:
             kit.NPCS[key].update(speaker="su", rig="su", kind=0, **studio.PEOPLE[name])
+        if name == rain.DOOR:
+            kit.NPCS[key].update(start_locked_locally=True, spawn_requires_flag=rain.KNOWN, spawn_unless_flag=rain.ARRIVED)
         kit.RES[glyph] = f"res://data/npcs/{key}.tres"
 
 
@@ -154,9 +162,10 @@ def main():
     yard = relay()
     booth = water.recording_booth(kit, GROUND)
     studio.extend_canopy(yard)
+    rain.extend_yard(yard)
     studio.extend_booth(booth)
     control.extend_booth(booth)
-    areas = [plaza(), overpass(), yard, booth]
+    areas = [plaza(), overpass(), yard, booth, rain.rain_alley(kit, GROUND), rain.porch(kit, GROUND)]
     for area in areas:
         for glyph, _, _, room, col, row, _ in OBJECTS:
             if room == area.id:
@@ -170,11 +179,13 @@ def main():
         print("Chapter Six walkable areas and all local stations validated.")
         return
     control.write_stage(Path(__file__).resolve().parents[2])
+    rain.write_spec(Path(__file__).resolve().parents[2])
     kit.write_npc_files()
     kit.write_design(areas)
     for room in areas:
         room.grid.write(room.id, (kit.LEVEL_DIR, f"{PREFIX}_{room.id}_map.json"), kit._map_extra(room))
-        kit.write_level(room, show_card=room.id == "harbor_plaza")
+        activity = {"traversal_resource": rain.SPEC} if room.id == "rain_chase_alley" else {}
+        kit.write_level(room, show_card=room.id == "harbor_plaza", **activity)
 
 
 if __name__ == "__main__":

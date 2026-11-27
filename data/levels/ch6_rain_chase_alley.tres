@@ -1,0 +1,85 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
+[ext_resource type="Resource" path="res://data/npcs/ch6_ali_eaves_door.tres" id="3_ch6_ali_eaves_door"]
+[ext_resource type="Resource" path="res://data/npcs/ch6_rain_route_board.tres" id="4_ch6_rain_route_board"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="5_lighting_zone"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch6_rain_chase_alley.tres" id="6_ch6_rain_chase_alley"]
+[ext_resource type="Resource" path="res://data/levels/features/ch6_rain_time_trial.tres" id="7_ch6_rain_time_trial"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("2_portal_data")
+id = &"rain_relay"
+target_level = "res://data/levels/ch6_broadcast_outside.tres"
+target_portal = &"relay_rain"
+prompt = "{interact} 回廣播站前庭"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Return to the relay yard", "ja": "{interact} 中継所前庭に戻る"})
+width = 30
+height = 63
+style = "door"
+
+[sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("2_portal_data")
+id = &"rain_public_porch"
+target_level = "res://data/levels/ch6_ali_homefront.tres"
+target_portal = &"porch_public_rain"
+prompt = "{interact} 走外街到門廊"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Take the public street to the porch", "ja": "{interact} 外通りから玄関先へ"})
+width = 30
+height = 63
+style = "door"
+
+[sub_resource type="Resource" id="Resource_2"]
+script = ExtResource("2_portal_data")
+id = &"rain_eaves_porch"
+target_level = "res://data/levels/ch6_ali_homefront.tres"
+target_portal = &"porch_eaves_rain"
+requires_flag = &"ch6_ali_rain_arrived_on_time"
+locked_text = "沿乾台到便門應聲，先和阿梨確認去哪裡。"
+localized_locked_text = Dictionary[String, String]({"en": "Reach the eaves gate and ask Ali where she wants to go.", "ja": "乾いた足場から勝手口に行き、どこへ向かうかアーリーに尋ねる。"})
+prompt = "{interact} 從便門到門廊"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Take the eaves gate to the porch", "ja": "{interact} 軒下の勝手口から玄関先へ"})
+width = 30
+height = 63
+style = "hidden"
+
+[sub_resource type="Resource" id="Resource_3"]
+script = ExtResource("2_portal_data")
+id = &"rain_market"
+target_level = "res://data/levels/ch6_ali_homefront.tres"
+target_portal = &"porch_market"
+requires_flag = &"ch6_ali_rain_arrival_resolved"
+locked_text = "後門在阿梨回覆後才開放。"
+localized_locked_text = Dictionary[String, String]({"en": "The rear door opens after Ali responds.", "ja": "アーリーの返事のあとで裏口が開く。"})
+prompt = "{interact} 從市集路口回門廊"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Return to the porch from the market corner", "ja": "{interact} 市場の角から玄関先へ"})
+width = 30
+height = 63
+style = "door"
+
+[resource]
+script = ExtResource("1_level_data")
+id = &"ch6_rain_chase_alley"
+display_name = "市集外街與屋簷"
+localized_names = Dictionary[String, String]({"en": "Market Side Street and Eaves", "ja": "市場の外通りと軒下"})
+tile_size = 16
+height = 24
+legend = Dictionary[String, Resource]({
+"ⅸ": SubResource("Resource_0"),
+"ⅹ": SubResource("Resource_1"),
+"ⅻ": SubResource("Resource_2"),
+"ⓤ": ExtResource("3_ch6_ali_eaves_door"),
+"ⓥ": ExtResource("4_ch6_rain_route_board"),
+"◆": SubResource("Resource_3")
+})
+hints = PackedStringArray()
+chapter = &"ch6_unmooring"
+persistent_world = true
+show_chapter_card = false
+environment = ExtResource("6_ch6_rain_chase_alley")
+layout_path = "res://data/levels/ch6_rain_chase_alley_map.json"
+lighting_zones = Array[ExtResource("5_lighting_zone")]([])
+traversal_trial = ExtResource("7_ch6_rain_time_trial")
+story_triggers = PackedStringArray()
+death_credit_cap = 250
