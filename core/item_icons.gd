@@ -13,6 +13,9 @@ const HD_SUFFIX := "_hd"
 ## 場景拾取圖以 24×24 世界單位顯示；貼圖可用更高解析度，另有 _glow 自發光層。
 const WORLD_DIR := "res://art/items/world"
 const WORLD_SIZE := Vector2(24, 24)
+## 拾取輪廓每個世界像素用幾個貼圖像素：輪廓線寬是一個貼圖像素，所以 2＝半個世界像素寬的細線（NE-391）。
+## 輪廓一律先縮放到 WORLD_SIZE × 這個倍數再描邊，線寬才不會跟著小圖本身的解析度變粗或變細。
+const WORLD_OUTLINE_SCALE := 2
 const WEAPON_DIR := "res://art/items/weapons"
 const WEAPON_SIZE := Vector2i(64, 24)
 const PORTRAIT_DIR := "res://art/items/portraits"
@@ -56,7 +59,7 @@ static func world(key: String) -> Dictionary:
 	return result
 
 
-## One world-pixel contour, built once per cached sprite, never a full-body glow.
+## 貼著輪廓的細線（半個世界像素寬），每張小圖只建一次、之後共用；不是整件發光。
 static func _world_outline(base: Texture2D) -> Texture2D:
 	var image := base.get_image()
 	if image == null:
@@ -64,7 +67,12 @@ static func _world_outline(base: Texture2D) -> Texture2D:
 	if image.is_compressed() and image.decompress() != OK:
 		push_warning("[ItemIcons] 無法讀取拾取輪廓：%s" % base.resource_path)
 		return null
-	var pad := maxi(1, ceili(float(image.get_width()) / 24.0))
+	# 縮放到固定的輪廓解析度再往外長一個像素：不論小圖原本多大，線寬都是半個世界像素。
+	# 引擎可能回傳貼圖內部快取的同一張圖，放大前先複製，不改到別人拿到的圖。
+	image = image.duplicate() as Image
+	var inner := Vector2i(WORLD_SIZE) * WORLD_OUTLINE_SCALE
+	image.resize(inner.x, inner.y, Image.INTERPOLATE_NEAREST if image.get_width() <= inner.x else Image.INTERPOLATE_BILINEAR)
+	var pad := 1
 	var outline := Image.create(image.get_width() + pad * 2, image.get_height() + pad * 2, false, Image.FORMAT_RGBA8)
 	const DIRECTIONS := [Vector2i(-1, -1), Vector2i(0, -1), Vector2i(1, -1), Vector2i(-1, 0), Vector2i(1, 0), Vector2i(-1, 1), Vector2i(0, 1), Vector2i(1, 1)]
 	for y in outline.get_height():

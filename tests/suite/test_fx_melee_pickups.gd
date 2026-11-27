@@ -76,17 +76,25 @@ func _test_pickup_outline() -> void:
 	var image := outline.get_image()
 	var pixels := 0
 	var center_pixels := 0
-	var pad := int((image.get_width() - base.get_width()) / 2)
+	var scale := ItemIcons.WORLD_OUTLINE_SCALE
+	var inner := Vector2i(ItemIcons.WORLD_SIZE) * scale
+	var pad := int((image.get_width() - inner.x) / 2)
 	var original := base.get_image()
 	for y in image.get_height():
 		for x in image.get_width():
 			if image.get_pixel(x, y).a <= 0.01:
 				continue
 			pixels += 1
-			if x >= pad and y >= pad and x < pad + original.get_width() and y < pad + original.get_height():
-				if original.get_pixel(x - pad, y - pad).a > 0.1:
+			var source := Vector2i(int(floor(float(x - pad) * original.get_width() / inner.x)), int(floor(float(y - pad) * original.get_height() / inner.y)))
+			if x >= pad and y >= pad and source.x < original.get_width() and source.y < original.get_height():
+				if original.get_pixel(source.x, source.y).a > 0.1:
 					center_pixels += 1
 	check(pixels > 0 and center_pixels == 0, "highlight follows only the outside silhouette and preserves item detail")
+	check(scale >= 2 and pad == 1, "the contour is a thin line, finer than one world pixel")
+	var detailed := ItemIcons.world("ch1_data_disk")
+	if detailed.has("outline") and detailed["outline"] != null:
+		check((detailed["outline"] as Texture2D).get_size() == outline.get_size(),
+				"every pickup gets the same contour width regardless of its art resolution")
 
 
 func _weapon(id: String) -> WeaponData:
@@ -104,9 +112,19 @@ func _test_pickup_prompt_lifecycle() -> void:
 	health._on_body_entered(player)
 	await frames(30)
 	check(is_instance_valid(health) and prompt.is_showing(), "a full-health pickup remains and shows its nearby hint")
+	# 輪廓微光（NE-391）：靠近才變亮並脈動，離開回到低調；「減少閃光」時不脈動。
+	var previous_flashes := Settings.get_reduce_flashes()
+	Settings.set_reduce_flashes(false)
+	check(Pickup.OUTLINE_NEAR * (1.0 - Pickup.OUTLINE_PULSE) > Pickup.OUTLINE_REST
+			and health.outline_strength() > Pickup.OUTLINE_REST and health.outline_strength() <= Pickup.OUTLINE_NEAR,
+			"the contour brightens once the player is close enough to notice the pickup")
+	Settings.set_reduce_flashes(true)
+	check(is_equal_approx(health.outline_strength(), Pickup.OUTLINE_NEAR), "reduce flashes keeps the near contour steady")
+	Settings.set_reduce_flashes(previous_flashes)
 	player.position.x -= 180.0
 	await frames(30)
 	check(not prompt.is_showing() and is_zero_approx(prompt._alpha), "leaving the pickup hides its hint")
+	check(is_equal_approx(health.outline_strength(), Pickup.OUTLINE_REST), "the contour returns to its quiet level when the player leaves")
 	player.position.x += 180.0
 	await frames(30)
 	check(prompt.is_showing(), "returning to the retained pickup restores its hint")

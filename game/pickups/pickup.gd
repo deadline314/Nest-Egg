@@ -18,6 +18,12 @@ const RETRY_INTERVAL := 0.3
 ## 拾取物偶爾閃一下星芒：週期與閃爍秒數（每個拾取物的起始時間錯開）。
 const GLINT_PERIOD := 2.8
 const GLINT_TIME := 0.16
+## 輪廓微光（NE-391）：玩家在這個距離內才變亮並脈動，平常低調，遠處看到的是物品本身。
+const NOTICE_RADIUS := 56.0
+const OUTLINE_REST := 0.72
+const OUTLINE_NEAR := 1.0
+const OUTLINE_PULSE := 0.18
+const OUTLINE_FADE_SPEED := 5.0
 
 var _time := 0.0
 var _retry_left := RETRY_INTERVAL
@@ -25,6 +31,8 @@ var _glint_offset := randf() * GLINT_PERIOD
 var _collection_finished := false
 var _emission: _Emission
 var _world_sprite: Dictionary = {}
+var _near := 0.0
+var _player_ref := PlayerRef.new()
 
 
 ## 延後交付不綁在可能先離場的父節點；已交給別人的物件不再接管。
@@ -125,9 +133,20 @@ func _process(delta: float) -> void:
 		_retry_left = RETRY_INTERVAL
 		for body in get_overlapping_bodies():
 			_on_body_entered(body)
+	var player := _player_ref.get_player(get_tree())
+	var close := player != null and player.global_position.distance_squared_to(global_position) <= NOTICE_RADIUS * NOTICE_RADIUS
+	_near = move_toward(_near, 1.0 if close else 0.0, OUTLINE_FADE_SPEED * delta)
 	queue_redraw()
 	if _emission != null:
 		_emission.queue_redraw()
+
+
+## 輪廓微光目前的不透明度：平常低調，玩家靠近時變亮並緩慢脈動（「減少閃光」時不脈動）。
+func outline_strength() -> float:
+	var level := lerpf(OUTLINE_REST, OUTLINE_NEAR, _near)
+	if _near > 0.0 and not Settings.get_reduce_flashes():
+		level *= 1.0 - OUTLINE_PULSE * _near * (0.5 + 0.5 * sin(_time * 5.0))
+	return level
 
 
 func _draw() -> void:
@@ -185,8 +204,11 @@ class _Emission:
 			var origin := Vector2(-size.x * 0.5, -size.y * 0.5 - 4.0)
 			var outline: Texture2D = sprite.get("outline")
 			if outline != null:
-				var pad := Vector2(outline.get_size() - base.get_size()) * 0.5 * size / base.get_size()
-				draw_texture_rect(outline, Rect2(origin - pad, size + pad * 2.0), false, Color(0.62, 0.85, 0.88, 0.65))
+				var inner := ItemIcons.WORLD_SIZE * float(ItemIcons.WORLD_OUTLINE_SCALE)
+				var pad := (Vector2(outline.get_size()) - inner) * 0.5 * size / inner
+				# 顏色帶一點物品自己的色調，不是每件都同一圈淺藍白。
+				var tint := Color(0.62, 0.85, 0.88).lerp(pickup._fx_color().lightened(0.4), 0.25)
+				draw_texture_rect(outline, Rect2(origin - pad, size + pad * 2.0), false, Color(tint, pickup.outline_strength()))
 			var glow: Texture2D = sprite["glow"]
 			if glow != null:
 				draw_texture_rect(glow, Rect2(origin, size), false, LightKit.glow(Color(1, 1, 1, 0.25), 1.1 + 0.1 * sin(pickup._time * 5.0)))
