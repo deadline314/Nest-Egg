@@ -2,8 +2,10 @@ class_name MainMenu
 extends Control
 ## 主選單的城市慢鏡、固定導覽列和難度選擇。
 ## 每個選項都有一句重點說明（游標或焦點移上去時顯示在選單下方，同時是 tooltip）。
-## 拼貼版面（NE-403）：遊戲名放大壓在斜切的霓虹招牌底板上，後面疊一層錯位的副標；選項是微微傾斜、互相壓住一點的貨運吊牌，
-## 選到的那一項轉正往前（TagButton）。開啟時底板切入、吊牌依序彈入；「減少動態」時直接到位。
+## 拼貼版面（NE-403、NE-412）：遊戲名壓在斜切的霓虹招牌底板上；選單群佔左邊約 45%，每個選項是一樣不同的實物
+## （主要動作是很大的米白當票、圖鑑是檔案夾標籤、設定是維修貼紙、離開是洋紅的封條膠帶），左右錯開、正負交替傾斜、互相壓住一角，
+## 選到的轉正、放大、浮到最上面（TagButton）。右邊是主角的骨架立繪站在城市前面；版本號是圓形戳章、操作提示是一條膠帶。
+## 選項與標題的字跟著斜（6 度以內），說明文字水平。開啟時底板切入、選項依序彈入；「減少動態」時直接到位。
 
 signal start_requested(difficulty: DifficultyData)
 signal quit_requested
@@ -17,12 +19,16 @@ var _continue_button: Button
 const VERSION_TEXT := "DEMO 0.1"
 const CAMERA_SWAY := 56.0
 const CAMERA_PERIOD := 48.0
-const MENU_WIDTH := 200.0
 const MENU_INK := Color("e9e2ce")
-## 主要項目（吊牌）的高度、互相壓住的量與各自的傾斜（度，交錯排列）。
-const TAG_HEIGHT := 28.0
-const TAG_OVERLAP := 3
-const TAG_TILTS: Array[float] = [-3.5, 2.5, -2.0, 4.0, -3.0, 2.0]
+## 主要動作（當票）的位置大小與傾斜；後面錯位的外文字。
+const HERO := Rect2(22, 122, 214, 58)
+const HERO_TILT := -4.0
+const HERO_GHOST := {"start": "DEPLOY", "resume": "RESUME"}
+## 其他選項依序放的位置與傾斜（度）：左右錯開、正負交替、互相壓住一角。
+const SLOTS: Array[Rect2] = [Rect2(40, 186, 134, 30), Rect2(150, 205, 118, 28), Rect2(54, 231, 110, 26), Rect2(166, 240, 104, 26)]
+const SLOT_TILTS: Array[float] = [3.5, -5.0, 4.5, -3.0]
+## 右邊的主角立繪佔畫面的範圍（錨點：左、上、右、下）。
+const PORTRAIT_ANCHORS := [0.56, 0.1, 0.96, 0.98]
 ## 標題：字級（遊戲像素）、底板的位置與大小、錯位副標的字級。
 const TITLE_SIZE := 50
 const TITLE_PLATE := Rect2(14, 22, 312, 92)
@@ -64,8 +70,8 @@ const COPY := {
 	"heals": ["檢查點回血　有", "チェックポイント回復あり", "Checkpoint healing: On"],
 	"no_heal": ["檢查點回血　沒有", "チェックポイント回復なし", "Checkpoint healing: Off"],
 }
-## 開發工具按鈕離右下角的距離（右、下）；下方留給版本字樣。
-const DEV_BUTTON_MARGIN := Vector2(12, 30)
+## 開發工具按鈕離右上角的距離（右、上）。
+const DEV_BUTTON_MARGIN := Vector2(12, 10)
 
 var _selected: DifficultyData
 var _camera: Camera2D
@@ -74,7 +80,8 @@ var _main_page: Control
 var _difficulty_page: Control
 var _hint: Label
 var _start_button: Button
-var _menu_list: VBoxContainer
+var _menu_list: Control
+var _portrait: SidePortrait
 var _menu_focus: Button
 var _menu_hover: Button
 var _title_plate: CollagePlate
@@ -108,6 +115,7 @@ func _ready() -> void:
 	_ui.theme = UiKit.theme()
 	layer.add_child(_ui)
 	_ui.add_child(_make_shade())
+	_build_portrait()
 	_build_main_page()
 	_build_difficulty_page()
 	InputBindings.bindings_changed.connect(_refresh_legends)
@@ -190,29 +198,39 @@ func _build_main_page() -> void:
 	var subtitle := UiKit.label(_text("subtitle"), UiKit.FS_BODY, Palette.CYAN)
 	subtitle.position = Vector2(36, 92)
 	_main_page.add_child(subtitle)
+	# 標題的字跟著招牌底板一起斜（繞底板中心轉）。
+	for label: Control in [ghost, title, subtitle]:
+		label.pivot_offset = TITLE_PLATE.get_center() - label.position
+		label.rotation = deg_to_rad(_title_plate.tilt_degrees)
 
-	_menu_list = VBoxContainer.new()
-	_menu_list.position = Vector2(30, 126)
-	_menu_list.add_theme_constant_override(&"separation", -TAG_OVERLAP)
+	# 選項自己擺位置（會轉動，不能放在容器裡）；焦點順序照清單順序明確指定。
+	_menu_list = Control.new()
+	_menu_list.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_menu_list.set_anchors_preset(Control.PRESET_FULL_RECT)
 	_main_page.add_child(_menu_list)
-	_menu_list.sort_children.connect(_layout_menu_list)
-	var entries: Array[Button] = []
+	var entries: Array[TagButton] = []
 	if continue_available:
-		_continue_button = _menu_button(_text("resume"), continue_requested.emit, _text("resume_hint"))
+		_continue_button = _menu_button(_text("resume"), continue_requested.emit, _text("resume_hint"), &"ticket", "resume")
 		entries.append(_continue_button)
-	_start_button = _menu_button(_text("start"), _open_difficulty, _text("start_hint"))
+	_start_button = _menu_button(_text("start"), _open_difficulty, _text("start_hint"), &"tag" if continue_available else &"ticket", "start")
 	entries.append(_start_button)
-	entries.append(_menu_button(_text("codex"), _open_codex, _text("codex_hint")))
-	entries.append(_menu_button(_text("settings"), _open_settings, _text("settings_hint")))
-	entries.append(_menu_button(_text("quit"), quit_requested.emit, _text("quit_hint")))
-	for b in entries:
-		_menu_list.add_child(b)
+	entries.append(_menu_button(_text("codex"), _open_codex, _text("codex_hint"), &"folder"))
+	entries.append(_menu_button(_text("settings"), _open_settings, _text("settings_hint"), &"sticker"))
+	entries.append(_menu_button(_text("quit"), quit_requested.emit, _text("quit_hint"), &"seal"))
+	for i in entries.size():
+		var tag := entries[i]
+		var slot: Rect2 = HERO if i == 0 else SLOTS[mini(i - 1, SLOTS.size() - 1)]
+		tag.tilt_degrees = HERO_TILT if i == 0 else SLOT_TILTS[mini(i - 1, SLOT_TILTS.size() - 1)]
+		tag.custom_minimum_size = slot.size
+		_menu_list.add_child(tag)
+		tag.reset_size()
+		tag.place(slot.position)
+	_link_focus(entries)
 
 	_hint = UiKit.label("", UiKit.FS_BODY, Palette.UI_MUTED)
 	_hint.position = Vector2(38, 288)
 	_hint.size = Vector2(260, 16)
 	_main_page.add_child(_hint)
-	_hint.position.y = 291
 	_layout_menu_list.call_deferred()
 	if not save_notice.is_empty():
 		var notice_panel := PanelContainer.new()
@@ -227,19 +245,25 @@ func _build_main_page() -> void:
 
 	_menu_legend = _add_legend(_main_page)
 	_menu_legend.position = Vector2(38, 334)
+	CollageDecal.attach(_menu_legend, &"tape")
 	# 發行版標出收錄範圍，玩家一眼知道這份程式玩到哪一章；存檔也依此分開保存。
 	var edition := CampaignEdition.current()
 	var version_text := VERSION_TEXT if edition.development else "%s　%s" % [edition.version if not edition.version.is_empty() else VERSION_TEXT, edition.title(Story.language)]
-	var version := UiKit.label(version_text, UiKit.FS_BODY, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_RIGHT)
+	# 版本號是右下角斜蓋的圓形戳章。
+	var version := UiKit.label(version_text, UiKit.FS_BODY, Palette.CYAN, HORIZONTAL_ALIGNMENT_CENTER)
+	version.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	version.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_main_page.add_child(version)
 	version.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
 	version.grow_horizontal = Control.GROW_DIRECTION_BEGIN
 	version.grow_vertical = Control.GROW_DIRECTION_BEGIN
-	version.custom_minimum_size.x = 120
-	version.offset_left = -132
-	version.offset_top = -30
-	version.offset_right = -12
-	version.offset_bottom = -8
+	version.offset_left = -76
+	version.offset_top = -60
+	version.offset_right = -18
+	version.offset_bottom = -14
+	version.pivot_offset = Vector2(29, 23)
+	version.rotation = deg_to_rad(-8.0)
+	CollageDecal.attach(version, &"stamp")
 	_build_dev_entry()
 
 	# 開場：底板斜切進來，標題與副標滑入，吊牌依序彈入（全部 300 毫秒內）。
@@ -271,28 +295,37 @@ func _build_dev_entry() -> void:
 	if not DevMenu.is_available():
 		return
 	_dev_button = UiKit.button(_text("developer"), DevMenu.open, _text("developer_hint"))
-	# 貼著右下角、向左上長：按鈕的最小尺寸由主題決定，不用自己算寬度才不會被切掉。
-	_dev_button.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
+	# 貼著右上角、向左下長（右下角是版本戳章）：按鈕的最小尺寸由主題決定，不用自己算寬度才不會被切掉。
+	_dev_button.set_anchors_preset(Control.PRESET_TOP_RIGHT)
 	_dev_button.grow_horizontal = Control.GROW_DIRECTION_BEGIN
-	_dev_button.grow_vertical = Control.GROW_DIRECTION_BEGIN
 	_dev_button.offset_right = -DEV_BUTTON_MARGIN.x
-	_dev_button.offset_bottom = -DEV_BUTTON_MARGIN.y
+	_dev_button.offset_top = DEV_BUTTON_MARGIN.y
 	_bind_menu_highlight(_dev_button)
 	_main_page.add_child(_dev_button)
 
 
-func _menu_button(text: String, on_pressed: Callable, tooltip: String) -> Button:
+## 一個選項：style 決定它是哪一樣實物；當票是主要動作（字比較大、讓出票根、後面錯位的外文字）。
+func _menu_button(text: String, on_pressed: Callable, tooltip: String, style: StringName, ghost := "") -> TagButton:
 	var b := TagButton.new()
 	b.text = text
 	b.tooltip_text = tooltip
 	if on_pressed.is_valid():
 		b.pressed.connect(on_pressed)
 	b.theme_type_variation = &"MenuAction"
-	b.custom_minimum_size = Vector2(MENU_WIDTH, TAG_HEIGHT)
-	b.tilt_degrees = TAG_TILTS[_tags.size() % TAG_TILTS.size()]
+	b.tilt_text = true
 	b.add_theme_color_override(&"font_color", Palette.UI_TEXT)
 	b.add_theme_color_override(&"font_hover_color", MENU_INK)
 	b.add_theme_color_override(&"font_focus_color", MENU_INK)
+	b.style = style
+	match style:
+		&"ticket":
+			b.ghost_text = HERO_GHOST.get(ghost, "")
+			b.text_margin = TagButton.STUB + 12.0
+			b.add_theme_font_size_override(&"font_size", UiKit.scaled_size(UiKit.FS_TITLE))
+		&"sticker":
+			b.text_margin = 24.0
+		&"seal":
+			b.text_margin = 12.0
 	_tags.append(b)
 	_bind_menu_highlight(b)
 	return b
@@ -327,11 +360,40 @@ func _leave_action(button: Button) -> void:
 		_update_hint()
 
 
-## 選單排好後，說明放在最後一張吊牌下面。
+## 焦點順序照清單：上下鍵與 Tab 依序移動，左右不跳到別的選項。
+func _link_focus(entries: Array[TagButton]) -> void:
+	for i in entries.size():
+		var tag := entries[i]
+		var previous := entries[maxi(i - 1, 0)]
+		var next := entries[mini(i + 1, entries.size() - 1)]
+		tag.focus_neighbor_top = tag.get_path_to(previous)
+		tag.focus_neighbor_bottom = tag.get_path_to(next)
+		tag.focus_neighbor_left = NodePath(".")
+		tag.focus_neighbor_right = NodePath(".")
+		tag.focus_previous = tag.get_path_to(previous)
+		tag.focus_next = tag.get_path_to(next)
+
+
+## 選單排好後，說明放在最下面那一項的下面（水平，不跟著斜）。
 func _layout_menu_list() -> void:
 	if _hint != null:
-		_hint.position.y = _menu_list.position.y + _menu_list.size.y + 10.0
+		var bottom := 0.0
+		for tag in _tags:
+			bottom = maxf(bottom, tag.position.y + tag.size.y)
+		_hint.position.y = bottom + 10.0
 	_update_hint()
+
+
+## 右邊的主角立繪（和背包同一個元件）：站在城市前面、朝左看著選單。
+func _build_portrait() -> void:
+	_portrait = SidePortrait.new()
+	_portrait.facing = -1
+	_portrait.anchor_left = PORTRAIT_ANCHORS[0]
+	_portrait.anchor_top = PORTRAIT_ANCHORS[1]
+	_portrait.anchor_right = PORTRAIT_ANCHORS[2]
+	_portrait.anchor_bottom = PORTRAIT_ANCHORS[3]
+	_ui.add_child(_portrait)
+	_portrait.acquire()
 
 
 ## 「減少動態」切換時，吊牌直接回到該有的樣子。

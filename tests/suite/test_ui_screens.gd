@@ -887,7 +887,7 @@ func _test_collage_motion() -> void:
 	var limit := 0.3
 	check(MainMenu.INTRO_DELAY + MainMenu.INTRO_STEP * 4 + TagButton.INTRO_TIME <= limit + 0.0001, "the main menu tags finish bouncing in within 300 ms")
 	check(InventoryScreen.TAB_INTRO_DELAY + InventoryScreen.TAB_INTRO_STEP * 5 + TagButton.INTRO_TIME <= limit + 0.0001, "the bag tabs finish bouncing in within 300 ms")
-	check(CollagePlate.INTRO_TIME + 0.04 <= limit and TagButton.SELECT_TIME <= limit and TagButton.PRESS_DOWN + TagButton.PRESS_UP <= limit and InventoryScreen.CREDITS_ROLL <= limit, "title plates, selection, press and number rolls each finish within 300 ms")
+	check(CollagePlate.INTRO_TIME + 0.04 <= limit and TagButton.SELECT_TIME <= limit and TagButton.PRESS_DOWN + TagButton.PRESS_UP <= limit and InventoryScreen.CREDITS_ROLL <= limit and TagButton.SWING_TIME <= limit, "title plates, selection, press, tab swings and number rolls each finish within 300 ms")
 	var previous_motion := Settings.get_reduce_ui_motion()
 	Settings.set_reduce_ui_motion(false)
 	var menu := MainMenu.new()
@@ -896,7 +896,20 @@ func _test_collage_motion() -> void:
 	var tags := menu._tags
 	check(tags.size() >= 4, "the main menu builds its options as tags (%d)" % tags.size())
 	for tag in tags:
-		check(is_zero_approx(tag.rotation) and is_equal_approx(tag.modulate.a, 1.0), "%s: the text node is never rotated and is fully shown after the intro" % tag.text)
+		check(absf(rad_to_deg(tag.rotation)) <= 6.01 and is_equal_approx(tag.rotation, tag.current_tilt()) and is_equal_approx(tag.modulate.a, 1.0),
+				"%s: the option text tilts with its tag (at most 6 degrees) and is fully shown after the intro" % tag.text)
+	# NE-412：主要動作是很大的當票，其他選項是不同的實物、不同寬度，正負交替傾斜；焦點順序照清單。
+	var hero_area := tags[0].size.x * tags[0].size.y
+	var styles := {}
+	for i in tags.size():
+		styles[tags[i].style] = true
+		if i > 0:
+			check(hero_area >= 2.5 * tags[i].size.x * tags[i].size.y, "the main action is at least 2.5 times the area of %s" % tags[i].text)
+			check(signf(tags[i].tilt_degrees) != signf(tags[i - 1].tilt_degrees), "options alternate their tilt (%d)" % i)
+		var below := tags[mini(i + 1, tags.size() - 1)]
+		check(tags[i].get_node(tags[i].focus_neighbor_bottom) == below and tags[i].get_node(tags[i].focus_next) == below, "focus moves down the list in order (%d)" % i)
+	check(tags[0].style == &"ticket" and styles.size() == tags.size(), "each option is a different object, the main action is the ticket (%s)" % [styles.keys()])
+	check(tags[tags.size() - 1].style == &"seal", "only Quit uses the magenta seal")
 	# 連按：同一格裡焦點連跳三次，最後停在第四張。
 	tags[1].grab_focus()
 	tags[2].grab_focus()
@@ -906,6 +919,7 @@ func _test_collage_motion() -> void:
 		var expected := 1.0 if i == 3 else 0.0
 		check(is_equal_approx(tags[i].active_amount(), expected), "after rapid moves only the last focused tag is straight (%d: %.2f)" % [i, tags[i].active_amount()])
 	check(is_zero_approx(tags[3].current_tilt()) and absf(rad_to_deg(tags[0].current_tilt()) - tags[0].tilt_degrees) < 0.01, "the focused tag stands straight and the others are back at their tilt")
+	check(tags[3].z_index > tags[0].z_index and tags[3].scale.x > 1.05, "the focused option grows and comes to the front")
 	# 待機：沒選到的吊牌沒有在跑的動畫；選到的在呼吸，畫面藏起來就停。
 	var idle_quiet := true
 	for i in tags.size():

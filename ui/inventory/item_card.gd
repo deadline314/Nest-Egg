@@ -1,8 +1,8 @@
 class_name ItemCard
 extends Control
-## 背包清單中的一張卡片：像一張當票（右邊是撕線的鋸齒）、左上角貼著編號貼紙，圖示、名稱、第二行、右上角標籤。
-## 拼貼版面（NE-403）：待機時外框微微傾斜（每張方向交錯），選到時轉正、浮起往前並掃過一道光，之後很慢地呼吸；
-## 文字與圖示永遠水平。資料更新時閃一下。動畫只在進行中（或選到後的呼吸）才會逐格重繪，看不到時停止。
+## 背包清單中的一張卡片：像一張當票（右邊是撕線的鋸齒、左邊是印著編號的米白票根與打孔線），圖示、名稱、第二行、右上角斜蓋的橡皮章。
+## 拼貼版面（NE-403、NE-412）：待機時外框微微傾斜（每張方向交錯），選到時轉正、浮起往前、投影拉開並掃過一道光，之後很慢地呼吸；
+## 空欄位是淡的虛線空白票。文字與圖示永遠水平。資料更新時閃一下。動畫只在進行中（或選到後的呼吸）才會逐格重繪，看不到時停止。
 ## 點擊範圍跟著畫面上的當票形狀。「減少動態」時直接到位、不呼吸。
 
 signal hovered(card: ItemCard)
@@ -22,6 +22,9 @@ const BREATH_PERIOD := 2.8
 const BREATH_SCALE := 0.008
 const TOOTH := 3.0
 const FRAME_INSET := 3.0
+## 左邊米白票根的寬度、徽章橡皮章的傾斜（度）。
+const STUB := 14.0
+const STAMP_TILT := -8.0
 
 var entry: InventoryEntry
 var index := 0
@@ -152,16 +155,25 @@ func _draw() -> void:
 	var border := accent if selected else Color(accent, 0.35 * dim)
 	var rect := Rect2(Vector2(0, LIFT - lift), CARD_SIZE - Vector2(0, LIFT))
 	var points := frame_points()
-	CollageShapes.draw_shape(self, points, FILL_SELECTED if selected else FILL, border, 2.0 if selected else 1.0)
-	_draw_sticker(points)
-	if selected:
-		# 左側的強調色條。
-		draw_rect(Rect2(rect.position + Vector2(5, 8), Vector2(2, rect.size.y - 16)), accent)
-	var icon_origin := rect.position + Vector2(10, 0) + (ICON_CELL - _icon_size()) * 0.5
+	if entry.dimmed:
+		# 空欄位：淡的虛線空白票（沒有實色票根）；選到時虛線換成項目顏色。
+		draw_colored_polygon(points, Color(FILL, 0.35))
+		_draw_dashed_outline(points, accent if selected else Color(Palette.UI_MUTED, 0.45))
+		_draw_stub(points, true)
+	else:
+		if _lift > 0.0:
+			# 浮起來的投影（跟著浮起的程度變深、往右下拉開）。
+			var shadow := points.duplicate()
+			for i in shadow.size():
+				shadow[i] += Vector2(2.0, 2.0) * _lift
+			draw_colored_polygon(shadow, Color(0, 0, 0, 0.5 * _lift))
+		CollageShapes.draw_shape(self, points, FILL_SELECTED if selected else FILL, border, 2.0 if selected else 1.0)
+		_draw_stub(points, false)
+	var icon_origin := rect.position + Vector2(STUB + 4.0, 0) + (ICON_CELL - _icon_size()) * 0.5
 	if entry.icon != null:
 		PixelUi.texture(self, entry.icon, icon_origin.floor(), entry.card_icon_scale, Color(1, 1, 1, dim))
 	var font := UiKit.font()
-	var text_x := rect.position.x + 10.0 + ICON_CELL.x + 6.0
+	var text_x := rect.position.x + STUB + 4.0 + ICON_CELL.x + 4.0
 	# 標題讓出右上角徽章的位置；放不下時用省略號結尾（英文名稱較長，不能壓到 NEW）。
 	var badge_right := CARD_SIZE.x - (26.0 if entry.ammo_icon != null else 8.0)
 	var title_right := CARD_SIZE.x - 8.0
@@ -178,25 +190,59 @@ func _draw() -> void:
 		draw_texture_rect(entry.ammo_icon, ammo_rect, false, Color(1, 1, 1, dim))
 	if not entry.badge.is_empty():
 		# 有彈種圖示時徽章讓到圖示左邊，兩者不重疊（放大文字時徽章會變高）。
-		PixelUi.badge(self, rect.position + Vector2(badge_right, 6.0), entry.badge, entry.badge_color)
+		_draw_stamp(rect.position + Vector2(badge_right, 6.0), entry.badge, entry.badge_color)
 	if _shine >= 0.0:
 		_draw_shine(rect)
 	if _flash > 0.0:
 		draw_rect(rect.grow(-2), Color(1, 1, 1, 0.3 * _flash))
 
 
-## 左下角斜貼的編號貼紙（像當票的編號）：貼紙斜貼，數字保持水平；整張貼紙在卡片範圍裡。
-func _draw_sticker(points: PackedVector2Array) -> void:
-	var corner := points[points.size() - 1]
-	var sticker := Rect2(corner + Vector2(12, -12), Vector2(16, 9))
-	var shape := CollageShapes.rotated(CollageShapes.tag_polygon(sticker, 2.0), sticker.get_center(), deg_to_rad(-6.0) + current_tilt())
-	var accent := entry.accent if selected else Color(Palette.UI_MUTED, 0.8)
-	CollageShapes.draw_shape(self, shape, Color(0.02, 0.03, 0.05, 0.96), Color(accent, 0.9), 1.0)
+## 左邊的米白票根：跟著外框傾斜，右緣一條打孔線、上方一個打孔、印著編號（數字保持水平）。空欄位只畫虛線。
+func _draw_stub(points: PackedVector2Array, blank: bool) -> void:
+	var top_left := points[0]
+	var bottom_left := points[points.size() - 1]
+	var along := (points[1] - points[0]).normalized()
+	var stub := PackedVector2Array([top_left, top_left + along * STUB, bottom_left + along * STUB, bottom_left])
+	var down := bottom_left - top_left
 	var font := UiKit.font()
 	var number := "%02d" % (index + 1)
-	var size_px := UiKit.scaled_size(7)
+	var size_px := UiKit.scaled_size(8)
 	var width := font.get_string_size(number, HORIZONTAL_ALIGNMENT_LEFT, -1, size_px).x
-	draw_string(font, sticker.get_center() + Vector2(-width * 0.5 + 1.0, size_px * 0.35), number, HORIZONTAL_ALIGNMENT_LEFT, -1, size_px, accent)
+	var center := (top_left + bottom_left) * 0.5 + along * STUB * 0.5
+	if blank:
+		draw_dashed_line(top_left + along * STUB, bottom_left + along * STUB, Color(Palette.UI_MUTED, 0.35), 1.0, 2.0)
+		draw_string(font, center + Vector2(-width * 0.5, size_px * 0.9), number, HORIZONTAL_ALIGNMENT_LEFT, -1, size_px, Color(Palette.UI_MUTED, 0.7))
+		return
+	draw_colored_polygon(stub, TagButton.PAPER.lerp(Color("fbf6e8"), _lift))
+	var t := 0.12
+	while t < 0.92:
+		var from := top_left + along * STUB + down * t
+		draw_line(from, from + down * 0.05, Color(TagButton.INK, 0.5), 1.0)
+		t += 0.12
+	draw_circle(center - down * 0.22, 2.0, Color(FILL, 0.95))
+	draw_string(font, center + Vector2(-width * 0.5, size_px * 0.9), number, HORIZONTAL_ALIGNMENT_LEFT, -1, size_px, TagButton.INK)
+
+
+## 虛線外框（空欄位）。
+func _draw_dashed_outline(points: PackedVector2Array, color: Color) -> void:
+	for i in points.size():
+		draw_dashed_line(points[i], points[(i + 1) % points.size()], color, 1.0, 3.0)
+
+
+## 斜蓋的橡皮章（例如「手上」）：雙線外框、字跟著章斜；右上角對齊 right_top。
+func _draw_stamp(right_top: Vector2, text: String, color: Color) -> void:
+	var font := UiKit.font()
+	var size_px := UiKit.scaled_size(9)
+	var text_size := font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, size_px)
+	var box := Vector2(text_size.x + 10.0, text_size.y + 4.0)
+	var center := right_top + Vector2(-box.x * 0.5, box.y * 0.5)
+	draw_set_transform(center, deg_to_rad(STAMP_TILT))
+	var rect := Rect2(-box * 0.5, box)
+	var outer := CollageShapes.tag_polygon(rect, 2.0)
+	CollageShapes.draw_shape(self, outer, Color(color, 0.14), Color(color, 0.95), 1.5)
+	CollageShapes.draw_shape(self, CollageShapes.tag_polygon(rect.grow(-2.5), 1.0), Color(0, 0, 0, 0), Color(color, 0.5), 1.0)
+	draw_string(font, Vector2(-text_size.x * 0.5, -text_size.y * 0.5 + font.get_ascent(size_px)), text, HORIZONTAL_ALIGNMENT_LEFT, -1, size_px, color)
+	draw_set_transform_matrix(Transform2D.IDENTITY)
 
 
 ## 斜向的像素光澤：每兩列一段，由左掃到右。

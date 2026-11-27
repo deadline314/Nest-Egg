@@ -22,9 +22,14 @@ const TAB_MAX_WIDTH := 104.0
 const LEGEND_WIDTH := 292.0
 ## 右側立繪欄：寬度依立繪比例（約 1:3.2）與可用高度決定；欄與內容之間的間距。
 ## 拼貼版面（NE-403）：標題字級、標題底板比標題多出來的留白、分頁吊牌的傾斜（度，交錯）、信用點滾動的時間。
-const TITLE_SIZE := 26
-const TITLE_PLATE_PAD := Vector2(22, 8)
+## NE-412：標題底板約是 NE-403 的兩倍；分頁吊牌從一條橫桿垂下來，繩長不同（往下多垂幾像素），開啟時輕輕晃一下再停。
+const TITLE_SIZE := 34
+const TITLE_PLATE_PAD := Vector2(34, 10)
 const TAB_TILTS: Array[float] = [-2.5, 2.0, -1.5, 2.5, -2.0, 1.5]
+const TAB_DROPS: Array[float] = [0.0, 3.0, 1.0, 4.0, 0.0, 2.0]
+const TAB_HEIGHT := 26.0
+## 橫桿在分頁上方幾像素。
+const ROD_RISE := 7.0
 const CREDITS_ROLL := 0.28
 ## 開啟時分頁吊牌依序彈入：第一張的延遲與間隔（最後一張也在 300 毫秒內停好）。
 const TAB_INTRO_DELAY := 0.02
@@ -47,6 +52,7 @@ var _title: Label
 var _title_plate: CollagePlate
 var _scan: ColorRect
 var _tabs: HBoxContainer
+var _rod: Control
 var _tab_buttons: Array[TagButton] = []
 var _page_host: Control
 var _portrait: SidePortrait
@@ -206,9 +212,19 @@ func _build_layout() -> void:
 	_title_plate.cut = 8.0
 	_frame.add_child(_title_plate)
 	_title = UiKit.label(_screen_title(), TITLE_SIZE, Palette.CYAN)
-	_title.position = Vector2(MARGIN.x, MARGIN.y - 4)
+	_title.position = Vector2(MARGIN.x + 4.0, MARGIN.y - 1.0)
 	_frame.add_child(_title)
 
+	# 標題的字跟著底板一起斜。
+	_title.resized.connect(func() -> void:
+		_title.pivot_offset = _title.size * 0.5
+		_title.rotation = deg_to_rad(_title_plate.tilt_degrees))
+
+	# 分頁吊牌掛在一條橫桿上（橫桿畫在吊牌後面）。
+	_rod = Control.new()
+	_rod.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_rod.draw.connect(_draw_rod)
+	_frame.add_child(_rod)
 	_tabs = HBoxContainer.new()
 	_tabs.position = Vector2(TABS_LEFT, MARGIN.y)
 	_tabs.add_theme_constant_override(&"separation", TAB_GAP)
@@ -229,6 +245,7 @@ func _build_layout() -> void:
 	_credits.clip_text = true
 	_credits.mouse_filter = Control.MOUSE_FILTER_PASS
 	_frame.add_child(_credits)
+	CollageDecal.attach(_credits, &"price", Palette.NEON_YELLOW)
 	_portrait = SidePortrait.new()
 	_frame.add_child(_portrait)
 	_layout_side_column()
@@ -263,7 +280,10 @@ func _make_tab_button(index: int, width: float) -> TagButton:
 	button.alignment = HORIZONTAL_ALIGNMENT_CENTER
 	button.text_margin = 11.0
 	button.text_margin_right = 4.0
-	button.custom_minimum_size = Vector2(width, 26)
+	button.hang_drop = TAB_DROPS[index % TAB_DROPS.size()]
+	button.custom_minimum_size = Vector2(width, TAB_HEIGHT + button.hang_drop)
+	button.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+	button.rod_y = -ROD_RISE
 	button.tilt_degrees = TAB_TILTS[index % TAB_TILTS.size()]
 	button.pressed.connect(func() -> void: select_tab(index))
 	button.mouse_entered.connect(func() -> void: _show_hint(_pages[index].tab_tooltip()))
@@ -314,6 +334,7 @@ func _create_pages() -> void:
 		_pages.append(page)
 	# 只有一個分頁（補給點）時不需要分頁標籤。
 	_tabs.visible = pages.size() > 1
+	_rod.visible = _tabs.visible
 	_refresh_tab_labels()
 
 
@@ -338,6 +359,18 @@ func _layout_header() -> void:
 	for button in _tab_buttons:
 		var natural := button.get_minimum_size().x
 		button.custom_minimum_size.x = natural + maxf(0.0, preferred - natural) * share
+	_rod.position = _tabs.position - Vector2(6.0, ROD_RISE + 2.0)
+	_rod.size = Vector2(640.0 - MARGIN.x - _rod.position.x + 4.0, 6.0)
+	_rod.queue_redraw()
+
+
+## 分頁上方的橫桿：一條金屬桿，兩端有固定座。
+func _draw_rod() -> void:
+	var y := 2.0
+	_rod.draw_line(Vector2(0, y), Vector2(_rod.size.x, y), Color(Palette.UI_MUTED, 0.75), 2.0)
+	_rod.draw_line(Vector2(0, y - 1.0), Vector2(_rod.size.x, y - 1.0), Color(1, 1, 1, 0.12), 1.0)
+	for x in [2.0, _rod.size.x - 2.0]:
+		_rod.draw_circle(Vector2(x, y), 2.5, Color(Palette.UI_MUTED, 0.9))
 
 
 func _refresh_tab_labels() -> void:
@@ -452,6 +485,7 @@ func _play_open_animation() -> void:
 	_title_plate.intro(0.04)
 	for i in _tab_buttons.size():
 		_tab_buttons[i].intro(TAB_INTRO_DELAY + TAB_INTRO_STEP * i)
+		_tab_buttons[i].swing(0.0, 1.0 if i % 2 == 0 else -0.8)
 	_root.modulate.a = 0.0
 	_scan.visible = not Settings.get_reduce_flashes()
 	_scan.modulate.a = 1.0
