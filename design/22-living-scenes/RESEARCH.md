@@ -39,6 +39,15 @@
 - 高頻操作（清單移動、滑鼠滑過）動效要小或沒有；動畫不能讓玩家等，輸入在動畫期間照常生效。[Emil Kowalski：7 個動效建議](https://emilkowal.ski/ui/7-practical-animation-tips)
 - 減少動態時縮短時間、拿掉大位移與縮放，但保留按下與錯誤等必要回饋。
 
+### 把提示做進世界，面板要有形狀語言
+
+- 《Dead Space》幾乎所有資訊都做成世界裡的東西：生命與能量在裝甲上，其餘是角色身邊的全像投影。[Markers：Dead Space 的介面](https://www.giantbomb.com/profile/gamer_152/blog/markers-i-a-deep-dive-into-dead-spaces-ui/249377/)
+- 《Splinter Cell: Conviction》把目標文字投在場景表面上，是給玩家看、但放在空間裡的「空間介面」；文字太大時會稍微出戲。[User interface design in video games](https://www.gamedeveloper.com/design/user-interface-design-in-video-games)
+- 全部做成世界內的東西會限制能傳達的資訊，也比較難做；關鍵資訊仍要優先讀得到。[Diegetic interfaces](https://www.wayline.io/blog/diegetic-interfaces-game-design)
+- 全像效果的基本組成：掃描線、色版錯位、切片位移的故障感、隨時間的閃爍。[Godot Shaders：Hologram Effect](https://godotshaders.com/shader/hologram-effect/)
+- 《Beastieball》整套介面用平行四邊形當形狀語言，作者說這只是「把字放進矩形」這種最無聊排法的一點小變化，卻讓整個介面有了個性。[Deep Dive：Beastieball 的介面視覺語言](https://www.gamedeveloper.com/art/deep-dive-developing-a-clear-and-consistent-visual-language-in-the-ui-of-beastieball)
+- 風格定了就全部照做，不留特例；狀態不能只靠顏色區分，要有形狀或圖示輔助。[Game UI Design: A Practical Guide](https://madegooddesigns.com/game-ui-design/)
+
 ### 效能
 
 - 2D 遊戲通常先卡在 CPU；每次改動都重新量測，不靠猜。[Godot 一般最佳化](https://docs.godotengine.org/en/stable/tutorials/performance/general_optimization.html)
