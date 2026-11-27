@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=17 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=19 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Resource" path="res://data/props/credits_small.tres" id="2_credits_small"]
@@ -11,6 +11,8 @@
 [ext_resource type="Resource" path="res://data/lighting/market_gate.tres" id="9_market_gate"]
 [ext_resource type="Resource" path="res://data/environment/themes/ch2_market_gate.tres" id="10_ch2_market_gate"]
 [ext_resource type="Resource" path="res://data/props/live_cable.tres" id="92_live_cable"]
+[ext_resource type="Script" path="res://data/scripts/area_challenge_data.gd" id="97_challenge_script"]
+[ext_resource type="Resource" path="res://data/challenges/ch2_market_gate_environment.tres" id="98_challenge"]
 
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("3_portal_data")
@@ -108,3 +110,4 @@ layout_path = "res://data/levels/ch2_market_gate_map.json"
 lighting_zones = Array[ExtResource("8_lighting_zone")]([SubResource("Resource_5")])
 story_triggers = PackedStringArray("ch2_b_booth_b3")
 death_credit_cap = 250
+challenges = Array[ExtResource("97_challenge_script")]([ExtResource("98_challenge")])

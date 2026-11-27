@@ -14,6 +14,8 @@ var is_finisher: bool = false
 var ignore_invulnerability: bool = false
 ## 爆炸與終結技可無視盾牌格擋（讓「換武器／換打法」成為有效應對）。
 var bypass_guard: bool = false
+## 傷害來自玩家觸發的環境機關（落下的貨箱、通電的積水等；區域挑戰用，NE-410）。
+var environmental: bool = false
 ## 攻擊是否來自子彈（只有子彈能被反彈；接觸攻擊被完美格擋時改為讓攻擊者暈眩）。
 var is_projectile: bool = false
 ## 發動攻擊的節點（弱參照，可能已被移除）。

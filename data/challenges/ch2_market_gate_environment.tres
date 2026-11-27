@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AreaChallengeData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/area_challenge_data.gd" id="1_challenge"]
+
+[resource]
+script = ExtResource("1_challenge")
+id = &"ch2_market_gate_environment"
+kind = 0
+target = 3
+reward_credits = 40
+goal = "用環境機關擊倒 3 名敵人"
+localized_goals = Dictionary[String, String]({
+"en": "Take down 3 enemies with the environment",
+"ja": "環境の仕掛けで敵を3体倒す"
+})

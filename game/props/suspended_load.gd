@@ -204,6 +204,7 @@ func _land(with_effects: bool) -> void:
 	blast.damage = data.drop_damage
 	blast.team = Combat.Team.PLAYER
 	blast.source_id = data.id
+	blast.environmental = true
 	blast.position = global_position + Vector2(0.0, -size_px.y * 0.5)
 	Fx.add_world_node(blast)
 	Fx.dust(global_position, 9, size_px.x)

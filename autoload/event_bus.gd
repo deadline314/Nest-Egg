@@ -22,6 +22,8 @@ signal vehicle_dismounted
 signal vehicle_health_changed(current: int, maximum: int)
 
 signal enemy_killed(enemy_id: StringName, by_finisher: bool)
+## 敵人死於玩家觸發的環境機關（區域挑戰用，NE-410）。
+signal enemy_killed_by_environment(enemy_id: StringName, source_id: StringName)
 ## 玩家的攻擊命中（準星命中標記用）。
 signal hit_confirmed(world_position: Vector2, killed: bool)
 ## 準星上的命中標記種類：hit（命中）、weak（弱點）、kill（擊殺）、blocked（被擋）。

@@ -104,6 +104,8 @@ const MAX_CHANNEL_RESULT_FLAGS := 64
 @export var rain := true
 ## 這一區的場景燈可以射暗（NE-399）：打中燈具就熄掉，燈下變暗，沒察覺的敵人只看得到近處。
 @export var shootable_lamps := false
+## 這一區的可選小挑戰（NE-410）；空的就沒有。
+@export var challenges: Array[AreaChallengeData] = []
 ## Horizontal span in authored columns where the camera reveals less of the hall.
 ## The zero vector disables this framing.
 @export var restrained_view_columns := Vector2i.ZERO

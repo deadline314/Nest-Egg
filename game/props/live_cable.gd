@@ -85,6 +85,7 @@ func _make_shock(team: Combat.Team, size: Vector2, offset: Vector2) -> ContactHi
 	box.setup(team, data.damage, data.source_id, size, offset)
 	box.knockback_override = Vector2(40.0, -160.0)
 	box.bypass_guard = true  # 水裡的電流擋不住
+	box.environmental = true
 	box.active = false
 	return box
 

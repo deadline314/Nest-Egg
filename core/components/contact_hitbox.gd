@@ -12,6 +12,8 @@ var knockback_override: Vector2 = Vector2.ZERO
 var active: bool = true
 ## true＝格擋擋不住（例如水裡的電流，NE-400）。
 var bypass_guard := false
+## true＝這是環境機關造成的傷害（區域挑戰計數用，NE-410）。
+var environmental := false
 
 var _shape: RectangleShape2D
 var _shape_node: CollisionShape2D
@@ -50,6 +52,7 @@ func _physics_process(_delta: float) -> void:
 			continue
 		var info := DamageInfo.create(damage, team, source_id)
 		info.bypass_guard = bypass_guard
+		info.environmental = environmental
 		# 以碰撞形狀中心作為攻擊來源（而非節點原點／腳底），讓格擋方向判定準確。
 		var origin := _origin_for(hurtbox)
 		var side := signf(hurtbox.global_position.x - origin.x)

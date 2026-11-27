@@ -327,6 +327,7 @@ func _build_entry() -> void:
 	await _spawn_avoidance_activity()
 	player_textures.clear()
 	await _entry_checkpoint()
+	_spawn_challenges()
 	# 從檢查點重生：還原被打破的箱子、開關、閘門與電力（要在光影設定之前，事件才會正確）。
 	WorldState.restore(get_tree(), _resume.get("world", {}) if not _resume.is_empty() else (_area.get("world", {}) if _persistent else GameState.checkpoint_world))
 	_rebuild_lighting_events()
@@ -872,6 +873,22 @@ func _spawn_cinematic_entries() -> void:
 ## 一個區域最多擺幾個可投擲物（NE-254）。
 const MAX_THROWABLES := 24
 var _throwables_placed := 0
+
+
+## 這一區的可選小挑戰（NE-410）：要在還原檢查點狀態之前加進場景，進度才會跟著存檔回來。
+func _spawn_challenges() -> void:
+	for challenge_data in data.challenges:
+		if challenge_data == null:
+			push_error("[Level] %s 的區域挑戰有空項目，已略過" % data.id)
+			continue
+		var problems := challenge_data.validate()
+		for problem in problems:
+			push_error("[Level] %s：%s" % [data.id, problem])
+		if not problems.is_empty():
+			continue
+		var challenge := AreaChallenge.new()
+		challenge.configure(challenge_data)
+		add_child(challenge)
 
 
 static func _is_prop_resource(resource: Resource) -> bool:

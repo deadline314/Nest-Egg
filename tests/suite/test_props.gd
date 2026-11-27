@@ -44,6 +44,7 @@ func run() -> void:
 	_test_mechanic_placements()
 	await _test_hazard_avoidance()
 	await _test_steam_blocks_sight()
+	await _test_area_challenge()
 
 
 func _test_mechanism_translations() -> void:
@@ -936,4 +937,62 @@ func _test_steam_blocks_sight() -> void:
 	enemy.set_physics_process(true)
 	await runner.get_tree().create_timer(1.0).timeout
 	check(is_instance_valid(enemy) and enemy.global_position.x < start_x - 10.0, "the enemy pushes toward the player instead of standing still: %.0f -> %.0f" % [start_x, enemy.global_position.x if is_instance_valid(enemy) else -1.0])
+	await end_level(level)
+
+
+## 區域可選小挑戰（NE-410）：只有環境機關的擊倒算數；達成給一次信用點、不會重複；進度跟著檢查點狀態。
+func _test_area_challenge() -> void:
+	var gate := load("res://data/levels/ch2_market_gate.tres") as LevelData
+	check(gate != null and gate.challenges.size() == 1 and gate.challenges[0].validate().is_empty(), "the market gate has one valid area challenge")
+	if gate != null and not gate.challenges.is_empty():
+		check(not gate.challenges[0].goal_for("en").is_empty() and not gate.challenges[0].goal_for("ja").is_empty(), "the challenge goal is available in all three languages")
+	var bad := AreaChallengeData.new()
+	check(bad.validate().size() >= 2, "a challenge without id, goal or translations is reported")
+
+	var challenge_data := AreaChallengeData.new()
+	challenge_data.id = &"test_environment"
+	challenge_data.target = 1
+	challenge_data.reward_credits = 25
+	challenge_data.goal = "測試"
+	challenge_data.localized_goals = {"en": "test", "ja": "テスト"}
+	var data := LevelData.new()
+	data.id = &"area_challenge_test"
+	data.layout_path = CABLE_MAP
+	data.legend = {"K": load(CABLE_PATH), "g": load(GRUNT_PATH)}
+	data.challenges = [challenge_data]
+	var level := await start_level(data)
+	var challenges := runner.get_tree().get_nodes_in_group(AreaChallenge.GROUP)
+	check(challenges.size() == 1, "the level spawns its area challenge")
+	var cables := _find_all(level, LiveCable)
+	var enemy: Enemy
+	for node in runner.get_tree().get_nodes_in_group(&"enemies"):
+		enemy = node as Enemy
+	if challenges.is_empty() or cables.is_empty() or enemy == null:
+		await end_level(level)
+		return
+	var challenge := challenges[0] as AreaChallenge
+	var player := level.player
+	player.set_physics_process(false)
+	player.global_position = enemy.global_position + Vector2(0.0, -400.0)
+	# 一般的擊倒不算。
+	var other := level._create_enemy(load(GRUNT_PATH) as EnemyData)
+	other.position = player.global_position + Vector2(200.0, 0.0)
+	level._entities.add_child(other)
+	await physics_frames(2)
+	other.health.take_damage(DamageInfo.create(999, Combat.Team.PLAYER, &"test_gun"))
+	await physics_frames(2)
+	check(challenge.progress == 0 and not challenge.done, "an ordinary kill does not count toward the challenge")
+	var credits_before := Progression.credits
+	enemy.set_physics_process(false)
+	enemy.health.setup(1, 0.0)
+	(cables[0] as LiveCable).hurtbox.receive(DamageInfo.create(1, Combat.Team.PLAYER, &"test_player_shot"))
+	await runner.get_tree().create_timer((load(CABLE_PATH) as LiveCableData).warning_seconds + 0.4).timeout
+	check(challenge.done and challenge.progress == 1, "a kill by the electrified water completes the challenge")
+	check(Progression.credits == credits_before + 25, "completing the challenge pays its reward once: %d -> %d" % [credits_before, Progression.credits])
+	check(not challenge.add_progress(1) and Progression.credits == credits_before + 25, "a finished challenge does not pay again")
+	var saved: Variant = challenge.capture_state()
+	challenge.restore_state({"progress": 0, "done": false})
+	check(not challenge.done, "restoring an earlier checkpoint rolls the challenge back")
+	challenge.restore_state(saved)
+	check(challenge.done and challenge.state_key() == "challenge@test_environment", "the challenge state round-trips under a stable key")
 	await end_level(level)

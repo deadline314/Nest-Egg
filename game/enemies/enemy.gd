@@ -879,6 +879,8 @@ func _on_died(info: DamageInfo) -> void:
 		_note_kill()
 		EventBus.enemy_killed.emit(data.id, by_finisher)
 		_try_drop(by_finisher)
+	if info != null and info.environmental:
+		EventBus.enemy_killed_by_environment.emit(data.id, info.source_id)
 	_on_defeated(info)
 	_play_death()
 
