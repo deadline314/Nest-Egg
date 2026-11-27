@@ -39,6 +39,22 @@ func _test_accessibility() -> void:
 	check(label.modulate.a == 1.0 and not label.has_meta(UiMotion.TWEEN_META), "減少動態直接顯示而不建立滑入動畫")
 	UiMotion.count_up(label, 0, 120, 0.5)
 	check(label.text == "120", "減少動態直接顯示最終數值")
+	# 分頁滑入（NE-389）：減少動態時直接到位；正常時從移動方向滑回原位，連續呼叫以最後一次為準。
+	var home := label.position
+	UiMotion.slide_in(label, Vector2(UiMotion.SLIDE_DISTANCE, 0.0))
+	check(label.position == home and label.modulate.a == 1.0 and not label.has_meta(UiMotion.TWEEN_META), "減少動態時分頁內容直接到位")
+	Settings.set_reduce_ui_motion(false)
+	UiMotion.slide_in(label, Vector2(UiMotion.SLIDE_DISTANCE, 0.0))
+	check(is_equal_approx(label.position.x, home.x + UiMotion.SLIDE_DISTANCE) and label.modulate.a == 0.0, "分頁內容從移動的方向進來")
+	UiMotion.slide_in(label, Vector2(-UiMotion.SLIDE_DISTANCE, 0.0))
+	check(is_equal_approx(label.position.x, home.x - UiMotion.SLIDE_DISTANCE), "連續切換時以最後一次為準，不從滑到一半的位置起算")
+	await runner.get_tree().create_timer(UiMotion.SLIDE_TIME + 0.12).timeout
+	check(label.position.is_equal_approx(home) and is_equal_approx(label.modulate.a, 1.0) and not label.has_meta(UiMotion.TWEEN_META),
+			"滑入結束後回到原位、完全顯示，不殘留位移或半透明")
+	check(UiMotion.SLIDE_TIME <= 0.15, "分頁滑入在 150 毫秒內完成")
+	UiMotion.slide_in(label, Vector2(NAN, 0.0))
+	check(label.position.is_equal_approx(home) and label.modulate.a == 1.0, "無效的位移直接顯示")
+	Settings.set_reduce_ui_motion(true)
 	var button := UiKit.button("確認", Callable())
 	root.add_child(button)
 	button.grab_focus()

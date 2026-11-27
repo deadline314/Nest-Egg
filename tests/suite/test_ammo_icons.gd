@@ -73,6 +73,42 @@ func _test_weapon_bar() -> void:
 		loadout._mag[slot] = 0
 		EventBus.player_loadout_changed.emit(loadout)
 		check(bar.row_state(slot) == AmmoIcons.State.EMPTY, "空匣時圖示變成空槽")
+	# 換武器時選取框滑到新的一列（NE-389）：120 毫秒內到位、快速連切停在最後一把、減少動態直接到位。
+	var previous_motion := Settings.get_reduce_ui_motion()
+	Settings.set_reduce_ui_motion(false)
+	var second := load("res://data/weapons/smg.tres") as WeaponData if ResourceLoader.exists("res://data/weapons/smg.tres") else null
+	if second == null:
+		for file in DirAccess.get_files_at("res://data/weapons"):
+			var candidate := load("res://data/weapons".path_join(file)) as WeaponData
+			if candidate != null and candidate.id != loadout.active_weapon().id:
+				second = candidate
+				break
+	check(second != null, "有第二把武器可以測試切換")
+	if second != null:
+		var second_slot := loadout.equip(second)
+		loadout.refill_all()  # 上面把彈匣清空了，空槍切不回去
+		loadout.select(slot)
+		EventBus.player_loadout_changed.emit(loadout)
+		await frames(2)
+		await runner.get_tree().create_timer(WeaponBar.SELECT_TIME + 0.1).timeout
+		var step := WeaponBar.ROW_SIZE.y + WeaponBar.ROW_GAP
+		check(is_equal_approx(bar.selection_y(), slot * step) and not bar.is_selection_moving(),
+				"選取框停在手上武器那一列（y=%.1f，預期 %.1f，手上第 %d 欄）" % [bar.selection_y(), slot * step, loadout.active_slot])
+		loadout.select(second_slot)
+		EventBus.player_loadout_changed.emit(loadout)
+		check(bar.is_selection_moving() and not is_equal_approx(bar.selection_y(), second_slot * step), "換武器時選取框用滑的，不是瞬間跳過去")
+		loadout.select(slot)
+		EventBus.player_loadout_changed.emit(loadout)
+		loadout.select(second_slot)
+		EventBus.player_loadout_changed.emit(loadout)
+		await runner.get_tree().create_timer(WeaponBar.SELECT_TIME + 0.1).timeout
+		check(is_equal_approx(bar.selection_y(), second_slot * step) and not bar.is_selection_moving(), "快速連切時選取框停在最後一把")
+		check(WeaponBar.SELECT_TIME <= 0.12, "選取框在 120 毫秒內到位")
+		Settings.set_reduce_ui_motion(true)
+		loadout.select(slot)
+		EventBus.player_loadout_changed.emit(loadout)
+		check(is_equal_approx(bar.selection_y(), slot * step) and not bar.is_selection_moving(), "減少動態時選取框直接到位")
+	Settings.set_reduce_ui_motion(previous_motion)
 	await end_level(level)
 
 

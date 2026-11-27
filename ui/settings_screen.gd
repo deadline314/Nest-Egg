@@ -113,6 +113,8 @@ const QUALITY_COPY := {
 }
 
 var _tabs: TabContainer
+## 目前顯示的分頁（決定下一次切換時內容從哪一邊滑入）。
+var _shown_tab := 0
 var _status: Label
 var _sliders: Dictionary[StringName, HSlider] = {}
 var _slider_values: Dictionary[StringName, Label] = {}
@@ -184,8 +186,12 @@ func _ready() -> void:
 
 	_tabs = TabContainer.new()
 	_tabs.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	_tabs.tab_changed.connect(func(_tab: int) -> void:
+	_tabs.tab_changed.connect(func(tab: int) -> void:
 		_cancel_capture()
+		# 新分頁從移動的方向短距離滑入（往右翻＝從右邊進來）。
+		var direction := 1.0 if tab > _shown_tab else -1.0
+		_shown_tab = tab
+		UiMotion.slide_in(_tabs.get_tab_control(tab), Vector2(UiMotion.SLIDE_DISTANCE * direction, 0.0))
 		_focus_first.call_deferred())
 	layout.add_child(_tabs)
 	_tabs.add_child(_build_audio_tab())

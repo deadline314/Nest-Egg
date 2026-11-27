@@ -2,6 +2,7 @@ class_name WeaponBar
 extends VBoxContainer
 ## HUD 的武器欄：每個武器欄一列（欄號、槍的圖示、名稱），手上武器高亮。不顯示子彈數量：
 ## 子彈常駐在主角身旁（見 AmmoTray）。空欄位暗淡；滑鼠移到那一列顯示武器說明。
+## 換武器時選取框滑到新的那一列、新武器的名稱短暫提亮（NE-389）；「減少動態」時直接到位。
 ## 彈匣狀態（滿、低量、空）仍記在每一列的 state（供測試與其他介面查詢），近戰武器與沒有槍外觀的武器用彈種圖示。
 
 const ROW_SIZE := Vector2(132, 18)
@@ -17,13 +18,24 @@ const MAKE_WAY_ALPHA := 0.3
 const MAKE_WAY_SPEED := 5.0
 ## 主角在畫面上佔的範圍（相對腳底的世界座標）。
 const PLAYER_BOX := Rect2(-12, -60, 24, 62)
+## 選取框滑到新一列的時間，與新武器名稱提亮後退回原色的時間。
+const SELECT_TIME := 0.1
+const NAME_FLASH_TIME := 0.25
+const ROW_GAP := 2
 
 var _rows: Array[_Row] = []
 var _player_ref := PlayerRef.new()
+## 手上武器所在的欄（-1＝沒有）、選取框目前的 y 與名稱提亮的程度（0～1）。
+var _active_slot := -1
+var _select_y := 0.0
+var _select_target := 0.0
+var _name_flash := 0.0
+var _select_tween: Tween
+static var _select_box: ChamferBox
 
 
 func _ready() -> void:
-	add_theme_constant_override(&"separation", 2)
+	add_theme_constant_override(&"separation", ROW_GAP)
 	mouse_filter = Control.MOUSE_FILTER_PASS
 	for slot in Loadout.MAX_SLOTS:
 		var row := _Row.new()
@@ -63,6 +75,57 @@ func update_from(loadout: Loadout) -> void:
 			else:
 				row.state = AmmoIcons.State.FULL
 		row.queue_redraw()
+	var slot := loadout.active_slot if loadout.weapon_in(loadout.active_slot) != null else -1
+	if slot != _active_slot:
+		_move_selection(slot)
+
+
+## 選取框移到 slot 那一列：第一次出現、沒有武器或「減少動態」時直接到位，其餘情況滑過去。
+## 連續快速切換時停掉上一次的動畫，從目前的位置滑向最後一次的目標。
+func _move_selection(slot: int) -> void:
+	var appearing := _active_slot < 0
+	_active_slot = slot
+	if _select_tween != null and _select_tween.is_valid():
+		_select_tween.kill()
+	_name_flash = 0.0
+	_select_target = float(maxi(slot, 0)) * (ROW_SIZE.y + ROW_GAP)
+	var target := _select_target
+	if slot < 0 or appearing or not is_inside_tree() or Settings.get_reduce_ui_motion():
+		_set_select_y(target)
+		return
+	_select_tween = create_tween().set_parallel(true)
+	_select_tween.tween_method(_set_select_y, _select_y, target, SELECT_TIME).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	_select_tween.tween_method(_set_name_flash, 1.0, 0.0, NAME_FLASH_TIME)
+
+
+func _set_select_y(value: float) -> void:
+	_select_y = value
+	queue_redraw()
+
+
+func _set_name_flash(value: float) -> void:
+	_name_flash = value
+	if _active_slot >= 0 and _active_slot < _rows.size():
+		_rows[_active_slot].queue_redraw()
+
+
+## 選取框目前的位置（本地 y）與是否還在移動（測試用）。
+func selection_y() -> float:
+	return _select_y
+
+
+func is_selection_moving() -> bool:
+	return not is_equal_approx(_select_y, _select_target)
+
+
+func _draw() -> void:
+	if _active_slot < 0:
+		return
+	if _select_box == null:
+		_select_box = ChamferBox.make(Color(Palette.UI_PANEL_HI, 0.85), Palette.CYAN_DIM, 3)
+	var rect := Rect2(0.0, _select_y, size.x, ROW_SIZE.y)
+	_select_box.draw(get_canvas_item(), rect)
+	draw_rect(Rect2(0.0, _select_y + 3.0, 2.0, ROW_SIZE.y - 6.0), Palette.CYAN)
 
 
 func row_count() -> int:
@@ -101,10 +164,7 @@ class _Row:
 	func _draw() -> void:
 		var font := UiKit.font()
 		var muted := Color(Palette.UI_MUTED, 0.5)
-		if active:
-			var box := ChamferBox.make(Color(Palette.UI_PANEL_HI, 0.85), Palette.CYAN_DIM, 3)
-			box.draw(get_canvas_item(), Rect2(Vector2.ZERO, size))
-			draw_rect(Rect2(0, 3, 2, size.y - 6), Palette.CYAN)
+		# 選取框由武器欄本身畫（會在列與列之間滑動），這裡只畫內容。
 		draw_string(font, Vector2(7, 13), str(slot + 1), HORIZONTAL_ALIGNMENT_LEFT, -1, UiKit.FS_BODY, Palette.CYAN if active else muted)
 		if weapon == null:
 			draw_string(font, Vector2(24, 13), "—", HORIZONTAL_ALIGNMENT_LEFT, -1, UiKit.FS_BODY, muted)
@@ -117,5 +177,9 @@ class _Row:
 		else:
 			draw_texture_rect(AmmoIcons.for_weapon(weapon, state), Rect2(Vector2(28, 2), AmmoIcons.CELL), false, tint)
 		var color := weapon.color if active else Palette.UI_MUTED
+		if active:
+			var bar := get_parent() as WeaponBar
+			if bar != null and bar._name_flash > 0.0:
+				color = color.lerp(Palette.WHITE, bar._name_flash)
 		draw_string(font, Vector2(54, 13), weapon.short_name_for(Story.language),
 				HORIZONTAL_ALIGNMENT_LEFT, 70, UiKit.FS_BODY, color)

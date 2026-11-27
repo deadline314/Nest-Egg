@@ -5,6 +5,9 @@ extends RefCounted
 
 const STEP := 0.06
 const DISTANCE := 20.0
+## 分頁切換的滑入時間與距離（像素）。
+const SLIDE_TIME := 0.14
+const SLIDE_DISTANCE := 14.0
 const HOME_META := &"ui_motion_home"
 const TWEEN_META := &"ui_motion_tween"
 
@@ -52,6 +55,36 @@ static func stagger_in(nodes: Array, step := STEP, distance := DISTANCE, start_d
 		tween.tween_property(n, "position", home, 0.2).set_delay(delay).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 		tween.tween_property(n, "modulate:a", 1.0, 0.16).set_delay(delay)
 		index += 1
+
+
+## 分頁或子頁切換（NE-389）：新內容從 offset 短距離滑回原位並淡入；offset 的方向就是內容進來的方向。
+## 開啟減少介面動態時直接到位。動畫期間輸入照常；連續呼叫以最後一次為準，不排隊。
+## 結束後請容器重新排版一次，所以即使中途版面改變，最後的位置一定是對的。
+static func slide_in(node: Control, offset: Vector2, seconds := SLIDE_TIME) -> void:
+	if not is_instance_valid(node) or not node.is_inside_tree():
+		return
+	_stop_motion(node)
+	node.modulate.a = 1.0
+	if Settings.get_reduce_ui_motion() or not offset.is_finite() or seconds <= 0.0:
+		return
+	var home := node.position
+	node.set_meta(HOME_META, home)
+	node.position = home + offset
+	node.modulate.a = 0.0
+	var tween := node.create_tween().set_parallel(true)
+	node.set_meta(TWEEN_META, tween)
+	tween.tween_property(node, "position", home, seconds).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	tween.tween_property(node, "modulate:a", 1.0, seconds * 0.8)
+	tween.chain().tween_callback(_settle.bind(node))
+
+
+static func _settle(node: Control) -> void:
+	if not is_instance_valid(node):
+		return
+	node.remove_meta(TWEEN_META)
+	var parent := node.get_parent()
+	if parent is Container:
+		(parent as Container).queue_sort()
 
 
 ## 停掉節點上進行中的滑入並回到原位。
