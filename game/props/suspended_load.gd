@@ -1,7 +1,7 @@
 class_name SuspendedLoad
 extends StaticBody2D
 ## 吊掛貨物（NE-397）：鏈條吊著的貨箱。被玩家的子彈、近戰或爆炸打到就鬆開，垂直砸下去：
-## 落地時傷害正下方的敵人（不傷害玩家），之後留在原地當掩體（擋路也擋子彈）。
+## 落地時傷害正下方的敵人（不傷害玩家），之後留在原地當掩體（擋路也擋子彈），遠程敵人也會躲到它後面（CoverSpots，NE-415）。
 ## 吊著的時候不擋路、不擋子彈，角色可以從底下走過；地上有一塊淡影標出它會砸在哪裡。
 ## 原點在落地那一格的底邊中點。外觀、高度與傷害來自 SuspendedLoadData。狀態（掉下來了沒）跟著檢查點保存。
 
@@ -116,6 +116,10 @@ func _ready() -> void:
 	_place_cargo()
 
 
+func _exit_tree() -> void:
+	CoverSpots.unregister(self)
+
+
 ## 提示只在貨箱還吊著、玩家在附近的地面上時出現。
 func _prompt_in_reach() -> bool:
 	if state != State.HANGING:
@@ -191,6 +195,7 @@ func _land(with_effects: bool) -> void:
 	state = State.LANDED
 	_drop = 0.0
 	_shape_node.set_deferred(&"disabled", false)
+	CoverSpots.register(self, Rect2(global_position - Vector2(size_px.x * 0.5, size_px.y), size_px))
 	hurtbox.enabled = false
 	if _prompt != null:
 		_prompt.enabled = false

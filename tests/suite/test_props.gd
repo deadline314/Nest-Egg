@@ -46,6 +46,7 @@ func run() -> void:
 	await _test_steam_blocks_sight()
 	await _test_area_challenge()
 	await _test_unseen_challenge()
+	await _test_crate_cover()
 
 
 func _test_mechanism_translations() -> void:
@@ -700,7 +701,12 @@ func _test_live_cable() -> void:
 	check(player.health.current < 20, "the player standing in the water is shocked too")
 	# 跳起來（腳離開水面）就不會觸電。
 	player.global_position = cable.global_position + Vector2(-20.0, -LiveCable.SHOCK_HEIGHT - 10.0)
-	await physics_frames(2)  # 讓觸電範圍的重疊先更新，再開始量（負載高時前一格還在水裡的重疊會晚一格才消失）
+	# 等觸電範圍真的不再和玩家重疊才開始量（負載高時，前幾格還在水裡的重疊會晚幾格才消失）。
+	for i in 12:
+		await physics_frames(1)
+		if not cable._hit_players.overlaps_area(player.hurtbox):
+			break
+	await physics_frames(1)
 	player.health.setup(20, 0.0)
 	await physics_frames(4)
 	check(player.health.current == 20, "a player in the air above the water is not shocked")
@@ -1049,3 +1055,80 @@ func _test_unseen_challenge() -> void:
 		else:
 			check(challenge.done and Progression.credits == credits_before + 30, "reaching the finish unseen completes the challenge and pays once")
 		await end_level(level)
+
+
+## 落地的貨箱當掩護（NE-415）：清掃兵跑到貨箱後面蹲下（身體判定剛好到箱頂、子彈打不到），冷卻好了站起來越過箱頂開槍；
+## 玩家繞到同一側就離開掩體；貨箱被移除就不再登記。
+func _test_crate_cover() -> void:
+	CoverSpots.clear()
+	var owner := RefCounted.new()
+	CoverSpots.register(owner, Rect2(100, 68, 32, 32))  # 地面 y=100
+	var spot := CoverSpots.spot_behind(Vector2(200, 100), 0.0, 150.0)
+	check(spot.get("x") == 144.0 and spot.get("top") == 68.0, "the cover spot is on the far side of the crate from the threat: %s" % spot)
+	check(CoverSpots.spot_behind(Vector2(200, 100), 300.0, 150.0).is_empty(), "no cover when the threat is on the same side")
+	check(CoverSpots.spot_behind(Vector2(200, 100), 116.0, 150.0).is_empty(), "no cover when the threat stands over the crate")
+	check(CoverSpots.spot_behind(Vector2(200, 60), 0.0, 150.0).is_empty(), "no cover on a different floor")
+	check(CoverSpots.spot_behind(Vector2(400, 100), 0.0, 150.0).is_empty(), "no cover beyond reach")
+	check(CoverSpots.spot_behind(Vector2(50, 100), 300.0, 150.0).get("x") == 88.0, "the spot flips with the threat side")
+	CoverSpots.unregister(owner)
+	check(CoverSpots.is_empty(), "unregistering removes the cover")
+
+	var data := LevelData.new()
+	data.id = &"crate_cover_test"
+	data.layout_path = SUSPENDED_MAP
+	data.legend = {"Q": load(SUSPENDED_PATH), "g": load(GRUNT_PATH)}
+	var level := await start_level(data)
+	var loads := _find_all(level, SuspendedLoad)
+	var gunner: Enemy
+	for node in runner.get_tree().get_nodes_in_group(&"enemies"):
+		gunner = node as Enemy
+	if loads.is_empty() or gunner == null:
+		check(false, "the cover map has a crate and a gunner")
+		await end_level(level)
+		return
+	var crate := loads[0] as SuspendedLoad
+	var floor_y := crate.global_position.y
+	var top := floor_y - crate.size_px.y
+	var player := level.player
+	player.set_physics_process(false)
+	player.health.setup(999, 0.0)
+	player.global_position = Vector2(crate.global_position.x - 180.0, floor_y)
+	gunner.global_position = Vector2(crate.global_position.x + 90.0, floor_y)
+	check(CoverSpots.is_empty(), "a hanging crate is not cover")
+	crate.restore_state(true)
+	check(not CoverSpots.is_empty(), "a landed crate registers as cover")
+	gunner.raise_alert(player.global_position, 8.0)
+	var ducked := false
+	var peek_y := INF
+	var back := false
+	for i in 360:
+		await runner.get_tree().physics_frame
+		if gunner.fsm.is_in(&"cover") and gunner.get("_ducked") == true:
+			if not ducked:
+				ducked = true
+				var edge := crate.global_position.x + crate.size_px.x * 0.5
+				check(absf(gunner.global_position.x - edge - CoverSpots.SIDE_MARGIN) <= 6.0, "the gunner crouches right behind the crate (%.0f px from its edge)" % (gunner.global_position.x - edge))
+				check(gunner.hurtbox._shape.size.y <= crate.size_px.y + 0.5, "crouched, its body reaches no higher than the crate top (%.0f px)" % gunner.hurtbox._shape.size.y)
+			elif peek_y < INF:
+				back = true
+				break
+		if gunner.fsm.is_in(&"aim"):
+			peek_y = minf(peek_y, gunner.call("_peek_origin").y)
+	check(ducked, "the gunner takes cover behind the landed crate")
+	check(peek_y < top, "it rises and fires from above the crate top (%.0f < %.0f)" % [peek_y, top])
+	check(back, "after firing it ducks behind the crate again")
+	# 蹲著時，從玩家的高度打過去的子彈被貨箱擋下。
+	var before := gunner.health.current
+	var spec := (load(GRUNT_PATH) as EnemyData).projectile
+	ProjectilePool.spawn(spec, player.global_position + Vector2(10.0, -20.0), Vector2.RIGHT, Combat.Team.PLAYER, 1.0)
+	await physics_frames(30)
+	check(gunner.health.current == before, "a shot at body height hits the crate, not the crouched gunner")
+	# 玩家繞到同一側：不再算掩護，離開掩體。
+	player.global_position = Vector2(gunner.global_position.x + 120.0, floor_y)
+	await physics_frames(6)
+	check(not gunner.fsm.is_in(&"cover") and gunner.get("_ducked") == false and is_equal_approx(gunner.hurtbox._shape.size.y, gunner.data.body_size.y),
+			"flanked, it leaves cover and stands up (%s)" % gunner.fsm.current)
+	crate.queue_free()
+	await physics_frames(2)
+	check(CoverSpots.is_empty(), "a removed crate no longer counts as cover")
+	await end_level(level)

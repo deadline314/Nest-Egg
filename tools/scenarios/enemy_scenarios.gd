@@ -33,6 +33,7 @@ const SCENARIOS := {
 	"decoy_radio": "res://tools/scenarios/decoy_radio_scenario.gd",
 	"mechanic_placements": "res://tools/scenarios/mechanic_placements_scenario.gd",
 	"hazard_avoidance": "res://tools/scenarios/hazard_avoidance_scenario.gd",
+	"crate_cover": "res://tools/scenarios/crate_cover_scenario.gd",
 	"steam_push": "res://tools/scenarios/steam_push_scenario.gd",
 	"area_challenge": "res://tools/scenarios/area_challenge_scenario.gd",
 	"unseen_challenge": "res://tools/scenarios/unseen_challenge_scenario.gd",
