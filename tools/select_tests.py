@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """依有更動的檔案，挑出受影響、需要跑的測試套件。
 
-用法：python tools/select_tests.py [--base origin/main] [--files a b ...] [--explain] [--all]
+用法：python tools/select_tests.py [--base origin/main] [--files a b ...] [--explain] [--all] [--probes]
 輸出：逗號分隔的套件名稱（可直接給 tests/smoke_test.tscn 的 --only=；main 是開頭那一大段流程測試）。沒有受影響的測試就輸出空字串。
+  --probes 改為輸出受影響的探針執行器（tools/run_*.py，各自跑 tests/probes/ 底下的真實流程；CI 也逐一跑它們）。
 結束代碼：0 成功（含「沒有受影響的測試」）；2 挑選失敗（git 指令失敗、基準不存在、讀不到輸出），原因寫在 stderr，呼叫端不可當成沒有測試。
 git 的輸出一律用 NUL 分隔並以 UTF-8 解碼，不依賴系統編碼（繁中 Windows 的 cp950）或 core.quotePath 設定。
 
@@ -37,6 +38,8 @@ PATH_RE = re.compile(r"res://[\w./\-]+")
 AUTOLOAD_RE = re.compile(r'^(\w+)="\*?res://([^"]+)"', re.M)
 WORD_RE = re.compile(r"[A-Za-z_]\w*")
 RUNTIME_INPUT_RE = re.compile(r"^# changed-test-inputs:[ \t]*(.*)$", re.M)
+PROBE_SCENE_RE = re.compile(r"res://(tests/probes/\w+\.tscn)")
+PROBE_SHARED = {"tools/runtime_probe.py"}  # 所有探針執行器共用
 
 
 class SelectionError(Exception):
@@ -182,6 +185,24 @@ def select(changed, files):
     return chosen, reasons
 
 
+def probe_runners(files):
+    """探針執行器（tools/run_*.py）-> 它跑的探針場景。沒有寫死探針場景的執行器不算。"""
+    runners = {}
+    for f in files:
+        if f.startswith("tools/run_") and f.endswith(".py"):
+            scenes = set(PROBE_SCENE_RE.findall(read_text(f)))
+            if scenes:
+                runners[f] = scenes
+    return runners
+
+
+def select_probes(changed, reasons, runners, run_all):
+    """探針場景被影響、執行器本身或共用的 runtime_probe.py 有更動，就挑出那個執行器。"""
+    if run_all or PROBE_SHARED & set(changed):
+        return sorted(runners)
+    return sorted(runner for runner, scenes in runners.items() if runner in changed or scenes & set(reasons))
+
+
 def explain_chain(reasons, f):
     chain = [f]
     while reasons.get(chain[-1]) not in (None, "有更動"):
@@ -195,6 +216,7 @@ def main():
     parser.add_argument("--files", nargs="*")
     parser.add_argument("--all", action="store_true")
     parser.add_argument("--explain", action="store_true")
+    parser.add_argument("--probes", action="store_true")
     args = parser.parse_args()
     for stream in (sys.stdout, sys.stderr):  # 說明文字含中文；主控台編碼不支援時用替代字元，不讓輸出本身當掉
         if hasattr(stream, "reconfigure"):
@@ -214,11 +236,22 @@ def run(args):
     boundary_changed = any(Path(f).name == ".gdignore"
                            and not godot_ignored_directory(Path(f).parent.parent, ignored)
                            for f in changed)
-    if args.all or boundary_changed or any(f in RUN_ALL or (f.startswith("tools/godot_audio/") and f.endswith(".patch")) for f in changed):
+    run_all = args.all or boundary_changed or any(f in RUN_ALL or (f.startswith("tools/godot_audio/") and f.endswith(".patch")) for f in changed)
+    if run_all and not args.probes:
         print("ALL" if not args.explain else "全部（改到整個專案或測試流程本身）")
         return 0
     code_changes = [f for f in changed if not f.startswith(("pm/", "design/", "assets_src/")) and not f.endswith((".md", ".py")) or f == "tools/select_tests.py"]
     chosen, reasons = select(code_changes, files)
+    if args.probes:
+        runners = probe_runners(files)
+        picked = select_probes(changed, reasons, runners, run_all)
+        if args.explain:
+            for runner in picked:
+                hit = sorted(runners[runner] & set(reasons))
+                print(f"{runner}: {explain_chain(reasons, hit[0]) if hit else '執行器本身或共用工具有更動'}")
+            return 0
+        print(",".join(picked))
+        return 0
     if args.explain:
         for name, f in sorted(chosen.items()):
             print(f"{name}: {explain_chain(reasons, f)}")

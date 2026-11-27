@@ -425,8 +425,15 @@ static func _world(raw: Dictionary) -> Dictionary:
 				result[key]["reacted"] = reacted
 				if invalid:
 					push_warning("[RunSave] world/%s/reacted invalid reaction indices omitted" % key.left(192))
+		elif key.begins_with("challenge@"):
+			# 區域挑戰（AreaChallenge）存 {progress, done, failed}；格式不對就退回未開始。
+			var saved: Dictionary = value if value is Dictionary else {}
+			result[key] = {"progress": int(RunSaveCodec.number(saved.get("progress"), 0, 0, 1000)),
+				"done": saved.get("done") is bool and saved["done"],
+				"failed": saved.get("failed") is bool and saved["failed"]}
 		else:
-			result[key] = value == true
+			# 其餘世界狀態只存開關；非布林（含物件）一律當 false，不讓比較出錯中斷整份存檔。
+			result[key] = value is bool and value
 	return result
 
 

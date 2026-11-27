@@ -996,6 +996,13 @@ func _test_area_challenge() -> void:
 	check(not challenge.done, "restoring an earlier checkpoint rolls the challenge back")
 	challenge.restore_state(saved)
 	check(challenge.done and challenge.state_key() == "challenge@test_environment", "the challenge state round-trips under a stable key")
+	# 存檔的世界狀態清理（RunSnapshot）要收得下挑戰的物件狀態，不能讓比較出錯（NE-414）。
+	var cleaned := RunSnapshot._world(WorldState.capture(runner.get_tree()))
+	check(cleaned.get("challenge@test_environment") == {"progress": 1, "done": true, "failed": false}, "the run save keeps the challenge state: %s" % [cleaned.get("challenge@test_environment")])
+	var broken := RunSnapshot._world({"challenge@x": "bad", "gate@1,2": {"open": true}, "lamp@3,4": true})
+	check(broken["challenge@x"] == {"progress": 0, "done": false, "failed": false} and broken["gate@1,2"] == false and broken["lamp@3,4"] == true, "a damaged world state falls back to safe defaults: %s" % broken)
+	challenge.restore_state(cleaned["challenge@test_environment"])
+	check(challenge.done, "a saved challenge state restores after the save round-trip")
 	await end_level(level)
 
 

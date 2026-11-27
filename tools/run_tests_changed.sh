@@ -2,7 +2,7 @@
 # 只跑「有更動到的範圍」的測試（平常開發、每張票交付前用這個）。
 # 用法：GODOT=/path/to/godot tools/run_tests_changed.sh [基準，預設 origin/main]
 # 依 git 的更動（相對基準的提交、未提交的修改、新檔案）挑出受影響的測試套件（tools/select_tests.py），
-# 再用 tools/run_tests_parallel.sh 平行跑。只改文件或票時沒有測試要跑。
+# 再用 tools/run_tests_parallel.sh 平行跑；受影響的探針（tools/run_*.py，CI 的真實流程檢查）也一起跑（PROBE_JOBS 個同時，預設 4）。只改文件或票時沒有測試要跑。
 # 挑選工具出錯（git 失敗、基準不存在、Python 當掉）時以失敗結束，不會當成「沒有測試要跑」。
 # 完整測試由 CI 負責（每小時＋每次推送，見 .github/workflows/tests.yml），也可以隨時用 tools/run_tests_parallel.sh 跑全部。
 set -uo pipefail
@@ -46,13 +46,50 @@ if ! PYTHONIOENCODING=utf-8 "$PYTHON" tools/evidence_retention.py --apply; then
 	echo "舊證據清理有錯誤，繼續執行受影響測試。" >&2
 fi
 
+PROBES="$(PYTHONIOENCODING=utf-8 "$PYTHON" tools/select_tests.py --base "$BASE" --probes)"
+STATUS=$?
+[ "$STATUS" -eq 0 ] || fail "挑選受影響探針的工具出錯（tools/select_tests.py --probes 結束代碼 $STATUS，原因見上方）。"
+PROBES="${PROBES//$''/}"
+if [ -n "$PROBES" ] && [ -z "${GODOT:-}" ]; then
+	fail "要跑探針（$PROBES）但沒有設定 GODOT。"
+fi
+
+SUITE_STATUS=0
 if [ "$SELECTED" = "ALL" ]; then
 	echo "改到整個專案或測試流程本身，跑全部測試。"
-	exec tools/run_tests_parallel.sh
+	tools/run_tests_parallel.sh || SUITE_STATUS=$?
+elif [ -n "$SELECTED" ]; then
+	echo "受影響的測試：$SELECTED"
+	tools/run_tests_parallel.sh --only="$SELECTED" || SUITE_STATUS=$?
 fi
-if [ -z "$SELECTED" ]; then
+
+# 探針（tools/run_*.py）各自用獨立的設定檔與存檔資料夾跑一段真實流程，可以平行；CI 會逐一再跑一次。
+PROBE_STATUS=0
+if [ -n "$PROBES" ]; then
+	PROBE_DIR="$(mktemp -d)"
+	JOBS="${PROBE_JOBS:-4}"
+	echo "受影響的探針（$JOBS 個同時跑，紀錄在 $PROBE_DIR）：$PROBES"
+	run_probe() {
+		local runner="$1" name
+		name="$(basename "$runner" .py)"
+		if "$PYTHON" "$runner" --godot "$GODOT" --output "$PROBE_DIR/$name" >"$PROBE_DIR/$name.txt" 2>&1; then
+			echo "探針通過：$runner"
+		else
+			echo "探針失敗：$runner（紀錄：$PROBE_DIR/$name.txt）"
+			: >"$PROBE_DIR/$name.failed"
+		fi
+	}
+	for runner in ${PROBES//,/ }; do
+		while [ "$(jobs -rp | wc -l)" -ge "$JOBS" ]; do wait -n; done
+		run_probe "$runner" &
+	done
+	wait
+	if compgen -G "$PROBE_DIR/*.failed" >/dev/null; then
+		PROBE_STATUS=1
+	fi
+fi
+
+if [ "$SELECTED" != "ALL" ] && [ -z "$SELECTED" ] && [ -z "$PROBES" ]; then
 	echo "沒有受影響的測試要跑（只改了文件、票或與遊戲無關的檔案）。"
-	exit 0
 fi
-echo "受影響的測試：$SELECTED"
-exec tools/run_tests_parallel.sh --only="$SELECTED"
+[ "$SUITE_STATUS" -eq 0 ] && [ "$PROBE_STATUS" -eq 0 ]
