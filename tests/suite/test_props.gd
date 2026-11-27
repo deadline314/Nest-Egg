@@ -43,6 +43,7 @@ func run() -> void:
 	await _test_decoy_radio()
 	_test_mechanic_placements()
 	await _test_hazard_avoidance()
+	await _test_steam_blocks_sight()
 
 
 func _test_mechanism_translations() -> void:
@@ -900,3 +901,39 @@ func _test_hazard_avoidance() -> void:
 	check(cable.state == LiveCable.State.SPENT and not HazardZones.blocks(cable.global_position + Vector2(0.0, -1.0)), "the spent puddle is no longer marked dangerous")
 	await end_level(level)
 	check(not HazardZones.blocks(cable.global_position if is_instance_valid(cable) else Vector2.ZERO), "leaving the level clears the hazard zones")
+
+
+## 蒸汽擋住敵人的視線（NE-409）：隔著蒸汽看不到玩家、不會開槍，但會往玩家那一頭推進；蒸汽散了就照常看得到。
+func _test_steam_blocks_sight() -> void:
+	var data := LevelData.new()
+	data.id = &"steam_sight_test"
+	data.layout_path = VALVE_MAP
+	data.legend = {"V": load(VALVE_PATH)}
+	var level := await start_level(data)
+	var valves := _find_all(level, SteamValve)
+	if valves.is_empty():
+		check(false, "the steam sight fixture has a valve")
+		await end_level(level)
+		return
+	var valve := valves[0] as SteamValve
+	var enemy := level._create_enemy(load(GRUNT_PATH) as EnemyData)
+	var rect := valve.screen_rect()
+	enemy.position = Vector2(rect.end.x + 90.0, valve.global_position.y)
+	level._entities.add_child(enemy)
+	var player := level.player
+	player.set_physics_process(false)
+	player.global_position = Vector2(rect.position.x - 60.0, valve.global_position.y)
+	await physics_frames(2)
+	enemy.set_physics_process(false)  # 只看視線判斷，先不讓它自己動
+	check(enemy._can_see_target(400.0), "with no steam the enemy sees the player across the valve")
+	valve.hurtbox.receive(DamageInfo.create(1, Combat.Team.PLAYER, &"test_player_shot"))
+	await physics_frames(3)
+	check(valve._screen.is_blocking(), "the steam screen is up")
+	check(not enemy._can_see_target(400.0), "the enemy cannot see the player through the steam")
+	check(enemy.is_alerted(), "losing sight to steam sends the enemy toward the player's side")
+	var start_x := enemy.global_position.x
+	enemy.fsm.transition(&"patrol")
+	enemy.set_physics_process(true)
+	await runner.get_tree().create_timer(1.0).timeout
+	check(is_instance_valid(enemy) and enemy.global_position.x < start_x - 10.0, "the enemy pushes toward the player instead of standing still: %.0f -> %.0f" % [start_x, enemy.global_position.x if is_instance_valid(enemy) else -1.0])
+	await end_level(level)

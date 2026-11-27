@@ -65,6 +65,8 @@ const ALERT_ARRIVE_DISTANCE := 28.0
 const LURE_ARRIVE_DISTANCE := 20.0
 ## 被吸引時分心：面前只看得到平常的這個比例遠，背後看不到。
 const LURE_SIGHT_SCALE := 0.5
+## 視線被蒸汽擋住時往玩家那一頭推進多久（秒，NE-409）；還擋著就一直延長。
+const STEAM_PUSH_SECONDS := 1.5
 
 ## 場上的屍體（由舊到新）。
 static var _corpses: Array[Enemy] = []
@@ -982,9 +984,19 @@ func _can_see_target(max_range: float, max_height_diff := 120.0) -> bool:
 		max_range *= Lamp.DARK_SIGHT_SCALE
 	var offset := target.global_position - global_position
 	var seen := offset.length() <= max_range and absf(offset.y) <= max_height_diff and _has_line_of_sight()
+	if seen and _steam_between(target):
+		# 蒸汽擋住視線（NE-409）：看不到人、不開槍，但知道人在那一頭，往那裡推進（蒸汽擋子彈不擋人）。
+		raise_alert(target.global_position, STEAM_PUSH_SECONDS)
+		return false
 	if seen:
 		_lure_left = 0.0
 	return seen
+
+
+## 自己和目標之間有沒有蒸汽牆（NE-409）。只在地形不擋、距離也夠的時候才多打這一條射線。
+func _steam_between(target: Node2D) -> bool:
+	var query := PhysicsRayQueryParameters2D.create(_center(), _target_point(), Layers.SCREEN)
+	return target != null and not get_world_2d().direct_space_state.intersect_ray(query).is_empty()
 
 
 ## 前方一步是不是登記過的危險範圍（例如通電的積水，NE-408）；已經站在裡面就不算（不會在水裡原地打轉）。
