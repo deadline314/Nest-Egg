@@ -7,6 +7,7 @@ const PROLOGUE := "res://data/levels/ch1_prologue.tres"
 const PAWNSHOP := "res://data/levels/ch1_pawnshop.tres"
 const WAREHOUSE := "res://data/levels/ch1_warehouse.tres"
 const STREET := "res://data/levels/ch1_street.tres"
+const STALL := "res://data/levels/ch1_stall.tres"
 const SLOW := 0.15
 
 
@@ -47,6 +48,15 @@ func run() -> void:
 			await _open(STREET)
 			await wait(5.0)
 			await _bubble_styles()
+			await finish()
+			return
+		if arg.begins_with("--part=choice"):
+			Story.auto_skip = false
+			await _open(STALL)
+			await wait(2.0)
+			var choice_tag := arg.get_slice("@", 1) if arg.contains("@") else "after"
+			for scene_id: StringName in [&"ch1_t_supper_host_prompt", &"ch2_t_s22_tea"]:
+				await _choice_frame(scene_id, "%s-%s" % [choice_tag, scene_id])
 			await finish()
 			return
 		if arg == "--part=transitions":
@@ -265,6 +275,30 @@ func _bubble_styles() -> void:
 	host.show_lines(&"style_addressed", talk)
 	await wait(1.0)
 	capture("bubble-addressed")
+
+
+## 過場的選擇框不蓋住講者（NE-492）：播麵攤的招待選擇，台詞自動往下，選擇框出現後拍一張。
+func _choice_frame(scene_id: StringName, tag: String) -> void:
+	Story.skip_cinematic()
+	await wait(0.5)
+	# 直接用播放器播（和圖鑑的回看一樣），不受劇情旗標限制。
+	var cutscene := CutscenePlayer.new()
+	add_child(cutscene)
+	cutscene.play(scene_id, Story._scenes[String(scene_id)])
+	for i in 1200:
+		if is_instance_valid(cutscene):
+			if is_instance_valid(cutscene._choice):
+				break
+			if cutscene._dialogue.is_complete():
+				cutscene._advance_requested = true
+		await get_tree().process_frame
+	await wait(1.0)
+	capture("choice-%s" % tag)
+	if is_instance_valid(cutscene) and cutscene.has_method(&"_reading_actors"):
+		print("AUDIT choice %s actors=%s cam=%s zoom=%.2f corner=%d safe=%s screen=%s" % [scene_id, cutscene._reading_actors(), cutscene.cam_pos, cutscene.cam_zoom, cutscene._choice.corner if is_instance_valid(cutscene._choice) else -9, Story.framing.safe_rect(), get_viewport().get_visible_rect().size])
+	if is_instance_valid(cutscene):
+		cutscene.skip()
+		await wait(1.0)
 
 
 ## 遊戲流程的三種轉場用途（NE-427）：各拍蓋住一半、完全蓋住、揭開一半。

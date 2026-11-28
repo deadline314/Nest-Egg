@@ -15,6 +15,8 @@ const NOISE_SHADER := "res://ui/transition/transition.gdshader"
 const TITLE_FADE := 0.5
 const DocumentReader := preload("res://ui/inventory/document_reader.gd")
 const ChoicePanel := preload("res://game/cutscene/cutscene_choice_panel.gd")
+## 文字框擠不下時鏡頭讓位的時間（秒，NE-492）。
+const ROOM_CAMERA_TIME := 0.35
 ## 效果層（色調、閃光、雜訊、淡入淡出、黑邊、字幕、對話）的 z_index 起點，需高於任何角色零件。
 const EFFECT_Z := 200
 
@@ -42,6 +44,8 @@ var _steps: Array = []
 var _handlers: Dictionary[String, Callable] = {}
 var _stage: StageLibrary.Stage
 var _stage_holder: Node2D
+## 舞台背景圖的範圍：文字框讓位時鏡頭不能拍到它以外（NE-492）。
+var _stage_art := TextBoxPlacement.DEFAULT_ART
 var _actors: Dictionary[StringName, CutsceneActor] = {}
 var _root: Control
 var _dialogue: CutsceneDialogue
@@ -419,6 +423,62 @@ func _apply_camera() -> void:
 		_stage.apply_parallax(cam_pos)
 
 
+## 文字框不蓋住講者（NE-492）：對話框（下或上）與選擇框（四個角）挑不蓋住在場演員臉與上半身的位置；
+## 目前的位置還可以就不換（不跳來跳去）。allow_camera 時（一句台詞或一個選擇剛出現）都蓋到就讓鏡頭讓位。
+## 算法和靜態檢查共用（TextBoxPlacement、CutsceneChecker.text_box_problems）。
+func _place_text_boxes(allow_camera: bool) -> void:
+	if _stage_holder == null or not is_instance_valid(_root):
+		return
+	var screen := get_viewport().get_visible_rect().size
+	var safe := Story.framing.safe_rect()
+	var actors := _reading_actors()
+	var protected := TextBoxPlacement.protected_rects(actors, cam_pos, cam_zoom, screen)
+	if is_instance_valid(_choice) and _choice.is_visible_in_tree():
+		var choices := _choice.candidate_rects()
+		var pick := TextBoxPlacement.first_free(choices, protected, safe, _choice.corner)
+		if pick < 0 and allow_camera:
+			pick = _make_room(actors, screen, safe, choices)
+		if pick >= 0:
+			_choice.use_corner(pick)
+		return
+	if not _dialogue.is_visible_in_tree():
+		return
+	var boxes := _dialogue.box_candidates()
+	var slot := TextBoxPlacement.first_free(boxes, protected, safe, 1 if _dialogue.at_top else 0)
+	if slot < 0 and allow_camera:
+		slot = _make_room(actors, screen, safe, boxes)
+	if slot >= 0:
+		_dialogue.set_at_top(slot == 1)
+
+
+func _make_room(actors: Array[Dictionary], screen: Vector2, safe: Rect2, candidates: Array[Rect2]) -> int:
+	var room := TextBoxPlacement.make_room(actors, cam_pos, cam_zoom, screen, safe, candidates, _stage_art)
+	if not bool(room["ok"]):
+		return -1
+	var target_pos: Vector2 = room["cam"]
+	var target_zoom: float = room["zoom"]
+	if Settings.get_reduce_ui_motion() or skipping:
+		cam_pos = target_pos
+		cam_zoom = target_zoom
+		_apply_camera()
+	else:
+		var tween := _new_tween()
+		tween.set_parallel(true)
+		tween.tween_property(self, "cam_pos", target_pos, ROOM_CAMERA_TIME).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+		tween.tween_property(self, "cam_zoom", target_zoom, ROOM_CAMERA_TIME).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+	return int(room["index"])
+
+
+## 在場、看得到的演員：舞台座標的腳底與文字框要避開的身高。
+func _reading_actors() -> Array[Dictionary]:
+	var result: Array[Dictionary] = []
+	for id: StringName in _actors:
+		var actor := _actors[id]
+		if is_instance_valid(actor) and actor.is_visible_in_tree():
+			result.append({"id": String(id), "feet": _stage_holder.to_local(actor.global_position), "tall": actor.reading_height()})
+	return result
+
+
 func _shake_offset() -> Vector2:
 	if _shake <= 0.01:
 		return Vector2.ZERO
@@ -429,6 +489,7 @@ func _process(delta: float) -> void:
 	if not _running:
 		return
 	if not skipping:
+		_place_text_boxes(false)
 		for id: StringName in _actors:
 			var actor := _actors[id]
 			if is_instance_valid(actor) and actor.hand_targets_active():
@@ -644,6 +705,7 @@ func _do_scene(step: Dictionary) -> void:
 		_stage.queue_free()
 		_actors.clear()
 	_stage = StageLibrary.build(id) if stage_exists else StageLibrary.Stage.new()
+	_stage_art = TextBoxPlacement.stage_art(StageLibrary.definition(id)) if stage_exists else TextBoxPlacement.DEFAULT_ART
 	var initial_states: Variant = step.get("prop_states", {})
 	if initial_states is Dictionary and initial_states.size() <= 8:
 		for prop: Variant in initial_states:
@@ -866,6 +928,7 @@ func _do_say(step: Dictionary) -> void:
 	_set_talkers(StringName(str(step.get("speaker", ""))))
 	_advance_requested = false
 	_dialogue.show_line(speaker, str(step.get("text", "")), str(step.get("style", "normal")))
+	_place_text_boxes(true)
 	var auto := float(step.get("auto", 0.0))
 	var waited := 0.0
 	while not skipping and _running:
@@ -1078,6 +1141,11 @@ func _do_choice(step: Dictionary) -> void:
 	_isolate_ui_lighting(_choice)
 	_choice.layout_safe_rect(Story.framing.safe_rect())
 	_choice.focus_first_row()
+	# 換行後的面板大小要一兩格才排好；排好之後才決定放哪、需不需要鏡頭讓位。
+	await get_tree().process_frame
+	await get_tree().process_frame
+	if is_instance_valid(_choice):
+		_place_text_boxes(true)
 	var mouse_mode := Input.mouse_mode
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	while _chosen < 0 and not skipping and _running:

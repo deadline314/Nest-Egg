@@ -83,6 +83,13 @@ func setup(id: StringName, kind: String, portrait_path: String, unit_scale: floa
 	return true
 
 
+## 文字框要避開的身高（舞台座標，含縮放與姿勢，NE-492）：和靜態檢查（CutsceneChecker.settled_states）同一個算法；頭像剪影回傳 0（不檢查）。
+func reading_height() -> float:
+	if rig == null:
+		return 0.0
+	return RigLibrary.standing_height(rig.skin_id) * absf(scale.y) * float(CutsceneChecker.POSE_HEIGHT.get(String(pose), 1.0))
+
+
 func configure_seat(sag: Variant) -> void:
 	if typeof(sag) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(sag)) or float(sag) < 0.0 or float(sag) > 0.9:
 		push_error("[CutsceneActor] %s 的 seat_sag 必須是 0..0.9 的有限數字，沿用原坐姿" % actor_id)

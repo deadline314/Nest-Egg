@@ -21,6 +21,8 @@ func run() -> void:
 	await _test_end_card_handoff()
 	_test_place_names_are_places()
 	_test_text_traffic_order()
+	_test_text_box_placement()
+	_test_cutscene_text_boxes()
 	await _test_text_traffic_scene()
 	await _test_level_entry()
 
@@ -439,3 +441,38 @@ func _test_text_traffic_scene() -> void:
 	holder.queue_free()
 	await frames(2)
 	TextTraffic.reset()
+
+## 過場的文字框不蓋住講者（NE-492）：挑不蓋住人的位置；目前位置可用就不換；都蓋到時鏡頭讓位但不拍到背景圖以外。
+func _test_text_box_placement() -> void:
+	var screen := Vector2(640, 360)
+	var safe := Rect2(0, 42.857, 640, 274.29)
+	var actors: Array[Dictionary] = [{"id": "left", "feet": Vector2(270, 300), "tall": 120.0}, {"id": "right", "feet": Vector2(520, 300), "tall": 120.0}]
+	var protected := TextBoxPlacement.protected_rects(actors, Vector2(320, 180), 1.0, screen)
+	var choices := TextBoxPlacement.choice_candidate_set(safe, Vector2(300, 140), 14.0, 84.0, 20.0)
+	var pick := TextBoxPlacement.first_free(choices, protected, safe)
+	check(pick >= 0 and not choices[pick].intersects(protected[1]), "右邊有人時選擇框換到不蓋住人的位置（%d）" % pick)
+	check(TextBoxPlacement.first_free(choices, [], safe, 2) == 2, "目前的位置還可以用就不換")
+	var crowd: Array[Dictionary] = [{"id": "a", "feet": Vector2(250, 300), "tall": 150.0}, {"id": "b", "feet": Vector2(400, 300), "tall": 150.0}]
+	var crowded := TextBoxPlacement.protected_rects(crowd, Vector2(320, 180), 1.3, screen)
+	var room := TextBoxPlacement.make_room(crowd, Vector2(320, 180), 1.3, screen, safe, choices)
+	if TextBoxPlacement.first_free(choices, crowded, safe) < 0:
+		check(room["ok"], "每個位置都蓋到人時鏡頭讓位")
+	if room["ok"]:
+		check(TextBoxPlacement.DEFAULT_ART.grow(0.5).encloses(TextBoxPlacement.view_rect(room["cam"], room["zoom"], screen)), "讓位後不拍到背景圖以外")
+	var clamped := TextBoxPlacement.clamp_cam(Vector2(900, 180), 1.0, screen, TextBoxPlacement.DEFAULT_ART)
+	check(TextBoxPlacement.DEFAULT_ART.encloses(TextBoxPlacement.view_rect(clamped, 1.0, screen)), "鏡頭推回背景圖裡")
+
+
+## 所有章節的過場：每一句台詞與每個選擇框都有不蓋住演員臉與上半身的位置（或鏡頭讓位後有）。
+func _test_cutscene_text_boxes() -> void:
+	var problems := PackedStringArray()
+	var staged := 0
+	for id: String in Story._scenes:
+		var scene: Variant = Story._scenes[id]
+		if not scene is Dictionary or not (scene as Dictionary).get("steps") is Array:
+			continue
+		if not (scene["steps"] as Array).any(func(step: Variant) -> bool: return step is Dictionary and str(step.get("do", "")) == "scene"):
+			continue
+		staged += 1
+		problems.append_array(CutsceneChecker.text_box_problems(id, scene))
+	check(staged > 50 and problems.is_empty(), "%d 段過場的文字框都不蓋住講者（%s）" % [staged, ", ".join(problems)])

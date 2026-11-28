@@ -8,6 +8,8 @@ const BOX_RECT := Rect2(28, 268, 584, 76)
 ## 寬銀幕黑邊開著時，對話框底下留給下黑邊的空間：框頂 = 安全範圍下緣 − SAFE_BOTTOM_GAP（過場構圖檢查也用這個值）。
 const SAFE_BOTTOM_GAP := 84.0
 const SIDE_MARGIN := BOX_RECT.position.x
+## 對話框改到上方時（下方會蓋住演員的上半身，NE-492），框頂離安全範圍上緣的距離。
+const TOP_GAP := 8.0
 const BOTTOM_MARGIN := SAFE_BOTTOM_GAP - BOX_RECT.size.y
 const PORTRAIT_SIZE := 60.0
 const PORTRAIT_INSET := Vector2(10.0, 8.0)
@@ -38,6 +40,8 @@ var _time := 0.0
 var _slide_tween: Tween
 var _box_rect := BOX_RECT
 var _safe_rect := Rect2()
+## 對話框在上方（下方會蓋住演員時，NE-492）。
+var at_top := false
 var _frame_slide := 0.0:
 	set(value):
 		_frame_slide = value
@@ -230,6 +234,18 @@ func _apply_style_motion() -> void:
 		_ghost_b.position = origin if reduce_motion else origin + Vector2(-1.5 - jitter, 0.5)
 
 
+## 對話框可以放的兩個位置（下、上），由播放器挑不蓋住演員的那個。
+func box_candidates() -> Array[Rect2]:
+	return TextBoxPlacement.dialogue_candidates(_safe_rect, _panel.size, SIDE_MARGIN, BOTTOM_MARGIN + _panel.size.y, TOP_GAP)
+
+
+func set_at_top(value: bool) -> void:
+	if at_top == value:
+		return
+	at_top = value
+	_fit_box()
+
+
 func layout_safe_rect(rect: Rect2) -> void:
 	_safe_rect = rect
 	if Settings.get_reduce_ui_motion():
@@ -246,8 +262,8 @@ func _fit_box() -> void:
 	var width := maxf(0.0, _safe_rect.size.x - SIDE_MARGIN * 2.0)
 	_panel.custom_minimum_size.x = width
 	_panel.size = Vector2(width, _panel.get_combined_minimum_size().y)
-	_box_rect = Rect2(Vector2(_safe_rect.position.x + SIDE_MARGIN,
-			_safe_rect.end.y - BOTTOM_MARGIN - _panel.size.y), _panel.size)
+	var top := _safe_rect.position.y + TOP_GAP if at_top else _safe_rect.end.y - BOTTOM_MARGIN - _panel.size.y
+	_box_rect = Rect2(Vector2(_safe_rect.position.x + SIDE_MARGIN, top), _panel.size)
 	_layout_portrait()
 	_continue.position = _box_rect.end - Vector2(28, 18)
 	_apply_style_motion()

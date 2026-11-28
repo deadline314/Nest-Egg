@@ -316,18 +316,47 @@ static func _check_say(where: String, step: Dictionary, speakers: Dictionary) ->
 ## 腳底的畫面 y = 畫面中心 + (舞台 y − 鏡頭 y) × 縮放。每個演員只回報一次。
 static func staging_problems(scene_id: String, scene: Dictionary) -> PackedStringArray:
 	var problems := PackedStringArray()
+	var reported: Dictionary[String, bool] = {}
+	var head_reported: Dictionary[String, bool] = {}
+	for state in settled_states(scene):
+		var cam: Vector2 = state["cam"]
+		var zoom: float = state["zoom"]
+		var index: int = state["index"]
+		for actor: Dictionary in state["actors"]:
+			var id: String = actor["id"]
+			var feet: Vector2 = actor["feet"]
+			# 鏡頭外的演員（切到另一個人的單人鏡頭時）看不到，腳與頭都不檢查。
+			var on_screen_x := absf(feet.x - cam.x) * zoom <= STAGE_SIZE.x * 0.5
+			if not on_screen_x:
+				continue
+			var screen_y := STAGE_SIZE.y * 0.5 + (feet.y - cam.y) * zoom
+			if screen_y > FEET_MAX_SCREEN_Y and not reported.has(id):
+				reported[id] = true
+				problems.append("%s 第 %d 步：演員「%s」的腳底在畫面 y=%.0f，會被對話框蓋住（上限 %.0f）；把鏡頭中心往下移或降低縮放" % [scene_id, index, id, screen_y, FEET_MAX_SCREEN_Y])
+			var tall: float = actor["tall"]
+			var head_y := STAGE_SIZE.y * 0.5 + (feet.y - tall - cam.y) * zoom
+			if tall > 0.0 and head_y < LETTERBOX_BAR + HEAD_MARGIN and not head_reported.has(id):
+				head_reported[id] = true
+				problems.append("%s 第 %d 步：演員「%s」的頭頂在畫面 y=%.0f，被上方黑邊切掉（黑邊到 %.0f）；把鏡頭拉遠或把鏡頭中心往上移" % [scene_id, index, id, head_y, LETTERBOX_BAR])
+	return problems
+
+
+## 觀眾會停下來看的每一步（台詞、等待、旁白、選項、標題，以及最後一步）當下的鏡頭與在場演員。
+## 依序追蹤鏡頭（scene、camera 步驟的 pos／zoom）與每個演員的位置（actor、move）、身高與姿勢。
+## 回傳 [{index, kind, step, cam, zoom, actors: [{id, feet, tall}]}]；tall 是含縮放與姿勢的舞台身高，頭像剪影為 0。
+static func settled_states(scene: Dictionary) -> Array[Dictionary]:
+	var states: Array[Dictionary] = []
 	var steps: Variant = scene.get("steps", [])
 	if typeof(steps) != TYPE_ARRAY:
-		return problems
+		return states
 	var cam := STAGE_SIZE * 0.5
 	var zoom := 1.0
 	var feet: Dictionary[String, Vector2] = {}
-	var reported: Dictionary[String, bool] = {}
 	# 每個演員站立時的身高（舞台像素，已乘縮放）與目前的姿勢；沒有骨架的演員（頭像剪影）不檢查頭頂。
 	var heights: Dictionary[String, float] = {}
 	var poses: Dictionary[String, String] = {}
-	var head_reported: Dictionary[String, bool] = {}
 	var stage_floor := NAN
+	var art := TextBoxPlacement.DEFAULT_ART
 	var index := 0
 	for step: Variant in steps:
 		index += 1
@@ -340,6 +369,7 @@ static func staging_problems(scene_id: String, scene: Dictionary) -> PackedStrin
 					# 舞台不存在的錯誤由 _check_stage 回報；這裡只在讀得到時取地面線，不重複記錄。
 					var stage_id := StringName(str(step.get("id", "")))
 					stage_floor = float(StageLibrary.definition(stage_id).get("floor", NAN)) if StageLibrary.exists(stage_id) else NAN
+					art = TextBoxPlacement.stage_art(StageLibrary.definition(stage_id)) if StageLibrary.exists(stage_id) else TextBoxPlacement.DEFAULT_ART
 					# 換舞台（同一段裡切鏡）時播放器會清掉所有演員（CutscenePlayer._do_scene），這裡跟著重新追蹤。
 					feet.clear()
 					heights.clear()
@@ -373,21 +403,63 @@ static func staging_problems(scene_id: String, scene: Dictionary) -> PackedStrin
 		# （台詞、等待、旁白、選項、標題）或場景結束才檢查，不在換到一半時誤報。
 		if not SETTLED_STEPS.has(kind) and index < (steps as Array).size():
 			continue
+		var actors: Array[Dictionary] = []
 		for id: String in feet:
-			# 鏡頭外的演員（切到另一個人的單人鏡頭時）看不到，腳與頭都不檢查。
-			var on_screen_x := absf(feet[id].x - cam.x) * zoom <= STAGE_SIZE.x * 0.5
-			if not on_screen_x:
-				continue
-			var screen_y := STAGE_SIZE.y * 0.5 + (feet[id].y - cam.y) * zoom
-			if screen_y > FEET_MAX_SCREEN_Y and not reported.has(id):
-				reported[id] = true
-				problems.append("%s 第 %d 步：演員「%s」的腳底在畫面 y=%.0f，會被對話框蓋住（上限 %.0f）；把鏡頭中心往下移或降低縮放" % [scene_id, index, id, screen_y, FEET_MAX_SCREEN_Y])
-			var tall := float(heights.get(id, 0.0)) * float(POSE_HEIGHT.get(poses.get(id, "idle"), 1.0))
-			var head_y := STAGE_SIZE.y * 0.5 + (feet[id].y - tall - cam.y) * zoom
-			if tall > 0.0 and head_y < LETTERBOX_BAR + HEAD_MARGIN and not head_reported.has(id):
-				head_reported[id] = true
-				problems.append("%s 第 %d 步：演員「%s」的頭頂在畫面 y=%.0f，被上方黑邊切掉（黑邊到 %.0f）；把鏡頭拉遠或把鏡頭中心往上移" % [scene_id, index, id, head_y, LETTERBOX_BAR])
+			actors.append({"id": id, "feet": feet[id], "tall": float(heights.get(id, 0.0)) * float(POSE_HEIGHT.get(poses.get(id, "idle"), 1.0))})
+		states.append({"index": index, "kind": kind, "step": step, "cam": cam, "zoom": zoom, "actors": actors, "art": art})
+	return states
+
+
+## 過場的文字框不蓋住講者（NE-492）：每一句台詞的對話框、每一個選擇框，都要有一個不蓋住在場演員臉與上半身的位置，
+## 或鏡頭讓位後有。legacy = true 時改量舊的固定位置（對話框在下、選擇框在右上），用來算修前蓋住幾句。
+static func text_box_problems(scene_id: String, scene: Dictionary, legacy := false) -> PackedStringArray:
+	var problems := PackedStringArray()
+	var safe := Rect2(0.0, LETTERBOX_BAR, STAGE_SIZE.x, STAGE_SIZE.y - LETTERBOX_BAR * 2.0)
+	for state in settled_states(scene):
+		var kind: String = state["kind"]
+		var candidates: Array[Rect2] = []
+		if kind == "say":
+			candidates = TextBoxPlacement.dialogue_candidates(safe, Vector2(STAGE_SIZE.x - CutsceneDialogue.SIDE_MARGIN * 2.0, CutsceneDialogue.BOX_RECT.size.y),
+					CutsceneDialogue.SIDE_MARGIN, CutsceneDialogue.SAFE_BOTTOM_GAP, CutsceneDialogue.TOP_GAP)
+		elif kind == "choice":
+			candidates = TextBoxPlacement.choice_candidate_set(safe, estimate_choice_size(state["step"], safe), CutsceneChoicePanel.INSET, CutsceneDialogue.SAFE_BOTTOM_GAP, CutsceneChoicePanel.PANEL_PADDING.y)
+		else:
+			continue
+		var protected := TextBoxPlacement.protected_rects(state["actors"], state["cam"], state["zoom"], STAGE_SIZE)
+		var blocked := false
+		if legacy:
+			blocked = TextBoxPlacement.first_free([candidates[0]], protected, safe) < 0
+		else:
+			blocked = TextBoxPlacement.first_free(candidates, protected, safe) < 0 \
+					and not TextBoxPlacement.make_room(state["actors"], state["cam"], state["zoom"], STAGE_SIZE, safe, candidates, state["art"])["ok"]
+		if blocked:
+			problems.append("%s 第 %d 步（%s）：%s蓋住在場演員的臉或上半身" % [scene_id, state["index"], kind, "對話框" if kind == "say" else "選擇框"])
 	return problems
+
+
+## 選擇框多大（靜態檢查用）：照面板的寬度規則，用真正的字型與字級量題目、選項與說明換行後的高度。
+static func estimate_choice_size(step: Dictionary, safe: Rect2) -> Vector2:
+	var width := floorf(minf(maxf(1.0, safe.size.x - CutsceneChoicePanel.INSET * 2.0), clampf(safe.size.x * 0.48, CutsceneChoicePanel.MIN_WIDTH, CutsceneChoicePanel.MAX_WIDTH)))
+	var inner := width - CutsceneChoicePanel.PANEL_PADDING.x
+	var font := UiKit.font()
+	var height := CutsceneChoicePanel.PANEL_PADDING.y
+	height += _text_height(font, str(step.get("text", "")), inner, UiKit.role_size(&"heading")) + 11.0
+	var options: Variant = step.get("options", [])
+	var note := 0.0
+	if options is Array:
+		for option: Variant in options:
+			if not option is Dictionary:
+				continue
+			height += maxf(22.0, _text_height(font, str(option.get("text", "")), inner - 28.0, UiKit.role_size(&"body")) + 8.0) + 3.0
+			note = maxf(note, _text_height(font, str(option.get("explanation", "")), inner, UiKit.role_size(&"body")))
+	height += CutsceneChoicePanel.GAP + note + 4.0 + font.get_height(UiKit.role_size(&"caption"))
+	return Vector2(width, ceilf(height))
+
+
+static func _text_height(font: Font, text: String, width: float, size: int) -> float:
+	if text.is_empty():
+		return 0.0
+	return font.get_multiline_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, maxf(1.0, width), size, -1, TextServer.BREAK_MANDATORY | TextServer.BREAK_WORD_BOUND | TextServer.BREAK_GRAPHEME_BOUND).y
 
 
 static func _check_stage(where: String, id: StringName) -> PackedStringArray:

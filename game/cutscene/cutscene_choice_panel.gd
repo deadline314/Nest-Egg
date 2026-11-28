@@ -1,3 +1,4 @@
+class_name CutsceneChoicePanel
 extends PanelContainer
 ## Compact presentation of an authored choice. The player still owns all results and cancellation.
 
@@ -16,6 +17,13 @@ var _note := UiKit.label("", UiKit.FS_BODY, Palette.UI_MUTED)
 var _back_hint := UiKit.caption("", Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_RIGHT)
 var _notes: Dictionary[Button, String] = {}
 var _safe_rect := Rect2()
+## 用哪一個候選（每 4 個一組：右上、左上、右下、左下；第一組原本寬度，之後是較窄的寬度，NE-492）：由播放器挑不蓋住演員的那個。
+var corner := 0
+## 較窄的寬度（0＝照原本的規則）。
+var width_override := 0.0
+## 原本寬度時的大小（候選的基準，換成較窄寬度時不變）。
+var _base_size := Vector2.ZERO
+var _panel_size := Vector2.ZERO
 var _note_font: Font
 var _note_font_size := 0
 var _note_width := 0.0
@@ -102,6 +110,21 @@ func set_back_hint(text: String) -> void:
 	_back_hint.text = text
 
 
+## 選擇框可以放的四個角（右上、左上、右下、左下）。
+func candidate_rects() -> Array[Rect2]:
+	var base := _base_size if _base_size != Vector2.ZERO else _panel_size
+	return TextBoxPlacement.choice_candidate_set(_safe_rect, base, INSET, CutsceneDialogue.SAFE_BOTTOM_GAP, PANEL_PADDING.y)
+
+
+func use_corner(index: int) -> void:
+	if index == corner:
+		return
+	corner = index
+	var rects := candidate_rects()
+	width_override = rects[index].size.x if index >= 4 and index < rects.size() else 0.0
+	_fit()
+
+
 func layout_safe_rect(rect: Rect2) -> void:
 	_safe_rect = rect
 	_fit()
@@ -110,15 +133,20 @@ func layout_safe_rect(rect: Rect2) -> void:
 func _fit() -> void:
 	if not is_inside_tree() or _safe_rect.size.x <= 0.0 or _safe_rect.size.y <= 0.0:
 		return
-	var width := floorf(minf(maxf(1.0, _safe_rect.size.x - INSET * 2.0),
+	var base_width := floorf(minf(maxf(1.0, _safe_rect.size.x - INSET * 2.0),
 			clampf(_safe_rect.size.x * 0.48, MIN_WIDTH, MAX_WIDTH)))
+	var width := width_override if width_override > 0.0 else base_width
 	_reserve_note_height(maxf(1.0, width - PANEL_PADDING.x))
 	var scroll_limit := maxf(1.0, floorf(_safe_rect.size.y - INSET * 2.0 - PANEL_PADDING.y
 			- _footer.get_bound_minimum_size().y - GAP))
 	if _scroll.custom_maximum_size.y != scroll_limit:
 		_scroll.custom_maximum_size.y = scroll_limit
-	position = Vector2(floorf(_safe_rect.end.x - INSET - width), ceilf(_safe_rect.position.y + INSET))
-	size = Vector2(width, get_bound_minimum_size().y)
+	_panel_size = Vector2(width, get_bound_minimum_size().y)
+	if width_override <= 0.0:
+		_base_size = _panel_size
+	size = _panel_size
+	var rects := candidate_rects()
+	position = rects[clampi(corner, 0, rects.size() - 1)].position
 
 
 func _reserve_note_height(width: float) -> void:
