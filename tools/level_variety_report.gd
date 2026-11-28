@@ -200,6 +200,8 @@ func _area(data: LevelData, layout: LevelLayout) -> Dictionary:
 			_count(area["mechanisms"], "通電纜線")
 		elif res is ConveyorData:
 			_count(area["mechanisms"], "輸送帶")
+		elif res is CrumblingWalkwayData:
+			_count(area["mechanisms"], "會塌的走道")
 		elif res is ThrowableData:
 			_count(area["mechanisms"], "可投擲物")
 			other = false

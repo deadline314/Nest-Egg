@@ -128,7 +128,7 @@
     {"id": "rooftop__rope_coil_hook", "x": 22, "ground": false, "y": 49, "dy": 0.0}
   ],
   "layout_revision": 2,
-  "legacy_layout": {"revision": 1, "cell_offset": [0, 32], "cells": {}},
+  "legacy_layout": {"revision": 1, "cell_offset": [0, 32], "cells": {"20,17": [31, 43]}},
   "key_light": {"x": 20, "y": 30, "color": [0.55, 0.7, 1.0], "energy": 0.5, "light_radius": 520, "halo_radius": 260, "halo_alpha": 0.3, "front_wash": 0.04, "shafts": {"count": 5, "angle": 25, "length": 420, "width": 26, "spread": 200}, "occlusion": [0.3, 0.8], "period": 50},
   "near_foreground": [{"anchor": "bottom", "base": ["railing"], "deck_base": ["curb_bollards", "deck_beam"], "rise": 13, "from": 0, "to": 72}, {"anchor": "top", "pieces": ["cables"], "above": 175, "spacing": [140, 300], "from": 0, "to": 72}],
   "midground": {"pieces": ["crates_stack", "barrels", "trash_can"], "spacing": [50, 120], "from": 2, "to": 70},

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=21 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=22 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
@@ -13,9 +13,10 @@
 [ext_resource type="Resource" path="res://data/enemies/ch1_inspector.tres" id="11_ch1_inspector"]
 [ext_resource type="Resource" path="res://data/props/ch1_enc_warehouse_vault.tres" id="12_ch1_enc_warehouse_vault"]
 [ext_resource type="Resource" path="res://data/props/ch1_enc_warehouse_walkway.tres" id="13_ch1_enc_warehouse_walkway"]
-[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="14_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/warehouse_interior.tres" id="15_warehouse_interior"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch1_vault.tres" id="16_ch1_vault"]
+[ext_resource type="Resource" path="res://data/props/steam_valve.tres" id="14_steam_valve"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="15_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/warehouse_interior.tres" id="16_warehouse_interior"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch1_vault.tres" id="17_ch1_vault"]
 
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("2_portal_data")
@@ -54,10 +55,10 @@ height = 56
 style = "door"
 
 [sub_resource type="Resource" id="Resource_3"]
-script = ExtResource("14_lighting_zone")
+script = ExtResource("15_lighting_zone")
 start_tile = 0
 blend_tiles = 12
-profile = ExtResource("15_warehouse_interior")
+profile = ExtResource("16_warehouse_interior")
 
 [resource]
 script = ExtResource("1_level_data")
@@ -80,14 +81,15 @@ legend = Dictionary[String, Resource]({
 "z": ExtResource("11_ch1_inspector"),
 "ε": ExtResource("12_ch1_enc_warehouse_vault"),
 "η": ExtResource("13_ch1_enc_warehouse_walkway"),
+"σ": ExtResource("14_steam_valve"),
 "↞": SubResource("Resource_2")
 })
 hints = PackedStringArray("保險箱裡有一片資料盤，拿到後就能從上層通道離開。", "朝左上瞄準，看清踏板再跳。", "取得資料盤後，在空中再按 {jump} 跳上高台；失手會落回這個平台，可再試一次。")
 chapter = &"ch1_kasa"
 persistent_world = true
 show_chapter_card = false
-environment = ExtResource("16_ch1_vault")
+environment = ExtResource("17_ch1_vault")
 layout_path = "res://data/levels/ch1_vault_map.json"
-lighting_zones = Array[ExtResource("14_lighting_zone")]([SubResource("Resource_3")])
+lighting_zones = Array[ExtResource("15_lighting_zone")]([SubResource("Resource_3")])
 story_triggers = PackedStringArray("ch1_g10_disk")
 death_credit_cap = 250

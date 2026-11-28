@@ -1846,6 +1846,8 @@ func _run_spots() -> void:
 	for spot: Array in spots:
 		var tile: int = spot[1]
 		var y := layout.surface_heights[tile] - 2.0
+		if spot.size() > 2:
+			y = float(int(spot[2]) * layout.tile_size) - 2.0   # 第三欄寫明站在哪一列的地面上（頭上有別的走道時）
 		if layout.surface_heights[tile] < layout.tile_size * 4.0:
 			# 頂上是厚天花板的室內：先穿過實心的天花板，再找下面的地板。
 			var row := 4
@@ -2422,7 +2424,7 @@ const SPOTS := {
 	"ch3_clinic": [["exit", 90], ["storeroom", 100]],
 	"ch4_nursing_ward": [["shelf", 52]],
 	"ch4_factory_roof": [["deck", 44]],
-	"ch1_stall": [["a", 20]],
+	"ch1_stall": [["a", 20], ["awning", 41]],
 	"ch1_street": [["wall", 33], ["market", 84], ["mid", 130], ["dock", 196]],
 }
 

@@ -16,6 +16,7 @@ from scenery_placement import prepare_props
 from npc_prompt_translations import localized_prompt
 from area_name_translations import AREA_NAMES
 from portal_translations import localized_lock, localized_prompt as localized_portal_prompt
+from encounter_translations import localized as localized_encounter_text
 from level_kit import Grid, RouteState, PLAYER_JUMP_TILES, HEADROOM  # noqa: E402
 
 ROOT = os.path.join(os.path.dirname(__file__), '..', '..')
@@ -71,6 +72,10 @@ RES = {
     # 可破壞物與機關
     'x': 'res://data/props/ch1_crate.tres',
     'X': 'res://data/props/ch1_secret_wall.tres',
+    # 玩法線的機關（字元在每一章同義）。
+    'σ': 'res://data/props/steam_valve.tres',
+    '!': 'res://data/props/suspended_crate.tres',
+    '┅': 'res://data/props/crumbling_walkway.tres',
     'A': 'res://data/props/ch1_switch_a.tres',
     'a': 'res://data/props/ch1_gate_a.tres',
     'R': 'res://data/props/ch1_switch_b.tres',
@@ -177,6 +182,10 @@ CHAPTER = 'ch1_kasa'
 # authored world geometry when the import policy halves the raster resolution.
 BACKDROP = [("far_skyline", 0.12, 300.0, 2560), ("mid_buildings", 0.26, 320.0, 2560), ("near_foreground", 0.5, 360.0, 1280)]
 SKY_SOURCE_WIDTH = 4096
+
+
+# 本身就是走道的一格（會塌的走道，NE-420）：不檢查腳下有沒有地面。
+WALKWAY_TILES = ('┅',)
 
 
 class Area:
@@ -329,7 +338,7 @@ class Area:
             for x in range(self.w):
                 c = g.at(x, y)
                 if c in ('P', 'C') or c in legend_chars or c.isdigit():
-                    if c in flying:
+                    if c in flying or c in WALKWAY_TILES:
                         continue
                     if not self.solid_below(x, y):
                         problems.append(f'{self.id}: {c!r} 在 ({x},{y}) 腳下沒有地面')
@@ -1139,9 +1148,14 @@ def build_stall():
     a.stand(44, 'Z')
     a.trigger(12, 'ch1_b_stall')
     a.stand(21, 'Q')
+    # 雨棚上的路（地圖線 NE-450）：凳子堆旁踩上矮雨棚，再上出口頂上的鐵皮棚，盡頭是野貓藏東西的角落；
+    # 從棚子右端落回巷口。章末連續三區都是平地對話，這裡給一段可以爬的路。
+    a.platform(30, 35, 16)
+    a.platform(37, 44, 13)
+    a.stand(43, 'q', row=12)
     a.prop('dawn_noodle_stall__ali_noodle_cart', 18)
     a.prop('dawn_noodle_stall__noodle_bowls_table', 26, react='noodle_meal')
-    a.prop('dawn_noodle_stall__stool_stack', 32)
+    a.prop('dawn_noodle_stall__stool_stack', 32, y=19)   # 頭上有雨棚：寫明站在地上
     a.prop('dawn_noodle_stall__hanging_lantern', 22, y=12)
     a.prop('dawn_noodle_stall__dawn_string_lights', 14, y=10)
     a.prop('dawn_noodle_stall__cat_box_bed', 36)
@@ -1293,7 +1307,8 @@ def write_encounter_files(areas):
             w = TresWriter('MechanismData', 'res://data/scripts/mechanism_data.gd')
             width = e['x1'] - e['x0'] + 1
             lines = [f'script = ExtResource("{w.script_id}")', f'id = &"{PREFIX}_enc_{e["key"]}"', 'kind = 5',
-                     f'display_name = {json.dumps("遭遇：" + e["name"], ensure_ascii=False)}', f'channel = &"{channel}"',
+                     f'display_name = {json.dumps("遭遇：" + e["name"], ensure_ascii=False)}', *_localized_line('localized_names', "遭遇：" + e["name"]),
+                     f'channel = &"{channel}"',
                      f'size_tiles = Vector2i({width}, {e["gate_h"]})', f'max_lock_seconds = {float(e["max_lock"])}']
             if e['reinforcements']:
                 enemy_script = w.ext('res://data/scripts/enemy_data.gd', 'Script')
@@ -1301,18 +1316,26 @@ def write_encounter_files(areas):
                 lines.append(f'reinforcements = Array[ExtResource("{enemy_script}")]([{refs}])')
             if e['start_text']:
                 lines.append(f'start_text = {json.dumps(e["start_text"], ensure_ascii=False)}')
+                lines += _localized_line('localized_start_text', e['start_text'])
             if e['clear_text']:
                 lines.append(f'clear_text = {json.dumps(e["clear_text"], ensure_ascii=False)}')
+                lines += _localized_line('localized_clear_text', e['clear_text'])
             if e['start_scene']:
                 lines.append(f'start_scene = &"{e["start_scene"]}"')
             with open(os.path.join(ENCOUNTER_DIR, f'{PREFIX}_enc_{e["key"]}.tres'), 'w', encoding='utf-8', newline='\n') as f:
                 f.write(w.render(lines))
             g = TresWriter('MechanismData', 'res://data/scripts/mechanism_data.gd')
             glines = [f'script = ExtResource("{g.script_id}")', f'id = &"{PREFIX}_arena_{e["key"]}"', 'kind = 1',
-                      f'display_name = "競技場閘門"', 'hint = ""', 'color = Color(1, 0.35, 0.3, 1)', f'channel = &"{channel}"',
+                      f'display_name = "競技場閘門"', *_localized_line('localized_names', '競技場閘門'), 'hint = ""', 'color = Color(1, 0.35, 0.3, 1)', f'channel = &"{channel}"',
                       f'size_tiles = Vector2i(1, {e["gate_h"]})', 'arena_gate = true']
             with open(os.path.join(ENCOUNTER_DIR, f'{PREFIX}_arena_{e["key"]}.tres'), 'w', encoding='utf-8', newline='\n') as f:
                 f.write(g.render(glines))
+
+
+def _localized_line(field, text):
+    """遭遇與閘門文字的日英文（tools/level/encounter_translations.py）；還沒有翻譯就不寫。"""
+    tr = localized_encounter_text(text)
+    return [f'{field} = Dictionary[String, String]({json.dumps(tr, ensure_ascii=False)})'] if tr else []
 
 
 # 教學曲線（引入 → 練習 → 組合 → 考驗）：每個戰鬥技巧在哪四場遭遇出現，依路線順序（街道在倉庫之前、同區依位置）。
@@ -1720,12 +1743,24 @@ def _v2_area(old):
 
 def build_rooftop():
     area = _v2_area(_build_rooftop_v1())
+    # 會塌的走道（NE-420，玩法線的示範）：三段踏板與一格會塌的走道。
+    for x0, x1, y in ((9, 11, 47), (14, 15, 44), (30, 32, 44)):
+        area.platform(x0, x1, y)
+    area.put(16, 44, '┅')
+    # 信用點的新位置寫在 ch1_layout_v2.json 的 legacy_layout（"20,17" → [31, 43]），存檔裡撿過的記錄才對得上。
     area.features.update(loop='維修階梯接街道上層；資料盤取得後雙向開放', vertical='屋頂地面與維修出口兩層')
     return area
 
 
 def build_street():
     area = _v2_area(_build_street_v1())
+    area.put(160, 36, 'σ')   # 蒸汽閥（NE-398）：路障前的掩護
+    # 安全段的兩位街坊（故事線 ST-59）：走到第 27 欄時聊起天，人站在第 29、32 欄。
+    # 字元只在第一章的街道用（第三章的 Ⓦ 是等候臺），所以不放進各章共用的 RES，在這裡才登記。
+    RES.update({'Ⓕ': 'res://data/npcs/ch1_street_flyer.tres', 'Ⓦ': 'res://data/npcs/ch1_street_worker.tres'})
+    area.trigger(27, 'ch1_b_street_chatter')
+    area.put(29, 51, 'Ⓕ')
+    area.put(32, 51, 'Ⓦ')
     # 近前景（BG-68）：走道外緣的鐵網欄杆（只露出小腿高，戰鬥範圍更矮），上緣的吊纜與燈籠串（戰鬥範圍不放）。
     # 夜裡霧色比天空亮，立面霧只加一點（BG-69）。
     area.map_extra = {'facade_haze': 0.1, 'midground': {'pieces': ['vending_machine', 'trash_can', 'crates_stack', 'barrels', 'harbor_street__umbrella_stand', 'harbor_street__fish_cart'], 'spacing': [70, 200], 'from': 2, 'to': 206},  # 中景（BG-69）：靠牆的販賣機、垃圾桶、貨箱、油桶、傘架、魚車
@@ -1739,6 +1774,9 @@ def build_street():
 def build_warehouse_pair():
     front, back = _build_warehouse_pair_v1()
     front, back = _v2_area(front), _v2_area(back)
+    front.put(37, 48, '!')   # 吊掛貨箱（NE-397）：開關守衛頭上
+    # 蒸汽閥（地圖線 NE-450）：保險箱平台上，槍手與督察之間；射開後蒸汽牆擋住督察那一側的子彈。
+    back.put(31, 28, 'σ')
     front.features.update(vertical='保留水位閘門，通過後爬升至貨道頂部')
     back.features.update(loop='上層維修門回港區街道；原交接出口仍保留', vertical='入口、資料盤平台、上層走道')
     for name, x, y, channel in [('watchdog',73,48,'watchdog_gate'),('gate_a',90,48,'flood_a'),
