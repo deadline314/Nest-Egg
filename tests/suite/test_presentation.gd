@@ -668,8 +668,11 @@ func _test_pickup_yields_to_bubble() -> void:
 	holder.add_child(bubbles)
 	var lines: Array[Dictionary] = [{"speaker": "street_vendor", "text": "市集那頭被收帳的封了，菜車只好繞去碼頭。", "color": Palette.UI_TEXT}]
 	bubbles.show_lines(&"pickup_fixture", lines)
-	for i in 6:
+	# 等氣泡排好位置（機器忙時可能晚幾格）。
+	for i in 90:
 		await frames(1)
+		if not bubbles._active.is_empty() and (bubbles._active[0].get("rect", Rect2()) as Rect2).has_area():
+			break
 	var natural: Rect2 = bubbles._active[0].get("rect", Rect2()) if not bubbles._active.is_empty() else Rect2()
 	# 拾取說明放在氣泡原本的位置上。
 	var pickup := WorldPrompt.new()

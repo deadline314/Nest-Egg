@@ -97,6 +97,9 @@ func _test_call_timeline_and_weapon_swap() -> void:
 	var toasts: Array[String] = []
 	var listener := func(text: String) -> void: toasts.append(text)
 	EventBus.toast_requested.connect(listener)
+	var said: Array[String] = []
+	var booth_listener := func(text: String) -> void: said.append(text)
+	booth.said.connect(booth_listener)
 	check(booth.start_call(player), "the call starts")
 	await physics_frames(3)
 	check(player._visual.rig.weapon_def().is_empty(), "the weapon is put away first")
@@ -116,8 +119,11 @@ func _test_call_timeline_and_weapon_swap() -> void:
 	check(handset_seen, "the handset is in hand during the call")
 	check(progress_ok and frames_seen >= 55, "the call animation advances smoothly (%d frames)" % frames_seen)
 	check(str(player._visual.rig.weapon_def().get("file", "")) == str(RigLibrary.weapon(original).get("file", "x")), "the original weapon is back afterwards")
-	check(toasts.has(Checkpoint.SLOGAN), "the receiver plays the slogan")
+	check(said.has(Checkpoint.SLOGAN), "the receiver's slogan shows above the booth")
+	check(toasts.is_empty(), "the booth uses no screen banner (%s)" % [toasts])
+	check(booth.is_confirming() and player.state == Player.State.NORMAL, "the booth performs the save while the player can already move")
 	EventBus.toast_requested.disconnect(listener)
+	booth.said.disconnect(booth_listener)
 
 	var rifle := preload("res://data/weapons/rifle.tres") as WeaponData
 	var rifle_slot := player.loadout.equip(rifle)
@@ -155,7 +161,7 @@ func _test_checkpoint_language() -> void:
 		await physics_frames(12)
 		var obtained: Array[String] = []
 		var listener := func(message: String) -> void: obtained.append(message)
-		EventBus.toast_requested.connect(listener)
+		booth.said.connect(listener)
 		check(booth._prompt.text == words[1] and booth.can_dial(),
 				"the real phone starts with the translated action in " + words[0])
 		check(booth.start_call(level.player), "the real phone can make its first call in " + words[0])
@@ -163,7 +169,7 @@ func _test_checkpoint_language() -> void:
 			if not booth.is_calling():
 				break
 			await physics_frames(1)
-		check(booth.activated and booth._prompt.text == words[2] and GameState.checkpoint_applies(level.data.resource_path)
+		check(booth.activated and booth.caption_text() == words[4] and GameState.checkpoint_applies(level.data.resource_path)
 				and obtained.has(words[3]) and obtained.has(words[4]),
 				"the call records the checkpoint and announces the first result in " + words[0])
 		await physics_frames(8)
@@ -173,9 +179,11 @@ func _test_checkpoint_language() -> void:
 			if not booth.is_calling():
 				break
 			await physics_frames(1)
-		check(obtained.has(words[3]) and obtained.has(words[5]),
-				"the second call names the recorded checkpoint and ammo refill in " + words[0])
-		EventBus.toast_requested.disconnect(listener)
+		check(not obtained.has(words[3]) and obtained.has(words[5]),
+				"the second call is shorter: no slogan caption, names the checkpoint and ammo refill in " + words[0])
+		await runner.get_tree().create_timer(Checkpoint.CAPTION_AGAIN + 0.2).timeout
+		check(booth.caption_text().is_empty() and booth._prompt.text == words[2], "after the caption the booth offers the redial again in " + words[0])
+		booth.said.disconnect(listener)
 		await end_level(level)
 	Story.language = old_language
 

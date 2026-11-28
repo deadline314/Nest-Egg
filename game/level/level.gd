@@ -518,8 +518,21 @@ func _begin_death_reactions() -> void:
 	if not is_inside_tree():
 		return
 	if GameState.consume_checkpoint_notice():
-		EventBus.toast_requested.emit(REGISTERED_TOAST)
+		# 說明由醒來的那座電話亭自己說（NE-494）；找不到亭子才退回畫面上的橫幅。
+		var booth := _booth_at(GameState.checkpoint_position)
+		if booth != null:
+			booth.show_caption(REGISTERED_TOAST, Checkpoint.CAPTION_NOTICE)
+		else:
+			EventBus.toast_requested.emit(REGISTERED_TOAST)
 	Story.play_respawn_reactions(data.chapter)
+
+
+## 這個位置上的電話亭（重生點）；沒有回傳 null。
+func _booth_at(point: Vector2) -> Checkpoint:
+	for node in _entities.get_children():
+		if node is Checkpoint and (node as Checkpoint).global_position.distance_to(point) < 1.0:
+			return node
+	return null
 
 
 ## 這一區要不要標示地點：章末收尾與進場後自動離開的過渡區域不標示。

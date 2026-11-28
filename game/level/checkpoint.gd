@@ -4,6 +4,11 @@ extends Area2D
 ## 死亡後在最近的亭子醒來。話筒裡永遠是那句標語「再來一次，沒關係」。
 ## 啟動後再按一次可以補滿彈藥、重新備份；只是路過不會啟動。亭子的外觀自己畫（玻璃、雨痕、發光招牌、話筒），
 ## 有待機、通話中、已啟動三種光色；從這個亭子重生時直接顯示為已啟動，並有一小段來電鈴聲與招牌閃動。
+## 「登記完成」由亭子自己演（NE-494）：招牌螢幕像進度條一樣填滿、亮出勾號，亭子的光漲起再穩下來，一聲短音；
+## 亭子上方一行字只是輔助（不用畫面上方的橫幅）。不鎖操作；已啟動的亭子再撥一次時更短、更輕。
+
+## 亭子說了一句話（字幕）；測試與診斷用。
+signal said(text: String)
 
 ## 互動範圍（玩家腳底往上），與提示文字出現的範圍一致。
 const REACH := Vector2(52.0, 48.0)
@@ -34,6 +39,16 @@ const UNIT_HEIGHT := 15.0
 ## 撥號時玩家站在亭子外牆旁，離亭子中心的水平距離。
 const STAND_DISTANCE := 23.0
 const RAIN_STREAKS := 7
+## 登記完成的演出長度（秒）：第一次撥、再撥一次（更短）。
+const CONFIRM_FIRST := 1.3
+const CONFIRM_AGAIN := 0.6
+## 亭子上方字幕顯示多久（秒）。
+const CAPTION_FIRST := 1.8
+const CAPTION_AGAIN := 1.0
+## 第一次死亡後在這座亭子醒來時的說明（「電話亭已登記」）顯示多久。
+const CAPTION_NOTICE := 3.2
+## 招牌螢幕在演出的前這一段像進度條一樣填滿，之後亮出勾號。
+const FILL_PORTION := 0.45
 
 var activated := false
 
@@ -54,6 +69,11 @@ var _side := -1
 ## 重生演出：剩餘秒數與是否已播過來電鈴聲。
 var _rebirth := 0.0
 var _rang := false
+## 登記完成演出的已過秒數（負值＝沒有在演）與長度；這次是不是第一次撥。
+var _confirm_t := -1.0
+var _confirm_len := CONFIRM_FIRST
+## 亭子字幕剩下的秒數（0＝顯示平常的撥號提示）。
+var _caption_left := 0.0
 
 
 func _ready() -> void:
@@ -75,14 +95,15 @@ func _ready() -> void:
 	_prompt = WorldPrompt.new()
 	_prompt.text = _text("first")
 	_prompt.radius = REACH.x * 0.5 + 6.0
-	_prompt.reach_check = interaction_available
+	# 字幕顯示中就算玩家走開也讀得到；平常只在可以撥號時出現。
+	_prompt.reach_check = func() -> bool: return _caption_left > 0.0 or interaction_available()
 	_prompt.interaction_owner = self
 	_prompt.offset = Vector2(0, -HEIGHT - 8.0)
 	add_child(_prompt)
 	Story.framing.register_target(self)
 	# 從這個亭子重生時直接顯示為已啟動，並有一段來電鈴聲與招牌閃動。
 	if GameState.checkpoint_applies(GameState.current_level_path) and GameState.checkpoint_position.distance_to(global_position) < 1.0:
-		_set_active(false)
+		_set_active()
 		_rebirth = 1.4
 	_apply_state()
 
@@ -149,6 +170,25 @@ func is_calling() -> bool:
 	return _call_t >= 0.0
 
 
+## 登記完成的演出還在進行（不鎖操作，只是亭子自己在演）。
+func is_confirming() -> bool:
+	return _confirm_t >= 0.0
+
+
+## 亭子自己說一句話：顯示在亭子上方，過一段時間換回撥號提示。
+func show_caption(text: String, seconds: float) -> void:
+	_caption_left = seconds
+	_prompt.text = text
+	_prompt.enabled = true
+	# 字幕屬於亭子本身，不跟著「目前選到的互動對象」藏起來。
+	_prompt.interaction_owner = null
+	said.emit(text)
+
+
+func caption_text() -> String:
+	return _prompt.text if _caption_left > 0.0 else ""
+
+
 func _physics_process(_delta: float) -> void:
 	# Use the same interaction tick as dropping objects, so one press has one target.
 	if Input.is_action_just_pressed(&"interact") and can_dial():
@@ -157,6 +197,16 @@ func _physics_process(_delta: float) -> void:
 
 func _process(delta: float) -> void:
 	_time += delta
+	if _caption_left > 0.0:
+		_caption_left = maxf(0.0, _caption_left - delta)
+		if _caption_left <= 0.0:
+			_prompt.text = _text("again" if activated else "first")
+			_prompt.interaction_owner = self
+			_prompt.enabled = _call_t < 0.0
+	if _confirm_t >= 0.0:
+		_confirm_t += delta
+		if _confirm_t >= _confirm_len:
+			_confirm_t = -1.0
 	if _call_t >= 0.0:
 		_tick_call(delta)
 	if _rebirth > 0.0:
@@ -186,7 +236,9 @@ func _tick_call(delta: float) -> void:
 	if not _voiced and p >= T_VOICE:
 		_voiced = true
 		Sfx.play(&"phone_voice", -4.0)
-		EventBus.toast_requested.emit(_text("voice"))
+		# 話筒裡的標語：第一次撥時顯示在亭子上方；再撥一次只有聲音（回訪更短）。
+		if not activated:
+			show_caption(_text("voice"), CAPTION_FIRST)
 	if not _hung and p >= T_HANGUP:
 		_hung = true
 		_handset_out = false
@@ -208,22 +260,29 @@ func _complete_call(player: Player) -> void:
 	_prompt.enabled = true
 	var first := not activated
 	if first:
-		_set_active(true)
+		_set_active()
 		if GameState.difficulty.checkpoint_heals:
 			player.health.heal(player.health.max_health)
 	player.loadout.refill_all()
 	GameState.set_checkpoint(global_position, player.checkpoint_snapshot(), WorldState.capture(get_tree()), Progression.snapshot())
-	EventBus.toast_requested.emit(_text("set" if first else "refilled"))
+	_play_confirm(first)
 
 
-func _set_active(with_effects: bool) -> void:
+## 登記完成：亭子自己演（招牌填滿亮勾、光漲起再穩、一聲短音），上方一行字輔助。再撥一次時更短、更輕。
+func _play_confirm(first: bool) -> void:
+	_confirm_t = 0.0
+	_confirm_len = CONFIRM_FIRST if first else CONFIRM_AGAIN
+	Sfx.play(&"ui_confirm", -4.0 if first else -10.0)
+	if first:
+		Fx.flash_light(global_position + Vector2(0, -30), Palette.CYAN, 120.0, 1.6, 0.45)
+	show_caption(_text("set" if first else "refilled"), CAPTION_FIRST if first else CAPTION_AGAIN)
+
+
+func _set_active() -> void:
 	activated = true
-	_prompt.text = _text("again")
+	if _caption_left <= 0.0:
+		_prompt.text = _text("again")
 	_apply_state()
-	if with_effects:
-		Fx.burst(global_position + Vector2(0, -30), Palette.CYAN, 14, 130.0)
-		Fx.flash_light(global_position + Vector2(0, -30), Palette.CYAN, 140.0, 2.0, 0.5)
-		Sfx.play(&"ui_confirm", -4.0)
 
 
 func _text(key: String) -> String:
@@ -244,6 +303,10 @@ func _update_light() -> void:
 		energy = 1.2 + 0.25 * sin(_time * 14.0)
 	if _rebirth > 0.0:
 		energy += 0.6 * absf(sin(_time * 18.0)) * minf(1.0, _rebirth)
+	if _confirm_t >= 0.0:
+		# 光先漲起再穩到已啟動的亮度；再撥一次時漲得較少。
+		var k := clampf(_confirm_t / _confirm_len, 0.0, 1.0)
+		energy += (0.9 if _confirm_len >= CONFIRM_FIRST else 0.45) * sin(PI * minf(1.0, k * 1.6)) * (1.0 - k)
 	_light.energy = energy
 
 
@@ -301,7 +364,23 @@ func _draw() -> void:
 	var sign_box := _rounded(Rect2(-9.0, -HEIGHT + 4.0, 18.0, 7.0), 2.0)
 	draw_polygon(sign_box, PackedColorArray([Color(0.04, 0.06, 0.1, 0.95)]))
 	draw_polyline(_close(sign_box), sign_color, 0.9)
+	if _confirm_t >= 0.0:
+		_draw_confirm(clampf(_confirm_t / _confirm_len, 0.0, 1.0))
+		return
 	draw_polyline(PackedVector2Array([Vector2(-5.0, -HEIGHT + 9.0), Vector2(-3.4, -HEIGHT + 6.6), Vector2(3.4, -HEIGHT + 6.6), Vector2(5.0, -HEIGHT + 9.0)]), sign_color, 1.1)
+
+
+## 招牌螢幕的登記演出：前段由左往右填滿（像進度條），之後亮出勾號、最後淡回話筒圖示。
+func _draw_confirm(k: float) -> void:
+	var inner := Rect2(-7.5, -HEIGHT + 5.5, 15.0, 4.0)
+	var bright := LightKit.glow(Palette.CYAN, 1.8)
+	if k < FILL_PORTION:
+		var fill := inner.size.x * smoothstep(0.0, 1.0, k / FILL_PORTION)
+		draw_rect(Rect2(inner.position, Vector2(fill, inner.size.y)), Color(bright, 0.85))
+		return
+	var fade := 1.0 - smoothstep(0.75, 1.0, k)
+	var check := Color(LightKit.glow(Palette.WHITE, 1.6), fade)
+	draw_polyline(PackedVector2Array([Vector2(-3.0, -HEIGHT + 7.6), Vector2(-0.8, -HEIGHT + 9.4), Vector2(3.6, -HEIGHT + 5.6)]), check, 1.2)
 
 
 static func frame_edge_color() -> Color:

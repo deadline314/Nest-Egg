@@ -55,6 +55,20 @@ func run() -> void:
 			await _world_text(arg.get_slice("@", 1) if arg.contains("@") else "after")
 			await finish()
 			return
+		if arg.begins_with("--part=booth"):
+			Story.auto_skip = true
+			GameState.clear_checkpoint()
+			GameState.pending_portal = &""
+			await _open("res://data/levels/ch1_booth_alley.tres")
+			await wait(5.0)
+			await _booth(arg.get_slice("@", 1) if arg.contains("@") else "after")
+			await finish()
+			return
+		if arg == "--part=contrast":
+			Story.auto_skip = true
+			await _world_text_contrast()
+			await finish()
+			return
 		if arg.begins_with("--part=choice"):
 			Story.auto_skip = false
 			await _open(STALL)
@@ -280,6 +294,94 @@ func _bubble_styles() -> void:
 	host.show_lines(&"style_addressed", talk)
 	await wait(1.0)
 	capture("bubble-addressed")
+
+
+## 檢查點（NE-494）：電話亭巷的電話亭，第一次撥（通話中、登記中、勾號、結束）與再撥一次（更短），各拍幾格。
+func _booth(tag: String) -> void:
+	player.health.setup(999, 0.0)
+	var booth: Checkpoint = null
+	for node in level.find_children("*", "", true, false):
+		if node is Checkpoint and (booth == null or absf(node.global_position.x - player.global_position.x) < absf(booth.global_position.x - player.global_position.x)):
+			booth = node
+	if booth == null:
+		print("AUDIT no booth in booth alley")
+		return
+	# 第一章第一個亭子會播一段劇情錄音（故事線的內容）；這裡只拍亭子自己的演出，先當作聽過。
+	Story._seen[&"ch1_t_booth_recording"] = true
+	player.global_position = booth.global_position + Vector2(-Checkpoint.STAND_DISTANCE, 0.0)
+	player.facing = 1
+	snap_camera()
+	await wait(1.2)
+	_booth_shot(booth, "booth-%s-0-near" % tag)
+	booth.start_call(player)
+	await wait(0.75)
+	_booth_shot(booth, "booth-%s-1-call" % tag)
+	while booth.is_calling():
+		await get_tree().process_frame
+	for step: Array in [[0.2, "2-filling"], [0.55, "3-check"], [0.35, "4-settle"]]:
+		await wait(step[0])
+		_booth_shot(booth, "booth-%s-%s" % [tag, step[1]])
+	await wait(1.5)
+	_booth_shot(booth, "booth-%s-5-done" % tag)
+	booth.start_call(player)
+	while booth.is_calling():
+		await get_tree().process_frame
+	await wait(0.2)
+	_booth_shot(booth, "booth-%s-6-again" % tag)
+	await wait(1.4)
+	_booth_shot(booth, "booth-%s-7-again-done" % tag)
+
+
+## 世界文字的對比（NE-494 併入）：最不利的三個場景（第一章街道的霓虹、第四章紅光舊廠、第三章冷白辦公大廳），
+## 拾取說明放在畫面左、中、右三處，對凜說的話在凜頭上；每處拍「有字」與「沒字」兩格，並印出文字框在畫面上的位置（640×360）。
+func _world_text_contrast() -> void:
+	for area: Array in [["street", STREET, &"street_home"], ["factory", "res://data/levels/ch4_factory_approach.tres", &""], ["office", "res://data/levels/ch3_office_hall.tres", &""]]:
+		GameState.pending_portal = area[2]
+		await _open(area[1])
+		await wait(4.0)
+		player.health.setup(999, 0.0)
+		var host: MapBubbles = null
+		for node in level.find_children("*", "", true, false):
+			if node is MapBubbles:
+				host = node
+		host.anchor_resolver = func(_id: String) -> Node2D: return player
+		var view := MapBubbles.TEXT_LAYOUT.world_rect(get_viewport())
+		for i in 3:
+			var pickup := WorldPrompt.new()
+			pickup.text = "止痛貼片：撐過下一場就好，別當成治療。"
+			pickup.set("text_kind", &"pickup")
+			pickup.reach_check = func() -> bool: return true
+			level.add_child(pickup)
+			pickup.global_position = Vector2(view.position.x + view.size.x * (0.2 + 0.3 * float(i)), view.position.y + view.size.y * (0.3 + 0.12 * float(i)))
+			var talk: Array[Dictionary] = [{"speaker": "rin", "text": "先把這裡的貨單抄下來，再去碼頭找他。", "color": Palette.MAGENTA}]
+			host.show_lines(StringName("contrast_%s_%d" % [area[0], i]), talk)
+			for k in 20:
+				await wait(0.1)
+				if host._active.any(func(b: Dictionary) -> bool: return (b.get("rect", Rect2()) as Rect2).has_area()):
+					break
+			await wait(0.6)
+			var canvas := get_viewport().get_canvas_transform()
+			var pickup_rect := canvas * Rect2(pickup.base_rect().position + pickup._nudge, pickup.base_rect().size)
+			var bubble_rect := Rect2()
+			for b: Dictionary in host._active:
+				bubble_rect = canvas * (b.get("rect", Rect2()) as Rect2)
+			var name := "contrast-%s-%d" % [area[0], i]
+			capture(name + "-text")
+			print("AUDIT contrast %s pickup=%s bubble=%s" % [name, pickup_rect, bubble_rect])
+			pickup.visible = false
+			host.visible = false
+			await get_tree().process_frame
+			capture(name + "-bare")
+			host.visible = true
+			pickup.queue_free()
+			while host.is_busy():
+				await wait(0.2)
+
+
+## 拍一格電話亭，並印出亭子在畫面上的位置（640×360 畫布），方便裁出近拍。
+func _booth_shot(booth: Checkpoint, name: String) -> void:
+	capture(name)
+	print("AUDIT booth %s at %s" % [name, get_viewport().get_canvas_transform() * booth.global_position])
 
 
 ## 世界裡的文字在螢幕上的大小（NE-493）：取景最緊的第一章街道（靠近人物時 21:9 遮幅）與最鬆的倉庫（沒有遮幅），

@@ -222,8 +222,12 @@ func _test_first_death_flow() -> void:
 	var on_toast := func(text: String) -> void: toasts.append(text)
 	EventBus.toast_requested.connect(on_toast)
 	level = await spawn_level(load(BOOTH_AREA) as LevelData)
+	var said: Array[String] = []
+	for node in level.find_children("*", "", true, false):
+		if node is Checkpoint:
+			(node as Checkpoint).said.connect(func(text: String) -> void: said.append(text))
 	await frames(150)
-	check(toasts.has(Level.REGISTERED_TOAST), "the respawn shows the booth-registered hint (%s)" % [toasts])
+	check(said.has(Level.REGISTERED_TOAST) and not toasts.has(Level.REGISTERED_TOAST), "the booth the player wakes at says it is registered, without a screen banner (%s / %s)" % [said, toasts])
 	check(not GameState.checkpoint_notice_pending, "the hint shows only once")
 	check(is_instance_valid(level.player) and level.player.global_position.distance_to(booths[0]) < 60.0, "the player wakes at the booth")
 	EventBus.toast_requested.disconnect(on_toast)
