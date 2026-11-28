@@ -22,7 +22,7 @@ const LAYER := UiLayers.TRANSITION
 ## 各轉場「蓋住」或「揭開」單程的預設秒數。死亡重來（GLITCH）總長 0.7 秒；世界裡換地方（FADE）單程 0.3 秒（同類遊戲房間之間的淡出約在這個長度）。
 const DEFAULT_TIME: Dictionary[int, float] = {
 	Kind.FADE: 0.3, Kind.FADE_WHITE: 0.35, Kind.IRIS: 0.5, Kind.SCAN: 0.5,
-	Kind.GLITCH: 0.35, Kind.ELEVATOR: 0.7, Kind.BLINDS: 0.45, Kind.REWIND: 0.35,
+	Kind.GLITCH: 0.35, Kind.ELEVATOR: 0.7, Kind.BLINDS: 0.45, Kind.REWIND: 0.28,
 }
 const SKIP_SPEED := 4.0
 const CAPTION_FADE := 0.15

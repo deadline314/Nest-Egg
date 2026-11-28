@@ -17,6 +17,9 @@ func run() -> void:
 	await _test_marker()
 	await _test_marker_still_and_suspended()
 	await _test_end_card()
+	await _test_covered_screens()
+	await _test_end_card_handoff()
+	_test_place_names_are_places()
 	await _test_level_entry()
 
 
@@ -297,3 +300,69 @@ func _test_level_entry() -> void:
 	check(resumed_marker, "接續存檔時顯示目前地點")
 	await end_level(resumed)
 	Story.auto_skip = previous_skip
+
+## 蓋住遊戲的畫面出現時地點標示藏起來（NE-490）：共用判斷 UiLayers.gameplay_covered，圖層在這些畫面之下。
+func _test_covered_screens() -> void:
+	check(UiLayers.LOCATION_MARKER > UiLayers.HUD and UiLayers.LOCATION_MARKER < UiLayers.DEATH and UiLayers.LOCATION_MARKER < UiLayers.INVENTORY
+		and UiLayers.LOCATION_MARKER < UiLayers.PAUSE and UiLayers.LOCATION_MARKER < UiLayers.CONTROLLER_NOTICE, "地點標示畫在 HUD 之上、所有蓋住遊戲的畫面之下")
+	for path in ["res://ui/death_screen.gd", "res://ui/controller_recovery_prompt.gd", "res://ui/victory_screen.gd", "res://ui/run_overwrite_prompt.gd",
+			"res://ui/destination_save_prompt.gd", "res://ui/radio_save_prompt.gd"]:
+		check(FileAccess.get_file_as_string(path).contains("add_to_group(UiLayers.COVER_GROUP)"), "蓋住遊戲的畫面登記到共用群組：%s" % path)
+	var marker := LocationMarker.new()
+	marker.place_name = "測試地點"
+	runner.add_child(marker)
+	await frames(2)
+	marker._process(0.0)
+	check(marker._root.visible, "沒有東西蓋住時地點標示顯示")
+	var death := DeathScreen.new()
+	death.setup(DefeatCodex.unlock(&"grunt_shot", Story.language), true)
+	runner.add_child(death)
+	await frames(2)
+	marker._process(0.0)
+	check(UiLayers.gameplay_covered(runner.get_tree()) and not marker._root.visible and not marker._tween.is_running(), "死亡畫面開著時地點標示藏起來並凍結")
+	death.queue_free()
+	await frames(2)
+	marker._process(0.0)
+	check(marker._root.visible, "死亡畫面關掉後地點標示恢復")
+	var prompt := (load("res://ui/controller_recovery_prompt.gd") as GDScript).new() as Control
+	runner.add_child(prompt)
+	await frames(2)
+	marker._process(0.0)
+	check(not marker._root.visible, "手把斷線提示開著時地點標示藏起來")
+	prompt.queue_free()
+	await frames(2)
+	marker.queue_free()
+	await frames(1)
+
+
+## 章末畫面收尾後沒有人接手（例如工具單獨載入這一區）：黑底淡掉並釋放，不會停在黑畫面。
+func _test_end_card_handoff() -> void:
+	var card := ChapterCard.new()
+	card.chapter_name = "傘"
+	card.hold = 0.05
+	runner.add_child(card)
+	await frames(2)
+	check(UiLayers.presentation_busy(runner.get_tree()), "章末畫面在的時候工具查得到「有全螢幕的演出在進行」")
+	card._done()
+	await runner.get_tree().create_timer(ChapterCard.HANDOFF_WAIT + ChapterCard.HANDOFF_FADE + 0.4).timeout
+	check(not is_instance_valid(card), "沒有人接手時章末畫面的黑底淡掉並釋放")
+	check(not UiLayers.presentation_busy(runner.get_tree()), "釋放後工具可以取樣")
+
+
+## 地點標示顯示的是地點名稱：區域的名稱欄位不能寫成章節標題（NE-490）。
+func _test_place_names_are_places() -> void:
+	var titles: Array[String] = []
+	for chapter in Story.chapter_ids():
+		titles.append(str(Story.chapter_info(chapter).get("title", "")))
+	var pattern := RegEx.create_from_string("第.{1,3}章|序章|Chapter\\s")
+	var wrong: Array[String] = []
+	for path in DirAccess.get_files_at("res://data/levels"):
+		if not path.ends_with(".tres"):
+			continue
+		var data := load("res://data/levels/" + path) as LevelData
+		if data == null:
+			continue
+		for name: String in [data.display_name, str(data.localized_names.get("en", "")), str(data.localized_names.get("ja", ""))]:
+			if titles.has(name) or pattern.search(name) != null:
+				wrong.append("%s：%s" % [path, name])
+	check(wrong.is_empty(), "區域名稱都是地點，不是章節標題（%s）" % ", ".join(wrong))

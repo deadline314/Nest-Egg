@@ -32,6 +32,9 @@ const SEAL_COLOR := Color("c73a2e")
 const SEAL_TILT := -7.0
 const SEAL_PRESS := 1.25
 const SEAL_SCALE := 0.4
+## 收尾後黑底最多留多久等下一個畫面接手（正常流程是結算或下一章的轉場立刻蓋上）；沒人接手就淡掉並釋放，不會停在黑畫面。
+const HANDOFF_WAIT := 1.5
+const HANDOFF_FADE := 0.4
 ## 章名縮小時（太長的英文章名），印不跟著縮到比這個比例（相對於時刻大標原本的字級）更小。
 const SEAL_MIN_SCALE := 0.3
 
@@ -207,9 +210,17 @@ func _done() -> void:
 	GameplayLock.release(_lock_token)
 	_lock_token = 0
 	finished.emit()
-	# 黑底留著給下一個畫面（結算）接手，避免關卡閃出一格；關卡釋放時一起釋放。
+	# 黑底留著給下一個畫面（結算、下一章）接手，避免關卡閃出一格；關卡釋放時一起釋放。
+	# 沒有人接手（例如單獨載入這一區的工具、流程被拒絕）時，等一下就淡掉並釋放，不會停在黑畫面。
 	set_process(false)
 	set_process_input(false)
+	await get_tree().create_timer(HANDOFF_WAIT, true, false, true).timeout
+	if not is_inside_tree() or is_queued_for_deletion():
+		return
+	var release := create_tween()
+	release.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	release.tween_property(_root, "modulate:a", 0.0, HANDOFF_FADE)
+	release.tween_callback(queue_free)
 
 
 ## 朱色方印：圓角方塊、內縮一圈細框、字反白；蓋下去時從稍大壓到原大小。

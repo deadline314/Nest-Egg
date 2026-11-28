@@ -10,6 +10,8 @@ var _message: Label
 
 
 func _ready() -> void:
+	# 蓋住遊戲的畫面：疊在遊戲上的演出（地點標示）看到它就藏起來（UiLayers.gameplay_covered）。
+	add_to_group(UiLayers.COVER_GROUP)
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	add_to_group(FocusHintBar.OWN_HINTS_GROUP)
 	UiKit.fit_to_viewport(self)

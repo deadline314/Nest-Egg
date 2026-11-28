@@ -4,7 +4,7 @@ extends CanvasLayer
 ## 一條霓虹細軌由上往下畫出來，地名（標題字體）接著淡入，下面一行是另一種語言的地名；
 ## 後面只有往左淡掉的暗色襯底，沒有方框。回訪時只顯示地名、較小、停留較短。
 ## 右下角是可走地面以下的地層，角色、敵人、子彈與世界提示都在地面之上；左上角是任務目標、左下角是武器列。
-## 不擋輸入；暫停、背包、通訊時凍結並藏起來；「減少動態」時不滑動、不畫軌，只淡入淡出。
+## 不擋輸入；暫停、背包、通訊與任何蓋住遊戲的畫面（死亡畫面、提示…）出現時凍結並藏起來；「減少動態」時不滑動、不畫軌，只淡入淡出。
 
 signal finished
 
@@ -96,7 +96,7 @@ static func split_note(text: String) -> PackedStringArray:
 
 
 func _ready() -> void:
-	layer = UiLayers.CHAPTER_CARD
+	layer = UiLayers.LOCATION_MARKER
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	add_to_group(UiLayers.PRESENTATION_GROUP)
 	_root = Control.new()
@@ -268,7 +268,7 @@ func crowded() -> bool:
 
 
 func _update_presentation() -> void:
-	var suspended := get_tree().paused or DialogueLayer.radio_visible()
+	var suspended := UiLayers.gameplay_covered(get_tree())
 	_root.visible = not suspended
 	if suspended == _suspended:
 		return

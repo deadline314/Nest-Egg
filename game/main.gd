@@ -5,7 +5,7 @@ extends Node
 ## 新遊戲的第一個區域的預設值；實際起點以 data/release/campaign.json 為準（CampaignEdition.first_level）。
 ## 舊的雨夜關卡在 data/levels/level_01.tres 保留給既有測試與開發用，只有開發版可進入。
 const FIRST_LEVEL := CampaignEdition.DEFAULT_FIRST_LEVEL
-const RETRY_HOLD := 0.22
+const RETRY_HOLD := 0.15
 const SAVE_FAILURE_TOAST := "存檔未成功，原進度仍保留。"
 const SAVE_FAILURE_TRANSLATIONS: Dictionary[String, String] = {
 	"ja": "保存できませんでした。前回のセーブは残っています。",

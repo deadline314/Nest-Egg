@@ -22,6 +22,8 @@ var cancel_button: Button
 
 
 func _ready() -> void:
+	# 蓋住遊戲的畫面：疊在遊戲上的演出（地點標示）看到它就藏起來（UiLayers.gameplay_covered）。
+	add_to_group(UiLayers.COVER_GROUP)
 	UiKit.fill_parent(self)
 	theme = UiKit.theme()
 	var shade := ColorRect.new()
