@@ -339,7 +339,8 @@ func _build_ui() -> void:
 	_noise = _make_noise_rect()
 	_initial_cover_pending = not _overlay_mode
 	_fade = _overlay(Color(0, 0, 0, 1.0 if _initial_cover_pending else 0.0))
-	_center_text = UiKit.label("", UiKit.FS_DISPLAY, Palette.UI_TEXT, HORIZONTAL_ALIGNMENT_CENTER)
+	# 置中旁白（時間跳躍、地點）用時刻標題的字體（NE-422）；字級照原本的設定。
+	_center_text = UiKit.with_role_font(UiKit.label("", UiKit.FS_DISPLAY, Palette.UI_TEXT, HORIZONTAL_ALIGNMENT_CENTER), &"display") as Label
 	_center_text.set_anchors_preset(Control.PRESET_FULL_RECT)
 	_center_text.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	_center_text.offset_top = -12

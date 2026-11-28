@@ -954,7 +954,7 @@ func _test_weapon_guard_transition() -> void:
 						# Software rendering can consume 4.2 wall seconds before the
 						# real presentation tween has finished. Await its real signal.
 						for child in level.get_children():
-							if child is ChapterCard:
+							if child is LocationMarker:
 								await child.finished
 				_aim(player, Vector2(face, 0.0))
 				var target := _dummy(float(reaches[id]) * face)

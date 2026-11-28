@@ -18,9 +18,17 @@ const HOLD_REVISIT := 1.4
 const FADE_OUT := 0.9
 ## 地名淡入時從右邊滑進來的距離（畫面像素）。
 const SLIDE := 6.0
-## 版面（畫面像素）：細軌離右緣多遠、標示下緣離底邊多遠（留出右下角的操作說明）。
-const MARGIN_RIGHT := 14.0
-const MARGIN_BOTTOM := 42.0
+## 版面（畫面像素）：右緣和右下角的操作說明對齊（hud.gd 的操作說明右緣離畫面 12、上緣離底邊 34），
+## 標示下緣固定在操作說明上方 10 像素，兩者看起來是上下兩塊、不是疊在一起。
+const MARGIN_RIGHT := 12.0
+const CONTROLS_TOP := 34.0
+const CONTROLS_GAP := 10.0
+const MARGIN_BOTTOM := CONTROLS_TOP + CONTROLS_GAP
+## 玩家或敵人進到標示的範圍時，標示淡到這個程度（判讀優先）；淡出、恢復的速度（每秒）。
+const AVOID_ALPHA := 0.12
+const AVOID_SPEED := 5.0
+## 判斷角色有沒有進到標示範圍時，角色身體的大約範圍（世界座標，腳底為原點）。
+const BODY_RECT := Rect2(-12, -56, 24, 56)
 const RAIL_GAP := 7.0
 const RAIL_WIDTH := 2.0
 ## 暗色襯底：從文字左緣再往左延伸多遠才完全透明、最深處的不透明度（HDR 線性混色，要夠高才看得出來）。
@@ -28,9 +36,10 @@ const WASH_REACH := 96.0
 const WASH_ALPHA := 0.62
 const WASH_COLOR := Color("060b12")
 const SCAN_STEP := 3.0
-const SCAN_ALPHA := 0.16
+const SCAN_ALPHA := 0.025
 const NAME_COLOR := Color("eef6f8")
-const SUB_SPACING := 2
+## 第二行（外文地名）：比地名弱一階，對比仍至少 4.5:1（見 TYPOGRAPHY.md 的對比標準）。
+const SUB_COLOR := Color("7fd3e3")
 ## 地名裡的括號註記（例如「當舖（天亮）」的「天亮」）另外用小字排在地名右邊。
 const NOTE_PATTERN := "^(.+?)\\s*[（(]([^）)]+)[）)]\\s*$"
 
@@ -54,8 +63,8 @@ var _sub_alpha := 0.0
 var _envelope := 1.0
 var _slide := 0.0
 var _suspended := false
+var _avoid := 1.0
 static var _note_regex: RegEx
-static var _sub_font: FontVariation
 
 
 ## 依區域資料建立標示；名稱空白時回傳 null（不顯示）。
@@ -89,6 +98,7 @@ static func split_note(text: String) -> PackedStringArray:
 func _ready() -> void:
 	layer = UiLayers.CHAPTER_CARD
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	add_to_group(UiLayers.PRESENTATION_GROUP)
 	_root = Control.new()
 	_root.set_anchors_preset(Control.PRESET_FULL_RECT)
 	_root.theme = UiKit.theme()
@@ -121,15 +131,16 @@ func _ready() -> void:
 	_name_row.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_column.add_child(_name_row)
 	var parts := split_note(place_name)
-	_name_label = UiKit.heading(parts[0], NAME_COLOR) if revisit else UiKit.label(parts[0], UiKit.FS_TITLE, NAME_COLOR)
-	_name_label.add_theme_font_override(&"font", UiKit.special_font(&"title"))
+	# 地名用畫面標題的字體；回訪的短版用段落標題的字級。
+	_name_label = UiKit.styled(parts[0], &"title", NAME_COLOR)
+	if revisit:
+		UiKit.set_text_role(_name_label, &"heading")
 	_name_row.add_child(_name_label)
-	_note_label = UiKit.caption(parts[1], Palette.CYAN)
+	_note_label = UiKit.styled(parts[1], &"caption", SUB_COLOR)
 	_note_label.size_flags_vertical = Control.SIZE_SHRINK_END
 	_note_label.visible = not parts[1].is_empty()
 	_name_row.add_child(_note_label)
-	_sub_label = UiKit.caption(secondary, Palette.CYAN_DIM, HORIZONTAL_ALIGNMENT_RIGHT)
-	_sub_label.add_theme_font_override(&"font", _subtitle_font())
+	_sub_label = UiKit.styled(secondary, &"label", SUB_COLOR, HORIZONTAL_ALIGNMENT_RIGHT)
 	_sub_label.visible = not revisit and not secondary.is_empty()
 	_column.add_child(_sub_label)
 	PromptLayout.add_obstacle(self, prompt_obstacle_rect)
@@ -138,15 +149,6 @@ func _ready() -> void:
 	_set_sub(0.0)
 	_start()
 	_update_presentation()
-
-
-## 第二行用標籤字體加大字距，像路牌上的外文。
-static func _subtitle_font() -> Font:
-	if _sub_font == null:
-		_sub_font = FontVariation.new()
-		_sub_font.base_font = UiKit.special_font(&"display")
-		_sub_font.spacing_glyph = SUB_SPACING
-	return _sub_font
 
 
 func _start() -> void:
@@ -194,8 +196,18 @@ func _set_sub(value: float) -> void:
 
 func _set_envelope(value: float) -> void:
 	_envelope = value
+	_apply_alpha()
+
+
+func _apply_alpha() -> void:
 	if is_instance_valid(_root):
-		_root.modulate.a = value
+		_root.modulate.a = _envelope * _avoid
+
+
+## 從出現到釋放要多久（秒，不含暫停的時間）。
+func lifetime() -> float:
+	var appear := NAME_DELAY + NAME_TIME + (SUB_DELAY if not revisit and not secondary.is_empty() else 0.0)
+	return maxf(appear, RAIL_TIME) + (HOLD_REVISIT if revisit else HOLD_FIRST) + FADE_OUT
 
 
 ## 目前可見的程度（工具與測試用）：地名淡入的程度乘上整體淡出。
@@ -231,8 +243,28 @@ func prompt_obstacle_rect() -> Rect2:
 	return canvas.affine_inverse() * screen_rect()
 
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	_update_presentation()
+	if not _root.visible:
+		return
+	var target := AVOID_ALPHA if crowded() else 1.0
+	if not is_equal_approx(_avoid, target):
+		_avoid = move_toward(_avoid, target, delta * AVOID_SPEED)
+		_apply_alpha()
+
+
+## 玩家或敵人在標示的範圍裡（畫面座標）：標示要讓開。只在標示存在的幾秒內檢查。
+func crowded() -> bool:
+	var area := screen_rect()
+	if not area.has_area():
+		return false
+	var canvas := get_viewport().get_canvas_transform()
+	for group: StringName in [&"player", &"enemies"]:
+		for node in get_tree().get_nodes_in_group(group):
+			var body := node as Node2D
+			if body != null and body.is_visible_in_tree() and area.intersects(canvas * Rect2(body.global_position + BODY_RECT.position, BODY_RECT.size)):
+				return true
+	return false
 
 
 func _update_presentation() -> void:

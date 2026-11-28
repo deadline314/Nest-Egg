@@ -487,14 +487,10 @@ func _run_story_ch2() -> void:
 	Story.play(&"c2_radio_voice")
 	await _wait(2.0)
 	_capture("story2_voice")
-	var info := Story.chapter_info(&"chapter_02")
-	_show_chapter_card(level, str(info["title"]), str(info["subtitle"]))
+	# 進場的地點標示（NE-421 起取代疊在畫面上的章節標題）。
+	level._show_location()
 	await _wait(1.6)
-	_capture("story2_chapter_title")
-
-
-func _show_chapter_card(level: Level, title: String, subtitle: String) -> void:
-	level._show_chapter_card(title, subtitle, false)
+	_capture("story2_place")
 
 
 ## 第二章關卡：逐區段拍攝（升降井入口、升降井、夾層區、電力室、轉運站）與幾個關鍵場景。

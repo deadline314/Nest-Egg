@@ -287,7 +287,7 @@ func _tour(level_id: String) -> bool:
 			elif node is WorldPrompt:
 				node.visible = false
 				node.process_mode = Node.PROCESS_MODE_DISABLED
-			elif node is ChapterCard:
+			elif node.is_in_group(UiLayers.PRESENTATION_GROUP):
 				node.queue_free()
 		for node in get_tree().get_nodes_in_group(&"enemies"):
 			node.queue_free()

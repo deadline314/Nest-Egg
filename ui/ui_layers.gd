@@ -7,6 +7,8 @@ const POST_PROCESS := 5
 const HUD := 10
 const DEATH := 25
 const CHAPTER_CARD := 55
+## 演出層（地點標示、章末畫面）都在這個群組：截圖與量測工具要乾淨的畫面時，清掉這個群組即可。
+const PRESENTATION_GROUP := &"presentation_overlays"
 const CUTSCENE := 58
 const FRAMING := 59
 const DIALOGUE := 60

@@ -82,7 +82,7 @@ func _ready() -> void:
 	column.add_theme_constant_override(&"separation", 8)
 	column.custom_minimum_size = Vector2(CARD_WIDTH, 0)
 
-	column.add_child(UiKit.label(record_title(GameState.deaths), UiKit.FS_TITLE, Palette.DANGER, HORIZONTAL_ALIGNMENT_CENTER))
+	column.add_child(UiKit.with_role_font(UiKit.label(record_title(GameState.deaths), UiKit.FS_TITLE, Palette.DANGER, HORIZONTAL_ALIGNMENT_CENTER), &"title"))
 	column.add_child(UiKit.label(_text("failed"), UiKit.FS_BODY, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_CENTER))
 	var note := Story.death_note()
 	if not note.is_empty():
@@ -158,7 +158,7 @@ func _make_file_card() -> Control:
 	var panel := UiPanel.new(_text("codex") % int(_card.get("number", 0)), Palette.WARNING)
 	if bool(_card.get("is_new", false)):
 		panel.body.add_child(UiKit.label(_text("new"), UiKit.FS_BODY, Palette.NEON_YELLOW))
-	var title := UiKit.label(str(_card.get("title", "???")), UiKit.FS_TITLE, Palette.UI_TEXT)
+	var title := UiKit.with_role_font(UiKit.label(str(_card.get("title", "???")), UiKit.FS_TITLE, Palette.UI_TEXT), &"title") as Label
 	title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	panel.body.add_child(title)
 	var text := UiKit.label(str(_card.get("text", "")), UiKit.FS_BODY, Palette.UI_MUTED)

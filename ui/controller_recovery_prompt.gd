@@ -26,7 +26,7 @@ func _ready() -> void:
 	var panel := UiPanel.new(copy("遊戲已暫停", "ゲームは一時停止中です", "Game paused"), Palette.WARNING)
 	panel.custom_minimum_size.x = 380
 	center.add_child(panel)
-	_title = UiKit.label(copy("手把已斷線", "接続が切れました", "Controller disconnected"), UiKit.FS_TITLE, Palette.UI_TEXT)
+	_title = UiKit.with_role_font(UiKit.label(copy("手把已斷線", "接続が切れました", "Controller disconnected"), UiKit.FS_TITLE, Palette.UI_TEXT), &"title") as Label
 	_title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	panel.body.add_child(_title)
 	_message = UiKit.label(copy("重新接上手把，或改用鍵盤與滑鼠。", "コントローラーを再接続するか、キーボードとマウスを使ってください。", "Reconnect your controller, or use keyboard and mouse."), UiKit.FS_BODY)

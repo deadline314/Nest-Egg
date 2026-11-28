@@ -205,7 +205,7 @@ func _tour(level_id: String) -> bool:
 	level.hud.visible = false
 	# 章節標題卡是進場演出，不是場景的一部分。
 	for child: Node in level.get_children():
-		if child is ChapterCard:
+		if child.is_in_group(UiLayers.PRESENTATION_GROUP):
 			child.queue_free()
 	level.player.health.setup(999, 0.0)
 	level.player.process_mode = Node.PROCESS_MODE_DISABLED

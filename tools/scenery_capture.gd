@@ -60,7 +60,7 @@ func _ready() -> void:
 func _hide_prompts(node: Node) -> void:
 	if node is WorldPrompt or node is MapBubbles:
 		(node as CanvasItem).visible = false
-	if node is ChapterCard:
+	if node.is_in_group(UiLayers.PRESENTATION_GROUP):
 		(node as CanvasLayer).visible = false
 	for child in node.get_children():
 		_hide_prompts(child)

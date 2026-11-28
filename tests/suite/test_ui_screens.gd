@@ -530,21 +530,21 @@ func _test_difficulty_cards_never_overlap() -> void:
 	await frames(2)
 
 
-## 章節標題卡低於暫停選單，暫停時藏起來並凍結計時。
+## 地點標示低於暫停選單，暫停時藏起來並凍結計時。
 func _test_chapter_card_under_pause() -> void:
 	check(UiLayers.CHAPTER_CARD < UiLayers.PAUSE and UiLayers.DIALOGUE < UiLayers.PAUSE and UiLayers.INVENTORY < UiLayers.PAUSE,
-			"暫停選單疊在章節標題卡、對話、背包之上")
-	var card := ChapterCard.new()
-	card.title = "測試"
+			"暫停選單疊在地點標示與章末畫面、對話、背包之上")
+	var card := LocationMarker.new()
+	card.place_name = "測試"
 	runner.add_child(card)
 	await frames(3)
-	check(card._root.visible, "沒暫停時標題卡顯示")
+	check(card._root.visible, "沒暫停時地點標示顯示")
 	runner.get_tree().paused = true
 	await frames(3)
-	check(not card._root.visible, "暫停時開場標題卡不蓋在暫停選單上")
+	check(not card._root.visible, "暫停時地點標示不蓋在暫停選單上")
 	runner.get_tree().paused = false
 	await frames(3)
-	check(card._root.visible, "取消暫停後標題卡還原")
+	check(card._root.visible, "取消暫停後地點標示還原")
 	card.queue_free()
 	await frames(2)
 

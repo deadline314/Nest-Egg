@@ -1,0 +1,14 @@
+{
+  "_doc": "全遊戲共用的字體階層（NE-422）。face：title＝標題明體（Nest Egg Title TC／JP Bold）、body＝內文黑體（依語言）、label＝外文標籤（IBM Plex Sans Condensed）、numeral＝數字（IBM Plex Mono）。size 是 640×360 畫面像素，會乘上文字大小設定；spacing 是字距（像素）。用法與每個角色用在哪裡見 design/22-living-scenes/TYPOGRAPHY.md。",
+  "roles": {
+    "hero":    {"face": "title",   "size": 104, "spacing": 0},
+    "display": {"face": "title",   "size": 33,  "spacing": 0},
+    "title":   {"face": "title",   "size": 22,  "spacing": 0},
+    "kicker":  {"face": "title",   "size": 14,  "spacing": 8},
+    "heading": {"face": "body",    "size": 14,  "spacing": 0},
+    "body":    {"face": "body",    "size": 11,  "spacing": 0},
+    "caption": {"face": "body",    "size": 9,   "spacing": 0},
+    "label":   {"face": "label",   "size": 9,   "spacing": 2},
+    "numeral": {"face": "numeral", "size": 11,  "spacing": 0}
+  }
+}

@@ -51,7 +51,7 @@ func _ready() -> void:
 
 	var header := HBoxContainer.new()
 	layout.add_child(header)
-	header.add_child(UiKit.label(ReplayPage.copy("圖鑑", "記録", "Archives"), UiKit.FS_TITLE, Palette.CYAN))
+	header.add_child(UiKit.with_role_font(UiKit.label(ReplayPage.copy("圖鑑", "記録", "Archives"), UiKit.FS_TITLE, Palette.CYAN), &"title"))
 	var spacer := Control.new()
 	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	header.add_child(spacer)
@@ -222,7 +222,7 @@ func _build_detail() -> Control:
 	ScrollCue.attach(_detail_scroll)
 	_detail_number = UiKit.label("", UiKit.FS_BODY, Palette.UI_MUTED)
 	text.add_child(_detail_number)
-	_detail_title = UiKit.label("", UiKit.FS_TITLE, Palette.UI_TEXT)
+	_detail_title = UiKit.with_role_font(UiKit.label("", UiKit.FS_TITLE, Palette.UI_TEXT), &"title") as Label
 	_detail_title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	text.add_child(_detail_title)
 	_detail_text = UiKit.label("", UiKit.FS_BODY, Palette.UI_MUTED)

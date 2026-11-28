@@ -61,7 +61,7 @@ func _ready() -> void:
 	# 標題與難度同一列，留出空間給章末的下一步與收錄說明（720p 也放得下按鈕）。
 	var heading := HBoxContainer.new()
 	heading.add_theme_constant_override(&"separation", 16)
-	heading.add_child(UiKit.label(str(info.get("end_title", _text("completed"))), UiKit.FS_TITLE, Palette.CYAN))
+	heading.add_child(UiKit.with_role_font(UiKit.label(str(info.get("end_title", _text("completed"))), UiKit.FS_TITLE, Palette.CYAN), &"title"))
 	var difficulty := UiKit.label(_text("difficulty") % GameState.difficulty.display_name_for(Story.language), UiKit.FS_BODY, Palette.UI_MUTED)
 	difficulty.size_flags_vertical = Control.SIZE_SHRINK_END
 	heading.add_child(difficulty)

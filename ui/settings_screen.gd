@@ -181,7 +181,7 @@ func _ready() -> void:
 	layout.offset_bottom = -12
 	layout.add_theme_constant_override(&"separation", 6)
 	add_child(layout)
-	layout.add_child(UiKit.label(_text("settings"), UiKit.FS_TITLE, Palette.CYAN))
+	layout.add_child(UiKit.with_role_font(UiKit.label(_text("settings"), UiKit.FS_TITLE, Palette.CYAN), &"title"))
 	layout.add_child(UiDivider.new())
 
 	_tabs = TabContainer.new()

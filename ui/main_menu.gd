@@ -425,7 +425,7 @@ func _build_difficulty_page() -> void:
 	shade.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_difficulty_page.add_child(shade)
 
-	var heading := UiKit.label(_text("difficulty"), UiKit.FS_TITLE, Palette.CYAN)
+	var heading := UiKit.with_role_font(UiKit.label(_text("difficulty"), UiKit.FS_TITLE, Palette.CYAN), &"title") as Label
 	heading.position = Vector2(36, 28)
 	_difficulty_page.add_child(heading)
 	var sub := UiKit.label(_text("difficulty_hint"), UiKit.FS_BODY, Palette.UI_MUTED)

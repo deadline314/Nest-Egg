@@ -89,7 +89,7 @@ func _open_level() -> Level:
 	await _settle(SETTLE_FRAMES)
 	level.hud.visible = false
 	for child: Node in level.get_children():
-		if child is ChapterCard:
+		if child.is_in_group(UiLayers.PRESENTATION_GROUP):
 			child.queue_free()
 	level.player.process_mode = Node.PROCESS_MODE_DISABLED
 	level.player.visible = false

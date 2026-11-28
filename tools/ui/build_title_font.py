@@ -1,9 +1,9 @@
 """Build the bundled title faces (Nest Egg Title TC / JP) from Noto Serif TC / JP with fontTools.
 
-The title face is only used for place names and chapter titles, so it is subset to
-the characters those strings use (area names, chapter titles, a few fixed words).
-Any character outside the subset falls back to the body font at runtime, and the
-UI kit test fails when an authored title is not covered, naming the missing text.
+The title faces cover the same authored text as the body fonts (every .gd/.json/.tres/.tscn
+string under the game folders), so any screen title, place or chapter name can use them.
+Characters the source lacks (mostly arrows and key symbols) fall back to the body font,
+and the presentation test fails when an authored place or chapter name is not covered.
 
 Traditional Chinese text uses the TC face; Japanese text uses the JP face, because the
 TC face lacks Japanese character forms (for example 横, 麺, 縁).
@@ -15,13 +15,16 @@ Sources: https://github.com/google/fonts/tree/main/ofl/notoseriftc and .../ofl/n
 """
 
 import argparse
-import json
-import re
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from fontTools import subset
 from fontTools.ttLib import TTFont
 from fontTools.varLib import instancer
+
+import build_body_fonts as body_fonts
 
 ROOT = Path(__file__).resolve().parents[2]
 FONT_DIR = ROOT / "art/fonts"
@@ -29,40 +32,12 @@ FACES = {"zh": ("NestEggTitleTC-Bold.ttf", "Nest Egg Title TC"), "ja": ("NestEgg
 WEIGHT = 700
 # Fixed words the title face always needs (chapter numbering, separators, digits).
 BASE_TEXT = "第章完序終一二三四五六七八九十百零〇・（）()　：:-—0123456789"
-TITLE_KEYS = ("title", "subtitle", "end_title")
-LEVEL_NAME = re.compile(r'^display_name = "(.*)"$', re.M)
-LEVEL_LOCALIZED = re.compile(r'^localized_names = Dictionary\[String, String\]\((\{.*\})\)$', re.M)
 
 
-def title_strings(language: str) -> list[str]:
-    """Every authored string the title face draws in one language: area names and chapter titles."""
-    found: list[str] = []
-    for path in sorted((ROOT / "data/levels").glob("*.tres")):
-        text = path.read_text(encoding="utf-8")
-        if language == "zh":
-            found += LEVEL_NAME.findall(text)
-        else:
-            for raw in LEVEL_LOCALIZED.findall(text):
-                names = json.loads(raw)
-                if language in names:
-                    found.append(names[language])
-    suffix = "" if language == "zh" else "_" + language
-    for path in sorted((ROOT / "data/story").glob("*.json")):
-        chapter = json.loads(path.read_text(encoding="utf-8")).get("chapter")
-        if not isinstance(chapter, dict):
-            continue
-        for key in TITLE_KEYS:
-            value = chapter.get(key + suffix)
-            if isinstance(value, str):
-                found.append(value)
-    return found
-
-
-def corpus(language: str) -> set[int]:
-    codepoints = set(range(0x20, 0x7F))
+def corpus() -> set[int]:
+    """The same authored-text coverage as the body fonts, so any title can use the title face."""
+    codepoints = body_fonts.corpus()
     codepoints.update(map(ord, BASE_TEXT))
-    for text in title_strings(language):
-        codepoints.update(map(ord, text))
     return codepoints
 
 
@@ -93,10 +68,10 @@ def main() -> None:
     parser.add_argument("jp_source", type=Path, help="NotoSerifJP[wght].ttf from google/fonts")
     parser.add_argument("--out", type=Path, default=FONT_DIR)
     config = parser.parse_args()
+    codepoints = corpus()
     for language, source in (("zh", config.tc_source), ("ja", config.jp_source)):
         file_name, family = FACES[language]
         destination = config.out / file_name
-        codepoints = corpus(language)
         build(source, destination, family, codepoints)
         print(f"{file_name}: {len(codepoints)} codepoints, {destination.stat().st_size} bytes")
 

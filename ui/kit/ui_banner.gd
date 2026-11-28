@@ -26,7 +26,7 @@ var _text_template := ""
 
 func _init() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_label = UiKit.label("", UiKit.FS_BODY, Palette.UI_TEXT, HORIZONTAL_ALIGNMENT_CENTER)
+	_label = UiKit.styled("", &"body", Palette.UI_TEXT, HORIZONTAL_ALIGNMENT_CENTER)
 	_label.custom_minimum_size = Vector2(120, 0)
 	add_child(_label)
 	modulate.a = 0.0

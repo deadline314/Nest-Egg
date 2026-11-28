@@ -24,15 +24,15 @@ static func _reading_priority(suite: TestSuite) -> void:
 	layer.enqueue_radio(&"priority_fixture", lines)
 	suite.check(not DialogueLayer.radio_visible() and not layer._radio_root.visible,
 		"authored silence does not suppress lower-priority information")
-	var card := ChapterCard.new()
-	card.title = "第一章"
-	card.subtitle = "開場標題必須保留完整閱讀時間。"
-	card.hold = 0.1
+	var card := LocationMarker.new()
+	card.place_name = "測試倉庫"
+	card.secondary = "TEST WAREHOUSE"
+	card.revisit = true
 	suite.runner.add_child(card)
 	card.set_process(false)
 	var card_done := [0]
 	card.finished.connect(func() -> void: card_done[0] += 1)
-	suite.check(card._root.visible and card._tween.is_running(), "nonblocking card may read during radio silence")
+	suite.check(card._root.visible and card._tween.is_running(), "place marker may read during radio silence")
 	var anchor := Node2D.new()
 	suite.runner.add_child(anchor)
 	var bubbles := MapBubbles.new()
@@ -64,24 +64,23 @@ static func _reading_priority(suite: TestSuite) -> void:
 	prompt._process(0.0)
 	bubbles._process(20.0)
 	var elapsed := card._tween.get_total_elapsed_time()
-	suite.check(not card._root.visible and not card._tween.is_running(), "visible radio suspends actual card tween and its entire visual")
+	suite.check(not card._root.visible and not card._tween.is_running(), "visible radio suspends actual place marker tween and its entire visual")
 	suite.check(not bubbles.visible and float(bubbles._active[0]["age"]) == age
 		and bubbles._queue.size() == queued and bubble_done.is_empty(), "radio hides bubbles without aging unread lines, dequeuing, or false completion")
 	suite.check(not prompt.visible and not prompt.is_showing() and prompt._alpha == 0.0,
 		"radio suppresses prompt and excludes it from layout without retaining a stale invitation")
-	await suite.runner.get_tree().create_timer(1.5).timeout
+	await suite.runner.get_tree().create_timer(card.lifetime() + 0.3).timeout
 	suite.check(is_instance_valid(card) and card_done[0] == 0 and card._tween.get_total_elapsed_time() == elapsed,
-		"card survives hidden longer than its complete authored lifetime; no invisible consumption")
-	# A blocking card owns the screen directly; it must not wait on radio.
+		"place marker survives hidden longer than its complete authored lifetime; no invisible consumption")
+	# The chapter-end card owns the screen directly; it must not wait on radio.
 	var block := ChapterCard.new()
 	block.title = "章節結束"
-	block.block = true
 	suite.runner.add_child(block)
 	var ratio := layer._radio_text.visible_ratio
 	var wait := layer._radio_wait
 	layer._process(10.0)
-	suite.check(block._root.visible and not block._presentation_suspended and block._tween.is_running(),
-		"blocking chapter card plays immediately instead of waiting on a paused radio")
+	suite.check(block._root.visible and block._tween.is_running(),
+		"chapter-end card plays immediately instead of waiting on a paused radio")
 	suite.check(not DialogueLayer.radio_visible() and layer._radio_hold == hold and layer._radio_wait == wait
 		and layer._radio_text.visible_ratio == ratio and radio_done.is_empty(), "real modal pause hides radio but freezes every unread clock")
 	# Always observer, not a manually invoked modal method: test a second prompt.
@@ -92,6 +91,7 @@ static func _reading_priority(suite: TestSuite) -> void:
 	await suite.frames(3)
 	suite.check(not modal_prompt.visible and not modal_prompt.is_showing(), "all prompt nodes observe modal pause despite their world parent being pausable")
 	block._done()
+	block.queue_free()
 	layer._process(0.0)
 	suite.check(DialogueLayer.radio_visible() and layer._radio_hold == hold, "unpause restores the same radio without resetting its hold")
 	layer._radio_text.visible_ratio = 1.0
@@ -115,7 +115,7 @@ static func _reading_priority(suite: TestSuite) -> void:
 	suite.check(bubble_done == [&"priority_bubbles"], "bubble completion occurs once after actual resumed display")
 	await _wait_for_presentation(suite, func() -> bool: return card_done[0] > 0)
 	await suite.frames(2)
-	suite.check(card_done[0] == 1, "restored chapter card completes once after its remaining tween")
+	suite.check(card_done[0] == 1, "restored place marker completes once after its remaining tween")
 	var cancel_lines: Array[Dictionary] = [line.duplicate(true)]
 	cancel_lines[0]["delay"] = 0.0
 	layer.enqueue_radio(&"priority_cancel", cancel_lines)
@@ -261,33 +261,31 @@ static func _actual_hud_obstacles(suite: TestSuite) -> void:
 	tray._eject_pos[0] = saved_position
 	tray._eject_spin[0] = saved_spin
 	tray.is_energy = saved_energy
-	var card := ChapterCard.new()
-	card.title = "第一章"
-	card.subtitle = "請帶著資料盤離開倉庫。"
-	card.hold = 10.0
+	var card := LocationMarker.new()
+	card.place_name = "碼頭倉庫"
+	card.secondary = "DOCK WAREHOUSE"
 	suite.runner.add_child(card)
-	await suite.frames(3)
+	await suite.runner.get_tree().create_timer(LocationMarker.NAME_DELAY + LocationMarker.NAME_TIME + 0.1).timeout
 	var card_id := card.get_instance_id()
 	var card_rect := card.prompt_obstacle_rect()
 	var card_screen := card.get_viewport().get_canvas_transform() * card_rect
-	suite.check(PromptLayout._obstacles.has(card) and card_rect.has_area(), "visible ChapterCard registers the real owner and text bounds")
-	suite.check(card_screen.size.x < 440.0, "ChapterCard protects measured labels rather than full VBox width")
-	var old_extent := card._title_extent
-	var old_font_size := card._title_label.get_theme_font_size(&"font_size")
-	card._title_label.add_theme_font_size_override(&"font_size", old_font_size + 6)
+	suite.check(PromptLayout._obstacles.has(card) and card_rect.has_area(), "visible place marker registers the real owner and text bounds")
+	suite.check(card_screen.size.x < 200.0, "place marker protects its measured text rather than a wide band")
+	var old_width := card.screen_rect().size.x
+	card._name_label.add_theme_font_size_override(&"font_size", card._name_label.get_theme_font_size(&"font_size") + 6)
 	await suite.frames(2)
-	suite.check(card._title_extent.x > old_extent.x, "actual Label theme reflow refreshes cached title extent")
+	suite.check(card.screen_rect().size.x > old_width, "actual Label theme reflow grows the protected bounds")
 	card._root.visible = false
-	suite.check(not card.prompt_obstacle_rect().has_area(), "hidden ChapterCard reserves no prompt space")
+	suite.check(not card.prompt_obstacle_rect().has_area(), "hidden place marker reserves no prompt space")
 	card._root.visible = true
-	card._root.modulate.a = 0.0
-	suite.check(not card.prompt_obstacle_rect().has_area(), "faded ChapterCard reserves no prompt space")
+	card._text_alpha = 0.0
+	suite.check(not card.prompt_obstacle_rect().has_area(), "faded place marker reserves no prompt space")
 	card.queue_free()
 	await suite.frames(2)
 	var retained := false
 	for owner: Node in PromptLayout._obstacles:
 		retained = retained or (is_instance_valid(owner) and owner.get_instance_id() == card_id)
-	suite.check(not retained, "ChapterCard tree exit automatically removes its obstacle owner")
+	suite.check(not retained, "place marker tree exit automatically removes its obstacle owner")
 	await suite.end_level(level)
 	retained = false
 	for owner: Node in PromptLayout._obstacles:

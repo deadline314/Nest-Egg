@@ -117,7 +117,7 @@ func _observe(id: StringName) -> void:
 		if node is WorldPrompt:
 			node.visible = false
 			node.process_mode = Node.PROCESS_MODE_DISABLED
-		elif node is ChapterCard: node.queue_free()
+		elif node.is_in_group(UiLayers.PRESENTATION_GROUP): node.queue_free()
 	var camera := get_viewport().get_camera_2d() as LevelCamera
 	camera.set_physics_process(false)
 	camera.offset = Vector2.ZERO

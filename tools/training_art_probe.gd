@@ -58,7 +58,7 @@ func _run() -> void:
 	await _settle(30)
 	level.hud.visible = false
 	for child: Node in level.get_children():
-		if child is ChapterCard:
+		if child.is_in_group(UiLayers.PRESENTATION_GROUP):
 			child.queue_free()
 	# 主角藏起來、停住，但每一站都擺到器材旁邊：光影分區與他身上的光和實際遊玩時一樣。
 	level.player.visible = false

@@ -477,9 +477,9 @@ func _test_lock_lifecycle() -> void:
 	# 阻擋式章節卡必須保留原本的手動暫停。
 	tree.paused = true
 	var card := ChapterCard.new()
-	card.block = true
 	runner.add_child(card)
 	card._done()
+	card.queue_free()
 	check(tree.paused and not GameplayLock.is_locked(), "章末卡結束保留原本手動暫停")
 	tree.paused = false
 	await frames(2)

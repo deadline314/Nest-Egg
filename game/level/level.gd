@@ -543,18 +543,7 @@ func _end_card(info: Dictionary) -> ChapterCard:
 	card.chapter_name = parts[1]
 	card.seal_text = parts[2]
 	card.subtitle = str(info.get("teaser", ""))
-	card.block = true
 	card.hold = END_CARD_HOLD
-	add_child(card)
-	return card
-
-
-func _show_chapter_card(title: String, subtitle: String, block: bool, hold := 2.2) -> ChapterCard:
-	var card := ChapterCard.new()
-	card.title = title
-	card.subtitle = subtitle
-	card.block = block
-	card.hold = hold
 	add_child(card)
 	return card
 

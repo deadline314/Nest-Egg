@@ -27,6 +27,7 @@ func run() -> void:
 	# 穿過出入口進入新的地點（亮的街道）。
 	await _enter(STREET, &"street_home")
 	await _capture_moment("area-bright")
+	await _avoid()
 	# 暗的室內：碼頭倉庫。
 	await _enter(WAREHOUSE, &"wh_street")
 	await _capture_moment("area-dark")
@@ -34,6 +35,7 @@ func run() -> void:
 	await _enter(STREET, &"street_home")
 	await _capture_moment("area-revisit")
 	await _chapter_end()
+	await _english_end()
 	await _scaled_text()
 	await _pause_menu()
 	await _main_menu()
@@ -114,7 +116,7 @@ func _alpha(node: Node) -> float:
 
 func _chapter_end() -> void:
 	var info := Story.chapter_info(&"ch1_kasa")
-	var card: Node = level._end_card(info) if level.has_method(&"_end_card") else level._show_chapter_card(str(info["end_title"]), str(info.get("teaser", "")), true, 2.8)
+	var card: Node = level._end_card(info)
 	await settle(2)
 	await _capture_moment("chapter-end")
 	if is_instance_valid(card):
@@ -133,7 +135,7 @@ func _scaled_text() -> void:
 	capture("%s-scale12-marker" % prefix)
 	print("PRESENTATION scale12 marker rect=%s view=%s" % [marker.screen_rect(), get_viewport().get_visible_rect().size])
 	marker.queue_free()
-	var card := level._end_card(Story.chapter_info(&"ch1_kasa")) if level.has_method(&"_end_card") else null
+	var card := level._end_card(Story.chapter_info(&"ch1_kasa"))
 	if card != null:
 		await wait(2.6)
 		capture("%s-scale12-end" % prefix)
@@ -142,6 +144,44 @@ func _scaled_text() -> void:
 	get_tree().paused = false
 	Settings.set_ui_text_scale(1.0)
 	await settle(2)
+
+
+## 判讀優先：主角站進標示的範圍時，標示淡到很低。主角停住、擺到標示正上方的位置拍一張。
+func _avoid() -> void:
+	var marker := LocationMarker.for_level(level.data, Story.language, false)
+	level.add_child(marker)
+	await wait(1.0)
+	capture("%s-avoid-0-clear" % prefix)
+	# 鏡頭跟著主角，先停住鏡頭，主角才會真的落在畫面右下角。
+	var camera := get_viewport().get_camera_2d()
+	camera.process_mode = Node.PROCESS_MODE_DISABLED
+	var canvas := get_viewport().get_canvas_transform()
+	player.process_mode = Node.PROCESS_MODE_DISABLED
+	player.global_position = canvas.affine_inverse() * (marker.screen_rect().get_center() + Vector2(0, 24))
+	await wait(0.7)
+	capture("%s-avoid-1-crowded" % prefix)
+	print("PRESENTATION avoid crowded=%s alpha=%.2f" % [marker.crowded(), marker._root.modulate.a])
+	marker.queue_free()
+	player.process_mode = Node.PROCESS_MODE_INHERIT
+	camera.process_mode = Node.PROCESS_MODE_INHERIT
+	await settle(3)
+
+
+## 英文的章末畫面：序號與章名分開、一樣蓋印；長的章名縮小到畫面內。
+func _english_end() -> void:
+	for pair: Array in [["Chapter 1: Kasa", "Next: tomorrow morning, check the handover receipt."], ["Chapter Five: The Paymaster", "Next Chapter: Unmooring"]]:
+		var parts := ChapterCard.split_end_title(pair[0], "")
+		var card := ChapterCard.new()
+		card.chapter_number = parts[0]
+		card.chapter_name = parts[1]
+		card.seal_text = parts[2]
+		card.subtitle = pair[1]
+		level.add_child(card)
+		await wait(2.6)
+		capture("%s-end-en-%s" % [prefix, parts[1].to_lower().replace(" ", "-")])
+		card.queue_free()
+		await settle(3)
+	get_tree().paused = false
 
 
 func _pause_menu() -> void:

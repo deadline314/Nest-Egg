@@ -33,12 +33,11 @@ const FS_BODY := 11
 const FS_TITLE := 22
 const FS_DISPLAY := 33
 const BASE_FONT_SIZE := FS_BODY
-## 版面角色字級：只有明確呼叫 caption()／heading() 的控制項會用到，snap_size() 的三個設計字級不變。
-## 說明小字（地點、計數、按鍵提示）用 9、段落標題用 14；像素字體只有 11 才銳利，兩者都改用內文字級。
+## 版面角色（NE-422）：字體、字級與字距來自共用的字體階層 Typography（data/ui/typography.json）。
+## 說明小字（地點、計數、按鍵提示）用 9、段落標題用 14；像素字體只有 11 的整數倍才銳利，角色字級會取最近的倍數。
 const FS_CAPTION := 9
 const FS_HEADING := 14
 const ROLE_META := &"ui_text_role"
-const ROLE_SIZES := {&"caption": FS_CAPTION, &"heading": FS_HEADING}
 const TEXT_GROUP := &"ui_scalable_text"
 const TEXT_SIZE_META := &"ui_base_font_size"
 
@@ -198,9 +197,10 @@ static func scaled_size(base: int) -> int:
 
 ## 版面角色目前的實際字級（依字體樣式與文字大小設定）；未知角色用內文字級。
 static func role_size(role: StringName) -> int:
+	var base := Typography.base_size(role)
 	if FONT_STYLES.get(font_style(), {}).get("pixel", false):
-		return scaled_size(FS_BODY)
-	return scaled_size(int(ROLE_SIZES.get(role, FS_BODY)))
+		base = maxi(FS_BODY, roundi(float(base) / FS_BODY) * FS_BODY)
+	return scaled_size(base)
 
 
 static func caption_size() -> int:
@@ -267,6 +267,31 @@ static func _role_label(text: String, role: StringName, color: Color, align: Hor
 	l.add_theme_color_override(&"font_color", color)
 	set_text_role(l, role)
 	return l
+
+
+## 依字體階層的角色建立標籤（字體、字級、字距都來自 Typography）。
+static func styled(text: String, role: StringName, color := Palette.UI_TEXT, align := HORIZONTAL_ALIGNMENT_LEFT) -> Label:
+	var l := _role_label(text, role, color, align)
+	apply_role_font(l, role)
+	return l
+
+
+## 讓既有控制項換成某個角色的字體與字級（版面不動）；跟著文字大小與字體樣式更新。
+static func apply_role(control: Control, role: StringName) -> void:
+	apply_role_font(control, role)
+	set_text_role(control, role)
+
+
+## 只換字體並回傳同一個控制項（方便包在既有的建立式子外面；版面與字級不動）。
+static func with_role_font(control: Control, role: StringName) -> Control:
+	apply_role_font(control, role)
+	return control
+
+
+## 只換字體（不是內文字體的角色才需要覆寫；內文跟著主題換語言）。
+static func apply_role_font(control: Control, role: StringName) -> void:
+	if Typography.face(role) != &"body" or Typography.spacing(role) != 0:
+		control.add_theme_font_override(&"font", Typography.font(role))
 
 
 ## 讓既有控制項（例如小按鈕）使用版面角色字級，並跟著文字大小與字體樣式更新。

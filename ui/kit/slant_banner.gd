@@ -28,7 +28,7 @@ func _init(text := "", p_accent := Palette.CYAN) -> void:
 	add_theme_constant_override(&"margin_right", int(SLANT) + 6)
 	add_theme_constant_override(&"margin_top", 3)
 	add_theme_constant_override(&"margin_bottom", 3)
-	label = UiKit.label(text, UiKit.FS_BODY, Palette.WHITE)
+	label = UiKit.styled(text, &"body", Palette.WHITE)
 	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	add_child(label)
 

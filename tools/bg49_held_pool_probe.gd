@@ -53,7 +53,7 @@ func _measure_level(level_id: String, source: LevelData) -> Dictionary:
 		elif node is Enemy:
 			node.visible = false
 			node.process_mode = Node.PROCESS_MODE_DISABLED
-		elif node is ChapterCard:
+		elif node.is_in_group(UiLayers.PRESENTATION_GROUP):
 			node.queue_free()
 		elif node is Lamp and not node.dead:
 			node.use_flicker(LampFlicker.STABLE, 0)

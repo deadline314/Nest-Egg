@@ -36,7 +36,7 @@ func _ready() -> void:
 	var content := VBoxContainer.new()
 	content.add_theme_constant_override(&"separation", 12)
 	panel.add_child(content)
-	content.add_child(UiKit.label(_text("title"), UiKit.FS_TITLE, Palette.CYAN))
+	content.add_child(UiKit.with_role_font(UiKit.label(_text("title"), UiKit.FS_TITLE, Palette.CYAN), &"title"))
 	var message := UiKit.label(_text("warning"), UiKit.FS_BODY)
 	message.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	content.add_child(message)
