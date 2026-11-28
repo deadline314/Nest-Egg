@@ -4,17 +4,17 @@
 [ext_resource type="Resource" path="res://data/enemies/slasher.tres" id="2_slasher"]
 [ext_resource type="Resource" path="res://data/enemies/searchlight_drone.tres" id="3_searchlight_drone"]
 [ext_resource type="Resource" path="res://data/enemies/sweeper.tres" id="4_sweeper"]
-[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="5_portal_data"]
-[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="6_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/ch4_loading_bay.tres" id="7_ch4_loading_bay"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch4_factory_relay.tres" id="8_ch4_factory_relay"]
-[ext_resource type="Resource" path="res://data/props/conveyor.tres" id="9_conveyor"]
-[ext_resource type="Resource" path="res://data/props/live_cable.tres" id="10_live_cable"]
-[ext_resource type="Script" path="res://data/scripts/area_challenge_data.gd" id="11_challenge_script"]
-[ext_resource type="Resource" path="res://data/challenges/ch4_factory_relay_timed.tres" id="12_challenge"]
+[ext_resource type="Resource" path="res://data/props/conveyor.tres" id="5_conveyor"]
+[ext_resource type="Resource" path="res://data/props/live_cable.tres" id="6_live_cable"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="7_portal_data"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="8_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/ch4_loading_bay.tres" id="9_ch4_loading_bay"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch4_factory_relay.tres" id="10_ch4_factory_relay"]
+[ext_resource type="Script" path="res://data/scripts/area_challenge_data.gd" id="11_area_challenge_data"]
+[ext_resource type="Resource" path="res://data/challenges/ch4_factory_relay_timed.tres" id="12_ch4_factory_relay_timed"]
 
 [sub_resource type="Resource" id="Resource_0"]
-script = ExtResource("5_portal_data")
+script = ExtResource("7_portal_data")
 id = &"relay_loading"
 target_level = "res://data/levels/ch4_factory_loading.tres"
 target_portal = &"loading_relay"
@@ -25,7 +25,7 @@ height = 68
 style = "door"
 
 [sub_resource type="Resource" id="Resource_1"]
-script = ExtResource("5_portal_data")
+script = ExtResource("7_portal_data")
 id = &"relay_safe"
 target_level = "res://data/levels/ch4_factory_safety.tres"
 target_portal = &"safety_relay"
@@ -36,10 +36,10 @@ height = 68
 style = "door"
 
 [sub_resource type="Resource" id="Resource_2"]
-script = ExtResource("6_lighting_zone")
+script = ExtResource("8_lighting_zone")
 start_tile = 0
 blend_tiles = 12
-profile = ExtResource("7_ch4_loading_bay")
+profile = ExtResource("9_ch4_loading_bay")
 
 [resource]
 script = ExtResource("1_level_data")
@@ -49,11 +49,11 @@ localized_names = Dictionary[String, String]({"en": "Factory Service Walk", "ja"
 tile_size = 16
 height = 24
 legend = Dictionary[String, Resource]({
-"φ": ExtResource("10_live_cable"),
-"Ω": ExtResource("9_conveyor"),
 "b": ExtResource("2_slasher"),
 "d": ExtResource("3_searchlight_drone"),
 "g": ExtResource("4_sweeper"),
+"Ω": ExtResource("5_conveyor"),
+"φ": ExtResource("6_live_cable"),
 "Ⅿ": SubResource("Resource_0"),
 "↟": SubResource("Resource_1")
 })
@@ -61,9 +61,9 @@ hints = PackedStringArray()
 chapter = &"ch4_hollow"
 persistent_world = true
 show_chapter_card = false
-environment = ExtResource("8_ch4_factory_relay")
+environment = ExtResource("10_ch4_factory_relay")
 layout_path = "res://data/levels/ch4_factory_relay_map.json"
-lighting_zones = Array[ExtResource("6_lighting_zone")]([SubResource("Resource_2")])
+lighting_zones = Array[ExtResource("8_lighting_zone")]([SubResource("Resource_2")])
 story_triggers = PackedStringArray()
+challenges = Array[ExtResource("11_area_challenge_data")]([ExtResource("12_ch4_factory_relay_timed")])
 death_credit_cap = 250
-challenges = Array[ExtResource("11_challenge_script")]([ExtResource("12_challenge")])

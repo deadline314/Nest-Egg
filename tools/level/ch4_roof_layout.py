@@ -75,12 +75,17 @@ def build_roof(kit, ground):
     area.prop("rooftop__antenna_forest", 22)
     area.prop("rooftop__dish_pair", 30)
     area.prop("broadcast_roof__generator_unit", 28)
-    area.prop("broadcast_roof__roof_railing", 39)
+    area.prop("broadcast_roof__roof_railing", 39, y=ground - 1)   # 頭上有維修平台：寫明站在屋頂地面
     area.prop("rooftop__stairwell_hut", 51)
     area.lamp(27, ground - 6)
     area.lamp(49, ground - 5)
+    # 冷卻機的維修平台（地圖線）：欄杆後面踩一階上去，平台盡頭有一包信用點，從地面看得到、要繞上去才拿得到。
+    area.platform(36, 39, ground - 4)
+    area.platform(41, 48, ground - 7)
+    area.stand(46, "q", row=ground - 8)
     area.features = {
         "landmark": "雨裡的天線與低亮度收訊箱。",
         "loop": "辦公室樓梯上屋頂，另一座梯塔回安全臺。",
+        "secret": "冷卻機維修平台上的信用點（x=46）",
     }
     return area

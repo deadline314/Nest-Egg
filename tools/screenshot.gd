@@ -2419,6 +2419,8 @@ const SPOTS := {
 	"ch3_glass_edge": [["a", 14], ["npc", 20], ["b", 30], ["c", 48]],
 	"ch3_office_hall": [["gallery", 30], ["reward", 19]],
 	"ch3_clinic": [["exit", 90], ["storeroom", 100]],
+	"ch4_nursing_ward": [["shelf", 52]],
+	"ch4_factory_roof": [["deck", 44]],
 	"ch1_stall": [["a", 20]],
 	"ch1_street": [["wall", 33], ["market", 84], ["mid", 130], ["dock", 196]],
 }

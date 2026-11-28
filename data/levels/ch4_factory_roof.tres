@@ -1,14 +1,15 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=10 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
-[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
-[ext_resource type="Resource" path="res://data/npcs/ch4_roof_lantern.tres" id="3_ch4_roof_lantern"]
-[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="4_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/rooftop.tres" id="5_rooftop"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch4_factory_roof.tres" id="6_ch4_factory_roof"]
+[ext_resource type="Resource" path="res://data/props/credits_large.tres" id="2_credits_large"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="3_portal_data"]
+[ext_resource type="Resource" path="res://data/npcs/ch4_roof_lantern.tres" id="4_ch4_roof_lantern"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="5_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/rooftop.tres" id="6_rooftop"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch4_factory_roof.tres" id="7_ch4_factory_roof"]
 
 [sub_resource type="Resource" id="Resource_0"]
-script = ExtResource("2_portal_data")
+script = ExtResource("3_portal_data")
 id = &"roof_safety"
 target_level = "res://data/levels/ch4_factory_safety.tres"
 target_portal = &"safety_roof"
@@ -19,7 +20,7 @@ height = 68
 style = "hidden"
 
 [sub_resource type="Resource" id="Resource_1"]
-script = ExtResource("2_portal_data")
+script = ExtResource("3_portal_data")
 id = &"roof_office"
 target_level = "res://data/levels/ch4_factory_office.tres"
 target_portal = &"office_roof"
@@ -30,10 +31,10 @@ height = 68
 style = "hidden"
 
 [sub_resource type="Resource" id="Resource_2"]
-script = ExtResource("4_lighting_zone")
+script = ExtResource("5_lighting_zone")
 start_tile = 0
 blend_tiles = 12
-profile = ExtResource("5_rooftop")
+profile = ExtResource("6_rooftop")
 
 [resource]
 script = ExtResource("1_level_data")
@@ -43,16 +44,17 @@ localized_names = Dictionary[String, String]({"en": "Old Factory Rooftop", "ja":
 tile_size = 16
 height = 24
 legend = Dictionary[String, Resource]({
+"q": ExtResource("2_credits_large"),
 "⇣": SubResource("Resource_0"),
-"ⓚ": ExtResource("3_ch4_roof_lantern"),
+"ⓚ": ExtResource("4_ch4_roof_lantern"),
 "⟱": SubResource("Resource_1")
 })
 hints = PackedStringArray()
 chapter = &"ch4_hollow"
 persistent_world = true
 show_chapter_card = false
-environment = ExtResource("6_ch4_factory_roof")
+environment = ExtResource("7_ch4_factory_roof")
 layout_path = "res://data/levels/ch4_factory_roof_map.json"
-lighting_zones = Array[ExtResource("4_lighting_zone")]([SubResource("Resource_2")])
+lighting_zones = Array[ExtResource("5_lighting_zone")]([SubResource("Resource_2")])
 story_triggers = PackedStringArray()
 death_credit_cap = 250

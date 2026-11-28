@@ -177,6 +177,9 @@ def _configure():
         kit.RES[glyph] = f"res://data/npcs/{ident}.tres"
     kit.NPCS["ch4_lamp_bedside"].update(spawn_requires_flag=roof.MIC_REQUESTED)
     kit.RES["Ƶ"] = "res://data/props/ch4_sweep_sample.tres"
+    # 玩法線的機關（字元在每一章同義）。
+    kit.RES.update({"Ω": "res://data/props/conveyor.tres", "φ": "res://data/props/live_cable.tres",
+                    "X": "res://data/props/ch1_secret_wall.tres", "q": "res://data/props/credits_large.tres"})
     kit.NPCS["ch4_egret"].update(spawn_unless_flag="ch4_egret_departed")
     kit.NPCS["ch4_egret_at_rail"].update(spawn_requires_flag="ch4_atropos_midpoint_ready", spawn_unless_flag="ch4_egret_departed")
     kit.NPCS["ch4_office_release"].update(spawn_requires_flag="ch4_atropos_retreat_ready", spawn_unless_flag="ch4_office_access")
@@ -238,6 +241,10 @@ def _ward():
     area.platform(34, 36, 18)
     area.platform(38, 47, 16)
     area.platform(49, 51, 18)
+    # 備品頂架（地圖線）：從收音座右端再往上一層，沿推車上方的頂架走到盡頭拿備品費，
+    # 再落回內廊門旁，是一條和病房地面平行的路。
+    area.platform(48, 55, 12)
+    area.stand(54, "q", row=11)
     area.prop("clinic__queue_number_display", 14, y=14, support="wall")
     area.prop("nursing_ward__rain_window_wide", 25, y=13, support="wall")
     area.prop("nursing_ward__ward_bed", 20)
@@ -245,10 +252,11 @@ def _ward():
     area.prop("nursing_ward__bedside_locker", 31)
     area.prop("nursing_ward__scarf", 35, y=17, dy=-9, support="wall")
     area.prop("nursing_ward__bedside_radio", 42, y=15)
-    area.prop("nursing_ward__nurse_cart", 53)
+    area.prop("nursing_ward__nurse_cart", 53, y=GROUND - 1)   # 頭上有備品頂架：寫明站在地板上
     area.prop("clinic__queue_number_display", 55, y=15, support="wall")
     roof.install_ward_door(area)
-    area.features = {"loop": "病房內廊回外櫃檯。", "landmark": "雨窗與棠的床位。", "vertical": "上層靠窗的收音座。"}
+    area.features = {"loop": "病房內廊回外櫃檯；收音座往上的備品頂架落回內廊門旁。", "landmark": "雨窗與棠的床位。",
+                     "vertical": "地面、上層靠窗的收音座與推車上方的備品頂架。", "secret": "備品頂架盡頭的信用點（x=54）"}
     return area
 
 
@@ -335,7 +343,13 @@ def _factory_relay():
                       (62, 72, 14), (74, 78, 16), (80, 84, 18)):
         area.platform(x0, x1, y)
     area.combat = True
-    area.encounter("下層巡查", 29, 42, [(33, "g"), (40, "b")])
+    area.encounter("下層巡查", 29, 42, [(33, "g")])
+    # 切割者會從主角頭上翻到背後（NE-424）：只在頭頂沒有走道的地方翻得起來。放在東端出口前的開闊地，
+    # 右邊是盡頭的牆，玩家背靠牆就能化解；原本第 40 欄頭上有走道，只會正面撲。
+    area.encounter("出口看守", 85, 92, [(87, "b")])
+    area.stand(13, "Ω")   # 輸送帶（NE-407）：入口段往右帶，射馬達反轉
+    area.stand(32, "φ")   # 斷電纜（NE-407）：下層巡查站在積水裡
+    area.challenges = ["res://data/challenges/ch4_factory_relay_timed.tres"]   # 限時抵達（NE-418）
     area.encounter("高處探頭", 58, 73, [(63, "d", 10), (70, "d", 11)])
     area.prop("abandoned_factory__broken_conveyor", 39, y=GROUND - 1)
     area.prop("abandoned_factory__rust_tank", 51)

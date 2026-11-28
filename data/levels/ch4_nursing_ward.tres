@@ -1,19 +1,20 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=16 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=17 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
-[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
-[ext_resource type="Resource" path="res://data/npcs/ch4_cabinet.tres" id="3_ch4_cabinet"]
-[ext_resource type="Resource" path="res://data/npcs/ch4_desk_demo.tres" id="4_ch4_desk_demo"]
-[ext_resource type="Resource" path="res://data/npcs/ch4_ward_scarf.tres" id="5_ch4_ward_scarf"]
-[ext_resource type="Resource" path="res://data/npcs/ch4_staff_switch.tres" id="6_ch4_staff_switch"]
-[ext_resource type="Resource" path="res://data/npcs/ch4_linden.tres" id="7_ch4_linden"]
-[ext_resource type="Resource" path="res://data/npcs/ch4_voice_demo.tres" id="8_ch4_voice_demo"]
-[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="9_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/clinic_ward.tres" id="10_clinic_ward"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch4_nursing_ward.tres" id="11_ch4_nursing_ward"]
+[ext_resource type="Resource" path="res://data/props/credits_large.tres" id="2_credits_large"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="3_portal_data"]
+[ext_resource type="Resource" path="res://data/npcs/ch4_cabinet.tres" id="4_ch4_cabinet"]
+[ext_resource type="Resource" path="res://data/npcs/ch4_desk_demo.tres" id="5_ch4_desk_demo"]
+[ext_resource type="Resource" path="res://data/npcs/ch4_ward_scarf.tres" id="6_ch4_ward_scarf"]
+[ext_resource type="Resource" path="res://data/npcs/ch4_staff_switch.tres" id="7_ch4_staff_switch"]
+[ext_resource type="Resource" path="res://data/npcs/ch4_linden.tres" id="8_ch4_linden"]
+[ext_resource type="Resource" path="res://data/npcs/ch4_voice_demo.tres" id="9_ch4_voice_demo"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="10_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/clinic_ward.tres" id="11_clinic_ward"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch4_nursing_ward.tres" id="12_ch4_nursing_ward"]
 
 [sub_resource type="Resource" id="Resource_0"]
-script = ExtResource("2_portal_data")
+script = ExtResource("3_portal_data")
 id = &"ward_entry"
 target_level = "res://data/levels/ch4_ward_reception.tres"
 target_portal = &"reception_ward"
@@ -24,7 +25,7 @@ height = 68
 style = "door"
 
 [sub_resource type="Resource" id="Resource_1"]
-script = ExtResource("2_portal_data")
+script = ExtResource("3_portal_data")
 id = &"ward_staff"
 target_level = "res://data/levels/ch4_ward_reception.tres"
 target_portal = &"reception_staff"
@@ -35,7 +36,7 @@ height = 68
 style = "door"
 
 [sub_resource type="Resource" id="Resource_2"]
-script = ExtResource("2_portal_data")
+script = ExtResource("3_portal_data")
 id = &"ward_lamp_bay"
 target_level = "res://data/levels/ch4_ward_lamp_bay.tres"
 target_portal = &"lamp_bay_ward"
@@ -49,10 +50,10 @@ height = 68
 style = "door"
 
 [sub_resource type="Resource" id="Resource_3"]
-script = ExtResource("9_lighting_zone")
+script = ExtResource("10_lighting_zone")
 start_tile = 0
 blend_tiles = 12
-profile = ExtResource("10_clinic_ward")
+profile = ExtResource("11_clinic_ward")
 
 [resource]
 script = ExtResource("1_level_data")
@@ -62,22 +63,23 @@ localized_names = Dictionary[String, String]({"en": "Care Ward", "ja": "療養�
 tile_size = 16
 height = 24
 legend = Dictionary[String, Resource]({
+"q": ExtResource("2_credits_large"),
 "Ⅳ": SubResource("Resource_0"),
 "Ⅴ": SubResource("Resource_1"),
 "⇢": SubResource("Resource_2"),
-"ⓒ": ExtResource("3_ch4_cabinet"),
-"ⓓ": ExtResource("4_ch4_desk_demo"),
-"ⓜ": ExtResource("5_ch4_ward_scarf"),
-"ⓢ": ExtResource("6_ch4_staff_switch"),
-"ⓣ": ExtResource("7_ch4_linden"),
-"ⓥ": ExtResource("8_ch4_voice_demo")
+"ⓒ": ExtResource("4_ch4_cabinet"),
+"ⓓ": ExtResource("5_ch4_desk_demo"),
+"ⓜ": ExtResource("6_ch4_ward_scarf"),
+"ⓢ": ExtResource("7_ch4_staff_switch"),
+"ⓣ": ExtResource("8_ch4_linden"),
+"ⓥ": ExtResource("9_ch4_voice_demo")
 })
 hints = PackedStringArray()
 chapter = &"ch4_hollow"
 persistent_world = true
 show_chapter_card = false
-environment = ExtResource("11_ch4_nursing_ward")
+environment = ExtResource("12_ch4_nursing_ward")
 layout_path = "res://data/levels/ch4_nursing_ward_map.json"
-lighting_zones = Array[ExtResource("9_lighting_zone")]([SubResource("Resource_3")])
+lighting_zones = Array[ExtResource("10_lighting_zone")]([SubResource("Resource_3")])
 story_triggers = PackedStringArray()
 death_credit_cap = 250

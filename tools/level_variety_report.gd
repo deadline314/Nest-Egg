@@ -71,21 +71,39 @@ func _chapter(id: String, paths: Array, story: Dictionary, first: String, levels
 		minutes[area["path"]] = area
 	var index := QuestMapIndex.for_chapter(StringName(id))
 	var alias := CampaignLedger._layout_aliases(paths)
+	# 主線順序：照章節設計資料（<章>_design.json）裡區域的順序，那是產生器依劇情排的遊玩順序；
+	# 設計資料沒列到的區域排在後面，照經濟帳本的路線。
+	var route: Array = (ledger["route"] as Array).duplicate()
+	var authored := _design_order(id)
 	var order: Array[String] = []
-	for path: String in ledger["route"]:
-		order.append(path)
 	var sorted := paths.duplicate()
 	sorted.sort()
 	for path: String in sorted:
 		var node: String = alias.get(path, path)
 		if not order.has(node):
 			order.append(node)
+	order.sort_custom(func(x: String, y: String) -> bool:
+		var ax := authored.find(x.get_file().get_basename())
+		var ay := authored.find(y.get_file().get_basename())
+		if ax != ay:
+			return (ax if ax >= 0 else 999) < (ay if ay >= 0 else 999)
+		return (route.find(x) if route.has(x) else 999) < (route.find(y) if route.has(y) else 999))
+	# 帳本的路線會走鎖著的員工捷徑；連著兩個主線區域的通道（第一次必經）也算主線。
+	for node in order:
+		if route.has(node):
+			continue
+		var linked := {}
+		for next: String in CampaignLedger._neighbours(index, paths, alias, node):
+			if route.has(next):
+				linked[next] = true
+		if linked.size() >= 2:
+			route.append(node)
 	var areas: Array[Dictionary] = []
 	for path in order:
 		if not index.areas.has(path):
 			continue
 		var area := _area(index.areas[path]["data"], index.areas[path]["layout"])
-		area["route"] = (ledger["route"] as Array).has(path)
+		area["route"] = route.has(path)
 		var pacing: Dictionary = minutes.get(path, {})
 		area["minutes"] = float(pacing.get("minutes", 0.0))
 		area["encounters"] = int(pacing.get("encounters", 0))
@@ -357,6 +375,22 @@ func _combat_area_runs(areas: Array[Dictionary]) -> Array:
 				runs.append(current.duplicate())
 			current.clear()
 	return runs
+
+
+## 章節設計資料裡區域的順序（區域 id 加上章節前綴）。
+func _design_order(chapter: String) -> Array:
+	var prefix := chapter.get_slice("_", 0)
+	var path := "res://data/levels/%s_design.json" % prefix
+	if not FileAccess.file_exists(path):
+		return []
+	var json := JSON.new()
+	if json.parse(FileAccess.get_file_as_string(path)) != OK or not json.data is Dictionary or not json.data.get("areas") is Dictionary:
+		push_error("[LevelVariety] 讀不到章節設計的區域順序：%s" % path)
+		return []
+	var result := []
+	for key: String in json.data["areas"]:
+		result.append("%s_%s" % [prefix, key])
+	return result
 
 
 ## 這一區最主要的事（依序取第一個成立的）：給「同一種連續不超過兩個區域」用。

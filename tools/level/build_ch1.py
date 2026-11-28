@@ -1567,6 +1567,12 @@ def write_level(area, theme_key=None, level_id=None, map_name=None, persist=True
     triggers = [scene for _, scene in sorted(area.triggers)]
     # 天亮的當舖與當舖共用地圖：& 標記還在，晚飯場景已經看過，不會重播。
     res.append('story_triggers = PackedStringArray(' + ', '.join(json.dumps(t) for t in triggers) + ')')
+    # 區域可選挑戰（NE-410）：area.challenges 是 data/challenges/ 底下的資源路徑。
+    challenges = getattr(area, 'challenges', [])
+    if challenges:
+        script = w.ext('res://data/scripts/area_challenge_data.gd', 'Script')
+        refs = ', '.join(f'ExtResource("{w.ext(path)}")' for path in challenges)
+        res.append(f'challenges = Array[ExtResource("{script}")]([{refs}])')
     opts.setdefault('death_credit_cap', 250)
     for key, value in opts.items():
         res.append(f'{key} = {value}')
@@ -1771,8 +1777,24 @@ def _v2_route_checks(area):
 DEPTH_EXTRA = {"booth_alley": {"key_light": {"x": 44, "y": 2, "color": [0.53, 0.72, 1.0], "energy": 0.6, "light_radius": 460, "halo_radius": 180, "halo_alpha": 0.4, "front_wash": 0.05, "shafts": {"count": 4, "angle": -18, "length": 300, "width": 18, "spread": 120}, "occlusion": [0.25, 0.75], "period": 40}, "near_foreground": [{"anchor": "bottom", "base": ["railing"], "rise": 12, "from": 0, "to": 56}, {"anchor": "top", "pieces": ["cables"], "above": 175, "spacing": [120, 260], "from": 0, "to": 56}], "ground_section": {"style": "masonry", "start": 16, "min_level": 0.26, "fade_depth": 260, "under_deck": 1.0, "fade": 0.6, "piles": [56, 104], "pipes": 0.6}}, "street": {"key_light": {"x": 100, "y": 20, "color": [1.0, 0.35, 0.72], "energy": 0.45, "light_radius": 520, "halo_radius": 220, "halo_alpha": 0.32, "front_wash": 0.04, "shafts": {"count": 0}, "occlusion": [0.1, 0.5], "period": 36}, "ground_section": {"style": "masonry", "start": 16, "min_level": 0.26, "fade_depth": 260, "under_deck": 1.0, "fade": 0.6, "piles": [56, 104], "pipes": 0.5}}, "pawnshop": {"key_light": {"x": 10, "y": 4, "color": [1.0, 0.69, 0.38], "energy": 0.3, "light_radius": 420, "halo_radius": 180, "halo_alpha": 0.45, "front_wash": 0.05, "shafts": {"count": 3, "angle": 10, "length": 200, "width": 16, "spread": 80}, "occlusion": [0.1, 0.4], "period": 60}, "near_foreground": [{"anchor": "bottom", "base": ["railing"], "rise": 12, "from": 0, "to": 28}], "ground_section": [{"style": "masonry", "start": 16, "min_level": 0.26, "fade_depth": 260, "under_deck": 1.0, "fade": 0.6, "piles": [56, 104], "pipes": 0.4, "from": 0, "to": 34}, {"style": "interior", "start": 16, "min_level": 0.22, "fade_depth": 260, "fade": 0.5, "from": 34, "to": 112, "lip_shadow": 0.7}]}, "rooftop": {"key_light": {"x": 20, "y": 30, "color": [0.55, 0.7, 1.0], "energy": 0.5, "light_radius": 520, "halo_radius": 260, "halo_alpha": 0.3, "front_wash": 0.04, "shafts": {"count": 5, "angle": 25, "length": 420, "width": 26, "spread": 200}, "occlusion": [0.3, 0.8], "period": 50}, "near_foreground": [{"anchor": "bottom", "base": ["railing"], "deck_base": ["curb_bollards", "deck_beam"], "rise": 13, "from": 0, "to": 72}, {"anchor": "top", "pieces": ["cables"], "above": 175, "spacing": [140, 300], "from": 0, "to": 72}], "midground": {"pieces": ["crates_stack", "barrels", "trash_can"], "spacing": [50, 120], "from": 2, "to": 70}, "ground_section": {"style": "steel", "start": 16, "min_level": 0.16, "fade_depth": 260, "under_deck": 1.0, "fade": 0.6, "piles": [56, 104], "pipes": 0.5}}, "warehouse": {"key_light": {"x": 104, "y": 42, "color": [1.0, 0.65, 0.3], "energy": 0.4, "light_radius": 520, "halo_radius": 200, "halo_alpha": 0.35, "front_wash": 0.05, "shafts": {"count": 5, "angle": 20, "length": 340, "width": 24, "spread": 200}, "occlusion": [0.2, 0.7], "period": 45}, "midground": {"pieces": ["crates_stack", "barrels"], "spacing": [80, 200], "from": 2, "to": 164}, "ground_section": {"style": "interior", "start": 16, "min_level": 0.18, "fade_depth": 260, "fade": 0.6, "piles": [56, 104], "pipes": 0.6}}}
 
 
+def _check_ground_props(area, props):
+    """「站在地上」的擺設在遊戲裡站到那一欄最上面的可站面；頭上有平台時會被抬到平台上。"""
+    problems = []
+    for prop in props:
+        if not prop.get('ground', False):
+            continue
+        x = int(prop['x'])
+        top = next((y for y in range(area.h) if area.grid.at(x, y) in '#='), None)
+        if top is not None and area.grid.at(x, top) == '=' and any(area.grid.at(x, y) == '#' for y in range(top + 1, area.h)):
+            problems.append(f'{area.id}/{prop["id"]}（x={x}）：頭上第 {top} 列有平台，「站在地上」會被放到平台上；改寫 y=地面上一列')
+    if problems:
+        raise SystemExit('\n'.join(problems))
+
+
 def _map_extra(area):
     props = prepare_props(area.props, placement_id(area.id))
+    if not hasattr(area, 'legacy_layout'):
+        _check_ground_props(area, props)
     if hasattr(area, 'legacy_layout'):
         # In a tall room, the first platform from above is not necessarily this
         # ground prop's floor. Select an authored solid floor and store its row.

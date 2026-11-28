@@ -16,9 +16,10 @@
    "combat": false,
    "group": "nursing_ward",
    "features": {
-    "loop": "病房內廊回外櫃檯。",
+    "loop": "病房內廊回外櫃檯；收音座往上的備品頂架落回內廊門旁。",
     "landmark": "雨窗與棠的床位。",
-    "vertical": "上層靠窗的收音座。"
+    "vertical": "地面、上層靠窗的收音座與推車上方的備品頂架。",
+    "secret": "備品頂架盡頭的信用點（x=54）"
    },
    "encounters": []
   },
@@ -64,7 +65,17 @@
      "x0": 29,
      "x1": 42,
      "members": [
-      "清掃兵",
+      "清掃兵"
+     ],
+     "reinforcements": []
+    },
+    {
+     "name": "出口看守",
+     "lock": false,
+     "wave_zone": false,
+     "x0": 85,
+     "x1": 92,
+     "members": [
       "切割者"
      ],
      "reinforcements": []
@@ -126,7 +137,8 @@
    "group": "factory_roof",
    "features": {
     "landmark": "雨裡的天線與低亮度收訊箱。",
-    "loop": "辦公室樓梯上屋頂，另一座梯塔回安全臺。"
+    "loop": "辦公室樓梯上屋頂，另一座梯塔回安全臺。",
+    "secret": "冷卻機維修平台上的信用點（x=46）"
    },
    "encounters": []
   },
