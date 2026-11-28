@@ -11,6 +11,8 @@ signal start_requested(difficulty: DifficultyData)
 signal quit_requested
 signal continue_requested
 var continue_available := false
+## 接續存檔所在的區域（LevelData 路徑）；空白時「繼續遊戲」的說明不帶地名。
+var continue_level := ""
 var overwrite_required := false
 var save_notice := ""
 var _overwrite_dialog: RunOverwritePrompt
@@ -210,7 +212,8 @@ func _build_main_page() -> void:
 	_main_page.add_child(_menu_list)
 	var entries: Array[TagButton] = []
 	if continue_available:
-		_continue_button = _menu_button(_text("resume"), continue_requested.emit, _text("resume_hint"), &"ticket", "resume")
+		# 接續存檔的說明講出會回到哪一章、哪個地點（章節名只在這類地方出現）。
+		_continue_button = _menu_button(_text("resume"), continue_requested.emit, PlaceNames.resume_line(continue_level, Story.language), &"ticket", "resume")
 		entries.append(_continue_button)
 	_start_button = _menu_button(_text("start"), _open_difficulty, _text("start_hint"), &"tag" if continue_available else &"ticket", "start")
 	entries.append(_start_button)

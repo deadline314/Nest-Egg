@@ -19,6 +19,8 @@ const ENTRY_BUILD_SLICE_USEC := 6000
 const DEATH_SCREEN_DELAY := 1.1
 const ORDINARY_DEATH_SCREEN_DELAY := 0.7
 const VICTORY_DELAY := 2.8
+## 章末畫面內容全部出現後停留幾秒。
+const END_CARD_HOLD := 2.8
 const BOSS_SPAWN_DELAY := 0.8
 ## 進入戰場左界多少像素後觸發頭目戰。
 const ARENA_TRIGGER_MARGIN := 40.0
@@ -85,6 +87,8 @@ var _next_story_trigger := 0
 var _persistent := false
 ## 穿過哪個出入口進來（空白＝不是穿過出入口進來的）。
 var _entry_portal: StringName = &""
+## 這一輪之前到過這個區域（地點標示用短版）。
+var _revisit := false
 ## 這次建立是不是從檢查點重生（沒有穿過出入口、且檢查點在這個區域）。
 var _from_checkpoint := false
 ## 本區域這一輪的狀態（GameState.area_state 的參考；非持久世界為空字典）。
@@ -220,6 +224,8 @@ func _build_entry() -> void:
 	elif _resume.get("ending", false):
 		_finished = true
 	GameState.current_level_path = data.resource_path
+	# 這一輪之前到過這裡（地圖已有探索紀錄）：地點標示用短版。要在這次進場揭露地圖之前判斷。
+	_revisit = QuestMapState.for_run().explored.has(data.resource_path)
 	_entry_portal = GameState.take_pending_portal()
 	_from_checkpoint = _entry_portal == &"" and GameState.checkpoint_applies(data.resource_path)
 	if _persistent:
@@ -459,22 +465,24 @@ func _physics_process(_delta: float) -> void:
 # 劇情
 # ---------------------------------------------------------------------------
 
-## 開場：從關卡開頭進入時播放開場過場，接著顯示章節標題（從檢查點重生時略過）。
+## 開場：從關卡開頭進入時播放開場過場，接著標示地點（從檢查點重生時略過）。
+## 地點標示（NE-421）：章節名不疊在遊戲畫面上，只在暫停、存檔、任務與地圖出現；進入地點時右下角淡入地名。
+## 章節第一個區域、穿過出入口、從主選單接續存檔時顯示；回訪用短版；死亡重生不顯示。
 func _begin_intro() -> void:
-	if _from_checkpoint or not is_inside_tree():
+	if not is_inside_tree():
+		return
+	# 接續存檔（_resume 只在主選單「繼續遊戲」時有內容）：就算這一區登記過檢查點也告訴玩家人在哪裡。
+	if not _resume.is_empty() and _announces_location():
+		_show_location()
+	if _from_checkpoint:
 		return
 	if data.intro_scene != &"" and not Story.was_seen(data.intro_scene):
 		if not await _play_flow_scene(data.intro_scene):
 			return
 		if not is_inside_tree():
 			return
-	if _entry_portal != &"":
-		# 穿過出入口進來：只標示區域名稱，不重播章節標題。
-		if data.announce_area and not data.display_name.is_empty():
-			EventBus.toast_requested.emit(data.display_name_for(Story.language))
-	elif data.show_chapter_card and _resume.is_empty():
-		var info := Story.chapter_info(data.chapter)
-		_show_chapter_card(str(info.get("title", data.display_name_for(Story.language))), str(info.get("subtitle", "")), false)
+	if _resume.is_empty() and (_entry_portal != &"" or data.show_chapter_card) and _announces_location():
+		_show_location()
 	if _finished:
 		return
 	if data.complete_after_intro:
@@ -512,6 +520,33 @@ func _begin_death_reactions() -> void:
 	if GameState.consume_checkpoint_notice():
 		EventBus.toast_requested.emit(REGISTERED_TOAST)
 	Story.play_respawn_reactions(data.chapter)
+
+
+## 這一區要不要標示地點：章末收尾與進場後自動離開的過渡區域不標示。
+func _announces_location() -> bool:
+	return data.announce_area and not data.complete_after_intro and data.after_intro_portal == &""
+
+
+func _show_location() -> LocationMarker:
+	var marker := LocationMarker.for_level(data, Story.language, _revisit)
+	if marker != null:
+		add_child(marker)
+	return marker
+
+
+## 章末畫面：全片少數保留的章節卡（章名在這裡第一次正式出現）。
+func _end_card(info: Dictionary) -> ChapterCard:
+	var card := ChapterCard.new()
+	var parts := ChapterCard.split_end_title(str(info.get("title", "")), str(info["end_title"]))
+	card.title = str(info["end_title"])
+	card.chapter_number = parts[0]
+	card.chapter_name = parts[1]
+	card.seal_text = parts[2]
+	card.subtitle = str(info.get("teaser", ""))
+	card.block = true
+	card.hold = END_CARD_HOLD
+	add_child(card)
+	return card
 
 
 func _show_chapter_card(title: String, subtitle: String, block: bool, hold := 2.2) -> ChapterCard:
@@ -1555,7 +1590,7 @@ func _run_ending() -> void:
 		return
 	var info := Story.chapter_info(data.chapter)
 	if info.has("end_title"):
-		var card := _show_chapter_card(str(info["end_title"]), str(info.get("teaser", "")), true, 2.8)
+		var card := _end_card(info)
 		await card.finished
 	if is_inside_tree():
 		if is_instance_valid(player):

@@ -186,6 +186,7 @@ func _open_main_menu() -> void:
 		AssetPrefetch.request(AssetPrefetch.scene_texture_paths(first.intro_scene))
 	var menu := MainMenu.new()
 	menu.continue_available = not _continue_data.is_empty()
+	menu.continue_level = str(_continue_data.get("level", ""))
 	menu.overwrite_required = _run_store.exists()
 	menu.save_notice = _save_notice(lineage)
 	for issue in _run_store.issues:

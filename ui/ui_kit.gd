@@ -14,6 +14,12 @@ const BODY_FALLBACK_PATH := "res://art/fonts/NotoSansTC-Regular-subset.ttf"
 const SPECIAL_FONT_PATHS := {
 	&"display": "res://art/fonts/IBMPlexSansCondensed-SemiBold.ttf",
 	&"readout": "res://art/fonts/IBMPlexMono-Medium.ttf",
+	## 地名與章節名（明體粗體，只收錄標題用得到的字；缺字退回內文字型）。
+	&"title": "res://art/fonts/NestEggTitleTC-Bold.ttf",
+}
+## 遊戲語言是日文時改用的字型（繁中字型沒有日文字形，例如「横」「麺」）。
+const SPECIAL_FONT_PATHS_JA := {
+	&"title": "res://art/fonts/NestEggTitleJP-Bold.ttf",
 }
 ## 舊名稱：像素字檔（測試與工具引用）。
 const FONT_PATH := "res://art/fonts/Cubic_11.ttf"
@@ -47,7 +53,7 @@ static var _system_fallback: SystemFont
 # TextServer can still draw glyphs from the previous face after a live switch.
 # Retain the configured faces and fallback chains for the finite set of styles and roles.
 static var _body_fonts: Dictionary[String, Font] = {}
-static var _special_faces: Dictionary[StringName, FontFile] = {}
+static var _special_faces: Dictionary[String, FontFile] = {}
 static var _special_variants: Dictionary[Font, Dictionary] = {}
 static var _bundled_fallback: FontFile
 
@@ -135,21 +141,21 @@ static func _special_base(role: StringName) -> Font:
 	var body := (font() as FontVariation).base_font
 	if font_style() == "pixel":
 		return body
+	var path: String = SPECIAL_FONT_PATHS_JA.get(role, SPECIAL_FONT_PATHS[role]) if _font_language == "ja" else SPECIAL_FONT_PATHS[role]
 	var variants: Dictionary = _special_variants.get_or_add(body, {})
-	if variants.has(role):
-		return variants[role]
-	var face := _special_faces.get(role) as FontFile
+	if variants.has(path):
+		return variants[path]
+	var face := _special_faces.get(path) as FontFile
 	if face == null:
-		var path: String = SPECIAL_FONT_PATHS[role]
 		face = _load_project_font(path, false)
 		if face == null:
 			push_warning("UiKit: 字型載入失敗（%s），使用內文字型。" % path)
 			return body
-		_special_faces[role] = face
+		_special_faces[path] = face
 	var variant := FontVariation.new()
 	variant.base_font = face
 	variant.fallbacks = [body]
-	variants[role] = variant
+	variants[path] = variant
 	return variant
 
 

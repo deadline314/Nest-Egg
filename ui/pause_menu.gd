@@ -294,8 +294,10 @@ func close() -> void:
 ## 章節、時間、死亡次數、信用點與操作說明。
 func _refresh_info() -> void:
 	var info := Story.chapter_info(chapter)
+	# 章節名與目前地點：章節名不疊在遊戲畫面上，只在這類整理內容的地方出現。
+	var place := PlaceNames.level_data(GameState.current_level_path)
 	var lines: Array[String] = [
-		str(info.get("title", "")),
+		PlaceNames.progress_line(place, Story.language, str(info.get("title", ""))),
 		_text("time") % UiKit.format_time(GameState.run_time),
 		_text("deaths") % GameState.deaths,
 		_text("credits") % Progression.credits,
