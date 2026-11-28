@@ -16,6 +16,14 @@ func run() -> void:
 	Settings.set_reduce_flashes(false)
 	Settings.set_ui_text_scale(1.0)
 	GameState.start_new_run(GameState.difficulties[1])
+	for arg in OS.get_cmdline_user_args():
+		if arg == "--part=transitions":
+			Story.auto_skip = true
+			await _open(PAWNSHOP)
+			await wait(5.5)
+			await _purpose_transitions()
+			await finish()
+			return
 	await _prologue()
 	await _story_moments()
 	await _feedback()
@@ -105,6 +113,34 @@ func _transitions() -> void:
 		job.call()
 		await get_tree().create_timer(Transition.DEFAULT_TIME[kind] * 0.5, true, false, false).timeout
 		capture("audit-transition-%s" % kind_name.to_lower())
+		Engine.time_scale = 1.0
+		for i in 600:
+			if done[0]:
+				break
+			await get_tree().process_frame
+		await settle(4)
+
+
+## 遊戲流程的三種轉場用途（NE-427）：各拍蓋住一半、完全蓋住、揭開一半。
+func _purpose_transitions() -> void:
+	for purpose: Array in [["world", Transition.WORLD, ""], ["system", Transition.SYSTEM, ""], ["retry", Transition.RETRY, DeathScreen.record_title(4)]]:
+		var kind: int = purpose[1]
+		var half: float = Transition.DEFAULT_TIME[kind]
+		Engine.time_scale = SLOW
+		var done := [false]
+		var job := func() -> void:
+			await Transition.play(kind, func() -> void: await get_tree().create_timer(0.6, true, false, true).timeout, -1.0, Vector2(0.5, 0.5), purpose[2], 0.0)
+			done[0] = true
+		job.call()
+		await get_tree().create_timer(half * 0.5).timeout
+		capture("flow-%s-0-cover" % purpose[0])
+		await get_tree().create_timer(half * 0.5 + 0.03).timeout
+		capture("flow-%s-1-covered" % purpose[0])
+		Engine.time_scale = 1.0
+		await get_tree().create_timer(0.6, true, false, true).timeout
+		Engine.time_scale = SLOW
+		await get_tree().create_timer(half * 0.5).timeout
+		capture("flow-%s-2-reveal" % purpose[0])
 		Engine.time_scale = 1.0
 		for i in 600:
 			if done[0]:

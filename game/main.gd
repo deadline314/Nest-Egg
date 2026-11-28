@@ -131,7 +131,7 @@ func _ready() -> void:
 
 
 ## 換畫面：用轉場蓋住 → 釋放舊畫面並加入新畫面 → 揭開。
-func _switch_to(screen: Node, kind := Transition.Kind.FADE, center := Vector2(0.5, 0.5),
+func _switch_to(screen: Node, kind := Transition.WORLD, center := Vector2(0.5, 0.5),
 		caption := "", hold := 0.0) -> void:
 	_pending_screen = screen
 	await Transition.play(kind, _swap_screen.bind(screen), -1.0, center, caption, hold)
@@ -194,7 +194,7 @@ func _open_main_menu() -> void:
 	menu.continue_requested.connect(_on_continue_requested, CONNECT_DEFERRED)
 	menu.start_requested.connect(_on_start_requested, CONNECT_DEFERRED)
 	menu.quit_requested.connect(_quit, CONNECT_DEFERRED)
-	await _switch_to(menu, Transition.Kind.SCAN)
+	await _switch_to(menu, Transition.SYSTEM)
 
 
 ## 本版本自己的存檔優先；沒有時才找較舊累積版本的存檔接續（原檔保留）。
@@ -255,7 +255,7 @@ static func _edition_save_notice(edition: CampaignEdition, can_resume: bool) -> 
 func _on_start_requested(difficulty: DifficultyData) -> void:
 	if _route_pending():
 		return
-	await _cover_route(Transition.Kind.SCAN, _start_run.bind(difficulty))
+	await _cover_route(Transition.SYSTEM, _start_run.bind(difficulty))
 
 
 func _start_run(difficulty: DifficultyData) -> void:
@@ -272,13 +272,13 @@ func _start_run(difficulty: DifficultyData) -> void:
 	if not _run_store.write(RunSnapshot.capture(_level_path, {"loadout": {}, "world": {}, "position": [-1, -1], "health": difficulty.player_max_health}), true):
 		EventBus.toast_requested.emit("新遊戲尚未保存，原檔已保留；會再嘗試保存。")
 	if await _route_frame():
-		await _load_level(Transition.Kind.SCAN)
+		await _load_level(Transition.SYSTEM)
 
 
 func _on_continue_requested() -> void:
 	if _route_pending():
 		return
-	await _cover_route(Transition.Kind.SCAN, _continue_run)
+	await _cover_route(Transition.SYSTEM, _continue_run)
 
 
 func _continue_run() -> void:
@@ -318,7 +318,7 @@ func _continue_run() -> void:
 	elif _chapter_complete:
 		await _show_victory(terminal.chapter)
 	else:
-		await _load_level(Transition.Kind.SCAN)
+		await _load_level(Transition.SYSTEM)
 
 
 func _safe_resume_target(source: LevelData) -> String:
@@ -399,14 +399,14 @@ func _enter_next_level(next: LevelData, runtime: Dictionary) -> void:
 	GameState.enter_level()
 	_resume_runtime = runtime if _restore_publish_pending else {}
 	if await _route_frame():
-		await _load_level(Transition.Kind.ELEVATOR)
+		await _load_level(Transition.WORLD)
 
 
 func _retry_chapter_route(next: LevelData, runtime: Dictionary) -> void:
-	await _cover_route(Transition.Kind.ELEVATOR, _enter_next_level.bind(next, runtime))
+	await _cover_route(Transition.WORLD, _enter_next_level.bind(next, runtime))
 
 
-func _load_level(kind := Transition.Kind.IRIS, caption := "", hold := 0.0) -> void:
+func _load_level(kind := Transition.WORLD, caption := "", hold := 0.0) -> void:
 	var data: LevelData = load(_level_path) as LevelData if ResourceLoader.exists(_level_path) else null
 	if data == null:
 		push_error("[Main] 無法載入關卡：%s" % _level_path)
@@ -431,11 +431,11 @@ func _on_level_menu_requested(origin: WeakRef) -> void:
 		_show_main_menu()
 
 
-## 死亡後重來用雜訊溶解並標示回溯編號；暫停選單的「從檢查點重來」用光圈。
+## 死亡後重來用回溯轉場並標示回溯編號；暫停選單的「從檢查點重來」是在世界裡換地方。
 func _on_retry_requested(level: Level) -> void:
 	if _route_pending() or not is_instance_valid(level) or level.channel_result_pending:
 		return
-	var kind := Transition.Kind.GLITCH if level.died else Transition.Kind.IRIS
+	var kind := Transition.RETRY if level.died else Transition.WORLD
 	var caption := DeathScreen.record_title(GameState.deaths) if level.died else ""
 	var hold := RETRY_HOLD if level.died else 0.0
 	await _cover_route(kind, _retry_run.bind(level, kind, caption, hold), caption, hold)
@@ -480,7 +480,7 @@ func _on_area_requested(level_path: String) -> void:
 	if is_instance_valid(_channel_completion) and _channel_completion.defer_area(level_path): return
 	if _route_pending():
 		return
-	await _cover_route(Transition.Kind.FADE, _commit_area_route.bind(level_path))
+	await _cover_route(Transition.WORLD, _commit_area_route.bind(level_path))
 
 
 func _commit_area_route(level_path: String) -> void:
@@ -519,7 +519,7 @@ func _commit_area_route(level_path: String) -> void:
 			_on_area_requested(level_path), true, "area")
 		return
 	if await _route_frame():
-		await _load_level(Transition.Kind.FADE)
+		await _load_level(Transition.WORLD)
 
 
 ## 過關：有下一關就接續（帶著成長與裝備），否則進入結算畫面。下一關讀不到時退回結算，不會卡住。
@@ -538,9 +538,9 @@ func _on_level_completed(data: LevelData, source_ref: WeakRef = null) -> void:
 		return
 	var next := _next_level(data)
 	if next != null:
-		await _cover_route(Transition.Kind.ELEVATOR, _handoff_chapter.bind(next, source))
+		await _cover_route(Transition.WORLD, _handoff_chapter.bind(next, source))
 	else:
-		await _cover_route(Transition.Kind.BLINDS, _finish_chapter.bind(data, source))
+		await _cover_route(Transition.WORLD, _finish_chapter.bind(data, source))
 
 
 func _handoff_chapter(next: LevelData, source: Level) -> void:
@@ -563,7 +563,7 @@ func _show_victory(chapter: StringName) -> void:
 	screen.chapter = chapter
 	screen.replay_requested.connect(_on_start_requested.bind(GameState.difficulty), CONNECT_DEFERRED)
 	screen.menu_requested.connect(_show_main_menu, CONNECT_DEFERRED)
-	await _switch_to(screen, Transition.Kind.BLINDS)
+	await _switch_to(screen, Transition.WORLD)
 
 
 func _publishing_results() -> bool:

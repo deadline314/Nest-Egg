@@ -6,13 +6,21 @@ extends Node
 
 enum Kind { FADE, FADE_WHITE, IRIS, SCAN, GLITCH, ELEVATOR, BLINDS }
 
+## 轉場的用途（NE-426）：遊戲流程只用這三種，同一件事永遠是同一種轉場。
+## WORLD＝在世界裡換地方（區域之間、讀取、換章、到結算），很短的黑色淡出，玩家幾乎不會注意到；
+## SYSTEM＝選單與系統畫面之間（主選單、開始、繼續），青色掃描線；RETRY＝死亡重來。
+## 其餘種類只留給過場資料裡有意義的時刻（例如真的在搭電梯）。
+const WORLD := Kind.FADE
+const SYSTEM := Kind.SCAN
+const RETRY := Kind.GLITCH
+
 signal covered
 signal finished
 
 const LAYER := UiLayers.TRANSITION
-## 各轉場「蓋住」或「揭開」單程的預設秒數。死亡重來（GLITCH）總長 0.7 秒。
+## 各轉場「蓋住」或「揭開」單程的預設秒數。死亡重來（GLITCH）總長 0.7 秒；世界裡換地方（FADE）單程 0.3 秒（同類遊戲房間之間的淡出約在這個長度）。
 const DEFAULT_TIME: Dictionary[int, float] = {
-	Kind.FADE: 0.45, Kind.FADE_WHITE: 0.35, Kind.IRIS: 0.5, Kind.SCAN: 0.5,
+	Kind.FADE: 0.3, Kind.FADE_WHITE: 0.35, Kind.IRIS: 0.5, Kind.SCAN: 0.5,
 	Kind.GLITCH: 0.35, Kind.ELEVATOR: 0.7, Kind.BLINDS: 0.45,
 }
 const SKIP_SPEED := 4.0
@@ -51,7 +59,8 @@ func _ready() -> void:
 		push_error("[Transition] 找不到轉場 shader，改用單色淡入淡出。")
 		_rect.color = Color.BLACK
 	_layer.add_child(_rect)
-	_caption = UiKit.label("", UiKit.FS_TITLE, Palette.UI_TEXT, HORIZONTAL_ALIGNMENT_CENTER)
+	# 蓋住時的一行字（回溯編號、讀取說明）用畫面標題的字體（NE-422 的字體階層）。
+	_caption = UiKit.styled("", &"title", Palette.UI_TEXT, HORIZONTAL_ALIGNMENT_CENTER)
 	_caption.set_anchors_preset(Control.PRESET_FULL_RECT)
 	_caption.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	_caption.modulate.a = 0.0

@@ -5,6 +5,7 @@ extends TestSuite
 
 
 func run() -> void:
+	_test_purposes()
 	await _test_all_kinds()
 	await _test_pause_state()
 	await _test_cutscene_overlap()
@@ -14,6 +15,17 @@ func run() -> void:
 	await _test_reduced_flashes()
 	await _test_busy_fallback()
 	await _test_no_leaks()
+
+
+## 遊戲流程只用三種用途的轉場（NE-426）：世界裡換地方是很短的淡出、選單是掃描線、死亡重來另外一種。
+func _test_purposes() -> void:
+	check(Transition.WORLD == Transition.Kind.FADE and Transition.SYSTEM == Transition.Kind.SCAN and Transition.RETRY == Transition.Kind.GLITCH,
+		"三種用途對應淡出、掃描線、回溯")
+	check(Transition.DEFAULT_TIME[Transition.WORLD] <= 0.3, "世界裡換地方的淡出單程不超過 0.3 秒")
+	var source := FileAccess.get_file_as_string("res://game/main.gd")
+	var stray := RegEx.create_from_string("Transition\\.Kind\\.\\w+").search_all(source).map(func(m: RegExMatch) -> String: return m.get_string())
+	check(stray.is_empty(), "遊戲流程不直接指定轉場種類，只用三種用途：%s" % [stray])
+	check(Transition._caption.get_theme_font(&"font") == Typography.font(&"title"), "轉場上的一行字用畫面標題的字體")
 
 
 func _enable() -> void:
