@@ -1,6 +1,8 @@
 {
  "version": 1,
  "density": "demo; not a production difficulty standard",
+ "shared_rule": "Any two chapters may share at most two enemies (NE-97, NE-477). List each shared enemy in shared with both chapters and why it belongs in both; it must not be either chapter's most-placed enemy.",
+ "shared": [],
  "chapters": {
   "ch1_kasa": {
    "levels": [

@@ -5,6 +5,7 @@ extends TestSuite
 
 const IDS: Array[String] = ["prologue", "pawnshop", "rooftop", "street", "booth_alley", "warehouse", "vault", "handoff", "lounge", "stall", "pawnshop_dawn"]
 const ROSTER_PATH := "res://data/combat/chapter_rosters.json"
+const RosterRules := preload("res://tests/helpers/roster_rules.gd")
 const DESIGN_PATH := "res://data/levels/ch1_design.json"
 ## 遭遇總數與波次區的下限；NE-245 普通遭遇保留波次但不鎖場。
 const MIN_ENCOUNTERS := 22
@@ -1431,18 +1432,20 @@ func _alive_enemies(level: Level) -> int:
 
 
 ## Compare actual campaign + legacy-demo placements and reinforcements, rather than only declared lists.
+## 跨章規則（NE-477）：任兩章最多共用兩種、共用要在 shared 寫明原因、每章有自己的敵人、共用的不能是主力；
+## 規則本身見 tests/helpers/roster_rules.gd，這裡用實際擺放數量檢查，並用假名單確認規則抓得到違規。
 func _test_chapter_exclusivity() -> void:
-	var chapters: Dictionary = (load(ROSTER_PATH) as JSON).data.chapters
-	var owner := {}
+	var roster: Dictionary = (load(ROSTER_PATH) as JSON).data
+	var chapters: Dictionary = roster.chapters
+	var placements := {}
 	for chapter: String in chapters:
 		var entry: Dictionary = chapters[chapter]
-		for enemy: String in entry.enemies + entry.demo_enemies + entry.reserved:
-			check(not owner.has(enemy) or owner[enemy] == chapter, "enemy belongs to only one chapter: %s" % enemy)
-			owner[enemy] = chapter
+		var counts := {}
 		for ident: String in entry.levels + entry.demo_levels:
 			var data := load("res://data/levels/%s.tres" % ident) as LevelData
 			var layout := LevelBuilder.parse(data)
-			var allowed: Array = entry.demo_enemies if entry.demo_levels.has(ident) else entry.enemies
+			var demo: bool = entry.demo_levels.has(ident)
+			var allowed: Array = entry.demo_enemies if demo else entry.enemies
 			for resource in data.legend.values():
 				if resource is MechanismData:
 					for reinforcement in (resource as MechanismData).reinforcements:
@@ -1450,9 +1453,40 @@ func _test_chapter_exclusivity() -> void:
 			for spawn in layout.spawns:
 				if spawn.resource is EnemyData:
 					_check_roster_enemy(spawn.resource, allowed, ident)
+					if not demo:
+						var id := String((spawn.resource as EnemyData).id)
+						counts[id] = int(counts.get(id, 0)) + 1
 			for resource in data.legend.values():
 				if resource is EnemyData:
 					_check_roster_enemy(resource, allowed, ident)
+		placements[chapter] = counts
+	var problems := RosterRules.problems(roster, placements)
+	check(problems.is_empty(), "chapter rosters follow the cross-chapter rules: %s" % "; ".join(problems))
+	_test_roster_rules_catch_violations()
+
+
+func _test_roster_rules_catch_violations() -> void:
+	var base := {"chapters": {
+		"a": {"levels": [], "enemies": ["own_a", "guard", "gunner"], "demo_levels": [], "demo_enemies": [], "reserved": []},
+		"b": {"levels": [], "enemies": ["own_b", "guard", "gunner"], "demo_levels": [], "demo_enemies": [], "reserved": []},
+		"c": {"levels": [], "enemies": ["own_c"], "demo_levels": [], "demo_enemies": ["guard"], "reserved": []}}}
+	var good := base.duplicate(true)
+	good["shared"] = [{"enemy": "guard", "chapters": ["a", "b"], "reason": "同一個組織的保全"},
+			{"enemy": "gunner", "chapters": ["a", "b"], "reason": "同一個組織的槍手"}]
+	check(RosterRules.problems(good, {"a": {"own_a": 5, "guard": 2}}).is_empty(), "two declared shared enemies between two chapters are allowed; demo lists do not count")
+	check(not RosterRules.problems(base, {}).is_empty(), "an enemy in two chapters without a shared entry is reported")
+	var no_reason := good.duplicate(true)
+	no_reason["shared"][0]["reason"] = ""
+	check(not RosterRules.problems(no_reason, {}).is_empty(), "a shared entry without a reason is reported")
+	var three := good.duplicate(true)
+	(three["chapters"]["a"]["enemies"] as Array).append("third")
+	(three["chapters"]["b"]["enemies"] as Array).append("third")
+	(three["shared"] as Array).append({"enemy": "third", "chapters": ["a", "b"], "reason": "x"})
+	check(not RosterRules.problems(three, {}).is_empty(), "a third shared enemy between the same two chapters is reported")
+	check(not RosterRules.problems(good, {"a": {"own_a": 1, "guard": 4}}).is_empty(), "a shared enemy as a chapter's mainstay is reported")
+	var none_own := good.duplicate(true)
+	none_own["chapters"]["a"]["enemies"] = ["guard", "gunner"]
+	check(not RosterRules.problems(none_own, {}).is_empty(), "a chapter with no enemy of its own is reported")
 
 
 func _check_roster_enemy(enemy: EnemyData, allowed: Array, ident: String) -> void:
