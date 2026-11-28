@@ -19,6 +19,13 @@ AREA = kit.AREA
 H = kit.H
 Area = kit.Area
 MAINTENANCE_CREDIT = '¢'
+# 玩法線的機關（字元在每一章同義）。
+DECOY_RADIO = 'ψ'
+LIVE_CABLE = 'φ'
+STEAM_VALVE = 'σ'
+SECRET_WALL = 'X'
+MECHANISMS = {DECOY_RADIO: 'res://data/props/decoy_radio.tres', LIVE_CABLE: 'res://data/props/live_cable.tres',
+              STEAM_VALVE: 'res://data/props/steam_valve.tres'}
 
 # ---------------------------------------------------------------------------
 # 人物與可調查物件：字元 -> 資料檔（台詞由劇本的分派場景依進度挑選，見 tools/story/ch3_source.py）
@@ -295,8 +302,8 @@ def _build_mezzanine_v1():
 
 def build_clinic():
     """M5a 公開櫃檯與閱覽桌、M5b 核閱工作廊：芷姐（C04）、三份公開資料（C05～C07）、閱覽桌核對（C08）、寄存櫃（C09）。"""
-    a = Area('clinic', '夾層診所', 96, 20, indoor=True)
-    a.ceiling(1, 94, 10)
+    a = Area('clinic', '夾層診所', 104, 20, indoor=True)
+    a.ceiling(1, 102, 10)
     a.stand(3, 'm')
     a.stand(6, 'P')
     a.stand(12, 'Ⓞ')
@@ -319,11 +326,16 @@ def build_clinic():
     a.prop('nursing_ward__bedside_locker', 76)
     a.prop('clinic__water_dispenser', 84)
     a.stand(92, 'ⅰ')
-    for x in (10, 22, 36, 56, 72, 88):
+    # 往門禁大廳的門右邊：一面有裂縫的隔牆，後面是舊的備品間（NE-419）。不擋主線，打破才看得到。
+    a.block(96, 96, 10, 16)
+    a.put(96, 19, SECRET_WALL)
+    a.prop('nursing_ward__bedside_locker', 99)
+    a.stand(101, 'q')
+    for x in (10, 22, 36, 56, 72, 88, 100):
         a.lamp(x, 11)
     a.zone(0, 'clinic_ward')
     a.features = {'loop': '公開櫃檯與核閱工作廊之間的內側回門（x=47）', 'landmark': '芷姐的公開櫃檯（x=24）',
-                  'secret': '寄存櫃第三個抽屜的錄音（x=76，可選）'}
+                  'secret': '往門禁大廳的門右邊，裂縫隔牆後的備品間（x=97～102）；寄存櫃第三個抽屜的錄音（x=76，可選）'}
     return a
 
 
@@ -432,26 +444,33 @@ def build_office_hall():
     """S3 天穹辦公接待廊：公文取件格（C18）、等候臺（C19、C20），辦公內門關著，候梯迴廊接回玻璃邊緣。"""
     a = Area('office_hall', '天穹辦公接待廊', 64, 20, indoor=True)
     a.ceiling(1, 62, 8)
+    FLOOR_ROW = 19  # 地面擺設寫明站在地板上：維修廊在頭上，「站在地上」會被算成站在維修廊上
     a.stand(3, 'Ⅺ')
     a.stand(6, 'P')
     a.stand(14, 'ⓧ')
-    a.prop('tianqiong_corridor__petition_box', 13)   # 公文取件格（BG-45）
+    a.prop('tianqiong_corridor__petition_box', 13, y=FLOOR_ROW)   # 公文取件格（BG-45）
     a.stand(28, 'Ⓦ')
     # 擺設改用天穹接待廊這一包（BG-40）：過場舞台用的就是這個地方的背景，可走的關卡要是同一個樣子。
     # 等候臺是走廊長凳；辦公內門旁是霧面玻璃隔間；牆上是巨幅畫像與燈條。
     a.prop('tianqiong_corridor__portrait_frame', 21, y=12, support='wall')
-    a.prop('tianqiong_corridor__sleek_bench', 26)
+    a.prop('tianqiong_corridor__sleek_bench', 26, y=FLOOR_ROW)
     a.stand(36, 'ⅷ')
-    a.prop('tianqiong_corridor__frosted_partition', 38)
+    a.prop('tianqiong_corridor__frosted_partition', 38, y=FLOOR_ROW)
     a.prop('tianqiong_corridor__wall_light_strip', 44, y=10, support='wall')
-    a.prop('tianqiong_corridor__cloud_sculpture', 46)
-    a.prop('tianqiong_corridor__modern_planter', 51)
-    a.prop('tianqiong_corridor__water_cooler', 56)
+    a.prop('tianqiong_corridor__cloud_sculpture', 46, y=FLOOR_ROW)
+    a.prop('tianqiong_corridor__modern_planter', 51, y=FLOOR_ROW)
+    a.prop('tianqiong_corridor__water_cooler', 56, y=FLOOR_ROW)
     a.stand(60, 'Ⅻ')
+    # 空調維修廊（NE-419）：迴廊右段踩矮台上到天花板下的維修廊，往左走過等候臺上方，盡頭有一包信用點
+    # （從地面看得到，要繞上去才拿得到），再從左端落回取件格旁。玻璃邊緣是光影樣板，平台改放在這裡。
+    a.platform(48, 52, 17)
+    a.platform(16, 46, 14)
+    a.stand(18, 'q', row=13)
     for x in (10, 24, 40, 54):
         a.lamp(x, 9)
     a.zone(0, 'reception_white')
-    a.features = {'landmark': '辦公內門與等候臺（x=28～36）'}
+    a.features = {'landmark': '辦公內門與等候臺（x=28～36）', 'vertical': '迴廊地面與天花板下的空調維修廊兩層',
+                  'secret': '維修廊左端的信用點（x=18，從右段的矮台繞上去）', 'loop': '維修廊從右段上去、左端落回取件格旁'}
     return a
 
 
@@ -470,6 +489,7 @@ def build_plaza():
 def build_pump():
     a = kit._v2_area(_build_pump_v1())
     a.trigger(7, "ch3_b_c02_upper_route")
+    a.put(37, 35, DECOY_RADIO)   # 誘餌收音機（NE-406）：引開下槽的巡檢，再從上橋繞過
     a.features.update(vertical='下槽、乾燥上橋與天花板上的管線廊三層', reward='管線廊上方第 7 列信用點：空中再躍',
                       shortcut='管線廊左端的維修豎井 ↔ 夾層（貨梯接通後）')
     return a
@@ -477,6 +497,8 @@ def build_pump():
 
 def build_mezzanine():
     a = kit._v2_area(_build_mezzanine_v1())
+    a.put(61, 35, DECOY_RADIO)   # 誘餌收音機與通電纜線（NE-406）：把巡檢引到纜線上
+    a.put(63, 35, LIVE_CABLE)
     a.features.update(vertical='維修帶、照護步道與天花板上的豎井廊三層', reward='豎井廊上方第 7 列信用點：空中再躍',
                       loop='貨梯口旁的豎井往上、豎井廊右端下到泵室管線廊，再經外梯或下路回廣場')
     return a
@@ -526,6 +548,7 @@ def configure():
         kit.ENEMY_NAMES[char] = ENEMY_DISPLAY[char]
     # Keep the original credits_small ID so the old coordinates still restore collected piles.
     kit.RES[MAINTENANCE_CREDIT] = 'res://data/props/credits_maintenance.tres'
+    kit.RES.update(MECHANISMS)
     kit.PORTALS = PORTALS
     kit.NPCS = {ident: {**{'rig': '', 'loop': '', 'facing': 1}, **spec} for ident, spec in NPCS.items()}
     kit.THEMES = THEMES

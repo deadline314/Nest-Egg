@@ -91,23 +91,25 @@ func _chapter(id: String, paths: Array, story: Dictionary, first: String, levels
 		area["encounters"] = int(pacing.get("encounters", 0))
 		area["main"] = _main_activity(area)
 		areas.append(area)
-	return {"id": id, "areas": areas, "combat_area_runs": _combat_area_runs(areas), "same_runs": _same_runs(areas)}
+	return {"id": id, "areas": areas, "combat_area_runs": _combat_area_runs(areas), "same_runs": _same_runs(areas), "enemy_runs": _enemy_runs(areas)}
 
 
 func _area(data: LevelData, layout: LevelLayout) -> Dictionary:
 	var w := layout.width
 	var area := {"path": data.resource_path, "name": data.resource_path.get_file().get_basename(), "display": data.display_name,
-			"width": w, "enemies": 0, "boss": not layout.boss_spawn.is_empty(), "locked_fights": 0, "npcs": 0, "objects": 0,
+			"width": w, "enemies": 0, "enemy_kinds": {}, "boss": not layout.boss_spawn.is_empty(), "locked_fights": 0, "npcs": 0, "objects": 0,
 			"shops": 0, "credits": 0, "elevated_credits": 0, "pickups": 0, "secret_walls": 0,
 			"ladders": 0, "lifts": 0, "exits": 0, "locked_exits": 0, "mechanisms": {}, "hazards": {}, "stealth": [],
 			"timed": [], "challenges": [], "training": 0}
 	# 每欄一份標記，給「只有戰鬥的畫面」用。
+	var credit_cells: Array[Vector2i] = []
 	var enemy_cols := PackedByteArray()
 	var other_cols := PackedByteArray()
 	enemy_cols.resize(w)
 	other_cols.resize(w)
 	if not layout.boss_spawn.is_empty():
 		area["enemies"] += 1
+		_count(area["enemy_kinds"], (layout.boss_spawn["resource"] as EnemyData).display_name)
 		enemy_cols[clampi(layout.boss_spawn["cell"].x, 0, w - 1)] = 1
 	for spawn: Dictionary in layout.spawns:
 		var res: Resource = spawn["resource"]
@@ -115,6 +117,7 @@ func _area(data: LevelData, layout: LevelLayout) -> Dictionary:
 		var other := true
 		if res is EnemyData:
 			area["enemies"] += 1
+			_count(area["enemy_kinds"], (res as EnemyData).display_name)
 			enemy_cols[x] = 1
 			other = false
 		elif res is PortalData:
@@ -135,10 +138,12 @@ func _area(data: LevelData, layout: LevelLayout) -> Dictionary:
 			area["shops"] += 1
 		elif res is CreditPileData:
 			area["credits"] += 1
-			other = false  # 路上的信用點不算另一種玩法；看得到拿不到的才算。
+			other = false  # 路上的信用點不算另一種玩法；看得到拿不到的才算（見 climb_credits）。
 			if spawn.get("elevated_credit", false):
 				area["elevated_credits"] += 1
 				other = true
+			else:
+				credit_cells.append(spawn["cell"])
 		elif res is ConsumableData or res is StoryItemData or res is WeaponData:
 			area["pickups"] += 1
 			other = false
@@ -204,7 +209,13 @@ func _area(data: LevelData, layout: LevelLayout) -> Dictionary:
 	area["screens"] = ceili(w / float(SCREEN_TILES))
 	area["fight_screens"] = _count_screens(enemy_cols, other_cols, false)
 	area["bare_fight_screens"] = _count_screens(enemy_cols, other_cols, true)
-	_terrain(layout, area, other_cols)
+	var floors := _terrain(layout, area, other_cols)
+	area["climb_credits"] = 0
+	for cell in credit_cells:
+		# 比那一欄最低的可站高度高出兩個身高以上：要爬上去才拿得到。
+		if floors.has(cell.x) and int(floors[cell.x]) - cell.y >= MOVE_SPAN_ROWS:
+			area["climb_credits"] += 1
+			other_cols[cell.x] = 1
 	area["kinds"] = _kinds(area)
 	area["combat_only"] = area["enemies"] > 0 and (area["kinds"] as PackedStringArray).is_empty()
 	area["combat_screens"] = _combat_screens(enemy_cols, other_cols)
@@ -212,7 +223,8 @@ func _area(data: LevelData, layout: LevelLayout) -> Dictionary:
 
 
 ## 高低差與第二路線：用可達的站立格算每欄有幾層、整區用到幾個高度。
-func _terrain(layout: LevelLayout, area: Dictionary, other_cols: PackedByteArray) -> void:
+## 回傳每欄最低的可站列（地面）。
+func _terrain(layout: LevelLayout, area: Dictionary, other_cols: PackedByteArray) -> Dictionary:
 	var reach := SceneAudit.reachable_cells(layout, SceneAudit._mechanism_platforms(layout))
 	var by_column := {}
 	var row_use := {}
@@ -265,9 +277,13 @@ func _terrain(layout: LevelLayout, area: Dictionary, other_cols: PackedByteArray
 	area["layered_share"] = layered / float(maxi(1, walkable))
 	area["second_routes"] = routes
 	# 上下兩層的欄位本身就是「不只是開槍」：玩家可以選高低路。
+	var floors := {}
 	for x in layout.width:
 		if multi[x] == 1:
 			other_cols[x] = 1
+	for x: int in by_column:
+		floors[x] = (by_column[x] as Array).max()
+	return floors
 
 
 func _kinds(a: Dictionary) -> PackedStringArray:
@@ -280,7 +296,7 @@ func _kinds(a: Dictionary) -> PackedStringArray:
 		kinds.append("潛行／繞路")
 	if not (a["timed"] as Array).is_empty():
 		kinds.append("追逐／限時")
-	if a["secret_walls"] > 0 or a["elevated_credits"] > 0 or not (a["challenges"] as Array).is_empty():
+	if a["secret_walls"] > 0 or a["elevated_credits"] > 0 or a["climb_credits"] > 0 or not (a["challenges"] as Array).is_empty():
 		kinds.append("秘密／可選")
 	if a["npcs"] > 0 or a["objects"] > 0:
 		kinds.append("對話／調查")
@@ -353,7 +369,7 @@ func _main_activity(a: Dictionary) -> String:
 	var puzzle := false
 	for key: String in a["mechanisms"]:
 		puzzle = puzzle or not ["可破壞物", "可投擲物"].has(key)
-	if a["encounters"] >= 2:
+	if a["encounters"] >= 1:  # 有遭遇（含小頭目）就是一場戰鬥。
 		return "戰鬥＋機關" if puzzle else "戰鬥"
 	if puzzle:
 		return "機關"
@@ -365,6 +381,26 @@ func _main_activity(a: Dictionary) -> String:
 
 
 ## 沿主線連續 COMBAT_RUN 個以上主要內容相同的區域。
+## 同一種敵人在主線上連續 COMBAT_RUN 個以上「有敵人的區域」都出現（沒有敵人的區域不打斷，也不算進去）。
+func _enemy_runs(areas: Array[Dictionary]) -> Array:
+	var fights := areas.filter(func(a: Dictionary) -> bool: return a["route"] and a["enemies"] > 0)
+	var kinds := {}
+	for a: Dictionary in fights:
+		for kind: String in a["enemy_kinds"]:
+			kinds[kind] = true
+	var runs := []
+	for kind: String in kinds:
+		var current := []
+		for a: Dictionary in fights + [{"enemy_kinds": {}, "name": ""}]:
+			if (a["enemy_kinds"] as Dictionary).has(kind):
+				current.append(a["name"])
+				continue
+			if current.size() >= COMBAT_RUN:
+				runs.append({"kind": kind, "areas": current.duplicate()})
+			current.clear()
+	return runs
+
+
 func _same_runs(areas: Array[Dictionary]) -> Array:
 	var runs := []
 	var current := []
@@ -397,8 +433,8 @@ func _markdown(chapters: Array[Dictionary]) -> String:
 		lines.append("")
 		lines.append("### %s" % chapter["id"])
 		lines.append("")
-		lines.append("| 順序 | 區域 | 主線 | 長（格） | 估計分鐘 | 高低差（層／列） | 上下兩層比例 | 第二路線段 | 梯／升降 | 機關與危險地形 | 潛行 | 追逐限時 | 遭遇（場／敵） | 有敵人的畫面／其中只有戰鬥 | 鎖場 | 秘密與可選 | 人物／調查／商店 | 主要內容 | 除了開槍還做了什麼 |")
-		lines.append("|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|")
+		lines.append("| 順序 | 區域 | 主線 | 長（格） | 估計分鐘 | 高低差（層／列） | 上下兩層比例 | 第二路線段 | 梯／升降 | 機關與危險地形 | 潛行 | 追逐限時 | 遭遇（場／敵） | 敵人種類 | 有敵人的畫面／其中只有戰鬥 | 鎖場 | 秘密與可選 | 人物／調查／商店 | 主要內容 | 除了開槍還做了什麼 |")
+		lines.append("|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|")
 		var n := 0
 		for a: Dictionary in chapter["areas"]:
 			n += 1
@@ -411,7 +447,9 @@ func _markdown(chapters: Array[Dictionary]) -> String:
 			if a["secret_walls"] > 0:
 				secret.append("裂牆×%d" % a["secret_walls"])
 			if a["elevated_credits"] > 0:
-				secret.append("高處信用點×%d" % a["elevated_credits"])
+				secret.append("要空中再躍的信用點×%d" % a["elevated_credits"])
+			if a["climb_credits"] > 0:
+				secret.append("要爬上去的信用點×%d" % a["climb_credits"])
 			for c: String in a["challenges"]:
 				secret.append({"ENVIRONMENT_KILLS": "挑戰：環境擊倒", "UNSEEN_PASS": "挑戰：不被發現"}.get(c, c))
 			var kinds := ", ".join(a["kinds"]) if not (a["kinds"] as PackedStringArray).is_empty() else ("**只有戰鬥**" if a["enemies"] > 0 else "只有走路")
@@ -419,11 +457,14 @@ func _markdown(chapters: Array[Dictionary]) -> String:
 				kinds += "；第 %d–%d 欄連續 %d 個畫面只有戰鬥" % [run["from"], run["to"], run["screens"]]
 			for run: Dictionary in a["strict_combat_screens"]:
 				kinds += "；第 %d–%d 欄連續 %d 個畫面除了地形高低沒有別的事" % [run["from"], run["to"], run["screens"]]
-			lines.append("| %d | %s %s | %s | %d | %.1f | %d／%d | %d%% | %d | %d／%d | %s | %s | %s | %d／%d%s | %d／%d（共 %d） | %d | %s | %d／%d／%d | %s | %s |" % [
+			lines.append("| %d | %s %s | %s | %d | %.1f | %d／%d | %d%% | %d | %d／%d | %s | %s | %s | %d／%d%s | %s | %d／%d（共 %d） | %d | %s | %d／%d／%d | %s | %s |" % [
 					n, a["name"], a["display"], "是" if a["route"] else "支線", a["width"], a["minutes"], a["tiers"], a["span_rows"],
 					roundi(a["layered_share"] * 100.0), a["second_routes"], a["ladders"], a["lifts"], _or_none(", ".join(mech)),
-					_or_none(", ".join(PackedStringArray(a["stealth"]))), _or_none(", ".join(PackedStringArray(a["timed"]))), a["encounters"], a["enemies"], "（頭目）" if a["boss"] else "", a["fight_screens"], a["bare_fight_screens"], a["screens"],
+					_or_none(", ".join(PackedStringArray(a["stealth"]))), _or_none(", ".join(PackedStringArray(a["timed"]))), a["encounters"], a["enemies"], "（頭目）" if a["boss"] else "", _kinds_text(a["enemy_kinds"]), a["fight_screens"], a["bare_fight_screens"], a["screens"],
 					a["locked_fights"], _or_none(", ".join(secret)), a["npcs"], a["objects"], a["shops"], a["main"], kinds])
+		for run: Dictionary in chapter["enemy_runs"]:
+			lines.append("")
+			lines.append("- 「%s」連續出現在 %d 個有敵人的主線區域：%s" % [run["kind"], run["areas"].size(), " → ".join(PackedStringArray(run["areas"]))])
 		for run: Dictionary in chapter["same_runs"]:
 			lines.append("")
 			lines.append("- 主線上連續 %d 個區域都是「%s」：%s" % [run["areas"].size(), run["main"], " → ".join(PackedStringArray(run["areas"]))])
@@ -439,6 +480,13 @@ func _markdown(chapters: Array[Dictionary]) -> String:
 		lines.append("")
 		lines.append("- 單調分數最高的三區：%s" % "、".join(top))
 	return "\n".join(lines) + "\n"
+
+
+func _kinds_text(kinds: Dictionary) -> String:
+	var parts := PackedStringArray()
+	for kind: String in kinds:
+		parts.append("%s×%d" % [kind, kinds[kind]])
+	return _or_none(", ".join(parts))
 
 
 func _mechanism_label(key: String) -> String:

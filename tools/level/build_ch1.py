@@ -159,7 +159,7 @@ def write_training_files():
         if 'fail_repeat_text' in extra:
             body.append(f'fail_repeat_text = {json.dumps(extra["fail_repeat_text"], ensure_ascii=False)}')
         body += [f'reach = Vector2({reach[0]}, {reach[1]})', f'height = {height}.0']
-        with open(os.path.join(PROP_DIR, f'{name}.tres'), 'w', encoding='utf-8') as f:
+        with open(os.path.join(PROP_DIR, f'{name}.tres'), 'w', encoding='utf-8', newline='\n') as f:
             f.write(w.render(body))
         RES[glyph] = f'res://data/props/{name}.tres'
 
@@ -581,7 +581,7 @@ def write_data_files():
             continue
         w = TresWriter(cls, script)
         body = [f'script = ExtResource("{w.script_id}")'] + lines
-        with open(path, 'w', encoding='utf-8') as f:
+        with open(path, 'w', encoding='utf-8', newline='\n') as f:
             f.write(w.render(body))
         print('wrote', path)
 
@@ -1274,7 +1274,7 @@ def write_npc_files():
         lines.append(f'talks = Array[ExtResource("{talk_script}")]([' + ', '.join(f'SubResource("{x}")' for x in subs) + '])')
         if reaction_subs:
             lines.append(f'reactions = Array[ExtResource("{reaction_script}")]([' + ', '.join(f'SubResource("{x}")' for x in reaction_subs) + '])')
-        with open(os.path.join(NPC_DIR, f'{ident}.tres'), 'w', encoding='utf-8') as f:
+        with open(os.path.join(NPC_DIR, f'{ident}.tres'), 'w', encoding='utf-8', newline='\n') as f:
             f.write(w.render(lines))
 
 
@@ -1305,13 +1305,13 @@ def write_encounter_files(areas):
                 lines.append(f'clear_text = {json.dumps(e["clear_text"], ensure_ascii=False)}')
             if e['start_scene']:
                 lines.append(f'start_scene = &"{e["start_scene"]}"')
-            with open(os.path.join(ENCOUNTER_DIR, f'{PREFIX}_enc_{e["key"]}.tres'), 'w', encoding='utf-8') as f:
+            with open(os.path.join(ENCOUNTER_DIR, f'{PREFIX}_enc_{e["key"]}.tres'), 'w', encoding='utf-8', newline='\n') as f:
                 f.write(w.render(lines))
             g = TresWriter('MechanismData', 'res://data/scripts/mechanism_data.gd')
             glines = [f'script = ExtResource("{g.script_id}")', f'id = &"{PREFIX}_arena_{e["key"]}"', 'kind = 1',
                       f'display_name = "競技場閘門"', 'hint = ""', 'color = Color(1, 0.35, 0.3, 1)', f'channel = &"{channel}"',
                       f'size_tiles = Vector2i(1, {e["gate_h"]})', 'arena_gate = true']
-            with open(os.path.join(ENCOUNTER_DIR, f'{PREFIX}_arena_{e["key"]}.tres'), 'w', encoding='utf-8') as f:
+            with open(os.path.join(ENCOUNTER_DIR, f'{PREFIX}_arena_{e["key"]}.tres'), 'w', encoding='utf-8', newline='\n') as f:
                 f.write(g.render(glines))
 
 
@@ -1334,7 +1334,7 @@ def write_design(areas):
             'encounters': [{'name': e['name'], 'lock': False, 'wave_zone': e['lock'], 'x0': e['x0'], 'x1': e['x1'], 'members': [ENEMY_NAMES[c] for c in e['members']],
                             'reinforcements': [ENEMY_NAMES[c] for c in e['reinforcements']]} for e in a.encounters],
         }
-    with open(os.path.join(LEVEL_DIR, f'{PREFIX}_design.json'), 'w', encoding='utf-8') as f:
+    with open(os.path.join(LEVEL_DIR, f'{PREFIX}_design.json'), 'w', encoding='utf-8', newline='\n') as f:
         json.dump(data, f, ensure_ascii=False, indent=1)
         f.write('\n')
 
@@ -1441,7 +1441,8 @@ def write_theme(area, theme_key):
         layers.append(w.sub([f'script = ExtResource("{layer_script}")', f'texture = "res://art/environment/backdrop/{tex}.{ext}"'] + extra +
                             [f'scroll_scale = {scroll}', f'bottom_y = {bottom}', f'source_width = {source_width}']))
     sky_sub = w.sub([f'script = ExtResource("{layer_script}")', f'texture = "res://art/environment/backdrop/{sky}.webp"', 'scroll_scale = 0.03',
-                     'bottom_y = 300.0', 'texture_scale = 2', 'tint = Color(1.4, 1.35, 1.5, 1)', f'source_width = {SKY_SOURCE_WIDTH}'])
+                     'bottom_y = 300.0', 'texture_scale = 2', 'tint = Color(1.4, 1.35, 1.5, 1)', f'source_width = {SKY_SOURCE_WIDTH}',
+                     'drift = -3.0'])  # 天空緩慢往左飄（每秒像素）
     dirs = ', '.join(json.dumps(SCENE_PROPS % s) for s in prop_scenes)
     res = [f'script = ExtResource("{w.script_id}")',
            'zones = Array[ExtResource("%s")]([%s])' % (zone_script, ', '.join(f'SubResource("{zone}")' for zone in zones)),
@@ -1449,7 +1450,7 @@ def write_theme(area, theme_key):
            f'sky = SubResource("{sky_sub}")',
            f'extra_prop_dirs = PackedStringArray({dirs})']
     path = os.path.join(THEME_DIR, f'{PREFIX}_{area.id}.tres')
-    with open(path, 'w', encoding='utf-8') as f:
+    with open(path, 'w', encoding='utf-8', newline='\n') as f:
         f.write(w.render(res))
     return f'res://data/environment/themes/{PREFIX}_{area.id}.tres'
 
@@ -1570,7 +1571,7 @@ def write_level(area, theme_key=None, level_id=None, map_name=None, persist=True
     for key, value in opts.items():
         res.append(f'{key} = {value}')
     path = os.path.join(LEVEL_DIR, f'{PREFIX}_{level_id}.tres')
-    with open(path, 'w', encoding='utf-8') as f:
+    with open(path, 'w', encoding='utf-8', newline='\n') as f:
         f.write(w.render(res))
     print('wrote', path)
 
@@ -1812,7 +1813,8 @@ def _map_extra(area):
             extra['capability_targets'] = area.capability_targets
     # 其他頂層資料（例如主光 key_light，BG-67）原樣寫進地圖。
     extra.update(getattr(area, 'map_extra', {}))
-    extra.update(DEPTH_EXTRA.get(area.id, {}))
+    if PREFIX == 'ch1':  # 第一章的主光與景深；別章共用區域 id（當舖）時不能套到它們身上。
+        extra.update(DEPTH_EXTRA.get(area.id, {}))
     return extra
 
 

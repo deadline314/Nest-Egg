@@ -1,15 +1,16 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=12 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=13 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
-[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
-[ext_resource type="Resource" path="res://data/npcs/ch3_waiting_bench.tres" id="3_ch3_waiting_bench"]
-[ext_resource type="Resource" path="res://data/npcs/ch3_petition_box.tres" id="4_ch3_petition_box"]
-[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="5_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/reception_white.tres" id="6_tower_white"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch3_office_hall.tres" id="7_ch3_office_hall"]
+[ext_resource type="Resource" path="res://data/props/credits_large.tres" id="2_credits_large"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="3_portal_data"]
+[ext_resource type="Resource" path="res://data/npcs/ch3_waiting_bench.tres" id="4_ch3_waiting_bench"]
+[ext_resource type="Resource" path="res://data/npcs/ch3_petition_box.tres" id="5_ch3_petition_box"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="6_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/reception_white.tres" id="7_reception_white"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch3_office_hall.tres" id="8_ch3_office_hall"]
 
 [sub_resource type="Resource" id="Resource_0"]
-script = ExtResource("2_portal_data")
+script = ExtResource("3_portal_data")
 id = &"hall_show"
 target_level = "res://data/levels/ch3_showroom.tres"
 target_portal = &"show_hall"
@@ -18,7 +19,7 @@ localized_prompts = Dictionary[String, String]({"en": "{interact} Return to the 
 style = "door"
 
 [sub_resource type="Resource" id="Resource_1"]
-script = ExtResource("2_portal_data")
+script = ExtResource("3_portal_data")
 id = &"hall_edge"
 target_level = "res://data/levels/ch3_glass_edge.tres"
 target_portal = &"edge_hall"
@@ -27,7 +28,7 @@ localized_prompts = Dictionary[String, String]({"en": "{interact} Take the lift 
 style = "door"
 
 [sub_resource type="Resource" id="Resource_2"]
-script = ExtResource("2_portal_data")
+script = ExtResource("3_portal_data")
 id = &"hall_office"
 locked_text = "辦公內門需要職員證，迴廊只到等候臺。"
 localized_locked_text = Dictionary[String, String]({"en": "The inner office needs a staff pass. The corridor only reaches the waiting desk.", "ja": "オフィスの内扉には職員証が必要。回廊は待合台まで。"})
@@ -36,10 +37,10 @@ localized_prompts = Dictionary[String, String]({"en": "{interact} Inner office d
 style = "door"
 
 [sub_resource type="Resource" id="Resource_3"]
-script = ExtResource("5_lighting_zone")
+script = ExtResource("6_lighting_zone")
 start_tile = 0
 blend_tiles = 12
-profile = ExtResource("6_tower_white")
+profile = ExtResource("7_reception_white")
 
 [resource]
 script = ExtResource("1_level_data")
@@ -49,19 +50,20 @@ localized_names = Dictionary[String, String]({"en": "Skydome Reception Corridor"
 tile_size = 16
 height = 24
 legend = Dictionary[String, Resource]({
+"q": ExtResource("2_credits_large"),
 "Ⅺ": SubResource("Resource_0"),
 "Ⅻ": SubResource("Resource_1"),
 "ⅷ": SubResource("Resource_2"),
-"Ⓦ": ExtResource("3_ch3_waiting_bench"),
-"ⓧ": ExtResource("4_ch3_petition_box")
+"Ⓦ": ExtResource("4_ch3_waiting_bench"),
+"ⓧ": ExtResource("5_ch3_petition_box")
 })
 hints = PackedStringArray()
 chapter = &"ch3_clearwater"
 persistent_world = true
 show_chapter_card = false
-environment = ExtResource("7_ch3_office_hall")
+environment = ExtResource("8_ch3_office_hall")
 layout_path = "res://data/levels/ch3_office_hall_map.json"
-lighting_zones = Array[ExtResource("5_lighting_zone")]([SubResource("Resource_3")])
+lighting_zones = Array[ExtResource("6_lighting_zone")]([SubResource("Resource_3")])
 story_triggers = PackedStringArray()
 rain = false
 death_credit_cap = 250

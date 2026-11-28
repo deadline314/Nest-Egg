@@ -1851,7 +1851,11 @@ func _run_spots() -> void:
 		var tile: int = spot[1]
 		var y := layout.surface_heights[tile] - 2.0
 		if layout.surface_heights[tile] < layout.tile_size * 4.0:
-			y = layout.floor_below(tile, 4) - 2.0
+			# 頂上是厚天花板的室內：先穿過實心的天花板，再找下面的地板。
+			var row := 4
+			while row < layout.height and layout.cell(tile, row) == "#":
+				row += 1
+			y = layout.floor_below(tile, row) - 2.0
 		level.player.global_position = Vector2(tile * layout.tile_size + 8.0, y)
 		level.player.velocity = Vector2.ZERO
 		level_camera_snap()
@@ -2417,6 +2421,8 @@ const SPOTS := {
 	"ch1_pawnshop": [["tutorial", 22], ["shop", 44], ["stairs", 106]],
 	"ch1_rooftop": [["a", 24], ["b", 60]],
 	"ch3_glass_edge": [["a", 14], ["npc", 20], ["b", 30], ["c", 48]],
+	"ch3_office_hall": [["gallery", 30], ["reward", 19]],
+	"ch3_clinic": [["exit", 90], ["storeroom", 100]],
 	"ch1_stall": [["a", 20]],
 	"ch1_street": [["wall", 33], ["market", 84], ["mid", 130], ["dock", 196]],
 }
