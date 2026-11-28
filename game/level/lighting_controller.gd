@@ -257,6 +257,9 @@ func _apply() -> void:
 		_modulate.color = current.ambient_color
 	if is_instance_valid(_background):
 		_background.modulate = current.background_tint
+		if _background.has_method(&"set_window_level"):
+			_background.call(&"set_window_level", current.lamp_power)
+			_background.call(&"set_haze_color", current.fog_color)
 	if is_instance_valid(facade_haze):
 		facade_haze.set_tint(current.fog_color)
 	if is_instance_valid(_fog):

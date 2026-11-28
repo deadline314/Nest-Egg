@@ -142,7 +142,6 @@
   "layout_revision": 2,
   "legacy_layout": {"revision": 1, "cell_offset": [0, 16], "cells": {}},
   "capability_targets": {"89,15": {"ability": "air_jump", "flag": "ledger_disk_obtained"}},
-  "key_light": {"x": 70, "y": 12, "color": [1.0, 0.62, 0.24], "energy": 0.6, "light_radius": 600, "halo_radius": 200, "halo_alpha": 0.4, "front_wash": 0.05, "shafts": {"count": 3, "angle": 15, "length": 380, "width": 16, "spread": 240}, "occlusion": [0.15, 0.6], "period": 44},
   "near_foreground": [{"anchor": "bottom", "base": ["railing"], "rise": 13, "from": 0, "to": 140}, {"anchor": "top", "pieces": ["cables", "lanterns"], "above": 175, "spacing": [140, 320], "from": 0, "to": 140}],
   "midground": {"pieces": ["vending_machine", "trash_can", "crates_stack", "barrels", "harbor_street__umbrella_stand", "harbor_street__fish_cart"], "spacing": [50, 130], "from": 2, "to": 138},
   "ground_section": {"style": "masonry", "start": 14, "min_level": 0.26, "fade_depth": 260, "fade": 0.6, "under_deck": 1.0}

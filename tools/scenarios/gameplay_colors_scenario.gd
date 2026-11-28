@@ -44,8 +44,11 @@ func run() -> void:
 		while UiLayers.presentation_busy(get_tree()):
 			await get_tree().process_frame
 		var feet := player.global_position
-		var danger := _probe(Palette.DANGER, feet + Vector2(40, -64))
-		var marker := _probe(Palette.CYAN, feet + Vector2(72, -40))
+		# 色塊放在主角朝畫面中央的那一側（鏡頭可能讓主角靠近畫面邊緣）。
+		var screen_x := (get_viewport().get_canvas_transform() * feet).x
+		var side := -1.0 if screen_x > get_viewport().get_visible_rect().size.x * 0.5 else 1.0
+		var danger := _probe(Palette.DANGER, feet + Vector2(40 * side, -64))
+		var marker := _probe(Palette.CYAN, feet + Vector2(72 * side, -40))
 		get_tree().paused = true
 		await settle(4)
 		capture(area)

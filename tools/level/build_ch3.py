@@ -143,8 +143,8 @@ PORTALS = {
 
 THEMES = {
     # 區域 -> (地形材質, 立面清單, 室內牆面貼圖, 鏤空機率, 天空, 道具資料夾)
-    'pawnshop': ('concrete', ['shopfront', 'brick_block'], 'brick', 0.0, 'sky_storm', ['pawnshop_front', 'pawnshop_kitchen', 'basement_door', 'harbor_street']),
-    'plaza': ('plaza_asphalt', ['shopfront', 'shutter_block', 'warehouse'], None, 0.22, 'sky_storm', ['harbor_plaza', 'sluice_hall', 'harbor_street']),
+    'pawnshop': ('concrete', ['shopfront', 'brick_block'], 'brick', 0.0, 'sky_haze', ['pawnshop_front', 'pawnshop_kitchen', 'basement_door', 'harbor_street']),
+    'plaza': ('plaza_asphalt', ['shopfront', 'shutter_block', 'warehouse'], None, 0.22, 'sky_haze', ['harbor_plaza', 'sluice_hall', 'harbor_street']),
     'pump': ('concrete', ['warehouse'], 'hangar_wall', 0.0, 'sky_storm', ['sluice_hall', 'control_room', 'mezzanine']),
     'mezzanine': ('steel_plate', ['facility_wall'], 'facility_panel', 0.0, 'sky_storm', ['mezzanine', 'anchor_phone_booth', 'clinic']),
     'clinic': ('facility_floor', ['facility_wall'], 'facility_panel', 0.0, 'sky_storm', ['clinic', 'nursing_ward', 'control_room']),

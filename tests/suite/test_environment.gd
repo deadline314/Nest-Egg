@@ -33,6 +33,7 @@ func run() -> void:
 	await _test_midground_and_haze()
 	await _test_ground_section()
 	_test_color_script()
+	_test_story_times()
 	_test_fixture_art()
 	await preload("res://tests/helpers/scene_lighting_checks.gd").run(self)
 	await _test_training_art()
@@ -2527,8 +2528,10 @@ func _test_color_script() -> void:
 		var scripted := ColorScript.apply_zones(StringName(id), level_data.lighting_zones)
 		for i in scripted.size():
 			var before := level_data.lighting_zones[i].profile
-			var after := scripted[i].profile
-			check(after != before, "%s zone %d is scripted on a copy, the shared profile is untouched" % [id, i])
+			check(scripted[i].profile != before, "%s zone %d is scripted on a copy, the shared profile is untouched" % [id, i])
+			# 色彩部分（不含時段）只換色相、不改亮度；時段的明暗由 _test_story_times 檢查（BG-79）。
+			var after := before.duplicate() as LightingProfile
+			ColorScript.apply(after, entry)
 			worst = maxf(worst, absf(after.ambient_color.get_luminance() - before.ambient_color.get_luminance()))
 			worst = maxf(worst, absf(after.shadow_tint.get_luminance() - before.shadow_tint.get_luminance()))
 			worst = maxf(worst, absf(after.background_tint.get_luminance() - before.background_tint.get_luminance()))
@@ -2557,3 +2560,87 @@ func _test_color_script() -> void:
 	# 沒有腳本的區域原樣回傳。
 	var zones: Array[LightingZone] = glass.lighting_zones
 	check(ColorScript.apply_zones(&"no_such_area", zones) == zones, "an area without a script keeps its lighting as is")
+
+
+## 光影符合劇情時段（BG-79）：色彩腳本每區的時段和故事線的時段表一致（表改了這裡會提醒）；
+## 白天室外的天空比夜晚室外亮、白天室外的場景燈很弱；夜景的主光一定是燈或月光，燈的主光附近一定有燈，光暈與光柱在上限內。
+func _test_story_times() -> void:
+	ColorScript.reload()
+	var table := _story_time_table()
+	check(table.size() >= 40, "the story time table lists the areas (%d)" % table.size())
+	for id in ColorScript.area_ids():
+		if not table.has(id):
+			check(false, "colour script area %s is in the story time table" % id)
+			continue
+		var expected: PackedStringArray = table[id]
+		var actual := ColorScript.times_of(StringName(id))
+		check(actual == expected, "%s follows the story time table (table %s, colour script %s)" % [id, expected, actual])
+	var day_sky := INF
+	var night_sky := 0.0
+	for id in ColorScript.area_ids():
+		var data := load("res://data/levels/%s.tres" % id) as LevelData
+		var time := ColorScript.entry_for(StringName(id)).get("time", "undecided") as String
+		var zones := ColorScript.apply_zones(StringName(id), data.lighting_zones)
+		for zone in zones:
+			if not ColorScript.is_outdoor(StringName(id), zone.profile.id):
+				continue
+			var sky := zone.profile.background_tint.get_luminance()
+			if time == "day":
+				day_sky = minf(day_sky, sky)
+				check(zone.profile.lamp_power <= 0.3, "%s: outdoor lamps are mostly off in the day (lamp power %.2f)" % [id, zone.profile.lamp_power])
+			elif time == "night":
+				night_sky = maxf(night_sky, sky)
+				check(zone.profile.lamp_power >= 0.99, "%s: outdoor lamps are on at night" % id)
+		var raw: Variant = data.load_layout_value("key_light")
+		if raw != null and time == "night":
+			var key := KeyLightData.parse(raw, id)
+			check(key != null and key.source in ["lamp", "moon"], "%s: a night key light comes from a lamp or the moon" % id)
+			if key != null and key.source == "lamp":
+				var layout := LevelBuilder.parse(data)
+				var near := false
+				for lamp in layout.lamps:
+					near = near or lamp.distance_to(key.tile * float(layout.tile_size)) <= KeyLightData.LAMP_REACH * layout.tile_size
+				check(near, "%s: the lamp key light has a lamp on screen to come from" % id)
+		if raw != null and time == "day" and ColorScript.entry_for(StringName(id)).get("outdoor_zones", []) is String:
+			check(false, "%s: an outdoor day area uses skylight, not a key light" % id)
+	check(day_sky > night_sky, "outdoor day skies are brighter than outdoor night skies (darkest day %.2f, brightest night %.2f)" % [day_sky, night_sky])
+	# 燈的主光：光暈太大、光柱斜而長都不收。
+	var oversize := KeyLightData.parse({"source": "lamp", "x": 1, "y": 1, "halo_radius": 300, "shafts": {"count": 5, "angle": 30, "length": 400}}, "test")
+	check(oversize == null, "a lamp key light with a sky-sized halo and long slanted shafts is refused")
+
+
+## 故事線的時段表（STORY_CONSTRAINTS.md「每區的時間與天氣」）：區域 id → 依序的時段（括號裡的補充不算）。
+static func _story_time_table() -> Dictionary:
+	var result := {}
+	var text := FileAccess.get_file_as_string("res://design/22-living-scenes/STORY_CONSTRAINTS.md")
+	var in_section := false
+	var words := [["清晨", "dawn"], ["凌晨", "dawn"], ["天亮", "dawn"], ["早上", "day"], ["白天", "day"], ["傍晚", "dusk"], ["黃昏", "dusk"], ["夜", "night"]]
+	var paren := RegEx.create_from_string("（[^）]*）")
+	for line in text.split("
+"):
+		if line.begins_with("## 每區的時間與天氣"):
+			in_section = true
+			continue
+		if in_section and line.begins_with("## "):
+			break
+		if not in_section or not line.begins_with("| ch"):
+			continue
+		var cells := line.strip_edges().trim_prefix("|").split("|")
+		var when := paren.sub(cells[1].strip_edges(), "", true)
+		var found: Array = []
+		for pair: Array in words:
+			var at := when.find(pair[0])
+			while at >= 0:
+				found.append([at, pair[1]])
+				at = when.find(pair[0], at + 1)
+		found.sort_custom(func(a: Array, b: Array) -> bool: return a[0] < b[0])
+		var times := PackedStringArray()
+		for item: Array in found:
+			if not times.has(item[1]):
+				times.append(item[1])
+		if times.is_empty():
+			times.append("undecided")
+		var ident := cells[0].strip_edges().split(" ")[0]
+		for part in ident.split("／"):
+			result[part if part.begins_with("ch") else "ch4_factory_" + part] = times
+	return result

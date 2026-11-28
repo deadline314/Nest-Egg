@@ -13,6 +13,12 @@ extends RefCounted
 ## 驗收用的色相範圍（BG-75）："chapters": {章 id: {"hue": [下限, 上限]}}（度，可以跨過 0，例如 [340, 50]）：那一章各區截圖的
 ## 平均色相要落在這裡；區域自己寫了 "hue" 的（例如當舖）不算進章節平均，單獨檢查。
 ## "neighbor_gap": 度：相鄰兩章（ch1 與 ch2、ch2 與 ch3…）的平均色相至少要差這麼多。
+## 時段（BG-79）：區域寫 "time"（night／day／dawn／dusk／undecided，照故事線的時段表），可以再寫
+## "time_after": {"flag": 劇情旗標, "time": 時段}（同一區後來的另一場，例如屋頂早上與夜裡）；進入區域時依旗標選一個。
+## "outdoor_zones": "all" 或光影設定 id 的陣列：時段只改這些區段（室內的暖燈區段不動，例如當舖店裡）。
+## 時段的差異寫在頂層 "times"：{時段: {"ambient": 環境光至少多亮, "sky": 天空染色至少多亮, "fog": 霧至少多亮,
+## "tint": "#rrggbb", "tint_mix": 0~1（環境光往這個色相靠）, "sky_tint"、"sky_mix"（天空往這個顏色靠）, "saturation": 倍率, "contrast": 上限, "lamp_power": 上限,
+## "neon": 倍率, "rim": 倍率, "lightning": 倍率}}。夜晚是基底、不改；亮度只往上調（白天的室外不會比原本暗）。
 ## 資料寫錯時記錄是哪個區域哪一項，那個區域維持原本的光影；沒寫到的區域也維持原本的。
 
 const DATA_PATH := "res://data/environment/color_script.json"
@@ -24,6 +30,9 @@ const BACKGROUND_SPREAD := 0.45
 
 static var _areas: Dictionary = {}
 static var _chapters: Dictionary = {}
+static var _times: Dictionary = {}
+const TIMES: Array[String] = ["night", "day", "dawn", "dusk", "undecided"]
+const TIME_KEYS: Array[String] = ["ambient", "sky", "sky_mix", "fog", "tint_mix", "grade_neutral", "saturation", "contrast", "lamp_power", "neon", "rim", "lightning"]
 ## 相鄰兩章的平均色相至少要差幾度（BG-77）；資料沒寫時是 0（不檢查）。
 static var neighbor_gap := 0.0
 static var _loaded := false
@@ -68,6 +77,7 @@ static func apply_zones(area_id: StringName, zones: Array[LightingZone]) -> Arra
 	var entry := entry_for(area_id)
 	if entry.is_empty():
 		return zones
+	var time := time_for(area_id)
 	var result: Array[LightingZone] = []
 	for zone in zones:
 		if zone == null or zone.profile == null:
@@ -76,8 +86,78 @@ static func apply_zones(area_id: StringName, zones: Array[LightingZone]) -> Arra
 		var copy := zone.duplicate() as LightingZone
 		copy.profile = zone.profile.duplicate() as LightingProfile
 		apply(copy.profile, entry)
+		if _times.has(time) and _outdoor(entry, zone.profile.id):
+			apply_time(copy.profile, _times[time])
 		result.append(copy)
 	return result
+
+
+## 這一區現在的時段：寫了 time_after 而且旗標已經成立時用後來的那個。
+static func time_for(area_id: StringName) -> String:
+	var entry := entry_for(area_id)
+	var after: Dictionary = entry.get("time_after", {})
+	if not after.is_empty() and GameState.has_flag(StringName(after["flag"])):
+		return after["time"]
+	return entry.get("time", "undecided")
+
+
+## 所有寫過的時段（預設的與 time_after 的），檢查用。
+static func times_of(area_id: StringName) -> PackedStringArray:
+	var entry := entry_for(area_id)
+	var result := PackedStringArray([entry.get("time", "undecided")])
+	var after: Dictionary = entry.get("time_after", {})
+	if not after.is_empty():
+		result.append(after["time"])
+	return result
+
+
+## 時段的差異設定；沒有時回傳空字典。
+static func time_preset(time: String) -> Dictionary:
+	_load()
+	return _times.get(time, {})
+
+
+## 這個光影設定的區段在這一區算不算室外（時段只改室外的區段）。
+static func is_outdoor(area_id: StringName, profile_id: StringName) -> bool:
+	return _outdoor(entry_for(area_id), profile_id)
+
+
+static func _outdoor(entry: Dictionary, profile_id: StringName) -> bool:
+	var zones: Variant = entry.get("outdoor_zones", [])
+	return (typeof(zones) == TYPE_STRING and zones == "all") or (typeof(zones) == TYPE_ARRAY and (zones as Array).has(String(profile_id)))
+
+
+## 把時段的差異套到光影設定上（就地修改）。亮度只往上調，色相往 tint 靠但亮度不變。
+static func apply_time(profile: LightingProfile, preset: Dictionary) -> void:
+	var ambient := profile.ambient_color
+	if preset.has("tint"):
+		var tint: Color = preset["tint"]
+		ambient = match_luminance(ambient.lerp(match_luminance(tint, ambient.get_luminance()), float(preset.get("tint_mix", 0.0))), ambient.get_luminance())
+	if preset.has("ambient") and ambient.get_luminance() < float(preset["ambient"]):
+		ambient = match_luminance(ambient, float(preset["ambient"]))
+	profile.ambient_color = ambient
+	if preset.has("sky_tint"):
+		# 陰天、清晨的天空往灰靠（只拉亮會把原本的色相也放大，變成很艷的藍或粉紅）。
+		var level := profile.background_tint.get_luminance()
+		profile.background_tint = match_luminance(profile.background_tint.lerp(match_luminance(preset["sky_tint"], level), float(preset.get("sky_mix", 0.0))), level)
+	if preset.has("sky") and profile.background_tint.get_luminance() < float(preset["sky"]):
+		profile.background_tint = match_luminance(profile.background_tint, float(preset["sky"]))
+	if preset.has("sky_tint"):
+		# 霧跟天空同一個顏色（暖色的霧蓋在藍天上會變成紫）。
+		var fog_level := profile.fog_color.get_luminance()
+		profile.fog_color = match_luminance(profile.fog_color.lerp(match_luminance(preset["sky_tint"], fog_level), float(preset.get("sky_mix", 0.0))), fog_level)
+	if preset.has("fog") and profile.fog_color.get_luminance() < float(preset["fog"]):
+		profile.fog_color = match_luminance(profile.fog_color, float(preset["fog"]))
+	# 陰天的散射光：暗部與亮部的色調往中性靠（grade_neutral 0~1）。
+	var neutral := float(preset.get("grade_neutral", 0.0))
+	profile.shadow_tint = profile.shadow_tint.lerp(Color(1, 1, 1, profile.shadow_tint.a), neutral)
+	profile.highlight_tint = profile.highlight_tint.lerp(Color(1, 1, 1, profile.highlight_tint.a), neutral)
+	profile.saturation = minf(profile.saturation * float(preset.get("saturation", 1.0)), 2.0)
+	profile.contrast = minf(profile.contrast, float(preset.get("contrast", profile.contrast)))
+	profile.lamp_power = minf(profile.lamp_power, float(preset.get("lamp_power", 1.0)))
+	profile.neon_energy *= float(preset.get("neon", 1.0))
+	profile.rim_energy *= float(preset.get("rim", 1.0))
+	profile.lightning_rate *= float(preset.get("lightning", 1.0))
 
 
 ## 把一份腳本套到光影設定上（就地修改；呼叫端要先複製）。
@@ -143,6 +223,22 @@ static func _load() -> void:
 				problems.append("hue 要是 [0~360, 0~360]")
 			elif span.x >= 0.0:
 				entry["hue"] = span
+			var time: Variant = (raw as Dictionary).get("time", "undecided")
+			if typeof(time) != TYPE_STRING or str(time) not in TIMES:
+				problems.append("time 要是 %s（%s）" % ["／".join(TIMES), time])
+			else:
+				entry["time"] = str(time)
+			var after: Variant = (raw as Dictionary).get("time_after")
+			if after != null:
+				if typeof(after) != TYPE_DICTIONARY or typeof((after as Dictionary).get("flag")) != TYPE_STRING or str((after as Dictionary).get("time", "")) not in TIMES:
+					problems.append("time_after 要是 {flag: 旗標, time: 時段}")
+				else:
+					entry["time_after"] = {"flag": str(after["flag"]), "time": str(after["time"])}
+			var outdoor: Variant = (raw as Dictionary).get("outdoor_zones", [])
+			if not ((typeof(outdoor) == TYPE_STRING and outdoor == "all") or typeof(outdoor) == TYPE_ARRAY):
+				problems.append("outdoor_zones 要是 all 或光影設定 id 的陣列")
+			else:
+				entry["outdoor_zones"] = outdoor
 			var background: Variant = (raw as Dictionary).get("background", BACKGROUND_SPREAD)
 			if typeof(background) not in [TYPE_INT, TYPE_FLOAT] or float(background) < 0.0 or float(background) > 1.0:
 				problems.append("background 要是 0~1 的數字（%s）" % background)
@@ -158,6 +254,24 @@ static func _load() -> void:
 		neighbor_gap = float(gap)
 	else:
 		push_error("[ColorScript] %s 的 neighbor_gap 要是 0~180 的數字（%s）" % [DATA_PATH, gap])
+	_times.clear()
+	var times: Variant = (parsed as Dictionary).get("times", {})
+	if typeof(times) == TYPE_DICTIONARY:
+		for time: Variant in times:
+			var raw_time: Variant = (times as Dictionary)[time]
+			if str(time) not in TIMES or typeof(raw_time) != TYPE_DICTIONARY:
+				push_error("[ColorScript] %s 的 times.%s 不是已知的時段或不是物件，略過" % [DATA_PATH, time])
+				continue
+			var preset := {}
+			for key: Variant in raw_time:
+				var value: Variant = (raw_time as Dictionary)[key]
+				if key in ["tint", "sky_tint"] and typeof(value) == TYPE_STRING and Color.html_is_valid(str(value)):
+					preset[str(key)] = Color.html(str(value))
+				elif str(key) in TIME_KEYS and typeof(value) in [TYPE_INT, TYPE_FLOAT] and float(value) >= 0.0 and float(value) <= 3.0:
+					preset[str(key)] = float(value)
+				else:
+					push_error("[ColorScript] %s 的 times.%s.%s 不認得或數值不對（%s），略過這一項" % [DATA_PATH, time, key, value])
+			_times[str(time)] = preset
 	_chapters.clear()
 	var chapters: Variant = (parsed as Dictionary).get("chapters", {})
 	if typeof(chapters) == TYPE_DICTIONARY:

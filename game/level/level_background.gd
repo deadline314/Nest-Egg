@@ -22,6 +22,10 @@ var sky: BackdropLayer
 
 ## 各層前面的霧色（BG-65）；低畫質時整批隱藏。
 var _hazes: Array[CanvasItem] = []
+## 遠景的窗光層與它原本的顏色（BG-79：白天的室外窗燈跟著場景燈一起變弱）。
+var _window_glows: Array[Sprite2D] = []
+var _window_colors: PackedColorArray = PackedColorArray()
+var _window_level := 1.0
 static var _haze_texture: GradientTexture2D
 
 
@@ -124,6 +128,8 @@ func _add_textured_layer(layer: BackdropLayer) -> void:
 		glow_sprite.material = LightKit.window_life_material()  # 窗光緩慢閃爍、屋頂信標明滅
 		glow_sprite.self_modulate = LightKit.glow(layer.tint, layer.glow_intensity)
 		parallax.add_child(glow_sprite)
+		_window_glows.append(glow_sprite)
+		_window_colors.append(glow_sprite.self_modulate)
 	# 這一層前面的霧色：越遠的層越濃，層與層之間才有空氣感（大氣透視）。顏色跟著整個背景的光影區段色調。
 	var strength := layer.haze_strength()
 	if strength > 0.0:
@@ -357,3 +363,24 @@ class _Traffic:
 					var x := fposmod(i * SPACING, LevelBackground.PATTERN_WIDTH) + copy * LevelBackground.PATTERN_WIDTH
 					draw_line(Vector2(x, 0.0), Vector2(x - heading * 10.0, 0.0), Color(Palette.DANGER, 0.6), 1.5)
 					draw_circle(Vector2(x, 0.0), 1.2, LightKit.glow(Palette.WHITE, 1.5))
+
+
+## 遠景窗光的亮度（0～1，光影設定的 lamp_power）：白天的室外多半不開燈。只有值變了才更新。
+func set_window_level(level: float) -> void:
+	level = clampf(level, 0.0, 1.0)
+	if is_equal_approx(level, _window_level):
+		return
+	_window_level = level
+	for i in _window_glows.size():
+		if is_instance_valid(_window_glows[i]):
+			var base := _window_colors[i]
+			_window_glows[i].self_modulate = Color(base.r * level, base.g * level, base.b * level, base.a)
+
+
+## 遠景層之間的霧色跟著光影區段的霧色（BG-79）：原本固定是洋紅，白天、清晨與青綠色調的區域也被染成紫。
+## 亮度維持原本的霧（HAZE_COLOR 的感知亮度），只換色相。只有顏色變了才更新。
+func set_haze_color(color: Color) -> void:
+	var target := ColorScript.match_luminance(Color(color, 1.0), HAZE_COLOR.get_luminance())
+	for haze in _hazes:
+		if is_instance_valid(haze) and not Color(haze.modulate, 1.0).is_equal_approx(Color(target, 1.0)):
+			haze.modulate = Color(target, haze.modulate.a)

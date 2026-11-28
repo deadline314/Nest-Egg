@@ -1,55 +1,390 @@
 {
   "chapters": {
-    "ch1": {"hue": [225, 275]},
-    "ch2": {"hue": [170, 230]}
+    "ch1": {
+      "hue": [
+        225,
+        275
+      ]
+    },
+    "ch2": {
+      "hue": [
+        170,
+        230
+      ]
+    }
   },
   "neighbor_gap": 40,
   "areas": {
-    "ch1_prologue": {"main": "#5a4434", "key": "#ffb060", "shadow": "#3a2a22", "hue": [340, 50]},
-    "ch1_pawnshop": {"main": "#5a4434", "key": "#ffb060", "shadow": "#3a2a22", "hue": [340, 50]},
-    "ch1_pawnshop_dawn": {"main": "#50555e", "key": "#c8e4ff", "shadow": "#343844"},
-    "ch1_booth_alley": {"main": "#2c2f52", "key": "#86b8ff", "shadow": "#2a2448"},
-    "ch1_stall": {"main": "#2c2f52", "key": "#86b8ff", "shadow": "#2a2448"},
-    "ch1_street": {"main": "#3a2c52", "key": "#ff5ab8", "shadow": "#2a1f44"},
-    "ch1_handoff": {"main": "#3a2c52", "key": "#ff5ab8", "shadow": "#2a1f44"},
-    "ch1_lounge": {"main": "#4a3a62", "key": "#ff5ab8", "shadow": "#2e2246"},
-    "ch1_rooftop": {"main": "#2c3448", "key": "#8cb4ff", "shadow": "#20283c"},
-    "ch1_warehouse": {"main": "#2e2622", "key": "#ffa64c", "shadow": "#22203a"},
-    "ch1_vault": {"main": "#2e2622", "key": "#ffa64c", "shadow": "#22203a"},
-
-    "ch2_pawnshop": {"main": "#5a4434", "key": "#ffb060", "shadow": "#3a2a22", "hue": [340, 50]},
-    "ch2_ali_home": {"main": "#2e3846", "key": "#d0e4ff", "shadow": "#1e2a36", "background": 1.0},
-    "ch2_harbor_street": {"main": "#26443f", "key": "#ffb050", "shadow": "#12302c", "background": 1.0},
-    "ch2_market": {"main": "#2a4440", "key": "#ff8a5c", "shadow": "#16302c", "background": 1.0},
-    "ch2_market_gate": {"main": "#2a4440", "key": "#ff8a5c", "shadow": "#16302c", "background": 1.0},
-    "ch2_lounge_front": {"main": "#33344e", "key": "#ff6aa8", "shadow": "#1e2438", "background": 1.0},
-    "ch2_loading": {"main": "#26423e", "key": "#ff9a44", "shadow": "#122c2a", "background": 1.0},
-    "ch2_ledger_front": {"main": "#2c3438", "key": "#ffb050", "shadow": "#18262a", "background": 1.0},
-    "ch2_ledger_office": {"main": "#3a3028", "key": "#ffb050", "shadow": "#1a2428", "hue": [340, 60]},
-    "ch2_rooftop": {"main": "#28443f", "key": "#ffbe70", "shadow": "#163030", "background": 1.0},
-
-    "ch3_pawnshop": {"main": "#5a4434", "key": "#ffb060", "shadow": "#3a2a22", "hue": [340, 50]},
-    "ch3_glass_edge": {"main": "#b39475", "key": "#ffb873", "shadow": "#e6b899", "background": 0.0},
-    "ch3_plaza": {"main": "#3c3652", "key": "#ff59bf", "shadow": "#2e2a44", "background": 0.08},
-    "ch3_showroom": {"main": "#e0d8c4", "key": "#fff2cc", "shadow": "#b4bcc8"},
-    "ch3_office_hall": {"main": "#8c929a", "key": "#e6f2ff", "shadow": "#5a6270"},
-    "ch3_gate_hall": {"main": "#384444", "key": "#80ffd4", "shadow": "#1a2c30"},
-    "ch3_clinic": {"main": "#3e4c48", "key": "#b8ffe8", "shadow": "#28383a"},
-    "ch3_mezzanine": {"main": "#30363c", "key": "#dcf8ff", "shadow": "#1e2832"},
-    "ch3_pump": {"main": "#1e3438", "key": "#66ffd8", "shadow": "#10262c"},
-
-    "ch4_pawnshop": {"main": "#5a4434", "key": "#ffb060", "shadow": "#3a2a22", "hue": [340, 50]},
-    "ch4_factory_approach": {"main": "#44342a", "key": "#ff944a", "shadow": "#2a2a22"},
-    "ch4_factory_loading": {"main": "#6e5a4a", "key": "#ffb878", "shadow": "#3a3a2c"},
-    "ch4_factory_cleaning": {"main": "#6e5a4a", "key": "#ffb878", "shadow": "#3a3a2c"},
-    "ch4_factory_relay": {"main": "#6e5a4a", "key": "#ffb878", "shadow": "#3a3a2c"},
-    "ch4_factory_safety": {"main": "#6e5a4a", "key": "#ffb878", "shadow": "#3a3a2c"},
-    "ch4_factory_work": {"main": "#6e5a4a", "key": "#ffb878", "shadow": "#3a3a2c"},
-    "ch4_factory_office": {"main": "#46504a", "key": "#c8ffd0", "shadow": "#2c362e"},
-    "ch4_factory_roof": {"main": "#383a40", "key": "#ff9a5a", "shadow": "#24262c"},
-    "ch4_nursing_ward": {"main": "#46504a", "key": "#c8ffd0", "shadow": "#2c362e"},
-    "ch4_ward_lamp_bay": {"main": "#46504a", "key": "#c8ffd0", "shadow": "#2c362e"},
-    "ch4_ward_reception": {"main": "#8a9290", "key": "#e6fff0", "shadow": "#566260"},
-    "ch4_revival_lounge": {"main": "#4a3a62", "key": "#ff5ab8", "shadow": "#2e2246"}
+    "ch1_prologue": {
+      "main": "#5a4434",
+      "key": "#ffb060",
+      "shadow": "#3a2a22",
+      "hue": [
+        340,
+        50
+      ],
+      "time": "night",
+      "outdoor_zones": [
+        "rooftop"
+      ]
+    },
+    "ch1_pawnshop": {
+      "main": "#5a4434",
+      "key": "#ffb060",
+      "shadow": "#3a2a22",
+      "hue": [
+        340,
+        50
+      ],
+      "time": "night",
+      "outdoor_zones": [
+        "rooftop"
+      ]
+    },
+    "ch1_pawnshop_dawn": {
+      "main": "#50555e",
+      "key": "#c8e4ff",
+      "shadow": "#343844",
+      "time": "dawn"
+    },
+    "ch1_booth_alley": {
+      "main": "#2c2f52",
+      "key": "#86b8ff",
+      "shadow": "#2a2448",
+      "time": "night",
+      "outdoor_zones": "all"
+    },
+    "ch1_stall": {
+      "main": "#2c2f52",
+      "key": "#86b8ff",
+      "shadow": "#2a2448",
+      "time": "dawn",
+      "outdoor_zones": "all"
+    },
+    "ch1_street": {
+      "main": "#3a2c52",
+      "key": "#ff5ab8",
+      "shadow": "#2a1f44",
+      "time": "night",
+      "outdoor_zones": "all"
+    },
+    "ch1_handoff": {
+      "main": "#3a2c52",
+      "key": "#ff5ab8",
+      "shadow": "#2a1f44",
+      "time": "night",
+      "outdoor_zones": "all"
+    },
+    "ch1_lounge": {
+      "main": "#4a3a62",
+      "key": "#ff5ab8",
+      "shadow": "#2e2246",
+      "time": "night"
+    },
+    "ch1_rooftop": {
+      "main": "#2c3448",
+      "key": "#8cb4ff",
+      "shadow": "#20283c",
+      "time": "night",
+      "outdoor_zones": "all"
+    },
+    "ch1_warehouse": {
+      "main": "#2e2622",
+      "key": "#c8e0ff",
+      "shadow": "#22203a",
+      "time": "night"
+    },
+    "ch1_vault": {
+      "main": "#2e2622",
+      "key": "#c8e0ff",
+      "shadow": "#22203a",
+      "time": "night"
+    },
+    "ch2_pawnshop": {
+      "main": "#5a4434",
+      "key": "#ffb060",
+      "shadow": "#3a2a22",
+      "hue": [
+        340,
+        50
+      ],
+      "time": "day",
+      "outdoor_zones": [
+        "rooftop"
+      ]
+    },
+    "ch2_ali_home": {
+      "main": "#2e3846",
+      "key": "#d0e4ff",
+      "shadow": "#1e2a36",
+      "background": 1.0,
+      "time": "day"
+    },
+    "ch2_harbor_street": {
+      "main": "#26443f",
+      "key": "#ffb050",
+      "shadow": "#12302c",
+      "background": 1.0,
+      "time": "day",
+      "outdoor_zones": "all"
+    },
+    "ch2_market": {
+      "main": "#2a4440",
+      "key": "#ff8a5c",
+      "shadow": "#16302c",
+      "background": 1.0,
+      "time": "day",
+      "outdoor_zones": "all"
+    },
+    "ch2_market_gate": {
+      "main": "#2a4440",
+      "key": "#ff8a5c",
+      "shadow": "#16302c",
+      "background": 1.0,
+      "time": "day",
+      "outdoor_zones": "all"
+    },
+    "ch2_lounge_front": {
+      "main": "#33344e",
+      "key": "#ff6aa8",
+      "shadow": "#1e2438",
+      "background": 1.0,
+      "time": "undecided"
+    },
+    "ch2_loading": {
+      "main": "#26423e",
+      "key": "#ff9a44",
+      "shadow": "#122c2a",
+      "background": 1.0,
+      "time": "undecided"
+    },
+    "ch2_ledger_front": {
+      "main": "#2c3438",
+      "key": "#ffb050",
+      "shadow": "#18262a",
+      "background": 1.0,
+      "time": "undecided"
+    },
+    "ch2_ledger_office": {
+      "main": "#3a3028",
+      "key": "#ffb050",
+      "shadow": "#1a2428",
+      "hue": [
+        340,
+        60
+      ],
+      "time": "undecided"
+    },
+    "ch2_rooftop": {
+      "main": "#28443f",
+      "key": "#ffbe70",
+      "shadow": "#163030",
+      "background": 1.0,
+      "time": "day",
+      "time_after": {
+        "flag": "ch2_audit_submitted",
+        "time": "night"
+      },
+      "outdoor_zones": "all"
+    },
+    "ch3_pawnshop": {
+      "main": "#5a4434",
+      "key": "#ffb060",
+      "shadow": "#3a2a22",
+      "hue": [
+        340,
+        50
+      ],
+      "time": "day",
+      "time_after": {
+        "flag": "ch3_k_at_office_seen",
+        "time": "dusk"
+      },
+      "outdoor_zones": [
+        "rooftop"
+      ]
+    },
+    "ch3_glass_edge": {
+      "main": "#b39475",
+      "key": "#ffb873",
+      "shadow": "#e6b899",
+      "background": 0.0,
+      "time": "day"
+    },
+    "ch3_plaza": {
+      "main": "#6e6458",
+      "key": "#ffd6a0",
+      "shadow": "#4a463e",
+      "background": 0.08,
+      "time": "day",
+      "outdoor_zones": "all"
+    },
+    "ch3_showroom": {
+      "main": "#e0d8c4",
+      "key": "#fff2cc",
+      "shadow": "#b4bcc8",
+      "time": "day"
+    },
+    "ch3_office_hall": {
+      "main": "#8c929a",
+      "key": "#e6f2ff",
+      "shadow": "#5a6270",
+      "time": "day"
+    },
+    "ch3_gate_hall": {
+      "main": "#384444",
+      "key": "#80ffd4",
+      "shadow": "#1a2c30",
+      "time": "day"
+    },
+    "ch3_clinic": {
+      "main": "#3e4c48",
+      "key": "#b8ffe8",
+      "shadow": "#28383a",
+      "time": "day"
+    },
+    "ch3_mezzanine": {
+      "main": "#30363c",
+      "key": "#dcf8ff",
+      "shadow": "#1e2832",
+      "time": "day"
+    },
+    "ch3_pump": {
+      "main": "#1e3438",
+      "key": "#66ffd8",
+      "shadow": "#10262c",
+      "time": "day"
+    },
+    "ch4_pawnshop": {
+      "main": "#5a4434",
+      "key": "#ffb060",
+      "shadow": "#3a2a22",
+      "hue": [
+        340,
+        50
+      ],
+      "time": "day",
+      "outdoor_zones": [
+        "rooftop"
+      ]
+    },
+    "ch4_factory_approach": {
+      "main": "#44342a",
+      "key": "#ff944a",
+      "shadow": "#2a2a22",
+      "time": "undecided"
+    },
+    "ch4_factory_loading": {
+      "main": "#6e5a4a",
+      "key": "#ffb878",
+      "shadow": "#3a3a2c",
+      "time": "undecided"
+    },
+    "ch4_factory_cleaning": {
+      "main": "#6e5a4a",
+      "key": "#ffb878",
+      "shadow": "#3a3a2c",
+      "time": "undecided"
+    },
+    "ch4_factory_relay": {
+      "main": "#6e5a4a",
+      "key": "#ffb878",
+      "shadow": "#3a3a2c",
+      "time": "undecided"
+    },
+    "ch4_factory_safety": {
+      "main": "#6e5a4a",
+      "key": "#ffb878",
+      "shadow": "#3a3a2c",
+      "time": "undecided"
+    },
+    "ch4_factory_work": {
+      "main": "#6e5a4a",
+      "key": "#ffb878",
+      "shadow": "#3a3a2c",
+      "time": "undecided"
+    },
+    "ch4_factory_office": {
+      "main": "#46504a",
+      "key": "#c8ffd0",
+      "shadow": "#2c362e",
+      "time": "undecided"
+    },
+    "ch4_factory_roof": {
+      "main": "#383a40",
+      "key": "#ff9a5a",
+      "shadow": "#24262c",
+      "time": "undecided"
+    },
+    "ch4_nursing_ward": {
+      "main": "#46504a",
+      "key": "#c8ffd0",
+      "shadow": "#2c362e",
+      "time": "undecided"
+    },
+    "ch4_ward_lamp_bay": {
+      "main": "#46504a",
+      "key": "#c8ffd0",
+      "shadow": "#2c362e",
+      "time": "undecided"
+    },
+    "ch4_ward_reception": {
+      "main": "#8a9290",
+      "key": "#e6fff0",
+      "shadow": "#566260",
+      "time": "undecided"
+    },
+    "ch4_revival_lounge": {
+      "main": "#4a3a62",
+      "key": "#ff5ab8",
+      "shadow": "#2e2246",
+      "time": "undecided"
+    }
+  },
+  "times": {
+    "day": {
+      "ambient": 0.42,
+      "sky": 1.5,
+      "fog": 0.55,
+      "tint": "#c8d2d8",
+      "tint_mix": 0.3,
+      "saturation": 1.0,
+      "contrast": 0.98,
+      "lamp_power": 0.25,
+      "neon": 0.45,
+      "rim": 1.0,
+      "lightning": 0.0,
+      "sky_tint": "#d4dadc",
+      "sky_mix": 0.75,
+      "grade_neutral": 0.5
+    },
+    "dawn": {
+      "ambient": 0.36,
+      "sky": 1.2,
+      "fog": 0.42,
+      "tint": "#8c9ab0",
+      "tint_mix": 0.55,
+      "saturation": 0.6,
+      "lamp_power": 0.6,
+      "neon": 0.6,
+      "rim": 0.7,
+      "lightning": 0.0,
+      "sky_tint": "#a4aec0",
+      "sky_mix": 0.6,
+      "grade_neutral": 0.4
+    },
+    "dusk": {
+      "ambient": 0.38,
+      "sky": 1.1,
+      "fog": 0.4,
+      "tint": "#c69470",
+      "tint_mix": 0.4,
+      "saturation": 0.9,
+      "lamp_power": 1.0,
+      "neon": 1.0,
+      "rim": 0.9,
+      "sky_tint": "#d8a884",
+      "sky_mix": 0.5
+    }
   }
 }

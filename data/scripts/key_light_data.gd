@@ -20,7 +20,19 @@ extends RefCounted
 const MIN_PERIOD := 20.0
 const MAX_FRONT_WASH := 0.2
 const MAX_SHAFTS := 9
+const SOURCES: Array[String] = ["sun", "moon", "lamp"]
+## 每種光源各項的範圍 [下限, 上限]。燈：光暈幾十像素、光柱最多兩道、幾乎往正下方、短而窄。
+const SOURCE_LIMITS := {
+	"lamp": {"halo_radius": [16.0, 72.0], "halo_alpha": [0.0, 0.5], "front_wash": [0.0, 0.04], "shaft_count": [0.0, 2.0],
+		"shaft_angle": [-12.0, 12.0], "shaft_length": [16.0, 160.0], "shaft_width": [2.0, 24.0], "shaft_spread": [0.0, 24.0]},
+	"moon": {"halo_alpha": [0.0, 0.3], "front_wash": [0.0, 0.04], "shaft_count": [0.0, 3.0], "shaft_width": [2.0, 20.0], "energy": [0.0, 0.5]},
+}
+## 燈光主光錨在多遠以內的燈（格）。
+const LAMP_REACH := 4.0
 
+## 光從哪裡來（BG-79）：sun＝太陽（不限制）、moon＝月光（天空開闊的夜景，光柱收斂）、
+## lamp＝看得到的燈（夜景；主光錨在地圖上最近的一盞燈，光暈與光柱都要和燈具相稱）。
+var source := "sun"
 var tile := Vector2.ZERO
 var color := Color(1.0, 0.72, 0.45)
 var energy := 0.9
@@ -73,10 +85,30 @@ static func parse(raw: Variant, where: String) -> KeyLightData:
 		if data.occlusion_min < 0.0 or data.occlusion_max > 1.0 or data.occlusion_min > data.occlusion_max:
 			problems.append("occlusion 要在 0~1 之間且最小不大於最大（%s）" % [occlusion])
 	data.period = _number(source, "period", data.period, problems, MIN_PERIOD, 600.0)
+	data.source = str(source.get("source", "sun"))
+	if data.source not in SOURCES:
+		problems.append("source 要是 %s（%s）" % ["／".join(SOURCES), data.source])
+	else:
+		problems.append_array(data.source_problems())
 	if not problems.is_empty():
 		push_error("[KeyLight] %s 的 key_light 有問題，這個區域不加主光：%s" % [where, "；".join(problems)])
 		return null
 	return data
+
+
+## 光源種類的限制（BG-79）：燈的光暈和燈具相稱、光柱只是燈下短而窄的錐形；月光的光柱數量、寬度、亮度收斂。
+func source_problems() -> PackedStringArray:
+	var problems := PackedStringArray()
+	var limits: Dictionary = SOURCE_LIMITS.get(source, {})
+	for key: String in limits:
+		# 沒有光柱時，光柱的其他項目是預設值，不檢查。
+		if key.begins_with("shaft_") and key != "shaft_count" and shaft_count == 0:
+			continue
+		var value: float = get(key)
+		var limit: Array = limits[key]
+		if value < float(limit[0]) or value > float(limit[1]):
+			problems.append("%s 光的 %s 要在 %s~%s 之間（%s）" % [source, key, limit[0], limit[1], value])
+	return problems
 
 
 ## 主光在 t 秒時被遮住的程度：兩個不同週期的緩慢起伏疊在一起，不規律但永遠緩慢（每秒變化量有上限，見 max_rate）。

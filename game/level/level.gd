@@ -672,7 +672,7 @@ func _spawn_static_entities() -> void:
 		var tile := int(lamp.position.x / _layout.tile_size)
 		lamp.floor_y = _layout.floor_below(tile, int(lamp.position.y / _layout.tile_size))
 		lamp.ceiling_y = _lamp_ceiling(tile, int(lamp.position.y / _layout.tile_size))
-		var profile := data.profile_at_tile(tile)
+		var profile := _profile_at_tile(tile)
 		if profile != null and profile.lamp_style != null:
 			lamp.flipped = i % 2 == 1
 			lamp.apply_style(profile.lamp_style, hash(Vector2i(tile, int(lamp.position.y))), _lamp_supports(lamp, _scenery_walls), i)
@@ -772,7 +772,7 @@ func _spawn_decor() -> void:
 		var cell: Vector2i = entry["cell"]
 		var position: Vector2 = entry["position"]
 		var hash_value := absi(cell.x * 73856093 ^ cell.y * 19349663)
-		var zone_profile := data.profile_at_tile(cell.x)
+		var zone_profile := _profile_at_tile(cell.x)
 		var palette: PackedColorArray = zone_profile.neon_colors if zone_profile != null and not zone_profile.neon_colors.is_empty() else PackedColorArray(Palette.NEON_COLORS)
 		var neon: Color = palette[hash_value % palette.size()]
 		var neon_intensity := zone_profile.neon_energy if zone_profile != null else 1.0
@@ -896,6 +896,15 @@ func _prop_dirs() -> PackedStringArray:
 
 ## 地面剖面（BG-72）：地圖 JSON 寫了 ground_section 才有。緊接在地形後面加入（同一層、畫在地形上面、角色與近前景下面）。
 ## 這時光影還沒建立：色調取第一個光影區段的環境光，亮邊取地圖主光的顏色（沒有主光用白色）。
+## 某一欄實際用的光影設定（套過色彩腳本與時段的那份）：燈與招牌用它，白天室外的霓虹才會變弱（BG-79）。
+func _profile_at_tile(tile: int) -> LightingProfile:
+	var result: LightingProfile = null
+	for zone in _scripted_zones():
+		if zone != null and zone.profile != null and zone.start_tile <= tile:
+			result = zone.profile
+	return result
+
+
 ## 這一區實際用的光影區段：色彩腳本（BG-74）套在區段的複本上，共用的光影設定檔不變。
 func _scripted_zones() -> Array[LightingZone]:
 	if not _lighting_zones_ready:
@@ -957,6 +966,13 @@ func _spawn_key_light() -> void:
 	var key_data := KeyLightData.parse(data.load_layout_value("key_light"), "%s（%s）" % [data.id, data.layout_path])
 	if key_data == null:
 		return
+	# 燈光主光（BG-79）：錨在最近的那盞燈上（畫面上看得到光從哪裡來）；附近沒有燈就不加主光。
+	if key_data.source == "lamp":
+		var anchor := _nearest_lamp(key_data.tile * float(_layout.tile_size), KeyLightData.LAMP_REACH * _layout.tile_size)
+		if is_nan(anchor.x):
+			push_error("[KeyLight] %s 的主光是 lamp，但 (%s) 附近 %d 格內沒有燈，這個區域不加主光" % [data.id, key_data.tile, int(KeyLightData.LAMP_REACH)])
+			return
+		key_data.tile = anchor / float(_layout.tile_size)
 	var key := KeyLight.new()
 	key.setup(key_data, float(_layout.tile_size), func(x: float) -> float:
 		return _layout.surface_heights[clampi(int(x / _layout.tile_size), 0, _layout.surface_heights.size() - 1)])
@@ -965,6 +981,18 @@ func _spawn_key_light() -> void:
 	# 立面的窗光往主光色靠，只留少數原色當點綴（BG-69）。
 	if is_instance_valid(_back_wall):
 		_back_wall.tint_windows(key_data.color, WINDOW_KEY_MIX)
+
+
+## 離 point 最近、在 reach 以內的燈的位置（像素）；沒有時回傳 NAN。
+func _nearest_lamp(point: Vector2, reach: float) -> Vector2:
+	var best := Vector2(NAN, NAN)
+	var best_distance := reach
+	for lamp in _layout.lamps:
+		var distance := lamp.distance_to(point)
+		if distance <= best_distance:
+			best_distance = distance
+			best = lamp
+	return best
 
 
 ## 近前景（BG-68）：地圖 JSON 寫了 near_foreground 才有。邊緣光用主光的顏色與方向，沒有主光時用光影設定的輪廓光。

@@ -2,7 +2,7 @@ class_name ColorScriptScenario
 extends ScenarioBase
 ## 色彩腳本（BG-74）：每章幾個區域，主角站在固定的欄位各拍一張，修前修後用同一組位置對照，再拼成整章的縮圖帶。
 ## 用法（原生 Forward+）：godot --path . res://tools/screenshot.tscn -- --out=<絕對資料夾> --scenario=color_script
-##   [--shots=區域:欄[:列],...]（欄寫 -1 用出生點；列和可讀性檢查的取樣點同義；不寫就拍 SHOTS）。檔名是 區域 或 區域-欄。
+##   [--flags=旗標,...]（拍之前先設這些劇情旗標）[--shots=區域:欄[:列],...]（欄寫 -1 用出生點；列和可讀性檢查的取樣點同義；不寫就拍 SHOTS）。檔名是 區域 或 區域-欄。
 ## 檢查（BG-75）：每張的平均色相（依飽和度與亮度加權）。區域自己有色相範圍的（當舖）單獨檢查；其餘依章節累計，
 ## 每個區域一票（同一區拍幾張先平均成一個色相），整章的平均色相要落在色彩腳本那一章的範圍裡。不在範圍裡算失敗。
 
@@ -38,6 +38,11 @@ func run() -> void:
 	for shot: Array in _shots():
 		var area: String = shot[0]
 		GameState.start_new_run(GameState.difficulties[1])
+		# --flags=旗標,旗標：拍同一區的另一個時段（例如屋頂的夜裡、當舖的傍晚，BG-79）。
+		for arg in OS.get_cmdline_user_args():
+			if arg.begins_with("--flags="):
+				for flag in arg.trim_prefix("--flags=").split(",", false):
+					GameState.set_flag(StringName(flag), true, false)
 		level = Level.new()
 		level.configure(load("res://data/levels/%s.tres" % area) as LevelData)
 		add_child(level)
@@ -105,7 +110,8 @@ func run() -> void:
 	# 相鄰兩章的色相差距（BG-77）：同一次拍到的相鄰章節才比。
 	for chapter: String in means:
 		var next := "ch%d" % (int(chapter.trim_prefix("ch")) + 1)
-		if means.has(next) and ColorScript.neighbor_gap > 0.0:
+		# 只比兩章都已經定好色相範圍的（還沒套用色彩的章節不比）。
+		if means.has(next) and ColorScript.neighbor_gap > 0.0 and ColorScript.chapter_hue(chapter).x >= 0.0 and ColorScript.chapter_hue(next).x >= 0.0:
 			var gap := ColorScript.hue_distance(means[chapter], means[next])
 			print("CHAPTER_GAP %s-%s %.0f (min %.0f)" % [chapter, next, gap, ColorScript.neighbor_gap])
 			if gap < ColorScript.neighbor_gap:
@@ -117,7 +123,8 @@ func run() -> void:
 ## 這一張的平均色相：有自己範圍的區域單獨檢查，其餘加進章節的平均。
 func _check_hue(area: String, file_name: String, image: Image) -> void:
 	var hue := mean_hue(image)
-	var own := ColorScript.area_hue(StringName(area))
+	# 區域自己的色相範圍是夜裡的（例如當舖的暖燈）；白天的當舖後空地是灰的陰天，不用它（BG-79）。
+	var own := ColorScript.area_hue(StringName(area)) if ColorScript.time_for(StringName(area)) == "night" else Vector2(-1, -1)
 	print("SHOT_HUE %s hue=%.0f" % [file_name, hue])
 	if own.x >= 0.0:
 		if not ColorScript.hue_in(hue, own):

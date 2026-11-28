@@ -4,7 +4,7 @@
 		"res://data/levels/ch1_booth_alley.tres": {
 			"layout": "res://data/levels/ch1_booth_alley_map.json",
 			"level_sha256": "15d774f20001087d81e2683fe63beb4473537586a8d8cb1a57d2809dc2c801f9",
-			"layout_sha256": "26a7cf380fb4618090b8e07e3d8c2d94cb2759e0245242a82e2ef189fd96b382",
+			"layout_sha256": "a13a50cba81e121584003ebf3ffc5c1f8e253d3206175d65acf886f65bd82069",
 			"paths": {
 				"res://art/environment/scene_props/anchor_phone_booth/anchor_phone_booth__shutter_graffiti.png": true,
 				"res://art/environment/scene_props/anchor_phone_booth/anchor_phone_booth__shutter_graffiti_n.png": false,
@@ -265,7 +265,7 @@
 		"res://data/levels/ch1_pawnshop.tres": {
 			"layout": "res://data/levels/ch1_pawnshop_map.json",
 			"level_sha256": "1d5b6996ee22998745d678e4fbd740bd00a09be15e5fea47e486a6acb2f48310",
-			"layout_sha256": "d922d38b0c9ee1973bfab95031b1100517bdbbfc10dec49a983c742be8da5c92",
+			"layout_sha256": "e55dad92cb8f2a62af7fcfa380caa76e292b676dcb2da0ce8dcd63b806d0673d",
 			"paths": {
 				"res://art/environment/scene_props/pawnshop_front/pawnshop_front__tag_shelf.png": true,
 				"res://art/environment/scene_props/pawnshop_front/pawnshop_front__tag_shelf_n.png": false,
@@ -407,7 +407,7 @@
 		"res://data/levels/ch1_pawnshop_dawn.tres": {
 			"layout": "res://data/levels/ch1_pawnshop_map.json",
 			"level_sha256": "cd07c3fcb1c92f001815ff702754e112783e0156b283528822e5ac6586cd9e12",
-			"layout_sha256": "d922d38b0c9ee1973bfab95031b1100517bdbbfc10dec49a983c742be8da5c92",
+			"layout_sha256": "e55dad92cb8f2a62af7fcfa380caa76e292b676dcb2da0ce8dcd63b806d0673d",
 			"paths": {
 				"res://art/environment/scene_props/pawnshop_front/pawnshop_front__tag_shelf.png": true,
 				"res://art/environment/scene_props/pawnshop_front/pawnshop_front__tag_shelf_n.png": false,
@@ -667,7 +667,7 @@
 		"res://data/levels/ch1_rooftop.tres": {
 			"layout": "res://data/levels/ch1_rooftop_map.json",
 			"level_sha256": "934492afcdb4313637b773b6b6a374eb10c8b127cd67ebd61825e6d11de64fc2",
-			"layout_sha256": "30554b42430188bd4c820fe71190d5b9334a2c7282cf7b23def7ca7ae9273040",
+			"layout_sha256": "d09f346730fda308c48ef3015a4dbe446caec23103e179f38d0869cec07a22bc",
 			"paths": {
 				"res://art/environment/scene_props/rooftop/rooftop__stairwell_hut.png": true,
 				"res://art/environment/scene_props/rooftop/rooftop__stairwell_hut_n.png": false,
@@ -850,15 +850,15 @@
 				"res://art/environment/backdrop/near_foreground.png": true,
 				"res://art/environment/backdrop/near_foreground_n.png": false,
 				"res://art/environment/backdrop/near_foreground_glow.png": false,
-				"res://art/environment/backdrop/sky_dawn.webp": true,
-				"res://art/environment/backdrop/sky_dawn_n.webp": false,
-				"res://art/environment/backdrop/sky_dawn_glow.webp": false
+				"res://art/environment/backdrop/sky_misty_dawn.webp": true,
+				"res://art/environment/backdrop/sky_misty_dawn_n.webp": false,
+				"res://art/environment/backdrop/sky_misty_dawn_glow.webp": false
 			}
 		},
 		"res://data/levels/ch1_street.tres": {
 			"layout": "res://data/levels/ch1_street_map.json",
 			"level_sha256": "7ca18f1e81539b8f154e47360093ccdd0e62fbb11c3f358360807ca44166fcd6",
-			"layout_sha256": "9418fd5ececfbc69199677f5218128ef2381c2297a700e3fb99c9f5a00291642",
+			"layout_sha256": "cf0b2fca924da7a0c7504b4a1f4aee449e4c066c9bbb482da520ae63b2cff831",
 			"paths": {
 				"res://art/environment/scene_props/harbor_street/harbor_street__fish_cart.png": true,
 				"res://art/environment/scene_props/harbor_street/harbor_street__fish_cart_n.png": false,
@@ -1202,7 +1202,7 @@
 		"res://data/levels/ch1_warehouse.tres": {
 			"layout": "res://data/levels/ch1_warehouse_map.json",
 			"level_sha256": "c537dda584f0ea189ad71c1812a955b6975f18a451556301fbb015eeb6dc57ba",
-			"layout_sha256": "2d2c731ad7c3dbe9f322c9dff42751d11da7f440c0cac24e8c13bc3b58e3a81c",
+			"layout_sha256": "35d99e53fd250037eb07ee14d27025f8b3cefe7cbd3cdc8fd17d5fe363219172",
 			"paths": {
 				"res://art/environment/scene_props/dock_warehouse/dock_warehouse__watchdog_dock.png": true,
 				"res://art/environment/scene_props/dock_warehouse/dock_warehouse__watchdog_dock_n.png": false,
@@ -1417,7 +1417,7 @@
 		"res://data/levels/ch2_harbor_street.tres": {
 			"layout": "res://data/levels/ch2_harbor_street_map.json",
 			"level_sha256": "d361a1c8deea358680dd23f6a291d2ef1c00907b5f2f77a33a9e8e70db754fad",
-			"layout_sha256": "fb866c922f187a5bfe8e29808b116125af9a0d21d67eb5d41bf0e119ee9cefcb",
+			"layout_sha256": "8c2d38019dd6b3ffe9352a846e040fcd747414c36bacdc2b1a3f89f32b6da008",
 			"paths": {
 				"res://art/environment/scene_props/anchor_phone_booth/anchor_phone_booth__phone_booth.png": true,
 				"res://art/environment/scene_props/anchor_phone_booth/anchor_phone_booth__phone_booth_n.png": false,
@@ -1524,9 +1524,9 @@
 				"res://art/environment/backdrop/near_foreground.png": true,
 				"res://art/environment/backdrop/near_foreground_n.png": false,
 				"res://art/environment/backdrop/near_foreground_glow.png": false,
-				"res://art/environment/backdrop/sky_haze.webp": true,
-				"res://art/environment/backdrop/sky_haze_n.webp": false,
-				"res://art/environment/backdrop/sky_haze_glow.webp": false
+				"res://art/environment/backdrop/sky_misty_dawn.webp": true,
+				"res://art/environment/backdrop/sky_misty_dawn_n.webp": false,
+				"res://art/environment/backdrop/sky_misty_dawn_glow.webp": false
 			}
 		},
 		"res://data/levels/ch2_ledger_front.tres": {
@@ -1929,7 +1929,7 @@
 		"res://data/levels/ch2_market.tres": {
 			"layout": "res://data/levels/ch2_market_map.json",
 			"level_sha256": "3341dd129b68606373714d535e696e81fb756814a453a2040915720ff8942ac3",
-			"layout_sha256": "d66265303a042683d145674d0dd9493811ee47f04af8928aa90e3f852a889924",
+			"layout_sha256": "21bfe49a3de5e0c4fcff83c96f4ac4d807860c5cc99bc327f891f09828680a0c",
 			"paths": {
 				"res://art/environment/scene_props/neon_market/neon_market__debt_desk.png": true,
 				"res://art/environment/scene_props/neon_market/neon_market__debt_desk_n.png": false,
@@ -2021,15 +2021,15 @@
 				"res://art/environment/backdrop/near_foreground.png": true,
 				"res://art/environment/backdrop/near_foreground_n.png": false,
 				"res://art/environment/backdrop/near_foreground_glow.png": false,
-				"res://art/environment/backdrop/sky_haze.webp": true,
-				"res://art/environment/backdrop/sky_haze_n.webp": false,
-				"res://art/environment/backdrop/sky_haze_glow.webp": false
+				"res://art/environment/backdrop/sky_misty_dawn.webp": true,
+				"res://art/environment/backdrop/sky_misty_dawn_n.webp": false,
+				"res://art/environment/backdrop/sky_misty_dawn_glow.webp": false
 			}
 		},
 		"res://data/levels/ch2_market_gate.tres": {
 			"layout": "res://data/levels/ch2_market_gate_map.json",
 			"level_sha256": "79f30aed1159882cdc74338db66544b203d30efd3b8c022532ceab422d7c9b89",
-			"layout_sha256": "666002487bf049ca469b62a63c189f2d0fcdeec3a39d3d184a2adcd9b89f6c25",
+			"layout_sha256": "fabc46d9ed2314c00e0e54db34164ed635bc3d80215aa5b5c9062c780bd793f9",
 			"paths": {
 				"res://art/environment/scene_props/neon_market/neon_market__cut_lock_gate.png": true,
 				"res://art/environment/scene_props/neon_market/neon_market__cut_lock_gate_n.png": false,
@@ -2109,9 +2109,9 @@
 				"res://art/environment/backdrop/near_foreground.png": true,
 				"res://art/environment/backdrop/near_foreground_n.png": false,
 				"res://art/environment/backdrop/near_foreground_glow.png": false,
-				"res://art/environment/backdrop/sky_haze.webp": true,
-				"res://art/environment/backdrop/sky_haze_n.webp": false,
-				"res://art/environment/backdrop/sky_haze_glow.webp": false,
+				"res://art/environment/backdrop/sky_misty_dawn.webp": true,
+				"res://art/environment/backdrop/sky_misty_dawn_n.webp": false,
+				"res://art/environment/backdrop/sky_misty_dawn_glow.webp": false,
 				"res://art/characters/collector_gunner/parts/arm_lower.png": true,
 				"res://art/characters/collector_gunner/parts/arm_lower_n.png": true,
 				"res://art/characters/collector_gunner/parts/arm_upper.png": true,
@@ -2316,9 +2316,9 @@
 				"res://art/environment/backdrop/near_foreground.png": true,
 				"res://art/environment/backdrop/near_foreground_n.png": false,
 				"res://art/environment/backdrop/near_foreground_glow.png": false,
-				"res://art/environment/backdrop/sky_storm.webp": true,
-				"res://art/environment/backdrop/sky_storm_n.webp": false,
-				"res://art/environment/backdrop/sky_storm_glow.webp": false
+				"res://art/environment/backdrop/sky_haze.webp": true,
+				"res://art/environment/backdrop/sky_haze_n.webp": false,
+				"res://art/environment/backdrop/sky_haze_glow.webp": false
 			}
 		},
 		"res://data/levels/ch2_rooftop.tres": {
@@ -2966,9 +2966,9 @@
 				"res://art/environment/backdrop/near_foreground.png": true,
 				"res://art/environment/backdrop/near_foreground_n.png": false,
 				"res://art/environment/backdrop/near_foreground_glow.png": false,
-				"res://art/environment/backdrop/sky_storm.webp": true,
-				"res://art/environment/backdrop/sky_storm_n.webp": false,
-				"res://art/environment/backdrop/sky_storm_glow.webp": false
+				"res://art/environment/backdrop/sky_haze.webp": true,
+				"res://art/environment/backdrop/sky_haze_n.webp": false,
+				"res://art/environment/backdrop/sky_haze_glow.webp": false
 			}
 		},
 		"res://data/levels/ch3_plaza.tres": {
@@ -3087,9 +3087,9 @@
 				"res://art/environment/backdrop/near_foreground.png": true,
 				"res://art/environment/backdrop/near_foreground_n.png": false,
 				"res://art/environment/backdrop/near_foreground_glow.png": false,
-				"res://art/environment/backdrop/sky_storm.webp": true,
-				"res://art/environment/backdrop/sky_storm_n.webp": false,
-				"res://art/environment/backdrop/sky_storm_glow.webp": false
+				"res://art/environment/backdrop/sky_haze.webp": true,
+				"res://art/environment/backdrop/sky_haze_n.webp": false,
+				"res://art/environment/backdrop/sky_haze_glow.webp": false
 			}
 		},
 		"res://data/levels/ch3_pump.tres": {
@@ -4207,9 +4207,9 @@
 				"res://art/environment/backdrop/near_foreground.png": true,
 				"res://art/environment/backdrop/near_foreground_n.png": false,
 				"res://art/environment/backdrop/near_foreground_glow.png": false,
-				"res://art/environment/backdrop/sky_storm.webp": true,
-				"res://art/environment/backdrop/sky_storm_n.webp": false,
-				"res://art/environment/backdrop/sky_storm_glow.webp": false
+				"res://art/environment/backdrop/sky_haze.webp": true,
+				"res://art/environment/backdrop/sky_haze_n.webp": false,
+				"res://art/environment/backdrop/sky_haze_glow.webp": false
 			}
 		},
 		"res://data/levels/ch4_revival_lounge.tres": {
