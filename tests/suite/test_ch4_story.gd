@@ -108,7 +108,8 @@ func _check_safe_platform(loading: LevelData, relay: LevelData, safety: LevelDat
 		var enemy := spawn.get("resource") as EnemyData
 		if enemy != null:
 			threats.append(enemy.id)
-	check(threats.count(&"sweeper") == 1 and threats.count(&"slasher") == 1 and threats.count(&"searchlight_drone") == 2,
+	# NE-451：上層走道的兩台探照無人機換一台成狙擊手；下層仍是清掃兵，東端出口是切割者。
+	check(threats.count(&"sweeper") == 1 and threats.count(&"slasher") == 1 and threats.count(&"searchlight_drone") == 1 and threats.count(&"sniper") == 1,
 			"the shared floor and upper catwalk contain two distinct patrol groups")
 
 

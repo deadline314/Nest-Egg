@@ -36,7 +36,19 @@
     "landmark": "外門班表與沿牆升高的維修架。",
     "loop": "裝卸帶的上層可返回外廊。"
    },
-   "encounters": []
+   "encounters": [
+    {
+     "name": "外門守衛",
+     "lock": false,
+     "wave_zone": false,
+     "x0": 33,
+     "x1": 62,
+     "members": [
+      "重裝機槍手"
+     ],
+     "reinforcements": []
+    }
+   ]
   },
   "factory_loading": {
    "combat": false,
@@ -73,7 +85,7 @@
      "name": "出口看守",
      "lock": false,
      "wave_zone": false,
-     "x0": 85,
+     "x0": 84,
      "x1": 92,
      "members": [
       "切割者"
@@ -88,7 +100,7 @@
      "x1": 73,
      "members": [
       "探照無人機",
-      "探照無人機"
+      "狙擊手"
      ],
      "reinforcements": []
     }

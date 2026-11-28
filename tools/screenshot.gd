@@ -1830,6 +1830,8 @@ func _run_spots() -> void:
 	var parts := _scenario.split(":")
 	var level_id := parts[1] if parts.size() > 1 else "level_01"
 	var tag := parts[2] if parts.size() > 2 else "now"
+	# 第四段寫 enemies：敵人照常行動，每個取樣點連拍幾張（拍敵人出手前的預兆用）；主角不會死。
+	var keep_enemies := parts.size() > 3 and parts[3] == "enemies"
 	var spots: Array = SPOTS.get(level_id, [])
 	GameState.start_new_run(GameState.difficulties[1])
 	var level := Level.new()
@@ -1838,27 +1840,42 @@ func _run_spots() -> void:
 	await _settle(25)
 	level.hud.visible = false
 	level.player.health.setup(999, 0.0)
-	for node in get_tree().get_nodes_in_group(&"enemies"):
-		node.queue_free()
+	if keep_enemies:
+		level.player.health.grant_invulnerability(100000.0)
+	else:
+		for node in get_tree().get_nodes_in_group(&"enemies"):
+			node.queue_free()
 	for id: String in Story.scene_ids():
 		Story._seen[StringName(id)] = true
 	var layout: LevelLayout = level._layout
 	for spot: Array in spots:
 		var tile: int = spot[1]
 		var y := layout.surface_heights[tile] - 2.0
-		if spot.size() > 2:
-			y = float(int(spot[2]) * layout.tile_size) - 2.0   # 第三欄寫明站在哪一列的地面上（頭上有別的走道時）
 		if layout.surface_heights[tile] < layout.tile_size * 4.0:
 			# 頂上是厚天花板的室內：先穿過實心的天花板，再找下面的地板。
 			var row := 4
 			while row < layout.height and layout.cell(tile, row) == "#":
 				row += 1
 			y = layout.floor_below(tile, row) - 2.0
+		if spot.size() > 2:
+			y = float(int(spot[2]) * layout.tile_size) - 2.0   # 第三欄寫明站在哪一列的地面上（頭上有別的走道或天花板時）
 		level.player.global_position = Vector2(tile * layout.tile_size + 8.0, y)
 		level.player.velocity = Vector2.ZERO
+		var camera := get_viewport().get_camera_2d() as LevelCamera
+		var focused := false
+		if spot.size() > 3 and camera != null:
+			# 第四欄是鏡頭中心的格子 [欄, 列]：上下兩層的高房間，跟著主角的鏡頭對不到要拍的東西時用。
+			var cell: Array = spot[3]
+			focused = camera.acquire_presentation_focus(self, Vector2((float(cell[0]) + 0.5) * layout.tile_size, float(cell[1]) * layout.tile_size))
 		level_camera_snap()
 		await _settle(40)
 		_capture("spot_%s_%s_%s" % [level_id, spot[0], tag])
+		if keep_enemies:
+			for shot in 16:
+				await _wait(0.3)
+				_capture("spot_%s_%s_%s_%d" % [level_id, spot[0], tag, shot])
+		if focused:
+			camera.release_presentation_focus(self)
 		if not _without_node.is_empty():
 			var layers := level.find_children(_without_node, "CanvasItem", true, false)
 			if layers.is_empty():
@@ -2424,7 +2441,10 @@ const SPOTS := {
 	"ch3_clinic": [["exit", 90], ["storeroom", 100]],
 	"ch4_nursing_ward": [["shelf", 52]],
 	"ch4_factory_roof": [["deck", 44]],
+	"ch4_factory_approach": [["gunner", 60, 20, [56, 16]]],
+	"ch4_factory_relay": [["sniper", 61, 20, [66, 14]], ["cable", 80, 20, [86, 16]]],
 	"ch1_stall": [["a", 20], ["awning", 41]],
+	"ch1_vault": [["safe", 29, 29, [33, 25]]],
 	"ch1_street": [["wall", 33], ["market", 84], ["mid", 130], ["dock", 196]],
 }
 

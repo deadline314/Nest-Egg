@@ -1,11 +1,14 @@
 extends Node
-## 地圖線的新路線實走（NE-419、NE-423、NE-450）：在正式關卡裡用真的「跳」與「左右移動」輸入，一階一階走完新路線，
+## 地圖線的新路線實走（NE-419、NE-423、NE-450、NE-451）：在正式關卡裡用真的「跳」與「左右移動」輸入，一階一階走完新路線，
 ## 確認每一階都站得上去、獎勵真的被撿到、最後能走回地面（不卡在平台邊緣）。裂縫牆用真的開槍打開。
 ## 用法：godot --headless --fixed-fps 60 --path . res://tools/route_walk_probe.tscn [-- --route=ch3_office_hall]
 ## 每條路線一行 PASS／FAIL，有失敗以代碼 1 結束。新路線加在 ROUTES：
 ##   start：起點站立格；steps：[站立格, 要不要跳, 說明]；reward：拿到後信用點要增加；break_wall：先往右打開裂縫牆。
 
 const ROUTES := {
+	"ch4_factory_approach": {"start": Vector2i(30, 19), "reward": false, "steps": [
+		[Vector2i(40, 17), true, "維修架的第一階"], [Vector2i(45, 15), true, "第二階"], [Vector2i(50, 13), true, "守衛頭頂的維修架"],
+		[Vector2i(58, 13), false, "走過守衛頭頂"], [Vector2i(64, 19), false, "從維修架右端落到守衛背後"]]},
 	"ch1_stall": {"start": Vector2i(28, 19), "reward": true, "steps": [
 		[Vector2i(32, 15), true, "凳子堆旁的矮雨棚"], [Vector2i(40, 12), true, "出口頂上的鐵皮棚"],
 		[Vector2i(43, 12), false, "野貓角落的信用點"], [Vector2i(46, 19), false, "從棚子右端落回巷口"]]},
@@ -51,6 +54,9 @@ func _walk(level_id: String, route: Dictionary) -> void:
 	add_child(level)
 	await _frames(30)
 	level._next_story_trigger = level._layout.story_triggers.size()
+	# 這是走路線的檢查，不是戰鬥：敵人先移走，免得被打退干擾。
+	for enemy in get_tree().get_nodes_in_group(&"enemies"):
+		enemy.queue_free()
 	var player: Player = level.player
 	player.health.setup(9999, 0.0)
 	var tile := float(level._layout.tile_size)
@@ -64,7 +70,8 @@ func _walk(level_id: String, route: Dictionary) -> void:
 	var ok := true
 	for step: Array in route["steps"]:
 		if not await _drive(level, step[0], step[1]):
-			_fail("%s：走不到「%s」%s（主角停在 %s）" % [level_id, step[2], step[0], _cell_of(player, tile)])
+			_fail("%s：走不到「%s」%s（主角停在 %s，%s，%s）" % [level_id, step[2], step[0], _cell_of(player, tile), player.global_position,
+					"站在地上" if player.is_on_floor() else "在空中"])
 			ok = false
 			break
 	if ok and route.get("reward", false) and Progression.credits <= credits_before:
@@ -104,21 +111,24 @@ func _drive(level: Level, cell: Vector2i, jump: bool) -> bool:
 	var tile := float(level._layout.tile_size)
 	var goal := Vector2((cell.x + 0.5) * tile, (cell.y + 1) * tile)
 	var player: Player = level.player
-	_set_input(&"jump", jump)
 	var reached := false
+	var hold := 0
 	for frame in STEP_FRAMES:
 		var offset := goal.x - player.global_position.x
 		_set_input(&"move_left", offset < -4.0)
 		_set_input(&"move_right", offset > 4.0)
+		# 跳：只在站在地上、還比目標低的時候起跳，按到開始往下掉才放（跳滿高度），落地後再按下一次。
+		if jump and hold == 0 and player.is_on_floor() and player.global_position.y > goal.y + 2.0 and absf(offset) < 7.0 * tile:
+			hold = 1
+		elif hold > 0 and hold > 3 and player.velocity.y >= 0.0:
+			hold = 0
+		elif hold > 0:
+			hold += 1
+		_set_input(&"jump", hold > 0)
 		await get_tree().physics_frame
 		if frame > 3 and absf(offset) <= 4.0 and player.is_on_floor() and absf(player.global_position.y - goal.y) < 2.0:
 			reached = true
 			break
-		# 跳起來之後放開，落地再按，才不會一直按著同一下。
-		if jump and player.is_on_floor() and frame > 20 and player.global_position.y > goal.y + 2.0:
-			_set_input(&"jump", false)
-			await get_tree().physics_frame
-			_set_input(&"jump", true)
 	_release_all()
 	await get_tree().physics_frame
 	return reached

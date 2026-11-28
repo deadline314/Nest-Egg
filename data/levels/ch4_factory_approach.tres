@@ -1,14 +1,16 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=11 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=13 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
-[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
-[ext_resource type="Resource" path="res://data/npcs/ch4_shift_board.tres" id="3_ch4_shift_board"]
-[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="4_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/factory_rust.tres" id="5_factory_rust"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch4_factory_approach.tres" id="6_ch4_factory_approach"]
+[ext_resource type="Resource" path="res://data/enemies/heavy_gunner.tres" id="2_heavy_gunner"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="3_portal_data"]
+[ext_resource type="Resource" path="res://data/npcs/ch4_shift_board.tres" id="4_ch4_shift_board"]
+[ext_resource type="Resource" path="res://data/props/ch4_arena_cover.tres" id="5_ch4_arena_cover"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="6_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/factory_rust.tres" id="7_factory_rust"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch4_factory_approach.tres" id="8_ch4_factory_approach"]
 
 [sub_resource type="Resource" id="Resource_0"]
-script = ExtResource("2_portal_data")
+script = ExtResource("3_portal_data")
 id = &"approach_lounge"
 target_level = "res://data/levels/ch4_revival_lounge.tres"
 target_portal = &"lounge_factory"
@@ -18,7 +20,7 @@ height = 68
 style = "door"
 
 [sub_resource type="Resource" id="Resource_1"]
-script = ExtResource("2_portal_data")
+script = ExtResource("3_portal_data")
 id = &"approach_loading"
 target_level = "res://data/levels/ch4_factory_loading.tres"
 target_portal = &"loading_approach"
@@ -32,7 +34,7 @@ height = 68
 style = "door"
 
 [sub_resource type="Resource" id="Resource_2"]
-script = ExtResource("2_portal_data")
+script = ExtResource("3_portal_data")
 id = &"approach_rail"
 target_level = "res://data/levels/ch4_factory_loading.tres"
 target_portal = &"loading_rail"
@@ -46,10 +48,10 @@ height = 68
 style = "door"
 
 [sub_resource type="Resource" id="Resource_3"]
-script = ExtResource("4_lighting_zone")
+script = ExtResource("6_lighting_zone")
 start_tile = 0
 blend_tiles = 12
-profile = ExtResource("5_factory_rust")
+profile = ExtResource("7_factory_rust")
 
 [resource]
 script = ExtResource("1_level_data")
@@ -59,17 +61,19 @@ localized_names = Dictionary[String, String]({"en": "Old Factory Approach", "ja"
 tile_size = 16
 height = 24
 legend = Dictionary[String, Resource]({
+"Щ": ExtResource("2_heavy_gunner"),
 "Ⅹ": SubResource("Resource_0"),
 "Ⅺ": SubResource("Resource_1"),
 "Ⅼ": SubResource("Resource_2"),
-"ⓑ": ExtResource("3_ch4_shift_board")
+"ⓑ": ExtResource("4_ch4_shift_board"),
+"▧": ExtResource("5_ch4_arena_cover")
 })
 hints = PackedStringArray()
 chapter = &"ch4_hollow"
 persistent_world = true
 show_chapter_card = false
-environment = ExtResource("6_ch4_factory_approach")
+environment = ExtResource("8_ch4_factory_approach")
 layout_path = "res://data/levels/ch4_factory_approach_map.json"
-lighting_zones = Array[ExtResource("4_lighting_zone")]([SubResource("Resource_3")])
+lighting_zones = Array[ExtResource("6_lighting_zone")]([SubResource("Resource_3")])
 story_triggers = PackedStringArray()
 death_credit_cap = 250

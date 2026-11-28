@@ -188,6 +188,9 @@ def _configure():
         "g": "res://data/enemies/sweeper.tres",
         "b": "res://data/enemies/slasher.tres",
         "d": "res://data/enemies/searchlight_drone.tres",
+        # 天穹清理隊（NE-470 整理好的舊關卡敵人；字元只在這裡用，舊示範關卡的 v、Z 在第一章另有意思）。
+        "Щ": "res://data/enemies/heavy_gunner.tres",
+        "Ф": "res://data/enemies/sniper.tres",
         "⭙": "res://data/props/ch4_lower_sweep.tres",
         "⭗": "res://data/props/ch4_upper_sweep.tres",
         "⧈": "res://data/props/ch4_work_test_cover.tres",
@@ -195,7 +198,7 @@ def _configure():
         "⏛": "res://data/props/ch4_arena_upper_sweep.tres",
         "▧": "res://data/props/ch4_arena_cover.tres",
     })
-    kit.ENEMY_NAMES.update({"b": "切割者", "d": "探照無人機"})
+    kit.ENEMY_NAMES.update({"b": "切割者", "d": "探照無人機", "Щ": "重裝機槍手", "Ф": "狙擊手"})
     kit.THEMES = THEMES
     kit.STORY = {}
     kit.placement_id = lambda ident: "ch1_pawnshop" if ident == "pawnshop" else f"ch4_{ident}"
@@ -296,6 +299,11 @@ def _factory_approach():
     area.prop("factory_office__stopped_clock", 58, y=11, support="wall")
     area.prop("factory_office__bulletin_board", 58, y=15, support="wall")
     area.prop("abandoned_factory__broken_conveyor", 48)
+    # 外門守衛（地圖線 NE-451）：重裝機槍手站在維修架底下守貨門。地面路有兩個掩護箱，槍管轉起來就躲；
+    # 或從左邊的階梯上維修架，走到他頭頂再落到背後。
+    area.stand(36, "▧")
+    area.stand(46, "▧")
+    area.encounter("外門守衛", 33, 62, [(52, "Щ")])
     for x in (12, 37, 61):
         area.lamp(x, 9)
     area.features = {"landmark": "外門班表與沿牆升高的維修架。", "loop": "裝卸帶的上層可返回外廊。"}
@@ -346,11 +354,14 @@ def _factory_relay():
     area.encounter("下層巡查", 29, 42, [(33, "g")])
     # 切割者會從主角頭上翻到背後（NE-424）：只在頭頂沒有走道的地方翻得起來。放在東端出口前的開闊地，
     # 右邊是盡頭的牆，玩家背靠牆就能化解；原本第 40 欄頭上有走道，只會正面撲。
-    area.encounter("出口看守", 85, 92, [(87, "b")])
+    area.encounter("出口看守", 84, 92, [(85, "b")])
+    # 出口前的積水與斷電纜（NE-451）：把切割者引到水裡再射斷電纜，不用和牠硬拚；背後是積水時牠也翻不過來。
+    area.stand(88, "φ")
     area.stand(13, "Ω")   # 輸送帶（NE-407）：入口段往右帶，射馬達反轉
     area.stand(32, "φ")   # 斷電纜（NE-407）：下層巡查站在積水裡
     area.challenges = ["res://data/challenges/ch4_factory_relay_timed.tres"]   # 限時抵達（NE-418）
-    area.encounter("高處探頭", 58, 73, [(63, "d", 10), (70, "d", 11)])
+    # 上層換成狙擊手（NE-451）：雷射掃過下層的長路，站到走道底下就斷線。
+    area.encounter("高處探頭", 58, 73, [(63, "d", 10), (70, "Ф", 13)])
     area.prop("abandoned_factory__broken_conveyor", 39, y=GROUND - 1)
     area.prop("abandoned_factory__rust_tank", 51)
     area.prop("hazard_sign", 69, y=15, support="wall")
