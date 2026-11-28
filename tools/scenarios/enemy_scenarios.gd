@@ -25,6 +25,7 @@ const SCENARIOS := {
 	"backdrop_drift": "res://tools/scenarios/backdrop_drift_scenario.gd",
 	"ui_motion": "res://tools/scenarios/ui_motion_scenario.gd",
 	"presentation": "res://tools/scenarios/presentation_scenario.gd",
+	"presentation_audit": "res://tools/scenarios/presentation_audit_scenario.gd",
 	"inventory_portrait": "res://tools/scenarios/inventory_portrait_scenario.gd",
 	"suspended_load": "res://tools/scenarios/suspended_load_scenario.gd",
 	"steam_valve": "res://tools/scenarios/steam_valve_scenario.gd",
