@@ -1,11 +1,13 @@
 extends Node
-## 地圖線的新路線實走（NE-419、NE-423、NE-450、NE-451）：在正式關卡裡用真的「跳」與「左右移動」輸入，一階一階走完新路線，
+## 地圖線的新路線實走（NE-419、NE-423、NE-450、NE-451、NE-452）：在正式關卡裡用真的「跳」與「左右移動」輸入，一階一階走完新路線，
 ## 確認每一階都站得上去、獎勵真的被撿到、最後能走回地面（不卡在平台邊緣）。裂縫牆用真的開槍打開。
 ## 用法：godot --headless --fixed-fps 60 --path . res://tools/route_walk_probe.tscn [-- --route=ch3_office_hall]
 ## 每條路線一行 PASS／FAIL，有失敗以代碼 1 結束。新路線加在 ROUTES：
 ##   start：起點站立格；steps：[站立格, 要不要跳, 說明]；reward：拿到後信用點要增加；break_wall：先往右打開裂縫牆。
 
 const ROUTES := {
+	"ch2_ledger_front": {"start": Vector2i(50, 19), "reward": true, "break_wall": true, "steps": [
+		[Vector2i(61, 19), false, "裂縫牆後的暗櫃"], [Vector2i(50, 19), false, "走回帳房門前"]]},
 	"ch4_factory_approach": {"start": Vector2i(30, 19), "reward": false, "steps": [
 		[Vector2i(40, 17), true, "維修架的第一階"], [Vector2i(45, 15), true, "第二階"], [Vector2i(50, 13), true, "守衛頭頂的維修架"],
 		[Vector2i(58, 13), false, "走過守衛頭頂"], [Vector2i(64, 19), false, "從維修架右端落到守衛背後"]]},

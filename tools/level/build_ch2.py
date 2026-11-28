@@ -71,7 +71,8 @@ NPCS = {
     'ch2_terminal': dict(name='公用委託終端', speaker='terminal', kind=O, prompt='{interact} 在委託終端上傳證據', talks=[('ch2_dispatch_terminal', 0)]),
     'ch2_ali_lounge': dict(name='阿梨', speaker='ali', rig='ali', loop='wipe_hands', facing=-1, prompt='{interact} 和阿梨說話',
                            talks=[('ch2_dispatch_ali_lounge', 0)], spawn_requires_flag='ch2_audit_submitted'),
-    'ch2_guest_entry': dict(name='客人簿', speaker='label', kind=O, prompt='{interact} 看阿梨今晚的工作', talks=[('ch2_dispatch_guest_entry', 0)],
+    'ch2_guest_entry': dict(name='客人簿', speaker='label', kind=O, prompt='{interact} 看阿梨今晚的工作',
+                            talks=[('ch2_dispatch_guest_entry', 0, 0, {'resume_scene': 'ch2_t_s21_close'})],
                             spawn_requires_flag='ch2_audit_submitted'),
     'ch2_egret_booth': dict(name='鷺', speaker='egret', rig='egret', loop='yawn', facing=-1, prompt='{interact} 和鷺說話',
                             talks=[('ch2_dispatch_egret_booth', 0)], spawn_requires_flag='ch2_egret_transport_done', spawn_unless_flag='ch2_audit_submitted'),
@@ -160,13 +161,15 @@ ENEMIES = {
     '♞': ('res://data/enemies/ch2_escort.tres', '押運手'),
     '♜': ('res://data/enemies/ch2_bill_thrower.tres', '票據投手'),
     '♚': ('res://data/enemies/yong.tres', '阿勇'),
+    '☏': ('res://data/enemies/collector_caller.tres', '收帳人·聯絡員'),   # NE-476；☎ 在第五章是電話亭
 }
 
 # 戰鬥區與成員（戰鬥 Session 配置，NE-266）：區域 -> [(名稱, x0, x1, 用途, [(欄, 字元)])]。
 # 每場同屏最多三名普通敵人；地面的敵人看不到上層的繞道（高度差超過他們的視線），照劇本可以繞過。
 # 阿勇的兩名小弟由頭目戰第一階段從兩側門補進來（同時最多兩名，第二階段不再增援，見 data/bosses/yong.json）。
 COMBAT_ZONES = {
-    'market_gate': [('入口押運手', 30, 48, '短戰，可從上層公眾攤道繞過', [(36, '♞'), (44, '♞')]),
+    # 聯絡員第一次出現（NE-452）：單獨一隻、前面有貨箱可以躲著打斷他回報；沒打斷就叫來原本站在這裡的兩名押運手。
+    'market_gate': [('入口聯絡員', 30, 48, '聯絡員第一次出現：躲到貨箱後打斷回報，或先處理他；也可從上層公眾攤道繞過', [(44, '☏')]),
                     ('入口票據投手', 56, 74, '短戰，可從上層公眾攤道繞過', [(60, '♞'), (70, '♜')])],
     'loading': [('下層貨道一', 24, 44, '可從雨棚上層繞過', [(30, '♜'), (40, '♞')]),
                 ('下層貨道二', 60, 80, '可從電線橋繞過', [(64, '♞'), (72, '♞'), (78, '♜')])],
@@ -384,8 +387,8 @@ def _build_loading_v1():
 
 def build_ledger_front():
     """H13 前室：電話亭、隔離箱示意圖、帳房的門（S11 登場）。"""
-    a = Area('ledger_front', '北棟二樓前室', 56, 20, indoor=True)
-    a.ceiling(1, 54, 10)
+    a = Area('ledger_front', '北棟二樓前室', 64, 20, indoor=True)
+    a.ceiling(1, 62, 10)
     a.stand(3, 'ⅰ')
     a.stand(6, 'P')
     a.stand(16, 'C')
@@ -397,10 +400,16 @@ def build_ledger_front():
     a.prop('yong_hideout__money_sacks', 38)
     a.stand(46, 'ⓨ')
     a.stand(52, 'ⅱ')
-    for x in (12, 30, 46):
+    # 帳房門右邊的裂縫牆（NE-452）：後面是阿勇藏舊帳的暗櫃，不擋主線。
+    a.block(56, 56, 10, 16)
+    a.put(56, 19, 'X')
+    a.prop('yong_hideout__money_sacks', 58)
+    a.stand(61, 'q')
+    for x in (12, 30, 46, 59):
         a.lamp(x, 11)
     a.zone(0, 'warehouse_interior')
-    a.features = {'landmark': '隔離箱示意圖（x=28）：主箱永久解除、側箱只能暫停'}
+    a.features = {'landmark': '隔離箱示意圖（x=28）：主箱永久解除、側箱只能暫停',
+                  'secret': '帳房門右邊，裂縫牆後阿勇藏舊帳的暗櫃（x=57～62）'}
     return a
 
 
@@ -464,6 +473,14 @@ def build_lounge_front():
 # 往貨道上層的門和原貨道一樣要先問過代收處（ch2_market_contact_done）。
 def build_harbor_street():
     a = kit._v2_area(_build_harbor_street_v1())
+    # 白天的街坊（故事線 ST-60）：第 12 欄凜和夜班工人的早晨氣泡；工人在魚攤旁、報架、發傳單的人。
+    # 字元只在這一區用（第一章街道的 Ⓕ 是另一位），不放進各章共用的 RES。
+    kit.RES.update({'Ⓚ': 'res://data/npcs/ch2_street_worker.tres', 'Ⓙ': 'res://data/npcs/ch2_street_news.tres',
+                    'Ⓕ': 'res://data/npcs/ch2_street_flyer.tres'})
+    a.trigger(12, 'ch2_b_street_morning')
+    a.put(17, 35, 'Ⓚ')
+    a.put(37, 35, 'Ⓙ')
+    a.put(55, 35, 'Ⓕ')
     a.features.update(loop='雨棚上層連到市集入口的上層攤道', vertical='街面與雨棚兩層',
                       reward='雨棚上方第 15 列信用點：空中再躍')
     return a
@@ -471,6 +488,11 @@ def build_harbor_street():
 
 def build_market_gate():
     a = kit._v2_area(_build_market_gate_v1())
+    # 斷電纜（NE-405）與「只用環境擊倒」挑戰（NE-410）。
+    a.put(40, 35, MECH_LIVE_CABLE)
+    a.put(65, 35, MECH_LIVE_CABLE)
+    a.challenges = ['res://data/challenges/ch2_market_gate_environment.tres']
+    a.put(38, 35, 'x')   # 聯絡員前面的貨箱（掩護）；打破會掉一點零錢
     a.features.update(loop='上層攤道往左接回港區街道的雨棚', reward='上層攤道上方第 21 列信用點：空中再躍',
                       vertical='地面、上層攤道與高處三層')
     return a
@@ -487,6 +509,11 @@ def build_market():
 
 def build_loading():
     a = kit._v2_area(_build_loading_v1())
+    # 門簾凹室（NE-426）、吊掛貨箱（NE-405）、可射暗的燈（NE-399）與「不被發現」挑戰（NE-411）。
+    a.put(7, 35, MECH_HIDING_SPOT)
+    a.put(73, 35, MECH_SUSPENDED_CRATE)
+    a.level_options = {'shootable_lamps': 'true'}
+    a.challenges = ['res://data/challenges/ch2_loading_unseen.tres']
     a.features.update(loop='下層貨道、雨棚上層與公眾攤道雨棚成環', reward='電線橋上方第 20 列信用點：空中再躍',
                       vertical='地面、雨棚與高處三層')
     return a
@@ -525,6 +552,14 @@ AREAS = (build_pawnshop, build_rooftop, build_harbor_street, build_market_gate, 
          build_ledger_front, build_ledger_office, build_lounge_front)
 
 
+# 玩法線的機關（字元在每一章同義，見 design/22-living-scenes/MAP_GLYPHS.md）。
+MECH_LIVE_CABLE = 'φ'
+MECH_SUSPENDED_CRATE = '!'
+MECH_HIDING_SPOT = '⦀'
+MECHANISMS = {MECH_LIVE_CABLE: 'res://data/props/live_cable.tres', MECH_SUSPENDED_CRATE: 'res://data/props/suspended_crate.tres',
+              MECH_HIDING_SPOT: 'res://data/props/hiding_spot.tres'}
+
+
 def configure():
     """把第一章的工具切到第二章：人物、出入口、主題與劇情接點都換成本章的，字元不和第一章的資源衝突。"""
     clash = sorted(c for c in NPC_CHARS if c in kit.RES or c in PORTALS or c in kit.TRAINING)
@@ -540,6 +575,7 @@ def configure():
         kit.RES[char] = path
         kit.ENEMY_NAMES[char] = name
     kit.RES[ROOF_PRACTICE] = 'res://data/props/ch2_roof_combo_target.tres'
+    kit.RES.update(MECHANISMS)
     kit.PORTALS = PORTALS
     kit.NPCS = {ident: {**{'rig': '', 'loop': '', 'facing': 1}, **spec} for ident, spec in NPCS.items()}
     kit.THEMES = THEMES
@@ -575,6 +611,7 @@ def main():
                   'lounge_front'):
         # 屋頂的章末接第三章的週日早上（當舖）。
         extra = {'complete_on_flag': '&"ch2_heron_closed"', 'next_level': '"res://data/levels/ch3_pawnshop.tres"'} if ident == 'rooftop' else {}
+        extra.update(getattr(by_id[ident], 'level_options', {}))
         kit.write_level(by_id[ident], **extra)
 
 

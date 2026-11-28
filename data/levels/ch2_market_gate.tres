@@ -1,21 +1,23 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=19 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=22 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Resource" path="res://data/props/credits_small.tres" id="2_credits_small"]
-[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="3_portal_data"]
-[ext_resource type="Resource" path="res://data/npcs/ch2_egret_booth.tres" id="4_ch2_egret_booth"]
-[ext_resource type="Resource" path="res://data/npcs/ch2_patroller.tres" id="5_ch2_patroller"]
-[ext_resource type="Resource" path="res://data/enemies/ch2_bill_thrower.tres" id="6_ch2_bill_thrower"]
-[ext_resource type="Resource" path="res://data/enemies/ch2_escort.tres" id="7_ch2_escort"]
-[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="8_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/market_gate.tres" id="9_market_gate"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch2_market_gate.tres" id="10_ch2_market_gate"]
-[ext_resource type="Resource" path="res://data/props/live_cable.tres" id="92_live_cable"]
-[ext_resource type="Script" path="res://data/scripts/area_challenge_data.gd" id="97_challenge_script"]
-[ext_resource type="Resource" path="res://data/challenges/ch2_market_gate_environment.tres" id="98_challenge"]
+[ext_resource type="Resource" path="res://data/props/ch1_crate.tres" id="3_ch1_crate"]
+[ext_resource type="Resource" path="res://data/props/live_cable.tres" id="4_live_cable"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="5_portal_data"]
+[ext_resource type="Resource" path="res://data/npcs/ch2_egret_booth.tres" id="6_ch2_egret_booth"]
+[ext_resource type="Resource" path="res://data/npcs/ch2_patroller.tres" id="7_ch2_patroller"]
+[ext_resource type="Resource" path="res://data/enemies/collector_caller.tres" id="8_collector_caller"]
+[ext_resource type="Resource" path="res://data/enemies/ch2_bill_thrower.tres" id="9_ch2_bill_thrower"]
+[ext_resource type="Resource" path="res://data/enemies/ch2_escort.tres" id="10_ch2_escort"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="11_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/market_gate.tres" id="12_market_gate"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch2_market_gate.tres" id="13_ch2_market_gate"]
+[ext_resource type="Script" path="res://data/scripts/area_challenge_data.gd" id="14_area_challenge_data"]
+[ext_resource type="Resource" path="res://data/challenges/ch2_market_gate_environment.tres" id="15_ch2_market_gate_environment"]
 
 [sub_resource type="Resource" id="Resource_0"]
-script = ExtResource("3_portal_data")
+script = ExtResource("5_portal_data")
 id = &"gate_street"
 target_level = "res://data/levels/ch2_harbor_street.tres"
 target_portal = &"street_market"
@@ -26,7 +28,7 @@ height = 44
 style = "road"
 
 [sub_resource type="Resource" id="Resource_1"]
-script = ExtResource("3_portal_data")
+script = ExtResource("5_portal_data")
 id = &"gate_market"
 target_level = "res://data/levels/ch2_market.tres"
 target_portal = &"market_gate"
@@ -40,7 +42,7 @@ height = 44
 style = "road"
 
 [sub_resource type="Resource" id="Resource_2"]
-script = ExtResource("3_portal_data")
+script = ExtResource("5_portal_data")
 id = &"gate_lounge"
 target_level = "res://data/levels/ch2_lounge_front.tres"
 target_portal = &"lounge_gate"
@@ -51,7 +53,7 @@ height = 44
 style = "road"
 
 [sub_resource type="Resource" id="Resource_3"]
-script = ExtResource("3_portal_data")
+script = ExtResource("5_portal_data")
 id = &"gate_family"
 target_level = "res://data/levels/ch2_ledger_office.tres"
 target_portal = &"office_family"
@@ -65,7 +67,7 @@ height = 56
 style = "door"
 
 [sub_resource type="Resource" id="Resource_4"]
-script = ExtResource("3_portal_data")
+script = ExtResource("5_portal_data")
 id = &"gate_upper"
 target_level = "res://data/levels/ch2_harbor_street.tres"
 target_portal = &"street_upper"
@@ -76,10 +78,10 @@ height = 44
 style = "road"
 
 [sub_resource type="Resource" id="Resource_5"]
-script = ExtResource("8_lighting_zone")
+script = ExtResource("11_lighting_zone")
 start_tile = 0
 blend_tiles = 12
-profile = ExtResource("9_market_gate")
+profile = ExtResource("12_market_gate")
 
 [resource]
 script = ExtResource("1_level_data")
@@ -89,25 +91,27 @@ localized_names = Dictionary[String, String]({"en": "Market Entrance", "ja": "�
 tile_size = 16
 height = 40
 legend = Dictionary[String, Resource]({
-"φ": ExtResource("92_live_cable"),
 "c": ExtResource("2_credits_small"),
+"x": ExtResource("3_ch1_crate"),
+"φ": ExtResource("4_live_cable"),
 "Ⅰ": SubResource("Resource_0"),
 "Ⅱ": SubResource("Resource_1"),
 "Ⅲ": SubResource("Resource_2"),
 "Ⅳ": SubResource("Resource_3"),
 "⇣": SubResource("Resource_4"),
-"Ⓔ": ExtResource("4_ch2_egret_booth"),
-"Ⓖ": ExtResource("5_ch2_patroller"),
-"♜": ExtResource("6_ch2_bill_thrower"),
-"♞": ExtResource("7_ch2_escort")
+"Ⓔ": ExtResource("6_ch2_egret_booth"),
+"Ⓖ": ExtResource("7_ch2_patroller"),
+"☏": ExtResource("8_collector_caller"),
+"♜": ExtResource("9_ch2_bill_thrower"),
+"♞": ExtResource("10_ch2_escort")
 })
 hints = PackedStringArray()
 chapter = &"ch2_heron"
 persistent_world = true
 show_chapter_card = false
-environment = ExtResource("10_ch2_market_gate")
+environment = ExtResource("13_ch2_market_gate")
 layout_path = "res://data/levels/ch2_market_gate_map.json"
-lighting_zones = Array[ExtResource("8_lighting_zone")]([SubResource("Resource_5")])
+lighting_zones = Array[ExtResource("11_lighting_zone")]([SubResource("Resource_5")])
 story_triggers = PackedStringArray("ch2_b_booth_b3")
+challenges = Array[ExtResource("14_area_challenge_data")]([ExtResource("15_ch2_market_gate_environment")])
 death_credit_cap = 250
-challenges = Array[ExtResource("97_challenge_script")]([ExtResource("98_challenge")])

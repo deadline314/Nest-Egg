@@ -1244,6 +1244,8 @@ def write_npc_files():
             scene, min_talks = talk[0], talk[1]
             min_deaths = talk[2] if len(talk) > 2 else 0
             body = [f'script = ExtResource("{talk_script}")', f'scene = &"{scene}"']
+            if len(talk) > 3 and 'resume_scene' in talk[3]:
+                body.append(f'resume_scene = &"{talk[3]["resume_scene"]}"')   # 中途離開後回來時從這一場接著播
             if min_talks:
                 body.append(f'min_talks = {min_talks}')
             if min_deaths:

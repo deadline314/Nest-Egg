@@ -2442,6 +2442,8 @@ const SPOTS := {
 	"ch4_nursing_ward": [["shelf", 52]],
 	"ch4_factory_roof": [["deck", 44]],
 	"ch4_factory_approach": [["gunner", 60, 20, [56, 16]]],
+	"ch2_market_gate": [["caller", 51, 36, [47, 31]]],
+	"ch2_ledger_front": [["closet", 58, 20, [56, 16]]],
 	"ch4_factory_relay": [["sniper", 61, 20, [66, 14]], ["cable", 80, 20, [86, 16]]],
 	"ch1_stall": [["a", 20], ["awning", 41], ["cat_bowl", 39, 13, [41, 11]]],
 	"ch1_vault": [["safe", 29, 29, [33, 25]]],

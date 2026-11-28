@@ -512,7 +512,7 @@ func _test_encounters() -> void:
 			var regular := (encounter["members"] as Array).filter(func(m: Variant) -> bool: return str(m) != "阿勇")
 			check(regular.size() <= 3, "%s / %s has at most three regular enemies (%d)" % [id, encounter["name"], regular.size()])
 			for member: Variant in encounter["members"]:
-				check(str(member) in ["押運手", "票據投手", "阿勇"], "%s uses only chapter-2 identities (%s)" % [id, member])
+				check(str(member) in ["押運手", "票據投手", "阿勇", "收帳人·聯絡員"], "%s uses only chapter-2 identities (%s)" % [id, member])   # 聯絡員：NE-452 從保留轉正
 			if not regular.is_empty():
 				fights += 1
 	check(fights == 4, "the market gate and the loading lanes have four short fights (%d)" % fights)

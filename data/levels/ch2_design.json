@@ -39,14 +39,13 @@
    },
    "encounters": [
     {
-     "name": "入口押運手",
+     "name": "入口聯絡員",
      "lock": false,
      "wave_zone": false,
      "x0": 30,
      "x1": 48,
      "members": [
-      "押運手",
-      "押運手"
+      "收帳人·聯絡員"
      ],
      "reinforcements": []
     },
@@ -129,7 +128,8 @@
    "combat": false,
    "group": "ledger_front",
    "features": {
-    "landmark": "隔離箱示意圖（x=28）：主箱永久解除、側箱只能暫停"
+    "landmark": "隔離箱示意圖（x=28）：主箱永久解除、側箱只能暫停",
+    "secret": "帳房門右邊，裂縫牆後阿勇藏舊帳的暗櫃（x=57～62）"
    },
    "encounters": []
   },
