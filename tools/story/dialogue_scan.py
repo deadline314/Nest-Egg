@@ -23,7 +23,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 SENTENCE_END = re.compile(r"[。！？!?…]+|——")
 CLAUSE_SPLIT = re.compile(r"[，、；：,;:。！？!?…—「」『』（）()]+")
 # Speakers whose lines are labels, readouts or formal notices (StoryLint "formal").
-LONG_LIMIT = {"bubbles": 30, "radio": 30, "dispatch": 30}
+LONG_LIMIT = {"bubbles": 30}  # radio shows two rows in the comm panel; dialogue boxes wrap
 LONG_DEFAULT = 40
 # Words a speaker never says (CHARACTERS.md 說話方式「不會說」).
 NEVER_SAYS = {

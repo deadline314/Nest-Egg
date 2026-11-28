@@ -1664,19 +1664,19 @@
     {
      "do": "say",
      "speaker": "old_k",
-     "text": "名字不記得，東西還在，也是個開頭啦。",
+     "text": "名字記不得了，東西還在，也算是個開頭啦。",
      "ja": "名前は覚えてなくても、持ち物が残ってるなら、それも始まりだよ。",
      "en": "You may not remember your name, but if your things are still around, that's a start."
     },
     {
      "do": "choice",
-     "text": "名字不記得，東西還在，也是個開頭啦。",
+     "text": "名字記不得了，東西還在，也算是個開頭啦。",
      "default": "leave",
      "options": [
       {
        "id": "save",
        "text": "儲存這段廣播。",
-       "explanation": "收音機修好、廣播聽完，片段記進筆記。",
+       "explanation": "收音機修好了，廣播也聽完；這段會記進筆記。",
        "target": "ch2_t_s02_saved",
        "ja": "この放送を保存する。",
        "en": "Save this broadcast.",
@@ -1686,7 +1686,7 @@
       {
        "id": "off",
        "text": "先關掉收音機。",
-       "explanation": "收音機修好、廣播聽完，之後可以回來重聽。",
+       "explanation": "收音機修好了，廣播也聽完；之後可以回來重聽。",
        "target": "ch2_t_s02_off",
        "ja": "先にラジオを切る。",
        "en": "Turn off the radio first.",
@@ -1721,7 +1721,7 @@
     {
      "do": "say",
      "speaker": "rin",
-     "text": "陌生廣播、帽沿補線、港區電臺，我先記下來。",
+     "text": "那段陌生的廣播、帽沿的補線，還有港區電臺，我先記下來。",
      "ja": "見知らぬ放送、つばの縫い目、港区放送局。とりあえずメモしておく。",
      "en": "The unknown broadcast, the brim stitching, Harbor District Radio. I'll note them down for now."
     }
@@ -1862,7 +1862,7 @@
     {
      "do": "say",
      "speaker": "rin",
-     "text": "陌生廣播、帽沿補線、港區電臺，這次我記下來了。",
+     "text": "那段陌生的廣播、帽沿的補線，還有港區電臺，這次我記下來了。",
      "ja": "見知らぬ放送、つばの縫い目、港区放送局。今度はちゃんとメモした。",
      "en": "The unknown broadcast, the brim stitching, Harbor District Radio. This time I've noted them down."
     }
@@ -2231,7 +2231,7 @@
     {
      "do": "say",
      "speaker": "egret",
-     "text": "天穹要找誰多收了錢，我只要他們別拿攤商的錢墊掉。你看見不對的地方就寫，不用替誰挑好看的。",
+     "text": "天穹要找誰多收了錢，我只要他們別拿攤商的錢墊。看到不對就寫，不用替誰挑好看的。",
      "ja": "天穹は誰が余計に取ったかを探してる。あたしが欲しいのは、屋台の金で穴埋めさせないことだけ。おかしいところは書きな。誰かに都合のいいものを選ぶ必要はない。",
      "en": "Skydome wants to know who overcharged. What I want is for nobody to plug the gap with the stallholders' money. Write down whatever looks wrong, and don't pick out only the flattering bits."
     },
@@ -2804,13 +2804,13 @@
     {
      "do": "say",
      "speaker": "egret",
-     "text": "去查表可以，不用每張都有簽名就信它。晴岸也在那邊，就是你那本目錄的日照區住宅。想看就看，不先替老頭子買。",
+     "text": "去查表可以，有簽名也別就信。晴岸就在那邊，你目錄上的那片住宅。想看就看，別先替老頭子買。",
      "ja": "表を調べるのはいいよ。全部に署名があるかどうかで信じなくていい。晴岸もあっちにある。あんたのカタログにある日照区の住宅さ。見たきゃ見な。老Kのために先に買うことはない。",
      "en": "Checking the tables is fine. You don't have to trust them just because every sheet is signed. The Far Shore is over there too, the sun-lit residential block in your catalog. Look if you like, but don't buy it for Old K first."
     },
     {
      "do": "choice",
-     "text": "去查表可以，不用每張都有簽名就信它。晴岸也在那邊，就是你那本目錄的日照區住宅。想看就看，不先替老頭子買。",
+     "text": "去查表可以，有簽名也別就信。晴岸就在那邊，你目錄上的那片住宅。想看就看，別先替老頭子買。",
      "default": "wait",
      "options": [
       {
@@ -5613,7 +5613,7 @@
     {
      "do": "say",
      "speaker": "label",
-     "text": "批號M17，收款120，其中本金100、利息20，轉送北棟二樓。待收欄寫著120。",
+     "text": "批號M17：收款120，本金100、利息20，轉送北棟二樓。待收欄仍寫120。",
      "ja": "ロット番号M17。回収額120、うち元本100、利息20。北棟2階へ転送。未収欄には120と記載されている。",
      "en": "Batch M17. Collection amount 120: principal 100, interest 20. Forwarded to North Building, 2nd floor. The receivable column reads 120."
     },
@@ -5694,7 +5694,7 @@
     {
      "do": "say",
      "speaker": "ali",
-     "text": "我是市場後樓三樓，走外梯，敲兩下再敲一下，我就知道是你。",
+     "text": "我住市場後樓三樓，從外梯上去，敲兩下再敲一下，我就知道是你。",
      "ja": "市場の裏棟の三階だよ。外階段から来て、二回叩いて、もう一回叩いて。そうしたらあなただってわかるから。",
      "en": "I'm on the third floor of the market's back building. Take the outside stairs, knock twice, then once more. Then I'll know it's you."
     }
@@ -7756,7 +7756,7 @@
     {
      "do": "say",
      "speaker": "label",
-     "text": "永久解除會切掉動力與讀取。阿勇將失去靠小薇復原的資格，小薇不再承擔這段連結的損耗。",
+     "text": "永久解除會切掉動力和讀取。阿勇不能再靠小薇復原，小薇也不再替他承擔損耗。",
      "ja": "永久解除は動力と読み取りを切る。勇は小薇を通じて復元する資格を失い、小薇はこのリンクの消耗を負わなくなる。",
      "en": "Permanent severing cuts power and reading. Rash loses eligibility to restore through Vee, and Vee no longer bears the wear of this link."
     },
@@ -7770,7 +7770,7 @@
     {
      "do": "say",
      "speaker": "label",
-     "text": "保留資格就繼續迎戰。儲能匣仍帶電，攻擊它可能使阿勇過載死亡；復原會讓小薇失去記憶。",
+     "text": "保留資格就繼續打。儲能匣還帶電，打它可能讓阿勇過載死亡；他復原會讓小薇失去記憶。",
      "ja": "資格を保つなら戦闘を続ける。蓄電カセットはまだ通電しており、攻撃すると過負荷で勇が死ぬおそれがある。復元すると小薇は記憶を失う。",
      "en": "Keeping eligibility means continuing the fight. The power cell is still live, and attacking it may overload and kill Rash. Restoring will make Vee lose her memories."
     },
@@ -7805,7 +7805,7 @@
       {
        "id": "keep",
        "text": "保留連結資格，繼續迎戰。",
-       "explanation": "繼續打，風險如上。",
+       "explanation": "繼續打，風險就是上面說的那些。",
        "set_flags": {
         "yong_link_choice": "keep"
        },
@@ -7940,7 +7940,7 @@
    "lines": [
     {
      "speaker": "lamp",
-     "text": "隔離箱能阻止小薇的讀取，亮墊能清除利息標記。看見鐵棍蓄力再閃避。",
+     "text": "隔離箱能停掉小薇的讀取，亮墊清得掉利息標記。鐵棍蓄力就閃開。",
      "ja": "隔離ボックスで小薇の読み取りを防げる。発光パッドで利息の印を消せる。鉄棍が溜めに入ったら、かわして。",
      "en": "The isolation box can block Vee's reading, and the light pad can clear the interest mark. Dodge when you see the iron club winding up."
     }
@@ -8041,7 +8041,7 @@
     {
      "do": "say",
      "speaker": "rin",
-     "text": "你活著就能對，別拿她再付。",
+     "text": "你活著就能對帳，別再拿她來付。",
      "ja": "生きていれば清算はできる。もう彼女に払わせるな。",
      "en": "As long as you're alive, you can settle it. Don't make her pay again."
     },
@@ -10448,7 +10448,7 @@
     {
      "do": "say",
      "speaker": "ye",
-     "text": "我是天穹的葉，負責這次帳務抽查。你提出的同批號副本已核對，這一期附加的二十不成立。",
+     "text": "我是天穹的葉，負責這次帳務抽查。你給的同批號副本核對過了，這期多加的二十不成立。",
      "ja": "天穹の葉です。今回の帳簿抽査を担当しています。あなたが出した同じ番号の写しを照合しました。今期に追加された20は成立しません。",
      "en": "I'm Folio of Skydome, in charge of this ledger spot-check. I've verified the duplicate copy with the same batch number you submitted. The extra 20 added this period is invalid."
     },
@@ -10487,9 +10487,9 @@
     {
      "do": "say",
      "speaker": "terminal",
-     "text": "市場查核報酬二百五十信用點，第一次結算。夾層是港區與日照區之間的工作層，診所從廣場貨梯過去。",
-     "ja": "市場査察の報酬は250クレジット、初回精算です。中層は港区と日照区の間の作業層で、診療所へは広場の貨物エレベーターで行けます。",
-     "en": "Market inspection reward: 250 credits, first settlement. The mezzanine is the working layer between the harbor district and the Sunlit District. The clinic is reached by the plaza freight elevator."
+     "text": "市場查核報酬二百五十信用點已結算。夾層是港區和日照區之間的工作層，診所從廣場貨梯上去。",
+     "ja": "市場査察の報酬250クレジットを精算しました。中層は港区と日照区の間の作業層で、診療所へは広場の貨物エレベーターで上がれます。",
+     "en": "Market inspection reward: 250 credits, now settled. The mezzanine is the working layer between the harbor district and the Sunlit District. Take the plaza freight elevator up to the clinic."
     }
    ],
    "overlay": true,
@@ -10643,7 +10643,7 @@
     {
      "do": "say",
      "speaker": "terminal",
-     "text": "附加60已暫停，待核對；本金200保留。",
+     "text": "附加的60已暫停催收，等待核對；本金200照舊保留。",
      "ja": "追加分の60は取り立てを一時停止し、照合待ち。元本の200はそのまま。",
      "en": "The added 60 is paused from collection pending verification. The 200 principal stays as is."
     }
@@ -10725,7 +10725,7 @@
     {
      "do": "say",
      "speaker": "rin",
-     "text": "妳決定怎麼用，我不再替你塞進去。",
+     "text": "妳決定怎麼用，我不再替妳塞進去。",
      "ja": "使い道はあなたが決めて。もう勝手に帳簿へ入れたりはしない。",
      "en": "You decide how to use it. I won't slip it into your books for you again."
     }
@@ -13443,7 +13443,7 @@
     {
      "do": "say",
      "speaker": "ali",
-     "text": "梨嬸教我，湯裡放一顆梨，煮到最後也不容易澀。她在梨攤邊把我抱回去，我能留下的做法就這幾樣。",
+     "text": "梨嬸教我在湯裡放一顆梨，煮到最後也不澀。她在梨攤邊把我抱回去，留給我的做法就這幾樣。",
      "ja": "梨のおばさんが教えてくれたの。スープに梨を一つ入れると、最後まで煮ても渋くなりにくいって。梨の屋台のそばで私を引き取ってくれたのも彼女。私が残せるやり方は、この数えるほどしかないの。",
      "en": "Auntie Pear-Stall taught me to put a pear in the soup so it won't turn astringent, even when simmered to the end. She took me in by her pear stall. These few methods are all I can leave behind."
     },

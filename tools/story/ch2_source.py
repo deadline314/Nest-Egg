@@ -223,13 +223,13 @@ def _morning(source: ProductionSource):
         ("broadcast", "名字不該只剩一個編號。"),
         ("broadcast", "我還留著一頂帽子。如果有人認得帽沿的補線，請到港區電臺留言。"),
         ("rin", "她連帽子也放進尋人名單。"),
-        ("old_k", "名字不記得，東西還在，也是個開頭啦。"))],
+        ("old_k", "名字記不得了，東西還在，也算是個開頭啦。"))],
         when=negate(repaired), options=(
-            _opt("save", "儲存這段廣播。", "ch2_t_s02_saved", "收音機修好、廣播聽完，片段記進筆記。"),
-            _opt("off", "先關掉收音機。", "ch2_t_s02_off", "收音機修好、廣播聽完，之後可以回來重聽。"),
+            _opt("save", "儲存這段廣播。", "ch2_t_s02_saved", "收音機修好了，廣播也聽完；這段會記進筆記。"),
+            _opt("off", "先關掉收音機。", "ch2_t_s02_off", "收音機修好了，廣播也聽完；之後可以回來重聽。"),
             _opt("leave", "先離開工作檯。", None, "這次不算修好，之後可以再來。")))
     done = (set_flag("ch2_radio_repaired"), set_flag("sq4_broadcast_heard"), transaction("ch2.sq4_radio"))
-    source.add("ch2_t_s02_saved", "S02", (("rin", "陌生廣播、帽沿補線、港區電臺，我先記下來。"),), mode="animated",
+    source.add("ch2_t_s02_saved", "S02", (("rin", "那段陌生的廣播、帽沿的補線，還有港區電臺，我先記下來。"),), mode="animated",
                when=negate(repaired), completion=done + (set_flag("sq4_clip_saved"), grant("ch2_radio_clip")))
     source.add("ch2_t_s02_off", "S02", (("rin", "先關掉，名字我記得了，之後再回來聽一次。"),), mode="animated",
                when=negate(repaired), completion=done)
@@ -239,7 +239,7 @@ def _morning(source: ProductionSource):
         when=all_of(repaired, negate(flag("sq4_clip_saved"))), options=(
             _opt("save", "這次把廣播存下來。", "ch2_t_s02_save_late", "片段記進筆記，不另外給獎勵。"),
             _opt("off", "聽完就好。", None, "收音機留在工作檯，之後還能再聽。")))
-    source.add("ch2_t_s02_save_late", "S02", (("rin", "陌生廣播、帽沿補線、港區電臺，這次我記下來了。"),), mode="animated",
+    source.add("ch2_t_s02_save_late", "S02", (("rin", "那段陌生的廣播、帽沿的補線，還有港區電臺，這次我記下來了。"),), mode="animated",
                when=negate(flag("sq4_clip_saved")), completion=(set_flag("sq4_clip_saved"), grant("ch2_radio_clip")))
     source.add("ch2_t_s02_revisit", "S02", (("label", "收音機修好了，片段已經存在筆記裡。"),),
                when=all_of(repaired, flag("sq4_clip_saved")))
@@ -263,7 +263,7 @@ def _rooftop(source: ProductionSource):
         ("egret", "市場查核證只讓你進公眾攤道，後面的帳房還是阿勇管。阿勇是這一帶收帳人的頭。"),
         ("egret", "昨晚盤裡那筆代收款有批號，收據卻不在。去代收處找當天的租攤合約和收款存根。"),
         ("rin", "我先看原本，再聽他們怎麼算。"),
-        ("egret", "天穹要找誰多收了錢，我只要他們別拿攤商的錢墊掉。你看見不對的地方就寫，不用替誰挑好看的。"))
+        ("egret", "天穹要找誰多收了錢，我只要他們別拿攤商的錢墊。看到不對就寫，不用替誰挑好看的。"))
         + roof_tea_staging.pass_check_card() + beats(
         ("rin", "查完這筆就能結案？"),
         ("egret", "附件對得上才算，光把收帳的人打趴不會長出收據。")),
@@ -311,7 +311,7 @@ def _rooftop(source: ProductionSource):
         ("rin", "今天你把人家帳房撞壞了，茶錢恐怕不夠賠。"),
         ("egret", "帳對出來了，他的椅子倒下去也值。"),
         ("rin", "代收那筆對完了，可是診所月報還在上面。明天我從廣場貨梯過去，看原來的。"),
-        ("egret", "去查表可以，不用每張都有簽名就信它。晴岸也在那邊，就是你那本目錄的日照區住宅。想看就看，不先替老頭子買。")), opening=True),
+        ("egret", "去查表可以，有簽名也別就信。晴岸就在那邊，你目錄上的那片住宅。想看就看，別先替老頭子買。")), opening=True),
         when=all_of(ready, negate(flag("ch2_heron_closed"))), options=(
             _opt("go", "明天去夾層診所核對原表。", "ch2_t_s22_decided", "確認明天的去向，接著聊完今晚的茶。"),
             _opt("wait", "先把茶喝完再說。", None, "回到屋頂，之後再來確認。")))
@@ -449,7 +449,7 @@ def _collection_office(source: ProductionSource):
         when=negate(flag("ch2_rumor_heard")), completion=(set_flag("ch2_rumor_heard"),))
     source.add("ch2_t_s08_rumor_revisit", "S08", (("hawker", "我只是聽說的，你自己看帳比較準。"),), when=flag("ch2_rumor_heard"))
     source.add("ch2_t_s08_collection", "S08", (
-        ("label", "批號M17，收款120，其中本金100、利息20，轉送北棟二樓。待收欄寫著120。"),
+        ("label", "批號M17：收款120，本金100、利息20，轉送北棟二樓。待收欄仍寫120。"),
         ("rin", "本金已還一百，這期利息也付過了，他又塞了二十進去。")),
         when=negate(flag("ch2_evidence_collection")), completion=(grant("ch2_evidence_collection"), set_flag("ch2_evidence_collection")))
     source.add("ch2_t_s08_collection_revisit", "S08", (("label", "代收簿的副本已經在筆記裡，原本留在裝卸間。"),),
@@ -469,7 +469,7 @@ def _ali_home(source: ProductionSource):
         when=negate(visited), next_scene="ch2_dispatch_s07_address", mode="animated")
     source.add("ch2_t_s07_address_new", "S07", (
         ("rin", "你說後樓，我差點走進貨梯。"),
-        ("ali", "我是市場後樓三樓，走外梯，敲兩下再敲一下，我就知道是你。")),
+        ("ali", "我住市場後樓三樓，從外梯上去，敲兩下再敲一下，我就知道是你。")),
         when=negate(knows), completion=(set_flag("knows_ali_address"),), mode="animated", next_scene="ch2_t_s07_bowls")
     source.add("ch2_t_s07_address_known", "S07", (
         ("ali", "還記得兩下再一下，你沒把暗號算成一筆帳吧？"),
@@ -603,13 +603,13 @@ def _ledger(source: ProductionSource):
 
     # S12：頭目戰在血量門檻安全暫停後播出（NE-265 呼叫），選擇只寫意圖，真正的撤銷由隔離箱的操作寫入。
     source.add("ch2_t_s12_choice", "S12", (
-        ("label", "永久解除會切掉動力與讀取。阿勇將失去靠小薇復原的資格，小薇不再承擔這段連結的損耗。"),
+        ("label", "永久解除會切掉動力和讀取。阿勇不能再靠小薇復原，小薇也不再替他承擔損耗。"),
         ("lamp", "斷電後打壞棍柄的鎖扣，再卸下儲能匣，就能制伏他。你還是要避開他的反擊。"),
-        ("label", "保留資格就繼續迎戰。儲能匣仍帶電，攻擊它可能使阿勇過載死亡；復原會讓小薇失去記憶。"),
+        ("label", "保留資格就繼續打。儲能匣還帶電，打它可能讓阿勇過載死亡；他復原會讓小薇失去記憶。"),
         ("label", "側箱的暫停閂現在被護板擋住，無法使用。繼續打有風險，不能保證兩人都不付出代價。")),
         when=negate(flag("ch2_yong_subdued")), options=(
             _opt("cut", "永久解除父女連結，再制伏。", None, "接著要親手操作主隔離箱。", intent=(set_flag("yong_link_choice", "cut"),)),
-            _opt("keep", "保留連結資格，繼續迎戰。", None, "繼續打，風險如上。", intent=(set_flag("yong_link_choice", "keep"),)),
+            _opt("keep", "保留連結資格，繼續迎戰。", None, "繼續打，風險就是上面說的那些。", intent=(set_flag("yong_link_choice", "keep"),)),
             _opt("back", "先返回說明。", "ch2_t_s12_choice", "再看一次四段說明。")))
     source.add("ch2_s12_bark_mark", "S12", (("lamp", "踩亮墊能清掉標記。"),), mode="radio")
     source.add("ch2_s12_bark_egret", "S12", (("egret", "他還會再補一棍。"),), mode="radio")
@@ -621,14 +621,14 @@ def _ledger(source: ProductionSource):
         completion=(set_flag("yong_revival_done"), set_flag("xiaowei_read_count", 1), set_flag("xiaowei_yellow_umbrella_recognized", False)))
     source.add("ch2_t_s12_keep_pause", "S12", (("lamp", "他的匣蓋閉不上，現在斷了電，可以卸下來。"),),
                when=negate(flag("yong_link_isolated")), mode="animated", completion=(set_flag("yong_link_isolated"),))
-    source.add("ch2_s12_defeat_hint", "S12", (("lamp", "隔離箱能阻止小薇的讀取，亮墊能清除利息標記。看見鐵棍蓄力再閃避。"),), mode="radio")
+    source.add("ch2_s12_defeat_hint", "S12", (("lamp", "隔離箱能停掉小薇的讀取，亮墊清得掉利息標記。鐵棍蓄力就閃開。"),), mode="radio")
 
     subdued = flag("ch2_yong_subdued")
     taken = flag("ch2_original_ledger_taken")
     source.add("ch2_t_s13_locked", "S13", (("label", "帳櫃鎖著，鑰匙掛在阿勇身上。"),), when=negate(subdued))
     source.add("ch2_t_s13_cut", "S13", steps=tuple(beats(
         ("yong", "你永久拆了我和她的連結，還要我認你算的帳？"),
-        ("rin", "你活著就能對，別拿她再付。"),
+        ("rin", "你活著就能對帳，別再拿她來付。"),
         ("xiaowei", "爸爸，我們回家嗎？"),
         ("yong", "傘拿著，門外等我的人會送妳。"))) + medic_transport_staging.escort_steps("cut"),
         when=all_of(subdued, flag("yong_link_choice", "cut"), negate(taken)), mode="animated", next_scene="ch2_t_s13_cabinet",
@@ -688,12 +688,12 @@ def _return_and_audit(source: ProductionSource):
     source.add("ch2_t_s15_wait_egret", "S15", (("lamp", "先到市集電話亭等鷺，她醒了我們再一起上傳。"),),
                when=all_of(negate(submitted), flag("ch2_original_ledger_taken"), negate(returned)))
     source.add("ch2_t_s15_upload", "S15", steps=[dict(do="world_action", id="audit_terminal_submit"), *beats(
-        ("ye", "我是天穹的葉，負責這次帳務抽查。你提出的同批號副本已核對，這一期附加的二十不成立。"),
+        ("ye", "我是天穹的葉，負責這次帳務抽查。你給的同批號副本核對過了，這期多加的二十不成立。"),
         ("rin", "另一張診所月報決定他收多少，我要看原來的。"),
         ("ye", "索引可以給你。夾層診所儲存原始月報，現場申請閱覽，這裡不能替它答。"),
         ("egret", "我們對的是市場代收，阿梨自己的舊債由她簽。這筆先結，別混成一本。"),
         ("rin", "私人那頁我留副本，不幫她銷掉。"),
-        ("terminal", "市場查核報酬二百五十信用點，第一次結算。夾層是港區與日照區之間的工作層，診所從廣場貨梯過去。"))],
+        ("terminal", "市場查核報酬二百五十信用點已結算。夾層是港區和日照區之間的工作層，診所從廣場貨梯上去。"))],
         when=all_of(ready, negate(submitted)), mode="animated",
         completion=(set_flag("ch2_audit_submitted"), transaction("ch2.audit_settled")))
     source.add("ch2_t_s15_revisit", "S15", (("terminal", "查核已結案。索引保存在你的筆記裡。"),), when=submitted)
@@ -710,7 +710,7 @@ def _return_and_audit(source: ProductionSource):
     advance = flag("ali_advance_40", 40)
     source.add("ch2_t_s16_correct", "S16", (
         ("rin", "我陪妳，簽名妳自己寫。"),
-        ("terminal", "附加60已暫停，待核對；本金200保留。")),
+        ("terminal", "附加的60已暫停催收，等待核對；本金200照舊保留。")),
         mode="animated", next_scene="ch2_dispatch_s16_close",
         completion=(set_flag("sq1_ledger_delivered"), set_flag("ali_ledger_action", "correct"), transfer("ch2_ali_page", "ali"),
                     transaction("ch2.sq1_ledger")))
@@ -722,7 +722,7 @@ def _return_and_audit(source: ProductionSource):
                     transaction("ch2.sq1_ledger")))
     source.add("ch2_t_s16_advance", "S16", (
         ("ali", "妳墊的四十不能拿來抵我沒同意的舊帳，我先把收據夾在旁邊。"),
-        ("rin", "妳決定怎麼用，我不再替你塞進去。")),
+        ("rin", "妳決定怎麼用，我不再替妳塞進去。")),
         when=advance, mode="animated")
     source.add("ch2_t_s16_need", "S16", (("ali", "你現在想問攤位的事嗎？"),),
                when=negate(flag("ch2_ali_need_asked")), options=(
@@ -814,7 +814,7 @@ def _guest_book(source: ProductionSource):
     source.add("ch2_t_s21_close", "S21", (
         ("ali", "鄭先生不想聽爸爸，陳女士不要蔥，洪先生不想別人替他說沒關係。今天三頁都寫清楚了。"),
         ("label", "阿梨把一顆梨放進鍋裡。"),
-        ("ali", "梨嬸教我，湯裡放一顆梨，煮到最後也不容易澀。她在梨攤邊把我抱回去，我能留下的做法就這幾樣。"),
+        ("ali", "梨嬸教我在湯裡放一顆梨，煮到最後也不澀。她在梨攤邊把我抱回去，留給我的做法就這幾樣。"),
         ("ali", "我沒有錨人，真倒下就沒有下一次。有人能把今天說完，我就先讓他說完。")),
         when=all_of(all_guests, negate(flag("guest_book_completed"))), mode="animated", cancel_on_skip=True,
         completion=(set_flag("guest_book_completed"), transaction("ch2.guest_book")))
