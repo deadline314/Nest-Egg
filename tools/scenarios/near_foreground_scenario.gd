@@ -9,6 +9,8 @@ const AREAS := {
 	"ch1_street": [24, 96, 160],
 	"ch1_booth_alley": [26],
 	"ch1_rooftop": [42],
+	"ch2_market": [53],
+	"ch2_harbor_street": [30],
 }
 const GRUNT := "res://data/enemies/grunt.tres"
 

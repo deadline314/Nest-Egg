@@ -14,6 +14,7 @@ extends Node2D
 ## 資料：地圖 JSON 頂層的 "ground_section"：{"style": "steel", "start": 14, "fade": 0.82, "fade_depth": 0（0 = 整段）,
 ## "min_level": 0~1, "under_deck": 0~1, "lip_shadow": 0~1, "piles": [最小間隔, 最大間隔], "pipes": 0~1, "from": 欄, "to": 欄}。
 ## from／to（選填）只在這段欄位裡畫；地圖可以寫一串（同一區不同段用不同材質）。
+## top_ramp：剖面頂端多少像素由暗漸到材質（搭配較小的 start，走道下就不會是一條平的暗帶）。
 ## lip_shadow：在維持原樣的那一段（走道下 start 像素內）往下疊一道淡淡的陰影，像地板邊緣下方的影子（走道邊緣更清楚）。
 ## 只畫一次（靜態，不重畫）；三個畫質都畫（它是構圖不是特效）。資料壞掉時記錄是哪個區域哪一項，這一層不畫。
 
@@ -39,6 +40,8 @@ const PIPE := 5.0
 const COURSE := 9.0
 const BLOCK := Vector2(18.0, 30.0)
 const TRENCH := 8.0
+## 管溝比結構暗多少（往最暗色混）：只暗一點，不在走道下面再疊一條黑帶。
+const TRENCH_DARK := 0.45
 const DRAINS := Vector2(70.0, 140.0)
 ## 室內：樓板厚度、牆板寬度、線槽離樓板多遠。
 const SLAB := 7.0
@@ -64,6 +67,7 @@ var fade_depth := 0.0
 var min_level := DEFAULT_MIN_LEVEL
 var under_deck := 0.0
 var lip_shadow := 0.0
+var top_ramp := 0.0
 var _voids: Array[Rect2] = []
 var _lights: PackedColorArray = PackedColorArray()
 var piles := DEFAULT_PILES
@@ -104,6 +108,7 @@ func setup(layout: LevelLayout, spec: Variant, where: String, ambient: Color, ac
 	min_level = _number(data, "min_level", DEFAULT_MIN_LEVEL, 0.0, 1.0, problems)
 	under_deck = _number(data, "under_deck", 0.0, 0.0, 1.0, problems)
 	lip_shadow = _number(data, "lip_shadow", 0.0, 0.0, 1.0, problems)
+	top_ramp = _number(data, "top_ramp", 0.0, 0.0, 64.0, problems)
 	pipes = _number(data, "pipes", DEFAULT_PIPES, 0.0, 1.0, problems)
 	_from = int(_number(data, "from", 0.0, 0.0, 100000.0, problems))
 	_to = int(_number(data, "to", float(layout.width), 0.0, 100000.0, problems))
@@ -285,6 +290,9 @@ func _draw_chunk(chunk: Node2D, runs: Array[Rect2], index: int) -> void:
 		_fade_rect(_c, Rect2(run.position, Vector2(run.size.x, span)), Color(deep, fade))
 		if span < run.size.y:
 			_c.draw_rect(Rect2(run.position.x, run.position.y + span, run.size.x, run.size.y - span), Color(deep, 1.0).lerp(base, 1.0 - fade))
+		if top_ramp > 0.0:
+			# 剖面的頂端由暗漸到材質（BG-77）：走道下面不是一條平的暗帶接著一段磚，而是從暗慢慢出現。
+			_ramp_rect(_c, Rect2(run.position, Vector2(run.size.x, minf(top_ramp, run.size.y))), Color(deep, 1.0))
 		if lip_shadow > 0.0 and start > LIP_CLEAR:
 			# 地板邊緣下方的影子：從邊緣下 LIP_CLEAR 像素開始（走道頂面的亮邊不動）往下加深到剖面開始處。
 			_fade_rect(_c, Rect2(run.position.x, run.position.y - start + LIP_CLEAR, run.size.x, start - LIP_CLEAR), Color(deep, lip_shadow))
@@ -336,7 +344,7 @@ func _pile(pile: Rect2) -> void:
 func _masonry(run: Rect2, rng: RandomNumberGenerator) -> void:
 	var depth := _detail_depth(run)
 	var trench := Rect2(run.position.x, run.position.y + 3.0, run.size.x, TRENCH)
-	_c.draw_rect(trench, Color(deep, 0.85))
+	_c.draw_rect(trench, structure.lerp(deep, TRENCH_DARK))
 	_c.draw_rect(Rect2(trench.position.x, trench.position.y + TRENCH * 0.45, trench.size.x, 2.0), structure)
 	var y := trench.end.y + 2.0
 	var row := 0
@@ -411,6 +419,13 @@ static func _fade_rect(canvas: CanvasItem, rect: Rect2, color: Color) -> void:
 		PackedColorArray([top, top, middle, middle]))
 	canvas.draw_polygon(PackedVector2Array([Vector2(rect.position.x, mid), Vector2(rect.end.x, mid), rect.end, Vector2(rect.position.x, rect.end.y)]),
 		PackedColorArray([middle, middle, bottom, bottom]))
+
+
+## 由上往下變透明的一塊（頂端是 color，底部完全透明），頂點顏色畫成。
+static func _ramp_rect(canvas: CanvasItem, rect: Rect2, color: Color) -> void:
+	var clear := Color(color, 0.0)
+	canvas.draw_polygon(PackedVector2Array([rect.position, Vector2(rect.end.x, rect.position.y), rect.end, Vector2(rect.position.x, rect.end.y)]),
+		PackedColorArray([color, color, clear, clear]))
 
 
 ## 一條水平或垂直的 1 像素線，畫成 1 像素寬的矩形（和其他矩形一起合批）。

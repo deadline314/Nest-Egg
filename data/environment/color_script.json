@@ -1,7 +1,9 @@
 {
   "chapters": {
-    "ch1": {"hue": [225, 275]}
+    "ch1": {"hue": [225, 275]},
+    "ch2": {"hue": [170, 230]}
   },
+  "neighbor_gap": 40,
   "areas": {
     "ch1_prologue": {"main": "#5a4434", "key": "#ffb060", "shadow": "#3a2a22", "hue": [340, 50]},
     "ch1_pawnshop": {"main": "#5a4434", "key": "#ffb060", "shadow": "#3a2a22", "hue": [340, 50]},
@@ -16,15 +18,15 @@
     "ch1_vault": {"main": "#2e2622", "key": "#ffa64c", "shadow": "#22203a"},
 
     "ch2_pawnshop": {"main": "#5a4434", "key": "#ffb060", "shadow": "#3a2a22", "hue": [340, 50]},
-    "ch2_ali_home": {"main": "#2e3846", "key": "#d0e4ff", "shadow": "#1e2a36"},
-    "ch2_harbor_street": {"main": "#263c46", "key": "#ffb050", "shadow": "#14282e"},
-    "ch2_market": {"main": "#2c3a48", "key": "#ff8a5c", "shadow": "#1a2a34"},
-    "ch2_market_gate": {"main": "#2c3a48", "key": "#ff8a5c", "shadow": "#1a2a34"},
-    "ch2_lounge_front": {"main": "#33344e", "key": "#ff6aa8", "shadow": "#1e2438"},
-    "ch2_loading": {"main": "#263a42", "key": "#ff9a44", "shadow": "#14262c"},
-    "ch2_ledger_front": {"main": "#2c3438", "key": "#ffb050", "shadow": "#18262a"},
-    "ch2_ledger_office": {"main": "#3a3028", "key": "#ffb050", "shadow": "#1a2428"},
-    "ch2_rooftop": {"main": "#28384a", "key": "#ffbe70", "shadow": "#18283a"},
+    "ch2_ali_home": {"main": "#2e3846", "key": "#d0e4ff", "shadow": "#1e2a36", "background": 1.0},
+    "ch2_harbor_street": {"main": "#26443f", "key": "#ffb050", "shadow": "#12302c", "background": 1.0},
+    "ch2_market": {"main": "#2a4440", "key": "#ff8a5c", "shadow": "#16302c", "background": 1.0},
+    "ch2_market_gate": {"main": "#2a4440", "key": "#ff8a5c", "shadow": "#16302c", "background": 1.0},
+    "ch2_lounge_front": {"main": "#33344e", "key": "#ff6aa8", "shadow": "#1e2438", "background": 1.0},
+    "ch2_loading": {"main": "#26423e", "key": "#ff9a44", "shadow": "#122c2a", "background": 1.0},
+    "ch2_ledger_front": {"main": "#2c3438", "key": "#ffb050", "shadow": "#18262a", "background": 1.0},
+    "ch2_ledger_office": {"main": "#3a3028", "key": "#ffb050", "shadow": "#1a2428", "hue": [340, 60]},
+    "ch2_rooftop": {"main": "#28443f", "key": "#ffbe70", "shadow": "#163030", "background": 1.0},
 
     "ch3_pawnshop": {"main": "#5a4434", "key": "#ffb060", "shadow": "#3a2a22", "hue": [340, 50]},
     "ch3_glass_edge": {"main": "#b39475", "key": "#ffb873", "shadow": "#e6b899", "background": 0.0},

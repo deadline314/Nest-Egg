@@ -103,5 +103,5 @@
   ],
   "key_light": {"x": 10, "y": 4, "color": [1.0, 0.69, 0.38], "energy": 0.3, "light_radius": 420, "halo_radius": 180, "halo_alpha": 0.45, "front_wash": 0.05, "shafts": {"count": 3, "angle": 10, "length": 200, "width": 16, "spread": 80}, "occlusion": [0.1, 0.4], "period": 60},
   "near_foreground": [{"anchor": "bottom", "base": ["railing"], "rise": 12, "from": 0, "to": 28}],
-  "ground_section": [{"style": "masonry", "start": 16, "min_level": 0.26, "fade_depth": 260, "under_deck": 1.0, "fade": 0.6, "piles": [56, 104], "pipes": 0.4, "from": 0, "to": 34}, {"style": "interior", "start": 16, "min_level": 0.22, "fade_depth": 260, "fade": 0.5, "from": 34, "to": 112, "lip_shadow": 0.7}]
+  "ground_section": [{"style": "masonry", "start": 14, "min_level": 0.26, "fade_depth": 260, "under_deck": 1.0, "fade": 0.6, "piles": [56, 104], "pipes": 0.4, "from": 0, "to": 34}, {"style": "interior", "start": 14, "min_level": 0.22, "fade_depth": 260, "fade": 0.5, "from": 34, "to": 112, "lip_shadow": 0.7}]
 }

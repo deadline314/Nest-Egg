@@ -62,5 +62,7 @@
     {"id": "yong_hideout__teller_cage", "x": 46, "ground": true},
     {"id": "yong_hideout__ledger_cabinet", "x": 53, "dx": 10, "ground": true},
     {"id": "yong_hideout__pendant_bulbs", "x": 30, "support": "ceiling", "ceiling_row": 6, "ground": true}
-  ]
+  ],
+  "key_light": {"x": 40, "y": 12, "color": [1.0, 0.66, 0.3], "energy": 0.4, "light_radius": 360, "halo_radius": 140, "halo_alpha": 0.3, "front_wash": 0.04, "shafts": {"count": 0}, "occlusion": [0.1, 0.4], "period": 60},
+  "ground_section": {"style": "interior", "start": 14, "min_level": 0.2, "fade_depth": 260, "fade": 0.5, "lip_shadow": 0.0}
 }

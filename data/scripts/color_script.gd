@@ -12,6 +12,7 @@ extends RefCounted
 ## background 是天空與遠景往主色偏的幅度（預設 BACKGROUND_SPREAD）；遠景剛好在角色身後、偏色會吃掉對比的區域調小。
 ## 驗收用的色相範圍（BG-75）："chapters": {章 id: {"hue": [下限, 上限]}}（度，可以跨過 0，例如 [340, 50]）：那一章各區截圖的
 ## 平均色相要落在這裡；區域自己寫了 "hue" 的（例如當舖）不算進章節平均，單獨檢查。
+## "neighbor_gap": 度：相鄰兩章（ch1 與 ch2、ch2 與 ch3…）的平均色相至少要差這麼多。
 ## 資料寫錯時記錄是哪個區域哪一項，那個區域維持原本的光影；沒寫到的區域也維持原本的。
 
 const DATA_PATH := "res://data/environment/color_script.json"
@@ -23,6 +24,8 @@ const BACKGROUND_SPREAD := 0.45
 
 static var _areas: Dictionary = {}
 static var _chapters: Dictionary = {}
+## 相鄰兩章的平均色相至少要差幾度（BG-77）；資料沒寫時是 0（不檢查）。
+static var neighbor_gap := 0.0
 static var _loaded := false
 
 
@@ -149,6 +152,12 @@ static func _load() -> void:
 			push_error("[ColorScript] %s 的區域 %s 有問題，維持原本的光影：%s" % [DATA_PATH, area, "；".join(problems)])
 			continue
 		_areas[str(area)] = entry
+	neighbor_gap = 0.0
+	var gap: Variant = (parsed as Dictionary).get("neighbor_gap", 0)
+	if typeof(gap) in [TYPE_INT, TYPE_FLOAT] and float(gap) >= 0.0 and float(gap) <= 180.0:
+		neighbor_gap = float(gap)
+	else:
+		push_error("[ColorScript] %s 的 neighbor_gap 要是 0~180 的數字（%s）" % [DATA_PATH, gap])
 	_chapters.clear()
 	var chapters: Variant = (parsed as Dictionary).get("chapters", {})
 	if typeof(chapters) == TYPE_DICTIONARY:
