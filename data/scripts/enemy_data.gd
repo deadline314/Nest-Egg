@@ -51,6 +51,8 @@ extends Resource
 
 @export_group("Combat")
 @export var detect_range: float = 220.0
+## 還沒進入戰鬥時，背後看得到多遠（相對於 detect_range；1＝前後一樣，NE-426）。巡邏的看守設小一點，玩家才能躲過之後跟在後面走。
+@export_range(0.1, 1.0) var back_sight_scale: float = 1.0
 @export var attack_range: float = 180.0
 @export var attack_cooldown: float = 1.5
 ## 攻擊預兆時間：所有攻擊都必須有預兆，讓玩家「學會就能贏」。

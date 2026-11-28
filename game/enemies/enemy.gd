@@ -235,6 +235,7 @@ func _build_components() -> void:
 		contact = ContactHitbox.new()
 		add_child(contact)
 		contact.setup(Combat.Team.ENEMY, data.contact_damage, data.contact_source_id, size * 0.8, center)
+		contact.spares = _spares_hidden_player
 
 
 func _build_creature() -> void:
@@ -973,6 +974,8 @@ func _can_see_target(max_range: float, max_height_diff := 120.0) -> bool:
 	var target := _target()
 	if target == null:
 		return false
+	if not is_engaged() and HidingSpot.conceals(target):
+		return false  # 蹲在門簾後面（NE-426）：還沒進入戰鬥的敵人看不到，走過面前也一樣
 	if _alert_left > 0.0:
 		max_range *= ALERT_RANGE_SCALE
 		max_height_diff *= ALERT_RANGE_SCALE
@@ -981,6 +984,9 @@ func _can_see_target(max_range: float, max_height_diff := 120.0) -> bool:
 		if (target.global_position.x - global_position.x) * facing < 0.0:
 			return false
 		max_range *= LURE_SIGHT_SCALE
+	elif data.back_sight_scale < 1.0 and (target.global_position.x - global_position.x) * facing < 0.0 and not is_engaged():
+		# 巡邏的看守背後只看得到近處（EnemyData.back_sight_scale，NE-426）：躲過之後可以跟在後面走。
+		max_range *= data.back_sight_scale
 	elif Lamp.in_shot_out_dark(target.global_position):
 		# 還沒察覺的敵人看不清玩家射暗的燈下（NE-399）；一旦被打或被警報引來就照常。
 		max_range *= Lamp.DARK_SIGHT_SCALE
@@ -993,6 +999,11 @@ func _can_see_target(max_range: float, max_height_diff := 120.0) -> bool:
 	if seen:
 		_lure_left = 0.0
 	return seen
+
+
+## 還沒進入戰鬥時，從蹲在門簾後的玩家身上走過去不會撞傷他（NE-426）。
+func _spares_hidden_player(hurtbox: Hurtbox) -> bool:
+	return hurtbox.team == Combat.Team.PLAYER and not is_engaged() and HidingSpot.conceals(_target())
 
 
 ## 自己和目標之間有沒有蒸汽牆（NE-409）。只在地形不擋、距離也夠的時候才多打這一條射線。

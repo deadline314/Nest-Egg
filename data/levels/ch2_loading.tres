@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=23 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=24 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Resource" path="res://data/props/credits_small.tres" id="2_credits_small"]
@@ -16,6 +16,7 @@
 [ext_resource type="Resource" path="res://data/props/suspended_crate.tres" id="94_suspended_crate"]
 [ext_resource type="Script" path="res://data/scripts/area_challenge_data.gd" id="95_challenge_script"]
 [ext_resource type="Resource" path="res://data/challenges/ch2_loading_unseen.tres" id="96_challenge"]
+[ext_resource type="Resource" path="res://data/props/hiding_spot.tres" id="97_hiding_spot"]
 
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("3_portal_data")
@@ -101,6 +102,7 @@ legend = Dictionary[String, Resource]({
 "ⓙ": ExtResource("5_ch2_sc1_lever"),
 "ⓛ": ExtResource("6_ch2_collection_book"),
 "ⓧ": ExtResource("7_ch2_guard"),
+"⦀": ExtResource("97_hiding_spot"),
 "♜": ExtResource("8_ch2_bill_thrower"),
 "♞": ExtResource("9_ch2_escort")
 })

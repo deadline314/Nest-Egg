@@ -1441,7 +1441,8 @@ legend = Dictionary[String, Resource]({
 "ⓛ": SubResource("Resource_3on4n"),
 "ⓧ": SubResource("Resource_s7cmo"),
 "♜": SubResource("Resource_naubm"),
-"♞": SubResource("Resource_naubm")
+"♞": SubResource("Resource_naubm"),
+"⦀": SubResource("Resource_naubm")
 })
 sign_texts = PackedStringArray("拉麵", "薬", "酒場", "義体", "電腦")
 billboard_ads = PackedStringArray("天穹集團|讓天空屬於每個人")
@@ -5213,8 +5214,8 @@ digests = Dictionary[String, String]({
 "res://data/enemies/atropos.tres": "eb9327ad119486bc42592a612e85577f7244fc636bf0311a32c13385ad575c7b",
 "res://data/enemies/bomber.tres": "024c4b083d3b3ac43086a77ababf353c201e2044a60a32c8d611a7595785e560",
 "res://data/enemies/ch1_inspector.tres": "ed33c305c5e4fc015bc48674dc18337b9f4d1861a22a2763c164f45069d2759b",
-"res://data/enemies/ch2_bill_thrower.tres": "7811d82563d80eb98becab8391e83cca34a880f865d600c7b81036a642fdbc8e",
-"res://data/enemies/ch2_escort.tres": "0c4f61f7654dd4621784d74c907b27b63124d0937032620980a5d77cdf65c590",
+"res://data/enemies/ch2_bill_thrower.tres": "e09628b174b46afedfdbec43da7582407a52969881e4a2c59f26c82af4de9cb5",
+"res://data/enemies/ch2_escort.tres": "553fa434fe3b46243db2b5193fd8ad826d16273dd4871e1f2fd3482d3c274679",
 "res://data/enemies/collector_brute.tres": "01d6f068dca969175a8dd7ec99f81f89762306702fe4752991fe871452ac9d29",
 "res://data/enemies/collector_gunner.tres": "b77a0eeb261fe9a2342879afac3a552e98041ed91e88c1edcce5d2fc30a76aeb",
 "res://data/enemies/custodian.tres": "16c878688a7ede7c3befc74dfd68ee1bc48fa778563c5c7f06ea6b7409a220e8",
@@ -5264,7 +5265,7 @@ digests = Dictionary[String, String]({
 "res://data/levels/ch2_harbor_street.tres": "d361a1c8deea358680dd23f6a291d2ef1c00907b5f2f77a33a9e8e70db754fad",
 "res://data/levels/ch2_ledger_front.tres": "dc7cbed7976c7da61f9b8bd19f2fb89207113164274606e9f0b1fe6a15d5eabc",
 "res://data/levels/ch2_ledger_office.tres": "ecea6ab9434a6a13f241128b3179e51299f52480e710140eda7cb75599309894",
-"res://data/levels/ch2_loading.tres": "e16b96cae1ec46f2ce49ced454effb434dfd43c6b8a2eb3696b5a1ac9d7f6ca6",
+"res://data/levels/ch2_loading.tres": "1f387867be2dc89c1a9ec386d5fce9e8c81c8cf42de95f4016a9ce2618bac171",
 "res://data/levels/ch2_lounge_front.tres": "c6910a5a00dbe1dc46a4f121390136c184ae4d4d7b2ba215eda1f086a8ddcf4f",
 "res://data/levels/ch2_market.tres": "3341dd129b68606373714d535e696e81fb756814a453a2040915720ff8942ac3",
 "res://data/levels/ch2_market_gate.tres": "479daaa2217a9236485751ed0b2ff0ba6846767844235b77002f6d5d32c52ad2",
@@ -5485,6 +5486,7 @@ digests = Dictionary[String, String]({
 "res://data/props/gate_b.tres": "70851f44619ca0089969737ae45f18fb488204f48ab762e0205ecf1f4d37ce0f",
 "res://data/props/gate_custodian.tres": "a54aca54f187d24a1288424c30cec73745d1611e9b1c111c41c08fe8135950a0",
 "res://data/props/glass_wall.tres": "89b33bec9c9f5c73a133bbddf3eb18947603e4a0cf9ad2a8a3239b36d7cecb5f",
+"res://data/props/hiding_spot.tres": "0064f3f4566d04615cbca984f6c51797b9b856531e70e2cceb8e5ecbcde85c7c",
 "res://data/props/lift.tres": "507685cf61aa02e6391a4a33f501448429ece90bd6aa3974ac970525575576e3",
 "res://data/props/lift_tall.tres": "b6c19c44dd24c43a91fdc6a4c789fc7f1ad91db7ac2b3df5c60ae0e568882113",
 "res://data/props/live_cable.tres": "c31e192cce0fbf92b8d4716f97de549308ca9646609d07e57578d3992abfe18c",

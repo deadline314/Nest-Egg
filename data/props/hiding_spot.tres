@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="HidingSpotData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/hiding_spot_data.gd" id="1_spot"]
+
+[resource]
+script = ExtResource("1_spot")
+id = &"hiding_spot"
+display_name = "門簾凹室"
+hint = "蹲在門簾後面，沒發現你的敵人就看不到你。"
+localized_hints = Dictionary[String, String]({
+"en": "Crouch behind the strip curtain. Enemies who haven't spotted you can't see you.",
+"ja": "カーテンの裏でしゃがめば、まだ気づいていない敵からは見えません。"
+})
+width_tiles = 3
+height_tiles = 3

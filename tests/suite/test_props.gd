@@ -25,6 +25,8 @@ const RADIO_PATH := "res://data/props/decoy_radio.tres"
 const RADIO_MAP := "res://tests/fixtures/decoy_radio_map.json"
 const WALKWAY_PATH := "res://data/props/crumbling_walkway.tres"
 const WALKWAY_MAP := "res://tests/fixtures/crumbling_walkway_map.json"
+const HIDING_PATH := "res://data/props/hiding_spot.tres"
+const HIDING_MAP := "res://tests/fixtures/hiding_spot_map.json"
 
 
 func run() -> void:
@@ -44,6 +46,7 @@ func run() -> void:
 	await _test_conveyor()
 	await _test_decoy_radio()
 	await _test_crumbling_walkway()
+	await _test_hiding_spot()
 	_test_mechanic_placements()
 	await _test_hazard_avoidance()
 	await _test_steam_blocks_sight()
@@ -901,6 +904,145 @@ func _test_crumbling_walkway() -> void:
 	await end_level(level)
 	GameState.clear_checkpoint()
 
+## 可躲藏的位置：蹲在簾子後面，還沒進入戰鬥的敵人看不到（從面前走過去也一樣）；站起來或蹲在簾子外面就看得到；
+## 已經在戰鬥的敵人照常看得到。沒有狀態要存，重建關卡後不留下舊的登記。
+func _test_hiding_spot() -> void:
+	var spot_data := load(HIDING_PATH) as HidingSpotData
+	check(spot_data != null and spot_data.validate().is_empty(), "the hiding spot data is valid: %s" % [spot_data.validate() if spot_data != null else ["missing"]])
+	if spot_data == null:
+		return
+	check(not spot_data.hint_for("en").is_empty() and not spot_data.hint_for("ja").is_empty(), "the hiding spot hint is available in all three languages")
+	var bad := HidingSpotData.new()
+	bad.width_tiles = 1
+	bad.height_tiles = 9
+	bad.hint = "x"
+	check(bad.validate().size() >= 3, "a too-narrow or too-tall spot, or a missing translation, is reported: %s" % [bad.validate()])
+
+	var data := LevelData.new()
+	data.id = &"hiding_spot_test"
+	data.layout_path = HIDING_MAP
+	data.legend = {"K": spot_data}
+	var level := await start_level(data)
+	var spots := _find_all(level, HidingSpot)
+	check(spots.size() == 1 and HidingSpot._spots.size() == 1, "the map character spawns one hiding spot and registers it once")
+	if spots.is_empty():
+		await end_level(level)
+		return
+	var spot := spots[0] as HidingSpot
+	var player := level.player
+	player.health.setup(999, 0.0)
+	var floor_y := spot.global_position.y
+	var inside_x := spot.global_position.x + spot.width * 0.5
+	check(is_equal_approx(spot.global_position.x, 20.0 * 16.0), "the alcove starts at the left edge of its cell: %.1f" % spot.global_position.x)
+
+	# 站在簾子裡：還藏不住。蹲下：藏好了。
+	player.global_position = Vector2(inside_x, floor_y)
+	player.velocity = Vector2.ZERO
+	await physics_frames(4)
+	check(not HidingSpot.conceals(player), "standing inside the alcove does not hide the player")
+	Input.action_press(&"move_down")
+	await physics_frames(4)
+	check(player.is_crouching and HidingSpot.conceals(player) and spot.is_hiding_player(), "crouching behind the curtain hides the player")
+
+	# 還沒發現玩家的敵人從面前走過去：看不到、不進入戰鬥。
+	var enemy := level._spawn_reinforcement(load(GRUNT_PATH) as EnemyData, Vector2(inside_x + 90.0, floor_y))
+	if enemy == null:
+		check(false, "the hiding fixture spawns a patrolling enemy")
+		Input.action_release(&"move_down")
+		await end_level(level)
+		return
+	enemy.facing = -1
+	enemy.fsm.transition(&"patrol")
+	await physics_frames(2)
+	check(not enemy._can_see_target(enemy.data.detect_range), "a relaxed enemy facing the curtain cannot see the crouching player")
+	var passed := false
+	var engaged := false
+	for i in 240:
+		await physics_frames(1)
+		engaged = engaged or enemy.is_engaged()
+		passed = passed or enemy.global_position.x < inside_x - 24.0
+	check(passed and not engaged and player.health.current == 999 and player.is_crouching, "a patrolling enemy walks right past (and through) the hidden player without noticing or bumping into him (passed %s, engaged %s, health %d)" % [passed, engaged, player.health.current])
+
+	# 站起來就看得到。
+	Input.action_release(&"move_down")
+	enemy.global_position = Vector2(inside_x + 60.0, floor_y)
+	enemy.facing = -1
+	await physics_frames(4)
+	check(not HidingSpot.conceals(player) and enemy._can_see_target(enemy.data.detect_range), "standing up in the alcove makes the player visible again")
+
+	# 蹲在簾子外面：藏不住。
+	enemy.fsm.transition(&"patrol")
+	player.global_position = Vector2(spot.global_position.x - 40.0, floor_y)
+	Input.action_press(&"move_down")
+	await physics_frames(4)
+	check(player.is_crouching and not HidingSpot.conceals(player), "crouching outside the curtain does not hide the player")
+
+	# 巡邏的看守（back_sight_scale < 1）背後只看得到近處：跟在後面一段距離不會被發現；太近或面對面就看得到。
+	# 一般敵人（預設 1）前後一樣。
+	Input.action_release(&"move_down")
+	await physics_frames(3)
+	var reach := enemy.data.detect_range
+	check(is_equal_approx(enemy.data.back_sight_scale, 1.0), "ordinary enemies see the same distance behind them by default")
+	enemy.facing = 1
+	enemy.global_position = Vector2(player.global_position.x + reach * 0.6, floor_y)
+	check(enemy._can_see_target(reach), "an ordinary enemy still notices a player behind it")
+	var watcher := level._spawn_reinforcement(load("res://data/enemies/ch2_escort.tres") as EnemyData, Vector2(inside_x + 400.0, floor_y))
+	if watcher != null:
+		var watch_reach := watcher.data.detect_range
+		check(watcher.data.back_sight_scale < 1.0, "the loading-bay escorts are back-blind watchers (%.2f)" % watcher.data.back_sight_scale)
+		watcher.facing = 1
+		watcher.global_position = Vector2(player.global_position.x + watch_reach * 0.6, floor_y)
+		check(not watcher._can_see_target(watch_reach), "a patrolling watcher does not notice a player well behind its back")
+		watcher.global_position = Vector2(player.global_position.x + watch_reach * watcher.data.back_sight_scale * 0.5, floor_y)
+		check(watcher._can_see_target(watch_reach), "a patrolling watcher still notices a player right behind it")
+		watcher.facing = -1
+		watcher.global_position = Vector2(player.global_position.x + watch_reach * 0.6, floor_y)
+		check(watcher._can_see_target(watch_reach), "facing the player, the watcher sees the same distance")
+		watcher.queue_free()
+	else:
+		check(false, "the watcher enemy spawns")
+	Input.action_press(&"move_down")
+	await physics_frames(3)
+
+	# 已經在戰鬥（被警報引來）的敵人照常看得到。
+	player.global_position = Vector2(inside_x, floor_y)
+	await physics_frames(4)
+	enemy.global_position = Vector2(inside_x + 60.0, floor_y)
+	enemy.raise_alert(player.global_position, 3.0)
+	check(HidingSpot.conceals(player) and enemy.is_engaged() and enemy._can_see_target(enemy.data.detect_range), "an enemy already in the fight still sees the player behind the curtain")
+	Input.action_release(&"move_down")
+
+	# 「減少介面動態」：人穿過簾子時條簾不晃。
+	enemy.queue_free()
+	var old_motion := Settings.get_reduce_ui_motion()
+	Settings.set_reduce_ui_motion(true)
+	player.global_position = Vector2(spot.global_position.x - 20.0, floor_y)
+	Input.action_press(&"move_right")
+	var max_drift := 0.0
+	for i in 30:
+		await physics_frames(1)
+		max_drift = maxf(max_drift, absf(spot.strip_offset(3)))
+	Input.action_release(&"move_right")
+	check(max_drift == 0.0, "with reduced motion the strip curtain does not sway")
+	Settings.set_reduce_ui_motion(old_motion)
+	player.global_position = Vector2(spot.global_position.x - 20.0, floor_y)
+	Input.action_press(&"move_right")
+	max_drift = 0.0
+	for i in 30:
+		await physics_frames(1)
+		max_drift = maxf(max_drift, absf(spot.strip_offset(3)))
+	Input.action_release(&"move_right")
+	check(max_drift > 0.2, "walking through the curtain makes the strips sway (%.2f px)" % max_drift)
+
+	# 從檢查點重來：關卡重建，舊的登記被清掉、新的一處登記一次，玩家站著就沒有藏著。
+	GameState.set_checkpoint(Vector2(3.5 * 16.0, floor_y), {}, {})
+	await end_level(level)
+	check(HidingSpot._spots.is_empty(), "leaving the level clears the hiding spot registry")
+	level = await spawn_level(data)
+	check(HidingSpot._spots.size() == 1 and not HidingSpot.conceals(level.player), "after respawning there is exactly one hiding spot and the player starts out in the open")
+	await end_level(level)
+	GameState.clear_checkpoint()
+
 ## 誘餌收音機（NE-404）：射中才播、敵人打不開；範圍內沒發現玩家的敵人走過去盯著看、看不到背後；被打就醒；播完就壞。
 func _test_decoy_radio() -> void:
 	var radio_data := load(RADIO_PATH) as DecoyRadioData
@@ -975,6 +1117,7 @@ func _test_mechanic_placements() -> void:
 		["res://data/levels/ch4_factory_relay.tres", "res://data/props/conveyor.tres", Vector2i(13, 19)],
 		["res://data/levels/ch4_factory_relay.tres", "res://data/props/live_cable.tres", Vector2i(32, 19)],
 		["res://data/levels/ch1_rooftop.tres", "res://data/props/crumbling_walkway.tres", Vector2i(16, 44)],
+		["res://data/levels/ch2_loading.tres", "res://data/props/hiding_spot.tres", Vector2i(7, 35)],
 	]
 	for entry: Array in EXPECTED:
 		var level := load(entry[0]) as LevelData

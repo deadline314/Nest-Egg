@@ -14,6 +14,8 @@ var active: bool = true
 var bypass_guard := false
 ## true＝這是環境機關造成的傷害（區域挑戰計數用，NE-410）。
 var environmental := false
+## 選用：回傳 true 的受擊框這一格不受傷（例如敵人還沒發現、蹲在門簾後的玩家，NE-426）。
+var spares: Callable
 
 var _shape: RectangleShape2D
 var _shape_node: CollisionShape2D
@@ -49,6 +51,8 @@ func _physics_process(_delta: float) -> void:
 	for area in get_overlapping_areas():
 		var hurtbox := area as Hurtbox
 		if hurtbox == null or hurtbox.team == team or not hurtbox.can_receive():
+			continue
+		if spares.is_valid() and spares.call(hurtbox):
 			continue
 		var info := DamageInfo.create(damage, team, source_id)
 		info.bypass_guard = bypass_guard
