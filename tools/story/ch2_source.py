@@ -84,6 +84,9 @@ SPEAKERS = {
     "zheng": {"name": "鄭先生", "color": "#b0b8c8", "portrait": "res://art/portraits/guest_zheng.png"},
     "chen": {"name": "陳女士", "color": "#c8b8b0", "portrait": "res://art/portraits/guest_chen.png"},
     "hong": {"name": "洪先生", "color": "#b0c8b8", "portrait": "res://art/portraits/guest_hong.png"},
+    # 第一章市集口的兩位街坊，第二章早上又在港區街道遇到（ST-60）。
+    "dock_worker": {"name": "夜班工人", "color": "#c8b090", "portrait": "res://art/portraits/night_worker.png"},
+    "flyer": {"name": "發傳單的人", "color": "#c9b8e0", "portrait": "res://art/portraits/resident.png"},
 }
 
 # 劇本第 5 節的金額（NE-231 可以調整資源檔的數字；這裡只引用交易）。
@@ -447,6 +450,27 @@ def _collection_office(source: ProductionSource):
         ("rin", "你見過他收什麼？"),
         ("hawker", "我也是聽的，沒見過。")),
         when=negate(flag("ch2_rumor_heard")), completion=(set_flag("ch2_rumor_heard"),))
+    # 港區街道（白天）（ST-60）：昨晚封路的那條街，早上換了樣子。台詞只講凜看得到的現況，回訪與查帳上傳後各換一句。
+    source.add("ch2_b_street_morning", "S05", (
+        ("rin", "白天還是在下雨，只是街上的人多了。"),
+        ("dock_worker", "早，昨晚那陣槍聲之後，菜車半夜就過去了。")), mode="bubbles")
+    source.add("ch2_t_street_worker", "S05", (
+        ("dock_worker", "我剛下夜班。路口的收帳人半夜就散了，菜車總算進了市集。"),
+        ("rin", "市集今天全開了？"),
+        ("dock_worker", "只開攤道，貨道還封著。我先回家睡，晚上還要上工。")))
+    source.add("ch2_t_street_worker_revisit", "S05", (("dock_worker", "我真的要回去睡了，你去市集別擠貨道那邊。"),), mode="animated")
+    source.add("ch2_t_street_worker_audit", "S05", (("dock_worker", "攤商都在講，市場那筆多收的二十被人查出來了。"),), mode="animated")
+    source.add("ch2_t_street_flyer", "S05", (
+        ("flyer", "傳單昨晚發完了，今天我來排復原館的早班號碼。"),
+        ("rin", "排給誰？"),
+        ("flyer", "孩子他爸。昨晚下工就沒回來，這已經是第三次了。"),
+        ("rin", "第三次了，你還付得起？"),
+        ("flyer", "付不起也得排。孩子說醒來的還是他爸，我就信他一次。")))
+    source.add("ch2_t_street_flyer_revisit", "S05", (("flyer", "號碼牌還沒叫到，你先去忙吧。"),), mode="animated")
+    source.add("ch2_t_street_flyer_audit", "S05", (("flyer", "他爸醒了，第一句還是問晚飯吃什麼。傳單我先收起來了。"),), mode="animated")
+    source.add("ch2_t_street_news", "S05", (
+        ("label", "早報頭版：天穹週年慶，創辦人沈望今晚在市集螢幕演說。"),
+        ("label", "社會版只有一小格：港區昨夜降雨偏多，復原館今早排隊的人比平常多。")))
     source.add("ch2_t_s08_rumor_revisit", "S08", (("hawker", "我只是聽說的，你自己看帳比較準。"),), when=flag("ch2_rumor_heard"))
     source.add("ch2_t_s08_collection", "S08", (
         ("label", "批號M17：收款120，本金100、利息20，轉送北棟二樓。待收欄仍寫120。"),

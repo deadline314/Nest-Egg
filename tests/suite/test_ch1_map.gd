@@ -620,7 +620,7 @@ func _test_street_residents() -> void:
 		check(npc.pick_reaction(0, seen, 0, no_flag) >= 0 and npc.pick_reaction(1, seen, 0, route_open) != npc.pick_reaction(0, seen, 0, no_flag),
 				"%s reacts without words, differently once the blockade is down" % npc.id)
 		for talk in npc.talks:
-			check(str(Story._scenes.get(String(talk.scene), {}).get("mode", "")) in ["dialogue", "radio"] and not Story._scenes[String(talk.scene)].has("set_flags"),
+			check(str(Story._scenes.get(String(talk.scene), {}).get("mode", "")) in ["dialogue", "animated"] and not Story._scenes[String(talk.scene)].has("set_flags"),
 					"%s: %s is a plain talk that writes no story flag" % [npc.id, talk.scene])
 	var chatter := &"ch1_b_street_chatter"
 	check(Array(_datas["street"].story_triggers).has(String(chatter)) and str(Story._scenes[String(chatter)].get("mode", "")) == "bubbles", "walking past the pair plays their chatter as map bubbles")

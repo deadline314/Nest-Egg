@@ -38,6 +38,7 @@
 | ch1_booth_alley、ch1_rooftop | 安全區以外 | 安全區不放敵人；入口與電話亭周圍 18 格內不放敵人 | `CH01_LEVEL.md` |
 | ch1_street 港區街道 | 市集口安全段（x1～48）以外 | 安全段不放敵人；教學段前 9 格不放敵人；觸發格不移：出門獨白 x9、街坊聊天 x27（ST-59）、燈的通訊 x40；發傳單的人站在 x29、夜班工人在 x32（ST-59） | `CH01_LEVEL.md`、`ch1_street.tres` 的 `story_triggers` |
 | ch1_prologue、ch1_warehouse | 倉庫非鎖場的段落 | 序章是試貨教學，有開場場景；看門狗是不鎖場的迷你頭目，要留逃回街道的路；上層梯是單向的 | `CH01_LEVEL.md` |
+| ch2_harbor_street 港區街道（白天） | 觸發格與三個站位以外 | 觸發格 x12（凜與夜班工人的早晨氣泡，工人要在畫面內）；夜班工人 x17（魚攤旁）、早報架 x37（報架擺設）、發傳單的人 x55（排隊告示旁）（ST-60） | `ch2_harbor_street.tres` |
 | ch2_loading、ch2_market_gate | 觸發格以外 | 觸發格不移（`ch2_s09_wire`、`ch2_s09_hawker`、`ch2_b_booth_b3`） | 各區 `.tres` 的 `story_triggers` |
 | ch3_pump 集水槽與泵室 | 觸發格以外 | 觸發格不移；上層路線一定要留，因為觸發的台詞講的就是它（`ch3_b_c02_upper_route`） | `ch3_pump.tres` |
 | ch4_factory_safety 清理線安全臺 | — | 不放敵人；電話亭保留，它是重生點，清掃工作廊死亡也回這裡 | `CH04_FACTORY_SERVICE_WALK.md` |
@@ -50,3 +51,4 @@
 ## 更新紀錄
 
 - 2026-11-28：ST-59 建立（故事線依地圖線需求整理）。
+- 2026-11-28：ST-60 加入第二章港區街道（白天）的觸發格與站位。

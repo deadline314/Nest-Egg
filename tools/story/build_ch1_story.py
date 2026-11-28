@@ -396,6 +396,11 @@ def lines_scene(scene_id, mode, lines, then=None, flags=None, bark=False):
     SCENES[scene_id] = scene
 
 
+def overlay_line(scene_id, speaker, text):
+    """人物回訪的一句話：疊在地圖上的對話框（和第一章正式稿的回訪一樣），人物互動不能用通訊或氣泡。"""
+    SCENES[scene_id] = {"mode": "animated", "overlay": True, "steps": [{"do": "say", "speaker": speaker, "text": text}]}
+
+
 # ---------------------------------------------------------------------------
 # 序幕與當舖（H1）
 # ---------------------------------------------------------------------------
@@ -492,7 +497,7 @@ def build():
         ('rin', "老 K 每次都問：帶傘了嗎。"),
         ('rin', "下面本來就是水。"),
     ])
-    # 市集口的兩個人（ST-59）：走過時聽見他們聊收帳通知；可以上前說話，回訪、凜死過、打通路障後各有一句新的（一句話用通訊面板，不停下遊戲）。
+    # 市集口的兩個人（ST-59）：走過時聽見他們聊收帳通知；可以上前說話，回訪、凜死過、打通路障後各有一句新的（一句話用疊在地圖上的對話框）。
     lines_scene('ch1_b_street_chatter', 'bubbles', [
         ('dock_worker', "市集那頭被收帳的封了，菜車只好繞去碼頭。"),
         ('flyer', "十四號店面又被貼單了，這個月是第三張。"),
@@ -504,32 +509,20 @@ def build():
         ('flyer', "背面那句是我兒子寫的。他爸復原過兩次，他覺得爸爸還是同一個人。"),
         ('flyer', "我只負責發，發完一疊能換一碗熱湯。湯是真的。"),
     ])
-    lines_scene('ch1_t_street_flyer_revisit', 'radio', [
-        ('flyer', "傳單拿了就好。雨這麼大，你別站在這裡陪我淋。"),
-    ])
-    lines_scene('ch1_t_street_flyer_died', 'radio', [
-        ('flyer', "你臉色好白，剛從復原那邊回來吧？先到簷下站一下。"),
-    ])
-    lines_scene('ch1_t_street_flyer_open', 'radio', [
-        ('flyer', "路口那幾個收帳的倒了？十四號店面今晚總算能關燈睡覺。"),
-    ])
+    overlay_line('ch1_t_street_flyer_revisit', 'flyer', "傳單拿了就好。雨這麼大，你別站在這裡陪我淋。")
+    overlay_line('ch1_t_street_flyer_died', 'flyer', "你臉色好白，剛從復原那邊回來吧？先到簷下站一下。")
+    overlay_line('ch1_t_street_flyer_open', 'flyer', "路口那幾個收帳的倒了？十四號店面今晚總算能關燈睡覺。")
     lines_scene('ch1_t_street_worker', 'dialogue', [
         ('dock_worker', "我在等市集解封。菜車今晚過不去，我的工錢也過不去。"),
         ('rin', "收帳人封路要封多久？"),
         ('dock_worker', "收到錢就開。這條街每個人都在等別人先付。"),
     ])
-    lines_scene('ch1_t_street_worker_revisit', 'radio', [
-        ('dock_worker', "你要去碼頭？倉庫那邊的燈今晚一直沒熄。"),
-    ])
-    lines_scene('ch1_t_street_worker_died', 'radio', [
-        ('dock_worker', "你身上一股消毒水味，剛醒過來吧？先喘口氣再走。"),
-    ])
-    lines_scene('ch1_t_street_worker_open', 'radio', [
-        ('dock_worker', "路口沒人守了，我去看菜車過不過得去。今晚的工錢還有救。"),
-    ])
+    overlay_line('ch1_t_street_worker_revisit', 'dock_worker', "你要去碼頭？倉庫那邊的燈今晚一直沒熄。")
+    overlay_line('ch1_t_street_worker_died', 'dock_worker', "你身上一股消毒水味，剛醒過來吧？先喘口氣再走。")
+    overlay_line('ch1_t_street_worker_open', 'dock_worker', "路口沒人守了，我去看菜車過不過得去。今晚的工錢還有救。")
     lines_scene('ch1_g06_lamp', 'radio', [
         ('lamp', "我是幫你看路的燈，聽得到嗎？收帳人封了市集，改走碼頭那邊。"),
-        ('rin', "我聽得到，你繼續說。"),
+        ('rin', "我聽得到。"),
     ])
     lines_scene('ch1_g06_tip_slide', 'radio', [
         ('lamp', "往旁邊滑過去，剛滑出去的瞬間子彈打不到你。"),
@@ -545,7 +538,7 @@ def build():
         ('lamp', "倉庫就在碼頭盡頭，我會在耳機裡陪你。"),
     ])
     # 鎖場開始時凜的戰鬥短句（≤16 字、≤2 句）
-    lines_scene('ch1_k_plaza', 'bubbles', [('rin', "廣場上有人在巡邏，小心一點。")], bark=True)
+    lines_scene('ch1_k_plaza', 'bubbles', [('rin', "廣場有人巡邏，小心。")], bark=True)
     lines_scene('ch1_k_blockade', 'bubbles', [('rin', "收帳人在前面搜查。")], bark=True)
     lines_scene('ch1_k_vault', 'bubbles', [('rin', "保險箱前面有人守著。")], bark=True)
     lines_scene('ch1_k_walkway', 'bubbles', [('rin', "上面的走道有人。")], bark=True)

@@ -1283,40 +1283,43 @@
    ]
   },
   "ch1_t_street_flyer_revisit": {
-   "mode": "radio",
-   "lines": [
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
     {
+     "do": "say",
      "speaker": "flyer",
      "text": "傳單拿了就好。雨這麼大，你別站在這裡陪我淋。",
      "ja": "ビラを取ってくれたならそれでいいよ。こんな雨なんだから、ここで一緒に濡れてなくていい。",
      "en": "Taking a flyer is enough. It's pouring, so don't stand here getting soaked with me."
     }
-   ],
-   "freeze": true
+   ]
   },
   "ch1_t_street_flyer_died": {
-   "mode": "radio",
-   "lines": [
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
     {
+     "do": "say",
      "speaker": "flyer",
      "text": "你臉色好白，剛從復原那邊回來吧？先到簷下站一下。",
      "ja": "顔が真っ白だよ。復元から戻ったばかりでしょう？まず軒下に入りな。",
      "en": "You're pale. Just got back from a restoration, right? Stand under the eaves for a bit."
     }
-   ],
-   "freeze": true
+   ]
   },
   "ch1_t_street_flyer_open": {
-   "mode": "radio",
-   "lines": [
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
     {
+     "do": "say",
      "speaker": "flyer",
      "text": "路口那幾個收帳的倒了？十四號店面今晚總算能關燈睡覺。",
      "ja": "角の取り立て屋たち、倒れたの？十四号の店も今夜はやっと明かりを消して眠れるね。",
      "en": "Those collectors at the corner went down? Shop No. 14 can finally turn off its lights and sleep tonight."
     }
-   ],
-   "freeze": true
+   ]
   },
   "ch1_t_street_worker": {
    "mode": "dialogue",
@@ -1342,40 +1345,43 @@
    ]
   },
   "ch1_t_street_worker_revisit": {
-   "mode": "radio",
-   "lines": [
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
     {
+     "do": "say",
      "speaker": "dock_worker",
      "text": "你要去碼頭？倉庫那邊的燈今晚一直沒熄。",
      "ja": "埠頭へ行くのか？倉庫のほうの明かり、今夜はずっと消えてないぞ。",
      "en": "Heading to the docks? The lights over at the warehouse haven't gone out all night."
     }
-   ],
-   "freeze": true
+   ]
   },
   "ch1_t_street_worker_died": {
-   "mode": "radio",
-   "lines": [
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
     {
+     "do": "say",
      "speaker": "dock_worker",
      "text": "你身上一股消毒水味，剛醒過來吧？先喘口氣再走。",
      "ja": "消毒液のにおいがするな。目覚めたばかりだろ？ひと息ついてから行きな。",
      "en": "You smell like disinfectant. Just woke up, huh? Catch your breath before you go."
     }
-   ],
-   "freeze": true
+   ]
   },
   "ch1_t_street_worker_open": {
-   "mode": "radio",
-   "lines": [
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
     {
+     "do": "say",
      "speaker": "dock_worker",
      "text": "路口沒人守了，我去看菜車過不過得去。今晚的工錢還有救。",
      "ja": "角にはもう誰もいない。野菜の車が通れるか見てくる。今夜の日当はまだ何とかなりそうだ。",
      "en": "Nobody's guarding the corner now. I'll go see if the carts can get through. Tonight's pay might be saved yet."
     }
-   ],
-   "freeze": true
+   ]
   },
   "ch1_g06_lamp": {
    "mode": "radio",
@@ -1388,9 +1394,9 @@
     },
     {
      "speaker": "rin",
-     "text": "我聽得到，你繼續說。",
-     "ja": "聞こえる。続けて。",
-     "en": "I can hear you. Go on."
+     "text": "我聽得到。",
+     "ja": "聞こえる。",
+     "en": "I can hear you."
     }
    ],
    "freeze": true
@@ -1454,7 +1460,7 @@
    "lines": [
     {
      "speaker": "rin",
-     "text": "廣場上有人在巡邏，小心一點。",
+     "text": "廣場有人巡邏，小心。",
      "ja": "広場に見回りがいる。気をつけろ。",
      "en": "There are patrols in the plaza. Watch yourself."
     }

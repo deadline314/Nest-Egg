@@ -192,6 +192,20 @@
    "name_ja": "洪さん",
    "name_en": "Mr. Hong"
   },
+  "dock_worker": {
+   "name": "夜班工人",
+   "color": "#c8b090",
+   "portrait": "res://art/portraits/night_worker.png",
+   "name_ja": "夜勤の作業員",
+   "name_en": "Night-Shift Worker"
+  },
+  "flyer": {
+   "name": "發傳單的人",
+   "color": "#c9b8e0",
+   "portrait": "res://art/portraits/resident.png",
+   "name_ja": "ビラ配り",
+   "name_en": "Flyer Distributor"
+  },
   "hawker_far": {
    "name": "遠處的小販",
    "color": "#c8b090",
@@ -5588,6 +5602,153 @@
     }
    ],
    "completion_policy": "main_terminal_results_v1"
+  },
+  "ch2_b_street_morning": {
+   "mode": "bubbles",
+   "lines": [
+    {
+     "speaker": "rin",
+     "text": "白天還是在下雨，只是街上的人多了。",
+     "ja": "昼になっても雨は降ってる。通りの人が増えただけだ。",
+     "en": "It's still raining in the daytime. There are just more people on the street."
+    },
+    {
+     "speaker": "dock_worker",
+     "text": "早，昨晚那陣槍聲之後，菜車半夜就過去了。",
+     "ja": "おはよう。ゆうべの銃声のあと、野菜の車は夜中に通れたよ。",
+     "en": "Morning. After last night's gunfire, the vegetable carts got through around midnight."
+    }
+   ]
+  },
+  "ch2_t_street_worker": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "dock_worker",
+     "text": "我剛下夜班。路口的收帳人半夜就散了，菜車總算進了市集。",
+     "ja": "夜勤明けなんだ。角の取り立て屋は夜中にいなくなって、野菜の車がやっと市場に入れた。",
+     "en": "Just got off the night shift. The collectors at the corner cleared out around midnight, and the carts finally made it into the market."
+    },
+    {
+     "speaker": "rin",
+     "text": "市集今天全開了？",
+     "ja": "市場は今日、全部開いてるのか？",
+     "en": "Is the whole market open today?"
+    },
+    {
+     "speaker": "dock_worker",
+     "text": "只開攤道，貨道還封著。我先回家睡，晚上還要上工。",
+     "ja": "開いてるのは屋台通りだけで、荷物用の通路はまだ封鎖中だ。先に帰って寝るよ、夜もまた仕事だから。",
+     "en": "Only the stall lane. The cargo lane is still shut. I'm heading home to sleep; I work again tonight."
+    }
+   ]
+  },
+  "ch2_t_street_worker_revisit": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "dock_worker",
+     "text": "我真的要回去睡了，你去市集別擠貨道那邊。",
+     "ja": "本当にもう帰って寝る。市場へ行くなら荷物用の通路には近づくなよ。",
+     "en": "I really am going home to sleep. At the market, stay out of the cargo lane."
+    }
+   ],
+   "overlay": true
+  },
+  "ch2_t_street_worker_audit": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "dock_worker",
+     "text": "攤商都在講，市場那筆多收的二十被人查出來了。",
+     "ja": "屋台の連中がみんな話してる。市場で余分に取られてた二十、誰かが突き止めたって。",
+     "en": "All the stallholders are talking about it. Someone found out about the extra twenty the market was charging."
+    }
+   ],
+   "overlay": true
+  },
+  "ch2_t_street_flyer": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "flyer",
+     "text": "傳單昨晚發完了，今天我來排復原館的早班號碼。",
+     "ja": "ビラはゆうべ配り終えたの。今日は復元館の朝の番号札を取りに並んでる。",
+     "en": "I finished the flyers last night. Today I'm in line for a morning number at the restoration house."
+    },
+    {
+     "speaker": "rin",
+     "text": "排給誰？",
+     "ja": "誰のために並んでるんだ？",
+     "en": "Who are you queuing for?"
+    },
+    {
+     "speaker": "flyer",
+     "text": "孩子他爸。昨晚下工就沒回來，這已經是第三次了。",
+     "ja": "子どもの父親。ゆうべ仕事帰りに戻らなかった。これで三回目よ。",
+     "en": "My kid's father. He didn't come home after work last night. This is the third time."
+    },
+    {
+     "speaker": "rin",
+     "text": "第三次了，你還付得起？",
+     "ja": "三回目か。まだ払えるのか？",
+     "en": "Third time. Can you still afford it?"
+    },
+    {
+     "speaker": "flyer",
+     "text": "付不起也得排。孩子說醒來的還是他爸，我就信他一次。",
+     "ja": "払えなくても並ぶしかない。目覚めるのはやっぱりお父さんだってあの子が言うから、一度は信じてみる。",
+     "en": "Even if I can't, I still have to queue. My kid says the one who wakes up is still his dad, so I'll believe him this once."
+    }
+   ]
+  },
+  "ch2_t_street_flyer_revisit": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "flyer",
+     "text": "號碼牌還沒叫到，你先去忙吧。",
+     "ja": "番号はまだ呼ばれてない。あんたは自分の用事を済ませな。",
+     "en": "They haven't called my number yet. Go see to your own business."
+    }
+   ],
+   "overlay": true
+  },
+  "ch2_t_street_flyer_audit": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "flyer",
+     "text": "他爸醒了，第一句還是問晚飯吃什麼。傳單我先收起來了。",
+     "ja": "あの人、目を覚ましたの。最初に聞いたのは、やっぱり晩ご飯のことだった。ビラはしまっておくわ。",
+     "en": "He woke up. The first thing he asked was still what's for dinner. I've put the flyers away."
+    }
+   ],
+   "overlay": true
+  },
+  "ch2_t_street_news": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "早報頭版：天穹週年慶，創辦人沈望今晚在市集螢幕演說。",
+     "ja": "朝刊の一面：天穹の周年祭。創業者の沈望が今夜、市場のスクリーンで演説する。",
+     "en": "Morning paper, front page: Skydome's anniversary. Founder Shen Wang speaks on the market screen tonight."
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "社會版只有一小格：港區昨夜降雨偏多，復原館今早排隊的人比平常多。",
+     "ja": "社会面には小さな記事が一つだけ。港区はゆうべ雨が多く、今朝の復元館は普段より列が長い。",
+     "en": "Only a small item on the local page: heavy rain in the harbor district last night, and a longer line than usual at the restoration house this morning."
+    }
+   ]
   },
   "ch2_t_s08_rumor_revisit": {
    "mode": "animated",
