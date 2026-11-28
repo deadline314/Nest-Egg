@@ -4849,7 +4849,7 @@ script = ExtResource("11_fqxrv")
 [sub_resource type="Resource" id="Resource_k2pfj"]
 script = ExtResource("1_fuu4v")
 id = &"level_01"
-display_name = "第一章　雨夜"
+display_name = "下層港區"
 height = 24
 legend = Dictionary[String, Resource]({
 "A": SubResource("Resource_c3sqw"),
@@ -5070,7 +5070,7 @@ script = ExtResource("11_fqxrv")
 [sub_resource type="Resource" id="Resource_d318d"]
 script = ExtResource("1_fuu4v")
 id = &"level_02"
-display_name = "第二章　天空的代價"
+display_name = "升降井與夾層區"
 height = 24
 legend = Dictionary[String, Resource]({
 "+": SubResource("Resource_1nim1"),
@@ -5300,8 +5300,8 @@ digests = Dictionary[String, String]({
 "res://data/levels/ch6_harbor_plaza.tres": "e7f120accdaeb89495dee5a1a6af55da3a7b6f3f11cff9e34049f3dd0b297409",
 "res://data/levels/ch6_rain_chase_alley.tres": "aae0abf3c0608eae87942e32a8be33405af85f7290c51d20e7c3bdf67b99526e",
 "res://data/levels/ch6_recording_booth.tres": "ab2895b634be7386e555cdd151e40ad28ebcabc9a3e1f4613c666018db527cc6",
-"res://data/levels/level_01.tres": "c582d2bd9b2c821059489076e4186099891f5e37c9e3a3797a00437074d1b0ba",
-"res://data/levels/level_02.tres": "5db4c22f5a17686b01d4874865fe1096b5e8d55f9b00c28f6c4d84171184b28d",
+"res://data/levels/level_01.tres": "6b109a1b34342be8f6b81e1b35e2d54bbb1e6c87b8925dfd9f751b3a338496b1",
+"res://data/levels/level_02.tres": "cd5ad8eba8b2c06952c230489dcf8909066cab6e311a65ed0960bb5701c53df5",
 "res://data/npcs/ah_po.tres": "3cd6782fbfc78e4c50f5ebfb8a38fcad6f5abe0f59c5f99d30123fe69811a282",
 "res://data/npcs/ch1_ali_lounge.tres": "1e22efdd50ea25d1bf741f8054d669c0686233c57547f443c26a4e70709db973",
 "res://data/npcs/ch1_ali_stall.tres": "eb9610a14f0b7e06ad2b92bc001dac4bdb438995cb2d44fb5a4e9160bb211002",
