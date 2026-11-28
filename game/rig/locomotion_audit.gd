@@ -27,6 +27,10 @@ const SMOOTH_FRAMES := 5
 ##   reversals_per_second  低通後骨盆垂直速度每秒反轉幾次（理想是主頻率的 2 倍：一峰一谷）
 ##   slide      踩地期間支撐腳在世界座標的最大位移（像素）　slide_l  以 L 為單位
 ##   head_pp    頭高度的峰谷幅度（像素）
+##   hip_height_l  骨盆離地的平均高度（以 L 計；走 0.93、跑 0.88 左右，太低就是「坐在看不見的椅子上」）
+##   stance_knee   支撐中段（踩地的腳在骨盆正下方附近）膝蓋彎曲的最大角度（度；走約 15–25、跑約 40）
+##   foot_spread_l 一個週期裡兩腳前後分開的最大距離（以 L 計；太小就是併腳碎步）
+##   back_lean     上身往後仰的最大角度（度，胸口到頭相對垂直線；負值是前傾）
 ##   samples    取樣格數
 static func measure(rig: CharacterRig, speed: float, run_speed: float) -> Dictionary:
 	var input := RigInput.new()
@@ -47,11 +51,31 @@ static func measure(rig: CharacterRig, speed: float, run_speed: float) -> Dictio
 	var heads := PackedFloat32Array()
 	var contacts: Array[Dictionary] = [{"on": false, "min": 0.0, "max": 0.0}, {"on": false, "min": 0.0, "max": 0.0}]
 	var slide := 0.0
+	var leg_length := absf(rig.rest(&"hip").y)
+	var hip_heights := 0.0
+	var stance_knee := 0.0
+	var spread := 0.0
+	var back_lean := -INF
+	var chains: Array = [[&"leg_front_upper", &"leg_front_lower", &"foot_front"], [&"leg_back_upper", &"leg_back_lower", &"foot_back"]]
 	var count := int(SECONDS / DT)
 	for i in count:
 		rig.animate(DT, input)
 		body_x += speed * DT
-		hips.append(animator.bone_pos(&"hip").y)
+		var hip := animator.bone_pos(&"hip")
+		hips.append(hip.y)
+		hip_heights += ground - hip.y
+		spread = maxf(spread, absf(animator.bone_pos(&"foot_front").x - animator.bone_pos(&"foot_back").x))
+		for chain: Array in chains:
+			var thigh := animator.bone_pos(chain[0])
+			var knee := animator.bone_pos(chain[1])
+			var ankle := animator.bone_pos(chain[2])
+			# 支撐中段：腳踩在地上、而且在髖關節正下方附近（前後 0.15 L 以內）。
+			if absf(ankle.y - ground) <= 1.0 and absf(ankle.x - thigh.x) <= 0.15 * leg_length:
+				stance_knee = maxf(stance_knee, rad_to_deg(absf((knee - thigh).angle_to(ankle - knee))))
+		if rig.has_bone(&"head") and rig.has_bone(&"chest"):
+			var up := animator.bone_pos(&"head") - animator.bone_pos(&"chest")
+			# 面向右：頭在胸口後方（x 較小）就是後仰。
+			back_lean = maxf(back_lean, rad_to_deg(atan2(-up.x, -up.y)))
 		if rig.has_bone(&"head"):
 			heads.append(animator.bone_pos(&"head").y)
 		var feet: Array[StringName] = [&"foot_front", &"foot_back"]
@@ -77,6 +101,10 @@ static func measure(rig: CharacterRig, speed: float, run_speed: float) -> Dictio
 	result["slide_l"] = slide / maxf(0.001, leg)
 	result["samples"] = hips.size()
 	result["head_pp"] = _peak_to_peak(heads)
+	result["hip_height_l"] = hip_heights / maxf(1.0, float(count)) / maxf(0.001, leg)
+	result["stance_knee"] = stance_knee
+	result["foot_spread_l"] = spread / maxf(0.001, leg)
+	result["back_lean"] = back_lean if back_lean > -INF else 0.0
 	return result
 
 

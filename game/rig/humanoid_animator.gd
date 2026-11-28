@@ -52,7 +52,7 @@ const DEFAULT_MOTION := {
 	"grounding": false,
 	"idle": {"breath_speed": 2.4, "breath_amp": 0.02, "hip_bob": 0.3, "chest": 0.0, "legs": [-0.12, 0.12, 0.2, 0.08], "sway": 0.0, "sway_speed": 1.3, "pin_feet": false, "pin_reach": 0.95, "counter": 0.0, "feet_x": []},
 	"move": {"grounding": false, "stride": 50.0, "swing": 0.8, "knee_bend": 1.2, "knee_base": 0.15, "hip_bounce": 1.4, "chest_lean": 0.12, "threshold": 0.08,
-			"duty": 0.55, "lift": 5.0, "reach": 0.985, "bounce": 0.0, "rise": 0.0, "stride_exp": 0.0, "stride_floor": 0.45, "level": 0.0, "bob_slow": 0.5},
+			"duty": 0.55, "lift": 5.0, "reach": 0.985, "bounce": 0.0, "rise": 0.0, "stride_exp": 0.0, "stride_floor": 0.45, "level": 0.0, "bob_slow": 0.5, "level_from": 0.0},
 	"foot": {"droop": 0.25, "heel": 0.0, "toe_off": 0.0},
 	"torso": {"hip_swing": 0.0, "chest_counter": 0.0, "chest_wobble": 0.0, "wobble_phase": 0.0, "head_hold": 0.0},
 	"inertia": {"gain": 0.0, "ref_accel": 1600.0, "stiffness": 90.0, "damping": 11.0, "max": 0.3},
@@ -98,6 +98,8 @@ const GROUND_MAX_SHIFT := 16.0
 const CORPSE_THICKNESS := 3.0
 ## 跑步落腳：身體至少下沉多少（膝蓋微彎）、IK 與關節動畫的切換速度（每秒）。
 const GAIT_MIN_SAG := 1.0
+## move.level_from 之後多少速度比例內把等高跑法完全淡入。
+const LEVEL_BLEND := 0.25
 const GAIT_BLEND_SPEED := 8.0
 ## 受擊時頭與骨盆跟著身體的幅度（頭是胸的比例，骨盆往後頂的像素 / 弧度）。
 const HURT_HEAD_RATIO := 0.6
@@ -157,6 +159,8 @@ var _gait_reach := 0.985
 var _gait_floor := NAN
 ## 等高跑法（move.level）：這一格有沒有啟用、相對於固定高度的額外起伏（像素）。
 var _gait_level := false
+## 等高跑法的權重 0~1（資料 move.level_from > 0 時隨速度淡入：走路是自然的步態，跑起來才等高，NE-480）。
+var _gait_level_w := 1.0
 var _gait_bob := 0.0
 var _run_w := 0.0
 var _overlay: Dictionary[StringName, float] = {}
@@ -620,6 +624,8 @@ func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> 
 			_cycle = fposmod(_phase / TAU, 1.0)
 			_gait_floor = GaitShape.body_sag(_cycle, _gait_duty, float(move["bounce"]), float(move["rise"]) * flight)
 			_gait_level = float(move["level"]) > 0.0
+			var level_from := float(move["level_from"])
+			_gait_level_w = smoothstep(level_from, level_from + LEVEL_BLEND, speed_ratio) if level_from > 0.0 else 1.0
 			if _gait_level:
 				var slow := lerpf(float(move["bob_slow"]), 1.0, minf(speed_ratio, 1.0))
 				var bob := GaitShape.body_sag(_cycle, _gait_duty, float(move["bounce"]) * slow, float(move["rise"]) * flight * slow)
@@ -861,7 +867,8 @@ func _step_legs(stage_grounded: bool) -> void:
 	if _gait_level:
 		# 等高：固定在腿剛好夠得到最大步幅的高度（膝蓋彎曲吸收），再加上資料指定的小幅起伏。
 		var reach := _leg_length * _gait_reach
-		floor_sag = maxf(GAIT_MIN_SAG, _leg_length - sqrt(maxf(0.0, reach * reach - _gait_amp_now * _gait_amp_now))) + _gait_bob
+		var level_sag := maxf(GAIT_MIN_SAG, _leg_length - sqrt(maxf(0.0, reach * reach - _gait_amp_now * _gait_amp_now))) + _gait_bob
+		floor_sag = lerpf(floor_sag, level_sag, _gait_level_w)
 	# Idle pinning and gait are two grounded targets, not a fade through unplanted rest legs.
 	# Blend their foot positions before solving IK, so the floor stays the same throughout.
 	# Without idle pinning (air/blocked/authored poses), preserve the original gait fade.

@@ -22,10 +22,11 @@
   "hip_bounce": 0.9,
   "chest_lean": 0.1,
   "threshold": 0.08,
-  "stride_exp": 0.75,
+  "stride_exp": 1.0,
   "stride_floor": 0.45,
   "duty": 0.72,
-  "lift": 3.5
+  "lift": 3.5,
+  "reach": 0.995
  },
  "crouch": {
   "hip_drop": 8.0,

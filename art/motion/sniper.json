@@ -26,7 +26,10 @@
   "bounce": 0.6,
   "rise": 0.4,
   "level": 1.0,
-  "bob_slow": 0.8
+  "bob_slow": 0.8,
+  "level_from": 0.6,
+  "stride_exp": 1.0,
+  "stride_floor": 0.6
  },
  "crouch": {
   "hip_drop": 10.0,

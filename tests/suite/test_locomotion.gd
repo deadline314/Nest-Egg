@@ -30,6 +30,7 @@ func run() -> void:
 	await _test_gait_is_smooth()
 	await _test_stride_scales_with_speed()
 	await _test_grounded_characters()
+	await _test_walking_posture()
 
 
 ## Idle and gait must share a planted transition, including actual lunge-sized body offsets.
@@ -132,3 +133,47 @@ func _test_grounded_characters() -> void:
 		holder.queue_free()
 		await frames(1)
 	check(checked >= 8, "the grounded enemies were measured (%d)" % checked)
+
+
+## 走路的姿勢（NE-480）：每個有動作資料的角色以自己實際走路的速度走一段，骨盆不能太低、支撐中段膝蓋不能彎太深、
+## 兩腳要邁得開、上身不能後仰——擋住「坐在看不見的椅子上往前挪」那種步態（迷彩獵手、狙擊手曾經如此）。
+## 門檻與速度見 GaitLimits；也用一份故意改壞的動作資料確認擋得住。主角另外由上面的主角項目管。
+func _test_walking_posture() -> void:
+	var speeds := GaitLimits.walk_speeds()
+	var checked := 0
+	for file in DirAccess.get_files_at("res://art/motion"):
+		if not file.ends_with(".json"):
+			continue
+		var skin := file.get_basename()
+		if skin == GaitLimits.PROTAGONIST:
+			continue
+		var holder := Node2D.new()
+		runner.add_child(holder)
+		var rig := CharacterRig.new()
+		holder.add_child(rig)
+		if not rig.setup(skin):
+			holder.queue_free()
+			continue
+		checked += 1
+		var pace: Array = GaitLimits.pace_for(skin, speeds)
+		var problems := GaitLimits.problems(LocomotionAudit.measure(rig, float(pace[0]), float(pace[1])), skin)
+		check(problems.is_empty(), "%s walks upright at %.0f px/s: %s" % [skin, pace[0], "; ".join(problems)])
+		holder.queue_free()
+		await frames(1)
+	check(checked >= 30, "every character with motion data was measured walking (%d)" % checked)
+	# 負控制：把迷彩獵手改回等高跑法、不隨速度縮步長（修正前的資料），同一組檢查要擋下來。
+	var holder := Node2D.new()
+	runner.add_child(holder)
+	var bad := CharacterRig.new()
+	holder.add_child(bad)
+	check(bad.setup("stalker"), "rig builds: stalker (negative control)")
+	var move: Dictionary = (bad.animator as HumanoidAnimator)._motion["move"]
+	move["level"] = 1.0
+	move["level_from"] = 0.0
+	move["stride_exp"] = 0.0
+	move["stride"] = 56.0
+	var pace: Array = GaitLimits.pace_for("stalker", speeds)
+	check(not GaitLimits.problems(LocomotionAudit.measure(bad, float(pace[0]), float(pace[1])), "stalker").is_empty(),
+			"the old crouched stalker gait is rejected")
+	holder.queue_free()
+	await frames(1)
