@@ -71,6 +71,9 @@ func _ready() -> void:
 	if not hint.is_empty():
 		var prompt := WorldPrompt.new()
 		prompt.text = hint
+		# 拾取物的說明是「在講話」的文字（不是按鍵邀請，碰到就撿）：和氣泡輪流，有人講話時等講完（NE-493）。
+		prompt.text_kind = &"pickup"
+		prompt.voice = TextTraffic.Voice.PICKUP
 		prompt.radius = 56.0
 		prompt.offset = Vector2(0, -26)
 		add_child(prompt)

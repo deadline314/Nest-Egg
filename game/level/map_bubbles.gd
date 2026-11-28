@@ -3,6 +3,7 @@ extends Node2D
 ## 地圖上的對話氣泡（ST-12）：講話的人頭上冒出一行短句，不鎖操作、不暫停、不改鏡頭，自己消失。
 ## 規格（見 .claude/skills/chapter-design）：每句 ≤ 30 字；同屏 1 個（NE-491：文字的交通管制，和教學看板輪流講話，見 TextTraffic），新的出現時舊的淡出；顯示時間 1.2 秒 + 0.1 秒 × 字數（上限 4.2 秒）；
 ## 戰鬥中只用 bark（≤ 16 字）。講者不在地圖上時（廣播裡的聲音）改用通訊面板，不會憑空冒出氣泡。
+## 錨在世界、大小在螢幕（NE-493）：氣泡跟著講者（世界座標），字級、寬度、內距與尾巴是畫面像素（WorldText 的 addressed／ambient），不隨鏡頭倍率變大變小。
 ##
 ## 由 Level 建立並登記給 Story（Story.set_bubble_host）；劇本的 mode 為 bubbles 的場景交給它播。
 ## 氣泡跟著講者移動；來源宣告離場即取消該次對話。沒有在場介面的已釋放錨點仍保留最後位置閱讀。
@@ -20,16 +21,14 @@ const HOLD_PER_CHAR := 0.1
 const HOLD_MAX := 4.2
 const FADE_IN := 0.12
 const FADE_OUT := 0.3
-const FONT_SIZE := 9
+## 內距、尾巴與圓角是畫面像素。
 const PADDING := Vector2(6, 3)
 ## 氣泡底邊離講者腳底的高度（站立的人頭頂上方）。
 const HEAD_HEIGHT := 52.0
 const STACK_GAP := 3.0
 const TAIL := 4.0
 const NAME_GAP := 4.0
-## 樣子（NE-491）：不是黑色方框，是圓角的淡色底；路人閒聊比對主角說的話更窄、更淡（可以不讀）。
-const AMBIENT_WIDTH := 150.0
-const ADDRESSED_WIDTH := 210.0
+## 樣子（NE-491）：不是黑色方框，是圓角的淡色底；路人閒聊比對主角說的話更小、更窄、更淡（可以不讀；寬度與字級見 WorldText）。
 const AMBIENT_ALPHA := 0.72
 const PLATE_COLOR := Color("0a1219")
 const PLATE_ALPHA := 0.82
@@ -330,8 +329,8 @@ func _layout_boxes() -> void:
 	_layout_frame = frame
 	var suspended := get_tree().paused or GameplayLock.is_locked() or Story.is_cinematic_active() or DialogueLayer.radio_visible()
 	var camera_rect := _visible_world_rect()
-	var width := TEXT_LAYOUT.content_width(get_viewport(), PADDING)
-	var font_size := roundi(FONT_SIZE * Settings.get_ui_text_scale())
+	var unit := WorldText.unit(self)
+	var tail := TAIL * unit
 	var stack_offset := {}
 	_layout_entries.clear()
 	_layout_rects.clear()
@@ -343,23 +342,24 @@ func _layout_boxes() -> void:
 		bubble["rect"] = Rect2()
 		if suspended or _source_is_absent(bubble) or not camera_rect.grow(32.0).has_point(bubble["pos"]):
 			continue
-		var bubble_width := minf(width, AMBIENT_WIDTH if int(bubble.get("voice", 0)) == TextTraffic.Voice.AMBIENT else ADDRESSED_WIDTH)
-		if not bubble.has("paragraph") or not is_equal_approx(bubble.get("layout_width", -1.0), bubble_width) or bubble.get("font_size", -1) != font_size:
-			bubble["paragraph"] = TEXT_LAYOUT.paragraph(str(bubble["text"]), _font, font_size, bubble_width)
-			bubble["layout_width"] = bubble_width
+		var kind := kind_of(bubble)
+		var font_size := WorldText.font_size(kind)
+		if not bubble.has("paragraph") or bubble.get("font_size", -1) != font_size:
+			bubble["paragraph"] = WorldText.paragraph(str(bubble["text"]), kind)
 			bubble["font_size"] = font_size
+		bubble["unit"] = unit
 		var key := str((bubble["pos"] as Vector2).round())
 		var lift := float(stack_offset.get(key, 0.0))
 		var paragraph: TextParagraph = bubble["paragraph"]
-		var size := paragraph.get_size() + PADDING * 2.0
+		var size := (paragraph.get_size() + PADDING * 2.0) * unit
 		var anchor: Vector2 = bubble["pos"] + Vector2(0.0, -HEAD_HEIGHT - lift)
-		var box := Rect2(anchor + Vector2(-size.x * 0.5, -size.y - TAIL), size)
+		var box := Rect2(anchor + Vector2(-size.x * 0.5, -size.y - tail), size)
 		box.position.x = clampf(box.position.x, camera_rect.position.x + 4.0, camera_rect.end.x - size.x - 4.0)
 		box.position.y = clampf(box.position.y, camera_rect.position.y + 4.0, camera_rect.end.y - size.y - 4.0)
 		bubble["rect"] = box
 		_layout_entries.append(bubble)
 		_layout_rects.append(box)
-		stack_offset[key] = lift + size.y + STACK_GAP + TAIL
+		stack_offset[key] = lift + size.y + STACK_GAP + tail
 	if _layout_rects.is_empty():
 		return
 	# Aiming stays a second pass here so a crowded ambient caption retains its original place.
@@ -454,23 +454,28 @@ func _draw() -> void:
 		var alpha := _alpha_of(bubble) * (AMBIENT_ALPHA if ambient else 1.0)
 		var color: Color = bubble["color"]
 		var plate := Color(PLATE_COLOR, PLATE_ALPHA * alpha)
-		_draw_rounded(box, plate)
-		# 尾巴：從最靠近講者的那一邊指向講者頭頂。
+		var unit := float(bubble.get("unit", 1.0))
+		# 尾巴（世界座標，尺寸換成畫面像素）：從最靠近講者的那一邊指向講者頭頂。
 		var head: Vector2 = bubble["pos"] + Vector2(0.0, -HEAD_HEIGHT + 2.0)
-		var tip := Vector2(clampf(head.x, box.position.x + CORNER + 3.0, box.end.x - CORNER - 3.0), box.end.y)
-		var reach := minf(TAIL + 2.0, maxf(2.0, head.y - box.end.y))
-		var point := tip + (head - tip).normalized() * reach if head.distance_to(tip) > 0.5 else tip + Vector2(0, reach)
-		draw_colored_polygon(PackedVector2Array([tip + Vector2(-3.0, -0.5), tip + Vector2(3.0, -0.5), point]), plate)
+		var tip := Vector2(clampf(head.x, box.position.x + (CORNER + 3.0) * unit, box.end.x - (CORNER + 3.0) * unit), box.end.y)
+		var reach := minf((TAIL + 2.0) * unit, maxf(2.0 * unit, head.y - box.end.y))
+		var point := tip + (head - tip).normalized() * reach if head.distance_to(tip) > 0.5 * unit else tip + Vector2(0, reach)
+		draw_colored_polygon(PackedVector2Array([tip + Vector2(-3.0, -0.5) * unit, tip + Vector2(3.0, -0.5) * unit, point]), plate)
 		# 被擠高或擠到旁邊時，尾巴到講者頭頂之間補一條淡淡的點線，看得出是誰在講。
-		if head.distance_to(point) > 6.0:
-			var steps := int(head.distance_to(point) / 4.0)
+		if head.distance_to(point) > 6.0 * unit:
+			var steps := int(head.distance_to(point) / (4.0 * unit))
 			for s in range(1, steps):
-				draw_circle(point.lerp(head, float(s) / float(steps)), 0.7, Color(color.r, color.g, color.b, 0.55 * alpha))
+				draw_circle(point.lerp(head, float(s) / float(steps)), 0.8 * unit, Color(color.r, color.g, color.b, 0.55 * alpha))
+		# 底、細軌與文字在畫面像素的座標裡畫（字在螢幕上的大小固定）。
+		draw_set_transform(box.position, 0.0, Vector2.ONE * unit)
+		var local := Rect2(Vector2.ZERO, box.size / unit)
+		_draw_rounded(local, plate)
 		if not ambient:
 			# 對主角說的話：左邊一小段講者顏色的細軌（和地點標示同一種語言），標出是誰在講。
-			draw_rect(Rect2(box.position + Vector2(1.5, CORNER), Vector2(1.5, box.size.y - CORNER * 2.0)), Color(color.r, color.g, color.b, 0.9 * alpha))
+			draw_rect(Rect2(Vector2(1.5, CORNER), Vector2(1.5, local.size.y - CORNER * 2.0)), Color(color.r, color.g, color.b, 0.9 * alpha))
 		var paragraph: TextParagraph = bubble["paragraph"]
-		paragraph.draw(get_canvas_item(), box.position + PADDING + Vector2(1.5 if not ambient else 0.0, 0.0), Color(0.94, 0.97, 1.0, alpha))
+		paragraph.draw(get_canvas_item(), PADDING + Vector2(1.5 if not ambient else 0.0, 0.0), Color(0.94, 0.97, 1.0, alpha))
+		draw_set_transform_matrix(Transform2D.IDENTITY)
 
 
 ## 圓角的底（四個角各用一段弧），不是方框。
@@ -483,6 +488,11 @@ func _draw_rounded(box: Rect2, color: Color) -> void:
 			var angle := -PI * 0.5 + PI * 0.5 * (float(i) + float(k) / 3.0)
 			points.append((centers[i] as Vector2) + Vector2(cos(angle), sin(angle)) * r)
 	draw_colored_polygon(points, color)
+
+## 氣泡是哪一類世界文字：有凜參與的是對她說的話，其餘是路人閒聊。
+static func kind_of(bubble: Dictionary) -> StringName:
+	return &"ambient" if int(bubble.get("voice", 0)) == TextTraffic.Voice.AMBIENT else &"addressed"
+
 
 func _alpha_of(bubble: Dictionary) -> float:
 	var fade_in := clampf(float(bubble["age"]) / FADE_IN, 0.0, 1.0)

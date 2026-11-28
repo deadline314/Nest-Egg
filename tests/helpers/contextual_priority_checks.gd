@@ -188,8 +188,8 @@ static func _actual_player_obstacle(suite: TestSuite) -> void:
 	var shown := Rect2(prompt.base_rect().position + prompt._nudge, prompt.base_rect().size)
 	suite.check(not shown.intersects(player.prompt_obstacle_rect()), "actual solver shifts long tutorial text away from actual registered player presentation")
 	suite.check(not shown.intersects(vitals.prompt_obstacle_rect()), "actual solver also clears head-side vitals rather than moving text into its health pips")
-	var ascent := prompt._font.get_ascent(WorldPrompt.FONT_SIZE)
-	var descent := prompt._font.get_descent(WorldPrompt.FONT_SIZE)
+	var ascent := prompt._font.get_ascent(prompt._font_size)
+	var descent := prompt._font.get_descent(prompt._font_size)
 	suite.check(is_equal_approx(prompt._text_baseline.y - ascent, prompt._box.position.y + WorldPrompt.PADDING.y)
 		and prompt._text_baseline.y + descent <= prompt._box.end.y - WorldPrompt.PADDING.y + 0.001,
 		"cached baseline and ascent/descent fit the exact rectangle used by collision layout")

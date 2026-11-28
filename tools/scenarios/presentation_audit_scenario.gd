@@ -50,6 +50,14 @@ func run() -> void:
 			await _bubble_styles()
 			await finish()
 			return
+		if arg.begins_with("--part=world-text"):
+			Story.auto_skip = true
+			GameState.pending_portal = &"street_home"
+			await _open(STREET)
+			await wait(5.0)
+			await _world_text(arg.get_slice("@", 1) if arg.contains("@") else "after")
+			await finish()
+			return
 		if arg.begins_with("--part=choice"):
 			Story.auto_skip = false
 			await _open(STALL)
@@ -277,6 +285,53 @@ func _bubble_styles() -> void:
 	capture("bubble-addressed")
 
 
+## 世界裡的文字在螢幕上的大小（NE-493）：同一段對話、互動提示與拾取說明，在鏡頭倍率 1.4、1.92、2.4 各拍兩格
+## （氣泡在講、氣泡講完後拾取說明出來）；字高應該一樣，只有世界跟著變大變小。
+func _world_text(tag: String) -> void:
+	player.health.setup(999, 0.0)
+	var npcs: Array[Node2D] = []
+	for node in get_tree().get_nodes_in_group(NpcActor.GROUP):
+		if node is Node2D:
+			npcs.append(node)
+	npcs.sort_custom(func(a: Node2D, b: Node2D) -> bool: return a.global_position.x < b.global_position.x)
+	if npcs.is_empty():
+		print("AUDIT no npc in street")
+		return
+	var vendor: Node2D = npcs[0]
+	var host: MapBubbles = null
+	for node in level.find_children("*", "", true, false):
+		if node is MapBubbles:
+			host = node
+	host.anchor_resolver = func(id: String) -> Node2D: return player if id == "rin" else vendor
+	var pickup := WorldPrompt.new()
+	pickup.text = "止痛貼片：撐過下一場就好，別當成治療。"
+	pickup.set("text_kind", &"pickup")
+	pickup.set("voice", TextTraffic.Voice.get("PICKUP", TextTraffic.Voice.NONE))
+	pickup.reach_check = func() -> bool: return true
+	var base := level.camera.tuning
+	for zoom: float in [1.4, 1.92, 2.4]:
+		level.camera.tuning = base.with_zoom(zoom)
+		player.global_position = vendor.global_position + Vector2(-80.0, 0.0)
+		snap_camera()
+		if pickup.get_parent() == null:
+			level.add_child(pickup)
+		pickup.global_position = player.global_position + Vector2(-40.0, -30.0)
+		await wait(0.6)
+		var talk: Array[Dictionary] = [{"speaker": "street_vendor", "text": "妳也是來找收帳的人？他早上往碼頭走了。", "color": Palette.NEON_YELLOW}, {"speaker": "rin", "text": "謝了。", "color": Palette.MAGENTA}]
+		host.show_lines(StringName("world_text_%d" % roundi(zoom * 100.0)), talk)
+		for i in 20:
+			await wait(0.15)
+			if host._active.any(func(b: Dictionary) -> bool: return (b.get("rect", Rect2()) as Rect2).has_area()):
+				break
+		await wait(0.3)
+		capture("world-text-%s-z%03d-talk" % [tag, roundi(zoom * 100.0)])
+		while host.is_busy():
+			await wait(0.2)
+		await wait(0.8)
+		capture("world-text-%s-z%03d-quiet" % [tag, roundi(zoom * 100.0)])
+	level.camera.tuning = base
+
+
 ## 過場的選擇框不蓋住講者（NE-492）：播麵攤的招待選擇，台詞自動往下，選擇框出現後拍一張。
 func _choice_frame(scene_id: StringName, tag: String) -> void:
 	Story.skip_cinematic()
@@ -294,8 +349,6 @@ func _choice_frame(scene_id: StringName, tag: String) -> void:
 		await get_tree().process_frame
 	await wait(1.0)
 	capture("choice-%s" % tag)
-	if is_instance_valid(cutscene) and cutscene.has_method(&"_reading_actors"):
-		print("AUDIT choice %s actors=%s cam=%s zoom=%.2f corner=%d safe=%s screen=%s" % [scene_id, cutscene._reading_actors(), cutscene.cam_pos, cutscene.cam_zoom, cutscene._choice.corner if is_instance_valid(cutscene._choice) else -9, Story.framing.safe_rect(), get_viewport().get_visible_rect().size])
 	if is_instance_valid(cutscene):
 		cutscene.skip()
 		await wait(1.0)

@@ -25,6 +25,8 @@ func run() -> void:
 	_test_cutscene_text_boxes()
 	await _test_text_traffic_scene()
 	await _test_level_entry()
+	await _test_world_text_screen_size()
+	_test_world_text_fits()
 
 
 func _test_names() -> void:
@@ -476,3 +478,121 @@ func _test_cutscene_text_boxes() -> void:
 		staged += 1
 		problems.append_array(CutsceneChecker.text_box_problems(id, scene))
 	check(staged > 50 and problems.is_empty(), "%d 段過場的文字框都不蓋住講者（%s）" % [staged, ", ".join(problems)])
+
+
+## NE-493：世界裡的文字（互動提示、拾取說明、氣泡）在螢幕上的字高不隨鏡頭倍率變（回憶舞台 1.4、關卡 1.92、測試場景 2.4、拉近的脈衝），
+## 720p、1080p、21:9 與文字 1.2 倍下，同一類文字在不同倍率的字高相差不超過 1 像素；寬度不超過該類的上限。
+func _test_world_text_screen_size() -> void:
+	var original_scale := Settings.get_ui_text_scale()
+	var windows := {"720p": Vector2(1280, 720), "1080p": Vector2(1920, 1080), "21:9": Vector2(2560, 1080)}
+	for text_scale: float in [1.0, 1.2]:
+		Settings.set_ui_text_scale(text_scale)
+		var heights := {}
+		for zoom: float in [1.4, 1.92, 1.92 * 1.06, 2.4]:
+			var measured := await _measure_world_text(zoom)
+			for kind: StringName in measured:
+				var list: Array = heights.get(kind, [])
+				list.append(measured[kind])
+				heights[kind] = list
+		for kind: StringName in heights:
+			var design: Array = heights[kind]
+			check(design.size() == 4, "%s 在四種鏡頭倍率都量得到（%d）" % [kind, design.size()])
+			for window: String in windows:
+				var size: Vector2 = windows[window]
+				var stretch := minf(size.x / 640.0, size.y / 360.0)
+				var low := INF
+				var high := -INF
+				for value: float in design:
+					low = minf(low, value * stretch)
+					high = maxf(high, value * stretch)
+				check(high - low <= 1.0, "%s 在 %s、文字 %.1f 倍時各倍率字高 %.1f～%.1f 像素，相差不超過 1" % [kind, window, text_scale, low, high])
+				var expected := WorldText.font_size(kind) * stretch
+				check(absf(high - expected) <= 1.0, "%s 在 %s 的字高 %.1f 像素等於字體角色 %s（%.1f）" % [kind, window, high, WorldText.role(kind), expected])
+	Settings.set_ui_text_scale(original_scale)
+
+
+## 在倍率 zoom 的鏡頭下放一個互動提示、一個拾取說明與兩種氣泡，回傳每一類文字在 640×360 畫布上的字高。
+func _measure_world_text(zoom: float) -> Dictionary:
+	TextTraffic.reset()
+	var viewport := SubViewport.new()
+	viewport.size = Vector2i(640, 360)
+	runner.add_child(viewport)
+	var world := Node2D.new()
+	viewport.add_child(world)
+	var camera := Camera2D.new()
+	camera.position = Vector2(320, 180)
+	camera.zoom = Vector2.ONE * zoom
+	world.add_child(camera)
+	camera.make_current()
+	var prompt := WorldPrompt.new()
+	prompt.text = "{interact} 打開閘門"
+	prompt.reach_check = func() -> bool: return true
+	prompt.position = Vector2(270, 200)
+	world.add_child(prompt)
+	var pickup := WorldPrompt.new()
+	pickup.text = "止痛貼片：撐過下一場就好。"
+	pickup.text_kind = &"pickup"
+	pickup.reach_check = func() -> bool: return true
+	pickup.position = Vector2(370, 150)
+	world.add_child(pickup)
+	var speaker := Node2D.new()
+	speaker.position = Vector2(320, 230)
+	world.add_child(speaker)
+	var bubbles := MapBubbles.new()
+	bubbles.anchor_resolver = func(_id: String) -> Node2D: return speaker
+	world.add_child(bubbles)
+	await frames(3)
+	var result := {}
+	for item: WorldPrompt in [prompt, pickup]:
+		result[item.text_kind] = item._font_size * item.get_global_transform_with_canvas().get_scale().y
+		check(item._box.size.x <= WorldText.max_width(item.text_kind) + (WorldPrompt.PADDING.x + 1.0) * 2.0,
+			"%s 的寬度 %.0f 不超過上限（倍率 %.2f）" % [item.text_kind, item._box.size.x, zoom])
+	for voice: int in [TextTraffic.Voice.AMBIENT, TextTraffic.Voice.ADDRESSED]:
+		var bubble := {"voice": voice, "text": "市集那頭被收帳的封了，菜車只好繞去碼頭。"}
+		var kind := MapBubbles.kind_of(bubble)
+		var unit := WorldText.unit(bubbles)
+		result[kind] = WorldText.font_size(kind) * bubbles.get_global_transform_with_canvas().get_scale().y * unit
+		check(WorldText.paragraph(bubble["text"], kind).get_size().x <= WorldText.max_width(kind) + 0.5, "%s 氣泡的寬度不超過上限" % kind)
+	viewport.queue_free()
+	await frames(1)
+	return result
+
+
+## NE-493：所有地圖氣泡的台詞與拾取物的說明，在文字 1.2 倍時也不超過該類的行數上限。
+func _test_world_text_fits() -> void:
+	var original_scale := Settings.get_ui_text_scale()
+	Settings.set_ui_text_scale(1.2)
+	var over := PackedStringArray()
+	var bubble_lines := 0
+	for id: Variant in Story.scene_ids():
+		var scene: Dictionary = Story.audit_data()["scenes"].get(id, {})
+		if StringName(str(scene.get("mode", ""))) != Story.MODE_BUBBLES:
+			continue
+		var lines := Story.resolved_lines(StringName(str(id)))
+		var kind := &"addressed" if lines.any(func(l: Dictionary) -> bool: return str(l.get("speaker", "")) == "rin") else &"ambient"
+		for line: Dictionary in lines:
+			bubble_lines += 1
+			var count := WorldText.paragraph(str(line.get("text", "")), kind).get_line_count()
+			if count > WorldText.max_lines(kind):
+				over.append("%s（%s %d 行）" % [id, kind, count])
+	check(bubble_lines > 40, "檢查到地圖氣泡的台詞（%d 句）" % bubble_lines)
+	var pickups := 0
+	for folder: String in ["res://data/consumables", "res://data/weapons", "res://data/weapons/melee", "res://data/story_items"]:
+		for file: String in ResourceLoader.list_directory(folder):
+			if not file.ends_with(".tres"):
+				continue
+			var resource := load(folder.path_join(file))
+			var text := ""
+			if resource is StoryItemData:
+				text = "%s：%s" % [resource.title_text(), resource.description_text()]
+			elif resource != null and resource.has_method(&"display_name_for") and resource.has_method(&"description_for"):
+				text = Pickup._describe(resource.display_name_for(Story.language), resource.description_for(Story.language))
+			if text.strip_edges().is_empty():
+				continue
+			pickups += 1
+			var count := WorldText.paragraph(text, &"pickup").get_line_count()
+			if count > WorldText.max_lines(&"pickup"):
+				over.append("%s（%d 行）" % [file, count])
+	check(pickups > 20, "檢查到拾取物的說明（%d 個）" % pickups)
+	check(over.is_empty(), "地圖氣泡與拾取說明在文字 1.2 倍時不超過行數上限：%s" % ", ".join(over))
+	Settings.set_ui_text_scale(original_scale)

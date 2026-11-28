@@ -6,6 +6,7 @@ extends Node2D
 ## 可掛在任何物件下重複使用（道具、載具、檢查點、教學看板）。
 ## 文字可用 {動作} 佔位符（例如 "{interact} 搭乘"），會自動顯示玩家目前設定的按鍵；切換鍵鼠與手把時跟著換。
 ## keycaps = true 時，佔位符畫成按鍵帽（教學用：一眼看出要按哪個鍵），其餘提示維持純文字。
+## 錨在世界、大小在螢幕（NE-493）：位置跟著物件，字級、寬度與內距是畫面像素（WorldText），不隨鏡頭倍率變大變小。
 
 const TEXT_LAYOUT = preload("res://game/level/world_text_layout.gd")
 
@@ -13,7 +14,6 @@ const FADE_SPEED := 6.0
 ## 被推開時移動的速度（像素／秒）：提示是滑到新位置，不是跳過去。
 const NUDGE_SPEED := 240.0
 const PADDING := Vector2(5, 3)
-const FONT_SIZE := 9
 const LEADER_DOT := 1.5
 ## 指向線的終點在文字框原位下緣再往下幾像素（人物頭頂與文字之間）。
 const LEADER_STEM := 5.0
@@ -45,6 +45,11 @@ const TOKEN_PATTERN := "\\{([a-z_0-9]+)\\}"
 	set(value):
 		keycaps = value
 		_refresh_text()
+## 哪一類世界文字（WorldText.KINDS）：決定字體角色、最大寬度與行數。
+@export var text_kind: StringName = &"prompt":
+	set(value):
+		text_kind = value
+		_refresh_text()
 
 var enabled := true
 ## 這個提示是不是「在講話」的文字（教學看板）：是的話要和氣泡輪流，只在拿到發言時展開（TextTraffic，NE-491）。
@@ -64,11 +69,13 @@ var _box := Rect2()
 var _text_baseline := Vector2.ZERO
 var _paragraph: TextParagraph
 var _layout_width := -1.0
-var _font_size := FONT_SIZE
+var _font_size := 11
+## 一個畫面像素等於多少父節點單位（WorldText.fit 每格更新）。
+var _unit := 1.0
 var _cursor := Vector2.ZERO
 var _line_height := 0.0
 var _layout_allowed := true
-## 被自動錯開時的位移（目前、目標；x 橫向，y 往上為負）。
+## 被自動錯開時的位移（世界座標；目前、目標；x 橫向，y 往上為負）。
 var _nudge := Vector2.ZERO
 var _nudge_target := Vector2.ZERO
 var _leader: Node2D
@@ -86,8 +93,9 @@ func _ready() -> void:
 	# 絕對圖層：提示掛在角色、檢查點、拾取物底下，但一律畫在所有角色與前景之上，不跟著主人的圖層組。
 	z_as_relative = false
 	z_index = WorldLayers.WORLD_PROMPTS
-	_font = UiKit.font()
+	_font = WorldText.font(text_kind)
 	position = offset
+	_unit = WorldText.fit(self)
 	_refresh_text()
 	InputBindings.bindings_changed.connect(_refresh_text)
 	Settings.display_changed.connect(_refresh_text)
@@ -112,15 +120,16 @@ func _refresh_text() -> void:
 	if not is_inside_tree():
 		_layout_width = -1.0
 		return
+	_font = WorldText.font(text_kind)
 	if _font != null:
-		_layout_width = TEXT_LAYOUT.content_width(get_viewport(), PADDING)
-		_font_size = roundi(FONT_SIZE * Settings.get_ui_text_scale())
+		_layout_width = WorldText.max_width(text_kind)
+		_font_size = WorldText.font_size(text_kind)
 		var size: Vector2
 		if keycaps and is_inside_tree():
 			_paragraph = null
 			size = _layout_keycaps()
 		else:
-			_paragraph = TEXT_LAYOUT.paragraph(_display_text, _font, _font_size, _layout_width)
+			_paragraph = WorldText.paragraph(_display_text, text_kind, _layout_width)
 			size = _paragraph.get_size()
 		size.y = maxf(size.y, _font.get_ascent(_font_size) + _font.get_descent(_font_size))
 		_box = Rect2(Vector2(-size.x * 0.5, -size.y) - PADDING, size + PADDING * 2.0)
@@ -162,7 +171,7 @@ func _add_segment(part: String, cap: bool) -> void:
 		_cursor = Vector2(0.0, _cursor.y + _line_height)
 		gap = 0.0
 	if not cap and width > _layout_width:
-		var paragraph := TEXT_LAYOUT.paragraph(part, _font, _font_size, _layout_width)
+		var paragraph := WorldText.paragraph(part, text_kind, _layout_width)
 		for i in paragraph.get_line_count():
 			var span := paragraph.get_line_range(i)
 			var line := part.substr(span.x, span.y - span.x).strip_edges()
@@ -190,7 +199,12 @@ func layout_requested() -> bool:
 
 ## 沒被推開時文字框在世界座標的矩形。
 func base_rect() -> Rect2:
-	return Rect2(global_position + _box.position, _box.size)
+	return get_global_transform() * _box
+
+
+## 世界座標的錯開位移換成本地（畫面像素）。
+func _local_nudge() -> Vector2:
+	return get_global_transform().affine_inverse().basis_xform(_nudge)
 
 
 func set_nudge_target(value: Vector2, allowed := true) -> void:
@@ -203,8 +217,10 @@ func set_nudge_target(value: Vector2, allowed := true) -> void:
 
 
 func _process(delta: float) -> void:
-	if not is_equal_approx(_layout_width, TEXT_LAYOUT.content_width(get_viewport(), PADDING)):
-		_refresh_text()
+	var unit := WorldText.fit(self)
+	if not is_equal_approx(unit, _unit):
+		_unit = unit
+		PromptLayout.invalidate()
 	var suspended := _presentation_blocked()
 	visible = not suspended
 	if suspended:
@@ -270,7 +286,8 @@ func _interaction_superseded() -> bool:
 func _draw() -> void:
 	if not _layout_allowed or _alpha <= 0.0 or _display_text.is_empty() or _font == null or _presentation_blocked():
 		return
-	var rect := Rect2(_box.position + _nudge, _box.size)
+	var nudge := _local_nudge()
+	var rect := Rect2(_box.position + nudge, _box.size)
 	var open := plate_open(_alpha)
 	var ink := text_alpha(_alpha)
 	_draw_plate(rect, open, _alpha)
@@ -280,7 +297,7 @@ func _draw() -> void:
 		_paragraph.draw(get_canvas_item(), rect.position + PADDING, Color(Palette.UI_TEXT, ink))
 		return
 	for segment in _segments:
-		var origin := _text_baseline + _nudge + Vector2(segment["x"], segment["y"] + CAP_PADDING.y)
+		var origin := _text_baseline + nudge + Vector2(segment["x"], segment["y"] + CAP_PADDING.y)
 		if segment["cap"]:
 			var cap := Rect2(rect.position + PADDING + Vector2(segment["x"], segment["y"]), Vector2(segment["w"], _line_height))
 			draw_rect(cap, Color(CAP_FILL, ink))
@@ -348,7 +365,8 @@ static func _wing() -> GradientTexture2D:
 func _draw_leader() -> void:
 	if not _layout_allowed or _alpha <= 0.0 or _nudge.length() < 1.0 or _presentation_blocked():
 		return
-	var from := Vector2(_nudge.x, _box.end.y + _nudge.y)
+	var nudge := _local_nudge()
+	var from := Vector2(nudge.x, _box.end.y + nudge.y)
 	var to := Vector2(0.0, _box.end.y + LEADER_STEM)
 	var color := Color(Palette.CYAN, 0.7 * _alpha)
 	# Clip in the real leader Node's world frame. Frobenius norm bounds a

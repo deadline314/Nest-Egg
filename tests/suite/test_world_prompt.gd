@@ -146,7 +146,7 @@ func _test_long_text() -> void:
 	for source: String in ["在電話亭備份，死了會從最近的電話亭醒來，沿原路繼續前進。", "Back up at the telephone booth, then continue through the warehouse without losing your progress.", "電話ボックスでバックアップしてから、倉庫の奥へ進んでください。"]:
 		var prompt := _spawn_prompt(stage, view.get_center().x, source)
 		prompt._process(1.0)
-		check(prompt._display_text == source and prompt.base_rect().size.x <= view.size.x * 0.6 and prompt.base_rect().size.y > 15.0, "long world text wraps without shortening its complete source: " + source)
+		check(prompt._display_text == source and prompt.base_rect().size.x <= view.size.x * 0.6 and prompt._box.size.y > 15.0, "long world text wraps without shortening its complete source: " + source)
 		prompt.get_parent().queue_free()
 		await frames(2)
 	var taught := _spawn_prompt(stage, view.get_center().x, "先在電話亭按 {interact} 備份，補滿彈藥後按 {reload} 換彈再出發。")
