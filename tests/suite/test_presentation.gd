@@ -5,6 +5,7 @@ extends TestSuite
 
 const PAWNSHOP := "res://data/levels/ch1_pawnshop.tres"
 const STREET := "res://data/levels/ch1_street.tres"
+const WAREHOUSE := "res://data/levels/ch1_warehouse.tres"
 const TITLE_FONT := "res://art/fonts/NestEggTitleTC-Bold.ttf"
 const TITLE_FONT_JA := "res://art/fonts/NestEggTitleJP-Bold.ttf"
 
@@ -27,6 +28,8 @@ func run() -> void:
 	await _test_level_entry()
 	await _test_world_text_screen_size()
 	_test_world_text_fits()
+	await _test_world_text_real_areas()
+	await _test_pickup_yields_to_bubble()
 
 
 func _test_names() -> void:
@@ -596,3 +599,92 @@ func _test_world_text_fits() -> void:
 	check(pickups > 20, "檢查到拾取物的說明（%d 個）" % pickups)
 	check(over.is_empty(), "地圖氣泡與拾取說明在文字 1.2 倍時不超過行數上限：%s" % ", ".join(over))
 	Settings.set_ui_text_scale(original_scale)
+
+
+## NE-493：在真實區域量。取景最緊的是第一章街道靠近人物時（21:9 遮幅，看得到約 143 個世界單位高），最鬆的是沒有遮幅的倉庫（約 188）；
+## 同一類文字的字高在 720p、1080p、21:9 與文字 1.0、1.2 倍時相差不超過 1 像素，等於字體角色的字級。
+func _test_world_text_real_areas() -> void:
+	var previous_skip := Story.auto_skip
+	Story.auto_skip = true
+	var factors := {}
+	var view_heights := {}
+	for area: Array in [["街道", STREET, 1.0], ["倉庫", WAREHOUSE, 0.0]]:
+		var data := (load(area[1]) as LevelData).duplicate() as LevelData
+		data.intro_scene = &""
+		var level := await start_level(data)
+		Story.framing.amount = area[2]
+		var prompt := WorldPrompt.new()
+		prompt.text = "{interact} 打開閘門"
+		prompt.reach_check = func() -> bool: return true
+		level.add_child(prompt)
+		prompt.global_position = level.player.global_position + Vector2(0.0, -48.0)
+		var pickup := WorldPrompt.new()
+		pickup.text = "止痛貼片：撐過下一場就好。"
+		pickup.text_kind = &"pickup"
+		pickup.reach_check = func() -> bool: return true
+		level.add_child(pickup)
+		pickup.global_position = level.player.global_position + Vector2(60.0, -20.0)
+		await frames(3)
+		var host: MapBubbles = null
+		for node in level.find_children("*", "", true, false):
+			if node is MapBubbles:
+				host = node
+		view_heights[area[0]] = Story.framing.safe_rect().size.y / level.camera.zoom.y
+		# 畫面像素對字級的倍率：字高＝字級 × 這個倍率 × 視窗縮放。
+		factors[area[0]] = {
+			&"prompt": prompt.get_global_transform_with_canvas().get_scale().y,
+			&"pickup": pickup.get_global_transform_with_canvas().get_scale().y,
+			&"addressed": host.get_global_transform_with_canvas().get_scale().y * WorldText.unit(host) if host != null else 0.0,
+			&"ambient": host.get_global_transform_with_canvas().get_scale().y * WorldText.unit(host) if host != null else 0.0,
+		}
+		Story.framing.amount = 0.0
+		await end_level(level)
+	Story.auto_skip = previous_skip
+	check(absf(float(view_heights["街道"]) - 143.0) < 4.0 and float(view_heights["倉庫"]) > 180.0,
+		"最緊的街道約 143 個世界單位高、最鬆的倉庫超過 180（%.0f／%.0f）" % [view_heights["街道"], view_heights["倉庫"]])
+	var original_scale := Settings.get_ui_text_scale()
+	for text_scale: float in [1.0, 1.2]:
+		Settings.set_ui_text_scale(text_scale)
+		for kind: StringName in [&"prompt", &"pickup", &"addressed", &"ambient"]:
+			for window: Vector2 in [Vector2(1280, 720), Vector2(1920, 1080), Vector2(2560, 1080)]:
+				var stretch := minf(window.x / 640.0, window.y / 360.0)
+				var tight := WorldText.font_size(kind) * float(factors["街道"][kind]) * stretch
+				var loose := WorldText.font_size(kind) * float(factors["倉庫"][kind]) * stretch
+				check(absf(tight - loose) <= 1.0 and absf(tight - WorldText.font_size(kind) * stretch) <= 1.0,
+					"%s 在 %dx%d、文字 %.1f 倍：街道 %.1f、倉庫 %.1f 像素，等於字級" % [kind, window.x, window.y, text_scale, tight, loose])
+	Settings.set_ui_text_scale(original_scale)
+
+
+## NE-493：拾取說明不排隊（一直可以顯示），但不能蓋住正在講話的氣泡，也不能把氣泡擠走。
+func _test_pickup_yields_to_bubble() -> void:
+	TextTraffic.reset()
+	var holder := Node2D.new()
+	runner.add_child(holder)
+	var speaker := Node2D.new()
+	speaker.position = Vector2(220, 260)
+	holder.add_child(speaker)
+	var bubbles := MapBubbles.new()
+	bubbles.anchor_resolver = func(_speaker: String) -> Node2D: return speaker
+	holder.add_child(bubbles)
+	var lines: Array[Dictionary] = [{"speaker": "street_vendor", "text": "市集那頭被收帳的封了，菜車只好繞去碼頭。", "color": Palette.UI_TEXT}]
+	bubbles.show_lines(&"pickup_fixture", lines)
+	for i in 6:
+		await frames(1)
+	var natural: Rect2 = bubbles._active[0].get("rect", Rect2()) if not bubbles._active.is_empty() else Rect2()
+	# 拾取說明放在氣泡原本的位置上。
+	var pickup := WorldPrompt.new()
+	pickup.text = "止痛貼片：撐過下一場就好，別當成治療。"
+	pickup.text_kind = &"pickup"
+	pickup.reach_check = func() -> bool: return true
+	pickup.position = natural.get_center() + Vector2(0.0, natural.size.y * 0.5)
+	holder.add_child(pickup)
+	for i in 20:
+		await frames(1)
+	var bubble_rect: Rect2 = bubbles._active[0].get("rect", Rect2()) if not bubbles._active.is_empty() else Rect2()
+	var shown := pickup.is_showing() and pickup._alpha > 0.0
+	var pickup_rect := Rect2(pickup.base_rect().position + pickup._nudge, pickup.base_rect().size)
+	check(natural.has_area() and bubble_rect.is_equal_approx(natural), "拾取說明出現後氣泡留在原位（%s → %s）" % [natural, bubble_rect])
+	check(shown, "拾取說明不排隊：有人講話時仍然顯示")
+	check(not shown or not pickup_rect.intersects(bubble_rect), "拾取說明不蓋住正在講話的氣泡")
+	holder.queue_free()
+	await frames(1)
