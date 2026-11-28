@@ -41,6 +41,9 @@ SPEAKERS = {
     "lamp": {"name": "燈", "color": "#8fe39a", "portrait": "res://art/portraits/lamp.png"},
     "ali": {"name": "阿梨", "color": "#ff8fc0", "portrait": "res://art/portraits/ali.png"},
     "voice": {"name": "錄音", "color": "#9ad7ff", "portrait": "res://art/portraits/system.png", "formal": True},
+    # 港區街道的場景人物（ST-59）：市集口的安全段，提示牌說「有人發傳單、有人聊天」的那兩個人。
+    "flyer": {"name": "發傳單的人", "color": "#c9b8e0", "portrait": "res://art/portraits/resident.png"},
+    "dock_worker": {"name": "夜班工人", "color": "#c8b090", "portrait": "res://art/portraits/night_worker.png"},
 }
 
 # ---------------------------------------------------------------------------
@@ -488,6 +491,41 @@ def build():
     lines_scene('ch1_b_street_in', 'bubbles', [
         ('rin', "老 K 每次都問：帶傘了嗎。"),
         ('rin', "下面本來就是水。"),
+    ])
+    # 市集口的兩個人（ST-59）：走過時聽見他們聊收帳通知；可以上前說話，回訪、凜死過、打通路障後各有一句新的（一句話用通訊面板，不停下遊戲）。
+    lines_scene('ch1_b_street_chatter', 'bubbles', [
+        ('dock_worker', "市集那頭被收帳的封了，菜車只好繞去碼頭。"),
+        ('flyer', "十四號店面又被貼單了，這個月是第三張。"),
+        ('dock_worker', "貼單的那幾個還守在路口，你別往那邊走。"),
+    ])
+    lines_scene('ch1_t_street_flyer', 'dialogue', [
+        ('flyer', "回音派週日傍晚在港口廣場講，要不要拿一張傳單？"),
+        ('rin', "他們說醒來的人只是回音，你自己信嗎？"),
+        ('flyer', "背面那句是我兒子寫的。他爸復原過兩次，他覺得爸爸還是同一個人。"),
+        ('flyer', "我只負責發，發完一疊能換一碗熱湯。湯是真的。"),
+    ])
+    lines_scene('ch1_t_street_flyer_revisit', 'radio', [
+        ('flyer', "傳單拿了就好。雨這麼大，你別站在這裡陪我淋。"),
+    ])
+    lines_scene('ch1_t_street_flyer_died', 'radio', [
+        ('flyer', "你臉色好白，剛從復原那邊回來吧？先到簷下站一下。"),
+    ])
+    lines_scene('ch1_t_street_flyer_open', 'radio', [
+        ('flyer', "路口那幾個收帳的倒了？十四號店面今晚總算能關燈睡覺。"),
+    ])
+    lines_scene('ch1_t_street_worker', 'dialogue', [
+        ('dock_worker', "我在等市集解封。菜車今晚過不去，我的工錢也過不去。"),
+        ('rin', "收帳人封路要封多久？"),
+        ('dock_worker', "收到錢就開。這條街每個人都在等別人先付。"),
+    ])
+    lines_scene('ch1_t_street_worker_revisit', 'radio', [
+        ('dock_worker', "你要去碼頭？倉庫那邊的燈今晚一直沒熄。"),
+    ])
+    lines_scene('ch1_t_street_worker_died', 'radio', [
+        ('dock_worker', "你身上一股消毒水味，剛醒過來吧？先喘口氣再走。"),
+    ])
+    lines_scene('ch1_t_street_worker_open', 'radio', [
+        ('dock_worker', "路口沒人守了，我去看菜車過不過得去。今晚的工錢還有救。"),
     ])
     lines_scene('ch1_g06_lamp', 'radio', [
         ('lamp', "我是幫你看路的燈，聽得到嗎？收帳人封了市集，改走碼頭那邊。"),

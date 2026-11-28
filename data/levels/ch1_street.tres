@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=34 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=36 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Resource" path="res://data/throwables/crate_small.tres" id="2_crate_small"]
@@ -25,6 +25,8 @@
 [ext_resource type="Resource" path="res://data/lighting/street_harbor.tres" id="23_street_harbor"]
 [ext_resource type="Resource" path="res://data/environment/themes/ch1_street.tres" id="24_ch1_street"]
 [ext_resource type="Resource" path="res://data/props/steam_valve.tres" id="91_steam_valve"]
+[ext_resource type="Resource" path="res://data/npcs/ch1_street_flyer.tres" id="92_ch1_street_flyer"]
+[ext_resource type="Resource" path="res://data/npcs/ch1_street_worker.tres" id="93_ch1_street_worker"]
 
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("5_portal_data")
@@ -141,6 +143,8 @@ legend = Dictionary[String, Resource]({
 "m": SubResource("Resource_3"),
 "o": ExtResource("15_doc_collection_notice"),
 "q": ExtResource("16_credits_large"),
+"Ⓕ": ExtResource("92_ch1_street_flyer"),
+"Ⓦ": ExtResource("93_ch1_street_worker"),
 "z": ExtResource("17_ch1_inspector"),
 "α": ExtResource("18_ch1_enc_street_plaza"),
 "γ": ExtResource("19_ch1_enc_street_blockade"),
@@ -156,5 +160,5 @@ layout_path = "res://data/levels/ch1_street_map.json"
 lighting_zones = Array[ExtResource("20_lighting_zone")]([SubResource("Resource_6"), SubResource("Resource_7"), SubResource("Resource_8")])
 durable_channel_results = true
 channel_cleared_flags = Dictionary[StringName, StringName]({&"arena_street_blockade": &"ch1_street_route_open"})
-story_triggers = PackedStringArray("ch1_b_street_in", "ch1_g06_lamp", "ch1_g06_tip_slide", "ch1_g06_tip_blade", "ch1_g06_tip_collector", "ch1_g06_clear")
+story_triggers = PackedStringArray("ch1_b_street_in", "ch1_b_street_chatter", "ch1_g06_lamp", "ch1_g06_tip_slide", "ch1_g06_tip_blade", "ch1_g06_tip_collector", "ch1_g06_clear")
 death_credit_cap = 250

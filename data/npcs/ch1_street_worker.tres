@@ -1,0 +1,53 @@
+[gd_resource type="Resource" script_class="NpcData" load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/npc_data.gd" id="1_npc_data"]
+[ext_resource type="Script" path="res://data/scripts/npc_talk.gd" id="2_npc_talk"]
+[ext_resource type="Script" path="res://data/scripts/npc_reaction.gd" id="3_npc_reaction"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("2_npc_talk")
+scene = &"ch1_t_street_worker"
+
+[sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("2_npc_talk")
+scene = &"ch1_t_street_worker_revisit"
+min_talks = 1
+
+[sub_resource type="Resource" id="Resource_2"]
+script = ExtResource("2_npc_talk")
+scene = &"ch1_t_street_worker_died"
+min_deaths = 1
+
+[sub_resource type="Resource" id="Resource_3"]
+script = ExtResource("2_npc_talk")
+scene = &"ch1_t_street_worker_open"
+requires_flag = &"ch1_street_route_open"
+
+[sub_resource type="Resource" id="Resource_4"]
+script = ExtResource("3_npc_reaction")
+gesture = &"chin_up"
+max_talks = 0
+
+[sub_resource type="Resource" id="Resource_5"]
+script = ExtResource("3_npc_reaction")
+gesture = &"rub_eyes"
+min_talks = 1
+
+[sub_resource type="Resource" id="Resource_6"]
+script = ExtResource("3_npc_reaction")
+gesture = &"shrug"
+requires_flag = &"ch1_street_route_open"
+
+[resource]
+script = ExtResource("1_npc_data")
+id = &"ch1_street_worker"
+display_name = "夜班工人"
+speaker = "dock_worker"
+rig_id = "night_worker"
+pose = &"lean"
+loop = &"yawn"
+facing = -1
+prompt = "{interact} 和夜班工人說話"
+localized_prompts = Dictionary[String, String]({"en": "{interact} Talk to the night-shift worker", "ja": "{interact} 夜勤の作業員と話す"})
+talks = Array[ExtResource("2_npc_talk")]([SubResource("Resource_0"), SubResource("Resource_1"), SubResource("Resource_2"), SubResource("Resource_3")])
+reactions = Array[ExtResource("3_npc_reaction")]([SubResource("Resource_4"), SubResource("Resource_5"), SubResource("Resource_6")])

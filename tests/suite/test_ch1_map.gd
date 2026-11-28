@@ -47,6 +47,7 @@ func run() -> void:
 	_test_items()
 	_test_entry_point()
 	_test_story_hooks()
+	_test_street_residents()
 	_test_quest_markers()
 	await _test_prefetch()
 	await preload("res://tests/helpers/prefetch_scope_checks.gd").run(self)
@@ -597,6 +598,43 @@ func _test_narrative() -> void:
 			if resource is NpcData:
 				for talk in (resource as NpcData).talks:
 					check(Story.has_scene(talk.scene), "%s: %s's talk exists (%s)" % [id, (resource as NpcData).id, talk.scene])
+
+
+## 港區街道的街坊（ST-59）：兩人站在市集口聊天，回訪、凜死過、打通路障後各換一句；街頭對話看過就記進存檔，讀回來不重播。
+func _test_street_residents() -> void:
+	var people: Dictionary = {}
+	for resource in _datas["street"].legend.values():
+		if resource is NpcData and (resource as NpcData).id in [&"ch1_street_flyer", &"ch1_street_worker"]:
+			people[(resource as NpcData).id] = resource
+	check(people.size() == 2, "the market mouth has the flyer distributor and the night-shift worker (%d)" % people.size())
+	var seen := func(_id: StringName) -> bool: return false
+	for npc: NpcData in people.values():
+		check(npc.kind == NpcData.Kind.PERSON and npc.speaker != "", "%s is a person who can speak in bubbles" % npc.id)
+		var no_flag := func(_flag: StringName) -> bool: return false
+		var route_open := func(flag: StringName) -> bool: return flag == &"ch1_street_route_open"
+		var first := npc.pick_talk(0, seen, 0, no_flag)
+		var again := npc.pick_talk(1, seen, 0, no_flag)
+		var died := npc.pick_talk(1, seen, 1, no_flag)
+		var cleared := npc.pick_talk(1, seen, 1, route_open)
+		check([first, again, died, cleared] == [0, 1, 2, 3], "%s says something new on a revisit, after a death and after the blockade (%s)" % [npc.id, [first, again, died, cleared]])
+		check(npc.pick_reaction(0, seen, 0, no_flag) >= 0 and npc.pick_reaction(1, seen, 0, route_open) != npc.pick_reaction(0, seen, 0, no_flag),
+				"%s reacts without words, differently once the blockade is down" % npc.id)
+		for talk in npc.talks:
+			check(str(Story._scenes.get(String(talk.scene), {}).get("mode", "")) in ["dialogue", "radio"] and not Story._scenes[String(talk.scene)].has("set_flags"),
+					"%s: %s is a plain talk that writes no story flag" % [npc.id, talk.scene])
+	var chatter := &"ch1_b_street_chatter"
+	check(Array(_datas["street"].story_triggers).has(String(chatter)) and str(Story._scenes[String(chatter)].get("mode", "")) == "bubbles", "walking past the pair plays their chatter as map bubbles")
+	for line: Dictionary in Story._scenes[String(chatter)]["lines"]:
+		check(people.values().any(func(npc: NpcData) -> bool: return npc.speaker == line["speaker"]), "each chatter line comes from someone standing there (%s)" % line["speaker"])
+	Story.reset_progress()
+	# 氣泡講完才算聽過（Story._completed），存檔只收聽完的場景。
+	Story._seen[chatter] = true
+	Story._completed[chatter] = true
+	var snapshot := Story.progress_snapshot()
+	Story.reset_progress()
+	Story.restore_progress(snapshot, "test/seen", false)
+	check(Story.was_seen(chatter) and not Story.play(chatter), "the chatter heard before a save is not replayed after loading it")
+	Story.reset_progress()
 
 
 ## 構圖：第一章每個動畫過場的演員腳底都在對話框之上；檢查本身也要抓得到違規的演出。

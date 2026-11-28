@@ -2317,7 +2317,8 @@ func _run_bubbles() -> void:
 		await _settle(90)
 	Story.reset_progress()  # 走過去時觸發點已經播過一次，重播讓截圖拍得到
 	Story.play(StringName(scene_id))
-	await _wait(0.9)
+	# 第五段（秒）：等排在前面的氣泡講完再拍，例如走過時先觸發的凜的獨白。
+	await _wait(float(parts[4]) if parts.size() > 4 else 0.9)
 	_capture("bubble_%s_one" % scene_id)
 	await _wait(1.6)
 	_capture("bubble_%s_two" % scene_id)

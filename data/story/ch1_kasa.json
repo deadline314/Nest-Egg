@@ -52,6 +52,20 @@
    "name_ja": "録音",
    "name_en": "Recording"
   },
+  "flyer": {
+   "name": "發傳單的人",
+   "color": "#c9b8e0",
+   "portrait": "res://art/portraits/resident.png",
+   "name_ja": "ビラ配り",
+   "name_en": "Flyer Distributor"
+  },
+  "dock_worker": {
+   "name": "夜班工人",
+   "color": "#c8b090",
+   "portrait": "res://art/portraits/night_worker.png",
+   "name_ja": "夜勤の作業員",
+   "name_en": "Night-Shift Worker"
+  },
   "terminal": {
    "name": "交接櫃",
    "color": "#9ad7ff",
@@ -1215,6 +1229,153 @@
      "en": "Down here it's already water."
     }
    ]
+  },
+  "ch1_b_street_chatter": {
+   "mode": "bubbles",
+   "lines": [
+    {
+     "speaker": "dock_worker",
+     "text": "市集那頭被收帳的封了，菜車只好繞去碼頭。",
+     "ja": "市場のほうは取り立て屋にふさがれた。野菜の車は埠頭へ回るしかない。",
+     "en": "The collectors shut the market, so the vegetable carts go around by the docks."
+    },
+    {
+     "speaker": "flyer",
+     "text": "十四號店面又被貼單了，這個月是第三張。",
+     "ja": "十四号の店にまた貼り紙だ。今月でもう三枚目だよ。",
+     "en": "Shop No. 14 got another notice posted. That's the third this month."
+    },
+    {
+     "speaker": "dock_worker",
+     "text": "貼單的那幾個還守在路口，你別往那邊走。",
+     "ja": "貼り紙をした連中がまだ角に張ってる。そっちへは行くなよ。",
+     "en": "The ones who posted it are still guarding the corner. Don't go that way."
+    }
+   ]
+  },
+  "ch1_t_street_flyer": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "flyer",
+     "text": "回音派週日傍晚在港口廣場講，要不要拿一張傳單？",
+     "ja": "エコー派が日曜の夕方に港の広場で話をするの。ビラを一枚どう？",
+     "en": "The Echo group holds a talk at Harbor Square on Sunday evening. Want a flyer?"
+    },
+    {
+     "speaker": "rin",
+     "text": "他們說醒來的人只是回音，你自己信嗎？",
+     "ja": "目覚めた人間はただのこだまだって連中だろ。あんた自身は信じてるのか？",
+     "en": "They say the people who wake up are only echoes. Do you believe that yourself?"
+    },
+    {
+     "speaker": "flyer",
+     "text": "背面那句是我兒子寫的。他爸復原過兩次，他覺得爸爸還是同一個人。",
+     "ja": "裏の一行は息子が書いたの。父親は二回復元されてるけど、あの子は同じお父さんだと思ってる。",
+     "en": "My son wrote that line on the back. His dad's been restored twice, and he thinks his dad is still the same person."
+    },
+    {
+     "speaker": "flyer",
+     "text": "我只負責發，發完一疊能換一碗熱湯。湯是真的。",
+     "ja": "わたしは配るだけ。一束配り終えたら温かいスープが一杯もらえるの。スープは本物よ。",
+     "en": "I just hand them out. Finish a stack and I get a bowl of hot soup. The soup is real."
+    }
+   ]
+  },
+  "ch1_t_street_flyer_revisit": {
+   "mode": "radio",
+   "lines": [
+    {
+     "speaker": "flyer",
+     "text": "傳單拿了就好。雨這麼大，你別站在這裡陪我淋。",
+     "ja": "ビラを取ってくれたならそれでいいよ。こんな雨なんだから、ここで一緒に濡れてなくていい。",
+     "en": "Taking a flyer is enough. It's pouring, so don't stand here getting soaked with me."
+    }
+   ],
+   "freeze": true
+  },
+  "ch1_t_street_flyer_died": {
+   "mode": "radio",
+   "lines": [
+    {
+     "speaker": "flyer",
+     "text": "你臉色好白，剛從復原那邊回來吧？先到簷下站一下。",
+     "ja": "顔が真っ白だよ。復元から戻ったばかりでしょう？まず軒下に入りな。",
+     "en": "You're pale. Just got back from a restoration, right? Stand under the eaves for a bit."
+    }
+   ],
+   "freeze": true
+  },
+  "ch1_t_street_flyer_open": {
+   "mode": "radio",
+   "lines": [
+    {
+     "speaker": "flyer",
+     "text": "路口那幾個收帳的倒了？十四號店面今晚總算能關燈睡覺。",
+     "ja": "角の取り立て屋たち、倒れたの？十四号の店も今夜はやっと明かりを消して眠れるね。",
+     "en": "Those collectors at the corner went down? Shop No. 14 can finally turn off its lights and sleep tonight."
+    }
+   ],
+   "freeze": true
+  },
+  "ch1_t_street_worker": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "dock_worker",
+     "text": "我在等市集解封。菜車今晚過不去，我的工錢也過不去。",
+     "ja": "市場の封鎖が解けるのを待ってるんだ。今夜は野菜の車が通れない。俺の日当も通らない。",
+     "en": "I'm waiting for the market to reopen. The vegetable carts can't get through tonight, and neither can my pay."
+    },
+    {
+     "speaker": "rin",
+     "text": "收帳人封路要封多久？",
+     "ja": "取り立て屋はいつまで道をふさぐ気だ？",
+     "en": "How long will the collectors keep the road shut?"
+    },
+    {
+     "speaker": "dock_worker",
+     "text": "收到錢就開。這條街每個人都在等別人先付。",
+     "ja": "金が入れば開ける。この通りじゃ、みんな誰かが先に払うのを待ってるのさ。",
+     "en": "They open it once they're paid. Everyone on this street is waiting for someone else to pay first."
+    }
+   ]
+  },
+  "ch1_t_street_worker_revisit": {
+   "mode": "radio",
+   "lines": [
+    {
+     "speaker": "dock_worker",
+     "text": "你要去碼頭？倉庫那邊的燈今晚一直沒熄。",
+     "ja": "埠頭へ行くのか？倉庫のほうの明かり、今夜はずっと消えてないぞ。",
+     "en": "Heading to the docks? The lights over at the warehouse haven't gone out all night."
+    }
+   ],
+   "freeze": true
+  },
+  "ch1_t_street_worker_died": {
+   "mode": "radio",
+   "lines": [
+    {
+     "speaker": "dock_worker",
+     "text": "你身上一股消毒水味，剛醒過來吧？先喘口氣再走。",
+     "ja": "消毒液のにおいがするな。目覚めたばかりだろ？ひと息ついてから行きな。",
+     "en": "You smell like disinfectant. Just woke up, huh? Catch your breath before you go."
+    }
+   ],
+   "freeze": true
+  },
+  "ch1_t_street_worker_open": {
+   "mode": "radio",
+   "lines": [
+    {
+     "speaker": "dock_worker",
+     "text": "路口沒人守了，我去看菜車過不過得去。今晚的工錢還有救。",
+     "ja": "角にはもう誰もいない。野菜の車が通れるか見てくる。今夜の日当はまだ何とかなりそうだ。",
+     "en": "Nobody's guarding the corner now. I'll go see if the carts can get through. Tonight's pay might be saved yet."
+    }
+   ],
+   "freeze": true
   },
   "ch1_g06_lamp": {
    "mode": "radio",
