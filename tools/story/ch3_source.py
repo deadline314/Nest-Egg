@@ -248,7 +248,7 @@ def _morning(source: ProductionSource):
         next_scene="ch3_t_c00_choice")
     source.add("ch3_t_c00_choice", "C00", steps=_staged("front", (("old_k", "索引帶上了嗎？要出門就說一聲。"),), opening=False),
                when=negate(departed), options=(
-                   _opt("ask", "問老 K 去過上面沒有。", "ch3_t_c00_ask", "可選的追問，主線一樣。"),
+                   _opt("ask", "問老 K 去過上面沒有。", "ch3_t_c00_ask", "可以不問，主線照樣進行。"),
                    _opt("go", "確認出門去廣場貨梯。", "ch3_t_c00_go", "燈會先說貨梯的狀況。"),
                    _opt("later", "先在店裡看看。", None, "之後再找老 K 確認出門。")))
     source.add("ch3_t_c00_ask", "C00", steps=_staged("front", (
@@ -279,7 +279,7 @@ def _freight(source: ProductionSource):
     source.add("ch3_t_c01_box", "C01", (
         ("panel", "集水槽水位過高，貨梯安全聯鎖未解除。沿右側上橋去排水泵室。"),
         ("rin", "梯子沒壞，是下面還泡著水。"),
-        ("lamp", "先看水尺，紅線下面才可送電。")),
+        ("lamp", "先看水尺，水位降到紅線下面才能送電。")),
         when=negate(chart), mode="animated", completion=(set_flag("ch3_interlock_seen"),))
     source.add("ch3_t_c02_call_early", "C02", (("panel", "水位尚未到安全線，請先排水，再關閉浸水支路。"),),
                when=all_of(chart, negate(all_of(low, isolated, powered))))
@@ -367,13 +367,13 @@ def _clinic(source: ProductionSource):
         ("zhi", "市場錯收已結案，查核權還在。你能看的是去掉姓名的統計，不是每個人的病歷。"),
         ("rin", "我先對同一批人，有名字也不替他們作答。")), opening=True),
         *_clinic_review_handoff(),
-        *beats(("zhi", "公開報表在桌上，輪班表在工作廊，追蹤名冊在門邊的閱覽櫃。三份都用編號，日期要一起看。"),
+        *beats(("zhi", "公開報表在桌上，輪班表在工作廊，追蹤名冊在門邊閱覽櫃。三份都用編號，要一起對日期。"),
                ("label", "核閱異議處理報酬一百八十信用點，由診所公開查核帳支付，三份證據確認後結算。"))],
         when=all_of(negate(access), item("ch2_clinic_index")), mode="animated",
         completion=(set_flag("ch3_clinic_access"), grant("ch3_review_slip")), next_scene="ch3_t_c04_after")
     source.add("ch3_t_c04_after", "C04", steps=_clinic_staged((("zhi", "有問題拿編號來問，我能解釋轉介欄。有人正在休息，裡面的門今天不開。"),)),
                options=(
-                   _opt("disease", "問檔案標頭的「錨人耗損症」。", "ch3_t_c04_disease", "可選的追問。"),
+                   _opt("disease", "問檔案標頭的「錨人耗損症」。", "ch3_t_c04_disease", "可以不問，不影響主線。"),
                    _opt("go", "先去看三份資料。", None, "三份可以照任意順序看。")))
     source.add("ch3_t_c04_disease", "C04", steps=_clinic_staged((
         ("rin", "這是復原的人生病，還是付帳的人？"),
@@ -387,7 +387,7 @@ def _clinic(source: ProductionSource):
 
     source.add("ch3_t_c05_locked", "C05", (("label", "閱覽的資料要先到芷姐的櫃檯取核閱號。"),), when=negate(access))
     source.add("ch3_t_c05_report", "C05", (
-        ("label", "月報十七，觀察期一日到三十日，同批錨人一百名，編號R17-001到R17-100。"),
+        ("label", "月報十七：觀察期一到三十日，同批錨人一百名，編號R17-001到R17-100。"),
         ("label", "公開結論：達持續護理標準三名，公開耗損比例百分之三。"),
         ("lamp", "先看頁尾，大字那一格之外還有註記。"),
         ("label", "頁尾註記：另有八個編號列為轉存，不計入護理人數。"),
@@ -426,7 +426,7 @@ def _clinic(source: ProductionSource):
         ("zhi", "換病房的是人，月份沒有跟著換。我能證明這八個還在同批，但對外那頁不是我核發的。")),
         when=all_of(access, negate(register)), options=(
             _opt("save", "儲存名冊的副本。", "ch3_t_c07_saved", "副本可以在筆記裡重看。"),
-            _opt("ask", "問轉存帳房是什麼。", "ch3_t_c07_ask", "可選的追問。"),
+            _opt("ask", "問轉存帳房是什麼。", "ch3_t_c07_ask", "可以不問，不影響主線。"),
             _opt("leave", "先離開閱覽櫃。", None, "之後可以再來。")))
     source.add("ch3_t_c07_ask", "C07", (("zhi", "統計交給中央帳房留存，這個櫃檯沒有中央原帳。"),),
                mode="animated", next_scene="ch3_t_c07_register")
@@ -464,7 +464,7 @@ def _clinic(source: ProductionSource):
     source.add("ch3_t_c08_result", "C08", (
         ("rin", "同一批一百個人，有十一個仍需要護理。"),
         ("rin", "公開那頁只算三個，另外八個被寫成轉存。"),
-        ("zhi", "你對的是這一批的比例。別拿它當每次死一次就少十一，也別拿我的護理表替你個人的帳簽名。"),
+        ("zhi", "你對出的是這一批的比例。別當成每死一次就少十一，也別拿我的護理表替你自己的帳簽名。"),
         ("rin", "我沒有個人原帳，先把這八個補回去。"),
         ("lamp", "月報這裡又排掉人。你現在有異議證據，還沒有中央原帳。"),
         ("rin", "我要先問誰負責那張公開表。"),
@@ -535,9 +535,10 @@ def _gate_hall(source: ProductionSource):
     source.add("ch3_t_c10_revisit", "C10", (("label", "門禁閘已經斷電，綠燈常亮，閘門開著。"),), when=disabled)
     # 戰鬥中的短句與首次敗北提示（戰鬥組在對應時機播放）。
     source.add("ch3_c11_bark_sorry", "C11", (("janus", "不好意思，我重新核對。"),), mode="radio")
-    source.add("ch3_c11_bark_repeat", "C11", (("rin", "他會重複，先看蓄力。"),), mode="radio")
+    source.add("ch3_c11_bark_repeat", "C11", (("rin", "他會一直重複，先看他蓄力。"),), mode="radio")
     source.add("ch3_c11_defeat_hint", "C11", (
-        ("lamp", "看他蓄力，再打斷橙色的掃描臂。盾擊撲空三次會裂盾，繞背停通訊器就能阻止增援。"),), mode="radio")
+        ("lamp", "看他蓄力，再打斷橙色的掃描臂。"),
+        ("lamp", "盾擊撲空三次會裂盾，繞到背後停掉通訊器就沒有增援。"),), mode="radio")
 
     # 扶椅是凜自己的動作（WorldPropAction 的 support）：說完「你先坐」，手扶住守門人的肩膀，他坐回櫃檯旁的凳子時手跟著下來。
     source.add("ch3_t_c12_aftercare", "C12", steps=[*beats(
@@ -673,21 +674,21 @@ def _showroom(source: ProductionSource):
         ("rin", "不用替我找傘，我來看晴岸的房。"),
         ("lin", "我是晴岸的林小姐，負責這層樣品房。這裡是展示，不是入住，您可以先坐一下。"),
         ("rin", "這張是診所的異議回執，不是購房申請。"),
-        ("rin", "先幫我投到相鄰的天穹接待廊。")),
+        ("rin", "這張我要先投到相鄰的天穹接待廊。")),
         when=negate(started), options=(
             _opt("post", "把異議回執放進公文格投遞。", "ch3_t_c15_posted", "林小姐蓋收件章，看房不用先交訂金。"),
             _opt("later", "先不投遞。", None, "之後可以再來。")))
     source.add("ch3_t_c15_posted", "C15", steps=[*showroom_stamp_staging.steps(), *beats(
         ("lin", "公開查核件下午轉風控接待，不用跟房間綁在一起。看房也不需要先交訂金。"),
         ("rin", "三間都寫四十八萬，差的是窗？"),
-        ("lin", "三間總價都是四十八萬，差朝向、光照時間和安靜程度。入住要本人看過，我今天不請您簽。"),
+        ("lin", "三間都是四十八萬，差在朝向、日照時間和安不安靜。入住要本人看過，今天我不請您簽。"),
         ("lin", "您可以量窗臺、試坐，記下想帶誰再來。也可以今天先不選。"),
         ("rin", "我替老 K 先算算，他老嫌店裡光太少。"))],
         mode="animated", completion=(set_flag("ch3_clearwater_tour_started"), grant("ch3_tour_card")))
     source.add("ch3_t_c15_hub", "C15", (("lin", "三間都看完了嗎？想記提案、問別的，或先離開都可以。"),),
                when=all_of(started, negate(done)), options=(
-                   _opt("propose", "把看過的一間記作房間提案。", "ch3_dispatch_proposal", "只記提案，不簽約、不扣款。", when=any_measured),
-                   _opt("ask", "問林小姐每天在這裡的事。", "ch3_t_c17_ask", "可選的細問。", when=negate(flag("ch3_lin_asked"))),
+                   _opt("propose", "把看過的一間記作房間提案。", "ch3_dispatch_proposal", "只記下提案，不簽約，也不扣款。", when=any_measured),
+                   _opt("ask", "問林小姐每天在這裡的事。", "ch3_t_c17_ask", "想多知道再問，不影響主線。", when=negate(flag("ch3_lin_asked"))),
                    _opt("finish", "看完了，去取異議收件回執。", "ch3_t_c17_leave", "看房卡和公文分開收。", when=any_measured),
                    _opt("leave", "先去看窗。", None, "三扇窗可以照任意順序量。")))
     source.add("ch3_t_c16_locked", "C16", (("label", "林小姐先請您到接待桌登記看房。"),), when=negate(started))
@@ -880,7 +881,7 @@ def _office(source: ProductionSource):
         dict(stage_actor("old_k", "old_k", -60, OFFICE_INSIDE, facing=1, scale=OFFICE_CAST["old_k"][2], speaker="old_k", weapon=""),
              ground=OFFICE_INSIDE),
         dict(stage_move("old_k", OFFICE_CAST["old_k"][0], OFFICE_INSIDE, t=3.2), wait=False),
-        *say_(("label", "側門開了一道縫，老 K 收起來客卡，走到葉的桌前。")),
+        *say_(("label", "側門開了一道縫，老 K 把來客卡收起來，走到葉的桌前。")),
         _pan("rin", t=1.6),
         *say_(("rin", "他叫我別上來，自己卻在這裡。")),
         stage_pose("rin", "listen"),
@@ -907,8 +908,8 @@ def _office(source: ProductionSource):
         *_shot("rin", "old_k", "ye", "rin", fade=0.25, rin_pose="listen"),
         *say_(("label", "門縫裡的談話聽得見。等候臺靠著實牆，可以停在這裡。"))],
                when=all_of(seen, negate(traded)), options=(
-                   _opt("read", "看清葉手背上那一行。", "ch3_dispatch_c19_read", "可選，看清就記下這個名字。", when=negate(name_seen)),
-                   _opt("listen", "留下，聽完這段談話。", "ch3_t_c20_trade", "安全的過場，聽完要自己確認記錄。"),
+                   _opt("read", "看清葉手背上那一行。", "ch3_dispatch_c19_read", "可以不看；看清了就記下這個名字。", when=negate(name_seen)),
+                   _opt("listen", "留下，聽完這段談話。", "ch3_t_c20_trade", "他們不會發現你；聽完要自己確認記錄。"),
                    _opt("leave", "先退回樣品房。", None, "之後可以再來。")))
 
     def read_name(last_line):
@@ -931,7 +932,7 @@ def _office(source: ProductionSource):
         *_shot("rin", "old_k", "ye", "rin", rin_pose="listen"),
         stage_wait(0.9),
         *_shot("inside", "old_k", "ye", "rin", rin_pose="listen"),
-        _hear("old_k", "妳上次答應的條件，不是讓她一直去換命。我今天要你把危險的派案停掉。"),
+        _hear("old_k", "妳上次答應的條件，不是讓她一直去換命。我今天要妳把危險的派案停掉。"),
         _hear("ye", "樣本要活著，研究才有意義。我可以撤掉清理區的排案，不能答應所有街上都安全。"),
         stage_cam(260, 250, 1.2, t=1.8, wait_for=False, feet=OFFICE_INSIDE),
         stage_wait(0.6),
@@ -945,7 +946,7 @@ def _office(source: ProductionSource):
         *_shot("rin", "old_k", "ye", "rin", fade=0.25),
         *say_(("rin", "原來那份資料是他親手交出去的。"))],
         when=all_of(half, negate(listened)), options=(
-            _opt("stay", "忍住，聽他們說完。", "ch3_t_c20_rest", "安全的過場，他們不會發現你。"),
+            _opt("stay", "忍住，聽他們說完。", "ch3_t_c20_rest", "躲在等候臺，他們不會發現你。"),
             _opt("door", "伸手推門。", "ch3_t_c20_hold", "想進去當面問；燈會先叫住你。"),
             _opt("leave", "先退開，晚點再回來聽。", None, "之後回等候臺，從這裡接著聽。")))
     source.add("ch3_t_c20_hold", "C20", steps=[
@@ -972,7 +973,7 @@ def _office(source: ProductionSource):
         _hear("ye", "我剛收到一份月報異議。有人把排除欄對出來了，你家那位也會對紙。"),
         *_shot("rin", "old_k", "ye", "rin", rin_pose="listen"),
         stage_wait(0.7),
-        _hear("old_k", "這張你回你的，我回去跟她說。"),
+        _hear("old_k", "這張妳回妳的，我回去跟她說。"),
         dict(stage_move("old_k", 420, OFFICE_INSIDE, t=1.6), wait=False),
         stage_move("rin", 640, OFFICE_FLOOR, t=0.8),
         _hear("ye", "回覆只能走收件人，不替你撤。"),
@@ -998,10 +999,10 @@ def _office(source: ProductionSource):
     source.add("ch3_t_c20_revisit", "C20", steps=[
         *_shot("rin", "ye", "rin", fade=0.25),
         *say_(("label", "辦公內門關著，裡面已經沒有說話聲。"))], when=traded, options=(
-        _opt("read", "看清葉留在手背上的那一行。", "ch3_dispatch_c19_read", "可選，剛才沒看清的話。", when=negate(name_seen)),
+        _opt("read", "看清葉留在手背上的那一行。", "ch3_dispatch_c19_read", "剛才沒看清的話，可以再看一次。", when=negate(name_seen)),
         _opt("leave", "從候梯迴廊回去。", None, "回當舖吃飯。")))
     source.add("ch3_t_c21_route", "C21", (
-        ("lamp", "貨梯與護理外廊都通了，沿邊緣電梯下去，從廣場回家。交通終端還沒啟用，我先把步行路標接好。"),
+        ("lamp", "貨梯和護理外廊都通了，搭邊緣電梯下去，從廣場回家。交通終端還沒開，我先接好步行路標。"),
         ("rin", "那張護理表能不能傳回去？"),
         ("lamp", "你儲存的副本放在筆記，公開原表仍由診所保管。先回當舖吃飯。")),
         mode="animated", completion=(set_flag("ch3_l2_route_announced"),))
@@ -1017,7 +1018,7 @@ def _evening(source: ProductionSource):
     source.add("ch3_t_c22_door", "C22", steps=_staged("kitchen", (
         ("old_k", "回來了喔，帶傘了嗎？"),
         ("rin", "沒有，貨梯那邊淋了一點。"),
-        ("rin", "今天的，字怎麼抖得這麼厲害？"),
+        ("rin", "今天這張的字，怎麼抖得這麼厲害？"),
         ("old_k", "紙受潮了，筆寫不太出來。先把飯端出來，別連鍋也算進帳。"),
         ("old_k", "診所那張紙看到了？"),
         ("rin", "公開那頁跟護理表對不上，我有異議回執。"),
@@ -1055,7 +1056,7 @@ def _evening(source: ProductionSource):
         ("egret", "今天我不接案，還是想問你一句，月報查到了嗎？"),
         ("rin", "同批一百人，實際要護理的有十一個，公開只算三個。"),
         ("rin", "轉出去那八個被排掉了。"),
-        ("egret", "這張夠證明少算人，不夠知道每次的讀取記在哪裡。中央帳本不在公開櫃，我想拿真正的那一本。"),
+        ("egret", "這張證明他們少算了人，卻看不出讀取記在哪。中央帳本不在公開櫃，我要真正那本。"),
         ("rin", "我不想再拿一張轉存欄猜下一張。")),
         when=all_of(supper, negate(call)), options=(
             _opt("tell", "告訴鷺老 K 交過備份。", "ch3_t_c23_tell", "說出今天在辦公廊聽到的。"),
