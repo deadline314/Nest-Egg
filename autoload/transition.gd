@@ -4,15 +4,16 @@ extends Node
 ## 轉場期間遊戲暫停、輸入鎖定；按任意鍵可加速。同時只會有一個轉場，重複呼叫時直接執行內容切換。
 ## 無頭模式（測試）預設瞬間完成；測試轉場本身時把 instant 設為 false。
 
-enum Kind { FADE, FADE_WHITE, IRIS, SCAN, GLITCH, ELEVATOR, BLINDS }
+enum Kind { FADE, FADE_WHITE, IRIS, SCAN, GLITCH, ELEVATOR, BLINDS, REWIND }
 
 ## 轉場的用途（NE-426）：遊戲流程只用這三種，同一件事永遠是同一種轉場。
 ## WORLD＝在世界裡換地方（區域之間、讀取、換章、到結算），很短的黑色淡出，玩家幾乎不會注意到；
-## SYSTEM＝選單與系統畫面之間（主選單、開始、繼續），青色掃描線；RETRY＝死亡重來。
+## SYSTEM＝選單與系統畫面之間（主選單、開始、繼續），青色掃描線；RETRY＝死亡重來：NEST 回溯（NE-472），
+## 畫面褪成冷色、幾條錄影帶追蹤線往上捲、暗部從下往上蓋住，沒有色塊與閃光。
 ## 其餘種類只留給過場資料裡有意義的時刻（例如真的在搭電梯）。
 const WORLD := Kind.FADE
 const SYSTEM := Kind.SCAN
-const RETRY := Kind.GLITCH
+const RETRY := Kind.REWIND
 
 signal covered
 signal finished
@@ -21,7 +22,7 @@ const LAYER := UiLayers.TRANSITION
 ## 各轉場「蓋住」或「揭開」單程的預設秒數。死亡重來（GLITCH）總長 0.7 秒；世界裡換地方（FADE）單程 0.3 秒（同類遊戲房間之間的淡出約在這個長度）。
 const DEFAULT_TIME: Dictionary[int, float] = {
 	Kind.FADE: 0.3, Kind.FADE_WHITE: 0.35, Kind.IRIS: 0.5, Kind.SCAN: 0.5,
-	Kind.GLITCH: 0.35, Kind.ELEVATOR: 0.7, Kind.BLINDS: 0.45,
+	Kind.GLITCH: 0.35, Kind.ELEVATOR: 0.7, Kind.BLINDS: 0.45, Kind.REWIND: 0.35,
 }
 const SKIP_SPEED := 4.0
 const CAPTION_FADE := 0.15
@@ -192,6 +193,9 @@ func _run(callback: Callable) -> void:
 ## 減少閃光：雜訊與閃白降級成淡入淡出。
 func _resolve_kind(kind: Kind) -> Kind:
 	if Settings.get_reduce_flashes() and (kind == Kind.GLITCH or kind == Kind.FADE_WHITE):
+		return Kind.FADE
+	# 回溯的追蹤線會捲動：「減少動態」時改成淡出。
+	if Settings.get_reduce_ui_motion() and kind == Kind.REWIND:
 		return Kind.FADE
 	return kind
 

@@ -26,6 +26,13 @@ func run() -> void:
 				await _hurt_frames(spot[2])
 			await finish()
 			return
+		if arg == "--part=death":
+			Story.auto_skip = true
+			await _open(PAWNSHOP)
+			await wait(5.5)
+			await _death_frames()
+			await finish()
+			return
 		if arg == "--part=transitions":
 			Story.auto_skip = true
 			await _open(PAWNSHOP)
@@ -146,6 +153,59 @@ func _hurt_frames(tag: String) -> void:
 		await wait(PI / PostProcess.DANGER_PULSE_SPEED)
 	player.health.setup(999, 0.0)
 	await wait(1.5)
+
+
+## 死亡與重來（NE-472）：倒地、死亡畫面以回溯進場（一半）、死亡畫面、重來的回溯（蓋住一半、蓋住、揭開一半）。
+func _death_frames() -> void:
+	# 第一章第一次死亡是劇情的診間場景；拍一般的死亡流程。
+	GameState.deaths = 3
+	player.health.setup(1, 0.0)
+	player.hurtbox.receive(DamageInfo.create(5, Combat.Team.ENEMY, &"presentation_audit"))
+	await wait(0.4)
+	capture("death-0-fall")
+	var screen: DeathScreen = null
+	for i in 240:
+		for node in level.find_children("*", "", true, false):
+			if node is DeathScreen:
+				screen = node
+		if screen != null:
+			break
+		await get_tree().process_frame
+	if screen == null:
+		# 這一章的死亡會先播劇情的死亡場景；照關卡建立死亡畫面的方式直接建立一個，拍一般死亡的進場。
+		print("AUDIT death scene played instead of the death screen; building the ordinary screen")
+		screen = DeathScreen.new()
+		screen.setup(DefeatCodex.unlock(&"grunt_shot", Story.language), true)
+		level.add_child(screen)
+		await settle(1)
+	Engine.time_scale = SLOW
+	await get_tree().create_timer(DeathScreen.NOISE_TIME * 0.35).timeout
+	capture("death-1-screen-in")
+	Engine.time_scale = 1.0
+	await wait(1.6)
+	capture("death-2-screen")
+	var kind: int = Transition.RETRY
+	var half: float = Transition.DEFAULT_TIME[kind]
+	Engine.time_scale = SLOW
+	var done := [false]
+	var job := func() -> void:
+		await Transition.play(kind, func() -> void: await get_tree().create_timer(0.6, true, false, true).timeout, -1.0, Vector2(0.5, 0.5), DeathScreen.record_title(GameState.deaths), 0.0)
+		done[0] = true
+	job.call()
+	await get_tree().create_timer(half * 0.5).timeout
+	capture("death-3-retry-cover")
+	await get_tree().create_timer(half * 0.5 + 0.03).timeout
+	capture("death-4-retry-covered")
+	Engine.time_scale = 1.0
+	await get_tree().create_timer(0.6, true, false, true).timeout
+	Engine.time_scale = SLOW
+	await get_tree().create_timer(half * 0.5).timeout
+	capture("death-5-retry-reveal")
+	Engine.time_scale = 1.0
+	for i in 600:
+		if done[0]:
+			break
+		await get_tree().process_frame
 
 
 ## 遊戲流程的三種轉場用途（NE-427）：各拍蓋住一半、完全蓋住、揭開一半。

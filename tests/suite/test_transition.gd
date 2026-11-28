@@ -19,7 +19,7 @@ func run() -> void:
 
 ## 遊戲流程只用三種用途的轉場（NE-426）：世界裡換地方是很短的淡出、選單是掃描線、死亡重來另外一種。
 func _test_purposes() -> void:
-	check(Transition.WORLD == Transition.Kind.FADE and Transition.SYSTEM == Transition.Kind.SCAN and Transition.RETRY == Transition.Kind.GLITCH,
+	check(Transition.WORLD == Transition.Kind.FADE and Transition.SYSTEM == Transition.Kind.SCAN and Transition.RETRY == Transition.Kind.REWIND,
 		"三種用途對應淡出、掃描線、回溯")
 	check(Transition.DEFAULT_TIME[Transition.WORLD] <= 0.3, "世界裡換地方的淡出單程不超過 0.3 秒")
 	var source := FileAccess.get_file_as_string("res://game/main.gd")
@@ -143,7 +143,7 @@ func _test_abort_during_swap() -> void:
 func _test_retry_duration() -> void:
 	_enable()
 	var start := Time.get_ticks_msec()
-	await Transition.play(Transition.Kind.GLITCH, Callable(), -1.0, Vector2(0.5, 0.5), "回溯 #1", 0.22)
+	await Transition.play(Transition.RETRY, Callable(), -1.0, Vector2(0.5, 0.5), "回溯 #1", 0.22)
 	var elapsed := float(Time.get_ticks_msec() - start) / 1000.0
 	check(elapsed < 1.3, "死亡重來的轉場約 1 秒內結束（%.2f 秒；用實際時間量，機器忙時留 0.3 秒餘裕）" % elapsed)
 	_disable()
@@ -156,6 +156,11 @@ func _test_reduced_flashes() -> void:
 	check(Transition._resolve_kind(Transition.Kind.GLITCH) == Transition.Kind.FADE, "減少閃光時雜訊降級為淡入淡出")
 	check(Transition._resolve_kind(Transition.Kind.FADE_WHITE) == Transition.Kind.FADE, "減少閃光時閃白降級為淡入淡出")
 	check(Transition._resolve_kind(Transition.Kind.SCAN) == Transition.Kind.SCAN, "其他轉場不受影響")
+	check(Transition._resolve_kind(Transition.RETRY) == Transition.RETRY, "回溯沒有閃光，減少閃光時照常播出")
+	var motion := Settings.get_reduce_ui_motion()
+	Settings.set_reduce_ui_motion(true)
+	check(Transition._resolve_kind(Transition.RETRY) == Transition.Kind.FADE, "減少動態時回溯改成淡出（追蹤線會捲動）")
+	Settings.set_reduce_ui_motion(motion)
 	Settings.set_reduce_flashes(previous)
 	_disable()
 

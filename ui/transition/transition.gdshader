@@ -84,6 +84,22 @@ void fragment() {
 		// 門縫透出的光
 		float seam = smoothstep(0.02, 0.0, abs(uv.x - 0.5)) * step(0.995, p);
 		col.rgb += accent.rgb * seam * 0.6;
+	} else if (kind == 7) {
+		// 回溯（死亡重來，NE-472）：畫面褪成冷色、幾條細的錄影帶追蹤線往上捲，暗部從下往上蓋住；
+		// 揭開時同樣從下往上讓出（一直往上捲）。沒有色塊、沒有閃光，亮度只會往下降。
+		float strength = sin(clamp(p, 0.0, 1.0) * 3.14159);
+		float y = mix(1.0 - uv.y, uv.y, flip);
+		float phase = fract(uv.y * 3.0 + time_s * 1.6);
+		float band = smoothstep(0.0, 0.015, phase) * smoothstep(0.05, 0.025, phase);
+		vec3 src = textureLod(screen_tex, SCREEN_UV + vec2(band * 0.012 * strength, 0.0), 0.0).rgb;
+		float l = dot(src, vec3(0.2126, 0.7152, 0.0722));
+		vec3 cool = mix(src, vec3(l) * vec3(0.7, 0.9, 1.0), clamp(p * 1.6, 0.0, 1.0));
+		cool *= 1.0 - band * 0.25 * strength;
+		float edge = p * 1.1 - 0.05;
+		float covered = smoothstep(edge + 0.04, edge - 0.04, y);
+		col = vec4(mix(cool, tint.rgb, covered), 1.0);
+		float rim = smoothstep(0.006, 0.0, abs(y - edge)) * step(0.001, p) * step(p, 0.999);
+		col.rgb += accent.rgb * rim * 0.35;
 	} else {
 		// 百葉：橫向葉片依序闔上。
 		float bars = 14.0;

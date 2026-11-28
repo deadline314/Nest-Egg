@@ -189,7 +189,7 @@ func _open_card(card: Control) -> void:
 	tween.tween_property(card, "modulate:a", 1.0, 0.12).set_delay(0.25)
 
 
-## 進入時的雜訊溶解（減少閃光時改為單純淡入）。
+## 進入時的回溯（NE-472）：和死亡重來的轉場同一種語言——冷色、追蹤線、從下往上讓出；減少動態時直接出現、減少閃光時單純淡入。
 func _play_noise_in(root: Control) -> void:
 	if Settings.get_reduce_ui_motion():
 		return
@@ -205,8 +205,9 @@ func _play_noise_in(root: Control) -> void:
 	rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var material := ShaderMaterial.new()
 	material.shader = shader
-	material.set_shader_parameter(&"kind", int(Transition.Kind.GLITCH))
-	material.set_shader_parameter(&"accent", Palette.MAGENTA)
+	material.set_shader_parameter(&"kind", int(Transition.RETRY))
+	material.set_shader_parameter(&"accent", Palette.CYAN)
+	material.set_shader_parameter(&"flip", 1.0)
 	material.set_shader_parameter(&"seed", randf() * 10.0)
 	material.set_shader_parameter(&"aspect", 640.0 / 360.0)
 	material.set_shader_parameter(&"progress", 1.0)
