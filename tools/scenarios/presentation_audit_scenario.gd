@@ -17,6 +17,15 @@ func run() -> void:
 	Settings.set_ui_text_scale(1.0)
 	GameState.start_new_run(GameState.difficulties[1])
 	for arg in OS.get_cmdline_user_args():
+		if arg == "--part=hurt":
+			Story.auto_skip = true
+			for spot: Array in [[STREET, &"street_home", "street"], [PAWNSHOP, &"", "pawnshop"]]:
+				GameState.pending_portal = spot[1]
+				await _open(spot[0])
+				await wait(5.5)
+				await _hurt_frames(spot[2])
+			await finish()
+			return
 		if arg == "--part=transitions":
 			Story.auto_skip = true
 			await _open(PAWNSHOP)
@@ -119,6 +128,24 @@ func _transitions() -> void:
 				break
 			await get_tree().process_frame
 		await settle(4)
+
+
+## 受傷與瀕死（NE-428）：被打中的峰值一格、瀕死時脈動的高低兩格。主角停住，避免移動造成差異。
+func _hurt_frames(tag: String) -> void:
+	player.health.setup(10, 0.0)
+	await wait(0.3)
+	capture("hurt-%s-0-calm" % tag)
+	player.hurtbox.receive(DamageInfo.create(2, Combat.Team.ENEMY, &"presentation_audit"))
+	await settle(2)
+	capture("hurt-%s-1-hit" % tag)
+	await wait(1.2)
+	player.hurtbox.receive(DamageInfo.create(6, Combat.Team.ENEMY, &"presentation_audit"))
+	await wait(1.6)
+	for i in 2:
+		capture("hurt-%s-%d-danger" % [tag, 2 + i])
+		await wait(PI / PostProcess.DANGER_PULSE_SPEED)
+	player.health.setup(999, 0.0)
+	await wait(1.5)
 
 
 ## 遊戲流程的三種轉場用途（NE-427）：各拍蓋住一半、完全蓋住、揭開一半。

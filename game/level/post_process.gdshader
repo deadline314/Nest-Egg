@@ -44,11 +44,19 @@ void fragment() {
 	color = max((color - vec3(CONTRAST_PIVOT)) * contrast + vec3(CONTRAST_PIVOT), vec3(0.0));
 	color *= mix(shadow_tint, highlight_tint, smoothstep(0.05, 0.6, luma));
 
-	// 危險（低血量）：畫面邊緣帶紅色並由程式端脈動。只稍微往內收，中間的角色、敵人與提示文字保持乾淨。
-	float falloff = smoothstep(0.3 - danger * 0.04, 1.05 - danger * 0.1, length(centered) * 1.7);
-	vec3 edge_color = mix(vignette_color, vec3(0.32, 0.015, 0.03), clamp(danger, 0.0, 1.0));
-	color = mix(color, edge_color, clamp(falloff * (vignette + pulse_vignette + danger * 0.35), 0.0, 1.0));
-	color += pulse_color * pulse_amount * mix(1.0, falloff, pulse_edge_mix);
+	// 光影設定的暗角（不變）。
+	float radius = length(centered) * 1.7;
+	float falloff = smoothstep(0.3, 1.05, radius);
+	color = mix(color, vignette_color, clamp(falloff * vignette, 0.0, 1.0));
+	// 受傷與低血量只出現在外圈（NE-428）：中間的角色、敵人與提示文字保持乾淨。
+	// 低血量：外圈先去飽和再壓暗，紅色只留一點，在任何色調的場景都看得出來；脈動由程式端控制。
+	float rim = smoothstep(0.56, 1.12, radius);
+	float threat = clamp(danger, 0.0, 1.0);
+	float rim_luma = dot(color, vec3(0.2126, 0.7152, 0.0722));
+	color = mix(color, vec3(rim_luma) * 0.45, rim * threat * 0.95);
+	vec3 rim_color = mix(vignette_color, vec3(0.3, 0.02, 0.03), threat);
+	color = mix(color, rim_color, clamp(rim * (pulse_vignette + threat * 0.25), 0.0, 1.0));
+	color += pulse_color * pulse_amount * mix(1.0, rim, pulse_edge_mix);
 
 	// 玩家的亮度設定（gamma）：大於 1 提亮暗部，黑色與暗角的黑維持不變。
 	color = pow(max(color, vec3(0.0)), vec3(1.0 / brightness));
