@@ -878,16 +878,19 @@ func _spawn_ground_section() -> void:
 			break
 	var raw_key: Variant = data.load_layout_value("key_light")
 	var key_data := KeyLightData.parse(raw_key, data.id) if raw_key != null else null
-	var section := GroundSection.new()
-	# 基樁的受光面朝主光（沒有主光時從左邊來）。
-	if key_data != null:
-		section.key_x = key_data.tile.x * _layout.tile_size
-	if not section.setup(_layout, spec, "%s（%s）" % [data.id, data.layout_path], ambient, key_data.color if key_data != null else Color.WHITE):
-		section.free()
-		return
-	section.z_index = WorldLayers.TERRAIN
-	section.material = LightKit.emissive_material()
-	_world.add_child(section)
+	# 可以是一份或一串（同一區不同段用不同材質，例如當舖：後空地是室外地基、店裡是室內樓板）。
+	var specs: Array = spec if typeof(spec) == TYPE_ARRAY else [spec]
+	for index in specs.size():
+		var section := GroundSection.new()
+		# 基樁的受光面朝主光（沒有主光時從左邊來）。
+		if key_data != null:
+			section.key_x = key_data.tile.x * _layout.tile_size
+		if not section.setup(_layout, specs[index], "%s（%s）第 %d 段" % [data.id, data.layout_path, index + 1], ambient, key_data.color if key_data != null else Color.WHITE):
+			section.free()
+			continue
+		section.z_index = WorldLayers.TERRAIN
+		section.material = LightKit.emissive_material()
+		_world.add_child(section)
 
 
 ## 有主光的區段裡，立面窗光往主光色靠的比例（BG-69）。

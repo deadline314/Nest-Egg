@@ -15,12 +15,20 @@ const SHOTS := [
 ]
 
 
+## 畫面下方 40% 裡「接近純黑」（sRGB 最亮的色版低於 BLACK_LEVEL；深藍的夜空不算黑，只有三個色版都很暗才算）的像素比例上限（BG-76）：
+## 只檢查有地面剖面的區域。2026-11-28 量（第一章十個位置）：修前 0.20～0.61，修後 0.06～0.30；向陽區樣板 0.29（近前景的剪影本來就暗）。
+const BOTTOM_SHARE := 0.4
+const BLACK_LEVEL := 0.05
+const MAX_BLACK := 0.35
+
 var _area_hue := {}
 
 
 func run() -> void:
 	Settings.use_storage("user://screenshot-probe-settings.cfg")
 	Settings.set_reduce_ui_motion(true)
+	# 量測靜態畫面：關掉閃電等閃光，每次拍到的亮度才一致。
+	Settings.set_reduce_flashes(true)
 	Story.auto_skip = true
 	for id: String in Story.scene_ids():
 		Story._seen[StringName(id)] = true
@@ -46,12 +54,23 @@ func run() -> void:
 		player.facing = 1
 		snap_camera()
 		await wait(TITLE_CARD_TIME)
+		# 標題卡期間主角可能被劇情或物理移動：拍之前再放回同一個位置、重新對準鏡頭，修前修後才對得上。
+		player.global_position = Vector2(player.global_position.x, player.global_position.y) if int(shot[1]) < 0 else player.global_position
+		if int(shot[1]) >= 0:
+			var col_again := mini(int(shot[1]), layout.width - 2)
+			var y_again: float = float(shot[3]) * layout.tile_size - 2.0 if shot.size() > 3 and int(shot[3]) >= 0 else layout.surface_heights[col_again] - 2.0
+			player.global_position = Vector2(col_again * layout.tile_size + 8.0, y_again)
+			player.velocity = Vector2.ZERO
+			snap_camera()
+			await settle(3)
 		get_tree().paused = true
 		await settle(4)
 		capture(shot[2])
-		_check_hue(area, shot[2])
+		var image := preload("res://tools/viewport_capture.gd").image(get_viewport())
+		_check_hue(area, shot[2], image)
+		_check_black(shot[2], image)
 		get_tree().paused = false
-		print("COLOR_SCRIPT %s zone=%s ambient=%s" % [area, level._lighting.zone_id_at(player.global_position.x), level._lighting.current.ambient_color])
+		print("COLOR_SCRIPT %s zone=%s player=%s camera=%s" % [shot[2], level._lighting.zone_id_at(player.global_position.x), player.global_position, get_viewport().get_camera_2d().get_screen_center_position()])
 		level.queue_free()
 		await settle(4)
 	var chapters := {}
@@ -70,8 +89,8 @@ func run() -> void:
 
 
 ## 這一張的平均色相：有自己範圍的區域單獨檢查，其餘加進章節的平均。
-func _check_hue(area: String, file_name: String) -> void:
-	var hue := mean_hue(preload("res://tools/viewport_capture.gd").image(get_viewport()))
+func _check_hue(area: String, file_name: String, image: Image) -> void:
+	var hue := mean_hue(image)
 	var own := ColorScript.area_hue(StringName(area))
 	print("SHOT_HUE %s hue=%.0f" % [file_name, hue])
 	if own.x >= 0.0:
@@ -107,3 +126,28 @@ static func _shots() -> Array:
 	for shot: Array in SHOTS:
 		result.append([shot[0], shot[1], shot[0]])
 	return result
+
+
+## 畫面下方的死黑：有地面剖面的區域才檢查。
+func _check_black(file_name: String, image: Image) -> void:
+	if level.data.load_layout_value("ground_section") == null:
+		return
+	var share := black_share(image)
+	print("BOTTOM_BLACK %s share=%.2f limit=%.2f" % [file_name, share, MAX_BLACK])
+	if share > MAX_BLACK:
+		failures += 1
+		push_error("[ColorScriptScenario] %s 畫面下方 %d%% 有 %.0f%% 接近純黑（上限 %.0f%%）" % [file_name, int(BOTTOM_SHARE * 100.0), share * 100.0, MAX_BLACK * 100.0])
+
+
+## 圖的下方 BOTTOM_SHARE 裡接近純黑的像素比例（縮小後算）。
+static func black_share(image: Image) -> float:
+	var small := image.duplicate() as Image
+	small.resize(320, 180, Image.INTERPOLATE_BILINEAR)
+	var total := 0
+	var dark := 0
+	for y in range(int(small.get_height() * (1.0 - BOTTOM_SHARE)), small.get_height()):
+		for x in small.get_width():
+			total += 1
+			if small.get_pixel(x, y).v < BLACK_LEVEL:
+				dark += 1
+	return float(dark) / maxf(1.0, total)

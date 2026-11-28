@@ -14,6 +14,8 @@ const LEVELS: Array[Dictionary] = [
 const ENEMY_DISTANCE := 96.0
 const SAMPLES := 16
 const SAMPLE_INTERVAL := 0.2
+## --baseline=<json>：除了絕對門檻，每一點的玩家、邊緣、敵人對比也不能低於基準值的這個比例（BG-75、BG-76，兩條都要過）。
+const BASELINE_SHARE := 0.85
 
 var _failed := false
 var _out_dir := ""
@@ -78,6 +80,8 @@ func _run() -> void:
 			_only_spots = arg.trim_prefix("--spots=").split(",", false)
 		if arg.begins_with("--out="):
 			_out_dir = arg.trim_prefix("--out=")
+		if arg.begins_with("--baseline="):
+			_load_baseline(arg.trim_prefix("--baseline="))
 		if arg.begins_with("--capture-prefix="):
 			_capture_prefix = arg.trim_prefix("--capture-prefix=").get_file()
 	if not _out_dir.is_empty():
@@ -210,8 +214,11 @@ func _check_level(path: String, spots: Array, enemy_path := "res://data/enemies/
 		if not standing:
 			printerr("[readability_check] %s/%s: invalid floor sample; player=%s expected=%s enemy=%s expected=%s" % [path, spot[0], player.global_position, expected_feet, str(foe.global_position) if is_instance_valid(foe) else "missing", expected_foe_feet])
 		var ok := standing and player_contrast >= ContrastProbe.MIN_PLAYER_CONTRAST and edge_contrast >= ContrastProbe.MIN_EDGE_CONTRAST and (enemy_path.is_empty() or (is_instance_valid(foe) and enemy_contrast >= ContrastProbe.MIN_ENEMY_CONTRAST))
-		_failed = _failed or not ok
+		var below_baseline := _below_baseline("%s/%s" % [data.id, spot[0]], player_contrast, edge_contrast, enemy_contrast if not enemy_path.is_empty() else -1.0)
+		_failed = _failed or not ok or not below_baseline.is_empty()
 		var result_label := "取樣無效" if not standing else ("OK" if ok else "太暗（門檻 %.2f / %.2f / %.2f）" % [ContrastProbe.MIN_PLAYER_CONTRAST, ContrastProbe.MIN_EDGE_CONTRAST, ContrastProbe.MIN_ENEMY_CONTRAST])
+		if standing and not below_baseline.is_empty():
+			result_label += "　低於基準的 %d%%：%s" % [int(BASELINE_SHARE * 100.0), below_baseline]
 		print("%-8s  %-8.2f  %-8.2f  %-8s  %s" % [spot[0], player_contrast, edge_contrast, "%.2f" % enemy_contrast if not enemy_path.is_empty() else "N/A", result_label])
 		var shot := "%s-%s-%d.png" % [_capture_prefix, data.id, tile]
 		if not _out_dir.is_empty():
@@ -263,3 +270,28 @@ static func probe_floor(layout: LevelLayout, tile: int, spot: String) -> float:
 		return layout.checkpoints[3].y
 	var floor_y := layout.surface_heights[tile]
 	return layout.floor_below(tile, 4) if floor_y < layout.tile_size * 4.0 else floor_y
+
+
+var _baseline := {}
+
+
+## 基準檔：{"區域 id/取樣點": {"player": 數字, "edge": 數字, "enemy": 數字}}。讀不到時記錄，只用絕對門檻。
+func _load_baseline(path: String) -> void:
+	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(path)) if FileAccess.file_exists(path) else null
+	if typeof(parsed) != TYPE_DICTIONARY:
+		printerr("[readability_check] 讀不到基準檔 %s，只用絕對門檻" % path)
+		_failed = true
+		return
+	_baseline = parsed
+
+
+## 低於基準 BASELINE_SHARE 的項目（空字串代表都沒有低於）；沒有這一點的基準就不比。
+func _below_baseline(key: String, player: float, edge: float, enemy: float) -> String:
+	if not _baseline.has(key):
+		return ""
+	var entry: Dictionary = _baseline[key]
+	var low := PackedStringArray()
+	for pair: Array in [["player", player], ["edge", edge], ["enemy", enemy]]:
+		if entry.has(pair[0]) and float(pair[1]) >= 0.0 and float(pair[1]) < float(entry[pair[0]]) * BASELINE_SHARE:
+			low.append("%s %.2f < %.2f" % [pair[0], float(pair[1]), float(entry[pair[0]]) * BASELINE_SHARE])
+	return "、".join(low)

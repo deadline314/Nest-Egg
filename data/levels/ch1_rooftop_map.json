@@ -132,5 +132,5 @@
   "key_light": {"x": 20, "y": 30, "color": [0.55, 0.7, 1.0], "energy": 0.5, "light_radius": 520, "halo_radius": 260, "halo_alpha": 0.3, "front_wash": 0.04, "shafts": {"count": 5, "angle": 25, "length": 420, "width": 26, "spread": 200}, "occlusion": [0.3, 0.8], "period": 50},
   "near_foreground": [{"anchor": "bottom", "base": ["railing"], "deck_base": ["curb_bollards", "deck_beam"], "rise": 13, "from": 0, "to": 72}, {"anchor": "top", "pieces": ["cables"], "above": 175, "spacing": [140, 300], "from": 0, "to": 72}],
   "midground": {"pieces": ["crates_stack", "barrels", "trash_can"], "spacing": [50, 120], "from": 2, "to": 70},
-  "ground_section": {"start": 20, "fade": 0.82, "piles": [56, 104], "pipes": 0.5}
+  "ground_section": {"style": "steel", "start": 16, "min_level": 0.16, "fade_depth": 260, "under_deck": 1.0, "fade": 0.6, "piles": [56, 104], "pipes": 0.5}
 }
