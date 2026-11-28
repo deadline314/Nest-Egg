@@ -4,10 +4,10 @@
 [ext_resource type="Resource" path="res://data/npcs/ch1_ali_stall.tres" id="2_ch1_ali_stall"]
 [ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="3_portal_data"]
 [ext_resource type="Resource" path="res://data/props/credits_large.tres" id="4_credits_large"]
-[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="5_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/alley_calm.tres" id="6_alley_calm"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch1_stall.tres" id="7_ch1_stall"]
-[ext_resource type="Resource" path="res://data/npcs/ch1_stall_cat_bowl.tres" id="95_ch1_stall_cat_bowl"]
+[ext_resource type="Resource" path="res://data/npcs/ch1_stall_cat_bowl.tres" id="5_ch1_stall_cat_bowl"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="6_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/alley_calm.tres" id="7_alley_calm"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch1_stall.tres" id="8_ch1_stall"]
 
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("3_portal_data")
@@ -23,10 +23,10 @@ cinematic_preview_scene = &"ch1_c14_home"
 style = "door"
 
 [sub_resource type="Resource" id="Resource_1"]
-script = ExtResource("5_lighting_zone")
+script = ExtResource("6_lighting_zone")
 start_tile = 0
 blend_tiles = 12
-profile = ExtResource("6_alley_calm")
+profile = ExtResource("7_alley_calm")
 
 [resource]
 script = ExtResource("1_level_data")
@@ -36,17 +36,17 @@ localized_names = Dictionary[String, String]({"en": "Late-Night Noodle Stall", "
 tile_size = 16
 height = 24
 legend = Dictionary[String, Resource]({
-"♥": ExtResource("95_ch1_stall_cat_bowl"),
 "Q": ExtResource("2_ch1_ali_stall"),
 "Z": SubResource("Resource_0"),
-"q": ExtResource("4_credits_large")
+"q": ExtResource("4_credits_large"),
+"♥": ExtResource("5_ch1_stall_cat_bowl")
 })
 hints = PackedStringArray()
 chapter = &"ch1_kasa"
 persistent_world = true
 show_chapter_card = false
-environment = ExtResource("7_ch1_stall")
+environment = ExtResource("8_ch1_stall")
 layout_path = "res://data/levels/ch1_stall_map.json"
-lighting_zones = Array[ExtResource("5_lighting_zone")]([SubResource("Resource_1")])
+lighting_zones = Array[ExtResource("6_lighting_zone")]([SubResource("Resource_1")])
 story_triggers = PackedStringArray("ch1_b_stall")
 death_credit_cap = 250

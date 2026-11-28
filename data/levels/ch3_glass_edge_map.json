@@ -62,7 +62,7 @@
     {"id": "sunlit_district__street_clock", "x": 54, "ground": true}
   ],
   "key_light": {"x": 17, "y": 12, "color": [1.0, 0.68, 0.4], "energy": 0.8, "light_radius": 700, "halo_radius": 320, "halo_alpha": 0.75, "front_wash": 0.08, "shafts": {"count": 6, "angle": 34, "length": 360, "width": 30, "spread": 300}, "occlusion": [0.12, 0.88], "period": 48},
-  "near_foreground": [{"anchor": "bottom", "base": ["planter_edge"], "pieces": ["rose_bush", "planters"], "rise": 14, "spacing": [30, 120], "scale": [0.6, 1.15], "from": 0, "to": 72}, {"anchor": "top", "pieces": ["foliage"], "above": 175, "spacing": [40, 120], "from": 4, "to": 22}, {"anchor": "top", "pieces": ["lanterns"], "above": 175, "spacing": [110, 260], "from": 24, "to": 72}],
+  "ground_section": {"start": 14, "fade": 0.7, "piles": [56, 104], "pipes": 0.5},
   "midground": {"pieces": ["sunlit_district__sorting_bins", "sunlit_district__street_tree_planter", "sunlit_district__cafe_awning_set", "vending_machine", "crates_stack", "pipe_vertical", "barrels"], "spacing": [50, 120], "from": 2, "to": 70},
-  "ground_section": {"start": 14, "fade": 0.7, "piles": [56, 104], "pipes": 0.5}
+  "near_foreground": [{"anchor": "bottom", "base": ["planter_edge"], "pieces": ["rose_bush", "planters"], "rise": 14, "spacing": [30, 120], "scale": [0.6, 1.15], "from": 0, "to": 72}, {"anchor": "top", "pieces": ["foliage"], "above": 175, "spacing": [40, 120], "from": 4, "to": 22}, {"anchor": "top", "pieces": ["lanterns"], "above": 175, "spacing": [110, 260], "from": 24, "to": 72}]
 }

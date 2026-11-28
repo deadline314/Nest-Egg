@@ -116,7 +116,7 @@ PORTALS = {
 }
 
 THEMES = {
-    "pawnshop": ("concrete", ["shopfront", "brick_block"], "brick", 0.0, "sky_storm",
+    "pawnshop": ("concrete", ["shopfront", "brick_block"], "brick", 0.0, "sky_haze",   # 依劇情時段換天空（畫面線 e18ba7215）
                  ["pawnshop_front", "pawnshop_kitchen", "basement_door", "harbor_street"]),
     "ward_reception": ("facility_floor", ["facility_wall"], "facility_panel", 0.0, "sky_storm", ["clinic", "mezzanine"]),
     "nursing_ward": ("facility_floor", ["facility_wall"], "facility_panel", 0.0, "sky_storm", ["nursing_ward", "clinic"]),

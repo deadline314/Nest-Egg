@@ -3,12 +3,12 @@
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Resource" path="res://data/props/credits_small.tres" id="2_credits_small"]
 [ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="3_portal_data"]
-[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="4_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/alley_calm.tres" id="5_alley_calm"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch2_harbor_street.tres" id="6_ch2_harbor_street"]
-[ext_resource type="Resource" path="res://data/npcs/ch2_street_worker.tres" id="92_ch2_street_worker"]
-[ext_resource type="Resource" path="res://data/npcs/ch2_street_news.tres" id="93_ch2_street_news"]
-[ext_resource type="Resource" path="res://data/npcs/ch2_street_flyer.tres" id="94_ch2_street_flyer"]
+[ext_resource type="Resource" path="res://data/npcs/ch2_street_flyer.tres" id="4_ch2_street_flyer"]
+[ext_resource type="Resource" path="res://data/npcs/ch2_street_news.tres" id="5_ch2_street_news"]
+[ext_resource type="Resource" path="res://data/npcs/ch2_street_worker.tres" id="6_ch2_street_worker"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="7_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/alley_calm.tres" id="8_alley_calm"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch2_harbor_street.tres" id="9_ch2_harbor_street"]
 
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("3_portal_data")
@@ -42,10 +42,10 @@ height = 44
 style = "road"
 
 [sub_resource type="Resource" id="Resource_3"]
-script = ExtResource("4_lighting_zone")
+script = ExtResource("7_lighting_zone")
 start_tile = 0
 blend_tiles = 12
-profile = ExtResource("5_alley_calm")
+profile = ExtResource("8_alley_calm")
 
 [resource]
 script = ExtResource("1_level_data")
@@ -58,17 +58,17 @@ legend = Dictionary[String, Resource]({
 "c": ExtResource("2_credits_small"),
 "h": SubResource("Resource_0"),
 "m": SubResource("Resource_1"),
-"Ⓕ": ExtResource("94_ch2_street_flyer"),
-"Ⓙ": ExtResource("93_ch2_street_news"),
-"Ⓚ": ExtResource("92_ch2_street_worker"),
-"⇡": SubResource("Resource_2")
+"⇡": SubResource("Resource_2"),
+"Ⓕ": ExtResource("4_ch2_street_flyer"),
+"Ⓙ": ExtResource("5_ch2_street_news"),
+"Ⓚ": ExtResource("6_ch2_street_worker")
 })
 hints = PackedStringArray("踩著雨棚往右走，可以從上層進市集入口。")
 chapter = &"ch2_heron"
 persistent_world = true
 show_chapter_card = false
-environment = ExtResource("6_ch2_harbor_street")
+environment = ExtResource("9_ch2_harbor_street")
 layout_path = "res://data/levels/ch2_harbor_street_map.json"
-lighting_zones = Array[ExtResource("4_lighting_zone")]([SubResource("Resource_3")])
+lighting_zones = Array[ExtResource("7_lighting_zone")]([SubResource("Resource_3")])
 story_triggers = PackedStringArray("ch2_b_street_morning")
 death_credit_cap = 250

@@ -61,7 +61,7 @@
     {"id": "clearwater__sun_chart_notes", "x": 32, "y": 13, "support": "wall"},
     {"id": "clearwater__white_curtains", "x": 45, "y": 12, "support": "wall"},
     {"id": "clearwater__rain_sound_machine", "x": 50, "ground": true},
-    {"id": "clearwater__sill_with_coin", "x": 60, "ground": true, "react": "showroom_late_shade"},
+    {"id": "clearwater__sill_with_coin", "x": 60, "react": "showroom_late_shade", "ground": true},
     {"id": "clearwater__plain_wall_clock", "x": 57, "y": 12, "support": "wall"}
   ]
 }

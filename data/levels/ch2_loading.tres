@@ -1,25 +1,25 @@
 [gd_resource type="Resource" script_class="LevelData" load_steps=24 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
-[ext_resource type="Resource" path="res://data/props/credits_small.tres" id="2_credits_small"]
-[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="3_portal_data"]
-[ext_resource type="Resource" path="res://data/npcs/ch2_drying_desk.tres" id="4_ch2_drying_desk"]
-[ext_resource type="Resource" path="res://data/npcs/ch2_sc1_lever.tres" id="5_ch2_sc1_lever"]
-[ext_resource type="Resource" path="res://data/npcs/ch2_collection_book.tres" id="6_ch2_collection_book"]
-[ext_resource type="Resource" path="res://data/npcs/ch2_guard.tres" id="7_ch2_guard"]
-[ext_resource type="Resource" path="res://data/enemies/ch2_bill_thrower.tres" id="8_ch2_bill_thrower"]
-[ext_resource type="Resource" path="res://data/enemies/ch2_escort.tres" id="9_ch2_escort"]
-[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="10_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/market.tres" id="11_market"]
-[ext_resource type="Resource" path="res://data/lighting/hangar.tres" id="12_hangar"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch2_loading.tres" id="13_ch2_loading"]
-[ext_resource type="Resource" path="res://data/props/suspended_crate.tres" id="94_suspended_crate"]
-[ext_resource type="Script" path="res://data/scripts/area_challenge_data.gd" id="95_challenge_script"]
-[ext_resource type="Resource" path="res://data/challenges/ch2_loading_unseen.tres" id="96_challenge"]
-[ext_resource type="Resource" path="res://data/props/hiding_spot.tres" id="97_hiding_spot"]
+[ext_resource type="Resource" path="res://data/props/suspended_crate.tres" id="2_suspended_crate"]
+[ext_resource type="Resource" path="res://data/props/credits_small.tres" id="3_credits_small"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="4_portal_data"]
+[ext_resource type="Resource" path="res://data/npcs/ch2_drying_desk.tres" id="5_ch2_drying_desk"]
+[ext_resource type="Resource" path="res://data/npcs/ch2_sc1_lever.tres" id="6_ch2_sc1_lever"]
+[ext_resource type="Resource" path="res://data/npcs/ch2_collection_book.tres" id="7_ch2_collection_book"]
+[ext_resource type="Resource" path="res://data/npcs/ch2_guard.tres" id="8_ch2_guard"]
+[ext_resource type="Resource" path="res://data/enemies/ch2_bill_thrower.tres" id="9_ch2_bill_thrower"]
+[ext_resource type="Resource" path="res://data/enemies/ch2_escort.tres" id="10_ch2_escort"]
+[ext_resource type="Resource" path="res://data/props/hiding_spot.tres" id="11_hiding_spot"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="12_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/market.tres" id="13_market"]
+[ext_resource type="Resource" path="res://data/lighting/hangar.tres" id="14_hangar"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch2_loading.tres" id="15_ch2_loading"]
+[ext_resource type="Script" path="res://data/scripts/area_challenge_data.gd" id="16_area_challenge_data"]
+[ext_resource type="Resource" path="res://data/challenges/ch2_loading_unseen.tres" id="17_ch2_loading_unseen"]
 
 [sub_resource type="Resource" id="Resource_0"]
-script = ExtResource("3_portal_data")
+script = ExtResource("4_portal_data")
 id = &"loading_market"
 target_level = "res://data/levels/ch2_market.tres"
 target_portal = &"market_cargo"
@@ -30,7 +30,7 @@ height = 44
 style = "road"
 
 [sub_resource type="Resource" id="Resource_1"]
-script = ExtResource("3_portal_data")
+script = ExtResource("4_portal_data")
 id = &"loading_sc1"
 target_level = "res://data/levels/ch2_market.tres"
 target_portal = &"market_sc1"
@@ -44,7 +44,7 @@ height = 56
 style = "hidden"
 
 [sub_resource type="Resource" id="Resource_2"]
-script = ExtResource("3_portal_data")
+script = ExtResource("4_portal_data")
 id = &"loading_ledger"
 target_level = "res://data/levels/ch2_ledger_front.tres"
 target_portal = &"front_loading"
@@ -58,7 +58,7 @@ height = 56
 style = "door"
 
 [sub_resource type="Resource" id="Resource_3"]
-script = ExtResource("3_portal_data")
+script = ExtResource("4_portal_data")
 id = &"loading_canopy"
 target_level = "res://data/levels/ch2_market.tres"
 target_portal = &"market_canopy"
@@ -72,47 +72,47 @@ height = 44
 style = "road"
 
 [sub_resource type="Resource" id="Resource_4"]
-script = ExtResource("10_lighting_zone")
+script = ExtResource("12_lighting_zone")
 start_tile = 0
 blend_tiles = 12
-profile = ExtResource("11_market")
+profile = ExtResource("13_market")
 
 [sub_resource type="Resource" id="Resource_5"]
-script = ExtResource("10_lighting_zone")
+script = ExtResource("12_lighting_zone")
 start_tile = 104
 blend_tiles = 6
-profile = ExtResource("12_hangar")
+profile = ExtResource("14_hangar")
 
 [resource]
 script = ExtResource("1_level_data")
-shootable_lamps = true
 id = &"ch2_loading"
 display_name = "雨棚背面與裝卸間"
 localized_names = Dictionary[String, String]({"en": "Canopy and Loading Room", "ja": "雨よけの裏と荷さばき室"})
 tile_size = 16
 height = 40
 legend = Dictionary[String, Resource]({
-"!": ExtResource("94_suspended_crate"),
-"c": ExtResource("2_credits_small"),
+"!": ExtResource("2_suspended_crate"),
+"c": ExtResource("3_credits_small"),
 "Ⅹ": SubResource("Resource_0"),
 "Ⅺ": SubResource("Resource_1"),
 "Ⅻ": SubResource("Resource_2"),
 "⇤": SubResource("Resource_3"),
-"ⓓ": ExtResource("4_ch2_drying_desk"),
-"ⓙ": ExtResource("5_ch2_sc1_lever"),
-"ⓛ": ExtResource("6_ch2_collection_book"),
-"ⓧ": ExtResource("7_ch2_guard"),
-"⦀": ExtResource("97_hiding_spot"),
-"♜": ExtResource("8_ch2_bill_thrower"),
-"♞": ExtResource("9_ch2_escort")
+"ⓓ": ExtResource("5_ch2_drying_desk"),
+"ⓙ": ExtResource("6_ch2_sc1_lever"),
+"ⓛ": ExtResource("7_ch2_collection_book"),
+"ⓧ": ExtResource("8_ch2_guard"),
+"♜": ExtResource("9_ch2_bill_thrower"),
+"♞": ExtResource("10_ch2_escort"),
+"⦀": ExtResource("11_hiding_spot")
 })
 hints = PackedStringArray()
 chapter = &"ch2_heron"
 persistent_world = true
 show_chapter_card = false
-environment = ExtResource("13_ch2_loading")
+environment = ExtResource("15_ch2_loading")
 layout_path = "res://data/levels/ch2_loading_map.json"
-lighting_zones = Array[ExtResource("10_lighting_zone")]([SubResource("Resource_4"), SubResource("Resource_5")])
+lighting_zones = Array[ExtResource("12_lighting_zone")]([SubResource("Resource_4"), SubResource("Resource_5")])
 story_triggers = PackedStringArray("ch2_s09_wire", "ch2_s09_hawker")
+challenges = Array[ExtResource("16_area_challenge_data")]([ExtResource("17_ch2_loading_unseen")])
+shootable_lamps = true
 death_credit_cap = 250
-challenges = Array[ExtResource("95_challenge_script")]([ExtResource("96_challenge")])

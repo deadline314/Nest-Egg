@@ -3,13 +3,13 @@
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Resource" path="res://data/props/credits_large.tres" id="2_credits_large"]
 [ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="3_portal_data"]
-[ext_resource type="Resource" path="res://data/npcs/ch3_office_vent.tres" id="4_ch3_office_vent"]
-[ext_resource type="Resource" path="res://data/npcs/ch3_waiting_bench.tres" id="5_ch3_waiting_bench"]
-[ext_resource type="Resource" path="res://data/npcs/ch3_petition_box.tres" id="6_ch3_petition_box"]
-[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="7_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/reception_white.tres" id="8_reception_white"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch3_office_hall.tres" id="9_ch3_office_hall"]
-[ext_resource type="Resource" path="res://data/props/latch_door.tres" id="10_latch_door"]
+[ext_resource type="Resource" path="res://data/props/latch_door.tres" id="4_latch_door"]
+[ext_resource type="Resource" path="res://data/npcs/ch3_office_vent.tres" id="5_ch3_office_vent"]
+[ext_resource type="Resource" path="res://data/npcs/ch3_waiting_bench.tres" id="6_ch3_waiting_bench"]
+[ext_resource type="Resource" path="res://data/npcs/ch3_petition_box.tres" id="7_ch3_petition_box"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="8_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/reception_white.tres" id="9_reception_white"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch3_office_hall.tres" id="10_ch3_office_hall"]
 
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("3_portal_data")
@@ -39,10 +39,10 @@ localized_prompts = Dictionary[String, String]({"en": "{interact} Inner office d
 style = "door"
 
 [sub_resource type="Resource" id="Resource_3"]
-script = ExtResource("7_lighting_zone")
+script = ExtResource("8_lighting_zone")
 start_tile = 0
 blend_tiles = 12
-profile = ExtResource("8_reception_white")
+profile = ExtResource("9_reception_white")
 
 [resource]
 script = ExtResource("1_level_data")
@@ -56,18 +56,18 @@ legend = Dictionary[String, Resource]({
 "Ⅺ": SubResource("Resource_0"),
 "Ⅻ": SubResource("Resource_1"),
 "ⅷ": SubResource("Resource_2"),
-"Ⓥ": ExtResource("4_ch3_office_vent"),
-"Ⓦ": ExtResource("5_ch3_waiting_bench"),
-"ⓧ": ExtResource("6_ch3_petition_box"),
-"⊓": ExtResource("10_latch_door")
+"⊓": ExtResource("4_latch_door"),
+"Ⓥ": ExtResource("5_ch3_office_vent"),
+"Ⓦ": ExtResource("6_ch3_waiting_bench"),
+"ⓧ": ExtResource("7_ch3_petition_box")
 })
 hints = PackedStringArray()
 chapter = &"ch3_clearwater"
 persistent_world = true
 show_chapter_card = false
-environment = ExtResource("9_ch3_office_hall")
+environment = ExtResource("10_ch3_office_hall")
 layout_path = "res://data/levels/ch3_office_hall_map.json"
-lighting_zones = Array[ExtResource("7_lighting_zone")]([SubResource("Resource_3")])
+lighting_zones = Array[ExtResource("8_lighting_zone")]([SubResource("Resource_3")])
 story_triggers = PackedStringArray()
 rain = false
 death_credit_cap = 250

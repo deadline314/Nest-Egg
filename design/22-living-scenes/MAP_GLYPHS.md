@@ -15,6 +15,7 @@
 | `ψ` | `data/props/decoy_radio.tres` | 誘餌收音機（NE-404） | 第三章泵室、夾層 |
 | `┅` | `data/props/crumbling_walkway.tres` | 會塌的走道（NE-420） | 第一章屋頂 |
 | `⦀` | `data/props/hiding_spot.tres` | 門簾凹室（NE-426） | 第二章裝卸間 |
+| `⊓` | `data/props/latch_door.tres` | 門閂門：一側拉開門閂後一直開著，另一側打不開（NE-430） | 第三章天穹辦公接待廊 |
 | `X` | `data/props/ch1_secret_wall.tres` | 裂縫牆（打破露出秘密房間） | 第一章街道、倉庫深處；第三章診所；第二章北棟前室 |
 | `x` | `data/props/ch1_crate.tres` | 可打破的貨箱（掩護，掉零錢） | 第一章當舖；第二章市集入口 |
 | `▧` | `data/props/ch4_arena_cover.tres` | 廠房掩護箱 | 第四章清掃工作廊、舊廠外廊 |

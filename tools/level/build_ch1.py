@@ -1153,6 +1153,9 @@ def build_stall():
     a.platform(30, 35, 16)
     a.platform(37, 44, 13)
     a.stand(43, 'q', row=12)
+    # 鐵皮棚上的貓碗（故事線 ST-62，可以看的物件）；字元只在麵攤用，在這裡登記。
+    RES['♥'] = 'res://data/npcs/ch1_stall_cat_bowl.tres'
+    a.put(41, 12, '♥')
     a.prop('dawn_noodle_stall__ali_noodle_cart', 18)
     a.prop('dawn_noodle_stall__noodle_bowls_table', 26, react='noodle_meal')
     a.prop('dawn_noodle_stall__stool_stack', 32, y=19)   # 頭上有雨棚：寫明站在地上

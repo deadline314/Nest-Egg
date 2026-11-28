@@ -6,10 +6,10 @@
 [ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="4_portal_data"]
 [ext_resource type="Resource" path="res://data/npcs/ch2_isolation_diagram.tres" id="5_ch2_isolation_diagram"]
 [ext_resource type="Resource" path="res://data/npcs/ch2_ledger_door.tres" id="6_ch2_ledger_door"]
-[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="7_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/warehouse_interior.tres" id="8_warehouse_interior"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch2_ledger_front.tres" id="9_ch2_ledger_front"]
-[ext_resource type="Resource" path="res://data/npcs/ch2_unsent_notices.tres" id="96_ch2_unsent_notices"]
+[ext_resource type="Resource" path="res://data/npcs/ch2_unsent_notices.tres" id="7_ch2_unsent_notices"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="8_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/warehouse_interior.tres" id="9_warehouse_interior"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch2_ledger_front.tres" id="10_ch2_ledger_front"]
 
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("4_portal_data")
@@ -37,10 +37,10 @@ height = 56
 style = "door"
 
 [sub_resource type="Resource" id="Resource_2"]
-script = ExtResource("7_lighting_zone")
+script = ExtResource("8_lighting_zone")
 start_tile = 0
 blend_tiles = 12
-profile = ExtResource("8_warehouse_interior")
+profile = ExtResource("9_warehouse_interior")
 
 [resource]
 script = ExtResource("1_level_data")
@@ -50,20 +50,20 @@ localized_names = Dictionary[String, String]({"en": "North Building Anteroom", "
 tile_size = 16
 height = 24
 legend = Dictionary[String, Resource]({
-"♤": ExtResource("96_ch2_unsent_notices"),
 "X": ExtResource("2_ch1_secret_wall"),
 "q": ExtResource("3_credits_large"),
 "ⅰ": SubResource("Resource_0"),
 "ⅱ": SubResource("Resource_1"),
 "ⓘ": ExtResource("5_ch2_isolation_diagram"),
-"ⓨ": ExtResource("6_ch2_ledger_door")
+"ⓨ": ExtResource("6_ch2_ledger_door"),
+"♤": ExtResource("7_ch2_unsent_notices")
 })
 hints = PackedStringArray()
 chapter = &"ch2_heron"
 persistent_world = true
 show_chapter_card = false
-environment = ExtResource("9_ch2_ledger_front")
+environment = ExtResource("10_ch2_ledger_front")
 layout_path = "res://data/levels/ch2_ledger_front_map.json"
-lighting_zones = Array[ExtResource("7_lighting_zone")]([SubResource("Resource_2")])
+lighting_zones = Array[ExtResource("8_lighting_zone")]([SubResource("Resource_2")])
 story_triggers = PackedStringArray()
 death_credit_cap = 250

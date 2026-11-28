@@ -400,16 +400,18 @@ def build_ledger_front():
     a.prop('yong_hideout__money_sacks', 38)
     a.stand(46, 'ⓨ')
     a.stand(52, 'ⅱ')
-    # 帳房門右邊的裂縫牆（NE-452）：後面是阿勇藏舊帳的暗櫃，不擋主線。
+    # 帳房門右邊的裂縫牆（NE-452）：後面是一個小暗櫃，不擋主線。裡面放什麼由故事線決定，地圖只先放信用點。
     a.block(56, 56, 10, 16)
     a.put(56, 19, 'X')
-    a.prop('yong_hideout__money_sacks', 58)
+    # 暗櫃裡沒寄出的公告（故事線 ST-64，可以看的物件）；字元只在這裡用，在這裡登記。
+    kit.RES['♤'] = 'res://data/npcs/ch2_unsent_notices.tres'
+    a.put(59, 19, '♤')
     a.stand(61, 'q')
     for x in (12, 30, 46, 59):
         a.lamp(x, 11)
     a.zone(0, 'warehouse_interior')
     a.features = {'landmark': '隔離箱示意圖（x=28）：主箱永久解除、側箱只能暫停',
-                  'secret': '帳房門右邊，裂縫牆後阿勇藏舊帳的暗櫃（x=57～62）'}
+                  'secret': '帳房門右邊，裂縫牆後的暗櫃（x=57～62）'}
     return a
 
 

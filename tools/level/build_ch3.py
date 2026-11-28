@@ -23,9 +23,10 @@ MAINTENANCE_CREDIT = '¢'
 DECOY_RADIO = 'ψ'
 LIVE_CABLE = 'φ'
 STEAM_VALVE = 'σ'
+LATCH_DOOR = '⊓'
 SECRET_WALL = 'X'
 MECHANISMS = {DECOY_RADIO: 'res://data/props/decoy_radio.tres', LIVE_CABLE: 'res://data/props/live_cable.tres',
-              STEAM_VALVE: 'res://data/props/steam_valve.tres'}
+              STEAM_VALVE: 'res://data/props/steam_valve.tres', LATCH_DOOR: 'res://data/props/latch_door.tres'}
 
 # ---------------------------------------------------------------------------
 # 人物與可調查物件：字元 -> 資料檔（台詞由劇本的分派場景依進度挑選，見 tools/story/ch3_source.py）
@@ -477,6 +478,11 @@ def build_office_hall():
     # （從地面看得到，要繞上去才拿得到），再從左端落回取件格旁。玻璃邊緣是光影樣板，平台改放在這裡。
     a.platform(48, 52, 17)
     a.platform(16, 46, 14)
+    # 門閂門（玩法線 NE-430 的示範）：第 32 欄一道 6 格高的門，門頂穿過維修廊（那一格空出來）；
+    # 左端多一排踏板接上維修廊，從上面繞到門閂那一側拉開，回程就是近路。
+    a.platform(11, 13, 17)
+    a.grid.put(32, 14, '.')
+    a.put(32, 19, LATCH_DOOR)
     a.stand(18, 'q', row=13)
     a.stand(24, 'Ⓥ', row=13)   # 維修廊的空調維修口（ST-61）
     for x in (10, 24, 40, 54):

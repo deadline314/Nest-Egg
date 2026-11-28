@@ -110,7 +110,30 @@ func _check_safe_platform(loading: LevelData, relay: LevelData, safety: LevelDat
 			threats.append(enemy.id)
 	# NE-451：上層走道的兩台探照無人機換一台成狙擊手；下層仍是清掃兵，東端出口是切割者。
 	check(threats.count(&"sweeper") == 1 and threats.count(&"slasher") == 1 and threats.count(&"searchlight_drone") == 1 and threats.count(&"sniper") == 1,
-			"the shared floor and upper catwalk contain two distinct patrol groups")
+			"the relay keeps its crew: a sweeper and a slasher below, a searchlight drone and a sniper above")
+	# 劇情意圖（CH04_FACTORY_SERVICE_WALK.md）：下層一組、上層一組，玩家可以正面通過或換層——兩組真的分在兩層，而且換得了層。
+	var floor_row := -1
+	for spawn: Dictionary in hall.spawns:
+		if spawn.get("resource") is PortalData:
+			floor_row = maxi(floor_row, (spawn["cell"] as Vector2i).y)
+	var below := 0
+	var above := 0
+	var walkway_rows := {}
+	for spawn: Dictionary in hall.spawns:
+		if spawn.get("resource") is EnemyData:
+			var row: int = (spawn["cell"] as Vector2i).y
+			if row == floor_row:
+				below += 1
+			elif row <= floor_row - 4:
+				above += 1
+				if (spawn["resource"] as EnemyData).id != &"searchlight_drone":
+					walkway_rows[row] = true
+	check(below >= 1 and above >= 1, "the shared floor and upper catwalk contain two distinct patrol groups (%d below, %d above)" % [below, above])
+	var reach := SceneAudit.reachable_cells(hall, SceneAudit._mechanism_platforms(hall))
+	var on_walkway := false
+	for cell: Vector2i in reach:
+		on_walkway = on_walkway or walkway_rows.has(cell.y)
+	check(not walkway_rows.is_empty() and on_walkway, "the player can climb from the floor to the catwalk group (switch layers)")
 
 
 func _check_work_lane(safety: LevelData, work: LevelData) -> void:

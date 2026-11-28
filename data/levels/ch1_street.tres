@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=36 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=37 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Resource" path="res://data/throwables/crate_small.tres" id="2_crate_small"]
@@ -19,14 +19,14 @@
 [ext_resource type="Resource" path="res://data/enemies/ch1_inspector.tres" id="17_ch1_inspector"]
 [ext_resource type="Resource" path="res://data/props/ch1_enc_street_plaza.tres" id="18_ch1_enc_street_plaza"]
 [ext_resource type="Resource" path="res://data/props/ch1_enc_street_blockade.tres" id="19_ch1_enc_street_blockade"]
-[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="20_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/street_market.tres" id="21_street_market"]
-[ext_resource type="Resource" path="res://data/lighting/street_market_creature.tres" id="22_street_market_creature"]
-[ext_resource type="Resource" path="res://data/lighting/street_harbor.tres" id="23_street_harbor"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch1_street.tres" id="24_ch1_street"]
-[ext_resource type="Resource" path="res://data/props/steam_valve.tres" id="91_steam_valve"]
-[ext_resource type="Resource" path="res://data/npcs/ch1_street_flyer.tres" id="92_ch1_street_flyer"]
-[ext_resource type="Resource" path="res://data/npcs/ch1_street_worker.tres" id="93_ch1_street_worker"]
+[ext_resource type="Resource" path="res://data/props/steam_valve.tres" id="20_steam_valve"]
+[ext_resource type="Resource" path="res://data/npcs/ch1_street_flyer.tres" id="21_ch1_street_flyer"]
+[ext_resource type="Resource" path="res://data/npcs/ch1_street_worker.tres" id="22_ch1_street_worker"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="23_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/street_market.tres" id="24_street_market"]
+[ext_resource type="Resource" path="res://data/lighting/street_market_creature.tres" id="25_street_market_creature"]
+[ext_resource type="Resource" path="res://data/lighting/street_harbor.tres" id="26_street_harbor"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch1_street.tres" id="27_ch1_street"]
 
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("5_portal_data")
@@ -99,22 +99,22 @@ height = 56
 style = "door"
 
 [sub_resource type="Resource" id="Resource_6"]
-script = ExtResource("20_lighting_zone")
+script = ExtResource("23_lighting_zone")
 start_tile = 0
 blend_tiles = 12
-profile = ExtResource("21_street_market")
+profile = ExtResource("24_street_market")
 
 [sub_resource type="Resource" id="Resource_7"]
-script = ExtResource("20_lighting_zone")
+script = ExtResource("23_lighting_zone")
 start_tile = 172
 blend_tiles = 4
-profile = ExtResource("22_street_market_creature")
+profile = ExtResource("25_street_market_creature")
 
 [sub_resource type="Resource" id="Resource_8"]
-script = ExtResource("20_lighting_zone")
+script = ExtResource("23_lighting_zone")
 start_tile = 181
 blend_tiles = 14
-profile = ExtResource("23_street_harbor")
+profile = ExtResource("26_street_harbor")
 
 [resource]
 script = ExtResource("1_level_data")
@@ -128,7 +128,6 @@ legend = Dictionary[String, Resource]({
 "D": ExtResource("3_fuel_barrel"),
 "I": ExtResource("4_pipe"),
 "N": SubResource("Resource_0"),
-"σ": ExtResource("91_steam_valve"),
 "X": ExtResource("6_ch1_secret_wall"),
 "b": ExtResource("7_collector_brute"),
 "c": ExtResource("8_credits_small"),
@@ -143,21 +142,22 @@ legend = Dictionary[String, Resource]({
 "m": SubResource("Resource_3"),
 "o": ExtResource("15_doc_collection_notice"),
 "q": ExtResource("16_credits_large"),
-"Ⓕ": ExtResource("92_ch1_street_flyer"),
-"Ⓦ": ExtResource("93_ch1_street_worker"),
 "z": ExtResource("17_ch1_inspector"),
 "α": ExtResource("18_ch1_enc_street_plaza"),
 "γ": ExtResource("19_ch1_enc_street_blockade"),
+"σ": ExtResource("20_steam_valve"),
 "↟": SubResource("Resource_4"),
-"↠": SubResource("Resource_5")
+"↠": SubResource("Resource_5"),
+"Ⓕ": ExtResource("21_ch1_street_flyer"),
+"Ⓦ": ExtResource("22_ch1_street_worker")
 })
 hints = PackedStringArray("街上有人發傳單、有人聊天，不是每個人都想打你。", "街角的巷子裡有電話亭，先去備份，死了才有地方醒來。", "前面有清掃兵，靠著箱子瞄準射擊，打完再縮回去。", "子彈到的瞬間才舉盾 {block}，就能把子彈反彈回去。", "敵人頭上出現青色菱形時，按 {melee} 終結他並補回彈藥。", "前面是碼頭倉庫，看門狗睡在大廳深處，走進去再決定要不要叫醒牠。", "往斜下方瞄準，先看清落點。")
 chapter = &"ch1_kasa"
 persistent_world = true
 show_chapter_card = false
-environment = ExtResource("24_ch1_street")
+environment = ExtResource("27_ch1_street")
 layout_path = "res://data/levels/ch1_street_map.json"
-lighting_zones = Array[ExtResource("20_lighting_zone")]([SubResource("Resource_6"), SubResource("Resource_7"), SubResource("Resource_8")])
+lighting_zones = Array[ExtResource("23_lighting_zone")]([SubResource("Resource_6"), SubResource("Resource_7"), SubResource("Resource_8")])
 durable_channel_results = true
 channel_cleared_flags = Dictionary[StringName, StringName]({&"arena_street_blockade": &"ch1_street_route_open"})
 story_triggers = PackedStringArray("ch1_b_street_in", "ch1_b_street_chatter", "ch1_g06_lamp", "ch1_g06_tip_slide", "ch1_g06_tip_blade", "ch1_g06_tip_collector", "ch1_g06_clear")

@@ -128,7 +128,8 @@ class Grid:
                 f.write('    [\n' + ',\n'.join('      "' + r + '"' for r in seg) + '\n    ]' + (',' if si < len(segments) - 1 else '') + '\n')
             f.write('  ]')
             for key, value in (extra or {}).items():
-                if isinstance(value, list):
+                # 道具與材質區塊一筆一行；其他清單（近前景、地面剖面……）照畫面線手寫的格式放在同一行。
+                if isinstance(value, list) and key in ('props', 'regions'):
                     f.write(',\n  "' + key + '": [\n' + ',\n'.join('    ' + json.dumps(v, ensure_ascii=False) for v in value) + '\n  ]')
                 else:
                     f.write(',\n  "' + key + '": ' + json.dumps(value, ensure_ascii=False, allow_nan=False))
