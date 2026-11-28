@@ -46,9 +46,13 @@
 | ch3_clinic 夾層診所 | 備品間以外 | 裂縫牆後的備品間（x97～102）裡的舊備品櫃 x99（ST-61）；備品間要繼續藏在牆後 | `tools/level/build_ch3.py` |
 | ch3_office_hall 天穹辦公接待廊 | 維修廊以外 | 空調維修廊上的維修口 x24、第 13 列（ST-61），工作單講的就是辦公內門上方的出風口 | `tools/level/build_ch3.py` |
 | ch4_factory_safety 清理線安全臺 | — | 不放敵人；電話亭保留，它是重生點，清掃工作廊死亡也回這裡 | `CH04_FACTORY_SERVICE_WALK.md` |
-| ch4_factory_roof 廠房屋頂 | 可加高差 | 刻意不安排戰鬥 | `CH4_LANTERN_ROOF.md` |
+| ch4_factory_roof 廠房屋頂 | 可加高差 | 刻意不安排戰鬥；維修平台上的冷氣主機保養卡在第 44 欄（ST-63 收藏文件） | `CH4_LANTERN_ROOF.md` |
 | ch4_factory_loading、ch4_factory_work、ch4_factory_relay | 接線廊可調戰鬥與換層 | 裝卸帶與工作帶的固定地面、等待用的支撐、白線清掃範圍外的入口／中段電話／終點；接線廊最下層要一路相連、不封門 | `CH04_SWEEP_REHEARSAL.md`、`CH04_WORK_LANE.md` |
-| ch4_nursing_ward、ch4_ward_lamp_bay、ch4_pawnshop | **待定** | **待定**：病房櫃子、廊門的位置可能被回放引用，做第四章環境敘事那張票時逐一核對後補上 | `CH04_LAST_SUNDAY.md`、`CH4_PAWNSHOP_RETURN.md` |
+| ch4_nursing_ward 安養病房 | 擺設與動線可以調 | 鷺的現地回放在執行時用名字找床頭櫃（`ch4_cabinet` 與 `nursing_ward__bedside_locker` 擺設）、內廊門與門栓，並沿同一條走道或高架走；這幾件要留在病房、站在可走的地面上，格位可以移、回放會跟著走（ST-63 核對）。備品頂架盡頭的交班便條在第 52 欄、第 11 列（ST-63 收藏文件） | `CH04_LAST_SUNDAY.md`、`game/cutscene/local_replay/last_sunday.gd` |
+| ch4_ward_lamp_bay 病房側窗床位 | 擺設與動線可以調 | 床邊收音座要等屋頂通訊請凜架好話筒之後才出現（`MIC_REQUESTED` 旗標）；沒有回放引用格位（ST-63 核對） | `ch4_roof_layout.py` |
+| ch4_pawnshop 當舖（赴約） | 地圖動線可以調 | 返店的演出用的是過場舞台（`data/cutscene/stages/`），不讀關卡地圖；櫃台收銀機上的便條在第 52 欄（ST-63） | `CH4_PAWNSHOP_RETURN.md`、`tools/story/ch4_pawnshop_return.py` |
+| ch4_ward_reception 病房外櫃檯 | 站位以外 | 早班護理員在第 27 欄（ST-63） | `tools/level/build_ch4.py` |
+| ch4_revival_lounge 復原館的換班口 | 站位以外 | 衣帽架旁的失物招領箱在第 50 欄（ST-63） | `tools/level/build_ch4.py` |
 
 另外，第一到三章的過場舞台（`data/cutscene/stages/*.json`）是獨立檔，不讀關卡地圖；但有些舞台沿用關卡裡同一件道具的尺寸，改道具大小時要注意。
 
@@ -135,6 +139,7 @@
 
 - 2026-11-28：ST-59 建立（故事線依地圖線需求整理）。
 - 2026-11-28：ST-60 加入第二章港區街道（白天）的觸發格與站位。
+- 2026-11-28：ST-63 核對第四章回放引用的位置，並加入第四章的新站位與兩份收藏文件。
 - 2026-11-28：ST-62 加入第一章麵攤鐵皮棚的野貓碗。
 - 2026-11-28：加入「每區的時間與天氣」（依劇本與關卡資料整理，給畫面線對齊光影）。
 - 2026-11-28：ST-61 加入第三章廣場、泵室與兩處秘密空間的站位（第三章由產生器輸出，改站位要改 `build_ch3.py`）。

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"doc_ward_handover"
+display_name = "病房的交班便條"
+description = "夾在備品頂架上，是護理員寫給下一班的。"
+color = Color(0.78, 0.86, 0.84, 1.0)
+category = 1
+chapter = &"ch4_hollow"
+body = "棠的床位：週日那位訪客來時，先別叫棠的名字。訪客會在床邊的桌上敲幾下，棠跟著哼，就讓她們多坐一會兒。棠把手收進被子裡，就請訪客在門邊等。"
+play_scene = &""
+order = 1
+trigger = 3
+icon = "document"

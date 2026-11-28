@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"doc_cooling_card"
+display_name = "冷氣主機的保養卡"
+description = "掛在屋頂冷氣主機的背面，被雨泡軟了。"
+color = Color(0.85, 0.78, 0.66, 1.0)
+category = 1
+chapter = &"ch4_hollow"
+body = "最後一次保養是工廠停工的前一天，保養人的簽名欄只寫了一個縮寫。卡片背面有人用原子筆寫著：下班後在這裡看得到港區的燈，數到第三盞就是我家。"
+play_scene = &""
+order = 2
+trigger = 3
+icon = "document"

@@ -83,6 +83,7 @@ def build_roof(kit, ground):
     area.platform(36, 39, ground - 4)
     area.platform(41, 48, ground - 7)
     area.stand(46, "q", row=ground - 8)
+    area.stand(44, "♣", row=ground - 8)   # 冷卻機的維修卡（ST-63）
     area.features = {
         "landmark": "雨裡的天線與低亮度收訊箱。",
         "loop": "辦公室樓梯上屋頂，另一座梯塔回安全臺。",

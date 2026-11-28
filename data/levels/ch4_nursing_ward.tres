@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=17 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=18 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Resource" path="res://data/props/credits_large.tres" id="2_credits_large"]
@@ -9,9 +9,10 @@
 [ext_resource type="Resource" path="res://data/npcs/ch4_staff_switch.tres" id="7_ch4_staff_switch"]
 [ext_resource type="Resource" path="res://data/npcs/ch4_linden.tres" id="8_ch4_linden"]
 [ext_resource type="Resource" path="res://data/npcs/ch4_voice_demo.tres" id="9_ch4_voice_demo"]
-[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="10_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/clinic_ward.tres" id="11_clinic_ward"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch4_nursing_ward.tres" id="12_ch4_nursing_ward"]
+[ext_resource type="Resource" path="res://data/story_items/doc_ward_handover.tres" id="10_doc_ward_handover"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="11_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/clinic_ward.tres" id="12_clinic_ward"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch4_nursing_ward.tres" id="13_ch4_nursing_ward"]
 
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("3_portal_data")
@@ -50,10 +51,10 @@ height = 68
 style = "door"
 
 [sub_resource type="Resource" id="Resource_3"]
-script = ExtResource("10_lighting_zone")
+script = ExtResource("11_lighting_zone")
 start_tile = 0
 blend_tiles = 12
-profile = ExtResource("11_clinic_ward")
+profile = ExtResource("12_clinic_ward")
 
 [resource]
 script = ExtResource("1_level_data")
@@ -72,14 +73,15 @@ legend = Dictionary[String, Resource]({
 "ⓜ": ExtResource("6_ch4_ward_scarf"),
 "ⓢ": ExtResource("7_ch4_staff_switch"),
 "ⓣ": ExtResource("8_ch4_linden"),
-"ⓥ": ExtResource("9_ch4_voice_demo")
+"ⓥ": ExtResource("9_ch4_voice_demo"),
+"♠": ExtResource("10_doc_ward_handover")
 })
 hints = PackedStringArray()
 chapter = &"ch4_hollow"
 persistent_world = true
 show_chapter_card = false
-environment = ExtResource("12_ch4_nursing_ward")
+environment = ExtResource("13_ch4_nursing_ward")
 layout_path = "res://data/levels/ch4_nursing_ward_map.json"
-lighting_zones = Array[ExtResource("10_lighting_zone")]([SubResource("Resource_3")])
+lighting_zones = Array[ExtResource("11_lighting_zone")]([SubResource("Resource_3")])
 story_triggers = PackedStringArray()
 death_credit_cap = 250

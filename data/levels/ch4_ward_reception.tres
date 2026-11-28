@@ -1,11 +1,12 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=12 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=13 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
 [ext_resource type="Resource" path="res://data/npcs/ch4_egret.tres" id="3_ch4_egret"]
-[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="4_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/reception_white.tres" id="5_reception_white"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch4_ward_reception.tres" id="6_ch4_ward_reception"]
+[ext_resource type="Resource" path="res://data/npcs/ch4_shift_nurse.tres" id="4_ch4_shift_nurse"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="5_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/reception_white.tres" id="6_reception_white"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch4_ward_reception.tres" id="7_ch4_ward_reception"]
 
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("2_portal_data")
@@ -61,10 +62,10 @@ height = 68
 style = "door"
 
 [sub_resource type="Resource" id="Resource_4"]
-script = ExtResource("4_lighting_zone")
+script = ExtResource("5_lighting_zone")
 start_tile = 0
 blend_tiles = 12
-profile = ExtResource("5_reception_white")
+profile = ExtResource("6_reception_white")
 
 [resource]
 script = ExtResource("1_level_data")
@@ -78,14 +79,15 @@ legend = Dictionary[String, Resource]({
 "Ⅲ": SubResource("Resource_1"),
 "Ⅵ": SubResource("Resource_2"),
 "Ⅶ": SubResource("Resource_3"),
-"ⓔ": ExtResource("3_ch4_egret")
+"ⓔ": ExtResource("3_ch4_egret"),
+"♪": ExtResource("4_ch4_shift_nurse")
 })
 hints = PackedStringArray()
 chapter = &"ch4_hollow"
 persistent_world = true
 show_chapter_card = false
-environment = ExtResource("6_ch4_ward_reception")
+environment = ExtResource("7_ch4_ward_reception")
 layout_path = "res://data/levels/ch4_ward_reception_map.json"
-lighting_zones = Array[ExtResource("4_lighting_zone")]([SubResource("Resource_4")])
+lighting_zones = Array[ExtResource("5_lighting_zone")]([SubResource("Resource_4")])
 story_triggers = PackedStringArray()
 death_credit_cap = 250

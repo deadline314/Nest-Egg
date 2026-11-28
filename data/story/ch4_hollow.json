@@ -48,6 +48,13 @@
    "color": "#c3d7e5",
    "portrait": "res://art/portraits/system.png"
   },
+  "shift_nurse": {
+   "name": "早班護理員",
+   "name_ja": "早番の看護師",
+   "name_en": "Morning-Shift Nurse",
+   "color": "#a8d0c8",
+   "portrait": "res://art/portraits/nurse.png"
+  },
   "archive_tape": {
    "name": "盤帶錄音",
    "name_ja": "テープ録音",
@@ -753,6 +760,107 @@
     "flag": "ch4_visit_signed",
     "equals": true
    }
+  },
+  "ch4_t_counter_note": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "櫃台上壓著一張便條，是老 K 的字：「今天下雨，帶傘了嗎？」",
+     "ja": "カウンターにメモが挟んである。老Kの字だ。「今日は雨。傘は持ったか？」",
+     "en": "A note is pinned under something on the counter, in Old K's handwriting: \"Rain today. Got your umbrella?\""
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "同一張紙的下面，又寫了一次同樣的話，字比較歪。",
+     "ja": "同じ紙の下のほうに、同じ言葉がもう一度書いてある。字は少し傾いている。",
+     "en": "Further down the same sheet, the same words are written again, the letters more crooked."
+    }
+   ],
+   "overlay": true
+  },
+  "ch4_t_nurse_first": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "shift_nurse",
+     "text": "上週日貨梯泡水，我差點趕不上交班；今天總算準時。",
+     "ja": "先週の日曜は貨物エレベーターが水に浸かって、引き継ぎに遅れるところでした。今日はやっと時間どおりです。",
+     "en": "Last Sunday the freight lift flooded and I nearly missed my shift. Today I'm finally on time."
+    },
+    {
+     "do": "say",
+     "speaker": "shift_nurse",
+     "text": "病房裡床頭燈是暖色的那幾床，才可以探訪。",
+     "ja": "病室では、枕元の灯りが暖かい色のベッドだけ面会できます。",
+     "en": "In the ward, only the beds with a warm bedside lamp are open to visitors."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "床上的人不想見人呢？",
+     "ja": "ベッドの人が誰にも会いたくなかったら？",
+     "en": "And if the person in the bed doesn't want visitors?"
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "shift_nurse",
+     "text": "那就在門邊等，床上的人會讓你知道能不能靠近。",
+     "ja": "それなら扉のそばで待ってください。近づいていいかどうかは、ベッドの人が教えてくれます。",
+     "en": "Then wait by the door. The person in the bed will let you know whether you can come closer."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "ch4_visit_signed",
+     "equals": true
+    }
+   }
+  },
+  "ch4_t_nurse_signed": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "shift_nurse",
+     "text": "簿子簽好就進去吧。床上的人沒回答，就再等一下。",
+     "ja": "名簿に書いたら中へどうぞ。ベッドの人が答えなかったら、もう少し待ってください。",
+     "en": "Once you've signed the book, go on in. If the person in the bed doesn't answer, wait a little longer."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ch4_visit_signed",
+    "equals": true
+   }
+  },
+  "ch4_t_lost_box": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "失物招領箱裡有一隻左手手套、一副耳機，還有一張寫著「明天見」的電影票根。",
+     "ja": "落とし物箱には左手の手袋が一つ、イヤホンが一組、それに「また明日」と書かれた映画の半券が入っている。",
+     "en": "The lost-and-found box holds a left-hand glove, a pair of earphones, and a movie ticket stub with \"See you tomorrow\" written on it."
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "箱子側面貼著一行字：復原完的人常常忘了自己帶了什麼來，請慢慢找。",
+     "ja": "箱の側面に一行貼ってある。「復元を終えた人は、何を持ってきたか忘れがちです。ゆっくり探してください」",
+     "en": "A line is taped to the side of the box: People who've just been restored often forget what they brought with them. Take your time looking."
+    }
+   ],
+   "overlay": true
   },
   "ch4_t_linden_meet": {
    "mode": "dialogue",
@@ -3488,6 +3596,45 @@
     {
      "when": {},
      "target": "ch4_t_reception_sign"
+    }
+   ]
+  },
+  "ch4_dispatch_counter_note": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {},
+     "target": "ch4_t_counter_note"
+    }
+   ]
+  },
+  "ch4_dispatch_shift_nurse": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "not": {
+       "flag": "ch4_visit_signed",
+       "equals": true
+      }
+     },
+     "target": "ch4_t_nurse_first"
+    },
+    {
+     "when": {
+      "flag": "ch4_visit_signed",
+      "equals": true
+     },
+     "target": "ch4_t_nurse_signed"
+    }
+   ]
+  },
+  "ch4_dispatch_lost_box": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {},
+     "target": "ch4_t_lost_box"
     }
    ]
   },

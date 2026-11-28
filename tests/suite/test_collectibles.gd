@@ -326,7 +326,8 @@ func _test_data() -> void:
 			check(Story.has_scene(item.play_scene), "collectible scene exists: %s -> %s" % [item.id, item.play_scene])
 	check(per_chapter.get(&"chapter_01", 0) == 5 and per_chapter.get(&"chapter_02", 0) == 7 and per_chapter.get(&"ch1_kasa", 0) == 5, "fixed collectible counts per chapter %s" % per_chapter)
 	check(StoryItems.collectible_total(&"chapter_02") == 7 and StoryItems.collectible_total(&"nope") == 0, "collectible_total counts per chapter")
-	check(StoryItems.collectible_chapters().size() == 3, "three chapters have collectibles")
+	# 每章的收藏數跟著資料走（章節新增收藏文件時不必改這裡）。
+	check(StoryItems.collectible_chapters().size() == per_chapter.size(), "every chapter with collectibles is counted %s" % per_chapter)
 	# 壞資料會被回報。
 	var bad := StoryItemData.new()
 	bad.id = &"bad_doc"
@@ -438,7 +439,7 @@ func _test_inventory_page() -> void:
 	check(doc.subtitle == "文件" and doc.detail_body == (load("res://data/story_items/%s.tres" % OPEN_ITEM) as StoryItemData).body, "document shows its full text")
 	check(doc.detail_stats.size() == 1 and doc.detail_stats[0].contains("2／7"), "document shows the chapter collection progress: %s" % [doc.detail_stats])
 	check((by_id[&"rec_wataru_1"] as InventoryEntry).subtitle == "錄音", "recording is labelled as a recording")
-	check(page.tab_tooltip().contains("2／17"), "tab tooltip shows overall progress: %s" % page.tab_tooltip())
+	check(page.tab_tooltip().contains("2／%d" % StoryItems.overall_collection().y), "tab tooltip shows overall progress: %s" % page.tab_tooltip())
 	check(doc.action_label == "閱讀全文" and not doc.action_hint.is_empty(), "a collected document can open a full reader")
 	check(by_id[&"rec_wataru_1"].action_label == "閱讀逐字稿", "a collected recording can open its transcript")
 	var original := Story.language

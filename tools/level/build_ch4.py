@@ -55,6 +55,18 @@ POINTS.update(roof.POINTS)
 STATIONS.update(roof.STATIONS)
 GLYPHS.update(roof.GLYPHS)
 
+# 環境敘事（ST-63）：四個連續的對話區之間，可以看、可以讀、可以不理的東西。
+POINTS.update({
+    "counter_note": ("pawnshop", 52, GROUND - 1),   # 櫃台收銀機上
+    "shift_nurse": ("ward_reception", 27, GROUND - 1),
+    "lost_box": ("revival_lounge", 50, GROUND - 1),   # 衣帽架旁
+})
+PEOPLE["shift_nurse"] = ("早班護理員", "shift_nurse", "glance")
+STATIONS.update({"counter_note": "櫃台上的便條", "lost_box": "失物招領箱"})
+GLYPHS.update({"counter_note": "♦", "shift_nurse": "♪", "lost_box": "♫"})
+# 兩處秘密空間的收藏文件（要爬上去才拿得到）：字元 -> 文件。
+SECRET_DOCS = {"♠": "res://data/story_items/doc_ward_handover.tres", "♣": "res://data/story_items/doc_cooling_card.tres"}
+
 
 def area_path(area):
     return f"res://data/levels/ch4_{area}.tres"
@@ -156,6 +168,9 @@ def _configure():
         "ward_scarf": "查看掛勾上的舊圍巾",
         "staff_switch": "解鎖內廊的門",
         "ali": "和阿梨說話",
+        "counter_note": "看櫃台上的便條",
+        "shift_nurse": "和早班護理員說話",
+        "lost_box": "看失物招領箱",
         "shift_board": "核對舊廠班表",
         "rail_release": "放開維修棘輪",
         "workbench": "查看清理線",
@@ -181,6 +196,8 @@ def _configure():
     kit.RES.update({"Ω": "res://data/props/conveyor.tres", "φ": "res://data/props/live_cable.tres",
                     "X": "res://data/props/ch1_secret_wall.tres", "q": "res://data/props/credits_large.tres"})
     kit.NPCS["ch4_egret"].update(spawn_unless_flag="ch4_egret_departed")
+    kit.NPCS["ch4_shift_nurse"].update(rig="nurse")   # 講者是 shift_nurse，外觀用護理員的骨架
+    kit.RES.update(SECRET_DOCS)
     kit.NPCS["ch4_egret_at_rail"].update(spawn_requires_flag="ch4_atropos_midpoint_ready", spawn_unless_flag="ch4_egret_departed")
     kit.NPCS["ch4_office_release"].update(spawn_requires_flag="ch4_atropos_retreat_ready", spawn_unless_flag="ch4_office_access")
     kit.RES.update({
@@ -248,6 +265,7 @@ def _ward():
     # 再落回內廊門旁，是一條和病房地面平行的路。
     area.platform(48, 55, 12)
     area.stand(54, "q", row=11)
+    area.stand(52, "♠", row=11)   # 備品頂架上的交班便條（ST-63）
     area.prop("clinic__queue_number_display", 14, y=14, support="wall")
     area.prop("nursing_ward__rain_window_wide", 25, y=13, support="wall")
     area.prop("nursing_ward__ward_bed", 20)

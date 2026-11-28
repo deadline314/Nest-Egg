@@ -86,6 +86,30 @@ def _opening(source, dispatch):
     ), when=flag(SIGNED), mode="animated")
 
 
+def _living(source, dispatch):
+    """ST-63：當舖、病房外櫃檯與復原館之間可以看、可以讀、可以不理的東西。不寫旗標、不給物品。"""
+    dispatch["counter_note"] = ["ch4_t_counter_note"]
+    source.add("ch4_t_counter_note", "01", (
+        ("label", "櫃台上壓著一張便條，是老 K 的字：「今天下雨，帶傘了嗎？」"),
+        ("label", "同一張紙的下面，又寫了一次同樣的話，字比較歪。"),
+    ), mode="animated")
+    dispatch["shift_nurse"] = ["ch4_t_nurse_first", "ch4_t_nurse_signed"]
+    source.add("ch4_t_nurse_first", "02", (
+        ("shift_nurse", "上週日貨梯泡水，我差點趕不上交班；今天總算準時。"),
+        ("shift_nurse", "病房裡床頭燈是暖色的那幾床，才可以探訪。"),
+        ("rin", "床上的人不想見人呢？"),
+        ("shift_nurse", "那就在門邊等，床上的人會讓你知道能不能靠近。"),
+    ), when=negate(flag(SIGNED)), mode="animated")
+    source.add("ch4_t_nurse_signed", "02", (
+        ("shift_nurse", "簿子簽好就進去吧。床上的人沒回答，就再等一下。"),
+    ), when=flag(SIGNED), mode="animated")
+    dispatch["lost_box"] = ["ch4_t_lost_box"]
+    source.add("ch4_t_lost_box", "07", (
+        ("label", "失物招領箱裡有一隻左手手套、一副耳機，還有一張寫著「明天見」的電影票根。"),
+        ("label", "箱子側面貼著一行字：復原完的人常常忘了自己帶了什麼來，請慢慢找。"),
+    ), mode="animated")
+
+
 def _ward(source, dispatch):
     dispatch["linden"] = ["ch4_t_linden_meet", "ch4_t_linden_revisit"]
     source.add("ch4_t_linden_meet", "03", (
@@ -275,6 +299,8 @@ def build_spec():
                    "color": "#c0d3c8", "portrait": "res://art/portraits/linden.png"},
         "ward_demo": {"name": "護理示範", "name_ja": "看護手順", "name_en": "Ward demonstration",
                       "color": "#c3d7e5", "portrait": "res://art/portraits/system.png"},
+        "shift_nurse": {"name": "早班護理員", "name_ja": "早番の看護師", "name_en": "Morning-Shift Nurse",
+                        "color": "#a8d0c8", "portrait": "res://art/portraits/nurse.png"},
     }
     source.documents[DOCUMENT] = {
         "name": "病房公用取件聯", "icon": "doc_stub",
@@ -283,6 +309,7 @@ def build_spec():
     }
     dispatch = {}
     _opening(source, dispatch)
+    _living(source, dispatch)
     _ward(source, dispatch)
     _factory_approach(source, dispatch)
     _sweep_demo(source, dispatch)
@@ -296,7 +323,7 @@ def build_spec():
     add_pawnshop_return(source, dispatch)
     route_back_to_choices(source, dispatch, "ch4")
     source.bindings.update({
-        binding: Binding("npc" if binding in ("old_k", "egret", "ali", "egret_at_rail") else "object", CHAPTER,
+        binding: Binding("npc" if binding in ("old_k", "egret", "ali", "egret_at_rail", "shift_nurse") else "object", CHAPTER,
                          f"res://data/npcs/ch4_{binding}.tres")
         for binding in POINTS
     })

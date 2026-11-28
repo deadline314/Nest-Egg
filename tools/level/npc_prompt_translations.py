@@ -33,6 +33,8 @@ TRANSLATIONS = {
     "看值班櫃上的紙": ("Read the papers on the duty locker", "当番ロッカーの紙を読む"),
     "打開舊備品櫃": ("Open the old supply cabinet", "古い備品棚を開ける"),
     "看維修口的工作單": ("Read the work order at the service hatch", "点検口の作業票を読む"),
+    "看櫃台上的便條": ("Read the note on the counter", "カウンターのメモを読む"),
+    "看失物招領箱": ("Look in the lost-and-found box", "落とし物箱をのぞく"),
     "和利息說話": ("Talk to Vig", "利息と話す"),
     "和小薇說話": ("Talk to Vee", "小薇と話す"),
     "和小販說話": ("Talk to the hawker", "物売りと話す"),

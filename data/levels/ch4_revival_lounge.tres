@@ -1,11 +1,12 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=10 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
 [ext_resource type="Resource" path="res://data/npcs/ch4_ali.tres" id="3_ch4_ali"]
-[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="4_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/lounge_safe.tres" id="5_lounge_safe"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch4_revival_lounge.tres" id="6_ch4_revival_lounge"]
+[ext_resource type="Resource" path="res://data/npcs/ch4_lost_box.tres" id="4_ch4_lost_box"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="5_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/lounge_safe.tres" id="6_lounge_safe"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch4_revival_lounge.tres" id="7_ch4_revival_lounge"]
 
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("2_portal_data")
@@ -33,10 +34,10 @@ height = 68
 style = "door"
 
 [sub_resource type="Resource" id="Resource_2"]
-script = ExtResource("4_lighting_zone")
+script = ExtResource("5_lighting_zone")
 start_tile = 0
 blend_tiles = 12
-profile = ExtResource("5_lounge_safe")
+profile = ExtResource("6_lounge_safe")
 
 [resource]
 script = ExtResource("1_level_data")
@@ -48,14 +49,15 @@ height = 24
 legend = Dictionary[String, Resource]({
 "Ⅷ": SubResource("Resource_0"),
 "Ⅸ": SubResource("Resource_1"),
-"ⓐ": ExtResource("3_ch4_ali")
+"ⓐ": ExtResource("3_ch4_ali"),
+"♫": ExtResource("4_ch4_lost_box")
 })
 hints = PackedStringArray()
 chapter = &"ch4_hollow"
 persistent_world = true
 show_chapter_card = false
-environment = ExtResource("6_ch4_revival_lounge")
+environment = ExtResource("7_ch4_revival_lounge")
 layout_path = "res://data/levels/ch4_revival_lounge_map.json"
-lighting_zones = Array[ExtResource("4_lighting_zone")]([SubResource("Resource_2")])
+lighting_zones = Array[ExtResource("5_lighting_zone")]([SubResource("Resource_2")])
 story_triggers = PackedStringArray()
 death_credit_cap = 250
