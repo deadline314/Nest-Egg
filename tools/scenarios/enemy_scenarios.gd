@@ -44,6 +44,7 @@ const SCENARIOS := {
 	"flank": "res://tools/scenarios/flank_scenario.gd",
 	"chapter_ready": "res://tools/scenarios/chapter_ready_scenario.gd",
 	"caller": "res://tools/scenarios/caller_scenario.gd",
+	"stalker_walk": "res://tools/scenarios/stalker_walk_scenario.gd",
 	"steam_push": "res://tools/scenarios/steam_push_scenario.gd",
 	"area_challenge": "res://tools/scenarios/area_challenge_scenario.gd",
 	"unseen_challenge": "res://tools/scenarios/unseen_challenge_scenario.gd",
