@@ -29,6 +29,9 @@ func run() -> void:
 	level._next_story_trigger = level._layout.story_triggers.size()
 	await clear_enemies()
 	await wait(TITLE_CARD_TIME)
+	# 轉場或章末卡還在時等它結束（演出線的 UiLayers.presentation_busy），取樣才不會拍到黑幕。
+	while UiLayers.presentation_busy(get_tree()):
+		await get_tree().process_frame
 	var near := level.find_child("NearForeground", true, false) as CanvasItem
 	if near != null:
 		near.visible = false

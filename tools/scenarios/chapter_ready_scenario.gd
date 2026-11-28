@@ -23,7 +23,9 @@ var _report := {}
 func run() -> void:
 	GameState.start_new_run(GameState.difficulties[1])
 	Story.auto_skip = true
-	await _warehouse()
+	# --only=office：只拍辦公大廳（BG-78 修前修後用）。
+	if not OS.get_cmdline_user_args().has("--only=office"):
+		await _warehouse()
 	await _office()
 	print("CHAPTER_READY %s" % JSON.stringify(_report))
 	await finish()

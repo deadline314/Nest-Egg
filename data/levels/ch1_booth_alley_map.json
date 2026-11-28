@@ -64,7 +64,7 @@
     {"id": "anchor_phone_booth__flicker_lamp_post", "x": 31, "ground": true},
     {"id": "anchor_phone_booth__gutter_downpipe", "x": 20, "ground": true}
   ],
-  "key_light": {"x": 44, "y": 2, "color": [0.53, 0.72, 1.0], "energy": 0.6, "light_radius": 460, "halo_radius": 180, "halo_alpha": 0.4, "front_wash": 0.05, "shafts": {"count": 4, "angle": -18, "length": 300, "width": 18, "spread": 120}, "occlusion": [0.25, 0.75], "period": 40},
+  "key_light": {"x": 44, "y": 2, "color": [0.84, 0.9, 1.0], "energy": 0.6, "light_radius": 460, "halo_radius": 180, "halo_alpha": 0.4, "front_wash": 0.05, "shafts": {"count": 4, "angle": -18, "length": 300, "width": 18, "spread": 120}, "occlusion": [0.25, 0.75], "period": 40},
   "near_foreground": [{"anchor": "bottom", "base": ["railing"], "rise": 12, "from": 0, "to": 56}, {"anchor": "top", "pieces": ["cables"], "above": 175, "spacing": [120, 260], "from": 0, "to": 56}],
   "ground_section": {"style": "masonry", "start": 14, "min_level": 0.26, "fade_depth": 260, "under_deck": 1.0, "fade": 0.6, "piles": [56, 104], "pipes": 0.6}
 }

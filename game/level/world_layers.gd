@@ -49,7 +49,9 @@ const PROJECTILES := CHARACTERS_TOP + 4
 ## 會擋子彈的蒸汽幕：子彈消失在蒸汽裡要看得到。
 const STEAM_SCREEN := PROJECTILES + 1
 const FX := CHARACTERS_TOP + 6
-const FOG := CHARACTERS_TOP + 7
+## 地面霧（BG-78）：在地形與擺設之上、所有角色之下。原本在角色與特效之上，貼地的霧把落點圈、雷射、
+## 敵人的識別色與主角的霓虹洗成灰白（冷白的辦公大廳最明顯）；遊戲性的顏色永遠在霧的前面。
+const FOG := TERRAIN + 2
 const RAIN := CHARACTERS_TOP + 8
 ## 前景擺設（不透明）：在霧與雨之前，代表比走道更靠近鏡頭。
 const FRONT_PROPS := CHARACTERS_TOP + 10

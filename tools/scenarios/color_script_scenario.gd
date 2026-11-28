@@ -57,6 +57,9 @@ func run() -> void:
 		player.facing = 1
 		snap_camera()
 		await wait(TITLE_CARD_TIME)
+		# 轉場或章末卡還在時等它結束（演出線的 UiLayers.presentation_busy），取樣才不會拍到黑幕。
+		while UiLayers.presentation_busy(get_tree()):
+			await get_tree().process_frame
 		# 標題卡期間主角可能被劇情或物理移動：拍之前再放回同一個位置、重新對準鏡頭，修前修後才對得上。
 		player.global_position = Vector2(player.global_position.x, player.global_position.y) if int(shot[1]) < 0 else player.global_position
 		if int(shot[1]) >= 0:

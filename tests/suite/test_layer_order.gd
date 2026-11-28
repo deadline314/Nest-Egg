@@ -147,15 +147,16 @@ func _test_level_scenery(path: String) -> void:
 
 ## NE-402：關卡裡每個角色佔一整組圖層，兩個角色重疊時一定是整個在前或整個在後；玩家永遠最前；
 ## 其他角色的組在活著時不變（別人離開也不跳動）；組數用完不出錯、共用最後一組；
-## 子彈、特效、霧、雨、前景擺設、前景層、提示與對話氣泡在所有角色之上，接觸陰影在所有角色之下，光源照得到最上面一層。
+## 子彈、特效、雨、前景擺設、前景層、提示與對話氣泡在所有角色之上，接觸陰影與地面霧在所有角色之下，光源照得到最上面一層。
 func _test_level_actor_groups() -> void:
 	check(WorldLayers.CHARACTERS_BOTTOM > WorldLayers.ENTITY_BEHIND and WorldLayers.CHARACTERS_BOTTOM > WorldLayers.SCENERY_MAX, "the lowest character group is above the entities and scenery that sit behind characters")
-	var above := [WorldLayers.KEY_LIGHT_FRONT, WorldLayers.ABOVE_CHARACTERS, WorldLayers.NEAR_FOREGROUND, WorldLayers.PROJECTILES, WorldLayers.STEAM_SCREEN, WorldLayers.FX, WorldLayers.FOG, WorldLayers.RAIN, WorldLayers.FRONT_PROPS, WorldLayers.FOREGROUND, WorldLayers.WORLD_PROMPTS, WorldLayers.MAP_BUBBLES]
+	var above := [WorldLayers.KEY_LIGHT_FRONT, WorldLayers.ABOVE_CHARACTERS, WorldLayers.NEAR_FOREGROUND, WorldLayers.PROJECTILES, WorldLayers.STEAM_SCREEN, WorldLayers.FX, WorldLayers.RAIN, WorldLayers.FRONT_PROPS, WorldLayers.FOREGROUND, WorldLayers.WORLD_PROMPTS, WorldLayers.MAP_BUBBLES]
 	for i in above.size():
 		check(int(above[i]) > WorldLayers.CHARACTERS_TOP and int(above[i]) <= WorldLayers.WORLD_TOP, "overlay layer %d (%d) is above every character part" % [i, above[i]])
 		if i > 0:
 			check(int(above[i]) > int(above[i - 1]), "overlay layers keep their order (%d > %d)" % [above[i], above[i - 1]])
 	check(WorldLayers.WORLD_TOP < RenderingServer.CANVAS_ITEM_Z_MAX, "the top world layer fits in the canvas z range")
+	check(WorldLayers.FOG > WorldLayers.TERRAIN and WorldLayers.FOG < WorldLayers.CHARACTERS_BOTTOM, "ground fog sits over terrain but under every character, telegraph and effect (BG-78)")
 	var light := LightKit.create_point_light(Color.WHITE, 40.0, 1.0)
 	check(light.range_z_min <= WorldLayers.CHARACTERS_BOTTOM and light.range_z_max >= WorldLayers.WORLD_TOP, "scene lights reach every character group and overlay (%d..%d)" % [light.range_z_min, light.range_z_max])
 	light.free()

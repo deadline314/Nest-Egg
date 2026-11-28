@@ -191,6 +191,9 @@ func _check_level(path: String, spots: Array, enemy_path := "res://data/enemies/
 				expected_foe_feet.y = probe_floor(layout, foe_tile, str(spot[0]))
 			foe = _spawn_foe(level, expected_foe_feet - Vector2(0.0, 2.0), enemy_path)
 		await get_tree().create_timer(1.2).timeout
+		# 轉場或章末卡還在時等它結束（演出線的 UiLayers.presentation_busy），取樣才不會量到黑幕。
+		while UiLayers.presentation_busy(get_tree()):
+			await get_tree().process_frame
 		# 警報與霓虹會閃爍：連續取樣幾張取平均，量測才穩定。
 		var player_contrast := 0.0
 		var edge_contrast := 0.0

@@ -45,7 +45,7 @@
 | ch3_plaza（遠景偏色 0.08） | #3c3652 | #ff59bf | #2e2a44 |
 | ch3_showroom | #e0d8c4 | #fff2cc | #b4bcc8 |
 | ch3_office_hall | #8c929a | #e6f2ff | #5a6270 |
-| ch3_gate_hall | #2c3e40 | #80ffd4 | #1a2c30 |
+| ch3_gate_hall | #384444 | #80ffd4 | #1a2c30 |
 | ch3_clinic | #3e4c48 | #b8ffe8 | #28383a |
 | ch3_mezzanine | #30363c | #dcf8ff | #1e2832 |
 | ch3_pump | #1e3438 | #66ffd8 | #10262c |
