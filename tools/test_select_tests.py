@@ -21,6 +21,33 @@ from unittest import mock
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import select_tests as st  # noqa: E402
 
+
+def remove_tree(path):
+    """刪掉測試用的暫存專案。Windows 上 git 的物件檔是唯讀的，剛建立的檔案也可能被系統掃描短暫鎖住：
+    先改成可寫再刪，被鎖住時短暫重試（最多約 5 秒），不留下暫存資料夾也不讓測試因清理失敗。"""
+    import stat
+    import time
+
+    def make_writable(func, target, _info):
+        os.chmod(target, stat.S_IWRITE)
+        func(target)
+
+    for _ in range(20):
+        try:
+            shutil.rmtree(path, onexc=make_writable)
+            return
+        except FileNotFoundError:
+            return
+        except PermissionError:
+            time.sleep(0.25)
+    shutil.rmtree(path, ignore_errors=True)
+
+
+def temp_root(case):
+    root = Path(tempfile.mkdtemp())
+    case.addCleanup(remove_tree, root)
+    return root
+
 TOOLS = Path(__file__).resolve().parent
 HAVE_GIT = shutil.which("git") is not None
 HAVE_BASH = shutil.which("bash") is not None
@@ -86,9 +113,7 @@ def run_main(*argv):
 @unittest.skipUnless(HAVE_GIT, "需要 git")
 class SelectTestsTest(unittest.TestCase):
     def setUp(self):
-        self.tmp = tempfile.TemporaryDirectory()
-        self.root = Path(self.tmp.name)
-        self.addCleanup(self.tmp.cleanup)
+        self.root = temp_root(self)
         copy_tools(self.root)
         self.base = make_repo(self.root)
         patch = mock.patch.object(st, "ROOT", self.root)
@@ -199,13 +224,62 @@ class SelectTestsTest(unittest.TestCase):
 
 
 @unittest.skipUnless(HAVE_GIT and HAVE_BASH, "需要 git 與 bash")
+class SelectionPrecisionTest(unittest.TestCase):
+    """NE-431：挑得準——改腳本要挑到它的資料實例的使用者，改資料不沿著程式之間的引用擴散。"""
+
+    def setUp(self):
+        self.root = temp_root(self)
+        copy_tools(self.root)
+        make_repo(self.root)
+        patch = mock.patch.object(st, "ROOT", self.root)
+        patch.start()
+        self.addCleanup(patch.stop)
+
+    def selected(self, *files):
+        code, out, _ = run_main("--files", *files)
+        self.assertEqual(code, 0)
+        return set(filter(None, out.split(",")))
+
+    def test_script_change_reaches_users_of_its_widely_used_data_instance(self):
+        write(self.root, "game/foe.gd", "class_name Foe\nextends Node\n")
+        write(self.root, "data/foe.tres", '[gd_resource type="Resource" format=3]\n[ext_resource type="Script" path="res://game/foe.gd" id="1"]\n')
+        for index in range(32):
+            write(self.root, f"data/levels/l{index}.tres", '[ext_resource type="Resource" path="res://data/foe.tres" id="1"]\n')
+        write(self.root, "tests/suite/foe_suite.gd", 'class_name FoeSuite\nextends Node\nconst FOE := "res://data/foe.tres"\n')
+        self.assertIn("FoeSuite", self.selected("game/foe.gd"), "the instance shares the script's change, past the hub limit")
+
+    def test_data_change_does_not_spread_through_code_that_names_its_path(self):
+        write(self.root, "data/levels/room.tres", "[gd_resource]\n")
+        write(self.root, "game/router.gd", 'class_name Router\nextends Node\nconst ROOM := "res://data/levels/room.tres"\n')
+        write(self.root, "game/front.gd", "class_name Front\nextends Node\nvar router: Router\n")
+        write(self.root, "tests/suite/router_suite.gd", "class_name RouterSuite\nextends Node\nvar router: Router\n")
+        write(self.root, "tests/suite/front_suite.gd", "class_name FrontSuite\nextends Node\nvar front: Front\n")
+        picked = self.selected("data/levels/room.tres")
+        self.assertIn("RouterSuite", picked, "tests of the code that loads the data still run")
+        self.assertNotIn("FrontSuite", picked, "code that merely uses that code is not affected by a data edit")
+        self.assertIn("FrontSuite", self.selected("game/router.gd"), "a code edit still spreads through code")
+
+    def test_indirectly_reached_suite_does_not_pull_in_suites_using_its_helpers(self):
+        write(self.root, "data/thing.tres", "[gd_resource]\n")
+        write(self.root, "tests/suite/base_suite.gd", 'class_name BaseSuite\nextends Node\nconst THING := "res://data/thing.tres"\n')
+        write(self.root, "tests/suite/borrow_suite.gd", "class_name BorrowSuite\nextends Node\nvar helper: BaseSuite\n")
+        picked = self.selected("data/thing.tres")
+        self.assertIn("BaseSuite", picked)
+        self.assertNotIn("BorrowSuite", picked)
+        self.assertIn("BorrowSuite", self.selected("tests/suite/base_suite.gd"), "editing the shared suite itself still reaches its borrowers")
+
+    def test_level_portal_targets_do_not_chain(self):
+        write(self.root, "data/levels/a.tres", '[ext_resource type="Resource" path="res://data/levels/b.tres" id="1"]\n')
+        write(self.root, "data/levels/b.tres", "[gd_resource]\n")
+        write(self.root, "tests/suite/a_suite.gd", 'class_name ASuite\nextends Node\nconst A := "res://data/levels/a.tres"\n')
+        self.assertNotIn("ASuite", self.selected("data/levels/b.tres"), "a portal target is not part of the level that points to it")
+
+
 class RunTestsChangedTest(unittest.TestCase):
     """用假的 run_tests_parallel.sh 記錄被要求跑哪些套件，只驗證挑選與結束代碼。"""
 
     def setUp(self):
-        self.tmp = tempfile.TemporaryDirectory()
-        self.addCleanup(self.tmp.cleanup)
-        self.root = Path(self.tmp.name)
+        self.root = temp_root(self)
         copy_tools(self.root)
         write(self.root, "tools/run_tests_parallel.sh", '#!/usr/bin/env bash\necho "RUN $*"\n')
         (self.root / "tools" / "run_tests_parallel.sh").chmod(0o755)

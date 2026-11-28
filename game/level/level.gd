@@ -449,7 +449,9 @@ func _process(delta: float) -> void:
 		GameState.run_time += delta
 
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
+	if _tokens != null:
+		_tokens.advance(delta)  # 令牌的保留時間跟敵人預兆用同一個遊戲時鐘（NE-431）
 	if not _initialization_complete or _layout == null or not is_instance_valid(player):
 		return
 	_check_story_triggers()

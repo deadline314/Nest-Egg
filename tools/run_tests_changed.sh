@@ -49,7 +49,8 @@ fi
 PROBES="$(PYTHONIOENCODING=utf-8 "$PYTHON" tools/select_tests.py --base "$BASE" --probes)"
 STATUS=$?
 [ "$STATUS" -eq 0 ] || fail "挑選受影響探針的工具出錯（tools/select_tests.py --probes 結束代碼 $STATUS，原因見上方）。"
-PROBES="${PROBES//$''/}"
+PROBES="${PROBES//$'
+'/}"
 if [ -n "$PROBES" ] && [ -z "${GODOT:-}" ]; then
 	fail "要跑探針（$PROBES）但沒有設定 GODOT。"
 fi
@@ -65,6 +66,9 @@ fi
 
 # 探針（tools/run_*.py）各自用獨立的設定檔與存檔資料夾跑一段真實流程，可以平行；CI 會逐一再跑一次。
 PROBE_STATUS=0
+source tools/bounded_run.sh
+# 被中斷時連同探針與 Godot 一起停掉（NE-431）。
+trap 'for job in $(jobs -p); do kill_tree "$job"; done; stop_bounded_children; exit 130' INT TERM HUP
 if [ -n "$PROBES" ]; then
 	PROBE_DIR="$(mktemp -d)"
 	JOBS="${PROBE_JOBS:-4}"
@@ -72,7 +76,7 @@ if [ -n "$PROBES" ]; then
 	run_probe() {
 		local runner="$1" name
 		name="$(basename "$runner" .py)"
-		if "$PYTHON" "$runner" --godot "$GODOT" --output "$PROBE_DIR/$name" >"$PROBE_DIR/$name.txt" 2>&1; then
+		if run_bounded "$PROBE_DIR/$name.txt" "$PYTHON" "$runner" --godot "$GODOT" --output "$PROBE_DIR/$name"; then
 			echo "探針通過：$runner"
 		else
 			echo "探針失敗：$runner（紀錄：$PROBE_DIR/$name.txt）"

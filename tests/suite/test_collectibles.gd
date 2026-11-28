@@ -324,8 +324,10 @@ func _test_data() -> void:
 		per_chapter[item.chapter] = per_chapter.get(item.chapter, 0) + 1
 		if item.play_scene != &"":
 			check(Story.has_scene(item.play_scene), "collectible scene exists: %s -> %s" % [item.id, item.play_scene])
-	check(per_chapter.get(&"chapter_01", 0) == 5 and per_chapter.get(&"chapter_02", 0) == 7 and per_chapter.get(&"ch1_kasa", 0) == 5, "fixed collectible counts per chapter %s" % per_chapter)
-	check(StoryItems.collectible_total(&"chapter_02") == 7 and StoryItems.collectible_total(&"nope") == 0, "collectible_total counts per chapter")
+	# 每章的數量讀資料（NE-431）：故事線往章節加一份文件不必改這裡；只檢查收集進度與目錄一致。
+	for chapter: StringName in per_chapter:
+		check(StoryItems.collectible_total(chapter) == per_chapter[chapter], "collectible_total matches the catalog for %s (%d)" % [chapter, per_chapter[chapter]])
+	check(per_chapter.get(&"ch1_kasa", 0) > 0 and StoryItems.collectible_total(&"nope") == 0, "chapter one has collectibles and an unknown chapter has none %s" % per_chapter)
 	# 每章的收藏數跟著資料走（章節新增收藏文件時不必改這裡）。
 	check(StoryItems.collectible_chapters().size() == per_chapter.size(), "every chapter with collectibles is counted %s" % per_chapter)
 	# 壞資料會被回報。

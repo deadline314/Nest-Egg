@@ -38,7 +38,10 @@ func _test_claim_release_expiry() -> void:
 	short.claim(10, &"ranged", 0.02)
 	short.claim(11, &"ranged", 0.02)
 	check(not short.allows(12, &"ranged"), "while the holds last the pool is full")
+	# 保留時間用遊戲時間（NE-431）：真實時間過了、遊戲時間沒走（負載高、頓幀、慢動作）時令牌不能先過期。
 	OS.delay_msec(60)
+	check(not short.allows(12, &"ranged") and short.held(&"ranged") == 2, "real time passing alone does not expire a hold while game time stands still")
+	short.advance(0.06)
 	check(short.allows(12, &"ranged") and short.held(&"ranged") == 0, "an expired hold frees the slot (a stuck enemy never blocks the pool)")
 
 

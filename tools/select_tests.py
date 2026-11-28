@@ -14,6 +14,14 @@ git 的輸出一律用 NUL 分隔並以 UTF-8 解碼，不依賴系統編碼（�
      被超過 HUB_DEPENDENTS 個檔案用到的核心（Player、Sfx、Level…）只在它自己被更動時才往外展開，
      不然改一個資料檔就會經過 Player 牽連到所有測試，失去「只跑受影響範圍」的意義。
   3. 更動的檔案本身是測試時，就是那個套件。
+  4. 改一支腳本時，以它為腳本的資料檔（敵人、道具的 .tres，場景 .tscn）視同一起改了，不受核心門檻限制：
+     改 grunt.gd 要挑到所有用到 grunt.tres 的關卡與測試（NE-431；之前停在 grunt.tres 只挑到 1 個）。
+  5. 從資料檔（.tres／.tscn／.json）出發時，碰到用路徑引用它的程式只再往下找測試，不沿著程式之間的引用一路擴散：
+     改一個關卡檔不該經過「某支程式寫了這個路徑」牽連到半個專案（NE-431；之前改 ch2_loading.tres 挑出 58 個）。
+  6. 經由別的檔案被牽連到的測試套件不再往外擴散到「用了它的共用函式」的其他套件；只有測試檔本身被改時才會。
+  7. 資料改動時，只是掃描整個資料夾、又被大量使用的程式（關卡目錄、索引）不算受影響；掃資料夾的專門檢查（場景稽核）
+     與直接掃資料夾的測試套件照樣挑進來。
+  8. 關卡檔之間的引用是出入口的目的地，不沿著它擴散；從資料走進的程式若是核心（用到它的檔案超過門檻），也不再往外找。
 改動單一工具只會挑到相關套件；改到被大量使用的核心（例如 Player、Sfx）會挑到很多，接近完整測試，這是預期的。
 這是保守的估計，不是證明：完整測試仍由 CI 排程負責（.github/workflows/tests.yml）。
 """
@@ -32,13 +40,16 @@ SCAN_EXT = {".gd", ".tres", ".tscn", ".json", ".gdshader", ".cfg"}
 # 往外找幾層；核心檔（被這麼多檔案用到）只有「自己被更動」時才展開。
 MAX_DEPTH = 8
 HUB_DEPENDENTS = 30
-RUN_ALL = {"project.godot", "tests/smoke_test.gd", "tools/run_tests.sh", "tools/run_tests_parallel.sh", "tools/test_filters.sh", "tools/select_tests.py", "tools/godot_audio/build.py", "tools/godot_audio/manifest.json"}
+RUN_ALL = {"project.godot", "tests/smoke_test.gd", "tools/run_tests.sh", "tools/run_tests_parallel.sh", "tools/test_filters.sh", "tools/bounded_run.sh", "tools/select_tests.py", "tools/godot_audio/build.py", "tools/godot_audio/manifest.json"}
 CLASS_RE = re.compile(r"^class_name\s+(\w+)", re.M)
 PATH_RE = re.compile(r"res://[\w./\-]+")
 AUTOLOAD_RE = re.compile(r'^(\w+)="\*?res://([^"]+)"', re.M)
 WORD_RE = re.compile(r"[A-Za-z_]\w*")
 RUNTIME_INPUT_RE = re.compile(r"^# changed-test-inputs:[ \t]*(.*)$", re.M)
-PROBE_SCENE_RE = re.compile(r"res://(tests/probes/\w+\.tscn)")
+# 探針場景：tests/probes 底下的流程檢查，以及 tools/chN_*_probe.tscn 的章節存檔鏈（NE-431）。
+PROBE_SCENE_RE = re.compile(r"res://(tests/probes/\w+\.tscn|tools/ch\d+_\w+_probe\.tscn)")
+SCRIPT_RESOURCE_RE = re.compile(r'\[ext_resource[^\]]*type="Script"[^\]]*path="res://([^"]+)"')
+DATA_EXT = {".tres", ".tscn", ".json", ".cfg"}
 PROBE_SHARED = {"tools/runtime_probe.py"}  # 所有探針執行器共用
 
 
@@ -131,6 +142,7 @@ def build_graph(files, changed):
         for i in range(2, len(parts)):  # 至少兩層，避免 res://art 這種太大的範圍
             dir_members["res://" + "/".join(parts[:i])].append(f)
     dependents = defaultdict(set)  # 檔案 -> 用到它的檔案
+    dir_users = defaultdict(set)  # 檔案 -> 只是掃描它所在資料夾的檔案（不是指名用到它）
     for f, text in texts.items():
         scan_text = strip_suite_registration(text) if f == "tests/smoke_test.gd" else text
         used = set()
@@ -152,30 +164,72 @@ def build_graph(files, changed):
             for member in dir_members.get(stripped, []):
                 if member != f:
                     used.add(member)
+                    if rel != member:
+                        dir_users[member].add(f)
         for target in used:
             dependents[target].add(f)
-    return dependents, suite_of
+    instances = defaultdict(set)  # 腳本 -> 以它為腳本的資料檔
+    for f, text in texts.items():
+        if Path(f).suffix in (".tres", ".tscn"):
+            for script in SCRIPT_RESOURCE_RE.findall(text):
+                if script in known_files:
+                    instances[script].add(f)
+    # 同一個檔案若也被指名用到，就不算「只掃資料夾」。
+    for target, scanners in dir_users.items():
+        scanners -= {user for user in scanners if f"res://{target}" in texts.get(user, "")}
+    return dependents, suite_of, instances, dir_users
+
+
+def _is_data(path):
+    return Path(path).suffix in DATA_EXT and not path.startswith("tests/")
 
 
 def select(changed, files):
-    dependents, suite_of = build_graph(files, changed)
+    dependents, suite_of, instances, dir_users = build_graph(files, changed)
     reasons = {}
     depth = {}
+    # 怎麼走到這個檔案的：code＝程式改動往外找；data＝資料改動；data_code＝從資料檔走進來的程式（只再找測試）。
+    mode = {}
     queue = deque()
     for f in changed:
         reasons[f] = "有更動"
         depth[f] = 0
+        mode[f] = "data" if _is_data(f) else "code"
         queue.append(f)
     while queue:
         current = queue.popleft()
-        users = dependents.get(current, ())
-        if depth[current] >= MAX_DEPTH or (depth[current] > 0 and len(users) > HUB_DEPENDENTS):
-            continue
+        if depth[current] > 0 and (current in suite_of or current in ("tests/smoke_test.gd", "tests/smoke_test.tscn")):
+            continue  # 規則 6
+        users = set(dependents.get(current, ()))
+        if mode[current] != "code":
+            # 規則 7：資料改動時，「只掃資料夾」的檔案只有測試本身算受影響（例如逐一檢查所有關卡的套件）。
+            users -= {user for user in dir_users.get(current, ())
+                      if not user.startswith("tests/") and len(dependents.get(user, ())) > HUB_DEPENDENTS}
+        own_instances = instances.get(current, set()) if current.endswith(".gd") else set()
+        # 核心門檻只限制程式之間的擴散；資料的擴散已經由規則 5 收住，關卡、敵人資料被很多檔案引用也照樣要找到測試。
+        if depth[current] >= MAX_DEPTH or (mode[current] != "data" and depth[current] > 0 and len(users) > HUB_DEPENDENTS):
+            users = own_instances  # 核心不往外展開，但自己的資料實例仍算一起改了（規則 4）
         for user in users:
-            if user not in reasons:
-                reasons[user] = current
-                depth[user] = depth[current] + 1
-                queue.append(user)
+            if user in reasons:
+                continue
+            if user in own_instances:  # 規則 4：資料實例和腳本同一層
+                next_depth, next_mode = depth[current], "data"
+            else:
+                next_depth = depth[current] + 1
+                if mode[current] == "data_code" and not user.startswith("tests/"):
+                    continue  # 規則 5：從資料走進的程式只再找測試
+                if mode[current] == "data" and current.startswith("data/levels/") and user.startswith("data/levels/"):
+                    continue  # 規則 8：關卡之間只是出入口指向對方，不是包含
+                if mode[current] == "data" and user.endswith(".gd") and not user.startswith("tests/"):
+                    next_mode = "data_code"
+                elif mode[current] == "data" and _is_data(user):
+                    next_mode = "data"
+                else:
+                    next_mode = mode[current]
+            reasons[user] = current
+            depth[user] = next_depth
+            mode[user] = next_mode
+            queue.append(user)
     chosen = {}
     for f in reasons:
         if f in suite_of:

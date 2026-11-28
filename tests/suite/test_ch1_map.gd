@@ -488,7 +488,12 @@ func _test_items() -> void:
 	check(cell == 1, "one shield cell (%d)" % cell)
 	check(small >= 12 and small <= 30, "twelve to thirty small credit piles (%d)" % small)
 	check(large >= 2 and large <= 5, "two to five large credit piles (%d)" % large)
-	check(docs == 5, "five documents (%d)" % docs)
+	# 文件數讀資料（NE-431）：第一章目錄裡要在地圖上撿的文件，每一份都擺在第一章的某一區、而且只擺一次。
+	var placeable := 0
+	for item in StoryItems.catalog():
+		if item.is_collectible() and item.chapter == _datas["pawnshop"].chapter and item.trigger == StoryItemData.Trigger.MANUAL:
+			placeable += 1
+	check(docs > 0 and docs == placeable, "every chapter-one document picked up in the world is placed once (%d placed, %d in the catalog)" % [docs, placeable])
 	check(disk == 1, "one key item: the data disk (%d)" % disk)
 	check(weapons == 1, "one optional weapon: the dagger (%d)" % weapons)
 

@@ -5,19 +5,30 @@ set -uo pipefail
 cd "$(dirname "$0")/.."
 GODOT="${GODOT:-godot}"
 
+source tools/test_filters.sh
+source tools/bounded_run.sh
+LOG="$(mktemp)"
+trap 'stop_bounded_children; exit 130' INT TERM HUP
+
 if [ ! -d .godot ]; then
 	echo "Importing project..."
-	"$GODOT" --headless --editor --quit >/dev/null 2>&1
+	run_bounded "$LOG" "$GODOT" --headless --editor --quit
 fi
 
-LOG="$(mktemp)"
-"$GODOT" --headless res://tests/smoke_test.tscn 2>&1 | tee "$LOG"
-STATUS=${PIPESTATUS[0]}
-
-source tools/test_filters.sh
+# 輸出寫進檔案（有大小與時間上限），結束時只印失敗與結果（NE-431）。完整輸出留在 KEEP_LOG 指定的檔案裡。
+run_bounded "$LOG" "$GODOT" --headless res://tests/smoke_test.tscn
+STATUS=$?
+grep -m 200 -E '^FAIL: |^BOUNDED_RUN: ' "$LOG"
+grep -E '^checks: [0-9]+, failures: [0-9]+' "$LOG" | tail -n 1
 if has_unexpected_errors "$LOG"; then
-	echo "Detected script errors in output." >&2
+	echo "Detected script errors in output:" >&2
+	grep -m 20 -E "SCRIPT ERROR|^ERROR:|Parse Error" "$LOG" >&2
 	STATUS=1
 fi
-rm -f "$LOG"
+if [ -n "${KEEP_LOG:-}" ]; then
+	mv "$LOG" "$KEEP_LOG"
+	echo "Full output: $KEEP_LOG"
+else
+	rm -f "$LOG"
+fi
 exit "$STATUS"

@@ -9,12 +9,19 @@ func _ready() -> void:
 		if arg.begins_with("--out="): _out = arg.trim_prefix("--out=")
 		elif arg.begins_with("--mode="): _mode = arg.trim_prefix("--mode=")
 	# This fixture seeds the ordinary slot only inside the runner's owned profile.
-	var expected := _out.get_base_dir().path_join(_mode + "-profile").simplify_path() + "/"
-	if not _out.is_absolute_path() or _mode != "existing" or not OS.get_user_data_dir().simplify_path().begins_with(expected):
+	# Windows passes backslash paths and Godot reports its user folder with forward slashes (and either case):
+	# compare normalized forms so the guard holds on both systems (NE-431).
+	var expected := _normalized(_out.get_base_dir().path_join(_mode + "-profile")) + "/"
+	if not _out.is_absolute_path() or _mode != "existing" or not _normalized(OS.get_user_data_dir()).begins_with(expected):
 		printerr("Controller storage fixture requires its isolated runner profile")
 		get_tree().quit(2)
 		return
 	_run.call_deferred()
+func _normalized(path: String) -> String:
+	var flat := path.replace("\\", "/").simplify_path()
+	return flat.to_lower() if OS.get_name() == "Windows" else flat
+
+
 func _check(ok: bool, what: String) -> void:
 	_checks += 1
 	print("%s %s" % ["PASS" if ok else "FAIL", what])

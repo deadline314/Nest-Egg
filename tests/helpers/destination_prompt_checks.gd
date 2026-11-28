@@ -5,6 +5,13 @@ class QuietMain extends "res://game/main.gd":
 	func _ready() -> void:
 		pass
 
+class DeadRoom extends Level:
+	var cancelled := 0
+	func _ready() -> void:
+		pass
+	func cancel_area_route() -> void:
+		cancelled += 1
+
 static func run(s: TestSuite) -> void:
 	var language := Story.language
 	var scale := Settings.get_ui_text_scale()
@@ -54,7 +61,22 @@ static func run(s: TestSuite) -> void:
 	main._show_destination_failure(func() -> void: retries[0] += 1, true, "area")
 	main._destination_save_prompt.cancel_button.pressed.emit()
 	s.check(retries[0] == 1 and not GameplayLock.is_locked() and not s.runner.get_tree().paused, "stay resumes the source without invoking the failed route")
+	# 換區域途中死亡（NE-431）：不跳存檔提示，直接取消換區、留在目前區域走一般死亡流程。
+	var room := DeadRoom.new()
+	main._screen = room
+	check_route_after_death(s, main, room)
+	room.free()
+	main._screen = null
 	main._show_destination_failure(func() -> void: retries[0] += 1, false, "chapter")
 	main.queue_free()
 	await s.frames(2)
 	s.check(not GameplayLock.is_locked() and not s.runner.get_tree().paused, "removing Main cannot leave a recovery pause behind")
+
+
+static func check_route_after_death(s: TestSuite, main: Node, room: Level) -> void:
+	room.died = false
+	s.check(not main._abandon_route_after_death() and room.cancelled == 0, "a living player's area change goes on as usual")
+	room.died = true
+	GameState.pending_portal = &"test_portal"
+	s.check(main._abandon_route_after_death() and room.cancelled == 1 and GameState.pending_portal == &"" and main._destination_save_prompt == null,
+		"dying during an area change cancels the route quietly instead of asking about saving")

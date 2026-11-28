@@ -10,6 +10,7 @@ set -uo pipefail
 cd "$(dirname "$0")/.."
 GODOT="${GODOT:-godot}"
 source tools/test_filters.sh
+source tools/bounded_run.sh
 
 ONLY=""
 POSITIONAL=()
@@ -25,16 +26,21 @@ TIMES_FILE=".godot/suite_times.txt"
 DEFAULT_SECONDS=25
 DEFAULT_MAIN_SECONDS=240
 LOG_DIR="${LOG_DIR:-$(mktemp -d)}"
+mkdir -p "$LOG_DIR"
+PIDS=()
+# 被中斷（Ctrl+C、終止 session）時連同 Godot 一起停掉，不留背景程序（NE-431）。
+trap 'for pid in "${PIDS[@]}"; do kill_tree "$pid"; done; stop_bounded_children; exit 130' INT TERM HUP
 
 if [ ! -d .godot ]; then
 	echo "Importing project..."
-	"$GODOT" --headless --editor --quit >/dev/null 2>&1
+	run_bounded "$LOG_DIR/import.log" "$GODOT" --headless --editor --quit
 fi
 
 if [ -n "$ONLY" ]; then
 	SUITE_LIST="$ONLY"
 else
-	SUITE_LIST="main,$("$GODOT" --headless res://tests/smoke_test.tscn -- --only=list 2>/dev/null | sed -n 's/^SUITES: //p')"
+	BOUNDED_SECONDS=600 run_bounded "$LOG_DIR/list.log" "$GODOT" --headless res://tests/smoke_test.tscn -- --only=list
+	SUITE_LIST="main,$(grep -m 1 '^SUITES: ' "$LOG_DIR/list.log" | sed 's/^SUITES: //')"
 	if [ "$SUITE_LIST" = "main," ]; then
 		echo "Could not list the test suites (script error?). Run tools/run_tests.sh to see the output." >&2
 		exit 1
@@ -69,14 +75,13 @@ done <<< "$SORTED"
 
 echo "Running ${#ITEMS[@]} groups in $SHARDS processes (logs: $LOG_DIR)"
 START=$SECONDS
-PIDS=()
 for ((i = 0; i < SHARDS; i++)); do
 	[ -z "${ASSIGNED[$i]}" ] && continue
 	DATA_HOME="$LOG_DIR/data_$i"
 	mkdir -p "$DATA_HOME"
 	(
 		export XDG_DATA_HOME="$DATA_HOME" APPDATA="$DATA_HOME" LOCALAPPDATA="$DATA_HOME"
-		"$GODOT" --headless res://tests/smoke_test.tscn -- --only="${ASSIGNED[$i]}" > "$LOG_DIR/shard_$i.log" 2>&1
+		run_bounded "$LOG_DIR/shard_$i.log" "$GODOT" --headless res://tests/smoke_test.tscn -- --only="${ASSIGNED[$i]}"
 	) &
 	PIDS+=($!)
 	echo "  process $i (estimated ${LOAD[$i]} s): ${ASSIGNED[$i]}"
@@ -92,6 +97,10 @@ for ((i = 0; i < SHARDS; i++)); do
 	LOG="$LOG_DIR/shard_$i.log"
 	[ -f "$LOG" ] || continue
 	line="$(grep -E '^checks: [0-9]+, failures: [0-9]+' "$LOG" | tail -1)"
+	if grep -q '^BOUNDED_RUN: ' "$LOG"; then
+		echo "Process $i was stopped: $(grep -m 1 '^BOUNDED_RUN: ' "$LOG")" >&2
+		STATUS=1
+	fi
 	if [ -z "$line" ]; then
 		echo "Process $i did not finish (no result line): $LOG" >&2
 		STATUS=1

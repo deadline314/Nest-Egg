@@ -12,16 +12,45 @@ def write_json(path, data):
     path.write_text(json.dumps(data, indent=2) + "\n")
 
 
+# 探針的 log 上限與單行讀取上限（NE-431）：一直噴錯的 Godot 不能把 log 寫到幾 GB，掃 log 時也不把一整行超長內容讀進記憶體。
+LOG_LIMIT_BYTES = 64 * 1024 * 1024
+LINE_LIMIT = 64 * 1024
+
+
 def stop_owned(process, force=False):
     try:
         if os.name == "posix":
             os.killpg(process.pid, signal.SIGKILL if force else signal.SIGTERM)
-        elif force:
-            process.kill()
         else:
-            process.terminate()
-    except ProcessLookupError:
+            # Windows 的 Godot_*_console.exe 會再開一個 Godot 程序；只停 console 那支會留下孤兒，所以停整棵樹。
+            subprocess.run(["taskkill", "/T", "/F", "/PID", str(process.pid)], capture_output=True)
+            if force:
+                process.kill()
+    except (ProcessLookupError, OSError):
         pass
+
+
+def _wait_bounded(process, timeout, log_path):
+    """等程序結束；超時或 log 超過上限就停掉。回傳 (結束代碼, 原因或空字串)。"""
+    import time
+    deadline = time.monotonic() + timeout
+    while True:
+        try:
+            return process.wait(timeout=1), ""
+        except subprocess.TimeoutExpired:
+            pass
+        try:
+            too_big = log_path.stat().st_size > LOG_LIMIT_BYTES
+        except OSError:
+            too_big = False
+        if too_big or time.monotonic() >= deadline:
+            reason = "log exceeded limit" if too_big else "timeout"
+            stop_owned(process)
+            try:
+                return process.wait(timeout=10), reason
+            except subprocess.TimeoutExpired:
+                stop_owned(process, force=True)
+                return process.wait(timeout=10), reason
 
 
 def run_case(mode, engine, output, timeout, *, project, scene, slot, verbose=False,
@@ -49,16 +78,8 @@ def run_case(mode, engine, output, timeout, *, project, scene, slot, verbose=Fal
                                    stderr=subprocess.STDOUT, start_new_session=True)
         try:
             write_json(output / (mode + "-process.json"), {"pid": process.pid, "command": command})
-            try:
-                code = process.wait(timeout=timeout)
-            except subprocess.TimeoutExpired:
-                timed_out = True
-                stop_owned(process)
-                try:
-                    code = process.wait(timeout=10)
-                except subprocess.TimeoutExpired:
-                    stop_owned(process, force=True)
-                    code = process.wait(timeout=10)
+            code, reason = _wait_bounded(process, timeout, output / (mode + ".log"))
+            timed_out = reason != ""
         finally:
             if process.poll() is None:
                 stop_owned(process)
@@ -74,7 +95,10 @@ def run_case(mode, engine, output, timeout, *, project, scene, slot, verbose=Fal
     diagnostics, diagnostic_count = [], 0
     unexpected_diagnostics, unexpected_diagnostic_count = [], 0
     with (output / (mode + ".log")).open(errors="replace") as log:
-        for line in log:
+        while True:
+            line = log.readline(LINE_LIMIT)  # 單行最多讀這麼多；超長的一行分段讀，不整行進記憶體
+            if not line:
+                break
             if bad_line.search(line):
                 diagnostic_count += 1
                 complete_line = line.strip()

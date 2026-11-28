@@ -154,6 +154,12 @@ jobs:
         run: |
           python3 tools/run_handoff_completion.py --godot "$GODOT" --output "${{ runner.temp }}/handoff-completion"
 
+      - name: Check the chapter-four save chain and its cold continue
+        if: steps.gate.outputs.skip != 'true'
+        timeout-minutes: 45
+        run: |
+          python3 tools/run_ch4_save_chain.py --godot "$GODOT" --output "${{ runner.temp }}/ch4-save-chain"
+
       - name: Check chapter-two patroller results and cold reads
         if: steps.gate.outputs.skip != 'true'
         timeout-minutes: 20
@@ -309,6 +315,8 @@ jobs:
             ${{ runner.temp }}/audio-load/*.json
             ${{ runner.temp }}/handoff-completion/**/*.log
             ${{ runner.temp }}/handoff-completion/**/*.json
+            ${{ runner.temp }}/ch4-save-chain/**/*.json
+            ${{ runner.temp }}/ch4-save-chain/**/*.log
             ${{ runner.temp }}/patroller-completion/**/*.json
             ${{ runner.temp }}/patroller-completion/**/*.log
             ${{ runner.temp }}/ch2-evidence-completion/**/*.json

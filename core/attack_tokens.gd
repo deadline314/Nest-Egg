@@ -18,8 +18,11 @@ var hold_margin := DEFAULT_HOLD_MARGIN
 ## 群組 -> 上限；類別 -> 群組。
 var _caps: Dictionary = {}
 var _group_of: Dictionary = {}
-## 敵人的 instance id -> {group, until（毫秒）}。
+## 敵人的 instance id -> {group, until（遊戲時間，秒）}。
 var _holders: Dictionary = {}
+## 遊戲時間（秒）：由關卡每個物理影格推進（NE-431）。令牌的保留時間要和敵人預兆用同一個時鐘：
+## 之前用真實時間，負載高、頓幀或慢動作時遊戲時間落後，預兆還沒結束令牌就過期，第三個敵人跟著預兆。
+var clock := 0.0
 
 
 ## overrides：群組 -> 上限（LevelData.attack_caps），沒列出的群組用設定檔的值。
@@ -83,7 +86,7 @@ func claim(enemy_id: int, category: StringName, seconds: float) -> bool:
 		return true
 	if not _holders.has(enemy_id) and held(group) >= cap_of(group):
 		return false
-	_holders[enemy_id] = {"group": group, "until": Time.get_ticks_msec() + int((seconds + hold_margin) * 1000.0)}
+	_holders[enemy_id] = {"group": group, "until": clock + seconds + hold_margin}
 	return true
 
 
@@ -91,10 +94,15 @@ func release(enemy_id: int) -> void:
 	_holders.erase(enemy_id)
 
 
+## 推進遊戲時間（關卡的物理影格呼叫；暫停時不推進）。
+func advance(delta: float) -> void:
+	if is_finite(delta) and delta > 0.0:
+		clock += delta
+
+
 func _purge() -> void:
-	var now := Time.get_ticks_msec()
 	for id: int in _holders.keys():
-		if int((_holders[id] as Dictionary)["until"]) <= now:
+		if float((_holders[id] as Dictionary)["until"]) <= clock:
 			_holders.erase(id)
 
 

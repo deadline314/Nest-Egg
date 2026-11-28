@@ -509,6 +509,8 @@ func _commit_area_route(level_path: String) -> void:
 	if not await _route_frame():
 		return
 	GameState.pending_portal = portal
+	if _abandon_route_after_death():
+		return
 	# 保存目標入口而不是舊區位置；切換中關閉也能進新區。
 	var runtime := (_screen as Level).run_snapshot() if _screen is Level else {}
 	runtime["position"] = [-1, -1]
@@ -520,6 +522,17 @@ func _commit_area_route(level_path: String) -> void:
 		return
 	if await _route_frame():
 		await _load_level(Transition.WORLD)
+
+
+## 換區域途中死亡（NE-431）：剛死就跳出「進度尚未保存／重試保存／留在目前區域」很突兀，而且留下就是唯一合理的選擇。
+## 這時不存新區入口、不問存檔，直接取消這次換區，讓目前區域照一般死亡流程處理。回傳有沒有取消。
+func _abandon_route_after_death() -> bool:
+	var level := _screen as Level if _screen is Level else null
+	if level == null or not level.died:
+		return false
+	level.cancel_area_route()
+	GameState.pending_portal = &""
+	return true
 
 
 ## 過關：有下一關就接續（帶著成長與裝備），否則進入結算畫面。下一關讀不到時退回結算，不會卡住。
