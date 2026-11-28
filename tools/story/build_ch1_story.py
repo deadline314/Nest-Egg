@@ -398,7 +398,12 @@ def lines_scene(scene_id, mode, lines, then=None, flags=None, bark=False):
 
 def overlay_line(scene_id, speaker, text):
     """人物回訪的一句話：疊在地圖上的對話框（和第一章正式稿的回訪一樣），人物互動不能用通訊或氣泡。"""
-    SCENES[scene_id] = {"mode": "animated", "overlay": True, "steps": [{"do": "say", "speaker": speaker, "text": text}]}
+    overlay_lines(scene_id, [(speaker, text)])
+
+
+def overlay_lines(scene_id, lines):
+    """疊在地圖上的短對話框：人物回訪或可以讀的物件（一到兩句）。"""
+    SCENES[scene_id] = {"mode": "animated", "overlay": True, "steps": [{"do": "say", "speaker": s, "text": t} for s, t in lines]}
 
 
 # ---------------------------------------------------------------------------
@@ -520,6 +525,11 @@ def build():
     overlay_line('ch1_t_street_worker_revisit', 'dock_worker', "你要去碼頭？倉庫那邊的燈今晚一直沒熄。")
     overlay_line('ch1_t_street_worker_died', 'dock_worker', "你身上一股消毒水味，剛醒過來吧？先喘口氣再走。")
     overlay_line('ch1_t_street_worker_open', 'dock_worker', "路口沒人守了，我去看菜車過不過得去。今晚的工錢還有救。")
+    # 宵夜麵攤出口頂上的鐵皮棚，地圖線做的「野貓角落」（要從凳子堆旁的矮雨棚爬上去才看得到）。
+    overlay_lines('ch1_t_stall_cat_bowl', [
+        ('label', "鐵皮棚上擺著一只缺口的碗，碗底還剩一點麵湯。"),
+        ('label', "旁邊的鐵皮用粉筆寫著：灰貓天亮會來一次，別趕牠，湯裡不要放蔥。"),
+    ])
     lines_scene('ch1_g06_lamp', 'radio', [
         ('lamp', "我是幫你看路的燈，聽得到嗎？收帳人封了市集，改走碼頭那邊。"),
         ('rin', "我聽得到。"),

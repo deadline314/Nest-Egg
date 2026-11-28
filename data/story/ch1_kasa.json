@@ -1383,6 +1383,26 @@
     }
    ]
   },
+  "ch1_t_stall_cat_bowl": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "鐵皮棚上擺著一只缺口的碗，碗底還剩一點麵湯。",
+     "ja": "鉄板の庇の上に、欠けた椀がひとつ置いてある。底に麺のスープが少し残っている。",
+     "en": "A chipped bowl sits on the tin awning, a little noodle broth still at the bottom."
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "旁邊的鐵皮用粉筆寫著：灰貓天亮會來一次，別趕牠，湯裡不要放蔥。",
+     "ja": "横の鉄板にチョークで書いてある。「灰色の猫が夜明けに一度来る。追い払わないこと。スープにネギは入れない」",
+     "en": "Chalked on the tin beside it: The grey cat comes once at dawn. Don't chase it off, and no scallions in the broth."
+    }
+   ]
+  },
   "ch1_g06_lamp": {
    "mode": "radio",
    "lines": [
