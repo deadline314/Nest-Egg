@@ -42,6 +42,8 @@ NPC_CHARS = {
     'Ⓟ': 'ch3_light_spot', 'Ⓠ': 'ch3_telescope',
     'ⓛ': 'ch3_lin', 'Ⓐ': 'ch3_window_morning', 'Ⓑ': 'ch3_window_quiet', 'Ⓤ': 'ch3_window_late',
     'ⓧ': 'ch3_petition_box', 'Ⓦ': 'ch3_waiting_bench',
+    # ST-61：廣場與泵室的街坊與告示，兩處秘密空間的紙條。
+    'Ⓝ': 'ch3_plaza_nurse', 'Ⓧ': 'ch3_plaza_notice', 'Ⓨ': 'ch3_pump_locker', 'Ⓩ': 'ch3_clinic_cups', 'Ⓥ': 'ch3_office_vent',
 }
 
 # 人物（kind 0）有骨架外觀；物件（kind 1）只有互動提示。
@@ -80,6 +82,12 @@ NPCS = {
     'ch3_window_late': dict(name='C 晚窗', speaker='label', kind=O, prompt='{interact} 量 C 晚窗', talks=[('ch3_dispatch_room_late', 0)]),
     'ch3_petition_box': dict(name='公文取件格', speaker='label', kind=O, prompt='{interact} 取異議收件回執', talks=[('ch3_dispatch_petition', 0)]),
     'ch3_waiting_bench': dict(name='等候臺', speaker='label', kind=O, prompt='{interact} 在等候臺停一下', talks=[('ch3_dispatch_bench', 0)]),
+    'ch3_plaza_nurse': dict(name='早班護理員', speaker='shift_nurse', rig='nurse', loop='glance', facing=-1, prompt='{interact} 和早班護理員說話',
+                            talks=[('ch3_dispatch_plaza_nurse', 0), ('ch3_dispatch_plaza_nurse_again', 1)]),
+    'ch3_plaza_notice': dict(name='廣場公告欄', speaker='label', kind=O, prompt='{interact} 看廣場公告欄', talks=[('ch3_dispatch_plaza_notice', 0)]),
+    'ch3_pump_locker': dict(name='值班櫃', speaker='label', kind=O, prompt='{interact} 看值班櫃上的紙', talks=[('ch3_dispatch_pump_locker', 0)]),
+    'ch3_clinic_cups': dict(name='舊備品櫃', speaker='label', kind=O, prompt='{interact} 打開舊備品櫃', talks=[('ch3_dispatch_clinic_cups', 0)]),
+    'ch3_office_vent': dict(name='空調維修口', speaker='label', kind=O, prompt='{interact} 看維修口的工作單', talks=[('ch3_dispatch_office_vent', 0)]),
 }
 
 # ---------------------------------------------------------------------------
@@ -211,7 +219,9 @@ def _build_plaza_v1():
     a.stand(6, 'P')
     a.prop('harbor_plaza__loudspeaker_pole', 14)
     a.prop('harbor_plaza__plaza_benches', 20)
+    a.stand(21, 'Ⓝ')   # 等貨梯的早班護理員（ST-61）
     a.prop('harbor_plaza__notice_board_plaza', 26)
+    a.stand(26, 'Ⓧ')   # 廣場公告欄（ST-61）
     a.stand(32, 'Ⓘ')
     a.prop('sluice_hall__water_level_gauge_tower', 34)
     # 貨梯、控制箱與外梯（BG-43）：貨梯車廂就是出入口的樣子，控制箱與車廂的燈跟著通電、可搭乘的進度換色；
@@ -259,6 +269,7 @@ def _build_pump_v1():
     a.stand(74, MAINTENANCE_CREDIT)
     a.prop('sluice_hall__maintenance_locker', 74, y=19, dx=-9)
     a.prop('mezzanine__drip_basin', 70)
+    a.stand(72, 'Ⓨ')   # 值班櫃上的值班表（ST-61）
     a.stand(76, 'Ⅵ', row=12)
     for x in (14, 34, 54, 70):
         a.lamp(x, 8)
@@ -331,6 +342,7 @@ def build_clinic():
     a.put(96, 19, SECRET_WALL)
     a.prop('nursing_ward__bedside_locker', 99)
     a.stand(101, 'q')
+    a.stand(99, 'Ⓩ')   # 備品間的舊備品櫃（ST-61）
     for x in (10, 22, 36, 56, 72, 88, 100):
         a.lamp(x, 11)
     a.zone(0, 'clinic_ward')
@@ -466,6 +478,7 @@ def build_office_hall():
     a.platform(48, 52, 17)
     a.platform(16, 46, 14)
     a.stand(18, 'q', row=13)
+    a.stand(24, 'Ⓥ', row=13)   # 維修廊的空調維修口（ST-61）
     for x in (10, 24, 40, 54):
         a.lamp(x, 9)
     a.zone(0, 'reception_white')

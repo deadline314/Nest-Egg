@@ -42,6 +42,8 @@ SPEAKERS = {
     "ahan": {"name": "阿翰的錄音", "color": "#c8c0e8", "portrait": "res://art/portraits/system.png", "formal": True},
     "panel": {"name": "控制箱", "color": "#9ad7ff", "portrait": "res://art/portraits/system.png", "formal": True},
     "label": {"name": "說明", "color": "#ded5b0", "portrait": "res://art/portraits/system.png", "formal": True},
+    # 廣場貨梯等交班的護理員（ST-61）。
+    "shift_nurse": {"name": "早班護理員", "color": "#a8d0c8", "portrait": "res://art/portraits/nurse.png"},
 }
 
 # 劇本第 5 節的金額（NE-231 可以調整資源檔的數字；這裡只引用交易）。
@@ -108,6 +110,13 @@ DISPATCH = {
     "call": ["ch3_t_c23_quiet_day", "ch3_t_c23_call", "ch3_t_c23_invite", "ch3_t_c23_revisit"],
     "control_box": ["ch3_t_c01_box", "ch3_t_c02_call_early", "ch3_t_c02_call", "ch3_t_c02_box_revisit"],
     "gauge": ["ch3_t_c01_gauge", "ch3_t_c01_gauge_low"],
+    # ST-61：廣場、泵室與兩處秘密空間的環境敘事（排水、貨梯通電、月報對出來之後內容會變）。
+    "plaza_nurse": ["ch3_t_plaza_nurse", "ch3_t_plaza_nurse_ready"],
+    "plaza_nurse_again": ["ch3_t_plaza_nurse_revisit", "ch3_t_plaza_nurse_ready"],
+    "plaza_notice": ["ch3_t_plaza_notice", "ch3_t_plaza_notice_ready"],
+    "pump_locker": ["ch3_t_pump_locker", "ch3_t_pump_locker_low"],
+    "clinic_cups": ["ch3_t_clinic_cups", "ch3_t_clinic_cups_checked"],
+    "office_vent": ["ch3_t_office_vent"],
     "ladder": ["ch3_t_c02_ladder_locked", "ch3_t_c02_ladder", "ch3_t_c02_ladder_revisit"],
     "wheel": ["ch3_t_c02_wheel", "ch3_t_c02_wheel_revisit"],
     "panel": ["ch3_t_c02_panel_wet", "ch3_t_c02_panel", "ch3_t_c02_power", "ch3_t_c02_panel_revisit"],
@@ -274,6 +283,30 @@ def _freight(source: ProductionSource):
     powered = flag("ch3_lift_powered")
     ready = flag("ch3_freight_ready")
     ladder = flag("ch3_outer_ladder_down")
+    # 廣場與泵室為什麼泡水、誰在等貨梯（ST-61）：排完水、貨梯通電後內容會變。不寫旗標、不給物品。
+    source.add("ch3_t_plaza_nurse", "C01", (
+        ("shift_nurse", "我是夾層診所的早班護理員。貨梯泡水停了，我上不去交班。"),
+        ("rin", "外梯呢？"),
+        ("shift_nurse", "外梯的鎖扣連著貨梯，水不退，鎖就不會開。")), when=negate(ready))
+    source.add("ch3_t_plaza_nurse_revisit", "C01", (("shift_nurse", "泵室在右邊的上橋過去。聽說泵改成手動以後，就沒人去轉了。"),), when=negate(ready))
+    source.add("ch3_t_plaza_nurse_ready", "C01", (("shift_nurse", "貨梯通了，我得趕去交班。芷姐一個人顧了整晚。"),), when=ready)
+    source.add("ch3_t_plaza_notice", "C01", (
+        ("label", "廣場公告：集水槽夜間漲水，貨梯的安全聯鎖已啟動，暫停載運。"),
+        ("label", "下面釘著一張手寫的紙：泵室改成手動以後，誰有空誰去轉一下排水輪。")), when=negate(ready))
+    source.add("ch3_t_plaza_notice_ready", "C01", (("label", "公告下面多了一行鉛筆字：貨梯通了，不知道是誰轉的輪子。"),), when=ready)
+    source.add("ch3_t_pump_locker", "C02", (
+        ("label", "櫃門上貼著值班表，最後一個簽名是兩週前，之後的格子都空著。"),
+        ("label", "旁邊的通知寫著：泵室改由巡檢器巡視，值班人員調往廣場站。")), when=negate(low))
+    source.add("ch3_t_pump_locker_low", "C02", (("label", "值班表最後一格多了今天的日期，旁邊沒有簽名。"),), when=low)
+    # 兩處秘密空間（NE-419 做的備品間與空調維修廊）：要打破牆或爬上去才看得到的紙條。
+    checked = flag("ch3_report_reconciled")
+    source.add("ch3_t_clinic_cups", "C09", (
+        ("label", "備品間的床邊櫃裡排著一列保溫杯，每個都貼著編號，沒有名字。"),
+        ("label", "櫃門內側夾著一張紙：R17 那幾格，家屬還沒來領，先不要丟。")), when=negate(checked))
+    source.add("ch3_t_clinic_cups_checked", "C09", (("label", "紙條下面多了一行：月報有人對出來了，這幾格再留一個月。"),), when=checked)
+    source.add("ch3_t_office_vent", "C19", (
+        ("label", "維修口貼著一張工作單：辦公內門上方的出風口太吵，請改成靜音。"),
+        ("label", "下面有人用鉛筆補了一句：改好以後太安靜了，門縫裡的話聽得一清二楚。")))
     source.add("ch3_b_c02_upper_route", "C02", (("rin", "我可以從矮臺跳上乾燥的上橋，避開巡檢器。"),),
                when=negate(low), mode="bubbles")
     source.add("ch3_t_c01_box", "C01", (
@@ -535,7 +568,7 @@ def _gate_hall(source: ProductionSource):
     source.add("ch3_t_c10_revisit", "C10", (("label", "門禁閘已經斷電，綠燈常亮，閘門開著。"),), when=disabled)
     # 戰鬥中的短句與首次敗北提示（戰鬥組在對應時機播放）。
     source.add("ch3_c11_bark_sorry", "C11", (("janus", "不好意思，我重新核對。"),), mode="radio")
-    source.add("ch3_c11_bark_repeat", "C11", (("rin", "他會一直重複，先看他蓄力。"),), mode="radio")
+    source.add("ch3_c11_bark_repeat", "C11", (("rin", "他會重複，先看蓄力。"),), mode="radio")
     source.add("ch3_c11_defeat_hint", "C11", (
         ("lamp", "看他蓄力，再打斷橙色的掃描臂。"),
         ("lamp", "盾擊撲空三次會裂盾，繞到背後停掉通訊器就沒有增援。"),), mode="radio")

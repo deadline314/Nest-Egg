@@ -102,6 +102,13 @@
    "formal": true,
    "name_ja": "説明",
    "name_en": "Instructions"
+  },
+  "shift_nurse": {
+   "name": "早班護理員",
+   "color": "#a8d0c8",
+   "portrait": "res://art/portraits/nurse.png",
+   "name_ja": "早番の看護師",
+   "name_en": "Morning-Shift Nurse"
   }
  },
  "flag_defaults": {
@@ -1002,6 +1009,220 @@
     "flag": "ch3_departure_done",
     "equals": true
    }
+  },
+  "ch3_t_plaza_nurse": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "shift_nurse",
+     "text": "我是夾層診所的早班護理員。貨梯泡水停了，我上不去交班。",
+     "ja": "中層診療所の早番看護師です。貨物エレベーターが水に浸かって止まって、引き継ぎに上がれないんです。",
+     "en": "I'm the morning-shift nurse at the mezzanine clinic. The freight lift flooded and stopped, so I can't get up to start my shift."
+    },
+    {
+     "speaker": "rin",
+     "text": "外梯呢？",
+     "ja": "外階段は？",
+     "en": "What about the outer ladder?"
+    },
+    {
+     "speaker": "shift_nurse",
+     "text": "外梯的鎖扣連著貨梯，水不退，鎖就不會開。",
+     "ja": "外階段の留め金はエレベーターと連動してるんです。水が引かないと、ロックは開きません。",
+     "en": "The outer ladder's latch is tied to the lift. Until the water goes down, the lock won't open."
+    }
+   ],
+   "when": {
+    "not": {
+     "flag": "ch3_freight_ready",
+     "equals": true
+    }
+   }
+  },
+  "ch3_t_plaza_nurse_revisit": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "shift_nurse",
+     "text": "泵室在右邊的上橋過去。聽說泵改成手動以後，就沒人去轉了。",
+     "ja": "ポンプ室は右の上の橋を渡った先です。手動に切り替わってから、誰も回しに行かなくなったそうで。",
+     "en": "The pump room is across the upper bridge to the right. I hear that since the pump went manual, nobody goes to turn it."
+    }
+   ],
+   "when": {
+    "not": {
+     "flag": "ch3_freight_ready",
+     "equals": true
+    }
+   }
+  },
+  "ch3_t_plaza_nurse_ready": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "shift_nurse",
+     "text": "貨梯通了，我得趕去交班。芷姐一個人顧了整晚。",
+     "ja": "エレベーターが動いた。急いで引き継ぎに行かないと。芷さんが一晩中ひとりで見てたんです。",
+     "en": "The lift's running. I have to hurry to my shift. Zhi's been covering alone all night."
+    }
+   ],
+   "when": {
+    "flag": "ch3_freight_ready",
+    "equals": true
+   }
+  },
+  "ch3_t_plaza_notice": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "廣場公告：集水槽夜間漲水，貨梯的安全聯鎖已啟動，暫停載運。",
+     "ja": "広場のお知らせ：夜間に集水槽が増水したため、貨物エレベーターの安全インターロックが作動し、運行を停止しています。",
+     "en": "Plaza notice: The catchment tank flooded overnight. The freight lift's safety interlock has engaged and service is suspended."
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "下面釘著一張手寫的紙：泵室改成手動以後，誰有空誰去轉一下排水輪。",
+     "ja": "その下に手書きの紙が留めてある。「ポンプ室が手動になったので、手の空いた人が排水輪を回してください」",
+     "en": "A handwritten note is pinned below: Since the pump room went manual, whoever has time, please go turn the drain wheel."
+    }
+   ],
+   "when": {
+    "not": {
+     "flag": "ch3_freight_ready",
+     "equals": true
+    }
+   }
+  },
+  "ch3_t_plaza_notice_ready": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "公告下面多了一行鉛筆字：貨梯通了，不知道是誰轉的輪子。",
+     "ja": "お知らせの下に鉛筆で一行増えている。「エレベーターが動いた。誰が輪を回したのかは知らない」",
+     "en": "A new pencil line under the notice: The lift's running. No idea who turned the wheel."
+    }
+   ],
+   "when": {
+    "flag": "ch3_freight_ready",
+    "equals": true
+   }
+  },
+  "ch3_t_pump_locker": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "櫃門上貼著值班表，最後一個簽名是兩週前，之後的格子都空著。",
+     "ja": "扉に当番表が貼ってある。最後の署名は二週間前で、その後の欄は空いたままだ。",
+     "en": "A duty roster is taped to the locker door. The last signature is from two weeks ago; every box after that is empty."
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "旁邊的通知寫著：泵室改由巡檢器巡視，值班人員調往廣場站。",
+     "ja": "横の通知にはこうある。「ポンプ室は巡回機による巡視に切り替え、当番要員は広場ステーションへ配置換え」",
+     "en": "The notice beside it reads: The pump room is now patrolled by inspection drones; duty staff are reassigned to the plaza station."
+    }
+   ],
+   "when": {
+    "not": {
+     "flag": "ch3_pump_low",
+     "equals": true
+    }
+   }
+  },
+  "ch3_t_pump_locker_low": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "值班表最後一格多了今天的日期，旁邊沒有簽名。",
+     "ja": "当番表の最後の欄に今日の日付が増えている。署名はない。",
+     "en": "Today's date has been added to the last box on the roster. There's no signature."
+    }
+   ],
+   "when": {
+    "flag": "ch3_pump_low",
+    "equals": true
+   }
+  },
+  "ch3_t_clinic_cups": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "備品間的床邊櫃裡排著一列保溫杯，每個都貼著編號，沒有名字。",
+     "ja": "備品室のベッドサイド棚に保温カップが一列並んでいる。どれも番号が貼ってあって、名前はない。",
+     "en": "A row of insulated cups sits in the storeroom's bedside cabinet. Each has a number taped on it, and no name."
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "櫃門內側夾著一張紙：R17 那幾格，家屬還沒來領，先不要丟。",
+     "ja": "扉の内側に紙が挟んである。「R17の数段、家族がまだ受け取りに来ていない。捨てないこと」",
+     "en": "A note is tucked inside the door: The R17 slots haven't been collected by family yet. Don't throw them out."
+    }
+   ],
+   "when": {
+    "not": {
+     "flag": "ch3_report_reconciled",
+     "equals": true
+    }
+   }
+  },
+  "ch3_t_clinic_cups_checked": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "紙條下面多了一行：月報有人對出來了，這幾格再留一個月。",
+     "ja": "メモの下に一行増えている。「月報を突き合わせた人がいた。この段はもう一か月残す」",
+     "en": "A new line under the note: Someone checked the monthly report. Keep these slots one more month."
+    }
+   ],
+   "when": {
+    "flag": "ch3_report_reconciled",
+    "equals": true
+   }
+  },
+  "ch3_t_office_vent": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "維修口貼著一張工作單：辦公內門上方的出風口太吵，請改成靜音。",
+     "ja": "点検口に作業票が貼ってある。「事務室の内扉の上の吹き出し口がうるさい。静音にしてほしい」",
+     "en": "A work order is taped to the service hatch: The vent above the inner office door is too loud. Please make it quiet."
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "下面有人用鉛筆補了一句：改好以後太安靜了，門縫裡的話聽得一清二楚。",
+     "ja": "その下に鉛筆で一言。「直したら静かすぎて、扉の隙間の話がはっきり聞こえる」",
+     "en": "Someone added in pencil underneath: Now it's too quiet. You can hear every word through the gap in the door."
+    }
+   ]
   },
   "ch3_b_c02_upper_route": {
    "mode": "bubbles",
@@ -3521,7 +3742,7 @@
    "lines": [
     {
      "speaker": "rin",
-     "text": "他會一直重複，先看他蓄力。",
+     "text": "他會重複，先看蓄力。",
      "ja": "あいつは同じ動きを繰り返すので、まず溜めを見てください。",
      "en": "He will repeat the attack, so watch the charge first."
     }
@@ -8090,6 +8311,120 @@
       "equals": true
      },
      "target": "ch3_t_c01_gauge_low"
+    }
+   ]
+  },
+  "ch3_dispatch_plaza_nurse": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "not": {
+       "flag": "ch3_freight_ready",
+       "equals": true
+      }
+     },
+     "target": "ch3_t_plaza_nurse"
+    },
+    {
+     "when": {
+      "flag": "ch3_freight_ready",
+      "equals": true
+     },
+     "target": "ch3_t_plaza_nurse_ready"
+    }
+   ]
+  },
+  "ch3_dispatch_plaza_nurse_again": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "not": {
+       "flag": "ch3_freight_ready",
+       "equals": true
+      }
+     },
+     "target": "ch3_t_plaza_nurse_revisit"
+    },
+    {
+     "when": {
+      "flag": "ch3_freight_ready",
+      "equals": true
+     },
+     "target": "ch3_t_plaza_nurse_ready"
+    }
+   ]
+  },
+  "ch3_dispatch_plaza_notice": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "not": {
+       "flag": "ch3_freight_ready",
+       "equals": true
+      }
+     },
+     "target": "ch3_t_plaza_notice"
+    },
+    {
+     "when": {
+      "flag": "ch3_freight_ready",
+      "equals": true
+     },
+     "target": "ch3_t_plaza_notice_ready"
+    }
+   ]
+  },
+  "ch3_dispatch_pump_locker": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "not": {
+       "flag": "ch3_pump_low",
+       "equals": true
+      }
+     },
+     "target": "ch3_t_pump_locker"
+    },
+    {
+     "when": {
+      "flag": "ch3_pump_low",
+      "equals": true
+     },
+     "target": "ch3_t_pump_locker_low"
+    }
+   ]
+  },
+  "ch3_dispatch_clinic_cups": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "not": {
+       "flag": "ch3_report_reconciled",
+       "equals": true
+      }
+     },
+     "target": "ch3_t_clinic_cups"
+    },
+    {
+     "when": {
+      "flag": "ch3_report_reconciled",
+      "equals": true
+     },
+     "target": "ch3_t_clinic_cups_checked"
+    }
+   ]
+  },
+  "ch3_dispatch_office_vent": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {},
+     "target": "ch3_t_office_vent"
     }
    ]
   },

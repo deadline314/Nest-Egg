@@ -154,6 +154,18 @@ StoryLint 全部通過；以下是掃描工具列出、讀起來仍然卡的地�
 - **一句講重點，不寫廢話**：不加語助詞以外的填充（「這下」「就會」只在口氣需要時用）。老 K 的「喔」是口癖，各章維持一致的頻率。
 - 過長的一行依意思拆句或收短，不刪內容；通訊框一段最多兩句。
 
+## 故事線要跑哪些測試（固定清單，2026-11-28）
+
+挑對套件，不跑全部。改動類型往下累加：改人物要連同改對話的一起跑，改擺放要三組都跑。推送前照清單跑一次；除錯時只跑正在查的那一組。
+
+| 改了什麼 | 要跑的套件 | 另外 |
+|---|---|---|
+| 對話文字（台詞、選項說明、譯文） | StoryLintSuite、StoryContentSuite、該章的故事套件（第一章 Chapter1MapSuite、第二章 Chapter2StorySuite、第三章 Chapter3StorySuite、第四章 Chapter4StorySuite）；有動畫或疊圖對話框時加 CutsceneSuite | `python tools/story/test_*.py`；正式文字檢查 `story_lint.tscn` |
+| 人物或可讀物件（新講者、talks、反應、呈現方式改成對話框／氣泡／通訊） | 上一列全部，加 NpcSuite、NpcLifeSuite、NpcAnimationSuite、MapBubblesSuite、PacingSuite；有收藏文件時加 CollectiblesSuite | 人物互動只能用對話或過場（NpcSuite 會抓） |
+| 擺放（地圖字元、觸發格、站位、導航索引） | 上兩列全部，加該章的地圖套件（第一章 Chapter1MapSuite、第二章 Chapter2Suite、其他章 AreasSuite）、QuestMapSuite、ContinuitySuite、WorldPromptSuite | `python tools/level/test_*.py`；連續性報告 `continuity_report.tscn` |
+
+規則：Godot 的輸出一律先寫進自己暫存資料夾的 log，再用 `tail -n 200` 或 `grep -m 50` 看；同一時間只跑一輪（最多 3 個程序）；rebase 帶進新的腳本類別後先跑一次 `--import`。
+
 ## 4. 修改順序
 
 由上往下，一項一張票（`design/22-living-scenes/BACKLOG.md` 故事表）。

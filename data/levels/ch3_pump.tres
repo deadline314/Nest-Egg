@@ -1,22 +1,23 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=20 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=21 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Resource" path="res://data/props/credits_small.tres" id="2_credits_small"]
 [ext_resource type="Resource" path="res://data/props/credits_maintenance.tres" id="3_credits_maintenance"]
-[ext_resource type="Resource" path="res://data/enemies/pump_inspector.tres" id="4_pump_inspector"]
-[ext_resource type="Resource" path="res://data/enemies/insulation_inspector.tres" id="5_insulation_inspector"]
-[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="6_portal_data"]
-[ext_resource type="Resource" path="res://data/npcs/ch3_drain_wheel.tres" id="7_ch3_drain_wheel"]
-[ext_resource type="Resource" path="res://data/npcs/ch3_branch_panel.tres" id="8_ch3_branch_panel"]
-[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="9_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/pump_room.tres" id="10_pump_room"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch3_pump.tres" id="11_ch3_pump"]
-[ext_resource type="Script" path="res://data/scripts/lighting_event.gd" id="12_lighting_event"]
-[ext_resource type="Resource" path="res://data/lighting/pump_drained.tres" id="13_pump_drained"]
-[ext_resource type="Resource" path="res://data/props/decoy_radio.tres" id="93_decoy_radio"]
+[ext_resource type="Resource" path="res://data/props/decoy_radio.tres" id="4_decoy_radio"]
+[ext_resource type="Resource" path="res://data/enemies/pump_inspector.tres" id="5_pump_inspector"]
+[ext_resource type="Resource" path="res://data/enemies/insulation_inspector.tres" id="6_insulation_inspector"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="7_portal_data"]
+[ext_resource type="Resource" path="res://data/npcs/ch3_drain_wheel.tres" id="8_ch3_drain_wheel"]
+[ext_resource type="Resource" path="res://data/npcs/ch3_branch_panel.tres" id="9_ch3_branch_panel"]
+[ext_resource type="Resource" path="res://data/npcs/ch3_pump_locker.tres" id="10_ch3_pump_locker"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="11_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/pump_room.tres" id="12_pump_room"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch3_pump.tres" id="13_ch3_pump"]
+[ext_resource type="Script" path="res://data/scripts/lighting_event.gd" id="14_lighting_event"]
+[ext_resource type="Resource" path="res://data/lighting/pump_drained.tres" id="15_pump_drained"]
 
 [sub_resource type="Resource" id="Resource_0"]
-script = ExtResource("6_portal_data")
+script = ExtResource("7_portal_data")
 id = &"pump_plaza"
 target_level = "res://data/levels/ch3_plaza.tres"
 target_portal = &"plaza_pump"
@@ -27,7 +28,7 @@ height = 44
 style = "road"
 
 [sub_resource type="Resource" id="Resource_1"]
-script = ExtResource("6_portal_data")
+script = ExtResource("7_portal_data")
 id = &"pump_ladder"
 target_level = "res://data/levels/ch3_plaza.tres"
 target_portal = &"plaza_ladder"
@@ -39,7 +40,7 @@ localized_prompts = Dictionary[String, String]({"en": "{interact} Take the outsi
 style = "door"
 
 [sub_resource type="Resource" id="Resource_2"]
-script = ExtResource("6_portal_data")
+script = ExtResource("7_portal_data")
 id = &"pump_shaft"
 target_level = "res://data/levels/ch3_mezzanine.tres"
 target_portal = &"mezz_shaft"
@@ -53,17 +54,17 @@ height = 44
 style = "door"
 
 [sub_resource type="Resource" id="Resource_3"]
-script = ExtResource("9_lighting_zone")
+script = ExtResource("11_lighting_zone")
 start_tile = 0
 blend_tiles = 12
-profile = ExtResource("10_pump_room")
+profile = ExtResource("12_pump_room")
 
 [sub_resource type="Resource" id="Resource_4"]
-script = ExtResource("12_lighting_event")
+script = ExtResource("14_lighting_event")
 id = &"pump_drained"
 start_tile = 12
 end_tile = 78
-profile = ExtResource("13_pump_drained")
+profile = ExtResource("15_pump_drained")
 requires_flag = &"ch3_pump_low"
 
 [resource]
@@ -74,24 +75,25 @@ localized_names = Dictionary[String, String]({"en": "Sump and Pump Room", "ja": 
 tile_size = 16
 height = 40
 legend = Dictionary[String, Resource]({
-"ψ": ExtResource("93_decoy_radio"),
 "c": ExtResource("2_credits_small"),
 "¢": ExtResource("3_credits_maintenance"),
-"Ж": ExtResource("4_pump_inspector"),
-"Ш": ExtResource("5_insulation_inspector"),
+"ψ": ExtResource("4_decoy_radio"),
+"Ж": ExtResource("5_pump_inspector"),
+"Ш": ExtResource("6_insulation_inspector"),
 "Ⅱ": SubResource("Resource_0"),
 "Ⅵ": SubResource("Resource_1"),
 "⇑": SubResource("Resource_2"),
-"Ⓙ": ExtResource("7_ch3_drain_wheel"),
-"Ⓚ": ExtResource("8_ch3_branch_panel")
+"Ⓙ": ExtResource("8_ch3_drain_wheel"),
+"Ⓚ": ExtResource("9_ch3_branch_panel"),
+"Ⓨ": ExtResource("10_ch3_pump_locker")
 })
 hints = PackedStringArray("維修備料：水位降到低線後再領。", "管線廊的維修豎井通到夾層，貨梯接通後才開。")
 chapter = &"ch3_clearwater"
 persistent_world = true
 show_chapter_card = false
-environment = ExtResource("11_ch3_pump")
+environment = ExtResource("13_ch3_pump")
 layout_path = "res://data/levels/ch3_pump_map.json"
-lighting_zones = Array[ExtResource("9_lighting_zone")]([SubResource("Resource_3")])
-lighting_events = Array[ExtResource("12_lighting_event")]([SubResource("Resource_4")])
+lighting_zones = Array[ExtResource("11_lighting_zone")]([SubResource("Resource_3")])
+lighting_events = Array[ExtResource("14_lighting_event")]([SubResource("Resource_4")])
 story_triggers = PackedStringArray("ch3_b_c02_upper_route")
 death_credit_cap = 250
