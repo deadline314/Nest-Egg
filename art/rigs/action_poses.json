@@ -453,6 +453,7 @@
         }
       ]
     },
+    "slasher.vault": {"duration": 0.22, "skip_ik": true, "blend": 18, "keys": [{"t": 0.0, "bones": {"chest": 0.1, "leg_front_upper": -0.4, "leg_front_lower": 0.6, "leg_back_upper": 0.2, "leg_back_lower": 0.5}}, {"t": 1.0, "bones": {"chest": 0.38, "head": 0.18, "arm_front_upper": -0.7, "arm_front_lower": -0.7, "arm_back_upper": -0.45, "arm_back_lower": -0.6, "leg_front_upper": -1.25, "leg_front_lower": 1.6, "leg_back_upper": -0.75, "leg_back_lower": 1.5}}]},
     "slasher.recover": {
       "duration": 0.5,
       "skip_ik": true,

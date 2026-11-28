@@ -19,6 +19,7 @@ var _level: Level
 func run() -> void:
 	_test_data()
 	await _test_slasher()
+	await _test_slasher_flank()
 	await _test_stalker_cloak()
 	await _test_repair_drone()
 	await _test_shield_rules()
@@ -74,10 +75,24 @@ func _test_data() -> void:
 			check(enemy_data.attack_cooldown * difficulty.enemy_cooldown_multiplier >= MIN_COOLDOWN, "%s cooldown is fair on %s (%.2f)" % [enemy_data.id, difficulty.id, enemy_data.attack_cooldown * difficulty.enemy_cooldown_multiplier])
 
 
+## 讓玩家固定看著某一邊（虛擬手把、搖桿放開時維持最後的方向）。
+func _face_player(direction: int) -> void:
+	AimInput.set_virtual_gamepad(_level.player, true)
+	AimInput.restore_direction(Vector2(direction, 0.0))
+	await physics_frames(2)
+
+
+func _release_player_facing() -> void:
+	AimInput.set_virtual_gamepad(_level.player, false)
+	AimInput.restore_direction(Vector2.RIGHT)
+
+
 func _test_slasher() -> void:
 	var level := await _open_arena()
 	var slasher := _spawn(SLASHER_PATH, 20.0)
 	_place_player(14.0)
+	# 玩家背對切割者：牠直接從背後貼近出手（正面對峙與翻越見 _test_slasher_flank）。
+	await _face_player(-1)
 	await physics_frames(10)
 	# 發現玩家 → 蓄力（有預兆）。
 	var saw_telegraph := false
@@ -87,6 +102,10 @@ func _test_slasher() -> void:
 			saw_telegraph = true
 			break
 	check(saw_telegraph, "slasher telegraphs before it lunges")
+	check(slasher.get("striking_from_behind") == true and is_equal_approx(slasher.call("windup_time"), slasher.data.telegraph_time + 0.2),
+			"a strike from behind the player telegraphs longer than one from the front")
+	check(slasher.call("is_on_screen") or absf(slasher.global_position.x - level.player.global_position.x) <= 26.0,
+			"a strike from behind starts on screen, not from beyond the camera edge")
 	# 撲出：接觸傷害變成斬擊傷害，來源是 slasher_lunge。
 	var lunged := false
 	for i in 90:
@@ -113,6 +132,103 @@ func _test_slasher() -> void:
 	await physics_frames(2)
 	check(slasher.fsm.is_in(&"recover"), "stun interrupts the slasher's attack")
 	check(slasher.health.current == slasher.data.max_health, "slasher test did not damage the slasher")
+	_release_player_facing()
+	await end_level(level)
+
+
+## 繞後（NE-424）：玩家正面盯著時不衝，對峙後從頭上翻到背後再出手；背靠牆或背後是通電的積水就翻不過去，只能正面出手。
+func _test_slasher_flank() -> void:
+	var level := await _open_arena()
+	_place_player(20.0)
+	await _face_player(1)
+	var slasher := _spawn(SLASHER_PATH, 28.0)
+	var player_x := level.player.global_position.x
+	var standoff_ok := true
+	var vaulted := false
+	var contact_off_in_air := true
+	var landed_behind := false
+	var max_peak := INF
+	var engaged_in_standoff := true
+	for i in 300:
+		await physics_frames(1)
+		_place_player(20.0)
+		if slasher.fsm.is_in(&"stalk"):
+			engaged_in_standoff = engaged_in_standoff and slasher.is_engaged()
+		if not vaulted and slasher.fsm.is_in(&"windup"):
+			standoff_ok = false
+		if slasher.fsm.is_in(&"vault"):
+			vaulted = true
+			contact_off_in_air = contact_off_in_air and not slasher.contact.active
+			max_peak = minf(max_peak, slasher.global_position.y)
+		if vaulted and slasher.fsm.is_in(&"windup"):
+			landed_behind = slasher.global_position.x < player_x and slasher.get("striking_from_behind") == true
+			break
+	check(standoff_ok, "the slasher does not charge head-on while the player faces it")
+	check(engaged_in_standoff, "a slasher squaring off with the player counts as having spotted them (combat music, stealth challenges)")
+	check(vaulted, "after a standoff the slasher vaults over the player")
+	check(contact_off_in_air, "vaulting over the player's head does not hurt")
+	check(FLOOR_Y - max_peak >= 46.0, "the vault clears the player's head (%.0f px)" % (FLOOR_Y - max_peak))
+	check(landed_behind, "the slasher lands behind the player and strikes from behind")
+	slasher.queue_free()
+	await physics_frames(2)
+	# 背靠牆：翻不過去，對峙後只能正面出手。
+	_place_player(1.6)
+	await _face_player(1)
+	slasher = _spawn(SLASHER_PATH, 9.0)
+	var walled_vault := false
+	var front_strike := false
+	for i in 300:
+		await physics_frames(1)
+		_place_player(1.6)
+		walled_vault = walled_vault or slasher.fsm.is_in(&"vault_tell") or slasher.fsm.is_in(&"vault")
+		if slasher.fsm.is_in(&"windup"):
+			front_strike = slasher.get("striking_from_behind") == false
+			break
+	check(not walled_vault, "with the player's back to a wall the slasher cannot vault behind")
+	check(front_strike, "with no way behind, the slasher strikes from the front")
+	slasher.queue_free()
+	await physics_frames(2)
+	# 背後是通電的積水：不翻進去。
+	_place_player(30.0)
+	await _face_player(1)
+	var water := RefCounted.new()
+	HazardZones.register(water, Rect2(Vector2(26.0 * 16.0, FLOOR_Y - 40.0), Vector2(48.0, 40.0)))
+	slasher = _spawn(SLASHER_PATH, 38.0)
+	var wet_vault := false
+	for i in 240:
+		await physics_frames(1)
+		_place_player(30.0)
+		wet_vault = wet_vault or slasher.fsm.is_in(&"vault")
+		if slasher.fsm.is_in(&"windup"):
+			break
+	HazardZones.unregister(water)
+	check(not wet_vault, "the slasher does not vault into electrified water behind the player")
+	slasher.queue_free()
+	await physics_frames(2)
+	# 頭頂有單向走道（離地 70 像素）：翻越會穿過走道，所以不翻。
+	_place_player(44.0)
+	await _face_player(1)
+	var catwalk := StaticBody2D.new()
+	catwalk.collision_layer = Layers.PLATFORM
+	catwalk.collision_mask = 0
+	var shape := CollisionShape2D.new()
+	shape.shape = RectangleShape2D.new()
+	(shape.shape as RectangleShape2D).size = Vector2(16.0 * 16.0, 8.0)
+	shape.one_way_collision = true
+	catwalk.add_child(shape)
+	catwalk.position = Vector2(44.0 * 16.0, FLOOR_Y - 70.0)
+	level._entities.add_child(catwalk)
+	slasher = _spawn(SLASHER_PATH, 52.0)
+	var low_vault := false
+	for i in 240:
+		await physics_frames(1)
+		_place_player(44.0)
+		low_vault = low_vault or slasher.fsm.is_in(&"vault")
+		if slasher.fsm.is_in(&"windup"):
+			break
+	catwalk.queue_free()
+	check(not low_vault, "the slasher does not vault through a catwalk over the player's head")
+	_release_player_facing()
 	await end_level(level)
 
 

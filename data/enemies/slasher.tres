@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="EnemyData" load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="1_script"]
-[ext_resource type="Script" path="res://game/enemies/slasher.gd" id="2_behavior"]
+[ext_resource type="Script" path="res://game/enemies/flanker.gd" id="2_behavior"]
 
 [resource]
 script = ExtResource("1_script")
@@ -30,4 +30,5 @@ health_drop_chance = 0.15
 credit_value = 12
 rig_skin = "slasher"
 rig_weapon = ""
-rig_actions = { "windup": "slasher.windup_slash", "leap": "slasher.slash", "recover": "slasher.recover" }
+relaxed_states = PackedStringArray("patrol")
+rig_actions = { "vault": "slasher.vault", "windup": "slasher.windup_slash", "leap": "slasher.slash", "recover": "slasher.recover" }
