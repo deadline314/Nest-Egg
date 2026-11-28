@@ -158,7 +158,7 @@ func _feedback() -> void:
 	await wait(0.35)
 	capture("audit-pickup")
 	await wait(2.0)
-	EventBus.toast_requested.emit(Level.REGISTERED_TOAST)
+	EventBus.toast_requested.emit(Checkpoint.copy_text("registered"))
 	await wait(0.35)
 	capture("audit-checkpoint")
 	await wait(3.0)

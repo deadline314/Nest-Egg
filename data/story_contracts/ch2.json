@@ -268,6 +268,117 @@
           }
         ]
       }
+    },
+    {
+      "id": "ch2_t_sq8_ask",
+      "source": "res://data/story/ch2_heron.json",
+      "npc": "res://data/npcs/ch2_street_flyer.tres",
+      "levels": [
+        "res://data/levels/ch2_harbor_street.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "dialogue",
+        "when": {
+          "all": [
+            {
+              "not": {
+                "flag": "sq8_soup_taken",
+                "equals": true
+              }
+            },
+            {
+              "not": {
+                "flag": "ch2_audit_submitted",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "sq8_soup_taken",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch2_t_sq8_deliver",
+      "source": "res://data/story/ch2_heron.json",
+      "npc": "res://data/npcs/ch2_soup_cubby.tres",
+      "levels": [
+        "res://data/levels/ch2_lounge_front.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "flag": "sq8_soup_taken",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "sq8_soup_delivered",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "sq8_soup_delivered",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch2_t_sq8_thanks",
+      "source": "res://data/story/ch2_heron.json",
+      "npc": "res://data/npcs/ch2_street_flyer.tres",
+      "levels": [
+        "res://data/levels/ch2_harbor_street.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "dialogue",
+        "when": {
+          "all": [
+            {
+              "flag": "sq8_soup_delivered",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "sq8_soup_paid",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "sq8_soup_paid",
+            "value": true
+          },
+          {
+            "kind": "transaction",
+            "id": "ch2.sq8_soup"
+          }
+        ]
+      }
     }
   ]
 }

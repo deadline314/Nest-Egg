@@ -104,6 +104,7 @@ TRANSACTIONS = {
     "ch2.guest_book": ("ch2_guest_book", 40),                        # S21 收本（客人簿完成）
     "ch2.sq2_sunday": ("ch2_sq2_sunday", 20),                        # S04
     "ch2.sq4_radio": ("ch2_sq4_radio", 20),                          # S02
+    "ch2.sq8_soup": ("ch2_sq8_soup", 40),                            # ST-65 替排隊的人把熱湯送到復原館
 }
 
 DOCUMENTS = {
@@ -143,6 +144,7 @@ QUEST_LOCATIONS = {
     "collection_book": ("loading", 112, 35), "reconcile": ("loading", 128, 35), "ledger_door": ("ledger_front", 46, 19),
     "cabinet": ("ledger_office", 54, 19), "egret_booth": ("market_gate", 96, 35), "terminal": ("lounge_front", 16, 19),
     "ali_lounge": ("lounge_front", 33, 19), "guest_entry": ("lounge_front", 44, 19),
+    "street_flyer": ("harbor_street", 55, 35), "soup_cubby": ("lounge_front", 24, 19),
 }
 
 
@@ -460,14 +462,8 @@ def _collection_office(source: ProductionSource):
         ("dock_worker", "只開攤道，貨道還封著。我先回家睡，晚上還要上工。")))
     source.add("ch2_t_street_worker_revisit", "S05", (("dock_worker", "我真的要回去睡了，你去市集別擠貨道那邊。"),), mode="animated")
     source.add("ch2_t_street_worker_audit", "S05", (("dock_worker", "攤商都在講，市場那筆多收的二十被人查出來了。"),), mode="animated")
-    source.add("ch2_t_street_flyer", "S05", (
-        ("flyer", "傳單昨晚發完了，今天我來排復原館的早班號碼。"),
-        ("rin", "排給誰？"),
-        ("flyer", "孩子他爸。昨晚下工就沒回來，這已經是第三次了。"),
-        ("rin", "第三次了，你還付得起？"),
-        ("flyer", "付不起也得排。孩子說醒來的還是他爸，我就信他一次。")))
-    source.add("ch2_t_street_flyer_revisit", "S05", (("flyer", "號碼牌還沒叫到，你先去忙吧。"),), mode="animated")
-    source.add("ch2_t_street_flyer_audit", "S05", (("flyer", "他爸醒了，第一句還是問晚飯吃什麼。傳單我先收起來了。"),), mode="animated")
+    source.add("ch2_t_street_flyer_audit", "S05", (("flyer", "他爸醒了，第一句還是問晚飯吃什麼。傳單我先收起來了。"),),
+               when=flag("ch2_audit_submitted"), mode="animated")
     source.add("ch2_t_street_news", "S05", (
         ("label", "早報頭版：天穹週年慶，創辦人沈望今晚在市集螢幕演說。"),
         ("label", "社會版只有一小格：港區昨夜降雨偏多，復原館今早排隊的人比平常多。")))
@@ -478,6 +474,31 @@ def _collection_office(source: ProductionSource):
     source.add("ch2_t_unsent_notices", "S11", (
         ("label", "暗櫃裡壓著一疊沒寄出去的催收單，收件人欄都還空著。"),
         ("label", "最上面那張用鉛筆寫著：這批先不要寄，等雨季過了再說。")), mode="animated")
+    # 小委託（ST-65）：排隊的人託凜把熱湯送到復原館，交給在那裡工作的阿梨。送東西，不開槍；可以放著不做。
+    taken, delivered, paid = flag("sq8_soup_taken"), flag("sq8_soup_delivered"), flag("sq8_soup_paid")
+    source.add("ch2_t_sq8_ask", "S05", (
+        ("flyer", "傳單昨晚發完了，今天我來排復原館的早班號碼。"),
+        ("rin", "排給誰？"),
+        ("flyer", "孩子他爸。昨晚下工就沒回來，這已經是第三次了。"),
+        ("rin", "第三次了，你還付得起？"),
+        ("flyer", "付不起也得排。孩子說醒來的還是他爸，我就信他一次。"),
+        ("flyer", "這壺熱湯是給他的，他醒來一定喊冷。"),
+        ("flyer", "你會經過復原館嗎？交給那裡的阿梨就好。")),
+        when=all_of(negate(taken), negate(flag("ch2_audit_submitted"))), completion=(set_flag("sq8_soup_taken"),))
+    source.add("ch2_t_sq8_waiting", "S05", (("flyer", "湯放到復原館外的寄放架就好，阿梨會幫忙看著。壺蓋要轉緊，不然會漏。"),),
+               when=all_of(taken, negate(delivered)), mode="animated")
+    source.add("ch2_t_sq8_deliver", "S16", (
+        ("rin", "這壺湯給今天早上醒來的那一位，他的家人在港區街道排隊。"),
+        ("label", "寄放架一格一格貼著名字。阿梨在空著的那格貼了一張字條：「醒來先喝湯，你家人在外面排隊。」")),
+        when=all_of(taken, negate(delivered)), completion=(set_flag("sq8_soup_delivered"),))
+    source.add("ch2_t_sq8_cubby_idle", "S16", (("label", "寄放架一格一格貼著名字，是替還沒醒來的人留東西的地方。"),), mode="animated")
+    source.add("ch2_t_sq8_cubby_done", "S16", (("label", "寄放架那一格的湯壺還在，字條也還貼著。"),), when=delivered, mode="animated")
+    source.add("ch2_t_sq8_thanks", "S05", (
+        ("flyer", "阿梨傳話來了，他醒來第一口就是那壺湯。"),
+        ("flyer", "跑這一趟的錢你收下，別跟我客氣。"),
+        ("rin", "那我收了，下次換我請妳喝湯。")),
+        when=all_of(delivered, negate(paid)), completion=(set_flag("sq8_soup_paid"), transaction("ch2.sq8_soup")))
+    source.add("ch2_t_sq8_after", "S05", (("flyer", "他今天還在喊冷，但湯喝完了。"),), when=paid, mode="animated")
     source.add("ch2_t_s08_rumor_revisit", "S08", (("hawker", "我只是聽說的，你自己看帳比較準。"),), when=flag("ch2_rumor_heard"))
     source.add("ch2_t_s08_collection", "S08", (
         ("label", "批號M17：收款120，本金100、利息20，轉送北棟二樓。待收欄仍寫120。"),
@@ -1060,6 +1081,9 @@ DISPATCH = {
     "egret_booth": ["ch2_t_s14_return", "ch2_t_s14_revisit"],
     "terminal": ["ch2_t_s15_not_ready", "ch2_t_s15_wait_egret", "ch2_t_s15_upload", "ch2_t_s15_revisit"],
     "ali_lounge": ["ch2_t_s16_page", "ch2_t_s16_revisit_correct", "ch2_t_s16_revisit_hold", "ch2_t_s16_idle"],
+    # 排隊的人（ST-60 的街坊）：初見、託付熱湯、等待、查帳後、送到之後。越前面越優先。
+    "street_flyer": ["ch2_t_sq8_after", "ch2_t_sq8_thanks", "ch2_t_sq8_waiting", "ch2_t_sq8_ask", "ch2_t_street_flyer_audit"],
+    "soup_cubby": ["ch2_t_sq8_cubby_done", "ch2_t_sq8_deliver", "ch2_t_sq8_cubby_idle"],
     "s16_close": ["ch2_t_s16_advance", "ch2_t_s16_need"],
     "guest_entry": ["ch2_t_s17_offer", "ch2_t_s17_revisit"],
     # 每位客人談完：三位都談完就收本（S21），否則回到客人名單。
@@ -1099,6 +1123,11 @@ def _quests(source: ProductionSource):
         QuestStep("在復原館外看阿梨的客人簿。", "guest_book_completed", "guest_entry"),), visible_flags=("ch2_audit_submitted",)))
     q.append(Quest("sq2_egret_sunday", "side", "問鷺週日的安排", "鷺的週日從不接案。", "二十信用點。", "sq2_sunday_heard", (
         QuestStep("在屋頂問鷺週日的安排。", "sq2_sunday_heard", "egret"),), visible_flags=("ch2_brief_done",)))
+    q.append(Quest("sq8_soup", "side", "替排隊的人把熱湯送到復原館", "港區街道排早班號碼的人走不開，託你把熱湯送給醒來的家人。", "四十信用點。",
+                   "sq8_soup_paid", (
+                       QuestStep("把熱湯放進復原館外的寄放架。", "sq8_soup_delivered", "soup_cubby"),
+                       QuestStep("回港區街道告訴排隊的人。", "sq8_soup_paid", "street_flyer")),
+                   visible_flags=("sq8_soup_taken",)))
     q.append(Quest("sq4_radio", "side", "修好並聽清廣播", "工作檯上的收音機接線鬆了。", "二十信用點。", "sq4_broadcast_heard", (
         QuestStep("修好工作檯的收音機。", "sq4_broadcast_heard", "radio"),)))
 

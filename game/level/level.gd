@@ -33,7 +33,6 @@ const BOSS_LIGHTING_FADE := 1.5
 ## 重生後多久播出「死亡次數的反應」通訊（等轉場揭開、玩家看清楚畫面）。
 const RESPAWN_REACTION_DELAY := 1.2
 ## 第一次登記復原點後，重生時的提示。
-const REGISTERED_TOAST := "電話亭已登記：之後死了，會從這裡醒來"
 
 var data: LevelData
 var player: Player
@@ -520,10 +519,11 @@ func _begin_death_reactions() -> void:
 	if GameState.consume_checkpoint_notice():
 		# 說明由醒來的那座電話亭自己說（NE-494）；找不到亭子才退回畫面上的橫幅。
 		var booth := _booth_at(GameState.checkpoint_position)
+		var registered := Checkpoint.copy_text("registered")
 		if booth != null:
-			booth.show_caption(REGISTERED_TOAST, Checkpoint.CAPTION_NOTICE)
+			booth.show_caption(registered, Checkpoint.CAPTION_NOTICE)
 		else:
-			EventBus.toast_requested.emit(REGISTERED_TOAST)
+			EventBus.toast_requested.emit(registered)
 	Story.play_respawn_reactions(data.chapter)
 
 

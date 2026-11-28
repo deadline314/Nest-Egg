@@ -42,6 +42,10 @@ def spec() -> ChapterSpec:
             "ch2_t_s08_rumor": "main_terminal_results_v1",
             "ch2_t_s09_guard": "main_terminal_results_v1",
             "ch2_t_s09_lever": "main_terminal_results_v1",
+            # 小委託（ST-65）：託付熱湯、放進寄放架、回去領謝禮。
+            "ch2_t_sq8_ask": "main_terminal_results_v1",
+            "ch2_t_sq8_deliver": "main_terminal_results_v1",
+            "ch2_t_sq8_thanks": "main_terminal_results_v1",
         },
         death_sequences=DEATH_SEQUENCES,  # 一般死亡的畫面序列和第一章相同（錄音、燈、狀態列、記憶卡，之後縮短）
     )

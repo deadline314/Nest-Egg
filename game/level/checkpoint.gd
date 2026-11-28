@@ -21,6 +21,8 @@ const COPY := {
 	"voice": [SLOGAN, "もう一度でいい。大丈夫。", "Try again, it's fine."],
 	"set": ["已備份", "復帰地点を記録しました。", "Checkpoint set."],
 	"refilled": ["已備份，彈藥補滿", "復帰地点を記録し、弾薬を補充しました。", "Checkpoint set. Ammo refilled."],
+	# 第一次死亡（診間）後，醒來的那座亭子說的話（故事線的文字，NE-494 起由亭子自己說）。
+	"registered": ["這座電話亭已經登記，之後死了會在這裡醒來。", "この電話ボックスは登録済みだ。これからは死んだら、ここで目を覚ます。", "This booth is now registered. If you die from here on, you'll wake up here."],
 }
 ## 通話過程中各個時間點（占動作進度 0~1 的比例）：拿起話筒、三聲撥號音、話筒裡的錄音、掛上、備份完成。
 const T_PICKUP := 0.26
@@ -286,6 +288,11 @@ func _set_active() -> void:
 
 
 func _text(key: String) -> String:
+	return copy_text(key)
+
+
+## 亭子的文字（中日英三語，依目前的劇本語言）。
+static func copy_text(key: String) -> String:
 	return COPY[key][maxi(0, StoryLocale.LANGUAGES.find(Story.language))]
 
 

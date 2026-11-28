@@ -19,7 +19,7 @@ class StoryContracts(unittest.TestCase):
     def test_original_contracts_are_complete_and_generated_unchanged(self):
         originals = [r for r in self.records.values() if r["source"] in (
             "res://data/story/ch1_kasa.json", "res://data/story/ch2_heron.json")]
-        self.assertEqual(len(originals), 53)
+        self.assertEqual(len(originals), 56)   # ST-65 加了第二章小委託的三筆
         contracts.validate_generated(self.chapter["scenes"],"res://data/story/ch2_heron.json",self.records)
 
     def test_hollow_collection_publishes_the_document_with_its_progress(self):

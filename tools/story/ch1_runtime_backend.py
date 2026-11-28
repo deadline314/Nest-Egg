@@ -106,9 +106,9 @@ DEATH_SEQUENCES = [
 ]
 # 第一次在電話亭備份（或初次建檔登記）時播放的錄音；播完才算聽過。
 BOOTH_RECORDING = "ch1_t_booth_recording"
+# 亭子自己會顯示「已備份」與話筒裡的「再來一次，沒關係。」（NE-494），錄音只留亭子沒有的那一句：是天穹在提供這個服務。
 BOOTH_RECORDING_SCENE = {"mode": "radio", "set_flags": ["ch1_recording_heard"], "lines": [
-    {"speaker": "voice", "text": "歡迎使用天穹備份服務，備份已經完成。"},
-    {"speaker": "voice", "text": "再來一次，沒關係。"}]}
+    {"speaker": "voice", "text": "歡迎使用天穹備份服務。", "delay": 2.0}]}   # 等亭子的勾號與「已備份」演完再出聲（NE-494）
 # 只在初次建檔舞台或第二章入口才成立、沒有地圖位置的任務語義，不發布成地圖任務。
 UNPUBLISHED_QUESTS = {"ch1_next_morning", "sq6_ch1_cloth"}
 # 任務步驟的真實格位（角色腳底所在格；入口物件或人物站的位置）。

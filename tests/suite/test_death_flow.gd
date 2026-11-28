@@ -227,7 +227,7 @@ func _test_first_death_flow() -> void:
 		if node is Checkpoint:
 			(node as Checkpoint).said.connect(func(text: String) -> void: said.append(text))
 	await frames(150)
-	check(said.has(Level.REGISTERED_TOAST) and not toasts.has(Level.REGISTERED_TOAST), "the booth the player wakes at says it is registered, without a screen banner (%s / %s)" % [said, toasts])
+	check(said.has(Checkpoint.copy_text("registered")) and not toasts.has(Checkpoint.copy_text("registered")), "the booth the player wakes at says it is registered, without a screen banner (%s / %s)" % [said, toasts])
 	check(not GameState.checkpoint_notice_pending, "the hint shows only once")
 	check(is_instance_valid(level.player) and level.player.global_position.distance_to(booths[0]) < 60.0, "the player wakes at the booth")
 	EventBus.toast_requested.disconnect(on_toast)

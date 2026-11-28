@@ -53,6 +53,7 @@ TRANSACTIONS = {
     "ch3.sq3_room": ("ch3_sq3_room", 20),                      # C16 房間提案（SQ3-C1）
     "ch3.sq7_tape": ("ch3_sq7_tape", 20),                      # C09 借出阿翰的錄音（SQ7-G1）
     "ch3.sq7_name": ("ch3_sq7_name", 20),                      # C19 看清葉手背的字（SQ7-G2）
+    "ch3.sq9_badge": ("ch3_sq9_badge", 40),                    # ST-65 找回護理員的識別證
 }
 
 DOCUMENTS = {
@@ -99,6 +100,7 @@ QUEST_LOCATIONS = {
     "reading_desk": ("clinic", 38, 19), "drawer": ("clinic", 76, 19), "scanner_gate": ("gate_hall", 18, 19),
     "gatekeeper": ("gate_hall", 32, 19), "lin": ("showroom", 16, 19), "petition_box": ("office_hall", 14, 19),
     "bench": ("office_hall", 28, 19),
+    "plaza_nurse": ("plaza", 21, 35), "lost_badge": ("pump", 50, 28),
 }
 
 # 人物／物件入口 → 依序檢查的段落（第一個成立的播出）。
@@ -111,8 +113,9 @@ DISPATCH = {
     "control_box": ["ch3_t_c01_box", "ch3_t_c02_call_early", "ch3_t_c02_call", "ch3_t_c02_box_revisit"],
     "gauge": ["ch3_t_c01_gauge", "ch3_t_c01_gauge_low"],
     # ST-61：廣場、泵室與兩處秘密空間的環境敘事（排水、貨梯通電、月報對出來之後內容會變）。
-    "plaza_nurse": ["ch3_t_plaza_nurse", "ch3_t_plaza_nurse_ready"],
-    "plaza_nurse_again": ["ch3_t_plaza_nurse_revisit", "ch3_t_plaza_nurse_ready"],
+    "plaza_nurse": ["ch3_t_sq9_after", "ch3_t_sq9_return", "ch3_t_plaza_nurse", "ch3_t_plaza_nurse_ready"],
+    "plaza_nurse_again": ["ch3_t_sq9_after", "ch3_t_sq9_return", "ch3_t_plaza_nurse_revisit", "ch3_t_plaza_nurse_ready"],
+    "lost_badge": ["ch3_t_sq9_badge"],
     "plaza_notice": ["ch3_t_plaza_notice", "ch3_t_plaza_notice_ready"],
     "pump_locker": ["ch3_t_pump_locker", "ch3_t_pump_locker_low"],
     "clinic_cups": ["ch3_t_clinic_cups", "ch3_t_clinic_cups_checked"],
@@ -287,9 +290,22 @@ def _freight(source: ProductionSource):
     source.add("ch3_t_plaza_nurse", "C01", (
         ("shift_nurse", "我是夾層診所的早班護理員。貨梯泡水停了，我上不去交班。"),
         ("rin", "外梯呢？"),
-        ("shift_nurse", "外梯的鎖扣連著貨梯，水不退，鎖就不會開。")), when=negate(ready))
+        ("shift_nurse", "外梯的鎖扣連著貨梯，水不退，鎖就不會開。"),
+        ("shift_nurse", "我的識別證也掉了，大概掉在泵室的上橋。沒有它，我進不了護理內門。")),
+        when=negate(ready), completion=(set_flag("sq9_badge_asked"),))
     source.add("ch3_t_plaza_nurse_revisit", "C01", (("shift_nurse", "泵室在右邊的上橋過去。聽說泵改成手動以後，就沒人去轉了。"),), when=negate(ready))
     source.add("ch3_t_plaza_nurse_ready", "C01", (("shift_nurse", "貨梯通了，我得趕去交班。芷姐一個人顧了整晚。"),), when=ready)
+    # 小委託（ST-65）：到泵室上橋找回護理員的識別證，還給她。找東西，不開槍；可以放著不做。
+    badge_found, badge_back = flag("sq9_badge_found"), flag("sq9_badge_returned")
+    source.add("ch3_t_sq9_badge", "C02", (
+        ("label", "上橋的欄杆邊卡著一張識別證，照片上是廣場那位早班護理員。"),
+        ("rin", "我先收著，等一下還給她。")), when=negate(badge_found), completion=(set_flag("sq9_badge_found"),))
+    source.add("ch3_t_sq9_return", "C01", (
+        ("rin", "妳的識別證，卡在泵室上橋的欄杆邊。"),
+        ("shift_nurse", "就是這張！我還以為要補辦三天。"),
+        ("shift_nurse", "這點錢你收著。芷姐說過，幫忙的人不能讓他白跑。")),
+        when=all_of(badge_found, negate(badge_back)), completion=(set_flag("sq9_badge_returned"), transaction("ch3.sq9_badge")))
+    source.add("ch3_t_sq9_after", "C01", (("shift_nurse", "識別證掛好了。今天總算能準時進內門。"),), when=badge_back, mode="animated")
     source.add("ch3_t_plaza_notice", "C01", (
         ("label", "廣場公告：集水槽夜間漲水，貨梯的安全聯鎖已啟動，暫停載運。"),
         ("label", "下面釘著一張手寫的紙：泵室改成手動以後，誰有空誰去轉一下排水輪。")), when=negate(ready))
@@ -1162,6 +1178,11 @@ def _quests(source: ProductionSource):
                    "sq7_ahan_recording_held", (
                        QuestStep("在寄存櫃聽片頭，登記借出。", "sq7_ahan_recording_held", "drawer"),),
                    visible_flags=("ch3_clinic_access",)))
+    q.append(Quest("sq9_badge", "side", "找回護理員的識別證", "廣場等貨梯的早班護理員把識別證掉在泵室，沒有它進不了護理內門。", "四十信用點。",
+                   "sq9_badge_returned", (
+                       QuestStep("在泵室的上橋找到識別證。", "sq9_badge_found", "lost_badge"),
+                       QuestStep("把識別證還給廣場的護理員。", "sq9_badge_returned", "plaza_nurse")),
+                   visible_flags=("sq9_badge_asked",)))
     q.append(Quest("sq7_ye_name", "side", "看清葉寫的名字", "葉在談話前先在手背補了一行字。", "二十信用點。", "sq7_ye_name_seen", (
         QuestStep("在等候臺看清手背上那一行。", "sq7_ye_name_seen", "bench"),),
         visible_flags=("ye_handwriting_seen",)))

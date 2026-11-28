@@ -63,62 +63,64 @@
 
 依據縮寫：S1～S6＝`design/13-story-v2/SCRIPT_CH0N.md`、L1＝`CH01_LEVEL.md`、CL＝`CH01_CLOSURE_SCRIPT.md`、PS＝`PROLOGUE_SCRIPT.md`、OL＝`OUTLINE.md`、MAP＝`MAP.md`（以上在 `design/13-story-v2/`）；J2／J3／J5＝`data/story/ch2_heron.json`／`ch3_clearwater.json`／`ch5_paymaster.json`。
 
-| 區域 | 劇情時段 | 室內／外 | 下雨 | 劇情指定的光 | 依據 | 現在的光影 |
-|---|---|---|---|---|---|---|
-| ch1_prologue 巢蛋當舖（試貨） | 夜（第一晚，晚飯前） | 室內＋店後遮雨棚 | 是 | 店裡暖窗、廚房光保留，不能整店黑掉；工作檯燈由玩家關 | PS:11,25,29,218 | rooftop＋pawnshop_warm |
-| ch1_pawnshop 當舖 | 夜 | 室內＋後空地露天 | 是 | 暖黃桌燈、窗外冷藍霓虹、爐火橘光 | S1:451,527；L1:126,135；OL:189 | pawnshop_warm＋rooftop |
-| ch1_pawnshop_dawn 當舖（天亮） | 清晨 | 室內 | 是（雨聲） | 灰藍的清晨光＋廚房暖黃 | S1:1067-1068；L1:138,271 | mezzanine_gray |
-| ch1_rooftop 屋頂 | 夜 | 室外 | 是 | 遠處塔頂一圈金光 | S1:567；L1:156 | rooftop |
-| ch1_street 港區街道 | 夜 | 室外 | 是 | 霓虹招牌、積水反光 | S1:691,709；MAP:416 | street_market 等三段 |
-| ch1_booth_alley 電話亭巷 | 夜 | 室外 | 是 | 青色亭燈、冷藍的雨 | S1:636,663；L1:96,206 | alley_calm |
-| ch1_warehouse 碼頭倉庫 | 夜 | 室外碼頭＋倉內閘門廳 | 是 | 冷藍、探照燈、水面反光 | S1:742-743,892；CL:9 | warehouse_quay＋warehouse_interior |
-| ch1_vault 倉庫深處 | 夜 | 室內 | 未定 | 倉庫停電的暗場 | L1:441；CL:9 | warehouse_interior |
-| ch1_handoff 復原館外交接櫃 | 夜 | 室外（館外後巷） | 是 | 青燈櫃，青光不能把臉打到過曝 | S2:100；CL:9,106 | market |
-| ch1_lounge 復原館 | 夜 | 室內 | 外面下了一整夜 | 低燈、紫粉與暖黃、雨的反光 | S1:956-958；CL:137 | lounge_safe |
-| ch1_stall 宵夜麵攤 | 清晨（凌晨、天亮） | 室外（麵攤頂棚） | 是（雨小了一點） | 凌晨灰藍、蒸氣暖白；L1 指定用 mezzanine_gray 再調暗 | S1:1009-1013；L1:266 | alley_calm |
-| ch2_pawnshop 當舖（早上） | 早上（次晨結算） | 室內 | 是 | 未定 | S2:112-114,137 | rooftop＋pawnshop_warm |
-| ch2_rooftop 屋頂茶座 | S03 早上；S22 夜 | 室外 | 是 | 未定 | S2:148,153,426；S3:7 | rooftop |
-| ch2_harbor_street 港區街道（白天） | 白天 | 室外 | 是 | 未定 | J2「白天還是在下雨」「早」（ST-60） | alley_calm |
-| ch2_market_gate 市集入口 | 白天（間接） | 室外 | 是 | 未定 | S2:179；S2:137 | market_gate |
-| ch2_market 公眾攤道 | 白天（間接：公告屏預報「今晚」降雨偏多） | 室外 | 是 | 未定 | S2:229 | market |
-| ch2_ali_home 阿梨的小廚房 | 白天（間接：阿梨夜班下班之後） | 室內 | 未定 | 屋內淺暖黃 | S2:196,204 | residential |
-| ch2_loading 雨棚背面與裝卸間 | 未定 | 半室外（雨棚） | 是 | 未定 | S2:137,159 | market＋hangar |
-| ch2_ledger_front 北棟二樓前室 | 未定 | 室內 | 未定 | 未定 | — | warehouse_interior |
-| ch2_ledger_office 二樓帳房 | 未定 | 室內 | 是（雨打通風窗） | 未定 | S2:292 | ledger_office_interior |
-| ch2_lounge_front 復原館外 | 未定（接著是阿梨準備夜班） | 室外 | 未定 | 未定 | S2:326,340,358 | lounge_front |
-| ch3_pawnshop 當舖（週日） | 早上（C00）＋傍晚（C22） | 室內 | 未定 | 未定 | S3:105,415 | rooftop＋pawnshop_warm |
-| ch3_plaza 廣場貨梯 | 白天 | 室外 | 是（雨小） | 未定 | OL:191；S3:118 | plaza |
-| ch3_pump 集水槽與泵室 | 白天 | 室內 | 未定 | 未定（劇情有斷支路電） | OL:191；S3:131 | pump_room＋pump_drained |
-| ch3_mezzanine 夾層通道 | 白天 | 室內 | 外面下（雨外、冷白內） | 冷白管線；上層玻璃只反光，還沒進到日光區 | S3:149,563 | transfer |
-| ch3_clinic 夾層診所 | 白天 | 室內 | 未定 | 未定 | OL:191 | clinic_ward |
-| ch3_gate_hall 門禁大廳 | 白天 | 室內 | 未定 | 未定 | OL:191 | facility |
-| ch3_glass_edge 玻璃邊緣 | 白天 | 室內（玻璃內） | 否（下雨關） | 第一次看到陽光：腳底有光，人物曝光漸變 | S3:297,302,566 | sunlit_edge |
-| ch3_showroom 晴岸樣品房 | 白天 | 室內 | 否（下雨關） | A 晨窗上午 8～10 點最亮、C 晚窗下午 2～4 點最亮、B 靜窗少有直射 | S3:320,335,337；J3 | showroom_day＋showroom_quiet |
-| ch3_office_hall 天穹辦公接待廊 | 白天 | 室內 | 否（下雨關） | 未定 | OL:191；S3:358 | reception_white |
-| ch4_pawnshop 當舖（赴約） | 早上（星期日）；回程未定 | 室內 | 是（屋漏、從屋外帶雨回店） | 暖光 | S4:51,245；CH4_PAWNSHOP_RETURN.md:13 | rooftop＋pawnshop_warm |
-| ch4_ward_reception 病房外櫃檯 | 未定（週日） | 室內 | 未定 | 黃色病房牌當路標 | S4:38,63 | reception_white |
-| ch4_nursing_ward 安養病房 | 未定（週日） | 室內 | 未定 | 暖色床頭燈標出可訪床位 | S4:39 | clinic_ward |
-| ch4_ward_lamp_bay 病房側窗床位 | 未定（週日） | 室內 | 是（雨窗） | 暖色床頭燈 | S4:39；CH4_ARCHIVE_RECORDING.md:5 | clinic_ward |
-| ch4_revival_lounge 復原館的換班口 | 未定 | 室內 | 未定 | 背光的舊排班牌 | S4:40 | lounge_safe |
-| ch4_factory_approach 舊廠外廊 | 未定 | 半室外 | 未定 | 廠外保留暗色 | CH04_FACTORY_APPROACH.md:14 | factory_rust |
-| ch4_factory_loading 舊廠裝卸帶 | 未定 | 室內 | 未定 | 固定亮度的暖色工作燈 | CH04_FACTORY_APPROACH.md:14 | ch4_loading_bay |
-| ch4_factory_cleaning／relay／safety／work | 未定 | 室內 | 未定 | 未定 | — | ch4_loading_bay |
-| ch4_factory_office 原帳辦公室 | 未定 | 室內 | 未定 | 未定 | — | clinic_ward |
-| ch4_factory_roof 廠房回程梯與屋頂 | 未定（OL 只說第四章「陰」） | 室外 | 是（小雨） | 未定 | S4:229；OL:192 | rooftop |
-| ch5_pawnshop 當舖（貨架盤點） | 未定 | 室內 | 未定 | 櫃台黃燈；葉在暖燈的工作檯旁 | S5:26；CH05_PAWNSHOP_OFFER.md:3 | rooftop＋pawnshop_warm |
-| ch5_back_alley 當舖後巷 | 未定 | 室外 | 是 | 未定 | S5:13；J5 | 無區段 |
-| ch5_basement_stair 地下室樓梯口 | 未定 | 室外到室內 | 是 | 樓梯口一盞帶雨滴的黃燈，從街上要看得見 | S5:27,94；CH05_STAIR_ENCOUNTER.md:3 | 無區段 |
-| ch5_basement_archive 地下室檔案間 | 未定 | 室內 | 未定 | 暖燈下的錨椅 | CH05_ANCHOR_CHAIR.md:3 | basement_amber |
-| ch5_gray_path 灰道換班廊 | 未定 | 室內 | 未定 | 小桌留一盞暖燈 | CH5_GRAY_PATH.md:5,7 | 無區段 |
-| ch5_harbor_street 港區街道 | 未定 | 室外 | 未定 | 從街上看得見樓梯口的黃燈 | S5:27 | 無區段 |
-| ch5_phone_alley 電話亭巷 | 未定（第六章開頭說接的是「那場雨延續下來的晚上」） | 室外 | 是 | 電話亭亮起暖燈 | S5:198；S6:5 | 無區段 |
-| ch5_revival_lounge 復原館 | 未定 | 室內 | 未定 | 未定 | S5:60 | lounge_safe |
-| ch6_harbor_plaza 港區廣場（廣播前） | 夜 | 室外 | 是（暴雨） | 塔的雙白燈、廣場鐘；復原隊伍沿燈號排隊 | S6:5,34,156 | 無區段 |
-| ch6_broadcast_overpass 廣播站高架維修道 | 夜 | 室外 | 是 | 貨梯燈從琥珀轉成冷白 | S6:5；CH06_BROADCAST_APPROACH.md:13 | 無區段 |
-| ch6_broadcast_outside 廣播站前庭 | 夜 | 室外（有雨棚） | 是（斜雨） | 接點燈、告示燈 | S6:62,80,246 | ch6_studio_light |
-| ch6_recording_booth 廣播站錄音室 | 夜 | 室內 | 未定 | 未定 | S6:5 | ch6_studio_light |
-| ch6_rain_chase_alley 市集外街與屋簷 | 夜 | 室外 | 是 | 走路燈亮著的外街 | S6:114 | 無區段 |
-| ch6_ali_homefront 阿梨家門廊 | 夜 | 室外 | 是 | 未定 | S6:5；CH06_RAIN_ROUTE.md:1 | 無區段 |
+| 區域 | 劇情時段 | 室內／外 | 下雨 | 劇情指定的光 | 依據 | 現在的光影 | 劇本的天氣細節 |
+|---|---|---|---|---|---|---|---|
+| ch1_prologue 巢蛋當舖（試貨） | 夜（第一晚，晚飯前） | 室內＋店後遮雨棚 | 是 | 店裡暖窗、廚房光保留，不能整店黑掉；工作檯燈由玩家關 | PS:11,25,29,218 | rooftop＋pawnshop_warm | 未定 |
+| ch1_pawnshop 當舖 | 夜 | 室內＋後空地露天 | 是 | 暖黃桌燈、窗外冷藍霓虹、爐火橘光 | S1:451,527；L1:126,135；OL:189 | pawnshop_warm＋rooftop | 未定 |
+| ch1_pawnshop_dawn 當舖（天亮） | 清晨 | 室內 | 是（雨聲） | 灰藍的清晨光＋廚房暖黃 | S1:1067-1068；L1:138,271 | mezzanine_gray | 未定 |
+| ch1_rooftop 屋頂 | 夜 | 室外 | 是 | 遠處塔頂一圈金光 | S1:567；L1:156 | rooftop | 未定 |
+| ch1_street 港區街道 | 夜 | 室外 | 是 | 霓虹招牌、積水反光 | S1:691,709；MAP:416 | street_market 等三段 | 積水反光（S1:691） |
+| ch1_booth_alley 電話亭巷 | 夜 | 室外 | 是 | 青色亭燈、冷藍的雨 | S1:636,663；L1:96,206 | alley_calm | 未定 |
+| ch1_warehouse 碼頭倉庫 | 夜 | 室外碼頭＋倉內閘門廳 | 是 | 冷藍、探照燈、水面反光 | S1:742-743,892；CL:9 | warehouse_quay＋warehouse_interior | 積水到腳踝、吊車在雨中搖晃；倉內積水在腳踝與膝蓋之間（S1:742,891） |
+| ch1_vault 倉庫深處 | 夜 | 室內 | 未定 | 倉庫停電的暗場 | L1:441；CL:9 | warehouse_interior | 未定 |
+| ch1_handoff 復原館外交接櫃 | 夜 | 室外（館外後巷） | 是 | 青燈櫃，青光不能把臉打到過曝 | S2:100；CL:9,106 | market | 未定 |
+| ch1_lounge 復原館 | 夜 | 室內 | 外面下了一整夜 | 低燈、紫粉與暖黃、雨的反光 | S1:956-958；CL:137 | lounge_safe | 未定 |
+| ch1_stall 宵夜麵攤 | 清晨（凌晨、天亮） | 室外（麵攤頂棚） | 是（雨小了一點） | 凌晨灰藍、蒸氣暖白；L1 指定用 mezzanine_gray 再調暗 | S1:1009-1013；L1:266 | alley_calm | 雨小了一點（S1:1012） |
+| ch2_pawnshop 當舖（早上） | 早上（次晨結算） | 室內 | 是 | 未定 | S2:112-114,137 | rooftop＋pawnshop_warm | 港區午後降雨持續（S2:137 收音機） |
+| ch2_rooftop 屋頂茶座 | S03 早上；S22 夜 | 室外 | 是 | 未定 | S2:148,153,426；S3:7 | rooftop | 未定 |
+| ch2_harbor_street 港區街道（白天） | 白天 | 室外 | 是 | 未定 | J2「白天還是在下雨」「早」（ST-60） | alley_calm | 午後降雨持續（S2:137）；雨勢大小與雷未寫 |
+| ch2_market_gate 市集入口 | 白天（間接） | 室外 | 是 | 未定 | S2:179；S2:137 | market_gate | 同公眾攤道：降雨持續、低窪通道積水（S2:137） |
+| ch2_market 公眾攤道 | 白天（間接：公告屏預報「今晚」降雨偏多） | 室外 | 是 | 未定 | S2:229 | market | 今晚降雨偏多（公告屏）；屋頂先響、雨棚再響，市場路面會積水（S2:159） |
+| ch2_ali_home 阿梨的小廚房 | 白天（間接：阿梨夜班下班之後） | 室內 | 未定 | 屋內淺暖黃 | S2:196,204 | residential | 未定 |
+| ch2_loading 雨棚背面與裝卸間 | 未定 | 半室外（雨棚） | 是 | 未定 | S2:137,159 | market＋hangar | 低窪通道積水，改走上層雨棚（S2:137） |
+| ch2_ledger_front 北棟二樓前室 | 未定 | 室內 | 未定 | 未定 | — | warehouse_interior | 未定 |
+| ch2_ledger_office 二樓帳房 | 未定 | 室內 | 是（雨打通風窗） | 未定 | S2:292 | ledger_office_interior | 未定 |
+| ch2_lounge_front 復原館外 | 未定（接著是阿梨準備夜班） | 室外 | 未定 | 未定 | S2:326,340,358 | lounge_front | 未定 |
+| ch3_pawnshop 當舖（週日） | 早上（C00）＋傍晚（C22） | 室內 | 未定 | 未定 | S3:105,415 | rooftop＋pawnshop_warm | 未定 |
+| ch3_plaza 廣場貨梯 | 白天 | 室外 | 是（雨小） | 未定 | OL:191；S3:118 | plaza | 雨小；集水槽夜間漲水（OL:191、S3:118） |
+| ch3_pump 集水槽與泵室 | 白天 | 室內 | 未定 | 未定（劇情有斷支路電） | OL:191；S3:131 | pump_room＋pump_drained | 集水槽漲水，排水後回港不恢復積水（S3:63） |
+| ch3_mezzanine 夾層通道 | 白天 | 室內 | 外面下（雨外、冷白內） | 冷白管線；上層玻璃只反光，還沒進到日光區 | S3:149,563 | transfer | 未定 |
+| ch3_clinic 夾層診所 | 白天 | 室內 | 未定 | 未定 | OL:191 | clinic_ward | 未定 |
+| ch3_gate_hall 門禁大廳 | 白天 | 室內 | 未定 | 未定 | OL:191 | facility | 未定 |
+| ch3_glass_edge 玻璃邊緣 | 白天 | 室內（玻璃內） | 否（下雨關） | 第一次看到陽光：腳底有光，人物曝光漸變 | S3:297,302,566 | sunlit_edge | 未定 |
+| ch3_showroom 晴岸樣品房 | 白天 | 室內 | 否（下雨關） | A 晨窗上午 8～10 點最亮、C 晚窗下午 2～4 點最亮、B 靜窗少有直射 | S3:320,335,337；J3 | showroom_day＋showroom_quiet | 未定 |
+| ch3_office_hall 天穹辦公接待廊 | 白天 | 室內 | 否（下雨關） | 未定 | OL:191；S3:358 | reception_white | 未定 |
+| ch4_pawnshop 當舖（赴約） | 早上（星期日）；回程未定 | 室內 | 是（屋漏、從屋外帶雨回店） | 暖光 | S4:51,245；CH4_PAWNSHOP_RETURN.md:13 | rooftop＋pawnshop_warm | 未定 |
+| ch4_ward_reception 病房外櫃檯 | 未定（週日） | 室內 | 未定 | 黃色病房牌當路標 | S4:38,63 | reception_white | 未定 |
+| ch4_nursing_ward 安養病房 | 未定（週日） | 室內 | 未定 | 暖色床頭燈標出可訪床位 | S4:39 | clinic_ward | 未定 |
+| ch4_ward_lamp_bay 病房側窗床位 | 未定（週日） | 室內 | 是（雨窗） | 暖色床頭燈 | S4:39；CH4_ARCHIVE_RECORDING.md:5 | clinic_ward | 未定 |
+| ch4_revival_lounge 復原館的換班口 | 未定 | 室內 | 未定 | 背光的舊排班牌 | S4:40 | lounge_safe | 未定 |
+| ch4_factory_approach 舊廠外廊 | 未定 | 半室外 | 未定 | 廠外保留暗色 | CH04_FACTORY_APPROACH.md:14 | factory_rust | 未定 |
+| ch4_factory_loading 舊廠裝卸帶 | 未定 | 室內 | 未定 | 固定亮度的暖色工作燈 | CH04_FACTORY_APPROACH.md:14 | ch4_loading_bay | 未定 |
+| ch4_factory_cleaning／relay／safety／work | 未定 | 室內 | 未定 | 未定 | — | ch4_loading_bay | 未定 |
+| ch4_factory_office 原帳辦公室 | 未定 | 室內 | 未定 | 未定 | — | clinic_ward | 未定 |
+| ch4_factory_roof 廠房回程梯與屋頂 | 未定（OL 只說第四章「陰」） | 室外 | 是（小雨） | 未定 | S4:229；OL:192 | rooftop | 風從天線方向帶來小雨（S4:229） |
+| ch5_pawnshop 當舖（貨架盤點） | 未定 | 室內 | 未定 | 櫃台黃燈；葉在暖燈的工作檯旁 | S5:26；CH05_PAWNSHOP_OFFER.md:3 | rooftop＋pawnshop_warm | 未定 |
+| ch5_back_alley 當舖後巷 | 未定 | 室外 | 是 | 未定 | S5:13；J5 | 無區段 | 雨沒停（J5「等外面的雨停了再走」） |
+| ch5_basement_stair 地下室樓梯口 | 未定 | 室外到室內 | 是 | 樓梯口一盞帶雨滴的黃燈，從街上要看得見 | S5:27,94；CH05_STAIR_ENCOUNTER.md:3 | 無區段 | 未定 |
+| ch5_basement_archive 地下室檔案間 | 未定 | 室內 | 未定 | 暖燈下的錨椅 | CH05_ANCHOR_CHAIR.md:3 | basement_amber | 未定 |
+| ch5_gray_path 灰道換班廊 | 未定 | 室內 | 未定 | 小桌留一盞暖燈 | CH5_GRAY_PATH.md:5,7 | 無區段 | 未定 |
+| ch5_harbor_street 港區街道 | 未定 | 室外 | 未定 | 從街上看得見樓梯口的黃燈 | S5:27 | 無區段 | 未定 |
+| ch5_phone_alley 電話亭巷 | 未定（第六章開頭說接的是「那場雨延續下來的晚上」） | 室外 | 是 | 電話亭亮起暖燈 | S5:198；S6:5 | 無區段 | 雨沒有停（S5:198、S6:5） |
+| ch5_revival_lounge 復原館 | 未定 | 室內 | 未定 | 未定 | S5:60 | lounge_safe | 未定 |
+| ch6_harbor_plaza 港區廣場（廣播前） | 夜 | 室外 | 是（暴雨） | 塔的雙白燈、廣場鐘；復原隊伍沿燈號排隊 | S6:5,34,156 | 無區段 | 暴雨（S6:5,34）；雷未寫 |
+| ch6_broadcast_overpass 廣播站高架維修道 | 夜 | 室外 | 是 | 貨梯燈從琥珀轉成冷白 | S6:5；CH06_BROADCAST_APPROACH.md:13 | 無區段 | 延續廣場的暴雨夜（S6:5）；雷未寫 |
+| ch6_broadcast_outside 廣播站前庭 | 夜 | 室外（有雨棚） | 是（斜雨） | 接點燈、告示燈 | S6:62,80,246 | ch6_studio_light | 斜雨，蘇撐黑傘替凜擋（S6:80）；雷未寫 |
+| ch6_recording_booth 廣播站錄音室 | 夜 | 室內 | 未定 | 未定 | S6:5 | ch6_studio_light | 未定 |
+| ch6_rain_chase_alley 市集外街與屋簷 | 夜 | 室外 | 是 | 走路燈亮著的外街 | S6:114 | 無區段 | 在矮屋簷下躲雨（S6:114）；雷未寫 |
+| ch6_ali_homefront 阿梨家門廊 | 夜 | 室外 | 是 | 未定 | S6:5；CH06_RAIN_ROUTE.md:1 | 無區段 | 沿雨巷找阿梨（S6:5）；雷未寫 |
+
+雷：劇本只在第六章的屋頂（棘的頭目戰，落雷是戰鬥機制，S6:37,140）寫到雷。其他區域劇本沒有寫雷，標「未定」；其中阿梨家門廊（第六章）與第一章宵夜麵攤是安靜的戲，故事線建議不要打雷。
 
 ### 劇情時段和現在的光影明顯不合
 

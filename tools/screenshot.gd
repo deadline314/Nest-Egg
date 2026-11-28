@@ -38,12 +38,17 @@ func _exit_tree() -> void:
 	Input.action_release(&"aim_right")
 
 
+var _flags: PackedStringArray = []
+
+
 func _ready() -> void:
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--out="):
 			_out_dir = arg.trim_prefix("--out=")
 		elif arg.begins_with("--scenario="):
 			_scenario = arg.trim_prefix("--scenario=")
+		elif arg.begins_with("--flags="):
+			_flags = arg.trim_prefix("--flags=").split(",", false)  # 氣泡情境：開局後先寫入這些故事旗標，拍有條件的回訪
 		elif arg.begins_with("--brightness="):
 			_brightness = float(arg.trim_prefix("--brightness="))
 		elif arg == "--font=pixel":
@@ -2321,6 +2326,8 @@ func _run_bubbles() -> void:
 	var scene_id := parts[2] if parts.size() > 2 else "shot_bubbles"
 	Story.auto_skip = false
 	GameState.start_new_run(GameState.difficulties[1])
+	for flag in _flags:
+		GameState.set_flag(StringName(flag), true, false)
 	var level := Level.new()
 	level.configure(load("res://data/levels/%s.tres" % level_id))
 	add_child(level)

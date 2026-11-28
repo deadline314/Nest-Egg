@@ -465,6 +465,9 @@ def build_lounge_front():
     a.prop('revival_lounge__booth_sofa', 48)
     a.lamp(16, 14)
     a.lamp(34, 14)
+    # 醒來的人的寄放架（故事線 ST-65 送湯小委託，可以看的物件）；字元只在這裡用，在這裡登記。
+    kit.RES['♡'] = 'res://data/npcs/ch2_soup_cubby.tres'
+    a.put(24, 19, '♡')
     a.zone(0, 'lounge_front')
     a.features = {'landmark': '委託終端（x=16）', 'loop': '送出查核資料後，可從東側員工通道回到公眾攤道上層'}
     return a

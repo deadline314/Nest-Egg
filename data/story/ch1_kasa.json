@@ -8509,15 +8509,10 @@
    "lines": [
     {
      "speaker": "voice",
-     "text": "歡迎使用天穹備份服務，備份已經完成。",
-     "ja": "ようこそ、天穹バックアップサービスへ。バックアップが完了しました。",
-     "en": "Welcome to Skydome Backup Service. Your backup is complete."
-    },
-    {
-     "speaker": "voice",
-     "text": "再來一次，沒關係。",
-     "ja": "もう一度でいい。大丈夫。",
-     "en": "Try again, it's fine."
+     "text": "歡迎使用天穹備份服務。",
+     "delay": 2.0,
+     "ja": "ようこそ、天穹バックアップサービスへ。",
+     "en": "Welcome to Skydome Backup Service."
     }
    ],
    "freeze": true

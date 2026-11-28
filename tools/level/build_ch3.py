@@ -45,6 +45,7 @@ NPC_CHARS = {
     'ⓧ': 'ch3_petition_box', 'Ⓦ': 'ch3_waiting_bench',
     # ST-61：廣場與泵室的街坊與告示，兩處秘密空間的紙條。
     'Ⓝ': 'ch3_plaza_nurse', 'Ⓧ': 'ch3_plaza_notice', 'Ⓨ': 'ch3_pump_locker', 'Ⓩ': 'ch3_clinic_cups', 'Ⓥ': 'ch3_office_vent',
+    '☘': 'ch3_lost_badge',   # 小委託：卡在泵室上橋的識別證（ST-65）
 }
 
 # 人物（kind 0）有骨架外觀；物件（kind 1）只有互動提示。
@@ -88,6 +89,8 @@ NPCS = {
     'ch3_plaza_notice': dict(name='廣場公告欄', speaker='label', kind=O, prompt='{interact} 看廣場公告欄', talks=[('ch3_dispatch_plaza_notice', 0)]),
     'ch3_pump_locker': dict(name='值班櫃', speaker='label', kind=O, prompt='{interact} 看值班櫃上的紙', talks=[('ch3_dispatch_pump_locker', 0)]),
     'ch3_clinic_cups': dict(name='舊備品櫃', speaker='label', kind=O, prompt='{interact} 打開舊備品櫃', talks=[('ch3_dispatch_clinic_cups', 0)]),
+    'ch3_lost_badge': dict(name='卡在欄杆邊的識別證', speaker='label', kind=O, prompt='{interact} 撿起識別證', talks=[('ch3_dispatch_lost_badge', 0)],
+                           spawn_requires_flag='sq9_badge_asked', spawn_unless_flag='sq9_badge_found'),
     'ch3_office_vent': dict(name='空調維修口', speaker='label', kind=O, prompt='{interact} 看維修口的工作單', talks=[('ch3_dispatch_office_vent', 0)]),
 }
 
@@ -260,6 +263,7 @@ def _build_pump_v1():
     a.platform(8, 10, 17)
     a.platform(11, 77, 13)
     a.stand(30, 'Ⓙ', row=12)
+    a.stand(50, '☘', row=12)   # 護理員掉的識別證（ST-65，問過她才出現）
     a.prop('sluice_hall__drain_wheel', 29, y=12, dx=11, react='drain_wheel')   # 排水輪在上橋上、互動點旁（BG-44）
     a.prop('sluice_hall__release_console', 24)
     a.prop('sluice_hall__hydraulic_piston', 46)

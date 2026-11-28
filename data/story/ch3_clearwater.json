@@ -120,6 +120,9 @@
   "ch3_janus_lost_once": false,
   "ch3_breakfast_heard": false,
   "ch3_departure_done": false,
+  "sq9_badge_asked": false,
+  "sq9_badge_found": false,
+  "sq9_badge_returned": false,
   "ch3_interlock_seen": false,
   "ch3_freight_ready": false,
   "ch3_outer_ladder_down": false,
@@ -178,6 +181,9 @@
   },
   "ch3.sq7_name": {
    "resource": "res://data/story_transactions/ch3_sq7_name.tres"
+  },
+  "ch3.sq9_badge": {
+   "resource": "res://data/story_transactions/ch3_sq9_badge.tres"
   }
  },
  "derived_flags": {},
@@ -605,6 +611,51 @@
    "reward_en": "20 credits."
   },
   {
+   "id": "sq9_badge",
+   "kind": "side",
+   "title": "找回護理員的識別證",
+   "background": "廣場等貨梯的早班護理員把識別證掉在泵室，沒有它進不了護理內門。",
+   "reward": "四十信用點。",
+   "complete_flag": "sq9_badge_returned",
+   "steps": [
+    {
+     "title": "在泵室的上橋找到識別證。",
+     "complete_flag": "sq9_badge_found",
+     "location": {
+      "level": "res://data/levels/ch3_pump.tres",
+      "cell": [
+       50,
+       28
+      ]
+     },
+     "title_ja": "ポンプ室の上の橋で身分証を見つける。",
+     "title_en": "Find the ID badge on the pump room's upper bridge."
+    },
+    {
+     "title": "把識別證還給廣場的護理員。",
+     "complete_flag": "sq9_badge_returned",
+     "location": {
+      "level": "res://data/levels/ch3_plaza.tres",
+      "cell": [
+       21,
+       35
+      ]
+     },
+     "title_ja": "身分証を広場の看護師に返す。",
+     "title_en": "Return the badge to the nurse in the plaza."
+    }
+   ],
+   "visible_flags": [
+    "sq9_badge_asked"
+   ],
+   "title_ja": "看護師の身分証を取り戻す",
+   "title_en": "Find the nurse's ID badge",
+   "background_ja": "広場で貨物エレベーターを待つ早番の看護師が、ポンプ室で身分証を落とした。それがないと看護区画の内扉に入れない。",
+   "background_en": "The morning-shift nurse waiting for the plaza freight lift dropped her ID badge in the pump room. Without it she can't get through the inner ward door.",
+   "reward_ja": "40クレジット。",
+   "reward_en": "40 credits."
+  },
+  {
    "id": "sq7_ye_name",
    "kind": "side",
    "title": "看清葉寫的名字",
@@ -1030,6 +1081,12 @@
      "text": "外梯的鎖扣連著貨梯，水不退，鎖就不會開。",
      "ja": "外階段の留め金はエレベーターと連動してるんです。水が引かないと、ロックは開きません。",
      "en": "The outer ladder's latch is tied to the lift. Until the water goes down, the lock won't open."
+    },
+    {
+     "speaker": "shift_nurse",
+     "text": "我的識別證也掉了，大概掉在泵室的上橋。沒有它，我進不了護理內門。",
+     "ja": "身分証も落としたんです。たぶんポンプ室の上の橋で。あれがないと看護区画の内扉に入れなくて。",
+     "en": "I dropped my ID badge too, probably on the pump room's upper bridge. Without it I can't get through the inner ward door."
     }
    ],
    "when": {
@@ -1037,7 +1094,14 @@
      "flag": "ch3_freight_ready",
      "equals": true
     }
-   }
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "sq9_badge_asked",
+     "value": true
+    }
+   ]
   },
   "ch3_t_plaza_nurse_revisit": {
    "mode": "animated",
@@ -1072,6 +1136,104 @@
    ],
    "when": {
     "flag": "ch3_freight_ready",
+    "equals": true
+   }
+  },
+  "ch3_t_sq9_badge": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "上橋的欄杆邊卡著一張識別證，照片上是廣場那位早班護理員。",
+     "ja": "上の橋の手すりの際に身分証が挟まっている。写真は広場にいた早番の看護師だ。",
+     "en": "An ID badge is wedged by the upper bridge's railing. The photo is the morning-shift nurse from the plaza."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我先收著，等一下還給她。",
+     "ja": "とりあえず預かっておく。あとで返そう。",
+     "en": "I'll hold on to it and give it back to her later."
+    }
+   ],
+   "when": {
+    "not": {
+     "flag": "sq9_badge_found",
+     "equals": true
+    }
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "sq9_badge_found",
+     "value": true
+    }
+   ]
+  },
+  "ch3_t_sq9_return": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "rin",
+     "text": "妳的識別證，卡在泵室上橋的欄杆邊。",
+     "ja": "あんたの身分証。ポンプ室の上の橋の手すりに挟まってた。",
+     "en": "Your badge. It was wedged by the railing on the pump room's upper bridge."
+    },
+    {
+     "speaker": "shift_nurse",
+     "text": "就是這張！我還以為要補辦三天。",
+     "ja": "これです！再発行に三日かかると思ってました。",
+     "en": "That's the one! I thought I'd be waiting three days for a replacement."
+    },
+    {
+     "speaker": "shift_nurse",
+     "text": "這點錢你收著。芷姐說過，幫忙的人不能讓他白跑。",
+     "ja": "これ、受け取ってください。芷さんが、手伝ってくれた人を無駄足にさせちゃいけないって。",
+     "en": "Please take this. Zhi always says you don't let someone help for nothing."
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "sq9_badge_found",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "sq9_badge_returned",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "sq9_badge_returned",
+     "value": true
+    },
+    {
+     "kind": "transaction",
+     "id": "ch3.sq9_badge"
+    }
+   ]
+  },
+  "ch3_t_sq9_after": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "shift_nurse",
+     "text": "識別證掛好了。今天總算能準時進內門。",
+     "ja": "身分証は首にかけました。今日はやっと時間どおりに内扉に入れます。",
+     "en": "Badge is on. Today I can finally get through the inner door on time."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "sq9_badge_returned",
     "equals": true
    }
   },
@@ -8319,10 +8481,54 @@
    "routes": [
     {
      "when": {
-      "not": {
-       "flag": "ch3_freight_ready",
-       "equals": true
-      }
+      "flag": "sq9_badge_returned",
+      "equals": true
+     },
+     "target": "ch3_t_sq9_after"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "sq9_badge_found",
+          "equals": true
+         },
+         {
+          "not": {
+           "flag": "sq9_badge_returned",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "sq9_badge_returned",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch3_t_sq9_return"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "not": {
+         "flag": "ch3_freight_ready",
+         "equals": true
+        }
+       },
+       {
+        "not": {
+         "flag": "sq9_badge_asked",
+         "equals": true
+        }
+       }
+      ]
      },
      "target": "ch3_t_plaza_nurse"
     },
@@ -8340,6 +8546,40 @@
    "routes": [
     {
      "when": {
+      "flag": "sq9_badge_returned",
+      "equals": true
+     },
+     "target": "ch3_t_sq9_after"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "sq9_badge_found",
+          "equals": true
+         },
+         {
+          "not": {
+           "flag": "sq9_badge_returned",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "sq9_badge_returned",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch3_t_sq9_return"
+    },
+    {
+     "when": {
       "not": {
        "flag": "ch3_freight_ready",
        "equals": true
@@ -8353,6 +8593,30 @@
       "equals": true
      },
      "target": "ch3_t_plaza_nurse_ready"
+    }
+   ]
+  },
+  "ch3_dispatch_lost_badge": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "not": {
+         "flag": "sq9_badge_found",
+         "equals": true
+        }
+       },
+       {
+        "not": {
+         "flag": "sq9_badge_found",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch3_t_sq9_badge"
     }
    ]
   },
