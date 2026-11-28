@@ -21,6 +21,7 @@ func run() -> void:
 	await _test_collector_heavy_has_no_front_armor()
 	await _test_charge_stops_at_live_water()
 	await _test_charge_into_obstacle_dazes()
+	await _test_riot_shield_is_shown()
 	await check_defeatable_on_every_difficulty([COLLECTOR_HEAVY, COLLECTOR_SHIELD])
 
 
@@ -155,4 +156,30 @@ func _test_charge_into_obstacle_dazes() -> void:
 	var before := rusher.health.current
 	rusher.hurtbox.receive(hit(1, false, rusher.global_position + Vector2(rusher.facing * 30.0, -20)))
 	check(rusher.health.current == before - 1, "a dazed charger can be hit from the front")
+	await end_level(level)
+
+
+## 鎮暴員拿著外觀自帶的手持盾（NE-474）：盾面零件看得到，不再畫成前臂偏折板的長滑軌；暈眩時盾燈熄掉。
+## 押運手外觀沒有手持盾，盾手仍用偏折板（缺美術，見 NE-475）。
+func _test_riot_shield_is_shown() -> void:
+	await open_level(10.0)
+	var rusher := spawn(RUSHER, 22.0)
+	var shield_collector := spawn(COLLECTOR_SHIELD, 40.0)
+	await physics_frames(4)
+	var shield := rusher.rig.contact_surface(&"riot_shield") if rusher.rig != null else null
+	check(shield != null and shield.is_visible_in_tree(), "the riot officer shows its own riot shield")
+	check(shield_collector.rig != null and shield_collector.rig.contact_surface(&"riot_shield") == null,
+			"the escort look has no carried shield of its own")
+	var lit_on_guard := false
+	if shield != null:
+		for child in shield.get_children():
+			lit_on_guard = lit_on_guard or (child is CanvasItem and (child as CanvasItem).visible)
+	check(lit_on_guard, "a guarding riot officer's shield lamps are lit")
+	rusher.fsm.transition(&"dazed")
+	await physics_frames(2)
+	var lit := false
+	if shield != null:
+		for child in shield.get_children():
+			lit = lit or (child is CanvasItem and (child as CanvasItem).visible)
+	check(shield != null and not lit, "a dazed riot officer's shield lamps go dark")
 	await end_level(level)

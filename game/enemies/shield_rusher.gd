@@ -1,6 +1,6 @@
 extends Enemy
 ## 天穹鎮暴員（盾牌衝鋒）
-## 正面伸縮板會擋開子彈與近戰。發現玩家後原地蓄力，接著高速衝撞。
+## 正面的盾會擋開子彈與近戰（外觀有手持盾就用手持盾，否則用前臂伸縮板）。發現玩家後原地蓄力，接著高速衝撞。
 ##       撞到牆會暈眩並「盾牌失效」；衝過頭則煞車轉身。
 ## 應對：跳過或用衝刺（無敵）穿越 → 從背後攻擊，或誘導牠撞牆再輸出；爆炸與終結技無視盾牌。
 
@@ -10,14 +10,31 @@ const REST_TIME := 0.6
 
 var _cooldown := 0.0
 var _plate := ShieldSurface.new()
+## 外觀自帶的手持盾（例如鎮暴員的 riot_shield 零件）：有的話就顯示它，不畫前臂偏折板的伸縮滑軌
+## （滑軌在遊戲倍率下讀起來像舉著一根長棍，NE-474）。沒有手持盾的外觀才退回偏折板。
+var _carried: Node2D
 
 
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
 	var active := _guard_active()
 	_plate.update(delta, active, not active, Vector2(float(facing), 0.0), 180.0)
+	if _carried != null:
+		_show_carried(active)
 	if is_dying():
 		queue_redraw()
+
+
+## 手持盾：防守時盾面的燈亮著；暈眩或倒下時燈熄掉、手臂放下（姿勢由 shield_pose_weight 帶動）。
+func _show_carried(active: bool) -> void:
+	for child in _carried.get_children():
+		if child is CanvasItem:
+			(child as CanvasItem).visible = active
+
+
+## 有沒有在用外觀自帶的手持盾（測試用）。
+func uses_carried_shield() -> bool:
+	return _carried != null
 
 
 func _rig_state(input: RigInput) -> void:
@@ -31,9 +48,7 @@ func _guard_active() -> bool:
 
 func _setup_states() -> void:
 	if rig != null:
-		var carried := rig.contact_surface(&"riot_shield")
-		if carried != null:
-			carried.hide()
+		_carried = rig.contact_surface(&"riot_shield")
 	_plate.parts = [ShieldSurface.PART_EXTENSION, ShieldSurface.PART_DEFLECT]
 	fsm.add(&"patrol", _patrol_tick)
 	fsm.add(&"windup", _windup_tick, _windup_enter)
@@ -58,6 +73,9 @@ func _guard(info: DamageInfo) -> Hurtbox.Guard:
 
 func _on_blocked(info: DamageInfo) -> void:
 	super._on_blocked(info)
+	if _carried != null:
+		Fx.impact(_carried.global_position, Vector2(facing, -0.3), Palette.WARNING, 5)
+		return
 	var origin := to_local(_center() + Vector2(facing * data.body_size.x * 0.6, 0))
 	var elbow := anchor_node(&"arm_back_lower")
 	var hand := anchor_node(&"hand_back")
@@ -154,7 +172,7 @@ func _plate_wrist(hand: Node2D, elbow: Node2D) -> Vector2:
 
 
 func _draw_overlay() -> void:
-	if _plate.extension <= 0.0:
+	if _carried != null or _plate.extension <= 0.0:
 		return
 	var hand := anchor_node(&"hand_back")
 	var elbow := anchor_node(&"arm_back_lower")
