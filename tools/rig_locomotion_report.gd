@@ -26,10 +26,10 @@ func _ready() -> void:
 		get_tree().quit(1)
 		return
 	print("%s  L=%.1f px" % [skin, absf(rig.rest(&"hip").y)])
-	print("speed  pp(px)  pp/L   f_main  hf     vel     acc    acc/th  step   rev/s  slide(L)  head_pp")
+	print("speed  pp(px)  pp/L   f_main  hf     vel     acc    acc/th  step   rev/s  slide(L)  head_pp  hip(L)  knee°  spread(L)  lean°")
 	for speed in speeds:
 		var r := LocomotionAudit.measure(rig, speed, run_speed)
-		print("%5.0f  %6.2f  %5.3f  %6.2f  %5.3f  %6.1f  %6.0f  %5.2f  %5.2f  %5.2f  %6.3f    %5.2f" % [
+		print("%5.0f  %6.2f  %5.3f  %6.2f  %5.3f  %6.1f  %6.0f  %5.2f  %5.2f  %5.2f  %6.3f    %5.2f    %4.2f   %5.1f  %4.2f       %5.1f" % [
 			speed, r["pp"], r["pp_l"], r["f_main"], r["hf"], r["peak_vel"], r["peak_acc"], r["acc_ratio"], r["frame_step"],
-			r["reversals_per_second"], r["slide_l"], r["head_pp"]])
+			r["reversals_per_second"], r["slide_l"], r["head_pp"], r["hip_height_l"], r["stance_knee"], r["foot_spread_l"], r["back_lean"]])
 	get_tree().quit(0)

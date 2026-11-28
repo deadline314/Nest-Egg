@@ -31,6 +31,7 @@ func run() -> void:
 	await _test_stride_scales_with_speed()
 	await _test_grounded_characters()
 	await _test_walking_posture()
+	await _test_protagonist_jog_control()
 
 
 ## Idle and gait must share a planted transition, including actual lunge-sized body offsets.
@@ -145,8 +146,6 @@ func _test_walking_posture() -> void:
 		if not file.ends_with(".json"):
 			continue
 		var skin := file.get_basename()
-		if skin == GaitLimits.PROTAGONIST:
-			continue
 		var holder := Node2D.new()
 		runner.add_child(holder)
 		var rig := CharacterRig.new()
@@ -155,9 +154,12 @@ func _test_walking_posture() -> void:
 			holder.queue_free()
 			continue
 		checked += 1
-		var pace: Array = GaitLimits.pace_for(skin, speeds)
-		var problems := GaitLimits.problems(LocomotionAudit.measure(rig, float(pace[0]), float(pace[1])), skin)
-		check(problems.is_empty(), "%s walks upright at %.0f px/s: %s" % [skin, pace[0], "; ".join(problems)])
+		if skin == GaitLimits.PROTAGONIST:
+			check(_protagonist_problems(rig).is_empty(), "%s walks no lower than her own stance and jogs no lower than her run: %s" % [skin, "; ".join(_protagonist_problems(rig))])
+		else:
+			var pace: Array = GaitLimits.pace_for(skin, speeds)
+			var problems := GaitLimits.problems(LocomotionAudit.measure(rig, float(pace[0]), float(pace[1])), skin)
+			check(problems.is_empty(), "%s walks upright at %.0f px/s: %s" % [skin, pace[0], "; ".join(problems)])
 		holder.queue_free()
 		await frames(1)
 	check(checked >= 30, "every character with motion data was measured walking (%d)" % checked)
@@ -176,4 +178,28 @@ func _test_walking_posture() -> void:
 	check(not GaitLimits.problems(LocomotionAudit.measure(bad, float(pace[0]), float(pace[1])), "stalker").is_empty(),
 			"the old crouched stalker gait is rejected")
 	holder.queue_free()
+	await frames(1)
+
+
+
+## 主角（NE-481）：慢走不低於她自己的持槍站姿；90～120 的小跑骨盆不低於滿速跑。
+func _protagonist_problems(rig: CharacterRig) -> PackedStringArray:
+	var stance := LocomotionAudit.measure(rig, 0.5, GaitLimits.PROTAGONIST_RUN)
+	var walks: Array = []
+	for speed in GaitLimits.PROTAGONIST_WALK:
+		walks.append(LocomotionAudit.measure(rig, speed, GaitLimits.PROTAGONIST_RUN))
+	var jogs: Array = []
+	for speed in GaitLimits.PROTAGONIST_JOG:
+		jogs.append(LocomotionAudit.measure(rig, speed, GaitLimits.PROTAGONIST_RUN))
+	return GaitLimits.protagonist_problems(stance, walks, jogs)
+
+
+## 負控制（NE-481）：凜改回修正前的騰空時機（小跑段仍用走路的踩地比例），小跑段的檢查要擋下來。
+func _test_protagonist_jog_control() -> void:
+	var rig := _make()
+	var move: Dictionary = (rig.animator as HumanoidAnimator)._motion["move"]
+	move["flight_from"] = 0.7
+	move["flight_full"] = 1.0
+	check(not _protagonist_problems(rig).is_empty(), "the old sagging jog is rejected")
+	_free(rig)
 	await frames(1)

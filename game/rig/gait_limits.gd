@@ -31,8 +31,31 @@ static func problems(r: Dictionary, skin := "") -> PackedStringArray:
 
 ## 走路是角色設定、步子本來就小的角色（原因寫在這裡，不放寬門檻）。
 const SHORT_STEPS := {"ah_po": "阿婆是老人家，走路小步是角色設定"}
-## 主角的走路另外由主角的動作測試管（LocomotionSuite 的主角項目、ProtagonistMotionSuite）。
+## 主角凜（NE-481）：她的站姿本來就是定案的持槍半蹲（站著時骨盆約 0.77 L、膝約 49 度），走路的門檻改成「不低於她自己的站姿」：
+## 骨盆不比站姿低超過 PROTAGONIST_HIP_SLACK、膝蓋不比站姿多彎超過 PROTAGONIST_KNEE_SLACK；小跑段（PROTAGONIST_JOG）的骨盆另外不得低於滿速跑（0.68 L）。
 const PROTAGONIST := "rin"
+const PROTAGONIST_RUN := 150.0
+const PROTAGONIST_WALK: Array[float] = [40.0, 60.0]
+const PROTAGONIST_JOG: Array[float] = [90.0, 105.0, 120.0]
+const PROTAGONIST_JOG_MIN_HIP := 0.68
+const PROTAGONIST_HIP_SLACK := 0.06
+const PROTAGONIST_KNEE_SLACK := 15.0
+
+
+## 主角走路與小跑的問題清單（空的代表通過）。stance：站著不動時的量測（LocomotionAudit.measure 以極慢速度量到的站姿）。
+static func protagonist_problems(stance: Dictionary, walks: Array, jogs: Array) -> PackedStringArray:
+	var found := PackedStringArray()
+	for r: Dictionary in walks:
+		if float(r["hip_height_l"]) < float(stance["hip_height_l"]) - PROTAGONIST_HIP_SLACK:
+			found.append("walk at %.0f: pelvis %.2f L, more than %.2f below her stance %.2f" % [r["speed"], r["hip_height_l"], PROTAGONIST_HIP_SLACK, stance["hip_height_l"]])
+		if float(r["stance_knee"]) > float(stance["stance_knee"]) + PROTAGONIST_KNEE_SLACK:
+			found.append("walk at %.0f: knee %.0f°, more than %.0f° past her stance %.0f°" % [r["speed"], r["stance_knee"], PROTAGONIST_KNEE_SLACK, stance["stance_knee"]])
+		if float(r["back_lean"]) > MAX_BACK_LEAN:
+			found.append("walk at %.0f: leans back %.0f°" % [r["speed"], r["back_lean"]])
+	for r: Dictionary in jogs:
+		if float(r["hip_height_l"]) < PROTAGONIST_JOG_MIN_HIP:
+			found.append("jog at %.0f: pelvis %.2f L < %.2f (her full run)" % [r["speed"], r["hip_height_l"], PROTAGONIST_JOG_MIN_HIP])
+	return found
 ## 主角與過場、場景人物走路的速度與跑速（RigInput 的預設跑速）。
 const ACTOR_WALK := 60.0
 const ACTOR_RUN := 150.0

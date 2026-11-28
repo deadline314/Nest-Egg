@@ -52,7 +52,7 @@ const DEFAULT_MOTION := {
 	"grounding": false,
 	"idle": {"breath_speed": 2.4, "breath_amp": 0.02, "hip_bob": 0.3, "chest": 0.0, "legs": [-0.12, 0.12, 0.2, 0.08], "sway": 0.0, "sway_speed": 1.3, "pin_feet": false, "pin_reach": 0.95, "counter": 0.0, "feet_x": []},
 	"move": {"grounding": false, "stride": 50.0, "swing": 0.8, "knee_bend": 1.2, "knee_base": 0.15, "hip_bounce": 1.4, "chest_lean": 0.12, "threshold": 0.08,
-			"duty": 0.55, "lift": 5.0, "reach": 0.985, "bounce": 0.0, "rise": 0.0, "stride_exp": 0.0, "stride_floor": 0.45, "level": 0.0, "bob_slow": 0.5, "level_from": 0.0},
+			"duty": 0.55, "lift": 5.0, "reach": 0.985, "bounce": 0.0, "rise": 0.0, "stride_exp": 0.0, "stride_floor": 0.45, "level": 0.0, "bob_slow": 0.5, "level_from": 0.0, "flight_from": 0.7, "flight_full": 1.0},
 	"foot": {"droop": 0.25, "heel": 0.0, "toe_off": 0.0},
 	"torso": {"hip_swing": 0.0, "chest_counter": 0.0, "chest_wobble": 0.0, "wobble_phase": 0.0, "head_hold": 0.0},
 	"inertia": {"gain": 0.0, "ref_accel": 1600.0, "stiffness": 90.0, "damping": 11.0, "max": 0.3},
@@ -615,7 +615,9 @@ func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> 
 		if grounded:
 			# 落腳：腳踩在地上時隨身體往後移（不滑），再抬起前擺；步伐幅度由資料的 stride 與踩地比例算出。
 			_gait_on = true
-			var flight := smoothstep(FLIGHT_FROM, FLIGHT_FULL, speed_ratio)
+			# 資料 move.flight_from／flight_full 可以讓騰空提早開始與提早到位（NE-481：凜的小跑段不再用走路的踩地比例把骨盆壓低）；預設等於 FLIGHT_FROM／FLIGHT_FULL。
+			var flight_full := clampf(float(move["flight_full"]), 0.1, FLIGHT_FULL)
+			var flight := smoothstep(minf(float(move["flight_from"]), flight_full - 0.05), flight_full, speed_ratio)
 			_gait_duty = clampf(lerpf(maxf(WALK_DUTY, float(move["duty"])), float(move["duty"]), flight), 0.3, 0.8)
 			_gait_amp = minf(stride * _gait_duty * 0.5, _leg_length * 0.75)
 			_gait_lift = float(move["lift"]) * (0.5 + 0.5 * minf(speed_ratio, 1.0))

@@ -27,6 +27,8 @@ var _joint_context := false
 ## --action=<名稱>：改成逐格播放一個專屬動作（art/rigs/action_poses.json），進度 0→1 後停在最後一格；--airborne 表示動作在空中（例如翻越）。
 var _action := ""
 var _airborne := false
+## --run-px=<像素／秒>：「run」姿勢的速度（預設 150＝主角滿速）；量小跑段時用，例如 105（NE-481）。
+var _run_px := 150.0
 const PREVIEW := preload("res://tools/rig_preview.gd")
 const JOINTS := {
 	"waist": [&"chest", "torso", "pelvis"],
@@ -82,6 +84,7 @@ func _run() -> void:
 		elif arg == "--joint-context": _joint_context = true
 		elif arg.begins_with("--action="): _action = arg.trim_prefix("--action=")
 		elif arg == "--airborne": _airborne = true
+		elif arg.begins_with("--run-px="): _run_px = float(arg.trim_prefix("--run-px="))
 		elif arg.begins_with("--seat-sag="):
 			var raw_sag := arg.trim_prefix("--seat-sag=")
 			if not raw_sag.is_valid_float():
@@ -252,7 +255,7 @@ func _run() -> void:
 						input.facing = 1 if side == 0 else -1
 						input.aim_dir = Vector2(input.facing, -1.0 if pose == "aim_up" else 0.0).normalized()
 						input.on_floor = pose != "jump"
-						input.velocity = Vector2(150.0 * input.facing, -200.0 if pose == "jump" else 0.0) if pose in ["run", "jump"] else Vector2.ZERO
+						input.velocity = Vector2((_run_px if pose == "run" else 150.0) * input.facing, -200.0 if pose == "jump" else 0.0) if pose in ["run", "jump"] else Vector2.ZERO
 						input.crouching = pose == "crouch"
 						input.blocking = pose == "block"
 						input.staggered = pose == "stagger"
