@@ -166,6 +166,8 @@ func add_progress(amount: int) -> bool:
 		EventBus.toast_requested.emit(_text(DONE_TEXT) % [data.goal_for(Story.language), gained])
 	Sfx.play(&"pickup", -4.0)
 	completed.emit(self)
+	if data.done_scene != &"":
+		Story.play(data.done_scene)   # 一句反應：氣泡或通訊，不鎖操作
 	return true
 
 

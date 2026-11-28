@@ -5750,6 +5750,48 @@
     }
    ]
   },
+  "ch2_c_env_done": {
+   "mode": "radio",
+   "lines": [
+    {
+     "speaker": "lamp",
+     "text": "機關替你省了子彈，巡帳員大概會說他什麼都沒看見。",
+     "ja": "仕掛けが弾を節約してくれたな。見回りはたぶん、何も見てないって言うよ。",
+     "en": "The machinery saved you some bullets. The patroller will probably say he didn't see a thing."
+    }
+   ]
+  },
+  "ch2_c_unseen_done": {
+   "mode": "radio",
+   "lines": [
+    {
+     "speaker": "lamp",
+     "text": "一路都沒人回頭，我在耳機裡也跟著憋氣。",
+     "ja": "最後まで誰も振り向かなかったな。イヤホン越しにこっちまで息を止めてたよ。",
+     "en": "Nobody looked back the whole way. I was holding my breath in your earpiece too."
+    }
+   ]
+  },
+  "ch2_t_unsent_notices": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "暗櫃裡壓著一疊沒寄出去的催收單，收件人欄都還空著。",
+     "ja": "隠し戸棚に、出されなかった督促状の束が押し込まれている。宛名の欄はどれも空のままだ。",
+     "en": "A stack of unsent collection notices is wedged in the hidden cabinet. The recipient lines are all still blank."
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "最上面那張用鉛筆寫著：這批先不要寄，等雨季過了再說。",
+     "ja": "一番上の一枚に鉛筆で書いてある。「この束はまだ出すな。雨季が明けてからにしろ」",
+     "en": "Pencilled on the top sheet: Don't send this batch yet. Wait until the rainy season's over."
+    }
+   ],
+   "overlay": true
+  },
   "ch2_t_s08_rumor_revisit": {
    "mode": "animated",
    "overlay": true,

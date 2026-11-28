@@ -1293,6 +1293,13 @@ func _test_area_challenge() -> void:
 		check(not gate.challenges[0].goal_for("en").is_empty() and not gate.challenges[0].goal_for("ja").is_empty(), "the challenge goal is available in all three languages")
 	var bad := AreaChallengeData.new()
 	check(bad.validate().size() >= 2, "a challenge without id, goal or translations is reported")
+	# 完成時的一句反應（ST-64）：三個正式挑戰都指向存在的場景；寫錯場景 id 會被回報。
+	for path in ["res://data/challenges/ch2_market_gate_environment.tres", "res://data/challenges/ch2_loading_unseen.tres", "res://data/challenges/ch4_factory_relay_timed.tres"]:
+		var real := load(path) as AreaChallengeData
+		check(real != null and real.done_scene != &"" and Story.has_scene(real.done_scene) and real.validate().is_empty(), "%s plays a one-line reaction when done" % path.get_file())
+	var missing_reaction := (load("res://data/challenges/ch2_market_gate_environment.tres") as AreaChallengeData).duplicate() as AreaChallengeData
+	missing_reaction.done_scene = &"no_such_scene"
+	check(missing_reaction.validate().size() == 1, "a reaction scene that does not exist is reported")
 
 	var challenge_data := AreaChallengeData.new()
 	challenge_data.id = &"test_environment"

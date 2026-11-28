@@ -471,6 +471,13 @@ def _collection_office(source: ProductionSource):
     source.add("ch2_t_street_news", "S05", (
         ("label", "早報頭版：天穹週年慶，創辦人沈望今晚在市集螢幕演說。"),
         ("label", "社會版只有一小格：港區昨夜降雨偏多，復原館今早排隊的人比平常多。")))
+    # 區域挑戰完成時的一句反應（ST-64）：讀挑戰自己的完成狀態，不寫旗標。
+    source.add("ch2_c_env_done", "S05", (("lamp", "機關替你省了子彈，巡帳員大概會說他什麼都沒看見。"),), mode="radio")
+    source.add("ch2_c_unseen_done", "S09", (("lamp", "一路都沒人回頭，我在耳機裡也跟著憋氣。"),), mode="radio")
+    # 北棟二樓前室裂縫牆後的暗櫃（ST-64）：劇本沒有寫是誰的，內容不指向任何人。
+    source.add("ch2_t_unsent_notices", "S11", (
+        ("label", "暗櫃裡壓著一疊沒寄出去的催收單，收件人欄都還空著。"),
+        ("label", "最上面那張用鉛筆寫著：這批先不要寄，等雨季過了再說。")), mode="animated")
     source.add("ch2_t_s08_rumor_revisit", "S08", (("hawker", "我只是聽說的，你自己看帳比較準。"),), when=flag("ch2_rumor_heard"))
     source.add("ch2_t_s08_collection", "S08", (
         ("label", "批號M17：收款120，本金100、利息20，轉送北棟二樓。待收欄仍寫120。"),

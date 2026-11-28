@@ -103,6 +103,8 @@ def _living(source, dispatch):
     source.add("ch4_t_nurse_signed", "02", (
         ("shift_nurse", "簿子簽好就進去吧。床上的人沒回答，就再等一下。"),
     ), when=flag(SIGNED), mode="animated")
+    # 接線廊限時挑戰完成時燈的一句（ST-64）。
+    source.add("ch4_c_timed_done", "08", (("lamp", "比清掃線快了幾秒。下次別再拿自己去賭時間。"),), mode="radio")
     dispatch["lost_box"] = ["ch4_t_lost_box"]
     source.add("ch4_t_lost_box", "07", (
         ("label", "失物招領箱裡有一隻左手手套、一副耳機，還有一張寫著「明天見」的電影票根。"),

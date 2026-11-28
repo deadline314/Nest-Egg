@@ -24,6 +24,8 @@ enum Kind {
 ## 一句講清楚要做什麼（中文）；其他語言寫在 localized_goals（"ja"、"en"）。
 @export var goal: String = ""
 @export var localized_goals: Dictionary[String, String] = {}
+## 完成時播的一句反應（劇本場景 id：附近的人冒一句氣泡，或燈在通訊裡說一句）；空白＝不播。不寫旗標。
+@export var done_scene: StringName = &""
 
 
 func goal_for(language: String) -> String:
@@ -47,4 +49,6 @@ func validate() -> PackedStringArray:
 	for language in ["ja", "en"]:
 		if str(localized_goals.get(language, "")).strip_edges().is_empty():
 			problems.append("區域挑戰 %s 的說明缺少 %s 譯文" % [id, language])
+	if done_scene != &"" and not Story.has_scene(done_scene):
+		problems.append("區域挑戰 %s 的完成反應場景 %s 不存在" % [id, done_scene])
 	return problems
