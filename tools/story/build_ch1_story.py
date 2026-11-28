@@ -450,7 +450,7 @@ def build():
     lines_scene('ch1_t_oldk_d1', 'dialogue', [
         ('old_k', "…又死了？"),
         ('rin', "剛才又倒了一次。"),
-        ('old_k', "水燒好了。吃完再去。"),
+        ('old_k', "水燒好了，先吃完再去喔。"),
     ])
     lines_scene('ch1_t_oldk_d4', 'dialogue', [
         ('old_k', "這個月第幾次了？"),
@@ -491,7 +491,7 @@ def build():
     ])
     lines_scene('ch1_g06_lamp', 'radio', [
         ('lamp', "我是幫你看路的燈，聽得到嗎？收帳人封了市集，改走碼頭那邊。"),
-        ('rin', "聽得到。"),
+        ('rin', "我聽得到，你繼續說。"),
     ])
     lines_scene('ch1_g06_tip_slide', 'radio', [
         ('lamp', "往旁邊滑過去，剛滑出去的瞬間子彈打不到你。"),
@@ -507,10 +507,10 @@ def build():
         ('lamp', "倉庫就在碼頭盡頭，我會在耳機裡陪你。"),
     ])
     # 鎖場開始時凜的戰鬥短句（≤16 字、≤2 句）
-    lines_scene('ch1_k_plaza', 'bubbles', [('rin', "廣場有人巡邏，小心。")], bark=True)
+    lines_scene('ch1_k_plaza', 'bubbles', [('rin', "廣場上有人在巡邏，小心一點。")], bark=True)
     lines_scene('ch1_k_blockade', 'bubbles', [('rin', "收帳人在前面搜查。")], bark=True)
-    lines_scene('ch1_k_vault', 'bubbles', [('rin', "有人守著。")], bark=True)
-    lines_scene('ch1_k_walkway', 'bubbles', [('rin', "上面有人。")], bark=True)
+    lines_scene('ch1_k_vault', 'bubbles', [('rin', "保險箱前面有人守著。")], bark=True)
+    lines_scene('ch1_k_walkway', 'bubbles', [('rin', "上面的走道有人。")], bark=True)
 
     # 倉庫：看門狗、水位謎、保險箱（都是廣播或氣泡）
     lines_scene('ch1_g07_dog', 'radio', [

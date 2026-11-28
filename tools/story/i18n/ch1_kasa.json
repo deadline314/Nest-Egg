@@ -19,7 +19,7 @@
   "ja": "屋上へ行き、鷺の説明を最後まで聞く",
   "en": "Go up to the roof and hear Egret's full briefing"
  },
- "上層出口接交接櫃，回執別留在櫃裡，明早還要對。": {
+ "從倉庫上層出口走，就會接到交接櫃。回執別留在櫃子裡，明早還要對帳。": {
   "ja": "上層出口から引き渡しボックスへ。受領書はボックスに置いてくるな。明朝まだ照合が要る。",
   "en": "Take the upper exit to the handoff cabinet. Don't leave the receipt in the cabinet, since we still have to check it tomorrow morning."
  },
@@ -27,9 +27,9 @@
   "ja": "上層通路が明るくなったよ。出口の手前にまだ守衛がいる。ディスクを通行証代わりにするなよ。",
   "en": "The upper passage is lit now. There are still guards before the exit, so don't use the disk as a pass."
  },
- "上面有人。": {
-  "ja": "上に誰かいる。",
-  "en": "Someone's up top."
+ "上面的走道有人。": {
+  "ja": "上の通路に誰かいる。",
+  "en": "Someone's up on the walkway."
  },
  "上面的靶也沒歪，跳著打一樣準。": {
   "ja": "上の的も歪んでない。跳びながら撃っても同じくらい正確だ。",
@@ -51,11 +51,11 @@
   "ja": "布を取らなくてもメインの流れは続けられる。",
   "en": "You can continue the main path without taking the cloth."
  },
- "不取得物品，也不完成取布節點。": {
-  "ja": "アイテムは得ず、布を取る工程も完了しない。",
-  "en": "Obtains no item and does not complete the cloth-taking step."
+ "不拿走布角，托盤保持原樣。": {
+  "ja": "布の端は取らず、盆はそのままにする。",
+  "en": "Leave the cloth; the tray stays as it is."
  },
- "不建立欠條、不扣款。": {
+ "不寫欠條，也不扣款。": {
   "ja": "借用書は作らず、引き落としもしない。",
   "en": "No IOU is created and nothing is charged."
  },
@@ -67,7 +67,7 @@
   "ja": "書けとは言ってない、熱いうちに食べなって言ったの。明日のことは明日でいいよ。",
   "en": "I said eat it while it's hot, not write it down. Tomorrow can wait, you hear?"
  },
- "不點餐、不扣款，可以再問。": {
+ "不點餐也不扣款，之後還可以再問。": {
   "ja": "注文も支払いもなし。またあとで聞ける。",
   "en": "No order, no charge. You can ask again."
  },
@@ -87,7 +87,7 @@
   "ja": "今日の飯ができてるよ。これはあんたのために作ったから、四十は払わなくていいんだよ。",
   "en": "Dinner's ready. I cooked this one for you, so you don't pay the forty, you hear?"
  },
- "今晚交的盤不會再算第二片，剩下的是明天的紙。": {
+ "今晚交的盤只算一片，剩下要對的紙明天再說。": {
   "ja": "今夜渡したディスクは二枚目としては数えない。残りは明日の紙だ。",
   "en": "The disk you handed over tonight won't count as a second one. What's left is tomorrow's paper."
  },
@@ -259,11 +259,11 @@
   "ja": "マーケットM17の確認待ちの要約を保管する",
   "en": "Keep the Market M17 summary for later checking"
  },
- "保留批號M17與待查欄位，不代表已付或待付的判決。": {
+ "留下批號M17和待查的欄位；這不代表已經判定付了還是欠著。": {
   "ja": "バッチ番号M17と未確認欄を残す。支払い済みか未払いかを決めるものではない。",
   "en": "Keeps batch M17 and the unverified field. Does not settle whether the amount is paid or owed."
  },
- "保留第一次問過的線索，不算第二次答完。": {
+ "第一次問到的線索會留著，這次不算問完。": {
   "ja": "最初に聞いた手がかりは残しておく。二度目の質問は完了扱いにならない。",
   "en": "Keeps the lead from the first question open. It does not count as having answered the second."
  },
@@ -471,7 +471,7 @@
   "ja": "彼女が話したいことだけを聞く。ディスク受け取りの仕事には影響しない。",
   "en": "Only ask what she's willing to share. It doesn't affect the disc pickup job."
  },
- "只接受麵，不生成餐酒帳。": {
+ "只吃這碗麵，不會產生餐酒帳。": {
   "ja": "麺だけ受け取り、夕食と酒の勘定は作らない。",
   "en": "Accept only the noodles; no meal-and-drinks tab is created."
  },
@@ -575,7 +575,7 @@
   "ja": "屋上で鷺に今夜と日曜のことを聞く",
   "en": "On the roof, ask Egret about tonight and Sunday"
  },
- "報酬800次晨核對；原盤交委託方保管。": {
+ "報酬800，隔天早上核對；原盤交給委託方保管。": {
   "ja": "報酬800は翌朝に照合。原盤は依頼主が保管する。",
   "en": "Reward 800, verified the next morning. The original disk stays with the client."
  },
@@ -651,7 +651,7 @@
   "ja": "実際に教えてもらったら、住まいと合言葉を手帳に書き留める。",
   "en": "Once she tells you, write her place and the passphrase in your notebook."
  },
- "實際挪杯收布；茶不拿走。": {
+ "把杯子挪開，收起布角；茶留在原處。": {
   "ja": "茶碗をずらして布を収める。お茶は持っていかない。",
   "en": "Moves the cup and takes the cloth. The tea is not taken."
  },
@@ -695,7 +695,7 @@
   "ja": "序章　雨の中の灯",
   "en": "Prologue: The Lamp in the Rain"
  },
- "廣場有人巡邏，小心。": {
+ "廣場上有人在巡邏，小心一點。": {
   "ja": "広場に見回りがいる。気をつけろ。",
   "en": "There are patrols in the plaza. Watch yourself."
  },
@@ -735,7 +735,7 @@
   "ja": "復元館って、電話ボックスの横にある夜間営業の店のことか？",
   "en": "Is the restoration house the night shop next to the phone booth?"
  },
- "復原點的規則，不影響建檔。": {
+ "問復原點怎麼算，不影響這次建檔。": {
   "ja": "復元地点のルール。登録には影響しない。",
   "en": "Restoration point rules. Does not affect registration."
  },
@@ -775,7 +775,7 @@
   "ja": "保険に入ってれば、こういうのも込みだと思ってたんだが。",
   "en": "I thought the insurance covered this kind of thing too."
  },
- "我住市集後樓三樓，外梯上去，兩下再一下；路你記著，今晚先回家。": {
+ "我住市集後樓三樓，從外梯上去，敲兩下再一下。路你記著，今晚先回家。": {
   "ja": "市場の奥の建物の三階に住んでる。外階段から、コンコン、少し置いてコン。道はちゃんと覚えておいて、今夜はまず帰ってね。",
   "en": "I live on the third floor of the building behind the market. Take the outside stairs, knock twice, pause, then knock once. Remember the way, but go home tonight first."
  },
@@ -933,7 +933,7 @@
   "ja": "今は二百に足りない。明日の金を今日払ったことにはしない。",
   "en": "I'm short of 200 right now. I won't count tomorrow's money as already paid today."
  },
- "我留下。麵是妳請，今晚那份也算妳請？": {
+ "那我留下來吃。麵是妳請的，今晚那份也算妳請？": {
   "ja": "残る。麺は梨のおごりだよね。今夜の分も梨のおごりってことでいい？",
   "en": "I'll stay. The noodles are your treat, so is tonight's share your treat too?"
  },
@@ -997,7 +997,7 @@
   "ja": "質入れされたときには、もう弦がなかった。持ち主いわく、弾いていた人がもういない。",
   "en": "It was pawned without strings. The owner says the person who played it is gone."
  },
- "拉好了。要再試就靠近它，燈亮的時候面向它舉盾。": {
+ "墊子我拉平了。要再試就靠近它，燈亮的時候面向它舉盾。": {
   "ja": "直したよ。もう一度やるなら近づきな。光ったら正面を向いて盾を構えるんだ。",
   "en": "It's smoothed out. If you want to try again, get close, and when it lights up, face it and raise your shield."
  },
@@ -1021,7 +1021,7 @@
   "ja": "番犬を倒し、倉庫の仕切りを開ける",
   "en": "Beat the Watchdog to open the partition."
  },
- "擋住了。這台出手前會亮燈，看得出來。": {
+ "這下擋住了。這台出手前會先亮燈，看得出來。": {
   "ja": "防げた。こいつは手を出す前に光るから、読める。",
   "en": "Blocked it. This one lights up before it strikes, so you can tell."
  },
@@ -1065,7 +1065,7 @@
   "ja": "晴岸は日当たりのいい住宅街だぞ。あそこに家でも買う気か？",
   "en": "The Far Shore is a sunny residential district. You thinking of buying a place out there?"
  },
- "四十八萬，下午有太陽。我想讓你搬過去。": {
+ "那間要四十八萬，下午有太陽。我想讓你搬過去。": {
   "ja": "四十八万クレジット。午後は日が差すんだ。あそこへ越してほしい。",
   "en": "It's 480,000 credits. It gets afternoon sun. I want you to move there."
  },
@@ -1073,9 +1073,9 @@
   "ja": "今は決めず、梨とはもう一度話せる。",
   "en": "Don't decide yet. You can talk to Pear again."
  },
- "有人守著。": {
-  "ja": "誰かが見張ってる。",
-  "en": "Someone's guarding it."
+ "保險箱前面有人守著。": {
+  "ja": "金庫の前に見張りがいる。",
+  "en": "Someone's guarding the safe."
  },
  "有人記得甜就再來，有人嫌甜就告訴我。我想開自己的攤，得先有人願意說不好吃。": {
   "ja": "甘いと覚えてくれたら、また来てね。甘すぎるなら教えてくれればいい。自分の屋台を開きたいから、まずは不味いって言ってくれる人がいないとね。",
@@ -1085,9 +1085,9 @@
   "ja": "元本は認めるよ。でも、もう払ったものまで書き込まれてる。あの一枚は自分で確かめないと。誰かに言われるまま、また払うわけにはいかないの。",
   "en": "I accept the principal. But things I already paid got written in too. I have to check that one myself. I can't just pay again because someone tells me to."
  },
- "查看真托盤，不在復原回放中取物。": {
-  "ja": "本物の盆を調べる。復元の再現中は物を取らない。",
-  "en": "Examine the real tray. Nothing is taken during the restoration replay."
+ "走到臺邊看托盤上的杯子和布角。": {
+  "ja": "台のそばへ行き、盆の上の湯呑みと布の端を見る。",
+  "en": "Go to the side table and look at the cup and the corner of cloth on the tray."
  },
  "梨放進去煮久一點，冷了也沒那麼澀。這是我以前學的做法。": {
   "ja": "梨を長めに煮てるの。冷めても渋くならないのよ。昔に覚えた作り方なの。",
@@ -1137,7 +1137,7 @@
   "ja": "毎週日曜は空けてるのか。そのスケジュール、誰が押さえてくれてるんだ？",
   "en": "You keep every Sunday free. Who's holding that schedule for you?"
  },
- "水燒好了。吃完再去。": {
+ "水燒好了，先吃完再去喔。": {
   "ja": "お湯が沸いたよ。食べてから行きな。",
   "en": "The water's hot. Eat first, then head out."
  },
@@ -1201,11 +1201,11 @@
   "ja": "灯",
   "en": "Wick"
  },
- "現在不扣款、不加息。": {
+ "現在不扣款，也不加利息。": {
   "ja": "今は引き落とさず、利息もつけない。",
   "en": "Nothing is charged now and no interest is added."
  },
- "現在不扣款、不加息；之後主動付清。": {
+ "現在不扣款，也不加利息，之後再自己付清。": {
   "ja": "今は引き落とさず、利息もつけない。後で自分から支払う。",
   "en": "Nothing is charged now and no interest is added. You pay it off on your own later."
  },
@@ -1285,7 +1285,7 @@
   "ja": "「200クレジットの支払いを確定する。」",
   "en": "Confirm paying 200 credits."
  },
- "確認支付200；不足可保留欠條。": {
+ "確認支付200；錢不夠可以先留欠條。": {
   "ja": "200クレジットの支払いを確定する。不足があれば借用書を残せる。",
   "en": "Confirm payment of 200. If it falls short, you can keep an IOU."
  },
@@ -1301,9 +1301,9 @@
   "ja": "第一章　傘　完",
   "en": "Chapter 1: Kasa, Complete"
  },
- "紙已拿到，還有缺附件那頁可以留。": {
-  "ja": "紙は受け取ったね。添付が欠けているページは、そのまま残しておいていいよ。",
-  "en": "You've got the paper. The page missing its attachment can stay as it is."
+ "回執拿到了。盤裡還有一頁缺附件的帳，可以留一份摘要。": {
+  "ja": "受領書は取れた。ディスクに添付の欠けた帳簿が一枚ある。要約を残しておける。",
+  "en": "You've got the receipt. The disk also has a ledger page missing its attachment; you can keep a summary."
  },
  "紙本": {
   "ja": "紙の記録",
@@ -1313,7 +1313,7 @@
   "ja": "会話を終える。後でまた来られる。",
   "en": "Ends the conversation. You can come back later."
  },
- "結清今晚餐酒並回家；不足額不扣款。": {
+ "結清今晚的餐酒再回家；錢不夠就不會扣款。": {
   "ja": "今夜の夕食と酒を精算して帰宅する。不足分は請求しない。",
   "en": "Settle tonight's meal and drinks and go home. Any shortfall is not charged."
  },
@@ -1325,7 +1325,7 @@
   "ja": "家にいるやつのためだ。",
   "en": "For the one at home."
  },
- "維持未結帳，可再選。": {
+ "帳先不結，之後可以再選。": {
   "ja": "会計は未精算のまま。また選べる。",
   "en": "The tab stays unsettled. You can choose again."
  },
@@ -1369,9 +1369,9 @@
   "ja": "説明を聞けばすぐ出発できる。報酬は検収後に確認する。",
   "en": "Once you've heard the briefing, you can head out. Pay is checked after acceptance."
  },
- "聽得到。": {
-  "ja": "聞こえてる。",
-  "en": "I hear you."
+ "我聽得到，你繼續說。": {
+  "ja": "聞こえる。続けて。",
+  "en": "I can hear you. Go on."
  },
  "聽真實電話亭錄音後問燈": {
   "ja": "電話ボックスで録音を聞き、灯に確かめる。",
@@ -1421,7 +1421,7 @@
   "ja": "戻って飯を食うのを忘れるなよ。",
   "en": "Don't forget to come back and eat."
  },
- "記錄相似，不替錄音者填姓名。": {
+ "只記下聲音很像，不替錄音的人填名字。": {
   "ja": "似ているという記録だけ残す。録音した者の名前は書き込まない。",
   "en": "Records the resemblance only. Does not fill in the recorder's name."
  },
@@ -1637,7 +1637,7 @@
   "ja": "ここは器のスペースにしといて。紙をスープに近づけるな。",
   "en": "Save this spot for the bowl. Keep the paper away from the soup."
  },
- "週日不接案不會鎖住主線。": {
+ "不問週日的事，也不會擋住主線。": {
   "ja": "日曜に仕事を受けなくても、メインストーリーはロックされない。",
   "en": "Skipping Sunday jobs won't lock the main story."
  },
@@ -1729,7 +1729,7 @@
   "ja": "じゃあ、麺一杯借りだ。次はこっちが出す。",
   "en": "Then I owe you a bowl of noodles. Next time, I'll treat you."
  },
- "那我記相似，不替你寫答案。": {
+ "那我只記下聲音很像，不替你寫答案。": {
   "ja": "じゃあ似ているとだけ記録する。答えは書いてやらない。",
   "en": "Then I'll record it as a resemblance and won't write the answer for you."
  },
@@ -1737,7 +1737,7 @@
   "ja": "それは帳簿用の資料ディスクだよ。天穹がどの記録を照合するかは、引き渡しボックスの検収を待つしかない。",
   "en": "That's a data disk for bookkeeping. Which entries Skydome checks depends on the handoff cabinet's acceptance."
  },
- "那段舊聲音我還沒想講，你記相似就好。": {
+ "那段舊聲音我還不想講，你記著聲音很像就好。": {
   "ja": "あの昔の声のことは、まだ話す気になれないんだ。似ているとだけ記録しておいて。",
   "en": "I'm not ready to talk about that old voice yet. Just record it as a resemblance."
  },
@@ -1813,11 +1813,11 @@
   "ja": "夕食と酒で二百だ。まずこれを精算して、明日の受領証は別に計算する。",
   "en": "Two hundred for the meal and drinks. I'll settle this tab first. Tomorrow's receipt is counted separately."
  },
- "餐酒兩百，現在不扣款、不加息，之後你可以主動付清。": {
+ "餐酒兩百，現在不扣款，也不加利息，之後你可以自己付清。": {
   "ja": "夕食と酒で二百。今は引き落とさず、利息もつけない。あとで自分から払ってくれればいい。",
   "en": "The meal and drinks come to 200. Nothing is charged now and no interest is added. You can pay it off on your own later."
  },
- "餐酒由阿梨招待，不返現金；麵免費。": {
+ "今晚的餐酒由阿梨招待，不能換成現金；麵也不收錢。": {
   "ja": "夕食と酒は梨のおごりで、現金の返却はない。麺は無料。",
   "en": "The meal and drinks are Pear's treat, with no cash refund. The noodles are free."
  },
@@ -1833,7 +1833,7 @@
   "ja": "初回の登録は通常の復元とは異なります。サービス担当者の指示に従って手続きしてください。",
   "en": "First-time registration differs from standard restoration. Please follow the instructions of the service staff."
  },
- "驗收紀錄已保存，次晨到當舖核對報酬。": {
+ "驗收紀錄已保存，請於明天早上到當舖核對報酬。": {
   "ja": "検収記録を保存しました。翌朝、質屋で報酬を照合してください。",
   "en": "Acceptance record saved. Verify the reward at the pawnshop the next morning."
  },

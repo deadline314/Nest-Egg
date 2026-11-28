@@ -343,7 +343,7 @@ def _first_clinic(scenes):
     wake["then"] = "ch1_t_clinic_tray_prompt"
     tray = scenes["ch1_t_clinic_tray_prompt"]
     choice = next(s for s in tray["steps"] if s.get("do") == "choice")
-    choice["options"].insert(1, {"id": "backup", "text": "問下次會在哪裡醒來。", "explanation": "復原點的規則，不影響建檔。",
+    choice["options"].insert(1, {"id": "backup", "text": "問下次會在哪裡醒來。", "explanation": "問復原點怎麼算，不影響這次建檔。",
                                  "target": "ch1_dispatch_clinic_backup"})
     for topic in ("ch1_t_clinic_backup_registered", "ch1_t_clinic_backup_missing"):
         scene = scenes[topic]

@@ -350,7 +350,7 @@ def _opening(source):
         ("rin", "盤放進櫃子裡，回執由我自己收著，我記住了。")),
         binding="brief", when=flag("ch1_dinner_done"), completion=(set_flag("ch1_heard_brief"),),
         staging="紙角由茶杯壓住，鷺畫回程線後收筆。茶與傘不交凜。")
-    source.add("ch1_t_egret_brief_revisit", "F01", (("egret", "上層出口接交接櫃，回執別留在櫃裡，明早還要對。"),),
+    source.add("ch1_t_egret_brief_revisit", "F01", (("egret", "從倉庫上層出口走，就會接到交接櫃。回執別留在櫃子裡，明早還要對帳。"),),
         binding="brief", when=flag("ch1_heard_brief"))
     source.add("ch1_g10_disk_unclaimed", "F02", (("lamp", "保險箱可以開了，盤還在裡面，別只顧著找上層出口。"),),
         binding="disk_pickup", mode="radio", when=all_of(flag("ch1_flood_gate_open"), negate(flag("ledger_disk_obtained"))))
@@ -370,7 +370,7 @@ def _handoff(source):
         binding="cabinet", mode="bubbles", when=item("ch1_data_disk"))
     source.add("ch1_t_handoff_confirm", "F03", (("terminal", "請確認交付資料盤，接收完成後原盤由委託方保管。"),),
         binding="cabinet", when=all_of(flag("ledger_disk_obtained"), item("ch1_data_disk"), negate(flag("ch1_disk_delivered"))),
-        options=(Option("deliver", "交付這片資料盤", "ch1_t_handoff_accept", "報酬800次晨核對；原盤交委託方保管。"),
+        options=(Option("deliver", "交付這片資料盤", "ch1_t_handoff_accept", "報酬800，隔天早上核對；原盤交給委託方保管。"),
                  Option("return", "先退出", None, "盤仍由你持有，不取得回執。")))
     source.add("ch1_t_handoff_accept", "F03", steps=[dict(do="world_action", id="handoff_insert"),
         say("terminal", "資料盤已接收，徽章與委託編號一致。驗收回執已建立。")], mode="animated",
@@ -387,9 +387,9 @@ def _handoff(source):
         when=all_of(flag("ch1_disk_delivered"), negate(flag("ch1_disk_receipt_taken"))),
         completion=(grant("ch1_delivery_receipt"), set_flag("ch1_disk_receipt_taken")),
         staging="紙捲伸出，凜取乾紙夾筆記。文件全文在背包，取紙段尾同存。")
-    source.add("ch1_t_handoff_summary_prompt", "F03", (("lamp", "紙已拿到，還有缺附件那頁可以留。"),),
+    source.add("ch1_t_handoff_summary_prompt", "F03", (("lamp", "回執拿到了。盤裡還有一頁缺附件的帳，可以留一份摘要。"),),
         binding="cabinet", when=all_of(flag("ch1_disk_receipt_taken"), negate(flag("ch1_market_summary_known"))),
-        options=(Option("save", "保留可閱覽摘要", "ch1_t_handoff_summary", "保留批號M17與待查欄位，不代表已付或待付的判決。"),
+        options=(Option("save", "保留可閱覽摘要", "ch1_t_handoff_summary", "留下批號M17和待查的欄位；這不代表已經判定付了還是欠著。"),
                  Option("return", "先退出", None, "回執保留，可以回來存摘要。")))
     source.add("ch1_t_handoff_summary", "F03", (
         ("egret", "盤裡有一筆市場修繕代收沒付款附件。明早上屋頂再談，今晚先把取盤這筆做好。"),
@@ -402,8 +402,8 @@ def _handoff(source):
         when=all_of(flag("ch1_disk_delivered"), flag("ch1_disk_receipt_taken"), negate(flag("ch1_market_summary_known"))),
         completion=(grant("ch1_market_summary"), set_flag("ch1_market_summary_known"), set_flag("ch1_handoff_done")),
         staging="只顯完整待查摘要，沒有已付120答案或父女姓名。凜按紙角收筆記。")
-    source.add("ch1_t_handoff_revisit", "F03", (("terminal", "驗收紀錄已保存，次晨到當舖核對報酬。"),
-        ("egret", "今晚交的盤不會再算第二片，剩下的是明天的紙。")), binding="cabinet", when=flag("ch1_handoff_done"))
+    source.add("ch1_t_handoff_revisit", "F03", (("terminal", "驗收紀錄已保存，請於明天早上到當舖核對報酬。"),
+        ("egret", "今晚交的盤只算一片，剩下要對的紙明天再說。")), binding="cabinet", when=flag("ch1_handoff_done"))
 
 
 def _ali_meeting(source):
@@ -438,7 +438,7 @@ def _ali_meeting(source):
         binding="ali_lounge", when=all_of(flag("ch1_handoff_done"), negate(flag("ch1_met_ali")), negate(flag("ch1_ali_reception_selected"))),
         options=(Option("order", "湯和酒我都要，合計200", "ch1_t_ali_order", "現在不扣款，離店前可付清、保留欠條或接受今晚招待。"),
                  Option("sit", "先只坐一下", "ch1_t_ali_sit", "沒有餐酒訂單，不會欠200。"),
-                 Option("return", "先返回", None, "不點餐、不扣款，可以再問。")),
+                 Option("return", "先返回", None, "不點餐也不扣款，之後還可以再問。")),
         staging="菜單先放乾桌；價格與未結帳狀態公開。阿梨不端未點餐的碗。")
     source.add("ch1_t_ali_order", "F04", (("rin", "湯和酒我都要，兩百先記這一晚。"),
         ("ali", "好，等你離店前再一起結帳。今晚的麵不另外收錢。"), ("rin", "這邊留給碗，紙不要碰到湯。")),
@@ -495,7 +495,7 @@ def _supper_choice(source):
             when=all_of(undecided, account("open200" if ordered else "none")), options=(
                 Option("leave", "結清餐酒，先回家。" if ordered else "先回家，改天再聊。",
                        "ch1_t_supper_leave_options" if ordered else "ch1_t_supper_leave_none",
-                       "確認支付200；不足可保留欠條。" if ordered else "沒有餐酒帳，不會扣款。",
+                       "確認支付200；錢不夠可以先留欠條。" if ordered else "沒有餐酒帳，不會扣款。",
                        intent=(set_flag("ch1_supper_choice", "leave"),)),
                 Option("stay", "留下來吃一碗麵。", "ch1_t_supper_host_prompt" if ordered else "ch1_t_supper_host_none_prompt",
                        "接受阿梨今晚的一份餐酒招待；麵不收錢。" if ordered else "麵由阿梨請，沒有餐酒帳。",
@@ -510,8 +510,8 @@ def _leave(source):
     source.add("ch1_t_supper_leave_options", "F07", (
         ("rin", "餐點一百二十加上酒八十，今晚一共兩百。麵我就不吃了，我想先回家。"),
         ("ali", "你不用替那碗麵留錢，我留給自己。")), binding="ali_stall", when=unpaid_leave,
-        options=(Option("pay", "確認支付200信用點", "ch1_t_supper_pay", "結清今晚餐酒並回家；不足額不扣款。"),
-                 Option("defer", "保留200欠條，先回家", "ch1_t_supper_tab_confirm", "現在不扣款、不加息；之後主動付清。"), back),
+        options=(Option("pay", "確認支付200信用點", "ch1_t_supper_pay", "結清今晚的餐酒再回家；錢不夠就不會扣款。"),
+                 Option("defer", "保留200欠條，先回家", "ch1_t_supper_tab_confirm", "現在不扣款，也不加利息，之後再自己付清。"), back),
         staging="只轉已點餐酒菜單；離開路不坐麵椅、不吃麵。")
     source.add("ch1_t_supper_pay", "F07", (("rin", "餐酒兩百，我先結這張，明天的回執另算。"),),
         binding="ali_stall", when=unpaid_leave,
@@ -524,13 +524,13 @@ def _leave(source):
     source.add("ch1_t_supper_insufficient", "F07", (
         ("rin", "我現在不夠兩百，不拿明天的錢當今天已經付了。"),
         ("ali", "那就先把帳留著，我不加利息。你也可以坐下來，今晚算我請客。")), binding="ali_stall", when=unpaid_leave,
-        options=(Option("defer", "保留200欠條，先回家。", "ch1_t_supper_tab_confirm", "現在不扣款、不加息。"),
+        options=(Option("defer", "保留200欠條，先回家。", "ch1_t_supper_tab_confirm", "現在不扣款，也不加利息。"),
                  Option("stay", "回去選留下吃麵。", "ch1_t_supper_return", "回去重新決定，尚未接受招待。"),
-                 Option("return", "先返回。", None, "維持未結帳，可再選。")))
-    source.add("ch1_t_supper_tab_confirm", "F07", (("ali", "餐酒兩百，現在不扣款、不加息，之後你可以主動付清。"),),
+                 Option("return", "先返回。", None, "帳先不結，之後可以再選。")))
+    source.add("ch1_t_supper_tab_confirm", "F07", (("ali", "餐酒兩百，現在不扣款，也不加利息，之後你可以自己付清。"),),
         binding="ali_stall", when=unpaid_leave,
         options=(Option("confirm", "確認保留200欠條", "ch1_t_supper_tab", "欠條與委託回執分開，不從720報酬自動扣。"),
-                 Option("return", "先返回", None, "不建立欠條、不扣款。")))
+                 Option("return", "先返回", None, "不寫欠條，也不扣款。")))
     source.add("ch1_t_supper_tab", "F07", (
         ("rin", "這張我自己記，不放進委託回執。"),
         ("ali", "你自己寫清楚就好，沒有復原服務替你簽這張。")), binding="ali_stall", when=unpaid_leave,
@@ -558,13 +558,13 @@ def _stay(source):
     stay = all_of(flag("ch1_supper_choice", "stay"), negate(flag("ch1_supper_done")))
     for ordered in (True, False):
         suffix = "" if ordered else "_none"
-        host_lines = (("rin", "我留下。麵是妳請，今晚那份也算妳請？"),
+        host_lines = (("rin", "那我留下來吃。麵是妳請的，今晚那份也算妳請？"),
                       ("ali", "是我自己決定的一份，今晚還沒用。你不用把明天的報酬押給我。")) if ordered else (
                       ("rin", "我留下，麵就這一碗？"), ("ali", "還有湯，你想添再跟我說。"))
         source.add(f"ch1_t_supper_host{suffix}_prompt", "F08", host_lines, binding="ali_stall",
             when=all_of(stay, account("open200" if ordered else "none"), negate(flag("ch1_supper_host_accepted"))),
             options=(Option("accept", "接受今晚的招待" if ordered else "接受這碗麵", f"ch1_t_supper_stay_host{suffix}",
-                            "餐酒由阿梨招待，不返現金；麵免費。" if ordered else "只接受麵，不生成餐酒帳。"),
+                            "今晚的餐酒由阿梨招待，不能換成現金；麵也不收錢。" if ordered else "只吃這碗麵，不會產生餐酒帳。"),
                      Option("return", "回去想一下", "ch1_t_supper_return", "尚未接受招待，可回去重新決定。", when=flag("ch1_supper_can_rechoose"))))
         completion = ((transaction("ch1.revival_meal.gift"),) if ordered else ()) + (set_flag("ch1_supper_host_accepted"),)
         source.add(f"ch1_t_supper_stay_host{suffix}", "F08", (
@@ -596,7 +596,7 @@ def _stay(source):
         staging="地圖疊加短夜話，傘移到實掛鉤、凜放筆再記地址。資訊略後地址全文可讀；只在本段尾保存。")
     source.add("ch1_t_ali_4", "F08", (("ali", "麵吃完就先回家，明天的帳留給明天。"),),
         binding="ali_stall", when=all_of(flag("ch1_supper_done"), flag("ch1_supper_choice", "stay")))
-    source.add("ch1_t_supper_stay_revisit", "F08", (("ali", "我住市集後樓三樓，外梯上去，兩下再一下；路你記著，今晚先回家。"),),
+    source.add("ch1_t_supper_stay_revisit", "F08", (("ali", "我住市集後樓三樓，從外梯上去，敲兩下再一下。路你記著，今晚先回家。"),),
         binding="ali_stall", when=all_of(flag("ch1_supper_done"), flag("knows_ali_address"), flag("ch1_supper_choice", "stay")))
 
 
@@ -669,7 +669,7 @@ def _optional(source):
     source.add("ch1_t_egret_sunday_prompt", "O01", (("egret", "我今晚有自己的事，回執明早對。"),),
         binding="brief", when=all_of(flag("ch1_heard_brief"), negate(flag("asked_egret_sunday"))),
         options=(Option("ask", "問今晚與週日的事", "ch1_t_egret_sunday", "只問她願意說的，不影響取盤差事。", intent=(set_flag("ch1_sunday_accepted"),)),
-                 Option("return", "先去做差事", None, "週日不接案不會鎖住主線。")))
+                 Option("return", "先去做差事", None, "不問週日的事，也不會擋住主線。")))
     source.add("ch1_t_egret_sunday", "O01", (
         ("rin", "妳今晚不跟去，是又接了別張差事？"),
         ("egret", "今晚去看一個人，差事明天才算。週日我也不排活。"),
@@ -709,7 +709,7 @@ def _optional(source):
                binding="umbrella_stand", mode="radio")
     source.add("ch1_t_lamp_voice_prompt", "O03", (("lamp", "耳機我還接著，你想問什麼？"),),
         binding="voice", when=all_of(flag("ch1_recording_heard"), negate(flag("ch1_lamp_voice_asked"))),
-        options=(Option("ask", "問燈為什麼像錄音", "ch1_t_lamp_voice_first", "記錄相似，不替錄音者填姓名。", intent=(set_flag("ch1_voice_accepted"),)),
+        options=(Option("ask", "問燈為什麼像錄音", "ch1_t_lamp_voice_first", "只記下聲音很像，不替錄音的人填名字。", intent=(set_flag("ch1_voice_accepted"),)),
                  Option("return", "先把路走完", None, "不影響當前主線，下次可再問。")))
     source.add("ch1_t_lamp_voice_first", "O03", (
         ("rin", "剛才錄音裡那個聲音跟你很像，你也替他們錄過？"),
@@ -720,21 +720,21 @@ def _optional(source):
     source.add("ch1_t_lamp_voice_second_prompt", "O03", (("lamp", "路線還接著，你要繼續問錄音？"),), binding="voice",
         when=all_of(flag("ch1_lamp_voice_asked"), negate(flag("sq5_lamp_voice_noticed"))),
         options=(Option("ask", "再問錄音是不是他", "ch1_t_lamp_voice_second", "他願不願意說，由他自己決定。"),
-                 Option("later", "先不問", "ch1_t_lamp_voice_later", "保留第一次問過的線索，不算第二次答完。")))
+                 Option("later", "先不問", "ch1_t_lamp_voice_later", "第一次問到的線索會留著，這次不算問完。")))
     source.add("ch1_t_lamp_voice_second", "O03", (
         ("rin", "我不是問喇叭。我想知道，說歡迎回來的人是不是你。"),
         ("lamp", "以前的聲音不一定跟現在一樣，我現在不想說這段。你可以先把路走完。"),
-        ("rin", "那我記相似，不替你寫答案。"), ("lamp", "這樣記就好，回執也別忘了。")), binding="voice",
+        ("rin", "那我只記下聲音很像，不替你寫答案。"), ("lamp", "這樣記就好，回執也別忘了。")), binding="voice",
         when=all_of(flag("ch1_lamp_voice_asked"), negate(flag("sq5_lamp_voice_noticed"))),
         completion=(set_flag("sq5_lamp_voice_noticed"),), staging="鍵聲停一拍；安全亭／診間真互動，不需要再死一次。")
     source.add("ch1_t_lamp_voice_later", "O03", (("rin", "路線先接著，我回頭再問聲音。"),
         ("lamp", "耳機我不掛，你走到下一盞燈再看。")), binding="voice", when=flag("ch1_lamp_voice_asked"))
-    source.add("ch1_t_lamp_voice_revisit", "O03", (("lamp", "那段舊聲音我還沒想講，你記相似就好。"),),
+    source.add("ch1_t_lamp_voice_revisit", "O03", (("lamp", "那段舊聲音我還不想講，你記著聲音很像就好。"),),
         binding="voice", when=flag("sq5_lamp_voice_noticed"))
     real_clinic = all_of(flag("ch1_first_clinic_active"), flag("ch1_first_death_done"), negate(item("ch1_grey_cloth")))
     source.add("ch1_t_clinic_tray_prompt", "O04", (("lamp", "裝備在臺邊，茶杯放在托盤上。你想先看看，還是離開？"),),
         binding="first_clinic", when=real_clinic,
-        options=(Option("look", "看杯邊的布角", "ch1_t_clinic_cloth_look", "查看真托盤，不在復原回放中取物。"),
+        options=(Option("look", "看杯邊的布角", "ch1_t_clinic_cloth_look", "走到臺邊看托盤上的杯子和布角。"),
                  Option("leave", "先離開診間", "ch1_t_clinic_cloth_leave", "不取布也能繼續主線。")))
     source.add("ch1_t_clinic_cloth_look", "O04", (("rin", "這杯還熱，杯邊怎麼壓了一塊布？"),
         ("lamp", "送你來的人留下的，診間的人只說他放完就走。")), binding="first_clinic", when=real_clinic,
@@ -742,8 +742,8 @@ def _optional(source):
         staging="真托盤固定、杯旁壓灰布，不穿杯底；查看段只看、不給物。")
     source.add("ch1_t_clinic_cloth_decide", "O04", (("rin", "布角沒有名字，我要收起，還是留在這裡？"),),
         binding="first_clinic", when=all_of(real_clinic, flag("ch1_grey_cloth_examined")),
-        options=(Option("take", "收起布角", "ch1_t_clinic_cloth_take", "實際挪杯收布；茶不拿走。"),
-                 Option("leave", "留在托盤", "ch1_t_clinic_cloth_leave", "不取得物品，也不完成取布節點。")))
+        options=(Option("take", "收起布角", "ch1_t_clinic_cloth_take", "把杯子挪開，收起布角；茶留在原處。"),
+                 Option("leave", "留在托盤", "ch1_t_clinic_cloth_leave", "不拿走布角，托盤保持原樣。")))
     source.add("ch1_t_clinic_cloth_take", "O04", (("rin", "布上沒有名字，我先把它收著，茶就留在這裡。"),
         ("lamp", "先讓它乾，不要跟濕紙夾一起。")), binding="first_clinic",
         when=all_of(real_clinic, flag("ch1_grey_cloth_examined")),
