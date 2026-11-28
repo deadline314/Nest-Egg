@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://game/enemies/shield_rusher.gd" id="2_behavior"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"collector_shield"
+behavior = ExtResource("2_behavior")
+display_name = "收帳人·盾手"
+attack_category = &"charge"
+hit_material = &"armor"
+body_size = Vector2(14, 44)
+color = Color(0.780, 0.440, 0.200, 1.0)
+max_health = 7
+move_speed = 30.0
+contact_damage = 1
+contact_source_id = &"collector_shield_contact"
+detect_range = 200.0
+attack_cooldown = 1.5
+telegraph_time = 0.65
+ability_speed = 280.0
+ability_time = 0.9
+ability_damage = 2
+knockback_scale = 0.2
+hurt_parts = Array[Dictionary]([{"id": "head", "bone": "head", "offset": Vector2(0, -4), "size": Vector2(9, 10), "mult": 1.5}])
+poise = 6.0
+finish_health_ratio = 0.4
+stagger_duration = 1.4
+health_drop_chance = 0.2
+rig_skin = "ch2_escort"
+rig_weapon = ""
+rig_two_handed = false
+rig_shield = true
+credit_value = 14
+rig_actions = { "windup": "collector_shield.brace", "dazed": "collector_shield.stagger_back", "skid": "collector_shield.skid" }

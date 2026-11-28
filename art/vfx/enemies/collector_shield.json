@@ -1,0 +1,92 @@
+{
+ "description": "collector_shield 的專屬特效（EnemyVfx 讀取；欄位說明見 game/enemies/enemy_vfx.gd）。每個敵人自己一份，死亡演出彼此不同。",
+ "step": {
+  "every": 18,
+  "dust": 3,
+  "spread": 34,
+  "shake": 0.5,
+  "spark": 1,
+  "spark_color": "#f0b040"
+ },
+ "hit": {
+  "color": "#f0b040",
+  "amount": 5,
+  "speed": 210,
+  "kind": "arc",
+  "light": 1.0
+ },
+ "death": {
+  "bursts": [
+   {
+    "color": "#f0b040",
+    "amount": 14,
+    "speed": 200,
+    "life": 0.4
+   },
+   {
+    "color": "#5a3a2a",
+    "amount": 8,
+    "speed": 120,
+    "life": 0.5
+   }
+  ],
+  "light": {
+   "color": "#f0b040",
+   "radius": 56,
+   "energy": 0.78,
+   "time": 0.25
+  },
+  "shake": 3.0,
+  "hitstop": 0.05,
+  "extras": [
+   "dust",
+   "arc"
+  ],
+  "dissolve": {
+   "time": 0.8,
+   "color": "#f0b040",
+   "rise": -1.0,
+   "edge": 0.1,
+   "delay": 0.35
+  },
+  "shock": {
+   "radius": 42,
+   "strength": 0.035,
+   "color": "#f0b040",
+   "time": 0.45
+  },
+  "accent": "#f0b040"
+ },
+ "states": {
+  "windup": {
+   "at": "feet",
+   "dust": 3,
+   "spread": 16,
+   "shake": 0.4
+  },
+  "charge": {
+   "at": "feet",
+   "dust": 6,
+   "spread": 50,
+   "shake": 1.2,
+   "bursts": [
+    {
+     "color": "#f0b040",
+     "amount": 6,
+     "speed": 120,
+     "life": 0.25
+    }
+   ]
+  },
+  "dazed": {
+   "bursts": [
+    {
+     "color": "#35e0ff",
+     "amount": 8,
+     "speed": 100,
+     "life": 0.4
+    }
+   ]
+  }
+ }
+}

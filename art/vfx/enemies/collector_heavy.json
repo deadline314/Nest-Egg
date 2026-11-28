@@ -1,0 +1,88 @@
+{
+ "description": "collector_heavy 的專屬特效（EnemyVfx 讀取；欄位說明見 game/enemies/enemy_vfx.gd）。每個敵人自己一份，死亡演出彼此不同。",
+ "step": {
+  "every": 26,
+  "dust": 3,
+  "spread": 30,
+  "shake": 0.9
+ },
+ "hit": {
+  "color": "#e08a3a",
+  "amount": 4,
+  "speed": 120,
+  "light": 0.6
+ },
+ "death": {
+  "bursts": [
+   {
+    "color": "#e08a3a",
+    "amount": 20,
+    "speed": 160,
+    "life": 0.55
+   },
+   {
+    "color": "#4a3a32",
+    "amount": 14,
+    "speed": 90,
+    "life": 0.7
+   }
+  ],
+  "light": {
+   "color": "#e08a3a",
+   "radius": 72,
+   "energy": 0.96,
+   "time": 0.35
+  },
+  "shake": 4.0,
+  "hitstop": 0.06,
+  "extras": [
+   "steam",
+   "dust",
+   "smoke"
+  ],
+  "dissolve": {
+   "time": 1.1,
+   "color": "#e08a3a",
+   "rise": 0.0,
+   "edge": 0.12,
+   "delay": 0.5
+  },
+  "shock": {
+   "radius": 56,
+   "strength": 0.04,
+   "color": "#e08a3a",
+   "time": 0.45
+  },
+  "accent": "#e08a3a"
+ },
+ "states": {
+  "spin_up": {
+   "at": "muzzle",
+   "bursts": [
+    {
+     "color": "#e08a3a",
+     "amount": 6,
+     "speed": 70,
+     "life": 0.4
+    }
+   ],
+   "light": {
+    "color": "#e08a3a",
+    "radius": 35,
+    "energy": 0.72,
+    "time": 0.5
+   }
+  },
+  "vent": {
+   "at": "center",
+   "steam": true,
+   "shake": 1.0,
+   "light": {
+    "color": "#ff8a30",
+    "radius": 56,
+    "energy": 0.96,
+    "time": 0.4
+   }
+  }
+ }
+}

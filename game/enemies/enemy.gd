@@ -1071,7 +1071,8 @@ func _projectile_speed_multiplier() -> float:
 	return GameState.difficulty.enemy_projectile_speed_multiplier
 
 
-func _shoot(spec: ProjectileSpec, direction: Vector2, origin := Vector2.INF) -> void:
+## flash：槍口閃光的強度；連射很快的敵人（重裝機槍手）用小一點，閃光才不會疊成一團白（NE-470）。
+func _shoot(spec: ProjectileSpec, direction: Vector2, origin := Vector2.INF, flash := 1.0) -> void:
 	if spec == null:
 		return
 	var from := _muzzle() if origin == Vector2.INF else origin
@@ -1079,8 +1080,8 @@ func _shoot(spec: ProjectileSpec, direction: Vector2, origin := Vector2.INF) -> 
 	if creature != null:
 		creature.kick()
 	if ProjectilePool.spawn(spec, from, direction, Combat.Team.ENEMY, _projectile_speed_multiplier()) != null:
-		Fx.flash_light(from, spec.color, 40.0, 0.9, 0.08)
-		Fx.flare(from, spec.color, 12.0, 0.05)
+		Fx.flash_light(from, spec.color, 40.0 * sqrt(flash), 0.9 * flash, 0.08)
+		Fx.flare(from, spec.color, 12.0 * flash, 0.05)
 		Fx.sparks(from, spec.color, 2, 220.0, 0.12, direction, 0.7, 200.0)
 		CharacterSounds.play(data.id, &"attack", -10.0)
 

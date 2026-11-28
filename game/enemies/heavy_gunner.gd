@@ -15,6 +15,10 @@ const FAST_INTERVAL := 0.08
 const AIM_TURN_SPEED := 0.75
 const MAX_AIM_OFFSET := 1.15
 const SPREAD := 0.045
+## 每發的槍口閃光強度：每秒最多十幾發，閃光要小，連起來才不會疊成一團白。
+const RAPID_FLASH := 0.4
+## 掃射時槍口火光的亮度（超過 2 左右在 Forward+ 會擴成過曝的白團）。
+const MUZZLE_GLOW := 1.5
 const VENT_DAMAGE_SCALE := 1.5
 const APPROACH_RATIO := 0.8
 const SPIN_SOUND_SLOW := 0.3
@@ -31,6 +35,8 @@ var _heat := 0.0
 var _sound_left := 0.0
 var _steam_left := 0.0
 var _armor_open := false
+## 巡邏中看到玩家、正在走近（NE-470：這時已經算發現玩家）。
+var _closing_in := false
 
 
 func _setup_states() -> void:
@@ -55,14 +61,20 @@ func is_armor_open() -> bool:
 	return _armor_open
 
 
+## 看到玩家、正在走近時也算交戰（戰鬥配樂、「不被發現」挑戰）：走近的那段還在巡邏狀態裡。
+func is_engaged() -> bool:
+	return super.is_engaged() or (_closing_in and fsm.is_in(&"patrol"))
+
+
 func _on_stunned() -> void:
 	if fsm.is_in(&"spin_up") or fsm.is_in(&"fire"):
 		fsm.transition(&"vent")
 
 
-## 正面裝甲：面向側來的攻擊被擋下；槍管過熱、暈眩時裝甲打開。爆炸與終結技本來就無視（bypass_guard）。
+## 正面裝甲：面向側來的攻擊被擋下（資料可關掉）；槍管過熱、暈眩時裝甲打開。爆炸與終結技本來就無視（bypass_guard）。
 func _guard(info: DamageInfo) -> Hurtbox.Guard:
-	if _armor_open or is_stunned():
+	# 沒穿裝甲的變體（例如收帳人·重槍手，behavior_params.front_armor = false）正面也打得進去。
+	if _armor_open or is_stunned() or not bool(data.behavior_params.get("front_armor", true)):
 		return Hurtbox.Guard.NONE
 	var from_x := info.origin.x - global_position.x
 	if info.origin == Vector2.ZERO and info.knockback.x != 0.0:
@@ -83,7 +95,8 @@ func _patrol_tick(delta: float) -> void:
 	_cooldown = maxf(0.0, _cooldown - delta)
 	_spin = move_toward(_spin, 0.0, 2.0 * delta)
 	_heat = move_toward(_heat, 0.0, 0.6 * delta)
-	if not _can_see_target(data.detect_range, 90.0):
+	_closing_in = _can_see_target(data.detect_range, 90.0)
+	if not _closing_in:
 		_patrol(data.move_speed)
 		return
 	_face_target()
@@ -129,7 +142,7 @@ func _fire_tick(delta: float) -> void:
 	if _fire_left <= 0.0 and _has_line_of_sight():
 		_fire_left = FAST_INTERVAL + (SLOW_INTERVAL - FAST_INTERVAL) * (1.0 - _fire_progress())
 		var spread := Vector2.RIGHT.rotated(_aim.angle() + randf_range(-SPREAD, SPREAD))
-		_shoot(data.projectile, spread)
+		_shoot(data.projectile, spread, Vector2.INF, RAPID_FLASH)
 		shots_fired += 1
 	_heat = _fire_progress()
 	if fsm.time_in_state >= data.ability_time:
@@ -194,7 +207,8 @@ func _draw_overlay() -> void:
 	var muzzle := to_local(_muzzle())
 	if _spin > 0.02:
 		# 槍管旋轉：槍口前三條轉動的短線與光環，轉速越高越亮越密。
-		var color := LightKit.glow(Palette.MAGENTA, 1.2 + 2.0 * _spin)
+		# 顏色跟著自己的子彈（天穹是洋紅、收帳人是橘色）；亮度上限壓在不會過曝的範圍。
+		var color := LightKit.glow(_ring_color(), 1.0 + 0.8 * _spin)
 		var turn := _anim_time * (10.0 + 50.0 * _spin)
 		for i in 3:
 			var angle := turn + TAU * float(i) / 3.0
@@ -202,17 +216,22 @@ func _draw_overlay() -> void:
 			draw_line(muzzle + offset + Vector2(-facing * 10.0, 0), muzzle + offset, Color(color, 0.55 + 0.4 * _spin), 1.0)
 		draw_arc(muzzle, 5.0 + 3.0 * _spin, 0.0, TAU, 14, Color(color, 0.5 + 0.4 * _spin), 1.5)
 	if fsm.is_in(&"fire"):
-		draw_circle(muzzle + _aim * 4.0, 3.0 + 2.0 * randf(), LightKit.glow(Color(1.0, 0.8, 0.5), 3.0))
+		# 槍口火光與過熱光疊在同一點：亮度壓在泛光不會擴成一團白的範圍（NE-470）。
+		draw_circle(muzzle + _aim * 4.0, 2.5 + 1.5 * randf(), LightKit.glow(Color(1.0, 0.8, 0.5), MUZZLE_GLOW))
 	if _heat > 0.02:
 		# 過熱：槍口與胸口隨熱度由洋紅轉橘紅再轉白熱。
 		var hot := Palette.MAGENTA.lerp(Color(1.0, 0.45, 0.1), clampf(_heat * 1.5, 0.0, 1.0)).lerp(Color(1.0, 0.95, 0.8), clampf(_heat * 3.0 - 2.0, 0.0, 1.0))
-		draw_circle(muzzle, 4.0 + 3.0 * _heat, Color(LightKit.glow(hot, 2.0 + 2.0 * _heat), 0.6))
+		draw_circle(muzzle, 3.0 + 2.0 * _heat, Color(LightKit.glow(hot, 1.2 + 0.6 * _heat), 0.5))
 	if _armor_open:
 		# 裝甲打開：胸口噴出橘色的散熱光，提示現在打得進去。
 		var vent := LightKit.glow(Color(1.0, 0.5, 0.15), 3.0 + 0.8 * sin(_anim_time * 18.0))
 		var chest := Vector2(0.0, -data.body_size.y * 0.55)
 		draw_line(chest + Vector2(-5, -4), chest + Vector2(5, -4), vent, 2.0)
 		draw_line(chest + Vector2(-5, 2), chest + Vector2(5, 2), vent, 2.0)
+
+
+func _ring_color() -> Color:
+	return data.projectile.color if data.projectile != null else Palette.MAGENTA
 
 
 func _draw_body(color: Color) -> void:

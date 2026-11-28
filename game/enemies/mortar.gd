@@ -2,13 +2,20 @@ extends Enemy
 ## 迫擊兵（拋射範圍）
 ## 行為：從遠處拋射砲彈，砲彈飛行期間地面會顯示「落點警示圈」；玩家太近時會後退拉開距離。
 ## 應對：看到警示圈就離開；最有效的打法是貼近壓制（近距離牠無法開砲，只能後退）。
+## 察覺（NE-470）：要先看到玩家才會開砲（蒸汽、射暗的燈、誘餌收音機、牆都算數）；看到之後的幾秒內，
+##       玩家躲到掩體後面牠還是會越過掩體拋過去，逼玩家換位置。沒看過玩家就不開砲，也不會後退。
 
 const RETREAT_TIME := 0.7
 const MARKER_RADIUS := 22.0
+## 看到玩家之後記得多久（秒）：這段時間內玩家躲到掩體後也照樣拋射。
+const AWARE_TIME := 4.0
+## 察覺玩家時可以接受的高度差（拋射可以打上下層）。
+const SIGHT_HEIGHT := 200.0
 
 var _landing := Vector2.ZERO
 var _marker_left := 0.0
 var _cooldown := 0.8
+var _aware_left := 0.0
 
 
 func _setup_states() -> void:
@@ -20,6 +27,12 @@ func _setup_states() -> void:
 
 func _on_stunned() -> void:
 	fsm.transition(&"idle")
+
+
+## 被打就知道玩家在哪。
+func _on_hit(info: DamageInfo) -> void:
+	super._on_hit(info)
+	_aware_left = AWARE_TIME
 
 
 func _physics_process(delta: float) -> void:
@@ -38,13 +51,28 @@ func _min_range() -> float:
 	return data.ability_radius
 
 
+## 目前知道玩家在哪（最近看過玩家）。
+func is_aware() -> bool:
+	return _aware_left > 0.0
+
+
+func is_engaged() -> bool:
+	return super.is_engaged() or is_aware()
+
+
 func _idle_tick(delta: float) -> void:
 	velocity.x = move_toward(velocity.x, 0.0, 400.0 * delta)
 	_cooldown = maxf(0.0, _cooldown - delta)
+	if _can_see_target(data.attack_range, SIGHT_HEIGHT):
+		_aware_left = AWARE_TIME
+	else:
+		_aware_left = maxf(0.0, _aware_left - delta)
+	if not is_aware() or _target() == null:
+		return
 	var distance := _distance_to_target()
-	if distance < _min_range() and _target() != null:
+	if distance < _min_range():
 		fsm.transition(&"retreat")
-	elif _cooldown <= 0.0 and _token_free() and distance <= data.attack_range and _target() != null:
+	elif _cooldown <= 0.0 and _token_free() and distance <= data.attack_range:
 		fsm.transition(&"aim")
 
 

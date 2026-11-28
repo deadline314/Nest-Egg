@@ -177,6 +177,16 @@
   "ch2_escort": {
    "extends": "humanoid"
   },
+  "collector_heavy": {
+   "attack": [
+    "shot_enemy_heavy",
+    "shot_enemy"
+   ],
+   "extends": "humanoid"
+  },
+  "collector_shield": {
+   "extends": "humanoid"
+  },
   "ch2_bill_thrower": {
    "extends": "humanoid"
   },

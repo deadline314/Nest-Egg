@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://game/enemies/heavy_gunner.gd" id="2_behavior"]
+[ext_resource type="Resource" path="res://data/projectiles/collector_heavy_shot.tres" id="3_proj"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"collector_heavy"
+behavior = ExtResource("2_behavior")
+projectile = ExtResource("3_proj")
+display_name = "收帳人·重槍手"
+attack_category = &"ranged"
+hit_material = &"flesh"
+body_size = Vector2(16, 46)
+color = Color(0.850, 0.470, 0.220, 1.0)
+max_health = 12
+move_speed = 22.0
+contact_damage = 1
+contact_source_id = &"collector_heavy_contact"
+detect_range = 300.0
+attack_range = 280.0
+attack_cooldown = 2.4
+telegraph_time = 1.1
+ability_speed = 2.0
+ability_time = 2.2
+behavior_params = {
+"front_armor": false
+}
+knockback_scale = 0.1
+hurt_parts = Array[Dictionary]([{"id": "head", "bone": "head", "offset": Vector2(0, -4), "size": Vector2(9, 10), "mult": 1.5}])
+poise = 9.0
+finish_health_ratio = 0.3
+stagger_duration = 1.5
+health_drop_chance = 0.3
+rig_skin = "collector_brute"
+rig_weapon = "minigun"
+credit_value = 26
+rig_actions = { "spin_up": "collector_heavy.brace", "vent": "collector_heavy.vent" }
