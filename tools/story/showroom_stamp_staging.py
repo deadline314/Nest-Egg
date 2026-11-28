@@ -8,6 +8,8 @@ STAGE = "ch3_showroom_reception"
 FLOOR = 285
 SHOT = (325, 247, 1.25)
 RIN_SCALE = 2.19
+# 林與凜站在同一條地面線上：林的身高是凜的 0.89 倍，和看房的兩段（晨光、午後窗邊）一致（NE-496）。
+LIN_SCALE = 2.06
 DESK_SCALE = 34.5 * RIN_SCALE / 276
 DESK_POS = [300, FLOOR - 276 * DESK_SCALE]
 TABLE_Y = DESK_POS[1] + 95 * DESK_SCALE
@@ -52,7 +54,7 @@ def steps() -> list[dict]:
     return [
         stage(STAGE, *SHOT, fade_in=0.25, feet=FLOOR),
         actor("rin", "rin", 267, FLOOR, facing=1, scale=RIN_SCALE),
-        actor("lin", "lin", 351, FLOOR, facing=-1, scale=2.22),
+        actor("lin", "lin", 351, FLOOR, facing=-1, scale=LIN_SCALE),
         dict(touch, space="prop", prop=STAMP, to=STAMP_GRIP),
         dict(do="prop_hold", id=STAMP, actor="lin", hand="front", point=STAMP_GRIP),
         dict(touch, to=HOVER),

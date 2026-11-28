@@ -69,6 +69,15 @@ func run() -> void:
 			await _world_text_contrast()
 			await finish()
 			return
+		if arg.begins_with("--part=scenes@"):
+			# --part=scenes@<id>,<id>@<標籤>：每段過場播到第一句台詞後拍一張（總檢第 21 項與後續修正的修前修後）。
+			Story.auto_skip = false
+			await _open(STALL)
+			await wait(2.0)
+			for scene_id: String in arg.get_slice("@", 1).split(","):
+				await _say_frame(StringName(scene_id), arg.get_slice("@", 2), 1)
+			await finish()
+			return
 		if arg.begins_with("--part=choice"):
 			Story.auto_skip = false
 			await _open(STALL)
@@ -427,6 +436,30 @@ func _world_text(tag: String) -> void:
 		capture("world-text-%s-%s" % [tag, area[0]])
 		while host.is_busy():
 			await wait(0.2)
+
+
+## 播一段過場，第 nth 句台詞完整顯示後拍一張，然後跳過。
+func _say_frame(scene_id: StringName, tag: String, nth: int) -> void:
+	Story.skip_cinematic()
+	await wait(0.5)
+	var cutscene := CutscenePlayer.new()
+	add_child(cutscene)
+	cutscene.play(scene_id, Story._scenes[String(scene_id)])
+	var seen := 0
+	for i in 1500:
+		if not is_instance_valid(cutscene):
+			break
+		if cutscene._dialogue.is_complete():
+			seen += 1
+			if seen >= nth:
+				break
+			cutscene._advance_requested = true
+			await get_tree().process_frame
+		await get_tree().process_frame
+	await wait(0.8)
+	capture("scene-%s-%s" % [tag, scene_id])
+	if is_instance_valid(cutscene):
+		cutscene.skip()
 
 
 ## 過場的選擇框不蓋住講者（NE-492）：播麵攤的招待選擇，台詞自動往下，選擇框出現後拍一張。
