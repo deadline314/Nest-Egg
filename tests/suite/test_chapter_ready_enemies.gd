@@ -10,6 +10,7 @@ const SNIPER := "res://data/enemies/sniper.tres"
 const MORTAR := "res://data/enemies/mortar.tres"
 const COLLECTOR_HEAVY := "res://data/enemies/collector_heavy.tres"
 const COLLECTOR_SHIELD := "res://data/enemies/collector_shield.tres"
+const CALLER := "res://data/enemies/collector_caller.tres"
 
 
 func run() -> void:
@@ -22,6 +23,10 @@ func run() -> void:
 	await _test_charge_stops_at_live_water()
 	await _test_charge_into_obstacle_dazes()
 	await _test_riot_shield_is_shown()
+	check_enemy_data([CALLER], [&"collector_caller_contact"])
+	await _test_caller_brings_backup()
+	await _test_caller_call_breaks_out_of_sight()
+	await _test_caller_call_breaks_on_stun()
 	await check_defeatable_on_every_difficulty([COLLECTOR_HEAVY, COLLECTOR_SHIELD])
 
 
@@ -182,4 +187,96 @@ func _test_riot_shield_is_shown() -> void:
 		for child in shield.get_children():
 			lit = lit or (child is CanvasItem and (child as CanvasItem).visible)
 	check(shield != null and not lit, "a dazed riot officer's shield lamps go dark")
+	await end_level(level)
+
+
+# ---------------------------------------------------------------------------
+# 收帳人·聯絡員（NE-476）
+# ---------------------------------------------------------------------------
+
+## 等聯絡員開始講話；逾時回傳 false。玩家每格放回原位。
+func _await_call(caller: Enemy, player_tile: float, frames: int) -> bool:
+	for i in frames:
+		await physics_frames(1)
+		place_player(player_tile)
+		if caller.fsm.is_in(&"call"):
+			return true
+	return false
+
+
+## 一直看得到玩家：講完就在自己背後叫出兩名增援，之後保持距離、不再叫第二次。
+func _test_caller_brings_backup() -> void:
+	await open_level(10.0)
+	var caller := spawn(CALLER, 22.0)
+	var started := await _await_call(caller, 10.0, 120)
+	check(started, "the lookout picks up the handset when it sees the player")
+	check(caller.is_engaged(), "a lookout on the handset counts as having spotted the player")
+	var call_frames := int(60.0 * float(caller.data.behavior_params.get("call_time", 2.0)) * GameState.difficulty.enemy_cooldown_multiplier) + 30
+	var marked := false
+	for i in call_frames:
+		await physics_frames(1)
+		place_player(10.0)
+		marked = marked or not (caller.get("call_spots") as Array).is_empty()
+		if int(caller.get("calls_made")) > 0:
+			break
+	await physics_frames(3)
+	check(marked, "the arrival spots are marked on the floor before backup arrives")
+	check(int(caller.get("calls_made")) == 1 and caller.call("alive_summons") == 2, "a finished call brings two reinforcements")
+	var behind := true
+	for node in level.get_tree().get_nodes_in_group(&"enemies"):
+		var enemy := node as Enemy
+		if enemy != null and enemy != caller and enemy.data.id == caller.data.summon.id:
+			behind = behind and enemy.global_position.x > caller.global_position.x
+	check(behind, "the reinforcements arrive on the lookout's far side, away from the player")
+	for i in 60 * 10:
+		await physics_frames(1)
+		place_player(10.0)
+		if caller.fsm.is_in(&"call"):
+			break
+	check(not caller.fsm.is_in(&"call") and int(caller.get("calls_made")) == 1, "the lookout calls only once")
+	await end_level(level)
+
+
+## 講到一半玩家躲到牆後或蒸汽後：回報斷掉，沒有增援。
+func _test_caller_call_breaks_out_of_sight() -> void:
+	await open_level(36.0)
+	var caller := spawn(CALLER, 44.0)
+	check(await _await_call(caller, 36.0, 120), "the lookout starts a call (wall test)")
+	for i in 20:
+		await physics_frames(1)
+		place_player(36.0)
+	for i in 200:
+		await physics_frames(1)
+		place_player(25.0)
+	check(int(caller.get("calls_made")) == 0 and caller.call("alive_summons") == 0, "hiding behind a wall mid-call cuts the call: no backup")
+	await end_level(level)
+	await open_level(10.0)
+	caller = spawn(CALLER, 22.0)
+	check(await _await_call(caller, 10.0, 120), "the lookout starts a call (steam test)")
+	var steam := StaticBody2D.new()
+	steam.collision_layer = Layers.SCREEN
+	steam.collision_mask = 0
+	var shape := CollisionShape2D.new()
+	shape.shape = RectangleShape2D.new()
+	(shape.shape as RectangleShape2D).size = Vector2(16.0, 120.0)
+	steam.add_child(shape)
+	steam.position = Vector2(16.0 * 16.0, FLOOR_Y - 60.0)
+	level._entities.add_child(steam)
+	for i in 200:
+		await physics_frames(1)
+		place_player(10.0)
+	check(int(caller.get("calls_made")) == 0 and caller.call("alive_summons") == 0, "steam between the lookout and the player cuts the call")
+	await end_level(level)
+
+
+## 講到一半被打暈：回報斷掉。
+func _test_caller_call_breaks_on_stun() -> void:
+	await open_level(10.0)
+	var caller := spawn(CALLER, 22.0)
+	check(await _await_call(caller, 10.0, 120), "the lookout starts a call (stun test)")
+	caller.stun(0.6)
+	for i in 160:
+		await physics_frames(1)
+		place_player(30.0)
+	check(int(caller.get("calls_made")) == 0 and caller.call("alive_summons") == 0, "stunning the lookout mid-call cuts the call")
 	await end_level(level)

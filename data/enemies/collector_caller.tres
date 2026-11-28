@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://game/enemies/caller.gd" id="2_behavior"]
+[ext_resource type="Resource" path="res://data/enemies/ch2_escort.tres" id="3_summon"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"collector_caller"
+behavior = ExtResource("2_behavior")
+summon = ExtResource("3_summon")
+display_name = "收帳人·聯絡員"
+attack_category = &"support"
+hit_material = &"flesh"
+relaxed_states = PackedStringArray("patrol", "keep_away")
+body_size = Vector2(14, 44)
+color = Color(0.900, 0.560, 0.260, 1.0)
+max_health = 4
+move_speed = 34.0
+contact_damage = 1
+contact_source_id = &"collector_caller_contact"
+detect_range = 240.0
+attack_cooldown = 8.0
+telegraph_time = 2.0
+behavior_params = {
+"call_time": 2.0,
+"count": 2,
+"max_calls": 1
+}
+knockback_scale = 0.4
+hurt_parts = Array[Dictionary]([{"id": "head", "bone": "head", "offset": Vector2(0, -4), "size": Vector2(9, 10), "mult": 1.5}])
+finish_health_ratio = 0.5
+stagger_duration = 1.4
+health_drop_chance = 0.15
+credit_value = 10
+rig_skin = "collector_gunner"
+rig_weapon = "handset"
+rig_two_handed = false
+rig_actions = { "call": "collector_caller.call" }
