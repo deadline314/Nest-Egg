@@ -47,6 +47,7 @@ func run() -> void:
 	await _test_area_challenge()
 	await _test_unseen_challenge()
 	await _test_crate_cover()
+	await _test_timed_challenge()
 
 
 func _test_mechanism_translations() -> void:
@@ -1132,3 +1133,58 @@ func _test_crate_cover() -> void:
 	await physics_frames(2)
 	check(CoverSpots.is_empty(), "a removed crate no longer counts as cover")
 	await end_level(level)
+
+
+## 「限時抵達」挑戰（NE-418）：越過起點才開始倒數，頭頂出現倒數；時間內到終點就完成並給一次獎勵，時間到就失敗、不給獎勵；
+## 回到檢查點就回到還沒開始。
+func _test_timed_challenge() -> void:
+	var relay := load("res://data/levels/ch4_factory_relay.tres") as LevelData
+	check(relay != null and relay.challenges.size() == 1 and relay.challenges[0].kind == AreaChallengeData.Kind.TIMED_REACH and relay.challenges[0].validate().is_empty(),
+			"the chapter 4 relay has a valid timed challenge")
+	var backwards := AreaChallengeData.new()
+	backwards.kind = AreaChallengeData.Kind.TIMED_REACH
+	backwards.start_cell_x = 20
+	backwards.finish_cell_x = 10
+	check("".join(backwards.validate()).contains("起點"), "a timed challenge whose finish is not past its start is reported")
+	for in_time: bool in [true, false]:
+		var challenge_data := AreaChallengeData.new()
+		challenge_data.id = &"test_timed"
+		challenge_data.kind = AreaChallengeData.Kind.TIMED_REACH
+		challenge_data.reward_credits = 20
+		challenge_data.start_cell_x = 6
+		challenge_data.finish_cell_x = 24
+		challenge_data.time_limit = 5.0
+		challenge_data.goal = "測試"
+		challenge_data.localized_goals = {"en": "test", "ja": "テスト"}
+		var data := LevelData.new()
+		data.id = &"timed_challenge_test"
+		data.layout_path = SUSPENDED_MAP
+		data.challenges = [challenge_data]
+		var level := await start_level(data)
+		var challenge := runner.get_tree().get_nodes_in_group(AreaChallenge.GROUP)[0] as AreaChallenge
+		var player := level.player
+		player.set_physics_process(false)
+		var credits_before := Progression.credits
+		var y := player.global_position.y
+		player.global_position = Vector2(3.0 * 16.0, y)
+		await physics_frames(10)
+		check(challenge.time_left < 0.0 and challenge._clock == null, "the clock does not run before the start line")
+		player.global_position = Vector2(8.0 * 16.0, y)
+		await physics_frames(3)
+		check(challenge.time_left > 4.5 and challenge.time_left <= 5.0 and challenge._clock != null and challenge._clock.text.contains("5"),
+				"crossing the start line starts the countdown above the player (%.2f s, %s)" % [challenge.time_left, challenge._clock.text if challenge._clock != null else "no clock"])
+		if in_time:
+			player.global_position = Vector2(25.0 * 16.0, y)
+			await physics_frames(3)
+			check(challenge.done and Progression.credits == credits_before + 20, "reaching the finish in time completes the challenge and pays once")
+			await physics_frames(2)
+			check(challenge._clock == null, "the clock is removed once the challenge is done")
+		else:
+			await runner.get_tree().create_timer(challenge_data.time_limit + 0.3).timeout
+			player.global_position = Vector2(25.0 * 16.0, y)
+			await physics_frames(3)
+			check(challenge.failed and not challenge.done and Progression.credits == credits_before and challenge._clock == null,
+					"running out of time fails the challenge, pays nothing and removes the clock")
+			challenge.restore_state({"progress": 0, "done": false, "failed": false})
+			check(not challenge.failed and challenge.time_left < 0.0 and challenge.is_physics_processing(), "an earlier checkpoint resets the timer to not started")
+		await end_level(level)

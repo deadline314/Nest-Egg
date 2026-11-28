@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=14 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=16 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Resource" path="res://data/enemies/slasher.tres" id="2_slasher"]
@@ -10,6 +10,8 @@
 [ext_resource type="Resource" path="res://data/environment/themes/ch4_factory_relay.tres" id="8_ch4_factory_relay"]
 [ext_resource type="Resource" path="res://data/props/conveyor.tres" id="9_conveyor"]
 [ext_resource type="Resource" path="res://data/props/live_cable.tres" id="10_live_cable"]
+[ext_resource type="Script" path="res://data/scripts/area_challenge_data.gd" id="11_challenge_script"]
+[ext_resource type="Resource" path="res://data/challenges/ch4_factory_relay_timed.tres" id="12_challenge"]
 
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("5_portal_data")
@@ -64,3 +66,4 @@ layout_path = "res://data/levels/ch4_factory_relay_map.json"
 lighting_zones = Array[ExtResource("6_lighting_zone")]([SubResource("Resource_2")])
 story_triggers = PackedStringArray()
 death_credit_cap = 250
+challenges = Array[ExtResource("11_challenge_script")]([ExtResource("12_challenge")])

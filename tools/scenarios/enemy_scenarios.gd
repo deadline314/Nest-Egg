@@ -34,6 +34,7 @@ const SCENARIOS := {
 	"mechanic_placements": "res://tools/scenarios/mechanic_placements_scenario.gd",
 	"hazard_avoidance": "res://tools/scenarios/hazard_avoidance_scenario.gd",
 	"crate_cover": "res://tools/scenarios/crate_cover_scenario.gd",
+	"timed_challenge": "res://tools/scenarios/timed_challenge_scenario.gd",
 	"steam_push": "res://tools/scenarios/steam_push_scenario.gd",
 	"area_challenge": "res://tools/scenarios/area_challenge_scenario.gd",
 	"unseen_challenge": "res://tools/scenarios/unseen_challenge_scenario.gd",

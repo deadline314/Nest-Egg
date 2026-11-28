@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="AreaChallengeData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/area_challenge_data.gd" id="1_challenge"]
+
+[resource]
+script = ExtResource("1_challenge")
+id = &"ch4_factory_relay_timed"
+kind = 2
+target = 1
+reward_credits = 50
+finish_cell_x = 89
+start_cell_x = 10
+time_limit = 14.0
+goal = "越過起點後 14 秒內抵達出口"
+localized_goals = Dictionary[String, String]({
+"en": "Reach the exit within 14 seconds of crossing the start",
+"ja": "スタートを越えてから 14 秒以内に出口へ"
+})
