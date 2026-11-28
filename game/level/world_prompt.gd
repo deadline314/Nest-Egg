@@ -47,6 +47,9 @@ const TOKEN_PATTERN := "\\{([a-z_0-9]+)\\}"
 		_refresh_text()
 
 var enabled := true
+## 這個提示是不是「在講話」的文字（教學看板）：是的話要和氣泡輪流，只在拿到發言時展開（TextTraffic，NE-491）。
+## 按鍵邀請（互動提示）維持 NONE，永遠可以顯示。
+var voice: int = TextTraffic.Voice.NONE
 ## 提示出現的條件。物件有自己的「按互動鍵有效」判斷時指定它（看到提示就一定按得動）；
 ## 沒指定就用「玩家在 radius 內」。
 var reach_check: Callable
@@ -100,6 +103,7 @@ func _ready() -> void:
 
 func _exit_tree() -> void:
 	PromptLayout.unregister(self)
+	TextTraffic.release(self)
 
 
 func _refresh_text() -> void:
@@ -247,7 +251,13 @@ func _player_near() -> bool:
 		return false
 	var in_reach: bool = reach_check.call() if reach_check.is_valid() \
 			else player != null and player.global_position.distance_to(global_position - offset) <= radius
-	return in_reach and (not is_instance_valid(interaction_owner) or Story.framing.is_interaction_prompt_target(interaction_owner))
+	var wants := in_reach and (not is_instance_valid(interaction_owner) or Story.framing.is_interaction_prompt_target(interaction_owner))
+	if voice == TextTraffic.Voice.NONE:
+		return wants
+	if not wants:
+		TextTraffic.release(self)
+		return false
+	return TextTraffic.claim(self, voice)
 
 
 func _interaction_superseded() -> bool:

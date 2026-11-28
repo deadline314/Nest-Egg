@@ -61,11 +61,14 @@ func _test_wrapped_bubble_bounds() -> void:
 	host._active[0]["age"] = host._active[0]["hold"]
 	host.show_lines(&"test_other_bubble", [{"speaker": "other", "text": "先趁熱吃，吃完以後我們再慢慢談明天的事情。"}])
 	host._process(0.0)
+	# 同屏一個氣泡（NE-491）：下一位講者等前一句淡完才出現，兩個氣泡不會同時在畫面上。
+	check(host._active.size() == 1, "the next speaker waits while the previous bubble fades (%d on screen)" % host._active.size())
+	host._process(MapBubbles.FADE_OUT + 0.05)
 	await frames(1)
 	PromptLayout.update()
-	var first: Rect2 = host._active[0].get("rect", Rect2())
-	var second: Rect2 = host._active[1].get("rect", Rect2())
-	check(first.has_area() and second.has_area() and not first.intersects(second), "adjacent speakers keep both simultaneous bubbles separate")
+	var next_rect: Rect2 = host._active[0].get("rect", Rect2()) if host._active.size() == 1 else Rect2()
+	check(host._active.size() == 1 and str(host._active[0]["text"]).begins_with("先趁熱吃") and next_rect.has_area()
+		and not next_rect.intersects(Rect2(prompt.base_rect().position + prompt._nudge, prompt.base_rect().size)), "the adjacent speaker's line follows alone and avoids the invitation")
 	# Reserve the viewport explicitly. A fixed zoom cannot guarantee saturation
 	# across fonts because both bubbles and the invitation reflow.
 	var obstruction := Node2D.new()

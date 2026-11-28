@@ -20,6 +20,8 @@ func run() -> void:
 	await _test_covered_screens()
 	await _test_end_card_handoff()
 	_test_place_names_are_places()
+	_test_text_traffic_order()
+	await _test_text_traffic_scene()
 	await _test_level_entry()
 
 
@@ -366,3 +368,74 @@ func _test_place_names_are_places() -> void:
 			if titles.has(name) or pattern.search(name) != null:
 				wrong.append("%s：%s" % [path, name])
 	check(wrong.is_empty(), "區域名稱都是地點，不是章節標題（%s）" % ", ".join(wrong))
+
+## 文字的交通管制（NE-491）：優先順序高的先講，同樣高時先來的保留；不講了就交出去。
+func _test_text_traffic_order() -> void:
+	TextTraffic.reset()
+	var board := RefCounted.new()
+	var ambient := RefCounted.new()
+	var addressed := RefCounted.new()
+	check(TextTraffic.claim(board, TextTraffic.Voice.BOARD), "只有看板要講時看板拿到發言")
+	check(TextTraffic.claim(ambient, TextTraffic.Voice.AMBIENT) and TextTraffic.speaker() == ambient.get_instance_id(), "閒聊優先於看板")
+	TextTraffic.claim(addressed, TextTraffic.Voice.ADDRESSED)
+	check(TextTraffic.speaker() == addressed.get_instance_id(), "對主角說的話優先於閒聊")
+	TextTraffic.release(addressed)
+	TextTraffic.release(ambient)
+	check(TextTraffic.speaker() == board.get_instance_id(), "其他人講完後看板拿回發言")
+	var other_board := RefCounted.new()
+	TextTraffic.claim(other_board, TextTraffic.Voice.BOARD)
+	check(TextTraffic.speaker() == board.get_instance_id(), "同樣優先時先來的保留發言，不會互搶")
+	TextTraffic.reset()
+	check(TextTraffic.claim(null, TextTraffic.Voice.NONE), "不是講話的文字（互動提示）永遠可以顯示")
+
+
+## 看板、互動提示、路人氣泡同時在場：氣泡在講的時候看板只亮螢幕不展開；展開的文字塊最多兩塊（互動提示＋一個講話的）且互不重疊。
+func _test_text_traffic_scene() -> void:
+	TextTraffic.reset()
+	var holder := Node2D.new()
+	runner.add_child(holder)
+	var speaker := Node2D.new()
+	speaker.position = Vector2(220, 260)
+	holder.add_child(speaker)
+	var interaction := WorldPrompt.new()
+	interaction.text = "{interact} 和發傳單的人說話"
+	interaction.reach_check = func() -> bool: return true
+	interaction.position = Vector2(200, 230)
+	holder.add_child(interaction)
+	var board := WorldPrompt.new()
+	board.text = "街角的巷子裡有電話亭，先去備份。"
+	board.voice = TextTraffic.Voice.BOARD
+	board.reach_check = func() -> bool: return true
+	board.position = Vector2(150, 250)
+	holder.add_child(board)
+	var bubbles := MapBubbles.new()
+	bubbles.anchor_resolver = func(_speaker: String) -> Node2D: return speaker
+	holder.add_child(bubbles)
+	var lines: Array[Dictionary] = [{"speaker": "street_vendor", "text": "市集那頭被收帳的封了，菜車只好繞去碼頭。", "color": Palette.UI_TEXT}]
+	bubbles.show_lines(&"traffic_fixture", lines)
+	for i in 20:
+		await frames(1)
+	var shown: Array[Rect2] = []
+	for prompt: WorldPrompt in [interaction, board]:
+		if prompt.is_showing() and prompt._alpha > 0.0:
+			shown.append(Rect2(prompt.base_rect().position + prompt._nudge, prompt.base_rect().size))
+	for bubble: Dictionary in bubbles._active:
+		var rect: Rect2 = bubble.get("rect", Rect2())
+		if rect.has_area():
+			shown.append(rect)
+	check(not board.is_showing() or board._alpha <= 0.0, "氣泡在講的時候看板不展開文字")
+	check(shown.size() <= 2, "同一格展開的文字塊最多兩塊（%d）" % shown.size())
+	var overlap := false
+	for i in shown.size():
+		for j in range(i + 1, shown.size()):
+			overlap = overlap or shown[i].intersects(shown[j])
+	check(not overlap, "展開的文字塊互不重疊：%s" % [shown])
+	# 氣泡講完後看板拿回發言並展開。
+	var deadline := MapBubbles.HOLD_MAX + MapBubbles.FADE_OUT + 1.0
+	await runner.get_tree().create_timer(deadline).timeout
+	for i in 20:
+		await frames(1)
+	check(board.is_showing() and board._alpha > 0.0, "氣泡講完後看板展開")
+	holder.queue_free()
+	await frames(2)
+	TextTraffic.reset()

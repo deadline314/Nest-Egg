@@ -33,6 +33,22 @@ func run() -> void:
 			await _death_frames()
 			await finish()
 			return
+		if arg.begins_with("--part=street-text"):
+			Story.auto_skip = false
+			GameState.pending_portal = &"street_home"
+			await _open(STREET)
+			await wait(4.0)
+			await _street_text(arg.get_slice("@", 1) if arg.contains("@") else "before")
+			await finish()
+			return
+		if arg == "--part=bubble-styles":
+			Story.auto_skip = true
+			GameState.pending_portal = &"street_home"
+			await _open(STREET)
+			await wait(5.0)
+			await _bubble_styles()
+			await finish()
+			return
 		if arg == "--part=transitions":
 			Story.auto_skip = true
 			await _open(PAWNSHOP)
@@ -206,6 +222,49 @@ func _death_frames() -> void:
 		if done[0]:
 			break
 		await get_tree().process_frame
+
+
+## 文字的交通管制（NE-491）：港區街道，主角從入口慢慢走過 x27 一帶，讓街坊聊天、互動提示、教學看板自然出現；
+## 每走一小段停一下拍一格（共 16 格），看得出文字依序出現而不是同時擠上來。
+func _street_text(tag: String) -> void:
+	player.health.setup(999, 0.0)
+	for i in 16:
+		Input.action_press(&"move_right")
+		await wait(0.25)
+		Input.action_release(&"move_right")
+		await wait(0.35)
+		capture("street-text-%s-%02d" % [tag, i])
+
+
+## 氣泡的兩種樣子（NE-491）：路人自己的閒聊（小、淡）與對凜說的話（左邊講者顏色的細軌）。
+func _bubble_styles() -> void:
+	player.health.setup(999, 0.0)
+	var npcs: Array[Node2D] = []
+	for node in get_tree().get_nodes_in_group(NpcActor.GROUP):
+		if node is Node2D:
+			npcs.append(node)
+	npcs.sort_custom(func(a: Node2D, b: Node2D) -> bool: return a.global_position.x < b.global_position.x)
+	if npcs.is_empty():
+		print("AUDIT no npc in street")
+		return
+	var vendor: Node2D = npcs[0]
+	player.global_position = vendor.global_position + Vector2(-150.0, 0.0)
+	snap_camera()
+	await wait(1.0)
+	var host: MapBubbles = null
+	for node in level.find_children("*", "", true, false):
+		if node is MapBubbles:
+			host = node
+	host.anchor_resolver = func(id: String) -> Node2D: return player if id == "rin" else vendor
+	var chatter: Array[Dictionary] = [{"speaker": "street_vendor", "text": "市集那頭被收帳的封了，菜車只好繞去碼頭。", "color": Palette.UI_TEXT}]
+	host.show_lines(&"style_ambient", chatter)
+	await wait(1.0)
+	capture("bubble-ambient")
+	await wait(4.5)
+	var talk: Array[Dictionary] = [{"speaker": "street_vendor", "text": "妳也是來找收帳的人？他早上往碼頭走了。", "color": Palette.NEON_YELLOW}, {"speaker": "rin", "text": "謝了，我自己去看看。", "color": Palette.MAGENTA}]
+	host.show_lines(&"style_addressed", talk)
+	await wait(1.0)
+	capture("bubble-addressed")
 
 
 ## 遊戲流程的三種轉場用途（NE-427）：各拍蓋住一半、完全蓋住、揭開一半。

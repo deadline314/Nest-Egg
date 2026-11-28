@@ -31,6 +31,8 @@ func _ready() -> void:
 	var prompt := WorldPrompt.new()
 	# 教學看板教的是「按哪個鍵」：佔位符畫成按鍵帽，鍵鼠與手把各自顯示目前的綁定。
 	prompt.keycaps = true
+	# 看板是優先順序最低的「講話」：有人在講話（氣泡）時先只亮著螢幕，輪到它才展開文字（NE-491）。
+	prompt.voice = TextTraffic.Voice.BOARD
 	prompt.text = localized_text(text, Story.language)
 	prompt.radius = 64.0
 	prompt.offset = Vector2(0, -30)
