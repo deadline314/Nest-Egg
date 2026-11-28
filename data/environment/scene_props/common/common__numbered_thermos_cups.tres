@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"common__numbered_thermos_cups"
+display_name = "貼編號的保溫杯"
+texture = "res://art/environment/scene_props/common/common__numbered_thermos_cups.png"
+size = Vector2(12.9, 8.1)
+category = &"scene"

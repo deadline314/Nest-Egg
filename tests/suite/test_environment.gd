@@ -34,6 +34,7 @@ func run() -> void:
 	await _test_ground_section()
 	_test_color_script()
 	_test_story_times()
+	_test_common_props()
 	_test_fixture_art()
 	await preload("res://tests/helpers/scene_lighting_checks.gd").run(self)
 	await _test_training_art()
@@ -2564,6 +2565,18 @@ func _test_color_script() -> void:
 
 ## 光影符合劇情時段（BG-79）：色彩腳本每區的時段和故事線的時段表一致（表改了這裡會提醒）；
 ## 白天室外的天空比夜晚室外亮、白天室外的場景燈很弱；夜景的主光一定是燈或月光，燈的主光附近一定有燈，光暈與光柱在上限內。
+## BG-80：共用小物件包每一區都找得到（主題不用列它），包裡的擺設都有圖與法線。
+func _test_common_props() -> void:
+	var common := PropLibrary.all(EnvironmentTheme.COMMON_PROP_DIR)
+	check(common.size() >= 6, "the shared small-props pack has the story props (%d)" % common.size())
+	for prop in common:
+		check(str(prop.id).begins_with("common__"), "%s in the shared pack uses the common__ prefix" % prop.id)
+		check(ResourceLoader.exists(prop.texture) and ResourceLoader.exists(prop.texture.trim_suffix(".png") + "_n.png"), "%s has its picture and normal map" % prop.id)
+	var theme := load("res://data/environment/themes/ch4_pawnshop.tres") as EnvironmentTheme
+	check(not theme.extra_prop_dirs.has(EnvironmentTheme.COMMON_PROP_DIR), "ch4_pawnshop does not list the shared pack itself")
+	check(PropLibrary.find_in(&"common__register_note", theme.prop_dirs()) != null, "an area finds a shared-pack prop without listing the pack")
+
+
 func _test_story_times() -> void:
 	ColorScript.reload()
 	var table := _story_time_table()
@@ -2605,7 +2618,7 @@ func _test_story_times() -> void:
 			check(false, "%s: an outdoor day area uses skylight, not a key light" % id)
 	check(day_sky > night_sky, "outdoor day skies are brighter than outdoor night skies (darkest day %.2f, brightest night %.2f)" % [day_sky, night_sky])
 	# 燈的主光：光暈太大、光柱斜而長都不收。
-	var oversize := KeyLightData.parse({"source": "lamp", "x": 1, "y": 1, "halo_radius": 300, "shafts": {"count": 5, "angle": 30, "length": 400}}, "test")
+	var oversize := KeyLightData.parse({"source": "lamp", "x": 1, "y": 1, "halo_radius": 300, "shafts": {"count": 5, "angle": 30, "length": 400}}, "test_key_light_bad_lamp")
 	check(oversize == null, "a lamp key light with a sky-sized halo and long slanted shafts is refused")
 
 

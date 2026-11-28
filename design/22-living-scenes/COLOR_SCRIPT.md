@@ -25,6 +25,8 @@
 
 時段只改 `outdoor_zones` 列出的區段（室外）；室內的暖燈區段不動（當舖店裡）。只有白天的室外區域換成灰色的天空貼圖；同一區有日有夜的（第二章屋頂、當舖）用藍灰的霧天，夜裡維持暗。
 
+別的系統（天氣、音效）要知道某區的時段與燈：時段讀 `ColorScript.time_for(區域 id)`（已套用 `time_after` 的劇情旗標；所有可能的時段用 `times_of`），燈的強度讀 `ColorScript.time_preset(時段)` 的 `lamp_power`／`neon`，某個區段算不算室外用 `ColorScript.is_outdoor(區域 id, 區段 id)`；原始資料在 `data/environment/color_script.json`。
+
 遠景層之間的霧色原本固定是洋紅，現在跟著區段的霧色（也就是色彩腳本與時段），白天與青綠色調的區域不再被染成紫。
 
 ## 各章的情緒

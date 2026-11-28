@@ -172,17 +172,19 @@ StoryLint 全部通過；以下是掃描工具列出、讀起來仍然卡的地�
 
 擺設只能從該區主題的擺設包裡挑（PropLibrary 只找那幾個資料夾），所以跨包沿用要由畫面線在主題裡加；故事線沒有自己換。
 
+紙張、杯碗、紙箱、便條這類小東西放在共用小物件包（`common__…`，BG-80），每一區都找得到，地圖直接寫 id、不用改主題；下表原本「要新做」的六件（加泵房的值班表）都在這個包裡，擺進地圖由地圖線寫進產生器。
+
 | 票 | 區域與位置 | 它是什麼 | 大約大小（世界像素） | 放在 | 狀態會變嗎 | 現在的圖 |
 |---|---|---|---|---|---|---|
 | ST-60 | ch2_harbor_street，第 37 欄 | 早報報架 | — | 地面 | 不變 | 有：`anchor_phone_booth__news_rack` |
 | ST-61 | ch3_plaza，第 26 欄 | 廣場公告欄（下面釘著手寫紙） | — | 地面立架 | 貨梯通電後多一行鉛筆字 | 有：`harbor_plaza__notice_board_plaza`；鉛筆字那一行只在文字裡，不必畫 |
-| ST-61 | ch3_pump，第 72 欄 | 值班櫃上貼的值班表 | 約 10×14 的紙 | 櫃門（牆邊） | 排水後最後一格多日期 | 有：`sluice_hall__maintenance_locker`；表本身沒畫，可補一張貼在櫃門上的紙 |
-| ST-61 | ch3_clinic 備品間，第 99 欄 | 床邊櫃裡一列貼編號的保溫杯 | 杯子各約 4×8 | 床邊櫃上 | 月報對出來後紙條多一行 | 有：`nursing_ward__bedside_locker`；**要新做**：櫃上一排三四個保溫杯 |
-| ST-61 | ch3_office_hall 空調維修廊，第 24 欄、第 13 列 | 空調維修口與貼著的工作單 | 維修口約 20×14 | 維修廊的牆／天花板 | 不變 | **要新做**：小的空調維修口（室內，有格柵），旁邊貼一張紙 |
-| ST-62 | ch1_stall 鐵皮棚，第 41 欄、第 12 列 | 缺口的碗（碗底剩一點湯），旁邊鐵皮上的粉筆字 | 碗約 12×7 | 鐵皮棚頂（平台） | 不變 | **要新做擺設資料**：圖可沿用 `art/environment/scene_props/ali_kitchen_contacts/bowl.png`（現在只給阿梨家洗碗動作用，沒有擺設資料）；粉筆字可只在文字裡。棚下第 36 欄已有 `dawn_noodle_stall__cat_box_bed` |
-| ST-63 | ch4_pawnshop，第 52 欄 | 櫃台收銀機上的便條 | 約 8×10 | 櫃台（`pawnshop_front__counter_register` 頂面，高 36） | 不變 | **要新做**：一張小紙條；第三章包裡的 `clearwater__sun_chart_notes`（9.6×13.5）大小合適，但不在當舖的擺設包裡 |
-| ST-63 | ch4_revival_lounge，第 50 欄 | 衣帽架旁的失物招領紙箱（手套、耳機、票根） | 約 24×16 | 地面 | 不變 | **要新做**：寫著「失物招領」的紙箱；第一章的 `dawn_noodle_stall__cat_box_bed`（26×15）是貓窩，不適合 |
-| ST-64 | ch2_ledger_front 北棟前室裂縫牆後的暗櫃，第 59 欄 | 一疊沒寄出去的催收單（最上面一張有鉛筆字） | 約 16×6 | 暗櫃地面 | 不變 | **要新做**：一疊紙（旁邊已有錢袋擺設） |
+| ST-61 | ch3_pump，第 72 欄 | 值班櫃上貼的值班表 | 約 10×14 的紙 | 櫃門（牆邊） | 排水後最後一格多日期 | 有：`sluice_hall__maintenance_locker`；櫃門上的紙 `common__taped_duty_roster`（BG-80，最後一列空白；擺放項目在 `tools/scenarios/story_props_scenario.gd` 的 PLACEMENTS） |
+| ST-61 | ch3_clinic 備品間，第 99 欄 | 床邊櫃裡一列貼編號的保溫杯 | 杯子各約 4×8 | 床邊櫃上 | 月報對出來後紙條多一行 | 有：`nursing_ward__bedside_locker` 加櫃上的 `common__numbered_thermos_cups`（BG-80，四個貼 1～4 號的杯子；擺放項目在 `tools/scenarios/story_props_scenario.gd` 的 PLACEMENTS） |
+| ST-61 | ch3_office_hall 空調維修廊，第 24 欄、第 13 列 | 空調維修口與貼著的工作單 | 維修口約 20×14 | 維修廊的牆／天花板 | 不變 | 有：`common__ac_service_hatch`（BG-80，格柵維修口與貼著的工作單，掛在牆上；擺放項目在 `tools/scenarios/story_props_scenario.gd` 的 PLACEMENTS） |
+| ST-62 | ch1_stall 鐵皮棚，第 41 欄、第 12 列 | 缺口的碗（碗底剩一點湯），旁邊鐵皮上的粉筆字 | 碗約 12×7 | 鐵皮棚頂（平台） | 不變 | 有：`common__chipped_bowl`（BG-80，新畫的缺口碗、碗底一點湯；擺放項目在 `tools/scenarios/story_props_scenario.gd` 的 PLACEMENTS）；粉筆字只在文字裡。棚下第 36 欄已有 `dawn_noodle_stall__cat_box_bed` |
+| ST-63 | ch4_pawnshop，第 52 欄 | 櫃台收銀機上的便條 | 約 8×10 | 櫃台（`pawnshop_front__counter_register` 頂面，高 36） | 不變 | 有：`common__register_note`（BG-80，收銀機右邊立著的黃便條；擺放項目在 `tools/scenarios/story_props_scenario.gd` 的 PLACEMENTS） |
+| ST-63 | ch4_revival_lounge，第 50 欄 | 衣帽架旁的失物招領紙箱（手套、耳機、票根） | 約 24×16 | 地面 | 不變 | 有：`common__lost_and_found_box`（BG-80，箱面寫「失物招領」，露出手套、耳機、票根；擺放項目在 `tools/scenarios/story_props_scenario.gd` 的 PLACEMENTS） |
+| ST-64 | ch2_ledger_front 北棟前室裂縫牆後的暗櫃，第 59 欄 | 一疊沒寄出去的催收單（最上面一張有鉛筆字） | 約 16×6 | 暗櫃地面 | 不變 | 有：`common__unsent_dunning_letters`（BG-80，綁紅色橡皮筋的一疊；擺放項目在 `tools/scenarios/story_props_scenario.gd` 的 PLACEMENTS） |
 | ST-63 | ch4_nursing_ward 備品頂架，第 52 欄、第 11 列 | 收藏文件「病房的交班便條」 | — | 架上 | 撿起後消失 | 有：收藏文件的拾取圖示 |
 | ST-63 | ch4_factory_roof 維修平台，第 44 欄 | 收藏文件「冷氣主機的保養卡」 | — | 平台上 | 撿起後消失 | 有：收藏文件的拾取圖示；平台旁若有冷氣主機會更對得上（可選） |
 

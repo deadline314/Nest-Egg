@@ -126,7 +126,7 @@ def _start(*flags: str) -> None:
         raise ComfyStalled(f"Cannot start a local ComfyUI for remote endpoint {HOST}; start that server on its host.")
     cmd = ["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", str(START_SCRIPT),
            "-Port", str(endpoint.port or 8188), *flags]
-    r = subprocess.run(cmd, capture_output=True, text=True)
+    r = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace")  # PowerShell may print in the system code page
     out = (r.stdout + r.stderr).strip()
     if r.returncode != 0:
         raise ComfyStalled(f"start_comfyui.ps1 {' '.join(flags)} failed (exit {r.returncode}): {out[-600:]}")
@@ -180,7 +180,7 @@ def server_pid() -> int | None:
     port = HOST.rsplit(":", 1)[-1]
     r = subprocess.run(["powershell", "-NoProfile", "-Command",
                         f"(Get-NetTCPConnection -LocalPort {port} -State Listen -ErrorAction SilentlyContinue | Select-Object -First 1).OwningProcess"],
-                       capture_output=True, text=True)
+                       capture_output=True, text=True, encoding="utf-8", errors="replace")
     return int(r.stdout.strip()) if r.stdout.strip().isdigit() else None
 
 

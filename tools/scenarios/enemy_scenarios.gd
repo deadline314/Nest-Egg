@@ -23,6 +23,7 @@ const SCENARIOS := {
 	"color_script": "res://tools/scenarios/color_script_scenario.gd",
 	"gameplay_colors": "res://tools/scenarios/gameplay_colors_scenario.gd",
 	"key_light_readability": "res://tools/scenarios/key_light_readability_scenario.gd",
+	"story_props": "res://tools/scenarios/story_props_scenario.gd",
 	"collage_ui": "res://tools/scenarios/collage_ui_scenario.gd",
 	"backdrop_drift": "res://tools/scenarios/backdrop_drift_scenario.gd",
 	"ui_motion": "res://tools/scenarios/ui_motion_scenario.gd",

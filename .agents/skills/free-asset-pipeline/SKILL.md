@@ -221,6 +221,7 @@ BG-47 補入三態破壞物、升降平台與電源開關：`cel_fixtures.py --o
 |---|---|
 | 背景圖（1536×864 WebP，亮點另存 `_glow.webp`；已畫好光影，所以只乘光影預設的背景色調，不再乘環境光） | `art/environment/scenes/<場景 id>.webp`，清單 `assets_src/pipeline/scene_bgs.json`（`python tools/assets/qwen_scenes.py --pipeline scene_bgs`） |
 | 專屬物件（`<場景 id>__<物件名>`，與共用道具同樣有 `_n` 與 `_glow`） | `art/environment/scene_props/<場景 id>/`，資料 `data/environment/scene_props/<場景 id>/*.tres`，清單 `assets_src/pipeline/scene_props.json`（`python tools/assets/qwen_props.py --pipeline scene_props`） |
+| 共用小物件包（`common__<物件名>`：紙張、杯碗、紙箱、便條這類到處都會有的小東西，BG-80） | `art/environment/scene_props/common/`，資料 `data/environment/scene_props/common/`；每一區都找得到（`EnvironmentTheme.prop_dirs()` 最後一個資料夾），地圖直接寫 id，不用改主題；清單同上（`"scene": "common"`） |
 
 - 新增場景：在兩份清單各加項目（提示詞、種子、`fit`／`height_m`、`normal` 輪廓），生成後 `godot --headless --editor --quit` 匯入。素材量有獨立上限（`check_assets.py`：共用 60 MB、場景包 160 MB）。
 - 預覽：`screenshot.tscn -- --out=<資料夾> --scenario=scene_packs [--scene=<id>] [--lighting=<預設 id>]`，每個場景一張，並印出物件數與缺圖清單。

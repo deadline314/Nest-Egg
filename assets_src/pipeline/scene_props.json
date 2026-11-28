@@ -12392,6 +12392,152 @@
      "soft": 1.2
     }
    ]
+  },
+  {
+   "id": "common__numbered_thermos_cups",
+   "scene": "common",
+   "seed": 2611,
+   "fit": "meters",
+   "style": "dark_text",
+   "texture_scale": 16,
+   "prompt": "A row of four small stainless steel thermos cups standing side by side seen from the front, each cup with a strip of white masking tape hand-numbered 1, 2, 3 and 4 in black marker, lids in slightly different faded colours (grey, pale blue, faded red, cream), one cup with a small dent, proportions about five wide to two tall.",
+   "anchor": {
+    "size": [
+     18.0,
+     8.0
+    ]
+   },
+   "height_m": 0.27,
+   "new": {
+    "display_name": "貼編號的保溫杯",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "common__ac_service_hatch",
+   "scene": "common",
+   "seed": 7342,
+   "fit": "meters",
+   "style": "dark_text",
+   "texture_scale": 12,
+   "prompt": "A small indoor air-conditioning service hatch set in a wall seen straight from the front: an off-white painted square metal frame with four corner screws and a louvred grille of horizontal slats, a little dust under the slats, and beside it on the right a sheet of paper work order stuck on with masking tape at the corners, printed header, a few handwritten lines and a column of tick boxes, proportions about two wide to one tall.",
+   "anchor": {
+    "size": [
+     30.0,
+     14.0
+    ]
+   },
+   "height_m": 0.47,
+   "new": {
+    "display_name": "空調維修口與工作單",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "common__chipped_bowl",
+   "scene": "common",
+   "seed": 4120,
+   "fit": "meters",
+   "style": "dark",
+   "texture_scale": 16,
+   "prompt": "A plain white ceramic soup bowl seen from the front with a small V-shaped chip broken out of the rim on the left, a thin blue line painted around the rim, a little cloudy soup left at the bottom visible over the rim, faint stains, proportions about two wide to one tall.",
+   "anchor": {
+    "size": [
+     12.0,
+     7.0
+    ]
+   },
+   "height_m": 0.23,
+   "new": {
+    "display_name": "缺口的碗",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "common__register_note",
+   "scene": "common",
+   "seed": 8146,
+   "fit": "meters",
+   "style": "day_text",
+   "texture_scale": 16,
+   "prompt": "A yellow sticky note seen straight from the front, three short lines of small Chinese handwriting in blue ballpoint pen, the bottom corner slightly curled up, proportions about four wide to five tall.",
+   "anchor": {
+    "size": [
+     8.0,
+     10.0
+    ]
+   },
+   "height_m": 0.33,
+   "new": {
+    "display_name": "收銀機上的便條",
+    "category": "scene"
+   },
+   "crop": [
+    0.17,
+    0.105,
+    0.855,
+    0.825
+   ]
+  },
+  {
+   "id": "common__lost_and_found_box",
+   "scene": "common",
+   "seed": 6904,
+   "fit": "meters",
+   "style": "dark_text",
+   "texture_scale": 14,
+   "prompt": "An open brown cardboard box seen from the front with the Chinese words 失物招領 written in thick black marker on the front side, over the open top a pair of knitted grey gloves, a pair of white earphones with a tangled cord and a few paper ticket stubs sticking out, worn packing tape on the edges, proportions about three wide to two tall.",
+   "anchor": {
+    "size": [
+     24.0,
+     16.0
+    ]
+   },
+   "height_m": 0.53,
+   "new": {
+    "display_name": "失物招領紙箱",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "common__unsent_dunning_letters",
+   "scene": "common",
+   "seed": 3377,
+   "fit": "meters",
+   "style": "dark_text",
+   "texture_scale": 16,
+   "prompt": "A neat stack of about twenty unsent payment demand letters lying flat seen from the front, plain white envelopes and folded paper notices with slightly yellowed edges, a red rubber band around the stack, the top sheet has a red stamped header block and a faint pencil note, proportions about eight wide to three tall.",
+   "anchor": {
+    "size": [
+     16.0,
+     6.0
+    ]
+   },
+   "height_m": 0.2,
+   "new": {
+    "display_name": "沒寄出去的催收單",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "common__taped_duty_roster",
+   "scene": "common",
+   "seed": 9215,
+   "fit": "meters",
+   "style": "dark_text",
+   "texture_scale": 16,
+   "prompt": "A sheet of paper duty roster seen straight from the front, stuck on with masking tape at the four corners, a hand-drawn grid table with a header row, short names and ticks in the cells, the last row still blank, slightly wrinkled from damp, proportions about five wide to seven tall.",
+   "anchor": {
+    "size": [
+     10.0,
+     14.0
+    ]
+   },
+   "height_m": 0.47,
+   "new": {
+    "display_name": "貼在櫃門上的值班表",
+    "category": "scene"
+   }
   }
  ]
 }

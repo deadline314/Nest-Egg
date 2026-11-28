@@ -49,8 +49,14 @@ func validate() -> PackedStringArray:
 	return problems
 
 
-## 道具搜尋順序：主資料夾加額外資料夾。
+## 各區都找得到的共用小物件包（紙張、杯碗、紙箱、便條）；id 以 common__ 開頭。
+const COMMON_PROP_DIR := "res://data/environment/scene_props/common"
+
+
+## 道具搜尋順序：主資料夾、額外資料夾，最後是共用小物件包。
 func prop_dirs() -> PackedStringArray:
 	var dirs := PackedStringArray([prop_dir])
 	dirs.append_array(extra_prop_dirs)
+	if not dirs.has(COMMON_PROP_DIR):
+		dirs.append(COMMON_PROP_DIR)
 	return dirs
