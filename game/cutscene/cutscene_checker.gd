@@ -343,7 +343,8 @@ static func staging_problems(scene_id: String, scene: Dictionary) -> PackedStrin
 
 ## 觀眾會停下來看的每一步（台詞、等待、旁白、選項、標題，以及最後一步）當下的鏡頭與在場演員。
 ## 依序追蹤鏡頭（scene、camera 步驟的 pos／zoom）與每個演員的位置（actor、move）、身高與姿勢。
-## 回傳 [{index, kind, step, cam, zoom, actors: [{id, feet, tall}]}]；tall 是含縮放與姿勢的舞台身高，頭像剪影為 0。
+## 回傳 [{index, kind, step, cam, zoom, actors: [{id, feet, tall, facing, rig, scale}]}]；tall 是含縮放與姿勢的舞台身高，頭像剪影為 0；
+## facing 是面向（1 右、-1 左，actor 的 facing、face 的 dir、move 往哪走）。
 static func settled_states(scene: Dictionary) -> Array[Dictionary]:
 	var states: Array[Dictionary] = []
 	var steps: Variant = scene.get("steps", [])
@@ -355,6 +356,9 @@ static func settled_states(scene: Dictionary) -> Array[Dictionary]:
 	# 每個演員站立時的身高（舞台像素，已乘縮放）與目前的姿勢；沒有骨架的演員（頭像剪影）不檢查頭頂。
 	var heights: Dictionary[String, float] = {}
 	var poses: Dictionary[String, String] = {}
+	var facings: Dictionary[String, int] = {}
+	var rigs: Dictionary[String, String] = {}
+	var scales: Dictionary[String, float] = {}
 	var stage_floor := NAN
 	var art := TextBoxPlacement.DEFAULT_ART
 	var index := 0
@@ -374,6 +378,11 @@ static func settled_states(scene: Dictionary) -> Array[Dictionary]:
 					feet.clear()
 					heights.clear()
 					poses.clear()
+					# 沒寫鏡頭時播放器用舞台設定的預設鏡頭（StageLibrary 的 camera）。
+					if StageLibrary.exists(stage_id):
+						var stage_cam: Dictionary = StageLibrary.definition(stage_id).get("camera", {})
+						cam = StageLayers.vec2_of(stage_cam.get("pos"), STAGE_SIZE * 0.5)
+						zoom = float(stage_cam.get("zoom", 1.0))
 				if (step as Dictionary).has("pos"):
 					cam = StageLayers.vec2_of(step["pos"])
 				if (step as Dictionary).has("zoom"):
@@ -386,9 +395,18 @@ static func settled_states(scene: Dictionary) -> Array[Dictionary]:
 				var has_rig := not rig_kind.is_empty() and FileAccess.file_exists(RigLibrary.CHARACTER_PATH % rig_kind)
 				heights[actor_id] = RigLibrary.standing_height(rig_kind) * float(step.get("scale", 2.0)) if has_rig else 0.0
 				poses[actor_id] = str(step.get("pose", "idle"))
+				facings[actor_id] = 1 if int(step.get("facing", 1)) >= 0 else -1
+				rigs[actor_id] = rig_kind
+				scales[actor_id] = float(step.get("scale", 2.0))
+			"face":
+				if feet.has(str(step.get("id", ""))):
+					facings[str(step["id"])] = 1 if int(step.get("dir", 1)) >= 0 else -1
 			"move":
 				if feet.has(str(step.get("id", ""))):
-					feet[str(step["id"])] = StageLayers.vec2_of(step.get("to"))
+					var target := StageLayers.vec2_of(step.get("to"))
+					if absf(target.x - feet[str(step["id"])].x) > 0.5:
+						facings[str(step["id"])] = 1 if target.x > feet[str(step["id"])].x else -1
+					feet[str(step["id"])] = target
 					poses[str(step["id"])] = str(step.get("then", step.get("pose", poses.get(str(step["id"]), "idle"))))
 			"pose":
 				var posed := str(step.get("id", ""))
@@ -405,7 +423,8 @@ static func settled_states(scene: Dictionary) -> Array[Dictionary]:
 			continue
 		var actors: Array[Dictionary] = []
 		for id: String in feet:
-			actors.append({"id": id, "feet": feet[id], "tall": float(heights.get(id, 0.0)) * float(POSE_HEIGHT.get(poses.get(id, "idle"), 1.0))})
+			actors.append({"id": id, "feet": feet[id], "tall": float(heights.get(id, 0.0)) * float(POSE_HEIGHT.get(poses.get(id, "idle"), 1.0)),
+					"facing": facings.get(id, 1), "rig": rigs.get(id, ""), "scale": scales.get(id, 2.0), "pose": poses.get(id, "idle")})
 		states.append({"index": index, "kind": kind, "step": step, "cam": cam, "zoom": zoom, "actors": actors, "art": art})
 	return states
 
