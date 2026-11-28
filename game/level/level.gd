@@ -1077,7 +1077,8 @@ func _spawn_challenges() -> void:
 static func _is_prop_resource(resource: Resource) -> bool:
 	return resource is BreakableData or resource is MechanismData or resource is CreditPileData \
 			or resource is ShopData or resource is NpcData or resource is PortalData or resource is ThrowableData or resource is TrainingData \
-			or resource is SuspendedLoadData or resource is SteamValveData or resource is LiveCableData or resource is ConveyorData or resource is DecoyRadioData
+			or resource is SuspendedLoadData or resource is SteamValveData or resource is LiveCableData or resource is ConveyorData or resource is DecoyRadioData \
+			or resource is CrumblingWalkwayData
 
 
 ## 生成物在本區域裡固定的鍵（資源 id 加格座標）；地圖資料改版後對不上的鍵會被忽略。
@@ -1139,6 +1140,16 @@ func _create_prop(spawn: Dictionary) -> Node2D:
 		var belt := Conveyor.new()
 		belt.configure(belt_data, cell, _layout.tile_size)
 		return belt
+	if resource is CrumblingWalkwayData:
+		var walkway_data := resource as CrumblingWalkwayData
+		var walkway_problems := walkway_data.validate()
+		for problem in walkway_problems:
+			push_error("[Level] %s（格 %s）" % [problem, cell])
+		if not walkway_problems.is_empty():
+			return null
+		var walkway := CrumblingWalkway.new()
+		walkway.configure(walkway_data, cell, _layout.tile_size)
+		return walkway
 	if resource is SteamValveData:
 		var valve_data := resource as SteamValveData
 		for problem in valve_data.validate():

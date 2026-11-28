@@ -32,6 +32,7 @@ const SCENARIOS := {
 	"shootable_lamp": "res://tools/scenarios/shootable_lamp_scenario.gd",
 	"live_cable": "res://tools/scenarios/live_cable_scenario.gd",
 	"conveyor": "res://tools/scenarios/conveyor_scenario.gd",
+	"crumbling_walkway": "res://tools/scenarios/crumbling_walkway_scenario.gd",
 	"decoy_radio": "res://tools/scenarios/decoy_radio_scenario.gd",
 	"mechanic_placements": "res://tools/scenarios/mechanic_placements_scenario.gd",
 	"hazard_avoidance": "res://tools/scenarios/hazard_avoidance_scenario.gd",

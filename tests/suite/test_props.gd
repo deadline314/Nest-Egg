@@ -23,6 +23,8 @@ const CONVEYOR_PATH := "res://data/props/conveyor.tres"
 const CONVEYOR_MAP := "res://tests/fixtures/conveyor_map.json"
 const RADIO_PATH := "res://data/props/decoy_radio.tres"
 const RADIO_MAP := "res://tests/fixtures/decoy_radio_map.json"
+const WALKWAY_PATH := "res://data/props/crumbling_walkway.tres"
+const WALKWAY_MAP := "res://tests/fixtures/crumbling_walkway_map.json"
 
 
 func run() -> void:
@@ -41,6 +43,7 @@ func run() -> void:
 	await _test_live_cable()
 	await _test_conveyor()
 	await _test_decoy_radio()
+	await _test_crumbling_walkway()
 	_test_mechanic_placements()
 	await _test_hazard_avoidance()
 	await _test_steam_blocks_sight()
@@ -777,6 +780,127 @@ func _test_conveyor() -> void:
 	await end_level(level)
 
 
+## 會塌的走道：站上去的那一片抖一下就掉、一路跑過去就不會掉；敵人站上去也一樣；空出來之後補回（有人在上方時先不補）；
+## 重來（檢查點重建）時一律完整；「減少介面動態」時不抖但照樣會塌。
+func _test_crumbling_walkway() -> void:
+	var walkway_data := load(WALKWAY_PATH) as CrumblingWalkwayData
+	check(walkway_data != null and walkway_data.validate().is_empty(), "the crumbling walkway data is valid: %s" % [walkway_data.validate() if walkway_data != null else ["missing"]])
+	if walkway_data == null:
+		return
+	check(not walkway_data.hint_for("en").is_empty() and not walkway_data.hint_for("ja").is_empty(), "the walkway hint is available in all three languages")
+	var bad := CrumblingWalkwayData.new()
+	bad.length_tiles = 1
+	bad.warn_seconds = NAN
+	bad.hint = "x"
+	check(bad.validate().size() >= 3, "a too-short walkway, broken timing or a missing translation is reported: %s" % [bad.validate()])
+	check(walkway_data.segment_count() == ceili(float(walkway_data.length_tiles) / float(walkway_data.segment_tiles)), "the walkway is split into pieces of the given length")
+
+	var data := LevelData.new()
+	data.id = &"crumbling_walkway_test"
+	data.layout_path = WALKWAY_MAP
+	data.legend = {"K": walkway_data}
+	var level := await start_level(data)
+	var walkways := _find_all(level, CrumblingWalkway)
+	check(walkways.size() == 1, "the map character spawns one crumbling walkway")
+	if walkways.is_empty():
+		await end_level(level)
+		return
+	var walkway := walkways[0] as CrumblingWalkway
+	var player := level.player
+	player.health.setup(999, 0.0)
+	var first := walkway.segment_rect(0)
+	check(is_equal_approx(first.position.x, 10.0 * 16.0) and is_equal_approx(walkway.deck_top(), 15.0 * 16.0), "the deck starts at the left edge of its cell, level with the top of that cell: %s" % first)
+	var top := walkway.deck_top()
+
+	# 站著不動：那一片先預警（還站得住），過了預警時間掉下去，人跟著掉。
+	var stand := walkway.segment_rect(3)
+	player.global_position = Vector2(stand.get_center().x, top)
+	player.velocity = Vector2.ZERO
+	await physics_frames(6)
+	check(walkway.segment_state(3) == CrumblingWalkway.Piece.WARNING and absf(player.global_position.y - top) < 2.0, "the piece under a standing player warns first and still holds: state %d, feet %.1f" % [walkway.segment_state(3), player.global_position.y])
+	check(walkway.segment_state(2) == CrumblingWalkway.Piece.INTACT and walkway.segment_state(4) == CrumblingWalkway.Piece.INTACT, "only the piece being stood on crumbles")
+	await physics_frames(int(walkway_data.warn_seconds * 60.0) + 20)
+	check(walkway.segment_state(3) == CrumblingWalkway.Piece.FALLEN, "the piece falls after the warning time")
+	check(player.global_position.y > top + 24.0, "a player who stays still falls with it: feet %.1f, deck %.1f" % [player.global_position.y, top])
+
+	# 補回：上方有人時先不補，人離開才補；補回後又站得住。
+	player.set_physics_process(false)
+	player.global_position = Vector2(stand.get_center().x, top - 20.0)
+	await physics_frames(int(walkway_data.respawn_seconds * 60.0) + 20)
+	check(walkway.segment_state(3) == CrumblingWalkway.Piece.FALLEN, "a fallen piece does not return while someone is right above it")
+	player.global_position = Vector2(stand.get_center().x, top + 60.0)
+	await physics_frames(30)
+	check(walkway.is_solid(3), "the piece returns once the space above it is clear")
+	await physics_frames(int(CrumblingWalkway.RETURN_SECONDS * 60.0) + 4)
+	check(walkway.segment_state(3) == CrumblingWalkway.Piece.INTACT, "the returned piece is whole again")
+	player.set_physics_process(true)
+
+	# 一路往右跑：從左邊的平台跑到右邊的平台，不會掉下去；走過的片在身後一片片塌掉。
+	player.global_position = Vector2(4.0 * 16.0, top)
+	player.velocity = Vector2.ZERO
+	await physics_frames(4)
+	var fell := [0]
+	walkway.segment_fell.connect(func(_index: int) -> void: fell[0] += 1)
+	Input.action_press(&"move_right")
+	var lowest := top
+	var frames_left := 320
+	while frames_left > 0 and player.global_position.x < 26.0 * 16.0:
+		await physics_frames(1)
+		lowest = maxf(lowest, player.global_position.y)
+		frames_left -= 1
+	Input.action_release(&"move_right")
+	check(player.global_position.x >= 26.0 * 16.0 and lowest < top + 3.0, "running straight across reaches the far side without falling: x %.1f, lowest feet %.1f" % [player.global_position.x, lowest])
+	var warned := 0
+	for i in walkway.segment_count():
+		warned += 1 if walkway.segment_state(i) != CrumblingWalkway.Piece.INTACT else 0
+	await physics_frames(int(walkway_data.warn_seconds * 60.0) + 10)
+	check(warned >= walkway.segment_count() - 1 and fell[0] >= walkway.segment_count() - 1, "the pieces crumble behind the runner (%d warned, %d fell of %d)" % [warned, fell[0], walkway.segment_count()])
+
+	# 敵人站上去也會塌，敵人跟著掉下去。
+	await physics_frames(int((walkway_data.respawn_seconds + CrumblingWalkway.RETURN_SECONDS) * 60.0) + 30)
+	player.set_physics_process(false)
+	player.global_position = Vector2(36.0 * 16.0, top - 200.0)  # 敵人看不到
+	var enemy := level._spawn_reinforcement(load(GRUNT_PATH) as EnemyData, Vector2(walkway.segment_rect(5).get_center().x, top))
+	var enemy_piece := walkway.segment_at(enemy.global_position.x) if enemy != null else -1
+	var enemy_lowest := top
+	for i in int(walkway_data.warn_seconds * 60.0) + 60:
+		await physics_frames(1)
+		if enemy != null and is_instance_valid(enemy):
+			enemy_lowest = maxf(enemy_lowest, enemy.global_position.y)
+	check(enemy != null and enemy_piece >= 0 and walkway.segment_state(enemy_piece) == CrumblingWalkway.Piece.FALLEN, "an enemy standing on the walkway makes it crumble too")
+	check(enemy_lowest > top + 24.0, "the enemy falls with the piece: lowest feet %.1f, deck %.1f, now %s" % [enemy_lowest, top, enemy.global_position if enemy != null and is_instance_valid(enemy) else "gone"])
+	player.set_physics_process(true)
+
+	# 「減少介面動態」：不抖，但照樣預警、照樣塌。
+	var old_motion := Settings.get_reduce_ui_motion()
+	Settings.set_reduce_ui_motion(true)
+	await physics_frames(int((walkway_data.respawn_seconds + CrumblingWalkway.RETURN_SECONDS) * 60.0) + 30)
+	var still_piece := walkway.segment_rect(1)
+	player.global_position = Vector2(still_piece.get_center().x, top)
+	player.velocity = Vector2.ZERO
+	var max_shake := 0.0
+	for i in 12:
+		await physics_frames(1)
+		max_shake = maxf(max_shake, absf(walkway.shake_offset(1)))
+	check(walkway.segment_state(1) == CrumblingWalkway.Piece.WARNING and max_shake == 0.0, "with reduced motion the warning piece does not shake but still warns")
+	await physics_frames(int(walkway_data.warn_seconds * 60.0) + 10)
+	check(walkway.segment_state(1) == CrumblingWalkway.Piece.FALLEN, "with reduced motion the piece still falls")
+	Settings.set_reduce_ui_motion(old_motion)
+	check(not walkway.is_in_group(WorldState.GROUP), "the walkway is not part of the checkpoint snapshot")
+
+	# 從檢查點重來：關卡重建，走道一律是完整的（存檔來回）。
+	GameState.set_checkpoint(Vector2(4.0 * 16.0, top), {}, {})
+	await end_level(level)
+	level = await spawn_level(data)
+	walkway = _find_all(level, CrumblingWalkway)[0] as CrumblingWalkway
+	var whole := true
+	for i in walkway.segment_count():
+		whole = whole and walkway.segment_state(i) == CrumblingWalkway.Piece.INTACT and walkway.is_solid(i)
+	check(whole, "after respawning from a checkpoint every piece is back")
+	check(absf(level.player.global_position.x - 4.0 * 16.0) < 2.0, "the player respawns at the checkpoint on the near side")
+	await end_level(level)
+	GameState.clear_checkpoint()
+
 ## 誘餌收音機（NE-404）：射中才播、敵人打不開；範圍內沒發現玩家的敵人走過去盯著看、看不到背後；被打就醒；播完就壞。
 func _test_decoy_radio() -> void:
 	var radio_data := load(RADIO_PATH) as DecoyRadioData
@@ -850,6 +974,7 @@ func _test_mechanic_placements() -> void:
 		["res://data/levels/ch3_mezzanine.tres", "res://data/props/live_cable.tres", Vector2i(63, 35)],
 		["res://data/levels/ch4_factory_relay.tres", "res://data/props/conveyor.tres", Vector2i(13, 19)],
 		["res://data/levels/ch4_factory_relay.tres", "res://data/props/live_cable.tres", Vector2i(32, 19)],
+		["res://data/levels/ch1_rooftop.tres", "res://data/props/crumbling_walkway.tres", Vector2i(16, 44)],
 	]
 	for entry: Array in EXPECTED:
 		var level := load(entry[0]) as LevelData

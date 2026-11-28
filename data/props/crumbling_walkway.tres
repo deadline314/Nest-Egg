@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CrumblingWalkwayData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/crumbling_walkway_data.gd" id="1_walkway"]
+
+[resource]
+script = ExtResource("1_walkway")
+id = &"crumbling_walkway"
+display_name = "會塌的走道"
+hint = "舊走道踩上去就會塌，一路跑過去別停下來。"
+localized_hints = Dictionary[String, String]({
+"en": "The old walkway gives way underfoot. Keep running and don't stop.",
+"ja": "古い通路は踏むと崩れます。止まらずに走り抜けてください。"
+})
+length_tiles = 14
+segment_tiles = 2
+warn_seconds = 0.5
+respawn_seconds = 3.0

@@ -522,10 +522,16 @@ static func _check_reachability(data: LevelData, layout: LevelLayout, issues: Ar
 static func _mechanism_platforms(layout: LevelLayout) -> Array[Vector2i]:
 	var cells: Array[Vector2i] = []
 	for spawn in layout.spawns:
+		var cell: Vector2i = spawn["cell"]
+		var walkway := spawn["resource"] as CrumblingWalkwayData
+		if walkway != null:
+			# 會塌的走道和地圖上的單向平台一樣站得上去（一路跑過去不會掉）。
+			for x in range(cell.x, cell.x + walkway.length_tiles):
+				cells.append(Vector2i(x, cell.y))
+			continue
 		var mech := spawn["resource"] as MechanismData
 		if mech == null:
 			continue
-		var cell: Vector2i = spawn["cell"]
 		match mech.kind:
 			MechanismData.Kind.LIFT:
 				for step in range(0, mech.travel_tiles + 1):
