@@ -39,6 +39,12 @@ enum Kind {
 @export var arena_gate := false
 ## 只供明確設計的競技場／特殊空間：遭遇與其 arena_gate 都需指定。普通路線預設不封路。
 @export var lock_combat_area := false
+@export_group("Latch")
+## 門閂門（只對 GATE，NE-430）：門閂在哪一側（-1＝左、1＝右、0＝不是門閂門）。站在那一側按互動鍵拉開，門從此一直開著（回頭的捷徑）；
+## hint 是門閂那一側的提示（可用 {interact}），latch_blocked_text 是另一側的提示。門閂門不需要頻道。
+@export_range(-1, 1) var latch_side: int = 0
+@export var latch_blocked_text: String = ""
+@export var localized_latch_blocked_text: Dictionary[String, String] = {}
 @export_group("Lift")
 ## 升降梯往上移動的格數。
 @export var travel_tiles: int = 6
@@ -83,6 +89,14 @@ func hint_for(language: String) -> String:
 	return StoryLocale.optional_text(localized_hints, language, hint)
 
 
+func latch_blocked_text_for(language: String) -> String:
+	return StoryLocale.optional_text(localized_latch_blocked_text, language, latch_blocked_text)
+
+
+func is_latch_door() -> bool:
+	return kind == Kind.GATE and latch_side != 0
+
+
 func start_text_for(language: String) -> String:
 	return StoryLocale.optional_text(localized_start_text, language, start_text)
 
@@ -102,8 +116,18 @@ func validate() -> PackedStringArray:
 		problems.append("機關缺少 id")
 	match kind:
 		Kind.GATE, Kind.SWITCH:
-			if channel == &"":
+			if channel == &"" and not is_latch_door():
 				problems.append("%s 是閘門或開關，必須指定 channel" % id)
+			if latch_side != 0 and kind != Kind.GATE:
+				problems.append("%s 不是閘門，不能設門閂（latch_side）" % id)
+			if is_latch_door():
+				if arena_gate:
+					problems.append("%s 是門閂門，不能同時是競技場閘門" % id)
+				if hint.strip_edges().is_empty() or latch_blocked_text.strip_edges().is_empty():
+					problems.append("%s 是門閂門，兩側的提示（hint、latch_blocked_text）都要寫" % id)
+				for language in ["ja", "en"]:
+					if str(localized_hints.get(language, "")).strip_edges().is_empty() or str(localized_latch_blocked_text.get(language, "")).strip_edges().is_empty():
+						problems.append("%s 的門閂提示缺少 %s 譯文" % [id, language])
 		Kind.POWER_SWITCH:
 			if channel == &"":
 				problems.append("%s 是電力開關，必須指定 channel（電力區域 id）" % id)

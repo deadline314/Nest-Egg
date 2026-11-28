@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="MechanismData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/mechanism_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"latch_door"
+kind = 1
+display_name = "門閂門"
+localized_names = Dictionary[String, String]({"en": "Latched door", "ja": "閂の扉"})
+hint = "{interact} 拉開門閂，之後這裡就是近路。"
+localized_hints = Dictionary[String, String]({"en": "{interact} Slide the latch open. This becomes a shortcut.", "ja": "{interact} 閂を外せば、ここが近道になる。"})
+color = Color(0.95, 0.72, 0.3, 1.0)
+size_tiles = Vector2i(1, 6)
+latch_side = 1
+latch_blocked_text = "門從另一側閂住了，從上面的走廊繞過去。"
+localized_latch_blocked_text = Dictionary[String, String]({"en": "It's latched from the other side. Go around along the upper walkway.", "ja": "向こう側から閂がかかっている。上の通路から回り込もう。"})

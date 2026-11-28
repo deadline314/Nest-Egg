@@ -10,8 +10,9 @@ const GROUP := &"hiding_spots"
 const EDGE_MARGIN := 4.0
 ## 腳底離地面多近才算蹲在地上。
 const FLOOR_BAND := 4.0
-const STRIP_WIDTH := 3.0
-const STRIP_GAP := 2.0
+const STRIP_WIDTH := 5.0
+## 條簾互相重疊 1 像素（像真的塑膠條門簾），重疊處自然比較不透明。
+const STRIP_GAP := -1.0
 ## 條簾晃動：人穿過時依速度給一個擺幅，之後慢慢停下（像素、每秒衰減、擺動頻率）。
 const SWAY_MAX := 3.0
 const SWAY_DECAY := 2.5
@@ -22,11 +23,16 @@ const RECESS_TOP := Color("07090d")
 const RECESS_BOTTOM := Color("141a22")
 const FRAME_COLOR := Color("39434f")
 const FRAME_LIT := Color("6d7d8e")
-const STRIP_COLOR := Color(0.62, 0.72, 0.8, 0.22)
-const STRIP_HIDDEN := Color(0.5, 0.58, 0.66, 0.7)
+const STRIP_COLOR := Color(0.7, 0.84, 0.88, 0.16)
+const STRIP_HIDDEN := Color(0.6, 0.72, 0.76, 0.34)
 ## 藏好時蓋在凹室上的陰影：簾子後面的人變暗，一眼看得出「藏住了」。
 const HIDDEN_SHADE := Color(0.02, 0.03, 0.05, 0.45)
-const STRIP_EDGE := Color(0.82, 0.9, 1.0, 0.28)
+## 塑膠條的反光：每條左緣一道細亮線，只畫上面七成（越往下越髒、越不反光）。
+const STRIP_EDGE := Color(0.88, 0.97, 1.0, 0.4)
+## 下襬被摸髒、磨霧的一段。
+const STRIP_HEM := Color(0.32, 0.38, 0.4, 0.3)
+const HEM_HEIGHT := 6.0
+const CLAMP_COLOR := Color("59636e")
 const RAIL_COLOR := Color("2a3038")
 
 static var _spots: Array[HidingSpot] = []
@@ -178,13 +184,20 @@ class _Curtain:
 			draw_polygon(shade, PackedColorArray([HidingSpot.HIDDEN_SHADE, HidingSpot.HIDDEN_SHADE, clear, clear]))
 		var fill := HidingSpot.STRIP_HIDDEN if host._hidden else HidingSpot.STRIP_COLOR
 		var step := HidingSpot.STRIP_WIDTH + HidingSpot.STRIP_GAP
-		var x := 2.0
+		var x := 1.0
 		var index := 0
-		while x + HidingSpot.STRIP_WIDTH <= host.width - 1.0:
+		while x + HidingSpot.STRIP_WIDTH <= host.width:
 			var drift := host.strip_offset(index)
+			# 每條長度差一兩像素，下緣不會切成一直線。
+			var end := bottom - float((index * 7 + host.cell.x) % 3)
 			var strip := PackedVector2Array([Vector2(x, top + 1.0), Vector2(x + HidingSpot.STRIP_WIDTH, top + 1.0),
-					Vector2(x + HidingSpot.STRIP_WIDTH + drift, bottom), Vector2(x + drift, bottom)])
+					Vector2(x + HidingSpot.STRIP_WIDTH + drift, end), Vector2(x + drift, end)])
 			draw_colored_polygon(strip, fill)
-			draw_line(Vector2(x, top + 1.0), Vector2(x + drift, bottom), HidingSpot.STRIP_EDGE, 1.0)
+			var hem := end - HidingSpot.HEM_HEIGHT
+			draw_colored_polygon(PackedVector2Array([Vector2(x + drift * 0.8, hem), Vector2(x + HidingSpot.STRIP_WIDTH + drift * 0.8, hem),
+					Vector2(x + HidingSpot.STRIP_WIDTH + drift, end), Vector2(x + drift, end)]), HidingSpot.STRIP_HEM)
+			var shine := top + 1.0 + (end - top) * 0.7
+			draw_line(Vector2(x + 0.5, top + 2.0), Vector2(x + 0.5 + drift * 0.7, shine), HidingSpot.STRIP_EDGE, 1.0)
+			draw_rect(Rect2(x + 1.0, top - 1.0, 2.0, 3.0), HidingSpot.CLAMP_COLOR)  # 夾在橫桿上的夾扣
 			x += step
 			index += 1

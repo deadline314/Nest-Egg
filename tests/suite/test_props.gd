@@ -27,6 +27,8 @@ const WALKWAY_PATH := "res://data/props/crumbling_walkway.tres"
 const WALKWAY_MAP := "res://tests/fixtures/crumbling_walkway_map.json"
 const HIDING_PATH := "res://data/props/hiding_spot.tres"
 const HIDING_MAP := "res://tests/fixtures/hiding_spot_map.json"
+const LATCH_PATH := "res://data/props/latch_door.tres"
+const LATCH_MAP := "res://tests/fixtures/latch_door_map.json"
 
 
 func run() -> void:
@@ -47,6 +49,7 @@ func run() -> void:
 	await _test_decoy_radio()
 	await _test_crumbling_walkway()
 	await _test_hiding_spot()
+	await _test_latch_door()
 	_test_mechanic_placements()
 	await _test_hazard_avoidance()
 	await _test_steam_blocks_sight()
@@ -943,6 +946,7 @@ func _test_hiding_spot() -> void:
 	Input.action_press(&"move_down")
 	await physics_frames(4)
 	check(player.is_crouching and HidingSpot.conceals(player) and spot.is_hiding_player(), "crouching behind the curtain hides the player")
+	check(player.is_concealed() and player._visual.modulate.r < 0.7, "the hidden player's neon and light are dimmed")
 
 	# 還沒發現玩家的敵人從面前走過去：看不到、不進入戰鬥。
 	var enemy := level._spawn_reinforcement(load(GRUNT_PATH) as EnemyData, Vector2(inside_x + 90.0, floor_y))
@@ -969,6 +973,7 @@ func _test_hiding_spot() -> void:
 	enemy.facing = -1
 	await physics_frames(4)
 	check(not HidingSpot.conceals(player) and enemy._can_see_target(enemy.data.detect_range), "standing up in the alcove makes the player visible again")
+	check(not player.is_concealed() and is_equal_approx(player._visual.modulate.r, 1.0), "standing up restores the player's colours")
 
 	# 蹲在簾子外面：藏不住。
 	enemy.fsm.transition(&"patrol")
@@ -1040,6 +1045,69 @@ func _test_hiding_spot() -> void:
 	check(HidingSpot._spots.is_empty(), "leaving the level clears the hiding spot registry")
 	level = await spawn_level(data)
 	check(HidingSpot._spots.size() == 1 and not HidingSpot.conceals(level.player), "after respawning there is exactly one hiding spot and the player starts out in the open")
+	await end_level(level)
+	GameState.clear_checkpoint()
+
+func _press_interact() -> void:
+	Input.action_press(&"interact")
+	await physics_frames(2)
+	Input.action_release(&"interact")
+	await physics_frames(2)
+
+
+## 門閂門（NE-430）：只有門閂那一側拉得開，另一側只有提示；打開後一直開著，跟著檢查點；資料不合理時指出是哪一項。
+func _test_latch_door() -> void:
+	var door_data := load(LATCH_PATH) as MechanismData
+	check(door_data != null and door_data.validate().is_empty() and door_data.is_latch_door(), "the latch door data is valid: %s" % [door_data.validate() if door_data != null else ["missing"]])
+	if door_data == null:
+		return
+	var bad := MechanismData.new()
+	bad.id = &"bad_latch"
+	bad.kind = MechanismData.Kind.SWITCH
+	bad.channel = &"x"
+	bad.latch_side = 1
+	check(not bad.validate().is_empty(), "a latch on something that is not a gate is reported")
+	var mute := door_data.duplicate() as MechanismData
+	mute.latch_blocked_text = ""
+	check(not mute.validate().is_empty(), "a latch door without its far-side text is reported")
+	check((load(GATE_PATH) as MechanismData).latch_side == 0, "ordinary gates have no latch")
+
+	var data := LevelData.new()
+	data.id = &"latch_door_test"
+	data.layout_path = LATCH_MAP
+	data.legend = {"L": door_data}
+	var level := await start_level(data)
+	var door := _find_at(level, Gate, 20) as Gate
+	check(door != null and not door.is_open, "the latch door starts closed")
+	if door == null:
+		await end_level(level)
+		return
+	var player := level.player
+	var floor_y := door.global_position.y
+	# 另一側（左邊）：只有提示，按互動鍵沒有作用。
+	player.global_position = Vector2(door.global_position.x - 24.0, floor_y)
+	await physics_frames(4)
+	check(not door.interaction_available() and door._prompt.text == door_data.latch_blocked_text_for(Story.language), "from the far side the door only says it is latched from the other side")
+	await _press_interact()
+	check(not door.is_open, "pressing interact on the far side does nothing")
+	# 門閂那一側（右邊）：拉開。
+	player.global_position = Vector2(door.global_position.x + 24.0, floor_y)
+	await physics_frames(4)
+	check(door.interaction_available() and door._prompt.text == door_data.hint_for(Story.language), "on the latch side the prompt offers to slide the latch")
+	await _press_interact()
+	check(door.is_open and not door.interaction_available(), "sliding the latch opens the door for good")
+	check(WorldState.capture(runner.get_tree()).get(door.state_key()) == true, "the open latch door is part of the checkpoint snapshot")
+	# 從檢查點重來：門還開著，可以從左邊直接走過去。
+	GameState.set_checkpoint(Vector2(3.5 * 16.0, floor_y), {}, WorldState.capture(runner.get_tree()))
+	await end_level(level)
+	level = await spawn_level(data)
+	door = _find_at(level, Gate, 20) as Gate
+	check(door.is_open, "after respawning the latch door stays open as a shortcut")
+	level.player.global_position = Vector2(door.global_position.x - 40.0, floor_y)
+	Input.action_press(&"move_right")
+	await physics_frames(40)
+	Input.action_release(&"move_right")
+	check(level.player.global_position.x > door.global_position.x + 8.0, "the player walks straight through the opened shortcut")
 	await end_level(level)
 	GameState.clear_checkpoint()
 
@@ -1118,6 +1186,7 @@ func _test_mechanic_placements() -> void:
 		["res://data/levels/ch4_factory_relay.tres", "res://data/props/live_cable.tres", Vector2i(32, 19)],
 		["res://data/levels/ch1_rooftop.tres", "res://data/props/crumbling_walkway.tres", Vector2i(16, 44)],
 		["res://data/levels/ch2_loading.tres", "res://data/props/hiding_spot.tres", Vector2i(7, 35)],
+		["res://data/levels/ch3_office_hall.tres", "res://data/props/latch_door.tres", Vector2i(32, 19)],
 	]
 	for entry: Array in EXPECTED:
 		var level := load(entry[0]) as LevelData

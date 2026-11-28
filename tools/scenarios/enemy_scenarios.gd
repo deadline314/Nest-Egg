@@ -35,6 +35,7 @@ const SCENARIOS := {
 	"conveyor": "res://tools/scenarios/conveyor_scenario.gd",
 	"crumbling_walkway": "res://tools/scenarios/crumbling_walkway_scenario.gd",
 	"hiding_spot": "res://tools/scenarios/hiding_spot_scenario.gd",
+	"latch_door": "res://tools/scenarios/latch_door_scenario.gd",
 	"decoy_radio": "res://tools/scenarios/decoy_radio_scenario.gd",
 	"mechanic_placements": "res://tools/scenarios/mechanic_placements_scenario.gd",
 	"hazard_avoidance": "res://tools/scenarios/hazard_avoidance_scenario.gd",

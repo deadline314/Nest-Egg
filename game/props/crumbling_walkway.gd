@@ -21,7 +21,7 @@ const CLEAR_HEIGHT := 48.0
 const FALL_GRAVITY := 900.0
 const FALL_SECONDS := 0.8
 const RETURN_SECONDS := 0.35
-const SHAKE_PIXELS := 1.0
+const SHAKE_PIXELS := 1.8
 const SHAKE_RATE := 70.0
 ## 玩家離走道兩端多遠以內顯示提示（像素）。
 const PROMPT_MARGIN := 56.0
@@ -34,6 +34,8 @@ const TRUSS_COLOR := Color("262b33")
 const RUST_COLOR := Color(0.55, 0.3, 0.16, 0.6)
 const HOLE_COLOR := Color("161a20")
 const CRACK_COLOR := Color(1.0, 0.62, 0.25)
+## 預警中那一片走道面的底色：往鏽橘偏，遠看也分得出是哪一片。
+const WARN_DECK := Color("4a3324")
 
 var data: CrumblingWalkwayData
 var cell := Vector2i.ZERO
@@ -258,6 +260,7 @@ func _warn(index: int) -> void:
 	var rect := segment_rect(index)
 	Fx.dust(Vector2(rect.get_center().x, rect.end.y), 3, rect.size.x * 0.8)
 	Sfx.play(&"rattle", -9.0, 0.12)
+	Sfx.play(&"mat_metal", -7.0, 0.08, 0, 1.35)  # 一聲短而高的金屬聲：腳下這片要掉了
 	segment_warned.emit(index)
 
 
@@ -322,8 +325,9 @@ func _draw_segment(index: int, x0: float, w: float, alpha: float) -> void:
 		x = nx
 		up = not up
 	# 側樑（生鏽的槽鋼）與走道面。
-	draw_rect(Rect2(x0, 3.0, x1 - x0, 2.0), Color(STRINGER_COLOR, alpha))
-	draw_rect(Rect2(x0, 0.0, x1 - x0, 3.0), Color(DECK_COLOR, alpha))
+	# 側樑：預警時整條泛琥珀光，腳踩著擋住走道面時也看得出是這一片。
+	draw_rect(Rect2(x0, 3.0, x1 - x0, 2.0), LightKit.glow(CRACK_COLOR, 0.75 * alpha) if warned else Color(STRINGER_COLOR, alpha))
+	draw_rect(Rect2(x0, 0.0, x1 - x0, 3.0), Color(WARN_DECK if warned else DECK_COLOR, alpha))
 	var hole := x0 + 2.0
 	while hole < x1 - 1.0:
 		draw_rect(Rect2(hole, 1.0, 1.0, 1.0), Color(HOLE_COLOR, alpha))
@@ -342,7 +346,7 @@ func _draw_segment(index: int, x0: float, w: float, alpha: float) -> void:
 		var crack := PackedVector2Array([
 			Vector2(mid - reach, 2.0), Vector2(mid - reach * 0.5, 0.6), Vector2(mid - reach * 0.15, 2.4),
 			Vector2(mid + reach * 0.2, 0.8), Vector2(mid + reach * 0.6, 2.2), Vector2(mid + reach, 1.0)])
-		draw_polyline(crack, LightKit.glow(CRACK_COLOR, 1.2 * alpha), 1.5)
+		draw_polyline(crack, LightKit.glow(CRACK_COLOR, 1.35 * alpha), 2.0)
 		# 側樑也裂開一道往下的縫，從底下看也看得出這一片要掉了。
 		draw_line(Vector2(mid, 3.0), Vector2(mid + 1.5, 5.0), LightKit.glow(CRACK_COLOR, 0.8 * alpha), 1.0)
 

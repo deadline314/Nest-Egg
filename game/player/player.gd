@@ -97,6 +97,10 @@ const SELF_GLOW_RESIZE := 240.0
 ## 槍燈的起點在肩膀到槍口之間的哪裡（1＝槍口）：往回收一點，槍口貼著牆時光才不會整個被牆擋掉。
 const WEAPON_LIGHT_ORIGIN := 0.7
 var _light: PointLight2D
+## 蹲在門簾後藏住時（NE-426／430）身上的霓虹與自己的光壓暗：看得出藏住了，暗處也不會發亮。
+const CONCEALED_TINT := Color(0.5, 0.54, 0.62)
+const CONCEALED_LIGHT := 0.3
+var _concealed := false
 var _weapon_light: WeaponLight
 ## 槍燈目前照的是哪一把武器（換槍時重新設定）。
 var _lit_weapon: WeaponData
@@ -432,7 +436,8 @@ func _physics_process(delta: float) -> void:
 	_render_previous_position = global_position
 	_render_sample_tick = Engine.get_physics_frames()
 	# 自己的光依場景亮度自動調暗，白色頭髮不被泛光吃掉（LightKit.player_light_for，NE-213）。
-	_light.energy = move_toward(_light.energy, LightKit.player_light_energy, LIGHT_EASE * delta)
+	_set_concealed(HidingSpot.conceals(self))
+	_light.energy = move_toward(_light.energy, LightKit.player_light_energy * (CONCEALED_LIGHT if _concealed else 1.0), LIGHT_EASE * delta)
 	_tick_timers(delta)
 	_update_aim(delta)
 	_update_weapon_light(delta)
@@ -467,6 +472,19 @@ func _physics_process(delta: float) -> void:
 	_apply_corner_correction(delta)
 	move_and_slide()
 	_after_move(delta)
+
+
+func is_concealed() -> bool:
+	return _concealed
+
+
+func _set_concealed(value: bool) -> void:
+	if value == _concealed:
+		return
+	_concealed = value
+	if _visual != null:
+		var alpha := _visual.modulate.a  # 透明度由閃爍與出現演出管，這裡只改顏色
+		_visual.modulate = Color(CONCEALED_TINT, alpha) if value else Color(1.0, 1.0, 1.0, alpha)
 
 
 func _move_corpse(delta: float) -> void:
