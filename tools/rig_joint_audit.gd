@@ -24,6 +24,9 @@ var _diagnostic_whole_rig := false
 var _alpha_only := false
 var _diagnostic_part_texture := ""
 var _joint_context := false
+## --action=<名稱>：改成逐格播放一個專屬動作（art/rigs/action_poses.json），進度 0→1 後停在最後一格；--airborne 表示動作在空中（例如翻越）。
+var _action := ""
+var _airborne := false
 const PREVIEW := preload("res://tools/rig_preview.gd")
 const JOINTS := {
 	"waist": [&"chest", "torso", "pelvis"],
@@ -77,6 +80,8 @@ func _run() -> void:
 		elif arg == "--alpha-only": _alpha_only = true
 		elif arg.begins_with("--diagnostic-part-texture="): _diagnostic_part_texture = arg.trim_prefix("--diagnostic-part-texture=")
 		elif arg == "--joint-context": _joint_context = true
+		elif arg.begins_with("--action="): _action = arg.trim_prefix("--action=")
+		elif arg == "--airborne": _airborne = true
 		elif arg.begins_with("--seat-sag="):
 			var raw_sag := arg.trim_prefix("--seat-sag=")
 			if not raw_sag.is_valid_float():
@@ -157,7 +162,7 @@ func _run() -> void:
 		alpha_material.shader = alpha_shader
 	var metadata: Array[Dictionary] = []
 	for zoom: float in _zooms:
-		for pose: String in ([_only_npc_pose] if not _only_npc_pose.is_empty() else NPC_PERFORMANCES if _npc_performance else ["sit_down", "stand_up"] if _npc_transitions else POSES):
+		for pose: String in (["action:" + _action] if not _action.is_empty() else [_only_npc_pose] if not _only_npc_pose.is_empty() else NPC_PERFORMANCES if _npc_performance else ["sit_down", "stand_up"] if _npc_transitions else POSES):
 			var expected_npc_pose := &"sit" if pose.begins_with("sit") else StringName(pose) if pose in ["lean", "crouch"] else &"stand"
 			var expected_npc_loop := StringName(pose.trim_prefix("loop:")) if pose.begins_with("loop:") else &""
 			var viewport := SubViewport.new()
@@ -254,6 +259,11 @@ func _run() -> void:
 						input.dead = pose == "dead"
 						input.two_handed = chars[row] != "enforcer"
 						input.shield_forward = chars[row] == "enforcer"
+						if pose.begins_with("action:"):
+							input.two_handed = false
+							input.action = StringName(pose.trim_prefix("action:"))
+							input.on_floor = not _airborne
+							input.velocity = Vector2(120.0 * input.facing, -150.0) if _airborne else Vector2.ZERO
 						if _npc_transitions:
 							input.two_handed = false
 							input.npc_pose = &"stand" if pose == "sit_down" else &"sit"
@@ -288,6 +298,8 @@ func _run() -> void:
 				var joint_contexts := {}
 				for entry in entries:
 					var rig: CharacterRig = entry["rig"]
+					if not _action.is_empty():
+						(entry["input"] as RigInput).action_t = minf(1.0, float(frame) / maxf(1.0, _action_frames()))
 					rig.animate(1.0 / 60.0, entry["input"])
 					if _npc_performance:
 						var animator := rig.animator as NpcAnimator
@@ -356,6 +368,14 @@ func _run() -> void:
 
 ## Read-only first-frame material mapping to locate a measured hole in source pixels.
 ## It never changes the render, alpha threshold, sampling band or checker verdict.
+## 專屬動作的長度（影格）；讀不到就當作 30 格。
+func _action_frames() -> float:
+	var actions: Variant = RigLibrary.load_json(HumanoidAnimator.ACTIONS_PATH).get("actions", {})
+	if typeof(actions) == TYPE_DICTIONARY and (actions as Dictionary).has(_action):
+		return float(((actions as Dictionary)[_action] as Dictionary).get("duration", 0.5)) * 60.0
+	return 30.0
+
+
 func _material_geometry(rig: CharacterRig, clip: Control) -> Array[Dictionary]:
 	var result: Array[Dictionary] = []
 	for part in rig._parts:
